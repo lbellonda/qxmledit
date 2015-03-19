@@ -312,6 +312,13 @@ color: rgb(255, 0, 0);</string>
          </spacer>
         </item>
         <item>
+         <widget class="QPushButton" name="cmdNext">
+          <property name="text">
+           <string>Find next</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QCheckBox" name="closeUnrelated">
           <property name="text">
            <string>Close Unrelated</string>

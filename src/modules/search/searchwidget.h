@@ -131,6 +131,8 @@ signals:
      */
     void searchTextCleared();
 
+    void searchNext();
+
 };
 
 #endif // SEARCHWIDGET_H

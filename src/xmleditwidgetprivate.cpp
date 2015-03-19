@@ -252,6 +252,7 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
     connect(p->ui->searchWidget, SIGNAL(count()), this, SLOT(countTextOccurrences()));
     connect(p->ui->searchWidget, SIGNAL(openAdvancedSearch()), this, SLOT(openAdvancedResultPanel()));
     connect(p->ui->searchWidget, SIGNAL(hiding()), this, SLOT(on_closeSearchPanel_clicked()));
+    connect(p->ui->searchWidget, SIGNAL(searchNext()), this, SLOT(onSearchNext()));
 
     connect(p->ui->ok, SIGNAL(clicked()), this, SLOT(on_ok_clicked()));
     connect(p->ui->cancel, SIGNAL(clicked()), this, SLOT(on_cancel_clicked()));
@@ -2773,3 +2774,8 @@ QHash<void *, QString> *XmlEditWidgetPrivate::anonDataForPreview()
 }
 
 
+void XmlEditWidgetPrivate::onSearchNext()
+{
+    Selecte
+    ;
+}

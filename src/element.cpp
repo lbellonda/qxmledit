@@ -1909,9 +1909,11 @@ bool Element::findText(FindTextParams &findArgs)
                 parentRule->addBookmark(this);
             }
         }
-    }
+    }pensa se deve andare al prossimo o meno
     //append children
     if(isHiliteAll) {
+        qui solo se non trovato e cerca tutto
+                se cerca solo, puoi tornare.
         foreach(Element * value, childItems) {
             if(value->findText(findArgs)) {
                 isFoundInChild = true ;

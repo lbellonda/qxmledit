@@ -109,6 +109,7 @@ bool SearchWidget::finishSetUpUi()
     connect(ui->counting, SIGNAL(clicked()), this, SLOT(onCountTextOccurrences()));
     connect(ui->useXQuery, SIGNAL(clicked()), this, SLOT(enableSearchItems()));
     connect(ui->cmdOpenAdvancedPanel, SIGNAL(clicked()), this, SLOT(onOpenAdvancedResultPanel()));
+    connect(ui->cmdNext, SIGNAL(clicked()), this, SLOT(onSearchText()));
 
     _findCompleter = new LineEditWithCompleter(ui->searchBox);
     ui->searchBox->setDuplicatesEnabled(true);
@@ -390,4 +391,9 @@ void SearchWidget::onSaveAsSearchlet()
         manager->insertSearchlet(this, _appData, ui->searchBox->currentText());
         delete manager ;
     }
+}
+
+void SearchWidget::onSearchText()
+{
+    emit searchNext();
 }
