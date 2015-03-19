@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <name>resource-ref</name>
+    <description>declares a resource-ref in web.xml</description>
+    <id>{bd4984f5-107e-48ca-9780-c263ff1aa58d}</id>
+    <creationDate>2010-08-19T20:54:27</creationDate>
+    <updateDate>2010-08-19T20:54:27</updateDate>
+    <tags>
+        <tag>web.xml</tag>
+        <tag>j2ee</tag>
+    </tags>
+    <payload>&lt;resource-ref>
+    &lt;description>DESCRIPTION&lt;/description>
+    &lt;res-ref-name>jdbc/NameOfResource&lt;/res-ref-name>
+    &lt;res-type>javax.sql.DataSource&lt;/res-type>
+    &lt;res-auth>Container&lt;/res-auth>
+&lt;/resource-ref></payload>
+</root>

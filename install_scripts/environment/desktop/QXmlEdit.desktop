@@ -1,0 +1,16 @@
+# .desktop entry for QXmlEdit
+Type=Application
+Name=QXmlEdit
+Exec=QXmlEdit %u
+Version=1.0
+Encoding=UTF-8.
+GenericName=QXmlEdit
+NoDisplay=false
+Comment=Simple XML editor and XSD viewer.
+Icon=qxmledit
+Hidden=false
+#Path
+Terminal=false
+MimeType=text/XML
+Categories=Utility;Qt;Development;TextEditor
+

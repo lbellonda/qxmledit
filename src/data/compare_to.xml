@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit data file -->
+<!-- this is a sample QXmlEdit data file prova -->
+<data>
+
+<keywords id="1" eccoci="ciao">
+<prova id="1">
+aaa
+</prova>
+
+<?a b?>
+<?a a?>
+
+<data2/>
+</keywords>
+<bau id="24"> testo
+</bau>
+<bau id="24"> testo1
+</bau>
+
+</data>

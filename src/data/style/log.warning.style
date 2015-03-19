@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit style file -->
+<style name="LogW" description="log test style">
+
+<keywords>
+ <ruleSet idStyle="8">
+    <rule name="level" op="eq" value="WARNING" case="true" />
+ </ruleSet>
+</keywords>
+
+<styles>
+ <style id="1" color="2080FF" />
+ <style id="2" color="FF00FF"  family="Lucida" size="10" bold="" italic="true" />
+ <style id="3" color="C0C0FF"  family="Verdana" size="14" bold="true" italic="" />
+ <style id="5" color="0000FF" italic="true" />
+ <!-- fatal -->
+ <style id="6" color="FF0000" size="12" family="Arial" bold="true" italic="false" icon=":E:" />
+ <!-- error -->
+ <style id="7" color="FF4080" size="10" family="Arial" bold="true" italic="false" icon=":E:"/>
+ <!-- warn -->
+ <style id="8" color="FFC080" size="10" family="Arial" bold="false" italic="false" icon=":W:"/>
+ <!-- info -->
+ <style id="9" color="000000" size="8" family="Arial" bold="false" italic="true" icon=":I:"/>
+ <default>
+    <style id="default" color="C0C0C0" size="8" family="Arial" bold="false" italic="true"/>
+ </default>
+</styles>
+
+<ids>
+ <id id="name" alpha="true"/>
+ <id id="id" alpha=""/>
+</ids>
+
+</style>

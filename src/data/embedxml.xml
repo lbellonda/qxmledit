@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<root>
+<proot>
+a
+<b>
+bbb <![CDATA[xxx]]>
+</b>
+<b>
+   1
+</b>
+<b a="1">
+    2
+</b><!--this is a comment-->
+<b>
+    3
+</b>
+<innerXML><![CDATA[
+<?xml version="1.0" ?>
+<root>
+<proot>
+a
+<b>
+bbb
+</b>
+<b>
+   1
+</b>
+<b a="1">
+    2
+</b><!--this is a comment-->
+<b>
+    3
+</b>
+</proot>
+</root>]]>
+</innerXML>
+</proot>
+</root>

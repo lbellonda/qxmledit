@@ -1,0 +1,13 @@
+Design of the XSD Editor plugin
+
+
+
+Delete Objects:
+the delete command is trapped by the window,
+ the selected item (only one?) is found
+ the associated element is found
+ the message is sent to the element
+ the element detach from the parent
+ the parent emits a message
+ the message is trapped by the graphical item that destroys itself
+

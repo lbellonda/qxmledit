@@ -1,0 +1,10 @@
+A binary distribution of QXMLEdit is composed by:
+
+- main application and library
+- README file
+- a set of license files
+COPYING
+LGLPV3.txt
+GPLv3.txt
+- manual in PDF format
+- optional QXmlEdit.desktop and qxmledit.png file

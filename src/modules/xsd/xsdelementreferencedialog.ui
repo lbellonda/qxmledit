@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>XSDElementReferenceDialog</class>
+ <widget class="QDialog" name="XSDElementReferenceDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>571</width>
+    <height>526</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>XSD Element Reference</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Oxygen'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:13pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif'; font-size:11pt;&quot;&gt;Element&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;simpleType&lt;/span&gt; &lt;/li&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 3;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;restriction, base&lt;/span&gt; &lt;/li&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 4;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;simpleType&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;facets&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;list&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;union&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;complexType&lt;/span&gt; &lt;/li&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 3;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;simpleContent&lt;/span&gt; &lt;/li&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 4;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;restriction, base&lt;/span&gt; &lt;/li&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 5;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;simpleType&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;facets&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;extension, base&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 5;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;attribute&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;attributeGroup&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;complexContent&lt;/span&gt; &lt;/li&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 4;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;restriction, base&lt;/span&gt; &lt;/li&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 5;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;group&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;all&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;choice&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;sequence&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;attribute&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;attributeGroup&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;anyAttribute&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;extension, base&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 5;&quot;&gt;&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;group&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;all&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;choice&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;sequence&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;attribute&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;AttributeGroup&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;anyAttribute&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;all&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;group&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;choice&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;sequence&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;attribute&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;attributeGroup&lt;/span&gt; &lt;/li&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;anyAttribute&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;li style=&quot; font-family:'.Lucida Grande UI'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:'Liberation Sans, sans-serif';&quot;&gt;unique, key, keyref&lt;/span&gt; &lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.Lucida Grande UI'; font-size:13pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item alignment="Qt::AlignTop">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>XSDElementReferenceDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>537</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>506</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>XSDElementReferenceDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>510</x>
+     <y>21</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>527</x>
+     <y>511</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

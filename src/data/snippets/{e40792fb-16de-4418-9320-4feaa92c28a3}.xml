@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <name>jsp filter</name>
+    <description>jsp filter</description>
+    <id>{e40792fb-16de-4418-9320-4feaa92c28a3}</id>
+    <creationDate>2010-09-10T22:20:43</creationDate>
+    <updateDate>2010-09-10T22:20:43</updateDate>
+    <tags>
+        <tag>j2ee</tag>
+        <tag>java</tag>
+        <tag>web.xml</tag>
+    </tags>
+    <payload>&lt;filter>
+  &lt;filter-name>FILTER_NAME&lt;/filter-name>
+  &lt;filter-class>FILTER.CLASS&lt;/filter-class>
+&lt;/filter></payload>
+</root>

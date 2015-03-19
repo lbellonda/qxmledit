@@ -1,0 +1,42 @@
+Release Checklist
+-----------------
+
+- Check no TODO_THIS_RELEASE are present in the code
+
+- Check translations (do lupdate/lrelease)
+
+- Update the manual,check version number
+
+- Generate the PDF copy of the manual
+
+- Check the version number in xmlEdit.h file as number and string
+
+- Change the version number on install scripts Linux and Windows in /install_scripts directory
+
+- Do a checkout from sources
+
+- Do a test installation and deinstallation using a fresh checkout from sources
+
+- Do a build under Windows and test install
+
+- Update Windows setup using exe, manual, README
+
+- Make a tag from the sources
+
+- Build a source packages using the script making a svn export
+
+- Release the package and upload it
+
+- Compile under Windows, build the package and try it
+
+- Upload Windows installer
+
+- Announce on qt-apps
+
+After release
+-------------
+
+- Update version number.
+- Set VERSION_ID to snapshot in XmlEdit.h.
+- Change TODO_NEXT_RELEASE in TODO_THIS_RELEASE.
+- Enable TODO_THIS_RELEASE in utils.h

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit style file -->
+<style name="Bluish style" description="this is a simple style in blu">
+
+<keywords>
+ <keyword keyword="resource" idStyle="1"/>
+ <keyword keyword="widget" idStyle="1"/>
+ <keyword keyword="class" idStyle="1"/>
+ <keyword keyword="layout" idStyle="2"/>
+ <keyword keyword="window" idStyle="5"/>
+ <keyword keyword="property" idStyle="3"/>
+ <ruleSet>
+    <ruleSet connector="and">
+        <rule type="element" op="eq" type="s" cfr="class"/>
+        <rule type="attribute" name="pri" op="gt" type="s" cfr="5"/>
+    </ruleSet>
+ </ruleSet>
+ <ruleSet>
+    <ruleSet connector="or">
+    </ruleSet>
+ </ruleSet>
+</keywords>
+
+<styles>
+ <style id="1" color="2080FF" />
+ <style id="2" color="FF00FF"  family="Lucida" size="10" bold="" italic="true" />
+ <style id="3" color="C0C0FF"  family="Verdana" size="14" bold="true" italic="" />
+ <style id="5" color="0000FF" italic="true" />
+ <default>
+    <style id="default" color="C0C0C0" size="8" />
+ </default>
+</styles>
+
+<ids>
+ <id id="name" alpha="true"/>
+ <id id="id" alpha=""/>
+ <id id="buildId" alpha=""/>
+</ids>
+
+</style>

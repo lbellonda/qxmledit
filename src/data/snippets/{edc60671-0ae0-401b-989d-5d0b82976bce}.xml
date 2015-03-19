@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <name>filter mapping</name>
+    <description>JSP filter mapping</description>
+    <id>{edc60671-0ae0-401b-989d-5d0b82976bce}</id>
+    <creationDate>2010-09-10T22:19:52</creationDate>
+    <updateDate>2010-09-10T22:20:56</updateDate>
+    <tags>
+        <tag>j2ee</tag>
+        <tag>java</tag>
+        <tag>web.xml</tag>
+    </tags>
+    <payload>&lt;filter-mapping>
+  &lt;filter-name>FILTER&lt;/filter-name>
+  &lt;url-pattern>/URL/*&lt;/url-pattern>
+&lt;/filter-mapping></payload>
+</root>

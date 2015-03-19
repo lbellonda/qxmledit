@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <name>resource-ref-jboss</name>
+    <description>declares a resource-ref in jboss-web.xml</description>
+    <id>{f6d7ebdd-c505-4a6a-8a16-f7c99581a995}</id>
+    <creationDate>2010-08-19T20:54:02</creationDate>
+    <updateDate>2010-08-19T20:54:02</updateDate>
+    <tags>
+        <tag>jboss-web.xml</tag>
+        <tag>j2ee</tag>
+        <tag>jboss</tag>
+    </tags>
+    <payload>&lt;resource-ref>
+    &lt;res-ref-name>jdbc/DefaultDS&lt;/res-ref-name>
+    &lt;res-type>javax.sql.DataSource&lt;/res-type>
+    &lt;jndi-name>java:/DefaultDS&lt;/jndi-name>
+&lt;/resource-ref></payload>
+</root>

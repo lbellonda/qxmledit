@@ -1,0 +1,88 @@
+QXmlEdit Installation
+=====================
+
+Requirements
+============
+
+QXmlEdit requires QT 4 or QT 5 (4.7 or higher) to be installed. Qt sqlite driver and QtSql module are
+required.
+
+Quick Guide
+===========
+
+QXmlEdit is built and installed using qmake. The package is composed by
+an application and some libraries.
+In the main folder there is a main QxmlEdit.pro file.
+
+Extract the source, go to top folder
+
+   qmake
+   make
+   sudo make install
+
+The file DISTRIBUTING contains a list of files that should take part in a binary distribution.
+To configure the destination folders, check the marker 'BEGIN INSTALLATION FOLDERS DECLARATION' in
+each project file present in the src subfolder.
+
+The program is composed by some shared objects (or DLL) loaded at the program start. When installing
+on a Linux system make sure that the libraries are in the library search path.
+
+To compile a release version use
+qmake "CONFIG+=release"
+
+In the main folder there are "compile.xxx" batch commands for Linux and Windows, to configure and compile the project.
+
+To parametrize the installation
+-------------------------------
+The qmake project reads the following variables from environment variables.
+
+folder for data: QXMLEDIT_INST_DATA_DIR
+folder for the executable: QXMLEDIT_INST_DIR
+folder for the documentation: QXMLEDIT_INST_DOC_DIR
+folder for the shared libraries: QXMLEDIT_INST_LIB_DIR
+folder for the language translations: QXMLEDIT_INST_TRANSLATIONS_DIR
+folder for the includes of the xml edit widget: QXMLEDIT_INST_INCLUDE_DIR
+
+To link with qwt3dplot library set QXMLEDIT_USE_QWTPLOT environment variable to "Y" before
+ calling qmake (or define USE_QWTPLOT="Y" in the application project file).
+
+
+If the environment variables are not set, a default is used.
+
+
+Note for Qt4 compatibility
+--------------------------
+
+QXmlEdit is source compatible with Qt4, but for some UI attributes. It is necessary to remove Qt5 attributes (mainly alignment) added by
+the Qt designer to dialogs to compile under Qt4 with success.
+
+Additional resources
+--------------------
+
+
+There are resources for a Linux desktop installation:
+
+.desktop file in: install_scripts/environment/desktop/QXmlEdit.desktop
+AppData file in: install_scripts/environment/desktop/QXmlEdit.appdata.xml
+
+Pixmap icons in: install_scripts/environment/icon
+Scalable icon: source/images/icon.svg
+
+
+Mac OS X Note
+=============
+Snippets and sample style files should be copied in a "SharedSupport" directory in the final bundle.
+There is an installation script to create the final package after the build. The script expects some enviroment
+variables to be set, as specified in the script itself.
+MacOS X Mavericks has been tested with Qt5.2.
+
+
+Windows Users Note
+==================
+
+In the install_scripts directory there is a NSIS NullSoft installer script that can be used to
+generate a package compatible with Windows Installer. Simply put required files into "distribution"
+subdirectory and generate the script. The needed libraries are in the Qt and mingw packages.
+There is a script for using QT5 and another one for QT4.
+
+Qt must be compiled statically to build a single file executable.

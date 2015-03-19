@@ -1,0 +1,430 @@
+0.8.14
+    Now XML Schema menu is a tear off for faster access.
+    Moved the menu for compare to "Tools".
+    New search types: comments and base64 coded text.
+    Inserted an export to C raw data or Java characters in Unicode from the encoding dialog.
+    Added a dialog for an anonymization of a file without loading it in the editor.
+    Added an import exceptions from CSV for the anonymize dialog.
+
+0.8.13
+    Added .desktop file to the installation doc folder.
+    Completed the anonymization module with exceptions and a preview.
+    Moved the anonymization module to the main application.
+    Added a new installation script for Qt5,3 on Windows.
+
+0.8.12
+    Added a quick reference for xsd elements structure.
+    Created a basic anonymize feature.
+    Added a license agreement dialog on the first program usage.
+    Added a XSD wizard to insert or modify types of attributes or elements.
+    Added a non modal behavior for dialogs called from the application desktop menu.
+    Added some XSD validations for attributes, elements and types.
+    Fixed a bug on annotations display in XSD window.
+    Added an Unicode character details view.
+    Added some tools menu to the tray icon.
+    Selection between the editor and XSD windows.
+    Aligned the text in the encoding dialog.
+    Added the possibility to display the unicode character name in the encoding dialogs.
+    Added a support for desktop icon notifications.
+    Added a plist for Apple version.
+    Sorted the attributes by name in the tooltip.
+
+0.8.11
+    Added an appdata file.
+    Removed the explore mode.
+    Fixed some problems in compare XSD files.
+    Added an option to show all the comment's text in the compact view.
+    Added an option to show imported and included schema in the XSD viewer.
+    Shown the attribute groups in the XSD navigator.
+    Handled the namespaces in the XSD viewer.
+    Fixed the search using XPath that did not close the unaffected elements.
+    Fixed some XSD error message.
+    Changed the xsd visualization direction from vertical to horizontal.
+    Added "insert parent" and "remove parent" methods.
+    Added insert child container undoable method.
+    Fixed issues:
+    * #33 https://code.google.com/p/qxmledit/issues/detail?id=33
+
+0.8.10
+    Simplified display type configuration.
+    Fixed read only toolbar enabling.
+    Added a configuration dialog for color configuration.
+    Removed a limit on attributes length in the element editor.
+    Updated XSD visualization.
+    Added a custom delegate to display elements in one column.
+    Added a codepage info dialog.
+    Fixed a problem with default data when no session was open.
+    Fixed a bug about the maximum number of last open files.
+    Added support to Mac OS X open event.
+    Fixed a problem with update indicator painting.
+
+0.8.9.1
+    Fixed a problem with long text in edit text node from inside the edit element dialog.
+
+0.8.9
+    Encoding support.
+    Added an export to clipboard option.
+    Implemented a default session to show last files when no real sessions exist.
+    Save command now behaves as "save as" on new documents.
+    Added an option to automatically insert XML prolog on new document creation.
+    Added an insert XML prolog option.
+    Added the file icon in the main window for macos.
+    Added an export to Java/JavaScript feature to save the XML as a string literal.
+    Added an export to C/C++ feature to save the XML as a string literal.
+    Added metadata as Processing Instruction with 'qxmledit' target.
+    Implemented optional background color in styles.
+    Fixed a problem with attributes containing special characters and html view.
+    Added a read only option to protect the document from casual editing.
+    Added a feature to load a binary file in the Base 64 panel.
+    Adapted MacOSX icon to the guidelines.
+    Added MacOSX install script.
+    MacOSX compatibility for Qt5.
+    Searchlets.
+    Binary files viewer.
+    Full support for Qt5.2.
+
+0.8.8-1
+    Modified an include file reference in tests section to avoid compilation problems in Windows 7 and QT4.8.
+
+0.8.8
+    Limited the amount of information shown on the main window.
+    Changed some definition for compatibility with Windows mingw includes.
+    Simplified the XSLT context menu.
+    Edit dialogs modality set to Qt::WindowModal.
+    Used the user's document folder as default folder for open files if none previously open.
+    Added a menu to create a document from a snippet.
+    Added a Snippet Manager class for testability.
+    Added a Maven POM template.
+    Added a context menu on the items in the result panel.
+    Added an option to expand the selected element in the editor.
+    When pressing the CTRL key with the "128..255 sequence" button of the encoding dialog, the sequence start from 32.
+    Attributes are alphabetically sorted in the edit element dialog.
+    Centralized the clipboard handling. Now is possible to copy elements between windows and paste text.
+    Added base 64 translation in attribute editing.
+    Modified all the projects for qt5.1.1 support.
+    Added a copy of an element representation in XML in the XSD editor.
+    Added a copy of a facet in a simple type restriction in the XSD editor.
+    Parameters of call-template handling in xslt properties dialog.
+    Ordered alphabetically the attributes in edit element dialog.
+    Tooltips in the main editor.
+    Rules in custom display styles acting on data.
+    Use of icons in custom display styles.
+    Disabled in the XSD navigation view editor the expansion of items when double clicking on categories.
+    Disabled in the editor the expansion of items when double clicking.
+    Addes shortcuts to the edit element dialog.
+    Added options to xsd viewer context menu.
+    Added a command to paste the selected element as sibling.
+    Fixed issues:
+    * #31 https://code.google.com/p/qxmledit/issues/detail?id=31
+
+0.8.7
+    Changed some icons in XSD viewer.
+    Added a search results panel where only the elements that match the query are shown.
+    XSLT elements insert context menu suggestion.
+    Creation of new file from templates for XSL-FO, XSD and XSLT.
+    XSLT edit mode.
+    Refactored code for QT5 support.
+    Autocomplete in the find box.
+    Raised all the compiler warnings to error level.
+    Fixed the uri comparison method in the schema loader.
+    Fixed file selection logic in compare files.
+    Fixed issues:
+    * #25 http://code.google.com/p/qxmledit/issues/detail?id=25
+
+0.8.6.1
+    Changed the modality of windows.
+    Added new errors to the compiler
+    Support for OS/2
+    Fixed issues:
+    * #30 http://code.google.com/p/qxmledit/issues/detail?id=30
+
+0.8.6
+    Copy attributes.
+    Search panel can use XPath expressions.
+    Fixed a bug in the compare panel
+    * #29 http://code.google.com/p/qxmledit/issues/detail?id=29
+
+0.8.5
+    Fixed a bug on mixed contents editing.
+    Added a XML structure display dialog based on force-directed graph.
+    Added a compare function without need to load one of the files into the editor.
+    Added a panel to show xml structure as a force directed graph.
+
+0.8.4
+    Changed default view options and style.
+    Changed the default style
+    Impemented a brand new compare window.
+    Implemented a filter on attributes display.
+    Fixed a configuration issue that prevented the build of the test project under Windows.
+    Fixed issues:
+    * #28 http://code.google.com/p/qxmledit/issues/detail?id=28
+
+0.8.3.1
+    Fixed an alignment in the session drawer widget.
+
+0.8.3
+    Added a background configuration for the diagram.
+    Added a table with the details of the XSD differences.
+    Added an invitation to the session tree widget.
+    Changed XSD item graphics.
+    Added explaination of the cause that prevent the load of an XML file.
+    Impemented visual compare of xsd.
+    Removed use of stdout from the test project to emit xml output compatible with xUnit
+    Commented some unused paramters.
+    Deactivated a log.
+    Added the flag -Werror=format-security to the compilation errors.
+    Added formats to output messages utility functions.
+    Fixed issues:
+    * #26 http://code.google.com/p/qxmledit/issues/detail?id=26
+
+0.8.2
+    Added a dialog to examine encodings.
+    Added a dialog to convert text from and from base 64.
+    Fixed an inssue on base 64 encoding with utf-8 encoding.
+    Enlarged the space for tag editing.
+    Added tests for undo.
+    The current path is shown in the edit element dialog.
+    Enabled undo on edit text nodes.
+    Enabled undo on edit elements.
+    Enabled undo on delete elements.
+    Enabled undo on move elements.
+    Fixed a bug in the copy element method.
+    Optionally link with qwtplot3d library for display of XML data statistics.
+    New higlighting methods in data display: dilate and max.
+    New measure type: payload
+    Accept drop actions in data visualization widget.
+    Fixed issues:
+    * #20 http://code.google.com/p/qxmledit/issues/detail?id=20
+
+0.8.1
+    Added an icon 48x48 as stated in Freedesktop standards.
+    New extraction split type using depth.
+    Added new include folder for widget only release.
+    Added visualization option to the welcome dialog.
+    Fixed a typo in the format string of paused session in the state widget.
+    Added command line parameter to load a file into visualization mode.
+    Added data visualization.
+    Added multiple windows management.
+    Added a split to the columnar view.
+    Fixed issues:
+    * #24 http://code.google.com/p/qxmledit/issues/detail?id=24
+    * #23 http://code.google.com/p/qxmledit/issues/detail?id=23
+    * #22 http://code.google.com/p/qxmledit/issues/detail?id=22
+    * #21 http://code.google.com/p/qxmledit/issues/detail?id=21
+
+0.8.0
+    Added a check if current file is modified when selecting a recent file from menu.
+    Enabled XSD suggestions.
+    Added a session handler subproject.
+    Put configuration classes in the application project.
+
+0.7.2
+    Fixed issues:
+    * #19 http://code.google.com/p/qxmledit/issues/detail?id=19
+
+0.7.1 
+    Put the library version number under Unix configuration
+    Fixed issues:
+    * #18 http://code.google.com/p/qxmledit/issues/detail?id=18
+    * #17 http://code.google.com/p/qxmledit/issues/detail?id=17
+
+0.7.0
+    Added a library test project.
+    Added GalaxySemi as contributor
+    Added a modification indicator in the edit element dialog.
+    Added icons to main widget.
+    Transformed Regola into a read only tree model.
+    Added a window title for the library as global data.
+    Added a columnar view.
+    Splitted the project into an application and a library.
+
+0.6.2
+    Created a new item for the documents installation directory
+    New comparison option in XML extraction.
+    New filtering option in XML extraction.
+    Fixed issues:
+    * #16 http://code.google.com/p/qxmledit/issues/detail?id=16
+
+0.6.1
+    New structure visualization (#15).
+    New tests for fix #14
+    Fixed issues:
+    * #14 http://code.google.com/p/qxmledit/issues/detail?id=14
+    * #15 http://code.google.com/p/qxmledit/issues/detail?id=15
+
+0.6.0
+    License changed to LGPL.
+    Added binary file loading and saving in text noded via base 64 encoding
+    Added a 'space' token as option in file splitting naming.
+    Mixed content handling.
+    Added "New with Schema" menu and dialog.
+    Added Schema files cache.
+    Added help icon.
+    Redesigned toolbar.
+    Added new tests
+    Default fonts made configurable.
+
+0.5.4
+    Czech translation updated.
+    Improved fragments extraction dialog with tooltips.
+    Trimmed split files input values.
+    Handled unusual cases on XML fragments navigation.
+    Added some images.
+    Fixed issues:
+    * #12 http://code.google.com/p/qxmledit/issues/detail?id=12
+    * #13 http://code.google.com/p/qxmledit/issues/detail?id=13
+
+0.5.3
+    Changed a system field in the extraction dialog
+    Double clicking on recent files of welcome dialog load the file.
+    Forbid overwriting original file if mixed contents are detected.
+    Used a separate version for welcome dialog
+    Fixed README to reflect the minimum Qt version required
+
+0.5.2
+    Added the extraction of XML fragments.
+    Added a welcome page.
+    Transform an element in comment and vice versa.
+    Removed Qt 4.4 compatibility and updated the documentation. Automatic code generation from
+      designer made it very expensive.
+    Started work on validation.
+    Fixed issues:
+    * #11 http://code.google.com/p/qxmledit/issues/detail?id=11
+    * #9  http://code.google.com/p/qxmledit/issues/detail?id=9
+    * #8  http://code.google.com/p/qxmledit/issues/detail?id=8
+
+0.5.1
+    Exported the xsd diagram as SVG or PDF.
+    Items not matching search lemma are hidden in the XSD navigator
+    Added a legend to xsd navigator
+    Added an explicit error if an unsupported entity or entity reference is read from the parser.
+    Added a QTestLib test project and a main project with template=subdirs
+    Added a check for the correct axis scansion in search in file
+    Added icons to groups to search in file
+    Added grouping option on last item in search in file dialog
+    Added a navigation pane to XSD viewer
+    Update the About dialog to accomodate translators
+    Added a button on main window to view data as XSD
+    Inserted localization instructions in the .pro script
+    Czech language localization.
+    Inserted a check on the XSD format at the load time.
+    Added data collection structures in xsd viever.
+
+0.5.0
+    Added a xsd file viewer accessible through the plugins menu
+    Added a 'explore structure' mode to scan a large file. This mode capture only a XML file structure,
+     not data, so normal editing capabilitites are disabled to avoid accidental overwriting
+     of the original file. This mode sports limited formatting to be very fast, yet it shows
+     the data size of the elements.
+     It is a read only view of the original data.
+    Added a shortcut for the enter key in find edit box
+    Added a clean bookmarked items contents command. This command strips off any data from
+        selected items.
+    Added a delete bookmarked items command.
+    Added the option to show element size
+    Added the option to show element text length
+    Added an option to show elements modified in the work session with a colored marker on
+     the margin of the first column.
+
+    Fixed issues:
+    * #7 http://code.google.com/p/qxmledit/issues/detail?id=7
+
+
+0.4.9.1
+    Implemented w3c syntax compliant check on attribute and element names
+    with the following limitation: only the Unicode Basic Multilingual Plane (BMP) is used.
+    This limitation probably will be removed in a future release.
+     * #6 http://code.google.com/p/qxmledit/issues/detail?id=6
+
+0.4.9
+    Requires QT4.6 but compatible with 4.4 via compile time switch dropping some functionality
+    XML Snippets
+    Transform selection in snippet
+    Balsamiq Plugin
+    Auto test feature
+    Set buddies in EditElement dialog
+    Set correct viewer protocol and path in ConfigStyle dialog
+    Fixed clone element bug on text nodes.
+    Fixed some dialogs alignments and layouts
+    Mac OS X system resource path forced in bundle install location
+    ISSUES RESOLVED:
+     * #3 (http://code.google.com/p/qxmledit/issues/detail?id=3)
+     * #4 (http://code.google.com/p/qxmledit/issues/detail?id=4)
+     * #5 (http://code.google.com/p/qxmledit/issues/detail?id=5)
+
+0.4.8
+    Recent files menu
+    Preferred directories
+    Diff between XML files (very simple)
+    Reload of current file
+    Zoom of fonts
+    Directly edit base 64 text in elements.
+    Edit inner XML or XML as base64 text in elements (one level only)
+    Count number of matches in 'find text'
+    Added 'file:' protocol to configuration paths open in browser.
+    Enlarged configuration dialog labels.
+    Updated the installation script
+
+
+0.4.7
+    written a windows installer script trace
+    Redisplay of tree without recreating contents
+    Redisplay of tree with previous opening state
+    Display Styles - first implementation
+    Edit Text Node: wrap text option
+    Inserted a Windows Icon in resource file
+    XPath like search syntax
+    Copying of attribute values
+
+0.4.5
+
+    Little user manual in ODF format
+    Reverted order of recognition of CDATA sections / Text loading files
+    attributes handled as a class and no more as a hashmap
+    Persistence of view and find options
+    In find: selection to bookmarks and close unrelated items
+    Show Attributes length
+    Use a non proportional font for attributes to show the real length
+    'Compact View' mode
+     Hide brothers mode
+
+0.4.4
+    Quit button shortcut now working
+    Implemented 'New from clipboard'
+    Check about modified buffers in all 'new document' situations
+
+0.4.1
+    Bookmarks
+    new navigation shortcuts
+
+0.4.0
+
+0.3.1
+
+  Edit a single node using a separate window
+
+ Edit elements text nodes using a QTable
+
+ Edit attributes using a QTable
+ 
+ beginning clipboard interfacing
+
+  Start codiing a simple find panel
+
+ Fixed processing instruction edit
+ 
+  Added Srag and drop support
+
+    Set Macintosh icon
+
+    Fixed a bug in delete element text
+
+    Different colors for attributes.
+
+    Reordering of columns and auto adjusting size
+
+    Command line arguments parsing
+
+0.2.0 Release
+  Edit of comments
+  

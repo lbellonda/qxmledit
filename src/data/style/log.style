@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit style file -->
+<style name="Log" description="log test style">
+
+<keywords>
+ <keyword keyword="resource" idStyle="1"/>
+ <keyword keyword="widget" idStyle="1"/>
+ <keyword keyword="class" idStyle="1"/>
+ <keyword keyword="layout" idStyle="2"/>
+ <keyword keyword="window" idStyle="5"/>
+ <keyword keyword="property" idStyle="3"/>
+ <ruleSet idStyle="6">
+    <ruleSet connector="and">
+        <rule entity="element" op="eq" type="s" value="event"/>
+        <rule entity="attribute" name="level" op="eq" type="s" value="fatal" case="false" />
+    </ruleSet>
+ </ruleSet>
+ <ruleSet idStyle="7">
+    <ruleSet connector="or">
+        <rule name="level" op="eq" type="s" value="ERROR" />
+        <ruleSet connector="and">
+            <rule entity="attribute" name="level" op="eq" type="s" value="INFO" case="true" />
+            <rule name="pri" op="gt" type="n" value="12"/>
+        </ruleSet>
+    </ruleSet>
+ </ruleSet>
+ <ruleSet idStyle="8">
+    <rule name="level" op="eq" value="WARNING" case="true" />
+ </ruleSet>
+ <ruleSet idStyle="9">
+    <rule name="level" op="eq" type="s" value="INFO" case="true" />
+ </ruleSet>
+</keywords>
+
+<styles>
+ <style id="1" color="2080FF" />
+ <style id="2" color="FF00FF"  family="Lucida" size="10" bold="" italic="true" />
+ <style id="3" color="C0C0FF"  family="Verdana" size="14" bold="true" italic="" />
+ <style id="5" color="0000FF" italic="true" />
+ <!-- fatal -->
+ <style id="6" color="FF0000" size="12" family="Arial" bold="true" italic="false" icon=":E:" />
+ <!-- error -->
+ <style id="7" color="FF4080" size="10" family="Arial" bold="true" italic="false" icon=":E:"/>
+ <!-- warn -->
+ <style id="8" color="C0C080" size="10" family="Arial" bold="false" italic="false" icon=":W:"/>
+ <!-- info -->
+ <style id="9" color="000000" size="8" family="Arial" bold="false" italic="true" icon=":I:"/>
+ <default>
+    <style id="default" color="C0C0C0" size="8" family="Arial" bold="false" italic="true"/>
+ </default>
+</styles>
+
+<ids>
+ <id id="name" alpha="true"/>
+ <id id="id" alpha=""/>
+</ids>
+
+</style>

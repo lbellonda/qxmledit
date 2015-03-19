@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <name>servlet mapping</name>
+    <description>servlet mapping</description>
+    <id>{b3303cb3-8537-46d0-943b-cf898cc93b3f}</id>
+    <creationDate>2010-09-10T21:52:41</creationDate>
+    <updateDate>2010-09-10T21:53:55</updateDate>
+    <tags>
+        <tag>j2ee</tag>
+        <tag>java</tag>
+        <tag>web.xml</tag>
+    </tags>
+    <payload>&lt;servlet-mapping>
+  &lt;url-pattern>ADDRESS&lt;/url-pattern>
+  &lt;servlet-name>SERVLET&lt;/servlet-name>
+&lt;/servlet-mapping></payload>
+</root>

@@ -1,0 +1,1837 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>906</width>
+    <height>725</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>QXmlEdit</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="SessionDrawerWidget" name="sessionTree" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>300</width>
+        <height>0</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="XmlEditWidget" name="editor" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>906</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Navigation">
+    <property name="title">
+     <string>&amp;Navigation</string>
+    </property>
+    <addaction name="actionGo_To_Parent"/>
+    <addaction name="actionGo_to_Previous_Brother"/>
+    <addaction name="actionGo_to_Next_Brother"/>
+    <addaction name="actionCloseThisAllBrothers"/>
+    <addaction name="separator"/>
+    <addaction name="actionShowXSLNavigator"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="actionExecuteAutoTest"/>
+    <addaction name="actionHelpOnQXmlEdit"/>
+    <addaction name="actionTipsOnVisualAppearance"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <widget class="QMenu" name="menuExport">
+     <property name="title">
+      <string>Export</string>
+     </property>
+     <addaction name="actionExportAttributesSiblingsAsCSVClipboard"/>
+    </widget>
+    <widget class="QMenu" name="menuMore">
+     <property name="title">
+      <string>More</string>
+     </property>
+     <addaction name="actionCopyAttributes"/>
+     <addaction name="actionPasteLastAttributes"/>
+     <addaction name="actionPasteAttributes"/>
+     <addaction name="actionCopyElementPathClipboard"/>
+     <addaction name="actionAutoComplete"/>
+     <addaction name="actionEditXSLTitem"/>
+    </widget>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="actionCut"/>
+    <addaction name="actionDelete"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
+    <addaction name="actionPasteAsSibling"/>
+    <addaction name="menuMore"/>
+    <addaction name="actionReadOnly"/>
+    <addaction name="menuExport"/>
+    <addaction name="separator"/>
+    <addaction name="actionFind"/>
+    <addaction name="separator"/>
+    <addaction name="actionDeleteBookmarked"/>
+    <addaction name="actionCleanBookmarkedContent"/>
+    <addaction name="separator"/>
+    <addaction name="actionEditMetadata"/>
+    <addaction name="actionEncoding"/>
+    <addaction name="separator"/>
+    <addaction name="actionAnonymize"/>
+    <addaction name="actionCopyPathToClipboard"/>
+    <addaction name="separator"/>
+    <addaction name="actionConfigureSnippets"/>
+    <addaction name="actionConfigure"/>
+   </widget>
+   <widget class="QMenu" name="menuBoorkmarkes">
+    <property name="title">
+     <string>&amp;Bookmarks</string>
+    </property>
+    <addaction name="actionToggleBookmark"/>
+    <addaction name="actionClearBookmarks"/>
+    <addaction name="actionGotoNextBookmark"/>
+    <addaction name="actionGotoPreviousBookmark"/>
+   </widget>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="menuNew_of_Kind">
+     <property name="title">
+      <string>New Speciali&amp;zed</string>
+     </property>
+     <addaction name="actionNewXSLTSheet"/>
+     <addaction name="actionNewXSDDocument"/>
+     <addaction name="actionNewXSLFODocument"/>
+     <addaction name="actionNewMavenPOM"/>
+     <addaction name="separator"/>
+     <addaction name="actionNewFromSnippet"/>
+    </widget>
+    <widget class="QMenu" name="menuExport_2">
+     <property name="title">
+      <string>Export</string>
+     </property>
+     <addaction name="actionCopyAllToClipboard"/>
+     <addaction name="actionExportAsJavaJavascriptSource"/>
+     <addaction name="actionExportAsCSource"/>
+    </widget>
+    <addaction name="actionNewWindow"/>
+    <addaction name="actionNew"/>
+    <addaction name="actionNewFromClipboard"/>
+    <addaction name="menuNew_of_Kind"/>
+    <addaction name="actionNewUsingXMLSchema"/>
+    <addaction name="actionOpen"/>
+    <addaction name="actionXplore"/>
+    <addaction name="actionSave"/>
+    <addaction name="actionSaveAs"/>
+    <addaction name="actionSaveACopyAs"/>
+    <addaction name="menuExport_2"/>
+    <addaction name="actionReload"/>
+    <addaction name="actionLastFiles"/>
+    <addaction name="separator"/>
+    <addaction name="actionQuit"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menu_XML">
+    <property name="title">
+     <string>&amp;XML</string>
+    </property>
+    <widget class="QMenu" name="menuXML_Schema">
+     <property name="tearOffEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="title">
+      <string>XML Schema</string>
+     </property>
+     <widget class="QMenu" name="menuInsert">
+      <property name="title">
+       <string>Insert</string>
+      </property>
+      <addaction name="actionXSDInsertElement"/>
+      <addaction name="actionXSDInsertType"/>
+      <addaction name="actionXSDInsertAttribute"/>
+     </widget>
+     <widget class="QMenu" name="menuAppend_sibling">
+      <property name="title">
+       <string>Append Sibling</string>
+      </property>
+      <addaction name="actionXSDAppendElement"/>
+      <addaction name="actionXSDAppendType"/>
+      <addaction name="actionXSDAppendAttribute"/>
+     </widget>
+     <addaction name="actionInsertNoNamespaceSchemaReferenceAttributes"/>
+     <addaction name="actionInsertSchemaReferenceAttributes"/>
+     <addaction name="actionQuickReferenceElements"/>
+     <addaction name="separator"/>
+     <addaction name="menuInsert"/>
+     <addaction name="menuAppend_sibling"/>
+     <addaction name="actionXSDModifyType"/>
+    </widget>
+    <widget class="QMenu" name="menuMetadata">
+     <property name="title">
+      <string>Metadata</string>
+     </property>
+     <addaction name="actionInsertMetadata"/>
+     <addaction name="actionInsertCompleteMetadata"/>
+    </widget>
+    <addaction name="actionXMLEditMode"/>
+    <addaction name="actionXSLTEditMode"/>
+    <addaction name="actionScanXMLTagsAndNamesXSLTAutocompletion"/>
+    <addaction name="separator"/>
+    <addaction name="actionAddChildElement"/>
+    <addaction name="actionAppendChildElement"/>
+    <addaction name="actionAddComment"/>
+    <addaction name="actionAppendComment"/>
+    <addaction name="actionAddProcessingInstruction"/>
+    <addaction name="actionAppendProcessingInstruction"/>
+    <addaction name="actionInsertChildContainer"/>
+    <addaction name="actionInsertParent"/>
+    <addaction name="actionRemoveParent"/>
+    <addaction name="actionTransformInComment"/>
+    <addaction name="actionExtractElementsFromComment"/>
+    <addaction name="actionInsertSnippet"/>
+    <addaction name="menuXML_Schema"/>
+    <addaction name="actionInsertProlog"/>
+    <addaction name="menuMetadata"/>
+    <addaction name="separator"/>
+    <addaction name="actionEdit"/>
+    <addaction name="actionSpecificProperties"/>
+    <addaction name="actionEditInnerXMLBase64"/>
+    <addaction name="actionEditInnerXML"/>
+    <addaction name="actionEditInnerBase64Text"/>
+    <addaction name="actionPasteAndSubstituteText"/>
+    <addaction name="actionTransforminSnippet"/>
+    <addaction name="separator"/>
+    <addaction name="actionMoveUp"/>
+    <addaction name="actionMoveDown"/>
+    <addaction name="separator"/>
+    <addaction name="actionValidate"/>
+    <addaction name="actionValidateFile"/>
+    <addaction name="actionValidateNewFile"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>&amp;Tools</string>
+    </property>
+    <addaction name="actionCompare"/>
+    <addaction name="actionCompareXSD"/>
+    <addaction name="separator"/>
+    <addaction name="actionPlugins"/>
+    <addaction name="actionAnonymizeFile"/>
+    <addaction name="actionSearchInFiles"/>
+    <addaction name="actionExtractFragmentsFromFile"/>
+    <addaction name="actionViewData"/>
+    <addaction name="actionBase64Tools"/>
+    <addaction name="actionEncodingTools"/>
+    <addaction name="actionCompareFiles"/>
+    <addaction name="actionSpring_and_Forces"/>
+    <addaction name="actionBinaryViewer"/>
+    <addaction name="actionCodePages"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>&amp;View</string>
+    </property>
+    <widget class="QMenu" name="menuFilter_Attributes">
+     <property name="title">
+      <string>Filter Attributes</string>
+     </property>
+     <addaction name="actionVisAttrApplyTemporaryProfile"/>
+     <addaction name="actionVisAttrSaveCurrenteProfile"/>
+     <addaction name="actionVisAttrManageProfiles"/>
+     <addaction name="actionVisAttrRemoveCurrentProfile"/>
+    </widget>
+    <widget class="QMenu" name="menuAdvanced">
+     <property name="title">
+      <string>Advanced</string>
+     </property>
+     <addaction name="actionHideView"/>
+    </widget>
+    <addaction name="actionShowCurrentSessionPanel"/>
+    <addaction name="actionColumnView"/>
+    <addaction name="menuAdvanced"/>
+    <addaction name="actionResizeToContents"/>
+    <addaction name="actionExpandAll"/>
+    <addaction name="actionExpandSelectedItem"/>
+    <addaction name="actionHideBrothers"/>
+    <addaction name="actionHideAllLeafChildren"/>
+    <addaction name="actionShowAllLeafChildren"/>
+    <addaction name="menuFilter_Attributes"/>
+    <addaction name="separator"/>
+    <addaction name="actionCompactView"/>
+    <addaction name="actionShowAttrLine"/>
+    <addaction name="actionShowAlwaysFullTextComments"/>
+    <addaction name="actionShowChildIndex"/>
+    <addaction name="actionFixedSizeAttributes"/>
+    <addaction name="actionShowAttributesLength"/>
+    <addaction name="actionShowElementTextLength"/>
+    <addaction name="actionShowElementSize"/>
+    <addaction name="actionShowBase64"/>
+    <addaction name="actionShowCurrentElementTextBase64"/>
+    <addaction name="actionHideLeafChildren"/>
+    <addaction name="actionShowLeafChildren"/>
+    <addaction name="separator"/>
+    <addaction name="actionZoomIn"/>
+    <addaction name="actionZoomOut"/>
+    <addaction name="separator"/>
+    <addaction name="actionViewGraphic"/>
+   </widget>
+   <widget class="QMenu" name="menu_Sessions">
+    <property name="title">
+     <string>&amp;Sessions</string>
+    </property>
+    <addaction name="actionNewSession"/>
+    <addaction name="actionPauseSession"/>
+    <addaction name="actionResumeSession"/>
+    <addaction name="actionCloseSession"/>
+    <addaction name="separator"/>
+    <addaction name="actionSessionDetails"/>
+    <addaction name="separator"/>
+    <addaction name="actionManageSessions"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuBoorkmarkes"/>
+   <addaction name="menu_XML"/>
+   <addaction name="menu_Navigation"/>
+   <addaction name="menuView"/>
+   <addaction name="menu_Sessions"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave"/>
+   <addaction name="separator"/>
+   <addaction name="actionCut"/>
+   <addaction name="actionCopy"/>
+   <addaction name="actionPaste"/>
+   <addaction name="separator"/>
+   <addaction name="actionShowCurrentSessionPanel"/>
+   <addaction name="actionColumnView"/>
+   <addaction name="separator"/>
+   <addaction name="actionFind"/>
+   <addaction name="actionValidate"/>
+   <addaction name="actionToggleBookmark"/>
+   <addaction name="separator"/>
+   <addaction name="actionGo_To_Parent"/>
+   <addaction name="actionGo_to_Previous_Brother"/>
+   <addaction name="actionGo_to_Next_Brother"/>
+   <addaction name="separator"/>
+   <addaction name="actionHelpOnQXmlEdit"/>
+  </widget>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/actions/images/document-new.png</normaloff>:/actions/images/document-new.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New</string>
+   </property>
+   <property name="iconText">
+    <string>New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/quit/images/window-close.png</normaloff>:/quit/images/window-close.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/open/images/document-open.png</normaloff>:/open/images/document-open.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/save/images/document-save.png</normaloff>:/save/images/document-save.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSaveAs">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/save-as/images/document-save-as.png</normaloff>:/save-as/images/document-save-as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save &amp;As...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionCut">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/cut/images/edit-cut.png</normaloff>:/cut/images/edit-cut.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Cut</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/copy/images/edit-copy.png</normaloff>:/copy/images/edit-copy.png</iconset>
+   </property>
+   <property name="text">
+    <string>Cop&amp;y</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/paste/images/edit-paste.png</normaloff>:/paste/images/edit-paste.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Paste</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionExpandAll">
+   <property name="text">
+    <string>&amp;Expand All</string>
+   </property>
+   <property name="toolTip">
+    <string>Expand all the items.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+E</string>
+   </property>
+  </action>
+  <action name="actionShowAttrLine">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show &amp;One Attribute per Line</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About QXmlEdit</string>
+   </property>
+   <property name="toolTip">
+    <string>About QXmlEdit</string>
+   </property>
+  </action>
+  <action name="actionAddComment">
+   <property name="text">
+    <string>Add &amp;Comment as Child...</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
+   </property>
+  </action>
+  <action name="actionAppendComment">
+   <property name="text">
+    <string>Append C&amp;omment as Brother...</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="actionAddProcessingInstruction">
+   <property name="text">
+    <string>Add Processing Instruction as Child...</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionAppendProcessingInstruction">
+   <property name="text">
+    <string>Append Processing Instruction as Brother...</string>
+   </property>
+   <property name="shortcut">
+    <string>F6</string>
+   </property>
+  </action>
+  <action name="actionResizeToContents">
+   <property name="text">
+    <string>&amp;Resize to Contents</string>
+   </property>
+   <property name="toolTip">
+    <string>Auto resize the columns</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionAddChildElement">
+   <property name="text">
+    <string>Add a Child Element...</string>
+   </property>
+   <property name="toolTip">
+    <string>Add a new element</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
+  </action>
+  <action name="actionAppendChildElement">
+   <property name="text">
+    <string>Append a Brother Element...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>&amp;Properties...</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Return</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionMoveUp">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/arrows/images/go-up.png</normaloff>:/arrows/images/go-up.png</iconset>
+   </property>
+   <property name="text">
+    <string>Move &amp;Up</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+K</string>
+   </property>
+  </action>
+  <action name="actionMoveDown">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/arrows/images/go-down.png</normaloff>:/arrows/images/go-down.png</iconset>
+   </property>
+   <property name="text">
+    <string>Move Do&amp;wn</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/editText/edit-find</normaloff>:/editText/edit-find</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Find...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+  </action>
+  <action name="actionGo_To_Parent">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/goto/images/gotoparent.png</normaloff>:/goto/images/gotoparent.png</iconset>
+   </property>
+   <property name="text">
+    <string>Go To Parent</string>
+   </property>
+   <property name="toolTip">
+    <string>Move to the parent</string>
+   </property>
+   <property name="shortcut">
+    <string>F11</string>
+   </property>
+  </action>
+  <action name="actionGo_to_Previous_Brother">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/goto/images/gotoprevbro.png</normaloff>:/goto/images/gotoprevbro.png</iconset>
+   </property>
+   <property name="text">
+    <string>Go to Previous Brother</string>
+   </property>
+   <property name="toolTip">
+    <string>Go to Previous Brother</string>
+   </property>
+   <property name="shortcut">
+    <string>F9</string>
+   </property>
+  </action>
+  <action name="actionGo_to_Next_Brother">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/goto/images/gotonextbro.png</normaloff>:/goto/images/gotonextbro.png</iconset>
+   </property>
+   <property name="text">
+    <string>Go to Next Brother</string>
+   </property>
+   <property name="toolTip">
+    <string>Go to Next Brother</string>
+   </property>
+   <property name="shortcut">
+    <string>F10</string>
+   </property>
+  </action>
+  <action name="actionToggleBookmark">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/special/images/bookmark.png</normaloff>:/special/images/bookmark.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Toggle Bookmark</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle Boorkmark at Current Location</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F2</string>
+   </property>
+  </action>
+  <action name="actionClearBookmarks">
+   <property name="text">
+    <string>&amp;Remove All Bookmarks</string>
+   </property>
+  </action>
+  <action name="actionGotoNextBookmark">
+   <property name="text">
+    <string>Go To &amp;Next Bookmark</string>
+   </property>
+   <property name="shortcut">
+    <string>F2</string>
+   </property>
+  </action>
+  <action name="actionGotoPreviousBookmark">
+   <property name="text">
+    <string>Go To &amp;Previous Bookmark</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F2</string>
+   </property>
+  </action>
+  <action name="actionList_Bookmarks">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>List Bookmarks</string>
+   </property>
+  </action>
+  <action name="actionShowChildIndex">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Child &amp;Index</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Child Index</string>
+   </property>
+  </action>
+  <action name="actionCloseThisAllBrothers">
+   <property name="text">
+    <string>Close This and All Brothers</string>
+   </property>
+   <property name="toolTip">
+    <string>Close This and All Brothers</string>
+   </property>
+   <property name="shortcut">
+    <string>F12</string>
+   </property>
+  </action>
+  <action name="actionNewFromClipboard">
+   <property name="text">
+    <string>New From &amp;Clipboard</string>
+   </property>
+   <property name="toolTip">
+    <string>import XML from clipboard</string>
+   </property>
+  </action>
+  <action name="actionCompactView">
+   <property name="text">
+    <string>&amp;Compact View</string>
+   </property>
+   <property name="toolTip">
+    <string>Compact View</string>
+   </property>
+  </action>
+  <action name="actionHideBrothers">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Hide Brothers</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide Brothers</string>
+   </property>
+  </action>
+  <action name="actionFixedSizeAttributes">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Fixed Size Attributes</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Attributes with Fixed Size Font</string>
+   </property>
+  </action>
+  <action name="actionShowAttributesLength">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Attributes &amp;Length</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Attributes Length</string>
+   </property>
+  </action>
+  <action name="actionShowBase64">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Text as Base 64 Coded</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Text as Base 64 Coded</string>
+   </property>
+  </action>
+  <action name="actionShowCurrentElementTextBase64">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Current Element Text Base 64</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Current Element Text Base 64</string>
+   </property>
+  </action>
+  <action name="actionConfigure">
+   <property name="text">
+    <string>Confi&amp;gure...</string>
+   </property>
+   <property name="toolTip">
+    <string>Configure</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="actionEditInnerXML">
+   <property name="text">
+    <string>Edit Inner XML...</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit inner XML</string>
+   </property>
+  </action>
+  <action name="actionEditInnerXMLBase64">
+   <property name="text">
+    <string>Edit Inner XML Base 64 Coded...</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit inner XML Base 64 Coded</string>
+   </property>
+  </action>
+  <action name="actionEditInnerBase64Text">
+   <property name="text">
+    <string>Edit inner Base 64 Text...</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit inner Base 64 Text</string>
+   </property>
+  </action>
+  <action name="actionZoomIn">
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom In</string>
+   </property>
+  </action>
+  <action name="actionZoomOut">
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionCompare">
+   <property name="text">
+    <string>Compare with...</string>
+   </property>
+   <property name="toolTip">
+    <string>Compare the current data with another XML file</string>
+   </property>
+  </action>
+  <action name="actionReload">
+   <property name="text">
+    <string>Reload</string>
+   </property>
+   <property name="toolTip">
+    <string>Reload the current file</string>
+   </property>
+  </action>
+  <action name="actionLastFiles">
+   <property name="text">
+    <string>Last Files</string>
+   </property>
+  </action>
+  <action name="actionCopyPathToClipboard">
+   <property name="text">
+    <string>Copy File Path to Clipboard</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy path to clipboard</string>
+   </property>
+  </action>
+  <action name="actionAddCurrentDirectory">
+   <property name="text">
+    <string>Add Current Directory to Preferred Ones</string>
+   </property>
+   <property name="toolTip">
+    <string>Add the current directory to Preferred Ones</string>
+   </property>
+  </action>
+  <action name="actionEditPreferredDirectories">
+   <property name="text">
+    <string>Edit Preferred Directories...</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit Preferred Directories</string>
+   </property>
+  </action>
+  <action name="actionValidate">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/configuration/validation</normaloff>:/configuration/validation</iconset>
+   </property>
+   <property name="text">
+    <string>Validate Using Document References</string>
+   </property>
+   <property name="toolTip">
+    <string>Validate against a XSD</string>
+   </property>
+  </action>
+  <action name="actionValidateFile">
+   <property name="text">
+    <string>Validate Using Specified File</string>
+   </property>
+   <property name="toolTip">
+    <string>Validate using specified file</string>
+   </property>
+  </action>
+  <action name="actionValidateNewFile">
+   <property name="text">
+    <string>Validate Using New Schema File...</string>
+   </property>
+   <property name="toolTip">
+    <string>Validate using new XSD File...</string>
+   </property>
+  </action>
+  <action name="actionInsertSnippet">
+   <property name="text">
+    <string>Insert Snippet...</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert a XML fragment</string>
+   </property>
+  </action>
+  <action name="actionConfigureSnippets">
+   <property name="text">
+    <string>Configure Snippets...</string>
+   </property>
+   <property name="toolTip">
+    <string>Configure Snippets</string>
+   </property>
+  </action>
+  <action name="actionExecuteAutoTest">
+   <property name="text">
+    <string>Execute Auto Test</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute Auto Test</string>
+   </property>
+  </action>
+  <action name="actionPlugins">
+   <property name="text">
+    <string>Plugins</string>
+   </property>
+  </action>
+  <action name="actionTransforminSnippet">
+   <property name="text">
+    <string>Transform in Snippet...</string>
+   </property>
+   <property name="toolTip">
+    <string>Transform in Snippet</string>
+   </property>
+  </action>
+  <action name="actionShowElementTextLength">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Element Text Length</string>
+   </property>
+   <property name="toolTip">
+    <string>Show Element Text Length</string>
+   </property>
+  </action>
+  <action name="actionShowElementSize">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Element Size</string>
+   </property>
+   <property name="toolTip">
+    <string>Show element size</string>
+   </property>
+  </action>
+  <action name="actionDeleteBookmarked">
+   <property name="text">
+    <string>Delete Bookmarked Items</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete Bookmarked items</string>
+   </property>
+  </action>
+  <action name="actionCleanBookmarkedContent">
+   <property name="text">
+    <string>Clean Bookmarked Items Content</string>
+   </property>
+   <property name="toolTip">
+    <string>Clean Bookmarked ItemsContent</string>
+   </property>
+  </action>
+  <action name="actionCleanBookmarkedItemsAttribute">
+   <property name="text">
+    <string>Clean Bookmarked Items Attribute...</string>
+   </property>
+   <property name="toolTip">
+    <string>Clean Bookmarked Items Attribute</string>
+   </property>
+  </action>
+  <action name="actionXplore">
+   <property name="text">
+    <string>Explore Structure...</string>
+   </property>
+   <property name="toolTip">
+    <string>Explore structure loading only partial informations about a file.</string>
+   </property>
+  </action>
+  <action name="actionBlindLoadFile">
+   <property name="text">
+    <string>Blind Load File...</string>
+   </property>
+   <property name="toolTip">
+    <string>load a file in blind mode</string>
+   </property>
+  </action>
+  <action name="actionHideView">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Hide View</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide graphics view</string>
+   </property>
+  </action>
+  <action name="actionSearchInFiles">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/editText/searchInFiles</normaloff>:/editText/searchInFiles</iconset>
+   </property>
+   <property name="text">
+    <string>Search in Files...</string>
+   </property>
+   <property name="toolTip">
+    <string>Search in files</string>
+   </property>
+  </action>
+  <action name="actionHelpOnQXmlEdit">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/commands/images/help-contents.png</normaloff>:/commands/images/help-contents.png</iconset>
+   </property>
+   <property name="text">
+    <string>Help on QXmlEdit</string>
+   </property>
+   <property name="toolTip">
+    <string>Help on QXmlEdit</string>
+   </property>
+  </action>
+  <action name="actionAllowedSchemaElements">
+   <property name="text">
+    <string>Allowed Schema Elements</string>
+   </property>
+   <property name="toolTip">
+    <string>Allowed Schema Elements</string>
+   </property>
+  </action>
+  <action name="actionPasteAndSubstituteText">
+   <property name="text">
+    <string>Edit Inner Text as One Node...</string>
+   </property>
+   <property name="toolTip">
+    <string>Paste and substitute element text</string>
+   </property>
+  </action>
+  <action name="actionNewUsingXMLSchema">
+   <property name="text">
+    <string>New Using XML Schema...</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new XML Document using a XML Schema</string>
+   </property>
+  </action>
+  <action name="actionTransformInComment">
+   <property name="text">
+    <string>Transform in Comment</string>
+   </property>
+   <property name="toolTip">
+    <string>Transform in comment</string>
+   </property>
+  </action>
+  <action name="actionExtractElementsFromComment">
+   <property name="text">
+    <string>Extract Elements from Comment</string>
+   </property>
+   <property name="toolTip">
+    <string>Extract elements from comment.</string>
+   </property>
+  </action>
+  <action name="actionInsertNoNamespaceSchemaReferenceAttributes">
+   <property name="text">
+    <string>Insert No Namespace Schema Reference Attributes</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert No Namespace Schema Reference Attributes</string>
+   </property>
+  </action>
+  <action name="actionInsertSchemaReferenceAttributes">
+   <property name="text">
+    <string>Insert Schema Reference Attributes</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert Schema Reference Attributes</string>
+   </property>
+  </action>
+  <action name="actionExtractFragmentsFromFile">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tools/images/split.png</normaloff>:/tools/images/split.png</iconset>
+   </property>
+   <property name="text">
+    <string>Extract Fragments From a File...</string>
+   </property>
+   <property name="toolTip">
+    <string>Extract XML fragments from a huge file...</string>
+   </property>
+  </action>
+  <action name="actionWelcomeDialog">
+   <property name="text">
+    <string>Welcome Dialog...</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the welcome dialog.</string>
+   </property>
+  </action>
+  <action name="actionSaveACopyAs">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/save-as/images/document-save-as.png</normaloff>:/save-as/images/document-save-as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save a Copy As...</string>
+   </property>
+   <property name="toolTip">
+    <string>Saves a copy of the current file. Current file path will not be affected.</string>
+   </property>
+  </action>
+  <action name="actionHideAllLeafChildren">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tree/hidden_children</normaloff>:/tree/hidden_children</iconset>
+   </property>
+   <property name="text">
+    <string>Hide All the Leaf Children</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide all the nodes that does not have children, revealing the structure.</string>
+   </property>
+  </action>
+  <action name="actionShowAllLeafChildren">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tree/show_children</normaloff>:/tree/show_children</iconset>
+   </property>
+   <property name="text">
+    <string>Show All the Leaf Children</string>
+   </property>
+   <property name="toolTip">
+    <string>Show all the leaf nodes that was previously hidden.</string>
+   </property>
+  </action>
+  <action name="actionHideLeafChildren">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tree/hidden_children</normaloff>:/tree/hidden_children</iconset>
+   </property>
+   <property name="text">
+    <string>Hide Leaf Children</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide the children of the current node that does not have children, revealing the structure.</string>
+   </property>
+  </action>
+  <action name="actionShowLeafChildren">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tree/show_children</normaloff>:/tree/show_children</iconset>
+   </property>
+   <property name="text">
+    <string>Show Leaf Children</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the leaf nodes of the current node that was previously hidden.</string>
+   </property>
+  </action>
+  <action name="actionViewAsXsd">
+   <property name="text">
+    <string>View As Xsd</string>
+   </property>
+  </action>
+  <action name="actionColumnView">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/commands/view_columns</normaloff>:/commands/view_columns</iconset>
+   </property>
+   <property name="text">
+    <string>Columnar View...</string>
+   </property>
+   <property name="toolTip">
+    <string>View as columns.</string>
+   </property>
+  </action>
+  <action name="actionShowCurrentSessionPanel">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/sessions/images/sessions_view.png</normaloff>:/sessions/images/sessions_view.png</iconset>
+   </property>
+   <property name="text">
+    <string>Show Current Session Panel</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens the session panel.</string>
+   </property>
+  </action>
+  <action name="actionNewSession">
+   <property name="text">
+    <string>New...</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new session.</string>
+   </property>
+  </action>
+  <action name="actionPauseSession">
+   <property name="text">
+    <string>Pause</string>
+   </property>
+   <property name="toolTip">
+    <string>Pauses the current session.</string>
+   </property>
+  </action>
+  <action name="actionResumeSession">
+   <property name="text">
+    <string>Resume</string>
+   </property>
+   <property name="toolTip">
+    <string>Resume the current session.</string>
+   </property>
+  </action>
+  <action name="actionCloseSession">
+   <property name="text">
+    <string>Close</string>
+   </property>
+   <property name="toolTip">
+    <string>Closes the current session.</string>
+   </property>
+  </action>
+  <action name="actionManageSessions">
+   <property name="text">
+    <string>Manage...</string>
+   </property>
+   <property name="toolTip">
+    <string>Manage the sessions.</string>
+   </property>
+  </action>
+  <action name="actionSessionDetails">
+   <property name="text">
+    <string>Details...</string>
+   </property>
+   <property name="toolTip">
+    <string>Details about the current session.</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="toolTip">
+    <string>Undo last action.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="toolTip">
+    <string>Redo last action.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+Z</string>
+   </property>
+  </action>
+  <action name="actionNewWindow">
+   <property name="text">
+    <string>New Window</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens a new window.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionViewData">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tools/images/view-structure-icon.png</normaloff>:/tools/images/view-structure-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>View data...</string>
+   </property>
+   <property name="toolTip">
+    <string>Navigates a data file.</string>
+   </property>
+  </action>
+  <action name="actionBase64Tools">
+   <property name="text">
+    <string>Base 64 Tools...</string>
+   </property>
+   <property name="toolTip">
+    <string>Base 64 tools</string>
+   </property>
+  </action>
+  <action name="actionEncodingTools">
+   <property name="text">
+    <string>Encoding Tools...</string>
+   </property>
+   <property name="toolTip">
+    <string>Encoding Tools.</string>
+   </property>
+  </action>
+  <action name="actionCompareXSD">
+   <property name="text">
+    <string>Compare XS&amp;D...</string>
+   </property>
+   <property name="toolTip">
+    <string>Compare two XSD in a graphical way</string>
+   </property>
+  </action>
+  <action name="actionExportAttributesSiblingsAsCSVClipboard">
+   <property name="text">
+    <string>Export Attributes of Siblings as CSV in the Clipboard</string>
+   </property>
+   <property name="toolTip">
+    <string>Export attributes of siblings as CSV in the clipboard.</string>
+   </property>
+  </action>
+  <action name="actionVisAttrApplyTemporaryProfile">
+   <property name="text">
+    <string>Apply a Temporary Profile</string>
+   </property>
+   <property name="toolTip">
+    <string>Apply a temporary profile.</string>
+   </property>
+  </action>
+  <action name="actionVisAttrSaveCurrenteProfile">
+   <property name="text">
+    <string>Save the Current Profile...</string>
+   </property>
+   <property name="toolTip">
+    <string>Save the current profile.</string>
+   </property>
+  </action>
+  <action name="actionVisAttrManageProfiles">
+   <property name="text">
+    <string>Manage Profiles...</string>
+   </property>
+   <property name="toolTip">
+    <string>Manage profiles...</string>
+   </property>
+  </action>
+  <action name="actionVisAttrRemoveCurrentProfile">
+   <property name="text">
+    <string>Remove the Current Profile</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove the current profile.</string>
+   </property>
+  </action>
+  <action name="actionCompareFiles">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tools/images/compare.png</normaloff>:/tools/images/compare.png</iconset>
+   </property>
+   <property name="text">
+    <string>Compare Files...</string>
+   </property>
+   <property name="toolTip">
+    <string>Compare two files.</string>
+   </property>
+  </action>
+  <action name="actionSpring_and_Forces">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tools/images/relations.png</normaloff>:/tools/images/relations.png</iconset>
+   </property>
+   <property name="text">
+    <string>Relations...</string>
+   </property>
+   <property name="toolTip">
+    <string>Under development</string>
+   </property>
+  </action>
+  <action name="actionViewGraphic">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tools/images/relations.png</normaloff>:/tools/images/relations.png</iconset>
+   </property>
+   <property name="text">
+    <string>View Relations...</string>
+   </property>
+  </action>
+  <action name="actionCopyAttributes">
+   <property name="text">
+    <string>Copy Attributes...</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy attributes.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+C</string>
+   </property>
+  </action>
+  <action name="actionPasteAttributes">
+   <property name="text">
+    <string>Paste Attributes...</string>
+   </property>
+   <property name="toolTip">
+    <string>Paste attributes.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+Shift+V</string>
+   </property>
+  </action>
+  <action name="actionPasteLastAttributes">
+   <property name="text">
+    <string>Paste Fast Attributes</string>
+   </property>
+   <property name="toolTip">
+    <string>Paste Fast Attributes</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+V</string>
+   </property>
+  </action>
+  <action name="actionCopyElementPathClipboard">
+   <property name="text">
+    <string>Copy Element Path in the Clipboard</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy the element path to the clipboard.</string>
+   </property>
+  </action>
+  <action name="actionAutoComplete">
+   <property name="text">
+    <string>AutoComplete...</string>
+   </property>
+   <property name="toolTip">
+    <string>Autocomplete the current word.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Space</string>
+   </property>
+  </action>
+  <action name="actionXMLEditMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>XML Edit Mode</string>
+   </property>
+   <property name="toolTip">
+    <string>XML edit mode conventions.</string>
+   </property>
+  </action>
+  <action name="actionXSLTEditMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>XSLT Edit Mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Apply XSLT edit mode conventions.</string>
+   </property>
+  </action>
+  <action name="actionNewXSLTSheet">
+   <property name="text">
+    <string>New XSLT sheet</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new empty XSLT sheet.</string>
+   </property>
+  </action>
+  <action name="actionNewXSDDocument">
+   <property name="text">
+    <string>New XSD document (XML Schema)</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new empty XML Schema document.</string>
+   </property>
+  </action>
+  <action name="actionNewXSLFODocument">
+   <property name="text">
+    <string>New XSL-FO document</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new empty XSL-FO document.</string>
+   </property>
+  </action>
+  <action name="actionEditXSLTitem">
+   <property name="text">
+    <string>Edit XSLT item...</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit element using a XSLT specific dialog.</string>
+   </property>
+  </action>
+  <action name="actionScanXMLTagsAndNamesXSLTAutocompletion">
+   <property name="text">
+    <string>Target XML for Tags and Names for XSLT Autocompletion...</string>
+   </property>
+   <property name="toolTip">
+    <string>Scan an XML file and uses tags and attribute names for  XSLT autocompletion.</string>
+   </property>
+  </action>
+  <action name="actionShowXSLNavigator">
+   <property name="text">
+    <string>Show XSL Navigator</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the XSL navigator dialog</string>
+   </property>
+  </action>
+  <action name="actionSpecificProperties">
+   <property name="text">
+    <string>Specific Properties... (Ctrl+DblCkick)</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens the specific properties panel.</string>
+   </property>
+  </action>
+  <action name="actionPasteAsSibling">
+   <property name="text">
+    <string>Paste as Sibling</string>
+   </property>
+   <property name="toolTip">
+    <string>Paste the clipboard content as sibling of the selected node</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionExpandSelectedItem">
+   <property name="text">
+    <string>Expand the Selected Item</string>
+   </property>
+   <property name="toolTip">
+    <string>Expand the selected item and all its children.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionNewMavenPOM">
+   <property name="text">
+    <string>New Maven POM</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new file from Mavn POM template.</string>
+   </property>
+  </action>
+  <action name="actionNewFromSnippet">
+   <property name="text">
+    <string>New from Snippet...</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new file from an existing snippet.</string>
+   </property>
+  </action>
+  <action name="actionTipsOnVisualAppearance">
+   <property name="text">
+    <string>Customizing Display Styles</string>
+   </property>
+   <property name="toolTip">
+    <string>Some tips about how to change how the data are visualized.</string>
+   </property>
+  </action>
+  <action name="actionBinaryViewer">
+   <property name="text">
+    <string>Binary Viewer</string>
+   </property>
+   <property name="toolTip">
+    <string>Binary files viewer</string>
+   </property>
+  </action>
+  <action name="actionReadOnly">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/status/locked</normaloff>:/status/locked</iconset>
+   </property>
+   <property name="text">
+    <string>Read Only</string>
+   </property>
+   <property name="toolTip">
+    <string>Does not allow modification to the document.</string>
+   </property>
+  </action>
+  <action name="actionInsertMetadata">
+   <property name="text">
+    <string>Insert Metadata</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert updatable metadata.</string>
+   </property>
+  </action>
+  <action name="actionEditMetadata">
+   <property name="text">
+    <string>Edit Metadata</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit the metadata</string>
+   </property>
+  </action>
+  <action name="actionExportAsJavaJavascriptSource">
+   <property name="text">
+    <string>Export as Java/JavaScript source...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export as Java/JavaScript source</string>
+   </property>
+  </action>
+  <action name="actionInsertCompleteMetadata">
+   <property name="text">
+    <string>Insert Complete Metadata</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert complete metadata (updatatable and manual).</string>
+   </property>
+  </action>
+  <action name="actionInsertProlog">
+   <property name="text">
+    <string>Insert prolog</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert the xml prolog</string>
+   </property>
+  </action>
+  <action name="actionEncoding">
+   <property name="text">
+    <string>Encoding</string>
+   </property>
+   <property name="toolTip">
+    <string>Select the encoding.</string>
+   </property>
+  </action>
+  <action name="actionExportAsCSource">
+   <property name="text">
+    <string>Export as C/C++ source...</string>
+   </property>
+   <property name="toolTip">
+    <string>Export the XML as a Cpp Source</string>
+   </property>
+  </action>
+  <action name="actionCopyAllToClipboard">
+   <property name="text">
+    <string>Copy all to Clipboard</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy all the document to the clipoard</string>
+   </property>
+  </action>
+  <action name="actionCodePages">
+   <property name="text">
+    <string>Code Pages...</string>
+   </property>
+   <property name="toolTip">
+    <string>Show code pages.</string>
+   </property>
+  </action>
+  <action name="actionInsertChildContainer">
+   <property name="text">
+    <string>Insert child container</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert a tag that wraps all the existing children/</string>
+   </property>
+  </action>
+  <action name="actionInsertParent">
+   <property name="text">
+    <string>Insert parent</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert a parent for the current element.</string>
+   </property>
+  </action>
+  <action name="actionRemoveParent">
+   <property name="text">
+    <string>Remove parent</string>
+   </property>
+   <property name="toolTip">
+    <string>Removes the parent of the current item</string>
+   </property>
+  </action>
+  <action name="actionShowAlwaysFullTextComments">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show always full text of comments</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the full comment text even in compact mode</string>
+   </property>
+  </action>
+  <action name="actionXSDInsertElement">
+   <property name="text">
+    <string>Insert &amp;Element...</string>
+   </property>
+  </action>
+  <action name="actionXSDAppendElement">
+   <property name="text">
+    <string>Append &amp;Element...</string>
+   </property>
+   <property name="toolTip">
+    <string>Append element as sibling</string>
+   </property>
+  </action>
+  <action name="actionXSDAppendSibling">
+   <property name="text">
+    <string>Append Sibling</string>
+   </property>
+   <property name="toolTip">
+    <string>Append sibling.</string>
+   </property>
+  </action>
+  <action name="actionXSDModifyType">
+   <property name="text">
+    <string>Modify Type...</string>
+   </property>
+   <property name="toolTip">
+    <string>Modify the XSD type.</string>
+   </property>
+  </action>
+  <action name="actionXSDInsertType">
+   <property name="text">
+    <string>Insert &amp;Type...</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert type</string>
+   </property>
+  </action>
+  <action name="actionXSDAppendType">
+   <property name="text">
+    <string>Append &amp;Type...</string>
+   </property>
+   <property name="toolTip">
+    <string>Append type as sibling</string>
+   </property>
+  </action>
+  <action name="actionXSDInsertAttribute">
+   <property name="text">
+    <string>Insert &amp;Attribute...</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert attribute</string>
+   </property>
+  </action>
+  <action name="actionXSDAppendAttribute">
+   <property name="text">
+    <string>Append &amp;Attribute...</string>
+   </property>
+   <property name="toolTip">
+    <string>Append an XSD attribute as sibling.</string>
+   </property>
+  </action>
+  <action name="actionAnonymize">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/editText/images/mask.png</normaloff>:/editText/images/mask.png</iconset>
+   </property>
+   <property name="text">
+    <string>Anonymize...</string>
+   </property>
+   <property name="toolTip">
+    <string>Anonymize the current file.</string>
+   </property>
+  </action>
+  <action name="actionQuickReferenceElements">
+   <property name="text">
+    <string>Quick Reference for Elements...</string>
+   </property>
+   <property name="toolTip">
+    <string>Display a quick Reference for Elements...</string>
+   </property>
+  </action>
+  <action name="actionAnonymizeFile">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/editText/images/mask.png</normaloff>:/editText/images/mask.png</iconset>
+   </property>
+   <property name="text">
+    <string>Anonymize File...</string>
+   </property>
+   <property name="toolTip">
+    <string>Anonymize an external file.</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>XmlEditWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">xmleditwidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SessionDrawerWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">sessiondrawerwidget</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="risorse.qrc"/>
+ </resources>
+ <connections/>
+ <slots>
+  <slot>findText()</slot>
+  <slot>clearSearchText()</slot>
+ </slots>
+</ui>

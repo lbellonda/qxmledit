@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit style file -->
+<style name="TestIcon" description="this is a simple style">
+
+<keywords>
+ <keyword keyword="resource" idStyle="1"/>
+ <keyword keyword="widget" idStyle="1"/>
+ <keyword keyword="class" idStyle="1"/>
+ <keyword keyword="layout" idStyle="2"/>
+ <keyword keyword="window" idStyle="5"/>
+ <keyword keyword="property" idStyle="3"/>
+</keywords>
+
+<styles>
+ <style id="1" color="2080FF" icon=":E:" />
+ <style id="2" color="FF0000"  family="Lucida" size="6" bold="" italic="true" icon=":W:"/>
+ <style id="3" color="C0C0C0"  family="Verdana" size="10" bold="true" italic="" icon=":I:"/>
+ <style id="5" color="0000FF" />
+</styles>
+
+<ids>
+ <id id="name" alpha="true"/>
+ <id id="id" alpha=""/>
+ <id id="buildId" alpha=""/>
+</ids>
+
+</style>

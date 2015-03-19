@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <name>servlet</name>
+    <description>servlet definition</description>
+    <id>{d78f4e09-4003-4178-adec-134a7b996d6e}</id>
+    <creationDate>2010-09-10T21:53:43</creationDate>
+    <updateDate>2010-09-10T21:53:43</updateDate>
+    <tags>
+        <tag>j2ee</tag>
+        <tag>java</tag>
+        <tag>web.xml</tag>
+    </tags>
+    <payload>&lt;servlet>
+ &lt;servlet-name>SERVLET_NAME&lt;/servlet-name>
+ &lt;servlet-class>SERVLET.CLASS&lt;/servlet-class>
+&lt;/servlet></payload>
+</root>

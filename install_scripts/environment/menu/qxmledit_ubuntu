@@ -1,0 +1,8 @@
+?package(qxmledit):\
+        needs="X11"\
+        section="Applications/Programming"\
+        hints="Qt,Development"\
+        title="QXmlEdit"\
+        longtitle="QXmlEdit (XML Editor)"\
+        icon="/usr/share/pixmaps/qxmledit.png"\
+        command="/usr/bin/QXmlEdit"

@@ -1,0 +1,48 @@
+
+QXmlEdit
+--------
+
+QXmlEdit is a simple XML editor using qt. Its main features are unusual data visualization modes,
+nice XML manipulation and presentation and it is multi platform. It can split very big XML files
+into fragments, and compare XML files. It is one of the few graphical Open Source XSD viewers.
+
+The XML editor widget is based on a library that can be imported and used in other applications.
+
+It is relased under GNU LGPL V2 license and requires Open Source edition of the QT4 libraries.
+
+  * Hierarchical customizable view of XML elements.
+  * Fast XML hierarchy navigation.
+  * Split of big XML files.
+  * Search supporting XPath expressions.
+  * Base 64 data handling.
+  * Visualization styles.
+  * XML Schema (XSD) viewer.
+  * Columnar view.
+  * Sessions handling.
+  * Graphical XML file view.
+  * Map view of a XML document.
+  * Split and fragment extraction of big XML files.
+  * Visual compare of XML Schema files.
+  * Visual compare of XML files.
+  * XML Snippets.
+  * XSL specialized mode.
+  * Element display via user customizable rules.
+
+Some icon files are licensed by oxygen project and covered by LGPL V3 (see http://www.oxygen-icons.org)
+A copy of the license is included. Source for icons can be obtained from site above, but a copy is included in images/svg
+source directory. All icons in this directory are by oxygen project. Images in 'images' directory are derived by oxygen,
+excluding mainIcons.icns, icon.png and icon.svg that are original work.
+
+Requirements
+------------
+QT libraries version 4.7 or higher are required.
+QT 5 is supported.
+
+Limitations
+-----------
+Explicit namespace support lack.
+No external schema are loaded.
+
+
+Internally it does not use model/view paradigm, so algorithms are more complicated than it is necessary.
+

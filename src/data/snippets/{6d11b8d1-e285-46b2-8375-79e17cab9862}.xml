@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <name>servlet</name>
+    <description>declares a servlet in web.xml</description>
+    <id>{6d11b8d1-e285-46b2-8375-79e17cab9862}</id>
+    <creationDate>2010-08-19T20:54:50</creationDate>
+    <updateDate>2010-08-19T20:54:50</updateDate>
+    <tags>
+        <tag>web.xml</tag>
+        <tag>j2ee</tag>
+    </tags>
+    <payload>&lt;servlet>
+    &lt;servlet-name>SERVLET_NAME&lt;/servlet-name>
+    &lt;servlet-class>SERVLET_CLASS&lt;/servlet-class>
+&lt;/servlet></payload>
+</root>
