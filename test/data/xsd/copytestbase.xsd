@@ -1,0 +1,274 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="my-target-namespace" xmlns:test="my-internal-tests" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tn="my-target-namespace">
+ <xs:element name="root-simple-element" test:a="root-simple-element" />
+ 
+ <xs:element type="tn:simple-complex-type" name="root-simple-type-element" test:a="root-simple-type-element" />
+ <xs:element type="tn:simple-complex-type" name="simple-complex-type-element" test:a="simple-complex-type-element" />
+
+ 
+ <!--**************************-->
+  <xs:complexType mixed="true" name="simple-complex-type">
+        <xs:attribute type="xs:string" name="attr1"/>
+ </xs:complexType>
+
+ <xs:element name="complex-type-element-with-attributes" test:a="complex-type-element-with-attributes" >
+     <xs:complexType>
+           <xs:attribute type="xs:string" name="attr1"/>
+           <xs:attribute type="xs:int" name="attr2"/>
+           <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+    </xs:complexType>
+ </xs:element>
+
+ <xs:element name="complex-type-element-with-attributes-required" test:a="complex-type-element-with-attributes-required">
+     <xs:complexType>
+           <xs:attribute type="xs:string" name="attr1" use="required"/>
+           <xs:attribute type="xs:int" name="attr2"/>
+           <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+    </xs:complexType>
+ </xs:element>
+
+ <xs:element name="complex-type-element-with-attributes-with-type" test:a="complex-type-element-with-attributes-with-type">
+     <xs:complexType>
+           <xs:attribute name="attr1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                    <xs:enumeration value="item1"/>
+                    <xs:enumeration value="item2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+           <xs:attribute type="xs:int" name="attr2"/>
+           <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+    </xs:complexType>
+ </xs:element>
+
+ <xs:element name="complex-type-element-with-attributes-ref-type" test:a="complex-type-element-with-attributes-ref-type">
+     <xs:complexType>
+           <xs:attribute name="attr1" type="tn:attr-type" />
+           <xs:attribute type="xs:int" name="attr2"/>
+           <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+    </xs:complexType>
+ </xs:element>
+
+    <xs:simpleType name="attr-type" >
+        <xs:restriction base="xs:string">
+		  <xs:enumeration value="item3"/>
+		  <xs:enumeration value="item4"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+ <xs:element name="complex-type-element-with-attributes-ref-attr" test:a="complex-type-element-with-attributes-ref-attr">
+     <xs:complexType>
+           <xs:attribute ref="tn:attr1ref" />
+           <xs:attribute type="xs:int" name="attr2"/>
+           <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+    </xs:complexType>
+ </xs:element>
+
+   <xs:attribute name="attr1ref">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+			  <xs:enumeration value="itema"/>
+			  <xs:enumeration value="itemb"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+ <xs:element name="complex-type-element-with-attributes-with-type-default" test:a="complex-type-element-with-attributes-with-type-default">
+     <xs:complexType>
+           <xs:attribute name="attr1" default="item1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                    <xs:enumeration value="item1"/>
+                    <xs:enumeration value="item2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+           <xs:attribute type="xs:int" name="attr2"/>
+           <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+    </xs:complexType>
+ </xs:element>
+
+ <xs:element name="element-reference-complex-type" type="tn:complex1" test:a="element-reference-complex-type">
+ </xs:element>
+
+ <xs:complexType name="complex1">
+   <xs:attribute name="attr1" default="item1">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+            <xs:enumeration value="item1"/>
+            <xs:enumeration value="item2"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+   <xs:attribute type="xs:int" name="attr2"/>
+   <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+ </xs:complexType>
+
+ <xs:group name="ag111">
+  <xs:sequence>
+  <xs:element ref="tn:complex-type-element-ref-with-attributes" test:a="complex-type-element-ref-with-attributes"/>
+  </xs:sequence>
+  </xs:group>
+
+ <xs:element name="complex-type-element-ref-with-attributes" >
+     <xs:complexType>
+           <xs:attribute ref="tn:attr1ref" />
+           <xs:attribute type="xs:int" name="attr2"/>
+           <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+    </xs:complexType>
+ </xs:element>
+
+ <xs:element name="complex-type-element-extension" test:a="complex-type-element-extension">
+     <xs:complexType>
+       <xs:complexContent>
+         <xs:extension base="tn:type1">
+           <xs:attribute name="attr1" default="item1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="item1"/>
+                      <xs:enumeration value="item2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+           <xs:attribute type="xs:int" name="attr2"/>
+         </xs:extension>
+       </xs:complexContent>
+    </xs:complexType>
+ </xs:element>
+
+ <xs:attribute name="attr10">
+    <xs:simpleType>
+         <xs:restriction base="xs:string">
+           <xs:enumeration value="item10-1"/>
+           <xs:enumeration value="item11-1"/>
+         </xs:restriction>
+     </xs:simpleType>
+ </xs:attribute>
+
+ <xs:attributeGroup name="ag3" >
+     <xs:attribute name="ag3a1" default="item1"/>
+    <xs:attribute ref="tn:attr10"/>
+    <xs:attribute name="attr11" default="item11">
+         <xs:simpleType>
+             <xs:restriction base="xs:string">
+               <xs:enumeration value="item11"/>
+               <xs:enumeration value="item12"/>
+             </xs:restriction>
+         </xs:simpleType>
+     </xs:attribute>
+ </xs:attributeGroup>
+
+ <xs:attributeGroup name="ag2" >
+     <xs:attribute name="ag2a1" default="item1"/>
+     <xs:attributeGroup ref="tn:ag3" />
+ </xs:attributeGroup>
+
+
+ <xs:attributeGroup name="attr-group-define" >
+     <xs:attribute name="item1ag1" default="item1ag1d">
+          <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="item1"/>
+                <xs:enumeration value="item2"/>
+                <xs:enumeration value="item1ag1d"/>
+              </xs:restriction>
+          </xs:simpleType>
+      </xs:attribute>
+     <xs:attribute type="xs:int" name="attr2a"/>
+     <xs:attributeGroup ref="tn:ag2" />
+ </xs:attributeGroup>
+
+
+ <xs:element name="complex-type-element-attributegroup" test:a="complex-type-element-attributegroup">
+     <xs:complexType>
+       <xs:complexContent>
+         <xs:extension base="tn:type1">
+           <xs:attribute type="xs:int" name="attr20"/>
+           <xs:attributeGroup ref="tn:attr-group-define"/>
+         </xs:extension>
+       </xs:complexContent>
+    </xs:complexType>
+ </xs:element>
+
+ <xs:element name="el-ref-for-attributegroups">
+     <xs:complexType>
+       <xs:complexContent>
+         <xs:extension base="tn:type1">
+           <xs:attribute type="xs:int" name="attr2xs"/>
+           <xs:attributeGroup ref="tn:attr-group-define"/>
+         </xs:extension>
+       </xs:complexContent>
+    </xs:complexType>
+ </xs:element>
+
+ <xs:group name="ag111222">
+  <xs:sequence>
+ <xs:element ref="tn:el-ref-for-attributegroups" test:a="el-ref-for-attributegroups"/>
+  </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="type-for-attributegroup">
+   <xs:complexContent>
+     <xs:extension base="tn:type1">
+       <xs:attribute type="xs:int" name="attr2p"/>
+       <xs:attributeGroup ref="tn:attr-group-define"/>
+     </xs:extension>
+   </xs:complexContent>
+  </xs:complexType>
+
+ <xs:group name="ag11122552">
+  <xs:sequence>
+  <xs:element name="el-type-for-attributegroup" type="tn:type-for-attributegroup" test:a="el-type-for-attributegroup"/>
+  </xs:sequence>
+  </xs:group>
+
+  <xs:complexType name="type1">
+    <xs:attribute type="xs:string" name="attrtype1"/>
+  </xs:complexType>
+
+
+ <!--
+  <xs:complexType mixed="true" name="simple-complex-type">
+        <xs:attribute type="xs:tipo1" name="attr1"/>
+  </xs:complexType>
+  
+    <xs:simpleType name="tn:tipo1">
+        <xs:annotation>
+            <xs:documentation>
+      Describes something.
+    </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="preserve"/>
+            <xs:enumeration value="strip"/>
+            <xs:enumeration value="unspecified"/>
+        </xs:restriction>
+    </xs:simpleType>
+	-->
+	
+	  <!-- restrictions -->
+    <xs:simpleType name="sss1" >
+        <xs:restriction base="xs:string" test:b="simple-sequence">
+        <xs:enumeration value="item1"/>
+        <xs:enumeration value="item2"/>
+		<xs:enumeration value="item3"/>
+        </xs:restriction>
+    </xs:simpleType>
+	  
+ <xs:element name="zzz1" >
+     <xs:complexType>
+           <xs:attribute name="attr1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string" test:b="innersequence">
+                    <xs:enumeration value="item1"/>
+                    <xs:enumeration value="item2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+           <xs:attribute type="xs:int" name="attr2"/>
+           <xs:attribute type="xs:string" default="_default_" name="attr3"/>
+    </xs:complexType>
+ </xs:element>
+	
+</xs:schema>

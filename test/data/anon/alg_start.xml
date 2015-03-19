@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root xmlns:abc="test.test" a="a">
+    <elementYes a1="This92 iS" a2="" a3="`bcx" a4="" xml:lang="en"/>
+    <elementNo/>
+    <parent1>
+        <p1>This92 iS</p1>
+        <P2/>
+        <P3/>
+        <P4>a</P4>
+    </parent1>
+    <parent2>This92 iS<a/>
+        <b/>123456<c/>
+    </parent2>
+    <parent1CDATA>
+        <p1><![CDATA[This92 iS]]></p1>
+        <P2><![CDATA[]]></P2>
+        <P3><![CDATA[ ]]></P3>
+        <P4><![CDATA[a]]></P4>
+    </parent1CDATA>
+</root>

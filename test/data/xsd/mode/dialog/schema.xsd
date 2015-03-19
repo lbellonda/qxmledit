@@ -1,0 +1,188 @@
+<?xml version='1.0'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="test" elementFormDefault="qualified">
+    <xs:attribute name="name1" type="xs:string"/>
+    <xs:attribute name="name2" >
+        <xs:simpleType>
+            <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="name3" >
+        <xs:simpleType>
+            <xs:list />
+        </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="name4" >
+        <xs:simpleType>
+            <xs:union />
+        </xs:simpleType>
+    </xs:attribute>
+    <xs:simpleType name="type1">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="type2">
+        <xs:list />
+    </xs:simpleType>
+
+    <xs:simpleType name="type3">
+        <xs:union />
+    </xs:simpleType>
+
+    <xs:complexType name="ccoex">
+        <xs:complexContent>
+            <xs:extension base="theBase">
+                <xs:sequence>
+                    <xs:element ref="a" minOccurs="0"/>
+                </xs:sequence>
+                <xs:attribute name="id" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ccores">
+        <xs:complexContent>
+            <xs:restriction base="theBase">
+                <xs:sequence>
+                    <xs:element ref="a" minOccurs="0"/>
+                </xs:sequence>
+                <xs:attribute name="id" />
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ccscr">
+        <xs:simpleContent>
+                <xs:restriction base="xs:string"/>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="ccscl">
+        <xs:simpleContent>
+                <xs:list />
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="ccscu">
+        <xs:simpleContent>
+                <xs:union />
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="ccall">
+        <xs:all/>
+    </xs:complexType>
+    <xs:complexType name="cseq">
+        <xs:sequence/>
+    </xs:complexType>
+    <xs:complexType name="cgroup">
+        <xs:group/>
+    </xs:complexType>
+    <xs:complexType name="choice">
+        <xs:choice/>
+    </xs:complexType>
+
+    <xs:element name="e1" type="xs:string"/>
+
+    <xs:element name="e2" >
+        <xs:simpleType>
+            <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="e3" >
+        <xs:simpleType>
+            <xs:list />
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="e4" >
+        <xs:simpleType>
+            <xs:union />
+        </xs:simpleType>
+    </xs:element>
+
+    <xs:element name="e5" >
+        <xs:complexType >
+            <xs:complexContent>
+                <xs:extension base="theBase">
+                    <xs:sequence>
+                        <xs:element ref="a" minOccurs="0"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" />
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="e6" >
+        <xs:complexType >
+            <xs:complexContent>
+                <xs:restriction base="theBase">
+                    <xs:sequence>
+                        <xs:element ref="a" minOccurs="0"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" />
+                </xs:restriction>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ccscr" >
+        <xs:complexType>
+            <xs:simpleContent>
+                    <xs:restriction base="xs:string"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ccscl" >
+        <xs:complexType >
+            <xs:simpleContent>
+                    <xs:list />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ccscu" >
+        <xs:complexType>
+            <xs:simpleContent>
+                    <xs:union />
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ccall" >
+        <xs:complexType >
+            <xs:all/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cseq" >
+        <xs:complexType >
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cgroup" >
+        <xs:complexType >
+            <xs:group/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="choice" >
+        <xs:complexType >
+            <xs:choice/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ccsce">
+        <xs:simpleContent>
+                <xs:extension base="xs:string"/>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:element name="ectsce" >
+        <xs:complexType>
+            <xs:simpleContent>
+                    <xs:extension base="xs:string"/>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

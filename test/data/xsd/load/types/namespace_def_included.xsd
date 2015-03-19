@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:x="testns" targetNamespace="testns" xmlns="testns">
+
+  <xsd:annotation>
+    <xsd:documentation>Sample document.</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:include id="include" schemaLocation="nonamespace_included2.xsd" />
+
+  <xsd:element name="elemento2">
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+      </xsd:all>
+      <xsd:attribute name="attribute" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:attribute name="attr2" type="xsd:string" />
+
+    <xsd:attributeGroup name="ag2">
+        <xsd:attribute name="ag2attr2" type="xsd:string" use="optional"/>
+    </xsd:attributeGroup>
+
+</xsd:schema>

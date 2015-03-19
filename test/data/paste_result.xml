@@ -1,0 +1,49 @@
+<?xml version='1.0'?>
+<xs:schema targetNamespace="http://www.example.test/" version="1.0" xmlns:aaas="http://test.test.test" xmlns:xxxs="http://aaa.bbb.ccc" xml:lang="en" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element>
+        <xs:annotation>
+            <xs:documentation>sample annotation</xs:documentation>
+            <xs:appinfo>sample annotationsample annotation<a>appinfo</a>
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="xx"/>
+            </xs:sequence>
+            <xs:attribute name="attribute1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="100"/>
+                        <xs:maxInclusive value="200"/>
+                    </xs:restriction>
+                </xs:simpleType>
+				<test attr1="value">text node</test>
+            </xs:attribute>
+            <xs:attribute name="attribute2">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="1"/>
+                        <xs:maxInclusive value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="attribute3">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="3"/>
+                        <xs:maxInclusive value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="attribute4"/>
+            <xs:attribute name="attribute5">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="5"/>
+                        <xs:maxInclusive value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,1 @@
+<mx:Label x="{A:N:x}" y="{A:N:y}"  width="{C:N:w}" height="{C:N:h}" id="lbl_{A:N:controlID}" text="{P:S:text}" {C:S:fontSize} {C:S:hexColor} />

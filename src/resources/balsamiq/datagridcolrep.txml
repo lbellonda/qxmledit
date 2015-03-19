@@ -1,0 +1,1 @@
+<mx:DataGridColumn dataField="{C:S:DP_CURRENT_COL}" headerText="{C:S:DP_CURRENT_COLTITLE}"/>

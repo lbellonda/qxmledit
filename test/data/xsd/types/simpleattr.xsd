@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+ <xsd:annotation>
+  <xsd:documentation>Sample document.</xsd:documentation>
+ </xsd:annotation>
+
+ <xsd:attributeGroup name="agroup2">
+  <xsd:attribute ref="attr2"/>
+ </xsd:attributeGroup>
+
+ <xsd:attributeGroup name="agroup1">
+  <xsd:attribute name="attr1" type="theSimpleType"/>
+  <xsd:attribute ref="attr2"/>
+  <xsd:attribute name="attr3">
+   <xsd:simpleType>
+     <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="ax"/>
+     </xsd:restriction>
+   </xsd:simpleType>
+  </xsd:attribute>
+ </xsd:attributeGroup>
+ <xsd:attribute type="theSimpleType" name="attr2"/>
+ <xsd:simpleType name="theSimpleType">
+  <xsd:restriction base="xsd:string">
+   <xsd:enumeration value="a"/>
+   <xsd:enumeration value="b"/>
+   <xsd:enumeration value="c"/>
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:attribute name="attra"/>
+
+</xsd:schema>

@@ -1,0 +1,496 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://maven.apache.org/POM/4.0.0" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:t="test">
+<!-- source -->
+    <!-- enumeration  ...........................................................-->
+    <xs:attribute name="enume">
+        <xs:simpleType>
+            <xs:restriction base="xs:string" >
+                <xs:enumeration value="one"/>
+                <xs:enumeration value="two"/>
+                <xs:enumeration value="three"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+
+    <!-- extension simple context ...........................................................-->
+    <xs:complexType name="rsae">
+        <xs:simpleContent>
+            <xs:extension base="xs:string" t:test="a">
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="rsue">
+        <xs:simpleContent>
+            <xs:extension base="xs:string" t:test="u">
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="rsme">
+        <xs:simpleContent>
+            <xs:extension base="xs:string" t:test="m">
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="rsde">
+        <xs:simpleContent>
+            <xs:restriction />
+        </xs:simpleContent>
+    </xs:complexType>
+
+
+    <!-- restriction simple type  ...........................................................-->
+    <xs:attribute name="rsa">
+        <xs:simpleType>
+            <xs:restriction base="xs:string" t:test="a">
+                <xs:enumeration value="one"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="rsu">
+        <xs:simpleType>
+            <xs:restriction base="xs:string" t:test="u">
+                <xs:enumeration value="one"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="rsm">
+        <xs:simpleType>
+            <xs:restriction base="xs:string" t:test="m">
+                <xs:enumeration value="one"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <xs:attribute name="rsd">
+        <xs:simpleType>
+        </xs:simpleType>
+    </xs:attribute>
+
+    <!-- union ...........................................................-->
+
+    <xs:simpleType name="lax">
+        <xs:union memberTypes="a b" t:test="a" />
+    </xs:simpleType>
+
+    <xs:simpleType name="lux">
+        <xs:union memberTypes="a b" t:test="u" />
+    </xs:simpleType>
+
+    <xs:simpleType name="lmx">
+        <xs:union memberTypes="a b" t:test="m" />
+    </xs:simpleType>
+
+    <xs:simpleType name="ldx">
+    </xs:simpleType>
+
+    <!-- notation ...........................................................-->
+    <xs:notation name="a" public="a" system="a" t:test="a"/>
+
+    <xs:element name="xxx124" />
+
+    <xs:notation name="u" public="u" system="u" t:test="u"/>
+    <xs:notation name="m" public="m" system="m" t:test="m"/>
+
+    <xs:element name="xxx24" />
+
+
+    <!-- list ...........................................................-->
+
+    <xs:simpleType name="la">
+      <xs:list itemType='a' t:test="a" />
+    </xs:simpleType>
+
+    <xs:simpleType name="lu">
+      <xs:list itemType='u' t:test="u" />
+    </xs:simpleType>
+
+    <xs:simpleType name="lm">
+      <xs:list itemType='m' t:test="m" />
+    </xs:simpleType>
+
+    <xs:simpleType name="ld">
+    </xs:simpleType>
+
+    <!-- group ...........................................................-->
+
+    <xs:group name="gA" t:test="a">
+        <xs:sequence/>
+    </xs:group>
+
+    <xs:element name="xxx12" />
+
+    <xs:group name="gU" t:test="u">
+        <xs:sequence/>
+    </xs:group>
+
+    <xs:group name="gM" t:test="m" id="1">
+        <xs:sequence/>
+    </xs:group>
+
+    <xs:element name="xxx2" />
+
+    <!-- attribute group ...........................................................-->
+
+    <xs:attributeGroup name="agA" t:test="a">
+        <xs:attribute name="sampleForComplexRestrictionA" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:element name="xxx1" />
+
+    <xs:attributeGroup name="agU" t:test="u">
+        <xs:attribute name="sampleForComplexRestrictionA" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:attributeGroup name="agM" t:test="m" id="1">
+        <xs:attribute name="sampleForComplexRestrictionA" type="xs:string"/>
+    </xs:attributeGroup>
+
+    <xs:element name="xxx" />
+
+    <!-- complex restriction ...........................................................-->
+    <xs:complexType name="sampleForComplexRestriction">
+        <xs:sequence>
+            <xs:element name="test" type="xs:string" />
+            <xs:element name="test1" type="xs:string" />
+          </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForComplexRestrictionA">
+      <xs:complexContent>
+        <xs:restriction base="sampleForComplexRestriction" t:test="a">
+          <xs:sequence>
+            <xs:element name="test" type="xs:string" />
+          </xs:sequence>
+        </xs:restriction>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForComplexRestrictionM">
+      <xs:complexContent>
+        <xs:restriction base="sampleForComplexRestriction" id="m" t:test="m">
+            <xs:sequence>
+              <xs:element name="test" type="xs:string" />
+            </xs:sequence>
+        </xs:restriction>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForComplexRestrictionU">
+      <xs:complexContent>
+        <xs:restriction base="sampleForComplexRestriction" t:test="u">
+            <xs:sequence>
+              <xs:element name="test" type="xs:string" />
+            </xs:sequence>
+        </xs:restriction>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForComplexExtensionD">
+      <xs:complexContent>
+          <xs:extension base="sampleForComplexRestriction">
+            <xs:sequence/>
+         </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+
+    <!-- complex extension ...........................................................-->
+    <xs:complexType name="sampleForComplexExtension">
+        <xs:sequence>
+            <xs:element name="test" type="xs:string" />
+          </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForComplexExtensionA">
+      <xs:complexContent>
+        <xs:extension base="sampleForComplexExtension" t:test="a">
+          <xs:sequence>
+            <xs:element name="innerElement" />
+          </xs:sequence>
+          <xs:attribute name="innerAttribute"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForComplexExtensionM">
+      <xs:complexContent>
+        <xs:extension base="sampleForComplexExtension" id="m1" t:test="m">
+          <xs:sequence>
+            <xs:element name="innerElement" />
+          </xs:sequence>
+          <xs:attribute name="innerAttribute"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForComplexExtensionU">
+      <xs:complexContent>
+        <xs:extension base="sampleForComplexExtension" t:test="u">
+          <xs:sequence>
+            <xs:element name="innerElement" />
+          </xs:sequence>
+          <xs:attribute name="innerAttribute"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForComplexExtensionD">
+      <xs:complexContent>
+            <xs:restriction/>
+      </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="sampleForAttrGRef">
+      <xs:sequence>
+        <xs:element name="innerElement" />
+      </xs:sequence>
+      <xs:attributeGroup ref="agD"/>
+    </xs:complexType>
+
+    <!-- annotation,documentation, appinfo ...........................................................-->
+    <xs:annotation t:test="m">
+        <xs:documentation xml:lang="it" >test</xs:documentation>
+        <xs:appinfo >test</xs:appinfo>
+    </xs:annotation>
+    <xs:annotation t:test="u">
+        <xs:documentation>test</xs:documentation>
+        <xs:appinfo >test</xs:appinfo>
+    </xs:annotation>
+    <xs:element>
+    </xs:element>
+    <xs:annotation t:test="a">
+        <xs:documentation >test</xs:documentation>
+        <xs:appinfo >test</xs:appinfo>
+    </xs:annotation>
+
+    <xs:element>
+    </xs:element>
+
+    <!-- annotation .......................................................................-->
+
+   <!--xs:annotation id="u" t:test="u">
+        <xs:documentation>test</xs:documentation>
+    </xs:annotation>
+    <xs:annotation id="m" t:test="m">
+        <xs:documentation>test</xs:documentation>
+    </xs:annotation>
+    <xs:element>
+    </xs:element>
+    <xs:annotation id="a" t:test="a">
+        <xs:documentation>test</xs:documentation>
+    </xs:annotation-->
+
+   <!-- attribute .......................................................................-->
+    <xs:complexType name="firstTest">
+        <xs:attribute name="a" t:test="a" />
+        <xs:attribute name="m" t:test="m" type="xs:string"/>
+        <xs:attribute name="u" t:test="u" />
+    </xs:complexType>
+
+   <!-- redefine .......................................................................-->
+   <xs:redefine id= "a" schemaLocation="c" t:test="u"/>
+   <xs:redefine id= "b" schemaLocation="c" t:test="m"/>
+   <xs:element />
+   <xs:redefine	id= "c" schemaLocation="c" t:test="a"/>
+
+    <!-- import .......................................................................-->
+    <xs:import 	id= "a" namespace = "b" schemaLocation="c" t:test="u"/>
+    <xs:import 	id= "b" namespace = "b" schemaLocation="c" t:test="m"/>
+    <xs:element />
+    <xs:import 	id= "c" namespace = "b" schemaLocation="c" t:test="a"/>
+
+    <!-- include .......................................................................-->
+    <xs:include id= "a" schemaLocation="c" t:test="u"/>
+    <xs:include id= "b" schemaLocation="c" t:test="m"/>
+    <xs:element />
+    <xs:include	id= "c" schemaLocation="c" t:test="a"/>
+
+    <!-- selector,field .......................................................................-->
+    <xs:element>
+        <xs:keyref name="a" refer="a:b"><xs:selector t:test="a" xpath="fake" /><xs:field t:test="a" xpath="@x"/></xs:keyref>
+    </xs:element>
+    <xs:element>
+        <xs:keyref id="1" name="a" refer="a:b"><xs:selector xpath="fake" t:test="u" /><xs:field xpath="@x" t:test="u" /></xs:keyref>
+    </xs:element>
+    <xs:element>
+        <xs:keyref refer="x:a" name="a" ><xs:selector xpath="fake" t:test="m" /><xs:field xpath="@x" t:test="m" /></xs:keyref>
+    </xs:element>
+    <xs:element>
+    </xs:element>
+
+    <!-- keyref .......................................................................-->
+    <xs:element>
+        <xs:keyref t:test="a" name="a" refer="a:b"><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:keyref>
+    </xs:element>
+    <xs:element>
+        <xs:keyref t:test="u" id="1" name="a" refer="a:b"><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:keyref>
+    </xs:element>
+    <xs:element>
+        <xs:keyref t:test="m" refer="x:a" name="a" ><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:keyref>
+    </xs:element>
+    <xs:element>
+    </xs:element>
+
+    <!-- unique .......................................................................-->
+    <xs:element>
+        <xs:unique t:test="a" name="a" ><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:unique>
+    </xs:element>
+    <xs:element>
+        <xs:unique t:test="u" id="1" name="a" ><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:unique>
+    </xs:element>
+    <xs:element>
+        <xs:unique t:test="m" id="2" name="a" ><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:unique>
+    </xs:element>
+    <xs:element>
+    </xs:element>
+
+    <!-- key .......................................................................-->
+    <xs:element>
+        <xs:key t:test="a" name="a" ><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:key>
+    </xs:element>
+    <xs:element>
+        <xs:key t:test="u" id="1" name="a" ><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:key>
+    </xs:element>
+    <xs:element>
+        <xs:key t:test="m" id="2" name="a" ><xs:selector xpath="fake" /><xs:field xpath="@x"/></xs:key>
+    </xs:element>
+    <xs:element>
+    </xs:element>
+
+    <!-- anyAttribute .......................................................................-->
+    <xs:attributeGroup>
+        <xs:anyAttribute namespace="##targetNamespace" t:test="a" />
+    </xs:attributeGroup>
+    <xs:attributeGroup>
+        <xs:anyAttribute namespace="##targetNamespace" t:test="u" />
+    </xs:attributeGroup>
+    <xs:attributeGroup>
+        <xs:anyAttribute namespace="##targetNamespace" t:test="m" />
+    </xs:attributeGroup>
+    <xs:attributeGroup>
+    </xs:attributeGroup>
+
+    <!-- all .......................................................................-->
+    <xs:element name='testAny'>
+      <xs:complexType>
+       <xs:sequence>
+         <xs:any t:test="u" processContents='lax'/>
+         <xs:any t:test="m" processContents='lax'/>
+       </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+    <xs:element name='testAny2'>
+      <xs:complexType>
+       <xs:sequence>
+         <xs:any t:test="a"/>
+       </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <!-- all .......................................................................-->
+    <xs:complexType name="all1">
+        <xs:all t:test="a"/>
+    </xs:complexType>
+    <xs:complexType name="all2">
+        <xs:all t:test="u"/>
+    </xs:complexType>
+    <xs:complexType name="all3">
+        <xs:all t:test="m"/>
+    </xs:complexType>
+    <xs:complexType name="all4">
+    </xs:complexType>
+
+    <!-- element&attributes.......................................................................-->
+    <xs:complexType name="Model">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+            <xs:documentation source="description">
+         Root type
+      </xs:documentation>
+        </xs:annotation>
+        <xs:all >
+            <xs:element minOccurs="0" type="xs:string" name="ONE" t:test="a">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+            the id
+          </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="TWO" t:test="m">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+          the description
+          </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="TWO2" t:test="u">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+          the description
+          </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="add" t:test="a" />
+        <xs:attribute name="un" t:test="u" />
+        <xs:attribute name="mod" t:test="m" />
+    </xs:complexType>
+
+    <!-- choice .......................................................................-->
+    <xs:complexType name="dta">
+        <xs:choice t:test="a">
+            <xs:element name="a"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="dt">
+    </xs:complexType>
+    <xs:complexType name="t1">
+        <xs:choice t:test="m" maxOccurs="4">
+            <xs:element name="a"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="t1p">
+        <xs:choice t:test="u" >
+            <xs:element name="u"/>
+        </xs:choice>
+    </xs:complexType>
+
+    <!-- sequence .......................................................................-->
+    <xs:complexType name="t2">
+        <xs:sequence t:test="a">
+            <xs:element name="a"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="t3">
+        <xs:sequence t:test="m" maxOccurs="4">
+            <xs:element name="a"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="t3p">
+        <xs:sequence t:test="u">
+            <xs:element name="a"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+
+    <xs:element type="Model" name="project">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+            <xs:documentation source="description">
+         This is the main element of type Project.
+      </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+</xs:schema>

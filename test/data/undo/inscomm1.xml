@@ -1,0 +1,49 @@
+<root a="a">
+  <one a="a">
+	<oneone a="a">
+	</oneone>
+  </one>
+  <two a="a">
+	<twotwo a="a">
+	  <twotwotwo a="a">
+	  </twotwotwo>
+	</twotwo>
+  </two>
+  <!--the comment-->
+  <three a="a">
+  </three>
+  <a1 a="a">
+	<![CDATA[
+one two three CDATA
+one line more]]>
+	<a2 a="a">
+	  text1
+	  <a21 a="a">
+	  text2
+	  </a21>
+	</a2>
+	<b2 a="a">
+	</b2>
+	<c2 a="a">
+	</c2>
+	<d2 a="a">
+	</d2>
+  </a1>
+  <b1 a="a">
+	<a3 a="a">
+	  <a31 a="a">
+	  </a31>
+	</a3>
+	<b3 a="a">
+	</b3>
+	<c3 a="a">
+	</c3>
+	<d3 a="a">
+	</d3>
+  </b1>
+  <c1 a="a">
+  </c1>
+  <d1 a="a">
+  </d1>
+</root>
+<!-- this is a comment on root level-->

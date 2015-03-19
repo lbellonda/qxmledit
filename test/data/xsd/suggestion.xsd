@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns="http://test.test.test/0" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://test.test.test/0">
+
+  <xs:element name="root" type="Root">
+    <xs:annotation>
+      <xs:documentation source="description">
+         elemento root
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  
+  <xs:complexType name="Root">
+    <xs:annotation>
+      <xs:documentation source="description">
+         tipo di elemento root
+      </xs:documentation>
+    </xs:annotation>
+	<!--xs:group ref="group0"/-->
+	<xs:sequence minOccurs="1" maxOccurs="2">
+	  <xs:element name="element1" minOccurs="1" maxOccurs="2" type="type1"/>
+	  <xs:element name="element2" minOccurs="1" maxOccurs="2" type="type2"/>
+          <xs:element ref="referencedElement" minOccurs="1" maxOccurs="2" />
+	</xs:sequence>
+  </xs:complexType>
+
+    <xs:complexType name="type1">
+    <xs:annotation>
+      <xs:documentation source="description">
+         tipo di elemento root
+      </xs:documentation>
+    </xs:annotation>
+	<!--xs:group ref="group0"/-->
+	<xs:sequence minOccurs="1" maxOccurs="2">
+	  <xs:element name="element11" minOccurs="1" maxOccurs="2" />
+	  <xs:element name="element12" minOccurs="1" maxOccurs="2" />
+	</xs:sequence>
+  </xs:complexType>
+
+    <xs:complexType name="type2">
+    <xs:annotation>
+      <xs:documentation source="description">
+         tipo di elemento root
+      </xs:documentation>
+    </xs:annotation>
+	<!--xs:group ref="group0"/-->
+	<xs:sequence minOccurs="1" maxOccurs="2">
+	  <xs:element name="element21" minOccurs="1" maxOccurs="2" />
+	  <xs:element name="element22" minOccurs="1" maxOccurs="2" />
+	</xs:sequence>
+  </xs:complexType>
+  
+  <xs:group name="group0">
+    <xs:annotation>
+      <xs:documentation source="description">
+         sample group
+      </xs:documentation>
+     </xs:annotation>
+	<xs:sequence>
+	  <xs:element name="element0ofGroup"/>
+	  <xs:element name="element1ofGroup"/>
+	  <xs:choice>
+		<xs:element ref="elementRef1"/>
+		<xs:group ref="group1"/>
+	  </xs:choice>
+	</xs:sequence>
+  </xs:group>
+
+  <xs:group name="group1">
+	<xs:sequence>
+	  <xs:element name="element0ofGroup1"/>
+	  <xs:element name="element1ofGroup1"/>
+	  <xs:choice>
+		<xs:element name="element3"/>
+		<xs:sequence>
+			<xs:element name="element4"/>
+			<xs:element name="element5"/>
+		</xs:sequence>
+	  </xs:choice>
+	</xs:sequence>
+  </xs:group>
+  
+  <xs:element name="elementRef1"/>
+
+<xs:element name="referencedElement">
+   <xs:complexType >
+    <xs:annotation>
+      <xs:documentation source="description">
+         elemento referenziato
+      </xs:documentation>
+    </xs:annotation>
+        <!--xs:group ref="group0"/-->
+        <xs:sequence minOccurs="1" maxOccurs="2">
+          <xs:element name="childOfRef1" minOccurs="1" maxOccurs="2" />
+          <xs:element name="childOfRef2" minOccurs="1" maxOccurs="2" />
+        </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

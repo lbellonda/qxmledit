@@ -1,0 +1,72 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://maven.apache.org/POM/4.0.0"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns ="http://www.w3.org/2001/XMLSchema"
+xmlns:a="http://www.w3.org/2001/XMLSchema"
+>
+    <xs:element type="Model" name="e1">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+            <xs:documentation source="description">
+         This is the main element of type Project.
+      </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="Model">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element minOccurs="0" type="xs:string" name="e2">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">this is the version.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="e3">
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="a2"/>
+    </xs:complexType>
+    <complexType name="Model1">
+        <annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+        </annotation>
+        <xs:all>
+            <xs:element minOccurs="0" type="xs:string" name="e2">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">this is the version.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="e3">
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="a2"/>
+    </complexType>
+    <a:complexType name="Model1">
+        <annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+        </annotation>
+        <xs:all>
+            <xs:element minOccurs="0" type="xs:string" name="e2">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">this is the version.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="e3">
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="a2"/>
+    </a:complexType>
+    <xs:complexType name="Plane">
+        <xs:all>
+            <xs:element minOccurs="0" name="e4">
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+    <xs:attribute name="a1">
+    </xs:attribute>
+    <xs:include id="r1" schemaLocation="include2.xsd" />
+</xs:schema>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a a="a">
+text for a
+  <b b="b">text for b
+        <c c="c"><d d="d">text for d</d></c>
+  </b>
+  <b b="2b">2text for b
+        <c c="2c"><d d="2d">2text for d</d></c>
+  </b>
+</a>

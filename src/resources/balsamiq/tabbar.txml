@@ -1,0 +1,2 @@
+<mx:TabBar x="{A:N:x}" y="{A:N:y}" width="{C:N:w}"  id="c_{A:N:controlID}" dataProvider="{{{C:S:DP_NAME}}">
+</mx:TabBar>

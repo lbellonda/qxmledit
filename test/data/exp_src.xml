@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+ <child attr="value" />
+ <a value="œ€&quot;" />
+ <b enc="š&amp;" />
+ <!-- commento -->
+<![CDATA[
+valore=&&&
+]]>
+</root>

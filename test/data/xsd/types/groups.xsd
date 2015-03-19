@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+ <xsd:annotation>
+  <xsd:documentation>Sample document.</xsd:documentation>
+ </xsd:annotation>
+ <xsd:group name="group1">
+  <xsd:sequence>
+   <xsd:element name="el1"/>
+   <xsd:element ref="sample"/>
+  </xsd:sequence>
+ </xsd:group>
+ <xsd:element name="el2">
+  <xsd:complexType>
+   <xsd:sequence>
+    <xsd:element minOccurs="0" type="xsd:string" name="sample-inner"/>
+    <xsd:group ref="group1"/>
+   </xsd:sequence>
+   <xsd:attributeGroup ref="agroup1"/>
+   <xsd:attribute type="xsd:string" name="attribute"/>
+  </xsd:complexType>
+ </xsd:element>
+ <xsd:attributeGroup name="agroup1">
+  <xsd:attribute name="attr1"/>
+  <xsd:attribute ref="attr2"/>
+  <xsd:attribute name="attr3">
+   <xsd:simpleType>
+    <theSimpleType base="xsd:string">
+     <xsd:enumeration value="a"/>
+    </theSimpleType>
+   </xsd:simpleType>
+  </xsd:attribute>
+ </xsd:attributeGroup>
+ <xsd:attribute type="theSimpleType" name="attr2"/>
+ <xsd:element name="sample">
+  <xsd:complexType>
+   <xsd:all>
+    <xsd:element minOccurs="0" type="xsd:string" name="sample-inner"/>
+   </xsd:all>
+   <xsd:attribute type="xsd:string" name="attribute"/>
+  </xsd:complexType>
+ </xsd:element>
+ <xsd:element name="aTest">
+  <xsd:complexType>
+   <xsd:sequence>
+    <xsd:element ref="sample"/>
+   </xsd:sequence>
+  </xsd:complexType>
+ </xsd:element>
+ <xsd:simpleType name="theSimpleType">
+  <xsd:restriction base="xsd:string">
+   <xsd:enumeration value="a"/>
+   <xsd:enumeration value="b"/>
+   <xsd:enumeration value="c"/>
+  </xsd:restriction>
+ </xsd:simpleType>
+</xsd:schema>

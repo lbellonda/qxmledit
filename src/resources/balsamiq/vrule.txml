@@ -1,0 +1,1 @@
+<mx:VRule x="{A:N:x}" y="{A:N:y}" height="{A:N:h}" id="c_{A:N:controlID}" />

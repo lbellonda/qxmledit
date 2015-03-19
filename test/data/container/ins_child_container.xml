@@ -1,0 +1,12 @@
+<a a="a">
+  <b b="b">
+	<testtag>
+	text
+	<e e="e"/>
+	<f f="f">
+	  <g g="g"/>
+	</f>
+	</testtag>
+  </b>
+  <c c="c"/>
+</a>

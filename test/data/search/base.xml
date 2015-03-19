@@ -1,0 +1,69 @@
+<root>
+  <!-- tag name not exact-->
+  <aaaabb>
+	<![CDATA[
+	text in data aaabc
+	  ]]>
+		<!-- attr name not exact-->
+		<child1 att1="aaaabcd">
+		</child1>
+		<!-- attr name not exact-->
+		<child2 att1="aaaa">
+		</child2>
+		<!-- fake -->
+		<child2 att1="aaa">
+		</child2>
+  </aaaabb>
+  <!-- tag name exact-->
+  <aaaa/>
+  <!-- fake-->
+  <aaa/>
+  <!-- fake-->
+  <aaabc/>
+  <!-- in normal text exact -->
+  <b>aaaa</b>
+  <!-- in normal text not exact -->
+  <b>
+   aaaabc
+ </b>
+ <!-- in CDATA exact -->
+  <child>
+        <![CDATA[aaaa]]>
+	</child>
+ <!-- in CDATA not exact -->
+  <child>
+	<![CDATA[
+	text in data aaaabc
+	  ]]>
+	</child>
+ <!-- in CDATA fake -->
+  <child>
+	<![CDATA[
+	text in data aaabc aaa
+	  ]]>
+    </child>
+    <hzz>
+        <ahzz ahzz="hzz">
+            ahzz
+        </ahzz>
+        <bhzz hzz="ahzz">
+            ahzz
+        </bhzz>
+        <chzz h2zz="ah2zz">
+            ah1zz
+        </chzz>
+    </hzz>
+        <three abc="dGV4dCBub3QgZXhhY3Q=">
+	  <ppp/>
+	  <two>
+		<one>
+		  <ppp/>
+		</one>
+	  </two>
+	  <ppp/>
+	  <one b="ppp"/>
+	  <one c="ppp"/>
+	  <one a="ppp"/>
+	</three>
+ dGV4dCBub3QgZXhhY3Q=
+</root>

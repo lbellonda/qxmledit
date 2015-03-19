@@ -1,0 +1,18 @@
+<root>
+  <test test="simple-sequence">
+        <simple-sequence>
+<![CDATA[
+Enumeration:
+ • "item1"
+ • "item2"
+ • "item3"]]></simple-sequence>
+  </test>
+  
+  <test test="innersequence">
+<innersequence>
+<![CDATA[
+Enumeration:
+ • "item1"
+ • "item2"]]></innersequence>
+</test>
+</root>

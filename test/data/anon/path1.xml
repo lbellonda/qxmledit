@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<root>
+ <k:book xmlns:k="ns1" aa="va" >
+    <b ab="vb" xmlns="ns2">
+      <c ac="vc" >
+      <d xmlns="" ad="vd" >
+        <e ae="ve"k:a2e="ve" >text</e>
+       </d>
+      </c>
+      </b>
+    </k:book>
+</root>

@@ -1,0 +1,238 @@
+<RCC>
+    <qresource prefix="/actions">
+        <file>images/document-new.png</file>
+        <file>images/view-refresh.png</file>
+    </qresource>
+    <qresource prefix="/special">
+        <file>images/bookmark.png</file>
+        <file alias="style">images/view-media-visualization.png</file>
+        <file alias="empty">images/empty.png</file>
+        <file alias="warning">images/dialog-warning.png</file>
+    </qresource>
+    <qresource prefix="/arrows">
+        <file>images/go-down.png</file>
+        <file>images/go-up.png</file>
+        <file alias="zoomin.png">images/zoom-in.png</file>
+        <file alias="zoom1.png">images/zoom-original.png</file>
+        <file alias="zoomout.png">images/zoom-out.png</file>
+        <file>images/go-next.png</file>
+        <file>images/go-previous.png</file>
+        <file alias="first">images/go-first-view.png</file>
+        <file alias="last">images/go-last-view.png</file>
+    </qresource>
+    <qresource prefix="/editText">
+        <file alias="edit-find">images/edit-find.png</file>
+        <file>images/edit-clear-locationbar-rtl.png</file>
+        <file alias="searchInFiles">images/system-search.png</file>
+        <file alias="number">images/applications-education-mathematics.png</file>
+        <file alias="group">images/group.png</file>
+        <file alias="filter">images/view-filter.png</file>
+        <file>images/mask.png</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file>images/icon.png</file>
+    </qresource>
+    <qresource prefix="/quit">
+        <file>images/window-close.png</file>
+    </qresource>
+    <qresource prefix="/open">
+        <file>images/document-open.png</file>
+    </qresource>
+    <qresource prefix="/paste">
+        <file>images/edit-paste.png</file>
+    </qresource>
+    <qresource prefix="/copy">
+        <file>images/edit-copy.png</file>
+    </qresource>
+    <qresource prefix="/cut">
+        <file>images/edit-cut.png</file>
+    </qresource>
+    <qresource prefix="/save">
+        <file>images/document-save.png</file>
+    </qresource>
+    <qresource prefix="/save-as">
+        <file>images/document-save-as.png</file>
+    </qresource>
+    <qresource prefix="/arrow-right">
+        <file>images/arrow-right.png</file>
+    </qresource>
+    <qresource prefix="/arrow-down">
+        <file>images/arrow-down.png</file>
+    </qresource>
+    <qresource prefix="/tree">
+        <file alias="pi_icon.png">images/tools-wizard.png</file>
+        <file alias="comm_icon.png">images/im-status-message-edit.png</file>
+        <file alias="ad_icon.png">images/applications-development.png</file>
+        <file alias="el_icon.png">images/text-xml.png</file>
+        <file alias="comm_bk_icon.png">images/im-status-message-edit-bkm.png</file>
+        <file alias="ad_bk_icon.png">images/applications-development-bkm.png</file>
+        <file alias="pi_bkm_icon.png">images/tools-wizard-bkm.png</file>
+        <file alias="el_bkm.png">images/text-xml-bkm.png</file>
+        <file alias="treeOpen">images/tree_open.png</file>
+        <file alias="treeClosed">images/tree_close.png</file>
+        <file>images/text.png</file>
+        <file alias="hidden_children">images/hidden_children.png</file>
+        <file alias="hidden_children_bm">images/hidden_children_bm.png</file>
+        <file alias="show_children">images/show_children.png</file>
+        <file alias="attributesFilter">images/attributesFilter.png</file>
+    </qresource>
+    <qresource prefix="/data">
+        <file alias="test1.xml">resources/test1.xml</file>
+        <file alias="testf.xml">resources/testf.xml</file>
+        <file alias="test2.xml">resources/test2.xml</file>
+        <file alias="unicodeChars.xml">resources/data/unicodeChars.xml</file>
+    </qresource>
+    <qresource prefix="/balsamiq">
+        <file alias="application.txml">resources/balsamiq/application.txml</file>
+        <file alias="button.txml">resources/balsamiq/button.txml</file>
+        <file alias="generic.txml">resources/balsamiq/generic.txml</file>
+        <file alias="onerowdataprovider_end.txml">resources/balsamiq/onerowdataprovider_end.txml</file>
+        <file alias="onerowdataprovider_row.txml">resources/balsamiq/onerowdataprovider_row.txml</file>
+        <file alias="onerowdataprovider_start.txml">resources/balsamiq/onerowdataprovider_start.txml</file>
+        <file alias="linkbar.txml">resources/balsamiq/linkbar.txml</file>
+        <file alias="multirowsdataprovider_start.txml">resources/balsamiq/multirowsdataprovider_start.txml</file>
+        <file alias="multirowsdataprovider_rowcol.txml">resources/balsamiq/multirowsdataprovider_rowcol.txml</file>
+        <file alias="multirowsdataprovider_rowend.txml">resources/balsamiq/multirowsdataprovider_rowend.txml</file>
+        <file alias="multirowsdataprovider_rowstart.txml">resources/balsamiq/multirowsdataprovider_rowstart.txml</file>
+        <file alias="multirowsdataprovider_end.txml">resources/balsamiq/multirowsdataprovider_end.txml</file>
+        <file alias="datagridend.txml">resources/balsamiq/datagridend.txml</file>
+        <file alias="datagridstart.txml">resources/balsamiq/datagridstart.txml</file>
+        <file alias="datagridcolrep.txml">resources/balsamiq/datagridcolrep.txml</file>
+        <file alias="group.txml">resources/balsamiq/group.txml</file>
+        <file alias="list.txml">resources/balsamiq/list.txml</file>
+        <file alias="tabbar.txml">resources/balsamiq/tabbar.txml</file>
+        <file alias="vrule.txml">resources/balsamiq/vrule.txml</file>
+        <file alias="hrule.txml">resources/balsamiq/hrule.txml</file>
+        <file alias="label.txml">resources/balsamiq/label.txml</file>
+        <file alias="combobox.txml">resources/balsamiq/combobox.txml</file>
+        <file alias="textinput.txml">resources/balsamiq/textinput.txml</file>
+        <file alias="paragraph.txml">resources/balsamiq/paragraph.txml</file>
+        <file alias="textarea.txml">resources/balsamiq/textarea.txml</file>
+        <file alias="checkbox.txml">resources/balsamiq/checkbox.txml</file>
+        <file alias="tree.txml">resources/balsamiq/tree.txml</file>
+        <file alias="treeend.txml">resources/balsamiq/treeend.txml</file>
+        <file alias="treerow.txml">resources/balsamiq/treerow.txml</file>
+        <file alias="treerowend.txml">resources/balsamiq/treerowend.txml</file>
+        <file alias="treestart.txml">resources/balsamiq/treestart.txml</file>
+        <file alias="radio.txml">resources/balsamiq/radio.txml</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="edit-delete">images/edit-delete.png</file>
+        <file alias="add">images/add.png</file>
+        <file alias="addbrother">images/add_brother.png</file>
+        <file alias="addchild">images/add_child.png</file>
+    </qresource>
+    <qresource prefix="/qml">
+        <file alias="edit_include.qml">resources/qml/edit_include.qml</file>
+    </qresource>
+    <qresource prefix="/xsdimages">
+        <file alias="base">images/xsd_base.png</file>
+        <file alias="documentinfo">images/documentinfo.png</file>
+        <file alias="link">images/link.png</file>
+        <file alias="link2">images/vcs-locally-modified.png</file>
+        <file alias="sequence">images/sequence.png</file>
+        <file alias="attrIcon">images/attrIcon.png</file>
+        <file alias="attrElement">images/attrElement.png</file>
+        <file alias="attrType">images/attrType.png</file>
+        <file alias="referencesIcon">images/xsdReferencesIcon.png</file>
+        <file alias="attributesIcon">images/xsdAttributesIcon.png</file>
+        <file alias="elementsIcon">images/xsdElementsIcon.png</file>
+        <file alias="typesIcon">images/xsdTypesIcon.png</file>
+        <file alias="simpleTypeIcon">images/xsdSimpleTypesIcon.png</file>
+        <file alias="choice">images/xsd-choice.png</file>
+        <file alias="extra-attributes">images/extra-attributes.png</file>
+        <file>images/zoom-original-xsd.png</file>
+        <file>images/zoom-out-xsd.png</file>
+        <file>images/zoom-in-xsd.png</file>
+        <file>images/show-base-xsd.png</file>
+        <file>images/deps.png</file>
+    </qresource>
+    <qresource prefix="/status">
+        <file alias="explore-mode">images/exploremode.png</file>
+        <file alias="unlocked">images/object-unlocked.png</file>
+        <file alias="locked">images/object-locked.png</file>
+    </qresource>
+    <qresource prefix="/devices">
+        <file alias="printer">images/printer.png</file>
+        <file alias="svg">images/image-svg+xml.png</file>
+        <file alias="pdf">images/application-pdf.png</file>
+    </qresource>
+    <qresource prefix="/configuration">
+        <file alias="style">images/applications-graphics.png</file>
+        <file alias="validation2">images/security-high.png</file>
+        <file alias="general">images/preferences-system.png</file>
+        <file alias="validation">images/validation.png</file>
+        <file alias="document-validate">images/document-validate.png</file>
+        <file alias="sessions">images/sessions_open.png</file>
+        <file alias="editModes">images/draw-path.png</file>
+        <file alias="xmlManagement">images/xml-config.png</file>
+    </qresource>
+    <qresource prefix="/welcome">
+        <file>images/welcome_split.png</file>
+        <file>images/welcome_xml.png</file>
+        <file>images/welcome_schema.png</file>
+        <file>images/view-structure.png</file>
+        <file>images/compare-big.png</file>
+    </qresource>
+    <qresource prefix="/commands">
+        <file>images/help-contents.png</file>
+        <file alias="modify">images/modify.png</file>
+        <file alias="view_columns_1">images/view_columns.png</file>
+        <file alias="view_columns">images/view-file-columns.png</file>
+    </qresource>
+    <qresource prefix="/goto">
+        <file>images/gotoprevbro.png</file>
+        <file>images/gotonextbro.png</file>
+        <file>images/gotoparent.png</file>
+    </qresource>
+    <qresource prefix="/edit">
+        <file alias="redo">images/edit-redo.png</file>
+        <file alias="undo">images/edit-undo.png</file>
+    </qresource>
+    <qresource prefix="/sessions">
+        <file>images/sessions_view.png</file>
+        <file alias="sessionOpen">images/sessions_open.png</file>
+    </qresource>
+    <qresource prefix="/tools">
+        <file>images/split.png</file>
+        <file>images/view-structure-icon.png</file>
+        <file>images/compare.png</file>
+        <file>images/relations.png</file>
+    </qresource>
+    <qresource prefix="/gradients">
+        <file>images/gradient-diagonal.png</file>
+        <file>images/gradient-horizontal.png</file>
+        <file>images/gradient-linear.png</file>
+        <file>images/gradient-radial.png</file>
+        <file>images/gradient-solid.png</file>
+        <file>images/gradient-vertical.png</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>images/wostyle.png</file>
+        <file>images/wstyle.png</file>
+    </qresource>
+    <qresource prefix="/xslt">
+        <file alias="xsltTokens">resources/xslt/tokens.xml</file>
+        <file alias="xsltStyle">resources/xslt/xsltStyle.xml</file>
+    </qresource>
+    <qresource prefix="/templates">
+        <file alias="templateXsl">resources/templates/templateXsl.xml</file>
+        <file alias="templateXsd">resources/templates/templateXsd.xml</file>
+        <file alias="templateFo">resources/templates/templateFo.xml</file>
+        <file alias="templatePOM">resources/templates/templateMavenPOM.xml</file>
+    </qresource>
+    <qresource prefix="/colors">
+        <file alias="sampleData.xml">resources/data/colordata.xml</file>
+    </qresource>
+    <qresource prefix="/license">
+        <file alias="lgplv2.txt">resources/data/LGPLV2.txt</file>
+    </qresource>
+    <qresource prefix="/anon">
+        <file alias="an_ex_ex_r">images/an_exception_excl_rec.png</file>
+        <file alias="an_ex_ex">images/an_exception_excl.png</file>
+        <file alias="an_ex_in_r">images/an_exception_incl_rec.png</file>
+        <file alias="an_ex_in">images/an_exception_incl.png</file>
+        <file alias="an_ex_v_default">images/an_exception_value_default.png</file>
+        <file alias="an_ex_v_fixed">images/an_exception_value_fixed.png</file>
+    </qresource>
+</RCC>

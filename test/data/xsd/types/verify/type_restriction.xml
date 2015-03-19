@@ -1,0 +1,26 @@
+<ElementItem name="RestrictedType">
+    <ContainerItem name="SuperType">
+        <SequenceItem>
+            <ChoiceItem>
+                <ElementItem name="arf"/>
+                <ElementItem name="wads"/>
+                <ElementItem name="wuf"/>
+                <ElementItem name="adsad"/>
+                <ElementItem name="wss"/>
+            </ChoiceItem>
+            <ElementItem name="grr"/>
+            <ElementItem name="gr1"/>
+        </SequenceItem>
+        <AttributeItem name="attr"/>
+    </ContainerItem>
+    <DerivationItem>
+        <SequenceItem>
+            <ChoiceItem>
+                <ElementItem name="arf"/>
+                 <ElementItem name="wuf"/>
+            </ChoiceItem>
+            <ElementItem name="grr"/>
+        </SequenceItem>
+        <AttributeItem name="attr"/>
+    </DerivationItem>
+</ElementItem>

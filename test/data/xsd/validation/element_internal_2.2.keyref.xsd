@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.w3.org/1999/XSL/Transform" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+  <xs:element name="topelement">
+	<xs:complexType>
+	  <xs:sequence>
+              <xs:element name="a" maxOccurs="10">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="a" type="xs:string"/>
+                  </xs:sequence>
+                  <xs:attribute name="a" type="xs:string"/>
+                </xs:complexType>
+                <xs:key name="a">
+                    <xs:selector xpath="a"/>
+                    <xs:field xpath="@a"/>
+                 </xs:key>
+              </xs:element>
+               <xs:element ref="top2">
+                <xs:all>
+                    <xs:element name="aa"/>
+                </xs:all>
+                <xs:keyref name="a" refer="a">
+                    <xs:selector xpath="a"/>
+                    <xs:field xpath="@a"/>
+                </xs:keyref>
+             </xs:element>
+	  </xs:sequence>
+	</xs:complexType>
+  </xs:element> 	
+
+  <xs:element name="top2">
+  </xs:element>
+
+</xs:schema>

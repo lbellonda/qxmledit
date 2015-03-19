@@ -1,0 +1,31 @@
+<ElementItem name="sample2">
+ <AllItem name="">
+   <ElementItem name="id"/>
+   <ElementItem name="group"/>
+   <ElementItem>
+
+      <ContainerItem name="TheType">
+         <AllItem name="">
+            <ElementItem>
+                <ContainerItem name="SuperType">
+                    <AllItem name="">
+                     <ElementItem name="id"/>
+                     <ElementItem name="group"/>
+                     <ElementItem name="bau"/>
+                    </AllItem>
+                </ContainerItem>
+            </ElementItem>
+            <ElementItem name="modelVersion"/>
+            <ElementItem name="group"/>
+            <ElementItem name="aComplex">
+             <SequenceItem>
+               <ElementItem name="wuf"/>
+             </SequenceItem>
+            </ElementItem>
+         </AllItem>
+
+    </ContainerItem>
+   </ElementItem>
+ </AllItem>
+</ElementItem>
+

@@ -1,0 +1,15 @@
+<ElementItem name="extended">
+ <ContainerItem name="base">
+     <ChoiceItem>
+         <ElementItem name="base-inner"/>
+         <ElementItem name="base-inner1"/>
+     </ChoiceItem>
+     <AttributeItem name="attribute-base"/>
+ </ContainerItem>
+ <DerivationItem>
+    <ChoiceItem>
+        <ElementItem name="derived-inner"/>
+    </ChoiceItem>
+    <AttributeItem name="derived-attribute"/>
+  </DerivationItem>
+</ElementItem>

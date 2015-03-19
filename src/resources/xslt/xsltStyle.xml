@@ -1,0 +1,78 @@
+<style name="XSLT" description="XSLT mode" namespace="http://www.w3.org/1999/XSL/Transform">
+    <!--this is a QXmlEdit style file-->
+    <keywords>
+        <keyword keyword="analyze-string" idStyle="1"/>
+        <keyword keyword="apply-templates" idStyle="1"/>
+        <keyword keyword="attribute-set" idStyle="1"/>
+        <keyword keyword="attribute" idStyle="1"/>
+        <keyword keyword="call-template" idStyle="1"/>
+        <keyword keyword="case-order" idStyle="1"/>
+        <keyword keyword="cdata-section-elements" idStyle="1"/>
+        <keyword keyword="choose" idStyle="1"/>
+        <keyword keyword="collation" idStyle="1"/>
+        <keyword keyword="comment" idStyle="1"/>
+        <keyword keyword="copy-namespaces" idStyle="1"/>
+        <keyword keyword="copy-of" idStyle="1"/>
+        <keyword keyword="copy" idStyle="1"/>
+        <keyword keyword="data-type" idStyle="1"/>
+        <keyword keyword="decimal-format" idStyle="1"/>
+        <keyword keyword="declaration" idStyle="1"/>
+        <keyword keyword="document" idStyle="1"/>
+        <keyword keyword="elements" idStyle="1"/>
+        <keyword keyword="element" idStyle="1"/>
+        <keyword keyword="encoding" idStyle="1"/>
+        <keyword keyword="fallback" idStyle="1"/>
+        <keyword keyword="flags" idStyle="1"/>
+        <keyword keyword="for-each" idStyle="1"/>
+        <keyword keyword="for-each-group" idStyle="1"/>
+        <keyword keyword="format" idStyle="1"/>
+        <keyword keyword="function" idStyle="1"/>
+        <keyword keyword="if" idStyle="1"/>
+        <keyword keyword="import-schema" idStyle="1"/>
+        <keyword keyword="import" idStyle="1"/>
+        <keyword keyword="include-content-type" idStyle="1"/>
+        <keyword keyword="include" idStyle="1"/>
+        <keyword keyword="instruction" idStyle="1"/>
+        <keyword keyword="input-type-annotations" idStyle="1"/>
+        <keyword keyword="key" idStyle="1"/>
+        <keyword keyword="matching-substring" idStyle="1"/>
+        <keyword keyword="message" idStyle="1"/>
+        <keyword keyword="method" idStyle="1"/>
+        <keyword keyword="mode" idStyle="1"/>
+        <keyword keyword="namespace" idStyle="1"/>
+        <keyword keyword="name" idStyle="1"/>
+        <keyword keyword="non-matching-substring" idStyle="1"/>
+        <keyword keyword="normalization-form" idStyle="1"/>
+        <keyword keyword="order" idStyle="1"/>
+        <keyword keyword="otherwise" idStyle="1"/>
+        <keyword keyword="output" idStyle="1"/>
+        <keyword keyword="output-version" idStyle="1"/>
+        <keyword keyword="override" idStyle="1"/>
+        <keyword keyword="param" idStyle="1"/>
+        <keyword keyword="perform-sort" idStyle="1"/>
+        <keyword keyword="preserve-space" idStyle="1"/>
+        <keyword keyword="processing-instruction" idStyle="1"/>
+        <keyword keyword="result-document" idStyle="1"/>
+        <keyword keyword="select" idStyle="1"/>
+        <keyword keyword="sequence" idStyle="1"/>
+        <keyword keyword="sort" idStyle="1"/>
+        <keyword keyword="strip-space" idStyle="1"/>
+        <keyword keyword="stylesheet" idStyle="1"/>
+        <keyword keyword="template" idStyle="1"/>
+        <keyword keyword="text" idStyle="1"/>
+        <keyword keyword="transform" idStyle="1"/>
+        <keyword keyword="value-of" idStyle="1"/>
+        <keyword keyword="variable" idStyle="1"/>
+        <keyword keyword="when" idStyle="1"/>
+        <keyword keyword="with-param" idStyle="1"/>
+    </keywords>
+    <styles>
+        <style id="1" bold="true" />
+    </styles>
+    <ids>
+        <id id="name" alpha="true"/>
+        <id id="test" alpha="true"/>
+        <id id="select" alpha=""/>
+        <id id="match" alpha=""/>
+    </ids>
+</style>

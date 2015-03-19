@@ -1,0 +1,22 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
+  targetNamespace="http://test.test.test/0" 
+  xmlns="http://test.test.test/0">
+  
+  <xs:redefine id="include" schemaLocation="redefined.xsd" >
+	<xs:complexType name="redef">
+	  <xs:sequence>
+		<xs:element name="unonew"/>
+		<xs:element name="duenew"/>
+	  </xs:sequence>
+	</xs:complexType>
+ </xs:redefine>
+  
+  <xs:element name="original" >
+    <xs:annotation>
+      <xs:documentation source="description">
+         elemento 1
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+</xs:schema>

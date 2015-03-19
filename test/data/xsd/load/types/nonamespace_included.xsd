@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <xsd:annotation>
+    <xsd:documentation>Sample document.</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:include id="include" schemaLocation="nonamespace_included2.xsd" />
+
+  <xsd:element name="elemento2">
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+      </xsd:all>
+      <xsd:attribute name="attribute" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+   <xsd:attribute name="attr2" type="xsd:string" />
+
+  <xsd:attribute name="attr2.2" type="xsd:string" />
+
+    <xsd:attributeGroup name="ag2">
+        <xsd:attribute name="ag1attr2" type="xsd:string" use="optional"/>
+    </xsd:attributeGroup>
+
+    <xsd:attributeGroup name="ag2.2">
+        <xsd:attribute name="ag2attr1" type="xsd:string" use="optional"/>
+    </xsd:attributeGroup>
+
+    <xsd:complexType name="type2">
+        <xsd:all>
+            <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+        </xsd:all>
+        <xsd:attribute name="attribute" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="type2.2">
+        <xsd:all>
+            <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+        </xsd:all>
+        <xsd:attribute name="attribute" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:group name="group2">
+      <xsd:sequence>
+          <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+    </xsd:group>
+
+  <xsd:group name="group2.2">
+    <xsd:sequence>
+        <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+</xsd:schema>

@@ -1,0 +1,46 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://sample.sample.sample" xmlns="http://sample.sample.sample" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include id="r1" schemaLocation="include2.xsd" />
+    <xs:element type="Model" name="e1">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+            <xs:documentation source="description">
+         This is the main element of type Project.
+      </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="Model">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element minOccurs="0" type="xs:string" name="e2">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">this is the version.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="e3">
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="a2"/>
+    </xs:complexType>
+    <xs:complexType name="Plane">
+        <xs:all>
+            <xs:element minOccurs="0" name="e4">
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+    <xs:attribute name="a1">
+    </xs:attribute>
+
+    <xs:attributeGroup name="agg3" >
+        <xs:attribute name="ag3a1" default="item1"/>
+    </xs:attributeGroup>
+
+    <xs:group name="group1">
+      <xs:sequence>
+          <xs:element name="sample-inner" type="xs:string" minOccurs="0"/>
+      </xs:sequence>
+    </xs:group>
+</xs:schema>

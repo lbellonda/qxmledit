@@ -1,0 +1,15 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
+  targetNamespace="http://test.test.test/0" 
+  xmlns="http://test.test.test/0">
+  
+  <xs:include id="include" schemaLocation="included.xsd" />
+  
+  <xs:element name="original" >
+    <xs:annotation>
+      <xs:documentation source="description">
+         elemento 1
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+</xs:schema>

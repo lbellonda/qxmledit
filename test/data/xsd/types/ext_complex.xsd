@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+ <xsd:annotation>
+  <xsd:documentation>Complex types extension.</xsd:documentation>
+ </xsd:annotation>
+
+ <xsd:element name="extended">
+     <xsd:complexType mixed="true">
+      <xsd:complexContent mixed="true">
+        <xsd:extension base="base">
+            <xsd:choice minOccurs="0" maxOccurs="unbounded" >
+             <xsd:element type="xsd:string" name="derived-inner"/>
+            </xsd:choice>
+            <xsd:attribute type="xsd:string" name="derived-attribute"/>
+        </xsd:extension>
+      </xsd:complexContent>
+     </xsd:complexType>
+    </xsd:element>
+
+  <xsd:complexType name="base" mixed="true">
+   <xsd:choice minOccurs="0" maxOccurs="unbounded" >
+    <xsd:element minOccurs="0" type="xsd:string" name="base-inner"/>
+    <xsd:element minOccurs="0" type="xsd:string" name="base-inner1"/>
+   </xsd:choice>
+   <xsd:attribute type="xsd:string" name="attribute-base"/>
+  </xsd:complexType>
+
+<!--
+  <xsd:complexType name="baseComplex" mixed="true">
+   <xsd:choice minOccurs="0" maxOccurs="unbounded" >
+    <xsd:element minOccurs="0" type="xsd:string" name="base-inner"/>
+    <xsd:element ref="sample"/>
+   </xsd:choice>
+   <xsd:attribute type="xsd:string" name="attribute-base-complex"/>
+  </xsd:complexType>
+
+
+ <xsd:element name="sample">
+  <xsd:complexType>
+   <xsd:all>
+    <xsd:element minOccurs="0" type="xsd:string" name="sample-inner"/>
+   </xsd:all>
+   <xsd:attribute type="xsd:string" name="attribute"/>
+  </xsd:complexType>
+ </xsd:element>
+-->
+
+</xsd:schema>

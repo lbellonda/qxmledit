@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="163" width="190">
+	<image id="svgImage" xlink:href="../svggen/animate-elem-02-t.svg" height="60" width="80" y="77" x="10" />
+	<image id="refImage" xlink:href="../png/tiny-animate-elem-02-t.png" height="60" width="80" y="77" x="100" />
+	<g font-weight="bold" font-size="12" text-anchor="middle" fill="white">
+		<rect x="10" y="25" width="170" height="25" fill="black" />
+		<text id="testName" y="43" x="95" text-anchor="middle" font-size="14" >animate-elem-02-t</text>
+		<rect x="10" y="51" width="80" height="25" fill="#aaaaaa" />
+		<text x="50" y="68" text-anchor="middle">SVG Image</text>
+		<rect x="100" y="51" width="80" height="25" fill="#aaaaaa" />
+		<text x="140" y="68" text-anchor="middle">PNG Image</text>
+		<use xlink:href="#navigationGroup" />
+		<g id="navigationGroup" font-weight="bold" fill="#aaaaaa" >
+			<a xlink:href="tiny-text-ws-02-t.svg">
+				<text y="16" x="10" text-anchor="start" >Previous</text>
+			</a>
+			<a xlink:href="../svggen/animate-elem-02-t.svg">
+				<text y="16" x="85" text-anchor="start" >No Nav</text>
+			</a>
+			<a xlink:href="tiny-animate-elem-03-t.svg">
+				<text y="16" x="150" text-anchor="start" >Next</text>
+			</a>
+			<a xlink:href="full-animate-elem-02-t.svg">
+				<text y="154" x="10" text-anchor="start" >Full</text>
+			</a>
+			<a xlink:href="basic-animate-elem-02-t.svg">
+				<text y="154" x="75" text-anchor="start" >Basic</text>
+			</a>
+		</g>
+	</g>
+</svg>

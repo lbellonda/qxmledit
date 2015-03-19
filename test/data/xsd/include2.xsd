@@ -1,0 +1,12 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" 
+  targetNamespace="http://test.test.test/0" 
+  xmlns="http://test.test.test/0">
+  <xs:element name="included2" >
+    <xs:annotation>
+      <xs:documentation source="description">
+         elemento incluso
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+</xs:schema>

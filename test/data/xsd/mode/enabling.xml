@@ -1,0 +1,88 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="test" xmlns="test" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <xs:element type="COMPLEXTYPE" name="ELEMENT">
+  <a/>
+ </xs:element>
+ <xs:complexType name="COMPLEXTYPE">
+  <xs:sequence>
+   <xs:element minOccurs="0" type="TYPE" name="ELEMENT"/>
+  </xs:sequence>
+ </xs:complexType>
+ <xs:simpleType name="Contributor">
+  <a/>
+ </xs:simpleType>
+ <xs:attribute name="ATTR">
+  <a/>
+ </xs:attribute>
+ <xs:attributeGroup>
+  <a/>
+ </xs:attributeGroup>
+ <xs:extension>
+  <a/>
+ </xs:extension>
+ <xs:restriction>
+  <a/>
+ </xs:restriction>
+ <fortype>
+  <a>
+   <a/>
+  </a>
+  <xs:schema>
+   <a/>
+  </xs:schema>
+  <xs:redefine>
+   <a/>
+  </xs:redefine>
+  <xs:attribute>
+   <a/>
+  </xs:attribute>
+  <xs:element>
+   <a/>
+  </xs:element>
+  <xs:list>
+   <a/>
+  </xs:list>
+  <xs:restriction>
+   <a/>
+  </xs:restriction>
+  <xs:union>
+   <a/>
+  </xs:union>
+ </fortype>
+ <forelment>
+  <a>
+   <a/>
+  </a>
+  <xs:schema>
+   <a/>
+  </xs:schema>
+  <xs:choice>
+   <a/>
+  </xs:choice>
+  <xs:sequence>
+   <a/>
+  </xs:sequence>
+  <xs:all>
+   <a/>
+  </xs:all>
+ </forelment>
+ <formod>
+  <a>
+   <a/>
+  </a>
+  <xs:attribute>
+   <a/>
+  </xs:attribute>
+  <xs:complexType name="COMPLEXTYPE">
+   <xs:sequence>
+    <xs:element minOccurs="0" type="TYPE" name="ELEMENT"/>
+   </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Contributor">
+   <a/>
+  </xs:simpleType>
+  <xs:element type="COMPLEXTYPE" name="ELEMENT">
+   <a/>
+  </xs:element>
+ </formod>
+</xs:schema>

@@ -1,0 +1,36 @@
+<ElementItem name="el2">
+    <SequenceItem>
+        <ElementItem name="sample-inner"/>
+        <GroupItem name="">
+            <ContainerItem name="group1">
+                <SequenceItem>
+                    <ElementItem name="el1"/>
+                    <ElementItem>
+                        <ContainerItem name="sample">
+                            <AllItem>
+                                <ElementItem name="sample-inner"/>
+                            </AllItem>
+                            <AttributeItem name="attribute"/>
+                        </ContainerItem>
+                    </ElementItem>
+                </SequenceItem>
+            </ContainerItem>
+        </GroupItem>
+    </SequenceItem>
+    <AttributeGroupItem>
+        <ContainerItem name="agroup1">
+            <AttributeItem name="attr1"/>
+            <AttributeItem>
+                <ContainerItem name="attr2">
+                    <AttributeItem name="attr2">
+                        <ContainerItem name="theSimpleType">
+                            <RestrictionItem name=""/>
+                        </ContainerItem>
+                    </AttributeItem>
+                </ContainerItem>
+            </AttributeItem>
+            <AttributeItem name="attr3"/>
+        </ContainerItem>
+    </AttributeGroupItem>
+    <AttributeItem name="attribute"/>
+</ElementItem>

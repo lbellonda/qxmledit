@@ -1,0 +1,38 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" xmlns="http://maven.apache.org/POM/4.0.0" targetNamespace="http://maven.apache.org/POM/4.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+ <xs:complexType name="Parent">
+  <xs:annotation>
+   <xs:documentation source="version">4.0.0</xs:documentation>
+  </xs:annotation>
+  <xs:sequence maxOccurs="unbounded" minOccurs="1">
+   <xs:element type="xs:string" minOccurs="0" name="artifactId">
+    <xs:annotation>
+     <xs:documentation source="version">4.0.0</xs:documentation>
+     <xs:documentation source="description">The artifact id of the parent project to inherit from.</xs:documentation>
+    </xs:annotation>
+   </xs:element>
+   <xs:element name="simple">
+      <xs:annotation>
+       <xs:documentation source="version">4.0.0</xs:documentation>
+      </xs:annotation>
+      <xs:complexType>
+        <xs:sequence>
+            <xs:element name="value"/>
+        </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+  </xs:sequence>
+ </xs:complexType>
+
+  <xs:element name="referenced"/>
+ <xs:element type="Parent" name="parent">
+  <xs:annotation>
+   <xs:documentation source="version">4.0.0</xs:documentation>
+   <xs:documentation source="description">
+            The location of the parent project, if one exists. Values from the
+            parent project will be the default for this project if they are
+            left unspecified. The location is given as a group ID, artifact ID and version.
+          </xs:documentation>
+  </xs:annotation>
+ </xs:element>
+</xs:schema>

@@ -1,0 +1,9 @@
+<root>
+  <a a="a">
+	<b c1="c1d" a1="a1d" b1="b1d" />
+	<b  c1="c1d" a1="a1d" />
+	<b b1="b1d" a1="a1d" >
+	  <c  a2="a2d" b2="b2d" c2="c2d" />
+	</b>
+  </a>
+</root>

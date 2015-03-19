@@ -1,0 +1,8 @@
+<?xml version="1.0" standalone="yes" ?>
+<!DOCTYPE entities [
+  <!ELEMENT entity (#PCDATA)>
+  <!ENTITY  lb "L B">
+]>
+<root>
+    <entity>&lb;</entity>
+</root>

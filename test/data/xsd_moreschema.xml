@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<!-- this sample taken from specifications -->
+<root xmlns="http://www.test.test/test"
+            xmlns:html="http://www.test.test/1999/xhtml"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.test.test/test
+                                test.xsd
+                                http://www.test.test/1999/xhtml
+                                http://www.test.test/1999/xhtml.xsd">
+	  <a>
+		</a>
+</root>

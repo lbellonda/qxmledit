@@ -1,0 +1,29 @@
+<root a="a">
+    <one a="a">
+        <oneone a="a"/>
+    </one>
+    <three a="a"/>
+    <a1 a="a">
+        <a2 a="a">
+            <a21 a="a"/>
+        </a2>
+        <b2 a="a"/>
+        <c2 a="a"/>
+        <d2 a="a"/>
+    </a1>
+    <two a="a">
+        <twotwo a="a">
+            <twotwotwo a="a"/>
+        </twotwo>
+    </two>
+    <b1 a="a">
+        <a3 a="a">
+            <a31 a="a"/>
+        </a3>
+        <b3 a="a"/>
+        <c3 a="a"/>
+        <d3 a="a"/>
+    </b1>
+    <c1 a="a"/>
+    <d1 a="a"/>
+</root>

@@ -1,0 +1,3 @@
+<mx:DataGrid x="{A:N:x}" y="{A:N:y}" width="{C:N:w}" height="{C:N:h}"  id="c_{A:N:controlID}" dataProvider="{{{C:S:DP_NAME}}">
+<mx:columns>
+

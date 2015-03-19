@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<root >
+    <element>
+        <annotation>
+            <documentation>sample annotation</documentation>
+		  </annotation>
+        <complexType>
+		</complexType>
+	  </element>
+</root>

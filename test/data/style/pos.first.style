@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit style file -->
+<style name="Log" description="log test style">
+
+
+    <keywords>
+     <ruleSet idStyle="posFirst">
+                <rule value="first" op="eq" type="p" />
+     </ruleSet>
+    </keywords>
+ 
+    <styles>
+     <style id="1" />
+     <style id="posFirst" />
+      <default>
+        <style id="default" color="C0C0C0" size="8" font="Arial" bold="false" italic="true"/>
+     </default>
+    </styles>
+
+
+</style>

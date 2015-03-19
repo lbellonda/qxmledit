@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
+
+   <fo:layout-master-set>
+      <fo:simple-page-master master-name="odd-page" page-width="21cm" page-height="29.7cm"
+            margin-right="5mm" margin-left="5mm" margin-top="5mm" margin-bottom="5mm">
+
+         <fo:region-body margin-bottom="25mm" margin-right="5mm" margin-left="5mm" margin-top="5mm"/>
+         <fo:region-after extent="20mm"/>
+      </fo:simple-page-master>
+
+      <fo:simple-page-master master-name="even-page" page-width="21cm" page-height="29.7cm"
+            margin-right="5mm" margin-left="5mm" margin-top="5mm" margin-bottom="5mm">
+
+         <fo:region-body margin-bottom="25mm" margin-right="5mm" margin-left="5mm" margin-top="5mm"/>
+         <fo:region-after extent="20mm"/>
+      </fo:simple-page-master>
+
+      <fo:page-sequence-master master-name="A4">
+         <fo:repeatable-page-master-alternatives>
+            <fo:conditional-page-master-reference master-reference="odd-page" odd-or-even="odd"/>
+            <fo:conditional-page-master-reference master-reference="even-page" odd-or-even="even"/>
+         </fo:repeatable-page-master-alternatives>
+      </fo:page-sequence-master>
+   </fo:layout-master-set>
+
+   <fo:page-sequence master-reference="A4">
+      <fo:static-content flow-name="xsl-region-after">
+        <fo:block border="solid 1pt #000000">Sample static flow</fo:block>
+      </fo:static-content>
+      <fo:flow flow-name="xsl-region-body">
+         <fo:block>Sample flow</fo:block>
+      </fo:flow>
+   </fo:page-sequence>
+
+</fo:root>

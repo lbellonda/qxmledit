@@ -1,0 +1,12 @@
+<ElementItem name="mysample">
+<SequenceItem>
+<ElementItem name="">
+<ContainerItem name="sample">
+  <AllItem name="">
+     <ElementItem name="sample-inner"/>
+  </AllItem>
+  <AttributeItem name="attribute"/>
+</ContainerItem>
+</ElementItem>
+</SequenceItem>
+</ElementItem>

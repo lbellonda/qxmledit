@@ -1,0 +1,8 @@
+<root>
+  <one a1="aa1" a2="aa2" a3="aa3"/>
+  <two a1="aa1" a2="xa2" a4="aa4"/>
+  <three a1="aa1" a2="aa2" a3="aa3"/>
+  <four>
+	<one a1="xaa1" a2="xaa2" a3="xaa3"/>
+  </four>
+</root>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DataWidget</class>
+ <widget class="QWidget" name="DataWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>609</width>
+    <height>495</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <action name="actionCopyDataToClipboard">
+   <property name="text">
+    <string>Copy Data to Clipboard</string>
+   </property>
+  </action>
+  <action name="actionExtractThisFragment">
+   <property name="text">
+    <string>Extract This Fragment...</string>
+   </property>
+  </action>
+  <action name="actionCopyPathToClipboard">
+   <property name="text">
+    <string>Copy Path to the Clipboard</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

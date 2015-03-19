@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.w3.org/1999/XSL/Transform" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:complexType mixed="true" name="type1" ref="a">
+        <xs:attribute type="xsl:tipo1" name="attr1"/>
+    </xs:complexType>
+    <xs:simpleType name="type1">
+        <xs:annotation>
+            <xs:documentation>
+      Describes something.
+    </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:token">
+            <xs:enumeration value="preserve"/>
+            <xs:enumeration value="strip"/>
+            <xs:enumeration value="unspecified"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

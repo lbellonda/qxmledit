@@ -1,0 +1,21 @@
+<ElementItem name="TheType">
+<AllItem name="">
+    <ElementItem ref="parent">
+    <ContainerItem name="SuperType">
+        <AllItem name="">
+        <ElementItem name="id"/>
+        <ElementItem name="group"/>
+        <ElementItem >
+        </ElementItem>
+        </AllItem>
+    </ContainerItem>
+    </ElementItem>
+    <ElementItem name="modelVersion"/>
+    <ElementItem name="group"/>
+    <ElementItem name="aComplex">
+        <SequenceItem>
+        <ElementItem name="wuf"/>
+        </SequenceItem>
+  </ElementItem>
+</AllItem>
+</ElementItem>

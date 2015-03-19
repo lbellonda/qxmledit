@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:x="imp1" targetNamespace="imp1" xmlns:i="imp2">
+
+  <xsd:annotation>
+    <xsd:documentation>Sample document.</xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:import id="import" schemaLocation="e.p_a_i_p.xsd" namespace="imp2" />
+
+  <xsd:element name="elementod">
+    <xsd:complexType>
+      <xsd:all>
+        <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+      </xsd:all>
+      <xsd:attribute name="attribute" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+
+   <xsd:attribute name="attrd" type="xsd:string" />
+
+    <xsd:attributeGroup name="agd">
+        <xsd:attribute name="ag1attra" type="xsd:string" use="optional"/>
+    </xsd:attributeGroup>
+
+    <xsd:complexType name="typed">
+        <xsd:all>
+            <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+        </xsd:all>
+        <xsd:attribute name="attribute" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:group name="groupd">
+      <xsd:sequence>
+          <xsd:element name="sample-inner" type="xsd:string" minOccurs="0"/>
+      </xsd:sequence>
+    </xsd:group>
+
+</xsd:schema>

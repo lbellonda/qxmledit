@@ -1,0 +1,18 @@
+<root>
+  <abc>
+	<abc a2="4">
+	  <t1 a1="2">
+		<zero />
+		<one b="ab"/>
+		<two b="abc"/>
+		<three b="ab" />
+		<four b="ab" />
+	  </t1>
+	</abc>
+  </abc>
+  <X a3="8" />
+  <Abc/>
+  <d a1=""/>
+  
+  
+</root>

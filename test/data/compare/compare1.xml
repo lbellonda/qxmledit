@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <a attr1="one_c" attr21="two" attrEqual="equal">
+	<c attr3="three" attr4="four"/>
+  </a>
+</root>

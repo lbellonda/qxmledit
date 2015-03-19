@@ -1,0 +1,1 @@
+<mx:HRule x="{A:N:x}" y="{A:N:y}" width="{A:N:w}" id="c_{A:N:controlID}" />

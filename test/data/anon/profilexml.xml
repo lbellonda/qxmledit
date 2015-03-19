@@ -1,0 +1,22 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<profile useNamespace="false">
+ <params mode="1" useFixedLetter="false" />
+ <exceptions>
+  <exception criteria="0" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="0"/>
+  <exception criteria="0" path="/a/b/c" fixedValue="123" useNamespace="true" anonType="0"/>
+
+  <exception criteria="0" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="0"/>
+  <exception criteria="0" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="1"/>
+  <exception criteria="0" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="2"/>
+  <exception criteria="1" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="0"/>
+  <exception criteria="1" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="1"/>
+  <exception criteria="1" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="2"/>
+  <exception criteria="2" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="0"/>
+  <exception criteria="2" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="1"/>
+  <exception criteria="2" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="2"/>
+  <exception criteria="3" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="0"/>
+  <exception criteria="3" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="1"/>
+  <exception criteria="3" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="2"/>
+
+ </exceptions>
+</profile>

@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="session_closed">resources/session_closed.png</file>
+        <file alias="session_paused">resources/session_paused.png</file>
+        <file alias="session_open">resources/sessions_open.png</file>
+    </qresource>
+    <qresource prefix="/mime">
+        <file alias="xml">resources/mime/text-xml.png</file>
+        <file alias="generic">resources/mime/text-x-generic.png</file>
+        <file alias="folder">resources/mime/folder.png</file>
+        <file alias="xsd">resources/mime/application-xsd.png</file>
+    </qresource>
+    <qresource prefix="/images16">
+        <file alias="session_closed">resources/session_closed_16.png</file>
+        <file alias="session_paused">resources/session_paused_16.png</file>
+        <file alias="session_open">resources/sessions_open_16.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- type recirsive -->
+<!--
+
+a - b - c - a
+  + - c - a
+  + - d - b - a
+  + - e - e
+
+f - f
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+ <xsd:annotation>
+  <xsd:documentation>Sample document.</xsd:documentation>
+ </xsd:annotation>
+ <xsd:element name="a" type="a"/>
+ <xsd:complexType name="c">
+  <xsd:sequence>
+   <xsd:element name="a" minOccurs="0" type="a"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="b">
+  <xsd:sequence>
+   <xsd:element name="c" minOccurs="0" type="c"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="a">
+  <xsd:sequence>
+   <xsd:element name="b" minOccurs="0" type="b"/>
+   <xsd:element name="c" minOccurs="0" type="c"/>
+   <xsd:element name="d" minOccurs="0" type="d"/>
+   <xsd:element name="e" minOccurs="0" type="e"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="d">
+  <xsd:sequence>
+   <xsd:element name="b" minOccurs="0" type="b"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="e">
+  <xsd:sequence>
+   <xsd:element name="e" minOccurs="0" type="e"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="ft">
+  <xsd:sequence>
+   <xsd:element minOccurs="0" ref="f"/>
+  </xsd:sequence>
+ </xsd:complexType>
+ <xsd:element name="f">
+  <xsd:complexType>
+   <xsd:sequence>
+    <xsd:element name="f" minOccurs="0" type="ft"/>
+   </xsd:sequence>
+  </xsd:complexType>
+ </xsd:element>
+</xsd:schema>

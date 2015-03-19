@@ -1,0 +1,1 @@
+<mx:RadioButton x="{A:N:x}" y="{A:N:y}"  width="{C:N:w}" height="{C:N:h}" id="radio_{A:N:controlID}" label="{P:S:text}"  />

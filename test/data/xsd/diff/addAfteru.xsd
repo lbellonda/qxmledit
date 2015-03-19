@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://maven.apache.org/POM/4.0.0" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:t="test" t:test="test">
+
+        <xs:element minOccurs="0" type="xs:string" name="ONE">
+            <xs:annotation>
+                <xs:documentation source="version">1.0</xs:documentation>
+                <xs:documentation source="description">
+        the id
+      </xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" type="xs:string" name="TWO">
+            <xs:annotation>
+                <xs:documentation source="version">1.0</xs:documentation>
+                <xs:documentation source="description">
+      the description
+      </xs:documentation>
+            </xs:annotation>
+        </xs:element>
+</xs:schema>

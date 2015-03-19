@@ -1,0 +1,18 @@
+<root>
+  <a attr="uno"/>
+testo1x
+  <abc>
+	testo 2a testo 2b
+	testo 2cx
+	  <!-- comment 1x-->
+  </abc>
+<![CDATA[
+row 1 of cdata
+row 2 of cdata
+row 3 of cdatax
+]]>
+  <x>
+  <!-- multiline comment 1
+  line 2x -->
+  </x>
+</root>

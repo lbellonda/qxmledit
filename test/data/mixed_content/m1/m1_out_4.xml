@@ -1,0 +1,11 @@
+<?xml version='1.0' standalone='yes'?>
+<root>
+     <items>
+            <location>where</location>
+            <name>the name</name>
+             <text>final text</text>
+     </items>
+<!--
+comment
+ -->
+</root>

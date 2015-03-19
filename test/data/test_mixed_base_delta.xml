@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+    <elementCData><![CDATA[
+    a cdata section
+    ]]></elementCData>
+    <a/>
+    <b> text in B
+  </b>
+    <c>
+    some text here
+        <d>
+text in D
+    <childOfD attribute="test">a</childOfD>
+other text in Da
+    </d>
+    </c>
+    <!-- a comment -->
+    <anEntity>
+    text&amp;otherText
+  </anEntity>
+</root>

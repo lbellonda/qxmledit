@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="yes" ?>
+<root>
+  <a1 a1="a1v" a2="a2v">
+	<!-- comment -->
+	<b2 a3="a3v" a4="a4v">
+	  <c1 a5="a5v"/>
+	  <c2  a6="a6v"/>
+	</b2>
+  </a1>
+</root>

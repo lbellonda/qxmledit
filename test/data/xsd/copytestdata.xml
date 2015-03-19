@@ -1,0 +1,51 @@
+<root>
+  <test test="root-simple-element">
+	<root-simple-element/>
+  </test>
+  <test test="simple-complex-type-element">
+	<simple-complex-type-element attr1="xs:string"/>
+  </test>
+  <test test="complex-type-element-with-attributes">
+        <complex-type-element-with-attributes attr1="xs:string" attr2="xs:int" attr3="_default_" />
+  </test>
+  <test test="complex-type-element-with-attributes-required">
+	<complex-type-element-with-attributes-required attr1="xs:string" attr2="xs:int" attr3="_default_"/>
+  </test>
+  <test test="complex-type-element-with-attributes-with-type">
+	<complex-type-element-with-attributes-with-type attr1="item1|item2" attr2="xs:int" attr3="_default_"/>
+  </test>
+  <test test="complex-type-element-with-attributes-ref-type">
+	<complex-type-element-with-attributes-ref-type attr2="xs:int" attr3="_default_" attr1="item3|item4"/>
+  </test>
+  <test test="complex-type-element-with-attributes-ref-attr">
+	<complex-type-element-with-attributes-ref-attr attr2="xs:int" attr3="_default_" attr1ref="itema|itemb"/>
+  </test>
+  <test test="complex-type-element-with-attributes-with-type-default">
+	<complex-type-element-with-attributes-with-type-default attr2="xs:int" attr3="_default_" attr1="item1 |item1|item2"/>
+  </test>
+  <test test="element-reference-complex-type">
+	<element-reference-complex-type attr2="xs:int" attr3="_default_" attr1="item1 |item1|item2" />
+  </test>
+  <test test="complex-type-element-ref-with-attributes">
+	<complex-type-element-ref-with-attributes attr2="xs:int" attr3="_default_" attr1ref="itema|itemb" />
+  </test>
+  <test test="complex-type-element-extension">
+        <complex-type-element-extension attrtype1="xs:string" attr2="xs:int"  attr1="item1 |item1|item2" />
+  </test>
+
+  <test test="complex-type-element-attributegroup">
+        <complex-type-element-attributegroup attr20="xs:int" item1ag1="item1ag1d |item1|item2|item1ag1d" attr2a="xs:int" ag2a1="item1"
+    ag3a1="item1" attr10="item10-1|item11-1" attr11="item11 |item11|item12" attrtype1="xs:string" />
+  </test>
+
+  <test test="el-ref-for-attributegroups">
+        <el-ref-for-attributegroups attr2xs="xs:int" item1ag1="item1ag1d |item1|item2|item1ag1d" attr2a="xs:int" ag2a1="item1"
+        ag3a1="item1" attr10="item10-1|item11-1" attr11="item11 |item11|item12" attrtype1="xs:string" ag2a1="item1"/>
+  </test>
+
+  <test test="el-type-for-attributegroup">
+        <el-type-for-attributegroup attr2p="xs:int" item1ag1="item1ag1d |item1|item2|item1ag1d" attr2a="xs:int" ag2a1="item1"
+        ag3a1="item1" attr10="item10-1|item11-1" attr11="item11 |item11|item12" attrtype1="xs:string" ag2a1="item1"/>
+  </test>
+
+</root>

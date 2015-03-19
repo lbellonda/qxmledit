@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit style file -->
+<style name="Log" description="log test style">
+
+
+    <keywords>
+     <ruleSet idStyle="styleOr">
+        <ruleSet connector="or">
+		  <rule entity="element" value="one" op="eq"/>
+		  <rule  name="b" value="ab" op="eq"/>
+		</ruleSet>
+     </ruleSet>
+    </keywords>
+ 
+    <styles>
+     <style id="styleOr" />
+     <style id="2" />
+      <default>
+        <style id="default" color="C0C0C0" size="8" font="Arial" bold="false" italic="true"/>
+     </default>
+    </styles>
+
+
+</style>

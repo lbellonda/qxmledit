@@ -1,0 +1,4 @@
+<mx:CheckBox x="{A:N:x}" y="{A:N:y}"  id="lbl_{A:N:controlID}" label="{P:S:text}" />
+
+
+

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<a>
+ <b1>
+  <!--comment-->
+<?target data?>
+  <c1 xmlns:nb="anamespace_nb" xmlns="anamespace" xml:base="this" a="xxx" xml:lang="en-US" xml:space="preserve">
+   <d1 a="xxx">
+    <e1 b="xxx">
+				aaa
+				<f1 c="xxx">xxx</f1>
+    </e1>
+   </d1>
+   <d2 aa="xxx"/>
+  </c1>
+  <c1 xmlns:nb="anamespace_nb" xmlns="anamespace" xml:base="this" a="xxx" xml:lang="en-US" xml:space="preserve">
+	  xxx
+	</c1>
+  <c1 xmlns:nb="anamespace_nb" xmlns="anamespace" xml:base="this" a="xxx" xml:lang="en-US" xml:space="preserve">
+	  xxx
+        <d3 a="xxx">
+    <e3 b="xxx">
+				xxx
+                <f3 c="xxx">xxx</f3>
+    </e3>
+   </d3>
+		xxx
+        <d3 aa="xxx"/>
+  </c1>
+ </b1>
+ <b2>
+  <!--comment-->
+<?target data?>
+  <c2 xmlns:nb="anamespace_nb" xmlns="anamespace" xml:base="this" a="xxx" xml:lang="en-US" xml:space="preserve">
+   <d1 a="xxx">
+    <e1 b="xxx">
+				xxx
+				<f1 c="xxx">xxx</f1>
+    </e1>
+   </d1>
+   <d2 aa="xxx"/>
+  </c2>
+  <c2 xmlns:nb="anamespace_nb" xmlns="anamespace" xml:base="this" a="xxx" xml:lang="en-US" xml:space="preserve">
+	  xxx
+	</c2>
+  <c2 xmlns:nb="anamespace_nb" xmlns="anamespace" xml:base="this" a="xxx" xml:lang="en-US" xml:space="preserve">
+	  xxx
+        <d3 a="xxx">
+    <e3 b="xxx">
+				xxx
+                <f3 c="xxx">xxx</f3>
+    </e3>
+   </d3>
+		xxx
+        <d3 aa="xxx"/>
+  </c2>
+ </b2>
+</a>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+ <xsd:annotation>
+  <xsd:documentation>Sample document.</xsd:documentation>
+ </xsd:annotation>
+ <xsd:complexType name="SuperType">
+   <xsd:all>
+     <xsd:element name="id" minOccurs="0" type="xsd:string"/>
+     <xsd:element name="group" minOccurs="0" type="xsd:string"/>
+     <xsd:element ref="sample" minOccurs="0" />
+  </xsd:all>
+ </xsd:complexType>
+
+ <xsd:complexType name="TheType">
+   <xsd:all>
+     <xsd:element name="parent" minOccurs="0" type="SuperType"/>
+     <xsd:element name="modelVersion" minOccurs="0" type="xsd:string"/>
+     <xsd:element name="group" minOccurs="0" type="xsd:string"/>
+     <xsd:element name="aComplex" minOccurs="0" >
+       <xsd:complexType>
+         <xsd:sequence>
+           <xsd:element name="wuf" minOccurs="0" maxOccurs="unbounded" type="xsd:string"/>
+         </xsd:sequence>
+       </xsd:complexType>
+     </xsd:element>
+   </xsd:all>
+ </xsd:complexType>
+ <xsd:element name="sample" type="TheType"/>
+</xsd:schema>

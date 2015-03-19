@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<root default-name-attr="name" default-select-attrib="select">
+<!-- tokens of xslt -->
+<!-- classes
+a:all
+c:call
+w:when
+t:top (template, output)
+n: none
+
+this is the class, space separed
+class=""
+children-class=""
+
+this is teh specific position in the call
+l:last
+f:first
+position=""
+
+
+cardinality
+-->
+ <token name="analyze-string"/>
+ <token name="apply-templates" show="y" children-class="c" name-attrib="~"/>
+ <token name="attribute-set"/>
+ <token name="attribute" show="y"/>
+ <token name="call-template" show="y" children-class="c" compl="t" select-attrib="~" />
+ <token name="case-order"/>
+ <token name="cdata-section-elements"/>
+ <token name="choose" show="y" children-class="w" select-attrib="~" name-attrib="~"/>
+ <token name="collation"/>
+ <token name="comment" show="y" children-class="n" name-attrib="~"/>
+ <token name="copy-namespaces"/>
+ <token name="copy-of" show="y" />
+ <token name="copy"/>
+ <token name="data-type"/>
+ <token name="decimal-format"/>
+ <token name="declaration"/>
+ <token name="document"/>
+ <token name="elements"/>
+ <token name="element" show="y" />
+ <token name="fallback"/>
+ <token name="for-each" show="y" name-attrib="~"/>
+ <token name="for-each-group" show="y" name-attrib="~"/>
+ <token name="format"/>
+ <token name="function" show="y" children-class="p a" class="t" />
+ <token name="if" show="y" select-attrib="test" name-attrib="~"/>
+ <token name="import-schema"/>
+ <token name="import"/>
+ <token name="include-content-type"/>
+ <token name="include"/>
+ <token name="instruction"/>
+ <token name="input-type-annotations"/>
+ <token name="key" />
+ <token name="matching-substring"/>
+ <token name="message"/>
+ <token name="method"/>
+ <token name="mode"/>
+ <token name="namespace"/>
+ <token name="non-matching-substring"/>
+ <token name="normalization-form"/>
+ <token name="order"/>
+ <token name="otherwise" show="y" class="w" position="l" cardinality="1" select-attrib="~" name-attrib="~"/>
+ <token name="output" children-class="n" name-attrib="~"/>
+ <token name="output-version"/>
+ <token name="override"/>
+ <token name="param" show="y" class="p" position="f" children-class="n"/>
+ <token name="perform-sort"/>
+ <token name="preserve-space"/>
+ <token name="processing-instruction"/>
+ <token name="result-document"/>
+ <token name="sequence" show="y" />
+ <token name="sort" show="y" class ="c" />
+ <token name="strip-space"/>
+ <token name="stylesheet" class="r" children-class="t"/>
+ <token name="template" show="y" class="t" children-class="p a" select-attrib="match" clra="true"/>
+ <token name="text"/>
+ <token name="transform"/>
+ <token name="value-of" show="y" name-attrib="~"/>
+ <token name="variable" show="y" />
+ <token name="when" show="y" name-attrib="~" select-attrib="test" class="w"/>
+ <token name="with-param" show="y" class="c" compl="c" children-class="n"/>
+</root>

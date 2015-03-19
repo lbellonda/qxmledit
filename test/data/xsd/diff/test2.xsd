@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://maven.apache.org/POM/4.0.0" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:t="test">
+
+    <xs:complexType name="Model" t:test="test">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+            <xs:documentation source="description">
+         Root type
+      </xs:documentation>
+        </xs:annotation>
+            <xs:attribute type="xs:string" name="ONE">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+            the id
+          </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="TWO">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+          the description
+          </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="THREE">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+          The planes.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+    </xs:complexType>
+
+    <xs:element type="Model" name="project">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+            <xs:documentation source="description">
+         This is the main element of type Project.
+      </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+</xs:schema>

@@ -1,0 +1,27 @@
+<root>
+    <elementCData>
+<![CDATA[
+a cdata section
+]]></elementCData>
+    <a>
+	</a>
+	<tag name="value" ><![CDATA[some text]]></tag>
+    <b one="attr1"> text in B  </b>
+    <c>
+        <d two="attr2">
+    text in D
+    </d>
+     <d2>
+    text in D2
+	  <e one="attr1" two="attr2" three="attr3" >
+	   text in e
+	 </e>
+	  another text in D2, after
+    </d2>
+	
+    </c>
+    <!-- a comment -->
+    <anEntity item="theItem">
+    text&amp;otherText
+  </anEntity>
+</root>

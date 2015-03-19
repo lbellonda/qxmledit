@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+    <a>
+        <b1/>
+        abcde
+        <b2/>
+        <b3>
+            <!-- c -->
+            <c/>
+         </b3>
+    </a>
+</root>

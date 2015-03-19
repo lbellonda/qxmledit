@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+ <xsd:annotation>
+  <xsd:documentation>Sample document.</xsd:documentation>
+ </xsd:annotation>
+
+    <xsd:element name="sample" type="RestrictedType"/>
+    <xsd:element name="equiv" type="GlobalType"/>
+
+ <xsd:complexType name="GlobalType">
+   <xsd:sequence>
+     <xsd:element name="id" minOccurs="0" type="xsd:string"/>
+     <xsd:element name="group" minOccurs="0" type="xsd:string"/>
+     <xsd:element name="bau" minOccurs="0" type="xsd:string"/>
+  </xsd:sequence>
+  <xsd:attribute name="attr"/>
+ </xsd:complexType>
+
+ <xsd:complexType name="RestrictedType">
+    <xsd:complexContent>
+        <xsd:restriction base="SuperType">
+            <xsd:sequence>
+                <xsd:choice>
+                  <xsd:element name="arf" minOccurs="0" type="xsd:string"/>
+                  <xsd:element name="wuf" minOccurs="0" type="xsd:string"/>
+                </xsd:choice>
+                <xsd:element name="grr" minOccurs="0" type="xsd:string"/>
+            </xsd:sequence>
+            <xsd:attribute name="attr"/>
+        </xsd:restriction>
+    </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:complexType name="SuperType">
+        <xsd:sequence>
+            <xsd:choice>
+              <xsd:element name="arf" minOccurs="0" type="xsd:string"/>
+              <xsd:element name="wads" minOccurs="0" type="xsd:string"/>
+              <xsd:element name="wuf" minOccurs="0" type="xsd:string"/>
+              <xsd:element name="adsad" minOccurs="0" type="xsd:string"/>
+              <xsd:element name="wss" minOccurs="0" type="xsd:string"/>
+            </xsd:choice>
+            <xsd:element name="grr" minOccurs="0" type="xsd:string"/>
+            <xsd:element name="gr1" minOccurs="0" type="xsd:string"/>
+       </xsd:sequence>
+    <xsd:attribute name="attr"/>
+ </xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,6 @@
+<root>
+    <element attrib1="one" attrib2="two" >
+        <target attr="one"/>
+        <target2 attr="one"/>
+    </element>
+</root>

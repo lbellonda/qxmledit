@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+ <child attr="value" attribute='val2' />
+</root>
+<?qxmledit type="copyright" value="ccc&amp;c"?>
+<?qxmledit type="version" value="vvv"?>
+<?qxmledit type="domain" value="ddd"?>
+<?qxmledit type="name" value="nnn"?>

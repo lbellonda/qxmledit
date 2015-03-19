@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="test" xmlns:test="test" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	
+  <xs:attribute name="atop1">
+    <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="a"/>
+            <xs:enumeration value="b"/>
+            <xs:enumeration value="c"/>
+          </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
+  
+	<xs:element name="topelement">
+	  <xs:complexType>
+		<xs:sequence>
+		  <xs:element name="inner" type="xs:string"/>
+		</xs:sequence>
+                <xs:attribute ref="atop2" form="qualified"/>
+	  </xs:complexType>
+	</xs:element>
+</xs:schema>

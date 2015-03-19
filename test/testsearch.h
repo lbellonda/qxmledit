@@ -1,0 +1,88 @@
+/**************************************************************************
+ *  This file is part of QXmlEdit                                         *
+ *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *    as indicated in the AUTHORS file                                    *
+ *  lbellonda _at_ gmail.com                                              *
+ *                                                                        *
+ * This library is free software; you can redistribute it and/or          *
+ * modify it under the terms of the GNU Library General Public            *
+ * License as published by the Free Software Foundation; either           *
+ * version 2 of the License, or (at your option) any later version.       *
+ *                                                                        *
+ * This library is distributed in the hope that it will be useful,        *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU      *
+ * Library General Public License for more details.                       *
+ *                                                                        *
+ * You should have received a copy of the GNU Library General Public      *
+ * License along with this library; if not, write to the                  *
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
+ * Boston, MA  02110-1301  USA                                            *
+ **************************************************************************/
+
+
+#ifndef TESTSEARCH_H
+#define TESTSEARCH_H
+
+#include "testbase.h"
+
+class TestSearchHelper ;
+
+class TestSearch : public TestBase
+{
+    bool literalSearchNoItemFound();
+    bool literalSearchNonExact();
+    bool literalSearchExact();
+    bool literalSearchExactInChildren();
+    bool literalSearchExactInChildrenNoMatch();
+    bool literalSearchNonExactInChildren();
+    bool literalSearchCountInChildren();
+    bool literalSearchInAttributes();
+    bool literalSearchInElementTags();
+    bool literalSearchInAttributeNames();
+    bool literalSearchInScopedPathAttribute();
+    bool literalSearchInScopedPath();
+    bool literalSearchInText();
+    bool literalSearchInComment();
+    bool literalSearchInTextBase64();
+
+    //-----------------------------------------------------------
+    bool xquerySearchPathExact();
+    bool xquerySearchAttributesExact();
+    bool xquerySearchAttributesNotExact();
+    bool xquerySearchAttributeNameExact();
+    bool xquerySearchAttributeNameNotExact();
+    bool xquerySearchElementsExact();
+    bool xquerySearchElementsNotExact();
+    bool xquerySearchTextNotExact();
+    bool xquerySearchText();
+    bool xquerySearchTextOnlyCount();
+    bool xquerySearchNamespaces();
+    //--
+    bool xquerySearchAttributesExactInChildren();
+    bool xquerySearchAttributesNotExactInChildren();
+    bool xquerySearchElementsExactInChildren();
+    bool xquerySearchElementsNotExactInChildren();
+    bool xquerySearchTextNotExactInChildren();
+    bool xquerySearchTextInChildren();
+
+    //-----------------------------------------------------------
+
+    bool testAStdSearch(const QString &nameTest, const int expected, const QString &textToSearch);
+    void init(const QString &nameTest, TestSearchHelper &helper);
+    void testAStdSearchWithParamsInit(const QString &nameTest, TestSearchHelper &helper);
+    bool checkResults(TestSearchHelper &helper, const int expectedBookmarks, const int expectedCount);
+    bool checkResults(TestSearchHelper &helper, const int expectedBookmarks, const int expectedCount, QStringList *expectedElementTags);
+    bool checkTestSearch(TestSearchHelper &helper, const QString &textToSearch, const int expectedBookmarks, const int expectedCount);
+    bool checkTestSearch( TestSearchHelper &helper, const QString &textToSearch, const int expected);
+    bool testAStdSearch(TestSearchHelper &helper, const QString &nameTest, const int expected, const QString &textToSearch);
+    bool checkResultsByPath(TestSearchHelper &helper, const int expectedBookmarks, const int expectedCount, QList<QList<int> > &expectedPathList);
+public:
+    TestSearch();
+    ~TestSearch();
+
+    bool testXQuerySearch();
+    bool testLiteralSearch();
+};
+
+#endif // TESTSEARCH_H

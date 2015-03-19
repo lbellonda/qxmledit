@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding="UTF-8" standalone='yes'?>
+<site>
+     <items>
+	   <item id="item1" id1="item01" id2="item02" id3="item03"	><test attribute="test"></test></item   >
+	 </items>
+	<items>
+	   <item id="item2"/>
+	   <item id="item3" id1="item01" id2="item02" id3="item03"	><test attribute="test"></test></item>
+</items>
+</site>

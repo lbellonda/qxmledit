@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit style file -->
+<style name="Log" description="log test style">
+
+<keywords>
+ <keyword keyword="resource" idStyle="1"/>
+ <ruleSet idStyle="0">
+    <rule entity="element" />
+    <rule />
+    <rule entity="attribute" />
+ </ruleSet>
+ <ruleSet idStyle="1">
+   <rule name="level" />
+   <rule name="" />
+ </ruleSet>
+ <ruleSet idStyle="2">
+  <rule type="s"/>
+  <rule type="n"/>
+  <rule type="p"/>
+  <rule />
+ </ruleSet>
+ <ruleSet idStyle="3">
+   <rule value="12"/>
+   <rule value="abc"/>
+   <rule />
+   <rule value="ABCd"/>
+ </ruleSet>
+ <ruleSet idStyle="4">
+   <rule case="false"/>
+   <rule case="true"/>
+   <rule />
+ </ruleSet>
+ <ruleSet idStyle="5">
+   <rule />
+   <rule op="eq" />
+   <rule op="ne" />
+   <rule op="ex" />
+   <rule op="nx" />
+   <rule op="gt" />
+   <rule op="lt" />
+   <rule op="ge" />
+   <rule op="le" />
+   <rule op="ss" />
+   <rule op="st" />
+ </ruleSet>
+ <ruleSet idStyle="6">
+    <ruleSet connector="and">
+      <rule />
+    </ruleSet>
+    <ruleSet connector="or">
+      <rule />
+    </ruleSet>
+    <ruleSet >
+      <rule />
+    </ruleSet>
+ </ruleSet>
+ <ruleSet idStyle="7">
+    <ruleSet connector="and"/>
+    <ruleSet connector="or"/>
+ </ruleSet>
+ <ruleSet idStyle="8">
+    <ruleSet connector="and"/>
+    <ruleSet connector="or"/>
+    <ruleSet connector="and"/>
+    <ruleSet connector="or"/>
+  </ruleSet>
+  <ruleSet idStyle="9" >
+    <rule axis=".." />
+    <rule axis="../../minMAX" />
+    <rule axis="parent" />
+    <rule axis="" />
+    <rule />
+  </ruleSet>
+
+</keywords>
+
+<styles>
+ <style id="1" color="2080FF" />
+ <style id="2" color="FF00FF"  family="Lucida" size="10" bold="" italic="true" />
+ <style id="3" color="C0C0FF"  family="Verdana" size="14" bold="true" italic="" />
+ <style id="5" color="0000FF" italic="true" />
+ <!-- fatal -->
+ <style id="6" color="FF0000" size="12" font="Arial" bold="true" italic="false" icon=":E:" />
+ <!-- error -->
+ <style id="7" color="FF4080" size="10" font="Arial" bold="true" italic="false" icon=":E:"/>
+ <!-- warn -->
+ <style id="8" color="FFC080" size="10" font="Arial" bold="false" italic="false" icon=":W:"/>
+ <!-- info -->
+ <style id="9" color="000000" size="8" font="Arial" bold="false" italic="true" icon=":I:"/>
+ <default>
+    <style id="default" color="C0C0C0" size="8" font="Arial" bold="false" italic="true"/>
+ </default>
+</styles>
+
+<ids>
+ <id id="name" alpha="true"/>
+ <id id="id" alpha=""/>
+</ids>
+
+</style>

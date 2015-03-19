@@ -1,0 +1,106 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://maven.apache.org/POM/4.0.0" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element type="Model" name="project">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+            <xs:documentation source="description">
+         This is the main element of type Project.
+      </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="Model">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+            <xs:documentation source="description">
+         Root type
+      </xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element minOccurs="0" type="xs:string" name="version">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">this is the version.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="id">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+            the id
+          </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="description">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+          the description
+          </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="Build" name="build">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">Information required to build the project.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="planes">
+                <xs:annotation>
+                    <xs:documentation source="version">1.0</xs:documentation>
+                    <xs:documentation source="description">
+          The planes.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" maxOccurs="unbounded" type="Plane" name="plane"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+    <xs:complexType name="Plane">
+        <xs:annotation>
+            <xs:documentation source="version">1</xs:documentation>
+            <xs:documentation source="description">
+       The repository. Any relevant info here.
+      </xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element minOccurs="0" name="wing">
+                <xs:annotation>
+                    <xs:documentation source="version">1</xs:documentation>
+                    <xs:documentation source="description">The info about this element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="rudder">
+                <xs:annotation>
+                    <xs:documentation source="version">1</xs:documentation>
+                    <xs:documentation source="description">Info about rudder element.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+    <xs:complexType name="Run">
+        <xs:annotation>
+            <xs:documentation source="version">1</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element minOccurs="0" type="xs:string" name="abce">
+                <xs:annotation>
+                    <xs:documentation source="version">1</xs:documentation>
+                    <xs:documentation source="description">
+            this is abcde
+          </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" type="xs:string" name="efghi">
+                <xs:annotation>
+                    <xs:documentation source="version">1</xs:documentation>
+                    <xs:documentation source="description">
+            this is efghi, type string
+          </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+</xs:schema>

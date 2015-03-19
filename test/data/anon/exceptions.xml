@@ -1,0 +1,8 @@
+<root>
+  <b:bb xmlns:b="nsx1" >
+	<c:cc xmlns:c="nsx2" >
+	  <d/>
+	  <e xmlns="nxsx3" a="a" />
+	  </c:cc>
+  </b:bb>
+</root>

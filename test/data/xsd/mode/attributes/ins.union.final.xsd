@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://maven.apache.org/POM/4.0.0" targetNamespace="http://maven.apache.org/POM/4.0.0">
+ <xs:complexType name="Parent">
+  <xs:annotation>
+   <xs:documentation source="version">4.0.0</xs:documentation>
+  </xs:annotation>
+  <xs:sequence maxOccurs="unbounded" minOccurs="1">
+   <xs:element minOccurs="0" type="xs:string" name="artifactId">
+    <xs:annotation>
+     <xs:documentation source="version">4.0.0</xs:documentation>
+    </xs:annotation>
+   </xs:element>
+   <xs:element name="test">
+    <xs:complexType>
+     <xs:all/>
+    </xs:complexType>
+   </xs:element>
+  </xs:sequence>
+  <xs:attribute name="test">
+   <xs:simpleType>
+    <xs:union/>
+   </xs:simpleType>
+  </xs:attribute>
+ </xs:complexType>
+ <xs:element name="referenced"/>
+ <xs:element type="Parent" name="parent">
+  <xs:annotation>
+   <xs:documentation source="version">4.0.0</xs:documentation>
+  </xs:annotation>
+ </xs:element>
+</xs:schema>
