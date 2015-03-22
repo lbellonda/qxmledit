@@ -972,8 +972,6 @@ void TestQXmlEdit::testNew()
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
     testSearch();
-    testAnonymize();
-    testEncoding();
 }
 
 QTEST_MAIN(TestQXmlEdit)

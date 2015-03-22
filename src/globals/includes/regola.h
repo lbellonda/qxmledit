@@ -139,6 +139,8 @@ public:
     void caricaValori(QTreeWidget *pTree);
     bool isEmpty(const bool isRealElement);
     Element *root() const;
+    Element *firstChild() const;
+    Element *lastChild() const;
     Element *topElement(const int pos) const;
     void setRootElement(Element *newRoot);
     bool write(const QString &filePath);
@@ -229,7 +231,8 @@ public:
 
     static QBrush hiliteBkBrush;
 
-    void findText(FindTextParams &findArgs, Element *selectedItem);
+    Element * findText(QTreeWidget *tree, FindTextParams &findArgs, Element *selectedItem);
+    Element * findNextTextMatch(QTreeWidget *tree, FindTextParams &findArgs, Element *selectedItem);
     void unhilite();
 
     void takeOutElement(Element*element);
@@ -303,6 +306,8 @@ public:
     bool moveDown(Element *element);
     bool internalMoveUp(Element *element, const bool registerInUndo);
     bool internalMoveDown(Element *element, const bool registerInUndo);
+
+    Element *selectElement(QTreeWidget *tree, Element *selectedElement);
 
     void redo();
     void undo();
@@ -437,12 +442,12 @@ private:
     QString makePrologData(const QString &encoding);
     //---endregion(prolog)
 
-
     //------------region(containers)
     void insertParentForElement(QTreeWidget *tree, Element *element, Element *newParent, const int insPos, const int insLen, const bool replaceUI = true);
     bool removeParentForChildAndMoveOtherNodes(QTreeWidget *tree, Element *element, int &insPos, int &insLen, const bool replaceUI = true);
-
     //------------endregion(containers)
+
+    Element *findTheNextTextMatch(FindTextParams &findArgs, Element *selectedItem);
 
     friend class TestSearch;
 };

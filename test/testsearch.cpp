@@ -28,6 +28,9 @@
 #define FILE_SEARCH "../test/data/search/base.xml"
 #define FILE_SEARCH_XQUERY "../test/data/search/base_xquery.xml"
 
+#define FILE_NEXT_ROOT  "../test/data/search/next_root.xml"
+#define FILE_NEXT_INNER  "../test/data/search/next_inner.xml"
+
 
 TestSearch::TestSearch()
 {
@@ -46,6 +49,7 @@ public:
     App app;
     FindTextParams findArgs;
     Element *selectedItem ;
+    Element *lastMatch;
     bool isXQuery;
     QString fileToLoad;
 
@@ -53,9 +57,13 @@ public:
     ~TestSearchHelper();
     bool init();
     void selectRoot();
+    void selectPath(QList<int> &sel);
     void find(const QString &textToSearch);
     void initFind(const QString &textToSearch);
+    void initFindForNext(const QString &textToSearch, const bool isSearchNext, const bool isWrapAround);
     void search();
+    void searchLastPos();
+    void setFileToLoad(const QString &newFile);
 };
 
 TestSearchHelper::TestSearchHelper(const bool newIsXQuery)
@@ -67,6 +75,7 @@ TestSearchHelper::TestSearchHelper(const bool newIsXQuery)
         fileToLoad = FILE_SEARCH ;
     }
     selectedItem = NULL ;
+    lastMatch = NULL ;
 }
 
 TestSearchHelper::~TestSearchHelper()
@@ -77,7 +86,10 @@ TestSearchHelper::~TestSearchHelper()
 bool TestSearchHelper::init()
 {
     app.init();
-    return app.mainWindow()->loadFile(fileToLoad);
+    if(!fileToLoad.isEmpty()) {
+        return app.mainWindow()->loadFile(fileToLoad);
+    }
+    return true ;
 }
 
 void TestSearchHelper::selectRoot()
@@ -87,19 +99,36 @@ void TestSearchHelper::selectRoot()
     tree->setCurrentItem(app.mainWindow()->getRegola()->root()->getUI());
 }
 
+void TestSearchHelper::setFileToLoad(const QString &newFile)
+{
+    fileToLoad = newFile ;
+}
+
+void TestSearchHelper::selectPath(QList<int> &sel)
+{
+    selectedItem = NULL ;
+    if(!sel.isEmpty()) {
+        QTreeWidget *tree = app.mainWindow()->getMainTreeWidget();
+        Element *foundElm = app.mainWindow()->getRegola()->findElementByArray(sel);
+        if( NULL != foundElm ) {
+            tree->setCurrentItem(foundElm->getUI());
+        }
+    }
+}
+
 void TestSearchHelper::initSearch(const QString &textToSearch)
 {
     selectedItem = NULL ;
-    findArgs.init(textToSearch, false, true, false, false,
+    findArgs.init( FindTextParams::FindAllOccurrences, textToSearch, false, true, false, false,
                             false, FindTextParams::FIND_ALL, true,
-                  true, true, "", isXQuery);
+                  true, true, "", false, isXQuery);
 }
 
 void TestSearchHelper::find(const QString &textToSearch)
 {
     initSearch(textToSearch);
     app.mainWindow()->getEditor()->setUpdatesEnabled(false);
-    app.mainWindow()->getRegola()->findText(findArgs, selectedItem);
+    lastMatch = app.mainWindow()->getRegola()->findText(app.mainWindow()->getMainTreeWidget(), findArgs, selectedItem);
     app.mainWindow()->getEditor()->setUpdatesEnabled(true);
 }
 
@@ -108,11 +137,30 @@ void TestSearchHelper::initFind(const QString &textToSearch)
     initSearch(textToSearch);
 }
 
+void TestSearchHelper::initFindForNext(const QString &textToSearch, const bool isSearchNext, const bool isWrapAround)
+{
+    selectedItem = NULL ;
+    findArgs.init( isSearchNext? FindTextParams::FindNext : FindTextParams::FindPrevious,
+                   textToSearch, false, true, false, false,
+                            false, FindTextParams::FIND_ALL, true,
+                   true, true, "", isWrapAround, isXQuery);
+}
+
 void TestSearchHelper::search()
 {
     app.mainWindow()->getEditor()->getRegola()->clearBookmarks();
     app.mainWindow()->getEditor()->setUpdatesEnabled(false);
-    app.mainWindow()->getRegola()->findText(findArgs, selectedItem);
+    lastMatch = app.mainWindow()->getRegola()->findText(app.mainWindow()->getMainTreeWidget(), findArgs, selectedItem);
+    app.mainWindow()->getEditor()->setUpdatesEnabled(true);
+}
+
+void TestSearchHelper::searchLastPos()
+{
+    app.mainWindow()->getEditor()->getRegola()->clearBookmarks();
+    app.mainWindow()->getEditor()->setUpdatesEnabled(false);
+    QTreeWidget *tree = app.mainWindow()->getMainTreeWidget();
+    Element *fromHereOn = app.mainWindow()->getEditor()->getSelectedItem();
+    lastMatch = app.mainWindow()->getRegola()->findText(tree, findArgs, fromHereOn);
     app.mainWindow()->getEditor()->setUpdatesEnabled(true);
 }
 
@@ -126,11 +174,21 @@ void TestSearch::init(const QString &nameTest, TestSearchHelper &helper)
     helper.selectRoot();
 }
 
-void TestSearch::testAStdSearchWithParamsInit(const QString &nameTest, TestSearchHelper &helper)
+bool TestSearch::testAStdSearchWithParamsInit(const QString &nameTest, TestSearchHelper &helper)
+{
+    _testName = nameTest ;
+    if(!helper.init()) {
+        return false;
+    }
+    helper.selectRoot();
+    return true;
+}
+
+void TestSearch::initWithParams(const QString &nameTest, TestSearchHelper &helper, QList<int> &selPath)
 {
     _testName = nameTest ;
     helper.init();
-    helper.selectRoot();
+    helper.selectPath(selPath);
 }
 
 bool TestSearch::checkResults(TestSearchHelper &helper, const int expectedBookmarks, const int expectedCount)
@@ -174,7 +232,7 @@ bool TestSearch::checkResultsByPath(TestSearchHelper &helper, const int expected
     int index = 0 ;
     QVector<Bookmark*> &bmkA = helper.app.mainWindow()->getRegola()->bookmarks.getBookmarks();
     if( bmkA.size() != expectedPathList.size() ) {
-        return error(QString("Path List differs from boomakes count. bookmarks count: %1 path count:%2").arg(bmkA.size()).arg(expectedPathList.size()));
+        return error(QString("Path List differs from boomarks count. bookmarks count: %1 path count:%2").arg(bmkA.size()).arg(expectedPathList.size()));
     }
     foreach( Bookmark* bmk , bmkA ) {
         Element *element = bmk->getElement();
@@ -190,6 +248,34 @@ bool TestSearch::checkResultsByPath(TestSearchHelper &helper, const int expected
     return true;
 }
 
+bool TestSearch::checkSelectionByPath(TestSearchHelper &helper, const int expectedBookmarks, QList<int> &expectedPath, const int index)
+{
+    if(helper.app.mainWindow()->getRegola()->bookmarkSize()!= expectedBookmarks)
+    {
+        return error(QString("Index: %1 expected %2 bookmarks match, but found:%3").arg(index).arg(expectedBookmarks).arg(helper.app.mainWindow()->getRegola()->bookmarkSize()));
+    }
+
+    Element *sel = helper.app.mainWindow()->getEditor()->getSelectedItem();
+    Element *lastMatch = helper.lastMatch ;
+
+    if( ( NULL != lastMatch ) && (sel != lastMatch) ) {
+        return error(QString("Index:%1 Last match not null, but was not the selection.").arg(index));
+    }
+    if( ( NULL == lastMatch ) && !expectedPath.isEmpty() ) {
+        return error(QString("Index:%1 Expected selection, but found none path is: %2").arg(index).arg(listIntToString(expectedPath)));
+    }
+    if( ( NULL != lastMatch ) && expectedPath.isEmpty() ) {
+        return error(QString("Index:%1 Expected no selection, but found one, path is: %2, XPath:%3").arg(index).arg(listIntToString(sel->indexPath())).arg(lastMatch->pathString()));
+    }
+    // compare path
+    if( NULL != lastMatch ) {
+        QList<int> indexPath = lastMatch->indexPath();
+        if(!compareListInts(QString("Index:%1 Match position differs").arg(index), expectedPath, indexPath)){
+            return false;
+        }
+    }
+    return true ;
+}
 
 bool TestSearch::checkTestSearch(TestSearchHelper &helper, const QString &textToSearch, const int expectedBookmarks, const int expectedCount)
 {
@@ -204,7 +290,9 @@ bool TestSearch::checkTestSearch( TestSearchHelper &helper, const QString &textT
 
 bool TestSearch::testAStdSearch(TestSearchHelper &helper, const QString &nameTest, const int expected, const QString &textToSearch)
 {
-    testAStdSearchWithParamsInit(nameTest, helper );
+    if(!testAStdSearchWithParamsInit(nameTest, helper )) {
+        return error("init: testAStdSearchWithParamsInit");
+    }
     return checkTestSearch(helper, textToSearch, expected);
 }
 
@@ -714,6 +802,13 @@ bool TestSearch::testLiteralSearch()
     }
 
     //----------------------------------------
+    if(!literalSearchNext()) {
+        return false;
+    }
+    if(!literalSearchPrevious()) {
+        return false;
+    }
+    //----------------------------------------
     return true;
 }
 
@@ -776,3 +871,367 @@ bool TestSearch::testXQuerySearch()
     //---
     return true;
 }
+
+
+//------------------------------------------------------------
+
+
+/**
+  Tests:
+
+  no data-> no selection, no null pointer
+  next to implement:
+  no match
+
+
+  wraparound y/n
+partire da root come slemento selezionato o da null o da un altro
+if(!literalSearchNext()) { wrap aroud e no caso semplice solo 1, poi 2 poi file compresso con vari livelli, check no boormarks e selezionato
+            partire da root come slemento selezionato o da null o da un altro
+    return false;
+}
+*/
+
+bool TestSearch::innerSearchForNext(const QString &testName, const bool isNext)
+{
+    foreach( bool wrap, boolArray() ) {
+        TestSearchHelper helper(false);
+        helper.setFileToLoad("");
+        QList<int> emptyPath;
+        initWithParams(QString("%1.Empty").arg(testName), helper, emptyPath);
+        helper.initFindForNext("match", isNext, wrap );
+        helper.searchLastPos();
+        if(!checkSelectionByPath(helper, 0, emptyPath)) {
+            return false;
+        }
+    }
+    return true ;
+}
+
+bool TestSearch::innerSearchForRoot(const QString &testName, const bool isNext)
+{
+    foreach( bool isSel, boolArray() ) {
+        foreach( bool wrap, boolArray() ) {
+            TestSearchHelper helper(false);
+            helper.setFileToLoad(FILE_NEXT_ROOT);
+            QList<int> emptyPath;
+            QList<int> selPath;
+            selPath << 0 ;
+            initWithParams(QString("%1.Root").arg(testName), helper, isSel?selPath:emptyPath);
+            helper.initFindForNext("match", isNext, wrap );
+            helper.searchLastPos();
+            if(!checkSelectionByPath(helper, 0, isSel?emptyPath:selPath)) {
+                return false;
+            }
+            helper.initFindForNext("match", isNext, wrap );
+            helper.searchLastPos();
+            if(!checkSelectionByPath(helper, 0, emptyPath)) {
+                return false;
+            }
+        }
+    }
+    return true ;
+}
+
+bool TestSearch::innerSearchOne(const QString &testName, const bool isNext, QList<int> firstSelPath, QList<QList<int> > selList, const bool isWrap )
+{
+    TestSearchHelper helper(false);
+    helper.setFileToLoad(FILE_NEXT_INNER);
+    initWithParams(QString("%1.Inner").arg(testName), helper, firstSelPath);
+
+    int index = 0;
+    foreach( QList<int> list, selList ) {
+        helper.initFindForNext("match", isNext, isWrap );
+        helper.searchLastPos();
+        if(!checkSelectionByPath(helper, 0, list, index)) {
+            return false;
+        }
+        index ++ ;
+    }
+    return true ;
+}
+
+bool TestSearch::innerSearchForInner(const QString &testName, const bool isNext)
+{
+    // 0 - no selection 1 match, stop
+    // 1 - select before, 1 match stop
+    // 2 - select element, no match
+    // 3 - select next, 1 match only with wraparound
+    QList<int> emptyPath;
+    //0
+    {
+        QList<int> oneSel;
+        oneSel << 0 << 1 ;
+
+        QList<QList<int> > selList;
+        selList << oneSel ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(! innerSearchOne(testName, isNext, emptyPath, selList, false ) ) {
+            return false;
+        }
+        if(! innerSearchOne(testName, isNext, emptyPath, selList, true) ) {
+            return false;
+        }
+    }
+    //1
+    {
+        QList<int> firstSelPath;
+        firstSelPath << 0 << 0 ;
+
+        QList<int> oneSel;
+        oneSel << 0 << 1 ;
+
+        QList<QList<int> > selList;
+        selList << oneSel ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(! innerSearchOne(QString("0:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+            return false;
+        }
+        if(! innerSearchOne(QString("1:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+            return false;
+        }
+    }
+    //2
+    {
+        QList<int> firstSelPath;
+        firstSelPath << 0 << 1 ;
+
+        QList<QList<int> > selList;
+        selList << emptyPath ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(! innerSearchOne(QString("2:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+            return false;
+        }
+        if(! innerSearchOne(QString("3:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+            return false;
+        }
+    }
+    //3
+    {
+        QList<int> firstSelPath;
+        firstSelPath << 0 << 2 ;
+
+        QList<int> oneSel;
+        oneSel << 0 << 1 ;
+        {
+            QList<QList<int> > selList;
+            selList << emptyPath ;
+            selList << emptyPath ;
+            selList << emptyPath ;
+
+            if(! innerSearchOne(QString("4:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+                return false;
+            }
+        }
+        {
+            QList<QList<int> > selList;
+            selList << oneSel ;
+            selList << emptyPath ;
+            selList << emptyPath ;
+            if(! innerSearchOne(QString("5:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+                return false;
+            }
+        }
+    }
+    return true ;
+}
+
+bool TestSearch::innerSearchForInnerReverse(const QString &testName)
+{
+    // 0 - no selection 1 match, stop
+    // 1 - select before, 1 match stop
+    // 2 - select element, no match
+    // 3 - select next, 1 match only with wraparound
+    QList<int> emptyPath;
+    //0
+    {
+        QList<int> oneSel;
+        oneSel << 0 << 1 ;
+
+        QList<QList<int> > selList;
+        selList << oneSel ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(! innerSearchOne(testName, false, emptyPath, selList, false ) ) {
+            return false;
+        }
+        if(! innerSearchOne(testName, false, emptyPath, selList, true) ) {
+            return false;
+        }
+    }
+    //1
+    {
+        QList<int> firstSelPath;
+        firstSelPath << 0 << 0 ;
+
+        QList<int> oneSel;
+        oneSel << 0 << 1 ;
+
+        QList<QList<int> > selList;
+        selList << oneSel ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(! innerSearchOne(QString("0:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+            return false;
+        }
+        if(! innerSearchOne(QString("1:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+            return false;
+        }
+    }
+    //2
+    {
+        QList<int> firstSelPath;
+        firstSelPath << 0 << 1 ;
+
+        QList<QList<int> > selList;
+        selList << emptyPath ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(! innerSearchOne(QString("2:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+            return false;
+        }
+        if(! innerSearchOne(QString("3:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+            return false;
+        }
+    }
+    //3
+    {
+        QList<int> firstSelPath;
+        firstSelPath << 0 << 2 ;
+
+        QList<int> oneSel;
+        oneSel << 0 << 1 ;
+        {
+            QList<QList<int> > selList;
+            selList << emptyPath ;
+            selList << emptyPath ;
+            selList << emptyPath ;
+
+            if(! innerSearchOne(QString("4:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+                return false;
+            }
+        }
+        {
+            QList<QList<int> > selList;
+            selList << oneSel ;
+            selList << emptyPath ;
+            selList << emptyPath ;
+            if(! innerSearchOne(QString("5:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+                return false;
+            }
+        }
+    }
+    return true ;
+}
+
+
+/*bool TestSearch::a(const QString &testName, const bool isNext)
+{
+    // 0 - no selection 1 match, stop
+    // 1 - select before, 1 match stop
+    // 2 - select element, no match
+    // 3 - select next, 1 match only with wraparound
+    QList<int> emptyPath;
+    //3
+    {
+        QList<int> firstSelPath;
+        firstSelPath << 0 << 2 ;
+
+        QList<int> oneSel;
+        oneSel << 0 << 1 ;
+        {
+            QList<QList<int> > selList;
+            selList << oneSel ;
+            selList << emptyPath ;
+            selList << emptyPath ;
+            if(! innerSearchOne(QString("5:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+                return false;
+            }
+        }
+    }
+    return true ;
+}*/
+
+bool TestSearch::innerSearchForNextComplex(const QString &testName, const bool isNext)
+{
+    // fai wraparound si e no
+    return error("nyi");
+}
+
+
+
+/*
+    foreach( bool wrap, boolArray() ) {
+        TestSearchHelper helper(false);
+        helper.setFileToLoad(FILE_BASE);
+        QList<int> emptyPath;
+        initWithParams(QString("%1.Empty").arg(testName), helper, emptyPath);
+        helper.initFindForNext("match", isNext, wrap );
+        if(!checkSelectionByPath(helper, 0, emptyPath)) {
+            return false;
+        }
+    }
+
+*/
+
+/*
+QList<int> selList;
+selList.append(0); //root
+selList.append(2); //aaaabb
+Element *element = helper.app.mainWindow()->getRegola()->findElementByArray(selList);
+if( NULL == element ) {
+    return error("No element");
+}
+helper.selectedItem = element ;
+helper.findArgs.setOnlyChildren(true);
+helper.search();
+QStringList expected;
+expected << "child1" ;
+return checkResults(helper, 1, 1, &expected);
+*/
+
+bool TestSearch::literalSearchNext()
+{
+    _testName = "literalSearchNext";
+    QString testName = "literalSearchNext";
+
+    if(!innerSearchForNext(testName, true) ) {
+        return false;
+    }
+    if(!innerSearchForRoot(testName, true) ) {
+        return false;
+    }
+    if(!innerSearchForInner(testName, true) ) {
+        return false;
+    }
+    if(!innerSearchForNextComplex(testName, true) ) {
+        return false;
+    }
+    return error("nyi");
+}
+
+bool TestSearch::literalSearchPrevious()
+{
+    _testName = "literalSearchPrevious";
+    QString testName = "literalSearchPrevious";
+    if(!innerSearchForNext(testName, false) ) {
+        return false;
+    }
+    if(!innerSearchForRoot(testName, false) ) {
+        return false;
+    }
+    if(!innerSearchForInnerReverse(testName, true) ) {
+        return false;
+    }
+    return error("nyi");
+}
+

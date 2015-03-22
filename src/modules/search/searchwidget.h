@@ -47,6 +47,7 @@ class SearchWidget : public QWidget
     bool _started ;
     bool _internalStateOk ;
     bool _isAdvancedSearch ;
+    bool _extendedMode;
     LineEditWithCompleter *_findCompleter;
     QString _messageCount;
     SearchManager *_manager;
@@ -61,7 +62,7 @@ public:
 
     void setAdvancedSearch(const bool isAdvancedSearch);
     void setDataForCompletion(QSet<QString> *newData);
-    FindTextParams* getSearchParams(const bool isFindOrCount, QList<Element*> *selection);
+    FindTextParams* getSearchParams(const FindTextParams::EFindType findType, const bool isFindOrCount, QList<Element*> *selection);
     void setSearchResults(FindTextParams* findArgs);
     QString messageCount();
     void regainFocus();
@@ -72,6 +73,7 @@ public:
     void setSettings(FindTextParams *searchSettings);
     void setData(QXmlEditData *newData);
     void setSearchletManagerFactory(SearchletManagerFactory* newSearchletManagerFactory);
+    void setExtendedMode(const bool extendedMode);
 
 private:
     Ui::SearchWidget *ui;
@@ -99,6 +101,7 @@ private slots:
     void onItemsChanged(const int key);
     void onSaveAsSearchlet();
     void onManageSearchlets();
+    void onSearchNext();
 
 public:
 signals:

@@ -30,23 +30,24 @@
 #define SPLIT_SCOPE_CHAR '/'
 #define ATTR_CHAR        '@'
 
-FindTextParams::FindTextParams(const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
+FindTextParams::FindTextParams(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
                                const bool isCaseSensitive, const bool isOnlyChildren, const EFindTarget findTarget,
                                const bool isSelToBookmarks, const bool isCloseUnrelated, const bool isShowSize,
-                               const QString &scope, const bool useXQuery, QList<Element*> *selection)
+                               const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection)
 {
-    init(textToFind, isCountingOnly, isHiliteAll, isMatchExact,
+    init(findType, textToFind, isCountingOnly, isHiliteAll, isMatchExact,
          isCaseSensitive, isOnlyChildren, findTarget,
          isSelToBookmarks, isCloseUnrelated, isShowSize,
-         scope, useXQuery, selection);
+         scope, isWrapAround, useXQuery, selection);
 
 }
 
-void FindTextParams::init(const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
+void FindTextParams::init(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
                           const bool isCaseSensitive, const bool isOnlyChildren, const EFindTarget findTarget,
                           const bool isSelToBookmarks, const bool isCloseUnrelated, const bool isShowSize,
-                          const QString &scope, const bool useXQuery, QList<Element*> *selection)
+                          const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection)
 {
+    mFindType = findType ;
     mSize = 0 ;
     mSelection = selection ;
     mIsCountingOnly = isCountingOnly ;
@@ -77,11 +78,13 @@ void FindTextParams::init(const QString &textToFind, const bool isCountingOnly, 
         mScope = mScopes.at(scopeCount - 1);
         mScopes.removeAt(scopeCount - 1);
     }
+    mIsWrapAround = isWrapAround ;
     mUseXQuery = useXQuery;
 }
 
 FindTextParams::FindTextParams()
 {
+    mFindType = FindAllOccurrences;
     mSize = 0 ;
     mTextToFind = "" ;
     mIsHiliteAll = false ;
@@ -96,11 +99,32 @@ FindTextParams::FindTextParams()
     mAttributeName = "" ;
     mIsScoped = false ;
     mUseXQuery = false;
+    mIsWrapAround = true ;
     mSelection = NULL ;
 }
 
 FindTextParams::~FindTextParams()
 {
+}
+
+FindTextParams::EFindType FindTextParams::findType()
+{
+    return mFindType;
+}
+
+bool FindTextParams::isFindAllOccurrences()
+{
+    return FindAllOccurrences == mFindType ;
+}
+
+bool FindTextParams::isFindNext()
+{
+    return FindNext == mFindType ;
+}
+
+bool FindTextParams::isFindPrev()
+{
+    return FindPrevious == mFindType ;
 }
 
 bool FindTextParams::checkParams(bool &isErrorShown)
@@ -111,6 +135,17 @@ bool FindTextParams::checkParams(bool &isErrorShown)
         isErrorShown = true ;
         return false ;
     }
+    switch(mFindType) {
+    case FindAllOccurrences:
+    case FindNext:
+    case FindPrevious:
+        break;
+    default:
+        Utils::error(tr("The type of the search is not legal:%1.").arg(mFindType));
+        isErrorShown = true ;
+        return false;
+    }
+
     return true;
 }
 
@@ -139,19 +174,8 @@ QStringList &FindTextParams::getScopes()
 {
     return mScopes;
 }
-/*********************************************************
-void FindTextParams::copyTo( FindTextParam &destination ) const
-{
-    destination.mTextToFind =  mTextToFind;
-    destination.mIsHiliteAll =  mIsHiliteAll ;
-    destination.mIsMatchExact = mIsMatchExact;
-    destination.mIsCaseSensitive = mIsCaseSensitive;
-    destination.mIsOnlyChildren = mIsOnlyChildren;
-    destination.mFindTarget = mFindTarget ;
-    destination.mIsSelToBookmarks = mIsSelToBookmarks ;
-    destination.mIsCloseUnrelated =  mIsCloseUnrelated ;
-}
-********************************************************/
+
+
 void FindTextParams::loadState()
 {
     mTextToFind =  "";
@@ -163,6 +187,7 @@ void FindTextParams::loadState()
     mIsSelToBookmarks = Config::getBool(Config::KEY_SEARCH_SEL2BOOKMARK, false);
     mIsCloseUnrelated =  Config::getBool(Config::KEY_SEARCH_CLOSEUNRELATED, true);
     mIsShowSize =  Config::getBool(Config::KEY_SEARCH_SHOWSIZE, true);
+    mIsWrapAround = Config::getBool(Config::KEY_SEARCH_WRAPAROUND, true);
     mUseXQuery = Config::getBool(Config::KEY_SEARCH_USEXQUERY, false);
 }
 
@@ -176,6 +201,7 @@ void FindTextParams::saveState() const
     Config::saveBool(Config::KEY_SEARCH_SEL2BOOKMARK, mIsSelToBookmarks);
     Config::saveBool(Config::KEY_SEARCH_CLOSEUNRELATED, mIsCloseUnrelated);
     Config::saveBool(Config::KEY_SEARCH_SHOWSIZE, mIsShowSize);
+    Config::saveBool(Config::KEY_SEARCH_WRAPAROUND, mIsWrapAround);
     Config::saveBool(Config::KEY_SEARCH_USEXQUERY, mUseXQuery);
 }
 

@@ -49,6 +49,7 @@ SearchResultsDialog::SearchResultsDialog(QWidget *parent, Regola *regola, Elemen
     _currentSelection = currentSelection;
     _paintInfo = regola->getPaintInfo() ;
     ui->setupUi(this);
+    ui->searchWidget->setExtendedMode(true);
     connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
     finishSetup(settings);
     if(!curText.isEmpty()) {
@@ -122,7 +123,7 @@ void SearchResultsDialog::findTextOperation(const bool isFindOrCount)
 
         bool isErrorShown = false;
         bool isError = false;
-        FindTextParams* findArgs = ui->searchWidget->getSearchParams(isFindOrCount, &_results);
+        FindTextParams* findArgs = ui->searchWidget->getSearchParams(FindTextParams::FindAllOccurrences, isFindOrCount, &_results);
         if((NULL == findArgs) || ((NULL != findArgs) && !findArgs->checkParams(isErrorShown))) {
             isError = true ;
         }
@@ -134,7 +135,7 @@ void SearchResultsDialog::findTextOperation(const bool isFindOrCount)
             findArgs->saveState();
             _regola->unhiliteAll();
             findArgs->start();
-            _regola->findText(*findArgs, _currentSelection);
+            _regola->findText(ui->treeWidget, *findArgs, _currentSelection);
             ui->searchWidget->setSearchResults(findArgs);
             setXQueryResults(_results);
         }

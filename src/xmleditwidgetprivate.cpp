@@ -253,6 +253,7 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
     connect(p->ui->searchWidget, SIGNAL(openAdvancedSearch()), this, SLOT(openAdvancedResultPanel()));
     connect(p->ui->searchWidget, SIGNAL(hiding()), this, SLOT(on_closeSearchPanel_clicked()));
     connect(p->ui->searchWidget, SIGNAL(searchNext()), this, SLOT(onSearchNext()));
+    Utils::TODO_THIS_RELEASE("fare anche prev");
 
     connect(p->ui->ok, SIGNAL(clicked()), this, SLOT(on_ok_clicked()));
     connect(p->ui->cancel, SIGNAL(clicked()), this, SLOT(on_cancel_clicked()));
@@ -1192,8 +1193,9 @@ void XmlEditWidgetPrivate::countTextOccurrences()
     findTextOperation(false);
 }
 
-void XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount)
+void XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, const FindTextParams::EFindType findType)
 {
+    bool isGlobalSearch = FindTextParams::FindAllOccurrences == findType;
     if(NULL != regola) {
 
         p->setEnabled(false);
@@ -1202,7 +1204,7 @@ void XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount)
 
         bool isErrorShown = false;
         bool isError = false;
-        FindTextParams* findArgs = p->ui->searchWidget->getSearchParams(isFindOrCount, NULL);
+        FindTextParams* findArgs = p->ui->searchWidget->getSearchParams(findType, isFindOrCount, NULL);
         if((NULL == findArgs) || ((NULL != findArgs) && !findArgs->checkParams(isErrorShown))) {
             isError = true ;
         }
@@ -1214,9 +1216,14 @@ void XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount)
             findArgs->saveState();
             regola->unhiliteAll();
             findArgs->start();
-            regola->findText(*findArgs, getSelectedItem());
+            Element *foundElement = regola->findText(getMainTreeWidget(), *findArgs, getSelectedItem());
             p->ui->searchWidget->setSearchResults(findArgs);
-            p->emitShowStatusMessage(p->ui->searchWidget->messageCount(), true);
+            if(isGlobalSearch) {
+                p->emitShowStatusMessage(p->ui->searchWidget->messageCount(), true);
+            }
+            if(!isGlobalSearch && (NULL == foundElement)) {
+                _uiDelegate->error(p->window(), tr("No match found."));
+            }
         }
         if(NULL != findArgs) {
             delete findArgs;
@@ -2360,7 +2367,7 @@ void XmlEditWidgetPrivate::viewNodes()
 void XmlEditWidgetPrivate::openAdvancedResultPanel()
 {
     QList<Element*> emptyList;
-    FindTextParams* settings = this->p->ui->searchWidget->getSearchParams(true, NULL);
+    FindTextParams* settings = this->p->ui->searchWidget->getSearchParams(FindTextParams::FindAllOccurrences, true, NULL);
 
     SearchResultsDialog::go(this->p, _appData, emptyList, p->getRegola(), getSelectedItem(), this->p->ui->searchWidget->currentText(), settings);
     if(NULL != settings) {
@@ -2776,6 +2783,6 @@ QHash<void *, QString> *XmlEditWidgetPrivate::anonDataForPreview()
 
 void XmlEditWidgetPrivate::onSearchNext()
 {
-    Selecte
-    ;
+    Utils::TODO_THIS_RELEASE("manca avviso se non trovato, nemmeno con wraparound");
+    findTextOperation(true, FindTextParams::FindNext);
 }

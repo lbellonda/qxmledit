@@ -97,7 +97,7 @@ public:
     void deleteItem();
     void editItem();
 
-    void findTextOperation(const bool isFindOrCount);
+    void findTextOperation(const bool isFindOrCount, const FindTextParams::EFindType findType = FindTextParams::FindAllOccurrences);
 
     void decodeXsdInsertError(const Regola::EInsSchemaRefInfo error);
 
@@ -345,6 +345,7 @@ private slots:
     void openAdvancedResultPanel();
 
     void onEncodingChanged(const QString &newEncoding);
+    void onSearchNext();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

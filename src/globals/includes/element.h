@@ -276,6 +276,8 @@ public:
 
     Element* getChildAt(const int childIndex);
     int childIndex(Element *child);
+    Element* firstChild();
+    Element* lastChild();
 
     QVector<TextChunk*> &getTextChunks() {
         return textNodes;
@@ -316,6 +318,7 @@ public:
     void setPIData(const QString & data);
 
     bool findText(FindTextParams &findArgs);
+    bool matchText(FindTextParams &findArgs);
     bool searchInScope(FindTextParams &findArgs);
 
     void unhilite();
@@ -373,6 +376,8 @@ public:
     int setItemLike(Element *newElement, Element* oldElement);
     QString transformToText();
     int indexOfSelfAsChild();
+    Element *previousSibling();
+    Element *nextSibling();
     bool isMixedContent() ;
 
     //returns the position of the element

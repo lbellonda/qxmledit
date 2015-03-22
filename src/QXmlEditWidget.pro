@@ -347,7 +347,8 @@ SOURCES += xmleditwidget.cpp \
     modules/anonymize/anonnullalg.cpp \
     modules/xml/elementPath.cpp \
     modules/xml/elmpath.cpp \
-    modules/anonymize/xmlanonutils.cpp
+    modules/anonymize/xmlanonutils.cpp \
+    modules/search/elmfindtext.cpp
 
 HEADERS +=  \
         globals/includes/bookmark.h \

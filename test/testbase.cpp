@@ -27,6 +27,9 @@
 #include <QAction>
 #include <QTest>
 
+
+QList<bool> TestBase::_boolArray;
+
 TestBase::TestBase()
 {
     _isError = false;
@@ -386,4 +389,13 @@ void TestBase::buildRegola(Regola *regola, const QList<Element*> &elements)
     foreach( Element *element, elements ) {
         regola->insertElementForce(element);
     }
+}
+
+QList<bool> &TestBase::boolArray()
+{
+    if(_boolArray.isEmpty()) {
+        _boolArray << false;
+        _boolArray << true;
+    }
+    return _boolArray;
 }

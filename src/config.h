@@ -61,6 +61,7 @@ public:
     static const QString  KEY_MAIN_SHOWELTEXTLEN;
     static const QString  KEY_MAIN_SHOWELSIZE;
     static const QString  KEY_MAIN_ENABLEEXPERIMENTS;
+    static const QString  KEY_MAIN_SHOWFULLCOMMENTS;
     // style
     static const QString KEY_VIEW_STYLE;
     //search
@@ -77,7 +78,7 @@ public:
     static const QString KEY_MAIN_EXPANDONLOAD;
     static const QString KEY_SEARCH_ITEMS;
     static const QString KEY_SEARCH_SCOPES;
-    static const QString KEY_MAIN_SHOWFULLCOMMENTS;
+    static const QString KEY_SEARCH_WRAPAROUND;
     // styles
     static const QString KEY_STYLE_DATADIR;
     static const QString KEY_STYLE_DIRLOCATION;

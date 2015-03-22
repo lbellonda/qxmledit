@@ -80,6 +80,8 @@ const QString Config::KEY_SEARCH_SHOWSIZE("search/showSize");
 const QString Config::KEY_SEARCH_USEXQUERY("search/useXQuery");
 const QString Config::KEY_SEARCH_ITEMS("search/items");
 const QString Config::KEY_SEARCH_SCOPES("search/scopes");
+const QString Config::KEY_SEARCH_WRAPAROUND("search/wrapAround");
+
 // styles
 const QString Config::KEY_STYLE_DATADIR("styles/dataDir");
 const QString Config::KEY_STYLE_DIRLOCATION("styles/choicer");

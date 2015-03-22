@@ -1708,6 +1708,24 @@ Element* Element::getChildAt(const int childIndex)
     return NULL ;
 }
 
+Element* Element::firstChild()
+{
+    if(childItems.isEmpty()) {
+        return NULL ;
+    } else {
+        return childItems.first();
+    }
+}
+
+Element* Element::lastChild()
+{
+    if(childItems.isEmpty()) {
+        return NULL ;
+    } else {
+        return childItems.last();
+    }
+}
+
 int Element::childIndex(Element *child)
 {
     int index = 0 ;
@@ -1780,33 +1798,7 @@ void Element::setPIData(const QString & data)
     }
 }
 
-// nuovo algoritmo: ambito di ricerca
-
-bool Element::searchInScope(FindTextParams &findArgs)
-{
-    if(!findArgs.isSearchWithScope()) {
-        return true;
-    }
-    QString scope = findArgs.mainScope();
-    if(scope.isEmpty() || (tag() == scope)) {
-        QStringList scopes = findArgs.getScopes(); //get a reference!
-        int scopeCount = scopes.count();
-        Element *el = this ;
-        for(int i = scopeCount - 1 ; i >= 0 ; i--) {
-            el = el->parentElement ;
-            if(NULL == el) {
-                return false;
-            }
-            QString thisScope = scopes.at(i) ;
-            if(!thisScope.isEmpty() && (el->tag() != thisScope)) {
-                return false;
-            }
-        }
-        return true;
-    }
-    return false ;
-}
-
+/*
 bool Element::findText(FindTextParams &findArgs)
 {
     bool isFound = false;
@@ -1909,11 +1901,11 @@ bool Element::findText(FindTextParams &findArgs)
                 parentRule->addBookmark(this);
             }
         }
-    }pensa se deve andare al prossimo o meno
+    } pensa se deve andare al prossimo o meno
     //append children
     if(isHiliteAll) {
         qui solo se non trovato e cerca tutto
-                se cerca solo, puoi tornare.
+        se cerca solo, puoi tornare.
         foreach(Element * value, childItems) {
             if(value->findText(findArgs)) {
                 isFoundInChild = true ;
@@ -1939,9 +1931,10 @@ bool Element::findText(FindTextParams &findArgs)
     }
     return isFoundSomeWhere  ;
 }
-
+*/
 void Element::unhilite()
 {
+    Utils::TODO_THIS_RELEASE("remove the above code");
     QTreeWidgetItem *theUi = getUI();
     if(NULL != theUi) {
         theUi->setBackgroundColor(0, QColor(0xFF, 0xFF, 0xFF, 0));
@@ -2430,6 +2423,35 @@ int Element::indexOfSelfAsChild()
     }
 }
 
+Element *Element::nextSibling()
+{
+    int nextChildIndex = indexOfSelfAsChild() + 1;
+    if(NULL != parentElement) {
+        return parentElement->getChildAt(nextChildIndex);
+    } else {
+        if(NULL != parentRule) {
+            return parentRule->topElement(nextChildIndex);
+        } else {
+            return NULL ;
+        }
+    }
+}
+
+Element *Element::previousSibling()
+{
+    int nextChildIndex = indexOfSelfAsChild() - 1;
+    if(NULL != parentElement) {
+        return parentElement->getChildAt(nextChildIndex);
+    } else {
+        if(NULL != parentRule) {
+            return parentRule->topElement(nextChildIndex);
+        } else {
+            return NULL ;
+        }
+    }
+}
+
+
 bool Element::areChildrenLeavesHidden(QTreeWidgetItem *twi)
 {
     if(NULL == twi) {
@@ -2571,7 +2593,7 @@ bool Element::copyTextNodesToTarget(Element *target)
             // check for synchronization
             if((sourceElement->getType() != targetElement->getType())
                     || (sourceElement->tag() != targetElement->tag())
-                    || (sourceElement->text != targetElement->text)) {
+            || (sourceElement->text != targetElement->text)) {
                 return false;
             }
         } // for children

@@ -1,0 +1,19 @@
+<root >
+  <a1>
+	<!-- this wraparound -->
+	<b1 attr="match">
+  <a2>
+	<b2>
+	  <c2>
+		<d21 attr="match"/>
+		<d22 />
+	  </c2>
+	  <c2.1>
+		<c2.2.1/>
+	  </c2.1>
+	</b2>
+  </a2>
+  <a3>
+	<b3 attr="match"/>
+  </a3>
+</root>

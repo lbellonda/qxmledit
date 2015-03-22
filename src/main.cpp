@@ -223,6 +223,10 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
+    Utils::TODO_THIS_RELEASE("search prev");
+    Utils::TODO_THIS_RELEASE("handle wraparound");
+    Utils::TODO_THIS_RELEASE("fare test search");
+    Utils::TODO_THIS_RELEASE("check searchlets");
 }
 
 static void startTanslator(QApplication *app)

@@ -45,8 +45,18 @@ public:
 
     };
 
+public:
+    enum EFindType {
+        FindAllOccurrences,
+        FindNext,
+        FindPrevious,
+
+    };
+
+
 private:
 
+    EFindType   mFindType;
     bool        mIsCountingOnly;
     QString   mTextToFind;
     bool      mIsHiliteAll;
@@ -65,20 +75,26 @@ private:
     int       mOccurrences;
     int       mSize; // size of result
     bool      mUseXQuery;
+    bool        mIsWrapAround;
     QList<Element*> *mSelection;
 
 public:
     FindTextParams();
-    FindTextParams(const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact, const bool isCaseSensitive,
+    FindTextParams(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact, const bool isCaseSensitive,
                    const bool isOnlyChildren, const EFindTarget findTarget, const bool isSelToBookmarks,
-                   const bool isCloseUnrelated, const bool isShowSize, const QString &scope, const bool useXQuery, QList<Element*> *selection = NULL);
+                   const bool isCloseUnrelated, const bool isShowSize, const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection = NULL);
     ~FindTextParams();
 
-    void init(const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
+    void init(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
               const bool isCaseSensitive, const bool isOnlyChildren, const EFindTarget findTarget,
               const bool isSelToBookmarks, const bool isCloseUnrelated, const bool isShowSize,
-              const QString &scope, const bool useXQuery, QList<Element*> *selection = NULL);
+              const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection = NULL);
 
+
+    EFindType findType();
+    bool isFindAllOccurrences();
+    bool isFindNext();
+    bool isFindPrev();
 
     bool checkParams(bool &isErrorShown);
 
@@ -137,6 +153,10 @@ public:
 
     bool isShowSize() const {
         return mIsShowSize;
+    }
+
+    bool isWrapAround() const {
+        return mIsWrapAround;
     }
 
     int size() const {

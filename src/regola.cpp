@@ -411,6 +411,23 @@ Element  *Regola::root() const
     return rootItem;
 }
 
+
+Element *Regola::firstChild() const
+{
+    if(childItems.isEmpty()) {
+        return NULL ;
+    }
+    return childItems.first();
+}
+
+Element *Regola::lastChild() const
+{
+    if(childItems.isEmpty()) {
+        return NULL ;
+    }
+    return childItems.last();
+}
+
 Element* Regola::topElement(const int pos) const
 {
     if((pos >= 0) && (pos < childItems.size())) {
@@ -1350,6 +1367,8 @@ void Regola::searchWithXQuery(FindTextParams &findArgs, Element *selectedItem)
     xQuery.search(this, selectedItem, findArgs);
 }
 
+// moved to another file
+/*
 void Regola::findText(FindTextParams &findArgs, Element *selectedItem)
 {
     if(findArgs.useXQuery()) {
@@ -1385,9 +1404,10 @@ void Regola::findText(FindTextParams &findArgs, Element *selectedItem)
         }// while next
     }
 }
-
+*/
 void Regola::unhiliteAll()
 {
+    Utils::TODO_THIS_RELEASE("rimuovi codice precedente");
     QHashIterator<int, Element*> sel(selection);
     while(sel.hasNext()) {
         sel.next();

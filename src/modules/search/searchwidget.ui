@@ -319,6 +319,13 @@ color: rgb(255, 0, 0);</string>
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="wrapAround">
+          <property name="text">
+           <string>Wrap around</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QCheckBox" name="closeUnrelated">
           <property name="text">
            <string>Close Unrelated</string>

@@ -67,16 +67,27 @@ class TestSearch : public TestBase
     bool xquerySearchTextInChildren();
 
     //-----------------------------------------------------------
+    bool literalSearchNext();
+    bool literalSearchPrevious();
+    bool innerSearchForNext(const QString &testName, const bool isNext);
+    bool innerSearchForRoot(const QString &testName, const bool isNext);
+    bool innerSearchForInner(const QString &testName, const bool isNext);
+    bool innerSearchForNextComplex(const QString &testName, const bool isNext);
+    bool innerSearchOne(const QString &testName, const bool isNext, QList<int> firstSelPath, QList<QList<int> > selList, const bool isWrap );
+    //-----------------------------------------------------------
 
     bool testAStdSearch(const QString &nameTest, const int expected, const QString &textToSearch);
     void init(const QString &nameTest, TestSearchHelper &helper);
-    void testAStdSearchWithParamsInit(const QString &nameTest, TestSearchHelper &helper);
+    bool testAStdSearchWithParamsInit(const QString &nameTest, TestSearchHelper &helper);
+    void initWithParams(const QString &nameTest, TestSearchHelper &helper, QList<int> &selPath);
     bool checkResults(TestSearchHelper &helper, const int expectedBookmarks, const int expectedCount);
     bool checkResults(TestSearchHelper &helper, const int expectedBookmarks, const int expectedCount, QStringList *expectedElementTags);
     bool checkTestSearch(TestSearchHelper &helper, const QString &textToSearch, const int expectedBookmarks, const int expectedCount);
     bool checkTestSearch( TestSearchHelper &helper, const QString &textToSearch, const int expected);
     bool testAStdSearch(TestSearchHelper &helper, const QString &nameTest, const int expected, const QString &textToSearch);
     bool checkResultsByPath(TestSearchHelper &helper, const int expectedBookmarks, const int expectedCount, QList<QList<int> > &expectedPathList);
+    bool checkSelectionByPath(TestSearchHelper &helper, const int expectedBookmarks, QList<int> &expectedPath, const int index = 0);
+
 public:
     TestSearch();
     ~TestSearch();

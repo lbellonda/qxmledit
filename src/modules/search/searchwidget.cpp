@@ -38,6 +38,7 @@ SearchWidget::SearchWidget(QWidget *parent) :
     numInstances++;
     _appData = NULL;
     _id = numInstances ;
+    _extendedMode = false ;
     _started = false;
     _internalStateOk = false;
     _manager = NULL ;
@@ -109,7 +110,8 @@ bool SearchWidget::finishSetUpUi()
     connect(ui->counting, SIGNAL(clicked()), this, SLOT(onCountTextOccurrences()));
     connect(ui->useXQuery, SIGNAL(clicked()), this, SLOT(enableSearchItems()));
     connect(ui->cmdOpenAdvancedPanel, SIGNAL(clicked()), this, SLOT(onOpenAdvancedResultPanel()));
-    connect(ui->cmdNext, SIGNAL(clicked()), this, SLOT(onSearchText()));
+    connect(ui->cmdNext, SIGNAL(clicked()), this, SLOT(onSearchNext()));
+    Utils::TODO_THIS_RELEASE("anche previous");
 
     _findCompleter = new LineEditWithCompleter(ui->searchBox);
     ui->searchBox->setDuplicatesEnabled(true);
@@ -197,6 +199,7 @@ void SearchWidget::updateSearchUI(const FindTextParams *lastSearch)
     Utils::selectComboValue(ui->searchLocation, lastSearch->getFindTarget());
     ui->lblSize->setVisible(lastSearch->isShowSize());
     ui->sizeOfSearch->setVisible(lastSearch->isShowSize());
+    ui->wrapAround->setChecked(lastSearch->isWrapAround());
 }
 
 void SearchWidget::enableSearchItems()
@@ -211,6 +214,7 @@ void SearchWidget::enableSearchItems()
     Utils::enableAndShowWidget(ui->labelScope, !isXQuery);
     Utils::enableAndShowWidget(ui->textLabel, !isXQuery);
     Utils::enableAndShowWidget(ui->lblXPath, isXQuery);
+    Utils::enableAndShowWidget(ui->wrapAround, !isXQuery);
 }
 
 
@@ -291,7 +295,7 @@ void SearchWidget::clearSearchText()
     emit searchTextCleared();
 }
 
-FindTextParams* SearchWidget::getSearchParams(const bool isFindOrCount, QList<Element*> *selection)
+FindTextParams* SearchWidget::getSearchParams(const FindTextParams::EFindType findType, const bool isFindOrCount, QList<Element*> *selection)
 {
     FindTextParams::EFindTarget target = FindTextParams::FIND_ALL;
     int itemIndex = ui->searchLocation->currentIndex();
@@ -300,12 +304,12 @@ FindTextParams* SearchWidget::getSearchParams(const bool isFindOrCount, QList<El
         target = (FindTextParams::EFindTarget) trg ;
     }
 
-    FindTextParams *params = new FindTextParams(ui->searchBox->currentText(), !isFindOrCount, ui->isHiglightAll->isChecked(), ui->isMatchExactValue->isChecked(),
+    FindTextParams *params = new FindTextParams(findType, ui->searchBox->currentText(), !isFindOrCount, ui->isHiglightAll->isChecked(), ui->isMatchExactValue->isChecked(),
             ui->isCaseSensitive->isChecked(), ui->isOnlyChildren->isChecked(), target,
             (isFindOrCount ? ui->selectionToBookmarks->isChecked() : false),
             (isFindOrCount ? ui->closeUnrelated->isChecked() : false),
-            ui->showSize->isChecked(), ui->searchScope->currentText(), ui->useXQuery->isChecked(),
-            selection);
+            ui->showSize->isChecked(), ui->searchScope->currentText(), ui->wrapAround->isChecked(),
+            ui->useXQuery->isChecked(), selection);
 
     if(NULL != _manager) {
         _manager->saveSearchSettings(params);
@@ -393,7 +397,15 @@ void SearchWidget::onSaveAsSearchlet()
     }
 }
 
-void SearchWidget::onSearchText()
+void SearchWidget::onSearchNext()
 {
     emit searchNext();
+}
+
+void SearchWidget::setExtendedMode(const bool extendedMode)
+{
+    _extendedMode = extendedMode ;
+    Utils::TODO_THIS_RELEASE("fai searchprev");
+    ui->cmdNext->setVisible(!_extendedMode);
+    ui->wrapAround->setVisible(!_extendedMode);
 }

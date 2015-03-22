@@ -44,6 +44,8 @@ protected:
     bool error(const QString &msg);
     static bool False();
     void resetError();
+private:
+    static QList<bool> _boolArray;
 
 public:
     TestBase();
@@ -75,6 +77,7 @@ protected:
     bool checkActionEnabled(QMainWindow *window, const QString &actionName, bool &boolResult);
 
     void buildRegola(Regola *regola, const QList<Element*> &elements);
+    QList<bool> &boolArray();
 
     Element * getRoot(Regola *regola);
     bool checkRoot(Regola *regola);
