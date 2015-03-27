@@ -24,7 +24,7 @@
 #include "undo/elupdateelementcommand.h"
 
 
-Element * Regola::findText(QTreeWidget *tree, FindTextParams &findArgs, Element *selectedItem)
+Element * Regola::findText(FindTextParams &findArgs, Element *selectedItem)
 {
     if(findArgs.useXQuery()) {
         searchWithXQuery(findArgs, selectedItem);
@@ -35,7 +35,7 @@ Element * Regola::findText(QTreeWidget *tree, FindTextParams &findArgs, Element 
 
     }
     if(!findArgs.isFindAllOccurrences()) {
-        return findNextTextMatch(tree, findArgs, selectedItem);
+        return findNextTextMatch(findArgs, selectedItem);
     }
     if((NULL != selectedItem) && findArgs.isLookOnlyChildren()) {
         if(findArgs.isCloseUnrelated() && (NULL != selectedItem->getUI())) {
@@ -64,48 +64,9 @@ Element * Regola::findText(QTreeWidget *tree, FindTextParams &findArgs, Element 
     return NULL ;
 }
 
-/*
-void Regola::findNextText(FindTextParams &findArgs, Element *selectedItem)
-{
-    if(findArgs.useXQuery()) {
-        searchWithXQuery(findArgs, selectedItem);
-        return ;
-    }
-    unhiliteAll();
-    if(findArgs.isCloseUnrelated()) {
-
-    }
-    if((NULL != selectedItem) && findArgs.isLookOnlyChildren()) {
-        if(findArgs.isCloseUnrelated() && (NULL != selectedItem->getUI())) {
-            if(selectedItem->getUI()->isExpanded()) {
-                selectedItem->getUI()->setExpanded(false);
-            }
-        }
-        selectedItem->findText(findArgs);
-    } else {
-        bool isHiliteAll = findArgs.isHiliteAll();
-        QVectorIterator<Element*> it(childItems);
-        while(it.hasNext()) {
-            Element* element = it.next();
-            if(findArgs.isCloseUnrelated() && (NULL != element->getUI())) {
-                if(element->getUI()->isExpanded()) {
-                    element->getUI()->setExpanded(false);
-                }
-            }
-            if(element->findText(findArgs)) {
-                if(!isHiliteAll) {
-                    break;
-                }
-            }
-        }// while next
-    }
-}
-*/
-
 // nuovo algoritmo: ambito di ricerca
 bool Element::searchInScope(FindTextParams &findArgs)
 {
-    Utils::TODO_THIS_RELEASE("Remove the commented code above");
     if(!findArgs.isSearchWithScope()) {
         return true;
     }
@@ -275,23 +236,9 @@ bool Element::findText(FindTextParams &findArgs)
     return isFoundSomeWhere  ;
 }
 
-
-Element *Regola::selectElement(QTreeWidget *tree, Element * selectedElement)
+Element *Regola::findNextTextMatch(FindTextParams &findArgs, Element *selectedItem)
 {
-    if(NULL != tree) {
-        QTreeWidgetItem *item = NULL ;
-        if(NULL != selectedElement) {
-            item = selectedElement->getUI();
-            tree->setCurrentItem(item, 0);
-            tree-> scrollToItem(item, QAbstractItemView::PositionAtTop);
-        }
-    }
-    return selectedElement ;
-}
-
-Element *Regola::findNextTextMatch(QTreeWidget *tree, FindTextParams &findArgs, Element *selectedItem)
-{
-    return selectElement(tree, findTheNextTextMatch(findArgs, selectedItem));
+    return findTheNextTextMatch(findArgs, selectedItem);
 }
 
 Element *Regola::findTheNextTextMatch(FindTextParams &findArgs, Element *selectedItem)
@@ -301,7 +248,7 @@ Element *Regola::findTheNextTextMatch(FindTextParams &findArgs, Element *selecte
     bool skipFirst = false;
     Element *startElement = selectedItem ;
     if(NULL == startElement) {
-        startElement = isNext ? firstChild() : lastChild() ;
+        startElement = isNext ? firstChild() : lastChildRecursive() ;
         skipFirst = true ;
     }
     if(NULL == startElement) {
@@ -315,7 +262,7 @@ Element *Regola::findTheNextTextMatch(FindTextParams &findArgs, Element *selecte
             if(isNext) {
                 child = element->firstChild();
             } else {
-                child = element->lastChild();
+                child = element->previousSiblingRecursive();
             }
             if(child != NULL) {
                 element = child ;
@@ -324,23 +271,13 @@ Element *Regola::findTheNextTextMatch(FindTextParams &findArgs, Element *selecte
                 Element *nextElement = NULL ;
                 do {
                     // move to the next/previous object
-                    nextElement = isNext ? element->nextSibling() : element->previousSibling();
-
-
-                    /*Element *parent = element->parent();
-                    int currentChildIndex = element->indexOfSelfAsChild();
-                    if( NULL == parent ) {
-                        // this is the root
-                        nextElement = root->child(currentChildIndex+indexIncrement);
-                    } else {
-                        nextElement = parent->child(currentChildIndex+indexIncrement);
-                    }*/
+                    nextElement = isNext ? element->nextSibling() : element->previousSiblingRecursive();
                     if(NULL == nextElement) {
                         element = element->parent();
                         if(NULL == element) {
                             // this is the top level, no futher move without wraparound
                             if(findArgs.isWrapAround()) {
-                                nextElement = isNext ? firstChild() : lastChild() ;
+                                nextElement = isNext ? firstChild() : lastChildRecursive() ;
                                 if(hasWrapAround) {
                                     // point already touched
                                     return NULL ;
@@ -350,7 +287,11 @@ Element *Regola::findTheNextTextMatch(FindTextParams &findArgs, Element *selecte
                                 // no match
                                 return NULL;
                             }
-                        } // if top
+                        } else  {// if top
+                            if(!isNext) { // since next cannot use the parent for visiting order
+                                nextElement = element ;
+                            }
+                        }
                     } // if null next
                 } while(NULL == nextElement);
                 element = nextElement ;

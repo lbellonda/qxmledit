@@ -30,6 +30,7 @@
 
 #define FILE_NEXT_ROOT  "../test/data/search/next_root.xml"
 #define FILE_NEXT_INNER  "../test/data/search/next_inner.xml"
+#define FILE_NEXT_COMPLEX  "../test/data/search/next_complex.xml"
 
 
 TestSearch::TestSearch()
@@ -128,7 +129,7 @@ void TestSearchHelper::find(const QString &textToSearch)
 {
     initSearch(textToSearch);
     app.mainWindow()->getEditor()->setUpdatesEnabled(false);
-    lastMatch = app.mainWindow()->getRegola()->findText(app.mainWindow()->getMainTreeWidget(), findArgs, selectedItem);
+    lastMatch = app.mainWindow()->getRegola()->findText(findArgs, selectedItem);
     app.mainWindow()->getEditor()->setUpdatesEnabled(true);
 }
 
@@ -150,7 +151,7 @@ void TestSearchHelper::search()
 {
     app.mainWindow()->getEditor()->getRegola()->clearBookmarks();
     app.mainWindow()->getEditor()->setUpdatesEnabled(false);
-    lastMatch = app.mainWindow()->getRegola()->findText(app.mainWindow()->getMainTreeWidget(), findArgs, selectedItem);
+    lastMatch = app.mainWindow()->getRegola()->findText(findArgs, selectedItem);
     app.mainWindow()->getEditor()->setUpdatesEnabled(true);
 }
 
@@ -158,9 +159,11 @@ void TestSearchHelper::searchLastPos()
 {
     app.mainWindow()->getEditor()->getRegola()->clearBookmarks();
     app.mainWindow()->getEditor()->setUpdatesEnabled(false);
-    QTreeWidget *tree = app.mainWindow()->getMainTreeWidget();
     Element *fromHereOn = app.mainWindow()->getEditor()->getSelectedItem();
-    lastMatch = app.mainWindow()->getRegola()->findText(tree, findArgs, fromHereOn);
+    lastMatch = app.mainWindow()->getRegola()->findText(findArgs, fromHereOn);
+    if( NULL != lastMatch ) {
+        app.mainWindow()->getEditor()->setCurrentItem(lastMatch);
+    }
     app.mainWindow()->getEditor()->setUpdatesEnabled(true);
 }
 
@@ -265,7 +268,7 @@ bool TestSearch::checkSelectionByPath(TestSearchHelper &helper, const int expect
         return error(QString("Index:%1 Expected selection, but found none path is: %2").arg(index).arg(listIntToString(expectedPath)));
     }
     if( ( NULL != lastMatch ) && expectedPath.isEmpty() ) {
-        return error(QString("Index:%1 Expected no selection, but found one, path is: %2, XPath:%3").arg(index).arg(listIntToString(sel->indexPath())).arg(lastMatch->pathString()));
+        return error(QString("Index:%1 Expected no selection, but found one, path is: %2, XPath:%3").arg(index).arg(listIntToString(lastMatch->indexPath())).arg(lastMatch->pathString()));
     }
     // compare path
     if( NULL != lastMatch ) {
@@ -875,23 +878,6 @@ bool TestSearch::testXQuerySearch()
 
 //------------------------------------------------------------
 
-
-/**
-  Tests:
-
-  no data-> no selection, no null pointer
-  next to implement:
-  no match
-
-
-  wraparound y/n
-partire da root come slemento selezionato o da null o da un altro
-if(!literalSearchNext()) { wrap aroud e no caso semplice solo 1, poi 2 poi file compresso con vari livelli, check no boormarks e selezionato
-            partire da root come slemento selezionato o da null o da un altro
-    return false;
-}
-*/
-
 bool TestSearch::innerSearchForNext(const QString &testName, const bool isNext)
 {
     foreach( bool wrap, boolArray() ) {
@@ -938,6 +924,24 @@ bool TestSearch::innerSearchOne(const QString &testName, const bool isNext, QLis
     TestSearchHelper helper(false);
     helper.setFileToLoad(FILE_NEXT_INNER);
     initWithParams(QString("%1.Inner").arg(testName), helper, firstSelPath);
+
+    int index = 0;
+    foreach( QList<int> list, selList ) {
+        helper.initFindForNext("match", isNext, isWrap );
+        helper.searchLastPos();
+        if(!checkSelectionByPath(helper, 0, list, index)) {
+            return false;
+        }
+        index ++ ;
+    }
+    return true ;
+}
+
+bool TestSearch::innerSearchComplex(const QString &testName, const bool isNext, QList<int> firstSelPath, QList<QList<int> > selList, const bool isWrap )
+{
+    TestSearchHelper helper(false);
+    helper.setFileToLoad(FILE_NEXT_COMPLEX);
+    initWithParams(QString("%1.Complex").arg(testName), helper, firstSelPath);
 
     int index = 0;
     foreach( QList<int> list, selList ) {
@@ -1059,17 +1063,17 @@ bool TestSearch::innerSearchForInnerReverse(const QString &testName)
         selList << emptyPath ;
         selList << emptyPath ;
 
-        if(! innerSearchOne(testName, false, emptyPath, selList, false ) ) {
+        if(! innerSearchOne(QString("a:%1").arg(testName), false, emptyPath, selList, false ) ) {
             return false;
         }
-        if(! innerSearchOne(testName, false, emptyPath, selList, true) ) {
+        if(! innerSearchOne(QString("b:%1").arg(testName), false, emptyPath, selList, true) ) {
             return false;
         }
     }
     //1
     {
         QList<int> firstSelPath;
-        firstSelPath << 0 << 0 ;
+        firstSelPath << 0 << 2 ;
 
         QList<int> oneSel;
         oneSel << 0 << 1 ;
@@ -1079,10 +1083,10 @@ bool TestSearch::innerSearchForInnerReverse(const QString &testName)
         selList << emptyPath ;
         selList << emptyPath ;
 
-        if(! innerSearchOne(QString("0:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+        if(! innerSearchOne(QString("0:%1").arg(testName), false, firstSelPath, selList, false ) ) {
             return false;
         }
-        if(! innerSearchOne(QString("1:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+        if(! innerSearchOne(QString("1:%1").arg(testName), false, firstSelPath, selList, true) ) {
             return false;
         }
     }
@@ -1096,10 +1100,10 @@ bool TestSearch::innerSearchForInnerReverse(const QString &testName)
         selList << emptyPath ;
         selList << emptyPath ;
 
-        if(! innerSearchOne(QString("2:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+        if(! innerSearchOne(QString("2:%1").arg(testName), false, firstSelPath, selList, false ) ) {
             return false;
         }
-        if(! innerSearchOne(QString("3:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+        if(! innerSearchOne(QString("3:%1").arg(testName), false, firstSelPath, selList, true) ) {
             return false;
         }
     }
@@ -1112,11 +1116,11 @@ bool TestSearch::innerSearchForInnerReverse(const QString &testName)
         oneSel << 0 << 1 ;
         {
             QList<QList<int> > selList;
-            selList << emptyPath ;
+            selList << oneSel ;
             selList << emptyPath ;
             selList << emptyPath ;
 
-            if(! innerSearchOne(QString("4:%1").arg(testName), isNext, firstSelPath, selList, false ) ) {
+            if(! innerSearchOne(QString("4:%1").arg(testName), false, firstSelPath, selList, false ) ) {
                 return false;
             }
         }
@@ -1125,7 +1129,7 @@ bool TestSearch::innerSearchForInnerReverse(const QString &testName)
             selList << oneSel ;
             selList << emptyPath ;
             selList << emptyPath ;
-            if(! innerSearchOne(QString("5:%1").arg(testName), isNext, firstSelPath, selList, true) ) {
+            if(! innerSearchOne(QString("5:%1").arg(testName), false, firstSelPath, selList, true) ) {
                 return false;
             }
         }
@@ -1161,26 +1165,286 @@ bool TestSearch::innerSearchForInnerReverse(const QString &testName)
     return true ;
 }*/
 
+
+/**
+  Tests:
+*/
 bool TestSearch::innerSearchForNextComplex(const QString &testName, const bool isNext)
 {
-    // fai wraparound si e no
-    return error("nyi");
-}
+    QList<int> emptyPath;
+    //0 - no selection 1 match, stop
+    {
+        {
+            QList<QList<int> > selList;
+            QList<int> oneSel;
+            oneSel << 0 << 0 << 1 ;
+            QList<int> twoSel;
+            twoSel << 0 << 1 << 0 << 0 << 0;
+            QList<int> threeSel;
+            threeSel << 0 << 2 << 0 ;
+            selList << oneSel ;
+            selList << twoSel ;
+            selList << threeSel ;
+            selList << emptyPath ;
+            selList << emptyPath ;
 
+            if(!innerSearchComplex(testName, isNext, emptyPath, selList, false ) ) {
+                return false ;
+            }
+        }
 
+        {
+            QList<QList<int> > selList;
+            QList<int> oneSel;
+            oneSel << 0 << 0 << 1 ;
+            QList<int> twoSel;
+            twoSel << 0 << 1 << 0 << 0 << 0;
+            QList<int> threeSel;
+            threeSel << 0 << 2 << 0 ;
+            selList << oneSel ;
+            selList << twoSel ;
+            selList << threeSel ;
+            selList << oneSel ;
+            selList << twoSel ;
+            selList << threeSel ;
 
-/*
-    foreach( bool wrap, boolArray() ) {
-        TestSearchHelper helper(false);
-        helper.setFileToLoad(FILE_BASE);
-        QList<int> emptyPath;
-        initWithParams(QString("%1.Empty").arg(testName), helper, emptyPath);
-        helper.initFindForNext("match", isNext, wrap );
-        if(!checkSelectionByPath(helper, 0, emptyPath)) {
-            return false;
+            if(!innerSearchComplex(testName, isNext, emptyPath, selList, true ) ) {
+                return false ;
+            }
+        }
+
+        //1 - first selection 2 matches, stop
+        {
+
+            QList<int> oneSel;
+            oneSel << 0 << 0 << 1 ;
+            {
+                QList<QList<int> > selList;
+                QList<int> twoSel;
+                twoSel << 0 << 1 << 0 << 0 << 0;
+                QList<int> threeSel;
+                threeSel << 0 << 2 << 0 ;
+                selList << twoSel ;
+                selList << threeSel ;
+                selList << emptyPath ;
+                selList << emptyPath ;
+
+                if(!innerSearchComplex(testName, isNext, oneSel, selList, false ) ) {
+                    return false ;
+                }
+            }
+            {
+                QList<QList<int> > selList;
+                QList<int> twoSel;
+                twoSel << 0 << 1 << 0 << 0 << 0;
+                QList<int> threeSel;
+                threeSel << 0 << 2 << 0 ;
+                selList << twoSel ;
+                selList << threeSel ;
+                selList << oneSel ;
+                selList << twoSel ;
+                selList << threeSel ;
+
+                if(!innerSearchComplex(testName, isNext, oneSel, selList, true ) ) {
+                    return false ;
+                }
+            }
+        }
+        // sel item 2
+        {
+            QList<int> selPath;
+            selPath << 0 << 1 << 0 << 0 << 0 ;
+            {
+                QList<QList<int> > selList;
+                QList<int> lastSel;
+                lastSel << 0 << 2 << 0 ;
+                selList << lastSel ;
+                selList << emptyPath ;
+                selList << emptyPath ;
+
+                if(!innerSearchComplex(testName, isNext, selPath, selList, false ) ) {
+                    return false ;
+                }
+            }
+
+            {
+                QList<QList<int> > selList;
+                QList<int> oneSel;
+                oneSel << 0 << 0 << 1 ;
+                QList<int> twoSel;
+                twoSel << 0 << 1 << 0 << 0 << 0;
+                QList<int> threeSel;
+                threeSel << 0 << 2 << 0 ;
+                selList << threeSel ;
+                selList << oneSel ;
+                selList << twoSel ;
+                selList << threeSel ;
+                if(!innerSearchComplex(testName, isNext, selPath, selList, true ) ) {
+                    return false ;
+                }
+            }
+        }
+
+        // sel no match
+        {
+            QList<int> oneSel;
+            oneSel << 0 << 0 << 1 ;
+            QList<int> twoSel;
+            twoSel << 0 << 1 << 0 << 0 << 0;
+            QList<int> threeSel;
+            threeSel << 0 << 2 << 0 ;
+            QList<int> selPath;
+            selPath << 0 << 0 << 1 ;
+            {
+                QList<QList<int> > selList;
+                QList<int> lastSel;
+                lastSel << 0 << 2 << 0 ;
+                selList << twoSel ;
+                selList << threeSel ;
+                selList << emptyPath ;
+                selList << emptyPath ;
+                if(!innerSearchComplex(testName, isNext, selPath, selList, false ) ) {
+                    return false ;
+                }
+            }
+
+            {
+                QList<QList<int> > selList;
+
+                selList << twoSel ;
+                selList << threeSel ;
+                selList << oneSel ;
+                selList << twoSel ;
+                selList << threeSel ;
+                if(!innerSearchComplex(testName, isNext, selPath, selList, true ) ) {
+                    return false ;
+                }
+            }
         }
     }
 
+    return true ;
+}
+
+
+bool TestSearch::innerSearchForNextComplexReverse(const QString &testName)
+{
+    QList<int> emptyPath;
+    QList<int> oneSel;
+    oneSel << 0 << 0 << 1 ;
+    QList<int> twoSel;
+    twoSel << 0 << 1 << 0 << 0 << 0;
+    QList<int> threeSel;
+    threeSel << 0 << 2 << 0 ;
+    //0 - no selection 1 match, stop
+    {
+        QList<QList<int> > selList;
+        selList << threeSel ;
+        selList << twoSel ;
+        selList << oneSel ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(!innerSearchComplex(QString("0:%1").arg(testName), false, emptyPath, selList, false ) ) {
+            return false ;
+        }
+    }
+
+    {
+        QList<QList<int> > selList;
+        selList << threeSel ;
+        selList << twoSel ;
+        selList << oneSel ;
+        selList << threeSel ;
+        selList << twoSel ;
+        selList << oneSel ;
+
+        if(!innerSearchComplex(QString("1:%1").arg(testName), false, emptyPath, selList, true ) ) {
+            return false ;
+        }
+    }
+
+    //1 - first selection 2 matches, stop
+    {
+        QList<QList<int> > selList;
+        selList << twoSel ;
+        selList << oneSel ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(!innerSearchComplex(QString("2:%1").arg(testName), false, threeSel, selList, false ) ) {
+            return false ;
+        }
+    }
+    {
+        QList<QList<int> > selList;
+        selList << twoSel ;
+        selList << oneSel ;
+        selList << threeSel ;
+        selList << twoSel ;
+        selList << oneSel ;
+        selList << threeSel ;
+
+        if(!innerSearchComplex(QString("3:%1").arg(testName), false, threeSel, selList, true ) ) {
+            return false ;
+        }
+    }
+    // sel item 2
+    {
+        QList<QList<int> > selList;
+        selList << oneSel ;
+        selList << emptyPath ;
+        selList << emptyPath ;
+
+        if(!innerSearchComplex(QString("4:%1").arg(testName), false, twoSel, selList, false ) ) {
+            return false ;
+        }
+    }
+
+    {
+        QList<QList<int> > selList;
+        selList << oneSel ;
+        selList << threeSel ;
+        selList << twoSel ;
+        selList << oneSel ;
+        selList << threeSel ;
+        selList << twoSel ;
+        if(!innerSearchComplex(QString("5:%1").arg(testName), false, twoSel, selList, true ) ) {
+            return false ;
+        }
+    }
+
+    // sel no match
+    {
+        QList<int> selPath;
+        selPath << 0 << 1 << 0 ;
+        {
+            QList<QList<int> > selList;
+            selList << oneSel ;
+            selList << emptyPath ;
+            selList << emptyPath ;
+            if(!innerSearchComplex(QString("6:%1").arg(testName), false, selPath, selList, false ) ) {
+                return false ;
+            }
+        }
+
+        {
+            QList<QList<int> > selList;
+            selList << oneSel ;
+            selList << threeSel ;
+            selList << twoSel ;
+            selList << oneSel ;
+            selList << threeSel ;
+            selList << twoSel ;
+            if(!innerSearchComplex(QString("7:%1").arg(testName), false, selPath, selList, true ) ) {
+                return false ;
+            }
+        }
+    }
+    return true ;
+}
+
+/*
 */
 
 /*
@@ -1216,7 +1480,7 @@ bool TestSearch::literalSearchNext()
     if(!innerSearchForNextComplex(testName, true) ) {
         return false;
     }
-    return error("nyi");
+    return true;
 }
 
 bool TestSearch::literalSearchPrevious()
@@ -1229,9 +1493,12 @@ bool TestSearch::literalSearchPrevious()
     if(!innerSearchForRoot(testName, false) ) {
         return false;
     }
-    if(!innerSearchForInnerReverse(testName, true) ) {
+    if(!innerSearchForInnerReverse(testName) ) {
         return false;
     }
-    return error("nyi");
+    if(!innerSearchForNextComplexReverse(testName) ) {
+        return false;
+    }
+    return true;
 }
 

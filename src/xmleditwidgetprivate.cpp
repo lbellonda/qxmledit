@@ -253,7 +253,7 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
     connect(p->ui->searchWidget, SIGNAL(openAdvancedSearch()), this, SLOT(openAdvancedResultPanel()));
     connect(p->ui->searchWidget, SIGNAL(hiding()), this, SLOT(on_closeSearchPanel_clicked()));
     connect(p->ui->searchWidget, SIGNAL(searchNext()), this, SLOT(onSearchNext()));
-    Utils::TODO_THIS_RELEASE("fare anche prev");
+    connect(p->ui->searchWidget, SIGNAL(searchPrev()), this, SLOT(onSearchPrev()));
 
     connect(p->ui->ok, SIGNAL(clicked()), this, SLOT(on_ok_clicked()));
     connect(p->ui->cancel, SIGNAL(clicked()), this, SLOT(on_cancel_clicked()));
@@ -1193,8 +1193,9 @@ void XmlEditWidgetPrivate::countTextOccurrences()
     findTextOperation(false);
 }
 
-void XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, const FindTextParams::EFindType findType)
+Element * XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, const FindTextParams::EFindType findType)
 {
+    Element *foundElement = NULL;
     bool isGlobalSearch = FindTextParams::FindAllOccurrences == findType;
     if(NULL != regola) {
 
@@ -1216,7 +1217,7 @@ void XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, const Fin
             findArgs->saveState();
             regola->unhiliteAll();
             findArgs->start();
-            Element *foundElement = regola->findText(getMainTreeWidget(), *findArgs, getSelectedItem());
+            foundElement = regola->findText(*findArgs, getSelectedItem());
             p->ui->searchWidget->setSearchResults(findArgs);
             if(isGlobalSearch) {
                 p->emitShowStatusMessage(p->ui->searchWidget->messageCount(), true);
@@ -1232,6 +1233,7 @@ void XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, const Fin
     p->ui->treeWidget->setUpdatesEnabled(true);
     p->setEnabled(true);
     Utils::restoreCursor();
+    return foundElement ;
 }
 
 void XmlEditWidgetPrivate::onActionGoToParent()
@@ -2783,6 +2785,25 @@ QHash<void *, QString> *XmlEditWidgetPrivate::anonDataForPreview()
 
 void XmlEditWidgetPrivate::onSearchNext()
 {
-    Utils::TODO_THIS_RELEASE("manca avviso se non trovato, nemmeno con wraparound");
-    findTextOperation(true, FindTextParams::FindNext);
+    Element *selectedElement = findTextOperation(true, FindTextParams::FindNext);
+    if(NULL != selectedElement) {
+        QTreeWidgetItem *item = NULL ;
+        QTreeWidget *tree = getMainTreeWidget() ;
+        item = selectedElement->getUI();
+        tree->setCurrentItem(item, 0);
+        tree-> scrollToItem(item, QAbstractItemView::PositionAtTop);
+    }
+}
+
+
+void XmlEditWidgetPrivate::onSearchPrev()
+{
+    Element *selectedElement = findTextOperation(true, FindTextParams::FindPrevious);
+    if(NULL != selectedElement) {
+        QTreeWidgetItem *item = NULL ;
+        QTreeWidget *tree = getMainTreeWidget() ;
+        item = selectedElement->getUI();
+        tree->setCurrentItem(item, 0);
+        tree-> scrollToItem(item, QAbstractItemView::PositionAtTop);
+    }
 }

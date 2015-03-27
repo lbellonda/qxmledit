@@ -411,7 +411,6 @@ Element  *Regola::root() const
     return rootItem;
 }
 
-
 Element *Regola::firstChild() const
 {
     if(childItems.isEmpty()) {
@@ -426,6 +425,22 @@ Element *Regola::lastChild() const
         return NULL ;
     }
     return childItems.last();
+}
+
+Element *Regola::firstChildRecursive() const
+{
+    if(childItems.isEmpty()) {
+        return NULL ;
+    }
+    return childItems.first()->firstChildRecursiveOrThis();
+}
+
+Element *Regola::lastChildRecursive() const
+{
+    if(childItems.isEmpty()) {
+        return NULL ;
+    }
+    return childItems.last()->lastChildRecursiveOrThis();
 }
 
 Element* Regola::topElement(const int pos) const
@@ -1367,47 +1382,8 @@ void Regola::searchWithXQuery(FindTextParams &findArgs, Element *selectedItem)
     xQuery.search(this, selectedItem, findArgs);
 }
 
-// moved to another file
-/*
-void Regola::findText(FindTextParams &findArgs, Element *selectedItem)
-{
-    if(findArgs.useXQuery()) {
-        searchWithXQuery(findArgs, selectedItem);
-        return ;
-    }
-    unhiliteAll();
-    if(findArgs.isCloseUnrelated()) {
-
-    }
-    if((NULL != selectedItem) && findArgs.isLookOnlyChildren()) {
-        if(findArgs.isCloseUnrelated() && (NULL != selectedItem->getUI())) {
-            if(selectedItem->getUI()->isExpanded()) {
-                selectedItem->getUI()->setExpanded(false);
-            }
-        }
-        selectedItem->findText(findArgs);
-    } else {
-        bool isHiliteAll = findArgs.isHiliteAll();
-        QVectorIterator<Element*> it(childItems);
-        while(it.hasNext()) {
-            Element* element = it.next();
-            if(findArgs.isCloseUnrelated() && (NULL != element->getUI())) {
-                if(element->getUI()->isExpanded()) {
-                    element->getUI()->setExpanded(false);
-                }
-            }
-            if(element->findText(findArgs)) {
-                if(!isHiliteAll) {
-                    break;
-                }
-            }
-        }// while next
-    }
-}
-*/
 void Regola::unhiliteAll()
 {
-    Utils::TODO_THIS_RELEASE("rimuovi codice precedente");
     QHashIterator<int, Element*> sel(selection);
     while(sel.hasNext()) {
         sel.next();

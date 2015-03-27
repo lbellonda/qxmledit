@@ -1,3 +1,6 @@
+0.8.15
+    Inserted a search next/previous.
+
 0.8.14
     Now XML Schema menu is a tear off for faster access.
     Moved the menu for compare to "Tools".

@@ -111,7 +111,7 @@ bool SearchWidget::finishSetUpUi()
     connect(ui->useXQuery, SIGNAL(clicked()), this, SLOT(enableSearchItems()));
     connect(ui->cmdOpenAdvancedPanel, SIGNAL(clicked()), this, SLOT(onOpenAdvancedResultPanel()));
     connect(ui->cmdNext, SIGNAL(clicked()), this, SLOT(onSearchNext()));
-    Utils::TODO_THIS_RELEASE("anche previous");
+    connect(ui->cmdPrev, SIGNAL(clicked()), this, SLOT(onSearchPrev()));
 
     _findCompleter = new LineEditWithCompleter(ui->searchBox);
     ui->searchBox->setDuplicatesEnabled(true);
@@ -402,10 +402,15 @@ void SearchWidget::onSearchNext()
     emit searchNext();
 }
 
+void SearchWidget::onSearchPrev()
+{
+    emit searchPrev();
+}
+
 void SearchWidget::setExtendedMode(const bool extendedMode)
 {
     _extendedMode = extendedMode ;
-    Utils::TODO_THIS_RELEASE("fai searchprev");
+    ui->cmdPrev->setVisible(!_extendedMode);
     ui->cmdNext->setVisible(!_extendedMode);
     ui->wrapAround->setVisible(!_extendedMode);
 }

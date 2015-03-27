@@ -135,7 +135,7 @@ void SearchResultsDialog::findTextOperation(const bool isFindOrCount)
             findArgs->saveState();
             _regola->unhiliteAll();
             findArgs->start();
-            _regola->findText(ui->treeWidget, *findArgs, _currentSelection);
+            _regola->findText(*findArgs, _currentSelection);
             ui->searchWidget->setSearchResults(findArgs);
             setXQueryResults(_results);
         }

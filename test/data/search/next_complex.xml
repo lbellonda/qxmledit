@@ -1,7 +1,8 @@
-<root >
+<root>
   <a1>
 	<!-- this wraparound -->
-	<b1 attr="match">
+        <b1 attr="match"/>
+  </a1>
   <a2>
 	<b2>
 	  <c2>

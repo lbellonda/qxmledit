@@ -141,6 +141,8 @@ public:
     Element *root() const;
     Element *firstChild() const;
     Element *lastChild() const;
+    Element *firstChildRecursive() const;
+    Element *lastChildRecursive() const;
     Element *topElement(const int pos) const;
     void setRootElement(Element *newRoot);
     bool write(const QString &filePath);
@@ -231,8 +233,8 @@ public:
 
     static QBrush hiliteBkBrush;
 
-    Element * findText(QTreeWidget *tree, FindTextParams &findArgs, Element *selectedItem);
-    Element * findNextTextMatch(QTreeWidget *tree, FindTextParams &findArgs, Element *selectedItem);
+    Element * findText(FindTextParams &findArgs, Element *selectedItem);
+    Element * findNextTextMatch(FindTextParams &findArgs, Element *selectedItem);
     void unhilite();
 
     void takeOutElement(Element*element);
@@ -306,8 +308,6 @@ public:
     bool moveDown(Element *element);
     bool internalMoveUp(Element *element, const bool registerInUndo);
     bool internalMoveDown(Element *element, const bool registerInUndo);
-
-    Element *selectElement(QTreeWidget *tree, Element *selectedElement);
 
     void redo();
     void undo();

@@ -102,6 +102,7 @@ private slots:
     void onSaveAsSearchlet();
     void onManageSearchlets();
     void onSearchNext();
+    void onSearchPrev();
 
 public:
 signals:
@@ -135,6 +136,7 @@ signals:
     void searchTextCleared();
 
     void searchNext();
+    void searchPrev();
 
 };
 

@@ -377,6 +377,7 @@ public:
     QString transformToText();
     int indexOfSelfAsChild();
     Element *previousSibling();
+    Element *previousSiblingRecursive();
     Element *nextSibling();
     bool isMixedContent() ;
 
@@ -537,6 +538,11 @@ public:
     void anonymize(AnonContext *context);
     void anonymizeElement(AnonContext *context);
     void anonymizeText(AnonContext *context);
+
+    //---
+    Element *firstChildRecursiveOrThis();
+    Element *lastChildRecursiveOrThis();
+    Element *lastChildRecursive();
 
     friend class TestStyle;
 };

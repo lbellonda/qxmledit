@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1016</width>
-    <height>181</height>
+    <height>185</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -147,8 +147,31 @@ color: rgb(255, 0, 0);</string>
         </item>
         <item>
          <widget class="QPushButton" name="findButton">
+          <property name="toolTip">
+           <string>Find all</string>
+          </property>
           <property name="text">
            <string>Find</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="cmdPrev">
+          <property name="toolTip">
+           <string>Find previous</string>
+          </property>
+          <property name="text">
+           <string>Prev</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="cmdNext">
+          <property name="toolTip">
+           <string>Find Next</string>
+          </property>
+          <property name="text">
+           <string>Next</string>
           </property>
          </widget>
         </item>
@@ -169,7 +192,7 @@ color: rgb(255, 0, 0);</string>
         <item>
          <widget class="QPushButton" name="cmdOpenAdvancedPanel">
           <property name="text">
-           <string>Open panel</string>
+           <string>Advanced</string>
           </property>
          </widget>
         </item>
@@ -312,13 +335,6 @@ color: rgb(255, 0, 0);</string>
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="cmdNext">
-          <property name="text">
-           <string>Find next</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QCheckBox" name="wrapAround">
           <property name="text">
            <string>Wrap around</string>
@@ -354,7 +370,6 @@ color: rgb(255, 0, 0);</string>
   </layout>
  </widget>
  <resources>
-  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections/>

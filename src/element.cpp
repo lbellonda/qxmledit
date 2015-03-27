@@ -1798,143 +1798,8 @@ void Element::setPIData(const QString & data)
     }
 }
 
-/*
-bool Element::findText(FindTextParams &findArgs)
-{
-    bool isFound = false;
-    bool isFoundInChild = false;
-    bool isHiliteAll = findArgs.isHiliteAll();
-    bool isCloseUnrelated = findArgs.isCloseUnrelated();
-    FindTextParams::EFindTarget findTarget = findArgs.getFindTarget();
-    if(findArgs.isCountingOnly()) {
-        isCloseUnrelated = false;
-    }
-
-    switch(type) {
-    default:
-    case ET_ELEMENT: {
-
-        if(searchInScope(findArgs)) {
-            if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_TAG == findTarget)) {
-                if(findArgs.isTextMatched(tag()))
-                    isFound = true ;
-            }
-            if(!isFound) {
-                if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_TEXT == findTarget)) {
-                    foreach(TextChunk * chunk, textNodes) {
-                        if(findArgs.isTextMatched(chunk->text)) {
-                            isFound = true ;
-                        }
-                    }
-                } else if(FindTextParams::FIND_TEXT_BASE64) {
-                    foreach(TextChunk * chunk, textNodes) {
-                        if(findArgs.isTextBase64Matched(chunk->text)) {
-                            isFound = true ;
-                        }
-                    }
-                }
-            }
-            if(!isFound) {
-                QVectorIterator<Attribute*>  attrs(attributes);
-                while(attrs.hasNext()) {
-                    Attribute* a = attrs.next();
-                    if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_ATTRIBUTE_NAME == findTarget)) {
-                        if(findArgs.isTextMatched(a->name)) {
-                            isFound = true ;
-                        }
-                    }
-                    if(!isFound) {
-                        if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_ATTRIBUTE_VALUE == findTarget)) {
-                            if(findArgs.isSearchInAttribute()) {
-                                if((a->name == findArgs.attributeName())
-                                        && (FindTextParams::FIND_ATTRIBUTE_VALUE == findTarget)) {
-                                    isFound = true ;
-                                }
-                            } else if(findArgs.isTextMatched(a->value)) {
-                                isFound = true ;
-                            }
-                        } else if(FindTextParams::FIND_TEXT_BASE64) {
-                            if(findArgs.isTextBase64Matched(a->value)) {
-                                isFound = true ;
-                            }
-                        }
-                    } // if ! found
-                } // for attrs
-            } //! found
-        }
-    }
-    break;
-    case ET_TEXT:
-        if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_TEXT == findTarget)) {
-            if(findArgs.isTextMatched(text)) {
-                isFound = true ;
-            }
-        } else if(FindTextParams::FIND_TEXT_BASE64) {
-            if(findArgs.isTextBase64Matched(text)) {
-                isFound = true ;
-            }
-        }
-        break;
-    case ET_PROCESSING_INSTRUCTION: {
-        if(FindTextParams::FIND_ALL == findTarget) {
-            if(findArgs.isTextMatched(getPITarget()) || findArgs.isTextMatched(getPIData())) {
-                isFound = true ;
-            }
-        }
-    }
-    break;
-    case ET_COMMENT: {
-        if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_COMMENT == findTarget)) {
-            if(findArgs.isTextMatched(getComment())) {
-                isFound = true ;
-            }
-        }
-    }
-    break;
-    }
-    if(isFound) {
-        findArgs.newOccurence(selfInfo.totalSize + childrenInfo.totalSize);
-        if(!findArgs.isCountingOnly()) {
-            findArgs.addSelection(this);
-            hilite();
-            if(findArgs.isSelToBookmarks()) {
-                parentRule->addBookmark(this);
-            }
-        }
-    } pensa se deve andare al prossimo o meno
-    //append children
-    if(isHiliteAll) {
-        qui solo se non trovato e cerca tutto
-        se cerca solo, puoi tornare.
-        foreach(Element * value, childItems) {
-            if(value->findText(findArgs)) {
-                isFoundInChild = true ;
-            }
-        }
-    }
-
-    bool isFoundSomeWhere = isFoundInChild || isFound ;
-    if(!findArgs.isCountingOnly()) {
-        if(isCloseUnrelated && (NULL != ui)) {
-            if(isFoundInChild) {
-                if(!ui->isExpanded()) {
-                    ui->setExpanded(true);
-                }
-            } else {
-                if(ui->isExpanded()) {
-                    if(ui->isExpanded()) {
-                        ui->setExpanded(false);
-                    }
-                }
-            }
-        }
-    }
-    return isFoundSomeWhere  ;
-}
-*/
 void Element::unhilite()
 {
-    Utils::TODO_THIS_RELEASE("remove the above code");
     QTreeWidgetItem *theUi = getUI();
     if(NULL != theUi) {
         theUi->setBackgroundColor(0, QColor(0xFF, 0xFF, 0xFF, 0));
@@ -2451,6 +2316,27 @@ Element *Element::previousSibling()
     }
 }
 
+Element *Element::previousSiblingRecursive()
+{
+    int nextChildIndex = indexOfSelfAsChild() - 1;
+    if(NULL != parentElement) {
+        Element *chl = parentElement->getChildAt(nextChildIndex);
+        if(NULL != chl) {
+            chl = chl->lastChildRecursiveOrThis();
+        }
+        return chl ;
+    } else {
+        if(NULL != parentRule) {
+            Element *prevTop = parentRule->topElement(nextChildIndex);
+            if(NULL != prevTop) {
+                return prevTop->lastChildRecursiveOrThis();
+            }
+            return NULL ;
+        } else {
+            return NULL ;
+        }
+    }
+}
 
 bool Element::areChildrenLeavesHidden(QTreeWidgetItem *twi)
 {
@@ -2593,7 +2479,7 @@ bool Element::copyTextNodesToTarget(Element *target)
             // check for synchronization
             if((sourceElement->getType() != targetElement->getType())
                     || (sourceElement->tag() != targetElement->tag())
-            || (sourceElement->text != targetElement->text)) {
+                    || (sourceElement->text != targetElement->text)) {
                 return false;
             }
         } // for children
@@ -3044,6 +2930,30 @@ void Element::anonymizeText(AnonAlg *alg)
     text = alg->processText(text);
 }
 
+
+Element *Element::firstChildRecursiveOrThis()
+{
+    if(childItems.isEmpty()) {
+        return this ;
+    }
+    return childItems.first()->firstChildRecursiveOrThis();
+}
+
+Element *Element::lastChildRecursiveOrThis()
+{
+    if(childItems.isEmpty()) {
+        return this ;
+    }
+    return childItems.last()->lastChildRecursiveOrThis();
+}
+
+Element *Element::lastChildRecursive()
+{
+    if(childItems.isEmpty()) {
+        return NULL ;
+    }
+    return childItems.last()->lastChildRecursiveOrThis();
+}
 //----------------------------------------------------------------
 
 Attribute::Attribute()

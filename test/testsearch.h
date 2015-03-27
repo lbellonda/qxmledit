@@ -73,7 +73,10 @@ class TestSearch : public TestBase
     bool innerSearchForRoot(const QString &testName, const bool isNext);
     bool innerSearchForInner(const QString &testName, const bool isNext);
     bool innerSearchForNextComplex(const QString &testName, const bool isNext);
+    bool innerSearchForNextComplexReverse(const QString &testName);
     bool innerSearchOne(const QString &testName, const bool isNext, QList<int> firstSelPath, QList<QList<int> > selList, const bool isWrap );
+    bool innerSearchForInnerReverse(const QString &testName);
+    bool innerSearchComplex(const QString &testName, const bool isNext, QList<int> firstSelPath, QList<QList<int> > selList, const bool isWrap );
     //-----------------------------------------------------------
 
     bool testAStdSearch(const QString &nameTest, const int expected, const QString &textToSearch);
