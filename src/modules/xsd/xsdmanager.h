@@ -33,6 +33,7 @@ class LIBQXMLEDITSHARED_EXPORT XSDManager
     QSet<QString> _elementParents;
     QSet<QString> _typeParents;
     QSet<QString> _modifiable;
+    QSet<QString> _annotationParents;
 
 public:
     XSDManager();
@@ -41,6 +42,7 @@ public:
     bool canInsertType(const QString &parentTag);
     bool canInsertAttribute(const QString &parentTag) ;
     bool canModifyType(const QString &tag);
+    bool canEditAnnotation(const QString &tag);
 
 };
 

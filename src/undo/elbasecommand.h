@@ -33,6 +33,7 @@ class ElBaseCommand : public UndoCommand
 protected:
     bool _firstShot;
     Element *_element;
+    bool _selectParent;
 
     void loseElement();
 
@@ -43,6 +44,9 @@ public:
     virtual void undo() = 0 ;
     virtual void redo() = 0 ;
 
+
+    bool selectParent() const;
+    void setSelectParent(const bool selectParent);
 
 protected:
     void removeElement();

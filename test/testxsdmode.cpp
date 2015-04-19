@@ -26,6 +26,8 @@
 #include "modules/xsd/xsdhelper.h"
 #include "comparexml.h"
 #include "testhelpers/testdialogxsdtypes.h"
+#include "testhelpers/xsd/testannotxsdannotationeditor.h"
+#include "testhelpers/xsd/testannotxsdannotationeditprovider.h"
 
 #define FILE_CHECK_ENABLE       "../test/data/xsd/mode/enabling.xml"
 
@@ -240,7 +242,7 @@ TestXSDMode::~TestXSDMode()
 bool TestXSDMode::testLast()
 {
     _testName = "testLast";
-    if(!testInsertChildElementComplexTypeSequence()) {
+    if(!testUnitAnnotationModel()) {
         return false;
     }
     return true;
@@ -2527,6 +2529,7 @@ bool TestXSDMode::testDialogComplexTypeSCExt()
     return true;
 
 }
+
 bool TestXSDMode::testDialogTypes()
 {
     _testName = "testDialogTypes";
@@ -2949,3 +2952,466 @@ bool TestXSDMode::testDialogElementComplexTypeSCExt()
     return true;
 
 }
+
+//---------------------------------------------------------------
+
+#define ANNOT_NO_DATA   "../test/data/xsd/annotations/no_annot.xsd"
+#define ANNOT_DATA   "../test/data/xsd/annotations/annot_data.xsd"
+#define INS_ANNOT_FINAL   "../test/data/xsd/annotations/ins_annot_final.xsd"
+#define INS_ANNOT_START "../test/data/xsd/annotations/ins_annot_start.xsd"
+#define INS_ANNOT_FINAL_EDIT   "../test/data/xsd/annotations/ins_annot_final_edit.xsd"
+#define INS_ANNOT_FINAL_COMPLEX   "../test/data/xsd/annotations/ins_annot_final_complex.xsd"
+#define INS_ANNOT_START_COMPLEX     "../test/data/xsd/annotations/ins_annot_start_complex.xsd"
+#define INS_ANNOT_START_COMPLEX_CONFIRM     "../test/data/xsd/annotations/ins_annot_final_complex_confirm.xsd"
+#define INS_ANNOT_START_MIX "../test/data/xsd/annotations/ins_annot_start_mix.xsd"
+#define INS_ANNOT_FINAL_MIX "../test/data/xsd/annotations/ins_annot_final_mix.xsd"
+#define INS_ANNOT_START_MIXNNS  "../test/data/xsd/annotations/ins_annot_start_mixnns.xsd"
+#define INS_ANNOT_FINAL_MIXNNS  "../test/data/xsd/annotations/ins_annot_final_mixnns.xsd"
+
+bool TestXSDMode::testEditAnnotations()
+{
+    _testName = "testEditAnnotations";
+
+    if(!testUnitAnnotationModel()) {
+        return false;
+    }
+
+    // 1= no data, cancel, no data
+    if( !testAnnotation1NoDataCancel() ) {
+        return false;
+    }
+
+    // 2= 1 datum, cancel, no data
+    if( !testAnnotation2DataCancel() ) {
+        return false;
+    }
+
+    // 3= 0 data, edit simple, no complex, write
+    if( !testAnnotation3NoDataSimple() ) {
+        return false;
+    }
+
+    // 4= 1 datum, edit simple, no complex, write
+    if( !testAnnotation4DataSimple() ) {
+        return false;
+    }
+
+    // 5= empty, edit recalling complex undo
+    if( !testAnnotation5EmptyComplexCancel() ) {
+        return false;
+    }
+
+    // 6= empty, edit recalling complex confirm
+    if( !testAnnotation6EmptyComplexOk() ) {
+        return false;
+    }
+
+    // 7= data, edit recalling complex, no simple, cancel
+    if( !testAnnotation7DataComplexCancel() ) {
+        return false;
+    }
+
+    // 8= data, edit recalling complex, no simple, confirm
+    if( !testAnnotation8DataComplexConfirm() ) {
+        return false;
+    }
+
+    // 9= edit multiple (ins, del, mod) with different appinfo and docs and existing comments and procinfo
+    if( !testAnnotation9MixComplexConfirm() ) {
+        return false;
+    }
+
+    // 10= multiple tests without using ns prefix
+    if( !testAnnotation10MixComplexConfirmNoNS() ) {
+        return false;
+    }
+
+    return true;
+}
+
+void TestXSDMode::initParamsForAnnot(XSDOperationParameters *params)
+{
+    params->setUsePrefix(true);
+    params->setXsdNamespacePrefix("xsd");
+}
+
+QList<int> TestXSDMode::stdListEditAnnot()
+{
+    QList<int> sel ;
+    sel << 1 ;
+    sel << 0;
+    return sel;
+}
+
+bool TestXSDMode::testAnnotation1NoDataCancel()
+{
+    _testName = "testAnnotation1NoDataCancel";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(ANNOT_NO_DATA, ANNOT_NO_DATA, &TestXSDMode::funAnnotCancelNoData, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::testAnnotation2DataCancel()
+{
+    _testName = "testAnnotation2DataCancel";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(ANNOT_DATA, ANNOT_DATA, &TestXSDMode::funAnnotCancelNoData, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+
+bool TestXSDMode::testAnnotation3NoDataSimple()
+{
+    _testName = "testAnnotation3NoDataSimple";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(INS_ANNOT_START, INS_ANNOT_FINAL, &TestXSDMode::funAnnotInsSimpleNoData, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::testAnnotation4DataSimple()
+{
+    _testName = "testAnnotation4DataSimple";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(INS_ANNOT_FINAL, INS_ANNOT_FINAL_EDIT, &TestXSDMode::funAnnotInsSimpleData, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::testAnnotation5EmptyComplexCancel()
+{
+    _testName = "testAnnotation5EmptyComplexCancel";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(INS_ANNOT_START, INS_ANNOT_START, &TestXSDMode::funAnnotInsEmptyComplexDataCancel, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::testAnnotation6EmptyComplexOk()
+{
+    _testName = "testAnnotation6EmptyComplexOk";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(INS_ANNOT_START, INS_ANNOT_FINAL_COMPLEX, &TestXSDMode::funAnnotInsEmptyComplexDataOk, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::testAnnotation7DataComplexCancel()
+{
+    _testName = "testAnnotation7DataComplexCancel";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(INS_ANNOT_START_COMPLEX, INS_ANNOT_START_COMPLEX, &TestXSDMode::funAnnotInsDataComplexCancel, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::testAnnotation8DataComplexConfirm()
+{
+    _testName = "testAnnotation8DataComplexConfirm";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(INS_ANNOT_START_COMPLEX, INS_ANNOT_START_COMPLEX_CONFIRM, &TestXSDMode::funAnnotInsDataComplexConfirm, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::testAnnotation9MixComplexConfirm()
+{
+    _testName = "testAnnotation9MixComplexConfirm";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(INS_ANNOT_START_MIX, INS_ANNOT_FINAL_MIX, &TestXSDMode::funAnnotMixConfirm, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::testAnnotation10MixComplexConfirmNoNS()
+{
+    _testName = "testAnnotation10MixComplexConfirmNoNS";
+    XSDOperationParameters params;
+    initParamsForAnnot(&params);
+    QList<int> sel = stdListEditAnnot();
+    if(!testSkeletonAnnotation(INS_ANNOT_START_MIXNNS, INS_ANNOT_FINAL_MIXNNS, &TestXSDMode::funAnnotMixConfirm, sel ))
+    {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDMode::recallEdit(App *appData, TestAnnotXSDAnnotationEditProvider *provider)
+{
+    appData->mainWindow()->getEditor()->setXSDAnnotationEditProviderObject(provider);
+    appData->mainWindow()->getEditor()->onEditXSDAnnotation();
+    appData->mainWindow()->getEditor()->setXSDAnnotationEditProviderObject(NULL);
+    return true ;
+}
+
+
+bool TestXSDMode::funAnnotCancelNoData(App *app)
+{
+    TestAnnotXSDAnnotationEditProvider provider;
+    provider.testCase = TestInfoAnnotEdit::CancelNoData ;
+    if( !recallEdit(app, &provider ) ) {
+        return false;
+    }
+    if( !checkProvider(&provider, true, false ) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestXSDMode::funAnnotInsSimpleNoData(App *app)
+{
+    TestAnnotXSDAnnotationEditProvider provider ;
+    provider.testCase = TestInfoAnnotEdit::ConfirmSimple ;
+    if( !recallEdit(app, &provider ) ) {
+        return false;
+    }
+    if( !checkProvider(&provider, true, false ) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestXSDMode::funAnnotInsSimpleData(App *app)
+{
+    TestAnnotXSDAnnotationEditProvider provider ;
+    provider.testCase = TestInfoAnnotEdit::ConfirmSimpleData ;
+    if( !recallEdit(app, &provider ) ) {
+        return false;
+    }
+    if( !checkProvider(&provider, true, false ) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestXSDMode::funAnnotInsEmptyComplexDataCancel(App *app)
+{
+    TestAnnotXSDAnnotationEditProvider provider;
+    provider.testCase = TestInfoAnnotEdit::InsertComplexNoDataCancel ;
+    if( !recallEdit(app, &provider ) ) {
+        return false;
+    }
+    if( !checkProvider(&provider, true, true ) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestXSDMode::funAnnotInsDataComplexCancel(App *app)
+{
+    TestAnnotXSDAnnotationEditProvider provider;
+    provider.testCase = TestInfoAnnotEdit::InsertComplexDataCancel ;
+    if( !recallEdit(app, &provider ) ) {
+        return false;
+    }
+    if( !checkProvider(&provider, false, true ) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestXSDMode::funAnnotInsEmptyComplexDataOk(App *app)
+{
+    TestAnnotXSDAnnotationEditProvider provider;
+    provider.testCase = TestInfoAnnotEdit::InsertComplexNoDataInsert ;
+    provider.complexData  << new TestInfoAnnotEdit(TestInfoAnnotEdit::Mod, 0, false, "en2", "theSource2", "a<b attr=\"x2\">2Sample annotation2.</b>end2");
+    if( !recallEdit(app, &provider ) ) {
+        return false;
+    }
+    if( !checkProvider(&provider, true, true ) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestXSDMode::funAnnotInsDataComplexConfirm(App *app)
+{
+    TestAnnotXSDAnnotationEditProvider provider;
+    provider.testCase = TestInfoAnnotEdit::InsertComplexDataConfirm;
+    provider.complexData  << new TestInfoAnnotEdit(TestInfoAnnotEdit::Add, 0, false, "en3", "theSource3", "a<b attr=\"x3\">3Sample annotation3.</b>end3");
+    if( !recallEdit(app, &provider ) ) {
+        return false;
+    }
+    if( !checkProvider(&provider, false, true ) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestXSDMode::funAnnotMixConfirm(App *app)
+{
+    TestAnnotXSDAnnotationEditProvider provider;
+    provider.testCase = TestInfoAnnotEdit::InsertMixDataConfirm;
+    provider.complexData  << new TestInfoAnnotEdit(TestInfoAnnotEdit::Add, 0, false, "en6", "theSource6", "a<b attr=\"x6\">6Sample annotation6.</b>end6");
+    provider.complexData  << new TestInfoAnnotEdit(TestInfoAnnotEdit::Add, 0, true, "en7", "theSource7", "a<b attr=\"x7\">7Sample annotation7.</b>end7");
+    provider.complexData  << new TestInfoAnnotEdit(TestInfoAnnotEdit::Mod, 8, false, "en8", "theSource8", "a<b attr=\"x8\">8Sample annotation8.</b>end8");
+    provider.complexData  << new TestInfoAnnotEdit(TestInfoAnnotEdit::Mod, 9, true, "en9", "theSource9", "a<b attr=\"x9\">9Sample annotation9.</b>end9");
+    provider.complexData  << new TestInfoAnnotEdit(TestInfoAnnotEdit::Del, 7, true, "", "", "");
+    if( !recallEdit(app, &provider ) ) {
+        return false;
+    }
+    if( !checkProvider(&provider, false, true ) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestXSDMode::checkProvider(TestAnnotXSDAnnotationEditProvider *provider, const bool openSimpleExpected, const bool openComplexExpected )
+{
+    if( provider->hasOpenedSimple != openSimpleExpected ) {
+        return error( QString("Provider: simple, expected:%1, found:%2").arg(openSimpleExpected).arg(provider->hasOpenedSimple));
+    }
+    if( provider->hasOpenedComplex != openComplexExpected ) {
+        return error( QString("Provider: complex, expected:%1, found:%2").arg(openComplexExpected).arg(provider->hasOpenedComplex));
+    }
+    return true ;
+}
+
+bool TestXSDMode::testSkeletonAnnotation(const QString &fileStart, const QString &fileResult,
+                                         bool (TestXSDMode::*functPtr)(App *appData),
+                                         QList<int> &sel )
+{
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = app.mainWindow()->getRegola()->findElementByArray(sel);
+    if(NULL == selectedElement) {
+        return error("no element selected");
+    }
+    app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+    if(!(this->*functPtr)(&app)) {
+        return false;
+    }
+    if(!cfr(regola, "operation", fileResult)){
+        return false;
+    }
+    regola->undo();
+    if(!cfr(regola, "undo", fileStart)){
+        return false;
+    }
+    regola->redo();
+    if(!cfr(regola, "redo", fileResult)){
+        return false;
+    }
+    return true;
+}
+//--------
+
+bool TestXSDMode::testUnitAnnotationModel()
+{
+    _testName = "testAnnotation8DataComplexConfirm";
+    if( !testModelMoveUp() ) {
+        return false;
+    }
+    if( !testModelMoveDown() ) {
+        return false;
+    }
+    return true ;
+}
+
+//----
+void TestXSDMode::setupAnnotationModelUnitTest(XSDAnnotationModel* model)
+{
+    XSchemaOther *one = new XSchemaOther(NULL, NULL);
+    one->setExtData((void*)1);
+    model->addChild(one);
+    XSchemaOther *two = new XSchemaOther(NULL, NULL);
+    two->setExtData((void*)2);
+    model->addChild(two);
+    XSchemaOther *three = new XSchemaOther(NULL, NULL);
+    three->setExtData((void*)3);
+    model->addChild(three);
+}
+
+bool TestXSDMode::testModelMoveUp()
+{
+    XSDAnnotationModel model;
+    setupAnnotationModelUnitTest(&model);
+    verifyModel("start", &model, 1, 2, 3 );
+    model.moveItem(0, -1 );
+    verifyModel("invalid move first", &model, 1, 2, 3 );
+    model.moveItem(1, 0 );
+    verifyModel("move first", &model, 2, 1, 3 );
+    model.moveItem(2, 1 );
+    model.moveItem(1, 0 );
+    verifyModel("ramp up", &model, 3, 2, 1 );
+    return true ;
+}
+
+bool TestXSDMode::testModelMoveDown()
+{
+    XSDAnnotationModel model;
+    setupAnnotationModelUnitTest(&model);
+    verifyModel("start", &model, 1, 2, 3 );
+    model.moveItem(2, 3 );
+    verifyModel("invalid move down", &model, 1, 2, 3 );
+    model.moveItem(1, 2 );
+    verifyModel("move first down", &model, 1, 3, 2 );
+    model.moveItem(0, 1 );
+    model.moveItem(1, 2 );
+    verifyModel("ramp down", &model, 3, 2, 1 );
+    return true ;
+}
+
+bool TestXSDMode::verifyModel(const QString &operation, XSDAnnotationModel *model, const int i1, const int i2, const int i3)
+{
+    QList<XSchemaObject*> *children = model->childrenList();
+    XSchemaOther* o = static_cast<XSchemaOther*>(children->at(0));
+    if( o->getExtData() != (void*)i1 ) {
+        return error(QString("op:%1, index 1: expected: %2, found %3").arg(operation).arg(i1).arg((int)o->getExtData()));
+    }
+    o = static_cast<XSchemaOther*>(children->at(1));
+    if( o->getExtData() != (void*)i2 ) {
+        return error(QString("op:%1, index 2: expected: %2, found %3").arg(operation).arg(i2).arg((int)o->getExtData()));
+    }
+    o = static_cast<XSchemaOther*>(children->at(2));
+    if( o->getExtData() != (void*)i3 ) {
+        return error(QString("op:%1, index 3: expected: %2, found %3").arg(operation).arg(i3).arg((int)o->getExtData()));
+    }
+    return true ;
+}
+
+//-----

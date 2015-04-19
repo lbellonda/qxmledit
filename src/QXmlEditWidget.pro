@@ -66,6 +66,8 @@ TARGET = QXmlEditWidget
 os2:TARGET = QXmlEdtW
 TEMPLATE = lib
 
+CONFIG += precompile_header
+PRECOMPILED_HEADER  = ../src/precompiled_app.h
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 win32 {
@@ -108,10 +110,14 @@ TRANSL = \
 translationsfiles.path = $$INST_TRANSLATIONS_DIR
 translationsfiles.files = $$TRANSL
 
+CONFIG += precompile_header
+PRECOMPILED_HEADER=precompiled_lib.h
+
 DEFINES += LIBQXMLEDIT_LIBRARY
 
 libinclude.files=globals/includes/bookmark.h \
         framework/include/log.h \
+        framework/include/Notifier.h \
         globals/includes/qxmleditdata.h \
         globals/includes/utils.h \
         globals/includes/element.h \
@@ -348,9 +354,14 @@ SOURCES += xmleditwidget.cpp \
     modules/xml/elementPath.cpp \
     modules/xml/elmpath.cpp \
     modules/anonymize/xmlanonutils.cpp \
-    modules/search/elmfindtext.cpp
+    modules/search/elmfindtext.cpp \
+    modules/xsd/xsdsinglecommentdialog.cpp \
+    modules/xsd/xsdfullannotationsdialog.cpp \
+    modules/xsd/xsddefaultannotationeditor.cpp \
+    xsdeditor/XSchemaOther.cpp \
+    modules/xsd/xsdannotationmodel.cpp
 
-HEADERS +=  \
+HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
         framework/include/log.h \
         globals/includes/qxmleditdata.h \
@@ -547,7 +558,12 @@ HEADERS +=  \
     modules/anonymize/anonoperationbatch.h \
     modules/anonymize/anonnullalg.h \
     modules/xml/elmpath.h \
-    modules/anonymize/xmlanonutils.h
+    modules/anonymize/xmlanonutils.h \
+    modules/xsd/xsdsinglecommentdialog.h \
+    modules/xsd/xsdfullannotationsdialog.h \
+    modules/xsd/xsddefaultannotationeditor.h \
+    modules/xsd/xsdannotationmodel.h \
+    precompiled_lib.h
 
 
 FORMS += xmleditwidget.ui \
@@ -596,7 +612,9 @@ FORMS += xmleditwidget.ui \
     modules/encoding/codepagedialog.ui \
     modules/xsd/xsdtypedialog.ui \
     modules/xsd/xsdelementreferencedialog.ui \
-    modules/xsd/xsdenumdialog.ui
+    modules/xsd/xsdenumdialog.ui \
+    modules/xsd/xsdsinglecommentdialog.ui \
+    modules/xsd/xsdfullannotationsdialog.ui
 
 
 symbian {

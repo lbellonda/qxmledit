@@ -104,6 +104,7 @@ void CopyAttributesDialog::loadData()
         Utils::error(this, tr("Fatal error"));
         close();
     }
+    ui->attributes->resizeColumnsToContents();
     ui->attributes->setUpdatesEnabled(true);
 }
 

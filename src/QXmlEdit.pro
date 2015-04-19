@@ -118,11 +118,16 @@ lessThan(QT_MAJOR_VERSION, 5) {
 #CONFIG += release
 
 ############ CONFIGURATION SENT TO THE PROGRAM ############
+
+CONFIG += precompile_header
+PRECOMPILED_HEADER  = precompiled_app.h
+
 # translations folder (inside the resources folder).
 DEFINES += TRANLASTION_DIR=translations
 
 
-HEADERS = mainwindow.h \
+HEADERS = precompiled_app.h \
+    mainwindow.h \
     globals/includes/xmlEdit.h \
     applicationdata.h \
     preferreddirs.h \
@@ -184,7 +189,8 @@ HEADERS = mainwindow.h \
     modules/anonymize/anonprofiledialog.h \
     modules/anonymize/anoneditprofiledialog.h \
     modules/anonymize/anonimyzebatchdialog.h \
-    modules/anonymize/anonsettingwidget.h
+    modules/anonymize/anonsettingwidget.h \
+    precompiled_app.h
 
 SOURCES = \
     main.cpp \

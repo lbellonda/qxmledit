@@ -24,8 +24,6 @@
 #
 #-------------------------------------------------
 
-#DEFINES += __MAC_OS_X_VERSION_MAX_ALLOWED=1080
-
 # This is necessary to build the test executable as an app
 DEFINES += LIBQXMLEDIT_LIBRARY_STATIC
 DEFINES += QXMLEDITSESSIONS_LIBRARY_STATIC
@@ -51,6 +49,9 @@ lessThan(QT_MAJOR_VERSION, 5) {
 
 
 QMAKE_CXXFLAGS +=-Werror=format-security
+
+CONFIG += precompile_header
+PRECOMPILED_HEADER  = ../src/precompiled_app.h
 
 TARGET = qxmledittest
 CONFIG   += console
@@ -130,7 +131,11 @@ SOURCES += \
     testselectxsd.cpp \
     testxsdmode.cpp \
     testhelpers/testdialogxsdtypes.cpp \
-    testanonymize.cpp
+    testanonymize.cpp \
+    testhelpers/xsd/testannotxsdannotationeditprovider.cpp \
+    testhelpers/xsd/testannotxsdannotationeditor.cpp \
+    testhelpers/xsd/testxsdfullannotationsdialog.cpp \
+    testhelpers/xsd/testxsdsinglecommentdialog.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -216,7 +221,11 @@ HEADERS += \
     testselectxsd.h \
     testxsdmode.h \
     testhelpers/testdialogxsdtypes.h \
-    testanonymize.h
+    testanonymize.h \
+    testhelpers/xsd/testannotxsdannotationeditprovider.h \
+    testhelpers/xsd/testannotxsdannotationeditor.h \
+    testhelpers/xsd/testxsdfullannotationsdialog.h \
+    testhelpers/xsd/testxsdsinglecommentdialog.h
 
 #OTHER_FILES += \
 

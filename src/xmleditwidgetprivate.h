@@ -32,13 +32,14 @@
 #include "qxmleditdata.h"
 #include "xsdeditor/io/xschemaloader.h"
 #include "modules/xsd/xsdoperationparameters.h"
+#include "modules/xsd/xsdhelper.h"
 
 class XElementContent;
 class LineEditWithCompleter;
 class AnonAlg ;
 class AnonymizeParameters;
 
-class XmlEditWidgetPrivate : public QObject
+class XmlEditWidgetPrivate : public QObject, XSDAnnotationEditProvider
 {
     Q_OBJECT
     friend class XmlEditWidget ;
@@ -71,10 +72,11 @@ class XmlEditWidgetPrivate : public QObject
     QAction *_xsltAction;
     QAction *_copyPathAction;
     bool _readOnly;
+    XSDAnnotationEditProvider *_XSDAnnotationEditProvider ;
 
 public:
     XmlEditWidgetPrivate(XmlEditWidget *theOwner);
-    ~XmlEditWidgetPrivate();
+    virtual ~XmlEditWidgetPrivate();
 
     bool isReady();
     void secondStepConstructor();
@@ -177,6 +179,12 @@ public:
     void redo();
     void notifyUndo();
     void setCurrentItem(Element *newSelection);
+
+    XSDAnnotationEditProvider *XSDAnnotationEditProviderObject();
+    void setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider);
+    XSDAnnotationEditor *newEditor(QWidget *window);
+    void autoDelete();
+    void XSDSetNamespaceToParams(XSDOperationParameters *params);
 
     //------------------------------------
     void setMoveButtonsVisible(bool isShow);
@@ -306,6 +314,7 @@ public:
     bool onXSDAppendType();
     bool onXSDInsertType();
     bool onXSDModifyType();
+    bool onEditXSDAnnotation();
     void setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData);
 
     //----

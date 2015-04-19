@@ -84,6 +84,8 @@ lessThan(QT_MAJOR_VERSION, 5) {
     QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
 }
 
+#CONFIG += precompile_header
+PRECOMPILED_HEADER  = precompiled_lib.h
 
 DEFINES += QXMLEDITSESSIONS_LIBRARY
 
@@ -128,7 +130,8 @@ SOURCES += sessionmanager.cpp \
     data_access/sqllitegenericdata.cpp \
     sessionprivatedefault.cpp
 
-HEADERS += sessions.h \
+HEADERS +=  precompiled_lib.h \
+    sessions.h \
         QXmlEditSessions_global.h \
     sessionmanager.h \
     sessionmanagerprivate.h \
@@ -160,7 +163,8 @@ HEADERS += sessions.h \
     data_access/model/attrfilterdetail.h \
     data_access/model/genericpersistentdbdata.h \
     sessionprivatedefault.h \
-    framework/include/Notifier.h
+    ../framework/include/Notifier.h \
+    precompiled_lib.h
 
 
 FORMS += \

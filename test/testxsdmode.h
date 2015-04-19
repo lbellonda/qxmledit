@@ -27,12 +27,19 @@
 #include "testbase.h"
 #include "element.h"
 #include "modules/xsd/xsdhelper.h"
+#include "testhelpers/xsd/testannotxsdannotationeditprovider.h"
 #include "app.h"
 
 class TestDialogXSDTypesResult;
+class XSDAnnotationModel;
 
 class TestXSDMode : public TestBase
 {
+    bool verifyModel(const QString &operation, XSDAnnotationModel *model, const int i1, const int i2, const int i3);
+    bool testModelMoveUp();
+    bool testModelMoveDown();
+    void setupAnnotationModelUnitTest(XSDAnnotationModel* model);
+    bool testUnitAnnotationModel();
 
     void fillParamsBaseElementComplexType(XSDOperationParameters &params, QList<int> &sel, const XSDOperationParameters::EXSDTypeContent typeContent = XSDOperationParameters::TSC_NONE);
     void fillParamsBaseTypeComplexType(XSDOperationParameters &params, QList<int> &sel, const XSDOperationParameters::EXSDTypeContent typeContent = XSDOperationParameters::TSC_NONE);
@@ -209,6 +216,41 @@ class TestXSDMode : public TestBase
     bool testDialogElementComplexTypeSeq();
     bool testDialogElementComplexTypeGroup();
     bool testDialogElementComplexTypeChoice();
+    //----
+    bool testCreateAnnotation();
+    bool testEditAnnotation();
+    bool testEditAnnotationInListAppInfo();
+    bool testEditAnnotationInListDocumentation();
+    bool testAnnotation1NoDataCancel();
+    bool testAnnotation2DataCancel();
+    bool testAnnotation3NoDataSimple();
+    bool testAnnotation4DataSimple();
+    bool testAnnotation5EmptyComplexCancel();
+    bool testAnnotation6EmptyComplexOk();
+    bool testAnnotation7DataComplexCancel();
+    bool testAnnotation8DataComplexConfirm();
+    bool testAnnotation9MixComplexConfirm();
+    bool testAnnotation10MixComplexConfirmNoNS();
+    //----
+    bool funAnnotCancelNoData(App *appData);
+    bool funAnnotInsSimpleNoData(App *app);
+    bool funAnnotInsSimpleData(App *app);
+    bool funAnnotInsEmptyComplexDataCancel(App *app);
+    bool funAnnotInsEmptyComplexDataOk(App *app);
+    bool funAnnotInsDataComplexCancel(App *app);
+    bool funAnnotInsDataComplexConfirm(App *app);
+    bool funAnnotMixConfirm(App *app);
+
+    //----
+    void initParamsForAnnot(XSDOperationParameters *params);
+    QList<int> stdListEditAnnot();
+    bool testSkeletonAnnotation(const QString &fileStart, const QString &fileResult,
+                                             bool (TestXSDMode::*functPtr)(App *appData), QList<int> &sel );
+    bool checkProvider(TestAnnotXSDAnnotationEditProvider *provider, const bool openSimpleExpected, const bool openComplexExpected );
+    bool recallEdit(App *appData, TestAnnotXSDAnnotationEditProvider *provider);
+
+
+    //----
 
 
 public:
@@ -221,6 +263,7 @@ public:
     bool testLast();
     bool testEnabling();
     bool testDialogTypes();
+    bool testEditAnnotations();
 
 };
 

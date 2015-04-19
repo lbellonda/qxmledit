@@ -1562,12 +1562,13 @@ Element *Element::copyTo(Element &newElement, const bool isRecursive)
 {
     copyHeaderAndDirectNodes(newElement);
     // TODO newElement.nameSpace = nameSpace;
-
-    QVectorIterator<Element*> it(childItems);
-    while(it.hasNext()) {
-        Element *newEl = new Element(newElement.parentRule);
-        newElement.addChild(newEl);
-        it.next()->copyTo(*newEl, isRecursive);
+    if(isRecursive) {
+        QVectorIterator<Element*> it(childItems);
+        while(it.hasNext()) {
+            Element *newEl = new Element(newElement.parentRule);
+            newElement.addChild(newEl);
+            it.next()->copyTo(*newEl, isRecursive);
+        }
     }
     return &newElement;
 }

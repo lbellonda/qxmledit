@@ -51,6 +51,8 @@
 #include "modules/delegates/elementitemsingledelegate.h"
 #include "modules/xsd/xsdhelper.h"
 #include "modules/xsd/xsdtypedialog.h"
+#include "modules/xsd/xsdhelper.h"
+#include "modules/xsd/xsddefaultannotationeditor.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -68,6 +70,7 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
     _xsltAction = NULL ;
     _editMode = XmlEditWidgetEditMode::XML;
     _appData = &_defaultData;
+    _XSDAnnotationEditProvider = this ;
     started = false ;
     internalStateOk = false;
     paintInfo.setColorManager(_appData->colorManager());
@@ -124,6 +127,9 @@ XmlEditWidgetPrivate::~XmlEditWidgetPrivate()
     resetStyleMenu();
     deleteRegola();
     deleteSchema();
+    if(NULL != _XSDAnnotationEditProvider) {
+        _XSDAnnotationEditProvider->autoDelete();
+    }
 }
 
 
@@ -2602,6 +2608,7 @@ bool XmlEditWidgetPrivate::XSDApplyOperation(const ElementOp::Op op, XSDOperatio
     return XSDApplyOperationOnElement(op, params, element);
 }
 
+
 bool XmlEditWidgetPrivate::XSDApplyOperationOnElement(const ElementOp::Op op, XSDOperationParameters *params, Element *element)
 {
     if(!isActionMode()) {
@@ -2616,6 +2623,7 @@ bool XmlEditWidgetPrivate::XSDApplyOperationOnElement(const ElementOp::Op op, XS
     }
     return helper.doOperation(op, getEditor(), regola, element, element->indexPath(), params);
 }
+
 
 bool XmlEditWidgetPrivate::onXSDInsertElement()
 {
@@ -2758,6 +2766,7 @@ bool XmlEditWidgetPrivate::onXSDModifyType()
     return result;
 }
 
+
 void XmlEditWidgetPrivate::setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData)
 {
     ElementItemSingleDelegate *delegate = _helper.tagDelegate();
@@ -2806,4 +2815,60 @@ void XmlEditWidgetPrivate::onSearchPrev()
         tree->setCurrentItem(item, 0);
         tree-> scrollToItem(item, QAbstractItemView::PositionAtTop);
     }
+}
+
+void XmlEditWidgetPrivate::XSDSetNamespaceToParams(XSDOperationParameters *params)
+{
+    QString prefix = regola->namespacePrefixXSD();
+    params->setXsdNamespacePrefix(prefix);
+    params->setUsePrefix(!prefix.isEmpty());
+}
+
+
+XSDAnnotationEditor *XmlEditWidgetPrivate::newEditor(QWidget *window)
+{
+    return new XSDDefaultAnnotationEditor(window) ;
+}
+
+void XmlEditWidgetPrivate::autoDelete()
+{
+    // do nothing
+}
+
+bool XmlEditWidgetPrivate::onEditXSDAnnotation()
+{
+    Utils::TODO_THIS_RELEASE("finire");
+    bool result = false;
+    if(isActionMode()) {
+
+        Element *element = getSelectedItem();
+        if(NULL == element) {
+            return false ;
+        }
+        XSDHelper helper;
+        XSDOperationParameters params;
+        XSDSetNamespaceToParams(&params);
+        Element *origAnnot = helper.findAnnotation(element, &params);
+        XSDAnnotationEditProvider * provider = XSDAnnotationEditProviderObject();
+        XSDAnnotationEditor *editor = provider->newEditor(p->window());
+        editor->exec(origAnnot, &params);
+        if(editor->hasResult()) {
+            result = helper.doAnnotation(getEditor(), regola, element, origAnnot, editor->annotation());
+        }
+        delete editor ;
+    }
+    return result;
+}
+
+XSDAnnotationEditProvider *XmlEditWidgetPrivate::XSDAnnotationEditProviderObject()
+{
+    return _XSDAnnotationEditProvider;
+}
+
+void XmlEditWidgetPrivate::setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider)
+{
+    if(NULL != _XSDAnnotationEditProvider) {
+        _XSDAnnotationEditProvider->autoDelete();
+    }
+    _XSDAnnotationEditProvider = newProvider ;
 }

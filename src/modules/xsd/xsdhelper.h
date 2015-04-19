@@ -28,6 +28,7 @@
 #include "modules/xsd/xsdoperationparameters.h"
 #include "modules/xsd/xsdhelperoperations.h"
 #include "modules/xsd/xsdoperationfactory.h"
+#include "xsdeditor/xschema.h"
 
 class XSDHelper
 {
@@ -80,6 +81,9 @@ class XSDHelper
 
     void applyOperation(Element *element, XSDOper *oper, XSDOperationParameters *params);
 
+    void copyInnerContent(XInfoBase *doc, Element *element);
+
+
     XSDOperationFactory _factory;
 public:
     XSDHelper();
@@ -88,6 +92,33 @@ public:
     //------
 
     bool doOperation(const ElementOp::Op op, QTreeWidget *theWidget, Regola *regola, Element *targetElement, QList<int> newPath, XSDOperationParameters *params);
+
+    //--
+    Element *findAnnotation(Element *element, XSDOperationParameters *params);
+    bool doAnnotation(QTreeWidget * theWidget, Regola *regola, Element * targetElement, Element * currentAnnotation, Element *newAnnotation);
+    Element *makeElementOther(XSchemaOther *other, Element *parent);
+    Element *makeElementDocumentation(XDocumentation *doc, Element *parent, XSDOperationParameters *params);
+    Element *makeElementAppInfo(XAppInfo* appInfo, Element *parent, XSDOperationParameters *params);
 };
+
+class XSDAnnotationEditor
+{
+public:
+    XSDAnnotationEditor();
+    virtual ~XSDAnnotationEditor();
+    virtual bool hasResult() = 0 ;
+    virtual void exec(Element *origAnnot, XSDOperationParameters *params) = 0;
+    virtual Element *annotation() = 0 ;
+};
+
+class XSDAnnotationEditProvider
+{
+public:
+    XSDAnnotationEditProvider();
+    virtual ~XSDAnnotationEditProvider();
+    virtual XSDAnnotationEditor *newEditor(QWidget *window) = 0 ;
+    virtual void autoDelete() = 0;
+};
+
 
 #endif // XSDHELPER_H

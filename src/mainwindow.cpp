@@ -87,6 +87,7 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent) : QMainWindow(parent), uiDelegate(this), _windowIcon(":/icon/images/icon.png")
 {
+    _xsdButton = NULL ;
     _controller.setWindow(this);
     _encodingGroup = NULL ;
     _attrFilter = NULL ;
@@ -375,27 +376,28 @@ bool MainWindow::finishSetUpUi()
         editTextButton->setPopupMode(QToolButton::InstantPopup);
         editTextButton->setIcon(QIcon(":/commands/modify"));
         ui.toolBar->insertWidget(ui.actionHelpOnQXmlEdit, editTextButton);
-        ui.toolBar->insertSeparator(ui.actionHelpOnQXmlEdit);
     }
-    /*
-        QMenu *editTextMenu = new QMenu(this);
-        if(editTextMenu == NULL) {
-            isOk = false ;
-        } else {
-            editTextMenu->setDefaultAction(ui.actionEdit);
-            ui.toolBar->addAction(editTextMenu->menuAction());
-            editTextMenu->addAction(ui.actionEdit);
-            editTextMenu->addAction(ui.actionPasteAndSubstituteText);
-            editTextMenu->addAction(ui.actionEditInnerBase64Text);
-            editTextMenu->addAction(ui.actionEditInnerXML);
-            editTextMenu->addAction(ui.actionEditInnerXMLBase64);
-            editTextMenu->setIcon(QIcon(":/commands/modify"));
 
-            ui.toolBar->insertAction(ui.actionHelpOnQXmlEdit, editTextMenu->menuAction());
-            ui.toolBar->insertSeparator(ui.actionHelpOnQXmlEdit);
+    _xsdButton = new QToolButton(this);
+    QMenu *xsdMenu = new QMenu(this);
+    if((NULL == _xsdButton) || (xsdMenu == NULL)) {
+        isOk = false ;
+    } else {
+        xsdMenu->addAction(ui.actionXSDModifyType);
+        xsdMenu->addSeparator();
+        xsdMenu->addAction(ui.actionXSDInsertElement);
+        xsdMenu->addAction(ui.actionXSDInsertAttribute);
+        xsdMenu->addAction(ui.actionXSDInsertType);
+        xsdMenu->addSeparator();
+        xsdMenu->addAction(ui.actionEditXSDAnnotation);
+        _xsdButton->setMenu(xsdMenu);
+        _xsdButton->setPopupMode(QToolButton::InstantPopup);
+        _xsdButton->setIcon(QIcon(":/actions/xsd-edit"));
+        ui.toolBar->insertWidget(ui.actionHelpOnQXmlEdit, _xsdButton);
+    }
 
-        }
-    */
+    ui.toolBar->insertSeparator(ui.actionHelpOnQXmlEdit);
+
     ui.actionLastFiles->setVisible(false);
     QMenu *recentFiles = new QMenu(this);
     if(NULL == recentFiles) {
@@ -807,7 +809,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionXSDAppendType->setEnabled(xsdManager->canInsertType(parentTag));
     ui.actionXSDInsertType->setEnabled(xsdManager->canInsertType(elmTag));
     ui.actionXSDModifyType->setEnabled(xsdManager->canModifyType(elmTag));
-
+    ui.actionEditXSDAnnotation->setEnabled(xsdManager->canEditAnnotation(elmTag));
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -2816,4 +2818,9 @@ void MainWindow::onAnonymize(AnonAlg *alg)
 void MainWindow::on_actionAnonymizeFile_triggered()
 {
     _controller.onAnonymizeFile();
+}
+
+void MainWindow::on_actionEditXSDAnnotation_triggered()
+{
+    ui.editor->onEditXSDAnnotation();
 }

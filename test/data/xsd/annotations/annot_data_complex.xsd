@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="sample">
+        <xsd:annotation>
+           <xs:appinfo xmlns:dc="http://purl.org/dc/elements/1.1/">
+			 <dc:creator>The creator.</dc:creator>
+			 <dc:date>2015-01-01</dc:date>
+			 <dc:subject>a,b,c,d</dc:subject>
+			 <dc:description>This is the description</dc:description>
+			</xs:appinfo>
+            <xsd:documentation xml:lang="en">Sample annotation.</xsd:documentation>
+			<xsd:documentation xml:lang="it">Annotazione di esempio.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element minOccurs="0" type="xsd:string" name="sample-inner"/>
+            </xsd:all>
+            <xsd:attribute type="xsd:string" name="attribute"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

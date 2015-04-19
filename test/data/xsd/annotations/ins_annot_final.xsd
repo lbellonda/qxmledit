@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="sample">
+        <xsd:annotation>
+            <xsd:documentation source="theSource" xml:lang="en">a<b attr="x">Sample annotation.</b>end</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element minOccurs="0" type="xsd:string" name="sample-inner"/>
+            </xsd:all>
+            <xsd:attribute type="xsd:string" name="attribute"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

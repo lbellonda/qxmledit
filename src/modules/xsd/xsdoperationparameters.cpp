@@ -405,3 +405,15 @@ void XSDOperationParameters::decodeAttribute(Element *inputElement)
     }
 }
 
+QString XSDOperationParameters::makeNameForXSDObject(const QString &localName)
+{
+    QString newTag;
+    QString prefix;
+    if(!xsdNamespacePrefix().isEmpty()) {
+        prefix = xsdNamespacePrefix();
+        prefix += ":";
+    }
+    newTag = prefix ;
+    newTag += localName ;
+    return newTag;
+}

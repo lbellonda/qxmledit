@@ -51,6 +51,17 @@ XSDManager::XSDManager()
     _elementParents.insert(IO_XSD_CHOICE);
     _elementParents.insert(IO_XSD_SEQUENCE);
     _elementParents.insert(IO_XSD_ALL);
+    //----
+    _annotationParents << IO_XSD_ALL << IO_XSD_ANY << IO_XSD_ANYATTRIBUTE << IO_XSD_ATTRIBUTE ;
+    _annotationParents << IO_XSD_ATTRIBUTEGROUP << IO_XSD_CHOICE << IO_XSD_COMPLEXCONTENT ;
+    _annotationParents << IO_XSD_COMPLEXTYPE << IO_XSD_TAGELEMENT << IO_XSD_ENUMERATION << IO_XSD_EXTENSION ;
+    _annotationParents << IO_XSD_FIELD << IO_XSD_FRACTIONDIGITS << IO_XSD_GROUP << IO_XSD_TAGIMPORT ;
+    _annotationParents << IO_XSD_TAGINCLUDE << IO_XSD_KEY << IO_XSD_KEYREF << IO_XSD_LENGTH  << IO_XSD_LIST ;
+    _annotationParents << IO_XSD_MAXEXCLUSIVE << IO_XSD_MAXINCLUSIVE << IO_XSD_MAXLENGTH << IO_XSD_MINEXCLUSIVE;
+    _annotationParents << IO_XSD_MININCLUSIVE << IO_XSD_MINLENGTH << IO_XSD_TAGNOTATION << IO_XSD_PATTERN ;
+    _annotationParents << IO_XSD_REDEFINE << IO_XSD_RESTRICTION << IO_XSD_SCHEMA << IO_XSD_SELECTOR ;
+    _annotationParents << IO_XSD_SEQUENCE << IO_XSD_SIMPLECONTENT << IO_XSD_SIMPLETYPE << IO_XSD_TOTALDIGITS ;
+    _annotationParents << IO_XSD_UNION << IO_XSD_UNIQUE << IO_XSD_WHITESPACE ;
 }
 
 XSDManager::~XSDManager()
@@ -84,6 +95,14 @@ bool XSDManager::canInsertAttribute(const QString &parentTag)
 bool XSDManager::canModifyType(const QString &tag)
 {
     if(_modifiable.contains(tag)) {
+        return true ;
+    }
+    return false;
+}
+
+bool XSDManager::canEditAnnotation(const QString &tag)
+{
+    if(_annotationParents.contains(tag)) {
         return true ;
     }
     return false;

@@ -34,6 +34,29 @@
 #define ATTRIB_NAME_TYPE_NAME   "type"
 #define ATTRIB_NAME_NAME   "name"
 #define ATTRIB_NAME_BASE   "base"
+#define TAG_ANNOTATION     "annotation"
+
+//-----
+
+XSDAnnotationEditor::XSDAnnotationEditor()
+{
+    //
+}
+
+XSDAnnotationEditor::~XSDAnnotationEditor()
+{
+    //
+}
+
+XSDAnnotationEditProvider::XSDAnnotationEditProvider()
+{
+    //
+}
+
+XSDAnnotationEditProvider::~XSDAnnotationEditProvider()
+{
+    //
+}
 
 //-----
 
@@ -84,6 +107,7 @@ bool XSDHelper::doOperation(const ElementOp::Op op, QTreeWidget *theWidget, Rego
     }
     return result;
 }
+
 
 bool XSDHelper::doInsert(Regola *regola, Element *targetElement, XSDOperationParameters * params)
 {
@@ -473,15 +497,7 @@ QString XSDHelper::elementName(XSDOperationParameters *params)
 
 QString XSDHelper::makeName(XSDOperationParameters *params, const QString &localName)
 {
-    QString newTag;
-    QString prefix;
-    if(!params->xsdNamespacePrefix().isEmpty()) {
-        prefix = params->xsdNamespacePrefix();
-        prefix += ":";
-    }
-    newTag = prefix ;
-    newTag += localName ;
-    return newTag;
+    return params->makeNameForXSDObject(localName);
 }
 
 void XSDHelper::removeChildrenFromElement(Element *element, QList<Element*>childrenToDeleteList)
@@ -575,3 +591,92 @@ void XSDHelper::applyOperation(Element *element, XSDOper *oper, XSDOperationPara
         }
     }
 } // applyOperation()
+
+
+//-----------------------------------------------------------------------------------
+
+
+Element *XSDHelper::findAnnotation(Element *element, XSDOperationParameters *params)
+{
+    QString annotationTag = params->usePrefix() ? QString("%1:%2").arg(params->xsdNamespacePrefix()).arg(TAG_ANNOTATION) : TAG_ANNOTATION;
+    foreach(Element * childElm, *element->getChildItems()) {
+        if(childElm->isElement()) {
+            if(childElm->tag() == annotationTag) {
+                return childElm ;
+            }
+            return NULL ;
+        }
+    }
+    return NULL;
+}
+
+bool XSDHelper::doAnnotation(QTreeWidget * theWidget, Regola *regola, Element * targetElement, Element * currentAnnotation, Element *newAnnotation)
+{
+    if((NULL == targetElement) || (NULL == regola) || ((NULL != currentAnnotation) && (currentAnnotation->parent() != targetElement))) {
+        return false;
+    }
+
+    QUndoCommand *undoGroup ;
+    if(NULL == currentAnnotation) {
+        // full copy, if any
+        // add a child to the undo command
+        Utils::TODO_THIS_RELEASE("non basta ins, deve anche essere il primo figlio, ma non so se undo lo supporta");
+        QList<int> destPath = targetElement->indexPath() ;
+        destPath.append(0);
+        ElInsertCommand *cmd = new ElInsertCommand(theWidget, regola, newAnnotation, destPath);
+        cmd->setSelectParent(true);
+        undoGroup = cmd ;
+    } else {
+        Utils::TODO_THIS_RELEASE("ma il path? non e' meglio ricavarlo dall'elemento?");
+        ElUpdateCommand *cmd = new ElUpdateCommand(theWidget, regola, newAnnotation, currentAnnotation->indexPath());
+        cmd->setSelectParent(true);
+        undoGroup = cmd ;
+    }
+    regola->addUndo(undoGroup);
+    return true;
+}
+
+
+Element *XSDHelper::makeElementOther(XSchemaOther *other, Element *parent)
+{
+    Element * newElement = new Element(parent->getParentRule(), other->element()->getType(), parent);
+    other->element()->copyTo(*newElement);
+    return newElement ;
+}
+
+void XSDHelper::copyInnerContent(XInfoBase *doc, Element *element)
+{
+    QString innerSource = "<root>";
+    innerSource += doc->contentString();
+    innerSource += "</root>";
+    QList<Element*> content = Regola::decodeXMLFromString(innerSource, false);
+    foreach(Element * child, content) {
+        element->addChild(child);
+    }
+}
+
+Element *XSDHelper::makeElementDocumentation(XDocumentation *doc, Element *parent, XSDOperationParameters *params)
+{
+    Element * newElement = new Element(params->makeNameForXSDObject(IO_XSD_DOCUMENTATION), "", parent->getParentRule(),  parent);
+    QString lang = doc->language();
+    if(!lang.isEmpty()) {
+        newElement->setAttribute(XML_LANGUAGE, lang);
+    }
+    QString source = doc->source();
+    if(!source.isEmpty()) {
+        newElement->setAttribute(IO_DOCUMENTATION_ATTR_SOURCE, source);
+    }
+    copyInnerContent(doc, newElement);
+    return newElement ;
+}
+
+Element *XSDHelper::makeElementAppInfo(XAppInfo* appInfo, Element *parent, XSDOperationParameters *params)
+{
+    Element * newElement = new Element(params->makeNameForXSDObject(IO_XSD_TAGAPPINFO), "", parent->getParentRule(),  parent);
+    QString source = appInfo->source();
+    if(!source.isEmpty()) {
+        newElement->setAttribute(IO_DOCUMENTATION_ATTR_SOURCE, source);
+    }
+    copyInnerContent(appInfo, newElement);
+    return newElement ;
+}

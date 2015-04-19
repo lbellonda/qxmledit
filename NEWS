@@ -1,4 +1,9 @@
 0.8.15
+    Added XSD toolbutton to the main toolbar.
+    Enabled by default precompiled headers on all projects.
+    Renamed the application qmake project.
+    Changed the target name to all lowercase for better Linux compatibility.
+    Added a edit XSD annotation panel.
     Inserted a search next/previous.
 
 0.8.14

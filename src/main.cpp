@@ -223,10 +223,11 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("search prev");
     Utils::TODO_THIS_RELEASE("handle wraparound");
-    Utils::TODO_THIS_RELEASE("fare test search");
     Utils::TODO_THIS_RELEASE("check searchlets");
+    Utils::TODO_THIS_RELEASE("progetto sessions: gestire header precompilati");
+    Utils::TODO_THIS_RELEASE("abilitare edit annot a livello di menu");
+    Utils::TODO_THIS_RELEASE("abilita indenta a livello di editor");
 }
 
 static void startTanslator(QApplication *app)

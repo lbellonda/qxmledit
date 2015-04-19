@@ -46,6 +46,7 @@ class PaintInfo;
 class XsltHelper;
 class XSDOperationParameters;
 class AnonAlg ;
+class XSDAnnotationEditProvider;
 
 namespace Ui
 {
@@ -170,7 +171,9 @@ public:
     void onXSDInsertAttribute();
     void onXSDAppendAttribute();
     void onXSDModifyType();
+    bool onEditXSDAnnotation();
     void setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData);
+    void setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider);
 
 private:
     Ui::XmlEditWidget *ui;

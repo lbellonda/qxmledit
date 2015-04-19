@@ -922,6 +922,11 @@ void TestQXmlEdit::testXSDMode()
         result = testE.testDialogTypes();
         QVERIFY2(result, (QString("test TestXSDMode: testDialogTypes() '%1'").arg(testE.errorString())).toLatin1().data());
     }
+    {
+        TestXSDMode testF;
+        result = testF.testEditAnnotations();
+        QVERIFY2(result, (QString("test TestXSDMode: testAnnotations() '%1'").arg(testF.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testAnonymize()
@@ -971,6 +976,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testXSDMode();
     testSearch();
 }
 

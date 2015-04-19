@@ -28,6 +28,7 @@
 ElBaseCommand::ElBaseCommand(QTreeWidget *theWidget, Regola *newRegola, Element *element, QList<int> newPath, QUndoCommand *parent) : UndoCommand(theWidget, newRegola, newPath, parent)
 {
     _element = element ;
+    _selectParent = false;
 }
 
 ElBaseCommand::~ElBaseCommand()
@@ -35,6 +36,16 @@ ElBaseCommand::~ElBaseCommand()
     loseElement();
 }
 
+
+bool ElBaseCommand::selectParent() const
+{
+    return _selectParent;
+}
+
+void ElBaseCommand::setSelectParent(const bool selectParent)
+{
+    _selectParent = selectParent;
+}
 
 void ElBaseCommand::loseElement()
 {
@@ -62,6 +73,9 @@ void ElBaseCommand::insertElement()
             parentElement = regola->findElementByArray(pathPos);
         }
         regola->insertInternal(widget, parentElement, _element, lastPos);
+        if(_selectParent && (NULL != parentElement)) {
+            widget->setCurrentItem(parentElement->getUI());
+        }
         loseElement();
     }
 }
@@ -80,6 +94,9 @@ void ElBaseCommand::insertElementObj(Element *element)
         Element *newElement = regola->insertInternal(widget, parentElement, element, lastPos);
         if(NULL != newElement) {
             widget->setCurrentItem(newElement->getUI());
+        }
+        if(_selectParent && (NULL != parentElement)) {
+            widget->setCurrentItem(parentElement->getUI());
         }
     }
 }

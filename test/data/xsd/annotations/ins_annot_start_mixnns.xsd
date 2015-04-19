@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema">
+    <element name="sample">
+        <annotation>
+            <documentation source="src1" xml:lang="fr">x<b attr="y">Sample annotation 1.</b>end</documentation>
+            <documentation source="src2" xml:lang="cz">x<b attr="z">Sample annotation 2.</b>end</documentation>
+            <anElement/>
+            <anotherOne attr="a">some content <a/></anotherOne>
+            <?procinfo x?>
+            <!-- comment -->
+            <appinfo source="src3" >y<b attr="t">Sample annotation 3.</b>end</appinfo>
+            <appinfo source="src4" >y<b attr="t">delete me.</b>end</appinfo>
+            <documentation source="theSource3" xml:lang="en3">a<b attr="x3">3update me3.</b>end3</documentation>
+            <appinfo source="src5" >y<b1 attr="x">Update me too.</b1>ddd</appinfo>
+        </annotation>
+        <complexType>
+            <all>
+                <element minOccurs="0" type="string" name="sample-inner"/>
+            </all>
+            <attribute type="string" name="attribute"/>
+        </complexType>
+    </element>
+</schema>

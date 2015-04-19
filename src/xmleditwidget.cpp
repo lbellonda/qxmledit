@@ -1006,7 +1006,17 @@ void XmlEditWidget::onXSDModifyType()
     d->onXSDModifyType();
 }
 
+bool XmlEditWidget::onEditXSDAnnotation()
+{
+    return d->onEditXSDAnnotation();
+}
+
 void XmlEditWidget::setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData)
 {
     d->setOrigDataForAnonPreview(newOrigData);
+}
+
+void XmlEditWidget::setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider)
+{
+    d->setXSDAnnotationEditProviderObject(newProvider);
 }

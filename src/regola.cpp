@@ -2628,10 +2628,8 @@ QList<Element*> Regola::decodeXMLFromString(const QString &input, const bool onl
                     }
 
                     foreach(Element * el, lst) {
-                        if(el->isElement()) {
-                            result << el ;
-                            regola->takeElement(el);
-                        }
+                        result << el ;
+                        regola->takeElement(el);
                     }
                 }
             } // else

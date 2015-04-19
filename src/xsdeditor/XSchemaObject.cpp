@@ -1061,6 +1061,10 @@ QString XSchemaObject::getOtherAttribute(const QString &attrName)
     return "";
 }
 
+bool XSchemaObject::isAnnotationElement()
+{
+    return false;
+}
 
 bool XSchemaObject::addAttributeToCollection(const QString & name, XSchemaAttributesCollection & attributesCollection, XSchemaAttribute * inputAttribute)
 {

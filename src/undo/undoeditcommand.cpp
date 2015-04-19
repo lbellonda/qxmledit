@@ -48,7 +48,7 @@ void UndoEditCommand::setOriginalElement(Element *beforeEdit)
         _originalElement = new Element(NULL);
         if(NULL != _originalElement) {
             // full copy
-            beforeEdit->copyTo(*_originalElement, false);
+            beforeEdit->copyTo(*_originalElement);
         }
     }
 }
@@ -60,7 +60,7 @@ void UndoEditCommand::setModifiedElement(Element *afterEdit)
         _modifiedElement = new Element(NULL);
         if(NULL != _modifiedElement) {
             // full copy
-            afterEdit->copyTo(*_modifiedElement, false);
+            afterEdit->copyTo(*_modifiedElement);
         }
     }
 }

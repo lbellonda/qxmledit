@@ -75,6 +75,7 @@ class MainWindow : public QMainWindow, UIDelegate
     SnippetManager *_snippetManager;
     QActionGroup *_encodingGroup;
     QIcon _windowIcon;
+    QToolButton *_xsdButton ;
 
 public:
     MainWindow(const bool isSlave, QApplication *application, ApplicationData *data, QMainWindow *parent = 0);
@@ -280,6 +281,7 @@ private slots:
     void on_actionAnonymize_triggered();
     void on_actionQuickReferenceElements_triggered();
     void on_actionAnonymizeFile_triggered();
+    void on_actionEditXSDAnnotation_triggered();
 
     //----- other slots ------------------
 

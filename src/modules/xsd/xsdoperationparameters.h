@@ -127,6 +127,9 @@ public:
     //---
     void copyTo(XSDOperationParameters *dest);
     void setupFromElement(Element *inputElement);
+    //---
+    QString makeNameForXSDObject(const QString &localName);
+
 };
 
 #endif // XSDOPERATIONPARAMETERS_H

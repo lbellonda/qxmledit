@@ -189,6 +189,13 @@ void XInfoBase::generateInnerNodes(QDomNode &parent)
     }
 }
 
+void XInfoBase::copyTo(XInfoBase *other)
+{
+    other->_source = _source ;
+    other-> _contentString = _contentString;
+    other-> _content = _content ;
+}
+
 //----------------------------------------------------------------------------------------------------
 
 XDocumentation::XDocumentation(XSchemaObject *newParent, XSchemaRoot *newRoot): XInfoBase(newParent, newRoot)
@@ -209,6 +216,19 @@ bool XDocumentation::generateDom(QDomDocument &document, QDomNode &parent)
     return true;
 }
 
+bool XDocumentation::isAnnotationElement()
+{
+    return true;
+}
+
+XDocumentation *XDocumentation::clone()
+{
+    XDocumentation *cloned = new XDocumentation(NULL, NULL);
+    copyTo(cloned);
+    cloned->_language = _language ;
+    return cloned ;
+}
+
 //----------------------------------------------------------------------------------------------------
 
 XAppInfo::XAppInfo(XSchemaObject *newParent, XSchemaRoot *newRoot): XInfoBase(newParent, newRoot)
@@ -227,3 +247,16 @@ bool XAppInfo::generateDom(QDomDocument &document, QDomNode &parent)
     parent.appendChild(node);
     return true;
 }
+
+bool XAppInfo::isAnnotationElement()
+{
+    return true;
+}
+
+XAppInfo *XAppInfo::clone()
+{
+    XAppInfo *cloned = new XAppInfo(NULL, NULL);
+    copyTo(cloned);
+    return cloned ;
+}
+

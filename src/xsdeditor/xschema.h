@@ -271,7 +271,7 @@ enum ESchemaType {
     //--- as a generic specifier
     SchemaGenericType,
     SchemaGenericElement,
-
+    SchemaOtherElement
 };
 
 
@@ -462,6 +462,7 @@ public:
     bool hasOtherAttributes();
     bool hasOtherAttribute(const QString &attrName);
     QString getOtherAttribute(const QString &attrName);
+    virtual bool isAnnotationElement();
 
 protected:
     virtual XSchemaElement *realAddElement() ;
@@ -1370,6 +1371,7 @@ public:
 class XInfoBase : public XSchemaObject
 {
     QString _source;
+    QString _contentString;
     QDomNode _content;
 
 protected:
@@ -1389,13 +1391,20 @@ public:
     QDomNode &content() {
         return _content ;
     }
-    void setSource(const QString newSource) {
+    void setSource(const QString &newSource) {
         _source = newSource;
     }
     QString source() {
         return _source ;
     }
+    QString contentString() {
+        return _contentString ;
+    }
+    void setContentString(const QString &newValue) {
+        _contentString = newValue;
+    }
     virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject *target, XSDCompareOptions &options) ;
+    void copyTo(XInfoBase *other);
 };
 
 
@@ -1414,12 +1423,15 @@ public:
     XDocumentation(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XDocumentation();
     virtual bool generateDom(QDomDocument &document, QDomNode &parent) ;
-    void setLanguage(const QString newLanguage) {
+    void setLanguage(const QString &newLanguage) {
         _language = newLanguage;
     }
     QString language() {
         return _language ;
     }
+
+    virtual bool isAnnotationElement();
+    XDocumentation *clone();
 };
 
 class XAppInfo : public XInfoBase
@@ -1435,6 +1447,8 @@ public:
     }
     TAG("appinfo")
     virtual bool generateDom(QDomDocument &document, QDomNode &parent) ;
+    virtual bool isAnnotationElement();
+    XAppInfo * clone();
 };
 
 class XSDSchema;
@@ -1716,8 +1730,44 @@ public:
     void setFromAttribute(XSchemaAttribute *attribute);
 };
 
+class Element ;
+class XSchemaOther : public XSchemaObject
+{
+    Q_OBJECT
+protected:
+
+    void *extData;
+    Element *extElement;
+
+    virtual void reset();
+
+public:
+    XSchemaOther(XSchemaObject *newParent, XSchemaRoot *newRoot);
+    ~XSchemaOther();
+
+    void setElement(Element *newElement);
+    Element *element();
+    virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject * /*target*/, XSDCompareOptions & /*options*/) {
+        return XSDCompareObject::XSDOBJECT_DIFFERENT;
+    }
+    virtual bool generateDom(QDomDocument & /*document*/, QDomNode & /*parent*/) {
+        return false;
+    }
+
+    virtual ESchemaType getType() {
+        return SchemaOtherElement;
+    }
+    TAG("other")
+    XSchemaOther* clone();
+
+    void *getExtData() const;
+    void setExtData(void *value);
+
+signals:
+};
 
 
 #include "xsdeditor/xsdparseutils.h"
 
 #endif // XSCHEMA_H
+
