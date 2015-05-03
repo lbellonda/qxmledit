@@ -1,4 +1,6 @@
 0.8.15
+    Used the same options for compiler for the main project and tests.
+    Removed unsupported display mode and option.
     Added scripts to work with git.
     Added a selective replacement feature.
     Added XSD toolbutton to the main toolbar.

@@ -982,18 +982,22 @@ void TestQXmlEdit::testAnonymize()
 }
 
 #include <QtGlobal>
-//static void msgHandler(QtMsgType type, const char *msg)
+
+/*
+
+// This function enabled for debug purposes. DO NOT REMOVE
+static void msgHandler(QtMsgType type, const char *msg)
 static void msgHandler(QtMsgType, const QMessageLogContext &, const QString &msg)
 {
-    /*QString s = msg;
+    QString s = msg;
     if( !s.startsWith("Application asked to ")){
         int k = 0;
         k++;
-    }*/
+    }
     //printf("%s\n", msg);
     printf("%s\n", msg.toLatin1().data());
 }
-
+*/
 void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);

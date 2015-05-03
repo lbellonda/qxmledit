@@ -53,6 +53,9 @@ QMAKE_CXXFLAGS +=-Werror=format-security
 CONFIG += precompile_header
 PRECOMPILED_HEADER  = ../src/precompiled_app.h
 
+QMAKE_CXXFLAGS += -Wall
+QMAKE_CXXFLAGS +=-Werror
+
 TARGET = qxmledittest
 CONFIG   += console
 CONFIG   -= app_bundle

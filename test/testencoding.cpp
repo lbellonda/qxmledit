@@ -717,47 +717,6 @@ QString TestEncoding::mkEncodingDecl(const QString &enc)
     return result;
 }
 
-bool TestEncoding::handlePaste(App *app, TestEncodingParams *p)
-{
-    return false;
-    /*p->notCompareFile = true;
-    switch(p->testType) {
-    case TestEncodingParams::T_CHANGE:
-        {
-            app->mainWindow()->getEditor()->removeAllElements();
-            QApplication::clipboard()->setText(mkEncodingDeclP(ENC_2));
-            app->mainWindow()->getEditor()->onActionPaste();
-        }
-        break;
-    case TestEncodingParams::T_INSERT:
-        {
-            app->mainWindow()->getEditor()->removeAllElements();
-            QApplication::clipboard()->setText(mkEncodingDeclP(ENC_2));
-            app->mainWindow()->getEditor()->onActionPaste();
-        }
-        break;
-    case TestEncodingParams::T_REMOVE:
-        {
-            app->mainWindow()->getEditor()->removeAllElements();
-            QApplication::clipboard()->setText("<root />");
-            app->mainWindow()->getEditor()->onActionPaste();
-        }
-        break;
-    case TestEncodingParams::T_SAME:
-        {
-            app->mainWindow()->getEditor()->removeAllElements();
-            QApplication::clipboard()->setText(mkEncodingDecl(ENC_2));
-            app->mainWindow()->getEditor()->onActionPaste();
-        }
-        break;
-    }
-    return true;*/
-}
-
-bool TestEncoding::handleInsertSnippet(App *app, TestEncodingParams *p) {
-    return error("a");
-}
-
 bool TestEncoding::handleMoveUp(App *app, TestEncodingParams *p)
 {
     p->notCompareFile = true;
@@ -941,7 +900,7 @@ bool TestEncoding::handleInsert(App *app, TestEncodingParams *p)
 static bool editHook(QWidget *const parentWindow, QTreeWidgetItem *item, UIDelegate *uiDelegate, Element* element);
 static bool editHook2(QWidget *const parentWindow, QTreeWidgetItem *item, UIDelegate *uiDelegate, Element* element);
 
-bool editHook(QWidget *const parentWindow, QTreeWidgetItem * /*item*/, UIDelegate * /*uiDelegate*/, Element* element)
+bool editHook(QWidget *const /*parentWindow*/, QTreeWidgetItem * /*item*/, UIDelegate * /*uiDelegate*/, Element* element)
 {
     if(NULL == element) {
         return false;
@@ -955,7 +914,7 @@ bool editHook(QWidget *const parentWindow, QTreeWidgetItem * /*item*/, UIDelegat
     return true ;
 }
 
-bool editHook2(QWidget *const parentWindow, QTreeWidgetItem * /*item*/, UIDelegate * /*uiDelegate*/, Element* element)
+bool editHook2(QWidget *const /*parentWindow*/, QTreeWidgetItem * /*item*/, UIDelegate * /*uiDelegate*/, Element* element)
 {
     if(NULL == element) {
         return false;

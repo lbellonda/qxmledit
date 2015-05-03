@@ -57,8 +57,6 @@ class TestEncoding : public TestBase
     Element *selectTopElement(App *app, TestEncodingParams *p, const int pos);
     bool testReadChangeAndWriteAnEncoding(const QString &fileInput, const QString &fileCfr, const QString &finalEncoding);
 
-    bool handlePaste(App *app, TestEncodingParams *p);
-    bool handleInsertSnippet(App *app, TestEncodingParams *p);
     bool handleUncomment(App *app, TestEncodingParams *p);
     bool handleEdit(App *app, TestEncodingParams *p);
     bool handleDelete(App *app, TestEncodingParams *p);
