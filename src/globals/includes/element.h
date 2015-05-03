@@ -33,6 +33,7 @@
 class UndoPasteAttributesCommand;
 class Regola;
 class FindTextParams;
+class ReplaceTextParams;
 class ElementViewInfo;
 class AnonAlg;
 
@@ -320,6 +321,7 @@ public:
     bool findText(FindTextParams &findArgs);
     bool matchText(FindTextParams &findArgs);
     bool searchInScope(FindTextParams &findArgs);
+    bool replaceText(ReplaceTextParams &findArgs);
 
     void unhilite();
     void hilite();

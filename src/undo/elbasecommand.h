@@ -33,6 +33,7 @@ class ElBaseCommand : public UndoCommand
 protected:
     bool _firstShot;
     Element *_element;
+    Element *_lastOpElement ;
     bool _selectParent;
 
     void loseElement();

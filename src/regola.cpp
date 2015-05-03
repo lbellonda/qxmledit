@@ -2605,7 +2605,7 @@ QString Regola::getCachedPrefixNS(const QString &nsURI)
 }
 
 // static method
-QList<Element*> Regola::decodeXMLFromString(const QString &input, const bool onlyRootElement)
+QList<Element*> Regola::decodeXMLFromString(const QString &input, const bool onlyRootElement, const bool onlyElements)
 {
     QList<Element*> result;
     Regola *regola = NULL ;
@@ -2628,8 +2628,11 @@ QList<Element*> Regola::decodeXMLFromString(const QString &input, const bool onl
                     }
 
                     foreach(Element * el, lst) {
-                        result << el ;
-                        regola->takeElement(el);
+                        Utils::TODO_THIS_RELEASE("questo codice serve?");
+                        if(!onlyElements || (onlyElements && el->isElement())) {
+                            result << el ;
+                            regola->takeElement(el);
+                        }
                     }
                 }
             } // else

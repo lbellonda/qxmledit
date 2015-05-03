@@ -29,6 +29,7 @@ ElBaseCommand::ElBaseCommand(QTreeWidget *theWidget, Regola *newRegola, Element 
 {
     _element = element ;
     _selectParent = false;
+    _lastOpElement = NULL ;
 }
 
 ElBaseCommand::~ElBaseCommand()
@@ -72,7 +73,7 @@ void ElBaseCommand::insertElement()
         if(!pathPos.isEmpty()) {
             parentElement = regola->findElementByArray(pathPos);
         }
-        regola->insertInternal(widget, parentElement, _element, lastPos);
+        _lastOpElement = regola->insertInternal(widget, parentElement, _element, lastPos);
         if(_selectParent && (NULL != parentElement)) {
             widget->setCurrentItem(parentElement->getUI());
         }
@@ -91,9 +92,9 @@ void ElBaseCommand::insertElementObj(Element *element)
         if(!pathPos.isEmpty()) {
             parentElement = regola->findElementByArray(pathPos);
         }
-        Element *newElement = regola->insertInternal(widget, parentElement, element, lastPos);
-        if(NULL != newElement) {
-            widget->setCurrentItem(newElement->getUI());
+        _lastOpElement = regola->insertInternal(widget, parentElement, element, lastPos);
+        if(NULL != _lastOpElement) {
+            widget->setCurrentItem(_lastOpElement->getUI());
         }
         if(_selectParent && (NULL != parentElement)) {
             widget->setCurrentItem(parentElement->getUI());
@@ -109,6 +110,7 @@ void ElBaseCommand::removeElement()
         element->autoDelete(false);
         _element = element ;
     }
+    _lastOpElement = NULL ;
 }
 
 Element *ElBaseCommand::removeElementAndReturnIt()

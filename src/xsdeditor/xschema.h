@@ -1736,7 +1736,7 @@ class XSchemaOther : public XSchemaObject
     Q_OBJECT
 protected:
 
-    void *extData;
+    QVariant extData;
     Element *extElement;
 
     virtual void reset();
@@ -1760,8 +1760,8 @@ public:
     TAG("other")
     XSchemaOther* clone();
 
-    void *getExtData() const;
-    void setExtData(void *value);
+    QVariant getExtData() const;
+    void setExtData(const QVariant & value);
 
 signals:
 };

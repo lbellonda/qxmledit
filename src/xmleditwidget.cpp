@@ -433,6 +433,11 @@ void XmlEditWidget::onActionFind()
     d->onActionFind();
 }
 
+void XmlEditWidget::onActionReplace()
+{
+    d->onActionReplace();
+}
+
 void XmlEditWidget::onActionGoToParent()
 {
     d->onActionGoToParent();
@@ -1019,4 +1024,19 @@ void XmlEditWidget::setOrigDataForAnonPreview(QHash<void *, QString> *newOrigDat
 void XmlEditWidget::setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider)
 {
     d->setXSDAnnotationEditProviderObject(newProvider);
+}
+
+bool XmlEditWidget::replaceAll(ReplaceTextParams *params)
+{
+    return d->replaceAll(params);
+}
+
+bool XmlEditWidget::replace(ReplaceTextParams * findArgs)
+{
+    return d->replace(findArgs);
+}
+
+void XmlEditWidget::onFindNext()
+{
+    d->onFindNext();
 }

@@ -156,7 +156,7 @@ public:
 
     void errorNoRule();
     void setClipBoardItem(Element *pElement);
-    ClipboardElementList* getClipBoardItemList() const;
+    ClipboardElementList* getClipBoardItemList(const bool onlyElements = true) const;
 
     bool isActionMode();
     bool isActionNoScanMode();
@@ -221,6 +221,7 @@ public:
     void onActionAppendChildElement();
     void onActionEdit();
     void onActionFind();
+    void onActionReplace();
     void onActionDelete();
     void onActionMoveUp();
     void onActionMoveDown();
@@ -316,6 +317,10 @@ public:
     bool onXSDModifyType();
     bool onEditXSDAnnotation();
     void setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData);
+    //----
+    bool replace(ReplaceTextParams *params);
+    bool replaceAll(ReplaceTextParams * findArgs);
+    void onFindNext();
 
     //----
     bool XSDApplyOperation(const ElementOp::Op op, XSDOperationParameters *params);
@@ -356,6 +361,13 @@ private slots:
     void onEncodingChanged(const QString &newEncoding);
     void onSearchNext();
     void onSearchPrev();
+
+    void onReplace(const FindTextParams::EFindType replaceType);
+    void onReplaceAll();
+    void onReplaceSkipAndGotoNext();
+    void onReplaceSkipAndGotoPrevious();
+    void onReplaceReplaceAndGotoNext();
+    void onReplaceReplaceAndGotoPrevious();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

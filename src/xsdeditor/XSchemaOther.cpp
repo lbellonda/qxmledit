@@ -30,7 +30,6 @@
 
 XSchemaOther::XSchemaOther(XSchemaObject *newParent, XSchemaRoot *newRoot): XSchemaObject(newParent, newRoot)
 {
-    extData = NULL ;
     extElement = NULL ;
 }
 
@@ -62,12 +61,12 @@ XSchemaOther* XSchemaOther::clone()
     return cloned;
 }
 
-void *XSchemaOther::getExtData() const
+QVariant XSchemaOther::getExtData() const
 {
     return extData;
 }
 
-void XSchemaOther::setExtData(void *value)
+void XSchemaOther::setExtData(const QVariant &value)
 {
     extData = value;
 }

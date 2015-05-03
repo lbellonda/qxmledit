@@ -80,6 +80,7 @@
 #include "testselectxsd.h"
 #include "testxsdmode.h"
 #include "testanonymize.h"
+#include "testreplace.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -160,6 +161,7 @@ private Q_SLOTS:
     void testSelectXsd();
     void testXSDMode();
     void testAnonymize();
+    void testReplace();
 };
 
 

@@ -28,12 +28,15 @@
 
 class ElUpdateCommand : public ElBaseCommand
 {
+    bool _addToBookmarks;
 public:
     ElUpdateCommand(QTreeWidget *theWidget, Regola *newRegola, Element *newElement, QList<int> path, QUndoCommand *parentCommand = NULL);
     virtual ~ElUpdateCommand();
 
     virtual void undo();
     virtual void redo();
+    bool addToBookmarks() const;
+    void setAddToBookmarks(bool addToBookmarks);
 };
 
 #endif // ELUPDATEELEMENTCOMMAND_H

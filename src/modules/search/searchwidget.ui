@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1016</width>
-    <height>185</height>
+    <height>281</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -151,7 +151,7 @@ color: rgb(255, 0, 0);</string>
            <string>Find all</string>
           </property>
           <property name="text">
-           <string>Find</string>
+           <string>Find All</string>
           </property>
          </widget>
         </item>
@@ -261,39 +261,10 @@ color: rgb(255, 0, 0);</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QCheckBox" name="isHiglightAll">
-          <property name="text">
-           <string>Find All</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="searchBottom">
-        <item>
-         <widget class="QLabel" name="searchResult">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>searchResults:</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
         <item>
          <widget class="QLabel" name="occNumber">
           <property name="text">
@@ -310,7 +281,7 @@ color: rgb(255, 0, 0);</string>
            </font>
           </property>
           <property name="text">
-           <string>Size:</string>
+           <string>size:</string>
           </property>
          </widget>
         </item>
@@ -367,9 +338,104 @@ color: rgb(255, 0, 0);</string>
      </layout>
     </widget>
    </item>
+   <item>
+    <widget class="QGroupBox" name="replaceGroup">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>&amp;Replace with:</string>
+        </property>
+        <property name="buddy">
+         <cstring>replacement</cstring>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="replacement"/>
+      </item>
+      <item>
+       <widget class="QToolButton" name="cmdReplSkipPrev">
+        <property name="toolTip">
+         <string>Skip this and find the previous match.</string>
+        </property>
+        <property name="text">
+         <string>Skip and previous</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../risorse.qrc">
+          <normaloff>:/replace/images/replace.skip.prev.png</normaloff>:/replace/images/replace.skip.prev.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="cmdReplSkipNext">
+        <property name="toolTip">
+         <string>Skip this and find the next match.</string>
+        </property>
+        <property name="text">
+         <string>Skip and next</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../risorse.qrc">
+          <normaloff>:/replace/images/replace.skip.next.png</normaloff>:/replace/images/replace.skip.next.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="cmdReplReplPrev">
+        <property name="toolTip">
+         <string>Replace this and find the previous match.</string>
+        </property>
+        <property name="text">
+         <string>Replace and previous</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../risorse.qrc">
+          <normaloff>:/replace/images/replace.repl.prev.png</normaloff>:/replace/images/replace.repl.prev.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="cmdReplReplNext">
+        <property name="toolTip">
+         <string>Replace this and find the next match.</string>
+        </property>
+        <property name="text">
+         <string>Replace and next</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../risorse.qrc">
+          <normaloff>:/replace/images/replace.repl.next.png</normaloff>:/replace/images/replace.repl.next.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="cmdReplaceAll">
+        <property name="toolTip">
+         <string>Replace all the occurrences.</string>
+        </property>
+        <property name="text">
+         <string>Replace &amp;all</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources>
+  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections/>

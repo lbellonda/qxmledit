@@ -240,7 +240,7 @@ public:
 
     Element *clipBoardItem();
     //QList<Element*> clipBoardItemList();
-    ClipboardElementList *clipBoardItemList();
+    ClipboardElementList *clipBoardItemList(const bool onlyElements = true);
     Element *internalClipBoardItem();
     void setClipBoardItem(Element *value, const QString &textualRepresentation);
 

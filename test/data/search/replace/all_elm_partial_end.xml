@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding="UTF-8" ?>
+<pppc abc="abc" xmlns:abc="sssss">
+  <pppc abc="abc">
+        <pppc:pppc abc="abc">
+abc
+        </pppc:pppc>
+<![CDATA[abc]]>
+  </pppc>
+  <!-- abc -->
+  <?abc abc="abc" ?>
+</pppc>

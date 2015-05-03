@@ -120,8 +120,9 @@ void TestSearchHelper::selectPath(QList<int> &sel)
 void TestSearchHelper::initSearch(const QString &textToSearch)
 {
     selectedItem = NULL ;
-    findArgs.init( FindTextParams::FindAllOccurrences, textToSearch, false, true, false, false,
-                            false, FindTextParams::FIND_ALL, true,
+    findArgs.init( FindTextParams::FindAllOccurrences, textToSearch,
+                   false, false, false,
+                   false, FindTextParams::FIND_ALL, true,
                   true, true, "", false, isXQuery);
 }
 
@@ -142,7 +143,7 @@ void TestSearchHelper::initFindForNext(const QString &textToSearch, const bool i
 {
     selectedItem = NULL ;
     findArgs.init( isSearchNext? FindTextParams::FindNext : FindTextParams::FindPrevious,
-                   textToSearch, false, true, false, false,
+                   textToSearch, false, false, false,
                             false, FindTextParams::FIND_ALL, true,
                    true, true, "", isWrapAround, isXQuery);
 }

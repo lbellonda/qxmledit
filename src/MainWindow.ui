@@ -109,6 +109,8 @@
     <addaction name="menuExport"/>
     <addaction name="separator"/>
     <addaction name="actionFind"/>
+    <addaction name="actionFindNext"/>
+    <addaction name="actionReplace"/>
     <addaction name="separator"/>
     <addaction name="actionDeleteBookmarked"/>
     <addaction name="actionCleanBookmarkedContent"/>
@@ -290,7 +292,6 @@
     <addaction name="actionShowCurrentSessionPanel"/>
     <addaction name="actionColumnView"/>
     <addaction name="menuAdvanced"/>
-    <addaction name="actionResizeToContents"/>
     <addaction name="actionExpandAll"/>
     <addaction name="actionExpandSelectedItem"/>
     <addaction name="actionHideBrothers"/>
@@ -506,7 +507,7 @@
     <string>Add &amp;Comment as Child...</string>
    </property>
    <property name="shortcut">
-    <string>F3</string>
+    <string>Shift+F3</string>
    </property>
   </action>
   <action name="actionAppendComment">
@@ -531,17 +532,6 @@
    </property>
    <property name="shortcut">
     <string>F6</string>
-   </property>
-  </action>
-  <action name="actionResizeToContents">
-   <property name="text">
-    <string>&amp;Resize to Contents</string>
-   </property>
-   <property name="toolTip">
-    <string>Auto resize the columns</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+R</string>
    </property>
   </action>
   <action name="actionAddChildElement">
@@ -1818,6 +1808,25 @@
    </property>
    <property name="toolTip">
     <string>Edit annotations of XML Schema</string>
+   </property>
+  </action>
+  <action name="actionReplace">
+   <property name="text">
+    <string>Replace...</string>
+   </property>
+   <property name="toolTip">
+    <string>Replace</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
+   </property>
+  </action>
+  <action name="actionFindNext">
+   <property name="text">
+    <string>Find Next</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
   </action>
  </widget>

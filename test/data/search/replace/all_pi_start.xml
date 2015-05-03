@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding="UTF-8" ?>
+<abc abc="abc" xmlns:abc="sssss">
+  <abc abc="abc">
+	<abc:abc abc="abc">
+abc
+	</abc:abc>
+<![CDATA[abc]]>
+  </abc>
+  <!-- abc -->
+  <?zzz zzz="zzz" ?>
+</abc>

@@ -36,6 +36,7 @@ SearchWidget::SearchWidget(QWidget *parent) :
     ui(new Ui::SearchWidget)
 {
     numInstances++;
+    _isReplace = false ;
     _appData = NULL;
     _id = numInstances ;
     _extendedMode = false ;
@@ -69,6 +70,22 @@ void SearchWidget::resetSearchletManagerFactory()
     }
 }
 
+bool SearchWidget::isReplace() const
+{
+    return _isReplace;
+}
+
+void SearchWidget::setIsReplace(bool isReplace)
+{
+    _isReplace = isReplace;
+    checkReplaceState();
+}
+
+void SearchWidget::checkReplaceState()
+{
+    ui->replaceGroup->setVisible(_isReplace);
+}
+
 void SearchWidget::setSearchletManagerFactory(SearchletManagerFactory* newSearchletManagerFactory)
 {
     resetSearchletManagerFactory();
@@ -99,7 +116,7 @@ void SearchWidget::setSettings(FindTextParams *searchSettings)
 bool SearchWidget::finishSetUpUi()
 {
     bool isOk = true;
-
+    checkReplaceState();
     updateUI();
 
     connect(ui->closeSearchPanel, SIGNAL(clicked()), this, SLOT(onCloseSearchPanelClicked()));
@@ -112,6 +129,13 @@ bool SearchWidget::finishSetUpUi()
     connect(ui->cmdOpenAdvancedPanel, SIGNAL(clicked()), this, SLOT(onOpenAdvancedResultPanel()));
     connect(ui->cmdNext, SIGNAL(clicked()), this, SLOT(onSearchNext()));
     connect(ui->cmdPrev, SIGNAL(clicked()), this, SLOT(onSearchPrev()));
+    //----
+    connect(ui->cmdReplReplNext, SIGNAL(clicked()), this, SLOT(onReplReplNext()));
+    connect(ui->cmdReplReplPrev, SIGNAL(clicked()), this, SLOT(onReplReplPrev()));
+    connect(ui->cmdReplSkipNext, SIGNAL(clicked()), this, SLOT(onReplSkipNext()));
+    connect(ui->cmdReplSkipPrev, SIGNAL(clicked()), this, SLOT(onReplSkipPrev()));
+    connect(ui->cmdReplaceAll, SIGNAL(clicked()), this, SLOT(onReplaceAll()));
+    //----
 
     _findCompleter = new LineEditWithCompleter(ui->searchBox);
     ui->searchBox->setDuplicatesEnabled(true);
@@ -188,7 +212,6 @@ void SearchWidget::searchTextChanged(const QString & text)
 
 void SearchWidget::updateSearchUI(const FindTextParams *lastSearch)
 {
-    ui->isHiglightAll->setChecked(lastSearch->isHiliteAll());
     ui->isMatchExactValue->setChecked(lastSearch->isIsMatchExact());
     ui->isCaseSensitive->setChecked(lastSearch->isCaseSensitive());
     ui->isOnlyChildren->setChecked(lastSearch->isLookOnlyChildren());
@@ -209,7 +232,6 @@ void SearchWidget::enableSearchItems()
     Utils::enableAndShowWidget(ui->searchLocation, !isXQuery);
     Utils::enableAndShowWidget(ui->isMatchExactValue, !isXQuery);
     Utils::enableAndShowWidget(ui->isCaseSensitive, !isXQuery);
-    Utils::enableAndShowWidget(ui->isHiglightAll, !isXQuery);
     Utils::enableAndShowWidget(ui->searchLabel, !isXQuery);
     Utils::enableAndShowWidget(ui->labelScope, !isXQuery);
     Utils::enableAndShowWidget(ui->textLabel, !isXQuery);
@@ -304,13 +326,36 @@ FindTextParams* SearchWidget::getSearchParams(const FindTextParams::EFindType fi
         target = (FindTextParams::EFindTarget) trg ;
     }
 
-    FindTextParams *params = new FindTextParams(findType, ui->searchBox->currentText(), !isFindOrCount, ui->isHiglightAll->isChecked(), ui->isMatchExactValue->isChecked(),
+    FindTextParams *params = new FindTextParams(findType, ui->searchBox->currentText(), !isFindOrCount, ui->isMatchExactValue->isChecked(),
             ui->isCaseSensitive->isChecked(), ui->isOnlyChildren->isChecked(), target,
             (isFindOrCount ? ui->selectionToBookmarks->isChecked() : false),
             (isFindOrCount ? ui->closeUnrelated->isChecked() : false),
             ui->showSize->isChecked(), ui->searchScope->currentText(), ui->wrapAround->isChecked(),
             ui->useXQuery->isChecked(), selection);
 
+    if(NULL != _manager) {
+        _manager->saveSearchSettings(params);
+    }
+    registerSearchTerms(ui->searchBox->currentText(), ui->searchScope->currentText());
+    return params;
+}
+
+ReplaceTextParams* SearchWidget::getReplaceParams(const FindTextParams::EFindType findType, QList<Element*> *selection)
+{
+    FindTextParams::EFindTarget target = FindTextParams::FIND_ALL;
+    int itemIndex = ui->searchLocation->currentIndex();
+    if(itemIndex >= 0) {
+        int trg = ui->searchLocation->itemData(itemIndex).toInt();
+        target = (FindTextParams::EFindTarget) trg ;
+    }
+
+    ReplaceTextParams *params = new ReplaceTextParams(findType, ui->searchBox->currentText(), false, ui->isMatchExactValue->isChecked(),
+            ui->isCaseSensitive->isChecked(), ui->isOnlyChildren->isChecked(), target,
+            ui->selectionToBookmarks->isChecked(),
+            ui->closeUnrelated->isChecked(),
+            ui->showSize->isChecked(), ui->searchScope->currentText(), ui->wrapAround->isChecked(),
+            ui->useXQuery->isChecked(), selection);
+    params->setReplaceText(ui->replacement->text());
     if(NULL != _manager) {
         _manager->saveSearchSettings(params);
     }
@@ -413,4 +458,29 @@ void SearchWidget::setExtendedMode(const bool extendedMode)
     ui->cmdPrev->setVisible(!_extendedMode);
     ui->cmdNext->setVisible(!_extendedMode);
     ui->wrapAround->setVisible(!_extendedMode);
+}
+
+void SearchWidget::onReplReplNext()
+{
+    emit replaceReplaceAndGotoNext();
+}
+
+void SearchWidget::onReplReplPrev()
+{
+    emit replaceReplaceAndGotoPrevious();
+}
+
+void SearchWidget::onReplSkipNext()
+{
+    emit replaceSkipAndGotoNext();
+}
+
+void SearchWidget::onReplSkipPrev()
+{
+    emit replaceSkipAndGotoPrevious(); ;
+}
+
+void SearchWidget::onReplaceAll()
+{
+    emit replaceAll(); ;
 }

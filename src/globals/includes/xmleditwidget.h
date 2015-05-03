@@ -174,6 +174,10 @@ public:
     bool onEditXSDAnnotation();
     void setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData);
     void setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider);
+    void onFindNext();
+
+    bool replaceAll(ReplaceTextParams *params);
+    bool replace(ReplaceTextParams * findArgs);
 
 private:
     Ui::XmlEditWidget *ui;
@@ -229,6 +233,7 @@ public:
     void onActionAppendChildElement();
     void onActionEdit();
     void onActionFind();
+    void onActionReplace();
     void onActionDelete();
     void onActionMoveUp();
     void onActionMoveDown();

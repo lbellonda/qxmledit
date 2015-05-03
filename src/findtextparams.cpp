@@ -23,6 +23,7 @@
 #include <QtGui>
 #include "xmlEdit.h"
 #include "findtextparams.h"
+#include "undo/elupdateelementcommand.h"
 #include "utils.h"
 #include "regola.h"
 #include "config.h"
@@ -30,29 +31,28 @@
 #define SPLIT_SCOPE_CHAR '/'
 #define ATTR_CHAR        '@'
 
-FindTextParams::FindTextParams(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
+FindTextParams::FindTextParams(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isMatchExact,
                                const bool isCaseSensitive, const bool isOnlyChildren, const EFindTarget findTarget,
                                const bool isSelToBookmarks, const bool isCloseUnrelated, const bool isShowSize,
                                const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection)
 {
-    init(findType, textToFind, isCountingOnly, isHiliteAll, isMatchExact,
+    init(findType, textToFind, isCountingOnly, isMatchExact,
          isCaseSensitive, isOnlyChildren, findTarget,
          isSelToBookmarks, isCloseUnrelated, isShowSize,
          scope, isWrapAround, useXQuery, selection);
 
 }
 
-void FindTextParams::init(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
+void FindTextParams::init(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isMatchExact,
                           const bool isCaseSensitive, const bool isOnlyChildren, const EFindTarget findTarget,
                           const bool isSelToBookmarks, const bool isCloseUnrelated, const bool isShowSize,
                           const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection)
 {
-    mFindType = findType ;
+    setFindType(findType);
     mSize = 0 ;
     mSelection = selection ;
     mIsCountingOnly = isCountingOnly ;
     mTextToFind = textToFind ;
-    mIsHiliteAll = isHiliteAll ;
     mIsMatchExact = isMatchExact ;
     mIsCaseSensitive = isCaseSensitive ;
     mIsOnlyChildren = isOnlyChildren ;
@@ -84,10 +84,10 @@ void FindTextParams::init(const EFindType findType, const QString &textToFind, c
 
 FindTextParams::FindTextParams()
 {
-    mFindType = FindAllOccurrences;
+    setFindType(FindAllOccurrences);
+    mIsCountingOnly = false;
     mSize = 0 ;
     mTextToFind = "" ;
-    mIsHiliteAll = false ;
     mIsMatchExact = false ;
     mIsCaseSensitive = false ;
     mIsOnlyChildren = false ;
@@ -107,9 +107,50 @@ FindTextParams::~FindTextParams()
 {
 }
 
+FindTextParams *FindTextParams::cloneFind()
+{
+    FindTextParams *cloned = new FindTextParams();
+    cloned->mFindType = mFindType ;
+    cloned->mIsCountingOnly = mIsCountingOnly;
+    cloned->mTextToFind = mTextToFind;
+    cloned->mIsMatchExact = mIsMatchExact;
+    cloned->mIsCaseSensitive = mIsCaseSensitive;
+    cloned->mIsOnlyChildren = mIsOnlyChildren;
+    cloned->mFindTarget = mFindTarget;
+    cloned->mIsSelToBookmarks = mIsSelToBookmarks;
+    cloned->mIsCloseUnrelated = mIsCloseUnrelated;
+    cloned->mScopes = mScopes;
+    cloned->mIsSearchAttribute = mIsSearchAttribute;
+    cloned->mAttributeName = mAttributeName;
+    cloned->mScope = mScope;
+    cloned->mIsScoped  = mIsScoped;
+    cloned->mIsShowSize  = mIsShowSize;
+    cloned->mOccurrences = mOccurrences;
+    cloned->mSize = mSize; // size of result
+    cloned->mUseXQuery = mUseXQuery;
+    cloned->mIsWrapAround = mIsWrapAround;
+    cloned->mSelection = mSelection ;
+    return cloned ;
+}
+
+void FindTextParams::setCaseSensitive(bool value)
+{
+    mIsCaseSensitive = value ;
+}
+
 FindTextParams::EFindType FindTextParams::findType()
 {
     return mFindType;
+}
+
+void FindTextParams::setFindType(const FindTextParams::EFindType newType)
+{
+    mFindType = newType ;
+}
+
+bool FindTextParams::isHiliteAll() const
+{
+    return (FindAllOccurrences == mFindType);
 }
 
 bool FindTextParams::isFindAllOccurrences()
@@ -119,12 +160,26 @@ bool FindTextParams::isFindAllOccurrences()
 
 bool FindTextParams::isFindNext()
 {
-    return FindNext == mFindType ;
+    switch(mFindType) {
+    default:
+        return false;
+    case FindNext:
+    case ReplaceAndGotoNext:
+    case SkipAndGotoNext:
+        return true ;
+    }
 }
 
 bool FindTextParams::isFindPrev()
 {
-    return FindPrevious == mFindType ;
+    switch(mFindType) {
+    default:
+        return false;
+    case FindPrevious:
+    case ReplaceAndGotoPrev:
+    case SkipAndGotoPrev:
+        return true ;
+    }
 }
 
 bool FindTextParams::checkParams(bool &isErrorShown)
@@ -139,6 +194,10 @@ bool FindTextParams::checkParams(bool &isErrorShown)
     case FindAllOccurrences:
     case FindNext:
     case FindPrevious:
+    case ReplaceAndGotoNext:
+    case ReplaceAndGotoPrev:
+    case SkipAndGotoNext:
+    case SkipAndGotoPrev:
         break;
     default:
         Utils::error(tr("The type of the search is not legal:%1.").arg(mFindType));
@@ -179,7 +238,6 @@ QStringList &FindTextParams::getScopes()
 void FindTextParams::loadState()
 {
     mTextToFind =  "";
-    mIsHiliteAll =  Config::getBool(Config::KEY_SEARCH_HIGHLIGHALL, true);
     mIsMatchExact = Config::getBool(Config::KEY_SEARCH_MATCHEXACT, false);
     mIsCaseSensitive = Config::getBool(Config::KEY_SEARCH_CASEUNSITIVE, false);
     mIsOnlyChildren = Config::getBool(Config::KEY_SEARCH_ONLYCHILDREN, false);
@@ -193,7 +251,6 @@ void FindTextParams::loadState()
 
 void FindTextParams::saveState() const
 {
-    Config::saveBool(Config::KEY_SEARCH_HIGHLIGHALL, mIsHiliteAll);
     Config::saveBool(Config::KEY_SEARCH_MATCHEXACT, mIsMatchExact);
     Config::saveBool(Config::KEY_SEARCH_CASEUNSITIVE, mIsCaseSensitive);
     Config::saveBool(Config::KEY_SEARCH_ONLYCHILDREN, mIsOnlyChildren);
@@ -263,4 +320,314 @@ void FindTextParams::addSelection(Element *newSelection)
     }
 }
 
+void FindTextParams::setSearchText(const QString &search)
+{
+    mTextToFind = search ;
+}
 
+void FindTextParams::startElement(Element * /*currentElement*/)
+{
+
+}
+
+void FindTextParams::endElement()
+{
+
+}
+
+bool FindTextParams::handleElementTag()
+{
+    return true;
+}
+
+bool FindTextParams::isExploreAllItems()
+{
+    return false;
+}
+
+bool FindTextParams::handleAttributeName(Attribute * /*attribute*/)
+{
+    return false;
+}
+
+bool FindTextParams::handleAttributeValue(Attribute * /*attribute*/)
+{
+    return false;
+}
+
+bool FindTextParams::handleComment()
+{
+    return false;
+}
+
+bool FindTextParams::handleTextElement()
+{
+    return false;
+}
+
+bool FindTextParams::handleTextInline(TextChunk * /*tc*/)
+{
+    return false;
+}
+
+bool FindTextParams::handleProcessingInstruction()
+{
+    return false;
+}
+
+
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+ReplaceTextParams::ReplaceTextParams(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isMatchExact,
+                                     const bool isCaseSensitive, const bool isOnlyChildren, const EFindTarget findTarget,
+                                     const bool isSelToBookmarks, const bool isCloseUnrelated, const bool isShowSize,
+                                     const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection) :
+    FindTextParams(findType, textToFind, isCountingOnly, isMatchExact,
+                   isCaseSensitive, isOnlyChildren, findTarget,
+                   isSelToBookmarks, isCloseUnrelated, isShowSize,
+                   scope, isWrapAround, useXQuery, selection)
+{
+    initReplace();
+}
+
+ReplaceTextParams::ReplaceTextParams() : FindTextParams()
+{
+    initReplace();
+}
+
+ReplaceTextParams::~ReplaceTextParams()
+{
+}
+
+void ReplaceTextParams::initReplace()
+{
+    mReplacementErrorsCount = 0 ;
+    mReplacementCount = 0 ;
+    mCurrentElement = NULL ;
+    mUndoGroup = NULL ;
+    mReplaceElement = NULL ;
+    mCurrentCommand = NULL ;
+}
+
+//---
+
+void ReplaceTextParams::setReplaceText(const QString &replace)
+{
+    mReplacementText = replace;
+}
+
+int ReplaceTextParams::replacementCount()
+{
+    return mReplacementCount;
+}
+
+int ReplaceTextParams::replacementErrorsCount()
+{
+    return mReplacementErrorsCount ;
+}
+
+void ReplaceTextParams::startElement(Element *currentElement)
+{
+    mCurrentElement = currentElement ;
+    mCurrentCommand = NULL ;
+}
+
+void ReplaceTextParams::endElement()
+{
+    mCurrentElement = NULL ;
+    mReplaceElement = NULL ;
+}
+
+QUndoCommand *ReplaceTextParams::currentUndoCommand()
+{
+    return mCurrentCommand;
+}
+
+void ReplaceTextParams::buildOperationElement()
+{
+    if(NULL != mReplaceElement) {
+        return ;
+    }
+    mAttributes.clear();
+    mTexts.clear();
+    mReplaceElement = new Element("", "", NULL, NULL);
+    mCurrentElement->copyTo(*mReplaceElement);
+    mCurrentCommand = new ElUpdateCommand(mCurrentElement->getUI()->treeWidget(), mCurrentElement->getParentRule(),
+                                          mReplaceElement, mCurrentElement->indexPath(), mUndoGroup);
+    foreach(Attribute * attrib, mReplaceElement->attributes) {
+        mAttributes[attrib->name] = attrib;
+    }
+    int chunkId = 0 ;
+    foreach(TextChunk * chunk, mCurrentElement->getTextChunks()) {
+        mTexts[chunk] = mReplaceElement->getTextChunks().at(chunkId);
+        chunkId++;
+    }
+
+    Utils::TODO_THIS_RELEASE("setta flag open to parent");
+}
+
+bool ReplaceTextParams::handleElementTag()
+{
+    if(canChangeXmlIdentifier(mCurrentElement->tag())) {
+        buildOperationElement();
+        changeElementTag();
+        mReplacementCount++;
+        return true;
+    }
+    mReplacementErrorsCount++;
+    return false;
+}
+
+bool ReplaceTextParams::handleAttributeName(Attribute * attribute)
+{
+    if(canChangeXmlIdentifier(attribute->name)) {
+        buildOperationElement();
+        changeAttributeName(attribute);
+        mReplacementCount++;
+        return true;
+    }
+    mReplacementErrorsCount++;
+    return false;
+}
+
+bool ReplaceTextParams::handleComment()
+{
+    if(canChangeComment()) {
+        buildOperationElement();
+        changeComment();
+        mReplacementCount++;
+        return true;
+    }
+    mReplacementErrorsCount++;
+    return false;
+}
+bool ReplaceTextParams::handleAttributeValue(Attribute * attribute)
+{
+    buildOperationElement();
+    changeAttributeValue(attribute);
+    mReplacementCount++;
+    return true;
+}
+
+void ReplaceTextParams::setCommandGroup(QUndoCommand *undoCommandGroup)
+{
+    mUndoGroup = undoCommandGroup;
+}
+
+QString ReplaceTextParams::applyReplacement(const QString & inputString)
+{
+    if(mIsMatchExact) {
+        // the match has already been validated, only apply here
+        return mReplacementText ;
+    }
+    const Qt::CaseSensitivity caseSensitivity = mIsCaseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive ;
+    // avoid modifying a shared object in place
+    QString newString(inputString.data(), inputString.size());
+    newString.replace(mTextToFind, mReplacementText, caseSensitivity);
+    return newString;
+}
+
+bool ReplaceTextParams::canChangeXmlIdentifier(const QString &tag)
+{
+    QString newTag = applyReplacement(tag);
+    if(Utils::checkXMLName(newTag)) {
+        return true ;
+    }
+    return false;
+}
+
+void ReplaceTextParams::changeElementTag()
+{
+    QString tag = mCurrentElement->tag();
+    QString newTag = applyReplacement(tag);
+    mReplaceElement->setTag(newTag);
+}
+
+void ReplaceTextParams::changeComment()
+{
+    QString tag = mCurrentElement->getComment();
+    QString newComment = applyReplacement(tag);
+    mReplaceElement->setComment(newComment);
+}
+
+bool ReplaceTextParams::canChangeComment()
+{
+    QString tag = mCurrentElement->getComment();
+    QString newComment = applyReplacement(tag);
+    if(newComment.indexOf("--") >= 0) {
+        return false;
+    }
+    return true ;
+}
+
+bool ReplaceTextParams::canChangeText(const QString & /*text*/)
+{
+    return true ;
+}
+
+void ReplaceTextParams::changeAttributeName(Attribute *attribute)
+{
+    QString tag = attribute->name;
+    QString newTag = applyReplacement(tag);
+    Utils::TODO_THIS_RELEASE("attenzione al rename, serve una mappa con i nomi originali");
+    Attribute *destAttrib = mAttributes[attribute->name];
+    if(NULL != destAttrib) {
+        destAttrib->name = newTag ;
+    }
+}
+
+void ReplaceTextParams::changeAttributeValue(Attribute *attribute)
+{
+    QString value = attribute->value;
+    QString newValue = applyReplacement(value);
+    Utils::TODO_THIS_RELEASE("attenzione al rename, serve una mappa con i nomi originali");
+    Attribute *destAttrib = mAttributes[attribute->name];
+    if(NULL != destAttrib) {
+        destAttrib->value = newValue ;
+    }
+}
+
+bool ReplaceTextParams::isExploreAllItems()
+{
+    return true ;
+}
+
+bool ReplaceTextParams::handleTextElement()
+{
+    bool isCData = mCurrentElement->isCDATA() ;
+    if(!isCData || (isCData && canChangeText(mCurrentElement->text))) {
+        buildOperationElement();
+        mReplaceElement->text = applyReplacement(mCurrentElement->text);
+        mReplacementCount++;
+        return true;
+    }
+    mReplacementErrorsCount++;
+    return false;
+}
+
+bool ReplaceTextParams::handleTextInline(TextChunk *tc)
+{
+    bool isCData = tc->isCDATA ;
+    if(!isCData || (isCData && canChangeText(tc->text))) {
+        buildOperationElement();
+        TextChunk *localChunk = mTexts[tc];
+        if(NULL != localChunk) {
+            localChunk->text = applyReplacement(tc->text);
+            mReplacementCount++;
+            return true;
+        }
+    }
+    mReplacementErrorsCount++;
+    return false;
+}
+
+bool ReplaceTextParams::handleProcessingInstruction()
+{
+    buildOperationElement();
+    mReplaceElement->setPIData(applyReplacement(mCurrentElement->getPIData()));
+    mReplaceElement->setPITarget(applyReplacement(mCurrentElement->getPITarget()));
+    mReplacementCount++;
+    return true;
+}

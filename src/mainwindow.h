@@ -144,11 +144,11 @@ private slots:
     void on_actionAddComment_triggered();
     void on_actionAppendProcessingInstruction_triggered();
     void on_actionAddProcessingInstruction_triggered();
-    void on_actionResizeToContents_triggered();
     void on_actionAddChildElement_triggered();
     void on_actionAppendChildElement_triggered();
     void on_actionEdit_triggered();
     void on_actionFind_triggered();
+    void on_actionReplace_triggered();
     void on_actionDelete_triggered();
     void on_actionMoveUp_triggered();
     void on_actionMoveDown_triggered();
@@ -282,6 +282,7 @@ private slots:
     void on_actionQuickReferenceElements_triggered();
     void on_actionAnonymizeFile_triggered();
     void on_actionEditXSDAnnotation_triggered();
+    void on_actionFindNext_triggered();
 
     //----- other slots ------------------
 

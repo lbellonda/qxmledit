@@ -236,4 +236,10 @@
         <file alias="an_ex_v_default">images/an_exception_value_default.png</file>
         <file alias="an_ex_v_fixed">images/an_exception_value_fixed.png</file>
     </qresource>
+    <qresource prefix="/replace">
+        <file>images/replace.repl.prev.png</file>
+        <file>images/replace.repl.next.png</file>
+        <file>images/replace.skip.next.png</file>
+        <file>images/replace.skip.prev.png</file>
+    </qresource>
 </RCC>

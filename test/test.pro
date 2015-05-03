@@ -135,7 +135,8 @@ SOURCES += \
     testhelpers/xsd/testannotxsdannotationeditprovider.cpp \
     testhelpers/xsd/testannotxsdannotationeditor.cpp \
     testhelpers/xsd/testxsdfullannotationsdialog.cpp \
-    testhelpers/xsd/testxsdsinglecommentdialog.cpp
+    testhelpers/xsd/testxsdsinglecommentdialog.cpp \
+    testreplace.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -225,7 +226,8 @@ HEADERS += \
     testhelpers/xsd/testannotxsdannotationeditprovider.h \
     testhelpers/xsd/testannotxsdannotationeditor.h \
     testhelpers/xsd/testxsdfullannotationsdialog.h \
-    testhelpers/xsd/testxsdsinglecommentdialog.h
+    testhelpers/xsd/testxsdsinglecommentdialog.h \
+    testreplace.h
 
 #OTHER_FILES += \
 

@@ -25,9 +25,11 @@
 
 #include "libQXmlEdit_global.h"
 #include <QApplication>
+#include <QUndoCommand>
 #include "xmlEdit.h"
 
 class Element;
+class Attribute;
 
 class LIBQXMLEDITSHARED_EXPORT FindTextParams
 {
@@ -50,16 +52,18 @@ public:
         FindAllOccurrences,
         FindNext,
         FindPrevious,
-
+        ReplaceAndGotoNext,
+        ReplaceAndGotoPrev,
+        SkipAndGotoNext,
+        SkipAndGotoPrev
     };
 
 
-private:
+protected:
 
     EFindType   mFindType;
     bool        mIsCountingOnly;
     QString   mTextToFind;
-    bool      mIsHiliteAll;
     bool      mIsMatchExact;
     bool      mIsCaseSensitive;
     bool      mIsOnlyChildren;
@@ -80,18 +84,19 @@ private:
 
 public:
     FindTextParams();
-    FindTextParams(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact, const bool isCaseSensitive,
+    FindTextParams(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isMatchExact, const bool isCaseSensitive,
                    const bool isOnlyChildren, const EFindTarget findTarget, const bool isSelToBookmarks,
                    const bool isCloseUnrelated, const bool isShowSize, const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection = NULL);
-    ~FindTextParams();
+    virtual ~FindTextParams();
 
-    void init(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isHiliteAll, const bool isMatchExact,
+    void init(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isMatchExact,
               const bool isCaseSensitive, const bool isOnlyChildren, const EFindTarget findTarget,
               const bool isSelToBookmarks, const bool isCloseUnrelated, const bool isShowSize,
               const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection = NULL);
 
 
     EFindType findType();
+    void setFindType(const EFindType newType);
     bool isFindAllOccurrences();
     bool isFindNext();
     bool isFindPrev();
@@ -115,9 +120,8 @@ public:
     bool isLookOnlyChildren() const {
         return mIsOnlyChildren ;
     }
-    bool isHiliteAll() const {
-        return mIsHiliteAll;
-    }
+    bool isHiliteAll() const ;
+
     EFindTarget getFindTarget() const {
         return mFindTarget;
     }
@@ -181,7 +185,75 @@ public:
 
     void addSelection(Element *newSelection);
 
+    void setSearchText(const QString &search);
+
+    virtual void startElement(Element *currentElement);
+    virtual void endElement();
+    virtual bool handleElementTag();
+    virtual bool handleAttributeName(Attribute *attribute);
+    virtual bool handleAttributeValue(Attribute *attribute);
+    virtual bool handleComment();
+    virtual bool handleTextElement();
+    virtual bool handleTextInline(TextChunk *tc);
+    virtual bool handleProcessingInstruction();
+    virtual bool isExploreAllItems();
+
+    void setCaseSensitive(bool value);
+
+    FindTextParams *cloneFind();
 };
 
+class TextChunk;
+
+class LIBQXMLEDITSHARED_EXPORT ReplaceTextParams : public FindTextParams
+{
+
+    QString mReplacementText;
+    int mReplacementErrorsCount;
+    int mReplacementCount;
+    Element *mCurrentElement;
+    Element *mReplaceElement;
+    QUndoCommand *mUndoGroup;
+    QUndoCommand *mCurrentCommand;
+    QHash<QString, Attribute*> mAttributes;
+    QHash<TextChunk*, TextChunk*> mTexts;
+
+    void initReplace();
+    void changeElementTag();
+    void changeComment();
+    bool canChangeComment();
+    bool canChangeText(const QString & text);
+    void changeAttributeName(Attribute *attribute);
+    void changeAttributeValue(Attribute *attribute);
+    bool canChangeXmlIdentifier(const QString &tag);
+    void buildOperationElement();
+
+public:
+    ReplaceTextParams();
+    ReplaceTextParams(const EFindType findType, const QString &textToFind, const bool isCountingOnly, const bool isMatchExact, const bool isCaseSensitive,
+                      const bool isOnlyChildren, const EFindTarget findTarget, const bool isSelToBookmarks,
+                      const bool isCloseUnrelated, const bool isShowSize, const QString &scope, const bool isWrapAround, const bool useXQuery, QList<Element*> *selection = NULL);
+    virtual ~ReplaceTextParams();
+    void setReplaceText(const QString &replace);
+
+    QString applyReplacement(const QString &inputString);
+
+    int replacementCount();
+    int replacementErrorsCount();
+    QUndoCommand *currentUndoCommand();
+
+    virtual void startElement(Element *currentElement);
+    virtual void endElement();
+    virtual bool handleElementTag();
+    virtual bool handleAttributeName(Attribute *attribute);
+    virtual bool handleAttributeValue(Attribute *attribute);
+    virtual bool handleComment();
+    virtual bool handleTextElement();
+    virtual bool handleTextInline(TextChunk *tc);
+    virtual bool handleProcessingInstruction();
+    virtual bool isExploreAllItems();
+
+    void setCommandGroup(QUndoCommand *undoCommandGroup);
+};
 
 #endif // QXMLEDITWIDGET_FINDTEXTPARAMS_H

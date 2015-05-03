@@ -70,7 +70,6 @@ const QString Config::KEY_TEST_SAMPLE_FILE_XSD("test/xsdFileSample");
 const QString Config::SAMPLE_SCHEMA_FILE_READ("test/xsdFileMainTest");
 // search
 const QString Config::KEY_SEARCH_CLOSEUNRELATED("search/closeUnrelated");
-const QString Config::KEY_SEARCH_HIGHLIGHALL("search/hiliteAll");
 const QString Config::KEY_SEARCH_MATCHEXACT("search/matchExact");
 const QString Config::KEY_SEARCH_CASEUNSITIVE("search/caseSensitive");
 const QString Config::KEY_SEARCH_ONLYCHILDREN("search/onlyChildren");

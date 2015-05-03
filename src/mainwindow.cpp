@@ -225,7 +225,6 @@ void MainWindow::startUIState()
 {
     ui.actionPaste->setEnabled(false);
     ui.actionPasteAsSibling->setEnabled(false);
-    ui.actionResizeToContents->setEnabled(true);
 }
 
 bool MainWindow::finishSetUpUi()
@@ -889,11 +888,6 @@ void MainWindow::on_actionNewFromClipboard_triggered()
 }
 
 
-void MainWindow::on_actionResizeToContents_triggered()
-{
-    ui.editor->resizeTreeColumns();
-}
-
 void MainWindow::on_actionSaveAs_triggered()
 {
     Regola * regola = getRegola();
@@ -1201,6 +1195,11 @@ void MainWindow::dropEvent(QDropEvent *event)
 void MainWindow::on_actionFind_triggered()
 {
     ui.editor->onActionFind();
+}
+
+void MainWindow::on_actionReplace_triggered()
+{
+    ui.editor->onActionReplace();
 }
 
 void MainWindow::on_actionGo_To_Parent_triggered()
@@ -2823,4 +2822,9 @@ void MainWindow::on_actionAnonymizeFile_triggered()
 void MainWindow::on_actionEditXSDAnnotation_triggered()
 {
     ui.editor->onEditXSDAnnotation();
+}
+
+void MainWindow::on_actionFindNext_triggered()
+{
+    ui.editor->onFindNext();
 }

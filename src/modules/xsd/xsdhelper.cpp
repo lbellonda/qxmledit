@@ -649,7 +649,7 @@ void XSDHelper::copyInnerContent(XInfoBase *doc, Element *element)
     QString innerSource = "<root>";
     innerSource += doc->contentString();
     innerSource += "</root>";
-    QList<Element*> content = Regola::decodeXMLFromString(innerSource, false);
+    QList<Element*> content = Regola::decodeXMLFromString(innerSource, false, false);
     foreach(Element * child, content) {
         element->addChild(child);
     }

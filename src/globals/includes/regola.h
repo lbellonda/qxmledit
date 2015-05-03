@@ -235,6 +235,8 @@ public:
 
     Element * findText(FindTextParams &findArgs, Element *selectedItem);
     Element * findNextTextMatch(FindTextParams &findArgs, Element *selectedItem);
+    Element * replaceText(QTreeWidget *treeWidget, ReplaceTextParams &findArgs, Element *selectedItem);
+    Element * replaceTextAndMove(QTreeWidget *treeWidget, ReplaceTextParams &replaceArgs, Element *selectedItem);
     void unhilite();
 
     void takeOutElement(Element*element);
@@ -338,7 +340,7 @@ public:
     QSet<QString> namespacesURI();
     QString namespaceOfPrefix(const QString &prefix);
 
-    static QList<Element*> decodeXMLFromString(const QString &input, const bool onlyRootElement);
+    static QList<Element*> decodeXMLFromString(const QString &input, const bool onlyRootElement, const bool onlyElements = true);
 
     int indent() const;
     void setIndent(int indent);

@@ -24,8 +24,10 @@
 #include "elupdateelementcommand.h"
 #include "utils.h"
 
+
 ElUpdateCommand::ElUpdateCommand(QTreeWidget *theWidget, Regola *newRegola, Element *newElement, QList<int> newPath, QUndoCommand *parentCommand) : ElBaseCommand(theWidget, newRegola, newElement, newPath, parentCommand)
 {
+    _addToBookmarks = false;
 }
 
 ElUpdateCommand::~ElUpdateCommand()
@@ -35,6 +37,9 @@ ElUpdateCommand::~ElUpdateCommand()
 void ElUpdateCommand::undo()
 {
     replaceElement();
+    if(_addToBookmarks) {
+        regola->addBookmark(_element);
+    }
 }
 
 void ElUpdateCommand::redo()
@@ -42,3 +47,12 @@ void ElUpdateCommand::redo()
     replaceElement();
 }
 
+bool ElUpdateCommand::addToBookmarks() const
+{
+    return _addToBookmarks;
+}
+
+void ElUpdateCommand::setAddToBookmarks(bool addToBookmarks)
+{
+    _addToBookmarks = addToBookmarks;
+}

@@ -165,8 +165,6 @@ bool TestPaste::testPastePasteFromClipboard(const QString &newTestName, const QS
         return false;
     }
 
-    //app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
-
     QApplication::clipboard()->setText(textToPaste);
 
     if(!fireAction(app.mainWindow(), actionName)) {

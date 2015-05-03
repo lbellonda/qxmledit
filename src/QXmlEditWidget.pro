@@ -359,7 +359,8 @@ SOURCES += xmleditwidget.cpp \
     modules/xsd/xsdfullannotationsdialog.cpp \
     modules/xsd/xsddefaultannotationeditor.cpp \
     xsdeditor/XSchemaOther.cpp \
-    modules/xsd/xsdannotationmodel.cpp
+    modules/xsd/xsdannotationmodel.cpp \
+    undo/undocommandgroup.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -563,7 +564,8 @@ HEADERS += precompiled_lib.h \
     modules/xsd/xsdfullannotationsdialog.h \
     modules/xsd/xsddefaultannotationeditor.h \
     modules/xsd/xsdannotationmodel.h \
-    precompiled_lib.h
+    precompiled_lib.h \
+    undo/undocommandgroup.h
 
 
 FORMS += xmleditwidget.ui \

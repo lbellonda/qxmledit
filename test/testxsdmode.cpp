@@ -3356,13 +3356,13 @@ bool TestXSDMode::testUnitAnnotationModel()
 void TestXSDMode::setupAnnotationModelUnitTest(XSDAnnotationModel* model)
 {
     XSchemaOther *one = new XSchemaOther(NULL, NULL);
-    one->setExtData((void*)1);
+    one->setExtData(1);
     model->addChild(one);
     XSchemaOther *two = new XSchemaOther(NULL, NULL);
-    two->setExtData((void*)2);
+    two->setExtData(2);
     model->addChild(two);
     XSchemaOther *three = new XSchemaOther(NULL, NULL);
-    three->setExtData((void*)3);
+    three->setExtData(3);
     model->addChild(three);
 }
 
@@ -3400,16 +3400,16 @@ bool TestXSDMode::verifyModel(const QString &operation, XSDAnnotationModel *mode
 {
     QList<XSchemaObject*> *children = model->childrenList();
     XSchemaOther* o = static_cast<XSchemaOther*>(children->at(0));
-    if( o->getExtData() != (void*)i1 ) {
-        return error(QString("op:%1, index 1: expected: %2, found %3").arg(operation).arg(i1).arg((int)o->getExtData()));
+    if( o->getExtData().toInt() != i1) {
+        return error(QString("op:%1, index 1: expected: %2, found %3").arg(operation).arg(i1).arg((int)o->getExtData().toInt()));
     }
     o = static_cast<XSchemaOther*>(children->at(1));
-    if( o->getExtData() != (void*)i2 ) {
-        return error(QString("op:%1, index 2: expected: %2, found %3").arg(operation).arg(i2).arg((int)o->getExtData()));
+    if( o->getExtData().toInt() != i2 ) {
+        return error(QString("op:%1, index 2: expected: %2, found %3").arg(operation).arg(i2).arg((int)o->getExtData().toInt()));
     }
     o = static_cast<XSchemaOther*>(children->at(2));
-    if( o->getExtData() != (void*)i3 ) {
-        return error(QString("op:%1, index 3: expected: %2, found %3").arg(operation).arg(i3).arg((int)o->getExtData()));
+    if( o->getExtData().toInt() != i3 ) {
+        return error(QString("op:%1, index 3: expected: %2, found %3").arg(operation).arg(i3).arg((int)o->getExtData().toInt()));
     }
     return true ;
 }

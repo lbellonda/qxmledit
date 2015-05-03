@@ -260,6 +260,13 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
     connect(p->ui->searchWidget, SIGNAL(hiding()), this, SLOT(on_closeSearchPanel_clicked()));
     connect(p->ui->searchWidget, SIGNAL(searchNext()), this, SLOT(onSearchNext()));
     connect(p->ui->searchWidget, SIGNAL(searchPrev()), this, SLOT(onSearchPrev()));
+    //--
+    connect(p->ui->searchWidget, SIGNAL(replaceAll()), this, SLOT(onReplaceAll()));
+    connect(p->ui->searchWidget, SIGNAL(replaceSkipAndGotoNext()), this, SLOT(onReplaceSkipAndGotoNext()));
+    connect(p->ui->searchWidget, SIGNAL(replaceSkipAndGotoPrevious()), this, SLOT(onReplaceSkipAndGotoPrevious()));
+    connect(p->ui->searchWidget, SIGNAL(replaceReplaceAndGotoNext()), this, SLOT(onReplaceReplaceAndGotoNext()));
+    connect(p->ui->searchWidget, SIGNAL(replaceReplaceAndGotoPrevious()), this, SLOT(onReplaceReplaceAndGotoPrevious()));
+    //---
 
     connect(p->ui->ok, SIGNAL(clicked()), this, SLOT(on_ok_clicked()));
     connect(p->ui->cancel, SIGNAL(clicked()), this, SLOT(on_cancel_clicked()));
@@ -1039,9 +1046,9 @@ void XmlEditWidgetPrivate::actionCopyElementPathToClipboard()
     element->copyPathToClipboard();
 }
 
-ClipboardElementList* XmlEditWidgetPrivate::getClipBoardItemList() const
+ClipboardElementList* XmlEditWidgetPrivate::getClipBoardItemList(const bool onlyElements) const
 {
-    return _appData->clipBoardItemList();
+    return _appData->clipBoardItemList(onlyElements);
 }
 
 void XmlEditWidgetPrivate::onActionExpandAll()
@@ -1170,14 +1177,32 @@ void XmlEditWidgetPrivate::dropEvent(QDropEvent *event)
 }
 */
 
+void XmlEditWidgetPrivate::onActionReplace()
+{
+    if(!isActionMode()) {
+        return ;
+    }
+    SearchWidget *searchWidget = p->ui->searchWidget;
+    searchWidget->setManager(_appData->searchManager());
+    searchWidget->setIsReplace(true);
+    searchWidget->setVisible(true);
+    if(NULL != regola) {
+        searchWidget->setDataForCompletion(regola->namesPool());
+    }
+    searchWidget->regainFocus();
+}
+
+
 void XmlEditWidgetPrivate::onActionFind()
 {
-    p->ui->searchWidget->setManager(_appData->searchManager());
-    p->ui->searchWidget->setVisible(true);
+    SearchWidget *searchWidget = p->ui->searchWidget;
+    searchWidget->setManager(_appData->searchManager());
+    searchWidget->setIsReplace(false);
+    searchWidget->setVisible(true);
     if(NULL != regola) {
-        p->ui->searchWidget->setDataForCompletion(regola->namesPool());
+        searchWidget->setDataForCompletion(regola->namesPool());
     }
-    p->ui->searchWidget->regainFocus();
+    searchWidget->regainFocus();
 }
 
 void XmlEditWidgetPrivate::on_closeSearchPanel_clicked()
@@ -1809,7 +1834,6 @@ void XmlEditWidgetPrivate::setDocument(QDomDocument &document, const QString &fi
     resizeTreeColumns();
     showControls(true);
     setEditMode(XmlEditWidgetEditMode::XML);
-    //setWindowModified(false); TODO delete
 }
 
 void XmlEditWidgetPrivate::assignRegola(Regola *newModel, const bool isSetState)
@@ -2871,4 +2895,129 @@ void XmlEditWidgetPrivate::setXSDAnnotationEditProviderObject(XSDAnnotationEditP
         _XSDAnnotationEditProvider->autoDelete();
     }
     _XSDAnnotationEditProvider = newProvider ;
+}
+
+void XmlEditWidgetPrivate::onFindNext()
+{
+    if(!p->ui->searchWidget->isVisible()) {
+        onActionFind();
+    } else {
+        onSearchNext();
+    }
+}
+
+bool XmlEditWidgetPrivate::replaceAll(ReplaceTextParams * findArgs)
+{
+    findArgs->setFindType(ReplaceTextParams::FindAllOccurrences);
+    return replace(findArgs);
+}
+
+bool XmlEditWidgetPrivate::replace(ReplaceTextParams * findArgs)
+{
+    if(!isActionMode()) {
+        Utils::TODO_THIS_RELEASE("todo");
+        return false ;
+    }
+    Element *foundElement = NULL;
+    p->ui->treeWidget->setUpdatesEnabled(false);
+    p->setEnabled(false);
+    Utils::showWaitCursor();
+
+    bool isGlobalSearch = findArgs->findType() == ReplaceTextParams::FindAllOccurrences ;
+    findArgs->saveState();
+    regola->unhiliteAll();
+    findArgs->start();
+    foundElement = regola->replaceText(p->getMainTreeWidget(), *findArgs, getSelectedItem());
+    Utils::TODO_THIS_RELEASE("p->ui->searchWidget->setSearchResults(findArgs);");
+    if(isGlobalSearch) {
+        int replacements = findArgs->replacementCount();
+        int errors = findArgs->replacementErrorsCount();
+        QString msg ;
+        if(replacements > 0) {
+            msg = tr("Replaced %1 items").arg(replacements);
+        }
+        if(errors > 0) {
+            msg += tr(" Found %n error(s)", "", errors);
+        }
+        p->emitShowStatusMessage(p->ui->searchWidget->messageCount(), true);
+    }
+    if(!isGlobalSearch && (NULL == foundElement)) {
+        _uiDelegate->error(p->window(), tr("No match found."));
+    } else {
+        if(NULL != foundElement) {
+            QTreeWidgetItem *item = NULL ;
+            QTreeWidget *tree = getMainTreeWidget() ;
+            item = foundElement->getUI();
+            tree->setCurrentItem(item, 0);
+            tree-> scrollToItem(item, QAbstractItemView::PositionAtTop);
+        }
+    }
+    p->ui->treeWidget->setUpdatesEnabled(true);
+    p->setEnabled(true);
+    Utils::restoreCursor();
+    return true ;
+}
+
+void XmlEditWidgetPrivate::onReplaceAll()
+{
+    onReplace(FindTextParams::FindAllOccurrences);
+}
+
+void XmlEditWidgetPrivate::onReplace(const FindTextParams::EFindType replaceType)
+{
+    if(!isActionMode()) {
+        return ;
+    }
+
+    if(NULL != regola) {
+
+        p->setEnabled(false);
+        p->ui->treeWidget->setUpdatesEnabled(false);
+        Utils::showWaitCursor();
+
+        bool isErrorShown = false;
+        bool isError = false;
+        ReplaceTextParams* findArgs = p->ui->searchWidget->getReplaceParams(replaceType, NULL);
+        if((NULL == findArgs) || ((NULL != findArgs) && !findArgs->checkParams(isErrorShown))) {
+            isError = true ;
+        }
+        if(isError) {
+            if(!isErrorShown) {
+                Utils::error(p, tr("Unable to start a replace; please, check the parameters."));
+            }
+        } else {
+            if(findArgs->useXQuery()) {
+                Utils::error(p, tr("Replace does not support XQuery syntax, please, check the parameters."));
+            } else {
+                replace(findArgs);
+            }
+        }
+        if(NULL != findArgs) {
+            delete findArgs;
+        }
+    }
+    Utils::TODO_THIS_RELEASE("decidere dove fare queste ablitazioni");
+    p->ui->treeWidget->setUpdatesEnabled(true);
+    p->setEnabled(true);
+    Utils::restoreCursor();
+}
+
+void XmlEditWidgetPrivate::onReplaceSkipAndGotoNext()
+{
+    onReplace(FindTextParams::SkipAndGotoNext);
+}
+
+void XmlEditWidgetPrivate::onReplaceSkipAndGotoPrevious()
+{
+    onReplace(FindTextParams::SkipAndGotoPrev);
+}
+
+void XmlEditWidgetPrivate::onReplaceReplaceAndGotoNext()
+{
+    onReplace(FindTextParams::ReplaceAndGotoNext);
+}
+
+void XmlEditWidgetPrivate::onReplaceReplaceAndGotoPrevious()
+{
+    onReplace(FindTextParams::ReplaceAndGotoPrev);
 }

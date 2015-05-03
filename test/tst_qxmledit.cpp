@@ -529,6 +529,28 @@ void TestQXmlEdit::testSearch()
     QVERIFY2(result, (QString("test testXQuerySearch: '%1'").arg(test2.errorString())).toLatin1().data());
 }
 
+
+void TestQXmlEdit::testReplace()
+{
+    bool result ;
+    {
+        TestReplace test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test testFast: '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+
+    {
+        TestReplace test1;
+        result = test1.testUnitReplace();
+        QVERIFY2(result, (QString("test testUnitReplace: '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestReplace test1;
+        result = test1.testBaseReplace();
+        QVERIFY2(result, (QString("test testBaseReplace: '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
+
 void TestQXmlEdit::testCopyAttrs()
 {
     bool result ;
@@ -963,8 +985,8 @@ void TestQXmlEdit::testAnonymize()
 //static void msgHandler(QtMsgType type, const char *msg)
 static void msgHandler(QtMsgType, const QMessageLogContext &, const QString &msg)
 {
-    QString s = msg;
-    /*if( !s.startsWith("Application asked to ")){
+    /*QString s = msg;
+    if( !s.startsWith("Application asked to ")){
         int k = 0;
         k++;
     }*/
@@ -976,6 +998,8 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testReplace();
+    testSearch();
     testXSDMode();
     testSearch();
 }

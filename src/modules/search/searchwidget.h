@@ -55,6 +55,7 @@ class SearchWidget : public QWidget
     QXmlEditData *_appData;
     QAction *_saveSearchletsAction;
     SearchletManagerFactory *_searchletManagerFactory;
+    bool _isReplace ;
 
 public:
     explicit SearchWidget(QWidget *parent = 0);
@@ -63,6 +64,7 @@ public:
     void setAdvancedSearch(const bool isAdvancedSearch);
     void setDataForCompletion(QSet<QString> *newData);
     FindTextParams* getSearchParams(const FindTextParams::EFindType findType, const bool isFindOrCount, QList<Element*> *selection);
+    ReplaceTextParams* getReplaceParams(const FindTextParams::EFindType findType, QList<Element*> *selection);
     void setSearchResults(FindTextParams* findArgs);
     QString messageCount();
     void regainFocus();
@@ -74,6 +76,8 @@ public:
     void setData(QXmlEditData *newData);
     void setSearchletManagerFactory(SearchletManagerFactory* newSearchletManagerFactory);
     void setExtendedMode(const bool extendedMode);
+    bool isReplace() const;
+    void setIsReplace(bool isReplace);
 
 private:
     Ui::SearchWidget *ui;
@@ -88,6 +92,7 @@ private:
     bool eventFilter(QObject *obj, QEvent *event);
     void updateState(FindTextParams *searchSettings);
     void resetSearchletManagerFactory();
+    void checkReplaceState();
 
 
 private slots:
@@ -104,7 +109,14 @@ private slots:
     void onSearchNext();
     void onSearchPrev();
 
+    void onReplReplNext();
+    void onReplReplPrev();
+    void onReplSkipNext();
+    void onReplSkipPrev();
+    void onReplaceAll();
+
 public:
+
 signals:
     /**
      * @brief find
@@ -138,6 +150,11 @@ signals:
     void searchNext();
     void searchPrev();
 
+    void replaceAll();
+    void replaceSkipAndGotoNext();
+    void replaceSkipAndGotoPrevious();
+    void replaceReplaceAndGotoNext();
+    void replaceReplaceAndGotoPrevious();
 };
 
 #endif // SEARCHWIDGET_H

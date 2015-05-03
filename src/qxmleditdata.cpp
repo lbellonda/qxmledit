@@ -525,7 +525,7 @@ Element *QXmlEditData::internalClipBoardItem()
     return NULL ;
 }
 
-ClipboardElementList *QXmlEditData::clipBoardItemList()
+ClipboardElementList *QXmlEditData::clipBoardItemList(const bool onlyElements)
 {
     bool isDelete = true ;
     QList<Element*> result;
@@ -545,7 +545,7 @@ ClipboardElementList *QXmlEditData::clipBoardItemList()
                 text += scrapBookData ;
                 text += "</root>";
             }
-            result = Regola::decodeXMLFromString(text, isOnlyRoot);
+            result = Regola::decodeXMLFromString(text, isOnlyRoot, onlyElements);
         }
     }
     ClipboardElementList * container = new ClipboardElementList(isDelete, result);

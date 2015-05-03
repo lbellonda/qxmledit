@@ -22,6 +22,7 @@
 
 #include "regoladefinitions.h"
 #include "undo/elupdateelementcommand.h"
+#include "undo/undocommandgroup.h"
 
 
 Element * Regola::findText(FindTextParams &findArgs, Element *selectedItem)
@@ -64,6 +65,39 @@ Element * Regola::findText(FindTextParams &findArgs, Element *selectedItem)
     return NULL ;
 }
 
+Element * Regola::replaceText(QTreeWidget *treeWidget, ReplaceTextParams &findArgs, Element *selectedItem)
+{
+    if(!findArgs.isFindAllOccurrences()) {
+        return replaceTextAndMove(treeWidget, findArgs, selectedItem);
+    }
+    UndoCommandGroup *undoCommandGroup = new UndoCommandGroup();
+    findArgs.setCommandGroup(undoCommandGroup);
+    if(NULL != selectedItem) {
+        undoCommandGroup->setSelectedPath(selectedItem->indexPath());
+    }
+    undoCommandGroup->setTarget(this);
+    undoCommandGroup->setTreeWidget(treeWidget);
+    undoCommandGroup->setIsHiliteAll(findArgs.isHiliteAll());
+    undoCommandGroup->setIsCloseUnrelated(findArgs.isCloseUnrelated());
+    Utils::TODO_THIS_RELEASE("assicurarsi che find all sia selezionato");
+    if((NULL == selectedItem) || !findArgs.isLookOnlyChildren()) {
+        QVectorIterator<Element*> it(childItems);
+        while(it.hasNext()) {
+            Element *el = it.next();
+            el->replaceText(findArgs);
+        }
+    } else {
+        selectedItem->replaceText(findArgs);
+    }
+
+    if(undoCommandGroup->childCount() > 0) {
+        addUndo(undoCommandGroup);
+    } else {
+        delete undoCommandGroup;
+    }
+    return NULL ;
+}
+
 // nuovo algoritmo: ambito di ricerca
 bool Element::searchInScope(FindTextParams &findArgs)
 {
@@ -99,21 +133,26 @@ bool Element::searchInScope(FindTextParams &findArgs)
 bool Element::matchText(FindTextParams &findArgs)
 {
     bool isFound = false;
+    bool isExploreAll = findArgs.isExploreAllItems();
     FindTextParams::EFindTarget findTarget = findArgs.getFindTarget();
 
+    findArgs.startElement(this);
     switch(type) {
     default:
     case ET_ELEMENT: {
 
         if(searchInScope(findArgs)) {
             if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_TAG == findTarget)) {
-                if(findArgs.isTextMatched(tag()))
+                if(findArgs.isTextMatched(tag())) {
+                    findArgs.handleElementTag();
                     isFound = true ;
+                }
             }
-            if(!isFound) {
+            if(!isFound || isExploreAll) {
                 if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_TEXT == findTarget)) {
                     foreach(TextChunk * chunk, textNodes) {
                         if(findArgs.isTextMatched(chunk->text)) {
+                            findArgs.handleTextInline(chunk);
                             isFound = true ;
                         }
                     }
@@ -125,24 +164,32 @@ bool Element::matchText(FindTextParams &findArgs)
                     }
                 }
             }
-            if(!isFound) {
+            if(!isFound || isExploreAll) {
                 QVectorIterator<Attribute*>  attrs(attributes);
                 while(attrs.hasNext()) {
                     Attribute* a = attrs.next();
                     if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_ATTRIBUTE_NAME == findTarget)) {
                         if(findArgs.isTextMatched(a->name)) {
+                            findArgs.handleAttributeName(a);
                             isFound = true ;
                         }
                     }
-                    if(!isFound) {
+                    if(!isFound || isExploreAll) {
                         if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_ATTRIBUTE_VALUE == findTarget)) {
+                            bool canTest = false ;
                             if(findArgs.isSearchInAttribute()) {
                                 if((a->name == findArgs.attributeName())
                                         && (FindTextParams::FIND_ATTRIBUTE_VALUE == findTarget)) {
+                                    canTest = true ;
+                                }
+                            } else {
+                                canTest = true ;
+                            }
+                            if(canTest) {
+                                if(findArgs.isTextMatched(a->value)) {
+                                    findArgs.handleAttributeValue(a);
                                     isFound = true ;
                                 }
-                            } else if(findArgs.isTextMatched(a->value)) {
-                                isFound = true ;
                             }
                         } else if(FindTextParams::FIND_TEXT_BASE64) {
                             if(findArgs.isTextBase64Matched(a->value)) {
@@ -158,6 +205,7 @@ bool Element::matchText(FindTextParams &findArgs)
     case ET_TEXT:
         if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_TEXT == findTarget)) {
             if(findArgs.isTextMatched(text)) {
+                findArgs.handleTextElement();
                 isFound = true ;
             }
         } else if(FindTextParams::FIND_TEXT_BASE64) {
@@ -169,6 +217,7 @@ bool Element::matchText(FindTextParams &findArgs)
     case ET_PROCESSING_INSTRUCTION: {
         if(FindTextParams::FIND_ALL == findTarget) {
             if(findArgs.isTextMatched(getPITarget()) || findArgs.isTextMatched(getPIData())) {
+                findArgs.handleProcessingInstruction();
                 isFound = true ;
             }
         }
@@ -177,12 +226,14 @@ bool Element::matchText(FindTextParams &findArgs)
     case ET_COMMENT: {
         if((FindTextParams::FIND_ALL == findTarget) || (FindTextParams::FIND_COMMENT == findTarget)) {
             if(findArgs.isTextMatched(getComment())) {
+                findArgs.handleComment();
                 isFound = true ;
             }
         }
     }
     break;
     }
+    findArgs.endElement();
     return isFound ;
 }
 
@@ -233,6 +284,26 @@ bool Element::findText(FindTextParams &findArgs)
             }
         }
     }
+    return isFoundSomeWhere  ;
+}
+
+bool Element::replaceText(ReplaceTextParams &findArgs)
+{
+    bool isReplaced = false;
+    bool isFoundInChild = false;
+
+    isReplaced = matchText(findArgs);
+
+    //append children
+    if(findArgs.isHiliteAll()) {
+        foreach(Element * value, childItems) {
+            if(value->replaceText(findArgs)) {
+                isFoundInChild = true ;
+            }
+        }
+    }
+
+    bool isFoundSomeWhere = isFoundInChild || isReplaced ;
     return isFoundSomeWhere  ;
 }
 
@@ -310,4 +381,35 @@ Element *Regola::findTheNextTextMatch(FindTextParams &findArgs, Element *selecte
         }
     } // loop on next element
     return NULL ;
+}
+
+
+Element * Regola::replaceTextAndMove(QTreeWidget *treeWidget, ReplaceTextParams &replaceArgs, Element *selectedItem)
+{
+    Element *newSelection = selectedItem ;
+    switch(replaceArgs.findType()) {
+    default:
+        break;
+
+    case FindTextParams::ReplaceAndGotoNext:
+    case FindTextParams::ReplaceAndGotoPrev:
+        if(NULL != selectedItem) {
+            QList<int> selPath = selectedItem->indexPath() ;
+            if(selectedItem->matchText(replaceArgs)) {
+                if(NULL != replaceArgs.currentUndoCommand()) {
+                    addUndo(replaceArgs.currentUndoCommand());
+                }
+                newSelection = findElementByArray(selPath);
+            }
+        }
+        break;
+    }
+    if(replaceArgs.replacementErrorsCount() > 0) {
+        Utils::error(treeWidget->window(), tr("Unable to apply a replacement."));
+    }
+    //-----
+    FindTextParams *realFind = replaceArgs.cloneFind();
+    Element *newCurrentElement = findTheNextTextMatch(*realFind, newSelection);
+
+    return newCurrentElement ;
 }

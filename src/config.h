@@ -66,7 +66,6 @@ public:
     static const QString KEY_VIEW_STYLE;
     //search
     static const QString KEY_SEARCH_CLOSEUNRELATED;
-    static const QString KEY_SEARCH_HIGHLIGHALL;
     static const QString KEY_SEARCH_MATCHEXACT;
     static const QString KEY_SEARCH_CASEUNSITIVE;
     static const QString KEY_SEARCH_ONLYCHILDREN;
