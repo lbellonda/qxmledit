@@ -15,7 +15,7 @@ DIRNAME=$BASEDIRNAME-$APPVERSION
 BUILDDIR=build
 
 echo "application:       $APPNAME-$APPVERSION"
-echo "the tag 'https://qxmledit.googlecode.com/svn/tags/qxmledit-$APPVERSION' will be created "
+echo "the tag 'qxmledit-$APPVERSION' will be created "
 
 while true; do
     read -p "Do you want to continue [y/n]?" yesno
@@ -26,6 +26,9 @@ while true; do
     esac
 done
 
-svn copy https://qxmledit.googlecode.com/svn/trunk https://qxmledit.googlecode.com/svn/tags/qxmledit-$APPVERSION -m "tag $APPVERSION"
+git tag -a qxmledit-$APPVERSION -m "tag $APPVERSION"
+
+git push origin qxmledit-$APPVERSION
+
 
 
