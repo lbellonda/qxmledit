@@ -27,6 +27,7 @@
 
 ElBaseCommand::ElBaseCommand(QTreeWidget *theWidget, Regola *newRegola, Element *element, QList<int> newPath, QUndoCommand *parent) : UndoCommand(theWidget, newRegola, newPath, parent)
 {
+    _hilite = false;
     _element = element ;
     _selectParent = false;
     _lastOpElement = NULL ;
@@ -46,6 +47,17 @@ bool ElBaseCommand::selectParent() const
 void ElBaseCommand::setSelectParent(const bool selectParent)
 {
     _selectParent = selectParent;
+}
+
+
+bool ElBaseCommand::hilite() const
+{
+    return _hilite;
+}
+
+void ElBaseCommand::setHilite(bool hilite)
+{
+    _hilite = hilite;
 }
 
 void ElBaseCommand::loseElement()
@@ -81,7 +93,7 @@ void ElBaseCommand::insertElement()
     }
 }
 
-void ElBaseCommand::insertElementObj(Element *element)
+void ElBaseCommand::insertElementObj(Element *element, const bool isUndo)
 {
     if(NULL != _element) {
         // insert the command at the parent index.
@@ -98,6 +110,9 @@ void ElBaseCommand::insertElementObj(Element *element)
         }
         if(_selectParent && (NULL != parentElement)) {
             widget->setCurrentItem(parentElement->getUI());
+        }
+        if(!isUndo && _hilite && (NULL != _lastOpElement)) {
+            _lastOpElement->hilite();
         }
     }
 }
@@ -123,9 +138,9 @@ Element *ElBaseCommand::removeElementAndReturnIt()
     return NULL ;
 }
 
-void ElBaseCommand::replaceElement()
+void ElBaseCommand::replaceElement(const bool isUndo)
 {
     Element *currentElement = removeElementAndReturnIt();
-    insertElementObj(_element);
+    insertElementObj(_element, isUndo);
     setCurrentElement(currentElement);
 }

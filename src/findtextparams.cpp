@@ -454,8 +454,10 @@ void ReplaceTextParams::buildOperationElement()
     mTexts.clear();
     mReplaceElement = new Element("", "", NULL, NULL);
     mCurrentElement->copyTo(*mReplaceElement);
-    mCurrentCommand = new ElUpdateCommand(mCurrentElement->getUI()->treeWidget(), mCurrentElement->getParentRule(),
-                                          mReplaceElement, mCurrentElement->indexPath(), mUndoGroup);
+    ElUpdateCommand *updateCommand = new ElUpdateCommand(mCurrentElement->getUI()->treeWidget(),
+            mCurrentElement->getParentRule(),
+            mReplaceElement, mCurrentElement->indexPath(), mUndoGroup);
+    mCurrentCommand = updateCommand ;
     foreach(Attribute * attrib, mReplaceElement->attributes) {
         mAttributes[attrib->name] = attrib;
     }
@@ -464,6 +466,7 @@ void ReplaceTextParams::buildOperationElement()
         mTexts[chunk] = mReplaceElement->getTextChunks().at(chunkId);
         chunkId++;
     }
+    updateCommand->setHilite(isHiliteAll());
 
     Utils::TODO_THIS_RELEASE("setta flag open to parent");
 }

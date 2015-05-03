@@ -36,7 +36,7 @@ ElUpdateCommand::~ElUpdateCommand()
 
 void ElUpdateCommand::undo()
 {
-    replaceElement();
+    replaceElement(true);
     if(_addToBookmarks) {
         regola->addBookmark(_element);
     }
@@ -44,7 +44,7 @@ void ElUpdateCommand::undo()
 
 void ElUpdateCommand::redo()
 {
-    replaceElement();
+    replaceElement(false);
 }
 
 bool ElUpdateCommand::addToBookmarks() const

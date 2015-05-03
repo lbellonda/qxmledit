@@ -35,6 +35,7 @@ protected:
     Element *_element;
     Element *_lastOpElement ;
     bool _selectParent;
+    bool _hilite;
 
     void loseElement();
 
@@ -49,13 +50,16 @@ public:
     bool selectParent() const;
     void setSelectParent(const bool selectParent);
 
+    bool hilite() const;
+    void setHilite(bool hilite);
+
 protected:
     void removeElement();
     void insertElement();
-    void insertElementObj(Element *element);
+    void insertElementObj(Element *element, const bool isUndo);
     void setCurrentElement(Element *newElement);
     Element *removeElementAndReturnIt();
-    void replaceElement();
+    void replaceElement(const bool isUndo);
 
 };
 
