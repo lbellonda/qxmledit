@@ -1,4 +1,6 @@
 0.8.15
+    Added scripts to work with git.
+    Added a selective replacement feature.
     Added XSD toolbutton to the main toolbar.
     Enabled by default precompiled headers on all projects.
     Renamed the application qmake project.
