@@ -45,7 +45,7 @@ public:
     XmlWidgetUtilities();
     virtual ~XmlWidgetUtilities();
 
-    QAttributeDelegate* setUpTreeXmlDelegates(QWidget *parent, QTreeWidget *treeWidget, PaintInfo *paintInfo, bool &error);
+    QAttributeDelegate* setUpTreeXmlDelegates(QWidget *parent, QTreeWidget *treeWidget, PaintInfo *paintInfo);
     void resetTree(QTreeWidget *treeWidget, PaintInfo *paintInfo);
     void setDataColumnTitle(QTreeWidget *treeWidget, PaintInfo *paintInfo, const bool isCompactView);
     void calcColumnState(QTreeWidget *treeWidget, PaintInfo *paintInfo);

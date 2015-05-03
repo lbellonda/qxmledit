@@ -82,7 +82,6 @@ public:
     static const QString KEY_STYLE_DATADIR;
     static const QString KEY_STYLE_DIRLOCATION;
     //static const QString KEY_VIEW_ITEMRENDERERATTR; deprecated but still alive
-    static const QString KEY_VIEW_DISPLAYTYPE;
     static const QString KEY_VIEW_STYLE_DEFAULT_BOLD;
 
     // test (private use)
@@ -209,7 +208,6 @@ public:
 
     //-----------------------------------------------------
 
-    static const bool KEY_VIEW_DISPLAYTYPE_DEFAULT_VALUE = true ;
     static const bool KEY_GENERAL_NOTIFICATIONS_ENABLED_DEFAULT_VALUE = true ;
     //-----------------------------------------------------
 

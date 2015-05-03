@@ -51,54 +51,21 @@ ElementItemSingleDelegate *XmlWidgetUtilities::tagDelegate()
     return _tagDelegate ;
 }
 
-QAttributeDelegate *XmlWidgetUtilities::setUpTreeXmlDelegates(QWidget *parent, QTreeWidget *treeWidget, PaintInfo * paintInfo, bool &error)
+QAttributeDelegate *XmlWidgetUtilities::setUpTreeXmlDelegates(QWidget *parent, QTreeWidget *treeWidget, PaintInfo * paintInfo)
 {
-    if(paintInfo->isElementCustomDelegate()) {
-        ElementItemSingleDelegate *newDelegate = new ElementItemSingleDelegate(paintInfo, parent);
-        _tagDelegate = newDelegate ;
-        treeWidget->setItemDelegateForColumn(0, newDelegate);
-        return NULL ;
-    }
-    QAttributeDelegate *attrDelegate = NULL ;
-    QAbstractItemDelegate *oldDelegate = treeWidget->itemDelegate();
-    if(NULL != oldDelegate) {
-        ElementItemDelegate *newDelegate = new ElementItemDelegate(oldDelegate, parent);
-        if(NULL == newDelegate) {
-            Utils::error(tr("Unable to create graphic elements"));
-            error = true ;
-            return NULL ;
-        }
-        treeWidget->setItemDelegateForColumn(0, newDelegate);
-    }
-    // TODO: column swap?
-    attrDelegate = new QAttributeDelegate(parent);
-    if(NULL != attrDelegate) {
-        treeWidget->setItemDelegateForColumn(paintInfo->columnForAttributes, attrDelegate);
-        paintInfo->setAttributesHTML(true);
-    }
-    return attrDelegate ;
+    ElementItemSingleDelegate *newDelegate = new ElementItemSingleDelegate(paintInfo, parent);
+    _tagDelegate = newDelegate ;
+    treeWidget->setItemDelegateForColumn(0, newDelegate);
+    return NULL ;
 }
 
 void XmlWidgetUtilities::resetTree(QTreeWidget *treeWidget, PaintInfo *paintInfo)
 {
-    if(paintInfo->isElementCustomDelegate()) {
-        treeWidget->setColumnCount(1);
-        treeWidget->clear();
-        QStringList headers;
-        headers << tr("Elements");
-        treeWidget->setHeaderLabels(headers);
-    } else {
-        treeWidget->setColumnCount(6);
-        treeWidget->clear();
-        QStringList headers;
-        headers << tr("Elements");
-        headers << tr("#Ch.");
-        headers << tr("Size");
-        headers << tr("Attributes");
-        headers << tr("Text");
-        headers << tr("Decoded text");
-        treeWidget->setHeaderLabels(headers);
-    }
+    treeWidget->setColumnCount(1);
+    treeWidget->clear();
+    QStringList headers;
+    headers << tr("Elements");
+    treeWidget->setHeaderLabels(headers);
     setDataColumnTitle(treeWidget, paintInfo, paintInfo->compactView());
     calcColumnState(treeWidget, paintInfo);
 }

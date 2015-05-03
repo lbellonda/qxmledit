@@ -61,7 +61,6 @@ const QString Config::KEY_MAIN_SHOWFULLCOMMENTS("main/showFullComments");
 // style
 const QString Config::KEY_VIEW_STYLE("view/styleSelected");
 //const QString Config::KEY_VIEW_ITEMRENDERERATTR("view/itemRendererAttr");  deprecated but still alive
-const QString Config::KEY_VIEW_DISPLAYTYPE("view/displayType");
 // test (private use)
 const QString Config::KEY_TEST_BALSAMIQ_INPUT("test/balsamiqInput");
 const QString Config::KEY_TEST_BALSAMIQ_OUTPUT("test/balsamiqOutput");

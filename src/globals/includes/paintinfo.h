@@ -49,7 +49,6 @@ private:
     bool isExplore;
     bool isAttributesHTML;
     bool isHideView;
-    bool elementCustomDelegate;
     ColorManager *_colorManager;
     bool isShowFullComments;
 
@@ -80,7 +79,6 @@ public:
     bool exploreMode() const;
     bool attributesHTML() const;
     bool hideView() const;
-    bool isElementCustomDelegate();
     StyleEntry *styleEntryById(const QString &id) const ;
     bool showFullComments();
 
@@ -96,7 +94,6 @@ public:
     void setExploreMode(const bool isExplore);
     void setAttributesHTML(const bool value);
     void setHideView(const bool value);
-    void setElementCustomDelegate(const bool value);
     void setShowFullComments(const bool value);
 
     bool zoomIn();

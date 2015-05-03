@@ -294,11 +294,8 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
     startUIState();
     p->ui->treeWidget->setAlternatingRowColors(true);
 
-    if(paintInfo.isElementCustomDelegate()) {
-        p->ui->treeWidget->setUniformRowHeights(false);
-    } else {
-        p->ui->treeWidget->setUniformRowHeights(paintInfo.compactView());
-    }
+    Utils::TODO_THIS_RELEASE("controlla");
+    p->ui->treeWidget->setUniformRowHeights(false);
 
     p->ui->searchWidget->setVisible(false);
     p->ui->searchWidget->setAdvancedSearch(true);
@@ -335,9 +332,8 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
 
 bool XmlEditWidgetPrivate::setUpDelegates()
 {
-    bool error = false;
-    attrDelegate = _helper.setUpTreeXmlDelegates(p, p->ui->treeWidget, &paintInfo, error);
-    return !error;
+    attrDelegate = _helper.setUpTreeXmlDelegates(p, p->ui->treeWidget, &paintInfo);
+    return true;
 }
 
 void XmlEditWidgetPrivate::onCopySpecial()
@@ -1068,13 +1064,11 @@ void XmlEditWidgetPrivate::onActionExpandSelectedItem()
 void XmlEditWidgetPrivate::onActionShowAttrLine(const bool state)
 {
     paintInfo.setOneAttrPerLine(state);
-    if(paintInfo.isElementCustomDelegate()) {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-        QAbstractItemModel *model = p->ui->treeWidget->model();
-        emit model->layoutAboutToBeChanged();
-        emit model->layoutChanged();
+    QAbstractItemModel *model = p->ui->treeWidget->model();
+    emit model->layoutAboutToBeChanged();
+    emit model->layoutChanged();
 #endif
-    }
     repaint();
 }
 
@@ -1383,29 +1377,27 @@ void XmlEditWidgetPrivate::onActionCompactView(const bool isChecked)
 {
     paintInfo.setCompactView(isChecked);
     _helper.setDataColumnTitle(p->ui->treeWidget, &paintInfo, paintInfo.compactView());
-    if(!paintInfo.isElementCustomDelegate() || !isChecked) {
+    Utils::TODO_THIS_RELEASE("mi sembra dubbio, lo ho commentato");
+    /*if(!isChecked) {
+        Utils::TODO_THIS_RELEASE("mi sembra dubbio");
         p->ui->treeWidget->setUniformRowHeights(paintInfo.compactView());
-    }
-    if(paintInfo.isElementCustomDelegate()) {
+    }*/
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-        QAbstractItemModel *model = p->ui->treeWidget->model();
-        emit model->layoutAboutToBeChanged();
-        emit model->layoutChanged();
+    QAbstractItemModel *model = p->ui->treeWidget->model();
+    emit model->layoutAboutToBeChanged();
+    emit model->layoutChanged();
 #endif
-    }
     repaint();
 }
 
 void XmlEditWidgetPrivate::onActionShowAlwaysFullTextComments(const bool isShow)
 {
     paintInfo.setShowFullComments(isShow);
-    if(paintInfo.isElementCustomDelegate()) {
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-        QAbstractItemModel *model = p->ui->treeWidget->model();
-        emit model->layoutAboutToBeChanged();
-        emit model->layoutChanged();
+    QAbstractItemModel *model = p->ui->treeWidget->model();
+    emit model->layoutAboutToBeChanged();
+    emit model->layoutChanged();
 #endif
-    }
     repaint();
 }
 

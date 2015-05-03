@@ -43,7 +43,6 @@ PaintInfo::PaintInfo()
     isExplore = false ;
     isAttributesHTML = false ;
     isHideView = false ;
-    elementCustomDelegate = false;
     _colorManager = NULL ;
     isShowFullComments = false ;
     recalcColumns();
@@ -65,7 +64,6 @@ void PaintInfo::loadState()
     isShowElementSize = Config::getBool(Config::KEY_MAIN_SHOWELSIZE, true);
     isHideView = Config::getBool(Config::KEY_MAIN_HIDEVIEW, false);
     internalSetZoom(Config::getInt(Config::KEY_MAIN_SHOWZOOM, 1));
-    elementCustomDelegate = Config::getBool(Config::KEY_VIEW_DISPLAYTYPE, Config::KEY_VIEW_DISPLAYTYPE_DEFAULT_VALUE);
     isShowFullComments = Config::getBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, false);
     recalcColumns();
     isChanged = false;
@@ -320,16 +318,6 @@ void PaintInfo::setHideView(const bool value)
     isHideView = value ;
     isChanged = true ;
     saveState();
-}
-
-void PaintInfo::setElementCustomDelegate(const bool value)
-{
-    elementCustomDelegate = value ;
-}
-
-bool PaintInfo::isElementCustomDelegate()
-{
-    return elementCustomDelegate ;
 }
 
 AttributeFilter* PaintInfo::attributeFilter()
