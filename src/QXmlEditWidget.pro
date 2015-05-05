@@ -360,7 +360,8 @@ SOURCES += xmleditwidget.cpp \
     modules/xsd/xsddefaultannotationeditor.cpp \
     xsdeditor/XSchemaOther.cpp \
     modules/xsd/xsdannotationmodel.cpp \
-    undo/undocommandgroup.cpp
+    undo/undocommandgroup.cpp \
+    modules/xml/xmlindentationdialog.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -565,7 +566,8 @@ HEADERS += precompiled_lib.h \
     modules/xsd/xsddefaultannotationeditor.h \
     modules/xsd/xsdannotationmodel.h \
     precompiled_lib.h \
-    undo/undocommandgroup.h
+    undo/undocommandgroup.h \
+    modules/xml/xmlindentationdialog.h
 
 
 FORMS += xmleditwidget.ui \
@@ -616,7 +618,8 @@ FORMS += xmleditwidget.ui \
     modules/xsd/xsdelementreferencedialog.ui \
     modules/xsd/xsdenumdialog.ui \
     modules/xsd/xsdsinglecommentdialog.ui \
-    modules/xsd/xsdfullannotationsdialog.ui
+    modules/xsd/xsdfullannotationsdialog.ui \
+    modules/xml/xmlindentationdialog.ui
 
 
 symbian {
