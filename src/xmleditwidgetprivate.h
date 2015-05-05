@@ -368,6 +368,7 @@ private slots:
     void onReplaceSkipAndGotoPrevious();
     void onReplaceReplaceAndGotoNext();
     void onReplaceReplaceAndGotoPrevious();
+    void onSetIndent();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

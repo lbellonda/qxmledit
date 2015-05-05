@@ -1040,3 +1040,8 @@ void XmlEditWidget::onFindNext()
 {
     d->onFindNext();
 }
+
+void XmlEditWidget::onSetIndent()
+{
+    d->onSetIndent();
+}

@@ -73,6 +73,7 @@ Regola::~Regola()
 
 void Regola::housework()
 {
+    _useIndent = false;
     _indent = QXmlEditData::XmlIndentDefault ;
     _deviceProvider = NULL ;
     _isCrapCacheNSActivated = false;
@@ -154,6 +155,25 @@ int Regola::indent() const
 void Regola::setIndent(int indent)
 {
     _indent = indent;
+}
+
+bool Regola::useIndent() const
+{
+    Utils::TODO_THIS_RELEASE("in qualche modo devo gestire quando assegno da globale");
+    return _useIndent;
+}
+
+void Regola::setUseIndent(const bool value)
+{
+    _useIndent = value;
+}
+
+void Regola::setIndentIfNotSet(int indent)
+{
+    Utils::TODO_THIS_RELEASE("togli");
+    if(!_useIndent) {
+        _indent = indent;
+    }
 }
 
 void Regola::caricaValori(QTreeWidget *pTree)

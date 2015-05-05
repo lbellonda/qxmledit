@@ -175,6 +175,8 @@ public:
     void setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData);
     void setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider);
     void onFindNext();
+    void onSetIndent();
+
 
     bool replaceAll(ReplaceTextParams *params);
     bool replace(ReplaceTextParams * findArgs);

@@ -53,6 +53,7 @@
 #include "modules/xsd/xsdtypedialog.h"
 #include "modules/xsd/xsdhelper.h"
 #include "modules/xsd/xsddefaultannotationeditor.h"
+#include "modules/xml/xmlindentationdialog.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -2555,7 +2556,7 @@ bool XmlEditWidgetPrivate::writeData(const QString &filePath)
             regola->updateMetadata(p->ui->treeWidget);
         }
     }
-    regola->setIndent(_appData->xmlIndent());
+    regola->setIndentIfNotSet(_appData->xmlIndent());
     return regola->write(filePath);
 }
 
@@ -3012,4 +3013,12 @@ void XmlEditWidgetPrivate::onReplaceReplaceAndGotoNext()
 void XmlEditWidgetPrivate::onReplaceReplaceAndGotoPrevious()
 {
     onReplace(FindTextParams::ReplaceAndGotoPrev);
+}
+
+void XmlEditWidgetPrivate::onSetIndent()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        XmlIndentationDialog dlg(p->window(), getRegola(), _appData);
+        dlg.exec();
+    }
 }

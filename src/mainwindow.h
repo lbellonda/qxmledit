@@ -283,6 +283,7 @@ private slots:
     void on_actionAnonymizeFile_triggered();
     void on_actionEditXSDAnnotation_triggered();
     void on_actionFindNext_triggered();
+    void on_actionSetIndent_triggered();
 
     //----- other slots ------------------
 

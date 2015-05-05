@@ -2828,3 +2828,8 @@ void MainWindow::on_actionFindNext_triggered()
 {
     ui.editor->onFindNext();
 }
+
+void MainWindow::on_actionSetIndent_triggered()
+{
+    ui.editor->onSetIndent();
+}
