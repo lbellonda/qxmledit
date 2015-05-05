@@ -1,4 +1,5 @@
 0.8.15
+    Per editor indentation settings.
     Used the same options for compiler for the main project and tests.
     Removed unsupported display mode and option.
     Added scripts to work with git.

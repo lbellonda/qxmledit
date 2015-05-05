@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -96,6 +96,7 @@
      <addaction name="actionCopyElementPathClipboard"/>
      <addaction name="actionAutoComplete"/>
      <addaction name="actionEditXSLTitem"/>
+     <addaction name="actionSetIndent"/>
     </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
@@ -1829,6 +1830,14 @@
     <string>F3</string>
    </property>
   </action>
+  <action name="actionSetIndent">
+   <property name="text">
+    <string>Set Indentation...</string>
+   </property>
+   <property name="toolTip">
+    <string>Set the indentation for this document.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1845,7 +1854,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

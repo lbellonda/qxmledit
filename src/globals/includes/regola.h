@@ -71,6 +71,7 @@ class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
         UndoLimitCount = 10
     };
 
+    bool _useIndent;
     int _indent;
     bool _useMixedContent;
     bool _isCrapCacheNSActivated;
@@ -344,7 +345,10 @@ public:
 
     int indent() const;
     void setIndent(int indent);
+    bool useIndent() const ;
+    void setUseIndent(const bool value);
 
+    void setIndentIfNotSet(int indent);
 
     //------------region(containers)
     void insertChildContainer(QTreeWidget *tree, Element *parentElement);
