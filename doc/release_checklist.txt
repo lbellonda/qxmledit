@@ -5,13 +5,17 @@ Release Checklist
 
 - Check translations (do lupdate/lrelease)
 
-- Update the manual,check version number
+- Update the manual, check version number, check properties
 
 - Generate the PDF copy of the manual
+
+- Remove SNAPSHOT flag in xmlEdit.h
 
 - Check the version number in xmlEdit.h file as number and string
 
 - Change the version number on install scripts Linux and Windows in /install_scripts directory
+
+- Change the version number in MacOS pList
 
 - Do a checkout from sources
 
@@ -37,6 +41,8 @@ After release
 -------------
 
 - Update version number.
+- Set SNAPSHOT flag in xmlEdit.h
 - Set VERSION_ID to snapshot in XmlEdit.h.
 - Change TODO_NEXT_RELEASE in TODO_THIS_RELEASE.
 - Enable TODO_THIS_RELEASE in utils.h
+- Change the version number in MacOS pList
