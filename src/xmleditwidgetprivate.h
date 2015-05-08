@@ -369,6 +369,7 @@ private slots:
     void onReplaceReplaceAndGotoNext();
     void onReplaceReplaceAndGotoPrevious();
     void onSetIndent();
+    void onIndentationChanged(const bool indentationEnabled, const int newIndentation);
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

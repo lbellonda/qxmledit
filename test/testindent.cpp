@@ -33,8 +33,31 @@
 #define FILE_TEST "../test/data/indent.xml"
 
 
+/***********************************************
+ * test cases:
+
+ Use      |        |        |      |
+ custom   | App    | Doc    | Case |
+ settings | indent | indent |  #   |
+ -----------------------------------
+          | Y:3    |  Y:2   |   1  |
+  N       | Y:1    |   n    |   2  |
+          |  n     |   n    |   3  |
+          |  n     |  Y:2   |   4  |
+ -----------------------------------
+          |  n     |  Y:3   |   5  |
+  Y       |  n     |   n    |   6  |
+          |  y:2   |  Y:3   |   7  |
+          |  y:2   |   n    |   8  |
+------------------------------------
+
+***********************************************/
+
 TestIndent::TestIndent()
 {
+    _indentationTest1 = 0 ;
+    _useDocIndent = false ;
+    _indentationDoc = 0 ;
 }
 
 TestIndent::~TestIndent()
@@ -46,30 +69,99 @@ bool TestIndent::testSaving()
 {
     _testName = "testSaving" ;
     for( int indentation = -1 ; indentation < 16 ; indentation ++ ) {
-        if( !saveAndCompare(indentation)) {
-            return false;
-        }
+        _indentationTest1 = indentation ;
+       if( !saveAndCompare(QString("testSaving %1").arg(indentation), indentation, indentation, &TestIndent::simpleWrite)) {
+           return false;
+       }
+    }
+    return true;
+}
+
+bool TestIndent::testSettings()
+{
+    _testName = "testSettings" ;
+    if( !testWithSettings(1, 3, 3, false, 2 ) ) {
+        return false;
+    }
+    if( !testWithSettings(2, 1, 1, false, -1 ) ) {
+        return false;
+    }
+    if( !testWithSettings(3, -1, -1, false, -1 ) ) {
+        return false;
+    }
+    if( !testWithSettings(4, -1, -1, false, 2 ) ) {
+        return false;
+    }
+    if( !testWithSettings(5, 3, -1, true, 3 ) ) {
+        return false;
+    }
+    if( !testWithSettings(6, -1, -1, true, -1 ) ) {
+        return false;
+    }
+    if( !testWithSettings(7, 3, 2, true, 3 ) ) {
+        return false;
+    }
+    if( !testWithSettings(8, -1, 2, true, -1 ) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestIndent::simpleWrite(App *app, QBuffer *outData)
+{
+    Regola *regola = app->mainWindow()->getRegola();
+    regola->setIndentation(_indentationTest1);
+    if(!regola->write(outData, true)) {
+        return error(QString("writing data indent: '%1'").arg(_indentationTest1));
     }
     return true;
 }
 
 
-bool TestIndent::saveAndCompare(const int indentation)
+bool TestIndent::writeSettings(App *app, QBuffer *outData)
 {
+    Regola *regola = app->mainWindow()->getRegola();
+    if(_useDocIndent) {
+        regola->setUseIndentation(true);
+        regola->setIndentationForce(_indentationDoc);
+    }
+    regola->setIndentation(app->data()->xmlIndent());
+    if(!regola->write(outData, true)) {
+        return error(QString("Writing data complex."));
+    }
+    return true;
+}
+
+bool TestIndent::testWithSettings(const int caseNo, const int indentation, const int appIndent, const bool useDocIndent, const int docIndent )
+{
+    _useDocIndent = useDocIndent ;
+    _indentationDoc = docIndent ;
+    return saveAndCompare(QString("Settings #%1").arg(caseNo), appIndent, indentation, &TestIndent::writeSettings) ;
+}
+
+bool TestIndent::saveAndCompare(const QString &caseId, const int appIndentation, const int indentation, bool (TestIndent::*func) (App *app, QBuffer *outData) )
+{
+    _testName = caseId ;
     App app;
     if(!app.init()) {
         return error("app init");
     }
+    app.data()->setXmlIndent(appIndentation);
     if( !app.mainWindow()->loadFile(QString(FILE_TEST)) ) {
-        return error(QString("opening test file: '%1' for indent:%2").arg(FILE_TEST).arg(indentation));
+        return error(QString("Opening test file: '%1' for indent:%2").arg(FILE_TEST).arg(indentation));
     }
 
     QBuffer outData ;
+    if(!(this->*func)(&app, &outData)) {
+        return false;
+    }
+    /*
     Regola *regola = app.mainWindow()->getRegola();
     regola->setIndent(indentation);
     if(!regola->write(&outData, true)) {
         return error(QString("writing data indent: '%1'").arg(indentation));
     }
+    */
     // build compare
     QString compare;
     compare.append("<a>") ;

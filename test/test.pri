@@ -140,5 +140,6 @@ FORMS += $$files(../src/modules/metadata/*.ui)
 FORMS += $$files(../src/modules/delegates/*.ui)
 FORMS += $$files(../src/modules/encoding/*.ui)
 FORMS += $$files(../src/modules/xsd/*.ui)
+FORMS += $$files(../src/modules/xml/*.ui)
 
 RESOURCES += ../src/risorse.qrc

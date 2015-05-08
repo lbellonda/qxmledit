@@ -143,7 +143,7 @@ bool TestEncoding::testReadAndWriteAnEncoding(const QString &fileInput, const QS
         return error( QString("error reading file open:'%1'").arg(fileInput) );
     }
     QBuffer buffer;
-    app.mainWindow()->getRegola()->setIndent(0);
+    app.mainWindow()->getRegola()->setIndentation(0);
     if(!app.mainWindow()->getRegola()->write(&buffer, false)) {
         return error( "error writing");
     }

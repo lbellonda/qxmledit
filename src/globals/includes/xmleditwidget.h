@@ -331,6 +331,7 @@ signals:
     void editModeChanged();
     void readOnlyStateChanged();
     void encodingChanged(const QString &newEncoding);
+    void indentationChanged(const bool indentationEnabled, const int newIndent);
     //--------------- signals
 };
 

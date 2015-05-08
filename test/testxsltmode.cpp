@@ -118,7 +118,7 @@ bool TestXSLTMode::checkMenuChoose()
     selection.append(5); //template
     selection.append(2); //empty choose
     QSet<QString> expected;
-    insertItems(expected, "Itemplate", "Ifunction", "Iwhen" ,"Iotherwise", ALL_ITEMS_APPEND, NULL);
+    insertItems(&expected, "Itemplate", "Ifunction", "Iwhen" ,"Iotherwise", ALL_ITEMS_APPEND, NULL);
 
     return checkMenuItemsBase("choose", selection, expected );
 }
@@ -132,7 +132,7 @@ bool TestXSLTMode::checkMenuCall()
     selection.append(4); //call template
 
     QSet<QString> expected;
-    insertItems(expected, "Itemplate", "Ifunction", "Iwith-param" ,"Isort",  ALL_ITEMS_APPEND, NULL);
+    insertItems(&expected, "Itemplate", "Ifunction", "Iwith-param" ,"Isort",  ALL_ITEMS_APPEND, NULL);
 
     return checkMenuItemsBase("call-template", selection, expected );
 }
@@ -381,8 +381,8 @@ bool TestXSLTMode::checkDCallTemplate()
     QSet<QString> nameItems ;
     QSet<QString> selectItems;
 
-    insertItems( nameItems, "one", NULL );
-    insertItems( selectItems, "$var1", "$var2", "$var3", NULL );
+    insertItems( &nameItems, "one", NULL );
+    insertItems( &selectItems, "$var1", "$var2", "$var3", NULL );
 
     if( !innerDTest("call-template", selection, nameItems, selectItems, true, false ) ) {
         return false;
@@ -421,7 +421,7 @@ bool TestXSLTMode::checkDWhen()
 
     QSet<QString> nameItems ;
     QSet<QString> selectItems;
-    insertItems( selectItems, "$var1", "$var2", "$var3", NULL );
+    insertItems( &selectItems, "$var1", "$var2", "$var3", NULL );
 
     if( !innerDTest("when", selection, nameItems, selectItems, false, true ) ) {
         return false;
@@ -460,7 +460,7 @@ bool TestXSLTMode::checkDApplyTemplate()
     QSet<QString> nameItems ;
     QSet<QString> selectItems;
 
-    insertItems( selectItems, "$var1", "$var2", "$var3", NULL );
+    insertItems( &selectItems, "$var1", "$var2", "$var3", NULL );
 
     if( !innerDTest("apply-templates", selection, nameItems, selectItems, false, true ) ) {
         return false;
@@ -480,7 +480,7 @@ bool TestXSLTMode::checkDIf()
     QSet<QString> nameItems ;
     QSet<QString> selectItems;
 
-    insertItems( selectItems, "$var1", "$var2", "$var3", NULL );
+    insertItems( &selectItems, "$var1", "$var2", "$var3", NULL );
 
     if( !innerDTest("if", selection, nameItems, selectItems, false, true ) ) {
         return false;
@@ -500,7 +500,7 @@ bool TestXSLTMode::checkDIfTargetDocument()
     QSet<QString> nameItems ;
     QSet<QString> selectItems;
 
-    insertItems( selectItems, "$var1", "$var2", "$var3", "root", "a", "b", "c", "d", "@a1", "@a2", NULL );
+    insertItems( &selectItems, "$var1", "$var2", "$var3", "root", "a", "b", "c", "d", "@a1", "@a2", NULL );
 
     if( !innerDTest("if", FILE_NAMES, selection, nameItems, selectItems, false, true ) ) {
         return false;

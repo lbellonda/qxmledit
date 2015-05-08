@@ -59,7 +59,7 @@ protected:
     bool fireAction(QList<QMenu*> menus, const QString &actionName);
     bool toggleAction(QMainWindow *window, const QString &actionName);
     bool toggleAction(QList<QMenu*> menus, const QString &actionName);
-    void insertItems(QSet<QString> &items, ... );
+    void insertItems(QSet<QString> *items, ... );
 
     bool compareStringSets(const QString &msg, QSet<QString> &referenceSet, QSet<QString> &compareSet);
     QString dumpStringSet(QSet<QString> &set, const QString &name);

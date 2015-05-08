@@ -147,34 +147,40 @@ void Regola::clearUndo()
     _undoStack.clear();
 }
 
-int Regola::indent() const
+int Regola::indentation() const
 {
     return _indent;
 }
 
-void Regola::setIndent(int indent)
+void Regola::setIndentationForce(const int indent)
 {
     _indent = indent;
+    emitIndentationChange();
 }
 
-bool Regola::useIndent() const
+bool Regola::useIndentation() const
 {
-    Utils::TODO_THIS_RELEASE("in qualche modo devo gestire quando assegno da globale");
     return _useIndent;
 }
 
-void Regola::setUseIndent(const bool value)
+void Regola::setUseIndentation(const bool value)
 {
     _useIndent = value;
 }
 
-void Regola::setIndentIfNotSet(int indent)
+void Regola::setIndentation(const int value)
 {
-    Utils::TODO_THIS_RELEASE("togli");
     if(!_useIndent) {
-        _indent = indent;
+        _indent = value;
+        emitIndentationChange();
     }
 }
+
+void Regola::emitIndentationChange()
+{
+    emit indentationChanged((_indent >= 0), _indent);
+}
+
 
 void Regola::caricaValori(QTreeWidget *pTree)
 {

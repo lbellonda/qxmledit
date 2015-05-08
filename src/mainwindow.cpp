@@ -95,6 +95,7 @@ MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, Appl
     started = false ;
     internalStateOk = false;
     _sessionStateWidget = NULL;
+    _labelIndentation = NULL ;
     _snippetManager = new SnippetManager();
 
     labelSchema = NULL;
@@ -258,6 +259,7 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(editModeChanged()), this, SLOT(onChangeEditorMode()));
     connect(ui.editor, SIGNAL(readOnlyStateChanged()), this, SLOT(onReadOnlyStateChanged()));
     connect(ui.editor, SIGNAL(encodingChanged(const QString &)), this, SLOT(onEditorEncodingChanged(const QString &)));
+    connect(ui.editor, SIGNAL(indentationChanged(const bool, const int)), this, SLOT(onIndentationChanged(const bool, const int)));
 
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(folderOpenRequest(const QString&)), this, SLOT(onSessionFolderOpenRequest(const QString&)));
@@ -291,6 +293,14 @@ bool MainWindow::finishSetUpUi()
     labelMode->setToolTip(tr("Indicates the edit modality."));
     statusBar()->addPermanentWidget(labelMode);
 
+    _labelReadOnlyImg = new QLabel(statusBar());
+    if(NULL == _labelReadOnlyImg) {
+        Utils::error(tr("Error creating user interface"));
+        return false;
+    }
+    _labelReadOnlyImg->setTextFormat(Qt::RichText);
+    statusBar()->addPermanentWidget(_labelReadOnlyImg);
+
     _labelReadOnly = new QLabel(statusBar());
     if(NULL == _labelReadOnly) {
         Utils::error(tr("Error creating user interface"));
@@ -299,6 +309,13 @@ bool MainWindow::finishSetUpUi()
     _labelReadOnly->setTextFormat(Qt::RichText);
     statusBar()->addPermanentWidget(_labelReadOnly);
 
+    _labelIndentation = new QLabel(statusBar());
+    if(NULL == _labelIndentation) {
+        Utils::error(tr("Error creating user interface"));
+        return false;
+    }
+    _labelIndentation->setTextFormat(Qt::RichText);
+    statusBar()->addPermanentWidget(_labelIndentation);
 
     _sessionStateWidget = new SessionStateWidget(statusBar());
     if(NULL == _sessionStateWidget) {
@@ -458,6 +475,9 @@ bool MainWindow::finishSetUpUi()
     //---- endregion(experimental)
     onComputeSelectionState();
     onReadOnlyStateChanged();
+    if(NULL != getRegola()) {
+        getRegola()->emitIndentationChange();
+    }
     return isOk;
 }
 
@@ -2597,19 +2617,27 @@ bool MainWindow::isReadOnly()
     return getEditor()->isReadOnly();
 }
 
+QString MainWindow::readOnlyStateTextImage(const bool isReadOnly)
+{
+    QString labelImage ;
+    if(isReadOnly) {
+        labelImage = ":/status/locked";
+    } else {
+        labelImage = ":/status/unlocked";
+    }
+    QString txt = QString("<html><body><div style='vertical-align:middle'><img src=\"%1\"/></div></body></html>").arg(labelImage);
+    return txt;
+}
+
 QString MainWindow::readOnlyStateText(const bool isReadOnly)
 {
     QString labelText ;
-    QString labelImage ;
     if(isReadOnly) {
         labelText = tr("Read Only");
-        labelImage = ":/status/locked";
     } else {
         labelText = tr("Modifiable");
-        labelImage = ":/status/unlocked";
     }
-    QString txt = QString("<html><body vertical-align='middle'><img src=\"%1\">%2</body></html>").arg(labelImage).arg(Utils::escape(labelText));
-    return txt;
+    return labelText;
 }
 
 QString MainWindow::readOnlyTooltip(const bool isReadOnly)
@@ -2625,9 +2653,13 @@ void MainWindow::onReadOnlyStateChanged()
 {
     bool isReadOnly = ui.editor->isReadOnly();
     QString txt = readOnlyStateText(isReadOnly);
+    QString txtImg = readOnlyStateTextImage(isReadOnly);
     _labelReadOnly->setText(txt);
     _labelReadOnly->setToolTip(readOnlyTooltip(isReadOnly));
     _labelReadOnly->setAlignment(Qt::AlignCenter | Qt::AlignHCenter);
+    _labelReadOnlyImg->setText(txtImg);
+    _labelReadOnlyImg->setToolTip(readOnlyTooltip(isReadOnly));
+    _labelReadOnlyImg->setAlignment(Qt::AlignCenter | Qt::AlignHCenter);
     ui.actionReadOnly->setChecked(ui.editor->isReadOnly());
 }
 
@@ -2734,6 +2766,17 @@ void MainWindow::onEncodingChanged(QAction* action)
                 uiDelegate->error(this, tr("No codec for the required encoding"));
             }
         }
+    }
+}
+
+void MainWindow::onIndentationChanged(const bool indentationEnabled, const int newIndent)
+{
+    if(!indentationEnabled) {
+        _labelIndentation->setText(tr("I-"));
+        _labelIndentation->setToolTip(tr("No Indentation"));
+    } else {
+        _labelIndentation->setText(tr("I%1").arg(newIndent));
+        _labelIndentation->setToolTip(tr("Indentation: %n space(s)", "", newIndent));
     }
 }
 

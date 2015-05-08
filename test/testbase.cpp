@@ -163,14 +163,14 @@ bool TestBase::toggleAction(QList<QMenu*> menus, const QString &actionName)
     return false;
 }
 
-void TestBase::insertItems(QSet<QString> &items, ... )
+void TestBase::insertItems(QSet<QString> *items, ... )
 {
     va_list ap;
     va_start( ap, items);
     const char* str = va_arg( ap, const char *);
     while( str != NULL ) {
         QString data(str);
-        items.insert(data);
+        items->insert(data);
         str = va_arg( ap, const char *);
     }
     va_end(ap);

@@ -776,9 +776,16 @@ void TestQXmlEdit::testIndent()
 {
     bool result ;
 
-    TestIndent test1;
-    result = test1.testSaving();
-    QVERIFY2(result, (QString("test TestIndent: testSaving '%1'").arg(test1.errorString())).toLatin1().data());
+    {
+        TestIndent test1;
+        result = test1.testSaving();
+        QVERIFY2(result, (QString("test TestIndent: testSaving '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestIndent test1;
+        result = test1.testSettings();
+        QVERIFY2(result, (QString("test TestIndent: testSettings '%1'").arg(test1.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testContainer()
@@ -1002,6 +1009,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testIndent();
     testReplace();
     testSearch();
     testXSDMode();

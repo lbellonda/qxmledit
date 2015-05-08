@@ -24,16 +24,29 @@
 #ifndef TESTINDENT_H
 #define TESTINDENT_H
 
+#include <QBuffer>
 #include "testbase.h"
+
+class App;
 
 class TestIndent : public TestBase
 {
-    bool saveAndCompare(const int indentation);
+    int _indentationTest1 ;
+    bool _useDocIndent;
+    int _indentationDoc;
+
+    bool saveAndCompare(const QString &caseId, const int appIndentation, const int indentation, bool (TestIndent::*func) (App *app, QBuffer *outData) );
+    bool testWithSettings(const int caseNo, const int indentation, const int appIndent, const bool useDocIndent, const int docIndent );
+
+    bool writeSettings(App *app, QBuffer *outData);
+    bool simpleWrite(App *app, QBuffer *outData);
+
 public:
     TestIndent();
     ~TestIndent();
 
     bool testSaving();
+    bool testSettings();
 };
 
 #endif // TESTINDENT_H

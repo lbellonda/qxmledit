@@ -95,13 +95,8 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
 Regola *XmlEditWidgetPrivate::newRegola(const bool bind)
 {
     Regola *newRule = new Regola();
-    newRule->setIndent(_appData->xmlIndent());
+    newRule->setIndentation(_appData->xmlIndent());
     newRule->setPaintInfo(&paintInfo);
-    /*connect(newRule, SIGNAL(wasModified()), this, SLOT(regolaIsModified()));
-    connect(newRule, SIGNAL(undoStateChanged()), this, SLOT(regolaUndoChanged()));
-    connect(newRule, SIGNAL(docTypeChanged(const QString &)), this, SLOT(docTypeChanged(const QString &)));
-    connect(newRule, SIGNAL(encodingChanged(const QString &)), this, SLOT(onEncodingChanged(const QString &)));
-    */
     bindRegola(newRule, bind);
     return newRule ;
 }
@@ -233,6 +228,7 @@ void XmlEditWidgetPrivate::deleteRegola()
         disconnect(regola, SIGNAL(undoStateChanged()), this, SLOT(regolaUndoChanged()));
         disconnect(regola, SIGNAL(docTypeChanged(const QString &)), this, SLOT(docTypeChanged(const QString &)));
         disconnect(regola, SIGNAL(encodingChanged(const QString &)), this, SLOT(onEncodingChanged(const QString &)));
+        disconnect(regola, SIGNAL(indentationChanged(const bool, const int)), this, SLOT(onIndentationChanged(const bool, const int)));
         delete regola;
         regola = NULL;
         p->ui->treeWidget->clear();
@@ -1841,11 +1837,7 @@ void XmlEditWidgetPrivate::assignRegola(Regola *newModel, const bool isSetState)
         setDisplayMode(qxmledit::NORMAL);
     }
     bindRegola(regola);
-    /*connect(regola, SIGNAL(wasModified()), this, SLOT(regolaIsModified()));
-    connect(regola, SIGNAL(undoStateChanged()), this, SLOT(regolaUndoChanged()));
-    connect(regola, SIGNAL(docTypeChanged(const QString &)), this, SLOT(docTypeChanged(const QString &)));
-    connect(regola, SIGNAL(encodingChanged(const QString &)), this, SLOT(onEncodingChanged(const QString &)));
-    */
+
     resetTree();
     display();
     startUIState();
@@ -1865,9 +1857,16 @@ void XmlEditWidgetPrivate::bindRegola(Regola *regola, const bool bind)
     connect(regola, SIGNAL(undoStateChanged()), this, SLOT(regolaUndoChanged()));
     connect(regola, SIGNAL(docTypeChanged(const QString &)), this, SLOT(docTypeChanged(const QString &)));
     connect(regola, SIGNAL(encodingChanged(const QString &)), this, SLOT(onEncodingChanged(const QString &)));
+    connect(regola, SIGNAL(indentationChanged(const bool, const int)), this, SLOT(onIndentationChanged(const bool, const int)));
     if(bind) {
         onEncodingChanged(regola->encoding());
+        regola->emitIndentationChange();
     }
+}
+
+void XmlEditWidgetPrivate::onIndentationChanged(const bool indentationEnabled, const int newIndentation)
+{
+    emit p->indentationChanged(indentationEnabled, newIndentation);
 }
 
 void XmlEditWidgetPrivate::onEncodingChanged(const QString &newEncoding)
@@ -2556,7 +2555,7 @@ bool XmlEditWidgetPrivate::writeData(const QString &filePath)
             regola->updateMetadata(p->ui->treeWidget);
         }
     }
-    regola->setIndentIfNotSet(_appData->xmlIndent());
+    regola->setIndentation(_appData->xmlIndent());
     return regola->write(filePath);
 }
 

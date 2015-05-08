@@ -66,6 +66,8 @@ class MainWindow : public QMainWindow, UIDelegate
     QLabel *labelSchema;
     QLabel *labelMode;
     QLabel *_labelReadOnly;
+    QLabel *_labelReadOnlyImg;
+    QLabel *_labelIndentation;
     SessionStateWidget *_sessionStateWidget;
     AttrFilterStatus *_attributeFilterWidget;
 
@@ -119,6 +121,7 @@ public:
     void loadVisFile(const QString &fileName);
     QLabel *readOnlyStatusLabel();
     QString readOnlyStateText(const bool isReadOnly);
+    QString readOnlyStateTextImage(const bool isReadOnly);
     QString readOnlyTooltip(const bool isReadOnly);
     bool isReadOnly();
     void onAnonymize(AnonContext *context);
@@ -265,6 +268,7 @@ private slots:
     void on_actionExportAsJavaJavascriptSource_triggered();
     void on_actionInsertProlog_triggered();
     void onEncodingChanged(QAction* action);
+    void onIndentationChanged(const bool indentationEnabled, const int newIndent);
     void on_actionExportAsCSource_triggered();
     void on_actionCopyAllToClipboard_triggered();
     void on_actionCodePages_triggered();

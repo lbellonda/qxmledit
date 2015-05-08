@@ -343,12 +343,12 @@ public:
 
     static QList<Element*> decodeXMLFromString(const QString &input, const bool onlyRootElement, const bool onlyElements = true);
 
-    int indent() const;
-    void setIndent(int indent);
-    bool useIndent() const ;
-    void setUseIndent(const bool value);
-
-    void setIndentIfNotSet(int indent);
+    int indentation() const;
+    void setIndentation(const int indent);
+    void setIndentationForce(const int indent);
+    bool useIndentation() const ;
+    void setUseIndentation(const bool value);
+    void emitIndentationChange();
 
     //------------region(containers)
     void insertChildContainer(QTreeWidget *tree, Element *parentElement);
@@ -375,6 +375,7 @@ signals:
     void uiDeleted(Element *element);
     void docTypeChanged(const QString &docType);
     void encodingChanged(const QString &encoding);
+    void indentationChanged(const bool enabled, const int newIndent);
 
 private:
     Element     *rootItem;

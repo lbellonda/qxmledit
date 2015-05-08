@@ -48,8 +48,8 @@ void XmlIndentationDialog::init()
 {
     bool checkNoIndent = false;
 
-    ui->indentSettings->setChecked(_regola->useIndent());
-    int indentValue = _regola->indent();
+    ui->indentSettings->setChecked(_regola->useIndentation());
+    int indentValue = _regola->indentation();
     if(indentValue >= 0) {
         ui->xmlIndent->setValue(indentValue);
     } else {
@@ -68,15 +68,15 @@ void XmlIndentationDialog::on_chkNoIndent_stateChanged(int /*state*/)
 void XmlIndentationDialog::accept()
 {
     Utils::TODO_THIS_RELEASE("semplifica");
-    _regola->setUseIndent(ui->indentSettings->isChecked());
-    if(ui->chkNoIndent->isChecked()) {
-        if(!ui->chkNoIndent->isChecked()) {
-            _regola->setIndent(-1);
+    _regola->setUseIndentation(ui->indentSettings->isChecked());
+    if(ui->indentSettings->isChecked()) {
+        if(ui->chkNoIndent->isChecked()) {
+            _regola->setIndentationForce(-1);
         } else {
-            _regola->setIndent(ui->xmlIndent->value());
+            _regola->setIndentationForce(ui->xmlIndent->value());
         }
     } else {
-        _regola->setIndent(_appData->xmlIndent());
+        _regola->setIndentationForce(_appData->xmlIndent());
     }
     QDialog::accept();
 }
