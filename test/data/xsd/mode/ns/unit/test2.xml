@@ -1,0 +1,8 @@
+<root xmlns="a" xmlns:xsd="b">
+  <a>
+  </a>
+  <b xmlns="a" xmlns:xsd="b">
+	<c xmlns="a" xmlns:xsd="b">
+	</c>
+  </b>
+</root>

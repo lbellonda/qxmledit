@@ -82,6 +82,7 @@ private:
     QString _name;
     EXSDTypeSpecSub _subOper;
     EXSDTypeContent _typeContent;
+    QSet<QString> _xsdNamespacePrefixes;
 
 
     void setupSimpleType(Element *simpleType);
@@ -130,6 +131,8 @@ public:
     //---
     QString makeNameForXSDObject(const QString &localName);
 
+    QSet<QString> xsdNamespacePrefixes() const;
+    void setXsdNamespacePrefixes(const QSet<QString> &xsdNamespacePrefixes);
 };
 
 #endif // XSDOPERATIONPARAMETERS_H

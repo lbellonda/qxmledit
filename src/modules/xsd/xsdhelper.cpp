@@ -598,11 +598,20 @@ void XSDHelper::applyOperation(Element *element, XSDOper *oper, XSDOperationPara
 
 Element *XSDHelper::findAnnotation(Element *element, XSDOperationParameters *params)
 {
-    QString annotationTag = params->usePrefix() ? QString("%1:%2").arg(params->xsdNamespacePrefix()).arg(TAG_ANNOTATION) : TAG_ANNOTATION;
+    QSet<QString> qNames ;
+    if(!params->usePrefix()) {
+        qNames.insert(TAG_ANNOTATION);
+    } else {
+        foreach(QString key, params->xsdNamespacePrefixes().values()) {
+            qNames.insert(QString("%1:%2").arg(key).arg(TAG_ANNOTATION)) ;
+        }
+    }
     foreach(Element * childElm, *element->getChildItems()) {
         if(childElm->isElement()) {
-            if(childElm->tag() == annotationTag) {
-                return childElm ;
+            foreach(QString completName, qNames) {
+                if(childElm->tag() == completName) {
+                    return childElm ;
+                }
             }
             return NULL ;
         }

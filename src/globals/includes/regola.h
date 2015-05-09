@@ -332,6 +332,8 @@ public:
     void appendElementComplete(Element *theNewElement, Element *brotherElement, QTreeWidget *tree, const bool useUndo);
     void refreshChildrenOfElement(Element *element, QTreeWidget *tree)    ;
 
+    void namespacesPrefixFor(const QString &ns, Element *element, QSet<QString> &prefixes, QSet<QString> &allPrefixes);
+    QSet<QString> namespacePrefixesXSD(Element *element);
     QString namespacePrefixFor(const QString &ns);
     QString namespacePrefixXSD();
     QString namespacePrefixXslt();

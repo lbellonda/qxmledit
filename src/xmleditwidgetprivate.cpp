@@ -2833,11 +2833,13 @@ void XmlEditWidgetPrivate::onSearchPrev()
     }
 }
 
-void XmlEditWidgetPrivate::XSDSetNamespaceToParams(XSDOperationParameters *params)
+void XmlEditWidgetPrivate::XSDSetNamespaceToParams(XSDOperationParameters *params, Element *element)
 {
     QString prefix = regola->namespacePrefixXSD();
     params->setXsdNamespacePrefix(prefix);
-    params->setUsePrefix(!prefix.isEmpty());
+    QSet<QString> prefixes = regola->namespacePrefixesXSD(element);
+    params->setXsdNamespacePrefixes(prefixes);
+    params->setUsePrefix(!prefixes.isEmpty());
 }
 
 
@@ -2863,7 +2865,7 @@ bool XmlEditWidgetPrivate::onEditXSDAnnotation()
         }
         XSDHelper helper;
         XSDOperationParameters params;
-        XSDSetNamespaceToParams(&params);
+        XSDSetNamespaceToParams(&params, element);
         Element *origAnnot = helper.findAnnotation(element, &params);
         XSDAnnotationEditProvider * provider = XSDAnnotationEditProviderObject();
         XSDAnnotationEditor *editor = provider->newEditor(p->window());

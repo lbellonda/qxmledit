@@ -2546,6 +2546,45 @@ QString Regola::namespacePrefixXSD()
     return namespacePrefixFor(XSDNameSpace);
 }
 
+QSet<QString> Regola::namespacePrefixesXSD(Element *element)
+{
+    QSet<QString> result;
+    QSet<QString> allPrefixes;
+    Element *startElement = element ;
+    if(NULL == startElement) {
+        startElement = rootItem;
+    }
+    namespacesPrefixFor(XSDNameSpace, startElement, result, allPrefixes);
+    return result;
+}
+
+/**
+ * @brief Regola::namespacesPrefixFor scans the chain of ns declaration from the inner up.
+ * Inner declarations take precedence.
+ * @param ns
+ * @param element
+ * @param prefixes
+ * @param allPrefixes
+ */
+void Regola::namespacesPrefixFor(const QString &ns, Element *element, QSet<QString> &prefixes, QSet<QString> &allPrefixes)
+{
+    if(NULL != element) {
+        foreach(Attribute * attribute, element->getAttributesList()) {
+            if(attribute->name.startsWith("xmlns:") || (attribute->name == "xmlns")) {
+                QString prefix = XmlUtils::namespacePrefix(attribute->name);
+                if((attribute->value == ns)) {
+                    if(!allPrefixes.contains(prefix)) {
+                        prefixes.insert(prefix);
+                    }
+                }
+                allPrefixes.insert(prefix);
+            }
+        } // foreach
+        Element *parent = element->parent();
+        namespacesPrefixFor(ns, parent, prefixes, allPrefixes);
+    }
+}
+
 QString Regola::namespacePrefixXslt()
 {
     QString ns ;

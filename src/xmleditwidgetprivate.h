@@ -184,7 +184,7 @@ public:
     void setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider);
     XSDAnnotationEditor *newEditor(QWidget *window);
     void autoDelete();
-    void XSDSetNamespaceToParams(XSDOperationParameters *params);
+    void XSDSetNamespaceToParams(XSDOperationParameters *params, Element *element);
 
     //------------------------------------
     void setMoveButtonsVisible(bool isShow);

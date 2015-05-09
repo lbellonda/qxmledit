@@ -1,0 +1,8 @@
+<root xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd2="http://www.w3.org/2001/XMLSchema1" xmlns:a="a" >
+  <a>
+  </a>
+  <b  xmlns:xsdc="http://www.w3.org/2001/XMLSchema1" xmlns:a="a">
+	<c xmlns:xsd="http://www.w3.org/2001/XMLSchema1" xmlns:a="a">
+	</c>
+  </b>
+</root>

@@ -242,7 +242,7 @@ TestXSDMode::~TestXSDMode()
 bool TestXSDMode::testLast()
 {
     _testName = "testLast";
-    if(!testUnitAnnotationModel()) {
+    if(!testCollectNameSpaces()) {
         return false;
     }
     return true;
@@ -2976,6 +2976,10 @@ bool TestXSDMode::testEditAnnotations()
         return false;
     }
 
+    if( !testCollectNameSpaces() ) {
+        return false;
+    }
+
     // 1= no data, cancel, no data
     if( !testAnnotation1NoDataCancel() ) {
         return false;
@@ -3415,3 +3419,202 @@ bool TestXSDMode::verifyModel(const QString &operation, XSDAnnotationModel *mode
 }
 
 //-----
+
+
+bool TestXSDMode::testSkeletonNSUnits(const QString &fileStart, QList<int> &sel, QSet<QString> nsExpected )
+{
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = NULL ;
+    if(!sel.isEmpty()) {
+        selectedElement = app.mainWindow()->getRegola()->findElementByArray(sel);
+        if(NULL == selectedElement) {
+            return error("no element selected");
+        }
+    }
+    app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+    // qualche unit test
+    // test only on ns and prefixes
+    QSet<QString> prefixes = regola->namespacePrefixesXSD(selectedElement);
+
+    return compareStringSets(QString("items for ns %1").arg(fileStart), nsExpected, prefixes );
+}
+
+bool TestXSDMode::testSkeletonNS(const QString &fileStart,
+                                         QList<int> &sel, QList<int> expectedSelection )
+{
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = NULL ;
+    if(!sel.isEmpty()) {
+        selectedElement = app.mainWindow()->getRegola()->findElementByArray(sel);
+        if(NULL == selectedElement) {
+            return error("no element selected");
+        }
+    }
+    app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+    // qualche unit test
+    XSDHelper helper;
+    XSDOperationParameters params;
+    // test only on ns and prefixes
+    QString prefix = regola->namespacePrefixXSD();
+    params.setXsdNamespacePrefix(prefix);
+    QSet<QString> prefixes = regola->namespacePrefixesXSD(selectedElement);
+    params.setXsdNamespacePrefixes(prefixes);
+    params.setUsePrefix(!prefixes.isEmpty());
+
+    Element *resultElement = helper.findAnnotation(selectedElement, &params);
+    QList<int> resultPath ;
+    if( NULL == resultElement ) {
+        resultPath = resultElement->indexPath();
+    }
+    return compareListInts(QString("items for ns %1").arg(fileStart), expectedSelection, resultPath);
+}
+
+bool TestXSDMode::testCollectNameSpaces()
+{
+    _testName = "testCollectNameSpaces";
+
+    if( !testUnitNameSpaces() ) {
+        return false;
+    }
+    if( !testGetAnnotationNS() ) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestXSDMode::testGetAnnotationNS()
+{
+    _testName = "testGetAnnotationNS";
+    return error("nyi");
+}
+
+#define     FILE_NS_1   "../test/data/xsd/mode/ns/unit/test1.xml"
+#define     FILE_NS_2   "../test/data/xsd/mode/ns/unit/test2.xml"
+#define     FILE_NS_3   "../test/data/xsd/mode/ns/unit/test3.xml"
+#define     FILE_NS_4   "../test/data/xsd/mode/ns/unit/test4.xml"
+#define     FILE_NS_5   "../test/data/xsd/mode/ns/unit/test5.xml"
+#define     FILE_NS_6   "../test/data/xsd/mode/ns/unit/test6.xml"
+
+bool TestXSDMode::testUnitNameSpaces()
+{
+    _testName = "testUnitNameSpaces";
+
+    // 1: no ns, root -> exp nothing
+    {
+        QList<int> sel;
+        QSet<QString> nsExpected;
+        if(!testSkeletonNSUnits(FILE_NS_1, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 2: no ns, sel -> exp nothing
+    {
+        QList<int> sel;
+        sel << 0 << 1 << 0;
+        QSet<QString> nsExpected;
+        if(!testSkeletonNSUnits(FILE_NS_1, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 3: other ns, root -> exp nothing
+    {
+        QList<int> sel;
+        QSet<QString> nsExpected;
+        if(!testSkeletonNSUnits(FILE_NS_2, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 4: other ns, sel -> exp nothing
+    {
+        QList<int> sel;
+        sel << 0 << 1 << 0;
+        QSet<QString> nsExpected;
+        if(!testSkeletonNSUnits(FILE_NS_2, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 5: ns+nons, root -> match
+    {
+        QList<int> sel;
+        QSet<QString> nsExpected;
+        nsExpected << "" << "xsd2";
+        if(!testSkeletonNSUnits(FILE_NS_3, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 6: ns+nons, selm-> match
+    {
+        QList<int> sel;
+        sel << 0 << 1 << 0;
+        QSet<QString> nsExpected;
+        nsExpected << "" << "xsd2" << "xsdc" << "xsd";
+        if(!testSkeletonNSUnits(FILE_NS_3, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 7: ns+nons rootonly, root -> match
+    {
+        QList<int> sel;
+        QSet<QString> nsExpected;
+        nsExpected << "" << "xsd2";
+        if(!testSkeletonNSUnits(FILE_NS_4, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 8: ns+nons rootonly, selm-> match
+    {
+        QList<int> sel;
+        sel << 0 << 1 << 0;
+        QSet<QString> nsExpected;
+        nsExpected << "xsd2" ;
+        if(!testSkeletonNSUnits(FILE_NS_4, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 9: nons rootonly, root -> match
+    {
+        QList<int> sel;
+        QSet<QString> nsExpected;
+        nsExpected << "" ;
+        if(!testSkeletonNSUnits(FILE_NS_5, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 10: nons rootonly, selm-> match
+    {
+        QList<int> sel;
+        sel << 0 << 1 << 0;
+        QSet<QString> nsExpected;
+        nsExpected << "" ;
+        if(!testSkeletonNSUnits(FILE_NS_5, sel, nsExpected )) {
+            return false ;
+        }
+    }
+    // 11: shadowing, selm-> match
+    {
+        QList<int> sel;
+        sel << 0 << 1 << 0;
+        QSet<QString> nsExpected;
+        nsExpected << "xsd" << "xsd3" << "xsdc";
+        if(!testSkeletonNSUnits(FILE_NS_6, sel, nsExpected )) {
+            return false ;
+        }
+    }
+
+
+    return error("nyi");
+}

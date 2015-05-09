@@ -35,6 +35,13 @@ class XSDAnnotationModel;
 
 class TestXSDMode : public TestBase
 {
+
+    bool testSkeletonNSUnits(const QString &fileStart, QList<int> &sel, QSet<QString> nsExpected );
+    bool testSkeletonNS(const QString &fileStart, QList<int> &sel, QList<int> expectedSelection );
+    bool testCollectNameSpaces();
+    bool testGetAnnotationNS();
+    bool testUnitNameSpaces();
+
     bool verifyModel(const QString &operation, XSDAnnotationModel *model, const int i1, const int i2, const int i3);
     bool testModelMoveUp();
     bool testModelMoveDown();

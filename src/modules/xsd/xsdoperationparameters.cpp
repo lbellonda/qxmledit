@@ -192,6 +192,17 @@ void XSDOperationParameters::setupFromElement(Element *inputElement)
     }
 }
 
+
+QSet<QString> XSDOperationParameters::xsdNamespacePrefixes() const
+{
+    return _xsdNamespacePrefixes;
+}
+
+void XSDOperationParameters::setXsdNamespacePrefixes(const QSet<QString> &xsdNamespacePrefixes)
+{
+    _xsdNamespacePrefixes = xsdNamespacePrefixes;
+}
+
 void XSDOperationParameters::setupSimpleType(Element *simpleType)
 {
     _typeSpec = TS_SIMPLE ;
