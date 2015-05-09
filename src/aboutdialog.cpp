@@ -24,6 +24,7 @@
 #include "ui_aboutdialog.h"
 #include "qxmledit.h"
 #include "xmlEdit.h"
+#include "qxmeditmetainfo.h"
 
 AboutDialog::AboutDialog(QWidget *parent,
                          const QString &applicationName, const QString &version,
@@ -51,6 +52,14 @@ AboutDialog::AboutDialog(QWidget *parent,
     QTreeWidgetItem *translators = new QTreeWidgetItem(0);
     translators->setText(0, tr("Translators"));
     ui->authorsWidget->addTopLevelItem(translators);
+
+    QString projectLocation = ui->lblProjectLocation->text() ;
+    projectLocation.replace("$PJLOC", QXMLEDIT_PROJECT_LOCATION);
+    ui->lblProjectLocation->setText(projectLocation);
+
+    QString issuesLocation = ui->lblIssues->text();
+    issuesLocation.replace("$ISSUESLOC", QXMLEDIT_ISSUES_LOCATION);
+    ui->lblIssues->setText(issuesLocation);
 
     foreach(AuthorInfo * author,  authors) {
         QTreeWidgetItem *item = new QTreeWidgetItem(0);

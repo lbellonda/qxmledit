@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,34 +20,13 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "authorinfo.h"
-#include "xmlEdit.h"
 
-QList<AuthorInfo*> authorsInfo()
-{
-    QList<AuthorInfo*> authors ;
-    AuthorInfo *newAuthor;
-    newAuthor = new AuthorInfo("Luca Bellonda", "lbellonda@gmail.com", AR_DEVELOPER, "");
-    authors.append(newAuthor);
-    newAuthor = new AuthorInfo("GalaxySemi", "", AR_CONTRIBUTOR, "");
-    authors.append(newAuthor);
-    newAuthor = new AuthorInfo("Pavel Fric", "fripohled.blogspot.com", AR_TRANSLATOR, "Czech");
-    authors.append(newAuthor);
-    return authors ;
-}
+#ifndef QXMEDITMETAINFO_H
+#define QXMEDITMETAINFO_H
 
-void deleteAuthorsInfo(QList<AuthorInfo*> &authors)
-{
-    foreach(AuthorInfo * author,  authors) {
-        delete author;
-    }
-    authors.clear();
-}
+// Metainfo for QXmlEdit
 
-const QString AuthorInfo::appName(APPLICATION_NAME) ;
-const QString AuthorInfo::version(VERSION_IDENTIFIER) ;
-const QString AuthorInfo::copyright = QString::fromUtf8("\u00A9 2008-2015 Luca Bellonda");
-const QString AuthorInfo::license("GNU Library Public License Version 2");
-const QString AuthorInfo::other("Icons by Oxygen (www.oxygen-icons.org), covered by LGPLv3 license (see README document)");
+#define QXMLEDIT_PROJECT_LOCATION    "https://github.com/lbellonda/qxmledit"
+#define QXMLEDIT_ISSUES_LOCATION    "https://github.com/lbellonda/qxmledit/issues"
 
-
+#endif // QXMEDITMETAINFO_H

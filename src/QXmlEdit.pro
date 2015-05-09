@@ -190,7 +190,8 @@ HEADERS = precompiled_app.h \
     modules/anonymize/anoneditprofiledialog.h \
     modules/anonymize/anonimyzebatchdialog.h \
     modules/anonymize/anonsettingwidget.h \
-    precompiled_app.h
+    precompiled_app.h \
+    qxmeditmetainfo.h
 
 SOURCES = \
     main.cpp \
