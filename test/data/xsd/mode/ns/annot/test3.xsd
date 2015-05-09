@@ -1,0 +1,9 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<schema xmlns = "http://www.w3.org/2001/XMLSchema" targetNamespace = "http://www.w3.org/1999/XSL/Format" xmlns:a = "a" xmlns:xsd= "http://www.w3.org/2001/XMLSchema" elementFormDefault = "qualified">
+
+  <xsd:annotation>
+    <xsd:documentation> 
+	  a
+	 </xsd:documentation> 
+  </xsd:annotation>
+</schema>

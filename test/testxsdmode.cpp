@@ -3477,7 +3477,7 @@ bool TestXSDMode::testSkeletonNS(const QString &fileStart,
 
     Element *resultElement = helper.findAnnotation(selectedElement, &params);
     QList<int> resultPath ;
-    if( NULL == resultElement ) {
+    if( NULL != resultElement ) {
         resultPath = resultElement->indexPath();
     }
     return compareListInts(QString("items for ns %1").arg(fileStart), expectedSelection, resultPath);
@@ -3496,10 +3496,43 @@ bool TestXSDMode::testCollectNameSpaces()
     return true ;
 }
 
+#define     FILE_NS_ANNOT_1   "../test/data/xsd/mode/ns/annot/test1.xsd"
+#define     FILE_NS_ANNOT_2   "../test/data/xsd/mode/ns/annot/test2.xsd"
+#define     FILE_NS_ANNOT_3   "../test/data/xsd/mode/ns/annot/test3.xsd"
+
 bool TestXSDMode::testGetAnnotationNS()
 {
     _testName = "testGetAnnotationNS";
-    return error("nyi");
+    // 1: no annotation, nothing
+    {
+        QList<int> sel;
+        sel << 1 ;
+        QList<int> expected;
+        if(!testSkeletonNS(FILE_NS_ANNOT_1, sel, expected )) {
+            return false ;
+        }
+    }
+    // 2: multiple ns, case 1
+    {
+        QList<int> sel;
+        sel << 1 ;
+        QList<int> expected;
+        expected << 1 << 0 ;
+        if(!testSkeletonNS(FILE_NS_ANNOT_2, sel, expected )) {
+            return false ;
+        }
+    }
+    // 2: multiple ns, case 2
+    {
+        QList<int> sel;
+        sel << 1 ;
+        QList<int> expected;
+        expected << 1 << 0 ;
+        if(!testSkeletonNS(FILE_NS_ANNOT_3, sel, expected )) {
+            return false ;
+        }
+    }
+    return true;
 }
 
 #define     FILE_NS_1   "../test/data/xsd/mode/ns/unit/test1.xml"
@@ -3615,6 +3648,5 @@ bool TestXSDMode::testUnitNameSpaces()
         }
     }
 
-
-    return error("nyi");
+    return true ;
 }

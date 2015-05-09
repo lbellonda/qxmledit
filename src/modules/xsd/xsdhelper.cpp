@@ -603,7 +603,11 @@ Element *XSDHelper::findAnnotation(Element *element, XSDOperationParameters *par
         qNames.insert(TAG_ANNOTATION);
     } else {
         foreach(QString key, params->xsdNamespacePrefixes().values()) {
-            qNames.insert(QString("%1:%2").arg(key).arg(TAG_ANNOTATION)) ;
+            if( key.isEmpty()) {
+                qNames.insert(TAG_ANNOTATION) ;
+            } else {
+                qNames.insert(QString("%1:%2").arg(key).arg(TAG_ANNOTATION)) ;
+            }
         }
     }
     foreach(Element * childElm, *element->getChildItems()) {
@@ -612,10 +616,9 @@ Element *XSDHelper::findAnnotation(Element *element, XSDOperationParameters *par
                 if(childElm->tag() == completName) {
                     return childElm ;
                 }
-            }
-            return NULL ;
+            } // foreach names
         }
-    }
+    } // for children
     return NULL;
 }
 
