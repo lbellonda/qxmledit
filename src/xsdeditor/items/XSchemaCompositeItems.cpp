@@ -77,6 +77,8 @@ void ChoiceItem::init(XsdGraphicContext *newContext)
     _labelItem->setPos(35, 16);
     _graphicsItem->childItems().append(_labelItem);
 
+    createIconInfo(_graphicsItem, 24, 30);
+
     QLinearGradient gradient(0, 0, 0, 100);
     gradient.setColorAt(0, QColor::fromRgbF(0, 0, 1, 1));
     gradient.setColorAt(1, QColor::fromRgbF(0, 1, 1, .9));
@@ -100,6 +102,8 @@ QString ChoiceItem::preTooltipString()
 
 void ChoiceItem::setItem(XSchemaChoice *newItem)
 {
+    QString annotationInfo ;
+    bool showInfo = false;
     QString newText ;
     if(_item != newItem) {
         if(NULL != _item) {
@@ -114,6 +118,10 @@ void ChoiceItem::setItem(XSchemaChoice *newItem)
                 childAdded(child);
             }
             newText =  _item->description();
+            if(NULL != _item->annotation()) {
+                showInfo = true ;
+                annotationInfo = _item->annotation()->text();
+            }
         }
     }
     _labelItem->setPlainText(newText);
@@ -123,7 +131,17 @@ void ChoiceItem::setItem(XSchemaChoice *newItem)
         setGradientColor(gradient, _item->compareState());
         _graphicsItem->setBrush(QBrush(gradient));
     }
-    buildTooltip();
+    if(showInfo && !annotationInfo.isEmpty()) {
+        _iconInfo->show();
+        _iconInfo->setToolTip(annotationInfo);
+        _iconInfo->setPos(30, (_graphicsItem->boundingRect().height() - _iconInfo->boundingRect().height()) / 2);
+    } else {
+        _iconInfo->hide();
+    }
+    if(!_isDiff) {
+        Utils::TODO_THIS_RELEASE("fattorizza il _diff");
+        buildTooltip();
+    }
 }
 
 void ChoiceItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -194,6 +212,8 @@ void SequenceItem::init(XsdGraphicContext *newContext)
     gradient.setColorAt(0, QColor::fromRgbF(0, 1, .8, .2));
     gradient.setColorAt(1, QColor::fromRgbF(0, 1, 1, 0));
 
+    createIconInfo(_graphicsItem, 24, 30);
+
     _graphicsItem->setBrush(QBrush(gradient));
     connect(_graphicsItem, SIGNAL(itemChanged(QGraphicsItem::GraphicsItemChange, const QVariant&)), this, SLOT(itemChanged(QGraphicsItem::GraphicsItemChange, const QVariant&)));
 }
@@ -218,7 +238,9 @@ QString SequenceItem::preTooltipString()
 
 void SequenceItem::setItem(XSchemaSequence *newItem)
 {
+    bool showInfo = false;
     QString descr = "" ;
+    QString annotationInfo ;
     if(_item != newItem) {
         if(NULL != _item) {
             disconnect(_item, SIGNAL(childAdded(XSchemaObject*)), this, SLOT(childAdded(XSchemaObject*)));
@@ -232,8 +254,20 @@ void SequenceItem::setItem(XSchemaSequence *newItem)
                 childAdded(child);
             }
             descr = _item->description();
+            if(NULL != _item->annotation()) {
+                showInfo = true ;
+                annotationInfo = _item->annotation()->text();
+            }
         }
     }
+    if(showInfo && !annotationInfo.isEmpty()) {
+        _iconInfo->show();
+        _iconInfo->setToolTip(annotationInfo);
+        _iconInfo->setPos(30, (_graphicsItem->boundingRect().height() - _iconInfo->boundingRect().height()) / 2);
+    } else {
+        _iconInfo->hide();
+    }
+
     _labelItem->setPlainText(descr);
     _extraSpace = _labelItem->boundingRect().width();
     if(_isDiff) {

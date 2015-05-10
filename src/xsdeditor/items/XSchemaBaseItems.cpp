@@ -265,7 +265,12 @@ void XSDItem::buildTooltip()
         }
     }
     QString preTooltip = preTooltipString();
-    QString toolTip = preTooltip + annotationInfo ;
+    QString toolTip ;
+    QString andStr ;
+    if(!preTooltip.isEmpty() && !annotationInfo.isEmpty()) {
+        andStr = "\n";
+    }
+    toolTip = preTooltip + andStr + annotationInfo ;
     graphicItem()->setToolTip(toolTip);
 }
 
@@ -957,7 +962,6 @@ QString RootItem::preTooltipString()
     foreach(QString ns, schema->allNamespaces()) {
         tooltip += QString("\nnamespace: " + ns);
     }
-    tooltip += "\n";
     return tooltip;
 }
 
