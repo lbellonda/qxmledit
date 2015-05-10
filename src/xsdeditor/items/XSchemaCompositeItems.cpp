@@ -90,6 +90,14 @@ XSchemaChoice *ChoiceItem::choice() const
     return _item ;
 }
 
+QString ChoiceItem::preTooltipString()
+{
+    if(NULL != _item) {
+        return _item->tagName();
+    }
+    return "";
+}
+
 void ChoiceItem::setItem(XSchemaChoice *newItem)
 {
     QString newText ;
@@ -106,7 +114,6 @@ void ChoiceItem::setItem(XSchemaChoice *newItem)
                 childAdded(child);
             }
             newText =  _item->description();
-            _graphicsItem->setToolTip(_item->tagName());
         }
     }
     _labelItem->setPlainText(newText);
@@ -116,6 +123,7 @@ void ChoiceItem::setItem(XSchemaChoice *newItem)
         setGradientColor(gradient, _item->compareState());
         _graphicsItem->setBrush(QBrush(gradient));
     }
+    buildTooltip();
 }
 
 void ChoiceItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -200,6 +208,14 @@ XSchemaSequence *SequenceItem::sequence() const
     return _item ;
 }
 
+QString SequenceItem::preTooltipString()
+{
+    if(NULL != _item) {
+        return _item->tagName();
+    }
+    return "" ;
+}
+
 void SequenceItem::setItem(XSchemaSequence *newItem)
 {
     QString descr = "" ;
@@ -216,7 +232,6 @@ void SequenceItem::setItem(XSchemaSequence *newItem)
                 childAdded(child);
             }
             descr = _item->description();
-            _graphicsItem->setToolTip(_item->tagName());
         }
     }
     _labelItem->setPlainText(descr);
@@ -226,6 +241,7 @@ void SequenceItem::setItem(XSchemaSequence *newItem)
         setGradientColor(gradient, _item->compareState());
         _graphicsItem->setBrush(QBrush(gradient));
     }
+    buildTooltip();
 }
 
 void SequenceItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -373,6 +389,7 @@ void GroupItem::setItem(XSchemaObject *newItem)
     path.lineTo(0, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+    buildTooltip();
 }
 
 void GroupItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -518,6 +535,7 @@ void AttributeGroupItem::setItem(XSchemaObject *newItem)
     path.lineTo(0, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+    buildTooltip();
 }
 
 void AttributeGroupItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)

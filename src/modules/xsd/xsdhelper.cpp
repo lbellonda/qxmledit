@@ -603,7 +603,7 @@ Element *XSDHelper::findAnnotation(Element *element, XSDOperationParameters *par
         qNames.insert(TAG_ANNOTATION);
     } else {
         foreach(QString key, params->xsdNamespacePrefixes().values()) {
-            if( key.isEmpty()) {
+            if(key.isEmpty()) {
                 qNames.insert(TAG_ANNOTATION) ;
             } else {
                 qNames.insert(QString("%1:%2").arg(key).arg(TAG_ANNOTATION)) ;

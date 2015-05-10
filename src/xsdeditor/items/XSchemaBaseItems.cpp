@@ -256,6 +256,19 @@ QGraphicsTextItem *XSDItem::createTypeItem(QGraphicsItem *parent, XsdGraphicCont
     return gItem;
 }
 
+void XSDItem::buildTooltip()
+{
+    QString annotationInfo;
+    if(NULL != item()) {
+        if(NULL != item()->annotation()) {
+            annotationInfo = item()->annotation()->text();
+        }
+    }
+    QString preTooltip = preTooltipString();
+    QString toolTip = preTooltip + annotationInfo ;
+    graphicItem()->setToolTip(toolTip);
+}
+
 
 /**
   WARNING: this routine calls an asynchronous dispatch handler at the end of which
@@ -334,6 +347,11 @@ void XSDItem::setGradientColor(GraphicsRoundRectItem *item, const XSDCompareStat
         item->setColorEnd(colorDelStart);
         break;
     }
+}
+
+QString XSDItem::preTooltipString()
+{
+    return "" ;
 }
 
 void XSDItem::setToolTipState(QGraphicsItem *item, const XSDCompareState::EXSDCompareState state)
@@ -890,7 +908,6 @@ XSDSchema *RootItem::schema() const
 
 void RootItem::setItem(XSDSchema *newItem)
 {
-    _graphicsItem->setToolTip("");
     if(_item != newItem) {
         if(NULL != _item) {
             disconnect(_item, SIGNAL(childAdded(XSchemaObject*)), this, SLOT(childAdded(XSchemaObject*)));
@@ -906,7 +923,7 @@ void RootItem::setItem(XSDSchema *newItem)
                 childAdded(child);
             }
             {
-                XSchemaRoot *root = static_cast<XSchemaRoot *>(_item);
+                /*XSchemaRoot *root = static_cast<XSchemaRoot *>(_item);
                 XSDSchema *schema = root->schema();
                 QString tooltip = QString("targetNamespace=\"%4\"\nnamespacePrefix=\"%1\"\nElements=%2\nAttributes=%3")
                                   .arg(root->namespacePrefix())
@@ -917,10 +934,31 @@ void RootItem::setItem(XSDSchema *newItem)
                     tooltip += QString("\nnamespace: " + ns);
                 }
 
-                _graphicsItem->setToolTip(tooltip);
+                _graphicsItem->setToolTip(tooltip);*/
             }
         }
     }
+    buildTooltip();
+}
+
+QString RootItem::preTooltipString()
+{
+    Utils::TODO_THIS_RELEASE("non passa di qua");
+    if(NULL == _item) {
+        return "" ;
+    }
+    XSchemaRoot *root = static_cast<XSchemaRoot *>(_item);
+    XSDSchema *schema = root->schema();
+    QString tooltip = QString("targetNamespace=\"%4\"\nnamespacePrefix=\"%1\"\nElements=%2\nAttributes=%3")
+                      .arg(root->namespacePrefix())
+                      .arg(schema->elementsQualifiedString())
+                      .arg(schema->attributesQualifiedString())
+                      .arg(schema->targetNamespace());
+    foreach(QString ns, schema->allNamespaces()) {
+        tooltip += QString("\nnamespace: " + ns);
+    }
+    tooltip += "\n";
+    return tooltip;
 }
 
 void RootItem::objectDeleted(XSchemaObject* /*self*/)
@@ -999,7 +1037,6 @@ qreal ContainerItem::marginBottom()
 
 void ContainerItem::setItem(XSchemaContainer *newItem)
 {
-    _graphicsItem->setToolTip("");
     QString newLabel = "";
     if(_item != newItem) {
         if(NULL != _item) {
@@ -1022,6 +1059,7 @@ void ContainerItem::setItem(XSchemaContainer *newItem)
     _label->setPlainText(newLabel);
     QRectF labelRect = _label->boundingRect();
     _topOffsetForLabel = labelRect.height() + ContainerLabelPad ;
+    buildTooltip();
 }
 
 void ContainerItem::objectDeleted(XSchemaObject* /*self*/)
@@ -1172,6 +1210,7 @@ ElementItem::ElementItem(XsdGraphicContext *newContext, XSchemaElement *newItem,
 {
     _isDiff = false;
     newContext->scene()->addItem(_graphicsItem);
+    _graphicsItem->setToolTip("TEST TOOLTIP");
     _graphicsItem->setData(XSD_ITEM_DATA, qVariantFromValue((void*)this));
     init(newContext);
     setItem(newItem);
@@ -1396,6 +1435,9 @@ void ElementItem::setItem(XSchemaElement *newItem)
         _iconInfo->hide();
     }
     changeGraphics();
+    if(!_isDiff) {
+        buildTooltip();
+    }
 }
 
 void ElementItem::setIconType()
@@ -1625,6 +1667,7 @@ void AttributeItem::setItem(XSchemaAttribute *newItem)
     qreal height = size.y() + size.height() + 4;
     _contour = QRectF(0, 0, width, height);
     _graphics->setRect(_contour);
+    buildTooltip();
 }
 
 void AttributeItem::childAdded(XSchemaObject *newChild)
@@ -1813,6 +1856,7 @@ void GenericItem::setItem(XSchemaObject *newItem)
     path.lineTo(0, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+    buildTooltip();
 }
 
 void GenericItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -1954,6 +1998,7 @@ void AllItem::setItem(XSchemaObject *newItem)
     path.lineTo(0, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+    buildTooltip();
 }
 
 void AllItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -2115,7 +2160,7 @@ void DerivationItem::setItem(XSchemaObject *newItem)
     path.lineTo(0, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
-
+    buildTooltip();
 }
 
 void DerivationItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)

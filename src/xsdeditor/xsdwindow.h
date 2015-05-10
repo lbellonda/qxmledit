@@ -236,6 +236,8 @@ protected:
     virtual qreal extraSpace();
     void doShowInfo(const bool showInfo, const QString &tipText, QList<QGraphicsItem*> &items);
     void createIconInfo(QGraphicsItem *theParent, const int xPos = 10, const int yPos = 10);
+    void buildTooltip();
+    virtual QString preTooltipString();
 
 public:
     XSDItem(XsdGraphicContext *newContext);
@@ -280,6 +282,9 @@ class RootItem : public XSDItem
     XSDSchema *_item;
 
     void init(XsdGraphicContext *context);
+
+protected:
+    QString preTooltipString();
 
 public:
     //IS_TYPE(TypeSchema)
@@ -466,6 +471,7 @@ private slots:
 
 protected:
     virtual qreal extraSpace();
+    virtual QString preTooltipString();
 
 public:
 
@@ -506,6 +512,7 @@ private slots:
 
 protected:
     virtual qreal extraSpace();
+    virtual QString preTooltipString();
 
 public:
 

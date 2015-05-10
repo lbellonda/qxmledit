@@ -168,6 +168,7 @@ void IncludeItem::setItem(XSchemaObject *newItem)
     path.lineTo(0, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+    buildTooltip();
 }
 
 void IncludeItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -326,6 +327,7 @@ void RedefineItem::setItem(XSchemaObject *newItem)
     path.lineTo(0, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+    buildTooltip();
 }
 
 void RedefineItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -483,6 +485,7 @@ void ImportItem::setItem(XSchemaObject *newItem)
     path.lineTo(0, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+    buildTooltip();
 }
 
 void ImportItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)

@@ -139,6 +139,7 @@ void RestrictionItem::setItem(XSchemaObject *newItem)
         setGradientColor(gradient, _item->compareState());
         _graphicsItem->setBrush(QBrush(gradient));
     }
+    buildTooltip();
 }
 
 void RestrictionItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -261,6 +262,7 @@ void UnionItem::setItem(XSchemaObject *newItem)
         setGradientColor(gradient, _item->compareState());
         _graphicsItem->setBrush(QBrush(gradient));
     }
+    buildTooltip();
 }
 
 void UnionItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -326,7 +328,9 @@ void ListItem::init(XsdGraphicContext *newContext)
     _nameWidget = new QGraphicsSimpleTextItem(_graphicsItem);
     if(NULL != _nameWidget) {
         _nameWidget->setText(tr("List"));
-        _nameWidget->setPos(0, 30);
+        int h = _nameWidget->boundingRect().height();
+        int w = _nameWidget->boundingRect().width();
+        _nameWidget->setPos((60 - w) / 2, h / 2);
     }
 
     connect(_graphicsItem, SIGNAL(itemChanged(QGraphicsItem::GraphicsItemChange, const QVariant&)), this, SLOT(itemChanged(QGraphicsItem::GraphicsItemChange, const QVariant&)));
@@ -384,6 +388,7 @@ void ListItem::setItem(XSchemaObject *newItem)
         setGradientColor(gradient, _item->compareState());
         _graphicsItem->setBrush(QBrush(gradient));
     }
+    buildTooltip();
 }
 
 void ListItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &/*value*/)
