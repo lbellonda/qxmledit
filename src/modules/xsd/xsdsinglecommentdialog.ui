@@ -276,16 +276,15 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>tabWidget</tabstop>
   <tabstop>textValue</tabstop>
   <tabstop>typeDoc</tabstop>
   <tabstop>typeAppInfo</tabstop>
   <tabstop>uri</tabstop>
   <tabstop>lang</tabstop>
+  <tabstop>tabWidget</tabstop>
   <tabstop>cmdAdvanced</tabstop>
  </tabstops>
  <resources>
-  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

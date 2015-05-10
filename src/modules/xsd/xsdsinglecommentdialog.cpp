@@ -60,6 +60,7 @@ XSDSingleCommentDialog::XSDSingleCommentDialog(const bool argOpenedAsStarting, X
     ui->textValue->setPlainText(newModel->contentString());
     activateButtons();
     _textChanged = true ;
+    ui->textValue->setFocus();
 }
 
 XSDSingleCommentDialog::~XSDSingleCommentDialog()
