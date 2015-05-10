@@ -33,6 +33,11 @@ A copy of the license is included. Source for icons can be obtained from site ab
 source directory. All icons in this directory are by oxygen project. Images in 'images' directory are derived by oxygen,
 excluding mainIcons.icns, icon.png and icon.svg that are original work.
 
+Site and source code
+--------------------
+The source code link is currently:
+https://github.com/lbellonda/qxmledit
+
 Requirements
 ------------
 QT libraries version 4.7 or higher are required.
