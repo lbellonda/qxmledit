@@ -201,6 +201,7 @@ protected:
     bool _childrenSizeInvalid;
     qreal _realChildrenHeight;
     bool _isBase;
+    bool _isDiff ;
 
     //---------------------------------------------------
 public:
@@ -365,9 +366,8 @@ class AttributeItem : public XSDItem
     TextItem *_textItem ;
     QGraphicsPixmapItem *_iconLink;
     QGraphicsPixmapItem *_iconType;
-    bool _isDiff;
 
-    void init(XsdGraphicContext *newContext);
+    void init();
 
 private slots:
 
@@ -412,7 +412,6 @@ class ElementItem : public XSDItem
     QGraphicsPixmapItem *_iconLink;
     QGraphicsPixmapItem *_iconType;
     QGraphicsLineItem *_separator;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -460,7 +459,6 @@ class ChoiceItem : public XSDItem
     QGraphicsPixmapItem *_iconItem;
     CircleItem *_graphicsItem;
     QGraphicsTextItem *_labelItem;
-    bool _isDiff ;
     qreal _extraSpace;
 
     void init(XsdGraphicContext *newContext);
@@ -501,7 +499,6 @@ class SequenceItem : public XSDItem
     GraphicsRectItem *_graphicsItem;
     QGraphicsTextItem *_labelItem;
     QGraphicsPixmapItem *_icon;
-    bool _isDiff;
     qreal _extraSpace;
 
     void init(XsdGraphicContext *newContext);
@@ -545,7 +542,6 @@ class RestrictionItem : public XSDItem
     PolygonItem *_graphicsItem;
     QGraphicsTextItem *_facets;
     QGraphicsTextItem *_name;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -580,7 +576,6 @@ class UnionItem : public XSDItem
     QPolygonF _contour ;
     XSchemaSimpleTypeUnion *_item;
     PolygonItem *_graphicsItem;
-    bool _isDiff;
     QGraphicsSimpleTextItem *_pName ;
 
     void init(XsdGraphicContext *newContext);
@@ -617,7 +612,6 @@ class ListItem : public XSDItem
     XSchemaSimpleTypeList *_item;
     PolygonItem *_graphicsItem;
     QGraphicsSimpleTextItem *_nameWidget ;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -653,7 +647,6 @@ class GenericItem : public XSDItem
     PolygonItem *_graphicsItem;
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_textItem ;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -694,7 +687,6 @@ class GroupItem : public XSDItem
     PolygonItem *_graphicsItem;
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_textItem ;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -734,7 +726,6 @@ class AttributeGroupItem : public XSDItem
     PolygonItem *_graphicsItem;
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_textItem ;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -774,7 +765,6 @@ class IncludeItem : public XSDItem
     PolygonItem *_graphicsItem;
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_textItem ;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -813,7 +803,6 @@ class RedefineItem : public XSDItem
     PolygonItem *_graphicsItem;
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_textItem ;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -851,7 +840,6 @@ class ImportItem : public XSDItem
     PolygonItem *_graphicsItem;
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_textItem ;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -890,7 +878,6 @@ class AllItem : public XSDItem
     PolygonItem *_graphicsItem;
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_textItem ;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -930,7 +917,6 @@ class DerivationItem : public XSDItem
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_textItem ;
     QGraphicsPixmapItem *_iconLink;
-    bool _isDiff;
 
     void init(XsdGraphicContext *newContext);
     void reset();

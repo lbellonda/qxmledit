@@ -35,7 +35,6 @@ ChoiceItem::ChoiceItem(XsdGraphicContext *newContext, XSchemaChoice *newItem, QG
       _graphicsItem(new CircleItem(this)), _labelItem(NULL)
 {
     _extraSpace = 0;
-    _isDiff = false;
     newContext->scene()->addItem(_graphicsItem);
     _graphicsItem->setData(XSD_ITEM_DATA, qVariantFromValue((void*)this));
     init(newContext);
@@ -51,9 +50,8 @@ void ChoiceItem::reset()
 {
 }
 
-void ChoiceItem::init(XsdGraphicContext *newContext)
+void ChoiceItem::init(XsdGraphicContext * /*newContext*/)
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
     _contour = QRectF(0, 0, 30, 30);
     _graphicsItem->setRect(_contour);
     _graphicsItem->setFlag(QGraphicsItem::ItemIsMovable, false);
@@ -138,10 +136,8 @@ void ChoiceItem::setItem(XSchemaChoice *newItem)
     } else {
         _iconInfo->hide();
     }
-    if(!_isDiff) {
-        Utils::TODO_THIS_RELEASE("fattorizza il _diff");
-        buildTooltip();
-    }
+    Utils::TODO_THIS_RELEASE("fattorizza il _diff");
+    buildTooltip();
 }
 
 void ChoiceItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
@@ -171,7 +167,6 @@ SequenceItem::SequenceItem(XsdGraphicContext *newContext, XSchemaSequence *newIt
       _graphicsItem(new GraphicsRectItem(this)), _labelItem(NULL)
 {
     _extraSpace = 0 ;
-    _isDiff = false;
     newContext->scene()->addItem(_graphicsItem);
     _graphicsItem->setData(XSD_ITEM_DATA, qVariantFromValue((void*)this));
     init(newContext);
@@ -187,9 +182,8 @@ void SequenceItem::reset()
 {
 }
 
-void SequenceItem::init(XsdGraphicContext *newContext)
+void SequenceItem::init(XsdGraphicContext * /*newContext*/)
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
     _contour = QRectF(0, 0, 30, 30);
     _graphicsItem->setRect(_contour);
     _graphicsItem->setFlag(QGraphicsItem::ItemIsMovable, false);
@@ -319,7 +313,6 @@ void GroupItem::reset()
 
 void GroupItem::init(XsdGraphicContext *newContext)
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
     QPainterPath path;
     path.moveTo(150, 50);
     path.arcTo(100, 0, 50, 50, 0, 90);
@@ -465,7 +458,6 @@ void AttributeGroupItem::reset()
 
 void AttributeGroupItem::init(XsdGraphicContext *newContext)
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
     QPainterPath path;
     path.moveTo(150, 50);
     path.arcTo(100, 0, 50, 50, 0, 90);

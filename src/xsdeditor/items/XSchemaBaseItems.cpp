@@ -147,6 +147,7 @@ XSDItem::XSDItem(XsdGraphicContext *newContext) : _menuBuilder(this), _iconInfo(
     _context = newContext;
     _chain = NULL ;
     _isBase = false;
+    _isDiff = (NULL != newContext) ? newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF : false ;
 }
 
 XSDItem::~XSDItem()
@@ -258,6 +259,9 @@ QGraphicsTextItem *XSDItem::createTypeItem(QGraphicsItem *parent, XsdGraphicCont
 
 void XSDItem::buildTooltip()
 {
+    if(_isDiff) {
+        return ;
+    }
     QString annotationInfo;
     if(NULL != item()) {
         if(NULL != item()->annotation()) {
@@ -1212,7 +1216,6 @@ ElementItem::ElementItem(XsdGraphicContext *newContext, XSchemaElement *newItem,
       _graphicsItem(new GraphicsRoundRectItem(this)),
       _textItem(NULL), _propertiesItem(NULL), _iconLink(NULL), _separator(NULL)
 {
-    _isDiff = false;
     newContext->scene()->addItem(_graphicsItem);
     _graphicsItem->setToolTip("TEST TOOLTIP");
     _graphicsItem->setData(XSD_ITEM_DATA, qVariantFromValue((void*)this));
@@ -1241,7 +1244,7 @@ void ElementItem::reset()
 
 void ElementItem::init(XsdGraphicContext *newContext)
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
+    Utils::TODO_THIS_RELEASE("_isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ");
     _graphicsItem->setFlag(QGraphicsItem::ItemIsMovable, false);
     _graphicsItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
     _graphicsItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
@@ -1439,9 +1442,7 @@ void ElementItem::setItem(XSchemaElement *newItem)
         _iconInfo->hide();
     }
     changeGraphics();
-    if(!_isDiff) {
-        buildTooltip();
-    }
+    buildTooltip();
 }
 
 void ElementItem::setIconType()
@@ -1566,10 +1567,9 @@ AttributeItem::AttributeItem(XsdGraphicContext *newContext, XSchemaAttribute *ne
     : XSDItem(newContext),
       _item(NULL), _graphics(new GraphicsRoundRectItem(this)), _textItem(NULL)
 {
-    _isDiff = false;
     newContext->scene()->addItem(_graphics);
     _graphics->setData(XSD_ITEM_DATA, qVariantFromValue((void*)this));
-    init(newContext);
+    init();
     setItem(newItem);
 }
 
@@ -1580,9 +1580,8 @@ AttributeItem::~AttributeItem()
     //}
 }
 
-void AttributeItem::init(XsdGraphicContext *newContext)
+void AttributeItem::init()
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
     _contour = QRectF(0, 0, 80, 20);
     _graphics->setRect(_contour);
     _graphics->setFlag(QGraphicsItem::ItemIsMovable, false);
@@ -1737,7 +1736,6 @@ void GenericItem::reset()
 
 void GenericItem::init(XsdGraphicContext *newContext)
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
     //_contour = QRectF( 0, 0, 100, 100 );
     QPainterPath path;
     path.moveTo(150, 50);
@@ -1899,7 +1897,6 @@ void AllItem::reset()
 
 void AllItem::init(XsdGraphicContext *newContext)
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
     QPainterPath path;
     path.moveTo(150, 50);
     path.arcTo(100, 0, 50, 50, 0, 90);
@@ -2044,7 +2041,6 @@ void DerivationItem::reset()
 
 void DerivationItem::init(XsdGraphicContext *newContext)
 {
-    _isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ;
     _contour = QRectF(0, 0, 100, 100);
     /*QPainterPath path;
     path.moveTo(150, 50);
