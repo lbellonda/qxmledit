@@ -1,4 +1,5 @@
 0.8.15
+    Added a tooltip with annotations in the XSD view.
     Per editor indentation settings.
     Used the same options for compiler for the main project and tests.
     Removed unsupported display mode and option.
