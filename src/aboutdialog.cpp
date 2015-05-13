@@ -35,7 +35,9 @@ AboutDialog::AboutDialog(QWidget *parent,
 {
     ui->setupUi(this);
     ui->applicationName->setText(applicationName);
-    ui->version->setText(version);
+    QString versionWithSpaces = " ";
+    versionWithSpaces += version ;
+    ui->version->setText(versionWithSpaces);
     ui->copyR->setText(copyRight);
     ui->license->setText(tr("License: %1").arg(license)) ;
     ui->icons->setText(otherLicenses);
