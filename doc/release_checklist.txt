@@ -46,3 +46,4 @@ After release
 - Change TODO_NEXT_RELEASE in TODO_THIS_RELEASE.
 - Enable TODO_THIS_RELEASE in utils.h
 - Change the version number in MacOS pList
+- Change the version number in version.pri
