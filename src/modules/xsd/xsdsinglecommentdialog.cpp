@@ -49,10 +49,10 @@ XSDSingleCommentDialog::XSDSingleCommentDialog(const bool argOpenedAsStarting, X
         ui->cmdAdvanced->setVisible(false);
         ui->cmdAdvanced->setEnabled(false);
     }
-    ui->uri->setCurrentText(_origModel->source());
+    ui->uri->setEditText(_origModel->source());
     if(_origModel->getType() == SchemaTypeDocumentation) {
         XDocumentation *doc = static_cast<XDocumentation*>(_origModel);
-        ui->lang->setCurrentText(doc->language());
+        ui->lang->setEditText(doc->language());
         ui->typeDoc->setChecked(true);
     } else {
         ui->typeAppInfo->setChecked(true);
