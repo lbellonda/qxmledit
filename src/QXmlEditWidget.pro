@@ -54,7 +54,7 @@ isEmpty(INST_INCLUDE_DIR) {
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
-unix:VERSION = 0.8.12
+include("version.pri")
 
 QT       += xml xmlpatterns network svg
 

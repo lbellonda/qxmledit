@@ -344,7 +344,8 @@ OTHER_FILES += \
     ../TODO \
     ../NEWS \
     QXmlEdit.plist \
-    resources/data/unicodeChars.xml
+    resources/data/unicodeChars.xml \
+    version.pri
 
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
