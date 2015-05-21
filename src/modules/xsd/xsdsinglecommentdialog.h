@@ -59,6 +59,7 @@ public:
     virtual bool isCallExtended();
     virtual XInfoBase* createModel();
     void loadLangCodes();
+    virtual int runExec();
 
 public slots:
     void accept();

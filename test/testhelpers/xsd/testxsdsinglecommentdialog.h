@@ -42,10 +42,7 @@ public:
 
     XInfoBase* createModel();
 
-signals:
-
-public slots:
-    virtual int exec();
+    virtual int runExec();
 };
 
 #endif // TESTXSDSINGLECOMMENTDIALOG_H

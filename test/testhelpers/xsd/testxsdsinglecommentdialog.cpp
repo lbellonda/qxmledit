@@ -36,7 +36,7 @@ TestXSDSingleCommentDialog::~TestXSDSingleCommentDialog()
 {
 }
 
-int TestXSDSingleCommentDialog::exec()
+int TestXSDSingleCommentDialog::runExec()
 {
     switch(_manager->provider->testCase ) {
     default:

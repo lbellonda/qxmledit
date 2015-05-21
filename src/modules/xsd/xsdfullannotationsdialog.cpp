@@ -44,6 +44,11 @@ XSDFullAnnotationsDialog::~XSDFullAnnotationsDialog()
     delete ui;
 }
 
+int XSDFullAnnotationsDialog::runExec()
+{
+    return exec();
+}
+
 void XSDFullAnnotationsDialog::setupUI()
 {
     ui->annotations->setSelectionBehavior(QAbstractItemView::SelectRows);

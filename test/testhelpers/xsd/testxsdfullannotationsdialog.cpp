@@ -38,7 +38,7 @@ TestXSDFullAnnotationsDialog::~TestXSDFullAnnotationsDialog()
 }
 
 
-int TestXSDFullAnnotationsDialog::exec()
+int TestXSDFullAnnotationsDialog::runExec()
 {
     switch (_manager->provider->testCase ) {
     default:

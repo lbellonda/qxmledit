@@ -57,6 +57,7 @@ public:
     void deleteItem(const int index);
 
     XSDAnnotationModel *data();
+    virtual int runExec();
 
 private:
     Ui::XSDFullAnnotationsDialog *ui;

@@ -38,11 +38,7 @@ public:
     explicit TestXSDFullAnnotationsDialog(TestAnnotXSDAnnotationEditor *newManager, XSDAnnotationModel *newModel, QWidget *parent = 0);
     virtual ~TestXSDFullAnnotationsDialog();
 
-signals:
-
-public slots:
-    virtual int exec();
-
+    virtual int runExec();
 };
 
 #endif // TESTXSDFULLANNOTATIONSDIALOG_H

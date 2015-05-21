@@ -68,6 +68,11 @@ XSDSingleCommentDialog::~XSDSingleCommentDialog()
     delete ui;
 }
 
+int XSDSingleCommentDialog::runExec()
+{
+    return exec();
+}
+
 bool XSDSingleCommentDialog::isCallExtended()
 {
     return _isCallExtended ;

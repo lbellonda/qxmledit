@@ -198,7 +198,7 @@ XSDDefaultAnnotationEditor::EditMode XSDDefaultAnnotationEditor::editSingleAnnot
 {
     XInfoBase *firstAnnotation = _model->firstAnnotation();
     XSDSingleCommentDialog *editSingle = singleEditDialog(firstAnnotation);
-    if(editSingle->exec() == QDialog::Accepted) {
+    if(editSingle->runExec() == QDialog::Accepted) {
         Utils::TODO_THIS_RELEASE("this is not fully correct: it is ok and edit extended, but the data can be unchanged");
         _hasResult = true ;
         _model->replaceOrAddChild(firstAnnotation, editSingle->createModel());
@@ -216,7 +216,7 @@ XSDDefaultAnnotationEditor::EditMode XSDDefaultAnnotationEditor::editSingleAnnot
 void XSDDefaultAnnotationEditor::editExtended()
 {
     XSDFullAnnotationsDialog *dlg = fullEditDialog(_model);
-    if(dlg->exec() == QDialog::Accepted) {
+    if(dlg->runExec() == QDialog::Accepted) {
         resetModel();
         _model = dlg->data();
         _hasResult = true ;
