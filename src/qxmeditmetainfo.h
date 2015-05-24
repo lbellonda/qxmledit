@@ -28,5 +28,6 @@
 
 #define QXMLEDIT_PROJECT_LOCATION    "https://github.com/lbellonda/qxmledit"
 #define QXMLEDIT_ISSUES_LOCATION    "https://github.com/lbellonda/qxmledit/issues"
+#define QXMLEDIT_SITE    "http://qxmledit.org"
 
 #endif // QXMEDITMETAINFO_H

@@ -57,6 +57,7 @@ AboutDialog::AboutDialog(QWidget *parent,
 
     QString projectLocation = ui->lblProjectLocation->text() ;
     projectLocation.replace("$PJLOC", QXMLEDIT_PROJECT_LOCATION);
+    projectLocation.replace("$JPSITE", QXMLEDIT_SITE);
     ui->lblProjectLocation->setText(projectLocation);
 
     QString issuesLocation = ui->lblIssues->text();
