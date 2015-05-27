@@ -1,4 +1,6 @@
 0.8.15
+    Updated shortcuts for new functions and avoid MacOS key binding clash.
+    Updated Desktop file with suggestions and translations by Kyrill Detinov.
     Added a tooltip with annotations in the XSD view.
     Per editor indentation settings.
     Used the same options for compiler for the main project and tests.

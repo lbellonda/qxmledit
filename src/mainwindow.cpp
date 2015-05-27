@@ -234,6 +234,14 @@ bool MainWindow::finishSetUpUi()
         Utils::error(this, tr("The XML Editor component is not correct (%1)").arg(ui.editor->versionNumber()));
         return false;
     }
+    // setup function keys modifier for macos
+#if defined(MACOS_SPECIFIC)
+    ui.actionGo_To_Parent->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F11));
+    ui.actionGo_to_Previous_Brother->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F9));
+    ui.actionGo_to_Next_Brother->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F10));
+    ui.actionCloseThisAllBrothers->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F12));
+#endif
+
     ui.editor->setData(application, data, isSlave, this);
     if(!ui.editor->init()) {
         Utils::error(this, tr("XML Editor initialization failed"));

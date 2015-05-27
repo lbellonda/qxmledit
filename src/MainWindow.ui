@@ -508,7 +508,7 @@
     <string>Add &amp;Comment as Child...</string>
    </property>
    <property name="shortcut">
-    <string>Shift+F3</string>
+    <string>Ctrl+3</string>
    </property>
   </action>
   <action name="actionAppendComment">
@@ -516,7 +516,7 @@
     <string>Append C&amp;omment as Brother...</string>
    </property>
    <property name="shortcut">
-    <string>F4</string>
+    <string>Ctrl+4</string>
    </property>
   </action>
   <action name="actionAddProcessingInstruction">
@@ -524,7 +524,7 @@
     <string>Add Processing Instruction as Child...</string>
    </property>
    <property name="shortcut">
-    <string>F5</string>
+    <string>Ctrl+5</string>
    </property>
   </action>
   <action name="actionAppendProcessingInstruction">
@@ -532,7 +532,7 @@
     <string>Append Processing Instruction as Brother...</string>
    </property>
    <property name="shortcut">
-    <string>F6</string>
+    <string>Ctrl+6</string>
    </property>
   </action>
   <action name="actionAddChildElement">
@@ -1854,6 +1854,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>
