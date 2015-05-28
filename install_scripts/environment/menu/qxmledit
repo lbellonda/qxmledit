@@ -5,4 +5,4 @@
         title="QXmlEdit"\
         longtitle="QXmlEdit (XML Editor)"\
         icon="$ICONS_DIR/qxmledit.png"\
-        command="$BIN_PATH/QXmlEdit"
+        command="$BIN_PATH/qxmledit"

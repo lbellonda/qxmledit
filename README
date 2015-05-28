@@ -35,6 +35,7 @@ excluding mainIcons.icns, icon.png and icon.svg that are original work.
 
 Site and source code
 --------------------
+The project site is: qxmledit.org
 The source code link is currently:
 https://github.com/lbellonda/qxmledit
 
@@ -42,20 +43,18 @@ Discussion group:
 -----------------
 http://groups.google.com/group/qxmledit-discuss
 
-Release tarballs:
------------------
+Release tarballs and binary packages:
+-------------------------------------
 https://sourceforge.net/projects/qxmledit/files
 
 Requirements
 ------------
-QT libraries version 4.7 or higher are required.
+QT libraries version 4.8 or higher are required.
 QT 5 is supported.
 
 Limitations
 -----------
-Explicit namespace support lack.
+Lack of explicit namespace support.
 No external schema are loaded.
-
-
-Internally it does not use model/view paradigm, so algorithms are more complicated than it is necessary.
+Very incomplete support of DTD.
 

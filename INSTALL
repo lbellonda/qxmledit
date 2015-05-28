@@ -4,7 +4,7 @@ QXmlEdit Installation
 Requirements
 ============
 
-QXmlEdit requires QT 4 or QT 5 (4.7 or higher) to be installed. Qt sqlite driver and QtSql module are
+QXmlEdit requires QT 4 or QT 5 (4.8 or higher) to be installed. Qt sqlite driver and QtSql module are
 required.
 
 Quick Guide
@@ -46,9 +46,19 @@ folder for the includes of the xml edit widget: QXMLEDIT_INST_INCLUDE_DIR
 To link with qwt3dplot library set QXMLEDIT_USE_QWTPLOT environment variable to "Y" before
  calling qmake (or define USE_QWTPLOT="Y" in the application project file).
 
+To force the executable name all lowercase (qxmledit) as in Unix style, the following enviroment variable
+must be set to 1:
+QXMLEDIT_UNIX_LOWERCASE_NAME
+For unix, except MacOS, the flag is automatically set.
 
 If the environment variables are not set, a default is used.
 
+IMPORTANT NOTE FOR LINUX INSTALLERS
+-----------------------------------
+Starting from 0.8.15 the name of the executable on Unix systems, except MacOS, is lowercase by default.
+This behaviour can be changed via the QXMLEDIT_UNIX_LOWERCASE_NAME variable.
+The .desktop and .appdata file have been updated.
+This can require some attention when upgrading a previously installed package.
 
 Note for Qt4 compatibility
 --------------------------
@@ -58,8 +68,6 @@ the Qt designer to dialogs to compile under Qt4 with success.
 
 Additional resources
 --------------------
-
-
 There are resources for a Linux desktop installation:
 
 .desktop file in: install_scripts/environment/desktop/QXmlEdit.desktop
@@ -86,3 +94,15 @@ subdirectory and generate the script. The needed libraries are in the Qt and min
 There is a script for using QT5 and another one for QT4.
 
 Qt must be compiled statically to build a single file executable.
+
+Projects
+--------
+Main project: QXmlEdit.pro
+Unit tests: test/test.pro
+Test to use the XML editor as a library: testlib/testlib.pro
+Alternative project to compile QXmlEdit as a monolitic app: singleapp/singleapp.pro (Note: this project is not supported, it is intended for development).
+
+Other info
+----------
+Site: http://qxmledit.org
+
