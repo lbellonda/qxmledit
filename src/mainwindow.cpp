@@ -612,10 +612,8 @@ void MainWindow::treeContextMenu(const QPoint& position)
         contextMenu.addAction(ui.actionPasteAndSubstituteText);
         contextMenu.addAction(ui.actionEditInnerBase64Text);
     }
-    if(!isSlave && isActionMode) {
-        contextMenu.addAction(ui.actionEditInnerXML);
-    }
     if(isActionMode) {
+        contextMenu.addAction(ui.actionEditInnerXML);
         contextMenu.addAction(ui.actionEditInnerXMLBase64);
         contextMenu.addAction(ui.actionTransforminSnippet);
         contextMenu.addSeparator() ;
@@ -746,7 +744,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionAddProcessingInstruction->setEnabled(!isExplore);
     ui.actionDelete->setEnabled(isSomeItemSelected && !isExplore);
     ui.actionEditInnerBase64Text->setEnabled(isSomeItemSelected && !isExplore);
-    ui.actionEditInnerXML->setEnabled(isSomeItemSelected && !isSlave && !isExplore);
+    ui.actionEditInnerXML->setEnabled(isSomeItemSelected && !isExplore);
     ui.actionEditInnerXMLBase64->setEnabled(isSomeItemSelected && !isExplore);
     ui.actionEdit->setEnabled(isSomeItemSelected);
     ui.actionMoveUp->setEnabled(selectSpecialsUp && !isExplore);
