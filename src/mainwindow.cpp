@@ -33,7 +33,7 @@ Rules to edit:
 #include <QXmlSchemaValidator>
 
 extern const char *APP_TITLE ;
-
+#include <xmlEdit.h>
 #include "utils.h"
 #include "mainwindow.h"
 #include "config.h"
@@ -235,7 +235,7 @@ bool MainWindow::finishSetUpUi()
         return false;
     }
     // setup function keys modifier for macos
-#if defined(MACOS_SPECIFIC)
+#if defined(ENVIRONMENT_MACOS)
     ui.actionGo_To_Parent->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F11));
     ui.actionGo_to_Previous_Brother->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F9));
     ui.actionGo_to_Next_Brother->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F10));
