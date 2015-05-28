@@ -39,7 +39,13 @@
 #message(QXMLEDIT_INST_DOC_DIR = $$(QXMLEDIT_INST_DOC_DIR))
 #message(QXMLEDIT_INST_LIB_DIR = $$(QXMLEDIT_INST_LIB_DIR))
 #message(QXMLEDIT_INST_TRANSLATIONS_DIR = $$(QXMLEDIT_INST_TRANSLATIONS_DIR))
+#message(QXMLEDIT_UNIX_LOWERCASE_NAME = $$(QXMLEDIT_UNIX_LOWERCASE_NAME))
 
+
+INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
+isEmpty(INST_DATA_DIR) {
+    INST_DATA_DIR = /opt/qxmledit
+}
 INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
 isEmpty(INST_DATA_DIR) {
     INST_DATA_DIR = /opt/qxmledit
@@ -70,8 +76,22 @@ isEmpty(USE_QWTPLOT) {
     USE_QWTPLOT="N"
 }
 
+TARGET_NAME_UNIXSTYLE=$$(QXMLEDIT_UNIX_LOWERCASE_NAME)
+
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
+include("version.pri")
+
+#default value for the unix/Linux target name
+TARGET_NAME_UNIXSTYLE_DEFAULT=""
+
+unix:!macx: {
+   TARGET_NAME_UNIXSTYLE_DEFAULT="1"
+}
+
+equals(TARGET_NAME_UNIXSTYLE, "") {
+    TARGET_NAME_UNIXSTYLE = $$TARGET_NAME_UNIXSTYLE_DEFAULT
+}
 
 TEMPLATE = app
 
@@ -97,6 +117,10 @@ win32 {
 
 macx: {
     QT       += macextras
+}
+
+equals(TARGET_NAME_UNIXSTYLE, "1") {
+    TARGET = qxmledit
 }
 
 win32-msvc2010 {
