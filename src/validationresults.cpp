@@ -22,8 +22,8 @@
 
 #include "xmlEdit.h"
 #include <QDomDocument>
+#include "validatormessagehandler.h"
 #include "xmleditwidgetprivate.h"
-#include "validationresults.h"
 #include "texteditutils.h"
 #include "utils.h"
 
