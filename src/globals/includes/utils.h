@@ -138,6 +138,7 @@ public:
 
     static QString escape(const QString &str);
     static QString fmtNumber(const bool isHex, const int number, const int fieldWidth, const bool usePrefix = true);
+    static QString convertHtmlToPlainText(const QString &inValue);
 };
 
 

@@ -268,6 +268,7 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(readOnlyStateChanged()), this, SLOT(onReadOnlyStateChanged()));
     connect(ui.editor, SIGNAL(encodingChanged(const QString &)), this, SLOT(onEditorEncodingChanged(const QString &)));
     connect(ui.editor, SIGNAL(indentationChanged(const bool, const int)), this, SLOT(onIndentationChanged(const bool, const int)));
+    connect(ui.editor, SIGNAL(schemaValidationError(const QString &, Element *)), this, SLOT(onSchemaValidationError(const QString &, Element *)));
 
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(folderOpenRequest(const QString&)), this, SLOT(onSessionFolderOpenRequest(const QString&)));
@@ -2773,6 +2774,13 @@ void MainWindow::onEncodingChanged(QAction* action)
             }
         }
     }
+}
+
+void MainWindow::onSchemaValidationError(const QString &message, Element * /*element*/)
+{
+    Utils::TODO_THIS_RELEASE("troppo nel widget");
+    statusBar()->showMessage(message);
+    appData()->notifier()->notify(this, message);
 }
 
 void MainWindow::onIndentationChanged(const bool indentationEnabled, const int newIndent)

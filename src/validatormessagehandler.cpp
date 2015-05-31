@@ -21,6 +21,7 @@
  **************************************************************************/
 
 #include "validatormessagehandler.h"
+#include "utils.h"
 
 #ifndef USE_QT_44
 
@@ -41,5 +42,9 @@ void ValidatorMessageHandler::handleMessage(QtMsgType type, const QString & desc
     _sourceLocation = sourceLocation ;
 }
 
+QString ValidatorMessageHandler::descriptionInPlainText()
+{
+    return Utils::convertHtmlToPlainText(_description);
+}
 
 #endif

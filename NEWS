@@ -1,4 +1,5 @@
 0.8.15
+    Removed validation error dialog, highlighted the target object in the editor.
     Updated shortcuts for new functions and avoid MacOS key binding clash.
     Updated Desktop file with suggestions and translations by Kyrill Detinov.
     Added a tooltip with annotations in the XSD view.

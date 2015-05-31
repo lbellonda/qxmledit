@@ -269,6 +269,7 @@ private slots:
     void on_actionInsertProlog_triggered();
     void onEncodingChanged(QAction* action);
     void onIndentationChanged(const bool indentationEnabled, const int newIndent);
+    void onSchemaValidationError(const QString &message, Element *element);
     void on_actionExportAsCSource_triggered();
     void on_actionCopyAllToClipboard_triggered();
     void on_actionCodePages_triggered();

@@ -332,6 +332,7 @@ signals:
     void readOnlyStateChanged();
     void encodingChanged(const QString &newEncoding);
     void indentationChanged(const bool indentationEnabled, const int newIndent);
+    void schemaValidationError(const QString &message, Element *element);
     //--------------- signals
 };
 

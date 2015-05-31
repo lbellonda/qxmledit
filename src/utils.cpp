@@ -884,3 +884,10 @@ QString Utils::fmtNumber(const bool isHex, const int number, const int fieldWidt
         return QString("%1").arg(finalNumber, fieldWidth, 10);
     }
 }
+
+QString Utils::convertHtmlToPlainText(const QString &inValue)
+{
+    QTextDocument doc;
+    doc.setHtml(inValue);
+    return doc.toPlainText();
+}

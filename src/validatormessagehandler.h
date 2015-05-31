@@ -63,6 +63,8 @@ public:
         return _sourceLocation.column() ;
     }
 
+    QString descriptionInPlainText();
+
 };
 
 #endif

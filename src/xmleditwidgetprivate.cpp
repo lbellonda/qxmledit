@@ -1612,8 +1612,8 @@ void XmlEditWidgetPrivate::onActionValidate()
     if(schemaValidator.validate(dataXml)) {
         Utils::message(p, tr("XML is valid."));
     } else {
-        Utils::error(p, tr("XML does not conform to schema. Validation failed."));
-        showValidationResults(regola->getAsText(), messageHandler, p) ;
+        Utils::error(p, tr("%1\nError: %2").arg(tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText()));
+        showValidationResults(regola->getAsText(), messageHandler) ;
     }
 }
 
@@ -1654,6 +1654,7 @@ void XmlEditWidgetPrivate::validateWithFile(const QString &filePath)
         ValidatorMessageHandler messageHandler;
         schemaHandler.load(schema);
         schemaHandler.setMessageHandler(&messageHandler);
+        Utils::TODO_THIS_RELEASE("refactor duplicates");
         if(!schemaHandler.isValid()) {
             Utils::error(p, tr("Schema is invalid"));
         } else {
@@ -1661,8 +1662,8 @@ void XmlEditWidgetPrivate::validateWithFile(const QString &filePath)
             if(schemaValidator.validate(dataXml)) {
                 Utils::message(p, tr("XML is valid."));
             } else {
-                Utils::error(p, tr("XML does not conform to schema. Validation failed."));
-                showValidationResults(QString::fromUtf8(dataXml), messageHandler, _uiDelegate->getMainWidget()) ;
+                Utils::error(p, tr("%1\nError: %2").arg(tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText()));
+                showValidationResults(QString::fromUtf8(dataXml), messageHandler) ;
             }
         }
     }

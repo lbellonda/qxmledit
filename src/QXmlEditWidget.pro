@@ -396,7 +396,6 @@ HEADERS += precompiled_lib.h \
     operationresult.h \
     qattributedelegate.h \
     stylepersistence.h \
-    validationresults.h \
     showtextdialog.h \
     widgets/navigationmode.h \
     xsdeditor/xsdplugin.h \
@@ -579,7 +578,6 @@ FORMS += xmleditwidget.ui \
     EditComment.ui \
     navigationbox.ui \
     showtextdialog.ui \
-    validationresults.ui \
     widgets/navigationmode.ui \
     xsdeditor/xsdwindow.ui \
     xsdeditor/widgets/elementeditor.ui \

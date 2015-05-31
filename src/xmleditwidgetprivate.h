@@ -38,6 +38,8 @@ class XElementContent;
 class LineEditWithCompleter;
 class AnonAlg ;
 class AnonymizeParameters;
+class ValidatorMessageHandler;
+class FindNodeWithLocationInfo;
 
 class XmlEditWidgetPrivate : public QObject, XSDAnnotationEditProvider
 {
@@ -374,6 +376,9 @@ private slots:
 private:
     void bindRegola(Regola *newModel, const bool bind = true);
     XSDOperationParameters *getXSDParams(const bool isInsert, XSDOperationParameters::EObjectType entityType, const QString &name, Element *selection);
+    void showValidationResults(const QString xmlAsText, ValidatorMessageHandler &validator);
+    QList<int> makeDomNodePath(QDomNode elementToExamine);
+    bool findDomNodeScan(QDomNode node, QDomNode nodeTarget, const int lineSearched, const int columnSearched, FindNodeWithLocationInfo &info);
 protected:
     bool eventFilter(QObject *obj, QEvent * event);
 
