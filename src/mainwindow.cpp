@@ -43,7 +43,6 @@ extern const char *APP_TITLE ;
 #include "test.h"
 #include "qxmledit.h"
 #include "validatormessagehandler.h"
-#include "validationresults.h"
 #include "snippet_interface.h"
 #include "elementitemdelegate.h"
 #include "aboutdialog.h"
@@ -777,7 +776,6 @@ void MainWindow::onComputeSelectionState()
 
     ui.actionValidate->setEnabled((NULL != regola) && !isExplore);
 
-    ui.actionValidateFile->setEnabled((NULL != regola) && ! regola->userDefinedXsd().isEmpty() && !isExplore);
     ui.actionValidateNewFile->setEnabled((NULL != regola) && !isExplore);
     ui.actionTransforminSnippet->setEnabled(isSomeItemSelected && !isExplore);
 
@@ -1547,11 +1545,6 @@ void MainWindow::loadPreferredDirsSettings()
 void MainWindow::on_actionValidate_triggered()
 {
     ui.editor->onActionValidate();
-}
-
-void MainWindow::on_actionValidateFile_triggered()
-{
-    ui.editor->onActionValidateFile();
 }
 
 void MainWindow::on_actionValidateNewFile_triggered()

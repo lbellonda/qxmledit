@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -249,7 +249,6 @@
     <addaction name="actionMoveDown"/>
     <addaction name="separator"/>
     <addaction name="actionValidate"/>
-    <addaction name="actionValidateFile"/>
     <addaction name="actionValidateNewFile"/>
    </widget>
    <widget class="QMenu" name="menuTools">
@@ -890,18 +889,10 @@
      <normaloff>:/configuration/validation</normaloff>:/configuration/validation</iconset>
    </property>
    <property name="text">
-    <string>Validate Using Document References</string>
+    <string>Validate</string>
    </property>
    <property name="toolTip">
     <string>Validate against a XSD</string>
-   </property>
-  </action>
-  <action name="actionValidateFile">
-   <property name="text">
-    <string>Validate Using Specified File</string>
-   </property>
-   <property name="toolTip">
-    <string>Validate using specified file</string>
    </property>
   </action>
   <action name="actionValidateNewFile">
@@ -909,7 +900,7 @@
     <string>Validate Using New Schema File...</string>
    </property>
    <property name="toolTip">
-    <string>Validate using new XSD File...</string>
+    <string>Validate using new XSD File.</string>
    </property>
   </action>
   <action name="actionInsertSnippet">

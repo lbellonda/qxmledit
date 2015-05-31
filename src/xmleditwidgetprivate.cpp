@@ -28,7 +28,6 @@
 #include "xmleditwidget.h"
 #include "xsdeditor/io/xschemaloader.h"
 #include "validatormessagehandler.h"
-#include "validationresults.h"
 #include "schemavalidator.h"
 #include "elementitemdelegate.h"
 #include "alloweditemsinsert.h"
@@ -1604,30 +1603,10 @@ void XmlEditWidgetPrivate::onActionValidate()
     if(NULL == regola) {
         return;
     }
-    QByteArray dataXml = regola->getAsText().toUtf8();
-    QXmlSchema schemaHandler;
-    ValidatorMessageHandler messageHandler;
-    schemaHandler.setMessageHandler(&messageHandler);
-    QXmlSchemaValidator schemaValidator(schemaHandler);
-    if(schemaValidator.validate(dataXml)) {
-        Utils::message(p, tr("XML is valid."));
-    } else {
-        Utils::error(p, tr("%1\nError: %2").arg(tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText()));
-        showValidationResults(regola->getAsText(), messageHandler) ;
-    }
-}
-
-void XmlEditWidgetPrivate::onActionValidateFile()
-{
-    if(!isActionMode()) {
-        return ;
-    }
-
-    if(NULL == regola) {
-        return;
-    }
     if(!regola->userDefinedXsd().isEmpty()) {
         validateWithFile(regola->userDefinedXsd());
+    } else {
+        onActionValidateNewFile();
     }
 }
 
@@ -1654,7 +1633,6 @@ void XmlEditWidgetPrivate::validateWithFile(const QString &filePath)
         ValidatorMessageHandler messageHandler;
         schemaHandler.load(schema);
         schemaHandler.setMessageHandler(&messageHandler);
-        Utils::TODO_THIS_RELEASE("refactor duplicates");
         if(!schemaHandler.isValid()) {
             Utils::error(p, tr("Schema is invalid"));
         } else {

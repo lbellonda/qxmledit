@@ -263,7 +263,6 @@ public:
     void onActionZoomOut();
     void onActionCopyPathToClipboard();
     void onActionValidate();
-    void onActionValidateFile();
     void onActionValidateNewFile();
     void onActionInsertSnippet();
     void onActionShowElementTextLength(const bool isChecked);

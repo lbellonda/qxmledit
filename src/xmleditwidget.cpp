@@ -26,7 +26,6 @@
 #include "ui_xmleditwidget.h"
 #include "xsdeditor/io/xschemaloader.h"
 #include "validatormessagehandler.h"
-#include "validationresults.h"
 #include "schemavalidator.h"
 #include "elementitemdelegate.h"
 #include "alloweditemsinsert.h"
@@ -578,11 +577,6 @@ void XmlEditWidget::onActionCopyPathToClipboard()
 void XmlEditWidget::onActionValidate()
 {
     d->onActionValidate();
-}
-
-void XmlEditWidget::onActionValidateFile()
-{
-    d->onActionValidateFile();
 }
 
 void XmlEditWidget::validateWithFile(const QString &filePath)

@@ -185,7 +185,6 @@ private slots:
     void on_actionAddCurrentDirectory_triggered();
     void on_actionEditPreferredDirectories_triggered();
     void on_actionValidate_triggered();
-    void on_actionValidateFile_triggered();
     void on_actionValidateNewFile_triggered();
     void on_actionInsertSnippet_triggered();
     void on_actionConfigureSnippets_triggered();
