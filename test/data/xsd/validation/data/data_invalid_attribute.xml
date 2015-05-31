@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<root
+xmlns="test"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="test file://../test/data/xsd/validation/data/data_schema.xsd">
+  <one>one</one>
+  <two>two</two>
+  <three a1="xx" a2="xx">
+  <sub>three</sub>  
+  </three>
+</root> 

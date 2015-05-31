@@ -223,11 +223,37 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("handle wraparound");
     Utils::TODO_THIS_RELEASE("check searchlets");
     Utils::TODO_THIS_RELEASE("progetto sessions: gestire header precompilati");
-    Utils::TODO_THIS_RELEASE("abilitare edit annot a livello di menu");
     Utils::TODO_THIS_RELEASE("abilita indenta a livello di editor");
+    Utils::TODO_THIS_RELEASE("manca info su sequence e choice");
+    Utils::TODO_THIS_RELEASE("mettere i tooltip sui pulsanti del widget");
+    Utils::TODO_THIS_RELEASE("fare mappa sito e decidere cosa va nel sito e cosa no");
+    Utils::TODO_THIS_RELEASE("mettere i tutorial nell;altro sito.");
+    Utils::TODO_THIS_RELEASE("xsd: liste esagonali non centrate con il testo");
+    Utils::TODO_THIS_RELEASE("xsd: metti i tooltip a tutti gli oggetti xsd");
+    Utils::TODO_THIS_RELEASE("fai test per nsprefix multipli");
+    Utils::TODO_THIS_RELEASE("fai test manuale per apertura dialog");
+    Utils::TODO_THIS_RELEASE("fai test per edit nootation con xsd di fop");
+    Utils::TODO_THIS_RELEASE("attenzione che qualche item ha gia il suo tooltip, controlla es: reference o import");
+    Utils::TODO_THIS_RELEASE("manca icon info su annotazione choice e sequence");
+    Utils::TODO_THIS_RELEASE("a bvolte non fa cancel su edit inner");
+    Utils::TODO_THIS_RELEASE("viewxsd non chiude con cancel");
+    Utils::TODO_THIS_RELEASE("fattorizza il Idff");
+    Utils::TODO_THIS_RELEASE("edit annotation non fa il focus su start");
+    Utils::TODO_THIS_RELEASE("compara xml tooltip deve mostrare full di entrambi i rami");
+    Utils::TODO_THIS_RELEASE("fai un previous location");
+    Utils::TODO_THIS_RELEASE("pagina di Github deve fare il redirect su .org");
+    Utils::TODO_THIS_RELEASE("gallery: fare versione immagini a bassa risoluzione e link ad alta risoluzione");
+    Utils::TODO_THIS_RELEASE("test per validazione");
+    Utils::TODO_THIS_RELEASE("elimina validation results dialog");
+    Utils::TODO_THIS_RELEASE("il pulsante valida deve validare usando l'ultima opzione (file o reference)");
+    Utils::TODO_THIS_RELEASE("messaggio di errore di validazione scompare troppo presto.");
+    Utils::TODO_THIS_RELEASE("Indica qual'e' l'XSD che verra' utilizzato per la validazione");
+    Utils::TODO_THIS_RELEASE("fare test: 1- no schema?");
+    Utils::TODO_THIS_RELEASE("2- wrong attributo, wrong element e cotnrolla errori");
+    Utils::TODO_THIS_RELEASE("ma attenzione alla finestra di load file che si apre: bad for tests");
+
 }
 
 static void startTanslator(QApplication *app)

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="test"
+xmlns="test"
+elementFormDefault="qualified">
+
+<xs:element name="root">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="one" type="xs:string"/>
+      <xs:element name="two" type="xs:string"/>
+      <xs:element name="three" >
+        <xs:complexType>
+          <xs:sequence>
+              <xs:element name="sub" type="xs:string"/>
+          </xs:sequence>
+          <xs:attribute name="a1" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

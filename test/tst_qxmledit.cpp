@@ -890,6 +890,11 @@ void TestQXmlEdit::testXsdValidation()
         result = testC.testTypes();
         QVERIFY2(result, (QString("test TestXSDValidation: testTypes() '%1'").arg(testC.errorString())).toLatin1().data());
     }
+    {
+        TestXSDValidation testD;
+        result = testD.testValidateSchema();
+        QVERIFY2(result, (QString("test TestXSDValidation: testValidateSchema() '%1'").arg(testD.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testEncodingUtils()
@@ -1009,6 +1014,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testXSDValidation();
     testIndent();
     testReplace();
     testSearch();
