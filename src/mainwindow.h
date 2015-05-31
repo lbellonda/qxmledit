@@ -186,6 +186,7 @@ private slots:
     void on_actionEditPreferredDirectories_triggered();
     void on_actionValidate_triggered();
     void on_actionValidateNewFile_triggered();
+    void on_actionValidateUsingDocumentReferences_triggered();
     void on_actionInsertSnippet_triggered();
     void on_actionConfigureSnippets_triggered();
     void on_actionExecuteAutoTest_triggered();
@@ -269,6 +270,7 @@ private slots:
     void onEncodingChanged(QAction* action);
     void onIndentationChanged(const bool indentationEnabled, const int newIndent);
     void onSchemaValidationError(const QString &message, Element *element);
+    void onNewXSDSchemaForValidation(const QString &newUrl);
     void on_actionExportAsCSource_triggered();
     void on_actionCopyAllToClipboard_triggered();
     void on_actionCodePages_triggered();

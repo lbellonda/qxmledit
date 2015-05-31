@@ -614,6 +614,11 @@ void XmlEditWidget::onActionValidateNewFile()
     d->onActionValidateNewFile();
 }
 
+void XmlEditWidget::validateUsingDocumentReferences()
+{
+    d->validateUsingDocumentReferences();
+}
+
 void XmlEditWidget::insertSnippet(Regola *newRegola)
 {
     d->insertSnippet(newRegola);

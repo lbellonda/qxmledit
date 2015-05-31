@@ -264,6 +264,7 @@ public:
     void onActionCopyPathToClipboard();
     void onActionValidate();
     void onActionValidateNewFile();
+    void validateUsingDocumentReferences();
     void onActionInsertSnippet();
     void onActionShowElementTextLength(const bool isChecked);
     void onActionShowElementSize(const bool isChecked);
@@ -332,6 +333,7 @@ signals:
     void encodingChanged(const QString &newEncoding);
     void indentationChanged(const bool indentationEnabled, const int newIndent);
     void schemaValidationError(const QString &message, Element *element);
+    void newXSDSchemaForValidation(const QString &newSchemaUrl);
     //--------------- signals
 };
 

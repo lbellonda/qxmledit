@@ -268,6 +268,7 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(encodingChanged(const QString &)), this, SLOT(onEditorEncodingChanged(const QString &)));
     connect(ui.editor, SIGNAL(indentationChanged(const bool, const int)), this, SLOT(onIndentationChanged(const bool, const int)));
     connect(ui.editor, SIGNAL(schemaValidationError(const QString &, Element *)), this, SLOT(onSchemaValidationError(const QString &, Element *)));
+    connect(ui.editor, SIGNAL(newXSDSchemaForValidation(const QString &)), this, SLOT(onNewXSDSchemaForValidation(const QString &)));
 
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(folderOpenRequest(const QString&)), this, SLOT(onSessionFolderOpenRequest(const QString&)));
@@ -775,6 +776,7 @@ void MainWindow::onComputeSelectionState()
     //ui.testPrev->setEnabled((NULL!=regola)?regola->previousBookmark()>=0:false);
 
     ui.actionValidate->setEnabled((NULL != regola) && !isExplore);
+    ui.actionValidateUsingDocumentReferences->setEnabled((NULL != regola) && !isExplore);
 
     ui.actionValidateNewFile->setEnabled((NULL != regola) && !isExplore);
     ui.actionTransforminSnippet->setEnabled(isSomeItemSelected && !isExplore);
@@ -1552,6 +1554,11 @@ void MainWindow::on_actionValidateNewFile_triggered()
     ui.editor->onActionValidateNewFile();
 }
 
+void MainWindow::on_actionValidateUsingDocumentReferences_triggered()
+{
+    ui.editor->validateUsingDocumentReferences();
+}
+
 void MainWindow::on_actionInsertSnippet_triggered()
 {
     Regola* regola = getRegola();
@@ -1760,6 +1767,7 @@ void MainWindow::setDocument(QDomDocument &document, const QString &filePath, co
     ui.editor->setDocument(document, filePath, isSetState);
     statusBar()->showMessage(tr("Data loaded"), SHORT_TIMEOUT);
     onReadOnlyStateChanged();
+    onNewXSDSchemaForValidation("");
 }
 
 void MainWindow::on_actionHideView_triggered()
@@ -2766,6 +2774,16 @@ void MainWindow::onEncodingChanged(QAction* action)
                 uiDelegate->error(this, tr("No codec for the required encoding"));
             }
         }
+    }
+}
+
+
+void MainWindow::onNewXSDSchemaForValidation(const QString &newUrl)
+{
+    if(newUrl.isEmpty()) {
+        ui.actionValidate->setToolTip(tr("Validate using internal XML Schema references."));
+    } else {
+        ui.actionValidate->setToolTip(tr("Validate using XML Schema:'%1'").arg(newUrl));
     }
 }
 

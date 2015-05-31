@@ -1582,8 +1582,8 @@ void XmlEditWidgetPrivate::onActionZoomOut()
         repaint();
     }
 }
-//da decidere se emette o torna un flag
 
+//da decidere se emette o torna un flag
 void XmlEditWidgetPrivate::onActionCopyPathToClipboard()
 {
     if((NULL != regola) && !regola->fileName().isEmpty()) {
@@ -1593,8 +1593,9 @@ void XmlEditWidgetPrivate::onActionCopyPathToClipboard()
             clipboard->setText(QDir::toNativeSeparators(info.absoluteFilePath()));
         }
     }
+    Utils::TODO_THIS_RELEASE("rimuovere i commenti seguenti dopo test");
 }
-
+/*
 void XmlEditWidgetPrivate::onActionValidate()
 {
     if(!isActionMode()) {
@@ -1606,10 +1607,23 @@ void XmlEditWidgetPrivate::onActionValidate()
     if(!regola->userDefinedXsd().isEmpty()) {
         validateWithFile(regola->userDefinedXsd());
     } else {
-        onActionValidateNewFile();
+        QByteArray dataXml = regola->getAsText().toUtf8();
+        QXmlSchema schemaHandler;
+        ValidatorMessageHandler messageHandler;
+        schemaHandler.setMessageHandler(&messageHandler);
+        {
+            QXmlSchemaValidator schemaValidator(schemaHandler);
+            if(schemaValidator.validate(dataXml)) {
+                Utils::message(p, tr("XML is valid."));
+            } else {
+                Utils::error(p, tr("%1\nError: %2").arg(tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText()));
+                showValidationResults(QString::fromUtf8(dataXml), messageHandler) ;
+            }
+        }
     }
 }
-
+*/
+/*
 void XmlEditWidgetPrivate::validateWithFile(const QString &filePath)
 {
     if(!isActionMode()) {
@@ -1646,7 +1660,8 @@ void XmlEditWidgetPrivate::validateWithFile(const QString &filePath)
         }
     }
 }
-
+*/
+/*
 void XmlEditWidgetPrivate::onActionValidateNewFile()
 {
     if(!isActionMode()) {
@@ -1664,6 +1679,7 @@ void XmlEditWidgetPrivate::onActionValidateNewFile()
         computeSelectionState();
     }
 }
+*/
 
 void XmlEditWidgetPrivate::insertSnippet(Regola *newRegola)
 {

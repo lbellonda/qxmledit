@@ -361,7 +361,8 @@ SOURCES += xmleditwidget.cpp \
     xsdeditor/XSchemaOther.cpp \
     modules/xsd/xsdannotationmodel.cpp \
     undo/undocommandgroup.cpp \
-    modules/xml/xmlindentationdialog.cpp
+    modules/xml/xmlindentationdialog.cpp \
+    modules/xsd/XSDWidgetValidation.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \

@@ -249,6 +249,7 @@
     <addaction name="actionMoveDown"/>
     <addaction name="separator"/>
     <addaction name="actionValidate"/>
+    <addaction name="actionValidateUsingDocumentReferences"/>
     <addaction name="actionValidateNewFile"/>
    </widget>
    <widget class="QMenu" name="menuTools">
@@ -1827,6 +1828,14 @@
    </property>
    <property name="toolTip">
     <string>Set the indentation for this document.</string>
+   </property>
+  </action>
+  <action name="actionValidateUsingDocumentReferences">
+   <property name="text">
+    <string>Validate using document references</string>
+   </property>
+   <property name="toolTip">
+    <string>Validate using internal document references.</string>
    </property>
   </action>
  </widget>

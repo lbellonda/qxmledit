@@ -251,6 +251,7 @@ public:
     void onActionZoomOut();
     void onActionCopyPathToClipboard();
     void onActionValidate();
+    void validateUsingDocumentReferences();
     void onActionValidateNewFile();
     void onActionInsertSnippet();
     void onActionShowElementTextLength(const bool isChecked);
