@@ -55,34 +55,31 @@
 #include "modules/xml/xmlindentationdialog.h"
 
 //-----------------------------------
-
-void XmlEditWidgetPrivate::validateUsingDocumentReferences()
+bool XmlEditWidgetPrivate::validateUsingDocumentReferences()
 {
     if(NULL == regola) {
-        return;
+        return false;
     }
     if(!regola->userDefinedXsd().isEmpty()) {
         regola->setUserDefinedXsd("");
     }
-    onActionValidate();
+    bool result = onActionValidate();
     emit p->newXSDSchemaForValidation("");
+    return result;
 }
 
 
-void XmlEditWidgetPrivate::onActionValidate()
+bool XmlEditWidgetPrivate::onActionValidate()
 {
-    if(NULL == regola) {
-        return;
-    }
     QString schemaUrl = regola->userDefinedXsd();
-    validateWithFile(schemaUrl);
+    return validateWithFile(schemaUrl);
 }
 
 
-void XmlEditWidgetPrivate::validateWithFile(const QString &schemaUrl)
+bool XmlEditWidgetPrivate::validateWithFile(const QString &schemaUrl)
 {
     if(NULL == regola) {
-        return;
+        return false ;
     }
     QXmlSchema schemaHandler;
     ValidatorMessageHandler messageHandler;
@@ -94,28 +91,31 @@ void XmlEditWidgetPrivate::validateWithFile(const QString &schemaUrl)
             if(schemaFile.error()) {
                 schemaFile.close();
                 Utils::error(tr("Error opening schema file."));
-                return ;
+                return false ;
             }
             schemaFile.close();
             if(!schemaHandler.load(schema)) {
                 Utils::error(p->window(), tr("Error loading schema"));
-                return ;
+                return false;
             }
             if(!schemaHandler.isValid()) {
                 Utils::error(p, tr("Schema is invalid"));
-                return ;
+                return false;
             }
         } // if file
     }
     QByteArray dataXml = regola->getAsText().toUtf8();
     schemaHandler.setMessageHandler(&messageHandler);
     QXmlSchemaValidator schemaValidator(schemaHandler);
+    bool result = false;
     if(schemaValidator.validate(dataXml)) {
         Utils::message(p, tr("XML is valid."));
+        result = true ;
     } else {
         Utils::error(p, tr("%1\nError: %2").arg(tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText()));
         showValidationResults(QString::fromUtf8(dataXml), messageHandler) ;
     }
+    return result ;
 }
 
 

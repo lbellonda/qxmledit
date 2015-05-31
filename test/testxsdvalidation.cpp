@@ -468,7 +468,7 @@ bool TestXSDValidation::testTypes()
 
 bool TestXSDValidation::testLast()
 {
-    if(!testTopType()) {
+    if(!testValidateSchema()) {
         return false;
     }
 
@@ -477,67 +477,88 @@ bool TestXSDValidation::testLast()
 
 
 //------------------------------
-#if 0
+
 #define VALIDATE_SCHEMA_FILE    "../test/data/xsd/validation/data/data_schema.xsd"
 #define VALIDATE_XML_FILE    "../test/data/xsd/validation/data/data_schema.xml"
+#define VALIDATE_XML_FILE_ELEMENT    "../test/data/xsd/validation/data/data_invalid_element.xml"
+#define VALIDATE_XML_FILE_ATTRIBUTE    "../test/data/xsd/validation/data/data_invalid_attribute.xml"
 
-
-bool TestXSDValidation::XXXXX(const QString &inputFileName, const QString &fileXSDUrl, const QString &fileResults, const QString &actionName)
+bool TestXSDValidation::loadAndTestValidation(const QString &inputFileName, const QString &fileXSDUrl, const bool expectedResult )
 {
     App app;
     if(!app.initNoWindow() ) {
         return error("init");
     }
     MainWindow mainWindow(false, qApp, app.data());
-    XmlEditWidget *editor = mainWindow.getEditor();
     if(!mainWindow.loadFile(inputFileName) ) {
         return error(QString("Unable to load input file:%1").arg(inputFileName));
     }
-    Regola *regola = mainWindow.getRegola();
+    bool result = false;
     if( fileXSDUrl.isEmpty() ) {
-        mainWindow.getEditor()->validateUsingDocumentReferences();
+        result = mainWindow.getEditor()->validateUsingDocumentReferences();
     } else {
-        mainWindow.getEditor()->validateWithFile(fileXSDUrl);
+        result = mainWindow.getEditor()->validateWithFile(fileXSDUrl);
     }
-    controllo ritorno con expected;
+    if( result != expectedResult ) {
+        return error(QString("Validation failure, expected:%1, result was:%2 for schema:%3").arg(expectedResult).arg(result).arg(fileXSDUrl));
+    }
 
-    //Controlla con il file campione, nota che gli elementi non sono inseriti, ma appartengono ad una lista.
-    bool startAsRoot ;
-    XElementContent content;
-    if(! editor->getPrivate()->findAllowedItemsElement(&content, element, startAsRoot)) {
-        return error(QString("findAllowedItemsElement bad result"));
+    return true ;
+}
+
+bool TestXSDValidation::testValidateSchemaOK()
+{
+    _testName = "testValidateOKInternal";
+    if( !loadAndTestValidation(VALIDATE_XML_FILE, "", true ) ) {
+        return false;
     }
-    if(content.allowedItems().size() != 1) {
-        return error("findAllowedItemsElement bad size");
-    }
-    XSingleElementContent * targetContent = content.allowedItems().at(0);
-    if(targetContent->item()->name() != "plane") {
-        return error("findAllowedItemsElement bad element");
+    _testName = "testValidateOKExternal";
+    if( !loadAndTestValidation(VALIDATE_XML_FILE, VALIDATE_SCHEMA_FILE, true ) ) {
+        return false;
     }
     return true ;
 }
 
-bool TestXSDValidation::testValidateOK()
+bool TestXSDValidation::testValidateElement()
 {
-    _testName = "testValidateOK";
+    _testName = "testValidateElementInternal";
+    if( !loadAndTestValidation(VALIDATE_XML_FILE_ELEMENT, "", false ) ) {
+        return false;
+    }
+    _testName = "testValidateElementExternal";
+    if( !loadAndTestValidation(VALIDATE_XML_FILE_ELEMENT, VALIDATE_SCHEMA_FILE, false ) ) {
+        return false;
+    }
+    return true ;
 }
-#endif
+
+bool TestXSDValidation::testValidateAttribute()
+{
+    _testName = "testValidateAttributeInternal";
+    if( !loadAndTestValidation(VALIDATE_XML_FILE_ATTRIBUTE, "", false ) ) {
+        return false;
+    }
+    _testName = "testValidateAttributeExternal";
+    if( !loadAndTestValidation(VALIDATE_XML_FILE_ATTRIBUTE, VALIDATE_SCHEMA_FILE, false ) ) {
+        return false;
+    }
+    return true ;
+}
 
 bool TestXSDValidation::testValidateSchema()
 {
     _testName = "testValidateSchema";
     _origName = "testValidateSchema" ;
 
-    /*if(!testValidateOK()) {
+    if(!testValidateSchemaOK()) {
         return false;
-    }*/
-    return error("NYI");
-    /*if(!testValidateElement()) {
+    }
+    if(!testValidateElement()) {
         return false;
     }
     if(!testValidateAttribute()) {
         return false;
     }
-    return true;*/
+    return true;
 }
 

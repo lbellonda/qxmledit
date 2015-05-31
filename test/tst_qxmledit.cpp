@@ -1014,7 +1014,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testXSDValidation();
+    testXsdValidation();
     testIndent();
     testReplace();
     testSearch();

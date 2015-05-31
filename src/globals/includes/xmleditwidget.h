@@ -153,7 +153,7 @@ public:
     void assignRegola(Regola*regola,  const bool isChangeState = true);
     void insertSnippet(Regola *newRegola);
     void insertAllowedElements(Element *element);
-    void validateWithFile(const QString &filePath);
+    bool validateWithFile(const QString &filePath);
     XSDSchema *schema();
     bool isUndoPossible();
     bool isRedoPossible();
@@ -264,7 +264,7 @@ public:
     void onActionCopyPathToClipboard();
     void onActionValidate();
     void onActionValidateNewFile();
-    void validateUsingDocumentReferences();
+    bool validateUsingDocumentReferences();
     void onActionInsertSnippet();
     void onActionShowElementTextLength(const bool isChecked);
     void onActionShowElementSize(const bool isChecked);

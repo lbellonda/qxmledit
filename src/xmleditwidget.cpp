@@ -579,9 +579,9 @@ void XmlEditWidget::onActionValidate()
     d->onActionValidate();
 }
 
-void XmlEditWidget::validateWithFile(const QString &filePath)
+bool XmlEditWidget::validateWithFile(const QString &filePath)
 {
-    d->validateWithFile(filePath);
+    return d->validateWithFile(filePath);
 }
 
 bool XmlEditWidget::isUndoPossible()
@@ -614,9 +614,9 @@ void XmlEditWidget::onActionValidateNewFile()
     d->onActionValidateNewFile();
 }
 
-void XmlEditWidget::validateUsingDocumentReferences()
+bool XmlEditWidget::validateUsingDocumentReferences()
 {
-    d->validateUsingDocumentReferences();
+    return d->validateUsingDocumentReferences();
 }
 
 void XmlEditWidget::insertSnippet(Regola *newRegola)

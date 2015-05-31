@@ -172,7 +172,7 @@ public:
     void assignRegolaAndTakeOwnership(Regola *newRegola, const bool isChangeState);
     void insertSnippet(Regola *newRegola);
     void insertAllowedElements(Element *element);
-    void validateWithFile(const QString &filePath);
+    bool validateWithFile(const QString &filePath);
     XSDSchema *schema();
     bool isExpandTreeOnLoad();
     bool isUndoPossible();
@@ -250,8 +250,8 @@ public:
     void onActionZoomIn();
     void onActionZoomOut();
     void onActionCopyPathToClipboard();
-    void onActionValidate();
-    void validateUsingDocumentReferences();
+    bool onActionValidate();
+    bool validateUsingDocumentReferences();
     void onActionValidateNewFile();
     void onActionInsertSnippet();
     void onActionShowElementTextLength(const bool isChecked);

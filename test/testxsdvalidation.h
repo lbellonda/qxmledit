@@ -58,6 +58,12 @@ protected:
     bool testAnonType();
     bool testTypeOK();
     bool testTopType();
+    //----
+    bool loadAndTestValidation(const QString &inputFileName, const QString &fileXSDUrl, const bool expectedResult );
+    bool testValidateSchemaOK();
+    bool testValidateElement();
+    bool testValidateAttribute();
+
 public:
     TestXSDValidation();
     ~TestXSDValidation();
@@ -66,6 +72,7 @@ public:
     bool testElements();
     bool testTypes();
     bool testLast();
+    bool testValidateSchema();
 };
 
 #endif // TESTXSDVALIDATION_H
