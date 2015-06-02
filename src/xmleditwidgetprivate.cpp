@@ -20,11 +20,13 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "xmlEdit.h"
 #include "xmleditwidgetprivate.h"
 
 #include <QXmlSchema>
 #include <QXmlSchemaValidator>
 #include <QFileInfo>
+#include <QShortcut>
 #include "xmleditwidget.h"
 #include "xsdeditor/io/xschemaloader.h"
 #include "validatormessagehandler.h"
@@ -111,6 +113,17 @@ void XmlEditWidgetPrivate::secondStepConstructor()
     p->setAcceptDrops(true);
 
     connect(p->ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(elementDoubleClicked(QTreeWidgetItem *, int)));
+    QTreeWidget *tree = getMainTreeWidget();
+    QShortcut *shortcutDelete = new QShortcut(tree);
+#ifdef  ENVIRONMENT_MACOS
+    shortcutDelete->setKey(Qt::Key_Backspace);
+#else
+    shortcutDelete->setKey(Qt::Key_Delete);
+#endif
+    QShortcut *shortcutInsert = new QShortcut(tree);
+    shortcutInsert->setKey(Qt::Key_Insert);
+    connect(shortcutDelete, SIGNAL(activated()), this, SLOT(onShortcutDelete()));
+    connect(shortcutInsert, SIGNAL(activated()), this, SLOT(onShortcutInsert()));
 
     started = true ;
     internalStateOk = true ;
@@ -2895,6 +2908,15 @@ void XmlEditWidgetPrivate::onFindNext()
     }
 }
 
+void XmlEditWidgetPrivate::onFindPrevious()
+{
+    if(!p->ui->searchWidget->isVisible()) {
+        onActionFind();
+    } else {
+        onSearchPrev();
+    }
+}
+
 bool XmlEditWidgetPrivate::replaceAll(ReplaceTextParams * findArgs)
 {
     findArgs->setFindType(ReplaceTextParams::FindAllOccurrences);
@@ -3017,4 +3039,14 @@ void XmlEditWidgetPrivate::onSetIndent()
         XmlIndentationDialog dlg(p->window(), getRegola(), _appData);
         dlg.exec();
     }
+}
+
+void XmlEditWidgetPrivate::onShortcutDelete()
+{
+    emit p->requestDelete();
+}
+
+void XmlEditWidgetPrivate::onShortcutInsert()
+{
+    emit p->requestInsert();
 }

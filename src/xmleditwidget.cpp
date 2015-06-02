@@ -1040,6 +1040,12 @@ void XmlEditWidget::onFindNext()
     d->onFindNext();
 }
 
+void XmlEditWidget::onFindPrevious()
+{
+    d->onFindPrevious();
+}
+
+
 void XmlEditWidget::onSetIndent()
 {
     d->onSetIndent();

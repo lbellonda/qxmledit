@@ -323,6 +323,7 @@ public:
     bool replace(ReplaceTextParams *params);
     bool replaceAll(ReplaceTextParams * findArgs);
     void onFindNext();
+    void onFindPrevious();
 
     //----
     bool XSDApplyOperation(const ElementOp::Op op, XSDOperationParameters *params);
@@ -372,6 +373,8 @@ private slots:
     void onReplaceReplaceAndGotoPrevious();
     void onSetIndent();
     void onIndentationChanged(const bool indentationEnabled, const int newIndentation);
+    void onShortcutDelete();
+    void onShortcutInsert();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

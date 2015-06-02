@@ -175,6 +175,7 @@ public:
     void setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData);
     void setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider);
     void onFindNext();
+    void onFindPrevious();
     void onSetIndent();
 
 
@@ -334,6 +335,9 @@ signals:
     void indentationChanged(const bool indentationEnabled, const int newIndent);
     void schemaValidationError(const QString &message, Element *element);
     void newXSDSchemaForValidation(const QString &newSchemaUrl);
+    void requestInsert();
+    void requestDelete();
+
     //--------------- signals
 };
 

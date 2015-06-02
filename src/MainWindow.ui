@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -111,6 +111,7 @@
     <addaction name="separator"/>
     <addaction name="actionFind"/>
     <addaction name="actionFindNext"/>
+    <addaction name="actionFindPrevious"/>
     <addaction name="actionReplace"/>
     <addaction name="separator"/>
     <addaction name="actionDeleteBookmarked"/>
@@ -1836,6 +1837,17 @@
    </property>
    <property name="toolTip">
     <string>Validate using internal document references.</string>
+   </property>
+  </action>
+  <action name="actionFindPrevious">
+   <property name="text">
+    <string>Find Previous</string>
+   </property>
+   <property name="toolTip">
+    <string>Find the previous occurrence.</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F3</string>
    </property>
   </action>
  </widget>

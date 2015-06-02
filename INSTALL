@@ -62,7 +62,6 @@ This can require some attention when upgrading a previously installed package.
 
 Note for Qt4 compatibility
 --------------------------
-
 QXmlEdit is source compatible with Qt4, but for some UI attributes. It is necessary to remove Qt5 attributes (mainly alignment) added by
 the Qt designer to dialogs to compile under Qt4 with success.
 

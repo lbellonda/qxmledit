@@ -269,6 +269,8 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(indentationChanged(const bool, const int)), this, SLOT(onIndentationChanged(const bool, const int)));
     connect(ui.editor, SIGNAL(schemaValidationError(const QString &, Element *)), this, SLOT(onSchemaValidationError(const QString &, Element *)));
     connect(ui.editor, SIGNAL(newXSDSchemaForValidation(const QString &)), this, SLOT(onNewXSDSchemaForValidation(const QString &)));
+    connect(ui.editor, SIGNAL(requestInsert()), this, SLOT(on_actionAddChildElement_triggered()));
+    connect(ui.editor, SIGNAL(requestDelete()), this, SLOT(on_actionDelete_triggered()));
 
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(folderOpenRequest(const QString&)), this, SLOT(onSessionFolderOpenRequest(const QString&)));
@@ -2895,6 +2897,11 @@ void MainWindow::on_actionEditXSDAnnotation_triggered()
 void MainWindow::on_actionFindNext_triggered()
 {
     ui.editor->onFindNext();
+}
+
+void MainWindow::on_actionFindPrevious_triggered()
+{
+    ui.editor->onFindPrevious();
 }
 
 void MainWindow::on_actionSetIndent_triggered()
