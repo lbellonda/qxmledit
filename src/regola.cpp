@@ -1606,8 +1606,10 @@ void Regola::checkValidationReference()
                 // set the first
                 if(_schemaLocationsByNamespace.size() > 0) {
                     if(_documentXsd.isEmpty()) {
-                        QString nsDocument = _namespacesByPrefixAndName[""];
-                        _documentXsd = _schemaLocationsByNamespace[nsDocument];
+                        if(_namespacesByPrefixAndName.contains("")) {
+                            QString nsDocument = _namespacesByPrefixAndName[""];
+                            _documentXsd = _schemaLocationsByNamespace[nsDocument];
+                        }
                     }
                 }
             }
