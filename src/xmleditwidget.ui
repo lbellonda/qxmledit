@@ -76,6 +76,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="addChild">
+         <property name="toolTip">
+          <string>Insert an element as child.</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align:left;</string>
          </property>
@@ -90,6 +93,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="addBrother">
+         <property name="toolTip">
+          <string>Add an element as sibling.</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align:left;</string>
          </property>
@@ -104,6 +110,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="editItem">
+         <property name="toolTip">
+          <string>Edit the selected item.</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align:left;</string>
          </property>
@@ -118,6 +127,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="deleteItem">
+         <property name="toolTip">
+          <string>Delete the selected item.</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align:left;</string>
          </property>
@@ -132,6 +144,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="moveUp">
+         <property name="toolTip">
+          <string>Move the selected item one position up between siblings.</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align:left;</string>
          </property>
@@ -146,6 +161,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="moveDown">
+         <property name="toolTip">
+          <string>Move the selected item one position down between siblings.</string>
+         </property>
          <property name="styleSheet">
           <string notr="true">text-align:left;</string>
          </property>
@@ -160,6 +178,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="viewAsXsdCmd">
+         <property name="toolTip">
+          <string>Open the graphical XML Schema visualizer.</string>
+         </property>
          <property name="text">
           <string>View as XSD...</string>
          </property>
