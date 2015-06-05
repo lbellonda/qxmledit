@@ -81,6 +81,7 @@ class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
 public:
     static const QString XsltNameSpace;
     static const QString XSDNameSpace;
+    static const QString XSDSchemaInstance;
 
     typedef bool (*EditHook)(QWidget *const parentWindow, QTreeWidgetItem *item, UIDelegate *uiDelegate, Element* element);
     typedef bool (*EditTextHook)(QWidget *const parentWindow, QTreeWidgetItem *item, UIDelegate *uiDelegate, Element* element);
@@ -370,6 +371,12 @@ public:
     void addUndo(QUndoCommand *undoGroup);
     void anonymize(AnonAlg *alg);
     void anonymize(AnonContext *context, QTreeWidget *treeWidget, const bool doDirect = false);
+
+    QHash<QString, QString> mapOfSchemaReferences();
+
+    static QString roleForKnownUri(const QString &uri);
+    QString noNameSpaceXsd();
+    QHash<QString, QSet<QString> > allNamespaces();
 
 signals:
     void wasModified();

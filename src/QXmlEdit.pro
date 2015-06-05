@@ -215,7 +215,8 @@ HEADERS = precompiled_app.h \
     modules/anonymize/anonimyzebatchdialog.h \
     modules/anonymize/anonsettingwidget.h \
     precompiled_app.h \
-    qxmeditmetainfo.h
+    qxmeditmetainfo.h \
+    infodialog.h
 
 SOURCES = \
     main.cpp \
@@ -265,7 +266,8 @@ SOURCES = \
     modules/anonymize/anonprofiledialog.cpp \
     modules/anonymize/anoneditprofiledialog.cpp \
     modules/anonymize/anonimyzebatchdialog.cpp \
-    modules/anonymize/anonsettingwidget.cpp
+    modules/anonymize/anonsettingwidget.cpp \
+    infodialog.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -299,7 +301,8 @@ FORMS = MainWindow.ui \
     modules/anonymize/anonprofiledialog.ui \
     modules/anonymize/anoneditprofiledialog.ui \
     modules/anonymize/anonimyzebatchdialog.ui \
-    modules/anonymize/anonsettingwidget.ui
+    modules/anonymize/anonsettingwidget.ui \
+    infodialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

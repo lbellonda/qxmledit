@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -120,6 +120,7 @@
     <addaction name="actionEditMetadata"/>
     <addaction name="actionEncoding"/>
     <addaction name="separator"/>
+    <addaction name="actionInfo"/>
     <addaction name="actionAnonymize"/>
     <addaction name="actionCopyPathToClipboard"/>
     <addaction name="separator"/>
@@ -1850,6 +1851,18 @@
     <string>Shift+F3</string>
    </property>
   </action>
+  <action name="actionInfo">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/actions/info</normaloff>:/actions/info</iconset>
+   </property>
+   <property name="text">
+    <string>Info</string>
+   </property>
+   <property name="toolTip">
+    <string>Info</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1866,7 +1879,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

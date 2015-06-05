@@ -546,6 +546,9 @@ public:
     Element *lastChildRecursiveOrThis();
     Element *lastChildRecursive();
 
+    void allNamespaces(QHash<QString, QSet<QString> > &nameSpacesMap);
+
+
     friend class TestStyle;
 };
 
