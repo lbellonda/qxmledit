@@ -34,7 +34,7 @@ QBrush Regola::hiliteBkBrush(QColor(0xFF, 0xC0, 0x40));
 
 const QString Regola::XsltNameSpace = "http://www.w3.org/1999/XSL/Transform" ;
 const QString Regola::XSDNameSpace = "http://www.w3.org/2001/XMLSchema" ;
-
+const QString Regola::XSDSchemaInstance = "http://www.w3.org/2001/XMLSchema-instance";
 
 Regola::Regola(QDomDocument &document, const QString &name, const bool useMixedContent)
 {
@@ -1606,8 +1606,10 @@ void Regola::checkValidationReference()
                 // set the first
                 if(_schemaLocationsByNamespace.size() > 0) {
                     if(_documentXsd.isEmpty()) {
-                        QString nsDocument = _namespacesByPrefixAndName[""];
-                        _documentXsd = _schemaLocationsByNamespace[nsDocument];
+                        if(_namespacesByPrefixAndName.contains("")) {
+                            QString nsDocument = _namespacesByPrefixAndName[""];
+                            _documentXsd = _schemaLocationsByNamespace[nsDocument];
+                        }
                     }
                 }
             }
@@ -2778,4 +2780,38 @@ void Regola::anonymize(AnonContext *context, QTreeWidget *treeWidget, const bool
     }
     w->setEnabled(true);
     Utils::restoreCursor();
+}
+
+
+QHash<QString, QString> Regola::mapOfSchemaReferences()
+{
+    return _schemaLocationsByNamespace;
+}
+
+QString Regola::roleForKnownUri(const QString &uri)
+{
+    if(uri == XsltNameSpace) {
+        return tr("XSLT eXtensible Stylesheet Language Transformations");
+    }
+    if(uri == XSDNameSpace) {
+        return tr("XML Schema (XSD)");
+    }
+    return "";
+}
+
+QString Regola::noNameSpaceXsd()
+{
+    return _noNameSpaceXsd;
+}
+
+
+QHash<QString, QSet<QString> > Regola::allNamespaces()
+{
+    QHash<QString, QSet<QString> > result;
+    QVectorIterator<Element*> it(childItems);
+    while(it.hasNext()) {
+        Element* element = it.next() ;
+        element->allNamespaces(result);
+    }
+    return result ;
 }

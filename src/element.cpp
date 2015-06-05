@@ -2630,6 +2630,27 @@ Element *Element::lastChildRecursive()
     }
     return childItems.last()->lastChildRecursiveOrThis();
 }
+
+
+void Element::allNamespaces(QHash<QString, QSet<QString> > &nameSpacesMap)
+{
+    foreach(Element * child, childItems) {
+        child->allNamespaces(nameSpacesMap);
+    }
+
+    foreach(Attribute * attribute, attributes) {
+        if(XmlUtils::isDeclaringNS(attribute->name)) {
+            QString prefix ;
+            XmlUtils::getNsPrefix(attribute->name, prefix);
+            if(!nameSpacesMap.contains(attribute->value)) {
+                QSet<QString> prefixes ;
+                nameSpacesMap.insert(attribute->value, prefixes);
+            }
+            nameSpacesMap[attribute->value] += prefix;
+        }
+    }
+} // allNamespaces()
+
 //----------------------------------------------------------------
 
 Attribute::Attribute()

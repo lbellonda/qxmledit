@@ -291,6 +291,7 @@ private slots:
     void on_actionFindNext_triggered();
     void on_actionFindPrevious_triggered();
     void on_actionSetIndent_triggered();
+    void on_actionInfo_triggered();
 
     //----- other slots ------------------
 

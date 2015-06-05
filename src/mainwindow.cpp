@@ -64,6 +64,7 @@ extern const char *APP_TITLE ;
 #include "modules/binaryviewer/binaryviewerdialog.h"
 #include "modules/xsd/xsdmanager.h"
 #include "modules/xsd/xsdelementreferencedialog.h"
+#include "infodialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -2908,3 +2909,14 @@ void MainWindow::on_actionSetIndent_triggered()
 {
     ui.editor->onSetIndent();
 }
+
+void MainWindow::on_actionInfo_triggered()
+{
+    Regola *regola = getRegola();
+    if(NULL != regola) {
+        showInfo(this, regola);
+    }
+}
+
+
+

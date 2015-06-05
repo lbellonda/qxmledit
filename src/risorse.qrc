@@ -3,6 +3,7 @@
         <file>images/document-new.png</file>
         <file>images/view-refresh.png</file>
         <file alias="xsd-edit">images/document-edit-xsd.png</file>
+        <file alias="info">images/info.png</file>
     </qresource>
     <qresource prefix="/special">
         <file>images/bookmark.png</file>
