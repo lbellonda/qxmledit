@@ -33,7 +33,6 @@ XSDFullAnnotationsDialog::XSDFullAnnotationsDialog(XSDAnnotationModel *newModel,
     _model = newModel->clone();
     ui->setupUi(this);
     setupUI();
-    Utils::TODO_THIS_RELEASE("attenzione al move tramite drag and drop, poi riordinare nel model quando ok");
 }
 
 XSDFullAnnotationsDialog::~XSDFullAnnotationsDialog()

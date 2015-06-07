@@ -468,7 +468,6 @@ void ReplaceTextParams::buildOperationElement()
     }
     updateCommand->setHilite(isHiliteAll());
 
-    Utils::TODO_THIS_RELEASE("setta flag open to parent");
 }
 
 bool ReplaceTextParams::handleElementTag()
@@ -574,7 +573,6 @@ void ReplaceTextParams::changeAttributeName(Attribute *attribute)
 {
     QString tag = attribute->name;
     QString newTag = applyReplacement(tag);
-    Utils::TODO_THIS_RELEASE("attenzione al rename, serve una mappa con i nomi originali");
     Attribute *destAttrib = mAttributes[attribute->name];
     if(NULL != destAttrib) {
         destAttrib->name = newTag ;
@@ -585,7 +583,6 @@ void ReplaceTextParams::changeAttributeValue(Attribute *attribute)
 {
     QString value = attribute->value;
     QString newValue = applyReplacement(value);
-    Utils::TODO_THIS_RELEASE("attenzione al rename, serve una mappa con i nomi originali");
     Attribute *destAttrib = mAttributes[attribute->name];
     if(NULL != destAttrib) {
         destAttrib->value = newValue ;

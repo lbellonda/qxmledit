@@ -2792,7 +2792,6 @@ void MainWindow::onNewXSDSchemaForValidation(const QString &newUrl)
 
 void MainWindow::onSchemaValidationError(const QString &message, Element * /*element*/)
 {
-    Utils::TODO_THIS_RELEASE("troppo nel widget");
     statusBar()->showMessage(message);
     appData()->notifier()->notify(this, message);
 }

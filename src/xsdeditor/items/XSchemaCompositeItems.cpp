@@ -136,7 +136,6 @@ void ChoiceItem::setItem(XSchemaChoice *newItem)
     } else {
         _iconInfo->hide();
     }
-    Utils::TODO_THIS_RELEASE("fattorizza il _diff");
     buildTooltip();
 }
 

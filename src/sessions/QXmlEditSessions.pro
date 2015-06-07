@@ -84,7 +84,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
     QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
 }
 
-#CONFIG += precompile_header
+CONFIG += precompile_header
 PRECOMPILED_HEADER  = precompiled_lib.h
 
 DEFINES += QXMLEDITSESSIONS_LIBRARY

@@ -952,7 +952,6 @@ void RootItem::setItem(XSDSchema *newItem)
 
 QString RootItem::preTooltipString()
 {
-    Utils::TODO_THIS_RELEASE("non passa di qua");
     if(NULL == _item) {
         return "" ;
     }
@@ -1244,7 +1243,6 @@ void ElementItem::reset()
 
 void ElementItem::init(XsdGraphicContext *newContext)
 {
-    Utils::TODO_THIS_RELEASE("_isDiff = newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF ");
     _graphicsItem->setFlag(QGraphicsItem::ItemIsMovable, false);
     _graphicsItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
     _graphicsItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);

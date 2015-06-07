@@ -2695,7 +2695,6 @@ QList<Element*> Regola::decodeXMLFromString(const QString &input, const bool onl
                     }
 
                     foreach(Element * el, lst) {
-                        Utils::TODO_THIS_RELEASE("questo codice serve?");
                         if(!onlyElements || (onlyElements && el->isElement())) {
                             result << el ;
                             regola->takeElement(el);
@@ -2795,6 +2794,9 @@ QString Regola::roleForKnownUri(const QString &uri)
     }
     if(uri == XSDNameSpace) {
         return tr("XML Schema (XSD)");
+    }
+    if(uri == XSDSchemaInstance) {
+        return tr("XML Schema Instance");
     }
     return "";
 }

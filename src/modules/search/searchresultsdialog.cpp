@@ -80,7 +80,6 @@ void SearchResultsDialog::finishSetup(FindTextParams* settings)
     ui->treeWidget->setAutoScroll(_appData->isAutoscroll());
     _helper.resetTree(ui->treeWidget, _paintInfo);
     ui->treeWidget->setAlternatingRowColors(true);
-    Utils::TODO_THIS_RELEASE("controlla");
     ui->treeWidget->setUniformRowHeights(false);
     connect(ui->searchWidget, SIGNAL(find()), this, SLOT(findText()));
     connect(ui->searchWidget, SIGNAL(count()), this, SLOT(countTextOccurrences()));

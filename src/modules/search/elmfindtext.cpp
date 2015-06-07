@@ -79,7 +79,6 @@ Element * Regola::replaceText(QTreeWidget *treeWidget, ReplaceTextParams &findAr
     undoCommandGroup->setTreeWidget(treeWidget);
     undoCommandGroup->setIsHiliteAll(findArgs.isHiliteAll());
     undoCommandGroup->setIsCloseUnrelated(findArgs.isCloseUnrelated());
-    Utils::TODO_THIS_RELEASE("assicurarsi che find all sia selezionato");
     if((NULL == selectedItem) || !findArgs.isLookOnlyChildren()) {
         QVectorIterator<Element*> it(childItems);
         while(it.hasNext()) {

@@ -99,7 +99,6 @@ void UndoCommandGroup::redo()
     if(_isCloseUnrelated && (NULL != startElement)) {
         if(startElement->getUI()->isExpanded()) {
             startElement->getUI()->setExpanded(false);
-            Utils::TODO_THIS_RELEASE("fare ricorsivo");
         }
     }
     // apply all changess

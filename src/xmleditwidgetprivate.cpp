@@ -303,7 +303,6 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
     startUIState();
     p->ui->treeWidget->setAlternatingRowColors(true);
 
-    Utils::TODO_THIS_RELEASE("controlla");
     p->ui->treeWidget->setUniformRowHeights(false);
 
     p->ui->searchWidget->setVisible(false);
@@ -1386,11 +1385,6 @@ void XmlEditWidgetPrivate::onActionCompactView(const bool isChecked)
 {
     paintInfo.setCompactView(isChecked);
     _helper.setDataColumnTitle(p->ui->treeWidget, &paintInfo, paintInfo.compactView());
-    Utils::TODO_THIS_RELEASE("mi sembra dubbio, lo ho commentato");
-    /*if(!isChecked) {
-        Utils::TODO_THIS_RELEASE("mi sembra dubbio");
-        p->ui->treeWidget->setUniformRowHeights(paintInfo.compactView());
-    }*/
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     QAbstractItemModel *model = p->ui->treeWidget->model();
     emit model->layoutAboutToBeChanged();
@@ -1606,93 +1600,7 @@ void XmlEditWidgetPrivate::onActionCopyPathToClipboard()
             clipboard->setText(QDir::toNativeSeparators(info.absoluteFilePath()));
         }
     }
-    Utils::TODO_THIS_RELEASE("rimuovere i commenti seguenti dopo test");
 }
-/*
-void XmlEditWidgetPrivate::onActionValidate()
-{
-    if(!isActionMode()) {
-        return ;
-    }
-    if(NULL == regola) {
-        return;
-    }
-    if(!regola->userDefinedXsd().isEmpty()) {
-        validateWithFile(regola->userDefinedXsd());
-    } else {
-        QByteArray dataXml = regola->getAsText().toUtf8();
-        QXmlSchema schemaHandler;
-        ValidatorMessageHandler messageHandler;
-        schemaHandler.setMessageHandler(&messageHandler);
-        {
-            QXmlSchemaValidator schemaValidator(schemaHandler);
-            if(schemaValidator.validate(dataXml)) {
-                Utils::message(p, tr("XML is valid."));
-            } else {
-                Utils::error(p, tr("%1\nError: %2").arg(tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText()));
-                showValidationResults(QString::fromUtf8(dataXml), messageHandler) ;
-            }
-        }
-    }
-}
-*/
-/*
-void XmlEditWidgetPrivate::validateWithFile(const QString &filePath)
-{
-    if(!isActionMode()) {
-        return ;
-    }
-
-    if(NULL == regola) {
-        return;
-    }
-    if(!filePath.isEmpty()) {
-        QFile schemaFile(filePath);
-        schemaFile.unsetError();
-        schemaFile.open(QIODevice::ReadOnly);
-        QByteArray schema = schemaFile.readAll() ;
-        if(schemaFile.error()) {
-            Utils::error(tr("Error opening schema file."));
-            return ;
-        }
-        QByteArray dataXml = regola->getAsText().toUtf8();
-        QXmlSchema schemaHandler;
-        ValidatorMessageHandler messageHandler;
-        schemaHandler.load(schema);
-        schemaHandler.setMessageHandler(&messageHandler);
-        if(!schemaHandler.isValid()) {
-            Utils::error(p, tr("Schema is invalid"));
-        } else {
-            QXmlSchemaValidator schemaValidator(schemaHandler);
-            if(schemaValidator.validate(dataXml)) {
-                Utils::message(p, tr("XML is valid."));
-            } else {
-                Utils::error(p, tr("%1\nError: %2").arg(tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText()));
-                showValidationResults(QString::fromUtf8(dataXml), messageHandler) ;
-            }
-        }
-    }
-}
-*/
-/*
-void XmlEditWidgetPrivate::onActionValidateNewFile()
-{
-    if(!isActionMode()) {
-        return ;
-    }
-
-    if(NULL == regola) {
-        return;
-    }
-    QString filePath = QFileDialog::getOpenFileName(p, tr("Open Schema File"),
-                       QXmlEditData::sysFilePathForOperation(regola->fileName()), tr("XML Schema files (*.xsd);;All files (*);;"));
-    if(!filePath.isEmpty()) {
-        regola->setUserDefinedXsd(filePath);
-        validateWithFile(filePath);
-        computeSelectionState();
-    }
-}
-*/
 
 void XmlEditWidgetPrivate::insertSnippet(Regola *newRegola)
 {
@@ -2863,7 +2771,6 @@ void XmlEditWidgetPrivate::autoDelete()
 
 bool XmlEditWidgetPrivate::onEditXSDAnnotation()
 {
-    Utils::TODO_THIS_RELEASE("finire");
     bool result = false;
     if(isActionMode()) {
 
@@ -2926,7 +2833,6 @@ bool XmlEditWidgetPrivate::replaceAll(ReplaceTextParams * findArgs)
 bool XmlEditWidgetPrivate::replace(ReplaceTextParams * findArgs)
 {
     if(!isActionMode()) {
-        Utils::TODO_THIS_RELEASE("todo");
         return false ;
     }
     Element *foundElement = NULL;
@@ -2939,7 +2845,6 @@ bool XmlEditWidgetPrivate::replace(ReplaceTextParams * findArgs)
     regola->unhiliteAll();
     findArgs->start();
     foundElement = regola->replaceText(p->getMainTreeWidget(), *findArgs, getSelectedItem());
-    Utils::TODO_THIS_RELEASE("p->ui->searchWidget->setSearchResults(findArgs);");
     if(isGlobalSearch) {
         int replacements = findArgs->replacementCount();
         int errors = findArgs->replacementErrorsCount();
@@ -2982,10 +2887,6 @@ void XmlEditWidgetPrivate::onReplace(const FindTextParams::EFindType replaceType
 
     if(NULL != regola) {
 
-        p->setEnabled(false);
-        p->ui->treeWidget->setUpdatesEnabled(false);
-        Utils::showWaitCursor();
-
         bool isErrorShown = false;
         bool isError = false;
         ReplaceTextParams* findArgs = p->ui->searchWidget->getReplaceParams(replaceType, NULL);
@@ -3007,10 +2908,6 @@ void XmlEditWidgetPrivate::onReplace(const FindTextParams::EFindType replaceType
             delete findArgs;
         }
     }
-    Utils::TODO_THIS_RELEASE("decidere dove fare queste ablitazioni");
-    p->ui->treeWidget->setUpdatesEnabled(true);
-    p->setEnabled(true);
-    Utils::restoreCursor();
 }
 
 void XmlEditWidgetPrivate::onReplaceSkipAndGotoNext()

@@ -67,7 +67,6 @@ void XmlIndentationDialog::on_chkNoIndent_stateChanged(int /*state*/)
 
 void XmlIndentationDialog::accept()
 {
-    Utils::TODO_THIS_RELEASE("semplifica");
     _regola->setUseIndentation(ui->indentSettings->isChecked());
     if(ui->indentSettings->isChecked()) {
         if(ui->chkNoIndent->isChecked()) {

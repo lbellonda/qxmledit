@@ -632,14 +632,12 @@ bool XSDHelper::doAnnotation(QTreeWidget * theWidget, Regola *regola, Element * 
     if(NULL == currentAnnotation) {
         // full copy, if any
         // add a child to the undo command
-        Utils::TODO_THIS_RELEASE("non basta ins, deve anche essere il primo figlio, ma non so se undo lo supporta");
         QList<int> destPath = targetElement->indexPath() ;
         destPath.append(0);
         ElInsertCommand *cmd = new ElInsertCommand(theWidget, regola, newAnnotation, destPath);
         cmd->setSelectParent(true);
         undoGroup = cmd ;
     } else {
-        Utils::TODO_THIS_RELEASE("ma il path? non e' meglio ricavarlo dall'elemento?");
         ElUpdateCommand *cmd = new ElUpdateCommand(theWidget, regola, newAnnotation, currentAnnotation->indexPath());
         cmd->setSelectParent(true);
         undoGroup = cmd ;

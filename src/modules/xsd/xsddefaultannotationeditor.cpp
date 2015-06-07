@@ -199,7 +199,6 @@ XSDDefaultAnnotationEditor::EditMode XSDDefaultAnnotationEditor::editSingleAnnot
     XInfoBase *firstAnnotation = _model->firstAnnotation();
     XSDSingleCommentDialog *editSingle = singleEditDialog(firstAnnotation);
     if(editSingle->runExec() == QDialog::Accepted) {
-        Utils::TODO_THIS_RELEASE("this is not fully correct: it is ok and edit extended, but the data can be unchanged");
         _hasResult = true ;
         _model->replaceOrAddChild(firstAnnotation, editSingle->createModel());
         if(editSingle->isCallExtended()) {
