@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>ANotifier</name>
     <message>
@@ -3107,7 +3107,7 @@ Chcete ukázat složku pro vytahování v prohlížeči?</translation>
     <message>
         <location filename="../findtextparams.cpp" line="203"/>
         <source>The type of the search is not legal:%1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Typ hledání není dovolený: %1.</translation>
     </message>
     <message>
         <source>Unable to parse XML</source>
@@ -4796,7 +4796,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../qxmleditdata.cpp" line="37"/>
         <source>Xslt predefined style</source>
-        <translation type="unfinished">XSLT předem určený styl</translation>
+        <translation>XSLT předem určený styl</translation>
     </message>
     <message>
         <location filename="../qxmleditdata.cpp" line="105"/>
@@ -4814,7 +4814,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../xmleditglobals.cpp" line="26"/>
         <source>QXmlEdit</source>
-        <translation type="unfinished">QXmlEdit</translation>
+        <translation>QXmlEdit</translation>
     </message>
 </context>
 <context>
@@ -4968,7 +4968,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../modules/search/elmfindtext.cpp" line="408"/>
         <source>Unable to apply a replacement.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze použít nahrazení.</translation>
     </message>
 </context>
 <context>
@@ -5188,92 +5188,92 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="151"/>
         <source>Find all</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít vše</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="161"/>
         <source>Find previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít předchozí</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="164"/>
         <source>Prev</source>
-        <translation type="unfinished"></translation>
+        <translation>Předchozí</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="171"/>
         <source>Find Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít další</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="174"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Další</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="195"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="284"/>
         <source>size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Velikost:</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="356"/>
         <source>&amp;Replace with:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Nahradit:</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="369"/>
         <source>Skip this and find the previous match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Přeskočit toto a najít předchozí shodu.</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="372"/>
         <source>Skip and previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Přeskočit a předchozí</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="383"/>
         <source>Skip this and find the next match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Přeskočit toto a najít další shodu.</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="386"/>
         <source>Skip and next</source>
-        <translation type="unfinished"></translation>
+        <translation>Přeskočit a další</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="397"/>
         <source>Replace this and find the previous match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit toto a najít předchozí shodu.</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="400"/>
         <source>Replace and previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit a předchozí</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="411"/>
         <source>Replace this and find the next match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit toto a najít další shodu.</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="414"/>
         <source>Replace and next</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit a další</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="425"/>
         <source>Replace all the occurrences.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit všechny výskyty.</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="428"/>
         <source>Replace &amp;all</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit &amp;vše</translation>
     </message>
     <message>
         <source>Find</source>
@@ -5334,7 +5334,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="311"/>
         <source>Wrap around</source>
-        <translation type="unfinished"></translation>
+        <translation>Zabalit okolo</translation>
     </message>
     <message>
         <location filename="../modules/search/searchwidget.ui" line="318"/>
@@ -6705,67 +6705,67 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="14"/>
         <source>Annotations</source>
-        <translation type="unfinished"></translation>
+        <translation>Vysvětlivky</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="49"/>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="54"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Jazyk</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="59"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Zdroj</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="64"/>
         <source>Annotation</source>
-        <translation type="unfinished">Vysvětlivka</translation>
+        <translation>Vysvětlivka</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="99"/>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Nový</translation>
+        <translation>&amp;Nový</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="106"/>
         <source>&amp;Modify</source>
-        <translation type="unfinished">&amp;Upravit</translation>
+        <translation>&amp;Upravit</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="113"/>
         <source>&amp;Delete</source>
-        <translation type="unfinished">S&amp;mazat</translation>
+        <translation>S&amp;mazat</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="133"/>
         <source>Move &amp;up</source>
-        <translation type="unfinished"></translation>
+        <translation>Posunout &amp;nahoru</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.ui" line="140"/>
         <source>Move do&amp;wn</source>
-        <translation type="unfinished"></translation>
+        <translation>Přesunout &amp;dolů</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.cpp" line="108"/>
         <source>&lt;other&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;jiné&gt;</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.cpp" line="111"/>
         <source>&lt;Not an annotation&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;Není vysvětlivkou&gt;</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdfullannotationsdialog.cpp" line="199"/>
         <source>Do you really want to delete this annotation?</source>
-        <translation type="unfinished"></translation>
+        <translation>Opravdu chcete smazat tuto vysvětlivku?</translation>
     </message>
 </context>
 <context>
@@ -6898,67 +6898,67 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="17"/>
         <source>XSD Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Vysvětlivka XSD</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="44"/>
         <source>Type:</source>
-        <translation type="unfinished">Typ:</translation>
+        <translation>Typ:</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="60"/>
         <source>&amp;documentation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dokumentace</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="67"/>
         <source>&amp;appInfo</source>
-        <translation type="unfinished"></translation>
+        <translation>Informace o &amp;aplikaci</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="77"/>
         <source>&amp;Source:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Zdroj:</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="103"/>
         <source>&amp;Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Jazyk:</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="129"/>
         <source>&amp;Comment:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Poznámka:</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="167"/>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="183"/>
         <source>XML</source>
-        <translation type="unfinished"></translation>
+        <translation>XML</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="205"/>
         <source>The content is not valid XML.</source>
-        <translation type="unfinished"></translation>
+        <translation>Obsah není platné XML.</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.ui" line="249"/>
         <source>Advanced...</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé...</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.cpp" line="129"/>
         <source>Confirm changes and open the full panel?</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrdit změny a otevřít úplný panel?</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdsinglecommentdialog.cpp" line="140"/>
         <source>The annotation must be not null and contain valid XML.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vysvětlivka musí být nenulová a musí obsahovat platné XML.</translation>
     </message>
 </context>
 <context>
@@ -8080,7 +8080,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../modules/xsd/XSDWidgetValidation.cpp" line="98"/>
         <source>Error loading schema</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při nahrávání schématu</translation>
     </message>
     <message>
         <location filename="../modules/xsd/XSDWidgetValidation.cpp" line="102"/>
@@ -8091,7 +8091,8 @@ Kód chyby je &apos;%1&apos;</translation>
         <location filename="../modules/xsd/XSDWidgetValidation.cpp" line="115"/>
         <source>%1
 Error: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1
+Chyba: %2</translation>
     </message>
     <message>
         <location filename="../modules/xsd/XSDWidgetValidation.cpp" line="127"/>
@@ -8107,7 +8108,7 @@ Error: %2</source>
         <location filename="../xmleditwidgetprivate.cpp" line="1260"/>
         <location filename="../xmleditwidgetprivate.cpp" line="2956"/>
         <source>No match found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenalezena žádná shoda.</translation>
     </message>
     <message>
         <location filename="../xmleditwidgetprivate.cpp" line="1759"/>
@@ -8229,31 +8230,31 @@ Chcete data prozkoumat jako text?</translation>
     <message>
         <location filename="../xmleditwidgetprivate.cpp" line="2948"/>
         <source>Replaced %1 items</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrazeno %1 položek</translation>
     </message>
     <message numerus="yes">
         <location filename="../xmleditwidgetprivate.cpp" line="2951"/>
         <source> Found %n error(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform> Nalezena %n chyba</numerusform>
+            <numerusform> Nalezeny %n chyby</numerusform>
+            <numerusform> Nalezeno %n chyb</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../xmleditwidgetprivate.cpp" line="2997"/>
         <source>Unable to start a replace; please, check the parameters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Není možné spustit nahrazování. Prověřte, prosím, parametry.</translation>
     </message>
     <message>
         <location filename="../xmleditwidgetprivate.cpp" line="3001"/>
         <source>Replace does not support XQuery syntax, please, check the parameters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahrazování nepodporuje skladbu XQuery. Prověřte, prosím, parametry.</translation>
     </message>
     <message>
         <location filename="../validationresults.cpp" line="57"/>
         <source>Line:%1, Col:%2 :%3</source>
-        <translation type="unfinished">Řádek: %1, sloupec: %2 : %3</translation>
+        <translation>Řádek: %1, sloupec: %2 : %3</translation>
     </message>
 </context>
 <context>
@@ -8261,22 +8262,22 @@ Chcete data prozkoumat jako text?</translation>
     <message>
         <location filename="../modules/xml/xmlindentationdialog.ui" line="20"/>
         <source>Indentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Odsazení</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlindentationdialog.ui" line="36"/>
         <source>&amp;Override general indentation settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Potlačit obecné nastavení odsazování</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlindentationdialog.ui" line="51"/>
         <source>XML &amp;indentation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Odsazení XML</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlindentationdialog.ui" line="80"/>
         <source>do &amp;not indent at all</source>
-        <translation type="unfinished"></translation>
+        <translation>Vůbec &amp;neodsazovat</translation>
     </message>
 </context>
 <context>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -36,7 +36,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../aboutdialog.ui" line="86"/>
         <source>(c) 2008-2015 Luca Bellonda</source>
-        <translation type="unfinished">(c) 2008-2013 Luca Bellonda {2008-2015 ?}</translation>
+        <translation>(c) 2008-2015 Luca Bellonda</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="105"/>
@@ -48,7 +48,14 @@ p, li { white-space: pre-wrap; }
 &lt;br/&gt;
 &lt;a href=&quot;$PJLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$PJLOC&lt;/span&gt;&lt;/a&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;$JPSITE&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$JPSITE&lt;/span&gt;&lt;/a&gt;
+&lt;br/&gt;
+&lt;a href=&quot;$PJLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$PJLOC&lt;/span&gt;&lt;/a&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="134"/>
@@ -77,7 +84,11 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Please use &lt;/span&gt;&lt;a href=&quot;$ISSUESLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$ISSUESLOC&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; to report bugs.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Please use &lt;/span&gt;&lt;a href=&quot;$ISSUESLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$ISSUESLOC&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; to report bugs.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -1334,7 +1345,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../base64dialog.cpp" line="108"/>
         <source>All files (*);;XML files (*.xml);;XML Schema files (*.xsd);;</source>
-        <translation>Všechny soubory (*);;Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;</translation>
+        <translation>Všechny soubory (*);;Soubory XML (*.xml);;XML Soubory se schématem XML (*.xsd);;</translation>
     </message>
     <message>
         <location filename="../base64dialog.cpp" line="124"/>
@@ -2106,7 +2117,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configvalidation.ui" line="36"/>
         <source>Enable automatic loading of XML Schema associated to file edited</source>
-        <translation>Povolit automatické nahrávání XML Schema přiřazené k upravovanému souboru</translation>
+        <translation>Povolit automatické nahrávání schématu XML přiřazené k upravovanému souboru</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.ui" line="43"/>
@@ -4157,7 +4168,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../MainWindow.ui" line="144"/>
         <source>New Speciali&amp;zed</source>
-        <translation>Nový speciální</translation>
+        <translation>Nový &amp;speciální</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="180"/>
@@ -4167,7 +4178,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../MainWindow.ui" line="187"/>
         <source>XML Schema</source>
-        <translation>XML Schema</translation>
+        <translation>Schéma XML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="258"/>
@@ -4356,27 +4367,27 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../MainWindow.ui" line="1801"/>
         <source>Edit XSD Annotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit vysvětlivku XSD</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1804"/>
         <source>Edit annotations of XML Schema</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit vysvětlivky schématu XML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1809"/>
         <source>Replace...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1812"/>
         <source>Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>Nahradit</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1820"/>
         <source>Find Next</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít další</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1823"/>
@@ -4431,22 +4442,22 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../MainWindow.ui" line="512"/>
         <source>Ctrl+3</source>
-        <translation type="unfinished">Ctrl+3</translation>
+        <translation>Ctrl+3</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="520"/>
         <source>Ctrl+4</source>
-        <translation type="unfinished">Ctrl+4</translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="528"/>
         <source>Ctrl+5</source>
-        <translation type="unfinished">Ctrl+5</translation>
+        <translation>Ctrl+5</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="536"/>
         <source>Ctrl+6</source>
-        <translation type="unfinished">Ctrl+6</translation>
+        <translation>Ctrl+6</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="544"/>
@@ -4716,18 +4727,18 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../MainWindow.ui" line="894"/>
         <source>Validate</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrdit platnost</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="905"/>
         <source>Validate using new XSD File.</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrdit platnost za použití nového souboru XSD.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1044"/>
         <location filename="../MainWindow.ui" line="1047"/>
         <source>Allowed Schema Elements</source>
-        <translation>Povolit prvky schématu</translation>
+        <translation>Povolené prvky schématu</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1052"/>
@@ -5561,37 +5572,37 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../MainWindow.ui" line="1828"/>
         <source>Set Indentation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit odsazení...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1831"/>
         <source>Set the indentation for this document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavit odsazení pro tento dokument.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1836"/>
         <source>Validate using document references</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrdit platnost za použití odkazů dokumentu</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1839"/>
         <source>Validate using internal document references.</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrdit platnost za použití vnitřních odkazů dokumentu.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1844"/>
         <source>Find Previous</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít předchozí</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1847"/>
         <source>Find the previous occurrence.</source>
-        <translation type="unfinished"></translation>
+        <translation>Najít předchozí výskyt.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1850"/>
         <source>Shift+F3</source>
-        <translation type="unfinished">Shift+F3</translation>
+        <translation>Shift+F3</translation>
     </message>
     <message>
         <source>Edit inner XML...</source>
@@ -6123,35 +6134,35 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../mainwindow.cpp" line="2786"/>
         <source>Validate using internal XML Schema references.</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrdit platnost za použití vnitřních odkazů schématu XML.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2788"/>
         <source>Validate using XML Schema:&apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrdit platnost za použití schématu XML: &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2802"/>
         <source>I-</source>
-        <translation type="unfinished"></translation>
+        <translation>I-</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2803"/>
         <source>No Indentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Žádné odsazení</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2805"/>
         <source>I%1</source>
-        <translation type="unfinished"></translation>
+        <translation>I%1</translation>
     </message>
     <message numerus="yes">
         <location filename="../mainwindow.cpp" line="2806"/>
         <source>Indentation: %n space(s)</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Odsazení: %n mezera</numerusform>
+            <numerusform>Odsazení: %n mezery</numerusform>
+            <numerusform>Odsazení: %n mezer</numerusform>
         </translation>
     </message>
     <message>
