@@ -1,3 +1,5 @@
+0.8.16
+
 0.8.15
     Added an information function to detect XML Schema references and namespaces.
     Added shortcuts for insert and delete elements.

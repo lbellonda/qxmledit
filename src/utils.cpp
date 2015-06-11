@@ -535,7 +535,7 @@ void Utils::todo(const QString &inputMessage)
     }
 }
 */
-/*
+
 void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
 {
     if(isUnitTest) {
@@ -544,7 +544,7 @@ void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
         //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
     }
 }
-*/
+
 
 void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
 {

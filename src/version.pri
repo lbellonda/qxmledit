@@ -22,4 +22,4 @@
 #
 
 #define the version of the program
-unix:VERSION = 0.8.15
+unix:VERSION = 0.8.16
