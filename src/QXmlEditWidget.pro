@@ -362,7 +362,8 @@ SOURCES += xmleditwidget.cpp \
     modules/xsd/xsdannotationmodel.cpp \
     undo/undocommandgroup.cpp \
     modules/xml/xmlindentationdialog.cpp \
-    modules/xsd/XSDWidgetValidation.cpp
+    modules/xsd/XSDWidgetValidation.cpp \
+    widgets/qlabelwithsignals.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -567,7 +568,8 @@ HEADERS += precompiled_lib.h \
     modules/xsd/xsdannotationmodel.h \
     precompiled_lib.h \
     undo/undocommandgroup.h \
-    modules/xml/xmlindentationdialog.h
+    modules/xml/xmlindentationdialog.h \
+    widgets/qlabelwithsignals.h
 
 
 FORMS += xmleditwidget.ui \

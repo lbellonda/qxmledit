@@ -300,6 +300,7 @@ private slots:
     void onSessionEnablingChanged();
     void onHandleSessionState();
     void onReadOnlyStateChanged();
+    void onReadOnlyGo();
 
     void treeContextMenu(const QPoint& position);
 

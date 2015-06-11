@@ -65,6 +65,7 @@ extern const char *APP_TITLE ;
 #include "modules/xsd/xsdmanager.h"
 #include "modules/xsd/xsdelementreferencedialog.h"
 #include "infodialog.h"
+#include "widgets/qlabelwithsignals.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -305,7 +306,7 @@ bool MainWindow::finishSetUpUi()
     labelMode->setToolTip(tr("Indicates the edit modality."));
     statusBar()->addPermanentWidget(labelMode);
 
-    _labelReadOnlyImg = new QLabel(statusBar());
+    _labelReadOnlyImg = new QLabelWithSignals(statusBar());
     if(NULL == _labelReadOnlyImg) {
         Utils::error(tr("Error creating user interface"));
         return false;
@@ -313,7 +314,7 @@ bool MainWindow::finishSetUpUi()
     _labelReadOnlyImg->setTextFormat(Qt::RichText);
     statusBar()->addPermanentWidget(_labelReadOnlyImg);
 
-    _labelReadOnly = new QLabel(statusBar());
+    _labelReadOnly = new QLabelWithSignals(statusBar());
     if(NULL == _labelReadOnly) {
         Utils::error(tr("Error creating user interface"));
         return false;
@@ -321,13 +322,17 @@ bool MainWindow::finishSetUpUi()
     _labelReadOnly->setTextFormat(Qt::RichText);
     statusBar()->addPermanentWidget(_labelReadOnly);
 
-    _labelIndentation = new QLabel(statusBar());
+    connect(_labelReadOnly, SIGNAL(doubleClicked()), this, SLOT(onReadOnlyGo()));
+    connect(_labelReadOnlyImg, SIGNAL(doubleClicked()), this, SLOT(onReadOnlyGo()));
+
+    _labelIndentation = new QLabelWithSignals(statusBar());
     if(NULL == _labelIndentation) {
         Utils::error(tr("Error creating user interface"));
         return false;
     }
     _labelIndentation->setTextFormat(Qt::RichText);
     statusBar()->addPermanentWidget(_labelIndentation);
+    connect(_labelIndentation, SIGNAL(doubleClicked()), this, SLOT(on_actionSetIndent_triggered()));
 
     _sessionStateWidget = new SessionStateWidget(statusBar());
     if(NULL == _sessionStateWidget) {
@@ -2678,6 +2683,11 @@ void MainWindow::on_actionReadOnly_toggled(bool /*checked*/)
 {
     getEditor()->setReadOnly(ui.actionReadOnly->isChecked());
     onReadOnlyStateChanged();
+}
+
+void MainWindow::onReadOnlyGo()
+{
+    ui.actionReadOnly->setChecked(!ui.actionReadOnly->isChecked());
 }
 
 void MainWindow::on_actionInsertMetadata_triggered()
