@@ -1,4 +1,5 @@
 0.8.16
+    Added double click action on labels on the status bar (Read Only, Sessions and Indentation).
 
 0.8.15
     Added an information function to detect XML Schema references and namespaces.

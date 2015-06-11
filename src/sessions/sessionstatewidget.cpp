@@ -50,3 +50,8 @@ void SessionStateWidget::setSessionManager(SessionManager* manager)
     d->setSessionManager(manager);
 }
 
+void SessionStateWidget::mouseDoubleClickEvent(QMouseEvent *e)
+{
+    emit doubleClicked();
+    QWidget::mouseDoubleClickEvent(e);
+}

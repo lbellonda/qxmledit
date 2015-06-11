@@ -339,6 +339,7 @@ bool MainWindow::finishSetUpUi()
         Utils::error(tr("Error creating user interface"));
         return false;
     }
+    connect(_sessionStateWidget, SIGNAL(doubleClicked()), this, SLOT(on_actionManageSessions_triggered()));
     _sessionStateWidget->setSessionManager(data->sessionManager());
     statusBar()->addPermanentWidget(_sessionStateWidget);
 

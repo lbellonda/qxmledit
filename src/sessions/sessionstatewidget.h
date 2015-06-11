@@ -53,6 +53,8 @@ public:
 
     void setSessionManager(SessionManager* manager);
 
+signals:
+    void doubleClicked();
 private:
     Ui::SessionStateWidget *ui;
     /* TODO: enable with context menu
@@ -62,6 +64,8 @@ private:
     void resumeSession();
     void stopSession();
     */
+public slots:
+    void mouseDoubleClickEvent(QMouseEvent *e);
 };
 
 #endif // SESSIONSTATEWIDGET_H
