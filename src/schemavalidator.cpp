@@ -166,7 +166,7 @@ QList<SchemaSearchContext*> SchemaValidator::getPathFromElement(Element *element
                 bool found = false;
                 foreach(Element * aChild, theParent->getItems()) {
                     // test if it is an element
-                    if(aChild == element) {
+                    if(aChild == theElement) {
                         found = true ;
                         break;
                     } else {
