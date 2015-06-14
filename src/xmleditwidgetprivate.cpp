@@ -1805,8 +1805,9 @@ void XmlEditWidgetPrivate::docTypeChanged(const QString &docType)
 void XmlEditWidgetPrivate::showControls(const bool how)
 {
     p->ui->treeWidget->setVisible(how);
-    showButtons(how);
+    Utils::TODO_THIS_RELEASE("trova una soluzione: occorre che i pulsnti siano sincronizzati con i comandi");
 }
+
 
 void XmlEditWidgetPrivate::showButtons(const bool how)
 {
@@ -1827,6 +1828,7 @@ void XmlEditWidgetPrivate::showToolbar(const bool how)
 
 void XmlEditWidgetPrivate::onActionHideView(const bool isChecked)
 {
+    Utils::TODO_THIS_RELEASE("e questa a cosa serve?");
     paintInfo.setHideView(isChecked);
     showControls(!paintInfo.hideView());
     if(!paintInfo.hideView()) {

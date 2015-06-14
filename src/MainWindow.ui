@@ -292,7 +292,14 @@
      </property>
      <addaction name="actionHideView"/>
     </widget>
-    <addaction name="actionShowCurrentSessionPanel"/>
+    <widget class="QMenu" name="menuPanels">
+     <property name="title">
+      <string>Panels</string>
+     </property>
+     <addaction name="actionShowCurrentSessionPanel"/>
+     <addaction name="actionShowMainButtons"/>
+    </widget>
+    <addaction name="menuPanels"/>
     <addaction name="actionColumnView"/>
     <addaction name="menuAdvanced"/>
     <addaction name="actionExpandAll"/>
@@ -1861,6 +1868,17 @@
    </property>
    <property name="toolTip">
     <string>Info</string>
+   </property>
+  </action>
+  <action name="actionShowMainButtons">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Buttons</string>
+   </property>
+   <property name="toolTip">
+    <string>Show or hide the main windows buttons.</string>
    </property>
   </action>
  </widget>

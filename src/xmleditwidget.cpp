@@ -1045,7 +1045,6 @@ void XmlEditWidget::onFindPrevious()
     d->onFindPrevious();
 }
 
-
 void XmlEditWidget::onSetIndent()
 {
     d->onSetIndent();

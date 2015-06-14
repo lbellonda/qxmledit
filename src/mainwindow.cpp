@@ -489,6 +489,10 @@ bool MainWindow::finishSetUpUi()
     ui.actionXSDInsertType->setEnabled(false);
     ui.actionXSDModifyType->setEnabled(false);
 
+    bool currentButtonState = Config::getBool(Config::KEY_MAIN_SHOWBUTTONS, true);
+    ui.actionShowMainButtons->setChecked(currentButtonState);
+    onShowHideMainButtons();
+
     //---- region(experimental)
     //---- endregion(experimental)
     onComputeSelectionState();
@@ -2928,5 +2932,17 @@ void MainWindow::on_actionInfo_triggered()
     }
 }
 
+void MainWindow::on_actionShowMainButtons_triggered()
+{
+    onShowHideMainButtons();
+    Config::saveBool(Config::KEY_MAIN_SHOWBUTTONS, ui.actionShowMainButtons->isChecked());
+}
 
-
+void MainWindow::onShowHideMainButtons()
+{
+    bool currentSate = ui.actionShowMainButtons->isChecked();
+    XmlEditWidget *editor = ui.editor;
+    editor->setEncodingLabelVisible(currentSate);
+    editor->setDocTypeVisible(currentSate);
+    editor->showButtons(currentSate);
+}

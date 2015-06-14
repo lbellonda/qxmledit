@@ -66,6 +66,7 @@ void XmlWidgetUtilities::resetTree(QTreeWidget *treeWidget, PaintInfo *paintInfo
     QStringList headers;
     headers << tr("Elements");
     treeWidget->setHeaderLabels(headers);
+    treeWidget->setHeaderHidden(true);
     setDataColumnTitle(treeWidget, paintInfo, paintInfo->compactView());
     calcColumnState(treeWidget, paintInfo);
 }

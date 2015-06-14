@@ -62,6 +62,7 @@ public:
     static const QString  KEY_MAIN_SHOWELSIZE;
     static const QString  KEY_MAIN_ENABLEEXPERIMENTS;
     static const QString  KEY_MAIN_SHOWFULLCOMMENTS;
+    static const QString  KEY_MAIN_SHOWBUTTONS;
     // style
     static const QString KEY_VIEW_STYLE;
     //search
