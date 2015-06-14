@@ -1,4 +1,5 @@
 0.8.16
+    Option to show/hide main window buttons.
     Added double click action on labels on the status bar (Read Only, Sessions and Indentation).
 
 0.8.15
