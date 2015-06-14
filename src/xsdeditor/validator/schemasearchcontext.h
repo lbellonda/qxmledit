@@ -89,6 +89,7 @@ public:
       */
     void setTarget(Element *parent, Element *source, const int sourceIndex);
     QString targetTag();
+    QString sourceTag();
     bool advanceSource();
     bool isEof();
     bool sourceIsTarget();

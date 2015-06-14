@@ -27,6 +27,7 @@
 
 SchemaValidator::SchemaValidator()
 {
+    Utils::TODO_THIS_RELEASE("togli log");
 }
 
 SchemaValidator::~SchemaValidator()

@@ -140,6 +140,11 @@ QString SchemaSearchContext::targetTag()
     return _target->tag();
 }
 
+QString SchemaSearchContext::sourceTag()
+{
+    return _currentSource->tag();
+}
+
 
 void SchemaSearchContext::savePosition(SchemaSearchContextPosition& position)
 {

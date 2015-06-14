@@ -334,6 +334,9 @@ SchemaSearchContext::ESearchState XSingleElementContent::evaluateMatch(SchemaSea
         }
         TRACEQ(QString("..evaluateMatch returns OK"));
         return SchemaSearchContext::OK ;
+    } else if(context->sourceTag() == item()->name()) {
+        TRACEQ(QString("..evaluateMatch returns OK"));
+        return SchemaSearchContext::OK ;
     }
     TRACEQ(QString("..evaluateMatch returns NOK"));
     return SchemaSearchContext::NOK ;
@@ -363,7 +366,7 @@ SchemaSearchContext::ESearchState XSingleElementContent::scanForElement(SchemaSe
                 TRACEQ(QString("..scanForElement return OK for ALL"));
                 return SchemaSearchContext::OK;
             }
-            if(_occurrences < _maxOccurs) {
+            if(_occurrences <= _maxOccurs) {
                 TRACEQ(QString("..scanForElement advancing, (occurrences [%1] < _maxOccurs [%2] )").arg(_occurrences).arg(_maxOccurs));
                 context->advanceSource();
                 if(context->isEof()) {
