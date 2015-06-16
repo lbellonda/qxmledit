@@ -493,6 +493,10 @@ bool MainWindow::finishSetUpUi()
     ui.actionShowMainButtons->setChecked(currentButtonState);
     onShowHideMainButtons();
 
+    bool currentStatusBarState = Config::getBool(Config::KEY_MAIN_SHOWSTATUSBAR, true);
+    ui.actionShowStatusBar->setChecked(currentStatusBarState);
+    onShowHideStatusBar();
+
     //---- region(experimental)
     //---- endregion(experimental)
     onComputeSelectionState();
@@ -2946,3 +2950,16 @@ void MainWindow::onShowHideMainButtons()
     editor->setDocTypeVisible(currentSate);
     editor->showButtons(currentSate);
 }
+
+void MainWindow::on_actionShowStatusBar_triggered()
+{
+    onShowHideStatusBar();
+    Config::saveBool(Config::KEY_MAIN_SHOWSTATUSBAR, ui.actionShowStatusBar->isChecked());
+}
+
+void MainWindow::onShowHideStatusBar()
+{
+    bool currentSate = ui.actionShowStatusBar->isChecked();
+    statusBar()->setVisible(currentSate);
+}
+

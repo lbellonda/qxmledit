@@ -178,7 +178,6 @@ public:
     void onFindPrevious();
     void onSetIndent();
 
-
     bool replaceAll(ReplaceTextParams *params);
     bool replace(ReplaceTextParams * findArgs);
 

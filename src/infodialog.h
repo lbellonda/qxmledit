@@ -53,6 +53,7 @@ class InfoDialog : public QDialog
     void setupInfo();
     void insSchemaReference(const QString &ns, const QString &uri, const QString &role);
     void insNamespace(const QString &ns, const QString &uri, const QString &role);
+    void setFileInfo();
 public:
     explicit InfoDialog(QWidget *parent, Regola *regola);
     ~InfoDialog();

@@ -59,6 +59,7 @@ const QString Config::KEY_MAIN_EXPANDONLOAD("main/expandOnLoad");
 const QString Config::KEY_MAIN_ENABLEEXPERIMENTS("main/enableExperiments");
 const QString Config::KEY_MAIN_SHOWFULLCOMMENTS("main/showFullComments");
 const QString Config::KEY_MAIN_SHOWBUTTONS("main/showButtons");
+const QString Config::KEY_MAIN_SHOWSTATUSBAR("main/showStatusBar");
 // style
 const QString Config::KEY_VIEW_STYLE("view/styleSelected");
 //const QString Config::KEY_VIEW_ITEMRENDERERATTR("view/itemRendererAttr");  deprecated but still alive

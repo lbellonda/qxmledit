@@ -24,6 +24,7 @@
 #include "infodialog.h"
 #include "ui_infodialog.h"
 #include "regola.h"
+#include "utils.h"
 
 void showInfo(QWidget *parent, Regola *regola)
 {
@@ -51,11 +52,40 @@ void InfoDialog::setupInfo()
     // 1- encoding
     setEncodingInfo();
 
+    //1.1 file info
+    setFileInfo();
+
     // 2 - XMLSchema
     setSchemaReferenceInfo();
 
     // 3 -namespaces
     setNamespaceInfo();
+}
+
+void InfoDialog::setFileInfo()
+{
+    if(_regola->fileName().isEmpty()) {
+        ui->fileInfo->setText(tr("No file information."));
+    } else {
+        QFileInfo fileInfo(_regola->fileName());
+        fileInfo.refresh();
+        QString filePath = fileInfo.absoluteFilePath();
+        bool isWritable = fileInfo.isWritable();
+        QDateTime creationTime = fileInfo.created();
+        QDateTime lastModTime = fileInfo.lastModified();
+        QString owner = fileInfo.owner();
+        qint64 size = fileInfo.size();
+
+        QString info1 = Utils::escapeHTML(tr("Path: %1").arg(filePath));
+        QString info2 = Utils::escapeHTML(tr("Size: %1 (%2 bytes) %3").arg(Utils::getSizeForPresentation(size)).arg(size).arg((isWritable ? tr("writable") : "")));
+        QString info3 = Utils::escapeHTML(tr("Created on: %1 by %2").arg(creationTime.toString(Qt::DefaultLocaleLongDate)).arg(owner));
+        QString info4 = Utils::escapeHTML(tr("Last modified on: %1").arg(lastModTime.toString(Qt::DefaultLocaleLongDate)));
+
+        QString info = QString("<html><body>%1<br/>%2<br/>%3<br/>%4<br/></body></html>").arg(info1).arg(info2).arg(info3).arg(info4);
+
+        ui->fileInfo->setTextFormat(Qt::RichText);
+        ui->fileInfo->setText(info);
+    }
 }
 
 void InfoDialog::setEncodingInfo()

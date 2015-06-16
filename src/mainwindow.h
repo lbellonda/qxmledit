@@ -293,6 +293,7 @@ private slots:
     void on_actionSetIndent_triggered();
     void on_actionInfo_triggered();
     void on_actionShowMainButtons_triggered();
+    void on_actionShowStatusBar_triggered();
 
     //----- other slots ------------------
 
@@ -421,6 +422,7 @@ protected:
     virtual void changeEvent(QEvent *e);
 
     void onShowHideMainButtons();
+    void onShowHideStatusBar();
 
 
     friend class TestFilterAttributes;

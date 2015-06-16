@@ -1,4 +1,6 @@
 0.8.16
+    Added information about the current file.
+    Option to show/hide main the staus bar.
     Option to show/hide main window buttons.
     Added double click action on labels on the status bar (Read Only, Sessions and Indentation).
 

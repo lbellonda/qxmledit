@@ -57,6 +57,16 @@
       </layout>
      </item>
      <item>
+      <widget class="QLabel" name="fileInfo">
+       <property name="text">
+        <string>---</string>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label_3">
        <property name="font">
         <font>
@@ -155,6 +165,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections>

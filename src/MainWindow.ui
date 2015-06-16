@@ -298,6 +298,7 @@
      </property>
      <addaction name="actionShowCurrentSessionPanel"/>
      <addaction name="actionShowMainButtons"/>
+     <addaction name="actionShowStatusBar"/>
     </widget>
     <addaction name="menuPanels"/>
     <addaction name="actionColumnView"/>
@@ -1881,6 +1882,17 @@
     <string>Show or hide the main windows buttons.</string>
    </property>
   </action>
+  <action name="actionShowStatusBar">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Status Bar</string>
+   </property>
+   <property name="toolTip">
+    <string>Show or hide the status bar.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1897,6 +1909,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>
