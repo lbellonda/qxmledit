@@ -33,8 +33,8 @@ done
 mkdir $DIRNAME
 
 #local release
-#git archive --format tgz --output ../${DIRNAME}/qxmledit-${APPVERSION}-src.tgz ${TAG_NAME}
-git archive --format tgz --output ${DIRNAME}/qxmledit-${APPVERSION}-src.tgz ${TAG_NAME}
+git archive --format tgz --output ${DIRNAME}/qxmledit-${APPVERSION}-src.tgz --prefix=qxmledit-${APPVERSION}/ ${TAG_NAME}
+
 if [ $? -ne 0 ]; then
     echo "unable to build package"
     exit -1
