@@ -595,6 +595,7 @@ public:
 
     DECL_QPROPS(xsdType, setXsdType)
     DECL_QPROPS(defaultValue, setDefaultValue)
+    DECL_QPROP(XSchemaAttribute::EUse, use, setUse)
 
     XSchemaSimpleTypeRestriction *getSimpleTypeRestriction();
     virtual bool findBaseObjects(XSchemaInquiryContext &context, QList<XSchemaObject*> &baseChildren, QList<XSchemaObject*> & baseAttributes);

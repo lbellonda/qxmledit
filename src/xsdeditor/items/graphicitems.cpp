@@ -60,12 +60,23 @@ GraphicsRoundRectItem::GraphicsRoundRectItem(ItemServiceExecutor *service, QGrap
     _colorStart = QColor(237, 250, 254);
     _colorMiddle = QColor(205, 241, 254);
     _colorEnd = QColor(237, 250, 254);
+    _isOptional = false;
 
     setService(service);
 }
 
 GraphicsRoundRectItem::~GraphicsRoundRectItem()
 {
+}
+
+bool GraphicsRoundRectItem::isOptional() const
+{
+    return _isOptional;
+}
+
+void GraphicsRoundRectItem::setOptional(bool isOptional)
+{
+    _isOptional = isOptional;
 }
 
 void GraphicsRoundRectItem::setService(ItemServiceExecutor *newService)
@@ -161,9 +172,15 @@ void GraphicsRoundRectItem::paint(QPainter *painter, const QStyleOptionGraphicsI
     QBrush brush(gradient);
     painter->setBrush(brush);
 
-    QPen pen(Qt::SolidLine);
-    pen.setColor(QColor(40, 120, 40));
-    painter->setPen(pen);
+    if(isOptional()) {
+        QPen pen(Qt::DashLine);
+        pen.setColor(QColor(0, 0, 120));
+        painter->setPen(pen);
+    } else {
+        QPen pen(Qt::SolidLine);
+        pen.setColor(QColor(40, 120, 40));
+        painter->setPen(pen);
+    }
 
     painter->drawRoundRect(bounds, 10, 10);
 }

@@ -26,6 +26,7 @@
 
 IMPL_QPROPS(XSchemaAttribute, xsdType, setXsdType, PROPERTY_ELEMENT_TYPE)
 IMPL_QPROPS(XSchemaAttribute, defaultValue, setDefaultValue, PROPERTY_ELEMENT_TYPE)
+IMPL_QPROP(XSchemaAttribute::EUse, XSchemaAttribute, use, setUse, PROPERTY_ATTRIBUTE_USE)
 
 XSchemaAttribute::XSchemaAttribute(XSchemaObject *newParent, XSchemaRoot *newRoot)
     : XSchemaObject(newParent, newRoot)

@@ -59,6 +59,7 @@ class GraphicsRoundRectItem : public QObject, public QGraphicsRectItem
     QColor _colorStart;
     QColor _colorMiddle;
     QColor _colorEnd;
+    bool _isOptional;
 
     enum {
         OffsetRectX = 5,
@@ -88,6 +89,9 @@ public:
 
 
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    bool isOptional() const;
+    void setOptional(bool isOptional);
+
 signals:
     void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
 };
@@ -206,3 +210,4 @@ public:
 
 
 #endif // XGRAPHICSITEMS_H
+

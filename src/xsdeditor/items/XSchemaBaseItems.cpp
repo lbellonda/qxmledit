@@ -1310,6 +1310,7 @@ XSchemaElement *ElementItem::element() const
 void ElementItem::setItem(XSchemaElement *newItem)
 {
     QString annotationInfo;
+    bool isOptional = false;
     bool showInfo = false;
     if(_item != newItem) {
         removeObject(_item);
@@ -1341,6 +1342,9 @@ void ElementItem::setItem(XSchemaElement *newItem)
             if(NULL != _item->annotation()) {
                 showInfo = true ;
                 annotationInfo = _item->annotation()->text();
+            }
+            if(_item->minOccurrences() == 0) {
+                isOptional = true ;
             }
         }
         //_labelItem->setPlainText(newDescription);
@@ -1439,6 +1443,7 @@ void ElementItem::setItem(XSchemaElement *newItem)
         _propertiesItem->setPlainText("");
         _iconInfo->hide();
     }
+    _graphicsItem->setOptional(isOptional);
     changeGraphics();
     buildTooltip();
 }
@@ -1620,6 +1625,7 @@ XSchemaAttribute *AttributeItem::item() const
 
 void AttributeItem::setItem(XSchemaAttribute *newItem)
 {
+    bool isOptional = false ;
     QString annotationInfo ;
     if(_item != newItem) {
         QString newName = "";
@@ -1639,6 +1645,9 @@ void AttributeItem::setItem(XSchemaAttribute *newItem)
             newName = _item->description();
             if(NULL != _item->annotation()) {
                 annotationInfo = _item->annotation()->text();
+            }
+            if(_item->use() == XSchemaAttribute::Optional) {
+                isOptional = true;
             }
         }
         _textItem->setPlainText(tr("%1").arg(newName));
@@ -1668,6 +1677,7 @@ void AttributeItem::setItem(XSchemaAttribute *newItem)
     qreal height = size.y() + size.height() + 4;
     _contour = QRectF(0, 0, width, height);
     _graphics->setRect(_contour);
+    _graphics->setOptional(isOptional);
     buildTooltip();
 }
 
