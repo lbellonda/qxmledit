@@ -2668,9 +2668,9 @@ QString MainWindow::readOnlyStateText(const bool isReadOnly)
 QString MainWindow::readOnlyTooltip(const bool isReadOnly)
 {
     if(isReadOnly) {
-        return tr("Read Only. Reactivable using Edit menu.");
+        return tr("Read Only. Reactivable using Edit menu or by double click.");
     } else {
-        return tr("Modifiable");
+        return QString("%1. %2").arg(tr("Modifiable")).arg(tr("Double click to change."));
     }
 }
 
