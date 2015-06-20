@@ -52,17 +52,34 @@ isEmpty(INST_INCLUDE_DIR) {
     INST_INCLUDE_DIR = /opt/qxmledit
 }
 
+LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
+
+
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
 include("version.pri")
 
+linux: {
+   LIB_VERSIONED_DEFAULT=""="1"
+}
+
+equals(LIB_VERSIONED, "") {
+    LIB_VERSIONED = $$LIB_VERSIONED_DEFAULT
+}
+
+QXMLEDIT_LIB_SUFFIX = ""
+!equals(LIB_VERSIONED, "") {
+    QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
+}
+
+
 QT       += xml xmlpatterns network svg
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-QT       += printsupport gui widgets core
+  QT       += printsupport gui widgets core
 }
 
-TARGET = QXmlEditWidget
+TARGET = QXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 os2:TARGET = QXmlEdtW
 TEMPLATE = lib
 

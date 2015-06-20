@@ -50,9 +50,28 @@ INST_TRANSLATIONS_DIR=$$(QXMLEDIT_INST_TRANSLATIONS_DIR)
 isEmpty(INST_TRANSLATIONS_DIR) {
     INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
 }
+
+LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
+
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
 include("../version.pri")
+
+
+linux: {
+   LIB_VERSIONED_DEFAULT=""="1"
+}
+
+equals(LIB_VERSIONED, "") {
+    LIB_VERSIONED = $$LIB_VERSIONED_DEFAULT
+}
+
+QXMLEDIT_LIB_SUFFIX = ""
+!equals(LIB_VERSIONED, "") {
+    QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
+}
+
+
 
 QT       += sql gui
 
@@ -61,7 +80,7 @@ QT       += widgets core
 }
 
 
-TARGET = QXmlEditSessions
+TARGET = QXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
 os2:TARGET = QXEdtSes
 TEMPLATE = lib
 

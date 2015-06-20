@@ -40,6 +40,7 @@
 #message(QXMLEDIT_INST_LIB_DIR = $$(QXMLEDIT_INST_LIB_DIR))
 #message(QXMLEDIT_INST_TRANSLATIONS_DIR = $$(QXMLEDIT_INST_TRANSLATIONS_DIR))
 #message(QXMLEDIT_UNIX_LOWERCASE_NAME = $$(QXMLEDIT_UNIX_LOWERCASE_NAME))
+#message(LIB_VERSIONED=$$(QXMLEDIT_VERSIONED))
 
 
 INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
@@ -78,6 +79,8 @@ isEmpty(USE_QWTPLOT) {
 
 TARGET_NAME_UNIXSTYLE=$$(QXMLEDIT_UNIX_LOWERCASE_NAME)
 
+LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
+
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
 include("version.pri")
@@ -85,13 +88,31 @@ include("version.pri")
 #default value for the unix/Linux target name
 TARGET_NAME_UNIXSTYLE_DEFAULT=""
 
+#default value for the lib version name
+LIB_VERSIONED_DEFAULT=""
+
 unix:!macx: {
    TARGET_NAME_UNIXSTYLE_DEFAULT="1"
 }
 
+linux: {
+   LIB_VERSIONED_DEFAULT=""="1"
+}
+
+
 equals(TARGET_NAME_UNIXSTYLE, "") {
     TARGET_NAME_UNIXSTYLE = $$TARGET_NAME_UNIXSTYLE_DEFAULT
 }
+
+equals(LIB_VERSIONED, "") {
+    LIB_VERSIONED = $$LIB_VERSIONED_DEFAULT
+}
+
+QXMLEDIT_LIB_SUFFIX = ""
+!equals(LIB_VERSIONED, "") {
+    QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
+}
+
 
 TEMPLATE = app
 
@@ -377,18 +398,18 @@ OTHER_FILES += \
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../build/lib/release/ -L$$OUT_PWD/../build -lQXmlEditWidget
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../build/lib/debug/ -L$$OUT_PWD/../build -lQXmlEditWidget
-else:symbian: LIBS += -lQXmlEditWidget
-else:macx: LIBS += -L$(DESTDIR) -lQXmlEditWidget
-else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditWidget
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../build/lib/release/ -L$$OUT_PWD/../build -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../build/lib/debug/ -L$$OUT_PWD/../build -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
+else:symbian: LIBS += -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
+else:macx: LIBS += -L$(DESTDIR) -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
+else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 else:os2: LIBS += -L..\build -lQXmlEdtW
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../build/lib/release/ -L$$OUT_PWD/../build -lQXmlEditSessions
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../build/lib/debug/ -L$$OUT_PWD/../build -lQXmlEditSessions
-else:symbian: LIBS += -lQXmlEditSessions
-else:macx: LIBS += -L$(DESTDIR) -lQXmlEditSessions
-else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditSessions
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../build/lib/release/ -L$$OUT_PWD/../build -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../build/lib/debug/ -L$$OUT_PWD/../build -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
+else:symbian: LIBS += -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
+else:macx: LIBS += -L$(DESTDIR) -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
+else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
 else:os2: LIBS += -L..\build -lQXEdtSes
 
 contains(USE_QWTPLOT, Y) {
