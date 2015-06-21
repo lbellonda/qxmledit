@@ -88,21 +88,20 @@ include("version.pri")
 #default value for the unix/Linux target name
 TARGET_NAME_UNIXSTYLE_DEFAULT=""
 
-#default value for the lib version name
-LIB_VERSIONED_DEFAULT=""
-
 unix:!macx: {
    TARGET_NAME_UNIXSTYLE_DEFAULT="1"
 }
 
-linux: {
-   LIB_VERSIONED_DEFAULT=""="1"
-}
-
-
 equals(TARGET_NAME_UNIXSTYLE, "") {
     TARGET_NAME_UNIXSTYLE = $$TARGET_NAME_UNIXSTYLE_DEFAULT
 }
+
+#default value for the lib version name
+LIB_VERSIONED_DEFAULT=""
+linux: {
+   LIB_VERSIONED_DEFAULT="1"
+}
+
 
 equals(LIB_VERSIONED, "") {
     LIB_VERSIONED = $$LIB_VERSIONED_DEFAULT
@@ -111,6 +110,10 @@ equals(LIB_VERSIONED, "") {
 QXMLEDIT_LIB_SUFFIX = ""
 !equals(LIB_VERSIONED, "") {
     QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
+}
+
+equals(QXMLEDIT_LIB_SUFFIX, "") {
+    VERSION=""
 }
 
 

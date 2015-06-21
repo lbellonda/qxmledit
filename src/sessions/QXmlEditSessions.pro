@@ -58,8 +58,10 @@ LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
 include("../version.pri")
 
 
+#default value for the lib version name
+LIB_VERSIONED_DEFAULT=""
 linux: {
-   LIB_VERSIONED_DEFAULT=""="1"
+   LIB_VERSIONED_DEFAULT="1"
 }
 
 equals(LIB_VERSIONED, "") {
@@ -71,6 +73,9 @@ QXMLEDIT_LIB_SUFFIX = ""
     QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
 }
 
+equals(QXMLEDIT_LIB_SUFFIX, "") {
+    VERSION=""
+}
 
 
 QT       += sql gui
