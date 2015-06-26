@@ -25,6 +25,7 @@
 #define XELEMENTCONTENT_H
 
 #include "xsdeditor/validator/xsingleelementcontent.h"
+#include "xsdeditor/xschema.h"
 
 class XValidationContext;
 
@@ -36,6 +37,7 @@ class XElementContent : public QObject
 
     QList<XSingleElementContent*> _allowedItems;
     QList<XSingleElementContent*> _forbiddenItems;
+    XSchemaAttributesCollection *_attributeContainer;
 
     void reset();
 public:
@@ -45,6 +47,8 @@ public:
     XSchemaObject *item(const QString &itemName);
     QList<XSingleElementContent*> &allowedItems();
     XSingleElementContent *addAllowed(XValidationContext *context, XSchemaObject *object);
+    XSchemaAttributesCollection *attributeContainer() const;
+    void setAttributeContainer(XSchemaAttributesCollection *attributeContainer);
 };
 
 #endif // XELEMENTCONTENT_H

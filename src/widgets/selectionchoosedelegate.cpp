@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,49 +20,51 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "xsdeditor/validator/xvalidationcontext.h"
-#include "xsdeditor/validator/xelementcontent.h"
+#include "selectionchoosedelegate.h"
+#include <QComboBox>
+#include "utils.h"
 #include "xsdeditor/xschema.h"
 
-XValidationContext::XValidationContext(XElementContent *rootContent)
-{
-    _isError = false ;
-    _currentTarget = NULL ;
-    _content = rootContent;
-}
-
-XValidationContext::~XValidationContext()
+SelectionChooseDelegate::SelectionChooseDelegate(QWidget *parent) : QStyledItemDelegate(parent)
 {
 }
 
-void XValidationContext::setError(const QString &errorMessage)
+SelectionChooseDelegate::~SelectionChooseDelegate()
 {
-    _isError = true ;
-    _errorMessage = errorMessage;
 }
 
-XSingleElementContent  *XValidationContext::currentTarget()
-{
-    return _currentTarget;
-}
 
-void XValidationContext::setCurrentTarget(XSingleElementContent *newTarget)
-{
-    _currentTarget = newTarget ;
-}
+QWidget *SelectionChooseDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 
-XSingleElementContent *XValidationContext::addAllowed(XSingleElementContent *parent, XSchemaObject *object)
 {
-    XSingleElementContent * newObj = NULL ;
-    if(NULL == parent) {
-        newObj =  _content->addAllowed(this, object);
+    if(index.column() == ColumnValue) {
+        QComboBox *editor = new QComboBox(parent);
+        editor->setEditable(true);
+        return editor;
     } else {
-        newObj = parent->addAChild(object);
-        if(NULL == newObj) {
-            setError(QString(tr("Unable to add allowed item %1")).arg((NULL != object) ? object->name() : "?"));
-        } else {
-            setCurrentTarget(newObj);
-        }
+        return QStyledItemDelegate::createEditor(parent, option, index);
     }
-    return newObj;
+}
+
+void SelectionChooseDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+{
+    if(index.column() == ColumnValue) {
+        QVariant data = index.data(Qt::UserRole);
+        QString value = index.data().toString();
+        AttrCollectInfo *info = (AttrCollectInfo *)data.value<void*>();
+        QComboBox *combo = qobject_cast<QComboBox *>(editor);
+        Utils::loadComboTextArrays(combo, value, info->enums, info->enums);
+    } else {
+        QStyledItemDelegate::setEditorData(editor, index);
+    }
+}
+
+void SelectionChooseDelegate::setModelData(QWidget * editor, QAbstractItemModel *model,
+        const QModelIndex &index) const
+{
+    QStyledItemDelegate::setModelData(editor, model, index);
+    if(index.column() == ColumnValue) {
+        QModelIndex checkIndex = model->index(index.row(), 0);
+        model->setData(checkIndex, Qt::Checked, Qt::CheckStateRole);
+    }
 }

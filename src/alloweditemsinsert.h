@@ -27,6 +27,7 @@
 #include <QTreeWidgetItem>
 #include <QStack>
 #include <QSet>
+#include <QTableWidget>
 
 #include "xsdeditor/validator/xelementcontent.h"
 
@@ -34,6 +35,20 @@ namespace Ui
 {
 class AllowedItemsInsert;
 }
+
+class AIIAttribute
+{
+public:
+    bool isChecked;
+    QString name;
+    QString value;
+    int index;
+    AttrCollectInfo* data;
+
+    AIIAttribute();
+    ~AIIAttribute();
+
+};
 
 class AllowedItemsInsert : public QDialog
 {
@@ -46,6 +61,8 @@ class AllowedItemsInsert : public QDialog
     *******************************************/
     XElementContent *_content;
     QList<XSchemaObject*> *_selection;
+    QList<QPair<QString, QString> > *_attributesResult;
+    QList<AIIAttribute> _attributes;
 
     void collectSelected(QTreeWidgetItem *parentItem);
     void addItem(XSingleElementContent *target, QTreeWidgetItem *parentItem);
@@ -54,9 +71,11 @@ class AllowedItemsInsert : public QDialog
     void saveState();
     void enableControls();
     void restoreState();
+    void setupAttributes();
+    void addAttributeItem(QTableWidget *table, AttrCollectInfo* info, const QString &name, const QString &value);
 
 public:
-    explicit AllowedItemsInsert(XElementContent *content, QList<XSchemaObject*> *result, QWidget *parent = 0);
+    explicit AllowedItemsInsert(XElementContent *content, QList<XSchemaObject*> *result, QList<QPair<QString, QString> > *resultAttributes, QWidget *parent = 0);
     ~AllowedItemsInsert();
 
 
@@ -71,6 +90,6 @@ private slots:
 
 };
 
-bool ChooseItemsBySchema(QWidget *parent, XElementContent *content, QList<XSchemaObject*> *result);
+bool ChooseItemsBySchema(QWidget *parent, XElementContent *content, QList<XSchemaObject*> *result, QList<QPair<QString, QString> > *attributes);
 
 #endif // ALLOWEDITEMSINSERT_H

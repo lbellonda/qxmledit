@@ -1962,15 +1962,23 @@ void XmlEditWidgetPrivate::insertAllowedElements(Element *element)
         bool isModified = false;
         regola->emptyUndoStack();
         QList<XSchemaObject*> result;
-        if(ChooseItemsBySchema(p, &content, &result)) {
+        QList< QPair<QString, QString> > attributes;
+        Element *theParent = element;
+        if(ChooseItemsBySchema(p, &content, &result, &attributes)) {
             foreach(XSchemaObject * object, result) {
                 if(startAsRoot) {
+                    theParent = regola->root();
                     regola->addChildToElement(_uiDelegate->getMainWidget(), p->getMainTreeWidget(), NULL, object->name(), false);
                     isModified = true ;
                     break;
                 }
                 regola->addChildToElement(p, p->ui->treeWidget, element, object->name(), false);
                 isModified = true ;
+            }
+            Utils::TODO_THIS_RELEASE("settare undo per questo");
+            QPair<QString, QString> attribute;
+            foreach(attribute, attributes) {
+                theParent->setAttribute(attribute.first, attribute.second);
             }
             if(isModified) {
                 p->emitDocumentIsModified(regola->isModified());

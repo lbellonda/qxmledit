@@ -25,7 +25,9 @@
 
 #include <QString>
 
-#include "xsdeditor/validator/xelementcontent.h"
+class XElementContent;
+class XSingleElementContent;
+class XSchemaObject;
 
 class XValidationContext : public QObject
 {

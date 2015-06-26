@@ -1196,7 +1196,35 @@ QString XSchemaElement::xmlRepresentation()
     return result;
 }
 
-
+XSchemaAttributesCollection *XSchemaElement::attributesRepresentation()
+{
+    XSchemaAttributesCollection *result = new XSchemaAttributesCollection();
+    XSchemaXmlRepresentationInfo info;
+    XSchemaElement *elm = NULL ;
+    switch(category()) {
+    case EES_EMPTY:
+        elm = resolveType(this);
+        break;
+    case EES_REFERENCE:
+        elm = resolveType(resolveReference(this));
+        break;
+    case EES_SIMPLETYPE_ONLY:
+    case EES_SIMPLETYPE_WITHATTRIBUTES:
+    case EES_COMPLEX_DERIVED:
+    case EES_COMPLEX_DEFINITION:
+        elm = resolveType(this);
+        break;
+    default:
+        //
+        //Utils::error(QString("cat %1").arg(category()));
+        break;
+    }
+    info.tag = localName(nameOrReference());
+    if(NULL != elm) {
+        elm->collectAttributes(*result);
+    }
+    return result;
+}
 
 XSchemaElement *XSchemaElement::resolveReference(XSchemaElement *base)
 {

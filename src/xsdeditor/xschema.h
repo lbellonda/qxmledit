@@ -816,6 +816,7 @@ public:
     virtual void markCompareStateRecursive(const XSDCompareState::EXSDCompareState newState);
     void getModifiedObjects(QList<XSchemaObject*> &added, QList<XSchemaObject*> &modified, QList<XSchemaObject*> &deleted);
     QString xmlRepresentation();
+    XSchemaAttributesCollection *attributesRepresentation();
     XSchemaElement *resolveType(XSchemaElement *base);
     XSchemaElement *resolveReference(XSchemaElement *base);
     XSchemaElement *resolveType(XSchemaFindReferenceContext &context, XSchemaElement *base);

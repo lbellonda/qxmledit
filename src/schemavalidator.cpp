@@ -74,6 +74,12 @@ XElementContent *SchemaValidator::getAvailableContent(XElementContent *content, 
         TRACE2("2: found %s\n", object->name().toAscii().data());
         XValidationContext context(content);
         if(object->findSchemaChildComponents(&context, content)) {
+            // get also attributes
+            if(object->getType() == SchemaTypeElement) {
+                XSchemaElement *element = (XSchemaElement *)object ;
+                XSchemaAttributesCollection *xSchemaAttributesCollection = element->attributesRepresentation();
+                content->setAttributeContainer(xSchemaAttributesCollection);
+            }
             return content;
         }
     }
@@ -234,8 +240,10 @@ bool XSDSchema::findSchemaChildComponents(XValidationContext *context, XElementC
     foreach(XSchemaObject * child, _children) {
         if(child->getType() == SchemaTypeElement) {
             XSchemaElement * element = (XSchemaElement *) child ;
-            content->addAllowed(context, element);
-            atLeastOne = true ;
+            if(!element->isTypeOrElement()) {
+                content->addAllowed(context, element);
+                atLeastOne = true ;
+            }
         }
     }
     return atLeastOne ;

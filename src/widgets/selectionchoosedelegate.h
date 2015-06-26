@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,49 +20,24 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "xsdeditor/validator/xvalidationcontext.h"
-#include "xsdeditor/validator/xelementcontent.h"
-#include "xsdeditor/xschema.h"
 
-XValidationContext::XValidationContext(XElementContent *rootContent)
-{
-    _isError = false ;
-    _currentTarget = NULL ;
-    _content = rootContent;
-}
+#ifndef SELECTIONCHOOSEDELEGATE_H
+#define SELECTIONCHOOSEDELEGATE_H
 
-XValidationContext::~XValidationContext()
-{
-}
+#include <QStyledItemDelegate>
 
-void XValidationContext::setError(const QString &errorMessage)
+class SelectionChooseDelegate : public QStyledItemDelegate
 {
-    _isError = true ;
-    _errorMessage = errorMessage;
-}
+    static const int ColumnValue = 2;
+public:
+    SelectionChooseDelegate(QWidget *parent = 0);
+    virtual ~SelectionChooseDelegate();
 
-XSingleElementContent  *XValidationContext::currentTarget()
-{
-    return _currentTarget;
-}
+    QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option,
+                          const QModelIndex &index) const;
+    void setEditorData(QWidget *editor, const QModelIndex &index) const;
+    void setModelData(QWidget *editor, QAbstractItemModel *model,
+                      const QModelIndex &index) const;
+};
 
-void XValidationContext::setCurrentTarget(XSingleElementContent *newTarget)
-{
-    _currentTarget = newTarget ;
-}
-
-XSingleElementContent *XValidationContext::addAllowed(XSingleElementContent *parent, XSchemaObject *object)
-{
-    XSingleElementContent * newObj = NULL ;
-    if(NULL == parent) {
-        newObj =  _content->addAllowed(this, object);
-    } else {
-        newObj = parent->addAChild(object);
-        if(NULL == newObj) {
-            setError(QString(tr("Unable to add allowed item %1")).arg((NULL != object) ? object->name() : "?"));
-        } else {
-            setCurrentTarget(newObj);
-        }
-    }
-    return newObj;
-}
+#endif // SELECTIONCHOOSEDELEGATE_H

@@ -25,11 +25,26 @@
 
 XElementContent::XElementContent()
 {
+    _attributeContainer = NULL ;
 }
 
 XElementContent::~XElementContent()
 {
     reset();
+    if(NULL != _attributeContainer) {
+        delete _attributeContainer ;
+    }
+}
+
+
+XSchemaAttributesCollection *XElementContent::attributeContainer() const
+{
+    return _attributeContainer;
+}
+
+void XElementContent::setAttributeContainer(XSchemaAttributesCollection *attributeContainer)
+{
+    _attributeContainer = attributeContainer;
 }
 
 void XElementContent::reset()

@@ -23,11 +23,24 @@
 #include "alloweditemsinsert.h"
 #include "xsdeditor/xschema.h"
 #include "ui_alloweditemsinsert.h"
+#include "widgets/selectionchoosedelegate.h"
 #include "utils.h"
 
-bool ChooseItemsBySchema(QWidget *parent, XElementContent *content, QList<XSchemaObject*> *result)
+AIIAttribute::AIIAttribute()
 {
-    AllowedItemsInsert dialog(content, result, parent);
+    index = 0 ;
+    data = NULL ;
+}
+
+AIIAttribute::~AIIAttribute()
+{
+}
+
+//-----
+
+bool ChooseItemsBySchema(QWidget *parent, XElementContent *content, QList<XSchemaObject*> *result, QList<QPair<QString, QString> > * attributes)
+{
+    AllowedItemsInsert dialog(content, result, attributes, parent);
     if(dialog.exec() == QDialog::Accepted) {
         return true;
     }
@@ -60,7 +73,7 @@ AllowedItemsInsert::AllowedItemsInsert(XElementContent *content, QList<XSchemaOb
 }
 *************************************************************************************/
 
-AllowedItemsInsert::AllowedItemsInsert(XElementContent *content, QList<XSchemaObject*> *result, QWidget *parent) :
+AllowedItemsInsert::AllowedItemsInsert(XElementContent *content, QList<XSchemaObject*> *result, QList<QPair<QString, QString> > * resultAttributes, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AllowedItemsInsert)
 {
@@ -69,10 +82,12 @@ AllowedItemsInsert::AllowedItemsInsert(XElementContent *content, QList<XSchemaOb
     /****************** future releases ***********
     _redoing = false ;
     ***********************************************/
+    _attributesResult = resultAttributes ;
     _selection = result ;
     _content = content ;
     ui->setupUi(this);
     ui->allowedItems->setColumnCount(2);
+    ui->attributes->setItemDelegate(new SelectionChooseDelegate());
 
     //QTreeWidgetItem *parentItem = NULL ;
     foreach(XSingleElementContent * targetContent, content->allowedItems()) {
@@ -93,6 +108,8 @@ AllowedItemsInsert::AllowedItemsInsert(XElementContent *content, QList<XSchemaOb
     ui->allowedItems->expandAll();
     ui->allowedItems->resizeColumnToContents(0);
     ui->allowedItems->resizeColumnToContents(1);
+
+    setupAttributes();
     enableControls();
 }
 
@@ -258,6 +275,7 @@ void AllowedItemsInsert::collectSelected(QTreeWidgetItem *parentItem)
 
 void AllowedItemsInsert::accept()
 {
+    setEnabled(false);
     // Look for selected items.
     // alternative: use QTreeWidgetItemIterator
     _selection->clear();
@@ -266,6 +284,18 @@ void AllowedItemsInsert::accept()
         QTreeWidgetItem *item = ui->allowedItems->topLevelItem(i);
         collectSelected(item);
     }
+    // collect attributes
+    int attrRows = ui->attributes->rowCount();
+    for(int row = 0 ; row < attrRows ; row ++) {
+        QTableWidgetItem *lead = ui->attributes->item(row, 0);
+        if(lead->checkState() == Qt::Checked) {
+            QTableWidgetItem *nameItem = ui->attributes->item(row, 1);
+            QTableWidgetItem *valueItem = ui->attributes->item(row, 2);
+            QPair<QString, QString> newAttr(nameItem->text(), valueItem->text());
+            _attributesResult->append(newAttr);
+        }
+    }
+    // end attributes
 
     QDialog::accept();
 }
@@ -294,4 +324,48 @@ void AllowedItemsInsert::on_redo_clicked()
     _redoing = false ;
     enableControls();
     *********************************************/
+}
+
+void AllowedItemsInsert::addAttributeItem(QTableWidget *table, AttrCollectInfo* info, const QString &name, const QString &value)
+{
+    int rows = table->rowCount();
+    table->setRowCount(rows + 1);
+    {
+        QTableWidgetItem *itemMod = new QTableWidgetItem("");
+        itemMod->setFlags(itemMod->flags() & (~Qt::ItemIsEditable));
+        itemMod->setCheckState(Qt::Unchecked);
+        itemMod->setFlags(itemMod->flags() | (Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable));
+        itemMod->setData(Qt::UserRole, qVariantFromValue((void*)info));
+        table->setItem(rows, 0, itemMod);
+    }
+    {
+        Utils::TODO_THIS_RELEASE("fare anche tipo");
+        QTableWidgetItem *itemName = new QTableWidgetItem(name);
+        itemName->setFlags(itemName ->flags()& ~(Qt::ItemIsEditable));
+        itemName->setData(Qt::UserRole, qVariantFromValue((void*)info));
+        table->setItem(rows, 1, itemName);
+    }
+    {
+        QTableWidgetItem *itemValue = new QTableWidgetItem(value);
+        itemValue->setFlags(itemValue->flags()& ~(Qt::ItemIsUserCheckable));
+        itemValue->setData(Qt::UserRole, qVariantFromValue((void*)info));
+        table->setItem(rows, 2, itemValue);
+    }
+
+}
+
+void AllowedItemsInsert::setupAttributes()
+{
+    Utils::TODO_THIS_RELEASE("finire");
+    ui->attributes->setColumnCount(3);
+    QStringList headers ;
+    headers << tr("Use") << tr("Name") << tr("Value");
+    ui->attributes->setHorizontalHeaderLabels(headers);
+    if(NULL != _content->attributeContainer()) {
+        foreach(QString name, _content->attributeContainer()->attributes.keys()) {
+            AttrCollectInfo* attrInfo = _content->attributeContainer()->attributes[name];
+            addAttributeItem(ui->attributes, attrInfo, name, attrInfo->defaultValue);
+        }
+    }
+    ui->attributes->resizeColumnsToContents();
 }
