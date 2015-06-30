@@ -60,7 +60,7 @@ include("../version.pri")
 
 #default value for the lib version name
 LIB_VERSIONED_DEFAULT=""
-linux: {
+unix:!macx: {
    LIB_VERSIONED_DEFAULT="1"
 }
 
@@ -152,7 +152,8 @@ SOURCES += sessionmanager.cpp \
     data_access/model/attrfilterdetail.cpp \
     data_access/model/genericpersistentdbdata.cpp \
     data_access/sqllitegenericdata.cpp \
-    sessionprivatedefault.cpp
+    sessionprivatedefault.cpp \
+    xmlsavecontext.cpp
 
 HEADERS +=  precompiled_lib.h \
     sessions.h \
@@ -188,7 +189,8 @@ HEADERS +=  precompiled_lib.h \
     data_access/model/genericpersistentdbdata.h \
     sessionprivatedefault.h \
     ../framework/include/Notifier.h \
-    precompiled_lib.h
+    precompiled_lib.h \
+    xmlsavecontext.h
 
 
 FORMS += \
