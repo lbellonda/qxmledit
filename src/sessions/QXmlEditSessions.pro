@@ -152,8 +152,7 @@ SOURCES += sessionmanager.cpp \
     data_access/model/attrfilterdetail.cpp \
     data_access/model/genericpersistentdbdata.cpp \
     data_access/sqllitegenericdata.cpp \
-    sessionprivatedefault.cpp \
-    xmlsavecontext.cpp
+    sessionprivatedefault.cpp
 
 HEADERS +=  precompiled_lib.h \
     sessions.h \
@@ -189,8 +188,7 @@ HEADERS +=  precompiled_lib.h \
     data_access/model/genericpersistentdbdata.h \
     sessionprivatedefault.h \
     ../framework/include/Notifier.h \
-    precompiled_lib.h \
-    xmlsavecontext.h
+    precompiled_lib.h
 
 
 FORMS += \

@@ -51,6 +51,8 @@ public:
     virtual QIODevice *newDeviceForWrite(const QString &path) = 0;
 };
 
+class XMLSaveContext;
+class RegolaSettings;
 
 class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
 {
@@ -150,6 +152,7 @@ public:
     bool write(const QString &filePath);
     bool write(const QString &filePath, const bool isMarkSaved);
     bool write(QIODevice *device, const bool isMarkSaved);
+    bool writeAlt(QIODevice *device, const bool isMarkSaved);
     bool writeAsJavaString(QIODevice *device);
     bool writeAsCString(QIODevice *device);
     bool writeAsJavaStringInFile(const QString &filePath);
@@ -377,6 +380,10 @@ public:
     static QString roleForKnownUri(const QString &uri);
     QString noNameSpaceXsd();
     QHash<QString, QSet<QString> > allNamespaces();
+
+    RegolaSettings *getSettings();
+    void restoreSettings(RegolaSettings *settings);
+
 
 signals:
     void wasModified();

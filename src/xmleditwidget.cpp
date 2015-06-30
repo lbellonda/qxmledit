@@ -1049,3 +1049,8 @@ void XmlEditWidget::onSetIndent()
 {
     d->onSetIndent();
 }
+
+QMenu* XmlEditWidget::getCopyMenu()
+{
+    return d->getCopyMenu();
+}

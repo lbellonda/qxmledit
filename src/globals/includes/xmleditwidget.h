@@ -178,6 +178,8 @@ public:
     void onFindPrevious();
     void onSetIndent();
 
+    QMenu* getCopyMenu();
+
     bool replaceAll(ReplaceTextParams *params);
     bool replace(ReplaceTextParams * findArgs);
 

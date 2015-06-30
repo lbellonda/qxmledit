@@ -1,4 +1,7 @@
 0.8.16
+    Restored indentation settings after reload operation.
+    Optionally versioned libraries.
+    Dashed border on optional attributes and elements in the XSD view.
     Added information about the current file.
     Option to show/hide main the staus bar.
     Option to show/hide main window buttons.

@@ -129,6 +129,8 @@ public:
     ~ElementLoadInfoMap();
 };
 
+class XMLSaveContext;
+
 class LIBQXMLEDITSHARED_EXPORT Element
 {
 
@@ -215,6 +217,8 @@ public:
     bool isEmpty() const;
     bool generateDom(QDomDocument &document, QDomNode &parent, ElementLoadInfoMap *dataMap);
     bool generateDom(QDomDocument &document, QDomNode &parent);
+
+    bool writeAlt(XMLSaveContext *context, QXmlStreamWriter &writer, ElementLoadInfoMap *dataMap = NULL);
 
     void clearAttributes();
     bool addAttribute(const QString &name, const QString &value);

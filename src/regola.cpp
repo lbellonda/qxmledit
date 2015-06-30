@@ -22,6 +22,47 @@
 
 #include "regoladefinitions.h"
 #include "undo/elupdateelementcommand.h"
+#include "xmlsavecontext.h"
+
+//-----
+
+class RegolaSettings
+{
+    int indentation;
+    bool useIndent;
+public:
+    RegolaSettings() {
+        indentation = 0;
+        useIndent = false;
+    }
+    ~RegolaSettings() {}
+    int getIndentation() const;
+    void setIndentation(int value);
+    bool isUseIndent() const;
+    void setUseIndent(bool value);
+};
+
+
+bool RegolaSettings::isUseIndent() const
+{
+    return useIndent;
+}
+
+void RegolaSettings::setUseIndent(bool value)
+{
+    useIndent = value;
+}
+
+int RegolaSettings::getIndentation() const
+{
+    return indentation;
+}
+
+void RegolaSettings::setIndentation(int value)
+{
+    indentation = value;
+}
+
 //-----
 
 DocumentDeviceProvider::~DocumentDeviceProvider()
@@ -352,6 +393,8 @@ QDomDocument Regola::createNewDocument()
 
 bool Regola::write(QIODevice *device, const bool isMarkSaved)
 {
+    Utils::TODO_THIS_RELEASE("fare");
+    //return writeAlt(device, isMarkSaved);
     //QDomImplementation::setInvalidDataPolicy(QDomImplementation::AcceptInvalidChars);
     QDomDocument    document = createNewDocument();
     //document.setInvalidDataPolicy(QDomImplementation::ReturnNullNode); TODO
@@ -372,6 +415,43 @@ bool Regola::write(QIODevice *device, const bool isMarkSaved)
     streamOut.setCodec(theEncoding.toLatin1().data());
     streamOut << document.toString(_indent);
     streamOut.flush();
+    device->close();
+    if(isMarkSaved) {
+        foreach(Element * ep, childItems) {
+            ep->markSavedRecursive();
+        }
+    }
+    // TODO: repaint only if modified, and only if visible
+    redisplay();
+
+    return true;
+}
+
+bool Regola::writeAlt(QIODevice *device, const bool isMarkSaved)
+{
+    if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
+        Utils::error(tr("Error writing data: %1").arg(device->errorString()));
+        return false;
+    }
+
+    Utils::TODO_THIS_RELEASE("fare doctype");
+    QXmlStreamWriter outputStream(device);
+    XMLSaveContext context;
+
+    outputStream.setAutoFormatting(true);
+    outputStream.setAutoFormattingIndent(_indent);
+    QString theEncoding = encoding();
+    outputStream.setCodec(theEncoding.toLatin1().data());
+    //outputStream.writeStartDocument();
+
+    QVectorIterator<Element*> it(childItems);
+    while(it.hasNext()) {
+        if(!it.next()->writeAlt(&context, outputStream))
+            return false;
+    }
+
+    //outputStream.writeEndDocument();
+
     device->close();
     if(isMarkSaved) {
         foreach(Element * ep, childItems) {
@@ -2816,4 +2896,24 @@ QHash<QString, QSet<QString> > Regola::allNamespaces()
         element->allNamespaces(result);
     }
     return result ;
+}
+
+
+RegolaSettings *Regola::getSettings()
+{
+    RegolaSettings *newSettings = new RegolaSettings();
+    if(NULL != newSettings) {
+        newSettings->setIndentation(_indent);
+        newSettings->setUseIndent(_useIndent);
+    }
+    return newSettings ;
+}
+
+void Regola::restoreSettings(RegolaSettings *settings)
+{
+    if(NULL != settings) {
+        _indent = settings->getIndentation();
+        _useIndent = settings->isUseIndent();
+        emitIndentationChange();
+    }
 }

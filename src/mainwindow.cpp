@@ -625,6 +625,20 @@ void MainWindow::treeContextMenu(const QPoint& position)
         hierarchyMenu->addAction(ui.actionInsertParent);
         hierarchyMenu->addAction(ui.actionRemoveParent);
     }
+    //---
+    QMenu *advancedCopyMenu = contextMenu.addMenu(tr("Advanced"));
+    advancedCopyMenu->addAction(ui.actionCopyAttributes);
+    if(isActionMode) {
+        advancedCopyMenu->addAction(ui.actionPasteLastAttributes);
+    }
+    advancedCopyMenu->addSeparator();
+    QMenu *copyMenu = getEditor()->getCopyMenu();
+    if(NULL != copyMenu) {
+        foreach(QAction * action, copyMenu->actions()) {
+            advancedCopyMenu->addAction(action);
+        }
+    }
+    //---
     contextMenu.addSeparator() ;
     if(isActionMode) {
         contextMenu.addAction(ui.actionPasteAndSubstituteText);
@@ -1443,7 +1457,11 @@ void MainWindow::on_actionReload_triggered()
     if(!MainWindow::checkAbandonChanges()) {
         return ;
     }
+    // save presets
+    RegolaSettings *settings = regola->getSettings();
     loadFile(filePath, false);
+    // restore presets
+    getRegola()->restoreSettings(settings);
 }
 
 void MainWindow::onRecentFile()
@@ -1699,7 +1717,6 @@ void MainWindow::loadFileXplore(const QString &filePath)
         Utils::error(tr("File name empty. Unable to load it."));
     }
 }
-
 
 bool MainWindow::loadFile(const QString &filePath, const bool activateModes)
 {

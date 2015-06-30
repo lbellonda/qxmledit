@@ -94,6 +94,7 @@ public:
     void setNewStyle(VStyle *newStyle);
     void buildCopyMenu();
     void resetCopyMenu();
+    QMenu* getCopyMenu();
     QTreeWidgetItem *getSelItem();
 
     void moveUp();

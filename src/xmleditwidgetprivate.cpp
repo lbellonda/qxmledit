@@ -375,6 +375,11 @@ void XmlEditWidgetPrivate::setCopyPathAction(QAction* action)
     _copyPathAction = action ;
 }
 
+QMenu* XmlEditWidgetPrivate::getCopyMenu()
+{
+    return copyMenu ;
+}
+
 void XmlEditWidgetPrivate::buildCopyMenu()
 {
     Element *element = getSelectedItem();

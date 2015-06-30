@@ -27,6 +27,7 @@
 #include "config.h"
 #include "utils.h"
 #include "xmlutils.h"
+#include "xmlsavecontext.h"
 
 #include "undo/undopasteattributescommand.h"
 #include "modules/anonymize/anonbase.h"
@@ -934,6 +935,73 @@ bool Element::generateDom(QDomDocument &document, QDomNode &parent, ElementLoadI
         } else {
             QDomText nodeText = document.createTextNode(text);
             parent.appendChild(nodeText);
+        }
+    }
+    break;
+
+    }
+    if(NULL != dataMap) {
+        dataMap->currentKey = prevDMKey ;
+    }
+    return result;
+}
+
+bool Element::writeAlt(XMLSaveContext *context, QXmlStreamWriter &writer, ElementLoadInfoMap *dataMap)
+{
+    bool result = true;
+    QString prevDMKey ;
+    if(NULL != dataMap) {
+        Utils::TODO_THIS_RELEASE("aaa");
+        /*prevDMKey = dataMap->currentKey ;
+        handleMapEncodingPreInsert(parent, dataMap);*/
+    }
+    switch(type) {
+    default:
+    case ET_ELEMENT: {
+        // appends itself
+        writer.writeStartElement(tag());
+
+        //itera sulla lista e prendi i valori dalla chiabe
+        QVectorIterator<Attribute*>  attrs(attributes);
+        while(attrs.hasNext()) {
+            Attribute* attribute = attrs.next();
+            writer.writeAttribute(attribute->name, attribute->value);
+        }
+
+        QVectorIterator<TextChunk*> tt(textNodes);
+        while(tt.hasNext()) {
+            TextChunk   *tx = tt.next();
+            if(tx->isCDATA) {
+                writer.writeCDATA(tx->text);
+            } else {
+                writer.writeCharacters(tx->text);
+            }
+        }
+        foreach(Element * value, childItems) {
+            if(!value->writeAlt(context, writer, dataMap)) {
+                result = false;
+                break;
+            }
+        }
+        writer.writeEndElement();
+    }
+    break;
+
+    case ET_PROCESSING_INSTRUCTION: {
+        writer.writeProcessingInstruction(getPITarget(), getPIData());
+    }
+    break;
+
+    case ET_COMMENT: {
+        writer.writeComment(getComment());
+    }
+    break;
+
+    case ET_TEXT: {
+        if(_isCData) {
+            writer.writeCDATA(text);
+        } else {
+            writer.writeCharacters(text);
         }
     }
     break;
