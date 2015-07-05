@@ -51,6 +51,9 @@ must be set to 1:
 QXMLEDIT_UNIX_LOWERCASE_NAME
 For unix, except MacOS, the flag is automatically set.
 
+The variable QXMLEDIT_VERSIONED force library version number if not empty. On Linux the libraries are versioned by default.
+
+
 If the environment variables are not set, a default is used.
 
 IMPORTANT NOTE FOR LINUX INSTALLERS

@@ -393,8 +393,6 @@ QDomDocument Regola::createNewDocument()
 
 bool Regola::write(QIODevice *device, const bool isMarkSaved)
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    //return writeAlt(device, isMarkSaved);
     //QDomImplementation::setInvalidDataPolicy(QDomImplementation::AcceptInvalidChars);
     QDomDocument    document = createNewDocument();
     //document.setInvalidDataPolicy(QDomImplementation::ReturnNullNode); TODO
@@ -437,8 +435,9 @@ bool Regola::writeAlt(QIODevice *device, const bool isMarkSaved)
     Utils::TODO_THIS_RELEASE("fare doctype");
     QXmlStreamWriter outputStream(device);
     XMLSaveContext context;
+    context.setIndentation(_indent);
 
-    outputStream.setAutoFormatting(true);
+    outputStream.setAutoFormatting(false);
     outputStream.setAutoFormattingIndent(_indent);
     QString theEncoding = encoding();
     outputStream.setCodec(theEncoding.toLatin1().data());

@@ -508,6 +508,8 @@ private:
     QString anonymizeTextOfElement(AnonContext * context, const QString &inputText, void * key);
     void handleNamespace(AnonContext *context);
 
+    bool checkSaveAndSetIndent(XMLSaveContext *context, QXmlStreamWriter &writer) const;
+
 public:
     bool areChildrenLeavesHidden(QTreeWidgetItem *twi);
 

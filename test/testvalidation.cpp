@@ -27,6 +27,7 @@
 #include "../src/mainwindow.h"
 #include "../src/config.h"
 #include "../src/xmleditwidgetprivate.h"
+#include "../src/xsdeditor/validator/xelementcontent.h"
 
 #define VALIDATION_FILE_IN_0    "../test/data/xsd/test0.xml"
 #define VALIDATION_RESULT_0    "../test/data/xsd/result0.xml"

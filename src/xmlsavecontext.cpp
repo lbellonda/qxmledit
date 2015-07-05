@@ -20,13 +20,35 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "xmlsavecontext.h"
+
 
 XMLSaveContext::XMLSaveContext()
 {
+    _isDoIndent = false ;
+    _indentation = 0;
 }
 
 XMLSaveContext::~XMLSaveContext()
 {
+}
+
+bool XMLSaveContext::isDoIndent() const
+{
+    return _isDoIndent;
+}
+
+void XMLSaveContext::setDoIndent(bool doIndent)
+{
+    _isDoIndent = doIndent;
+}
+
+int XMLSaveContext::indentation() const
+{
+    return _indentation;
+}
+
+void XMLSaveContext::setIndentation(int indentation)
+{
+    _indentation = indentation;
 }

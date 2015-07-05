@@ -951,7 +951,7 @@ bool Element::writeAlt(XMLSaveContext *context, QXmlStreamWriter &writer, Elemen
     bool result = true;
     QString prevDMKey ;
     if(NULL != dataMap) {
-        Utils::TODO_THIS_RELEASE("aaa");
+        Utils::TODO_NEXT_RELEASE("aaa");
         /*prevDMKey = dataMap->currentKey ;
         handleMapEncodingPreInsert(parent, dataMap);*/
     }
@@ -960,6 +960,7 @@ bool Element::writeAlt(XMLSaveContext *context, QXmlStreamWriter &writer, Elemen
     case ET_ELEMENT: {
         // appends itself
         writer.writeStartElement(tag());
+        checkSaveAndSetIndent(context, writer);
 
         //itera sulla lista e prendi i valori dalla chiabe
         QVectorIterator<Attribute*>  attrs(attributes);
@@ -1007,10 +1008,25 @@ bool Element::writeAlt(XMLSaveContext *context, QXmlStreamWriter &writer, Elemen
     break;
 
     }
+    checkSaveAndSetIndent(context, writer);
+
     if(NULL != dataMap) {
         dataMap->currentKey = prevDMKey ;
     }
     return result;
+}
+
+bool Element::checkSaveAndSetIndent(XMLSaveContext *context, QXmlStreamWriter &writer) const
+{
+    if(!context->isDoIndent()) {
+        context->setDoIndent(true);
+        if(context->indentation() >= 0) {
+            writer.setAutoFormatting(true);
+            writer.setAutoFormattingIndent(context->indentation());
+            return true ;
+        }
+    }
+    return false;
 }
 
 bool Element::isEmpty() const

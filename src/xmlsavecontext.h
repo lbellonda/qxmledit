@@ -26,9 +26,17 @@
 
 class XMLSaveContext
 {
+    bool _isDoIndent;
+    int _indentation;
 public:
     XMLSaveContext();
     ~XMLSaveContext();
+
+
+    bool isDoIndent() const;
+    void setDoIndent(bool doIndent);
+    int indentation() const;
+    void setIndentation(int indentation);
 };
 
 #endif // XMLSAVECONTEXT_H
