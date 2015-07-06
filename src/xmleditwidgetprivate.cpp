@@ -1810,7 +1810,6 @@ void XmlEditWidgetPrivate::docTypeChanged(const QString &docType)
 void XmlEditWidgetPrivate::showControls(const bool how)
 {
     p->ui->treeWidget->setVisible(how);
-    Utils::TODO_THIS_RELEASE("trova una soluzione: occorre che i pulsnti siano sincronizzati con i comandi");
 }
 
 
@@ -1833,7 +1832,7 @@ void XmlEditWidgetPrivate::showToolbar(const bool how)
 
 void XmlEditWidgetPrivate::onActionHideView(const bool isChecked)
 {
-    Utils::TODO_THIS_RELEASE("e questa a cosa serve?");
+    Utils::TODO_NEXT_RELEASE("consider remove");
     paintInfo.setHideView(isChecked);
     showControls(!paintInfo.hideView());
     if(!paintInfo.hideView()) {
@@ -1980,7 +1979,6 @@ void XmlEditWidgetPrivate::insertAllowedElements(Element *element)
                 regola->addChildToElement(p, p->ui->treeWidget, element, object->name(), false);
                 isModified = true ;
             }
-            Utils::TODO_THIS_RELEASE("settare undo per questo");
             QPair<QString, QString> attribute;
             foreach(attribute, attributes) {
                 theParent->setAttribute(attribute.first, attribute.second);

@@ -432,7 +432,7 @@ bool Regola::writeAlt(QIODevice *device, const bool isMarkSaved)
         return false;
     }
 
-    Utils::TODO_THIS_RELEASE("fare doctype");
+    Utils::TODO_NEXT_RELEASE("fare doctype");
     QXmlStreamWriter outputStream(device);
     XMLSaveContext context;
     context.setIndentation(_indent);

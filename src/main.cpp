@@ -223,7 +223,6 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("info caratteri numeri non decimale o esadecimale");
 }
 
 static void startTanslator(QApplication *app)

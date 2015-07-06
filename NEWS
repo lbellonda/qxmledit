@@ -1,4 +1,5 @@
 0.8.16
+    Changed the default for display children size to false.
     Restored indentation settings after reload operation.
     Optionally versioned libraries.
     Dashed border on optional attributes and elements in the XSD view.

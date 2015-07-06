@@ -61,7 +61,7 @@ void PaintInfo::loadState()
     isUseFixedLengthFont = Config::getBool(Config::KEY_MAIN_ATTRFIXEDS, false);
     isShowUnBase64  = Config::getBool(Config::KEY_MAIN_SHOWBASE64, false);
     isShowElementTextLength = Config::getBool(Config::KEY_MAIN_SHOWELTEXTLEN, false);
-    isShowElementSize = Config::getBool(Config::KEY_MAIN_SHOWELSIZE, true);
+    isShowElementSize = Config::getBool(Config::KEY_MAIN_SHOWELSIZE, false);
     isHideView = Config::getBool(Config::KEY_MAIN_HIDEVIEW, false);
     internalSetZoom(Config::getInt(Config::KEY_MAIN_SHOWZOOM, 1));
     isShowFullComments = Config::getBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, false);

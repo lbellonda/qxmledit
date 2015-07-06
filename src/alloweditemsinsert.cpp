@@ -339,7 +339,7 @@ void AllowedItemsInsert::addAttributeItem(QTableWidget *table, AttrCollectInfo* 
         table->setItem(rows, 0, itemMod);
     }
     {
-        Utils::TODO_THIS_RELEASE("fare anche tipo");
+        Utils::TODO_NEXT_RELEASE("anche tipo");
         QTableWidgetItem *itemName = new QTableWidgetItem(name);
         itemName->setFlags(itemName ->flags()& ~(Qt::ItemIsEditable));
         itemName->setData(Qt::UserRole, qVariantFromValue((void*)info));
@@ -356,7 +356,6 @@ void AllowedItemsInsert::addAttributeItem(QTableWidget *table, AttrCollectInfo* 
 
 void AllowedItemsInsert::setupAttributes()
 {
-    Utils::TODO_THIS_RELEASE("finire");
     ui->attributes->setColumnCount(3);
     QStringList headers ;
     headers << tr("Use") << tr("Name") << tr("Value");
