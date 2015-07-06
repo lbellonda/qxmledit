@@ -441,15 +441,16 @@ bool Regola::writeAlt(QIODevice *device, const bool isMarkSaved)
     outputStream.setAutoFormattingIndent(_indent);
     QString theEncoding = encoding();
     outputStream.setCodec(theEncoding.toLatin1().data());
-    //outputStream.writeStartDocument();
 
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
-        if(!it.next()->writeAlt(&context, outputStream))
+        if(!it.next()->writeAlt(&context, outputStream)) {
             return false;
+        }
     }
-
-    //outputStream.writeEndDocument();
+    if( (_indent>=0) && !childItems.isEmpty() ) {
+        outputStream.writeCharacters("\n");
+    }
 
     device->close();
     if(isMarkSaved) {
