@@ -448,7 +448,7 @@ bool Regola::writeAlt(QIODevice *device, const bool isMarkSaved)
             return false;
         }
     }
-    if( (_indent>=0) && !childItems.isEmpty() ) {
+    if((_indent >= 0) && !childItems.isEmpty()) {
         outputStream.writeCharacters("\n");
     }
 
