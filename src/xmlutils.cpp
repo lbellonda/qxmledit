@@ -156,3 +156,16 @@ void XmlUtils::decodeQualifiedName(const QString &name, QString &prefix, QString
     }
 }
 
+
+bool XmlUtils::isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix)
+{
+    QString declaration = "xmlns" ;
+    if(!prefix.isEmpty()) {
+        declaration = QString("xmlns:%1").arg(prefix);
+    }
+    if(name == declaration) {
+        return true ;
+    }
+    return false;
+}
+

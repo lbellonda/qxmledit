@@ -917,6 +917,23 @@ void TestQXmlEdit::testSelectXsd()
     QVERIFY2(result, (QString("test TestSelectXsd: testBack() '%1'").arg(testB.errorString())).toLatin1().data());
 }
 
+
+void TestQXmlEdit::testNillable()
+{
+    bool result;
+    {
+        TestNillable testA;
+        result = testA.testFast();
+        QVERIFY2(result, (QString("test TestNillable: testFast() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+
+    {
+        TestNillable testA;
+        result = testA.testUnit();
+        QVERIFY2(result, (QString("test TestNillable: testUnit() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+}
+
 void TestQXmlEdit::testXSDMode()
 {
     bool result;
@@ -1014,12 +1031,8 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testXsdValidation();
-    testIndent();
-    testReplace();
-    testSearch();
-    testXSDMode();
-    testSearch();
+    testNillable();
+    //testIndent();
 }
 
 QTEST_MAIN(TestQXmlEdit)

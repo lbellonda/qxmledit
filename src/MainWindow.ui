@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -235,6 +235,7 @@
     <addaction name="actionTransformInComment"/>
     <addaction name="actionExtractElementsFromComment"/>
     <addaction name="actionInsertSnippet"/>
+    <addaction name="actionRemoveNilAttribute"/>
     <addaction name="menuXML_Schema"/>
     <addaction name="actionInsertProlog"/>
     <addaction name="menuMetadata"/>
@@ -1891,6 +1892,14 @@
    </property>
    <property name="toolTip">
     <string>Show or hide the status bar.</string>
+   </property>
+  </action>
+  <action name="actionRemoveNilAttribute">
+   <property name="text">
+    <string>Remove XSD &quot;nil&quot; Attribute</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove XSD &quot;nil&quot; Attribute</string>
    </property>
   </action>
  </widget>

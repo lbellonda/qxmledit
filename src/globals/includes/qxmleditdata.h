@@ -58,6 +58,7 @@ class XsdPlugin;
 class Element;
 class UnicodeHelper;
 class XSDManager;
+class NamespaceManager;
 
 class LIBQXMLEDITSHARED_EXPORT ClipboardElementList
 {
@@ -124,6 +125,10 @@ protected:
     //--- region(xsdMode)
     XSDManager *_xsdManager;
     //--- endregion(xsdMode)
+
+    //--- region(NamespaceManager)
+    NamespaceManager *_namespaceManager;
+    //--- endregion(NamespaceManager)
 
     VStyle *createDefaultStyle();
     bool loadStyles();
@@ -267,6 +272,10 @@ public:
     //--- region(xsdMode)
     XSDManager *xsdManager();
     //--- endregion(xsdMode)
+
+    //--- region(NamespaceManager)
+    NamespaceManager *namespaceManager();
+    //--- endregion(NamespaceManager)
 
     UnicodeHelper *unicodeHelper();
 

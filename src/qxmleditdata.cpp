@@ -32,6 +32,7 @@
 #include "xsdeditor/xsdplugin.h"
 #include "modules/services/systemservices.h"
 #include "modules/xsd/xsdmanager.h"
+#include "modules/xsd/namespacemanager.h"
 
 const QString QXmlEditData::XsltStyleName = "XSLT";
 const QString QXmlEditData::XsltStyleDescription = tr("Xslt predefined style");
@@ -39,6 +40,7 @@ const QString QXmlEditData::XsltStyleDescription = tr("Xslt predefined style");
 
 QXmlEditData::QXmlEditData()
 {
+    _namespaceManager = NULL ;
     _xsdManager = NULL;
     _dataInterface = NULL ;
     _clipBoardItem = NULL ;
@@ -61,6 +63,9 @@ QXmlEditData::~QXmlEditData()
     cleanClipBoardData();
     if(NULL != _xsdManager) {
         delete _xsdManager ;
+    }
+    if(NULL != _namespaceManager) {
+        delete _namespaceManager ;
     }
 }
 
@@ -128,6 +133,7 @@ void QXmlEditData::init()
             Utils::error(tr("Error loading styles"));
         }
     }
+    _namespaceManager = new NamespaceManager();
     _xsdManager = new XSDManager();
     _xsltStyle = new VStyle(XsltStyleName, XsltStyleDescription);
     _xsltStyle->setResFileName(":/xslt/xsltStyle");
@@ -670,6 +676,13 @@ XSDManager *QXmlEditData::xsdManager()
 }
 
 //--- endregion(xsdMode)
+
+//--- region(NamespaceManager)
+NamespaceManager *QXmlEditData::namespaceManager()
+{
+    return _namespaceManager;
+}
+//--- endregion(NamespaceManager)
 
 //--- region(styleVersion)
 void QXmlEditData::updateStyleVersion()

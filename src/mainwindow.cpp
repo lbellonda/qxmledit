@@ -868,6 +868,8 @@ void MainWindow::onComputeSelectionState()
     ui.actionXSDModifyType->setEnabled(xsdManager->canModifyType(elmTag));
     ui.actionEditXSDAnnotation->setEnabled(xsdManager->canEditAnnotation(elmTag));
 
+    ui.actionRemoveNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
+
     onComputeSelectionStateExperimentalFeatures();
 }
 
@@ -2978,5 +2980,10 @@ void MainWindow::onShowHideStatusBar()
 {
     bool currentSate = ui.actionShowStatusBar->isChecked();
     statusBar()->setVisible(currentSate);
+}
+
+void MainWindow::on_actionRemoveNilAttribute_triggered()
+{
+    ui.editor->removeNilAttribute();
 }
 

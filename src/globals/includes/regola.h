@@ -53,6 +53,7 @@ public:
 
 class XMLSaveContext;
 class RegolaSettings;
+class NamespaceManager;
 
 class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
 {
@@ -346,6 +347,7 @@ public:
     bool hasXSLTNamespace();
     QSet<QString> namespacesURI();
     QString namespaceOfPrefix(const QString &prefix);
+    bool removeNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
 
     static QList<Element*> decodeXMLFromString(const QString &input, const bool onlyRootElement, const bool onlyElements = true);
 

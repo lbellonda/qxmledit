@@ -81,6 +81,7 @@
 #include "testxsdmode.h"
 #include "testanonymize.h"
 #include "testreplace.h"
+#include "testnillable.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -162,6 +163,7 @@ private Q_SLOTS:
     void testXSDMode();
     void testAnonymize();
     void testReplace();
+    void testNillable();
 };
 
 

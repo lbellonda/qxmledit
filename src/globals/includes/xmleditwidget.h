@@ -177,6 +177,7 @@ public:
     void onFindNext();
     void onFindPrevious();
     void onSetIndent();
+    void removeNilAttribute();
 
     QMenu* getCopyMenu();
 

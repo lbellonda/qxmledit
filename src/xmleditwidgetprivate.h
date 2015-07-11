@@ -376,6 +376,7 @@ private slots:
     void onIndentationChanged(const bool indentationEnabled, const int newIndentation);
     void onShortcutDelete();
     void onShortcutInsert();
+    void removeNilAttribute();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

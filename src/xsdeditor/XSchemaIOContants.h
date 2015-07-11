@@ -188,4 +188,7 @@
 #define IO_ATTRIBUTE_USE_REQUIRED "required"
 #define IO_ATTRIBUTE_USE_MISSING    ""
 
+#define IO_INSTANCE_NILLABLE_ATTRIB    "nil"
+
+
 #endif // XSCHEMAIOCONTANTS_H

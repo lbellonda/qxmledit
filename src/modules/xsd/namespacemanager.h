@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,35 +21,22 @@
  **************************************************************************/
 
 
-#ifndef XMLUTILS_H
-#define XMLUTILS_H
+#ifndef NAMESPACEMANAGER_H
+#define NAMESPACEMANAGER_H
 
-#include <QString>
-class AnonContext;
-
-class XmlUtils
+class NamespaceManager
 {
-private:
-    XmlUtils();
-    ~XmlUtils();
 public:
-    static bool IsXsdValid(const QString &nsUri, const QString &localName);
-    static QString namespacePrefix(const QString &name);
-    static QString stripNs(const QString &name);
-    static bool hasPrefix(const QString &tag, const QString &nsPrefix);
+    NamespaceManager();
+    ~NamespaceManager();
 
-    static int readFromInt(const QString &inputVal, const int defaultValue);
-    static bool readFromBool(const QString &inputVal, const bool defaultValue);
-    static QString boolToBoolValue(const bool value);
-    static QString intToStringValue(const int value);
-    //
-    static bool isDeclaringNS(const QString &attributeName);
-    static bool isDataAttribute(const QString &attributeName);
-    static bool getNsPrefix(const QString &name, QString &prefix);
-    static void decodeQualifiedName(const QString &name, QString &prefix, QString &localName);
+    // constants for namespaces
+    enum EWellKnownNs {
+        XSI_NAMESPACE,
+    };
 
-    static bool isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix);
+    QString namespaceUri(const EWellKnownNs eWellKnownNs);
 
 };
 
-#endif // XMLUTILS_H
+#endif // NAMESPACEMANAGER_H

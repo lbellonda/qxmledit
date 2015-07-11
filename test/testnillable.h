@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,35 +21,37 @@
  **************************************************************************/
 
 
-#ifndef XMLUTILS_H
-#define XMLUTILS_H
+#ifndef TESTNILLABLE_H
+#define TESTNILLABLE_H
 
-#include <QString>
-class AnonContext;
+#include "testbase.h"
 
-class XmlUtils
+class App;
+
+class TestNillable : public TestBase
 {
-private:
-    XmlUtils();
-    ~XmlUtils();
+
+    bool testInsert();
+    bool testRemove();
+
+    bool cfr(Regola *regola, const QString &step, const QString &fileResult);
+    bool testSkeleton(const QString &fileStart, const QString &fileResult,
+                                             bool (TestNillable::*functPtr)(App *appData) );
+
+    bool doRemove(App *appData);
+    bool doInsert(App *appData);
+
+    bool testRemove1();
+    bool testRemove2();
+    bool testRemove3();
+    bool testRemove4();
+    bool testRemove5();
 public:
-    static bool IsXsdValid(const QString &nsUri, const QString &localName);
-    static QString namespacePrefix(const QString &name);
-    static QString stripNs(const QString &name);
-    static bool hasPrefix(const QString &tag, const QString &nsPrefix);
+    TestNillable();
+    ~TestNillable();
 
-    static int readFromInt(const QString &inputVal, const int defaultValue);
-    static bool readFromBool(const QString &inputVal, const bool defaultValue);
-    static QString boolToBoolValue(const bool value);
-    static QString intToStringValue(const int value);
-    //
-    static bool isDeclaringNS(const QString &attributeName);
-    static bool isDataAttribute(const QString &attributeName);
-    static bool getNsPrefix(const QString &name, QString &prefix);
-    static void decodeQualifiedName(const QString &name, QString &prefix, QString &localName);
-
-    static bool isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix);
-
+    bool testUnit();
+    bool testFast();
 };
 
-#endif // XMLUTILS_H
+#endif // TESTNILLABLE_H

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,36 +20,51 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "element.h"
+#include "xmlutils.h"
 
-#ifndef XMLUTILS_H
-#define XMLUTILS_H
-
-#include <QString>
-class AnonContext;
-
-class XmlUtils
+QString Element::namespaceForPrefix(const QString &prefix)
 {
-private:
-    XmlUtils();
-    ~XmlUtils();
-public:
-    static bool IsXsdValid(const QString &nsUri, const QString &localName);
-    static QString namespacePrefix(const QString &name);
-    static QString stripNs(const QString &name);
-    static bool hasPrefix(const QString &tag, const QString &nsPrefix);
+    Element *element = this ;
+    while(NULL != element) {
+        Attribute *declaration = element->nsDeclarationForPrefixOwned(prefix);
+        if(NULL != declaration) {
+            return declaration->value;
+        }
+        element = element->parent();
+    }
+    return NULL ;
+}
 
-    static int readFromInt(const QString &inputVal, const int defaultValue);
-    static bool readFromBool(const QString &inputVal, const bool defaultValue);
-    static QString boolToBoolValue(const bool value);
-    static QString intToStringValue(const int value);
-    //
-    static bool isDeclaringNS(const QString &attributeName);
-    static bool isDataAttribute(const QString &attributeName);
-    static bool getNsPrefix(const QString &name, QString &prefix);
-    static void decodeQualifiedName(const QString &name, QString &prefix, QString &localName);
 
-    static bool isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix);
+Attribute *Element::nsDeclarationForPrefixOwned(const QString &prefix)
+{
+    foreach(Attribute * attribute, attributes) {
+        if(XmlUtils::isNamespaceDeclarationForPrefix(attribute->name, prefix)) {
+            return attribute;
+        }
+    }
+    return NULL ;
+}
 
-};
 
-#endif // XMLUTILS_H
+bool Element::areChildrenUsingPrefix(const QString &prefix)
+{
+    if(!isElement()) {
+        return false;
+    }
+    if(XmlUtils::hasPrefix(tag(), prefix)) {
+        return true;
+    }
+    foreach(Attribute * attribute, attributes) {
+        if(XmlUtils::hasPrefix(attribute->name, prefix)) {
+            return true;
+        }
+    }
+    foreach(Element * child, childItems) {
+        if(child->areChildrenUsingPrefix(prefix)) {
+            return true;
+        }
+    }
+    return false;
+}

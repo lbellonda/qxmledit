@@ -294,6 +294,7 @@ private slots:
     void on_actionInfo_triggered();
     void on_actionShowMainButtons_triggered();
     void on_actionShowStatusBar_triggered();
+    void on_actionRemoveNilAttribute_triggered();
 
     //----- other slots ------------------
 

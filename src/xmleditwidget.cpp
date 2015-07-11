@@ -1054,3 +1054,8 @@ QMenu* XmlEditWidget::getCopyMenu()
 {
     return d->getCopyMenu();
 }
+
+void XmlEditWidget::removeNilAttribute()
+{
+    d->removeNilAttribute();
+}

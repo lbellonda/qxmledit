@@ -2960,3 +2960,13 @@ void XmlEditWidgetPrivate::onShortcutInsert()
 {
     emit p->requestInsert();
 }
+
+void XmlEditWidgetPrivate::removeNilAttribute()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        Element *element = getSelectedItem();
+        if(NULL != element) {
+            getRegola()->removeNillableAttribute(p->getMainTreeWidget(), element, *appData()->namespaceManager());
+        }
+    }
+}

@@ -193,6 +193,11 @@ public:
     Element *getFirstChildByLocalName(const QString &seekName);
 
     void namespaceOfElement(QString &elPrefix, QString &elLocalName);
+    QString namespaceForPrefix(const QString &prefix);
+    Attribute *nsDeclarationForPrefixOwned(const QString &prefix);
+    bool areChildrenUsingPrefix(const QString &prefix);
+
+
 
     static QRegExp terminatorSearch;
     static bool firstTimeFixedWidthFont;
