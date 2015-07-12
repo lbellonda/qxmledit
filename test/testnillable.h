@@ -46,6 +46,14 @@ class TestNillable : public TestBase
     bool testRemove3();
     bool testRemove4();
     bool testRemove5();
+    bool testRemove6();
+    bool testRemove7();
+    bool testRemove8();
+    bool testRemove9();
+    bool testRemove10();
+    bool testRemove11();
+    bool testRemove12();
+
 public:
     TestNillable();
     ~TestNillable();

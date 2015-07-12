@@ -48,7 +48,7 @@ Attribute *Element::nsDeclarationForPrefixOwned(const QString &prefix)
 }
 
 
-bool Element::areChildrenUsingPrefix(const QString &prefix)
+bool Element::isUsingPrefixRecursive(const QString &prefix)
 {
     if(!isElement()) {
         return false;
@@ -63,6 +63,20 @@ bool Element::areChildrenUsingPrefix(const QString &prefix)
     }
     foreach(Element * child, childItems) {
         if(child->areChildrenUsingPrefix(prefix)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool Element::areChildrenUsingPrefix(const QString &prefix)
+{
+    if(!isElement()) {
+        return false;
+    }
+    foreach(Element * child, childItems) {
+        if(child->isUsingPrefixRecursive(prefix)) {
             return true;
         }
     }

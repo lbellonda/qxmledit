@@ -196,7 +196,7 @@ public:
     QString namespaceForPrefix(const QString &prefix);
     Attribute *nsDeclarationForPrefixOwned(const QString &prefix);
     bool areChildrenUsingPrefix(const QString &prefix);
-
+    bool isUsingPrefixRecursive(const QString &prefix);
 
 
     static QRegExp terminatorSearch;

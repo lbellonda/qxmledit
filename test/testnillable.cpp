@@ -88,34 +88,12 @@ NSC: ns children
   6    A   B   A    N    NS, NA
   7    SP  B   B    N    NNS, NA
   8    A   SP  A    N    NS, NA
+  9    SP  N   SP   N    NA
 ---------------------------------
  10    A   B   A    B    NS, NA
  11    SP  B   B    SP   NNS, NA
  12    A   SP  A    SP   NNS, NA
 */
-
-/* VECCHI TEST
-
-EPar: exists in parent
-OTH: other attributes use the namespace
-OCH: other children use the namespace
-OCHA: other children attrib use the namespace
- # NSI ATTR OTH OCH OCHA RES
- 1 NE   NE   -   -   -   No change
- 2 E    NE   -   -   -   No change
- .1EPar NE   -   -   -   No change
- 3 E    E    E   -   -   AR
- 4 E    E    -   E   -   AR
- 5 E    E    -   -   E   AR
- 6 E    E    E   -   E   AR
- 7 E    E    E   E   -   AR
- 8 E    E    E   E   E   AR
- 9 E    E    -   -   -   AR NR
-10 EPar E    -   -   -   AR
-
-*/
-
-
 
 TestNillable::TestNillable()
 {
@@ -128,7 +106,7 @@ TestNillable::~TestNillable()
 bool TestNillable::testFast()
 {
     _testName = "testFast" ;
-    if(!testRemove3()) {
+    if(!testRemove8()) {
         return false;
     }
     return true;
@@ -171,7 +149,7 @@ bool TestNillable::testRemove()
     if(!testRemove5()) {
         return false;
     }
-    /*if(!testRemove6()) {
+    if(!testRemove6()) {
         return false;
     }
     if(!testRemove7()) {
@@ -185,7 +163,13 @@ bool TestNillable::testRemove()
     }
     if(!testRemove10()) {
         return false;
-    }*/
+    }
+    if(!testRemove11()) {
+        return false;
+    }
+    if(!testRemove12()) {
+        return false;
+    }
     return true;
 }
 
@@ -208,6 +192,20 @@ bool TestNillable::doInsert(App * /*appData*/)
 #define END_FILE_REMOVE4      "../test/data/xsd/nillable/end_remove4.xml"
 #define START_FILE_REMOVE5      "../test/data/xsd/nillable/remove5.xml"
 #define END_FILE_REMOVE5      "../test/data/xsd/nillable/end_remove5.xml"
+#define START_FILE_REMOVE6      "../test/data/xsd/nillable/remove6.xml"
+#define END_FILE_REMOVE6      "../test/data/xsd/nillable/end_remove6.xml"
+#define START_FILE_REMOVE7      "../test/data/xsd/nillable/remove7.xml"
+#define END_FILE_REMOVE7      "../test/data/xsd/nillable/end_remove7.xml"
+#define START_FILE_REMOVE8      "../test/data/xsd/nillable/remove8.xml"
+#define END_FILE_REMOVE8      "../test/data/xsd/nillable/end_remove8.xml"
+#define START_FILE_REMOVE9      "../test/data/xsd/nillable/remove9.xml"
+#define END_FILE_REMOVE9      "../test/data/xsd/nillable/end_remove9.xml"
+#define START_FILE_REMOVE10      "../test/data/xsd/nillable/remove10.xml"
+#define END_FILE_REMOVE10      "../test/data/xsd/nillable/end_remove10.xml"
+#define START_FILE_REMOVE11      "../test/data/xsd/nillable/remove11.xml"
+#define END_FILE_REMOVE11      "../test/data/xsd/nillable/end_remove11.xml"
+#define START_FILE_REMOVE12      "../test/data/xsd/nillable/remove12.xml"
+#define END_FILE_REMOVE12      "../test/data/xsd/nillable/end_remove12.xml"
 
 
 bool TestNillable::testRemove1()
@@ -250,6 +248,69 @@ bool TestNillable::testRemove5()
 {
     _testName = "testRemove5" ;
     if(!testSkeleton(START_FILE_REMOVE5, END_FILE_REMOVE5, &TestNillable::doRemove ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testRemove6()
+{
+    _testName = "testRemove6" ;
+    if(!testSkeleton(START_FILE_REMOVE6, END_FILE_REMOVE6, &TestNillable::doRemove ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testRemove7()
+{
+    _testName = "testRemove7" ;
+    if(!testSkeleton(START_FILE_REMOVE7, END_FILE_REMOVE7, &TestNillable::doRemove ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testRemove8()
+{
+    _testName = "testRemove8" ;
+    if(!testSkeleton(START_FILE_REMOVE8, END_FILE_REMOVE8, &TestNillable::doRemove ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testRemove9()
+{
+    _testName = "testRemove9" ;
+    if(!testSkeleton(START_FILE_REMOVE9, END_FILE_REMOVE9, &TestNillable::doRemove ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testRemove10()
+{
+    _testName = "testRemove10" ;
+    if(!testSkeleton(START_FILE_REMOVE10, END_FILE_REMOVE10, &TestNillable::doRemove ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testRemove11()
+{
+    _testName = "testRemove11" ;
+    if(!testSkeleton(START_FILE_REMOVE11, END_FILE_REMOVE11, &TestNillable::doRemove ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testRemove12()
+{
+    _testName = "testRemove12" ;
+    if(!testSkeleton(START_FILE_REMOVE12, END_FILE_REMOVE12, &TestNillable::doRemove ) ) {
         return false ;
     }
     return true;
