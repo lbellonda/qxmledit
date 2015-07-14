@@ -82,3 +82,40 @@ bool Element::areChildrenUsingPrefix(const QString &prefix)
     }
     return false;
 }
+
+// look for the given prefix
+/**
+ * @brief Element::findPrefixForNamespace find the prefix used in the declaration for the given
+ *    namespace starting from this and recursing to the root.
+ * @param nsToSearch
+ * @param prefixToSet
+ * @return
+ */
+bool Element::findPrefixForNamespace(const QString nsToSearch, QString &prefixToSet)
+{
+    QSet<QString> nss;
+    Element *element = this ;
+    while(NULL != element) {
+        foreach(Attribute * attr, element->attributes) {
+            QString prefix ;
+            if( XmlUtils::getNsPrefix(attr->name, prefix) ) {
+                // found, but only if it is not shadowed by a previous declaration
+                if( attr->value == nsToSearch) {
+                    if(!nss.contains(prefix)) {
+                        prefixToSet = prefix ;
+                        return true ;
+                    }
+                } else {
+                    // register the prefix
+                    if(!nss.contains(prefix)) {
+                        nss.insert(prefix);
+                    }
+                }
+            } // if is declaring
+        } // for each attribute
+
+        element = element->parent();
+    }
+    return false ;
+}
+

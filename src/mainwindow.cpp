@@ -869,6 +869,8 @@ void MainWindow::onComputeSelectionState()
     ui.actionEditXSDAnnotation->setEnabled(xsdManager->canEditAnnotation(elmTag));
 
     ui.actionRemoveNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
+    ui.actionInsertNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
+    ui.actionRemoveXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -2987,3 +2989,12 @@ void MainWindow::on_actionRemoveNilAttribute_triggered()
     ui.editor->removeNilAttribute();
 }
 
+void MainWindow::on_actionInsertNilAttribute_triggered()
+{
+    ui.editor->insertNilAttribute();
+}
+
+void MainWindow::actionRemoveXSITypeAttribute_triggered()
+{
+    ui.editor->removeXSITypeAttribute();
+}

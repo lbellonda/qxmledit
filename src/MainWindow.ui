@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -236,6 +236,8 @@
     <addaction name="actionTransformInComment"/>
     <addaction name="actionExtractElementsFromComment"/>
     <addaction name="actionInsertSnippet"/>
+    <addaction name="actionInsertNilAttribute"/>
+    <addaction name="actionRemoveXSITypeAttribute"/>
     <addaction name="menuXML_Schema"/>
     <addaction name="actionInsertProlog"/>
     <addaction name="menuMetadata"/>
@@ -1896,10 +1898,26 @@
   </action>
   <action name="actionRemoveNilAttribute">
    <property name="text">
-    <string>Remove XSD &quot;nil&quot; Attribute</string>
+    <string>Remove XSI &quot;nil&quot; Attribute</string>
    </property>
    <property name="toolTip">
-    <string>Remove XSD &quot;nil&quot; Attribute</string>
+    <string>Remove schema instance &quot;nil&quot; Attribute</string>
+   </property>
+  </action>
+  <action name="actionInsertNilAttribute">
+   <property name="text">
+    <string>Insert XSI &quot;nil&quot; attribute</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert schema instance &quot;nil&quot; attribute.</string>
+   </property>
+  </action>
+  <action name="actionRemoveXSITypeAttribute">
+   <property name="text">
+    <string>Remove XSI Type Attribute</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove XSI type attribute.</string>
    </property>
   </action>
  </widget>

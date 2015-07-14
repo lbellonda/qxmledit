@@ -197,6 +197,7 @@ public:
     Attribute *nsDeclarationForPrefixOwned(const QString &prefix);
     bool areChildrenUsingPrefix(const QString &prefix);
     bool isUsingPrefixRecursive(const QString &prefix);
+    bool findPrefixForNamespace(const QString nsToSearch, QString &prefixToSet);
 
 
     static QRegExp terminatorSearch;

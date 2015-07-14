@@ -377,6 +377,8 @@ private slots:
     void onShortcutDelete();
     void onShortcutInsert();
     void removeNilAttribute();
+    void insertNilAttribute();
+    void removeXSITypeAttribute();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

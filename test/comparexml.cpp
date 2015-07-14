@@ -57,7 +57,7 @@ void CompareXML::dumpErrorCause()
 {
     fprintf(stderr, "Error is:'%s'\n", errorString().toLatin1().data());
     fprintf(stderr, "DOC1 is:\n%s\n", doc1String().toLatin1().data());
-    fprintf(stderr, "\n\nDOC2 is %s\n", doc2String().toLatin1().data());
+    fprintf(stderr, "\n\nDOC2 is \n%s\n", doc2String().toLatin1().data());
     QString pathString ;
     foreach (int i, _path) {
         pathString += QString("%1,").arg(i);

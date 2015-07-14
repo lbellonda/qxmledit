@@ -348,6 +348,7 @@ public:
     QSet<QString> namespacesURI();
     QString namespaceOfPrefix(const QString &prefix);
     bool removeNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
+    bool insertNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
 
     static QList<Element*> decodeXMLFromString(const QString &input, const bool onlyRootElement, const bool onlyElements = true);
 

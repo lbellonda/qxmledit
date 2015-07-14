@@ -47,6 +47,8 @@ public:
     static bool isDataAttribute(const QString &attributeName);
     static bool getNsPrefix(const QString &name, QString &prefix);
     static void decodeQualifiedName(const QString &name, QString &prefix, QString &localName);
+    static QString makeQualifiedName( const QString &prefix, const QString &localName);
+    static QString makeNSDeclaration(const QString &ns);
 
     static bool isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix);
 

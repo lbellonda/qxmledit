@@ -1059,3 +1059,8 @@ void XmlEditWidget::removeNilAttribute()
 {
     d->removeNilAttribute();
 }
+
+void XmlEditWidget::insertNilAttribute()
+{
+    d->insertNilAttribute();
+}

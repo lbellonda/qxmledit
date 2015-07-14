@@ -178,6 +178,8 @@ public:
     void onFindPrevious();
     void onSetIndent();
     void removeNilAttribute();
+    void insertNilAttribute();
+    void removeXSITypeAttribute();
 
     QMenu* getCopyMenu();
 

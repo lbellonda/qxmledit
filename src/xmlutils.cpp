@@ -156,6 +156,22 @@ void XmlUtils::decodeQualifiedName(const QString &name, QString &prefix, QString
     }
 }
 
+QString XmlUtils::makeQualifiedName( const QString &prefix, const QString &localName)
+{
+    if(prefix.isEmpty()) {
+        return localName;
+    }
+    return QString("%1:%2").arg(prefix).arg(localName);
+}
+
+QString XmlUtils::makeNSDeclaration(const QString &ns)
+{
+    QString xmlNs = "xmlns" ;
+    if( ns.isEmpty() ) {
+        return xmlNs ;
+    }
+    return QString("%1:%2").arg(xmlNs).arg(ns);
+}
 
 bool XmlUtils::isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix)
 {

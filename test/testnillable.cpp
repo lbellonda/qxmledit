@@ -29,41 +29,31 @@
  *
  * Insert
  *
- * Insert a new nillable with ns. If the ns is found, it is used, else
- * it is inserted using a naming nsi nsi0, nsi1, etc...
- * base file: source
- * final file: source with nillable
+ * If the namespace xsi is not present, the namespace is inserted and the attribute created
+ * if the attribute is present
+ * - remove any "nil" attribute
+ * - insert nil attribute
  *
+ *NSP: Name space parent
+ *NS: ns element
+ *ATTR: attribute
  *
- * Test table
- * NSI: namespace instance
- * ATTR: nillable attribute
- * CONT: content of the element
- * S: SAME
- * D: DIFFERS
- * E, NE: Exists or not
- * N: unchanged
- * Y: inserted
- * ANS: User answered
+ *namespace: DEF:default X: namespace NE: not exists
+ *value: E: exists, NE: not exists, O: other value
+ * #  NSP  NS  ATTR RIS
+ * 1  NE   NE  NE   NS, NS:A
+ * 2  X    NE  NE   Nns, x:A
+ * 3  DEF  NE  NE   Nns, DEF:A
+ * 4  NE   X   E    X, E
+ * 5  X    X   E    X, E non legale
+ * 6  DEF  X   E    X, E
+ * 7  NE   DEF O    DEF, E
+ * 8  X    DEF O
+ * 9  DEF  DEF O
  *
- * some test uses more than one namespace to test ns handling
- # NSI ATTR CONT ANS RES (NS+ATTR)
- 1 NE   NE   E   -   N
- 2 E    NE   E   -   N
- 3 E    D    E   -   N
- 4 NE   NE   NE  -   Y
- 5 NE   S    NE  -   Y
- 6 NE   D    NE  -   Y
- 7 S    NE   NE  -   Y
- 8 S    S    NE  -   Y
- 9 S    D    NE  -   Y
-10 S*   D    NE  -   Y same ns, but different prefix, current prefix is used
-11 D    NE   NE  -   Y using alternate NS
-12 D    D    NE  -   Y using alternate NS
+ * double attribute definition, change both
+ *10  A    B    A1:0, A2:O SU QUESTO NON SONO CONVINTO
 
-NS tests:
-1- declare same ns in parent -> duplicated in child
-2- declare more than one ns in the element -> all preserved
 
 Removal:
 
@@ -106,7 +96,7 @@ TestNillable::~TestNillable()
 bool TestNillable::testFast()
 {
     _testName = "testFast" ;
-    if(!testRemove8()) {
+    if(!testInsert4()) {
         return false;
     }
     return true;
@@ -128,7 +118,38 @@ bool TestNillable::testUnit()
 bool TestNillable::testInsert()
 {
     _testName = "testInsert" ;
-    return error("nyi");
+
+    if(!testInsert1()) {
+        return false;
+    }
+    if(!testInsert2()) {
+        return false;
+    }
+    if(!testInsert3()) {
+        return false;
+    }
+    if(!testInsert4()) {
+        return false;
+    }
+    /*if(!testInsert5()) {non legal
+        return false;
+    }*/
+    if(!testInsert6()) {
+        return false;
+    }
+    if(!testInsert7()) {
+        return false;
+    }
+    if(!testInsert8()) {
+        return false;
+    }
+    if(!testInsert9()) {
+        return false;
+    }
+    if(!testInsert10()) {
+        return false;
+    }
+    return true;
 }
 
 bool TestNillable::testRemove()
@@ -179,9 +200,10 @@ bool TestNillable::doRemove(App * appData)
     return true ;
 }
 
-bool TestNillable::doInsert(App * /*appData*/)
+bool TestNillable::doInsert(App * appData)
 {
-    return error("nyi");
+    appData->mainWindow()->getEditor()->insertNilAttribute();
+    return true ;
 }
 
 #define START_FILE_REMOVE1      "../test/data/xsd/nillable/remove1.xml"
@@ -373,3 +395,116 @@ bool TestNillable::testSkeleton(const QString &fileStart, const QString &fileRes
     }
     return true;
 }
+
+
+#define START_FILE_INSERT_1      "../test/data/xsd/nillable/insert1.xml"
+#define END_FILE_INSERT_1      "../test/data/xsd/nillable/end_insert1.xml"
+#define START_FILE_INSERT_2      "../test/data/xsd/nillable/insert2.xml"
+#define END_FILE_INSERT_2      "../test/data/xsd/nillable/end_insert2.xml"
+#define START_FILE_INSERT_3      "../test/data/xsd/nillable/insert3.xml"
+#define END_FILE_INSERT_3      "../test/data/xsd/nillable/end_insert3.xml"
+#define START_FILE_INSERT_4      "../test/data/xsd/nillable/insert4.xml"
+#define END_FILE_INSERT_4      "../test/data/xsd/nillable/end_insert4.xml"
+#define START_FILE_INSERT_5      "../test/data/xsd/nillable/insert5.xml"
+#define END_FILE_INSERT_5      "../test/data/xsd/nillable/end_insert5.xml"
+#define START_FILE_INSERT_6      "../test/data/xsd/nillable/insert6.xml"
+#define END_FILE_INSERT_6      "../test/data/xsd/nillable/end_insert6.xml"
+#define START_FILE_INSERT_7      "../test/data/xsd/nillable/insert7.xml"
+#define END_FILE_INSERT_7      "../test/data/xsd/nillable/end_insert7.xml"
+#define START_FILE_INSERT_8      "../test/data/xsd/nillable/insert8.xml"
+#define END_FILE_INSERT_8      "../test/data/xsd/nillable/end_insert8.xml"
+#define START_FILE_INSERT_9      "../test/data/xsd/nillable/insert9.xml"
+#define END_FILE_INSERT_9      "../test/data/xsd/nillable/end_insert9.xml"
+#define START_FILE_INSERT_10      "../test/data/xsd/nillable/insert10.xml"
+#define END_FILE_INSERT_10      "../test/data/xsd/nillable/end_insert10.xml"
+
+bool TestNillable::testInsert1()
+{
+    _testName = "testInsert1" ;
+    if(!testSkeleton(START_FILE_INSERT_1, END_FILE_INSERT_1, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testInsert2()
+{
+    _testName = "testInsert2" ;
+    if(!testSkeleton(START_FILE_INSERT_2, END_FILE_INSERT_2, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testInsert3()
+{
+    _testName = "testInsert3" ;
+    if(!testSkeleton(START_FILE_INSERT_3, END_FILE_INSERT_3, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testInsert4()
+{
+    _testName = "testInsert4" ;
+    if(!testSkeleton(START_FILE_INSERT_4, END_FILE_INSERT_4, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+/*
+bool TestNillable::testInsert5()
+{
+    _testName = "testInsert5" ;
+    if(!testSkeleton(START_FILE_INSERT_5, END_FILE_INSERT_5, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+*/
+bool TestNillable::testInsert6()
+{
+    _testName = "testInsert6" ;
+    if(!testSkeleton(START_FILE_INSERT_6, END_FILE_INSERT_6, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testInsert7()
+{
+    _testName = "testInsert7" ;
+    if(!testSkeleton(START_FILE_INSERT_7, END_FILE_INSERT_7, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testInsert8()
+{
+    _testName = "testInsert8" ;
+    if(!testSkeleton(START_FILE_INSERT_8, END_FILE_INSERT_8, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testInsert9()
+{
+    _testName = "testInsert9" ;
+    if(!testSkeleton(START_FILE_INSERT_9, END_FILE_INSERT_9, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+
+bool TestNillable::testInsert10()
+{
+    _testName = "testInsert10" ;
+    if(!testSkeleton(START_FILE_INSERT_10, END_FILE_INSERT_10, &TestNillable::doInsert ) ) {
+        return false ;
+    }
+    return true;
+}
+
