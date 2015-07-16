@@ -82,6 +82,7 @@
 #include "testanonymize.h"
 #include "testreplace.h"
 #include "testnillable.h"
+#include "testxsitype.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -164,6 +165,7 @@ private Q_SLOTS:
     void testAnonymize();
     void testReplace();
     void testNillable();
+    void testXSIType();
 };
 
 

@@ -1,0 +1,8 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<root  xmlns:a="xx" >
+ <child0 >
+  <child1 xmlns:nsi="http://www.w3.org/2001/XMLSchema-instance" nsi:type="abc">
+   <child2 />
+  </child1>
+ </child0>
+</root>

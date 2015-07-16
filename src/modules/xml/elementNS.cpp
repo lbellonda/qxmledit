@@ -98,9 +98,9 @@ bool Element::findPrefixForNamespace(const QString nsToSearch, QString &prefixTo
     while(NULL != element) {
         foreach(Attribute * attr, element->attributes) {
             QString prefix ;
-            if( XmlUtils::getNsPrefix(attr->name, prefix) ) {
+            if(XmlUtils::getNsPrefix(attr->name, prefix)) {
                 // found, but only if it is not shadowed by a previous declaration
-                if( attr->value == nsToSearch) {
+                if(attr->value == nsToSearch) {
                     if(!nss.contains(prefix)) {
                         prefixToSet = prefix ;
                         return true ;

@@ -296,6 +296,8 @@ private slots:
     void on_actionShowStatusBar_triggered();
     void on_actionRemoveNilAttribute_triggered();
     void on_actionInsertNilAttribute_triggered();
+    void on_actionRemoveXSITypeAttribute_triggered();
+    void on_actionInsertXSITypeAttribute_triggered();
 
     //----- other slots ------------------
 
@@ -419,6 +421,7 @@ private:
     bool actionSave_internal(const QString &newFilePath);
     //-------endregion(internal)
     void updateWindowFilePath();
+    void insertXSITypeAttribute(const QString &newValue);
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -432,6 +435,7 @@ protected:
     friend class TestNewFromTemplate;
     friend class TestMetadata;
     friend class TestEncoding;
+    friend class TestXSIType;
 };
 
 void searchInFiles(QWidget * parent);

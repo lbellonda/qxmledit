@@ -41,7 +41,6 @@ class MainWndController : public QObject
     void innerAnonymize(AnonAlg *alg);
     void innerAnonymize(AnonContext *context);
 
-
 public:
     explicit MainWndController(QObject *parent = 0);
     virtual ~MainWndController();
@@ -54,6 +53,7 @@ public:
     void anonymize(AnonContext *context);
     void onAnonymize(AnonContext *context);
     //---
+    QString askNewXSIType(Element *selection);
 
 signals:
 

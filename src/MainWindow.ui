@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -205,7 +205,6 @@
      </widget>
      <addaction name="actionInsertNoNamespaceSchemaReferenceAttributes"/>
      <addaction name="actionInsertSchemaReferenceAttributes"/>
-     <addaction name="actionRemoveNilAttribute"/>
      <addaction name="actionQuickReferenceElements"/>
      <addaction name="separator"/>
      <addaction name="menuInsert"/>
@@ -219,6 +218,16 @@
      </property>
      <addaction name="actionInsertMetadata"/>
      <addaction name="actionInsertCompleteMetadata"/>
+    </widget>
+    <widget class="QMenu" name="menuSchema_Instance_XSI">
+     <property name="title">
+      <string>Schema Instance (XSI)</string>
+     </property>
+     <addaction name="actionInsertNilAttribute"/>
+     <addaction name="actionRemoveXSITypeAttribute"/>
+     <addaction name="separator"/>
+     <addaction name="actionInsertXSITypeAttribute"/>
+     <addaction name="actionRemoveNilAttribute"/>
     </widget>
     <addaction name="actionXMLEditMode"/>
     <addaction name="actionXSLTEditMode"/>
@@ -236,8 +245,7 @@
     <addaction name="actionTransformInComment"/>
     <addaction name="actionExtractElementsFromComment"/>
     <addaction name="actionInsertSnippet"/>
-    <addaction name="actionInsertNilAttribute"/>
-    <addaction name="actionRemoveXSITypeAttribute"/>
+    <addaction name="menuSchema_Instance_XSI"/>
     <addaction name="menuXML_Schema"/>
     <addaction name="actionInsertProlog"/>
     <addaction name="menuMetadata"/>
@@ -1918,6 +1926,14 @@
    </property>
    <property name="toolTip">
     <string>Remove XSI type attribute.</string>
+   </property>
+  </action>
+  <action name="actionInsertXSITypeAttribute">
+   <property name="text">
+    <string>Insert XSI Type Attribute...</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert XSI Type Attribute.</string>
    </property>
   </action>
  </widget>

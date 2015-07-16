@@ -348,7 +348,9 @@ public:
     QSet<QString> namespacesURI();
     QString namespaceOfPrefix(const QString &prefix);
     bool removeNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
+    bool removeXSITypeAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
     bool insertNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
+    bool insertXSITypeAttribute(QTreeWidget *tree, Element *currentElement, const QString &typeValue, NamespaceManager &namespaceManager);
 
     static QList<Element*> decodeXMLFromString(const QString &input, const bool onlyRootElement, const bool onlyElements = true);
 
@@ -474,6 +476,9 @@ private:
     //------------endregion(containers)
 
     Element *findTheNextTextMatch(FindTextParams &findArgs, Element *selectedItem);
+    bool removeXSIAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager, const QString &attributeToRemove);
+    bool insertXSIAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager,
+                            const QString &newAttributeName, const QString &newAttribueValue);
 
     friend class TestSearch;
 };

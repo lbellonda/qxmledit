@@ -36,6 +36,7 @@ QString NamespaceManager::namespaceUri(const EWellKnownNs eWellKnownNs)
 {
     switch(eWellKnownNs) {
     case XSI_NAMESPACE: return Regola::XSDSchemaInstance;
+    case XSD_NAMESPACE: return Regola::XSDNameSpace;
     }
     return "";
 }

@@ -33,6 +33,7 @@ public:
     // constants for namespaces
     enum EWellKnownNs {
         XSI_NAMESPACE,
+        XSD_NAMESPACE,
     };
 
     QString namespaceUri(const EWellKnownNs eWellKnownNs);

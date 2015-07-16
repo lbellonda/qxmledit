@@ -180,6 +180,7 @@ public:
     void removeNilAttribute();
     void insertNilAttribute();
     void removeXSITypeAttribute();
+    void insertXSITypeAttribute(const QString &newValue);
 
     QMenu* getCopyMenu();
 

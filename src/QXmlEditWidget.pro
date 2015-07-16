@@ -390,7 +390,8 @@ SOURCES += xmleditwidget.cpp \
     xmlsavecontext.cpp \
     modules/xsd/xsdschemainstance.cpp \
     modules/xsd/namespacemanager.cpp \
-    modules/xml/elementNS.cpp
+    modules/xml/elementNS.cpp \
+    modules/xsd/xsiinsertattribute.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -599,7 +600,8 @@ HEADERS += precompiled_lib.h \
     widgets/qlabelwithsignals.h \
     widgets/selectionchoosedelegate.h \
     xmlsavecontext.h \
-    modules/xsd/namespacemanager.h
+    modules/xsd/namespacemanager.h \
+    modules/xsd/xsiinsertattribute.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

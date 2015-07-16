@@ -32,6 +32,8 @@
 #include "modules/anonymize/anoncontext.h"
 #include "modules/anonymize/anonadvdialog.h"
 #include "modules/anonymize/anonimyzebatchdialog.h"
+#include "modules/xsd/namespacemanager.h"
+#include "modules/xsd/xsiinsertattribute.h"
 
 MainWndController::MainWndController(QObject *parent) :
     QObject(parent)
@@ -123,3 +125,14 @@ void MainWndController::innerAnonymize(AnonAlg *alg)
 }
 
 
+QString MainWndController::askNewXSIType(Element *selection)
+{
+    if(NULL == selection) {
+        return "" ;
+    }
+    // get the namespace
+    QString nsNsd = _w->appData()->namespaceManager()->namespaceUri(NamespaceManager::XSD_NAMESPACE);
+    QString prefixNS ;
+    selection->findPrefixForNamespace(nsNsd, prefixNS);
+    return askNewXSITypeAttribute(_w, prefixNS);
+}

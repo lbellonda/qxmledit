@@ -1,3 +1,10 @@
+0.8.17
+    New mennu for XSI related commands.
+    New feature: insert xsi type attribute.
+    New feature: remove xsi type attribute.
+    New feature: insert xsi nil attribute.
+    New feature: remove xsi nil attribute.
+
 0.8.16
     Changed the default for display children size to false.
     Restored indentation settings after reload operation.

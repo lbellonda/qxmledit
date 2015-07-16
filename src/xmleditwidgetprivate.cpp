@@ -2970,3 +2970,33 @@ void XmlEditWidgetPrivate::removeNilAttribute()
         }
     }
 }
+
+void XmlEditWidgetPrivate::insertNilAttribute()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        Element *element = getSelectedItem();
+        if(NULL != element) {
+            getRegola()->insertNillableAttribute(p->getMainTreeWidget(), element, *appData()->namespaceManager());
+        }
+    }
+}
+
+void XmlEditWidgetPrivate::removeXSITypeAttribute()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        Element *element = getSelectedItem();
+        if(NULL != element) {
+            getRegola()->removeXSITypeAttribute(p->getMainTreeWidget(), element, *appData()->namespaceManager());
+        }
+    }
+}
+
+void XmlEditWidgetPrivate::insertXSITypeAttribute(const QString &newValue)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        Element *element = getSelectedItem();
+        if(NULL != element) {
+            getRegola()->insertXSITypeAttribute(p->getMainTreeWidget(), element, newValue, *appData()->namespaceManager());
+        }
+    }
+}

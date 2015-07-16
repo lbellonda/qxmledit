@@ -118,6 +118,25 @@ QStringList WidgetUtility::getStdTypes()
     return xsdTypesList ;
 }
 
+QStringList WidgetUtility::getStdTypes(const QString &prefix)
+{
+    QStringList result ;
+    QStringList intermediateRes = getStdTypes();
+    if(prefix != "xs") {
+        QString newPrefix = prefix ;
+        if(!prefix.isEmpty()) {
+            newPrefix += ":";
+        }
+        foreach(QString str, intermediateRes) {
+            result << str.replace("xs:", newPrefix);
+        }
+        return result ;
+    } else {
+        return intermediateRes ;
+    }
+}
+
+
 const char * const XSDDATATYPE_NAME [] = {
 
     "xs:anyURI",

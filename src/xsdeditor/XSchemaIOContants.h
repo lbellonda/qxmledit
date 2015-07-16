@@ -189,6 +189,6 @@
 #define IO_ATTRIBUTE_USE_MISSING    ""
 
 #define IO_INSTANCE_NILLABLE_ATTRIB    "nil"
-
+#define IO_INSTANCE_TYPE_ATTRIB    "type"
 
 #endif // XSCHEMAIOCONTANTS_H

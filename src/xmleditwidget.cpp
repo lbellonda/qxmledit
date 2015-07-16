@@ -1064,3 +1064,13 @@ void XmlEditWidget::insertNilAttribute()
 {
     d->insertNilAttribute();
 }
+
+void XmlEditWidget::removeXSITypeAttribute()
+{
+    d->removeXSITypeAttribute();
+}
+
+void XmlEditWidget::insertXSITypeAttribute(const QString &newValue)
+{
+    d->insertXSITypeAttribute(newValue);
+}

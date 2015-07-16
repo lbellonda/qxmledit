@@ -156,7 +156,7 @@ void XmlUtils::decodeQualifiedName(const QString &name, QString &prefix, QString
     }
 }
 
-QString XmlUtils::makeQualifiedName( const QString &prefix, const QString &localName)
+QString XmlUtils::makeQualifiedName(const QString &prefix, const QString &localName)
 {
     if(prefix.isEmpty()) {
         return localName;
@@ -167,7 +167,7 @@ QString XmlUtils::makeQualifiedName( const QString &prefix, const QString &local
 QString XmlUtils::makeNSDeclaration(const QString &ns)
 {
     QString xmlNs = "xmlns" ;
-    if( ns.isEmpty() ) {
+    if(ns.isEmpty()) {
         return xmlNs ;
     }
     return QString("%1:%2").arg(xmlNs).arg(ns);

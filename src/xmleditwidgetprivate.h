@@ -379,6 +379,7 @@ private slots:
     void removeNilAttribute();
     void insertNilAttribute();
     void removeXSITypeAttribute();
+    void insertXSITypeAttribute(const QString &newValue);
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

@@ -46,6 +46,7 @@ public:
     static bool selectItemWithData(QComboBox *combo, const int dataToSelect);
     static int getComboItemByInt(QComboBox *combo, const int dataToSelect);
     static QStringList getStdTypes();
+    static QStringList getStdTypes(const QString &prefix);
     static void loadComboTypes(QComboBox *combo, QStringList &customTypes);
     static XEnums::XBool getCheckState(QCheckBox *box);
     static void setCheckState(const XEnums::XBool value, QCheckBox *box);

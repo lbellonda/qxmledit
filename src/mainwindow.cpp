@@ -871,6 +871,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionRemoveNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionInsertNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionRemoveXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
+    ui.actionInsertXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -2994,7 +2995,24 @@ void MainWindow::on_actionInsertNilAttribute_triggered()
     ui.editor->insertNilAttribute();
 }
 
-void MainWindow::actionRemoveXSITypeAttribute_triggered()
+void MainWindow::on_actionRemoveXSITypeAttribute_triggered()
 {
     ui.editor->removeXSITypeAttribute();
 }
+
+void MainWindow::on_actionInsertXSITypeAttribute_triggered()
+{
+    if(!isReadOnly()) {
+        QString newType = _controller.askNewXSIType(getEditor()->getSelectedItem());
+        if(!newType.isEmpty()) {
+            Utils::TODO_THIS_RELEASE("fare");
+            insertXSITypeAttribute(newType);
+        }
+    }
+}
+
+void MainWindow::insertXSITypeAttribute(const QString &newValue)
+{
+    ui.editor->insertXSITypeAttribute(newValue);
+}
+

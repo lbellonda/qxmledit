@@ -934,6 +934,22 @@ void TestQXmlEdit::testNillable()
     }
 }
 
+void TestQXmlEdit::testXSIType()
+{
+    bool result;
+    {
+        TestXSIType testA;
+        result = testA.testFast();
+        QVERIFY2(result, (QString("test TestXSIType: testFast() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+
+    {
+        TestXSIType testA;
+        result = testA.testUnit();
+        QVERIFY2(result, (QString("test TestXSIType: testUnit() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+}
+
 void TestQXmlEdit::testXSDMode()
 {
     bool result;
@@ -1031,6 +1047,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testXSIType();
     testNillable();
     //testIndent();
 }
