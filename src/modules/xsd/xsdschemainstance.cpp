@@ -44,7 +44,6 @@ bool Regola::removeXSIAttribute(QTreeWidget *tree, Element *currentElement, Name
 {
     bool isChanged = false;
     const QString XSINamespace = namespaceManager.namespaceUri(NamespaceManager::XSI_NAMESPACE);
-    Utils::TODO_THIS_RELEASE("lavoro su original e uso cloned come copia");
     UndoEditCommand *undoCommand = new UndoEditCommand(tree, this, currentElement->indexPath());
     if(NULL != undoCommand) {
         undoCommand->setOriginalElement(currentElement);
@@ -106,133 +105,10 @@ bool Regola::removeNillableAttribute(QTreeWidget *tree, Element *currentElement,
     return removeXSIAttribute(tree, currentElement, namespaceManager, IO_INSTANCE_NILLABLE_ATTRIB);
 }
 
-/*
-bool Regola::removeNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager)
-{
-    bool isChanged = false;
-    const QString XSINamespace = namespaceManager.namespaceUri(NamespaceManager::XSI_NAMESPACE);
-    Utils::TODO_THIS_RELEASE("lavoro su original e uso cloned come copia");
-    UndoEditCommand *undoCommand = new UndoEditCommand(tree, this, currentElement->indexPath());
-    if(NULL != undoCommand) {
-        undoCommand->setOriginalElement(currentElement);
-
-        Element *cloned = new Element("", "", NULL, NULL);
-        if(NULL != cloned) {
-            currentElement->copyTo(*cloned);
-            QList<Attribute*> toDelete;
-            foreach(Attribute * attribute, cloned->attributes) {
-                if(XmlUtils::stripNs(attribute->name) == IO_INSTANCE_NILLABLE_ATTRIB) {
-                    QString prefix;
-                    QString name;
-                    XmlUtils::decodeQualifiedName(attribute->name, prefix, name);
-                    if(currentElement->namespaceForPrefix(prefix) == XSINamespace) {
-                        toDelete.append(attribute);
-                        currentElement->removeAttribute(attribute->name);
-                        isChanged = true ;
-                    }
-                }
-            }
-            // --- test for removal
-            foreach(Attribute * toDeleteAttribute, toDelete) {
-                QString prefix;
-                QString name;
-                XmlUtils::decodeQualifiedName(toDeleteAttribute->name, prefix, name);
-                if(currentElement->namespaceForPrefix(prefix) == XSINamespace) {
-                    Attribute *declaration = currentElement->nsDeclarationForPrefixOwned(prefix);
-                    if(NULL != declaration) {
-                        if(!currentElement->areChildrenUsingPrefix(prefix)) {
-                            currentElement->removeAttribute(declaration->name);
-                            isChanged = true ;
-                        }
-                    }
-                }
-            }
-        }
-        if(isChanged) {
-            currentElement->updateSizeInfo();
-            currentElement->markEditedRecursive();
-            currentElement->display(currentElement->getUI(), paintInfo);
-            setModified(true);
-            if(NULL == currentElement->parent()) {
-                checkEncoding();
-            }
-            undoCommand->setModifiedElement(currentElement);
-            _undoStack.push(undoCommand);
-        } else {
-            delete undoCommand ;
-        }
-        if(NULL != cloned) {
-            delete cloned ;
-        }
-    }
-    return isChanged ;
-}
-*/
 bool Regola::removeXSITypeAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager)
 {
-    Utils::TODO_THIS_RELEASE("rimuovi commenti");
     return removeXSIAttribute(tree, currentElement, namespaceManager, IO_INSTANCE_TYPE_ATTRIB);
 }
-/*
-    bool isChanged = false;
-    const QString XSINamespace = namespaceManager.namespaceUri(NamespaceManager::XSI_NAMESPACE);
-    Utils::TODO_THIS_RELEASE("lavoro su original e uso cloned come copia");
-    UndoEditCommand *undoCommand = new UndoEditCommand(tree, this, currentElement->indexPath());
-    if(NULL != undoCommand) {
-        undoCommand->setOriginalElement(currentElement);
-
-        Element *cloned = new Element("", "", NULL, NULL);
-        if(NULL != cloned) {
-            currentElement->copyTo(*cloned);
-            QList<Attribute*> toDelete;
-            foreach(Attribute * attribute, cloned->attributes) {
-                if(XmlUtils::stripNs(attribute->name) == IO_INSTANCE_NILLABLE_ATTRIB) {
-                    QString prefix;
-                    QString name;
-                    XmlUtils::decodeQualifiedName(attribute->name, prefix, name);
-                    if(currentElement->namespaceForPrefix(prefix) == XSINamespace) {
-                        toDelete.append(attribute);
-                        currentElement->removeAttribute(attribute->name);
-                        isChanged = true ;
-                    }
-                }
-            }
-            // --- test for removal
-            foreach(Attribute * toDeleteAttribute, toDelete) {
-                QString prefix;
-                QString name;
-                XmlUtils::decodeQualifiedName(toDeleteAttribute->name, prefix, name);
-                if(currentElement->namespaceForPrefix(prefix) == XSINamespace) {
-                    Attribute *declaration = currentElement->nsDeclarationForPrefixOwned(prefix);
-                    if(NULL != declaration) {
-                        if(!currentElement->areChildrenUsingPrefix(prefix)) {
-                            currentElement->removeAttribute(declaration->name);
-                            isChanged = true ;
-                        }
-                    }
-                }
-            }
-        }
-        if(isChanged) {
-            currentElement->updateSizeInfo();
-            currentElement->markEditedRecursive();
-            currentElement->display(currentElement->getUI(), paintInfo);
-            setModified(true);
-            if(NULL == currentElement->parent()) {
-                checkEncoding();
-            }
-            undoCommand->setModifiedElement(currentElement);
-            _undoStack.push(undoCommand);
-        } else {
-            delete undoCommand ;
-        }
-        if(NULL != cloned) {
-            delete cloned ;
-        }
-    }
-    return isChanged ;
-}
-*/
 
 bool Regola::insertNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager)
 {
@@ -251,7 +127,6 @@ bool Regola::insertXSIAttribute(QTreeWidget *tree, Element *currentElement, Name
     QString prefixForNamespaceXSI;
     bool isChanged = false;
     const QString XSINamespace = namespaceManager.namespaceUri(NamespaceManager::XSI_NAMESPACE);
-    Utils::TODO_THIS_RELEASE("lavoro su original e uso cloned come copia");
     UndoEditCommand *undoCommand = new UndoEditCommand(tree, this, currentElement->indexPath());
     if(NULL != undoCommand) {
         undoCommand->setOriginalElement(currentElement);
@@ -327,105 +202,4 @@ bool Regola::insertXSIAttribute(QTreeWidget *tree, Element *currentElement, Name
     return isChanged ;
 }
 
-/*
-bool Regola::insertNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager)
-{
-    bool isNamespacePresent = false;
-    QString prefixForNamespaceXSI;
-    bool isChanged = false;
-    const QString XSINamespace = namespaceManager.namespaceUri(NamespaceManager::XSI_NAMESPACE);
-    Utils::TODO_THIS_RELEASE("lavoro su original e uso cloned come copia");
-    UndoEditCommand *undoCommand = new UndoEditCommand(tree, this, currentElement->indexPath());
-    if(NULL != undoCommand) {
-        undoCommand->setOriginalElement(currentElement);
 
-        Element *cloned = new Element("", "", NULL, NULL);
-        if(NULL != cloned) {
-            currentElement->copyTo(*cloned);
-            // remove any nillable attributes
-            QList<Attribute*> toDelete;
-
-            QString prefixNS ;
-            if( currentElement->findPrefixForNamespace(XSINamespace, prefixNS) ) {
-                prefixForNamespaceXSI = prefixNS ;
-                isNamespacePresent = true ;
-            }
-            // --- remove any outstanding
-            foreach(Attribute * attribute, cloned->attributes) {
-                if(XmlUtils::stripNs(attribute->name) == IO_INSTANCE_NILLABLE_ATTRIB) {
-                    QString prefix;
-                    QString name;
-                    XmlUtils::decodeQualifiedName(attribute->name, prefix, name);
-                    if(currentElement->namespaceForPrefix(prefix) == XSINamespace) {
-                        toDelete.append(attribute);
-                        currentElement->removeAttribute(attribute->name);
-                        isChanged = true ;
-                    }
-                }
-            }
-            Utils::TODO_THIS_RELEASE("remove comments");
-            / *if(isChanged) {
-                // --- test for removal
-                foreach(Attribute * toDeleteAttribute, toDelete) {
-                    QString prefix;
-                    QString name;
-                    XmlUtils::decodeQualifiedName(toDeleteAttribute->name, prefix, name);
-                    if(currentElement->namespaceForPrefix(prefix) == XSINamespace) {
-                        Attribute *declaration = currentElement->nsDeclarationForPrefixOwned(prefix);
-                        if(NULL != declaration) {
-                            if(!currentElement->areChildrenUsingPrefix(prefix)) {
-                                currentElement->removeAttribute(declaration->name);
-                                isChanged = true ;
-                            }
-                        }
-                    }
-                }
-            }* /
-            // --- add namespace
-            if(!isNamespacePresent) {
-                long nsId = 0 ;
-                bool doNextLoop ;
-                do {
-                    doNextLoop = false;
-                    QString ns ;
-                    if( 0 == nsId ) {
-                        ns = "xsi";
-                    } else {
-                        ns = QString("xsi%1").arg(nsId);
-                    }
-                    if( currentElement->nsDeclarationForPrefixOwned(ns) != NULL ) {
-                        doNextLoop = true ;
-                        nsId ++ ;
-                    } else {
-                        currentElement->addAttribute(XmlUtils::makeNSDeclaration(ns), XSINamespace);
-                        prefixForNamespaceXSI = ns ;
-                        break;
-                    }
-                } while(doNextLoop);
-            }
-            // --- add attribute
-            QString completeAttributeName = XmlUtils::makeQualifiedName(prefixForNamespaceXSI, IO_INSTANCE_NILLABLE_ATTRIB);
-            currentElement->addAttribute(completeAttributeName,"true");
-            isChanged = true ;
-        }
-        if(isChanged) {
-            currentElement->updateSizeInfo();
-            currentElement->markEditedRecursive();
-            currentElement->display(currentElement->getUI(), paintInfo);
-            setModified(true);
-            if(NULL == currentElement->parent()) {
-                checkEncoding();
-            }
-            undoCommand->setModifiedElement(currentElement);
-            _undoStack.push(undoCommand);
-        } else {
-            delete undoCommand ;
-        }
-        if(NULL != cloned) {
-            delete cloned ;
-        }
-    }
-    return isChanged ;
-}
-
- * */
