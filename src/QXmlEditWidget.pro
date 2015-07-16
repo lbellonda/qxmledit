@@ -391,7 +391,7 @@ SOURCES += xmleditwidget.cpp \
     modules/xsd/xsdschemainstance.cpp \
     modules/xsd/namespacemanager.cpp \
     modules/xml/elementNS.cpp \
-    modules/xsd/xsiinsertattribute.cpp
+    modules/xsd/xsiinsertattributedialog.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
