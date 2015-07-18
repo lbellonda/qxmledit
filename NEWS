@@ -1,4 +1,5 @@
 0.8.17
+    Updated the license on some header files.
     New mennu for XSI related commands.
     New feature: insert xsi type attribute.
     New feature: remove xsi type attribute.
