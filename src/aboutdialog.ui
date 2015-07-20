@@ -166,7 +166,7 @@ p, li { white-space: pre-wrap; }
       </rect>
      </property>
      <property name="text">
-      <string>License: GNU Public License Version 2</string>
+      <string>License:</string>
      </property>
     </widget>
    </widget>
@@ -330,7 +330,6 @@ p, li { white-space: pre-wrap; }
   <zorder>envir</zorder>
  </widget>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections>
