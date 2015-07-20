@@ -29,7 +29,6 @@ QString askNewXSITypeAttribute(QWidget *parent, const QString &xsdPrefix)
 {
     bool ok = true ;
     QString result ;
-    Utils::TODO_THIS_RELEASE("fare");
     QStringList stdTypesList = WidgetUtility::getStdTypes(xsdPrefix);
     result = QInputDialog::getItem(parent,
                                    QObject::tr("Insert Schema Instance Type Attribute"), QObject::tr("Type"),

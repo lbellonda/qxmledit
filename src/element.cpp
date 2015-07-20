@@ -867,6 +867,17 @@ void Element::handleMapEncodingPreInsert(QDomNode &parent, ElementLoadInfoMap *d
     dataMap->currentKey = key ;
 }
 
+void Element::handleMapEncodingPreInsert(ElementLoadInfoMap *dataMap)
+{
+    // make the key
+    QString key = dataMap->currentKey + "*" ;
+    // single test noded does not show up, but this is not a problem. Only registering top level objects.
+    int thisPos = indexOfSelfAsChild() ;
+    key = QString("%1*%2").arg(dataMap->currentKey).arg(thisPos) ;
+    dataMap->dataMap.insert(key, this);
+    dataMap->currentKey = key ;
+}
+
 bool Element::generateDom(QDomDocument &document, QDomNode &parent)
 {
     return generateDom(document, parent, NULL);
@@ -951,9 +962,8 @@ bool Element::writeAlt(XMLSaveContext *context, QXmlStreamWriter &writer, Elemen
     bool result = true;
     QString prevDMKey ;
     if(NULL != dataMap) {
-        Utils::TODO_THIS_RELEASE("when operative, use another function");
-        /*prevDMKey = dataMap->currentKey ;
-        handleMapEncodingPreInsert(parent, dataMap);*/
+        prevDMKey = dataMap->currentKey ;
+        handleMapEncodingPreInsert(dataMap);
     }
     switch(type) {
     default:

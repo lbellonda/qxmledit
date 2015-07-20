@@ -3005,7 +3005,6 @@ void MainWindow::on_actionInsertXSITypeAttribute_triggered()
     if(!isReadOnly()) {
         QString newType = _controller.askNewXSIType(getEditor()->getSelectedItem());
         if(!newType.isEmpty()) {
-            Utils::TODO_THIS_RELEASE("fare");
             insertXSITypeAttribute(newType);
         }
     }

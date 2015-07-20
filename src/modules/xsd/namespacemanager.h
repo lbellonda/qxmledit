@@ -24,6 +24,11 @@
 #ifndef NAMESPACEMANAGER_H
 #define NAMESPACEMANAGER_H
 
+#include <QString>
+#include <QHash>
+
+class NamespaceDef;
+
 class NamespaceManager
 {
 public:
@@ -37,7 +42,24 @@ public:
     };
 
     QString namespaceUri(const EWellKnownNs eWellKnownNs);
+    //--
+private:
+    QHash<EWellKnownNs, NamespaceDef*> _namespaces;
 
+    void reset();
+    void insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theDescription);
+
+};
+
+
+class NamespaceDef
+{
+public:
+    NamespaceDef(const NamespaceManager::EWellKnownNs codeForWellKnown, const QString &theNamespace, const QString &theDescription);
+    ~NamespaceDef();
+    QString _namespace;
+    QString _description;
+    NamespaceManager::EWellKnownNs _codeForWellKnown;
 };
 
 #endif // NAMESPACEMANAGER_H

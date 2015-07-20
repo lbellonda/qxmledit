@@ -23,20 +23,50 @@
 #include "namespacemanager.h"
 #include "utils.h"
 
+
+NamespaceDef::NamespaceDef(const NamespaceManager::EWellKnownNs theCodeForWellKnown, const QString &theNamespace, const QString &theDescription)
+{
+    _namespace = theNamespace;
+    _description = theDescription;
+    _codeForWellKnown = theCodeForWellKnown;
+}
+
+NamespaceDef::~NamespaceDef()
+{
+
+}
+
+//------
+
 NamespaceManager::NamespaceManager()
 {
-    Utils::TODO_THIS_RELEASE("init using resources");
+    insertItem(XSI_NAMESPACE, Regola::XSDSchemaInstance, QObject::tr("Schema Instance (xsi)"));
+    insertItem(XSD_NAMESPACE, Regola::XSDNameSpace, QObject::tr("XML Schema (xsd or xs)"));
 }
 
 NamespaceManager::~NamespaceManager()
 {
+    reset();
 }
 
 QString NamespaceManager::namespaceUri(const EWellKnownNs eWellKnownNs)
 {
-    switch(eWellKnownNs) {
-    case XSI_NAMESPACE: return Regola::XSDSchemaInstance;
-    case XSD_NAMESPACE: return Regola::XSDNameSpace;
+    if(_namespaces.contains(eWellKnownNs)) {
+        return _namespaces[eWellKnownNs]->_namespace;
     }
     return "";
+}
+
+void NamespaceManager::reset()
+{
+    foreach(NamespaceDef * def, _namespaces.values()) {
+        delete def;
+    }
+    _namespaces.clear();
+}
+
+void NamespaceManager::insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theDescription)
+{
+    NamespaceDef *def = new NamespaceDef(wellKnownNs, theNamespace, theDescription);
+    _namespaces.insert(wellKnownNs, def);
 }
