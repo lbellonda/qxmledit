@@ -69,8 +69,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="169"/>
-        <source>License: GNU Public License Version 2</source>
-        <translation>Povolení: GNU veřejná licence verze 2</translation>
+        <source>License:</source>
+        <translation>Povolení:</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="175"/>

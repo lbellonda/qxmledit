@@ -509,6 +509,7 @@ private:
     void displayProcessingInstruction(ElementViewInfo *dataInfo, const bool isBookmarked, const bool isSelected);
     const QString getIdUsingStyle(PaintInfo *paintInfo);
     void handleMapEncodingPreInsert(QDomNode &parent, ElementLoadInfoMap *dataMap);
+    void handleMapEncodingPreInsert(ElementLoadInfoMap *dataMap);
     void anonymizeElement(AnonAlg *alg);
     void anonymizeText(AnonAlg *alg);
     QString anonymizeTextOfElement(AnonContext * context, const QString &inputText, void * key);
