@@ -1047,9 +1047,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testXSIType();
-    testNillable();
-    //testIndent();
+    testIndent();
 }
 
 QTEST_MAIN(TestQXmlEdit)

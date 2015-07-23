@@ -223,6 +223,7 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
+    Utils::TODO_THIS_RELEASE("Aggiorna manuale xsi");
 }
 
 static void startTanslator(QApplication *app)
