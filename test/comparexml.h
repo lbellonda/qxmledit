@@ -62,6 +62,7 @@ public:
     bool compareFileWithRegola(Regola *regola, QIODevice *file);
     bool compareBufferWithFile(QIODevice *regola, const QString &file);
     bool compareRegolaWithRegola(Regola *regola1, Regola *regola2);
+    bool compareXMLAsStringAsUtf8(const QString &s1, const QString & s2);
 
     QString doc1String() ;
     QString doc2String() ;

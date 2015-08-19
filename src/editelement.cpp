@@ -26,12 +26,17 @@
 #include "edittextnode.h"
 #include "regola.h"
 #include "utils.h"
+#include "xmlutils.h"
+#include "modules/namespace/namespacemanagementdialog.h"
 #include <QItemSelectionModel>
 
 #define MOD_WIDTH   (8)
 
+
 EditElement::EditElement(QWidget * parent) : QDialog(parent)
 {
+    _parent = NULL ;
+    _namespaceManager = NULL ;
     _textModified = false;
     isStarted = false;
     modColor = QColor::fromRgb(255, 128, 128);
@@ -42,7 +47,12 @@ EditElement::EditElement(QWidget * parent) : QDialog(parent)
     _attributeDelegate = new AttributeColumnItemDelegate(ui.attrTable, A_COLUMN_TEXT, ui.attrTable);
     ui.attrTable->setItemDelegateForColumn(A_COLUMN_TEXT, _attributeDelegate);
     target = NULL;
+    checkNamespace();
     enableOK();
+    Utils::TODO_THIS_RELEASE("save attribute base64 file");
+    Utils::TODO_THIS_RELEASE("load attribute base64 file");
+    Utils::TODO_THIS_RELEASE("insert namespace for attribute");
+    Utils::TODO_THIS_RELEASE("remove namespace for attribute");
 }
 
 EditElement::~EditElement()
@@ -69,19 +79,60 @@ bool EditElement::checkTagSyntax(const QString &theTag)
 
 void EditElement::on_editTag_textChanged(const QString & /*theText*/)
 {
+    checkNamespace();
     enableOK();
 }
 
-void EditElement::setTarget(Element* pTarget)
+
+QHash<QString, QString> EditElement::getNsFromAttributes()
+{
+    QHash<QString, QString> nss;
+    int rows = ui.attrTable->rowCount();
+    for(int row = 0 ; row < rows ; row ++) {
+        QTableWidgetItem *itemName = ui.attrTable->item(row, A_COLUMN_NAME);
+        QTableWidgetItem *itemValue = ui.attrTable->item(row, A_COLUMN_TEXT);
+        if((NULL != itemName) && (NULL != itemValue)) {
+            QString name = itemName->text().trimmed() ;
+            QString value = itemValue->text().trimmed() ;
+            QString prefix;
+            if(XmlUtils::getNsPrefix(name, prefix)) {
+                nss.insert(prefix, value);
+            } // if is declaring
+        }
+    } // for each attribute
+    return nss ;
+}
+
+void EditElement::setTarget(Element* pTarget, Element *parent)
 {
     target = pTarget ;
+    _parent = parent;
     isMixedContent = target->isMixedContent();
-    QStringList pathList = target->path();
-    QString path = pathList.join("/");
-    path = "/" + path ;
+    Element *theParent = (NULL != _parent) ? _parent : target->parent();
+    QString path;
+    if(NULL != theParent) {
+        QStringList pathList = theParent->path();
+        path = pathList.join("/");
+        path = "/" + path ;
+
+        _visibleNamespaces = target->findVisibleNamespaces();
+    }
+    path += "/" + target->tag();
     ui.path->setText(path);
     show();
-    ui.editTag->setText(target->tag());
+    QString initialValue = target->tag();
+    if(NULL != theParent) {
+        if(initialValue.isEmpty()) {
+            QString parentName;
+            QString parentPrefix;
+            XmlUtils::decodeQualifiedName(theParent->tag(), parentPrefix, parentName);
+            initialValue = parentPrefix;
+            if(!initialValue.isEmpty()) {
+                initialValue += ":";
+            }
+        }
+    }
+    ui.editTag->setText(initialValue);
     ui.attrTable->setUpdatesEnabled(false);
     QVector<Attribute*>::iterator it;
     // sort alphabetically the attributes
@@ -132,35 +183,45 @@ void EditElement::setTarget(Element* pTarget)
     ui.elementTable->setUpdatesEnabled(true);
     ui.elementTable->resizeRowsToContents();
     enableOK();
+    checkNamespace();
     _textModified = false;
     isStarted = true ;
 }
 
 void EditElement::accept()
 {
-    if(NULL == target) {
-        error(tr("No target"));
+    if(!updateTarget(target)) {
         return;
+    }
+    QDialog::accept();
+}
+
+bool EditElement::updateTarget(Element *element)
+{
+    Utils::TODO_THIS_RELEASE("sostiture target con elemenrs");
+    if(NULL == element) {
+        error(tr("No element"));
+        return false;
     }
     QString tag = ui.editTag->text();
     if(0 == tag.length()) {
         error(tr("Tag text is invalid"));
-        return ;
+        return false ;
     }
-    if(NULL != target->getParentRule()) {
-        target->_tag = target->getParentRule()->addNameToPool(tag) ;
+    if(NULL != element->getParentRule()) {
+        element->_tag = element->getParentRule()->addNameToPool(tag) ;
     } else {
-        target->_tag = tag;
+        element->_tag = tag;
     }
     // rebuild attributes
-    target->clearAttributes();
+    element->clearAttributes();
     int rows = ui.attrTable->rowCount();
     for(int row = 0 ; row < rows ; row ++) {
         QTableWidgetItem *itemName = ui.attrTable->item(row, A_COLUMN_NAME);
         QString name = itemName->text().trimmed() ;
         if(!validateAttr(name)) {
             error(tr("An attribute is invalid at row %1").arg(row));
-            return ;
+            return false ;
         }
     }
 
@@ -169,12 +230,12 @@ void EditElement::accept()
         QTableWidgetItem *itemValue = ui.attrTable->item(row, A_COLUMN_TEXT);
         QString name = itemName->text().trimmed() ;
         QString value = itemValue->text().trimmed() ;
-        target->addAttribute(name, value);
+        element->addAttribute(name, value);
     }
 
     Utils::TODO_NEXT_RELEASE("this part must be tested very well");
     //if(_textModified) {
-    target->clearTextNodes();
+    element->clearTextNodes();
 
     isMixedContent = false ;
     bool isElement = false;
@@ -199,27 +260,27 @@ void EditElement::accept()
     if(isElement && isText) {
         isMixedContent = true ;
     }
-    foreach(Element * child, target->getItems()) {
+    foreach(Element * child, element->getItems()) {
         if(child->getType() == Element::ET_TEXT) {
             child->autoDelete(true);
         }
     }
 
     if(isMixedContent) {
-        target->getChildItems()->clear();
+        element->getChildItems()->clear();
         rows = ui.elementTable->rowCount();
         for(int row = 0 ; row < rows ; row ++) {
             QTableWidgetItem *itemCDATA = ui.elementTable->item(row, T_COLUMN_CDATA);
             QTableWidgetItem *itemValue = ui.elementTable->item(row, T_COLUMN_TEXT);
             Element *element = getUserData(itemCDATA);
             if((NULL == element) || ((NULL != element) && (element->getType() == Element::ET_TEXT))) {
-                Element *newElement = new Element(target->getParentRule(), Element::ET_TEXT, target);
+                Element *newElement = new Element(element->getParentRule(), Element::ET_TEXT, element);
                 newElement->setTextOfTextNode(textFromItem(itemValue), itemCDATA->checkState() == Qt::Checked);
                 newElement->markEdited();
-                target->getItems().append(newElement);
-                newElement->caricaFigli(target->getUI()->treeWidget(), target->getUI(), target->getParentRule()->getPaintInfo(), true, row);
+                element->getItems().append(newElement);
+                newElement->caricaFigli(element->getUI()->treeWidget(), element->getUI(), element->getParentRule()->getPaintInfo(), true, row);
             } else {
-                target->getItems().append(element);
+                element->getItems().append(element);
             }
         }
     } else {
@@ -230,13 +291,13 @@ void EditElement::accept()
             Element *element = getUserData(itemCDATA);
             if((NULL == element) || ((NULL != element) && (element->getType() == Element::ET_TEXT))) {
                 TextChunk *newText = new TextChunk(itemCDATA->checkState() == Qt::Checked, textFromItem(itemValue));
-                target->addTextNode(newText);
+                element->addTextNode(newText);
             }
         }
     }
 
-    target->markEdited();
-    QDialog::accept();
+    element->markEdited();
+    return true;
 }
 
 void EditElement::error(const QString& message)
@@ -256,6 +317,7 @@ void EditElement::setUpdatedAttr(const int row)
         if(NULL != item) {
             item->setBackgroundColor(modColor);
         }
+        checkNamespace();
     }
 }
 
@@ -301,6 +363,7 @@ void EditElement::on_delAttribute_clicked()
             return ;
         }
         ui.attrTable->removeRow(currentRow);
+        checkNamespace();
     } else {
         Utils::error(this, tr("No attribute selected"));
     }
@@ -660,3 +723,135 @@ void EditElement::on_cmdFromBase64_clicked()
     doBase64Operation(true);
 }
 
+void EditElement::checkNamespace()
+{
+    QString name = ui.editTag->text().trimmed();
+    QString prefix;
+    QString localName;
+    XmlUtils::decodeQualifiedName(name, prefix, localName);
+    bool nsOk = prefix.isEmpty() ;
+
+    if(!nsOk) {
+        QHash<QString, QString> thisDeclarations = getNsFromAttributes();
+        if(!prefix.isEmpty() && thisDeclarations.contains(prefix)) {
+            nsOk = true ;
+        }
+        if(!nsOk) {
+            Utils::TODO_THIS_RELEASE("attenzione: non vedo le dichiarazioni nell elemento stesso in edit");
+            if(!prefix.isEmpty() && !_visibleNamespaces.contains(prefix)) {
+                nsOk = false;
+            }
+        }
+    }
+    ui.lblWarnNs->setVisible(!nsOk);
+}
+
+void EditElement::on_cmdNamespaces_clicked()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    Element element(ui.editTag->text(), "", NULL, NULL);
+    // rebuild attributes
+    int rows = ui.attrTable->rowCount();
+    for(int row = 0 ; row < rows ; row ++) {
+        QTableWidgetItem *itemName = ui.attrTable->item(row, A_COLUMN_NAME);
+        QString name = itemName->text().trimmed() ;
+        QTableWidgetItem *itemValue = ui.attrTable->item(row, A_COLUMN_TEXT);
+        QString value = itemValue->text() ;
+        element.addAttribute(name, value);
+    }
+    element.setParent((NULL != _parent) ? _parent : target->parent());
+    NamespaceManagementDialog dlg(this, &element, _namespaceManager);
+    if(dlg.exec() == QDialog::Accepted) {
+        NamespaceCommands *commands = dlg.getCommands();
+        if(NULL != commands) {
+            applyNamespaceOper(commands);
+            delete commands;
+        }
+    }
+    element.setParent(NULL);
+    Utils::TODO_THIS_RELEASE("al ritorno posso modificare il tag, ins o mod gli attributi e mod la radice?");
+}
+
+void EditElement::applyNamespaceOper(NamespaceCommands *commands)
+{
+    if(NULL != commands) {
+        QList<NamespaceSpec*> allNs ;
+        updateElementTag(commands->useNsElement(), commands->tagSpec(), commands->declareNs(), allNs);
+        allNs += commands->namespaces();
+        applyOtherNamespaces(allNs);
+    }
+}
+
+void EditElement::updateElementTag(const bool useNamespace, NamespaceSpec* namespaceSpec, const NamespaceCommands::ENSDecl decl, QList<NamespaceSpec*> &allNs)
+{
+    QString prefix;
+    QString localName;
+    XmlUtils::decodeQualifiedName(ui.editTag->text(), prefix, localName);
+    if(prefix != namespaceSpec->prefix) {
+        QString qualifiedName = XmlUtils::makeQualifiedName(namespaceSpec->prefix, localName);
+        ui.editTag->setText(qualifiedName);
+    }
+    if(useNamespace) {
+        if(decl == NamespaceCommands::DeclareInElement) {
+            allNs.append(namespaceSpec);
+        }
+    }
+}
+
+void EditElement::applyOtherNamespaces(QList<NamespaceSpec*> namespaces)
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    ui.attrTable->setUpdatesEnabled(false);
+    // delete ns declared, but not present in list;
+    QList<NamespaceSpec*> presentInList;
+    int rows = ui.attrTable->rowCount();
+    for(int row = rows - 1 ; row >= 0 ; row --) {
+        QTableWidgetItem *itemName = ui.attrTable->item(row, A_COLUMN_NAME);
+        QTableWidgetItem *itemValue = ui.attrTable->item(row, A_COLUMN_TEXT);
+        QString name = itemName->text().trimmed() ;
+        QString value = itemValue->text().trimmed() ;
+        if(XmlUtils::isDeclaringNS(name)) {
+            QString prefix;
+            XmlUtils::getNsPrefix(name, prefix);
+            NamespaceSpec * existingCommand = findNsCommand(prefix, value, namespaces);
+            Utils::TODO_THIS_RELEASE("check ciclo");
+            if(NULL == existingCommand) {
+                // remove the declaration
+                ui.attrTable->removeRow(row);
+            } else {
+                // mark for adding
+                presentInList.append(existingCommand);
+            }
+        }
+    }
+    // now insert new values
+    foreach(NamespaceSpec * cmd, namespaces) {
+        if(! presentInList.contains(cmd)) {
+            int row = appendAttrNodeInTable(ui.attrTable, -1, XmlUtils::makeNSDeclaration(cmd->prefix), cmd->uri);
+            setUpdatedAttr(row);
+        }
+    }
+    //------
+    ui.attrTable->setUpdatesEnabled(true);
+}
+
+NamespaceSpec * EditElement::findNsCommand(const QString &prefix, const QString &uri, QList<NamespaceSpec*> namespaces)
+{
+    foreach(NamespaceSpec * ns, namespaces) {
+        if((prefix == ns->prefix) && (uri == ns->uri)) {
+            return ns;
+        }
+    }
+    return NULL ;
+}
+
+
+NamespaceManager *EditElement::namespaceManager() const
+{
+    return _namespaceManager;
+}
+
+void EditElement::setNamespaceManager(NamespaceManager *namespaceManager)
+{
+    _namespaceManager = namespaceManager;
+}

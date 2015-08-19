@@ -264,6 +264,27 @@ bool CompareXML::compareRegolaWithRegola(Regola *regola1, Regola *regola2)
     return true ;
 }
 
+bool CompareXML::compareXMLAsStringAsUtf8(const QString &s1, const QString & s2)
+{
+    QByteArray resultData1 = s1.toUtf8();
+    QByteArray resultData2 = s2.toUtf8();
+    QDomDocument document1;
+    QDomDocument document2;
+    QBuffer outputData1(&resultData1);
+    if(!loadFileIntoDocument(&outputData1, document1)) {
+        return error("load regola 2");
+    }
+    QBuffer outputData2(&resultData2);
+    if(!loadFileIntoDocument(&outputData2, document2)) {
+        return error("load regola step 2");
+    }
+    bool result = compareDomDocuments(document1, document2);
+    if( !result ) {
+        return error(QString("comparing regola, msg:'%1'\ndoc 1:\n%2\ndoc 2 is:'%3'\n").arg(errorString()).arg(s1).arg(s2));
+    }
+    return true ;
+}
+
 bool CompareXML::compareFileWithRegola(Regola *regola, QIODevice *device)
 {
     QByteArray resultData = regola->writeMemory();

@@ -114,6 +114,7 @@ Regola::~Regola()
 
 void Regola::housework()
 {
+    _namespaceManager = NULL ;
     _useIndent = false;
     _indent = QXmlEditData::XmlIndentDefault ;
     _deviceProvider = NULL ;
@@ -676,12 +677,13 @@ bool Regola::editTextNodeElement(QWidget *const parentWindow, const bool isBase6
     return false;
 }
 
-bool Regola::editNodeElement(QWidget *const parentWindow, Element *pElement, const bool enableAllControls)
+bool Regola::editNodeElement(QWidget *const parentWindow, Element *pElement, Element *parentElement, const bool enableAllControls)
 {
     EditElement element(parentWindow);
     element.setWindowModality(Qt::WindowModal);
     element.setWindowModality(Qt::WindowModal);
-    element.setTarget(pElement);
+    element.setTarget(pElement, parentElement);
+    element.setNamespaceManager(_namespaceManager);
     element.setEnableAllControls(enableAllControls);
     if(element.exec() == QDialog::Accepted) {
         return true;
@@ -918,7 +920,7 @@ bool Regola::editElement(QWidget *const parentWindow, QTreeWidgetItem *item, UID
                 break;
 
             case Element::ET_ELEMENT:
-                result = editNodeElement(parentWindow, pElement);
+                result = editNodeElement(parentWindow, pElement, pElement->parent());
                 if(result) {
                     updateInfo = true ;
                 }
@@ -997,7 +999,7 @@ void Regola::addChild(QWidget *window, QTreeWidget *tree, Element *preElement)
     Element *theNewElement = preElement ;
     if(NULL == theNewElement) {
         theNewElement = newElement();
-        if(!editNodeElement(window, theNewElement)) {
+        if(!editNodeElement(window, theNewElement, isEmptyE ? NULL : parentElement)) {
             delete theNewElement;
             theNewElement = NULL ;
         }
@@ -1063,7 +1065,7 @@ void Regola::addBrother(QWidget *window, QTreeWidget *tree, Element* aNewElement
     Element *theNewElement = NULL;
     if(NULL == aNewElement) {
         theNewElement = newElement();
-        if(editNodeElement(window, theNewElement)) {
+        if(editNodeElement(window, theNewElement, brotherElement->parent())) {
             canGo = true;
         }
     } else {
@@ -2917,3 +2919,14 @@ void Regola::restoreSettings(RegolaSettings *settings)
         emitIndentationChange();
     }
 }
+
+NamespaceManager *Regola::namespaceManager() const
+{
+    return _namespaceManager;
+}
+
+void Regola::setNamespaceManager(NamespaceManager *namespaceManager)
+{
+    _namespaceManager = namespaceManager;
+}
+

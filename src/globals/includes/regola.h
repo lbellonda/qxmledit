@@ -43,6 +43,7 @@ class CopyAttributesSession;
 class MetadataInfo;
 class PseudoAttribute;
 class QUndoGroup;
+class QXmlEditData;
 
 class LIBQXMLEDITSHARED_EXPORT DocumentDeviceProvider
 {
@@ -390,6 +391,9 @@ public:
     void restoreSettings(RegolaSettings *settings);
 
 
+    NamespaceManager *namespaceManager() const;
+    void setNamespaceManager(NamespaceManager *namespaceManager);
+
 signals:
     void wasModified();
     void undoStateChanged();
@@ -408,6 +412,7 @@ private:
     Bookmarks   bookmarks;
     PaintInfo   *paintInfo;
     DocumentDeviceProvider *_deviceProvider;
+    NamespaceManager *_namespaceManager ;
 
 
     /**
@@ -436,7 +441,7 @@ private:
     void addUndoInsert(QTreeWidget * tree, Element * element);
     QTreeWidgetItem *getSelItem(QTreeWidget *tree);
     bool editNodeElementAsXML(const bool isBase64Coded, Element *pElement, UIDelegate *uiDelegate);
-    bool editNodeElement(QWidget *const parentWindow, Element *pElement, const bool enableAllControls = true);
+    bool editNodeElement(QWidget *const parentWindow, Element *pElement, Element *pParentElement, const bool enableAllControls = true);
     bool editNodeComment(QWidget * const parentWindow, Element *pElement);
     bool editTextNodeElement(QWidget *const parentWindow, const bool isBase64Coded, Element *pElement);
     void recalcSize();

@@ -15,7 +15,7 @@ DIRNAME=$BASEDIRNAME-$APPVERSION
 BUILDDIR=build
 
 echo "application:       $APPNAME-$APPVERSION"
-echo "the tag 'qxmledit-$APPVERSION' will be created "
+echo "the tag '$APPVERSION' will be created "
 
 while true; do
     read -p "Do you want to continue [y/n]?" yesno
@@ -26,9 +26,6 @@ while true; do
     esac
 done
 
-git tag -a qxmledit-$APPVERSION -m "tag $APPVERSION"
+git tag -a $APPVERSION -m "tag $APPVERSION"
 
-git push origin qxmledit-$APPVERSION
-
-
-
+git push origin $APPVERSION

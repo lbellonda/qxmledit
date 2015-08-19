@@ -54,6 +54,7 @@ SOURCES += $$files(../src/modules/xml/*.cpp)
 SOURCES += $$files(../src/modules/delegates/*.cpp)
 SOURCES += $$files(../src/modules/encoding/*.cpp)
 SOURCES += $$files(../src/modules/xsd/*.cpp)
+SOURCES += $$files(../src/modules/namespace/*.cpp)
 
 
 HEADERS += $$files(../src/*.h)
@@ -92,6 +93,7 @@ HEADERS += $$files(../src/modules/xml/*.h)
 HEADERS += $$files(../src/modules/delegates/*.h)
 HEADERS += $$files(../src/modules/encoding/*.h)
 HEADERS += $$files(../src/modules/xsd/*.h)
+HEADERS += $$files(../src/modules/namespace/*.h)
 
 INCLUDEPATH += ../src
 INCLUDEPATH += ../src/sessions/include
@@ -114,6 +116,7 @@ DEPENDPATH += ../src/modules/xml
 DEPENDPATH += ../src/modules/delegates
 DEPENDPATH += ../src/modules/encoding
 DEPENDPATH += ../src/modules/xsd
+DEPENDPATH += ../src/modules/namespace
 DEPENDPATH += ../src
 DEPENDPATH += .
 
@@ -140,5 +143,6 @@ FORMS += $$files(../src/modules/metadata/*.ui)
 FORMS += $$files(../src/modules/encoding/*.ui)
 FORMS += $$files(../src/modules/xsd/*.ui)
 FORMS += $$files(../src/modules/xml/*.ui)
+FORMS += $$files(../src/modules/namespace/*.ui)
 
 RESOURCES = ../src/risorse.qrc

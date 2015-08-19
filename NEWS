@@ -1,6 +1,13 @@
+0.8.18
+    Added predefined namespaces.
+    Accepted drop files on Base64 dialog.
+    Matched tag names and structure to GitHub conventions.
+    Namespace management in edit element.
+    User defined namespace management and storage in embedded database.
+
 0.8.17
     Updated the license on some header files.
-    New mennu for XSI related commands.
+    New menu for XSI related commands.
     New feature: insert xsi type attribute.
     New feature: remove xsi type attribute.
     New feature: insert xsi nil attribute.

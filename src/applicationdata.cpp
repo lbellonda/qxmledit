@@ -32,6 +32,7 @@
 #include "sessions/data_access/testdataaccess.h"
 #include "sessions/data_access/sqllitedataaccess.h"
 #include "modules/services/systemservices.h"
+#include "modules/xsd/namespacemanager.h"
 
 #define VERSION_STRING_PREFIXED  "\0" VERSION_STRING
 #define DB_DATA_DIR "dbstorage"
@@ -88,7 +89,8 @@ ApplicationData::~ApplicationData()
 
 void ApplicationData::init()
 {
-    QXmlEditData::init();
+    Utils::TODO_THIS_RELEASE("verificare no problemi");
+    // already done QXmlEditData::init();
     connect(&_sessionManager, SIGNAL(sessionActivated(const int)), this, SLOT(onSessionActivated(const int)));
     connect(&_sessionManager, SIGNAL(clearSession()), this, SLOT(onClearSession()));
     _sessionManager.setSessionDataFactory(this);
@@ -98,7 +100,9 @@ void ApplicationData::init()
     }
     _sessionManager.setEnabled(areSessionsEnabled());
     activateSessionIfEnabled();
-    _attributeFilterManagement.setDataAccess(sessionDataInterface(""));
+    SessionDataInterface *dataInterface = sessionDataInterface("");
+    _attributeFilterManagement.setDataAccess(dataInterface);
+    _namespaceManager->setDataInterface(storageManager());
 }
 
 /** hook for pre-delete

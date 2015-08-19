@@ -67,7 +67,7 @@
         </size>
        </property>
        <property name="title">
-        <string>Element Text</string>
+        <string/>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
@@ -116,6 +116,26 @@
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="lblWarnNs">
+            <property name="text">
+             <string>Warning: the namespace is not declared.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="cmdNamespaces">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Namespaces</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>
@@ -354,6 +374,26 @@
            </property>
            <property name="text">
             <string>From Base 64</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdSaveFileBase64">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Save Base 64...</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdLoadFileBase64">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>Insert Base64...</string>
            </property>
           </widget>
          </item>

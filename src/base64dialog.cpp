@@ -42,6 +42,7 @@ Base64Dialog::Base64Dialog(QWidget *parent) :
     _currentCodec = NULL ;
     ui->setupUi(this);
     setupOther();
+    setAcceptDrops(true);
 }
 
 Base64Dialog::~Base64Dialog()
@@ -98,6 +99,24 @@ void Base64Dialog::onCurrentEncodingChanged(int newIndex)
         int mib = data.toInt();
         _currentCodec = QTextCodec::codecForMib(mib);
         base64textChanged();
+    }
+}
+
+void Base64Dialog::dropEvent(QDropEvent *event)
+{
+    if(event->mimeData()->hasFormat("text/uri-list")) {
+        QString filePath = "" ;
+        event->acceptProposedAction();
+        if(event->mimeData()->hasUrls()) {
+            foreach(QUrl url, event->mimeData()->urls()) {
+                filePath = url.toLocalFile();
+                break;
+            }
+        }
+        if(filePath.length() > 0) {
+            loadFromBinaryFile(filePath);
+        }
+        event->acceptProposedAction();
     }
 }
 

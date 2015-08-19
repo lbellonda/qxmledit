@@ -142,7 +142,7 @@ void Regola::insertChildContainer(QTreeWidget *tree, Element *parentElement)
 {
     if((NULL != parentElement) && parentElement->isElement()) {
         Element *theNewElement = new Element("", "", NULL, NULL);
-        bool result = editNodeElement(tree->window(), theNewElement, false);
+        bool result = editNodeElement(tree->window(), theNewElement, parentElement, false);
         if(result) {
             doInsertChildContainer(tree, theNewElement->tag(), parentElement);
         }
@@ -156,7 +156,7 @@ void Regola::insertParent(QTreeWidget *tree, Element *element)
 {
     if(NULL != element) {
         Element *theNewElement = new Element("", "", NULL, NULL);
-        bool result = editNodeElement(tree->window(), theNewElement, false);
+        bool result = editNodeElement(tree->window(), theNewElement, (NULL != element->parent()) ? element->parent()->parent() : NULL,  false);
         if(result) {
             doInsertParent(tree, theNewElement->tag(), element);
         }

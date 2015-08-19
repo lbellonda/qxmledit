@@ -332,9 +332,19 @@ void TestQXmlEdit::testSql()
 
 void TestQXmlEdit::testEditing()
 {
-    TestEditElements tee;
     bool result ;
 
+    {
+        TestEditElements test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("test TestEditElements: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestEditElements test;
+        result = test.testInsertElement();
+        QVERIFY2(result, (QString("test TestEditElements: testInsertElement() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    TestEditElements tee;
     result = tee.test();
     QVERIFY2(result, "TestEditElements test");
 }
@@ -950,6 +960,27 @@ void TestQXmlEdit::testXSIType()
     }
 }
 
+void TestQXmlEdit::testNamespace()
+{
+    bool result;
+    {
+        TestUserNamespaces testA;
+        result = testA.testFast();
+        QVERIFY2(result, (QString("test TestUserNamespaces: testFast() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+
+    {
+        TestUserNamespaces testA;
+        result = testA.testSerialization();
+        QVERIFY2(result, (QString("test TestUserNamespaces: testSerialization() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+    {
+        TestUserNamespaces testA;
+        result = testA.testVisibility();
+        QVERIFY2(result, (QString("test TestUserNamespaces: testVisibility() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+}
+
 void TestQXmlEdit::testXSDMode()
 {
     bool result;
@@ -1047,6 +1078,8 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testEditing();
+    testNamespace();
     testIndent();
 }
 

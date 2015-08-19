@@ -391,7 +391,14 @@ SOURCES += xmleditwidget.cpp \
     modules/xsd/xsdschemainstance.cpp \
     modules/xsd/namespacemanager.cpp \
     modules/xml/elementNS.cpp \
-    modules/xsd/xsiinsertattributedialog.cpp
+    modules/xsd/xsiinsertattributedialog.cpp \
+    modules/namespace/usernamespace.cpp \
+    modules/namespace/namespacemanagementdialog.cpp \
+    modules/namespace/choosenamespacedialog.cpp \
+    modules/namespace/editnamespacedialog.cpp \
+    modules/namespace/namespacecommands.cpp \
+    modules/namespace/nstableutils.cpp \
+    modules/namespace/usernamespaceloader.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -601,7 +608,14 @@ HEADERS += precompiled_lib.h \
     widgets/selectionchoosedelegate.h \
     xmlsavecontext.h \
     modules/xsd/namespacemanager.h \
-    modules/xsd/xsiinsertattribute.h
+    modules/xsd/xsiinsertattribute.h \
+    modules/namespace/usernamespace.h \
+    modules/namespace/namespacemanagementdialog.h \
+    modules/namespace/choosenamespacedialog.h \
+    modules/namespace/editnamespacedialog.h \
+    modules/namespace/namespacecommands.h \
+    modules/namespace/nstableutils.h \
+    modules/namespace/usernamespaceloader.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -651,7 +665,10 @@ FORMS += xmleditwidget.ui \
     modules/xsd/xsdenumdialog.ui \
     modules/xsd/xsdsinglecommentdialog.ui \
     modules/xsd/xsdfullannotationsdialog.ui \
-    modules/xml/xmlindentationdialog.ui
+    modules/xml/xmlindentationdialog.ui \
+    modules/namespace/namespacemanagementdialog.ui \
+    modules/namespace/choosenamespacedialog.ui \
+    modules/namespace/editnamespacedialog.ui
 
 
 symbian {

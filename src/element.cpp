@@ -2193,6 +2193,18 @@ QStringList Element::path()
 {
     QStringList list ;
 
+    Element *parentE = this;
+    while(parentE != NULL) {
+        list.prepend(parentE->tag());
+        parentE = parentE->parentElement ;
+    }
+    return list ;
+}
+
+QStringList Element::parentPath()
+{
+    QStringList list ;
+
     Element *parentE = parentElement;
     while(parentE != NULL) {
         list.prepend(parentE->tag());
@@ -2794,5 +2806,67 @@ Attribute *Attribute::clone()
     return newAttribute ;
 }
 
+//-------------
+
+QString Element::toString()
+{
+    QString s = "element " ;
+    s += QString("type %1, tag:'%2'\n").arg(getType()).arg(_tag);
+    s += QString("  attributes: %1").arg(attributes.size()) ;
+    foreach(Attribute * a, attributes) {
+        s += QString("   %1='%2'\n").arg(a->name).arg(a->value);
+    }
+    foreach(TextChunk * t, textNodes) {
+        s += QString(" text='%1'\n").arg(t->text);
+    }
+    s += "\n\n";
+    return s;
+}
+
+bool Element::compareToElement(Element *other, QString &msg)
+{
+    if(getType() != other->getType()) {
+        msg = QString("types this=%1, other=%2").arg(getType()).arg(other->getType());
+        return false;
+    }
+    if(tag() != other->tag()) {
+        msg = QString("tag this='%1', other='%2'").arg(tag()).arg(other->tag());
+        return false;
+    }
+    if(attributes.size() != other->attributes.size()) {
+        msg = QString("Attributes# this='%1', other='%2'").arg(attributes.size()).arg(other->attributes.size());
+        return false;
+    }
+
+    QHash<QString, QString> a1;
+    foreach(Attribute * a, attributes) {
+        a1.insert(a->name, a->value);
+    }
+
+    foreach(Attribute * a, other->attributes) {
+        if(!a1.contains(a->name)) {
+            msg = QString("Attribute missing in 1 # name='%1', value='%2'").arg(a->name).arg(a->value);
+            return false;
+        }
+        QString val1 = a1[a->name];
+        if(val1 != a->value) {
+            msg = QString("Attribute differs name=%1 val1='%2', val2='%3'").arg(a->name).arg(a->value).arg(val1);
+            return false;
+        }
+    }
+
+    QSet<QString> t1;
+    foreach(TextChunk * t, textNodes) {
+        t1.insert(t->text);
+    }
+
+    foreach(TextChunk * t, textNodes) {
+        if(!t1.contains(t->text)) {
+            msg = QString("Text missing in 1 ='%1'").arg(t->text);
+            return false;
+        }
+    }
+    return true;
+}
 
 

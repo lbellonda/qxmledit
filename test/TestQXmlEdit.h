@@ -83,6 +83,7 @@
 #include "testreplace.h"
 #include "testnillable.h"
 #include "testxsitype.h"
+#include "testusernamespaces.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -166,6 +167,7 @@ private Q_SLOTS:
     void testReplace();
     void testNillable();
     void testXSIType();
+    void testNamespace();
 };
 
 

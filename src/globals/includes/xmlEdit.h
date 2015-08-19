@@ -108,4 +108,6 @@ void msgBoxDebug(const QString message);
 
 //----- end working environment
 
+#define FORINT(var,limit) for(int var = 0 ; var < limit ; var ++ )
+
 #endif /*H_XML_EDIT*/

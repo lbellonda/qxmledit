@@ -98,6 +98,7 @@ Regola *XmlEditWidgetPrivate::newRegola(const bool bind)
     Regola *newRule = new Regola();
     newRule->setIndentation(_appData->xmlIndent());
     newRule->setPaintInfo(&paintInfo);
+    newRule->setNamespaceManager(_appData->namespaceManager());
     bindRegola(newRule, bind);
     return newRule ;
 }
@@ -1724,6 +1725,7 @@ void XmlEditWidgetPrivate::setDocument(QDomDocument &document, const QString &fi
 {
     Regola *newModel = new Regola(document, filePath);
     newModel->setPaintInfo(&paintInfo);
+    newModel->setNamespaceManager(_appData->namespaceManager());
     p->emitDataReadyMessage(tr("Data loaded"));
     deleteRegola();
     regola = newModel;

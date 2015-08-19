@@ -96,6 +96,7 @@ public:
     static bool writeXDocumentToFile(QDomDocument &document, const QString &filePath, const bool isOverWrite);
 
     static bool checkXMLName(const QString &theTag);
+    static bool checkNsPrefix(const QString &prefix);
     static bool canStartXmlName(const QChar &ch);
     static bool canFollowXmlStartName(const QChar &ch);
 

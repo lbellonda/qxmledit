@@ -28,26 +28,43 @@
 #include <QHash>
 
 class NamespaceDef;
+class DataInterface;
 
 class NamespaceManager
 {
+    DataInterface *_dataInterface;
+    bool _inited;
 public:
     NamespaceManager();
     ~NamespaceManager();
+
+    static const QString XSLFONamespace;
+    static const QString XSL1Namespace;
+    static const QString XQueryLocalFuncNamespace;
 
     // constants for namespaces
     enum EWellKnownNs {
         XSI_NAMESPACE,
         XSD_NAMESPACE,
+        XSLFO_NAMESPACE,
+        XSL1_NAMESPACE,
+        XQUERY_LOCALFUNC_NAMESPACE,
     };
 
     QString namespaceUri(const EWellKnownNs eWellKnownNs);
+    NamespaceDef* namespacesForUri(const QString &uri);
+    QList<NamespaceDef*> allNamespaces();
     //--
+    DataInterface *dataInterface() const;
+    void setDataInterface(DataInterface *dataInterface);
+
 private:
     QHash<EWellKnownNs, NamespaceDef*> _namespaces;
+    QHash<QString, NamespaceDef*> _uriNamespaces;
 
     void reset();
-    void insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theDescription);
+    void init();
+    void insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theDescription, const QString &defaultPrefix);
 
 };
 
@@ -55,11 +72,18 @@ private:
 class NamespaceDef
 {
 public:
-    NamespaceDef(const NamespaceManager::EWellKnownNs codeForWellKnown, const QString &theNamespace, const QString &theDescription);
+    NamespaceDef(const NamespaceManager::EWellKnownNs codeForWellKnown, const QString &theNamespace, const QString &theDescription, const QString &defaultPrefix);
     ~NamespaceDef();
     QString _namespace;
     QString _description;
+    QString _defaultPrefix;
     NamespaceManager::EWellKnownNs _codeForWellKnown;
+    QString uri() const;
+    void setUri(const QString &value);
+    QString description() const;
+    void setDescription(const QString &description);
+    QString defaultPrefix() const;
+    void setDefaultPrefix(const QString &defaultPrefix);
 };
 
 #endif // NAMESPACEMANAGER_H

@@ -278,6 +278,65 @@ bool TestBase::compareListInts(const QString &msg, QList<int> &reference, QList<
     return isOk ;
 }
 
+bool TestBase::compareStringList(const QString &msg, QStringList reference, QStringList compare)
+{
+    QList<QString> s1 = reference;
+    QList<QString> s2 = compare;
+    return compareListGeneric<QString>(msg, s1, s2);
+}
+
+template <typename T>
+bool TestBase::compareListGeneric(const QString &msg, QList<T> &reference, QList<T> &compare)
+{
+    QString errorMessage = msg ;
+    errorMessage += "\n";
+    bool isOk = true;
+    if( reference.count() != compare.count() ) {
+        isOk = false;
+        errorMessage += "arguments count differs \n";
+    }
+    int maxop = reference.count();
+    for( int i = 0 ; i < maxop ; i ++ ) {
+        bool isRef = false;
+        bool isCompare = false;
+        T r ;
+        T c;
+        if(i<reference.count() ) {
+            isRef = true ;
+            r = reference.at(i);
+        }
+        if(i<compare.count() ) {
+            isCompare = true ;
+            c = compare.at(i);
+        }
+        if(!isRef && !isCompare) {
+            errorMessage += QString("\nItem %1 no ref, no compare\n").arg(i);
+            isOk = false;
+        }
+        if(!isRef && isCompare) {
+            errorMessage += QString("\nItem %1 only reference:%2\n").arg(i).arg(r);
+            isOk = false;
+        }
+        if(isRef && !isCompare) {
+            errorMessage += QString("\nItem %1 only compare :%2\n").arg(i).arg(c);
+            isOk = false;
+        }
+        if(isRef && isCompare) {
+            errorMessage += QString("\nItem %1 reference:%2 compare:%3\n").arg(i).arg(r).arg(c);
+            if( r != c ) {
+                isOk = false;
+            }
+        }
+    }
+
+    if(!isOk) {
+        QString err = "items differs\n";
+        err += errorMessage;
+        return error(err);
+    }
+    return isOk ;
+}
+
 QString TestBase::listIntToString(const QList<int> &reference)
 {
     bool isFirst = true ;
@@ -398,4 +457,61 @@ QList<bool> &TestBase::boolArray()
         _boolArray << true;
     }
     return _boolArray;
+}
+
+
+Element * TestBase::makeElement(const QString &tag, const QString &attr)
+{
+    Element *el = new Element(tag, "", NULL, NULL);
+    addAttrs(el, attr);
+    return el;
+}
+
+QHash<QString, QString> TestBase::unpackAttrib(const QString &attribs)
+{
+    QHash<QString, QString> decoded ;
+    QStringList pairs = attribs.split(",", QString::SkipEmptyParts);
+    foreach( QString pair, pairs ) {
+        QStringList attr = pair.split("=", QString::KeepEmptyParts);
+        decoded.insert(attr.at(0), attr.at(1));
+    }
+    return decoded;
+}
+
+
+Element * TestBase::addAttrs(Element *el, const QString &attribs)
+{
+    QHash<QString, QString> decoded = unpackAttrib(attribs);
+    //
+    foreach( QString key, decoded.keys()) {
+        el->addAttribute(key, decoded[key]);
+    }
+    return el;
+}
+
+QString TestBase::dumpHash(QHash<QString,QString> hash)
+{
+    QString res;
+    res += QString("Size:%1\n").arg(hash.size());
+    foreach( QString key, hash.keys() ) {
+        res += QString("%1:%2\n").arg(key).arg(hash[key]);
+    }
+    res+= "\n\n";
+    return res;
+}
+
+bool TestBase::testHash(QHash<QString,QString> expected, QHash<QString,QString> found)
+{
+    if( found.keys().size() != expected.keys().size()) {
+        return error(QString("Size differs. dump found:\n%1\ndump expected:\n%2").arg(dumpHash(found)).arg(dumpHash(expected)));
+    }
+    foreach( QString key, expected.keys() ) {
+        if(!found.contains(key)) {
+           return error(QString("Size differs. dump found:\n%1\ndump expected:\n%2").arg(dumpHash(found)).arg(dumpHash(expected)));
+        }
+        if( found[key] != expected[key] ) {
+            return error(QString("Size differs. dump found:\n%1\ndump expected:\n%2").arg(dumpHash(found)).arg(dumpHash(expected)));
+        }
+    }
+    return true;
 }

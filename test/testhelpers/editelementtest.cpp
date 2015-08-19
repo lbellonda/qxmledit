@@ -40,3 +40,10 @@ int EditElementTest::columnForEditAttributes()
 {
     return A_COLUMN_TEXT;
 }
+
+bool EditElementTest::testApplyNamespaceOper(NamespaceCommands *commands)
+{
+    applyNamespaceOper(commands);
+    return updateTarget(target);
+}
+

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root xmlns="ret">
+	<child xmlns:a="xyx">
+		<a:this xmlns="abc" xmlns:b="123" xmlns:a="bbb">
+			<other xmlns:k="kk"/>
+		</a:this>
+	</child>
+</root>

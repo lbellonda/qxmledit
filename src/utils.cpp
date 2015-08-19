@@ -122,7 +122,6 @@ QString Utils::msgOutOfMem()
     return tr("Not enough memory to complete the operation");
 }
 
-
 void Utils::errorReadingUserSettings()
 {
     error(NULL, tr("error reading user settings"));
@@ -404,7 +403,15 @@ bool Utils::writeXDocumentToFile(QDomDocument &document, const QString &filePath
     return (file.error() == QFile::NoError);
 }
 
+//-----------------------------------------------------------------
 
+bool Utils::checkNsPrefix(const QString &prefix)
+{
+    if((!prefix.isEmpty() && !Utils::checkXMLName(prefix)) || (prefix.indexOf(":") >= 0)) {
+        return false;
+    }
+    return true ;
+}
 //-----------------------------------------------------------------
 
 // reference http://www.w3.org/XML/xml-V10-4e-errata#E09

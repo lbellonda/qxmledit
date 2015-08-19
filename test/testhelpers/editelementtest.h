@@ -34,6 +34,8 @@ public:
 
     AttributeColumnItemDelegate *attributeDelegate();
     int columnForEditAttributes();
+
+    bool testApplyNamespaceOper(NamespaceCommands *commands);
 };
 
 #endif // EDITELEMENTTEST_H

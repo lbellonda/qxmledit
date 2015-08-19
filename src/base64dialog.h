@@ -50,6 +50,7 @@ public:
 
     static void showDialog();
     void loadFromBinaryFile(const QString &filePath);
+    void dropEvent(QDropEvent *event);
 
 private:
     Ui::Base64Dialog *ui;

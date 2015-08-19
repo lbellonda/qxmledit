@@ -30,6 +30,9 @@
 #include "ui_EditElement.h"
 #include "element.h"
 #include "modules/delegates/attributecolumnitemdelegate.h"
+#include "modules/namespace/namespacecommands.h"
+
+class NamespaceManager;
 
 class EditElement : public QDialog
 {
@@ -53,13 +56,16 @@ protected:
     bool isMixedContent;
     QColor modColor;
     bool isStarted ;
+    NamespaceManager *_namespaceManager;
     AttributeColumnItemDelegate *_attributeDelegate;
+    QHash<QString, QString> _visibleNamespaces;
+    Element *_parent;
 
 public:
     EditElement(QWidget * parent = NULL);
     virtual ~EditElement();
 
-    void setTarget(Element *pTarget);
+    void setTarget(Element *pTarget, Element *parent = NULL);
 
     void sendDeleteCommand();
     void sendSelect(const int row);
@@ -68,6 +74,9 @@ public:
     void sendMoveUpCommand();
     void sendMoveDownCommand();
     void setEnableAllControls(const bool enableAllControls);
+
+    NamespaceManager *namespaceManager() const;
+    void setNamespaceManager(NamespaceManager *namespaceManager);
 
 private:
 
@@ -83,6 +92,7 @@ private:
     void setUpdatedElement(const int row);
     void setTextToItem(QTableWidgetItem *item, const QString &text);
     QString textFromItem(QTableWidgetItem *item);
+    QHash<QString, QString> getNsFromAttributes();
 
 public slots:
     void accept();
@@ -101,6 +111,7 @@ private slots:
     void on_attrTable_itemChanged(QTableWidgetItem * item);
     void on_cmdFromBase64_clicked();
     void on_cmdToBase64_clicked();
+    void on_cmdNamespaces_clicked();
 
 private:
     Ui::Dialog ui;
@@ -110,6 +121,7 @@ private:
     bool validateAttr(const QString &name);
     bool checkTagSyntax(const QString &theTag);
     void enableOK();
+    void checkNamespace();
 
     void moveDown(QTableWidget *table);
     void moveUp(QTableWidget *table);
@@ -117,9 +129,14 @@ private:
     int getNextRow(const int currentRow);
     Element * getUserData(QTableWidgetItem *item);
     bool isElementText(QTableWidgetItem *item);
+    void updateElementTag(const bool useNamespace, NamespaceSpec* namespaceSpec, const NamespaceCommands::ENSDecl decl, QList<NamespaceSpec*> &allNs);
+    void applyOtherNamespaces(QList<NamespaceSpec*> namespaces);
+    NamespaceSpec *findNsCommand(const QString &prefix, const QString &uri, QList<NamespaceSpec*> namespaces);
+
 protected:
     void doBase64Operation(const bool isFromBase64);
-
+    void applyNamespaceOper(NamespaceCommands *commands);
+    bool updateTarget(Element *element);
 };
 
 #endif

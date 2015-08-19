@@ -25,6 +25,7 @@
 
 #include "qtincludes.h"
 #include <QString>
+#include <QHash>
 
 #define FILE_TEST_BASE_SIMPLE   "../test/data/test_base.xml"
 
@@ -81,6 +82,17 @@ protected:
 
     Element * getRoot(Regola *regola);
     bool checkRoot(Regola *regola);
+
+    template <typename T>
+    bool compareListGeneric(const QString &msg, QList<T> &reference, QList<T> &compare);
+    bool compareStringList(const QString &msg, QStringList reference, QStringList compare);
+
+    //---
+    Element * makeElement(const QString &tag, const QString &attr);
+    QHash<QString, QString> unpackAttrib(const QString &attribs);
+    Element * addAttrs(Element *el, const QString &attribs);
+    QString dumpHash(QHash<QString,QString> hash);
+    bool testHash(QHash<QString,QString> expected, QHash<QString,QString> found);
 
 };
 

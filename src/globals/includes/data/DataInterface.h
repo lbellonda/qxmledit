@@ -28,6 +28,7 @@
 
 #define QXMLE_PDATA_TypeSearchlet "TySrchl"
 #define QXMLE_PDATA_TypeAnonProfile "TyApro"
+#define QXMLE_PDATA_TypeNamespace "TyNsXml"
 
 class OperationStatus
 {

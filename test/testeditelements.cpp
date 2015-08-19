@@ -23,6 +23,9 @@
 
 #include "testeditelements.h"
 #include "comparexml.h"
+#include "modules/namespace/namespacecommands.h"
+#include "testhelpers/editelementtest.h"
+
 
 #define EDIT_ELEMENTS_BASE  "../test/data/editelements/base.xml"
 #define RES_INSERTCOMMENTEMPTY "../test/data/editelements/insCommEmpty.xml"
@@ -58,9 +61,14 @@ TestEditElements::TestEditElements()
     regola = NULL ;
 }
 
-bool TestEditElements::error()
+bool TestEditElements::error1()
 {
     return false;
+}
+
+bool TestEditElements::testFast()
+{
+    return testNamespaces();
 }
 
 bool TestEditElements::test()
@@ -68,62 +76,62 @@ bool TestEditElements::test()
     {
         TestEditElements test;
         if( !test.insertCommentEmpty() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.insertCommentAtRootNoSel() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.appendCommentToRoot() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.insertCommentUnderRoot() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.appendCommentAsSibling() ) {
-            return error();
+            return error1();
         }
     }
     //------------------
     {
         TestEditElements test;
         if( !test.insertProcessingInstructionEmpty() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.insertProcessingInstructionAtRootNoSel() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.appendProcessingInstructionToRoot() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.insertProcessingInstructionUnderRoot() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.appendProcessingInstructionAsSibling() ) {
-            return error();
+            return error1();
         }
     }
 
@@ -132,55 +140,61 @@ bool TestEditElements::test()
     {
         TestEditElements test;
         if( !test.insertElementEmpty() ) {
-            return error();
+            return error1();
         }
     }
     /*{
         TestEditElements test;
         if( !test.insertElementAtRootNoSel() ) {
-            return error();
+            return error1();
         }
     }*/
     {
         TestEditElements test;
         if( !test.insertElementUnderRoot() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.insertElementAsChild() ) {
-            return error();
+            return error1();
         }
     }
    {
         TestEditElements test;
         if( !test.appendElementAsSibling() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.insertElementAsChildWithAttributes() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.appendElementAsSiblingWithAttributes() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.insertElementAsChildWithAttributesAndText() ) {
-            return error();
+            return error1();
         }
     }
     {
         TestEditElements test;
         if( !test.appendElementAsSiblingWithAttributesAndText() ) {
-            return error();
+            return error1();
+        }
+    }
+    {
+        TestEditElements test;
+        if( !test.testNamespaces() ) {
+            return error1();
         }
     }
 
@@ -194,15 +208,15 @@ bool TestEditElements::compareDocuments(const QString &filename, Regola *regola)
     QDomDocument document2;
     CompareXML compare;
     if(!compare.loadFileIntoDocument(filename, document1)) {
-        return error();
+        return error1();
     }
     QBuffer outputData(&resultData);
     if(!compare.loadFileIntoDocument(&outputData, document2)) {
-        return error();
+        return error1();
     }
     bool result = compare.compareDomDocuments(document1, document2);
     if( !result ) {
-        return error();
+        return error1();
     }
     return result ;
 }
@@ -210,7 +224,7 @@ bool TestEditElements::compareDocuments(const QString &filename, Regola *regola)
 bool TestEditElements::start(const bool isNew, QList<int> &selection)
 {
     if(!app.init() ) {
-        return error();
+        return error1();
     }
     if( !isNew ) {
         app.mainWindow()->loadFile(EDIT_ELEMENTS_BASE);
@@ -229,7 +243,7 @@ bool TestEditElements::start(const bool isNew, QList<int> &selection)
 bool TestEditElements::compare(const QString &referenceFileName)
 {
     if( !compareDocuments(referenceFileName, app.mainWindow()->getRegola()) ) {
-        return error();
+        return error1();
     }
     return true;
 }
@@ -239,23 +253,23 @@ bool TestEditElements::insertCommentEmpty()
 {
     QList<int> sel;
     if( !start(true, sel) ) {
-        return error();
+        return error1();
     }
     Element *newComment = new Element( regola, Element::ET_COMMENT, NULL) ;
     if(NULL == newComment) {
-        return error();
+        return error1();
     }
     newComment->setText("new comment");
     regola->addComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
     Element *newElement = new Element( "a", "", regola, NULL ) ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_INSERTCOMMENTEMPTY, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -267,23 +281,23 @@ bool TestEditElements::insertCommentAtRootNoSel()
 {
     QList<int> sel;
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newComment = new Element( regola, Element::ET_COMMENT, NULL) ;
     if(NULL == newComment) {
-        return error();
+        return error1();
     }
     newComment->setText("new comment");
     regola->addComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
     Element *newElement = new Element( "a", "", regola, NULL ) ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(EDIT_ELEMENTS_BASE, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -293,17 +307,17 @@ bool TestEditElements::insertCommentUnderRoot()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newComment = new Element( regola, Element::ET_COMMENT, NULL) ;
     if(NULL == newComment) {
-        return error();
+        return error1();
     }
     newComment->setText("new comment");
     regola->addComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
     if( !compareDocuments(RES_APPENDCOMMENTUNDERROOT, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -313,17 +327,17 @@ bool TestEditElements::appendCommentToRoot()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newComment = new Element( regola, Element::ET_COMMENT, NULL) ;
     if(NULL == newComment) {
-        return error();
+        return error1();
     }
     newComment->setText("new comment");
     regola->appendComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
     if( !compareDocuments(RES_APPENDCOMMENTATROOT, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -335,17 +349,17 @@ bool TestEditElements::insertCommentAsChild()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newComment = new Element( regola, Element::ET_COMMENT, NULL) ;
     if(NULL == newComment) {
-        return error();
+        return error1();
     }
     newComment->setText("new comment");
     regola->addComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
     if( !compareDocuments(RES_INSCOMM_CHILD, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -357,17 +371,17 @@ bool TestEditElements::appendCommentAsSibling()
     sel.append(3);
     sel.append(0);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newComment = new Element( regola, Element::ET_COMMENT, NULL) ;
     if(NULL == newComment) {
-        return error();
+        return error1();
     }
     newComment->setText("new comment");
     regola->appendComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
     if( !compareDocuments(RES_APPCOMM_SIBLING, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -378,7 +392,7 @@ Element *TestEditElements::newProcessingInstruction()
 {
     Element *newProcessingInstr = new Element( regola, Element::ET_PROCESSING_INSTRUCTION, NULL) ;
     if(NULL == newProcessingInstr) {
-        error();
+        error1();
         return NULL;
     }
     newProcessingInstr->setPIData("PIData");
@@ -390,7 +404,7 @@ Element *TestEditElements::createElement()
 {
     Element *element = new Element("tag", "", regola, NULL);
     if(NULL == element) {
-        error();
+        error1();
         return NULL;
     }
     return element;
@@ -401,22 +415,22 @@ bool TestEditElements::insertProcessingInstructionEmpty()
 {
     QList<int> sel;
     if( !start(true, sel) ) {
-        return error();
+        return error1();
     }
     Element *newPI = newProcessingInstruction();
     if(NULL == newPI) {
-        return error();
+        return error1();
     }
     regola->addProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     Element *newElement = new Element( "a", "", regola, NULL ) ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_INSERTPITEMPTY, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -426,22 +440,22 @@ bool TestEditElements::insertProcessingInstructionAtRootNoSel()
 {
     QList<int> sel;
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newPI = newProcessingInstruction();
     if(NULL == newPI) {
-        return error();
+        return error1();
     }
     regola->addProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     Element *newElement = new Element( "a", "", regola, NULL ) ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(EDIT_ELEMENTS_BASE, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -451,16 +465,16 @@ bool TestEditElements::insertProcessingInstructionUnderRoot()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newPI = newProcessingInstruction();
     if(NULL == newPI) {
-        return error();
+        return error1();
     }
     regola->addProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     if( !compareDocuments(RES_APPENDPIUNDERROOT, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -470,16 +484,16 @@ bool TestEditElements::appendProcessingInstructionToRoot()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newPI = newProcessingInstruction();
     if(NULL == newPI) {
-        return error();
+        return error1();
     }
     regola->appendProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     if( !compareDocuments(RES_APPENDPIATROOT, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -490,16 +504,16 @@ bool TestEditElements::insertProcessingInstructionAsChild()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newPI = newProcessingInstruction();
     if(NULL == newPI) {
-        return error();
+        return error1();
     }
     regola->addProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     if( !compareDocuments(RES_INSPI_CHILD, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -511,16 +525,16 @@ bool TestEditElements::appendProcessingInstructionAsSibling()
     sel.append(3);
     sel.append(0);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newPI = newProcessingInstruction();
     if(NULL == newPI) {
-        return error();
+        return error1();
     }
     regola->appendProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     if( !compareDocuments(RES_APPPI_SIBLING, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -531,22 +545,22 @@ bool TestEditElements::insertElementEmpty()
 {
     QList<int> sel;
     if( !start(true, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement() ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     newElement = new Element( "a", "", regola, NULL ) ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_ELEMENTENTEMPTY, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -555,22 +569,22 @@ bool TestEditElements::insertElementAtRootNoSel()
 {
     QList<int> sel;
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement() ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     newElement = new Element( "a", "", regola, NULL ) ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(EDIT_ELEMENTS_EL_BASE, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -580,16 +594,16 @@ bool TestEditElements::insertElementUnderRoot()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement();
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_APPEND_ELEM_UNDERROOT, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -600,16 +614,16 @@ bool TestEditElements::insertElementAsChild()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement() ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_INSELEM_CHILD, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -620,16 +634,16 @@ bool TestEditElements::appendElementAsSibling()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement() ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_APPELEM_SIBLING, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -640,17 +654,17 @@ bool TestEditElements::insertElementAsChildWithAttributes()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement() ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     newElement->addAttribute("name", "value");
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_INSELEM_CHILD_ATTR, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -661,17 +675,17 @@ bool TestEditElements::appendElementAsSiblingWithAttributes()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement() ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     newElement->addAttribute("name", "value");
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_APPELEM_SIBLING_ATTR, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -681,18 +695,18 @@ bool TestEditElements::insertElementAsChildWithAttributesAndText()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement() ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     newElement->addAttribute("name", "value");
     newElement->addTextNode(new TextChunk(false,"some text"));
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_INSELEM_CHILD_ATTRTEXT, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
 }
@@ -703,19 +717,341 @@ bool TestEditElements::appendElementAsSiblingWithAttributesAndText()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return error1();
     }
     Element *newElement = createElement() ;
     if(NULL == newElement) {
-        return error();
+        return error1();
     }
     newElement->addAttribute("name", "value");
     newElement->addTextNode(new TextChunk(true, "some text"));
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_APPELEM_SIBLING_ATTRTEXT, regola) ) {
-        return error();
+        return error1();
     }
     return true ;
+}
+
+NamespaceCommands* TestEditElements::makeOperation(const bool useNs, const QString &prefix, const QString &uri)
+{
+    NamespaceCommands *cmd = new NamespaceCommands();
+    cmd->setUseNsElement(useNs);
+    cmd->setDeclareNs(NamespaceCommands::DoNotDeclare);
+    cmd->tagSpec()->prefix = prefix;
+    cmd->tagSpec()->uri = uri ;
+
+    return cmd;
+}
+
+NamespaceCommands* TestEditElements::makeOperationOther(const bool useNs, const QString &prefix, const QString &uri, const QString &otherNs)
+{
+    NamespaceCommands *cmd = makeOperation(useNs, prefix, uri);
+    cmd->setDeclareNs(NamespaceCommands::DoNotDeclare);
+    QHash<QString, QString> decoded = unpackAttrib(otherNs);
+    //
+    foreach( QString key, decoded.keys()) {
+        cmd->addNamespace(key, decoded[key]);
+    }
+    return cmd;
+}
+
+NamespaceCommands* TestEditElements::makeOperationDeclare(const bool useNs, const QString &prefix, const QString &uri)
+{
+    NamespaceCommands *cmd = makeOperation(useNs, prefix, uri);
+    cmd->setDeclareNs(NamespaceCommands::DeclareInElement);
+    return cmd;
+}
+
+
+/*
+ * x -> x
+ * a:x -> x
+ * x -> a:x
+ * a:x -> b:x
+ *
+ * 1,2,3,4 without declaring ns
+ * 5,6,7,8 declaring ns
+ *
+ * 9: ins ns altri
+ * 10: remove ns altri
+ *
+ * 11: tag decl + ins ns altri + remove ns altri
+ *
+ * 12: x -> x no mod DA PENSARE
+ * 13: a:x -> b:x
+ */
+bool TestEditElements::testNamespaces()
+{
+    _testName = "testNamespaces" ;
+
+    if(!tagXtoX0()) {
+        return false;
+    }
+    if(!tagAXtoX1()) {
+        return false;
+    }
+    if(!tagXtoAX2()) {
+        return false;
+    }
+    if(!tagAXtoBX3()) {
+        return false;
+    }
+    if(!tagXtoX4()) {
+        return false;
+    }
+    if(!tagAXtoX5()) {
+        return false;
+    }
+    if(!tagXtoAX6()) {
+        return false;
+    }
+    if(!tagAXtoBX7()) {
+        return false;
+    }
+    //9
+    if(!tagInsNsAltri()) {
+        return false;
+    }
+    //10
+    if(!tagRemoveNsAltri()) {
+        return false;
+    }
+    // 11
+    if(!tagNsInsModDel()) {
+        return false;
+    }
+    //12
+    if(!tagNsNoMod()) {
+        return false;
+    }
+
+    //13
+    if(!tagNsChangeNs()) {
+        return false;
+    }
+
+    return true;
+}
+
+bool TestEditElements::tagXtoX0()
+{
+    _testName = "tagXtoX0" ;
+    Element *sourceElement = makeElement("x", "");
+    Element *resultElement = makeElement("x", "");
+    NamespaceCommands *cmd = makeOperation(false, "", "");
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagAXtoX1()
+{
+    _testName = "tagAXtoX1" ;
+    Element *sourceElement = makeElement("a:x", "");
+    Element *resultElement = makeElement("x", "");
+    NamespaceCommands *cmd = makeOperation(false, "", "");
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagXtoAX2()
+{
+    _testName = "tagXtoAX2" ;
+    Element *sourceElement = makeElement("x", "");
+    Element *resultElement = makeElement("a:x", "");
+    NamespaceCommands *cmd = makeOperation(false, "a", "");
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagAXtoBX3()
+{
+    _testName = "tagAXtoBX3" ;
+    Element *sourceElement = makeElement("a:x", "");
+    Element *resultElement = makeElement("b:x", "");
+    NamespaceCommands *cmd = makeOperation(false, "b", "");
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagXtoX4()
+{
+    _testName = "tagXtoX4" ;
+    Element *sourceElement = makeElement("x", "");
+    Element *resultElement = makeElement("x", "xmlns=uri_test");
+    NamespaceCommands *cmd = makeOperationDeclare(true, "", "uri_test");
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagAXtoX5()
+{
+    _testName = "tagAXtoX5" ;
+    Element *sourceElement = makeElement("a:x", "");
+    Element *resultElement = makeElement("x", "xmlns=uri_test");
+    NamespaceCommands *cmd = makeOperationDeclare(true, "", "uri_test");
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagXtoAX6()
+{
+    _testName = "tagXtoAX6" ;
+    Element *sourceElement = makeElement("x", "");
+    Element *resultElement = makeElement("a:x", "xmlns:a=uri_test");
+    NamespaceCommands *cmd = makeOperationDeclare(true, "a", "uri_test");
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagAXtoBX7()
+{
+    _testName = "tagAXtoBX7" ;
+    Element *sourceElement = makeElement("a:x", "");
+    Element *resultElement = makeElement("b:x", "xmlns:b=uri_test");
+    NamespaceCommands *cmd = makeOperationDeclare(true, "b", "uri_test");
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+
+bool TestEditElements::tagInsNsAltri()
+{
+    _testName = "tagInsNsAltri" ;
+    Element *sourceElement = makeElement("x", "");
+    Element *resultElement = makeElement("x", "xmlns:c=uri_test,xmlns:d=xxx,xmlns=other");
+    NamespaceCommands *cmd = makeOperationOther(false, "", "", "c=uri_test,d=xxx,=other" );
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagRemoveNsAltri()
+{
+    _testName = "tagRemoveNsAltri" ;
+    Element *sourceElement = makeElement("a:x", "a=1,xmlns:c=uri_test,xmlns:d=xxx,xmlns=other");
+    Element *resultElement = makeElement("a:x", "a=1");
+    NamespaceCommands *cmd = makeOperationOther(false, "a", "", "" );
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagNsInsModDel()
+{
+    _testName = "tagNsInsModDel" ;
+    Element *sourceElement = makeElement("a:x", "a=1,xmlns:c=uri_test,xmlns:d=xxx,xmlns=other");
+    Element *resultElement = makeElement("x", "a=1,xmlns:c=uri_test,xmlns=yyy,xmlns:d=kkk");
+    NamespaceCommands *cmd = makeOperationOther(true, "", "", "c=uri_test,=yyy,d=kkk" );
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagNsChangeNs()
+{
+    _testName = "tagNsChangeNsl" ;
+    Element *sourceElement = makeElement("a:x", "a=1,xmlns:c=uri_test,xmlns:b=xxx,xmlns=other");
+    Element *resultElement = makeElement("d:x", "a=1,xmlns:c=uri_test,xmlns:d=xxx,xmlns=other");
+    NamespaceCommands *cmd = makeOperationOther(true, "d", "xxx", "c=uri_test,d=xxx,=other" );
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::tagNsNoMod()
+{
+    _testName = "tagNsNoMod" ;
+    Element *sourceElement = makeElement("a:x", "a=1,xmlns:c=uri_test,xmlns:b=xxx,xmlns=other");
+    Element *resultElement = makeElement("a:x", "a=1,xmlns:c=uri_test,xmlns:d=xxx,xmlns=other");
+    NamespaceCommands *cmd = makeOperationOther(false, "a", "xxx", "c=uri_test,d=xxx,=other" );
+    return doCheckElementNamespaceOp(sourceElement, resultElement, cmd );
+}
+
+bool TestEditElements::doCheckElementNamespaceOp(Element *sourceElement, Element *resultElement, NamespaceCommands *cmd )
+{
+    bool result = false ;
+    if( (NULL != sourceElement) && (NULL != resultElement) && (NULL != cmd))  {
+        EditElementTest dlg;
+        dlg.setTarget(sourceElement);
+        if(!dlg.testApplyNamespaceOper(cmd)) {
+            error("error updating target");
+        } else {
+            QString msg;
+            result = sourceElement->compareToElement(resultElement, msg);
+            if(!result) {
+                error(msg);
+            }
+        }
+    } else {
+        error("no memory");
+    }
+
+    if( NULL != sourceElement ) {
+        delete sourceElement ;
+    }
+    if( NULL != resultElement ) {
+        delete resultElement ;
+    }
+    if( NULL != cmd ) {
+        delete cmd ;
+    }
+    return result;
+}
+
+//-------------
+
+#define NS_FILE_EMPTY       "../test/data/namespace/t_empty.xml"
+#define NS_FILE_COMPLEX     "../test/data/namespace/t_complex.xml"
+#define NS_FILE_SHADOWED    "../test/data/namespace/t_shadowed.xml"
+
+#define NS_FILE_INS0    "../test/data/namespace/ins0.xml"
+#define NS_FILE_INS1    "../test/data/namespace/ins1.xml"
+#define NS_FILE_EDIT0   "../test/data/namespace/edit0.xml"
+#define NS_FILE_EDIT1   "../test/data/namespace/edit1.xml"
+
+bool TestEditElements::testLoadElm(const QString &fileStart, const QString& expected, QList<int> &sel, const bool isInsert )
+{
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    Element *selectedElement = app.mainWindow()->getRegola()->findElementByArray(sel);
+    if(NULL == selectedElement) {
+        return error("no selected element");
+    }
+    EditElement edit(app.mainWindow());
+    if(isInsert) {
+        Element element(NULL);
+        edit.setTarget(&element, selectedElement);
+    } else {
+        edit.setTarget(selectedElement, NULL);
+    }
+    QLineEdit *editTag = edit.findChild<QLineEdit*>("editTag");
+    if(NULL == editTag) {
+        return error("tag edit field not found");
+    }
+    if(editTag->text() != expected) {
+        return error(QString("Tag field, expected:'%1', but found:'%2'").arg(expected).arg(editTag->text()));
+    }
+    return true;
+}
+
+// testa visibilita ns in elemento
+bool TestEditElements::testInsertElement()
+{
+    _testName = "testInsertElement/None";
+    QList<int> sel;
+    sel << 1 << 0 << 0 ;
+    // test for prefix inserting
+
+    _testName = "testInsertElement/Ins0";
+    //- no prefix
+    if(!testLoadElm(NS_FILE_INS0, "", sel, true )) {
+        return false;
+    }
+    _testName = "testInsertElement/Ins1";
+    //- prefix
+    if(!testLoadElm(NS_FILE_INS1, "a:", sel, true )) {
+        return false;
+    }
+    _testName = "testInsertElement/Edit0";
+    //- no prefix
+    if(!testLoadElm(NS_FILE_EDIT0, "this", sel, false )) {
+        return false;
+    }
+    _testName = "testInsertElement/Edit1";
+    //- prefix
+    if(!testLoadElm(NS_FILE_EDIT1, "a:this", sel, false )) {
+        return false;
+    }
+    return true;
 }
 

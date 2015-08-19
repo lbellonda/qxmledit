@@ -129,6 +129,7 @@ bool XmlUtils::isDataAttribute(const QString &attributeName)
 
 bool XmlUtils::getNsPrefix(const QString &name, QString &prefix)
 {
+    Utils::TODO_THIS_RELEASE("questa routine non e esatta, usa indexof");
     QStringList ns = name.split(':');
     if(ns.length() < 2) {
         prefix = "" ;
@@ -146,6 +147,7 @@ bool XmlUtils::getNsPrefix(const QString &name, QString &prefix)
 
 void XmlUtils::decodeQualifiedName(const QString &name, QString &prefix, QString &localName)
 {
+    Utils::TODO_THIS_RELEASE("non va bene dividere in due, usa indexof");
     QStringList ns = name.split(':');
     if(ns.length() < 2) {
         prefix = "" ;

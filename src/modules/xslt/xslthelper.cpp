@@ -470,7 +470,8 @@ bool XsltHelper::prepareInsertElement(XsltElementDialogParam *params, const bool
     }
     if(NULL != parentForPath) {
         params->embeddedPath = parentForPath->path();
-        params->embeddedPath.append(parentForPath->tag());
+        Utils::TODO_THIS_RELEASE("verifica commento seguente");
+        //params->embeddedPath.append(parentForPath->tag());
         params->path = &params->embeddedPath;
     }
     //-----------------------
@@ -591,7 +592,9 @@ bool XsltHelper::prepareEditElement(Element *selectedElement, XsltElementDialogP
         baseElement = selectedElement->parent();
     }
     //------------------------
-    params->embeddedPath = selectedElement->path();
+    Utils::TODO_THIS_RELEASE("verifica equivalenza");
+    //params->embeddedPath = selectedElement->path();
+    params->embeddedPath = selectedElement->parentPath();
     //-----------------------
 
     // open up dialog

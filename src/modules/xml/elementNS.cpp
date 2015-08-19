@@ -119,3 +119,22 @@ bool Element::findPrefixForNamespace(const QString nsToSearch, QString &prefixTo
     return false ;
 }
 
+QHash<QString, QString> Element::findVisibleNamespaces()
+{
+    QHash<QString, QString> nss;
+    Element *element = this ;
+    while(NULL != element) {
+        foreach(Attribute * attr, element->attributes) {
+            QString prefix ;
+            if(XmlUtils::getNsPrefix(attr->name, prefix)) {
+                // found, but only if it is not shadowed by a previous declaration
+                // register the prefix
+                if(!nss.contains(prefix)) {
+                    nss.insert(prefix, attr->value);
+                }
+            } // if is declaring
+        } // for each attribute
+        element = element->parent();
+    }
+    return nss ;
+}

@@ -141,7 +141,8 @@ SOURCES += \
     testhelpers/xsd/testxsdsinglecommentdialog.cpp \
     testreplace.cpp \
     testnillable.cpp \
-    testxsitype.cpp
+    testxsitype.cpp \
+    testusernamespaces.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -234,7 +235,8 @@ HEADERS += \
     testhelpers/xsd/testxsdsinglecommentdialog.h \
     testreplace.h \
     testnillable.h \
-    testxsitype.h
+    testxsitype.h \
+    testusernamespaces.h
 
 #OTHER_FILES += \
 

@@ -198,6 +198,7 @@ public:
     bool areChildrenUsingPrefix(const QString &prefix);
     bool isUsingPrefixRecursive(const QString &prefix);
     bool findPrefixForNamespace(const QString nsToSearch, QString &prefixToSet);
+    QHash<QString, QString> findVisibleNamespaces();
 
 
     static QRegExp terminatorSearch;
@@ -396,6 +397,7 @@ public:
     //returns the position of the element
     QList<int> indexPath();
     QStringList path();
+    QStringList parentPath();
     // copy the first level attributes, text nodes and attributes to the target
     bool copyTextNodesToTarget(Element *target);
 
@@ -560,6 +562,9 @@ public:
     Element *lastChildRecursive();
 
     void allNamespaces(QHash<QString, QSet<QString> > &nameSpacesMap);
+
+    QString toString();
+    bool compareToElement(Element *other, QString &msg);
 
 
     friend class TestStyle;

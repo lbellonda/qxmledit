@@ -25,14 +25,17 @@
 #define TESTEDITELEMENTS_H
 
 #include "app.h"
+#include "testbase.h"
 
-class TestEditElements
+class NamespaceCommands;
+
+class TestEditElements : public TestBase
 {
     App app;
     Element *selectedElement ;
     Regola *regola ;
 
-    static bool error();
+    static bool error1();
     bool start(const bool isNew, QList<int> &selection);
     bool compare(const QString &referenceFileName);
     bool compareDocuments(const QString &filename, Regola *regola);
@@ -61,11 +64,36 @@ class TestEditElements
     bool appendElementAsSiblingWithAttributes();
     bool insertElementAsChildWithAttributesAndText();
     bool appendElementAsSiblingWithAttributesAndText();
+    //
+    bool testNamespaces();
+    //
+    bool tagXtoX0();
+    bool tagAXtoX1();
+    bool tagXtoAX2();
+    bool tagAXtoBX3();
+    bool tagXtoX4();
+    bool tagAXtoX5();
+    bool tagXtoAX6();
+    bool tagAXtoBX7();
+    bool tagInsNsAltri();
+    bool tagRemoveNsAltri();
+    bool tagNsInsModDel();
+    bool tagNsChangeNs();
+    bool tagNsNoMod();
+    //
+    NamespaceCommands* makeOperation(const bool useNs, const QString &prefix, const QString &uri);
+    NamespaceCommands* makeOperationOther(const bool useNs, const QString &prefix, const QString &uri, const QString &otherNs);
+    NamespaceCommands* makeOperationDeclare(const bool useNs, const QString &prefix, const QString &uri);
+    bool doCheckElementNamespaceOp(Element *sourceElement, Element *resultElement, NamespaceCommands *cmd );
+    //
+    bool testLoadElm(const QString &fileStart, const QString& expected, QList<int> &sel, const bool isInsert );
 
 public:
     TestEditElements();
 
     static bool test();
+    bool testFast();
+    bool testInsertElement();
 };
 
 #endif // TESTEDITELEMENTS_H
