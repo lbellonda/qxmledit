@@ -196,10 +196,9 @@ void EditElement::accept()
     QDialog::accept();
 }
 
-bool EditElement::updateTarget(Element *element)
+bool EditElement::updateTarget(Element *targetElement)
 {
-    Utils::TODO_THIS_RELEASE("sostiture target con elemenrs");
-    if(NULL == element) {
+    if(NULL == targetElement) {
         error(tr("No element"));
         return false;
     }
@@ -208,13 +207,13 @@ bool EditElement::updateTarget(Element *element)
         error(tr("Tag text is invalid"));
         return false ;
     }
-    if(NULL != element->getParentRule()) {
-        element->_tag = element->getParentRule()->addNameToPool(tag) ;
+    if(NULL != targetElement->getParentRule()) {
+        targetElement->_tag = targetElement->getParentRule()->addNameToPool(tag) ;
     } else {
-        element->_tag = tag;
+        targetElement->_tag = tag;
     }
     // rebuild attributes
-    element->clearAttributes();
+    targetElement->clearAttributes();
     int rows = ui.attrTable->rowCount();
     for(int row = 0 ; row < rows ; row ++) {
         QTableWidgetItem *itemName = ui.attrTable->item(row, A_COLUMN_NAME);
@@ -230,12 +229,12 @@ bool EditElement::updateTarget(Element *element)
         QTableWidgetItem *itemValue = ui.attrTable->item(row, A_COLUMN_TEXT);
         QString name = itemName->text().trimmed() ;
         QString value = itemValue->text().trimmed() ;
-        element->addAttribute(name, value);
+        targetElement->addAttribute(name, value);
     }
 
     Utils::TODO_NEXT_RELEASE("this part must be tested very well");
     //if(_textModified) {
-    element->clearTextNodes();
+    targetElement->clearTextNodes();
 
     isMixedContent = false ;
     bool isElement = false;
@@ -260,27 +259,27 @@ bool EditElement::updateTarget(Element *element)
     if(isElement && isText) {
         isMixedContent = true ;
     }
-    foreach(Element * child, element->getItems()) {
+    foreach(Element * child, targetElement->getItems()) {
         if(child->getType() == Element::ET_TEXT) {
             child->autoDelete(true);
         }
     }
 
     if(isMixedContent) {
-        element->getChildItems()->clear();
+        targetElement->getChildItems()->clear();
         rows = ui.elementTable->rowCount();
         for(int row = 0 ; row < rows ; row ++) {
             QTableWidgetItem *itemCDATA = ui.elementTable->item(row, T_COLUMN_CDATA);
             QTableWidgetItem *itemValue = ui.elementTable->item(row, T_COLUMN_TEXT);
             Element *element = getUserData(itemCDATA);
             if((NULL == element) || ((NULL != element) && (element->getType() == Element::ET_TEXT))) {
-                Element *newElement = new Element(element->getParentRule(), Element::ET_TEXT, element);
+                Element *newElement = new Element(targetElement->getParentRule(), Element::ET_TEXT, targetElement);
                 newElement->setTextOfTextNode(textFromItem(itemValue), itemCDATA->checkState() == Qt::Checked);
                 newElement->markEdited();
-                element->getItems().append(newElement);
-                newElement->caricaFigli(element->getUI()->treeWidget(), element->getUI(), element->getParentRule()->getPaintInfo(), true, row);
+                targetElement->getItems().append(newElement);
+                newElement->caricaFigli(targetElement->getUI()->treeWidget(), targetElement->getUI(), targetElement->getParentRule()->getPaintInfo(), true, row);
             } else {
-                element->getItems().append(element);
+                targetElement->getItems().append(element);
             }
         }
     } else {
@@ -291,12 +290,12 @@ bool EditElement::updateTarget(Element *element)
             Element *element = getUserData(itemCDATA);
             if((NULL == element) || ((NULL != element) && (element->getType() == Element::ET_TEXT))) {
                 TextChunk *newText = new TextChunk(itemCDATA->checkState() == Qt::Checked, textFromItem(itemValue));
-                element->addTextNode(newText);
+                targetElement->addTextNode(newText);
             }
         }
     }
 
-    element->markEdited();
+    targetElement->markEdited();
     return true;
 }
 
