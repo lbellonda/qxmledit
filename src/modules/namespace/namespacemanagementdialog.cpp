@@ -84,6 +84,9 @@ void NamespaceManagementDialog::init()
 {
     Utils::TODO_THIS_RELEASE("rem comments");
     _tableUtils.setupTable(ui->nsList);
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+    ui->nsList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+#endif
     _group.addButton(ui->radioDeclareInElement);
     _group.addButton(ui->radioDoNotDeclare);
     ui->radioDoNotDeclare->setChecked(true);
@@ -238,7 +241,8 @@ void NamespaceManagementDialog::on_nsList_itemDoubleClicked(QTableWidgetItem * /
 void NamespaceManagementDialog::on_cmdClear_clicked()
 {
     ui->prefix->setText("");
-    ui->uri->setCurrentText("");
+    ui->uri->setCurrentIndex(-1);
+    ui->uri->setEditText("");
     ui->nsDescription->setText("");
     enableOk();
 }
