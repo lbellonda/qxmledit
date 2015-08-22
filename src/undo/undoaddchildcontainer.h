@@ -31,10 +31,12 @@ class Regola ;
 
 class UndoAddChildContainerCommand : public UndoCommand
 {
-
     QString _tag;
+    QList<Attribute*> _attributes;
+
+    void reset();
 public:
-    explicit UndoAddChildContainerCommand(QTreeWidget *theWidget, Regola *newRegola, const QString &newTag, QList<int> newPath);
+    explicit UndoAddChildContainerCommand(QTreeWidget *theWidget, Regola *newRegola, const QString &newTag, QList<Attribute*> attributesIn, QList<int> newPath);
     virtual ~UndoAddChildContainerCommand();
 
     virtual void undo() ;

@@ -398,7 +398,8 @@ SOURCES += xmleditwidget.cpp \
     modules/namespace/editnamespacedialog.cpp \
     modules/namespace/namespacecommands.cpp \
     modules/namespace/nstableutils.cpp \
-    modules/namespace/usernamespaceloader.cpp
+    modules/namespace/usernamespaceloader.cpp \
+    modules/utils/base64utils.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -615,7 +616,8 @@ HEADERS += precompiled_lib.h \
     modules/namespace/editnamespacedialog.h \
     modules/namespace/namespacecommands.h \
     modules/namespace/nstableutils.h \
-    modules/namespace/usernamespaceloader.h
+    modules/namespace/usernamespaceloader.h \
+    modules/utils/base64utils.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

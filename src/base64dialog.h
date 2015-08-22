@@ -51,6 +51,9 @@ public:
     static void showDialog();
     void loadFromBinaryFile(const QString &filePath);
     void dropEvent(QDropEvent *event);
+    void dragEnterEvent(QDragEnterEvent *event);
+protected:
+    void loadTextFile(const QString &filePath);
 
 private:
     Ui::Base64Dialog *ui;

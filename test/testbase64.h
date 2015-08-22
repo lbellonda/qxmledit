@@ -34,7 +34,7 @@ public:
     bool test_base64();
     bool test_base64_base();
     bool test_base64_file();
-
+    bool test_base64_utils();
 };
 
 #endif // TESTBASE64_H

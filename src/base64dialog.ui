@@ -16,6 +16,9 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="acceptDrops">
+   <bool>true</bool>
+  </property>
   <property name="windowTitle">
    <string>Base 64 Encoding/Decoding</string>
   </property>
@@ -103,7 +106,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QPlainTextEdit" name="base64Edit"/>
+          <widget class="QPlainTextEdit" name="base64Edit">
+           <property name="acceptDrops">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -117,7 +124,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QPlainTextEdit" name="textEdit"/>
+          <widget class="QPlainTextEdit" name="textEdit">
+           <property name="acceptDrops">
+            <bool>false</bool>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -181,8 +192,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>998</x>
+     <y>33</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
@@ -197,8 +208,8 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>998</x>
+     <y>33</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>

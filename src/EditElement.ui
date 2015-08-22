@@ -363,7 +363,7 @@
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>To Base 64</string>
+            <string>To base64</string>
            </property>
           </widget>
          </item>
@@ -373,7 +373,7 @@
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>From Base 64</string>
+            <string>From base64</string>
            </property>
           </widget>
          </item>
@@ -382,8 +382,11 @@
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="toolTip">
+            <string>s</string>
+           </property>
            <property name="text">
-            <string>Save Base 64...</string>
+            <string>Save base64</string>
            </property>
           </widget>
          </item>
@@ -392,8 +395,11 @@
            <property name="enabled">
             <bool>false</bool>
            </property>
+           <property name="toolTip">
+            <string>Load a binary file and insert it into the current attribute as base64 coded text.</string>
+           </property>
            <property name="text">
-            <string>Insert Base64...</string>
+            <string>Load base64</string>
            </property>
           </widget>
          </item>

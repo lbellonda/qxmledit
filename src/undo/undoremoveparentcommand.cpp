@@ -35,6 +35,15 @@ UndoRemoveParentCommand::UndoRemoveParentCommand(QTreeWidget *theWidget, Regola 
 
 UndoRemoveParentCommand::~UndoRemoveParentCommand()
 {
+    reset();
+}
+
+void UndoRemoveParentCommand::reset()
+{
+    foreach(Attribute * attribute, _attributes) {
+        delete attribute;
+    }
+    _attributes.clear();
 }
 
 void UndoRemoveParentCommand::redo()
@@ -44,8 +53,14 @@ void UndoRemoveParentCommand::redo()
     if(!path.isEmpty()) {
         parentElement = regola->findElementByArray(path);
     }
+    reset();
     if(NULL != parentElement) {
         _tag = parentElement->tag();
+        reset();
+        foreach(Attribute * attribute, parentElement->getAttributesList()) {
+            Attribute *newAttribute = attribute->clone();
+            _attributes.append(newAttribute);
+        }
     } else {
         _tag = "" ;
     }
@@ -62,5 +77,5 @@ void UndoRemoveParentCommand::undo()
     if(!path.isEmpty()) {
         parentElement = regola->findElementByArray(path);
     }
-    regola->insertParentAction(parentElement, _tag, widget, _insPos, _insLen);
+    regola->insertParentAction(parentElement, _tag, _attributes, widget, _insPos, _insLen);
 }

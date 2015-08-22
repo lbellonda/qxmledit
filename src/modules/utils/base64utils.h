@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,51 +21,25 @@
  **************************************************************************/
 
 
-#include "undoaddchildcontainer.h"
-#include "regola.h"
-#include "utils.h"
+#ifndef BASE64UTILS_H
+#define BASE64UTILS_H
 
-UndoAddChildContainerCommand::UndoAddChildContainerCommand(QTreeWidget *theWidget, Regola *newRegola, const QString &newTag, QList<Attribute*> attributesIn, QList<int> newPath) : UndoCommand(theWidget, newRegola, newPath)
+#include "xmlEdit.h"
+
+class Base64Utils
 {
-    _tag = newTag ;
-    reset();
-    foreach(Attribute * attribute, attributesIn) {
-        Attribute *newAttribute = attribute->clone();
-        _attributes.append(newAttribute);
-    }
-}
+    static const int InputSizeLimit = 1024 * 1024 ;
 
-UndoAddChildContainerCommand::~UndoAddChildContainerCommand()
-{
-    reset();
-}
+public:
+    Base64Utils();
+    virtual ~Base64Utils();
 
-void UndoAddChildContainerCommand::reset()
-{
-    foreach(Attribute * attribute, _attributes) {
-        delete attribute;
-    }
-    _attributes.clear();
-}
+    QString loadFromBinaryFile(QWidget *window, const QString &filePath, bool &isError, bool isAbort);
+    bool saveBase64ToBinaryFile(QWidget *window, const QString &text, const QString &filePath);
 
-void UndoAddChildContainerCommand::redo()
-{
-    // insert the command at the parent index.
-    Element *parentElement = NULL ;
-    if(!path.isEmpty()) {
-        parentElement = regola->findElementByArray(path);
-    }
-    regola->insertChildContainerAction(parentElement, _tag, _attributes, widget);
-}
+    bool saveToBinaryDevice(QIODevice *device, const QString &text);
+    bool saveToBinaryFile(QWidget *window, const QString &filePath, const QString &text);
 
+};
 
-void UndoAddChildContainerCommand::undo()
-{
-    // insert the command at the parent index.
-    Element *parentElement = NULL ;
-    if(!path.isEmpty()) {
-        parentElement = regola->findElementByArray(path);
-    }
-    regola->removeChildContainerAction(parentElement, widget);
-}
-
+#endif // BASE64UTILS_H

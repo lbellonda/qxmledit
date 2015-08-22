@@ -24,6 +24,7 @@
 #include "base64dialog.h"
 #include "ui_base64dialog.h"
 #include "qxmleditdata.h"
+#include "modules/utils/base64utils.h"
 #include "utils.h"
 #include <QTextStream>
 
@@ -43,6 +44,7 @@ Base64Dialog::Base64Dialog(QWidget *parent) :
     ui->setupUi(this);
     setupOther();
     setAcceptDrops(true);
+    Utils::TODO_THIS_RELEASE("button per carica file di testo");
 }
 
 Base64Dialog::~Base64Dialog()
@@ -120,6 +122,11 @@ void Base64Dialog::dropEvent(QDropEvent *event)
     }
 }
 
+void Base64Dialog::dragEnterEvent(QDragEnterEvent *event)
+{
+    event->accept();
+}
+
 void Base64Dialog::on_cmdLoadFromFile_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this,
@@ -133,36 +140,23 @@ void Base64Dialog::on_cmdLoadFromFile_clicked()
 
 void Base64Dialog::loadFromBinaryFile(const QString &filePath)
 {
+    Utils::TODO_THIS_RELEASE("elimina commento");
     bool isError = true ;
     bool isAbort = false ;
-    QFile file(filePath);
-    QByteArray data ;
-    if(file.open(QIODevice::ReadOnly)) {
-        qint64 fileSize = file.size();
-        if(fileSize > InputSizeLimit) {
-            if(!Utils::askYN(this, tr("Warning: the size of the file to import is %1. Do you want to continue?").arg(Utils::getSizeForPresentation(fileSize)))) {
-                isAbort = true ;
-                isError = false ;
-            }
-        }
-        if(!isAbort) {
-            data = file.readAll();
-            if(file.error() == QFile::NoError) {
-                isError = false ;
-            }
-        }
-        file.close();
-        if(isError) {
-            Utils::error(tr("Error reading file."));
-        } else {
-            QByteArray converted = data.toBase64();
-            QString strBase64 = converted.data();
-            _isConverting = true ;
-            ui->base64Edit->setPlainText(strBase64);
-            ui->textEdit->setPlainText("");
-            _isConverting = false ;
-        }
-    } else {
-        Utils::error(QString(tr("Unable to load file.\nError code is '%1'")).arg(file.error()));
+    Base64Utils base64Utils;
+    QString strBase64 = base64Utils.loadFromBinaryFile(this, filePath, isError, isAbort);
+    if(!(isError || isAbort)) {
+        ui->base64Edit->setPlainText(strBase64);
+    }
+}
+
+void Base64Dialog::loadTextFile(const QString &filePath)
+{
+    Utils::TODO_THIS_RELEASE("elimina commento");
+    bool isError = true ;
+    bool isAbort = false ;
+    QString newText = Utils::loadTextFile(this, filePath, isError, isAbort);
+    if(!(isError || isAbort)) {
+        ui->textEdit->setPlainText(newText);
     }
 }

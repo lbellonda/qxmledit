@@ -26,9 +26,10 @@
 #include "edittextnode.h"
 #include "regola.h"
 #include "utils.h"
+#include "qxmleditdata.h"
 #include "xmlutils.h"
 #include "modules/namespace/namespacemanagementdialog.h"
-#include <QItemSelectionModel>
+#include "modules/utils/base64utils.h"
 
 #define MOD_WIDTH   (8)
 
@@ -49,7 +50,7 @@ EditElement::EditElement(QWidget * parent) : QDialog(parent)
     target = NULL;
     checkNamespace();
     enableOK();
-    Utils::TODO_THIS_RELEASE("save attribute base64 file");
+    Utils::TODO_THIS_RELEASE("save attribute base64 file con base64Utils");
     Utils::TODO_THIS_RELEASE("load attribute base64 file");
     Utils::TODO_THIS_RELEASE("insert namespace for attribute");
     Utils::TODO_THIS_RELEASE("remove namespace for attribute");
@@ -441,7 +442,8 @@ void EditElement::on_attrTable_itemSelectionChanged()
     ui.delAttribute->setEnabled(isSel);
     ui.cmdToBase64->setEnabled(isSel);
     ui.cmdFromBase64->setEnabled(isSel);
-
+    ui.cmdLoadFileBase64->setEnabled(isSel);
+    ui.cmdSaveFileBase64->setEnabled(isSel);
 }
 
 void EditElement::on_textDel_clicked()
@@ -747,7 +749,6 @@ void EditElement::checkNamespace()
 
 void EditElement::on_cmdNamespaces_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     Element element(ui.editTag->text(), "", NULL, NULL);
     // rebuild attributes
     int rows = ui.attrTable->rowCount();
@@ -799,7 +800,6 @@ void EditElement::updateElementTag(const bool useNamespace, NamespaceSpec* names
 
 void EditElement::applyOtherNamespaces(QList<NamespaceSpec*> namespaces)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     ui.attrTable->setUpdatesEnabled(false);
     // delete ns declared, but not present in list;
     QList<NamespaceSpec*> presentInList;
@@ -853,4 +853,43 @@ NamespaceManager *EditElement::namespaceManager() const
 void EditElement::setNamespaceManager(NamespaceManager *namespaceManager)
 {
     _namespaceManager = namespaceManager;
+}
+
+void EditElement::on_cmdLoadFileBase64_clicked()
+{
+    int currentRow = ui.attrTable->currentRow();
+    QTableWidgetItem *currentItem = ui.attrTable->currentItem() ;
+    if(!((NULL != currentItem) && (currentRow >= 0))) {
+        return ;
+    }
+    QString filePath = QFileDialog::getOpenFileName(this,
+                       tr("Choose a File to be Transformed in Base 64 Encoded Text"),
+                       QXmlEditData::sysFilePathForOperation(""),
+                       tr("All files (*);;XML files (*.xml);;XML Schema files (*.xsd);;"));
+    if(!filePath.isEmpty()) {
+        bool isError = true ;
+        bool isAbort = false ;
+        Base64Utils base64Utils;
+        QString strBase64 = base64Utils.loadFromBinaryFile(this, filePath, isError, isAbort);
+        if(!(isError || isAbort)) {
+            QTableWidgetItem *currentItem = ui.attrTable->item(currentRow, A_COLUMN_TEXT);
+            currentItem->setText(strBase64);
+            setUpdatedAttr(currentRow);
+            ui.attrTable->setCurrentItem(currentItem);
+            ui.attrTable->setFocus();
+        }
+    }
+}
+
+void EditElement::on_cmdSaveFileBase64_clicked()
+{
+    int currentRow = ui.attrTable->currentRow();
+    QTableWidgetItem *currentItem = ui.attrTable->currentItem() ;
+    if(!((NULL != currentItem) && (currentRow >= 0))) {
+        return ;
+    }
+    QTableWidgetItem *itemValue = ui.attrTable->item(currentRow, A_COLUMN_TEXT);
+    QString text = itemValue->text() ;
+    Base64Utils base64Utils;
+    base64Utils.saveBase64ToBinaryFile(this, text, QXmlEditData::sysFilePathForOperation(""));
 }

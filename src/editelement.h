@@ -112,6 +112,8 @@ private slots:
     void on_cmdFromBase64_clicked();
     void on_cmdToBase64_clicked();
     void on_cmdNamespaces_clicked();
+    void on_cmdLoadFileBase64_clicked();
+    void on_cmdSaveFileBase64_clicked();
 
 private:
     Ui::Dialog ui;

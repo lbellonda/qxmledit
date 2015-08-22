@@ -144,7 +144,7 @@ void Regola::insertChildContainer(QTreeWidget *tree, Element *parentElement)
         Element *theNewElement = new Element("", "", NULL, NULL);
         bool result = editNodeElement(tree->window(), theNewElement, parentElement, false);
         if(result) {
-            doInsertChildContainer(tree, theNewElement->tag(), parentElement);
+            doInsertChildContainer(tree, theNewElement->tag(), theNewElement->getAttributesList(), parentElement);
         }
         if(NULL != theNewElement) {
             delete theNewElement ;
@@ -158,7 +158,7 @@ void Regola::insertParent(QTreeWidget *tree, Element *element)
         Element *theNewElement = new Element("", "", NULL, NULL);
         bool result = editNodeElement(tree->window(), theNewElement, (NULL != element->parent()) ? element->parent()->parent() : NULL,  false);
         if(result) {
-            doInsertParent(tree, theNewElement->tag(), element);
+            doInsertParent(tree, theNewElement->tag(), theNewElement->getAttributesList(), element);
         }
         if(NULL != theNewElement) {
             delete theNewElement ;
@@ -183,16 +183,16 @@ void Regola::removeParent(QTreeWidget *tree, Element *childElement)
 
 //------------region(command interface internals)
 
-void Regola::doInsertChildContainer(QTreeWidget *tree, const QString &tag, Element *parentElement)
+void Regola::doInsertChildContainer(QTreeWidget *tree, const QString &tag, QList<Attribute *> attributesIn, Element *parentElement)
 {
-    UndoAddChildContainerCommand *undoInsertChildContainerInternal = new UndoAddChildContainerCommand(tree, this, tag, parentElement->indexPath());
+    UndoAddChildContainerCommand *undoInsertChildContainerInternal = new UndoAddChildContainerCommand(tree, this, tag, attributesIn, parentElement->indexPath());
     _undoStack.push(undoInsertChildContainerInternal);
     emit undoStateChanged();
 }
 
-void Regola::doInsertParent(QTreeWidget *tree, const QString &tag, Element *parentElement)
+void Regola::doInsertParent(QTreeWidget *tree, const QString &tag, QList<Attribute*> attributesIn, Element *parentElement)
 {
-    UndoAddParentCommand *undoAddParentInternal = new UndoAddParentCommand(tree, this, tag, parentElement->indexPath());
+    UndoAddParentCommand *undoAddParentInternal = new UndoAddParentCommand(tree, this, tag, attributesIn, parentElement->indexPath());
     _undoStack.push(undoAddParentInternal);
     emit undoStateChanged();
 }
@@ -203,12 +203,13 @@ void Regola::doInsertParent(QTreeWidget *tree, const QString &tag, Element *pare
 
 //------------region(undoredo)
 
-bool Regola::insertChildContainerAction(Element *parentElement, const QString &tag, QTreeWidget *tree)
+bool Regola::insertChildContainerAction(Element *parentElement, const QString &tag, QList<Attribute*> attributesIn, QTreeWidget *tree)
 {
     Element *theNewElement = new Element(tag, "", this, NULL);
     if(NULL == theNewElement) {
         return false;
     }
+    theNewElement->setAttributes(attributesIn);
     // this reparents the UI too
     theNewElement->createUI(NULL, paintInfo, true);
     parentElement->moveChildrenTo(theNewElement);
@@ -248,12 +249,13 @@ void Regola::removeChildContainerAction(Element *parentElement, QTreeWidget *tre
 }
 
 
-bool Regola::insertParentAction(Element *element, const QString &tag, QTreeWidget *tree, const int insPos, const int insLen)
+bool Regola::insertParentAction(Element *element, const QString &tag, QList<Attribute*> attributesIn, QTreeWidget *tree, const int insPos, const int insLen)
 {
     Element *theNewParent = new Element(tag, "", this, NULL);
     if(NULL == theNewParent) {
         return false;
     }
+    theNewParent->setAttributes(attributesIn);
     // this reparents the UI too
     theNewParent->createUI(NULL, paintInfo, true);
     insertParentForElement(tree, element, theNewParent, insPos, insLen, true);

@@ -28,12 +28,15 @@
 
 class Element ;
 class Regola ;
+class Attribute;
 
 class UndoRemoveParentCommand : public UndoCommand
 {
     QString _tag;
+    QList<Attribute*> _attributes;
     int _insPos ;
     int _insLen;
+    void reset();
 public:
     explicit UndoRemoveParentCommand(QTreeWidget *theWidget, Regola *newRegola, QList<int> newPath);
     virtual ~UndoRemoveParentCommand();

@@ -367,13 +367,13 @@ public:
     void insertParent(QTreeWidget *tree, Element *parentElement);
     void removeParent(QTreeWidget *tree, Element *parentElement);
 
-    void doInsertChildContainer(QTreeWidget *tree, const QString &tag, Element *parentElement);
-    void doInsertParent(QTreeWidget *tree, const QString &tag, Element *parentElement);
+    void doInsertChildContainer(QTreeWidget *tree, const QString &tag, QList<Attribute *> attributesIn, Element *parentElement);
+    void doInsertParent(QTreeWidget *tree, const QString &tag, QList<Attribute *> attributesIn, Element *parentElement);
 
 
-    bool insertChildContainerAction(Element *parentElement, const QString &tag, QTreeWidget *tree);
+    bool insertChildContainerAction(Element *parentElement, const QString &tag, QList<Attribute*> attributesIn, QTreeWidget *tree);
     void removeChildContainerAction(Element *parentElement, QTreeWidget *tree);
-    bool insertParentAction(Element *element, const QString &tag, QTreeWidget *tree, const int insPos, const int insLen);
+    bool insertParentAction(Element *element, const QString &tag, QList<Attribute *> attributesIn, QTreeWidget *tree, const int insPos, const int insLen);
     bool removeParentAction(Element *element, QTreeWidget *tree, int &insPos, int &insLen);
     //------------endregion(containers)
 

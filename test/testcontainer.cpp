@@ -94,7 +94,10 @@ bool TestContainer::testInsertChildContainer()
     }
 
     // exec the move
-    regola->doInsertChildContainer(app.mainWindow()->getEditor()->getMainTreeWidget(), "testtag", selectedElement );
+    QList<Attribute*> attributes;
+    Attribute a("a", "b");
+    attributes << &a;
+    regola->doInsertChildContainer(app.mainWindow()->getEditor()->getMainTreeWidget(), "testtag", attributes, selectedElement );
     if(!checkRoot(regola)) {
         return false;
     }
@@ -186,7 +189,10 @@ bool TestContainer::testInsertParent()
     app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
 
     // exec the move
-    regola->doInsertParent(app.mainWindow()->getEditor()->getMainTreeWidget(), "test", selectedElement );
+    QList<Attribute*> attributes;
+    Attribute a("a", "b");
+    attributes << &a;
+    regola->doInsertParent(app.mainWindow()->getEditor()->getMainTreeWidget(), "test", attributes, selectedElement );
     CompareXML compare;
 
     if(!compare.compareFileWithRegola(regola, FileEnd)) {
@@ -476,7 +482,7 @@ bool TestContainer::testGeneric(const bool isInsert, const QString &testName, co
 
     // exec the move
     if(isInsert) {
-        regola->doInsertParent(app.mainWindow()->getEditor()->getMainTreeWidget(), "testParent", selectedElement );
+        regola->doInsertParent(app.mainWindow()->getEditor()->getMainTreeWidget(), "testParent", QList<Attribute*>(), selectedElement );
     } else {
         regola->removeParent(app.mainWindow()->getEditor()->getMainTreeWidget(), selectedElement );
     }

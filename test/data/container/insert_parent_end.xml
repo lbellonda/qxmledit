@@ -2,7 +2,7 @@
  <a2>
   <a9/>
  </a2>
- <test>
+ <test a="b">
   <a3>
    <a4/>text<a6/>
   </a3>

@@ -140,6 +140,9 @@ public:
     static QString escape(const QString &str);
     static QString fmtNumber(const bool isHex, const int number, const int fieldWidth, const bool usePrefix = true);
     static QString convertHtmlToPlainText(const QString &inValue);
+
+    static const int InputTextFileSizeLimit = 1024 * 1024 ;
+    static QString loadTextFile(QWidget *window, const QString &filePath, bool &isError, bool isAbort);
 };
 
 

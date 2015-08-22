@@ -25,13 +25,27 @@
 #include "utils.h"
 
 // addParent: always 1! child
-UndoAddParentCommand::UndoAddParentCommand(QTreeWidget *theWidget, Regola *newRegola, const QString &newTag, QList<int> newPath) : UndoCommand(theWidget, newRegola, newPath)
+UndoAddParentCommand::UndoAddParentCommand(QTreeWidget *theWidget, Regola *newRegola, const QString &newTag, QList<Attribute*> attributesIn, QList<int> newPath) : UndoCommand(theWidget, newRegola, newPath)
 {
     _tag = newTag ;
+    reset();
+    foreach(Attribute * attribute, attributesIn) {
+        Attribute *newAttribute = attribute->clone();
+        _attributes.append(newAttribute);
+    }
 }
 
 UndoAddParentCommand::~UndoAddParentCommand()
 {
+    reset();
+}
+
+void UndoAddParentCommand::reset()
+{
+    foreach(Attribute * attribute, _attributes) {
+        delete attribute;
+    }
+    _attributes.clear();
 }
 
 void UndoAddParentCommand::redo()
@@ -42,7 +56,7 @@ void UndoAddParentCommand::redo()
         parentElement = regola->findElementByArray(path);
     }
     int pos = parentElement->indexOfSelfAsChild();
-    regola->insertParentAction(parentElement, _tag, widget, pos, 1);
+    regola->insertParentAction(parentElement, _tag, _attributes, widget, pos, 1);
 }
 
 

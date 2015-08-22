@@ -29,12 +29,13 @@
 #include "utils.h"
 #include "edittextnode.h"
 #include "fakeuidelegate.h"
+#include "modules/utils/base64utils.h"
 
 #define BASE64_INPUTFILE    "../test/data/base64_input.xml"
 #define BASE64_BINARYDATA   "../test/data/base64_test.xml"
 #define BASE64_RESULT       "../test/data/base64_output.xml"
 #define BASE64_FILE_BINARY    "../test/data/base64_binary.jpg"
-
+#define BASE64_FILE_UTILS    "../test/data/base64_utils.dat"
 
 TestBase64::TestBase64()
 {
@@ -158,6 +159,55 @@ bool TestBase64::test_base64_file()
 
     if( origData != srcData ) {
         return error("data not equal");
+    }
+
+    return true;
+}
+
+bool TestBase64::test_base64_utils()
+{
+    _testName = "test_base64_utils" ;
+    Base64Utils base64;
+    bool isError = false;
+    bool isAbort = false ;
+    QString decoded = base64.loadFromBinaryFile(NULL, BASE64_FILE_UTILS, isError, isAbort);
+    if(isAbort) {
+        return error("Loading is aborted.");
+    }
+    if(isError) {
+        return error("Loading is error.");
+    }
+    QString expected = "YWJjZA==" ;
+    if(decoded!=expected) {
+        return error(QString("Load differs Decoded (%1):'%2'\nExpected (%3):%4").arg(decoded.length()).arg(decoded).arg(expected.length()).arg(expected));
+    }
+
+    QBuffer buffer ;
+    buffer.open(QIODevice::ReadWrite);
+    if(!base64.saveToBinaryDevice( &buffer, decoded )) {
+        return error("writing binary");
+    }
+    buffer.close();
+    QFile fileIn(BASE64_FILE_UTILS);
+    if( !fileIn.open(QIODevice::ReadOnly)) {
+        return error("open file in");
+    }
+    QByteArray srcData = fileIn.readAll();
+    int errorN = fileIn.error() ;
+    bool isOk = ( fileIn.error() == QFile::NoError );
+    fileIn.close();
+    if( !isOk ) {
+        return error(QString("reading file: %1").arg(errorN));
+    }
+
+    // compare the buffer with the data;
+    QByteArray origData = buffer.data();
+    // Extra info not needed now.
+
+    if( origData != srcData ) {
+        return error(QString("Compare differs Decoded (%1):'%2'\nExpected (%3):%4")
+                     .arg(srcData.length()).arg(QString(srcData.toBase64()))
+                     .arg(origData.length()).arg(QString(origData.toBase64())));
     }
 
     return true;

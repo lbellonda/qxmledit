@@ -55,6 +55,7 @@ SOURCES += $$files(../src/modules/delegates/*.cpp)
 SOURCES += $$files(../src/modules/encoding/*.cpp)
 SOURCES += $$files(../src/modules/xsd/*.cpp)
 SOURCES += $$files(../src/modules/namespace/*.cpp)
+SOURCES += $$files(../src/modules/utils/*.cpp)
 SOURCES -= ../src/main.cpp
 
 HEADERS += $$files(../src/*.h)
@@ -94,6 +95,7 @@ HEADERS += $$files(../src/modules/delegates/*.h)
 HEADERS += $$files(../src/modules/encoding/*.h)
 HEADERS += $$files(../src/modules/xsd/*.h)
 HEADERS += $$files(../src/modules/namespace/*.h)
+HEADERS += $$files(../src/modules/utils/*.h)
 
 INCLUDEPATH += ../src
 INCLUDEPATH += ../src/sessions/include
@@ -117,6 +119,7 @@ DEPENDPATH += ../src/modules/delegates
 DEPENDPATH += ../src/modules/encoding
 DEPENDPATH += ../src/modules/xsd
 DEPENDPATH += ../src/modules/namespace
+DEPENDPATH += ../src/modules/utils
 DEPENDPATH += ../src
 DEPENDPATH += .
 

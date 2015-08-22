@@ -230,6 +230,8 @@ void TestQXmlEdit::testBase64()
     QVERIFY2(result, "TestBase64 base");
     result = testBase64.test_base64_file();
     QVERIFY2(result, (QString("TestBase64 file: %1").arg(testBase64.errorString())).toLatin1().data());
+    result = testBase64.test_base64_utils();
+    QVERIFY2(result, (QString("TestBase64 utils: %1").arg(testBase64.errorString())).toLatin1().data());
 }
 
 
@@ -1078,9 +1080,12 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testContainer();
+    testBase64();
     testEditing();
     testNamespace();
     testIndent();
+    printf("Nei testEdit viene lanciato un figlio, ma non si torna il codice del figlio\n");
 }
 
 QTEST_MAIN(TestQXmlEdit)

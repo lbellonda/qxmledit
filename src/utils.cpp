@@ -897,3 +897,37 @@ QString Utils::convertHtmlToPlainText(const QString &inValue)
     doc.setHtml(inValue);
     return doc.toPlainText();
 }
+
+QString Utils::loadTextFile(QWidget *window, const QString &filePath, bool &isError, bool isAbort)
+{
+    QString result;
+    isError = true ;
+    isAbort = false ;
+    QFile file(filePath);
+    QByteArray data ;
+    if(file.open(QIODevice::ReadOnly)) {
+        qint64 fileSize = file.size();
+        if(fileSize > InputTextFileSizeLimit) {
+            if(!Utils::askYN(window, QObject::tr("Warning: the size of the file to import is %1. Do you want to continue?").arg(Utils::getSizeForPresentation(fileSize)))) {
+                isAbort = true ;
+                isError = false ;
+            }
+        }
+        if(!isAbort) {
+            data = file.readAll();
+            if(file.error() == QFile::NoError) {
+                isError = false ;
+            }
+        }
+        file.close();
+        if(isError) {
+            Utils::error(window, QObject::tr("Error reading file."));
+        } else {
+            QByteArray converted = data.toBase64();
+            result = converted.data();
+        }
+    } else {
+        Utils::error(window, QString(QObject::tr("Unable to load file.\nError code is '%1'")).arg(file.error()));
+    }
+    return result ;
+}
