@@ -127,34 +127,46 @@ bool XmlUtils::isDataAttribute(const QString &attributeName)
     return true;
 }
 
+/*!
+ * \brief XmlUtils::getNsPrefix
+ * \param name
+ * \param prefix
+ * \return  true if the name is a name space declaration; then set the parameter to
+ * the prefix of the given qualified name
+ * \note the check is not completly exact: the attribute name must not contain a colon other than declaration
+ * see 3 Declaring Namespaces of Namespaces in XML 1.1 W3C
+ */
 bool XmlUtils::getNsPrefix(const QString &name, QString &prefix)
 {
-    Utils::TODO_THIS_RELEASE("questa routine non e esatta, usa indexof");
+    prefix = "" ;
+    if(name == "xmlns") {
+        return true;
+    }
     QStringList ns = name.split(':');
-    if(ns.length() < 2) {
-        prefix = "" ;
-        if(name == "xmlns") {
-            return true;
-        }
-    } else {
-        prefix = ns.at(1);
+    if(ns.length() == 2) {
         if(ns.at(0) == "xmlns") {
+            prefix = ns.at(1);
             return true;
         }
     }
     return false;
 }
 
+/*!
+ * \brief XmlUtils::decodeQualifiedName decodes the name into prefix and localname
+ * \param name
+ * \param prefix
+ * \param localName
+ */
 void XmlUtils::decodeQualifiedName(const QString &name, QString &prefix, QString &localName)
 {
-    Utils::TODO_THIS_RELEASE("non va bene dividere in due, usa indexof");
-    QStringList ns = name.split(':');
-    if(ns.length() < 2) {
-        prefix = "" ;
-        localName = name;
+    int indexOfColon = name.indexOf(":");
+    if(indexOfColon >= 0) {
+        prefix = name.left(indexOfColon);
+        localName = name.mid(indexOfColon + 1);
     } else {
-        prefix = ns.at(0);
-        localName = ns.at(1);
+        prefix = "";
+        localName = name;
     }
 }
 

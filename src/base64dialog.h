@@ -63,6 +63,10 @@ private slots:
     void textChanged();
     void onCurrentEncodingChanged(int newIndex);
     void on_cmdLoadFromFile_clicked();
+    void on_cmdLoadFromTextFile_clicked();
+#ifdef  QXMLEDIT_TEST
+    friend class TestBase64;
+#endif
 };
 
 #endif // BASE64DIALOG_H

@@ -150,6 +150,18 @@ void Base64Dialog::loadFromBinaryFile(const QString &filePath)
     }
 }
 
+void Base64Dialog::on_cmdLoadFromTextFile_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(this,
+                       tr("Choose a Text File to be Transformed in Base 64 Encoded Text"),
+                       QXmlEditData::sysFilePathForOperation(_fileDataPath), tr("All files (*);;Text files (*.txt);;XML files (*.xml);;XML Schema files (*.xsd);;"));
+    if(!filePath.isEmpty()) {
+        _fileDataPath = filePath ;
+        loadTextFile(filePath);
+    }
+}
+
+
 void Base64Dialog::loadTextFile(const QString &filePath)
 {
     Utils::TODO_THIS_RELEASE("elimina commento");

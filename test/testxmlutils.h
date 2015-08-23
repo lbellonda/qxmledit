@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,24 +20,23 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef TESTBASE64_H
-#define TESTBASE64_H
+#ifndef TESTXMLUTILS_H
+#define TESTXMLUTILS_H
 
 #include "testbase.h"
 
-class TestBase64 : public TestBase
+class TestXmlUtils : public TestBase
 {
-    bool _showXML;
+    bool testNsPrefix();
+    bool testDecodeQualifiedName();
+    bool innerTestNsPrefix(const QString &name, const QString &expectedPrefix, const bool expectedResult);
+    bool innerTestDecodeLocalName(const QString &name, const QString &expectedPrefix, const QString &expectedLocalName);
 
-    bool test_base64_utils_binary();
-    bool test_base64_utils_text();
 public:
-    TestBase64();
+    TestXmlUtils();
+    ~TestXmlUtils();
 
-    bool test_base64();
-    bool test_base64_base();
-    bool test_base64_file();
-    bool test_base64_utils();
+    bool testUnits();
 };
 
-#endif // TESTBASE64_H
+#endif // TESTXMLUTILS_H

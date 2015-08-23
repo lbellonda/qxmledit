@@ -30,12 +30,14 @@
 #include "edittextnode.h"
 #include "fakeuidelegate.h"
 #include "modules/utils/base64utils.h"
+#include "base64dialog.h"
 
-#define BASE64_INPUTFILE    "../test/data/base64_input.xml"
-#define BASE64_BINARYDATA   "../test/data/base64_test.xml"
-#define BASE64_RESULT       "../test/data/base64_output.xml"
-#define BASE64_FILE_BINARY    "../test/data/base64_binary.jpg"
-#define BASE64_FILE_UTILS    "../test/data/base64_utils.dat"
+#define BASE64_INPUTFILE    "../test/data/base64/base64_input.xml"
+#define BASE64_BINARYDATA   "../test/data/base64/base64_test.xml"
+#define BASE64_RESULT       "../test/data/base64/base64_output.xml"
+#define BASE64_FILE_BINARY    "../test/data/base64/base64_binary.jpg"
+#define BASE64_FILE_UTILS    "../test/data/base64/base64_utils.dat"
+#define BASE64_FILE_TEXT    ":/base64/base64_text.dat"
 
 TestBase64::TestBase64()
 {
@@ -167,6 +169,18 @@ bool TestBase64::test_base64_file()
 bool TestBase64::test_base64_utils()
 {
     _testName = "test_base64_utils" ;
+    if(!test_base64_utils_binary()) {
+        return false;
+    }
+    if(!test_base64_utils_text()) {
+        return false;
+    }
+    return true;
+}
+
+bool TestBase64::test_base64_utils_binary()
+{
+    _testName = "test_base64_utils_binary" ;
     Base64Utils base64;
     bool isError = false;
     bool isAbort = false ;
@@ -208,6 +222,31 @@ bool TestBase64::test_base64_utils()
         return error(QString("Compare differs Decoded (%1):'%2'\nExpected (%3):%4")
                      .arg(srcData.length()).arg(QString(srcData.toBase64()))
                      .arg(origData.length()).arg(QString(origData.toBase64())));
+    }
+
+    return true;
+}
+
+bool TestBase64::test_base64_utils_text()
+{
+    _testName = "test_base64_utils_text" ;
+    Base64Dialog dlg;
+    dlg.loadTextFile(BASE64_FILE_TEXT);
+    QPlainTextEdit *text = dlg.findChild<QPlainTextEdit*>("textEdit");
+    QPlainTextEdit *base = dlg.findChild<QPlainTextEdit*>("base64Edit");
+
+    if( (NULL==text) || (NULL ==base) ) {
+        return error("Null edit boxes");
+    }
+    QString encoded = base->toPlainText();
+    QString expected = "YWJjZA==" ;
+    if(encoded!=expected) {
+        return error(QString("Load differs Decoded (%1):'%2'\nExpected (%3):%4").arg(encoded.length()).arg(encoded).arg(expected.length()).arg(expected));
+    }
+    QString plain = text->toPlainText();
+    expected = "abcd" ;
+    if(plain!=expected) {
+        return error(QString("Load differs Plain (%1):'%2'\nExpected (%3):%4").arg(plain.length()).arg(plain).arg(expected.length()).arg(expected));
     }
 
     return true;

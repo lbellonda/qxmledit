@@ -142,7 +142,8 @@ SOURCES += \
     testreplace.cpp \
     testnillable.cpp \
     testxsitype.cpp \
-    testusernamespaces.cpp
+    testusernamespaces.cpp \
+    testxmlutils.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -236,7 +237,8 @@ HEADERS += \
     testreplace.h \
     testnillable.h \
     testxsitype.h \
-    testusernamespaces.h
+    testusernamespaces.h \
+    testxmlutils.h
 
 #OTHER_FILES += \
 

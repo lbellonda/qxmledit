@@ -50,8 +50,6 @@ EditElement::EditElement(QWidget * parent) : QDialog(parent)
     target = NULL;
     checkNamespace();
     enableOK();
-    Utils::TODO_THIS_RELEASE("save attribute base64 file con base64Utils");
-    Utils::TODO_THIS_RELEASE("load attribute base64 file");
     Utils::TODO_THIS_RELEASE("insert namespace for attribute");
     Utils::TODO_THIS_RELEASE("remove namespace for attribute");
 }

@@ -84,6 +84,7 @@
 #include "testnillable.h"
 #include "testxsitype.h"
 #include "testusernamespaces.h"
+#include "testxmlutils.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -168,6 +169,7 @@ private Q_SLOTS:
     void testNillable();
     void testXSIType();
     void testNamespace();
+    void testXmlUtils();
 };
 
 

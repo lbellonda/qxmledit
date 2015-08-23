@@ -5,4 +5,7 @@
         <file alias="template_noenc">data/encoding/read_all_noenc.xml</file>
         <file alias="template_utf8">data/encoding/read_all_utf8.xml</file>
     </qresource>
+    <qresource prefix="/base64">
+        <file alias="base64_text.dat">data/base64/base64_text.dat</file>
+    </qresource>
 </RCC>

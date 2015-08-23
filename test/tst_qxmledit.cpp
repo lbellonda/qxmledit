@@ -1059,6 +1059,18 @@ void TestQXmlEdit::testAnonymize()
     }
 }
 
+
+void TestQXmlEdit::testXmlUtils()
+{
+    bool result;
+    {
+        TestXmlUtils test;
+        result = test.testUnits();
+        QVERIFY2(result, (QString("test testXmlUtils: testUnits() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+}
+
 #include <QtGlobal>
 
 /*
@@ -1080,6 +1092,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testXmlUtils();
     testContainer();
     testBase64();
     testEditing();
