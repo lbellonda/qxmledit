@@ -39,6 +39,9 @@ if [ $? -ne 0 ]; then
     echo "unable to build package"
     exit -1
 fi
+
+openssl sha256 ${DIRNAME}/qxmledit-${APPVERSION}-src.tgz >${DIRNAME}/qxmledit-${APPVERSION}-src.tgz.sha256
+
 echo 'done'
 exit 0;
 
