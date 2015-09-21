@@ -28,14 +28,15 @@
 
 void showInfo(QWidget *parent, Regola *regola)
 {
-    InfoDialog infoDialog(parent, regola);
+    InfoDialog infoDialog(parent, regola, true);
     infoDialog.exec();
 }
 
-InfoDialog::InfoDialog(QWidget *parent, Regola *regola) :
+InfoDialog::InfoDialog(QWidget *parent, Regola *regola, const bool isReadOnly) :
     QDialog(parent),
     ui(new Ui::InfoDialog)
 {
+    _isReadOnly = isReadOnly;
     _regola = regola;
     ui->setupUi(this);
     setupInfo();
@@ -49,6 +50,8 @@ InfoDialog::~InfoDialog()
 
 void InfoDialog::setupInfo()
 {
+    ui->dtdEdit->setReadOnly(_isReadOnly);
+
     // 1- encoding
     setEncodingInfo();
 
@@ -60,6 +63,19 @@ void InfoDialog::setupInfo()
 
     // 3 -namespaces
     setNamespaceInfo();
+
+    // 4 - dtd
+    setDtd();
+
+    if(!_isReadOnly) {
+        ui->buttonBox->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+        connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+        connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+    } else {
+        ui->buttonBox->setStandardButtons(QDialogButtonBox::Close);
+        connect(ui->buttonBox, SIGNAL(accepted()), this, SLOT(reject()));
+        connect(ui->buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+    }
 }
 
 void InfoDialog::setFileInfo()
@@ -91,6 +107,11 @@ void InfoDialog::setFileInfo()
 void InfoDialog::setEncodingInfo()
 {
     ui->lblEncoding->setText(_regola->encoding());
+}
+
+void InfoDialog::setDtd()
+{
+    ui->dtdEdit->setPlainText(_regola->dtd());
 }
 
 void InfoDialog::setSchemaReferenceInfo()
@@ -162,4 +183,15 @@ void InfoDialog::insNamespace(const QString &ns, const QString &uri, const QStri
     ui->tableNamespaces->setItem(row, 1, item1);
     QTableWidgetItem *item2 = new QTableWidgetItem(role);
     ui->tableNamespaces->setItem(row, 2, item2);
+}
+
+void InfoDialog::accept()
+{
+    _dtd = ui->dtdEdit->toPlainText();
+    QDialog::accept();
+}
+
+QString InfoDialog::dtd()
+{
+    return _dtd;
 }

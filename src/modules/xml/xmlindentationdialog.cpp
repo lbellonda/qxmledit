@@ -74,8 +74,10 @@ void XmlIndentationDialog::accept()
         } else {
             _regola->setIndentationForce(ui->xmlIndent->value());
         }
+        _regola->setSaveAttributesMethod(ui->cbSortAttributesAlpha->isChecked() ? Regola::SaveAttributesSortingAlphabetically : Regola::SaveAttributesNoSort);
     } else {
         _regola->setIndentationForce(_appData->xmlIndent());
+        _regola->setSaveAttributesMethod(Regola::SaveAttributesUsingDefault);
     }
     QDialog::accept();
 }

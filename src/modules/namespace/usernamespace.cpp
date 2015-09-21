@@ -35,6 +35,7 @@
 #define ELM_PREFIX "prefix"
 #define ATTR_DEFPREFIX  "defaultPrefix"
 #define ATTR_VALUE  "value"
+#define ATTR_LOCATION  "schemaLocation"
 
 UserNamespace::UserNamespace()
 {
@@ -45,9 +46,20 @@ UserNamespace::~UserNamespace()
 {
 }
 
+
+QString UserNamespace::schemaLocation() const
+{
+    return _schemaLocation;
+}
+
+void UserNamespace::setSchemaLocation(const QString &value)
+{
+    _schemaLocation = value;
+}
 void UserNamespace::reset()
 {
     _uri = "" ;
+    _schemaLocation = "";
     _prefixes.clear();
     _preferredPrefix = "" ;
 }
@@ -139,6 +151,7 @@ bool UserNamespace::saveToDom(QDomDocument &document)
     document.appendChild(profileNamespace);
     profileNamespace.setAttribute(ATTR_URI, _uri);
     profileNamespace.setAttribute(ATTR_DEFPREFIX, _preferredPrefix);
+    profileNamespace.setAttribute(ATTR_LOCATION, _schemaLocation);
 
     foreach(QString prefix, _prefixes) {
         QDomElement prefixElement = document.createElement(ELM_PREFIX);
@@ -186,6 +199,7 @@ bool UserNamespace::readFromDom(const QDomElement &element)
     reset();
     _uri = element.attribute(ATTR_URI);
     _preferredPrefix = element.attribute(ATTR_DEFPREFIX);
+    _schemaLocation = element.attribute(ATTR_LOCATION);
     int nodi = element.childNodes().size();
     for(int i = 0 ; i < nodi ; i ++) {
         QDomNode childNode = element.childNodes().item(i) ;

@@ -199,3 +199,19 @@ bool XmlUtils::isNamespaceDeclarationForPrefix(const QString &name, const QStrin
     return false;
 }
 
+/*!
+ * \brief XmlUtils::isS tests for space as stated in XML specifications
+ * \param ch
+ * \return
+ */
+bool XmlUtils::isS(const QChar &qch)
+{
+    ushort ch = qch.unicode();
+    if((0x20 == ch)
+            || (0x09 == ch)
+            || (0x0D == ch)
+            || (0x0A == ch)) {
+        return true;
+    }
+    return false;
+}

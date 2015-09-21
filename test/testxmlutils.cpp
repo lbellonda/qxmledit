@@ -34,6 +34,10 @@ TestXmlUtils::~TestXmlUtils()
 bool TestXmlUtils::testUnits()
 {
     _testName = "testUnits";
+    if(!testParsing()) {
+        return false;
+    }
+
     if(!testNsPrefix()) {
         return false;
     }
@@ -110,4 +114,42 @@ bool TestXmlUtils::testDecodeQualifiedName()
     return true;
 }
 
+bool TestXmlUtils::checkIs(const QChar &ch, const bool expectedResult)
+{
+    const bool result = XmlUtils::isS(ch);
+    if(result != expectedResult) {
+        return error(QString("Decode '%1' expected %2, found %3")
+                     .arg(QString::number(ch.unicode(), 16))
+                     .arg(expectedResult)
+                     .arg(result));
+    }
+    return true ;
+}
+
+bool TestXmlUtils::testParsing()
+{
+    _testName = "testUnits/testParsing";
+    if(!checkIs(0x20, true) ) {
+        return false ;
+    }
+    if(!checkIs(0x09, true) ) {
+        return false ;
+    }
+    if(!checkIs(0x0D, true) ) {
+        return false ;
+    }
+    if(!checkIs(0x0A, true) ) {
+        return false ;
+    }
+    if(!checkIs(0x21, false) ) {
+        return false ;
+    }
+    if(!checkIs('a', false) ) {
+        return false ;
+    }
+    if(!checkIs('[', false) ) {
+        return false ;
+    }
+    return true;
+}
 

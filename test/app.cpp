@@ -46,6 +46,7 @@ bool App::internalInit()
     }
     Config::setBackend(&_configBackend);
     Config::saveBool(Config::KEY_SESSIONS_ENABLED, false);
+    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, false);
     if( !sessionDBPath.isEmpty()) {
         appData.setSessionDBPath(sessionDBPath);
     }
@@ -84,6 +85,7 @@ bool App::init1()
     }
     Config::setBackend(&_configBackend);
     Config::saveBool(Config::KEY_SESSIONS_ENABLED, false);
+    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, false);
     if( !sessionDBPath.isEmpty()) {
         appData.setSessionDBPath(sessionDBPath);
     }

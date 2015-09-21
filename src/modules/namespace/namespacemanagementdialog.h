@@ -58,6 +58,7 @@ private:
     Ui::NamespaceManagementDialog *ui;
 
     void loadOtherDeclarations();
+    void retrieveUriDescription(const QString & text, NamespaceResult *data);
     void init();
     void setupData();
     void decodePrefix();

@@ -42,8 +42,8 @@ public:
     ~NsTableUtils();
 
     void setupTable(QTableWidget *widget);
-    void insNsItem(QTableWidget *table, const int row, const int column, const QString &text, void *data);
-    int insNsInList(QTableWidget *table, const int desiredRow, const QString &prefix, const QString &uri, const QString &description, void *data);
+    void insNsItem(QTableWidget *table, const int row, const int column, const QString &text, void *data, const QString &tooltip);
+    int insNsInList(QTableWidget *table, const int desiredRow, const QString &prefix, const QString &uri, const QString &schemaLocation, const QString &description, void *data);
     void *userData(QTableWidget *table, const int row, const int column);
     template<typename T>
     inline T* userDataType(QTableWidget *table, const int row, const int column) {

@@ -44,6 +44,8 @@ class MetadataInfo;
 class PseudoAttribute;
 class QUndoGroup;
 class QXmlEditData;
+class NamespaceReferenceEntry;
+class XMLLoadContext;
 
 class LIBQXMLEDITSHARED_EXPORT DocumentDeviceProvider
 {
@@ -83,6 +85,12 @@ class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
     QUndoStack _undoStack;
     XmlProlog _prolog;
 public:
+    enum ESaveAttributes {
+        SaveAttributesUsingDefault,
+        SaveAttributesSortingAlphabetically,
+        SaveAttributesNoSort
+    };
+
     static const QString XsltNameSpace;
     static const QString XSDNameSpace;
     static const QString XSDSchemaInstance;
@@ -95,9 +103,11 @@ private:
     EditTextHook _editTextHook ;
 
     QString _originalEncoding;
+    ESaveAttributes _saveAttributesMethod;
 
 public:
     Regola(QDomDocument &document, const QString &name, const bool useMixedContent = false);
+    Regola(const QString &name, const bool useMixedContent = false);
     Regola();
     ~Regola();
 
@@ -134,7 +144,8 @@ public:
     void setUseMixedContent(const bool value);
 
     QString docType();
-    void setDocType(const QString& newDocType, const QString &systemId, const QString &publicId);
+    void setDocType(const QString& newDocType, const QString &systemId, const QString &publicId, const QString& newDtd);
+    DocumentType *docTypeInfo();
 
     void setPaintInfo(PaintInfo *newValue);
     PaintInfo *getPaintInfo();
@@ -154,7 +165,10 @@ public:
     bool write(const QString &filePath);
     bool write(const QString &filePath, const bool isMarkSaved);
     bool write(QIODevice *device, const bool isMarkSaved);
-    bool writeAlt(QIODevice *device, const bool isMarkSaved);
+    bool writeStream(QIODevice *device, const bool isMarkSaved, ElementLoadInfoMap *map = NULL);
+private:
+    bool writeStreamInternal(QIODevice *device, const bool useEncoding, ElementLoadInfoMap *map);
+public:
     bool writeAsJavaString(QIODevice *device);
     bool writeAsCString(QIODevice *device);
     bool writeAsJavaStringInFile(const QString &filePath);
@@ -162,6 +176,9 @@ public:
     QByteArray writeMemory();
     QString getAsText();
     QString getAsText(ElementLoadInfoMap *map);
+private:
+    QString getAsTextStream(ElementLoadInfoMap *map);
+public:
     void removeAllElements(QTreeWidget *tree);
     void insertElementForce(Element *element);
     Element * syncRoot();
@@ -300,15 +317,6 @@ public:
     Element *findChildElementByArray(Element *element, QList<int> &selection, const int listPos);
     Element *findElementByArray(QList<int> &selection);
 
-    enum EInsSchemaRefInfo {
-        INSERT_SCHEMA_ATTR_NOERROR = 0,
-        INSERT_SCHEMA_ATTR_ERROR_NOROOT,
-        INSERT_SCHEMA_ATTR_INFO_SCHEMAPRESENT,
-        INSERT_SCHEMA_ATTR_INFO_REFPRESENT
-    };
-    EInsSchemaRefInfo insertNoNamespaceSchemaReferenceAttributes();
-    EInsSchemaRefInfo insertSchemaReferenceAttributes();
-
     QString textOfCantEditMixedContentElementText();
     void hideLeafNodes();
     void showLeafNodes();
@@ -343,6 +351,8 @@ public:
     QString namespacePrefixFor(const QString &ns);
     QString namespacePrefixXSD();
     QString namespacePrefixXslt();
+    QString namespacePrefixXSI();
+    QString namespacePrefixInRoot(const QString &namespaceToFind);
     QMap<QString, QString> namespaces();
     QString getCachedPrefixNS(const QString &nsURI);
     bool hasXSLTNamespace();
@@ -352,6 +362,7 @@ public:
     bool removeXSITypeAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
     bool insertNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
     bool insertXSITypeAttribute(QTreeWidget *tree, Element *currentElement, const QString &typeValue, NamespaceManager &namespaceManager);
+    bool insertXSDReference(QTreeWidget *tree, NamespaceManager &namespaceManager, NamespaceReferenceEntry *command);
 
     static QList<Element*> decodeXMLFromString(const QString &input, const bool onlyRootElement, const bool onlyElements = true);
 
@@ -389,10 +400,23 @@ public:
 
     RegolaSettings *getSettings();
     void restoreSettings(RegolaSettings *settings);
-
+    void XSDReferences(NamespaceReferenceEntry *entry);
 
     NamespaceManager *namespaceManager() const;
     void setNamespaceManager(NamespaceManager *namespaceManager);
+
+    bool isSavingSortingAttributes();
+
+    ESaveAttributes saveAttributesMethod() const;
+    void setSaveAttributesMethod(const ESaveAttributes saveAttributesMethod);
+    static bool isSaveSortAlphaAttribute();
+    static bool isSaveUsingStream();
+
+    bool readFromStream(XMLLoadContext *context, QXmlStreamReader *xmlReader);
+
+    QString dtd();
+    void setDtd(const QString &dtd);
+    bool setNewDTD(const QString &newDtd);
 
 signals:
     void wasModified();
@@ -418,6 +442,8 @@ private:
     /**
       XSD file referenced in the document (if any)
       */
+    bool _useNoNamespaceXSD ; // attribute declared or not
+    bool _useNamespaceXSD ; // attribute declared or not
     QString     _noNameSpaceXsd;
     QString     _documentXsd ; // see the note about xsd handling
     // list of namespaces - namespace name e.g.: <xsi, http://www.w3.org/2001/XMLSchema-instance>
@@ -426,6 +452,7 @@ private:
     QHash<QString, QString> _namespacesByNameAndPrefix;
     // list of schemas - location e.g.: <http://www.w3.org/2001/XMLSchema-instance, xxx.xsd>
     QHash<QString, QString> _schemaLocationsByNamespace;
+    QList<QPair<QString, QString> > _schemaLocationsList;
     QString     _userDefinedXsd;
     /**
       collect or not size informations about elements while editing
@@ -484,8 +511,15 @@ private:
     bool removeXSIAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager, const QString &attributeToRemove);
     bool insertXSIAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager,
                             const QString &newAttributeName, const QString &newAttribueValue);
-
+#ifdef  QXMLEDIT_TEST
     friend class TestSearch;
+    friend class TestInsertXsdReference;
+#endif
+
+    bool setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader *xmlReader, Element *parent, QVector<Element*> *collection, const bool isTopLevel);
+    bool decodePreamble(QXmlStreamReader *xmlReader, const QString &encoding);
+    bool filterCommentsAfterReading(XMLLoadContext *context);
+
 };
 
 // external edit

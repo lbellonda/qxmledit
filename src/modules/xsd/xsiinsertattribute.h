@@ -26,10 +26,11 @@
 
 #include <QString>
 #include <QWidget>
+#include "libQXmlEdit_global.h"
 
 class Regola;
 class Element;
 
-QString askNewXSITypeAttribute(QWidget *parent, const QString &xsdPrefix);
+QString LIBQXMLEDITSHARED_EXPORT askNewXSITypeAttribute(QWidget *parent, const QString &xsdPrefix);
 
 #endif // XSIINSERTATTRIBUTE_H

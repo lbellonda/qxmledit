@@ -85,6 +85,9 @@
 #include "testxsitype.h"
 #include "testusernamespaces.h"
 #include "testxmlutils.h"
+#include "testinsertxsdreference.h"
+#include "testsortattributes.h"
+#include "testopeninnewwindow.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -170,6 +173,9 @@ private Q_SLOTS:
     void testXSIType();
     void testNamespace();
     void testXmlUtils();
+    void testInsertXsdReference();
+    void testSortAttributes();
+    void testOpenInNewWindow();
 };
 
 

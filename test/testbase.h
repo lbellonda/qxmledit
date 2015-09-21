@@ -43,6 +43,7 @@ protected:
 
     bool error(const QString &testName, const QString &msg);
     bool error(const QString &msg);
+    bool error(const TestBase &inner);
     static bool False();
     void resetError();
 private:

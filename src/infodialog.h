@@ -46,7 +46,10 @@ class InfoDialog : public QDialog
     Q_OBJECT
 
     Regola *_regola;
+    bool _isReadOnly;
+    QString _dtd;
 
+    void setDtd();
     void setEncodingInfo();
     void setNamespaceInfo();
     void setSchemaReferenceInfo();
@@ -55,11 +58,16 @@ class InfoDialog : public QDialog
     void insNamespace(const QString &ns, const QString &uri, const QString &role);
     void setFileInfo();
 public:
-    explicit InfoDialog(QWidget *parent, Regola *regola);
+    explicit InfoDialog(QWidget *parent, Regola *regola, const bool isReadOnly);
     ~InfoDialog();
+
+    QString dtd();
 
 private:
     Ui::InfoDialog *ui;
+
+public slots:
+    void accept();
 };
 
 void showInfo(QWidget *parent, Regola *regola);

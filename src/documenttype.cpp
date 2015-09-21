@@ -20,8 +20,9 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "documenttype.h"
+#include "xmlutils.h"
+#include "utils.h"
 
 DocumentType::DocumentType()
 {
@@ -37,30 +38,25 @@ QString DocumentType::docType()
     return _docType ;
 }
 
-
 void DocumentType::setDocType(const QString& value)
 {
     _docType = value ;
 }
-
 
 QString DocumentType::systemId()
 {
     return _systemId ;
 }
 
-
 void DocumentType::setSystemId(const QString& value)
 {
     _systemId = value ;
 }
 
-
 QString DocumentType::publicId()
 {
     return _publicId ;
 }
-
 
 void DocumentType::setPublicId(const QString& value)
 {
@@ -73,6 +69,53 @@ bool DocumentType::hasDocType()
         return false;
     }
     return true ;
+}
+
+QString DocumentType::dtd() const
+{
+    return _dtd;
+}
+
+void DocumentType::setDtd(const QString &dtd)
+{
+    // W3c specifications state that dtd does not have blanks before or after
+    _dtd = dtd.trimmed();
+    // Note: change name and public id as well
+    _docType = parseDocType();
+}
+
+QString DocumentType::parseDocType()
+{
+    QString src = _dtd.trimmed();
+    //doctypedecl ::= '<!DOCTYPE' S Name (S ExternalID)? S? ('[' int
+    const QString DOCTYPE = "<!DOCTYPE";
+    const int lenSrc = src.length() ;
+    int indexOfStart = src.indexOf(DOCTYPE);
+    if((indexOfStart >= 0) && (indexOfStart < 10)) {
+        indexOfStart += DOCTYPE.length();
+        QChar ch = src.at(indexOfStart);
+        while(XmlUtils::isS(ch)) {
+            indexOfStart++;
+            if(indexOfStart >= lenSrc) {
+                return "";
+            }
+            ch = src.at(indexOfStart);
+        }
+        // here the name
+        int startIndex = indexOfStart;
+        // look for end
+        while(!XmlUtils::isS(ch) && (ch.unicode() != '[') && (ch.unicode() != '>')) {
+            indexOfStart++;
+            if(indexOfStart >= lenSrc) {
+                return "";
+            }
+            ch = src.at(indexOfStart);
+        }
+        int endIndexPlusOne = indexOfStart;
+        QString newDtd = src.mid(startIndex, endIndexPlusOne - startIndex);
+        return newDtd;
+    }
+    return "";
 }
 
 QDomDocument DocumentType::createDocument()

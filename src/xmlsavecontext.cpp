@@ -22,11 +22,12 @@
 
 #include "xmlsavecontext.h"
 
-
 XMLSaveContext::XMLSaveContext()
 {
     _isDoIndent = false ;
     _indentation = 0;
+    _isSortAttributesAlpha = false ;
+    _isDTDWritten = false ;
 }
 
 XMLSaveContext::~XMLSaveContext()
@@ -51,4 +52,24 @@ int XMLSaveContext::indentation() const
 void XMLSaveContext::setIndentation(int indentation)
 {
     _indentation = indentation;
+}
+
+bool XMLSaveContext::isSortAttributesAlpha() const
+{
+    return _isSortAttributesAlpha;
+}
+
+void XMLSaveContext::setIsSortAttributesAlpha(bool isSortAttributesAlpha)
+{
+    _isSortAttributesAlpha = isSortAttributesAlpha;
+}
+
+bool XMLSaveContext::isDTDWritten() const
+{
+    return _isDTDWritten;
+}
+
+void XMLSaveContext::setIsDTDWritten(bool isDTDWritten)
+{
+    _isDTDWritten = isDTDWritten;
 }

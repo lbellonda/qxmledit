@@ -66,11 +66,6 @@ bool TestEditElements::error1()
     return false;
 }
 
-bool TestEditElements::testFast()
-{
-    return testNamespaces();
-}
-
 bool TestEditElements::test()
 {
     {
@@ -146,7 +141,7 @@ bool TestEditElements::test()
     /*{
         TestEditElements test;
         if( !test.insertElementAtRootNoSel() ) {
-            return error1();
+            return error(test);
         }
     }*/
     {
@@ -1053,5 +1048,15 @@ bool TestEditElements::testInsertElement()
         return false;
     }
     return true;
+}
+
+bool TestEditElements::testFast()
+{
+    QList<int> sel;
+    sel << 1 << 0 << 0 ;
+    if(!testLoadElm(NS_FILE_INS1, "a:", sel, true )) {
+        return false;
+    }
+    return testNamespaces();
 }
 

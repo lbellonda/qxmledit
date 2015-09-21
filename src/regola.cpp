@@ -22,6 +22,7 @@
 
 #include "regoladefinitions.h"
 #include "undo/elupdateelementcommand.h"
+#include "undo/undodtd.h"
 #include "xmlsavecontext.h"
 
 //-----
@@ -93,6 +94,18 @@ Regola::Regola(QDomDocument &document, const QString &name, const bool useMixedC
     //dumpDocument(document);
 }
 
+Regola::Regola(const QString &name, const bool useMixedContent)
+{
+    housework();
+    _useMixedContent = useMixedContent ;
+    paintInfo = new PaintInfo() ;
+    modified = false;
+    _collectSizeData = false ;
+    xmlFileName = name ;
+    // Assegna i valori.
+    rootItem = NULL;
+}
+
 Regola::Regola()
 {
     housework();
@@ -114,6 +127,9 @@ Regola::~Regola()
 
 void Regola::housework()
 {
+    _saveAttributesMethod = SaveAttributesUsingDefault ;
+    _useNoNamespaceXSD = false;
+    _useNamespaceXSD = false ;
     _namespaceManager = NULL ;
     _useIndent = false;
     _indent = QXmlEditData::XmlIndentDefault ;
@@ -262,113 +278,6 @@ void Regola::markEdited()
     }
 }
 
-Element *Regola::assegnaValori(QDomNode &node, Element *parent, QVector<Element*> *collection)
-{
-    _isCrapCacheNSActivated = false;
-    D(printf("sono in assegna \n"));
-    int nodi = node.childNodes().count();
-    // this it the only legal root item
-    Element *elem = NULL ;
-    D(printf("sono in assegna con %d nodi\n", nodi));
-    bool isMixedContent = false ;
-    bool isElement = false ;
-    bool isText = false ;
-    QDomNodeList childNodes = node.childNodes();
-
-    if(_useMixedContent) {
-        isMixedContent = true ;
-    } else {
-        // look for mixed content
-        for(int i = 0 ; i < nodi ; i ++) {
-            QDomNode childNode = childNodes.item(i) ;
-            if(childNode.isElement()) {
-                if(isText) {
-                    isMixedContent = true ;
-                    break;
-                }
-                isElement = true ;
-            } else if(childNode.isText()) {
-                if(isElement) {
-                    isMixedContent = true ;
-                    break;
-                }
-                isText = true ;
-            } else if(childNode.isCDATASection()) {
-                if(isElement) {
-                    isMixedContent = true ;
-                    break;
-                }
-                isText = true ;
-            }
-        }
-    }
-    for(int i = 0 ; i < nodi ; i ++) {
-        QDomNode childNode = childNodes.item(i) ;
-        D(printf("trovato %d %s=%s\n", childNode.nodeType(), childNode.nodeName().toAscii().data(), childNode.nodeValue().toAscii().data()));
-
-        if(childNode.isElement()) {
-            //printf("trovato testo %s\n", childNode.nodeValue().toAscii().data());
-            QDomElement element = childNode.toElement();
-            elem = new Element(addNameToPool(element.tagName()), "", this, parent) ;
-
-            if(element.hasAttributes()) {
-                QDomNamedNodeMap attrList = element.attributes();
-                int attrMax = attrList.count();
-                for(int a = 0 ; a < attrMax ; a ++) {
-                    QDomAttr attr = attrList.item(a).toAttr();
-                    Attribute *attribute = new Attribute(getAttributeString(attr.name()), getAttributeString(attr.value()));
-                    elem->attributes.append(attribute);
-                }
-            }
-            D(printf(" add child %d %s\n", i, element.tagName().toAscii().data()));
-            collection->append(elem);
-            assegnaValori(childNode, elem, elem->getChildItems());
-        } else if(childNode.isCDATASection()) {
-            QDomCDATASection text = childNode.toCDATASection();
-            if(isMixedContent) {
-                assignMixedContentText(parent, text.data(), true, collection);
-            } else {
-                TextChunk *txt = new TextChunk(true, text.data());
-                parent->addTextNode(txt);
-            }
-        } else if(childNode.isText()) {
-            QDomText text = childNode.toText();
-            if(isMixedContent) {
-                assignMixedContentText(parent, text.data(), false, collection);
-            } else {
-                TextChunk *txt = new TextChunk(false, text.data());
-                parent->addTextNode(txt);
-            }
-        } else if(childNode.isProcessingInstruction()) {
-            QDomProcessingInstruction procInstrNode = childNode.toProcessingInstruction();
-            Element *procInstr = new Element(this, Element::ET_PROCESSING_INSTRUCTION, parent) ;
-            procInstr->setPIData(procInstrNode.data());
-            procInstr->setPITarget(procInstrNode.target());
-            collection->append(procInstr);
-            assegnaValori(childNode, procInstr, procInstr->getChildItems());
-        } else if(childNode.isComment()) {
-            QDomComment commentNode = childNode.toComment();
-            Element *comment = new Element(this, Element::ET_COMMENT, parent) ;
-            comment->setText(commentNode.data());
-            collection->append(comment);
-            assegnaValori(childNode, comment, comment->getChildItems());
-        } else if(childNode.isEntity()) {
-            Utils::error(tr("This XML contanins an entity. Entities are not supported in editing."));
-        } else if(childNode.isEntityReference()) {
-            Utils::error(tr("This XML contanins an entity reference. Entity references are not supported in editing."));
-            QDomEntityReference reference = childNode.toEntityReference();
-            QString refStr = QString("&%1;").arg(reference.nodeName());
-            if(isMixedContent) {
-                assignMixedContentText(parent, refStr, false, collection);
-            } else {
-                TextChunk *txt = new TextChunk(false, refStr);
-                parent->addTextNode(txt);
-            }
-        } //if
-    }//for
-    return elem;
-}//assegnaValori()
-
 void Regola::assignMixedContentText(Element *parent, const QString &text, const bool isCData, QVector<Element*> *collection)
 {
     Element *textElement = new Element(this, Element::ET_TEXT, parent) ;
@@ -394,6 +303,10 @@ QDomDocument Regola::createNewDocument()
 
 bool Regola::write(QIODevice *device, const bool isMarkSaved)
 {
+    if(isSaveUsingStream()) {
+        return writeStream(device, isMarkSaved);
+    }
+
     //QDomImplementation::setInvalidDataPolicy(QDomImplementation::AcceptInvalidChars);
     QDomDocument    document = createNewDocument();
     //document.setInvalidDataPolicy(QDomImplementation::ReturnNullNode); TODO
@@ -426,7 +339,55 @@ bool Regola::write(QIODevice *device, const bool isMarkSaved)
     return true;
 }
 
-bool Regola::writeAlt(QIODevice *device, const bool isMarkSaved)
+bool Regola::writeStreamInternal(QIODevice *device, const bool useEncoding, ElementLoadInfoMap *map)
+{
+    if(!device->isOpen()) {
+        if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
+            Utils::error(tr("Error writing data: %1").arg(device->errorString()));
+            return false;
+        }
+    }
+
+    QXmlStreamWriter outputStream(device);
+    XMLSaveContext context;
+    context.setIndentation(_indent);
+    context.setIsSortAttributesAlpha(isSavingSortingAttributes());
+
+    outputStream.setAutoFormatting(false);
+    outputStream.setAutoFormattingIndent(_indent);
+    QString theEncoding = encoding();
+    if(useEncoding) {
+        outputStream.setCodec(theEncoding.toLatin1().data());
+    } else {
+        outputStream.setCodec("UTF-8"); // this should be the default anyway
+    }
+
+    int index = 0 ;
+    QVectorIterator<Element*> it(childItems);
+    while(it.hasNext()) {
+        Element* child = it.next();
+        if(!child->writeStream(&context, outputStream, map)) {
+            return false;
+        }
+        if((0 == index) && (child->getType() == Element::ET_PROCESSING_INSTRUCTION) && (child->getPITarget() == "xml")) {
+            if(!_docType->dtd().isEmpty()) {
+                outputStream.writeDTD(_docType->dtd());
+                context.setIsDTDWritten(true);
+            }
+
+        }
+        index ++ ;
+    }
+    if((_indent >= 0) && !childItems.isEmpty()) {
+        outputStream.writeCharacters("\n");
+    }
+
+    device->close();
+
+    return true;
+}
+
+bool Regola::writeStream(QIODevice *device, const bool isMarkSaved, ElementLoadInfoMap *map)
 {
     if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
         Utils::error(tr("Error writing data: %1").arg(device->errorString()));
@@ -434,35 +395,17 @@ bool Regola::writeAlt(QIODevice *device, const bool isMarkSaved)
     }
 
     Utils::TODO_NEXT_RELEASE("fare doctype");
-    QXmlStreamWriter outputStream(device);
-    XMLSaveContext context;
-    context.setIndentation(_indent);
-
-    outputStream.setAutoFormatting(false);
-    outputStream.setAutoFormattingIndent(_indent);
-    QString theEncoding = encoding();
-    outputStream.setCodec(theEncoding.toLatin1().data());
-
-    QVectorIterator<Element*> it(childItems);
-    while(it.hasNext()) {
-        if(!it.next()->writeAlt(&context, outputStream)) {
-            return false;
+    bool result = writeStreamInternal(device, true, map);
+    if(result) {
+        if(isMarkSaved) {
+            foreach(Element * ep, childItems) {
+                ep->markSavedRecursive();
+            }
         }
+        // TODO: repaint only if modified, and only if visible
+        redisplay();
     }
-    if((_indent >= 0) && !childItems.isEmpty()) {
-        outputStream.writeCharacters("\n");
-    }
-
-    device->close();
-    if(isMarkSaved) {
-        foreach(Element * ep, childItems) {
-            ep->markSavedRecursive();
-        }
-    }
-    // TODO: repaint only if modified, and only if visible
-    redisplay();
-
-    return true;
+    return result;
 }
 
 bool Regola::write(const QString &filePath, const bool isMarkSaved)
@@ -492,6 +435,9 @@ QString Regola::getAsText()
 
 QString Regola::getAsText(ElementLoadInfoMap *map)
 {
+    if(isSaveUsingStream()) {
+        return getAsTextStream(map);
+    }
     QDomDocument    document = createNewDocument();
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
@@ -500,6 +446,17 @@ QString Regola::getAsText(ElementLoadInfoMap *map)
     }
     QString result = document.toString(_indent);
     return result ;
+}
+
+QString Regola::getAsTextStream(ElementLoadInfoMap *map)
+{
+    QBuffer buffer ;
+    bool result = writeStreamInternal(&buffer, true, map);
+    if(result) {
+        return QString::fromUtf8(buffer.data());
+    } else {
+        return "";
+    }
 }
 
 
@@ -1633,11 +1590,14 @@ void Regola::setUserDefinedXsd(const QString &path)
 
 void Regola::checkValidationReference()
 {
+    _useNoNamespaceXSD = false;
+    _useNamespaceXSD = false;
     _noNameSpaceXsd = "" ;
     _documentXsd = "" ;
     _namespacesByPrefixAndName.clear();
     _namespacesByNameAndPrefix.clear();
     _schemaLocationsByNamespace.clear();
+    _schemaLocationsList.clear();
     Element *theRoot = root();
     if(NULL != theRoot) {
         QString attrNSName ;
@@ -1660,7 +1620,7 @@ void Regola::checkValidationReference()
                 _namespacesByPrefixAndName.insert(ns, attr->value);
                 _namespacesByNameAndPrefix.insert(attr->value, ns);
                 // look for special value to identify schema namespace
-                if(attr->value == SCHEMA_URI) {
+                if(attr->value == Regola::XSDSchemaInstance) {
                     schemaURIAttr = attr ;
                     namespaceXsi = ns ;
                 }
@@ -1669,20 +1629,20 @@ void Regola::checkValidationReference()
 
         // found the namespace of xsi, lookup for locations
         if(NULL != schemaURIAttr) {
-            attrNSName = namespaceXsi + ":";
-            attrNSName += SCHEMA_LOCATION;
-            attrNSNoNamespace = namespaceXsi + ":";
-            attrNSNoNamespace += SCHEMA_NONS_LOCATION ;
+            attrNSName = XmlUtils::makeQualifiedName(namespaceXsi, SCHEMA_LOCATION_LITERAL);
+            attrNSNoNamespace = XmlUtils::makeQualifiedName(namespaceXsi, SCHEMA_NONS_LOCATION_LITERAL);
 
             Attribute * attrNoNs = theRoot->getAttribute(attrNSNoNamespace);
             if(NULL != attrNoNs) {
                 _noNameSpaceXsd = attrNoNs->value;
                 _documentXsd = _noNameSpaceXsd ;
+                _useNoNamespaceXSD = true ;
             }
             // ---------------------------------------------------
             // get all the attributes
             Attribute * attr = theRoot->getAttribute(attrNSName);
             if(NULL != attr) {
+                _useNamespaceXSD = true ;
                 QString value = attr->value;
                 decodeASchema(value);
                 // set the first
@@ -1736,6 +1696,7 @@ void Regola::decodeASchema(const QString &value)
     QStringList schemas = normalizedValue.split(" ");
     int schemasNumber = schemas.size() / 2;
     for(int i = 0 ; i < schemasNumber ; i ++) {
+        _schemaLocationsList.append(QPair<QString, QString>(schemas.at(2 * i), schemas.at(2 * i + 1)));
         _schemaLocationsByNamespace.insert(schemas.at(2 * i), schemas.at(2 * i + 1));
     }
     //} else {
@@ -2031,71 +1992,6 @@ Element *Regola::findChildElementByArray(Element *element, QList<int> &selection
     return findChildElementByArray(thisElement, selection, listPos + 1);
 }
 
-Regola::EInsSchemaRefInfo Regola::insertNoNamespaceSchemaReferenceAttributes()
-{
-    clearUndo();
-    Element* theRoot = root();
-    if(NULL == theRoot) {
-        return INSERT_SCHEMA_ATTR_ERROR_NOROOT ;
-    }
-    Regola::EInsSchemaRefInfo returnCode = INSERT_SCHEMA_ATTR_NOERROR;
-    Attribute * attrNSSchema = root()->getAttribute(XSI_NAMESPACE_COMPLETE);
-    Attribute * attrNSReference = root()->getAttribute(ATTRIBUTE_SCHEMA_NONS_LOCATION);
-
-    if(NULL == attrNSSchema) {
-        theRoot->addAttribute(XSI_NAMESPACE_COMPLETE, SCHEMA_URI);
-    } else {
-        returnCode = INSERT_SCHEMA_ATTR_INFO_SCHEMAPRESENT;
-    }
-
-    if(NULL == attrNSReference) {
-        theRoot->addAttribute(ATTRIBUTE_SCHEMA_NONS_LOCATION, "***");
-    } else {
-        returnCode = INSERT_SCHEMA_ATTR_INFO_REFPRESENT ;
-    }
-    theRoot->markEdited();
-    QTreeWidgetItem *item = theRoot->getUI();
-    if(NULL != item) {
-        theRoot->display(item, paintInfo);
-    }
-
-    setModified(true);
-
-    return returnCode ;
-}
-
-Regola::EInsSchemaRefInfo Regola::insertSchemaReferenceAttributes()
-{
-    clearUndo();
-    Element* theRoot = root();
-    if(NULL == theRoot) {
-        return INSERT_SCHEMA_ATTR_ERROR_NOROOT ;
-    }
-    Regola::EInsSchemaRefInfo returnCode = INSERT_SCHEMA_ATTR_NOERROR;
-    Attribute * attrNSSchema = root()->getAttribute(XSI_NAMESPACE_COMPLETE);
-    Attribute * attrNSReference = root()->getAttribute(ATTRIBUTE_SCHEMA_LOCATION);
-
-    if(NULL == attrNSSchema) {
-        theRoot->addAttribute(XSI_NAMESPACE_COMPLETE, SCHEMA_URI);
-    } else {
-        returnCode = INSERT_SCHEMA_ATTR_INFO_SCHEMAPRESENT;
-    }
-
-    if(NULL == attrNSReference) {
-        theRoot->addAttribute(ATTRIBUTE_SCHEMA_LOCATION, "***");
-    } else {
-        returnCode = INSERT_SCHEMA_ATTR_INFO_REFPRESENT ;
-    }
-
-    theRoot->markEdited();
-    QTreeWidgetItem *item = theRoot->getUI();
-    if(NULL != item) {
-        theRoot->display(item, paintInfo);
-    }
-
-    setModified(true);
-    return returnCode ;
-}
 
 QString Regola::textOfCantEditMixedContentElementText()
 {
@@ -2580,7 +2476,12 @@ QString Regola::docType()
     return _docType->docType() ;
 }
 
-void Regola::setDocType(const QString& newDocType, const QString &systemId, const QString &publicId)
+DocumentType *Regola::docTypeInfo()
+{
+    return _docType;
+}
+
+void Regola::setDocType(const QString& newDocType, const QString &systemId, const QString &publicId, const QString& newDtd)
 {
     bool changed = false ;
     if(newDocType != _docType->docType()) {
@@ -2592,7 +2493,11 @@ void Regola::setDocType(const QString& newDocType, const QString &systemId, cons
     if(publicId != _docType->publicId()) {
         changed = true ;
     }
-
+    if(newDtd != _docType->dtd()) {
+        changed = true ;
+    }
+    // this first!
+    _docType->setDtd(newDtd);
     _docType->setDocType(newDocType) ;
     _docType->setPublicId(publicId);
     _docType->setSystemId(systemId);
@@ -2601,11 +2506,10 @@ void Regola::setDocType(const QString& newDocType, const QString &systemId, cons
     }
 }
 
-
 void Regola::processDocument(QDomDocument &document)
 {
     QDomDocumentType dtype = document.doctype();
-    setDocType(dtype.name(), dtype.systemId(), dtype.publicId());
+    setDocType(dtype.name(), dtype.systemId(), dtype.publicId(), "");
 }
 
 QString Regola::namespacePrefixFor(const QString &ns)
@@ -2669,18 +2573,28 @@ void Regola::namespacesPrefixFor(const QString &ns, Element *element, QSet<QStri
     }
 }
 
-QString Regola::namespacePrefixXslt()
+QString Regola::namespacePrefixInRoot(const QString &namespaceToFind)
 {
     QString ns ;
     if(NULL != rootItem) {
         foreach(Attribute * attribute, rootItem->getAttributesList()) {
-            if(attribute->name.startsWith("xmlns:") && (attribute->value == Regola::XsltNameSpace)) {
+            if(XmlUtils::isDeclaringNS(attribute->name) && (attribute->value == namespaceToFind)) {
                 ns = XmlUtils::namespacePrefix(attribute->name);
-                break;
+                return ns ;
             }
         }
     }
     return ns;
+}
+
+QString Regola::namespacePrefixXslt()
+{
+    return namespacePrefixInRoot(Regola::XsltNameSpace);
+}
+
+QString Regola::namespacePrefixXSI()
+{
+    return namespacePrefixInRoot(Regola::XSDSchemaInstance);
 }
 
 QString Regola::namespaceOfPrefix(const QString &prefix)
@@ -2928,5 +2842,63 @@ NamespaceManager *Regola::namespaceManager() const
 void Regola::setNamespaceManager(NamespaceManager *namespaceManager)
 {
     _namespaceManager = namespaceManager;
+}
+
+bool Regola::isSavingSortingAttributes()
+{
+    if(SaveAttributesUsingDefault == _saveAttributesMethod) {
+        return Regola::isSaveSortAlphaAttribute();
+    }
+    return SaveAttributesSortingAlphabetically == _saveAttributesMethod ;
+}
+
+bool Regola::isSaveSortAlphaAttribute()
+{
+    return Config::getBool(Config::KEY_XML_SAVE_SORTATTRIBUTES, false);
+}
+
+bool Regola::isSaveUsingStream()
+{
+    return Config::getBool(Config::KEY_XML_SAVE_STREAM, true);
+}
+
+Regola::ESaveAttributes Regola::saveAttributesMethod() const
+{
+    return _saveAttributesMethod;
+}
+
+void Regola::setSaveAttributesMethod(const ESaveAttributes saveAttributesMethod)
+{
+    _saveAttributesMethod = saveAttributesMethod;
+}
+
+void Regola::setDtd(const QString &dtd)
+{
+    // remove - possibly old -data
+    _docType->setPublicId("");
+    _docType->setSystemId("");
+    _docType->setDtd(dtd);
+    emit docTypeChanged(_docType->docType());
+}
+
+QString Regola::dtd()
+{
+    return _docType->dtd();
+}
+
+bool Regola::setNewDTD(const QString &newDtd)
+{
+    if(newDtd != dtd()) {
+        UndoDtd *undoCommand = new UndoDtd(this, newDtd);
+        if(NULL == undoCommand) {
+            clearUndo();
+            setDtd(newDtd);
+        } else {
+            _undoStack.push(undoCommand);
+        }
+        setModified(true);
+        return true;
+    }
+    return false;
 }
 

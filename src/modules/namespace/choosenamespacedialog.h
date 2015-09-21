@@ -26,20 +26,12 @@
 
 #include "xmlEdit.h"
 #include "modules/namespace/nstableutils.h"
+#include "modules/namespace/namespaceresult.h"
 
 namespace Ui
 {
 class ChooseNamespaceDialog;
 }
-
-class NamespaceResult
-{
-public:
-    QString prefix;
-    QString uri;
-    QString description;
-
-};
 
 class NamespaceManager ;
 class UserNamespace;
@@ -57,6 +49,7 @@ public:
     ~ChooseNamespaceDialog();
 
     void nsChosen(NamespaceResult *returnValue);
+    void enablePrefix(const bool isEnabled);
 
 private:
     Ui::ChooseNamespaceDialog *ui;
@@ -70,10 +63,10 @@ private:
     bool persistNamespace(UserNamespace *ns);
     UserNamespace *namespaceForRow(const int row);
     NamespaceDef *predefNamespaceForRow(const int row);
-    void setValues(const QString &prefix, const QString &uri, const QString &description);
+    void setValues(const QString &prefix, const QString &uri, const QString &schemaLocation, const QString &description);
     bool nsIsLegal(const QString &prefix, const QString &uri);
     void enableUNButtons();
-    QString retrieveUriDescription(const QString & text);
+    QString retrieveUriDescription(const QString & text, QString &schemaLocation);
 
 private slots:
     void on_cmdMod_clicked();
@@ -83,8 +76,8 @@ private slots:
     void on_predefNamespaces_cellDoubleClicked(int row, int column);
     void on_userNamespaces_cellClicked(int row, int column);
     void on_userNamespaces_cellDoubleClicked(int row, int column);
-    void on_uri_textEdited(const QString & /*text*/);
-    void on_prefix_textEdited(const QString & /*text*/);
+    void on_uri_textChanged(const QString & /*text*/);
+    void on_prefix_textChanged(const QString & /*text*/);
     void on_userNamespaces_itemSelectionChanged();
 };
 

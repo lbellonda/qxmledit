@@ -47,6 +47,7 @@ class XsltHelper;
 class XSDOperationParameters;
 class AnonAlg ;
 class XSDAnnotationEditProvider;
+class NamespaceReferenceEntry;
 
 namespace Ui
 {
@@ -146,6 +147,7 @@ public:
     void setDisplayMode(const qxmledit::EDisplayMode value);
 
     void setDocument(QDomDocument &document, const QString &filePath, const bool isSetState);
+    bool readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState);
     void setNavigationDataAndEnable(const int minFragment, const int maxFragment);
     void showNavigationBox();
     void showToolbar(const bool how);
@@ -181,6 +183,8 @@ public:
     void insertNilAttribute();
     void removeXSITypeAttribute();
     void insertXSITypeAttribute(const QString &newValue);
+    void insertXmlSchemaReferences();
+    bool insertXsdReference(NamespaceReferenceEntry *entry);
 
     QMenu* getCopyMenu();
 
@@ -258,6 +262,7 @@ public:
     void onActionCompactView(const bool isChecked);
     void onActionShowAlwaysFullTextComments(const bool isShow);
     void onActionHideBrothers();
+    void closeSiblings();
     void onActionFixedSizeAttributes(const bool isChecked);
     void onActionShowAttributesLength(const bool isChecked);
     void onActionShowCurrentElementTextBase64(const bool isChecked);
@@ -283,8 +288,6 @@ public:
     void onActionNewUsingXMLSchema(const QString &schemaURL);
     void onActionTransformInComment();
     void onActionExtractElementsFromComment();
-    void onActionInsertNoNamespaceSchemaReferenceAttributes();
-    void onActionInsertSchemaReferenceAttributes();
     Element* onActionHideLeafChildren();
     void onActionHideAllLeafChildren();
     Element* onActionShowLeafChildren();

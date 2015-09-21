@@ -165,6 +165,7 @@
     <addaction name="menuNew_of_Kind"/>
     <addaction name="actionNewUsingXMLSchema"/>
     <addaction name="actionOpen"/>
+    <addaction name="actionOpenSameWindow"/>
     <addaction name="actionXplore"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
@@ -203,8 +204,6 @@
       <addaction name="actionXSDAppendType"/>
       <addaction name="actionXSDAppendAttribute"/>
      </widget>
-     <addaction name="actionInsertNoNamespaceSchemaReferenceAttributes"/>
-     <addaction name="actionInsertSchemaReferenceAttributes"/>
      <addaction name="actionQuickReferenceElements"/>
      <addaction name="separator"/>
      <addaction name="menuInsert"/>
@@ -223,6 +222,8 @@
      <property name="title">
       <string>Schema Instance (XSI)</string>
      </property>
+     <addaction name="actionInsertXmlSchemaReferences"/>
+     <addaction name="separator"/>
      <addaction name="actionInsertNilAttribute"/>
      <addaction name="actionRemoveXSITypeAttribute"/>
      <addaction name="separator"/>
@@ -317,6 +318,7 @@
     <addaction name="actionExpandAll"/>
     <addaction name="actionExpandSelectedItem"/>
     <addaction name="actionHideBrothers"/>
+    <addaction name="actionCloseSiblings"/>
     <addaction name="actionHideAllLeafChildren"/>
     <addaction name="actionShowAllLeafChildren"/>
     <addaction name="menuFilter_Attributes"/>
@@ -1097,22 +1099,6 @@
    </property>
    <property name="toolTip">
     <string>Extract elements from comment.</string>
-   </property>
-  </action>
-  <action name="actionInsertNoNamespaceSchemaReferenceAttributes">
-   <property name="text">
-    <string>Insert No Namespace Schema Reference Attributes</string>
-   </property>
-   <property name="toolTip">
-    <string>Insert No Namespace Schema Reference Attributes</string>
-   </property>
-  </action>
-  <action name="actionInsertSchemaReferenceAttributes">
-   <property name="text">
-    <string>Insert Schema Reference Attributes</string>
-   </property>
-   <property name="toolTip">
-    <string>Insert Schema Reference Attributes</string>
    </property>
   </action>
   <action name="actionExtractFragmentsFromFile">
@@ -1934,6 +1920,37 @@
    </property>
    <property name="toolTip">
     <string>Insert XSI Type Attribute.</string>
+   </property>
+  </action>
+  <action name="actionInsertXmlSchemaReferences">
+   <property name="text">
+    <string>Xml Schema References...</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert XML Schema references.</string>
+   </property>
+  </action>
+  <action name="actionOpenSameWindow">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/open/images/document-open.png</normaloff>:/open/images/document-open.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Open in Same Window...</string>
+   </property>
+   <property name="toolTip">
+    <string>Open in same window.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+O</string>
+   </property>
+  </action>
+  <action name="actionCloseSiblings">
+   <property name="text">
+    <string>Close Brothers</string>
+   </property>
+   <property name="toolTip">
+    <string>Close the siblings of the current element.</string>
    </property>
   </action>
  </widget>

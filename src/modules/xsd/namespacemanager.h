@@ -26,11 +26,12 @@
 
 #include <QString>
 #include <QHash>
+#include "libQXmlEdit_global.h"
 
 class NamespaceDef;
 class DataInterface;
 
-class NamespaceManager
+class LIBQXMLEDITSHARED_EXPORT NamespaceManager
 {
     DataInterface *_dataInterface;
     bool _inited;
@@ -41,9 +42,15 @@ public:
     static const QString XSLFONamespace;
     static const QString XSL1Namespace;
     static const QString XQueryLocalFuncNamespace;
+    static const QString MavenPom4Namespace;
+    static const QString XHTML11Namespace;
+
+    static const QString NoNamespaceSchemaLocationAttributeName;
+    static const QString SchemaLocationAttributeName;
 
     // constants for namespaces
     enum EWellKnownNs {
+        GENERIC_NAMESPACE,
         XSI_NAMESPACE,
         XSD_NAMESPACE,
         XSLFO_NAMESPACE,
@@ -64,7 +71,7 @@ private:
 
     void reset();
     void init();
-    void insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theDescription, const QString &defaultPrefix);
+    void insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theSchemaLocation, const QString &theDescription, const QString &defaultPrefix);
 
 };
 
@@ -72,11 +79,12 @@ private:
 class NamespaceDef
 {
 public:
-    NamespaceDef(const NamespaceManager::EWellKnownNs codeForWellKnown, const QString &theNamespace, const QString &theDescription, const QString &defaultPrefix);
+    NamespaceDef(const NamespaceManager::EWellKnownNs codeForWellKnown, const QString &theNamespace, const QString &theSchemaLocation, const QString &theDescription, const QString &defaultPrefix);
     ~NamespaceDef();
     QString _namespace;
     QString _description;
     QString _defaultPrefix;
+    QString _schemaLocation;
     NamespaceManager::EWellKnownNs _codeForWellKnown;
     QString uri() const;
     void setUri(const QString &value);
@@ -84,6 +92,8 @@ public:
     void setDescription(const QString &description);
     QString defaultPrefix() const;
     void setDefaultPrefix(const QString &defaultPrefix);
+    QString schemaLocation() const;
+    void setSchemaLocation(const QString &location);
 };
 
 #endif // NAMESPACEMANAGER_H

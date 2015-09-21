@@ -39,12 +39,12 @@ void NsTableUtils::setupTable(QTableWidget *widget)
     widget->setHorizontalHeaderLabels(labels);
 }
 
-void NsTableUtils::insNsItem(QTableWidget *table, const int row, const int column, const QString &text, void *data)
+void NsTableUtils::insNsItem(QTableWidget *table, const int row, const int column, const QString &text, void *data, const QString &tooltip)
 {
     QTableWidgetItem *item = new QTableWidgetItem(text);
     item->setFlags(item->flags()& ~(Qt::ItemIsEditable | Qt::ItemIsUserCheckable));
     item->setData(Qt::UserRole, qVariantFromValue(data));
-    item->setToolTip(text);
+    item->setToolTip(tooltip.isEmpty() ? text : tooltip);
     table->setItem(row, column, item);
 }
 
@@ -59,7 +59,7 @@ bool NsTableUtils::valueForRow(QTableWidget *table, const int row, NamespaceResu
     return false;
 }
 
-int NsTableUtils::insNsInList(QTableWidget *table, const int desiredRow, const QString &prefix, const QString &uri, const QString &description, void *data)
+int NsTableUtils::insNsInList(QTableWidget *table, const int desiredRow, const QString &prefix, const QString &uri, const QString &schemaLocation, const QString &description, void *data)
 {
     int row = desiredRow;
     if(row >= 0) {
@@ -71,10 +71,10 @@ int NsTableUtils::insNsInList(QTableWidget *table, const int desiredRow, const Q
         row = table->rowCount();
         table->setRowCount(row + 1);
     }
-    insNsItem(table, row, NsPrefix, prefix, data);
-    insNsItem(table, row, NsUri, uri, data);
-    insNsItem(table, row, NsDescription, description, data);
-
+    QString toolTip = QString("Prefix: %1\nUri: %2\nLocation: %3\n%4").arg(prefix).arg(uri).arg(schemaLocation).arg(description);
+    insNsItem(table, row, NsPrefix, prefix, data, toolTip);
+    insNsItem(table, row, NsUri, uri, data, toolTip);
+    insNsItem(table, row, NsDescription, description, data, toolTip);
     return row ;
 }
 

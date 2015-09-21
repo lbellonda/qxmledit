@@ -31,6 +31,7 @@ class UserNamespace
 {
     //------------
     QString _uri;
+    QString _schemaLocation;
     QStringList _prefixes;
     QString _preferredPrefix;
     GenericPersistentDBData *_data;
@@ -56,6 +57,8 @@ public:
     void setPreferredPrefix(const QString &preferredPrefix);
     QString name() const;
     void setName(const QString &name);
+    QString schemaLocation() const;
+    void setSchemaLocation(const QString &schemaLocation);
     //----
 
     GenericPersistentDBData *data() const;

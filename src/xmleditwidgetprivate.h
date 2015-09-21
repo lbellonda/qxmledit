@@ -40,6 +40,7 @@ class AnonAlg ;
 class AnonymizeParameters;
 class ValidatorMessageHandler;
 class FindNodeWithLocationInfo;
+class NamespaceReferenceEntry;
 
 class XmlEditWidgetPrivate : public QObject, XSDAnnotationEditProvider
 {
@@ -104,8 +105,6 @@ public:
 
     Element *findTextOperation(const bool isFindOrCount, const FindTextParams::EFindType findType = FindTextParams::FindAllOccurrences);
 
-    void decodeXsdInsertError(const Regola::EInsSchemaRefInfo error);
-
     QAction *createStyleAction(QMenu *menu, const QString &label, const QString &tag, const QString &tooltip);
     QAction *createAnAction(QMenu *menu, const QString &label, const QString &tag, const QString &tooltip);
 
@@ -166,6 +165,7 @@ public:
     void setDisplayMode(const qxmledit::EDisplayMode value);
 
     void setDocument(QDomDocument &document, const QString &filePath, const bool isSetState);
+    bool readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState);
     void setNavigationDataAndEnable(const int minFragment, const int maxFragment);
     void showNavigationBox();
     bool loadText(const QString &text, const bool isChangeState = true, const bool isAskForReview = false);
@@ -241,6 +241,7 @@ public:
     void onActionCompactView(const bool isChecked);
     void onActionShowAlwaysFullTextComments(const bool isShow);
     void onActionHideBrothers();
+    void closeSiblings();
     void onActionFixedSizeAttributes(const bool isChecked);
     void onActionShowAttributesLength(const bool isChecked);
     void onActionShowCurrentElementTextBase64(const bool isChecked);
@@ -266,8 +267,6 @@ public:
     void onActionNewUsingXMLSchema(const QString &schemaURL);
     void onActionTransformInComment();
     void onActionExtractElementsFromComment();
-    void onActionInsertNoNamespaceSchemaReferenceAttributes();
-    void onActionInsertSchemaReferenceAttributes();
     Element* onActionHideLeafChildren();
     void onActionHideAllLeafChildren();
     Element* onActionShowLeafChildren();
@@ -325,6 +324,7 @@ public:
     bool replaceAll(ReplaceTextParams * findArgs);
     void onFindNext();
     void onFindPrevious();
+    bool insertXsdReference(NamespaceReferenceEntry *entry);
 
     //----
     bool XSDApplyOperation(const ElementOp::Op op, XSDOperationParameters *params);
@@ -380,6 +380,7 @@ private slots:
     void insertNilAttribute();
     void removeXSITypeAttribute();
     void insertXSITypeAttribute(const QString &newValue);
+    void insertXmlSchemaReferences();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

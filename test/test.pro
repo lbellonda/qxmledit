@@ -143,7 +143,10 @@ SOURCES += \
     testnillable.cpp \
     testxsitype.cpp \
     testusernamespaces.cpp \
-    testxmlutils.cpp
+    testxmlutils.cpp \
+    testinsertxsdreference.cpp \
+    testsortattributes.cpp \
+    testopeninnewwindow.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -238,7 +241,10 @@ HEADERS += \
     testnillable.h \
     testxsitype.h \
     testusernamespaces.h \
-    testxmlutils.h
+    testxmlutils.h \
+    testinsertxsdreference.h \
+    testsortattributes.h \
+    testopeninnewwindow.h
 
 #OTHER_FILES += \
 

@@ -1894,8 +1894,8 @@ row=%1, column=%2</source>
     </message>
     <message>
         <location filename="../editelement.cpp" line="299"/>
-        <source>This operation will destroy the attribute. Do you really want to continue ?</source>
-        <translation>Tato operace vlastnost zničí. Opravdu chcete pokračovat?</translation>
+        <source>This operation will destroy the attribute.\nDo you really want to continue?</source>
+        <translation>Tato operace vlastnost zničí.\nOpravdu chcete pokračovat?</translation>
     </message>
     <message>
         <location filename="../editelement.cpp" line="305"/>

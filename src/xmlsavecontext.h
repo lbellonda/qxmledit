@@ -28,6 +28,8 @@ class XMLSaveContext
 {
     bool _isDoIndent;
     int _indentation;
+    bool _isSortAttributesAlpha;
+    bool _isDTDWritten;
 public:
     XMLSaveContext();
     ~XMLSaveContext();
@@ -37,6 +39,10 @@ public:
     void setDoIndent(bool doIndent);
     int indentation() const;
     void setIndentation(int indentation);
+    bool isSortAttributesAlpha() const;
+    void setIsSortAttributesAlpha(bool isSortAttributesAlpha);
+    bool isDTDWritten() const;
+    void setIsDTDWritten(bool isDTDWritten);
 };
 
 #endif // XMLSAVECONTEXT_H

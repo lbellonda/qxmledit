@@ -24,22 +24,36 @@
 #ifndef TESTDOCTYPE_H
 #define TESTDOCTYPE_H
 
+#include "testbase.h"
 #include "app.h"
 
-class TestDocType
+class TestDocType : public TestBase
 {
-    App app;
-
+    bool checkUnit(const QString &theDTD, const QString &expectedDtd, const QString &expectedDocType);
     bool go(const QString &fileNameIn, const QString &fileNameOut);
+    bool goEdit(const QString &fileNameIn, const QString &fileNameOut,
+                        const bool setReadOnly, const bool isEdit,
+                        const QString &newValue, const bool isCancel=false );
     bool compareDocuments(const QString &filename, Regola *regola);
     bool testType();
     bool testPublic();
     bool testSystem();
-    bool error();
+    bool testCommentLoading();
+    //
+    bool testEditEmptyFilled();
+    bool testEditFilledEmpty();
+    bool testEditChange();
+    bool testEditReadOnly();
+    bool testEditSameNoEdit();
+    bool testEditCancel();
 public:
     TestDocType();
+    ~TestDocType();
 
     bool test();
+    bool testUnit();
+    bool testEdit();
+    bool testFast();
 };
 
 #endif // TESTDOCTYPE_H

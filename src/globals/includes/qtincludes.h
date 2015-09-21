@@ -82,6 +82,14 @@
 #include <QPrinter>
 #endif
 
+#include <QXmlStreamReader>
+#include <QDomDocument>
+#include <QFile>
+#include <QtGui>
+#include <QClipboard>
+#include <QXmlSchema>
+#include <QXmlSchemaValidator>
+
 //------------------------
 
 #endif // QTINCLUDES_H

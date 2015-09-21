@@ -24,6 +24,8 @@
 #include "mainwndcontroller.h"
 #include "mainwindow.h"
 #include "utils.h"
+#include "config.h"
+#include "infodialog.h"
 #include "modules/anonymize/anonymizedialog.h"
 #include "modules/anonymize/anonallalg.h"
 #include "modules/anonymize/anoncodealg.h"
@@ -135,4 +137,23 @@ QString MainWndController::askNewXSIType(Element *selection)
     QString prefixNS ;
     selection->findPrefixForNamespace(nsNsd, prefixNS);
     return askNewXSITypeAttribute(_w, prefixNS);
+}
+
+bool MainWndController::isOpenInNewWidow()
+{
+    return Config::getBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, QXmlEditData::DefaultOpenInNewWindow);
+}
+
+bool MainWndController::actionInfo()
+{
+    Regola *regola = _w->getRegola();
+    if(NULL != regola) {
+        InfoDialog infoDialog(_w, regola, _w->isReadOnly());
+        if(infoDialog.exec() == QDialog::Accepted) {
+            if(!_w->isReadOnly()) {
+                return regola->setNewDTD(infoDialog.dtd());
+            }
+        }
+    }
+    return false;
 }

@@ -406,10 +406,17 @@ bool TestReadOnly::checkOpenFile(MainWindow *wnd)
     if(! checkReadOnlyStatus(wnd, true)) {
         return false;
     }
-    if( !wnd->loadFile(FILE_ORIG) ) {
+    if( !wnd->loadFile(FILE_ORIG, true, MainWindow::OpenUsingSameWindow ) ) {
         return error("loading second file");
     }
     if(! checkReadOnlyStatus(wnd, false)) {
+        return false;
+    }
+    MainWindow *wnd2 = wnd->loadFileAndReturnWindow(FILE_ORIG, true, MainWindow::OpenUsingNewWindow );
+    if( NULL == wnd2 ) {
+        return error("loading second file in other window");
+    }
+    if(! checkReadOnlyStatus(wnd2, false)) {
         return false;
     }
     return true;

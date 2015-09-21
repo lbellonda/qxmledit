@@ -225,7 +225,7 @@ public:
     bool generateDom(QDomDocument &document, QDomNode &parent, ElementLoadInfoMap *dataMap);
     bool generateDom(QDomDocument &document, QDomNode &parent);
 
-    bool writeAlt(XMLSaveContext *context, QXmlStreamWriter &writer, ElementLoadInfoMap *dataMap = NULL);
+    bool writeStream(XMLSaveContext *context, QXmlStreamWriter &writer, ElementLoadInfoMap *dataMap = NULL);
 
     void clearAttributes();
     bool addAttribute(const QString &name, const QString &value);
@@ -565,9 +565,12 @@ public:
 
     QString toString();
     bool compareToElement(Element *other, QString &msg);
+    bool setOrClearAttribute(const bool isRemoveAttribute, const QString &attrName, const QString &value);
+    bool handleMixedContentToInnerText();
 
-
+#ifdef  QXMLEDIT_TEST
     friend class TestStyle;
+#endif
 };
 
 #endif //QXMLEDITWIDGET_DOMITEM_H

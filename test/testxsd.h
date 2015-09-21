@@ -31,9 +31,6 @@ class TestXsd : public TestBase
     bool testAttributesValue(Element *root,
                              const QString aName1, const QString aValue1,
                              const QString aName2, const QString aValue2);
-    bool testAttributes1();
-    bool testAttributes2();
-
 public:
     TestXsd();
 
@@ -41,7 +38,6 @@ public:
     bool TestNonamespaceFalse();
     bool TestOneSchema();
     bool TestMoreSchema();
-    bool testAttributes();
     bool testSameNamespace();
 };
 

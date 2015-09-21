@@ -557,6 +557,9 @@ bool TestContainer::testGeneric(const bool isInsert, const QString &testName, co
 bool TestContainer::testFast()
 {
     _testName = "testFast" ;
+    if( !testEnableInsParent() ) {
+        return false;
+    }
     QList<int> rem3;
     rem3 << 0 << 1 << 3 << 0 ;
     if(! testGeneric(false, "remove_parent_3", REM_PARENT_3_START, REM_PARENT_3_END, rem3, true) ) {

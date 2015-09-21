@@ -78,7 +78,7 @@ equals(QXMLEDIT_LIB_SUFFIX, "") {
 }
 
 
-QT       += sql gui
+QT       += sql gui xml xmlpatterns
 
 greaterThan(QT_MAJOR_VERSION, 4){
 QT       += widgets core

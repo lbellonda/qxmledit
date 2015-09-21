@@ -23,6 +23,8 @@
 #include "namespacemanagementdialog.h"
 #include "ui_namespacemanagementdialog.h"
 #include "modules/namespace/choosenamespacedialog.h"
+#include "modules/xsd/namespacemanager.h"
+#include "modules/namespace/usernamespace.h"
 #include "element.h"
 #include "xmlutils.h"
 #include "utils.h"
@@ -39,12 +41,6 @@ NamespaceManagementDialog::NamespaceManagementDialog(QWidget *parent, Element *e
     setupData();
     updateButtonsNs();
     enableOk();
-    Utils::TODO_THIS_RELEASE("check length of table columns");
-    Utils::TODO_THIS_RELEASE("non riporta uri");
-    Utils::TODO_THIS_RELEASE("non riporta le descrizioni");
-    Utils::TODO_THIS_RELEASE("su edit non riporta il namespace");
-    Utils::TODO_THIS_RELEASE("seleziona ilprimo ns e scrive il prefix");
-    Utils::TODO_THIS_RELEASE("quando inserisce il parent, controlla i namespace degli attributi");
 }
 
 NamespaceManagementDialog::~NamespaceManagementDialog()
@@ -65,7 +61,6 @@ NamespaceCommands *NamespaceManagementDialog::getCommands()
         commands->setDeclareNs(ui->radioDoNotDeclare->isChecked() ? NamespaceCommands::DoNotDeclare : NamespaceCommands::DeclareInElement);
     }
 
-    Utils::TODO_THIS_RELEASE("fare altri ns");
     int rows = ui->nsList->rowCount();
     FORINT(row, rows) {
         NamespaceResult setValues;
@@ -82,7 +77,6 @@ NamespaceCommands *NamespaceManagementDialog::getCommands()
 
 void NamespaceManagementDialog::init()
 {
-    Utils::TODO_THIS_RELEASE("rem comments");
     _tableUtils.setupTable(ui->nsList);
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     ui->nsList->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
@@ -101,15 +95,10 @@ void NamespaceManagementDialog::setupData()
 void NamespaceManagementDialog::enableOk()
 {
     bool isEnabledOk = true ;
-    Utils::TODO_THIS_RELEASE("decidere se esplorare tutti i ns leciti dal parent");
-    /*if(ui->uri->currentText().trimmed().isEmpty()
-            &&  !ui->prefix->text().trimmed().isEmpty()) {
-        isEnabledOk = false;
+    QString prefix = ui->prefix->text().trimmed();
+    if(!Utils::checkNsPrefix(prefix)) {
+        isEnabledOk = false ;
     }
-    if(!Utils::checkNsPrefix(ui->prefix->text().trimmed())) {
-        isEnabledOk = false;
-        tutti quelli dichiarati, ma il b
-    }*/
     ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(isEnabledOk);
 }
 
@@ -143,16 +132,29 @@ void NamespaceManagementDialog::decodePrefix()
     ui->uri->setEditText(currNs);
 }
 
+void NamespaceManagementDialog::retrieveUriDescription(const QString & text, NamespaceResult *data)
+{
+    NamespaceDef* nsDef = _nsManager->namespacesForUri(text.trimmed());
+    if(NULL != nsDef) {
+        data->description = nsDef->description();
+        data->schemaLocation = nsDef->schemaLocation();
+    }
+}
+
 void NamespaceManagementDialog::loadOtherDeclarations()
 {
     foreach(Attribute * attribute, _element->attributes) {
         if(XmlUtils::isDeclaringNS(attribute->name)) {
             QString nsPrefix = XmlUtils::namespacePrefix(attribute->name);
             QString description ;
+            QString schemaLocation ;
             if(NULL != _nsManager) {
-                Utils::TODO_THIS_RELEASE("trova descrizione");
+                NamespaceResult data ;
+                retrieveUriDescription(attribute->value, &data);
+                description = data.description ;
+                schemaLocation = data.schemaLocation ;
             }
-            _tableUtils.insNsInList(ui->nsList, -1, nsPrefix, attribute->value, description, NULL);
+            _tableUtils.insNsInList(ui->nsList, -1, nsPrefix, attribute->value, schemaLocation, description, NULL);
         }
     }
 }
@@ -188,7 +190,7 @@ void NamespaceManagementDialog::on_cmdAddNs_clicked()
         if(dlg.exec() == QDialog::Accepted) {
             NamespaceResult result;
             dlg.nsChosen(&result);
-            _tableUtils.insNsInList(ui->nsList, -1, result.prefix, result.uri, result.description, NULL);
+            _tableUtils.insNsInList(ui->nsList, -1, result.prefix, result.uri, result.schemaLocation, result.description, NULL);
         }
     }
 }
@@ -205,7 +207,7 @@ void NamespaceManagementDialog::on_cmdModNs_clicked()
             if(dlg.exec() == QDialog::Accepted) {
                 NamespaceResult result;
                 dlg.nsChosen(&result);
-                _tableUtils.insNsInList(ui->nsList, row, result.prefix, result.uri, result.description, NULL);
+                _tableUtils.insNsInList(ui->nsList, row, result.prefix, result.uri, result.schemaLocation, result.description, NULL);
             }
         }
     }
@@ -214,7 +216,6 @@ void NamespaceManagementDialog::on_cmdModNs_clicked()
 
 void NamespaceManagementDialog::on_cmdSelect_clicked()
 {
-    Utils::TODO_THIS_RELEASE("finire");
     if(NULL != _nsManager) {
         NamespaceResult setValues;
         setValues.description = ui->prefix->text().trimmed();

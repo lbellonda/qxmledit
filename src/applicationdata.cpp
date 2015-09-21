@@ -89,7 +89,6 @@ ApplicationData::~ApplicationData()
 
 void ApplicationData::init()
 {
-    Utils::TODO_THIS_RELEASE("verificare no problemi");
     // already done QXmlEditData::init();
     connect(&_sessionManager, SIGNAL(sessionActivated(const int)), this, SLOT(onSessionActivated(const int)));
     connect(&_sessionManager, SIGNAL(clearSession()), this, SLOT(onClearSession()));
@@ -128,6 +127,11 @@ void ApplicationData::removeWindow(QMainWindow* newWindow)
             _windows.remove(index);
         }
     }
+}
+
+int ApplicationData::windowsCount()
+{
+    return _windows.size();
 }
 
 void ApplicationData::setSessionDBPath(const QString &sessionDBPath)

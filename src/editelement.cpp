@@ -50,8 +50,8 @@ EditElement::EditElement(QWidget * parent) : QDialog(parent)
     target = NULL;
     checkNamespace();
     enableOK();
-    Utils::TODO_THIS_RELEASE("insert namespace for attribute");
-    Utils::TODO_THIS_RELEASE("remove namespace for attribute");
+    Utils::TODO_NEXT_RELEASE("insert namespace for attribute");
+    Utils::TODO_NEXT_RELEASE("remove namespace for attribute");
 }
 
 EditElement::~EditElement()
@@ -118,7 +118,6 @@ void EditElement::setTarget(Element* pTarget, Element *parent)
     }
     path += "/" + target->tag();
     ui.path->setText(path);
-    show();
     QString initialValue = target->tag();
     if(NULL != theParent) {
         if(initialValue.isEmpty()) {
@@ -133,18 +132,26 @@ void EditElement::setTarget(Element* pTarget, Element *parent)
     }
     ui.editTag->setText(initialValue);
     ui.attrTable->setUpdatesEnabled(false);
-    QVector<Attribute*>::iterator it;
     // sort alphabetically the attributes
-    QMap<QString, QString> sortedCollection;
-    for(it = target->attributes.begin(); it != target->attributes.end(); ++it) {
-        Attribute* attr = *it;
-        if(NULL != attr) {
-            sortedCollection.insert(attr->name, attr->value);
+    Regola *regola = (NULL != theParent) ? theParent->getParentRule() : NULL;
+    if(((NULL == regola) && Regola::isSaveSortAlphaAttribute())
+            || ((NULL != regola) && regola->isSavingSortingAttributes())) {
+        QVector<Attribute*>::iterator it;
+        QMap<QString, QString> sortedCollection;
+        for(it = target->attributes.begin(); it != target->attributes.end(); ++it) {
+            Attribute* attr = *it;
+            if(NULL != attr) {
+                sortedCollection.insert(attr->name, attr->value);
+            }
         }
-    }
-    foreach(QString key, sortedCollection.keys()) {
-        QString value = sortedCollection[key];
-        appendAttrNodeInTable(ui.attrTable, -1, key, value);
+        foreach(QString key, sortedCollection.keys()) {
+            QString value = sortedCollection[key];
+            appendAttrNodeInTable(ui.attrTable, -1, key, value);
+        }
+    } else {
+        foreach(Attribute * attr, target->attributes) {
+            appendAttrNodeInTable(ui.attrTable, -1, attr->name, attr->value);
+        }
     }
     ui.attrTable->resizeColumnsToContents();
     ui.attrTable->setUpdatesEnabled(true);
@@ -349,6 +356,8 @@ void EditElement::on_newAttribute_clicked()
 void EditElement::on_attrTable_itemChanged(QTableWidgetItem * item)
 {
     setUpdatedAttr(ui.attrTable->row(item));
+    ui.attrTable->resizeColumnsToContents();
+    ui.attrTable->horizontalHeader()->setStretchLastSection(true);
 }
 
 void EditElement::on_delAttribute_clicked()
@@ -356,7 +365,7 @@ void EditElement::on_delAttribute_clicked()
     int currentRow = ui.attrTable->currentRow();
     if(currentRow >= 0) {
         if(QMessageBox::No == QMessageBox::question(this, QXmlEditGlobals::appTitle(),
-                tr("This operation will destroy the attribute. Do you really want to continue ?"),
+                tr("This operation will destroy the attribute.\nDo you really want to continue?"),
                 QMessageBox::Yes | QMessageBox::No)) {
             return ;
         }
@@ -736,7 +745,6 @@ void EditElement::checkNamespace()
             nsOk = true ;
         }
         if(!nsOk) {
-            Utils::TODO_THIS_RELEASE("attenzione: non vedo le dichiarazioni nell elemento stesso in edit");
             if(!prefix.isEmpty() && !_visibleNamespaces.contains(prefix)) {
                 nsOk = false;
             }
@@ -767,7 +775,6 @@ void EditElement::on_cmdNamespaces_clicked()
         }
     }
     element.setParent(NULL);
-    Utils::TODO_THIS_RELEASE("al ritorno posso modificare il tag, ins o mod gli attributi e mod la radice?");
 }
 
 void EditElement::applyNamespaceOper(NamespaceCommands *commands)
@@ -811,7 +818,6 @@ void EditElement::applyOtherNamespaces(QList<NamespaceSpec*> namespaces)
             QString prefix;
             XmlUtils::getNsPrefix(name, prefix);
             NamespaceSpec * existingCommand = findNsCommand(prefix, value, namespaces);
-            Utils::TODO_THIS_RELEASE("check ciclo");
             if(NULL == existingCommand) {
                 // remove the declaration
                 ui.attrTable->removeRow(row);
@@ -891,3 +897,4 @@ void EditElement::on_cmdSaveFileBase64_clicked()
     Base64Utils base64Utils;
     base64Utils.saveBase64ToBinaryFile(this, text, QXmlEditData::sysFilePathForOperation(""));
 }
+

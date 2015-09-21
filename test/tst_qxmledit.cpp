@@ -145,8 +145,6 @@ void TestQXmlEdit::testXsd()
     QVERIFY2(result, "Test XSD: TestOneSchema.");
     result = tx.TestMoreSchema();
     QVERIFY2(result, "Test XSD: TestMoreSchema.");
-    result = tx.testAttributes();
-    QVERIFY2(result, "Test XSD: testAttributes.");
     result = tx.testSameNamespace();
     QVERIFY2(result, "Test XSD: testSameNamespace.");
 }
@@ -372,9 +370,26 @@ void TestQXmlEdit::testUndoRedo()
 void TestQXmlEdit::testDocType()
 {
     bool result ;
-    TestDocType testDT;
-    result = testDT.test();
-    QVERIFY2(result, "document type");
+    {
+        TestDocType testDT;
+        result = testDT.testFast();
+        QVERIFY2(result, QString("document type fast: %1").arg(testDT.errorString()).toLatin1().data());
+    }
+    {
+        TestDocType testDT;
+        result = testDT.testUnit();
+        QVERIFY2(result, QString("document type testUnit: %1").arg(testDT.errorString()).toLatin1().data());
+    }
+    {
+        TestDocType testDT;
+        result = testDT.test();
+        QVERIFY2(result, QString("document type tests: %1").arg(testDT.errorString()).toLatin1().data());
+    }
+    {
+        TestDocType testDT;
+        result = testDT.testEdit();
+        QVERIFY2(result, QString("document type testEdit: %1").arg(testDT.errorString()).toLatin1().data());
+    }
 }
 
 
@@ -983,6 +998,28 @@ void TestQXmlEdit::testNamespace()
     }
 }
 
+void TestQXmlEdit::testInsertXsdReference()
+{
+    bool result;
+    {
+        TestInsertXsdReference testA;
+        result = testA.testFast();
+        QVERIFY2(result, (QString("test testInsertXsdReference: testFast() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+
+    {
+        TestInsertXsdReference testA;
+        result = testA.testInsertXsdReference();
+        QVERIFY2(result, (QString("test testInsertXsdReference: testInsertXsdReference() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+
+    {
+        TestInsertXsdReference testA;
+        result = testA.testDialogInsert();
+        QVERIFY2(result, (QString("test testInsertXsdReference: testDialogInsert() '%1'").arg(testA.errorString())).toLatin1().data());
+    }
+}
+
 void TestQXmlEdit::testXSDMode()
 {
     bool result;
@@ -1071,6 +1108,39 @@ void TestQXmlEdit::testXmlUtils()
 
 }
 
+void TestQXmlEdit::testSortAttributes()
+{
+    bool result ;
+
+    {
+        TestSortAttributes test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test TestSortAttributes: testFast '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestSortAttributes test1;
+        result = test1.testSaving();
+        QVERIFY2(result, (QString("test TestSortAttributes: testSaving '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
+
+
+void TestQXmlEdit::testOpenInNewWindow()
+{
+    bool result ;
+
+    {
+        TestOpenInNewWindow test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test TestOpenInNewWindow: testFast '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestOpenInNewWindow test1;
+        result = test1.testUnit();
+        QVERIFY2(result, (QString("test TestOpenInNewWindow: testSaving '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
+
 #include <QtGlobal>
 
 /*
@@ -1092,11 +1162,18 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testXmlUtils();
-    testContainer();
-    testBase64();
+    testAnonymize();
+    testClipboard();
+    testDocType();
+    testSortAttributes();
     testEditing();
+    testContainer();
+    testInsertXsdReference();
+    testOpenInNewWindow();
+    testLengthAttributes();
     testNamespace();
+    testXmlUtils();
+    testBase64();
     testIndent();
     printf("Nei testEdit viene lanciato un figlio, ma non si torna il codice del figlio\n");
 }

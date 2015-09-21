@@ -31,6 +31,7 @@
 const QString Config::KEY_GENERAL_AUTOSCROLL_ENABLED("generalConfiguration/autoScrollEnabled");
 const QString Config::KEY_GENERAL_NOTIFICATIONS_ENABLED("generalConfiguration/notificationsEnabled");
 const QString Config::KEY_GENERAL_LICENSE_AGREED("generalConfiguration/licenseAgreed");
+const QString Config::KEY_GENERAL_OPEN_NEWWINDOW("generalConfiguration/openNewWindow");
 // element
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY("element/fontFidexWidthFamily");
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHSIZE("element/fontFidexWidthSize");
@@ -199,7 +200,10 @@ const QString Config::KEY_COLOR_ANONELPREVIEW("colors/anonElPreview");
 const QString Config::KEY_COLOR_ANONTEXTPREVIEW("colors/anonTextPreview");
 const QString Config::KEY_COLOR_ANONATTRPREVIEW("colors/anonAttrPreview");
 
-
+// xml
+const QString Config::KEY_XML_SAVE_STREAM("xml/saveStream");
+const QString Config::KEY_XML_SAVE_SORTATTRIBUTES("xml/sortAttributes");
+const QString Config::KEY_XML_LOAD_STREAM("xml/loadStream");
 
 // test
 const QString Config::KEY_TEST("test");

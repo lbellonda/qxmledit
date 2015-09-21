@@ -77,6 +77,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
     ui->expandTreeAfterLoad->setChecked(Config::getBool(Config::KEY_MAIN_EXPANDONLOAD, true));
 
     ui->chkDefBold->setChecked(Config::getBool(Config::KEY_VIEW_STYLE_DEFAULT_BOLD, QXmlEditData::DefaultStyleFontBold));
+    ui->cbOpenFilesInNewWindow->setChecked(Config::getBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, QXmlEditData::DefaultOpenInNewWindow));
 
     _started = true ;
 }
@@ -218,4 +219,12 @@ void ConfigurationGeneralOptions::on_enableExperiments_stateChanged(int state)
     }
     bool isEnabled = (state == Qt::Checked);
     _data->setExperimentalFeaturesEnabled(isEnabled);
+}
+
+void ConfigurationGeneralOptions::on_cbOpenFilesInNewWindow_stateChanged(int /*state*/)
+{
+    if(!_started) {
+        return ;
+    }
+    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, ui->cbOpenFilesInNewWindow->isChecked());
 }

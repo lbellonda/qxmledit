@@ -120,7 +120,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Edit</string>
+      <string>Save</string>
      </property>
      <property name="margin">
       <number>20</number>
@@ -196,6 +196,20 @@
       </spacer>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbSaveStream">
+     <property name="text">
+      <string>Save using stream instead of DOM</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chkSortAttributes">
+     <property name="text">
+      <string>Sort alphabetically the attributes</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

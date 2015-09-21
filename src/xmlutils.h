@@ -52,6 +52,9 @@ public:
 
     static bool isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix);
 
+    //--
+    static bool isS(const QChar &qch);
+
 };
 
 #endif // XMLUTILS_H

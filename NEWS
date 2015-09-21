@@ -1,9 +1,16 @@
 0.8.18
-    Added predefined namespaces.
+    Added a new menu for closing the siblings of the selection.
+    DTD declaration editable in the "Info" dialog.
+    Handled the DTD declaration on load and save.
+    Added an option to preserve attributes order when saving.
+    Added an option to open a file using the current editor or a new window reversing the settings value.
+    Open a new file by default happens in a new editor windows. Options to revert this behaviour.
+    Added a library of predefined namespaces.
     Accepted drop files on Base64 dialog.
     Matched tag names and structure to GitHub conventions.
     Namespace management in edit element.
     User defined namespace management and storage in embedded database.
+    Moved the I/O to StAX using QXmlStream.
 
 0.8.17
     Updated the license on some header files.

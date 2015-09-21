@@ -2,7 +2,7 @@
   <b:bb xmlns:b="nsx1" >
 	<c:cc xmlns:c="nsx2" >
 	  <d/>
-	  <e xmlns="nxsx3" a="a" />
+	  <e a="a" xmlns="nxsx3" />
 	  </c:cc>
   </b:bb>
 </root>

@@ -31,6 +31,8 @@ class TestXmlUtils : public TestBase
     bool testDecodeQualifiedName();
     bool innerTestNsPrefix(const QString &name, const QString &expectedPrefix, const bool expectedResult);
     bool innerTestDecodeLocalName(const QString &name, const QString &expectedPrefix, const QString &expectedLocalName);
+    bool checkIs(const QChar &ch, const bool expectedResult);
+    bool testParsing();
 
 public:
     TestXmlUtils();

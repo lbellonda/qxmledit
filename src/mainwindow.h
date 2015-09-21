@@ -80,14 +80,21 @@ class MainWindow : public QMainWindow, UIDelegate
     QToolButton *_xsdButton ;
 
 public:
+    enum EWindowOpen {
+        OpenUsingDefaultSettings,
+        OpenUsingSameWindow,
+        OpenUsingNewWindow,
+    };
+
     MainWindow(const bool isSlave, QApplication *application, ApplicationData *data, QMainWindow *parent = 0);
     virtual ~MainWindow();
 
     void setAutoDelete();
 
     ApplicationData *appData();
-    bool loadFile(const QString &filePath, const bool activateModes = true);
-    //void loadText(const QString &text, const bool isChangeState = true, const bool isAskForReview = false);
+    bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings);
+    MainWindow *loadFileAndReturnWindow(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings);
+
     void openProva();
     void setEventLoop(QEventLoop *eventLoop);
     QString getContentAsText();
@@ -130,6 +137,15 @@ public:
 protected:
     //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.
     void setSnippetManager(SnippetManager *newSnippetManager);
+    MainWindow *makeNewWindow();
+    bool loadFileInner(const QString &filePath, const bool activateModes = true);
+    bool loadFileInnerStream(const QString &filePath, const bool activateModes = true);
+    /*!
+     * \deprecated
+     */
+    bool loadFileInnerDom(const QString &filePath, const bool activateModes);
+    bool readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState);
+    void newUsingXMLSchema();
 
 private slots:
     void on_actionNew_triggered();
@@ -169,6 +185,7 @@ private slots:
     void on_actionCompactView_triggered();
     void on_actionShowAlwaysFullTextComments_triggered();
     void on_actionHideBrothers_triggered();
+    void on_actionCloseSiblings_triggered();
     void on_actionFixedSizeAttributes_triggered();
     void on_actionShowAttributesLength_triggered();
     void on_actionShowCurrentElementTextBase64_triggered();
@@ -205,8 +222,6 @@ private slots:
     void on_actionNewUsingXMLSchema_triggered();
     void on_actionTransformInComment_triggered();
     void on_actionExtractElementsFromComment_triggered();
-    void on_actionInsertNoNamespaceSchemaReferenceAttributes_triggered();
-    void on_actionInsertSchemaReferenceAttributes_triggered();
     void on_actionExtractFragmentsFromFile_triggered();
     void on_actionWelcomeDialog_triggered();
     void on_actionSaveACopyAs_triggered();
@@ -298,6 +313,8 @@ private slots:
     void on_actionInsertNilAttribute_triggered();
     void on_actionRemoveXSITypeAttribute_triggered();
     void on_actionInsertXSITypeAttribute_triggered();
+    void on_actionInsertXmlSchemaReferences_triggered();
+    void on_actionOpenSameWindow_triggered();
 
     //----- other slots ------------------
 
@@ -358,13 +375,13 @@ private:
     void dropEvent(QDropEvent *event);
 
     void computeSelectionState();
-    void openFileUsingDialog(const QString folderPath);
+    void openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow = OpenUsingDefaultSettings);
 
     Element *getSelectedItem();
 
     void setDocument(QDomDocument &document, const QString &filePath, const bool isSetState);
 
-    bool checkAbandonChanges();
+    bool checkAbandonChanges(const EWindowOpen useWindow = OpenUsingDefaultSettings);
 
     QAction *createAnAction(QMenu *menu, const QString &label, const QString &tag, const QString &tooltip);
 

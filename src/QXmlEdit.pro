@@ -291,7 +291,8 @@ SOURCES = \
     modules/anonymize/anoneditprofiledialog.cpp \
     modules/anonymize/anonimyzebatchdialog.cpp \
     modules/anonymize/anonsettingwidget.cpp \
-    infodialog.cpp
+    infodialog.cpp \
+    mainwindowio.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \

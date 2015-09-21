@@ -52,8 +52,10 @@ public:
     void anonymize(AnonAlg *alg);
     void anonymize(AnonContext *context);
     void onAnonymize(AnonContext *context);
+    bool actionInfo();
     //---
     QString askNewXSIType(Element *selection);
+    bool isOpenInNewWidow();
 
 signals:
 

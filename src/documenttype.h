@@ -52,6 +52,9 @@ class DocumentType
     QString _docType;
     QString _systemId;
     QString _publicId;
+    QString _dtd;
+
+    QString parseDocType();
 
 public:
     DocumentType();
@@ -63,12 +66,12 @@ public:
     void setSystemId(const QString& value);
     QString publicId();
     void setPublicId(const QString& value);
-
+    QString dtd() const;
+    void setDtd(const QString &dtd);
 
     bool hasDocType();
 
     QDomDocument createDocument();
-
 };
 
 #endif // DOCUMENTTYPE_H

@@ -399,7 +399,13 @@ SOURCES += xmleditwidget.cpp \
     modules/namespace/namespacecommands.cpp \
     modules/namespace/nstableutils.cpp \
     modules/namespace/usernamespaceloader.cpp \
-    modules/utils/base64utils.cpp
+    modules/utils/base64utils.cpp \
+    modules/xsd/schemareferencesdialog.cpp \
+    modules/namespace/namespacereferenceentry.cpp \
+    modules/xml/insertxsdreference.cpp \
+    modules/xml/xmlio.cpp \
+    modules/xml/xmlloadcontext.cpp \
+    undo/undodtd.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -617,7 +623,12 @@ HEADERS += precompiled_lib.h \
     modules/namespace/namespacecommands.h \
     modules/namespace/nstableutils.h \
     modules/namespace/usernamespaceloader.h \
-    modules/utils/base64utils.h
+    modules/utils/base64utils.h \
+    modules/namespace/namespaceresult.h \
+    modules/xsd/schemareferencesdialog.h \
+    modules/namespace/namespacereferenceentry.h \
+    modules/xml/xmlloadcontext.h \
+    undo/undodtd.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -670,7 +681,8 @@ FORMS += xmleditwidget.ui \
     modules/xml/xmlindentationdialog.ui \
     modules/namespace/namespacemanagementdialog.ui \
     modules/namespace/choosenamespacedialog.ui \
-    modules/namespace/editnamespacedialog.ui
+    modules/namespace/editnamespacedialog.ui \
+    modules/xsd/schemareferencesdialog.ui
 
 
 symbian {

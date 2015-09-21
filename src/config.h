@@ -38,6 +38,7 @@ public:
     static const QString KEY_GENERAL_AUTOSCROLL_ENABLED;
     static const QString KEY_GENERAL_NOTIFICATIONS_ENABLED;
     static const QString KEY_GENERAL_LICENSE_AGREED;
+    static const QString KEY_GENERAL_OPEN_NEWWINDOW;
     // element
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY;
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHSIZE;
@@ -204,6 +205,10 @@ public:
     static const QString KEY_COLOR_ANONTEXTPREVIEW;
     static const QString KEY_COLOR_ANONATTRPREVIEW;
 
+    // xml
+    static const QString KEY_XML_SAVE_STREAM;
+    static const QString KEY_XML_SAVE_SORTATTRIBUTES;
+    static const QString KEY_XML_LOAD_STREAM;
 
     // test
     static const QString KEY_TEST;

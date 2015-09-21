@@ -507,6 +507,10 @@ void XmlEditWidget::onActionCloseThisAllBrothers()
     d->onActionCloseThisAllBrothers();
 }
 
+void XmlEditWidget::closeSiblings()
+{
+    d->closeSiblings();
+}
 
 void XmlEditWidget::onActionHideBrothers()
 {
@@ -682,6 +686,11 @@ void XmlEditWidget::setDocument(QDomDocument &document, const QString &filePath,
     d->setDocument(document, filePath, isSetState);
 }
 
+bool XmlEditWidget::readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState)
+{
+    return d->readData(reader, filePath, isSetState);
+}
+
 void XmlEditWidget::onActionHideView(const bool isChecked)
 {
     d->onActionHideView(isChecked);
@@ -763,16 +772,6 @@ void XmlEditWidget::onActionExtractElementsFromComment()
 void XmlEditWidget::autoLoadValidation()
 {
     d->autoLoadValidation();
-}
-
-void XmlEditWidget::onActionInsertNoNamespaceSchemaReferenceAttributes()
-{
-    d->onActionInsertNoNamespaceSchemaReferenceAttributes();
-}
-
-void XmlEditWidget::onActionInsertSchemaReferenceAttributes()
-{
-    d->onActionInsertSchemaReferenceAttributes();
 }
 
 void XmlEditWidget::setNavigationDataAndEnable(const int minFragment, const int maxFragment)
@@ -1074,3 +1073,14 @@ void XmlEditWidget::insertXSITypeAttribute(const QString &newValue)
 {
     d->insertXSITypeAttribute(newValue);
 }
+
+void XmlEditWidget::insertXmlSchemaReferences()
+{
+    d->insertXmlSchemaReferences();
+}
+
+bool XmlEditWidget::insertXsdReference(NamespaceReferenceEntry *entry)
+{
+    return d->insertXsdReference(entry);
+}
+

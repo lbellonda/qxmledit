@@ -24,14 +24,6 @@ Rules to edit:
 1) If no items at all, this is the first item
 2) Cannot add brother to the first item (1! root item)
 */
-
-#include <QtXml/QDomDocument>
-#include <QFile>
-#include <QtGui>
-#include <QClipboard>
-#include <QXmlSchema>
-#include <QXmlSchemaValidator>
-
 extern const char *APP_TITLE ;
 #include <xmlEdit.h>
 #include "utils.h"
@@ -64,7 +56,6 @@ extern const char *APP_TITLE ;
 #include "modules/binaryviewer/binaryviewerdialog.h"
 #include "modules/xsd/xsdmanager.h"
 #include "modules/xsd/xsdelementreferencedialog.h"
-#include "infodialog.h"
 #include "widgets/qlabelwithsignals.h"
 
 #define LONG_TIMEOUT    10000
@@ -349,6 +340,13 @@ bool MainWindow::finishSetUpUi()
     //------------------------------ status bar widgets ----------------------------------
 
     startUIState();
+    if(_controller.isOpenInNewWidow()) {
+        ui.actionOpenSameWindow->setText(tr("&Open in Same Window..."));
+        ui.actionOpenSameWindow->setToolTip(tr("Open in same window."));
+    } else {
+        ui.actionOpenSameWindow->setText(tr("&Open in New Window..."));
+        ui.actionOpenSameWindow->setToolTip(tr("Open in new window."));
+    }
     ui.actionShowAttrLine-> setCheckable(true);
     ui.actionShowChildIndex->setCheckable(true);
     ui.actionCompactView->setCheckable(true);
@@ -722,6 +720,7 @@ void MainWindow::onComputeSelectionState()
     bool isShownAsBase64 = false ;
     bool isXSDPresent = isValidXsd();
     bool isElementSelected = false;
+    bool isRegolaReadOnly = isReadOnly();
 
     qxmledit::EDisplayMode displayMode = ui.editor->displayMode();
     bool isExplore = (displayMode != qxmledit::NORMAL) && (displayMode != qxmledit::SCAN) ;
@@ -796,6 +795,7 @@ void MainWindow::onComputeSelectionState()
 
     ui.actionHideBrothers->setEnabled(isSomeItemSelected);
     ui.actionHideBrothers->setChecked(!isNormalViewState);
+    ui.actionCloseSiblings->setEnabled(isSomeItemSelected);
     ui.actionShowCurrentElementTextBase64->setEnabled(isSomeItemSelected && !isExplore);
     ui.actionShowCurrentElementTextBase64->setChecked(isShownAsBase64);
     ui.actionReload->setEnabled((NULL != regola) && !regola->fileName().isEmpty());
@@ -817,8 +817,8 @@ void MainWindow::onComputeSelectionState()
     ui.actionTransformInComment->setEnabled(isSomeItemSelected && !isExplore && !isComment);
     ui.actionExtractElementsFromComment->setEnabled(isSomeItemSelected && !isExplore && isComment);
 
-    ui.actionInsertNoNamespaceSchemaReferenceAttributes->setEnabled((NULL != regola) && !isExplore);
-    ui.actionInsertSchemaReferenceAttributes->setEnabled((NULL != regola) && !isExplore);
+    ui.actionInsertXmlSchemaReferences->setEnabled((NULL != regola) && !isRegolaReadOnly && (NULL != regola->root()) && !isExplore);
+
     //TODO: always???? ui.actionExtractFragmentsFromFile->setEnabled(XXX);
 
     ui.actionNewUsingXMLSchema->setEnabled(true);
@@ -872,6 +872,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionInsertNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionRemoveXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionInsertXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
+    ui.actionInsertXmlSchemaReferences->setEnabled(!getEditor()->isReadOnly());
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -922,9 +923,9 @@ void MainWindow::on_actionOpen_triggered()
     openFileUsingDialog(getRegola()->fileName());
 }
 
-void MainWindow::openFileUsingDialog(const QString folderPath)
+void MainWindow::openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow)
 {
-    if(!MainWindow::checkAbandonChanges()) {
+    if(!checkAbandonChanges(useWindow)) {
         return ;
     }
     QString filePath = QFileDialog::getOpenFileName(
@@ -933,13 +934,13 @@ void MainWindow::openFileUsingDialog(const QString folderPath)
                            Utils::getFileFilterForOpenFile()
                        );
     if(!filePath.isEmpty()) {
-        loadFile(filePath);
+        loadFile(filePath, true, useWindow);
     }
 }
 
 void MainWindow::on_actionNewFromClipboard_triggered()
 {
-    if(!MainWindow::checkAbandonChanges()) {
+    if(!checkAbandonChanges()) {
         return ;
     }
     ui.editor->onActionNewFromClipboard();
@@ -1172,7 +1173,7 @@ void MainWindow::setAutoDelete()
 
 void MainWindow::closeEvent(QCloseEvent * event)
 {
-    if(!MainWindow::checkAbandonChanges()) {
+    if(!checkAbandonChanges(OpenUsingSameWindow)) {
         event->ignore();
         return ;
     }
@@ -1245,7 +1246,7 @@ void MainWindow::dropEvent(QDropEvent *event)
             }
         }
         if(filePath.length() > 0) {
-            if(!MainWindow::checkAbandonChanges()) {
+            if(!checkAbandonChanges()) {
                 event->ignore();
                 return ;
             }
@@ -1339,6 +1340,11 @@ void MainWindow::on_actionCloseThisAllBrothers_triggered()
 void MainWindow::on_actionHideBrothers_triggered()
 {
     ui.editor->onActionHideBrothers();
+}
+
+void MainWindow::on_actionCloseSiblings_triggered()
+{
+    ui.editor->closeSiblings();
 }
 
 void MainWindow::on_actionShowCurrentElementTextBase64_triggered()
@@ -1459,12 +1465,12 @@ void MainWindow::on_actionReload_triggered()
     if(filePath.isEmpty()) {
         return ;
     }
-    if(!MainWindow::checkAbandonChanges()) {
+    if(!checkAbandonChanges(OpenUsingSameWindow)) {
         return ;
     }
     // save presets
     RegolaSettings *settings = regola->getSettings();
-    loadFile(filePath, false);
+    loadFile(filePath, false, OpenUsingSameWindow);
     // restore presets
     getRegola()->restoreSettings(settings);
 }
@@ -1475,7 +1481,7 @@ void MainWindow::onRecentFile()
     if(NULL != actionFile) {
         QString filePath = actionFile->data().toString();
         if(!filePath.isEmpty()) {
-            if(!MainWindow::checkAbandonChanges()) {
+            if(!checkAbandonChanges()) {
                 return ;
             }
             loadFile(filePath);
@@ -1702,7 +1708,7 @@ void MainWindow::setDisplayMode(const qxmledit::EDisplayMode value)
 
 void MainWindow::on_actionXplore_triggered()
 {
-    if(!MainWindow::checkAbandonChanges()) {
+    if(!checkAbandonChanges()) {
         return ;
     }
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
@@ -1721,40 +1727,6 @@ void MainWindow::loadFileXplore(const QString &filePath)
     } else {
         Utils::error(tr("File name empty. Unable to load it."));
     }
-}
-
-bool MainWindow::loadFile(const QString &filePath, const bool activateModes)
-{
-    bool fileLoaded = false;
-    if(!filePath.isEmpty()) {
-        QFile file(filePath);
-        if(file.open(QIODevice::ReadOnly)) {
-            QDomDocument document;
-            QString errorMsg ;
-            int errorLine = 0, errorColumn = 0;
-            if(document.setContent(&file, &errorMsg, &errorLine, &errorColumn)) {
-                data->sessionManager()->enrollFile(filePath);
-                setDocument(document, filePath, true);
-                updateRecentFilesMenu(filePath);
-                updateWindowFilePath();
-                autoLoadValidation();
-                fileLoaded = true ;
-                if(activateModes) {
-                    if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-                        activateXSLTonNewFile();
-                    }
-                }
-            } else {
-                showLoadFileError(filePath, errorMsg, errorLine, errorColumn);
-            }
-            file.close();
-        } else {
-            Utils::error(QString(tr("Unable to load file.\n Error code is '%1'")).arg(file.error()));
-        }
-    } else {
-        Utils::error(tr("File name empty. Unable to load it."));
-    }
-    return fileLoaded;
 }
 
 void MainWindow::activateXSLTonNewFile()
@@ -1807,6 +1779,19 @@ void MainWindow::setDocument(QDomDocument &document, const QString &filePath, co
     statusBar()->showMessage(tr("Data loaded"), SHORT_TIMEOUT);
     onReadOnlyStateChanged();
     onNewXSDSchemaForValidation("");
+}
+
+bool MainWindow::readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState)
+{
+    bool result = ui.editor->readData(reader, filePath, isSetState);
+    if(result) {
+        statusBar()->showMessage(tr("Data loaded"), SHORT_TIMEOUT);
+        onReadOnlyStateChanged();
+        onNewXSDSchemaForValidation("");
+    } else {
+        statusBar()->showMessage(tr("Unable to get data."), LONG_TIMEOUT);
+    }
+    return result;
 }
 
 void MainWindow::on_actionHideView_triggered()
@@ -1870,6 +1855,12 @@ void MainWindow::on_actionPasteAndSubstituteText_triggered()
 
 void MainWindow::on_actionNewUsingXMLSchema_triggered()
 {
+    MainWindow *theWindow = makeNewWindow();
+    theWindow->newUsingXMLSchema();
+}
+
+void MainWindow::newUsingXMLSchema()
+{
     if(!verifyAbandonChanges()) {
         return ;
     }
@@ -1894,13 +1885,19 @@ bool MainWindow::verifyAbandonChanges()
     return true ;
 }
 
-bool MainWindow::checkAbandonChanges()
+bool MainWindow::checkAbandonChanges(const EWindowOpen useWindow)
 {
     Regola *regola = getRegola();
     if(NULL == regola) {
-        return false;
+        return true;
     }
-    return verifyAbandonChanges();
+    const bool forceSameWindow = (OpenUsingSameWindow == useWindow);
+    const bool forceNewWindow = (OpenUsingNewWindow == useWindow);
+    if((!_controller.isOpenInNewWidow() && !forceNewWindow) || forceSameWindow) {
+        return verifyAbandonChanges();
+    } else {
+        return true ;
+    }
 }
 
 
@@ -1957,16 +1954,6 @@ void MainWindow::onChangeEditorMode()
 {
     updateEditMode();
     setModeLabel();
-}
-
-void MainWindow::on_actionInsertNoNamespaceSchemaReferenceAttributes_triggered()
-{
-    ui.editor->onActionInsertNoNamespaceSchemaReferenceAttributes();
-}
-
-void MainWindow::on_actionInsertSchemaReferenceAttributes_triggered()
-{
-    ui.editor->onActionInsertSchemaReferenceAttributes();
 }
 
 void MainWindow::on_actionExtractFragmentsFromFile_triggered()
@@ -2199,7 +2186,7 @@ void MainWindow::onSessionEnablingChanged()
 void MainWindow::onSessionfileLoadRequest(const QString& filePath)
 {
     if(!filePath.isEmpty()) {
-        if(!MainWindow::checkAbandonChanges()) {
+        if(!checkAbandonChanges()) {
             return ;
         }
         loadFile(filePath);
@@ -2318,13 +2305,21 @@ void MainWindow::setUIDelegate(UIDelegate* newDelegate)
 
 void MainWindow::on_actionNewWindow_triggered()
 {
+    makeNewWindow();
+}
+
+MainWindow *MainWindow::makeNewWindow()
+{
     MainWindow *newWindow = new MainWindow(false, application, data);
     if(NULL != newWindow) {
         newWindow->isAutoDelete = true ;
+#ifndef QXMLEDIT_TEST
         newWindow->show();
+#endif
     } else {
         Utils::error(tr("Error opening a new window."));
     }
+    return newWindow;
 }
 
 void MainWindow::on_actionViewData_triggered()
@@ -2579,6 +2574,7 @@ void MainWindow::createDocumentFromSnippet(Regola* newRegola)
         activateXSLTonNewFile();
     }
 }
+
 bool MainWindow::createDocumentFromResources(const QString &path)
 {
     if(!verifyAbandonChanges()) {
@@ -2952,10 +2948,7 @@ void MainWindow::on_actionSetIndent_triggered()
 
 void MainWindow::on_actionInfo_triggered()
 {
-    Regola *regola = getRegola();
-    if(NULL != regola) {
-        showInfo(this, regola);
-    }
+    _controller.actionInfo();
 }
 
 void MainWindow::on_actionShowMainButtons_triggered()
@@ -3015,3 +3008,17 @@ void MainWindow::insertXSITypeAttribute(const QString &newValue)
     ui.editor->insertXSITypeAttribute(newValue);
 }
 
+
+void MainWindow::on_actionInsertXmlSchemaReferences_triggered()
+{
+    if(!ui.editor->isReadOnly()) {
+        ui.editor->insertXmlSchemaReferences();
+    }
+}
+
+void MainWindow::on_actionOpenSameWindow_triggered()
+{
+    // reverse settings behavior
+    openFileUsingDialog(getRegola()->fileName(),
+                        _controller.isOpenInNewWidow() ? OpenUsingSameWindow : OpenUsingNewWindow);
+}

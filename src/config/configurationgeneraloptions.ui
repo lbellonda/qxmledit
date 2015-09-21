@@ -210,6 +210,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="cbOpenFilesInNewWindow">
+     <property name="text">
+      <string>Open files in new window</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label_7">
      <property name="enabled">
       <bool>true</bool>

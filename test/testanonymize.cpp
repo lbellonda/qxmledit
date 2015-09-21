@@ -1607,7 +1607,7 @@ bool TestAnonymize::checkgetAttrExc(QList<int> &selection, App *app, const bool 
     }
     app->mainWindow()->getEditor()->setCurrentItem(selectedElement);
 
-    bool isError = false ;
+    bool isOk = true ;
     AnonAttrExcDialog dlg(selectedElement);
     AnonSettingsWidget *settings = dlg.settingsWidget();
 
@@ -1620,15 +1620,15 @@ bool TestAnonymize::checkgetAttrExc(QList<int> &selection, App *app, const bool 
     AnonException *exception = exList.first();
 
     if( exception->isUseNamespace() != expectedNamespace ) {
-        isError = error(QString("Use namespace, expected:%1, found:%2").arg(expectedNamespace).arg(exception->isUseNamespace()));
+        isOk = error(QString("Use namespace, expected:%1, found:%2").arg(expectedNamespace).arg(exception->isUseNamespace()));
     }
     if( exception->path() != expectedPath ) {
-        isError = error(QString("Path expected:%1, found:%2").arg(expectedPath).arg(exception->path()));
+        isOk = error(QString("Path expected:%1, found:%2").arg(expectedPath).arg(exception->path()));
     }
     foreach( AnonException *ex, exList ) {
         delete ex ;
     }
-    return !isError;
+    return isOk;
 }
 
 bool TestAnonymize::testInsertException()

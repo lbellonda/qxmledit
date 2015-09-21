@@ -63,7 +63,7 @@ private slots:
     void on_description_textEdited(const QString & /*text*/);
     void on_defaultPrefix_textEdited(const QString & /*text*/);
     void on_uri_textEdited(const QString & /*text*/);
-
+    void on_schemaLocation_textEdited(const QString & /*text*/);
 };
 
 #endif // EDITNAMESPACEDIALOG_H

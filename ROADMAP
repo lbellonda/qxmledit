@@ -2,18 +2,9 @@ This is the roadmap of QXmlEdit
 -------------------------------
 
 Future:
-XML Schema support in edit.
+Generation of data files from XSD.
 
-0.9
-TreeMap visualization
-Undo and redo support in editor.
-
-
-0.8
-Session handling.
-
-
-
+Anonymizations using code page letters.
 
 
 

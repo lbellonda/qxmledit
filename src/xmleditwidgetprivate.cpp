@@ -55,6 +55,9 @@
 #include "modules/xsd/xsdhelper.h"
 #include "modules/xsd/xsddefaultannotationeditor.h"
 #include "modules/xml/xmlindentationdialog.h"
+#include "modules/xsd/schemareferencesdialog.h"
+#include "modules/namespace/namespacereferenceentry.h"
+#include "modules/xml/xmlloadcontext.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -1459,6 +1462,32 @@ void XmlEditWidgetPrivate::onActionHideBrothers()
     }
 }
 
+void XmlEditWidgetPrivate::closeSiblings()
+{
+    QTreeWidgetItem *current = getSelItem();
+    if(NULL != current) {
+        Element *element = Element::fromItemData(current);
+        if((NULL != element) && (NULL != element->getUI())) {
+            QVector<Element*> *elems = NULL ;
+            if(NULL == element->parent()) {
+                elems = element->getParentRule()->getChildItems();
+            } else {
+                elems = element->parent()->getChildItems();
+            }
+            QVectorIterator<Element*> it(*elems);
+            while(it.hasNext()) {
+                Element *elm = it.next();
+                if((elm != element) && (NULL != elm->getUI())) {
+                    if(elm->getUI()->isExpanded()) {
+                        elm->getUI()->setExpanded(false);
+                    }
+                }
+            }
+            getEditor()->scrollToItem(element->getUI());
+        }
+    }
+}
+
 void XmlEditWidgetPrivate::onActionShowCurrentElementTextBase64(const bool isChecked)
 {
     QTreeWidgetItem *currItem = getSelItem();
@@ -1720,10 +1749,27 @@ void XmlEditWidgetPrivate::doLoadFileXplore(const QString &filePath)
     setEditMode(XmlEditWidgetEditMode::XML);
 }
 
-//TODO: error checking
 void XmlEditWidgetPrivate::setDocument(QDomDocument &document, const QString &filePath, const bool isSetState)
 {
     Regola *newModel = new Regola(document, filePath);
+    assignRegola(newModel, isSetState);
+}
+
+//TODO: error checking
+bool XmlEditWidgetPrivate::readData(QXmlStreamReader *xmlReader, const QString &filePath, const bool isSetState)
+{
+    Regola *newModel = new Regola(filePath);
+    XMLLoadContext context;
+    if(!newModel->readFromStream(&context, xmlReader)) {
+        delete newModel;
+        return false;
+    }
+    assignRegola(newModel, isSetState);
+    return true;
+}
+
+void XmlEditWidgetPrivate::assignRegola(Regola *newModel, const bool isSetState)
+{
     newModel->setPaintInfo(&paintInfo);
     newModel->setNamespaceManager(_appData->namespaceManager());
     p->emitDataReadyMessage(tr("Data loaded"));
@@ -1736,30 +1782,6 @@ void XmlEditWidgetPrivate::setDocument(QDomDocument &document, const QString &fi
         setReadOnly(false);
     }
     bindRegola(regola);
-    resetTree();
-    display();
-    startUIState();
-    regolaIsModified();
-    if(isExpandTreeOnLoad()) {
-        onActionExpandAll();
-    }
-    resizeTreeColumns();
-    showControls(true);
-    setEditMode(XmlEditWidgetEditMode::XML);
-}
-
-void XmlEditWidgetPrivate::assignRegola(Regola *newModel, const bool isSetState)
-{
-    newModel->setPaintInfo(&paintInfo);
-    p->emitDataReadyMessage(tr("Data loaded"));
-    deleteRegola();
-    regola = newModel;
-    regola->assignCollectSizeDataFlag(paintInfo.showElementSize());
-    docTypeChanged(regola->docType());
-    if(isSetState) {
-        setDisplayMode(qxmledit::NORMAL);
-    }
-    bindRegola(regola);
 
     resetTree();
     display();
@@ -1771,7 +1793,6 @@ void XmlEditWidgetPrivate::assignRegola(Regola *newModel, const bool isSetState)
     resizeTreeColumns();
     showControls(true);
     setEditMode(XmlEditWidgetEditMode::XML);
-    //setWindowModified(false); TODO delete
 }
 
 void XmlEditWidgetPrivate::bindRegola(Regola *regola, const bool bind)
@@ -2072,9 +2093,6 @@ void XmlEditWidgetPrivate::autoLoadValidation()
 {
     if(_appData->isAutovalidationOn()) {
         if(!regola->documentXsd().isEmpty()) {
-            if(regola->hasMoreThanOneXsdFile()) {
-                Utils::message(tr("Currently QXmlEdit handles only one XML Schema file, even if data file has references to more schemas."));
-            }
             p->emitSchemaLabelChanged(tr("schema: loading %1").arg(regola->documentXsd()));
             loadSchema(regola->documentXsd());
         } else {
@@ -2083,52 +2101,6 @@ void XmlEditWidgetPrivate::autoLoadValidation()
     } else {
         p->emitSchemaLabelChanged(tr(""));
     }
-}
-
-void XmlEditWidgetPrivate::onActionInsertNoNamespaceSchemaReferenceAttributes()
-{
-    if(!isActionMode()) {
-        return ;
-    }
-    if(NULL == regola) {
-        errorNoRule();
-        return ;
-    }
-    Regola::EInsSchemaRefInfo error ;
-    error = regola->insertNoNamespaceSchemaReferenceAttributes();
-    decodeXsdInsertError(error);
-}
-
-void XmlEditWidgetPrivate::decodeXsdInsertError(const Regola::EInsSchemaRefInfo error)
-{
-    switch(error) {
-    default:
-    case Regola::INSERT_SCHEMA_ATTR_ERROR_NOROOT:
-        Utils::error(p, tr("A root element is needed"));
-        break;
-    case Regola::INSERT_SCHEMA_ATTR_INFO_SCHEMAPRESENT:
-        Utils::message(p, tr("Schema definition already present."));
-        break;
-    case Regola::INSERT_SCHEMA_ATTR_INFO_REFPRESENT:
-        Utils::message(p, tr("Schema reference already present."));
-        break;
-    case Regola::INSERT_SCHEMA_ATTR_NOERROR:
-        return ;
-    }
-}
-
-void XmlEditWidgetPrivate::onActionInsertSchemaReferenceAttributes()
-{
-    if(!isActionMode()) {
-        return ;
-    }
-    if(NULL == regola) {
-        errorNoRule();
-        return ;
-    }
-    Regola::EInsSchemaRefInfo error ;
-    error = regola->insertSchemaReferenceAttributes();
-    decodeXsdInsertError(error);
 }
 
 void XmlEditWidgetPrivate::setNavigationDataAndEnable(const int minFragment, const int maxFragment)
@@ -3002,3 +2974,36 @@ void XmlEditWidgetPrivate::insertXSITypeAttribute(const QString &newValue)
         }
     }
 }
+
+
+void XmlEditWidgetPrivate::insertXmlSchemaReferences()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        Element *element = getRegola()->root();
+        if(NULL == element) {
+            Utils::error(p->window(), tr("This operation needs a root element."));
+        } else {
+            NamespaceReferenceEntry entry;
+            getRegola()->XSDReferences(&entry);
+            SchemaReferencesDialog dlg(p->window(), appData()->namespaceManager(), &entry);
+            dlg.setModal(true);
+            if(dlg.exec() == QDialog::Accepted) {
+                NamespaceReferenceEntry result;
+                dlg.getResults(&result);
+                insertXsdReference(&result);
+            }
+        }
+    }
+}
+
+bool XmlEditWidgetPrivate::insertXsdReference(NamespaceReferenceEntry *entry)
+{
+    if(isActionMode() && (NULL != getRegola() && (NULL != getRegola()->root()))) {
+        regola->insertXSDReference(p->getMainTreeWidget(), *appData()->namespaceManager(), entry);
+        return true ;
+    }
+    return false;
+}
+
+
+

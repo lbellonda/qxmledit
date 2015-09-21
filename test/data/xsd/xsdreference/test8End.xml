@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root xmlns:xsi="ddd" xmlns:xsi1="http://www.w3.org/2001/XMLSchema-instance" xsi1:schemaLocation="aa bb cc dd" xsi1:noNamespaceSchemaLocation="abc">
+	<child a="xyx">
+		<this b="123">
+			<other k="kk"/>
+		</this>
+	</child>
+</root>

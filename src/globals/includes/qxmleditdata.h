@@ -231,6 +231,7 @@ public:
     int styleVersion();
 
     static const bool DefaultStyleFontBold = false ;
+    static const bool DefaultOpenInNewWindow = true ;
     //--- endregion(styleVersion)
 
     SearchManager *searchManager();

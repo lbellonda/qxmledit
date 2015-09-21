@@ -51,6 +51,9 @@ bool EditNamespaceDialog::canSave()
     if(!Utils::checkNsPrefix(ui->defaultPrefix->text().trimmed())) {
         enableOk = false;
     }
+    if(ui->schemaLocation->text().trimmed().isEmpty()) {
+        enableOk = false;
+    }
     return enableOk;
 }
 
@@ -76,6 +79,7 @@ void EditNamespaceDialog::loadData()
     ui->tags->setText(tags.join(","));
     ui->defaultPrefix->setText(_ns->preferredPrefix());
     ui->uri->setText(_ns->uri());
+    ui->schemaLocation->setText(_ns->schemaLocation());
     ui->creationDate->setText(_ns->data()->creationDate().toString());
     ui->updateDate->setText(_ns->data()->updateDate().toString());
     foreach(QString prefix, _ns->prefixes()) {
@@ -114,6 +118,7 @@ bool EditNamespaceDialog::getDataFromUI()
     _ns->setUri(ui->uri->text().trimmed());
     _ns->setPreferredPrefix(ui->defaultPrefix->text().trimmed());
     _ns->setPrefixes(prf);
+    _ns->setSchemaLocation(ui->schemaLocation->text().trimmed());
     return true ;
 }
 
@@ -190,6 +195,11 @@ void EditNamespaceDialog::on_defaultPrefix_textEdited(const QString & /*text*/)
 }
 
 void EditNamespaceDialog::on_uri_textEdited(const QString & /*text*/)
+{
+    enableButtons();
+}
+
+void EditNamespaceDialog::on_schemaLocation_textEdited(const QString & /*text*/)
 {
     enableButtons();
 }

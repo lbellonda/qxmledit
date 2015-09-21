@@ -67,7 +67,7 @@ bool TestUserNamespaces::serializeUserNs()
 
 const QString TestUserNamespaces::SerializedForm1 = ""
      "<?xml version='1.0' encoding='UTF-8' ?>"
-     "<namespace uri=\"uri1\" defaultPrefix='' >"
+     "<namespace uri=\"uri1\" defaultPrefix='' schemaLocation='location' >"
      "  <prefix value=\"\"/>"
      "   <prefix value=\"v1\"/>"
      "   <prefix value='dd'/>"
@@ -75,7 +75,7 @@ const QString TestUserNamespaces::SerializedForm1 = ""
 
 const QString TestUserNamespaces::SerializedForm2 = ""
         "<?xml version='1.0' encoding='UTF-8' ?>"
- "<namespace uri=\"uri2\" defaultPrefix='a' >"
+ "<namespace uri=\"uri2\" defaultPrefix='a' schemaLocation=''>"
  " </namespace>";
 
 
@@ -93,6 +93,7 @@ bool TestUserNamespaces::readNSFromDom()
         // test values
         TEST(ns,uri(),"uri1");
         TEST(ns,preferredPrefix(),"");
+        TEST(ns,schemaLocation(),"location");
         QStringList expected;
         expected << "" << "v1" << "dd" ;
         if(!compareStringList("prefixes 1", ns.prefixes(), expected)) {
@@ -107,6 +108,7 @@ bool TestUserNamespaces::readNSFromDom()
         // test values
         TEST(ns,uri(),"uri2");
         TEST(ns,preferredPrefix(),"a");
+        TEST(ns,schemaLocation(),"");
         QStringList expected;
         if(!compareStringList("prefixes 2", ns.prefixes(), expected)) {
             return false;
@@ -134,6 +136,7 @@ bool TestUserNamespaces::saveNSToDom()
         UserNamespace ns;
         ns.setUri("uri1");
         ns.setPreferredPrefix("");
+        ns.setSchemaLocation("location");
         QStringList prefixes;
         prefixes << "" << "v1" << "dd" ;
         ns.setPrefixes(prefixes);
@@ -147,6 +150,7 @@ bool TestUserNamespaces::saveNSToDom()
         UserNamespace ns;
         ns.setUri("uri2");
         ns.setPreferredPrefix("a");
+        ns.setSchemaLocation("");
         QString s1 = ns.toXMLSerializedString();
         CompareXML compare;
         if(!compare.compareXMLAsStringAsUtf8(s1, SerializedForm2)) {
@@ -165,11 +169,12 @@ static void cleanNs(QList<UserNamespace*> userNamespaces)
     userNamespaces.clear();
 }
 
-static void setNs( UserNamespace *un, const QString &name, const QString  &uri, const QString &prefix)
+static void setNs( UserNamespace *un, const QString &name, const QString  &uri, const QString  &schemaLocation, const QString &prefix)
 {
     un->setName(name);
     un->setUri(uri);
     un->setPreferredPrefix(prefix);
+    un->setSchemaLocation(schemaLocation);
 }
 
 bool TestUserNamespaces::crudUserNs()
@@ -204,9 +209,9 @@ bool TestUserNamespaces::crudUserNs()
     {
         UserNamespaceLoader loader;
         UserNamespace *ns = loader.createUserNamespace(dataInterface);
-        setNs(ns, "name1", "uri1", "prefix1");
+        setNs(ns, "name1", "uri1", "loc1", "prefix1");
         UserNamespace *ns1 = loader.createUserNamespace(dataInterface);
-        setNs(ns1, "name2", "uri2", "prefix2");
+        setNs(ns1, "name2", "uri2", "loc2", "prefix2");
 
         if(!loader.saveUserNamespace(dataInterface, ns) ) {
             return error("inserting ns 1");
@@ -229,22 +234,27 @@ bool TestUserNamespaces::crudUserNs()
             }
             UserNamespace *ns1 = userNamespaces.at(0);
             UserNamespace *ns2 = userNamespaces.at(1);
-            if( ns1->name() == "name1") {
-                ans1 = ns1 ;
-                if( !((ns1->uri() == "uri1") && (ns2->name() == "name2") && (ns2->uri()=="uri2") ) ) {
-                    return error("Reload 1.1, ns differ.");
-                }
-            } else if( ns1->name() == "name2") {
-                ans1 = ns2 ;
-                if(!( (ns1->uri() == "uri2") && (ns2->name() == "name1") && (ns2->uri()=="uri1") ) ) {
-                    return error("Reload 1.2, ns differ.");
-                }
-            } else {
-                return error(QString("1 After reload, expecting name1 or name2 but found:'%1'").arg(ns1->name()));
+            UserNamespace *z1 = ns1;
+            UserNamespace *z2 = ns2 ;
+            ans1 = ns1;
+            bool isReverse = false;
+            if( ns1->name() == "name2") {
+                z1 = ns2;
+                z2 = ns1 ;
+                ans1 = ns2;
+                isReverse = true ;
+            }
+            if( !(
+                        (z1->uri() == "uri1") && (z2->uri()=="uri2")
+                        && (z2->name() == "name2") && (z1->name() =="name1")
+                        && (z1->schemaLocation() == "loc1") && (z2->schemaLocation() == "loc2") ) ) {
+                QString rev = (isReverse?"1":"2");
+                return error(QString("Reload %1, ns differ.").arg(rev));
             }
         }
         ans1->setName("x");
         ans1->setUri("y");
+        ans1->setSchemaLocation("s");
         if(!loader.saveUserNamespace(dataInterface, ans1)) {
             return error("saving first");
         }
@@ -260,12 +270,12 @@ bool TestUserNamespaces::crudUserNs()
             UserNamespace *ns2 = userNamespaces.at(1);
             if( ns1->name() == "x") {
                 ans1 = ns1 ;
-                if( !((ns1->uri() == "y") && (ns2->name() == "name2") && (ns2->uri()=="uri2") ) ) {
+                if( !((ns1->uri() == "y") && (ns2->name() == "name2") && (ns2->uri()=="uri2") && (ns1->schemaLocation() == "s") && (ns2->schemaLocation() == "loc2") ) ) {
                     return error("Reload 3.1, ns differ.");
                 }
             } else if( ns1->name() == "name2") {
                 ans1 = ns2 ;
-                if( !((ns1->uri() == "uri2") && (ns2->name() == "x") && (ns2->uri()=="y") ) ) {
+                if( !((ns1->uri() == "uri2") && (ns2->name() == "x") && (ns2->uri()=="y") && (ns2->schemaLocation() == "s")) ) {
                     return error("Reload 3.2, ns differ.");
                 }
             } else {

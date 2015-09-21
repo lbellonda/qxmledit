@@ -25,8 +25,9 @@
 #define BASE64UTILS_H
 
 #include "xmlEdit.h"
+#include "libQXmlEdit_global.h"
 
-class Base64Utils
+class LIBQXMLEDITSHARED_EXPORT Base64Utils
 {
     static const int InputSizeLimit = 1024 * 1024 ;
 

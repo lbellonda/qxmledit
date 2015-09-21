@@ -31,7 +31,7 @@
 #include "services/loghandler.h"
 #include <QtGlobal>
 #include "qxmleditapplication.h"
-#include <QMenu>
+
 #include "licensedialog.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,3)
@@ -217,13 +217,26 @@ void msgBoxDebug(const QString message)
 #if defined(MACOS_SPECIFIC)
 void qt_mac_set_dock_menu(QMenu *menu);
 #endif
-#include <QMenu>
+
 void todo()
 {
 #if defined(MACOS_SPECIFIC) && defined(VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("Aggiorna manuale xsi");
+    Utils::TODO_THIS_RELEASE("Anonimizza con codepage per trovare le lettere");
+    Utils::TODO_THIS_RELEASE("testa inserendo un tag da xslt mode");
+    Utils::TODO_THIS_RELEASE("editelements: metodi statici e stringa di ritorno messaggio");
+    Utils::TODO_THIS_RELEASE("todo in split xmlutils con tests");
+    Utils::TODO_THIS_RELEASE("insert parent non edit attributi");
+    Utils::TODO_THIS_RELEASE("menu references in xsd");
+    Utils::TODO_THIS_RELEASE("nuova reference sostituisce vecchia");
+    // opzioni
+    Utils::TODO_THIS_RELEASE("salva con sort attributi");
+    //
+    Utils::TODO_THIS_RELEASE("choosenamespace flag per disabilitare prefix se xsd references");
+    Utils::TODO_THIS_RELEASE("undo e redo non fa refresh se xsd references");
+    Utils::TODO_THIS_RELEASE("testa con attrlist in dtd");
+    Utils::TODO_THIS_RELEASE("export sorgente usa ancora dom");
 }
 
 static void startTanslator(QApplication *app)

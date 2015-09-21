@@ -25,10 +25,11 @@
 
 //#define WellKnownNamespacesFile ":/xsd/well_known_namespaces"
 
-NamespaceDef::NamespaceDef(const NamespaceManager::EWellKnownNs theCodeForWellKnown, const QString &theNamespace,
+NamespaceDef::NamespaceDef(const NamespaceManager::EWellKnownNs theCodeForWellKnown, const QString &theNamespace, const QString &theSchemaLocation,
                            const QString &theDescription, const QString &defaultPrefix)
 {
     _namespace = theNamespace;
+    _schemaLocation = theSchemaLocation ;
     _description = theDescription;
     _codeForWellKnown = theCodeForWellKnown;
     _defaultPrefix = defaultPrefix ;
@@ -38,6 +39,16 @@ NamespaceDef::~NamespaceDef()
 {
 
 }
+QString NamespaceDef::schemaLocation() const
+{
+    return _schemaLocation;
+}
+
+void NamespaceDef::setSchemaLocation(const QString &location)
+{
+    _schemaLocation = location;
+}
+
 QString NamespaceDef::defaultPrefix() const
 {
     return _defaultPrefix;
@@ -72,6 +83,11 @@ void NamespaceDef::setUri(const QString &value)
 const QString NamespaceManager::XSLFONamespace("http://www.w3.org/1999/XSL/Format");
 const QString NamespaceManager::XSL1Namespace("http://www.w3.org/1999/XSL/Transform");
 const QString NamespaceManager::XQueryLocalFuncNamespace("http://www.w3.org/2005/xquery-local-functions");
+const QString NamespaceManager::MavenPom4Namespace("http://maven.apache.org/xsd/maven-4.0.0.xsd");
+const QString NamespaceManager::XHTML11Namespace("http://www.w3.org/1999/xhtml");
+
+const QString NamespaceManager::NoNamespaceSchemaLocationAttributeName("noNamespaceSchemaLocation");
+const QString NamespaceManager::SchemaLocationAttributeName("schemaLocation");
 
 NamespaceManager::NamespaceManager()
 {
@@ -90,13 +106,16 @@ void NamespaceManager::init()
         return ;
     }
     _inited = true ;
-    insertItem(XSI_NAMESPACE, Regola::XSDSchemaInstance, QObject::tr("Schema Instance (xsi)"), "xsi");
-    insertItem(XSD_NAMESPACE, Regola::XSDNameSpace, QObject::tr("XML Schema (xsd or xs)"), "xsd");
-    insertItem(XSLFO_NAMESPACE, XSLFONamespace, QObject::tr("XSL-FO 1.0 (fo)"), "fo");
-    insertItem(XSL1_NAMESPACE, XSL1Namespace, QObject::tr("XSL 1.0 (xsl)"), "xsl");
-    insertItem(XQUERY_LOCALFUNC_NAMESPACE, XQueryLocalFuncNamespace, QObject::tr("xquery local functions (local)"), "local");
+    Utils::TODO_THIS_RELEASE("crea schemalocation");
+    insertItem(XSI_NAMESPACE, Regola::XSDSchemaInstance, Regola::XSDSchemaInstance, QObject::tr("Schema Instance (xsi)"), "xsi");
+    insertItem(XSD_NAMESPACE, Regola::XSDNameSpace, Regola::XSDNameSpace, QObject::tr("XML Schema (xsd or xs)"), "xsd");
+    insertItem(XSLFO_NAMESPACE, XSLFONamespace, XSLFONamespace, QObject::tr("XSL-FO 1.0 (fo)"), "fo");
+    insertItem(XSL1_NAMESPACE, XSL1Namespace, "http://www.w3.org/1999/11/xslt10.dtd", QObject::tr("XSL 1.0 (xsl)"), "xsl");
+    insertItem(XQUERY_LOCALFUNC_NAMESPACE, XQueryLocalFuncNamespace, "XXXXXX", QObject::tr("xquery local functions (local)"), "local");
+    insertItem(GENERIC_NAMESPACE, MavenPom4Namespace, "http://maven.apache.org/xsd/maven-4.0.0.xsd", QObject::tr("Maven POM 4 (local)"), "local");
+    insertItem(GENERIC_NAMESPACE, XHTML11Namespace, "http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd", QObject::tr("XHTML 1.1 (html)"), "html");
+
     Utils::TODO_THIS_RELEASE("fo;xsl;maven;");
-    Utils::TODO_THIS_RELEASE("elimina codice sotto");
 }
 
 DataInterface *NamespaceManager::dataInterface() const
@@ -142,11 +161,13 @@ void NamespaceManager::reset()
     _namespaces.clear();
 }
 
-void NamespaceManager::insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theDescription, const QString &defaultPrefix)
+void NamespaceManager::insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theSchemaLocation, const QString &theDescription, const QString &defaultPrefix)
 {
-    NamespaceDef *def = new NamespaceDef(wellKnownNs, theNamespace, theDescription, defaultPrefix);
+    NamespaceDef *def = new NamespaceDef(wellKnownNs, theNamespace, theSchemaLocation, theDescription, defaultPrefix);
     _namespaces.insert(wellKnownNs, def);
-    _uriNamespaces.insert(theNamespace, def);
+    if(wellKnownNs != GENERIC_NAMESPACE) {
+        _uriNamespaces.insert(theNamespace, def);
+    }
 }
 
 /*

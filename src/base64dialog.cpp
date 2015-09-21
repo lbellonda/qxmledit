@@ -44,7 +44,6 @@ Base64Dialog::Base64Dialog(QWidget *parent) :
     ui->setupUi(this);
     setupOther();
     setAcceptDrops(true);
-    Utils::TODO_THIS_RELEASE("button per carica file di testo");
 }
 
 Base64Dialog::~Base64Dialog()
@@ -140,7 +139,6 @@ void Base64Dialog::on_cmdLoadFromFile_clicked()
 
 void Base64Dialog::loadFromBinaryFile(const QString &filePath)
 {
-    Utils::TODO_THIS_RELEASE("elimina commento");
     bool isError = true ;
     bool isAbort = false ;
     Base64Utils base64Utils;
@@ -164,7 +162,6 @@ void Base64Dialog::on_cmdLoadFromTextFile_clicked()
 
 void Base64Dialog::loadTextFile(const QString &filePath)
 {
-    Utils::TODO_THIS_RELEASE("elimina commento");
     bool isError = true ;
     bool isAbort = false ;
     QString newText = Utils::loadTextFile(this, filePath, isError, isAbort);

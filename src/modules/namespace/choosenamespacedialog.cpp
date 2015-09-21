@@ -66,11 +66,17 @@ bool ChooseNamespaceDialog::nsIsLegal(const QString &prefix, const QString &uri)
     return true;
 }
 
+void ChooseNamespaceDialog::enablePrefix(const bool isEnabled)
+{
+    ui->prefix->setEnabled(isEnabled);
+}
+
 void ChooseNamespaceDialog::nsChosen(NamespaceResult *returnValue)
 {
     returnValue->prefix = ui->prefix->text().trimmed();
     returnValue->uri = ui->uri->text().trimmed();
     returnValue->description = ui->nsDescription->text().trimmed();
+    returnValue->schemaLocation = ui->schemaLocation->text().trimmed() ;
 }
 
 void ChooseNamespaceDialog::loadData(NamespaceResult *base)
@@ -82,7 +88,9 @@ void ChooseNamespaceDialog::loadData(NamespaceResult *base)
     loadPredefinedNs();
     loadUserNs();
     if(NULL != base) {
-        setValues(base->prefix, base->uri, retrieveUriDescription(base->uri));
+        QString schemaLocation;
+        QString description = retrieveUriDescription(base->uri, schemaLocation);
+        setValues(base->prefix, base->uri, schemaLocation, description);
     }
 }
 
@@ -106,6 +114,7 @@ void ChooseNamespaceDialog::loadUserNs()
 void ChooseNamespaceDialog::setUserNamespace(const int row, UserNamespace *ns)
 {
     _tableUtils.insNsInList(ui->userNamespaces, row, ns->preferredPrefix(), ns->uri(),
+                            ns->schemaLocation(),
                             ns->description(), ns);
 
 }
@@ -178,7 +187,7 @@ void ChooseNamespaceDialog::loadPredefinedNs()
     _tableUtils.setupTable(ui->predefNamespaces);
     QList<NamespaceDef*> allNamespaces = _nsManager->allNamespaces();
     foreach(NamespaceDef * nsDef, allNamespaces) {
-        _tableUtils.insNsInList(ui->predefNamespaces, -1, nsDef->_defaultPrefix, nsDef->_namespace, nsDef->_description, nsDef);
+        _tableUtils.insNsInList(ui->predefNamespaces, -1, nsDef->_defaultPrefix, nsDef->_namespace, nsDef->schemaLocation(), nsDef->_description, nsDef);
     }
 }
 
@@ -202,7 +211,7 @@ void ChooseNamespaceDialog::on_predefNamespaces_cellClicked(int row, int /*colum
 {
     NamespaceDef *ns = predefNamespaceForRow(row);
     if(NULL != ns) {
-        setValues(ns->defaultPrefix(), ns->uri(), ns->description());
+        setValues(ns->defaultPrefix(), ns->uri(), ns->schemaLocation(), ns->description());
     }
 }
 
@@ -210,7 +219,7 @@ void ChooseNamespaceDialog::on_predefNamespaces_cellDoubleClicked(int row, int /
 {
     NamespaceDef *ns = predefNamespaceForRow(row);
     if(NULL != ns) {
-        setValues(ns->defaultPrefix(), ns->uri(), ns->description());
+        setValues(ns->defaultPrefix(), ns->uri(), ns->schemaLocation(), ns->description());
         accept();
     }
 }
@@ -219,7 +228,7 @@ void ChooseNamespaceDialog::on_userNamespaces_cellClicked(int row, int /*column*
 {
     UserNamespace *ns = namespaceForRow(row);
     if(NULL != ns) {
-        setValues(ns->preferredPrefix(), ns->uri(), ns->description());
+        setValues(ns->preferredPrefix(), ns->uri(), ns->schemaLocation(), ns->description());
     }
     enableButtons();
 }
@@ -228,35 +237,41 @@ void ChooseNamespaceDialog::on_userNamespaces_cellDoubleClicked(int row, int /*c
 {
     UserNamespace *ns = namespaceForRow(row);
     if(NULL != ns) {
-        setValues(ns->preferredPrefix(), ns->uri(), ns->description());
+        setValues(ns->preferredPrefix(), ns->uri(), ns->schemaLocation(), ns->description());
         accept();
     }
 }
 
-void ChooseNamespaceDialog::setValues(const QString &prefix, const QString &uri, const QString &description)
+void ChooseNamespaceDialog::setValues(const QString &prefix, const QString &uri, const QString &schemaLocation, const QString &description)
 {
     ui->uri->setText(uri);
     ui->prefix->setText(prefix);
     ui->nsDescription->setText(description);
+    ui->schemaLocation->setText(schemaLocation);
 }
 
-void ChooseNamespaceDialog::on_prefix_textEdited(const QString & /*text*/)
+void ChooseNamespaceDialog::on_prefix_textChanged(const QString & /*text*/)
 {
     enableButtons();
     ui->nsDescription->setText("");
 }
 
-void ChooseNamespaceDialog::on_uri_textEdited(const QString & text)
+void ChooseNamespaceDialog::on_uri_textChanged(const QString & text)
 {
     enableButtons();
-    QString descr = retrieveUriDescription(text);
+    QString schemaLoc;
+    QString descr = retrieveUriDescription(text, schemaLoc);
     ui->nsDescription->setText(descr);
+    if(!descr.isEmpty()) {
+        ui->schemaLocation->setText(schemaLoc);
+    }
 }
 
-QString ChooseNamespaceDialog::retrieveUriDescription(const QString & text)
+QString ChooseNamespaceDialog::retrieveUriDescription(const QString & text, QString &schemaLocation)
 {
     NamespaceDef* nsDef = _nsManager->namespacesForUri(text.trimmed());
     if(NULL != nsDef) {
+        schemaLocation = nsDef->schemaLocation();
         return nsDef->description();
     } else {
         // Look for user ns
@@ -264,13 +279,13 @@ QString ChooseNamespaceDialog::retrieveUriDescription(const QString & text)
         for(int i = 0 ; i < rows ; i++) {
             UserNamespace * uns = namespaceForRow(i);
             if(uns->uri() == text) {
+                schemaLocation = uns->schemaLocation();
                 return uns->description();
             }
         }
         return "" ;
     }
 }
-
 
 void ChooseNamespaceDialog::on_userNamespaces_itemSelectionChanged()
 {

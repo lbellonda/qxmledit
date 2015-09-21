@@ -57,13 +57,8 @@
 
 
 #define XMLNS_PREFIX    "xmlns"
-#define ATTRIBUTE_SCHEMA_LOCATION    "xsi:schemaLocation"
-#define SCHEMA_LOCATION    "schemaLocation"
-#define ATTRIBUTE_SCHEMA_NONS_LOCATION    "xsi:noNamespaceSchemaLocation"
-#define SCHEMA_NONS_LOCATION    "noNamespaceSchemaLocation"
-#define SCHEMA_URI "http://www.w3.org/2001/XMLSchema-instance"
-#define XSI_NAMESPACE   "xsi"
-#define XSI_NAMESPACE_COMPLETE   "xmlns:xsi"
+#define SCHEMA_LOCATION_LITERAL    "schemaLocation"
+#define SCHEMA_NONS_LOCATION_LITERAL    "noNamespaceSchemaLocation"
 #define XML_TARGET  "xml"
 
 #endif // REGOLADEFINITIONS_H

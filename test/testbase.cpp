@@ -51,6 +51,16 @@ bool TestBase::error(const QString &msg)
     return error( _testName, msg);
 }
 
+bool TestBase::error(const TestBase &inner)
+{
+    if( !inner._testName.isEmpty() ) {
+        _testName += "/";
+        _testName += inner._testName;
+    }
+    const QString &newErr = const_cast<TestBase&>(inner).errorString();
+    return error(newErr);
+}
+
 QString TestBase::errorString()
 {
     return _errorString;

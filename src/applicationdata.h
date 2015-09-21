@@ -68,6 +68,7 @@ public:
 
     void addWindow(QMainWindow* newWindow);
     void removeWindow(QMainWindow* newWindow);
+    int windowsCount();
 
     void setLogger(FrwLogger *newLogger);
     void setSessionDBPath(const QString &sessionDBPath);
