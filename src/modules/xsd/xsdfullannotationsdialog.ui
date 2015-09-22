@@ -68,7 +68,7 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item alignment="Qt::AlignHCenter">
+     <item>
       <widget class="QDialogButtonBox" name="buttonBox">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
@@ -148,7 +148,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

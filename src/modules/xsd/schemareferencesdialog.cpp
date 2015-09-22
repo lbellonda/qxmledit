@@ -86,6 +86,10 @@ void SchemaReferencesDialog::setupTable(QTableWidget *widget)
 
 void SchemaReferencesDialog::setupData(NamespaceReferenceEntry *entry)
 {
+    Utils::TODO_THIS_RELEASE("test me");
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+    ui->noNsSchemaLocation->setClearButtonEnabled(true);
+#endif
     setupTable(ui->otherNs);
     ui->enableNoNsSchemaLocation->setChecked(entry->isUseNoNamespaceSchemaLocation());
     ui->noNsSchemaLocation->setText(entry->noNamespaceSchemaLocation());

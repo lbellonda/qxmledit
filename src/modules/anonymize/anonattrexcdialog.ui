@@ -34,10 +34,10 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+     <item>
       <widget class="QDialogButtonBox" name="buttonBox">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+        <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -60,10 +60,23 @@
       </widget>
      </item>
      <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <layout class="QVBoxLayout" name="verticalLayout">
-         <item alignment="Qt::AlignVCenter">
+         <item>
           <widget class="QPushButton" name="cmdDeselectAll">
            <property name="text">
             <string>Deselect All</string>
@@ -94,7 +107,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

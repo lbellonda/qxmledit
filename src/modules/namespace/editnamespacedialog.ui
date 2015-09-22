@@ -255,8 +255,14 @@
    </item>
    <item>
     <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item alignment="Qt::AlignTop">
+     <item>
       <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -288,10 +294,11 @@
   <tabstop>tags</tabstop>
   <tabstop>defaultPrefix</tabstop>
   <tabstop>uri</tabstop>
-  <tabstop>prefixes</tabstop>
+  <tabstop>schemaLocation</tabstop>
   <tabstop>cmdAddP</tabstop>
   <tabstop>cmdModP</tabstop>
   <tabstop>cmdDelP</tabstop>
+  <tabstop>prefixes</tabstop>
  </tabstops>
  <resources>
   <include location="../../risorse.qrc"/>
