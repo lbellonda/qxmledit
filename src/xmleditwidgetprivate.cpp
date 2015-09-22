@@ -197,6 +197,10 @@ void XmlEditWidgetPrivate::setData(QApplication *newApplication, QXmlEditData *n
     if(NULL != newData) {
         _appData = newData ;
     }
+    Regola *regola = getRegola();
+    if( NULL != regola ) {
+        regola->setNamespaceManager(_appData->namespaceManager());
+    }
     paintInfo.setColorManager(_appData->colorManager());
     isSlave = newIsSlave;
     _uiDelegate = newUiDelegate ;
