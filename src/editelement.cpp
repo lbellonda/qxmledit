@@ -745,6 +745,7 @@ void EditElement::checkNamespace()
             nsOk = true ;
         }
         if(!nsOk) {
+            nsOk = true ;
             if(!prefix.isEmpty() && !_visibleNamespaces.contains(prefix)) {
                 nsOk = false;
             }
