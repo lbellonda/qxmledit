@@ -132,6 +132,9 @@ INCLUDEPATH += ../src
 INCLUDEPATH += ../sessions/include
 INCLUDEPATH += ../framework/include
 INCLUDEPATH += ../globals/includes
+INCLUDEPATH += ../src/sessions
+
+RESOURCES += ../src/sessions/sessions.qrc
 
 ICON = ../src/images/qxmledit.icns
 win32:RC_FILE = ../src/win.rc
@@ -144,11 +147,11 @@ macx:QMAKE_INFO_PLIST    = ../src/QXmlEdit.plist
 TRANSLATIONS = \
    ../src/languages_app/QXmlEdit_cs.ts \
     ../src/languages_lib/QXmlEditlib_cs.ts \
-    ../sessions/languages/QXmlEditSessions_cs.ts
+    ../src/sessions/languages/QXmlEditSessions_cs.ts
 TRANSL = \
    ../src/languages_app/QXmlEdit_cs.qm \
     ../src/languages_lib/QXmlEditlib_cs.qm \
-    ../sessions/languages/QXmlEditSessions_cs.qm
+    ../src/sessions/languages/QXmlEditSessions_cs.qm
 
 
 target.path = $$INST_DIR
@@ -177,8 +180,6 @@ desktopInfo.files = ../install_scripts/environment/desktop/QXmlEdit.desktop \
     ../install_scripts/environment/desktop/QXmlEdit.appdata.xml
 
 #-----------------------------------------------------------
-
-RESOURCES += sessions.qrc
 
 # resources are defined in paths.h
 unix:!macx:DEFINES += UNIX_RESOURCES
