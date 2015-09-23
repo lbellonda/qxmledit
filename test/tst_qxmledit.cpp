@@ -619,12 +619,21 @@ void TestQXmlEdit::testNewFromTemplate()
 {
     bool result ;
 
-    TestNewFromTemplate test1;
-    result = test1.testCreateFromTemplate();
-    QVERIFY2(result, (QString("test TestNewFromTemplate: '%1'").arg(test1.errorString())).toLatin1().data());
-    TestNewFromTemplate test2;
-    result = test2.testCreateFromSnippet();
-    QVERIFY2(result, (QString("test TestNewFromSnippet: '%1'").arg(test2.errorString())).toLatin1().data());
+    {
+        TestNewFromTemplate test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("TestNewFromTemplate testFast: '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestNewFromTemplate test1;
+        result = test1.testCreateFromTemplate();
+        QVERIFY2(result, (QString("TestNewFromTemplate TestNewFromTemplate: '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestNewFromTemplate test2;
+        result = test2.testCreateFromSnippet();
+        QVERIFY2(result, (QString("TestNewFromTemplate TestNewFromSnippet: '%1'").arg(test2.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testXSLTMode()
@@ -1162,6 +1171,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testNewFromTemplate();
     testAnonymize();
     testClipboard();
     testDocType();

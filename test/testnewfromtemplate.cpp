@@ -45,6 +45,11 @@ TestNewFromTemplate::TestNewFromTemplate()
 {
 }
 
+bool TestNewFromTemplate::testFast()
+{
+    return testBadXML();
+}
+
 bool TestNewFromTemplate::testCreateFromTemplate()
 {
     _testName = "testNewFromTemplate" ;
@@ -62,6 +67,38 @@ bool TestNewFromTemplate::testCreateFromTemplate()
     }
     if( ! testMixed() ) {
         return false;
+    }
+    if(! testEmptyFileName()) {
+        return false;
+    }
+    if(! testBadXML()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestNewFromTemplate::testEmptyFileName()
+{
+    _testName = "testEmptyFileName" ;
+    App app;
+    if(!app.init() ) {
+        return error("init window");
+    }
+    if( app.mainWindow()->createDocumentFromResources("") ) {
+        return error("Create fromresource empty path");
+    }
+    return true ;
+}
+
+bool TestNewFromTemplate::testBadXML()
+{
+    _testName = "testBadXML" ;
+    App app;
+    if(!app.init() ) {
+        return error("init window");
+    }
+    if( app.mainWindow()->createDocumentFromResources(":/templates/badTemplate.xml") ) {
+        return error("Create from resource bad template");
     }
     return true ;
 }

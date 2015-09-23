@@ -33,6 +33,8 @@ class TestNewFromTemplate : public TestBase
     bool testNewXSLT();
     bool testNewPOM();
     bool testMixed();
+    bool testEmptyFileName();
+    bool testBadXML();
     bool testNewFile(const QString &fileName, const QString testName, const QString &actionName);
     bool testNewFromSnippet(const QString &fileName, const QString &testName, const QString &resultFileName);
     bool testChooseSnippet(const QString &fileName, const QString &testName, const QString &resultFileName);
@@ -41,6 +43,7 @@ public:
 
     bool testCreateFromTemplate();
     bool testCreateFromSnippet();
+    bool testFast();
 };
 
 #endif // TESTNEWFROMTEMPLATE_H

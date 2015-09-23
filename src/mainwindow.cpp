@@ -562,7 +562,6 @@ void MainWindow::onHandleSessionState()
     ui.actionSessionDetails->setEnabled(isSessionEnabled && (sessionState != Session::NoSession));
 }
 
-
 bool MainWindow::buildLastObjects(const int maxObjects, QList<QAction*> &cmdList, const char *method, QMenu *parent)
 {
     bool isOk = true ;
@@ -2534,82 +2533,55 @@ void MainWindow::on_actionXSLTEditMode_triggered()
 
 void MainWindow::on_actionNewXSLTSheet_triggered()
 {
-    createDocumentFromResources(":/templates/templateXsl");
-    activateXSLTonNewFile();
+    _controller.createDocumentFromResources(":/templates/templateXsl");
 }
 
 void MainWindow::on_actionNewXSDDocument_triggered()
 {
-    createDocumentFromResources(":/templates/templateXsd");
+    _controller.createDocumentFromResources(":/templates/templateXsd");
 }
 
 void MainWindow::on_actionNewXSLFODocument_triggered()
 {
-    createDocumentFromResources(":/templates/templateFo");
+    _controller.createDocumentFromResources(":/templates/templateFo");
 }
 
 void MainWindow::on_actionNewMavenPOM_triggered()
 {
-    createDocumentFromResources(":/templates/templatePOM");
+    _controller.createDocumentFromResources(":/templates/templatePOM");
 }
 
 void MainWindow::on_actionNewFromSnippet_triggered()
 {
-    if(!MainWindow::checkAbandonChanges()) {
-        return ;
-    }
     Regola* newRegola = _snippetManager->chooseSnippets(data, this) ;
     if(NULL != newRegola) {
-        createDocumentFromSnippet(newRegola);
+        _controller.createDocumentFromSnippet(newRegola);
     }
 }
 
 void MainWindow::createDocumentFromSnippet(Regola* newRegola)
 {
-    newRegola->markEdited();
-    getRegola()->setModified(true);
+    Utils::TODO_THIS_RELEASE("check che il file appaia modificato nella window e nel titolo");
     ui.editor->assignRegola(newRegola);
+    markAsAllEdited();
     removeAttributesFilter();
     if(Utils::fileIsXSLT(getEditor()->getRegola())) {
         activateXSLTonNewFile();
     }
 }
 
+void MainWindow::markAsAllEdited()
+{
+    Regola *regola = getRegola();
+    if(NULL != regola) {
+        regola->markEdited();
+        regola->setModified(true);
+    }
+}
+
 bool MainWindow::createDocumentFromResources(const QString &path)
 {
-    if(!verifyAbandonChanges()) {
-        return false ;
-    }
-
-    Utils::TODO_NEXT_RELEASE("check if it is possible to use only one function (load), adjusting the error messages and the file name");
-    Regola *regola = getRegola();
-    if(NULL == regola) {
-        return false;
-    }
-    bool fileLoaded = false;
-    if(!path.isEmpty()) {
-        QFile file(path);
-        if(file.open(QIODevice::ReadOnly)) {
-            QDomDocument document;
-            QString errorMsg ;
-            int errorLine = 0, errorColumn = 0;
-            if(document.setContent(&file, &errorMsg, &errorLine, &errorColumn)) {
-                setDocument(document, "", true);
-                getRegola()->markEdited();
-                getRegola()->setModified(true);
-                fileLoaded = true ;
-                updateWindowFilePath();
-            } else {
-                showLoadFileError(path, errorMsg, errorLine, errorColumn);
-            }
-            file.close();
-        } else {
-            Utils::error(QString(tr("Unable to create resource.\n Error code is '%1'")).arg(file.error()));
-        }
-    } else {
-        Utils::error(tr("The resource name is empty. Unable to load it."));
-    }
-    return fileLoaded;
+    return _controller.createDocumentFromResources(path);
 }
 
 void MainWindow::on_actionEditXSLTitem_triggered()
@@ -3021,4 +2993,10 @@ void MainWindow::on_actionOpenSameWindow_triggered()
     // reverse settings behavior
     openFileUsingDialog(getRegola()->fileName(),
                         _controller.isOpenInNewWidow() ? OpenUsingSameWindow : OpenUsingNewWindow);
+}
+
+
+MainWndController *MainWindow::controller()
+{
+    return &_controller ;
 }

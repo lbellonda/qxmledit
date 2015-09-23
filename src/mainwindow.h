@@ -92,8 +92,9 @@ public:
     void setAutoDelete();
 
     ApplicationData *appData();
-    bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings);
-    MainWindow *loadFileAndReturnWindow(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings);
+    bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
+    MainWindow *loadFileAndReturnWindow(const QString &filePath, const bool activateModes = true,
+                                        const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
 
     void openProva();
     void setEventLoop(QEventLoop *eventLoop);
@@ -133,17 +134,18 @@ public:
     bool isReadOnly();
     void onAnonymize(AnonContext *context);
     void onAnonymize(AnonAlg *alg);
+    MainWndController *controller();
 
 protected:
     //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.
     void setSnippetManager(SnippetManager *newSnippetManager);
     MainWindow *makeNewWindow();
-    bool loadFileInner(const QString &filePath, const bool activateModes = true);
-    bool loadFileInnerStream(const QString &filePath, const bool activateModes = true);
+    bool loadFileInner(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true);
+    bool loadFileInnerStream(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true);
     /*!
      * \deprecated
      */
-    bool loadFileInnerDom(const QString &filePath, const bool activateModes);
+    bool loadFileInnerDom(const QString &filePath, const bool isRegularFile, const bool activateModes);
     bool readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState);
     void newUsingXMLSchema();
 
@@ -439,13 +441,17 @@ private:
     //-------endregion(internal)
     void updateWindowFilePath();
     void insertXSITypeAttribute(const QString &newValue);
-
+    //--
+    void errorOnLoad(QFile &file);
+    void errorFileName();
+    void markAsAllEdited();
 protected:
     virtual void changeEvent(QEvent *e);
 
     void onShowHideMainButtons();
     void onShowHideStatusBar();
 
+    friend class MainWndController;
 
     friend class TestFilterAttributes;
     friend class TestCopyAttrs;

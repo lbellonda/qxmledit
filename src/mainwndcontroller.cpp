@@ -157,3 +157,31 @@ bool MainWndController::actionInfo()
     }
     return false;
 }
+
+// takes care of activating snippet in this or in a new window
+void MainWndController::createDocumentFromSnippet(Regola* newRegola)
+{
+    Utils::TODO_THIS_RELEASE("verifica nuova finestra");
+    MainWindow *theWindow = _w ;
+    if(isOpenInNewWidow()) {
+        theWindow = _w->makeNewWindow();
+    }
+    if(!theWindow->checkAbandonChanges()) {
+        return ;
+    }
+    theWindow->createDocumentFromSnippet(newRegola);
+}
+
+
+bool MainWndController::createDocumentFromResources(const QString &path)
+{
+    if(!_w->checkAbandonChanges()) {
+        return false ;
+    }
+    MainWindow *window = _w->loadFileAndReturnWindow(path, true, MainWindow::OpenUsingDefaultSettings, false);
+    if(NULL != window) {
+        window->markAsAllEdited();
+        return true;
+    }
+    return false;
+}

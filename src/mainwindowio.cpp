@@ -27,16 +27,17 @@ extern const char *APP_TITLE ;
 #include "mainwindow.h"
 #include "config.h"
 
-bool MainWindow::loadFile(const QString &filePath, const bool activateModes, const EWindowOpen useWindow)
+bool MainWindow::loadFile(const QString &filePath, const bool activateModes, const EWindowOpen useWindow, const bool isRegularFile)
 {
-    MainWindow *result = loadFileAndReturnWindow(filePath, activateModes, useWindow);
+    MainWindow *result = loadFileAndReturnWindow(filePath, activateModes, useWindow, isRegularFile);
     if(NULL == result) {
         return false;
     }
     return true;
 }
 
-MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const bool activateModes, const EWindowOpen useWindow)
+MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const bool activateModes,
+        const EWindowOpen useWindow, const bool isRegularFile)
 {
     const bool forceSameWindow = (OpenUsingSameWindow == useWindow);
     const bool forceNewWindow = (OpenUsingNewWindow == useWindow);
@@ -52,27 +53,27 @@ MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const b
         theWindow = makeNewWindow();
         otherWindow = true ;
     }
-    ok = theWindow->loadFileInner(filePath, activateModes);
+    ok = theWindow->loadFileInner(filePath, isRegularFile, activateModes);
     if(!ok) {
         if(otherWindow) {
             theWindow->close();
             theWindow->deleteLater();
-            theWindow = NULL ;
         }
+        theWindow = NULL ;
     }
     return theWindow ;
 }
 
-bool MainWindow::loadFileInner(const QString &filePath, const bool activateModes)
+bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
     if(Config::getBool(Config::KEY_XML_LOAD_STREAM, true)) {
-        return loadFileInnerStream(filePath, activateModes);
+        return loadFileInnerStream(filePath, isRegularFile, activateModes);
     } else {
-        return loadFileInnerDom(filePath, activateModes);
+        return loadFileInnerDom(filePath, isRegularFile, activateModes);
     }
 }
 
-bool MainWindow::loadFileInnerDom(const QString &filePath, const bool activateModes)
+bool MainWindow::loadFileInnerDom(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
     bool fileLoaded = false;
     if(!filePath.isEmpty()) {
@@ -82,9 +83,15 @@ bool MainWindow::loadFileInnerDom(const QString &filePath, const bool activateMo
             QString errorMsg ;
             int errorLine = 0, errorColumn = 0;
             if(document.setContent(&file, &errorMsg, &errorLine, &errorColumn)) {
-                data->sessionManager()->enrollFile(filePath);
+                if(isRegularFile) {
+                    data->sessionManager()->enrollFile(filePath);
+                }
                 setDocument(document, filePath, true);
-                updateRecentFilesMenu(filePath);
+                if(isRegularFile) {
+                    updateRecentFilesMenu(filePath);
+                } else {
+                    getRegola()->setFileName("");
+                }
                 updateWindowFilePath();
                 autoLoadValidation();
                 fileLoaded = true ;
@@ -98,16 +105,17 @@ bool MainWindow::loadFileInnerDom(const QString &filePath, const bool activateMo
             }
             file.close();
         } else {
-            Utils::error(QString(tr("Unable to load file.\n Error code is '%1'")).arg(file.error()));
+            errorOnLoad(file);
         }
     } else {
-        Utils::error(tr("File name empty. Unable to load it."));
+        errorFileName();
     }
     return fileLoaded;
 }
 
-bool MainWindow::loadFileInnerStream(const QString &filePath, const bool activateModes)
+bool MainWindow::loadFileInnerStream(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
+    Utils::TODO_THIS_RELEASE("usare anche per crea da risorse");
     bool fileLoaded = false;
     if(!filePath.isEmpty()) {
         QFile file(filePath);
@@ -115,8 +123,12 @@ bool MainWindow::loadFileInnerStream(const QString &filePath, const bool activat
             QXmlStreamReader reader ;
             reader.setDevice(&file);
             if(readData(&reader, filePath, true)) {
-                data->sessionManager()->enrollFile(filePath);
-                updateRecentFilesMenu(filePath);
+                if(isRegularFile) {
+                    data->sessionManager()->enrollFile(filePath);
+                    updateRecentFilesMenu(filePath);
+                } else {
+                    getRegola()->setFileName("");
+                }
                 updateWindowFilePath();
                 autoLoadValidation();
                 fileLoaded = true ;
@@ -128,10 +140,20 @@ bool MainWindow::loadFileInnerStream(const QString &filePath, const bool activat
             }
             file.close();
         } else {
-            Utils::error(QString(tr("Unable to load file.\n Error code is '%1'")).arg(file.error()));
+            errorOnLoad(file);
         }
     } else {
-        Utils::error(tr("File name empty. Unable to load it."));
+        errorFileName();
     }
     return fileLoaded;
+}
+
+void MainWindow::errorOnLoad(QFile &file)
+{
+    Utils::error(this, QString(tr("Unable to read data.\nError code is '%1'")).arg(file.error()));
+}
+
+void MainWindow::errorFileName()
+{
+    Utils::error(this, tr("File name empty.\nUnable to load."));
 }

@@ -30,6 +30,7 @@ class MainWindow;
 class AnonContext;
 class AnonAlg;
 class AnonymizeParameters;
+class Regola;
 
 class MainWndController : public QObject
 {
@@ -56,6 +57,8 @@ public:
     //---
     QString askNewXSIType(Element *selection);
     bool isOpenInNewWidow();
+    void createDocumentFromSnippet(Regola* newRegola);
+    bool createDocumentFromResources(const QString &path);
 
 signals:
 
