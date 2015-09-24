@@ -259,6 +259,7 @@ public:
     QTreeWidgetItem *getUI() const {
         return ui;
     }
+    void forceUpdateGui(const bool forceLayout);
     bool isFirstChild() ;
     bool isLastChild() ;
 
@@ -313,7 +314,6 @@ public:
     //Attributi
     // TODO consider using an array
     QVector<Attribute*> attributes;
-    //QMap<QString*> attributeNames; TODO: for styles
 
     void addTextNode(TextChunk *text);
     void clearTextNodes();

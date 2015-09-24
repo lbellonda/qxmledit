@@ -2906,4 +2906,17 @@ bool Element::compareToElement(Element *other, QString &msg)
     return true;
 }
 
-
+// update view
+void Element::forceUpdateGui(const bool forceLayout)
+{
+    QTreeWidgetItem *item = getUI();
+    if(NULL != item) {
+        QRect bounds = item->treeWidget()->visualItemRect(item);
+        QModelIndex index = item->treeWidget()->indexAt(QPoint(bounds.left() + bounds.width() / 2, bounds.top() + bounds.height() / 2));
+        item->treeWidget()->update(index);
+        Utils::TODO_THIS_RELEASE("decidere sulla riga seguente, per alberi estesi");
+        if(!item->treeWidget()->uniformRowHeights() || forceLayout) {
+            item->treeWidget()->doItemsLayout();
+        }
+    }
+}

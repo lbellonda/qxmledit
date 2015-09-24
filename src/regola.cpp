@@ -669,6 +669,7 @@ bool Regola::editInnerXMLElement(QTreeWidgetItem *item, UIDelegate *uiDelegate)
     case Element::ET_TEXT: {
         UndoEditCommand *undoCommand = new UndoEditCommand(item->treeWidget(), this, pElement->indexPath());
         if(NULL == undoCommand) {
+            Utils::errorOutOfMem(uiDelegate->getMainWidget());
             throw new std::exception();
             return false;
         }
@@ -856,8 +857,10 @@ bool Regola::editElement(QWidget *const parentWindow, QTreeWidgetItem *item, UID
         bool result = false;
         bool updateInfo = false;
         Element *pElement = Element::fromItemData(item);
+        int beforeAttributesCount = pElement->getAttributesList().size();
         UndoEditCommand *undoCommand = new UndoEditCommand(item->treeWidget(), this, pElement->indexPath());
         if(NULL == undoCommand) {
+            Utils::errorOutOfMem(uiDelegate->getMainWidget());
             throw new std::exception();
             return false;
         }
@@ -905,6 +908,11 @@ bool Regola::editElement(QWidget *const parentWindow, QTreeWidgetItem *item, UID
             if(updateInfo) {
                 pElement->updateSizeInfo();
                 pElement->display(item, paintInfo);
+                Utils::TODO_THIS_RELEASE("check");
+                int nowAttributesCount = pElement->getAttributesList().size();
+                if(pElement->isElement() && (nowAttributesCount != beforeAttributesCount)) {
+                    pElement->forceUpdateGui(true);
+                }
                 setModified(true);
             }
             if(NULL == pElement->parent()) {

@@ -128,6 +128,7 @@ void XmlEditWidgetPrivate::secondStepConstructor()
     shortcutInsert->setKey(Qt::Key_Insert);
     connect(shortcutDelete, SIGNAL(activated()), this, SLOT(onShortcutDelete()));
     connect(shortcutInsert, SIGNAL(activated()), this, SLOT(onShortcutInsert()));
+    recalcRowHeightClass();
 
     started = true ;
     internalStateOk = true ;
@@ -142,6 +143,7 @@ XmlEditWidgetPrivate::~XmlEditWidgetPrivate()
     if(NULL != _XSDAnnotationEditProvider) {
         _XSDAnnotationEditProvider->autoDelete();
     }
+    Utils::TODO_THIS_RELEASE("dopo aver selezionato no one attr per line e compact, si sbianca come fosse alto zero, manca layout? se parte, tutto ok");
 }
 
 
@@ -1085,6 +1087,7 @@ void XmlEditWidgetPrivate::onActionExpandSelectedItem()
 void XmlEditWidgetPrivate::onActionShowAttrLine(const bool state)
 {
     paintInfo.setOneAttrPerLine(state);
+    recalcRowHeightClass();
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     QAbstractItemModel *model = p->ui->treeWidget->model();
     emit model->layoutAboutToBeChanged();
@@ -1092,6 +1095,21 @@ void XmlEditWidgetPrivate::onActionShowAttrLine(const bool state)
 #endif
     repaint();
 }
+
+void XmlEditWidgetPrivate::recalcRowHeightClass()
+{
+    bool sameHeight = false ;
+    if(!paintInfo.oneAttrPerLine() && paintInfo.compactView()) {
+        sameHeight = true ;
+    }
+    if(getMainTreeWidget()->uniformRowHeights() != sameHeight) {
+        getMainTreeWidget()->setUniformRowHeights(sameHeight);
+        if(sameHeight) {
+            getMainTreeWidget()->doItemsLayout();
+        }
+    }
+}
+
 
 void XmlEditWidgetPrivate::invalidatePaintData()
 {
@@ -1398,6 +1416,7 @@ void XmlEditWidgetPrivate::onActionCompactView(const bool isChecked)
 {
     paintInfo.setCompactView(isChecked);
     _helper.setDataColumnTitle(p->ui->treeWidget, &paintInfo, paintInfo.compactView());
+    recalcRowHeightClass();
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     QAbstractItemModel *model = p->ui->treeWidget->model();
     emit model->layoutAboutToBeChanged();

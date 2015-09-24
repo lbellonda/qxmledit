@@ -388,6 +388,7 @@ private:
     void showValidationResults(const QString xmlAsText, ValidatorMessageHandler &validator);
     QList<int> makeDomNodePath(QDomNode elementToExamine);
     bool findDomNodeScan(QDomNode node, QDomNode nodeTarget, const int lineSearched, const int columnSearched, FindNodeWithLocationInfo &info);
+    void recalcRowHeightClass();
 protected:
     bool eventFilter(QObject *obj, QEvent * event);
 

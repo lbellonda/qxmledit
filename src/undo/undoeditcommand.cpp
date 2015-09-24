@@ -91,6 +91,7 @@ void UndoEditCommand::makeACopy(Element *source)
 {
     Element *target = regola->findElementByArray(path);
     if(NULL != target) {
+        int beforeAttributesCount = target->getAttributesList().size();
         if(!source->copyTextNodesToTarget(target)) {
             Utils::error(tr("An error occurred applying undo/redo feature."));
         } else {
@@ -98,16 +99,11 @@ void UndoEditCommand::makeACopy(Element *source)
                 target->getParentRule()->checkEncoding();
             }
         }
+        Utils::TODO_THIS_RELEASE("check");
+        int nowAttributesCount = target->getAttributesList().size();
+        if(nowAttributesCount != beforeAttributesCount) {
+            target->forceUpdateGui(true);
+        }
     }
 }
-
-
-
-
-
-
-
-
-
-
 
