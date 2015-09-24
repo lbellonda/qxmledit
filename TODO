@@ -1,84 +1,27 @@
 
 Nice to have:
-sessions
-activities a-la-plasma
-KDE Widgets
-KDE Nepomuk integration
+---
+
+xsd: liste esagonali non centrate con il testo
+xsd: metti i tooltip a tutti gli oggetti xsd
+a volte non fa cancel su edit inner
+viewxsd non chiude con cancel
+compara xml tooltip deve mostrare full di entrambi i rami
+fai un previous location"
+
 
 
 TODO:
-#new is:93
 
-Caricare gli attributi con uno stile
+#new is:96
 
+95 - Use stream when exporting source
 
-90 - fai linguaggi per la dll sessions
-
-86 - test del find con elment mixed
-
-85 - gestire i casi mancanti xsd
-
-84 - casi di test xsd
-
-83 - gestire gli xds esterni
+94 - Anonimyze using codepages.
 
 82 - Rapportino di estrazione dei files
 
-75 - ****** test comment dell'elemento radice
-
-74 - *****Element autoDeleteRecursive() Controllare il root element
-
-73 - *******scrivere test per xsd
-
-72 - CHECK: appending a new root el from a comment does not generate an error
-
-71 - inserire attributi con flag e attributi opzionali
-
-69 - Se il primo item e' un commento, posso appendere tutti gli items che voglio come root
-
-68 - After the file requester show in xsd window, the window title is reset:fatto?
-
-67 - complete XSD manual with a table of all the options and activations
-
 66 - show and hide navigation pane does not enlarge graphical view
-
-65 - styles: recognize element name without namespace?
-
-63 - dialogs: remember last size
-
-62- check this:
-XSDItem::~XSDItem()
-{
-    //TODO removeObject( _item );
-}
-
-59 - explore: manca il calcolo del size degli attributi
-
-57 - fare il repaint dopo avere operato sui selezionati*** check if already working
-
-56 - case delle nuove scritte dei menu
-
-52 - prune di attributi degli elementi selezionati
-
-51 - prune degli elementi selezionati
-
-49 - mostrare una visione compatta del testo 20 caratteri al massimo
-
-48 - prova a decommentare un commento e trasfromarlo in xml
-
-47 - trasforma un nodo in commento
-
-46 - gestisci editor configurabile che accetta in input proprieta' e le gestisce con i binding
-
-42 - adding any attributes with non-schema Namespace, check if true condition
-
-40 - lettura tipo complesso non setta il tipo dell'elemento
-
-39 - lettura tipo semplice non setta il tipo interno dell'elemento
-
-37 - review xsd exceptions
-
-34 - Check uniqueness of type names
 
 33 - Configurable data directory (see https://wiki.edubuntu.org/PackagingGuide/QtApplication for a guide)
 
@@ -86,18 +29,4 @@ XSDItem::~XSDItem()
 
 24- generatore di codice per XSD
 
-23 -interfaccia con mono per gestione xsd
-
-21 - usa un cfg dialog a pagine
-
-19 - controlla xml snippets al salvataggio
-
-15 - controlla duplicati su id letti da stile
-
-10 encoding support while saving
-
 7 metti in relazione oggetti in varie posizioni
-
-5- open more than a window at time
-
-

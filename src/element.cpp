@@ -2916,7 +2916,13 @@ void Element::forceUpdateGui(const bool forceLayout)
         item->treeWidget()->update(index);
         Utils::TODO_THIS_RELEASE("decidere sulla riga seguente, per alberi estesi");
         if(!item->treeWidget()->uniformRowHeights() || forceLayout) {
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
             item->treeWidget()->doItemsLayout();
+#else
+            QAbstractItemModel *model = item->treeWidget()->model();
+            emit model->layoutAboutToBeChanged();
+            emit model->layoutChanged();
+#endif
         }
     }
 }

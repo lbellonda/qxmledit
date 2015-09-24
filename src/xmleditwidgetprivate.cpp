@@ -1102,12 +1102,14 @@ void XmlEditWidgetPrivate::recalcRowHeightClass()
     if(!paintInfo.oneAttrPerLine() && paintInfo.compactView()) {
         sameHeight = true ;
     }
+    Utils::TODO_THIS_RELEASE("refresh");
     if(getMainTreeWidget()->uniformRowHeights() != sameHeight) {
         getMainTreeWidget()->setUniformRowHeights(sameHeight);
-        if(sameHeight) {
-            getMainTreeWidget()->doItemsLayout();
-        }
     }
+    // this function only for Qt 4.3 compatibility, for qt5 model->layoutAboutToBeChanged is enough
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+    getMainTreeWidget()->doItemsLayout();
+#endif
 }
 
 
