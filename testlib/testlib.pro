@@ -49,7 +49,7 @@ equals(QXMLEDIT_LIB_SUFFIX, "") {
 }
 
 
-QT  += core gui xml
+QT  += core gui xml xmlpatterns
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT       += printsupport widgets
