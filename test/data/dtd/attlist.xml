@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE root [
+  <!ELEMENT root EMPTY>
+  <!ATTLIST root a CDATA #REQUIRED>
+  <!ATTLIST root b CDATA #REQUIRED>
+]>
+<root a="1" b="2"/>

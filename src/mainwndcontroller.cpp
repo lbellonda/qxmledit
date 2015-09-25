@@ -161,7 +161,6 @@ bool MainWndController::actionInfo()
 // takes care of activating snippet in this or in a new window
 void MainWndController::createDocumentFromSnippet(Regola* newRegola)
 {
-    Utils::TODO_THIS_RELEASE("verifica nuova finestra");
     MainWindow *theWindow = _w ;
     if(isOpenInNewWidow()) {
         theWindow = _w->makeNewWindow();

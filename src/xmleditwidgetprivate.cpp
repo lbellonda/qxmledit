@@ -143,7 +143,6 @@ XmlEditWidgetPrivate::~XmlEditWidgetPrivate()
     if(NULL != _XSDAnnotationEditProvider) {
         _XSDAnnotationEditProvider->autoDelete();
     }
-    Utils::TODO_THIS_RELEASE("dopo aver selezionato no one attr per line e compact, si sbianca come fosse alto zero, manca layout? se parte, tutto ok");
 }
 
 
@@ -683,7 +682,7 @@ void XmlEditWidgetPrivate::resetTree()
 }
 
 
-void XmlEditWidgetPrivate::onActionNewFromClipboard()
+bool XmlEditWidgetPrivate::onActionNewFromClipboard()
 {
     const QClipboard *clipBoard = QApplication::clipboard();
     const QMimeData *mimeData = clipBoard->mimeData();
@@ -692,8 +691,10 @@ void XmlEditWidgetPrivate::onActionNewFromClipboard()
             setReadOnly(false);
             regola->markEdited();
             regola->setModified(true);
+            return true ;
         }
     }
+    return false;
 }
 
 void XmlEditWidgetPrivate::onActionResizeToContents()
@@ -1102,7 +1103,6 @@ void XmlEditWidgetPrivate::recalcRowHeightClass()
     if(!paintInfo.oneAttrPerLine() && paintInfo.compactView()) {
         sameHeight = true ;
     }
-    Utils::TODO_THIS_RELEASE("refresh");
     if(getMainTreeWidget()->uniformRowHeights() != sameHeight) {
         getMainTreeWidget()->setUniformRowHeights(sameHeight);
     }

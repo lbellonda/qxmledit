@@ -2914,8 +2914,7 @@ void Element::forceUpdateGui(const bool forceLayout)
         QRect bounds = item->treeWidget()->visualItemRect(item);
         QModelIndex index = item->treeWidget()->indexAt(QPoint(bounds.left() + bounds.width() / 2, bounds.top() + bounds.height() / 2));
         item->treeWidget()->update(index);
-        Utils::TODO_THIS_RELEASE("decidere sulla riga seguente, per alberi estesi");
-        if(!item->treeWidget()->uniformRowHeights() || forceLayout) {
+        if(forceLayout) {
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
             item->treeWidget()->doItemsLayout();
 #else

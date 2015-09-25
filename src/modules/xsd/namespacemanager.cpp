@@ -106,16 +106,16 @@ void NamespaceManager::init()
         return ;
     }
     _inited = true ;
-    Utils::TODO_THIS_RELEASE("crea schemalocation");
+
     insertItem(XSI_NAMESPACE, Regola::XSDSchemaInstance, Regola::XSDSchemaInstance, QObject::tr("Schema Instance (xsi)"), "xsi");
-    insertItem(XSD_NAMESPACE, Regola::XSDNameSpace, Regola::XSDNameSpace, QObject::tr("XML Schema (xsd or xs)"), "xsd");
-    insertItem(XSLFO_NAMESPACE, XSLFONamespace, XSLFONamespace, QObject::tr("XSL-FO 1.0 (fo)"), "fo");
+    insertItem(XSD_NAMESPACE, Regola::XSDNameSpace, "http://www.w3.org/2009/XMLSchema.xsd" /*"http://www.w3.org/2012/04/XMLSchema.xsd"*/, QObject::tr("XML Schema (xsd or xs)"), "xsd");
+    // there is no "official" xsl*-fo schema reository
+    insertItem(XSLFO_NAMESPACE, XSLFONamespace, "", QObject::tr("XSL-FO 1.0 (fo)"), "fo");
     insertItem(XSL1_NAMESPACE, XSL1Namespace, "http://www.w3.org/1999/11/xslt10.dtd", QObject::tr("XSL 1.0 (xsl)"), "xsl");
-    insertItem(XQUERY_LOCALFUNC_NAMESPACE, XQueryLocalFuncNamespace, "XXXXXX", QObject::tr("xquery local functions (local)"), "local");
+    // predefined namespace
+    insertItem(XQUERY_LOCALFUNC_NAMESPACE, XQueryLocalFuncNamespace, "", QObject::tr("xquery local functions (local)"), "local");
     insertItem(GENERIC_NAMESPACE, MavenPom4Namespace, "http://maven.apache.org/xsd/maven-4.0.0.xsd", QObject::tr("Maven POM 4 (local)"), "local");
     insertItem(GENERIC_NAMESPACE, XHTML11Namespace, "http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd", QObject::tr("XHTML 1.1 (html)"), "html");
-
-    Utils::TODO_THIS_RELEASE("fo;xsl;maven;");
 }
 
 DataInterface *NamespaceManager::dataInterface() const

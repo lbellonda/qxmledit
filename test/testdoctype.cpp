@@ -36,8 +36,9 @@
 
 #define LOAD_TEST  "../test/data/dtd/testloader.xml"
 
-#define TEST_BASE  "../test/data/dtd/"
 
+#define TEST_BASE  "../test/data/dtd/"
+#define LOAD_TEST_ATTR  TEST_BASE "attlist.xml"
 
 TestDocType::TestDocType()
 {
@@ -61,12 +62,15 @@ bool TestDocType::test()
     if( !testSystem() ) {
         return false;
     }
+    if( !testDTD() ) {
+        return false;
+    }
     return true;
 }
 
 bool TestDocType::testFast()
 {
-    if( !testUnit() ) {
+    if( !testDTD() ) {
         return false;
     }
     return true;
@@ -368,4 +372,29 @@ bool TestDocType::testUnit()
         }
     }
     return true ;
+}
+
+bool TestDocType::testDTD()
+{
+    _testName = "testDTD" ;
+    const QString fileNameIn = LOAD_TEST_ATTR;
+    App app;
+    if(!app.init() ) {
+        return error("init app");
+    }
+    if(!app.mainWindow()->loadFile(fileNameIn)) {
+        return error(QString("error loading %1").arg(fileNameIn));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    const QString expected = QString("<!DOCTYPE root [\n"
+"  <!ELEMENT root EMPTY>\n"
+"  <!ATTLIST root a CDATA #REQUIRED>\n"
+"  <!ATTLIST root b CDATA #REQUIRED>\n"
+"]>").replace("\r\n", "\n");
+    QString found = regola->dtd().replace("\r\n", "\n") ;
+
+    if( found != expected ) {
+        return error(QString("dtd found:\n'%1'\nexpecting:\n'%2'\n").arg(found).arg(expected));
+    }
+    return true;
 }

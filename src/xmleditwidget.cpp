@@ -241,9 +241,9 @@ void XmlEditWidget::showButtons(const bool how)
     d->showButtons(how);
 }
 
-void XmlEditWidget::onActionNewFromClipboard()
+bool XmlEditWidget::onActionNewFromClipboard()
 {
-    d->onActionNewFromClipboard();
+    return d->onActionNewFromClipboard();
 }
 
 void XmlEditWidget::onActionResizeToContents()

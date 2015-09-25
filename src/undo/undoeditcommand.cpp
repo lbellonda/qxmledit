@@ -99,10 +99,11 @@ void UndoEditCommand::makeACopy(Element *source)
                 target->getParentRule()->checkEncoding();
             }
         }
-        Utils::TODO_THIS_RELEASE("check");
         int nowAttributesCount = target->getAttributesList().size();
         if(nowAttributesCount != beforeAttributesCount) {
             target->forceUpdateGui(true);
+        } else {
+            target->forceUpdateGui(false);
         }
     }
 }

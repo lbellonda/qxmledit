@@ -237,7 +237,7 @@ public:
     void onActionGotoPreviousBookmark();
     void onActionShowChildIndex(const bool isChecked);
     void onActionCloseThisAllBrothers();
-    void onActionNewFromClipboard();
+    bool onActionNewFromClipboard();
     void onActionCompactView(const bool isChecked);
     void onActionShowAlwaysFullTextComments(const bool isShow);
     void onActionHideBrothers();

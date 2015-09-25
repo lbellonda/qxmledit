@@ -908,7 +908,6 @@ bool Regola::editElement(QWidget *const parentWindow, QTreeWidgetItem *item, UID
             if(updateInfo) {
                 pElement->updateSizeInfo();
                 pElement->display(item, paintInfo);
-                Utils::TODO_THIS_RELEASE("check");
                 int nowAttributesCount = pElement->getAttributesList().size();
                 if(pElement->isElement() && (nowAttributesCount != beforeAttributesCount)) {
                     pElement->forceUpdateGui(true);

@@ -46,6 +46,7 @@ class TestDocType : public TestBase
     bool testEditReadOnly();
     bool testEditSameNoEdit();
     bool testEditCancel();
+    bool testDTD();
 public:
     TestDocType();
     ~TestDocType();

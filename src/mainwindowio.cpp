@@ -27,6 +27,61 @@ extern const char *APP_TITLE ;
 #include "mainwindow.h"
 #include "config.h"
 
+class MainWindowIOHelper
+{
+    bool otherWindow ;
+    MainWindow *theWindow;
+public:
+    MainWindowIOHelper();
+    ~MainWindowIOHelper();
+
+    MainWindow *getWindow(MainWindow *baseWindow, const MainWindow::EWindowOpen useWindow);
+    MainWindow *result(const bool ok);
+};
+
+MainWindowIOHelper::MainWindowIOHelper()
+{
+    theWindow = NULL  ;
+    otherWindow = false ;
+}
+
+MainWindowIOHelper::~MainWindowIOHelper()
+{
+
+}
+
+MainWindow *MainWindowIOHelper::getWindow(MainWindow *baseWindow, const MainWindow::EWindowOpen useWindow)
+{
+    const bool forceSameWindow = (MainWindow::OpenUsingSameWindow == useWindow);
+    const bool forceNewWindow = (MainWindow::OpenUsingNewWindow == useWindow);
+    theWindow = baseWindow ;
+    otherWindow = false ;
+    if(baseWindow->controller()->isOpenInNewWidow() && !forceSameWindow) {
+        if(!baseWindow->getRegola()->isEmpty(false)) {
+            theWindow = baseWindow->makeNewWindow();
+            otherWindow = true ;
+        }
+    } else if(forceNewWindow) {
+        theWindow = baseWindow->makeNewWindow();
+        otherWindow = true ;
+    }
+    return theWindow;
+}
+
+MainWindow *MainWindowIOHelper::result(const bool ok)
+{
+    if(!ok) {
+        if(otherWindow) {
+            theWindow->close();
+            theWindow->deleteLater();
+        }
+        theWindow = NULL ;
+    }
+    return theWindow ;
+}
+
+//---
+
 bool MainWindow::loadFile(const QString &filePath, const bool activateModes, const EWindowOpen useWindow, const bool isRegularFile)
 {
     MainWindow *result = loadFileAndReturnWindow(filePath, activateModes, useWindow, isRegularFile);
@@ -39,29 +94,19 @@ bool MainWindow::loadFile(const QString &filePath, const bool activateModes, con
 MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const bool activateModes,
         const EWindowOpen useWindow, const bool isRegularFile)
 {
-    const bool forceSameWindow = (OpenUsingSameWindow == useWindow);
-    const bool forceNewWindow = (OpenUsingNewWindow == useWindow);
-    MainWindow *theWindow = this ;
-    bool otherWindow = false ;
-    bool ok = false;
-    if(_controller.isOpenInNewWidow() && !forceSameWindow) {
-        if(!getRegola()->isEmpty(false)) {
-            theWindow = makeNewWindow();
-            otherWindow = true ;
-        }
-    } else if(forceNewWindow) {
-        theWindow = makeNewWindow();
-        otherWindow = true ;
-    }
-    ok = theWindow->loadFileInner(filePath, isRegularFile, activateModes);
-    if(!ok) {
-        if(otherWindow) {
-            theWindow->close();
-            theWindow->deleteLater();
-        }
-        theWindow = NULL ;
-    }
-    return theWindow ;
+    MainWindowIOHelper ioHelper;
+    MainWindow *theWindow = ioHelper.getWindow(this, useWindow);
+    bool ok = theWindow->loadFileInner(filePath, isRegularFile, activateModes);
+    return ioHelper.result(ok);
+}
+
+MainWindow *MainWindow::createFromClipboard(const EWindowOpen useWindow)
+{
+    MainWindowIOHelper ioHelper;
+    MainWindow *theWindow = ioHelper.getWindow(this, useWindow);
+    bool ok = theWindow->newFromClipboard();
+    return ioHelper.result(ok);
+    return NULL;
 }
 
 bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile, const bool activateModes)
@@ -115,7 +160,6 @@ bool MainWindow::loadFileInnerDom(const QString &filePath, const bool isRegularF
 
 bool MainWindow::loadFileInnerStream(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
-    Utils::TODO_THIS_RELEASE("usare anche per crea da risorse");
     bool fileLoaded = false;
     if(!filePath.isEmpty()) {
         QFile file(filePath);

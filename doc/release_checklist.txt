@@ -13,6 +13,8 @@ Release Checklist
 
 - Check the version number in xmlEdit.h file as number and string
 
+- Check the version number in version.pri
+
 - Change the version number on install scripts Linux and Windows in /install_scripts directory
 
 - Change the version number in MacOS pList

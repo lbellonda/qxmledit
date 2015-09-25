@@ -223,12 +223,6 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("testa inserendo un tag da xslt mode");
-    Utils::TODO_THIS_RELEASE("editelements: metodi statici e stringa di ritorno messaggio");
-    Utils::TODO_THIS_RELEASE("todo in split xmlutils con tests");
-    Utils::TODO_THIS_RELEASE("insert parent non edit attributi");
-    //
-    Utils::TODO_THIS_RELEASE("testa con attrlist in dtd");
 }
 
 static void startTanslator(QApplication *app)

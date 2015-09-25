@@ -942,14 +942,21 @@ void MainWindow::on_actionNewFromClipboard_triggered()
     if(!checkAbandonChanges()) {
         return ;
     }
-    ui.editor->onActionNewFromClipboard();
-    removeAttributesFilter();
-    updateWindowFilePath();
-    if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-        activateXSLTonNewFile();
-    }
+    createFromClipboard();
 }
 
+bool MainWindow::newFromClipboard()
+{
+    if(ui.editor->onActionNewFromClipboard()) {
+        removeAttributesFilter();
+        updateWindowFilePath();
+        if(Utils::fileIsXSLT(getEditor()->getRegola())) {
+            activateXSLTonNewFile();
+        }
+        return true;
+    }
+    return false ;
+}
 
 void MainWindow::on_actionSaveAs_triggered()
 {
@@ -2561,7 +2568,6 @@ void MainWindow::on_actionNewFromSnippet_triggered()
 
 void MainWindow::createDocumentFromSnippet(Regola* newRegola)
 {
-    Utils::TODO_THIS_RELEASE("check che il file appaia modificato nella window e nel titolo");
     ui.editor->assignRegola(newRegola);
     markAsAllEdited();
     removeAttributesFilter();

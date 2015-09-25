@@ -95,8 +95,8 @@ public:
     bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
     MainWindow *loadFileAndReturnWindow(const QString &filePath, const bool activateModes = true,
                                         const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
-
-    void openProva();
+    MainWindow *createFromClipboard(const EWindowOpen useWindow = OpenUsingDefaultSettings);
+    bool newFromClipboard();
     void setEventLoop(QEventLoop *eventLoop);
     QString getContentAsText();
 
@@ -452,6 +452,7 @@ protected:
     void onShowHideStatusBar();
 
     friend class MainWndController;
+    friend class MainWindowIOHelper;
 
     friend class TestFilterAttributes;
     friend class TestCopyAttrs;
