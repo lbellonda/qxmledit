@@ -570,15 +570,18 @@ void EditElement::on_elementTable_cellClicked(int row, int column)
 {
     QTableWidgetItem *itemText = ui.elementTable->itemAt(row, column);
     if(NULL != itemText) {
-        if(isMixedContent) {
-            Element * element = getUserData(itemText);
-            if(NULL != element) {
-                if(element->getType() == Element::ET_TEXT) {
-                    on_textEdit_clicked();
+        // if in the edit zone
+        if(T_COLUMN_CDATA != column) {
+            if(isMixedContent) {
+                Element * element = getUserData(itemText);
+                if(NULL != element) {
+                    if(element->getType() == Element::ET_TEXT) {
+                        on_textEdit_clicked();
+                    }
                 }
+            } else {
+                on_textEdit_clicked();
             }
-        } else {
-            on_textEdit_clicked();
         }
     }
 }
