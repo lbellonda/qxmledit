@@ -1,13 +1,12 @@
 
-Nice to have:
----
+Check issues:
+-------------
 
 xsd: liste esagonali non centrate con il testo
 xsd: metti i tooltip a tutti gli oggetti xsd
-a volte non fa cancel su edit inner
+a volte non fa cancel su edit inner (non ripetibile)
 viewxsd non chiude con cancel
-compara xml tooltip deve mostrare full di entrambi i rami
-fai un previous location"
+compara xml: tooltip deve mostrare full di entrambi i rami
 
 
 

@@ -1,10 +1,11 @@
-0.8.18
+0.9.0
+    Enabled source code compatibility with Qt 4.7.3.
     Disabled edit of text elements when clicking on CDATA checkbox in edit element panel.
-    Added a new menu for closing the siblings of the selection.
+    Added a new menu item for closing the siblings of the selection.
     DTD declaration editable in the "Info" dialog.
     Handled the DTD declaration on load and save.
     Added an option to preserve attributes order when saving.
-    Added an option to open a file using the current editor or a new window reversing the settings value.
+    Added an option to open a file using the current editor or a new window reversing the settings.
     Open a new file by default happens in a new editor windows. Options to revert this behaviour.
     Added a library of predefined namespaces.
     Accepted drop files on Base64 dialog.

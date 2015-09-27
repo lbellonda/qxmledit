@@ -4,7 +4,7 @@ QXmlEdit Installation
 Requirements
 ============
 
-QXmlEdit requires QT 4 or QT 5 (4.8 or higher) to be installed. Qt sqlite driver and QtSql module are
+QXmlEdit requires QT 4 or QT 5 (4.7.3 or higher) to be installed. Qt sqlite driver and QtSql module are
 required.
 
 Quick Guide
@@ -65,8 +65,7 @@ This can require some attention when upgrading a previously installed package.
 
 Note for Qt4 compatibility
 --------------------------
-QXmlEdit is source compatible with Qt4, but for some UI attributes. It is necessary to remove Qt5 attributes (mainly alignment) added by
-the Qt designer to dialogs to compile under Qt4 with success.
+QXmlEdit is source compatible with Qt4.7.3, Qt4.8 and Qt5.
 
 Additional resources
 --------------------

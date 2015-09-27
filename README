@@ -49,12 +49,11 @@ https://sourceforge.net/projects/qxmledit/files
 
 Requirements
 ------------
-QT libraries version 4.8 or higher are required.
+QT libraries version 4.7.3 or higher are required.
 QT 5 is supported.
 
 Limitations
 -----------
-Lack of explicit namespace support.
 No external schema are loaded.
-Very incomplete support of DTD.
+Very limited support of DTD.
 
