@@ -26,11 +26,13 @@
 #
 #-------------------------------------------------
 
+LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
+
 include("../src/version.pri")
 
 #default value for the lib version name
 LIB_VERSIONED_DEFAULT=""
-linux: {
+unix:!macx: {
    LIB_VERSIONED_DEFAULT="1"
 }
 
