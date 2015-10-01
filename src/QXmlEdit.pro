@@ -397,7 +397,8 @@ OTHER_FILES += \
     ../NEWS \
     QXmlEdit.plist \
     resources/data/unicodeChars.xml \
-    version.pri
+    version.pri \
+    ../doc/release_checklist.txt
 
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD

@@ -19,6 +19,8 @@ Release Checklist
 
 - Change the version number in MacOS pList
 
+- Change the version number in environment/appdata.xml
+
 - Do a checkout from sources
 
 - Do a test installation and deinstallation using a fresh checkout from sources
@@ -49,3 +51,4 @@ After release
 - Enable TODO_THIS_RELEASE in utils.h
 - Change the version number in MacOS pList
 - Change the version number in version.pri
+- Change the version number in environment/appdata.xml

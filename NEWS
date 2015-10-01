@@ -1,3 +1,5 @@
+0.9.1
+
 0.9.0
     Enabled source code compatibility with Qt 4.7.3.
     Disabled edit of text elements when clicking on CDATA checkbox in edit element panel.
