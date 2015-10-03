@@ -42,6 +42,7 @@ const QString Config::KEY_ELEMENT_ELEMENTFONTFAMILY("element/elementFontFamily")
 const QString Config::KEY_ELEMENT_ELEMENTFONTSIZE("element/elementFontSize");
 const QString Config::KEY_ELEMENT_ELEMENTFONTITALIC("element/elementFontItalic");
 const QString Config::KEY_ELEMENT_ELEMENTFONTBOLD("element/elementFontBold");
+const QString Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE("element/showImagesOnTextTooltip");
 
 // mainview
 const QString Config::KEY_MAIN_COMPACTVIEW("main/compactView");
@@ -64,6 +65,7 @@ const QString Config::KEY_MAIN_SHOWSTATUSBAR("main/showStatusBar");
 // style
 const QString Config::KEY_VIEW_STYLE("view/styleSelected");
 //const QString Config::KEY_VIEW_ITEMRENDERERATTR("view/itemRendererAttr");  deprecated but still alive
+
 // test (private use)
 const QString Config::KEY_TEST_BALSAMIQ_INPUT("test/balsamiqInput");
 const QString Config::KEY_TEST_BALSAMIQ_OUTPUT("test/balsamiqOutput");

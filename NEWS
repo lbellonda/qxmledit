@@ -1,4 +1,5 @@
 0.9.1
+    New option to show text in tooltip as a base 64 coded image.
 
 0.9.0
     Enabled source code compatibility with Qt 4.7.3.

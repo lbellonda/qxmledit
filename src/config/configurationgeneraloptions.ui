@@ -210,6 +210,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="cbShowImagesInTextTooltip">
+     <property name="text">
+      <string>Show images in text tooltip</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="cbOpenFilesInNewWindow">
      <property name="text">
       <string>Open files in new window</string>

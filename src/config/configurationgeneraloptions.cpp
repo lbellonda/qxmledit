@@ -78,6 +78,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
 
     ui->chkDefBold->setChecked(Config::getBool(Config::KEY_VIEW_STYLE_DEFAULT_BOLD, QXmlEditData::DefaultStyleFontBold));
     ui->cbOpenFilesInNewWindow->setChecked(Config::getBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, QXmlEditData::DefaultOpenInNewWindow));
+    ui->cbShowImagesInTextTooltip->setChecked(Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, true));
 
     _started = true ;
 }
@@ -154,6 +155,16 @@ void ConfigurationGeneralOptions::on_fixedSizeAttributeFontSize_valueChanged(int
     }
     Config::saveInt(Config::KEY_ELEMENT_FONTFIXEXDWIDTHSIZE, value);
 }
+
+void ConfigurationGeneralOptions::on_cbShowImagesInTextTooltip_stateChanged(int state)
+{
+    if(!_started) {
+        return ;
+    }
+    bool isEnabled = (state == Qt::Checked);
+    Config::saveBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, isEnabled);
+}
+
 
 void ConfigurationGeneralOptions::on_enableEFontSize_stateChanged(int state)
 {

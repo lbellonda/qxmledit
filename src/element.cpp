@@ -516,6 +516,19 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
             return QVariant(tooltip);
         } else {
             QString tooltip = QString(tr("text:\n\"%1\"")).arg(textContained);
+            if(Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, true)) {
+                if( text.startsWith("data:image") ) {
+                    tooltip = QString("<html>%1<br/>%2<br/><img src=\"%3\"/></html>")
+                              .arg(Utils::escapeHTML(tooltip))
+                              .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
+                              .arg(Utils::escapeHTML(text));
+                } else {
+                    tooltip = QString("<html>%1<br/>%2<br/><img src=\"data:image;base64,%3\"/></html>")
+                              .arg(Utils::escapeHTML(tooltip))
+                              .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
+                              .arg(Utils::escapeHTML(text));
+                }
+            }
             return QVariant(tooltip);
         }
     }
