@@ -1,4 +1,5 @@
 0.9.1
+    The application is now single instance when invoked from command line.
     New option to show text in tooltip as a base 64 coded image.
 
 0.9.0

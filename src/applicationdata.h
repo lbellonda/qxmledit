@@ -36,8 +36,8 @@
 #include <QtNetwork/QNetworkAccessManager>
 
 class XsdPlugin;
-
 class UIServices;
+class MainWindow;
 
 class ApplicationData : public QXmlEditData, public SessionDataFactory
 {
@@ -49,7 +49,7 @@ class ApplicationData : public QXmlEditData, public SessionDataFactory
     SessionManager _sessionManager;
     FrwLogger *_logger;
     QString _sessionDBPath;
-    QVector<QMainWindow*> _windows;
+    QVector<MainWindow*> _windows;
     UIServices *_uiServices;
     AttributeFilterManagement _attributeFilterManagement;
     SessionDataInterface *_sessionDataInterface;
@@ -66,9 +66,10 @@ public:
     virtual void init();
     virtual void end();
 
-    void addWindow(QMainWindow* newWindow);
-    void removeWindow(QMainWindow* newWindow);
+    void addWindow(MainWindow* newWindow);
+    void removeWindow(MainWindow* newWindow);
     int windowsCount();
+    QList<MainWindow*> windows() const ;
 
     void setLogger(FrwLogger *newLogger);
     void setSessionDBPath(const QString &sessionDBPath);

@@ -172,6 +172,18 @@ void QXmlEditApplication::newServerConnection()
         switch(params.type) {
         case StartParams::OpenFile: {
             MainWindow *newWindow = makeNewWindow();
+            // scan existing files
+            foreach(MainWindow * wnd, _appData->windows()) {
+                if(wnd->getRegola()->fileName() == params.fileName) {
+                    wnd->show();
+                    wnd->raise();
+                    wnd->activateWindow();
+                    if(NULL != _logger) {
+                        _logger->debug(QString("Server::reusing window for:'%1'").arg(params.fileName));
+                    }
+                    return ;
+                }
+            }
             newWindow->loadFile(params.fileName);
             newWindow->show();
             break;

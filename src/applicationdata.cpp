@@ -112,14 +112,19 @@ void ApplicationData::end()
     _sessionManager.end();
 }
 
-void ApplicationData::addWindow(QMainWindow* newWindow)
+QList<MainWindow*> ApplicationData::windows() const
+{
+    return _windows.toList();
+}
+
+void ApplicationData::addWindow(MainWindow* newWindow)
 {
     if((NULL != newWindow) && !_windows.contains(newWindow)) {
         _windows.append(newWindow);
     }
 }
 
-void ApplicationData::removeWindow(QMainWindow* newWindow)
+void ApplicationData::removeWindow(MainWindow* newWindow)
 {
     if(NULL != newWindow) {
         int index = _windows.indexOf(newWindow);
