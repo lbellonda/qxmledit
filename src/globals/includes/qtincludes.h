@@ -68,13 +68,13 @@
 #include <QFontMetrics>
 #include <QUndoGroup>
 #include <QTableWidget>
+#include <QUndoStack>
+#include <QToolTip>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 #include <QtConcurrent/QtConcurrentRun>
 #include <QtWidgets/QApplication>
 #include <QtPrintSupport/QPrinter>
-#include <QUndoStack>
-#include <QToolTip>
 #else
 #include <QtConcurrentRun>
 #include <QApplication>

@@ -24,15 +24,24 @@
 #ifndef QXMLEDITAPPLICATION_H
 #define QXMLEDITAPPLICATION_H
 
-#include <QApplication>
+#include "xmlEdit.h"
+#include <QLocalServer>
+#include "log.h"
 
 class ApplicationData;
+class StartParams;
+class MainWindow;
 
 class QXmlEditApplication : public QApplication
 {
     Q_OBJECT
 private:
+    static const QString ServerName;
+    static const int ConnectionTimeout = 100 ;
+
     ApplicationData *_appData;
+    QLocalServer *_server;
+    FrwLogger *_logger;
 public:
     explicit QXmlEditApplication(int &argc, char **argv);
     ~QXmlEditApplication();
@@ -40,8 +49,18 @@ public:
     ApplicationData *appData() const;
     void setAppData(ApplicationData *appData);
 
+    bool handleSingleInstance(StartParams *startParams);
+
+    FrwLogger *logger() const;
+    void setLogger(FrwLogger *logger);
+
 protected:
     bool event(QEvent *event);
+    bool startServer();
+    bool connectToExistingServer(StartParams *startParams);
+    QByteArray paramsToByteArray(StartParams *startParams);
+    MainWindow *makeNewWindow();
+
 signals:
 
 public slots:
@@ -51,6 +70,8 @@ public slots:
     void onEncodingTools();
     void onSplitFile();
     void onViewData();
+private slots:
+    void newServerConnection();
 
 };
 
