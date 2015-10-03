@@ -90,6 +90,7 @@ int main(int argc, char *argv[])
     appData.init();
     startTanslator(&app);
     app.setAppData(&appData);
+    app.setLogger(&logHandler);
 
     todo();
 
@@ -101,6 +102,10 @@ int main(int argc, char *argv[])
     }
 
     decodeCommandLine(app, &startParams);
+    if(app.handleSingleInstance(&startParams)) {
+        return 0;
+    }
+
     MainWindow mainWindow(false, &app, &appData);
 
     mainWindow.show();
@@ -223,6 +228,7 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
+    Utils::TODO_THIS_RELEASE("parificare main windows");
 }
 
 static void startTanslator(QApplication *app)

@@ -517,7 +517,7 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
         } else {
             QString tooltip = QString(tr("text:\n\"%1\"")).arg(textContained);
             if(Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, true)) {
-                if( text.startsWith("data:image") ) {
+                if(text.startsWith("data:image")) {
                     tooltip = QString("<html>%1<br/>%2<br/><img src=\"%3\"/></html>")
                               .arg(Utils::escapeHTML(tooltip))
                               .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
