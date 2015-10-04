@@ -701,3 +701,8 @@ UnicodeHelper *QXmlEditData::unicodeHelper()
 {
     return &_unicodeHelper ;
 }
+
+bool QXmlEditData::isShowImagesInTooltip()
+{
+    return Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, true);
+}

@@ -929,3 +929,8 @@ QString Utils::loadTextFile(QWidget *window, const QString &filePath, bool &isEr
     }
     return result ;
 }
+
+bool Utils::isStartingWithDataImage(const QString &data)
+{
+    return data.startsWith("data:image");
+}

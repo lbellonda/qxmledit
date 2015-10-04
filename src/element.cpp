@@ -28,6 +28,7 @@
 #include "utils.h"
 #include "xmlutils.h"
 #include "xmlsavecontext.h"
+#include "qxmleditdata.h"
 
 #include "undo/undopasteattributescommand.h"
 #include "modules/anonymize/anonbase.h"
@@ -486,6 +487,7 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
                 sortedCollection.insert(attr->name, attr);
             }
         }
+        QString imageData ;
         foreach(QString key, sortedCollection.keys()) {
             Attribute *attr = sortedCollection[key];
             if(isAnon && (mapDataAnon->contains(attr))) {
@@ -495,9 +497,48 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
             } else {
                 QString attrValue = QString("     %1=\"%2\"\n").arg(key).arg(limitTextWithEllipsis(attr->value));
                 tooltip += attrValue ;
+                if(attr->name.endsWith("href") || attr->name.endsWith(":href")) {
+                    if(Utils::isStartingWithDataImage(attr->value)) {
+                        imageData = attr->value;
+                    }
+                }
             }
         }
-
+        if(QXmlEditData::isShowImagesInTooltip()) {
+            bool testImageData = false;
+            if(imageData.isEmpty()) {
+                // scan inner text
+                foreach(TextChunk * tt, textNodes) {
+                    if(Utils::isStartingWithDataImage(tt->text)) {
+                        imageData = tt->text ;
+                        break;
+                    }
+                }
+                if(imageData.isEmpty()) {
+                    // get the first
+                    foreach(TextChunk * tt, textNodes) {
+                        imageData = tt->text ;
+                        if(!imageData.isEmpty()) {
+                            testImageData = true ;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(testImageData) {
+                tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"data:image;base64,%3\"/></html>")
+                          .arg(Utils::escapeHTML(tooltip))
+                          .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
+                          .arg(Utils::escapeHTML(imageData));
+            } else {
+                if(!imageData.isEmpty()) {
+                    tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"%3\"/></html>")
+                              .arg(Utils::escapeHTML(tooltip))
+                              .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
+                              .arg(Utils::escapeHTML(imageData));
+                }
+            }
+        }
         return QVariant(tooltip);
     }
     case Element::ET_TEXT: {
@@ -516,14 +557,14 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
             return QVariant(tooltip);
         } else {
             QString tooltip = QString(tr("text:\n\"%1\"")).arg(textContained);
-            if(Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, true)) {
-                if(text.startsWith("data:image")) {
-                    tooltip = QString("<html>%1<br/>%2<br/><img src=\"%3\"/></html>")
+            if(QXmlEditData::isShowImagesInTooltip()) {
+                if(Utils::isStartingWithDataImage(text)) {
+                    tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"%3\"/></html>")
                               .arg(Utils::escapeHTML(tooltip))
                               .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
                               .arg(Utils::escapeHTML(text));
                 } else {
-                    tooltip = QString("<html>%1<br/>%2<br/><img src=\"data:image;base64,%3\"/></html>")
+                    tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"data:image;base64,%3\"/></html>")
                               .arg(Utils::escapeHTML(tooltip))
                               .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
                               .arg(Utils::escapeHTML(text));

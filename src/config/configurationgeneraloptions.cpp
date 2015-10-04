@@ -78,7 +78,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
 
     ui->chkDefBold->setChecked(Config::getBool(Config::KEY_VIEW_STYLE_DEFAULT_BOLD, QXmlEditData::DefaultStyleFontBold));
     ui->cbOpenFilesInNewWindow->setChecked(Config::getBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, QXmlEditData::DefaultOpenInNewWindow));
-    ui->cbShowImagesInTextTooltip->setChecked(Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, true));
+    ui->cbShowImagesInTextTooltip->setChecked(QXmlEditData::isShowImagesInTooltip());
 
     _started = true ;
 }

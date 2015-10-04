@@ -143,6 +143,7 @@ public:
 
     static const int InputTextFileSizeLimit = 1024 * 1024 ;
     static QString loadTextFile(QWidget *window, const QString &filePath, bool &isError, bool isAbort);
+    static bool isStartingWithDataImage(const QString &data);
 };
 
 

@@ -279,7 +279,7 @@ public:
     //--- endregion(NamespaceManager)
 
     UnicodeHelper *unicodeHelper();
-
+    static bool isShowImagesInTooltip();
 
 private:
     void cleanClipBoardData();
