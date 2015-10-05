@@ -1,0 +1,14 @@
+<root>
+  <el0 href="" >data:image;abc</el0>
+  <el1 href="abc" >data:image;abc</el1>
+  <el2 >data:image;abc</el2>
+  <el3 href="" >abc</el3>
+  <el4 href="abc" >abc</el4>
+  <el5 >abc</el5>
+  <el6 href="" ></el6>
+  <el7 href="abc" ></el7>
+  <el8 ></el8>
+  <el9 href="data:image" ></el9>
+  data:image;abc
+  <![CDATA[xxx]]>
+</root>

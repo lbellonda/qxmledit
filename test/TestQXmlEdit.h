@@ -88,6 +88,7 @@
 #include "testinsertxsdreference.h"
 #include "testsortattributes.h"
 #include "testopeninnewwindow.h"
+#include "testelement.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -176,6 +177,7 @@ private Q_SLOTS:
     void testInsertXsdReference();
     void testSortAttributes();
     void testOpenInNewWindow();
+    void testElement();
 };
 
 

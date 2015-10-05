@@ -21,6 +21,7 @@
  **************************************************************************/
 
 #include "TestQXmlEdit.h"
+#include <QtGlobal>
 
 const char *APP_TITLE = QT_TR_NOOP("QXmlEditTest");
 
@@ -1146,11 +1147,25 @@ void TestQXmlEdit::testOpenInNewWindow()
     {
         TestOpenInNewWindow test1;
         result = test1.testUnit();
-        QVERIFY2(result, (QString("test TestOpenInNewWindow: testSaving '%1'").arg(test1.errorString())).toLatin1().data());
+        QVERIFY2(result, (QString("test TestOpenInNewWindow: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
     }
 }
 
-#include <QtGlobal>
+void TestQXmlEdit::testElement()
+{
+    bool result ;
+
+    {
+        TestElement test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test TestElement: testFast '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestElement test1;
+        result = test1.testUnit();
+        QVERIFY2(result, (QString("test TestElement: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
 
 /*
 
@@ -1171,21 +1186,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testNewFromTemplate();
-    testAnonymize();
-    testClipboard();
-    testDocType();
-    testSortAttributes();
-    testEditing();
-    testContainer();
-    testInsertXsdReference();
-    testOpenInNewWindow();
-    testLengthAttributes();
-    testNamespace();
-    testXmlUtils();
-    testBase64();
-    testIndent();
-    printf("Nei testEdit viene lanciato un figlio, ma non si torna il codice del figlio\n");
+    testElement();
 }
 
 QTEST_MAIN(TestQXmlEdit)

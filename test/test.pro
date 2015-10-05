@@ -146,7 +146,8 @@ SOURCES += \
     testxmlutils.cpp \
     testinsertxsdreference.cpp \
     testsortattributes.cpp \
-    testopeninnewwindow.cpp
+    testopeninnewwindow.cpp \
+    testelement.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -244,7 +245,8 @@ HEADERS += \
     testxmlutils.h \
     testinsertxsdreference.h \
     testsortattributes.h \
-    testopeninnewwindow.h
+    testopeninnewwindow.h \
+    testelement.h
 
 #OTHER_FILES += \
 
