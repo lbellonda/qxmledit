@@ -527,13 +527,13 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
             }
             if(testImageData) {
                 tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"data:image;base64,%3\"/></html>")
-                          .arg(Utils::escapeHTML(tooltip))
+                          .arg(Utils::formatTextForTooltipHtml(tooltip))
                           .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
                           .arg(Utils::escapeHTML(imageData));
             } else {
                 if(!imageData.isEmpty()) {
                     tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"%3\"/></html>")
-                              .arg(Utils::escapeHTML(tooltip))
+                              .arg(Utils::formatTextForTooltipHtml(tooltip))
                               .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
                               .arg(Utils::escapeHTML(imageData));
                 }
@@ -560,12 +560,12 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
             if(QXmlEditData::isShowImagesInTooltip()) {
                 if(Utils::isStartingWithDataImage(text)) {
                     tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"%3\"/></html>")
-                              .arg(Utils::escapeHTML(tooltip))
+                              .arg(Utils::formatTextForTooltipHtml(tooltip))
                               .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
                               .arg(Utils::escapeHTML(text));
                 } else {
                     tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"data:image;base64,%3\"/></html>")
-                              .arg(Utils::escapeHTML(tooltip))
+                              .arg(Utils::formatTextForTooltipHtml(tooltip))
                               .arg(Utils::escapeHTML(tr("Image base 64 coded:")))
                               .arg(Utils::escapeHTML(text));
                 }

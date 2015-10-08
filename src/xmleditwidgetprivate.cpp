@@ -1786,6 +1786,7 @@ bool XmlEditWidgetPrivate::readData(QXmlStreamReader *xmlReader, const QString &
     Regola *newModel = new Regola(filePath);
     XMLLoadContext context;
     if(!newModel->readFromStream(&context, xmlReader)) {
+        showError(context.errorMessage());
         delete newModel;
         return false;
     }
@@ -3030,5 +3031,12 @@ bool XmlEditWidgetPrivate::insertXsdReference(NamespaceReferenceEntry *entry)
     return false;
 }
 
-
+void XmlEditWidgetPrivate::showError(const QString &errorMessage)
+{
+    if(NULL != _uiDelegate) {
+        _uiDelegate->error(errorMessage);
+    } else {
+        Utils::error(p->window(), errorMessage);
+    }
+}
 

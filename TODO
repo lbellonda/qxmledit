@@ -12,7 +12,15 @@ compara xml: tooltip deve mostrare full di entrambi i rami
 
 TODO:
 
-#new is:96
+#new is:99
+
+99 - parificare comportamento main windows
+
+98 - think if is possible to stare a new instance without using unique app
+
+97 - write tests for element tooltip
+
+96 - tests for loading error -> show dialog with location
 
 95 - Use stream when exporting source
 

@@ -389,6 +389,7 @@ private:
     QList<int> makeDomNodePath(QDomNode elementToExamine);
     bool findDomNodeScan(QDomNode node, QDomNode nodeTarget, const int lineSearched, const int columnSearched, FindNodeWithLocationInfo &info);
     void recalcRowHeightClass();
+    void showError(const QString &errMessage);
 protected:
     bool eventFilter(QObject *obj, QEvent * event);
 

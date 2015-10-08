@@ -47,8 +47,6 @@ class MainWindow : public QMainWindow, UIDelegate
     Q_OBJECT
     bool    started;
     bool    internalStateOk;
-    bool    isAutoDelete;
-
     MainWndController _controller;
 
     QApplication *application;
@@ -88,8 +86,6 @@ public:
 
     MainWindow(const bool isSlave, QApplication *application, ApplicationData *data, QMainWindow *parent = 0);
     virtual ~MainWindow();
-
-    void setAutoDelete();
 
     ApplicationData *appData();
     bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);

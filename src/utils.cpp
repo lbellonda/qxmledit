@@ -934,3 +934,11 @@ bool Utils::isStartingWithDataImage(const QString &data)
 {
     return data.startsWith("data:image");
 }
+
+QString Utils::formatTextForTooltipHtml(const QString &input)
+{
+    QString escaped = Utils::escapeHTML(input);
+    escaped = escaped.replace(" ", "&nbsp;");
+    escaped = escaped.replace("\n", "<br/>");
+    return escaped ;
+}

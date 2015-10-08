@@ -107,7 +107,6 @@ void QXmlEditApplication::onNewWindow()
 MainWindow *QXmlEditApplication::makeNewWindow()
 {
     MainWindow * newWindow = new MainWindow(false, this, _appData);
-    newWindow->setAutoDelete();
     return newWindow;
 }
 
@@ -141,6 +140,14 @@ void QXmlEditApplication::onViewData()
     DataVisualization::viewDataWindow(_appData, NULL, "");
 }
 
+bool QXmlEditApplication::errorCloseConnection(QLocalSocket *client)
+{
+    client->disconnectFromServer();
+    if(NULL != _logger) {
+        _logger->error(QString("Server::Disconnecting an incoming connection, cause:%1").arg(client->errorString()));
+    }
+    return false ;
+}
 
 void QXmlEditApplication::newServerConnection()
 {
@@ -148,17 +155,37 @@ void QXmlEditApplication::newServerConnection()
     QLocalSocket *newInstanceConnection = _server->nextPendingConnection();
     if(NULL != newInstanceConnection) {
         connect(newInstanceConnection, SIGNAL(disconnected()), newInstanceConnection, SLOT(deleteLater()));
+        Utils::TODO_THIS_RELEASE("newInstanceConnection->open(QLocalSocket::ReadOnly);");
         QDataStream inputDataStream(newInstanceConnection);
         inputDataStream.setVersion(QDataStream::Qt_4_0);
-        while(!inputDataStream.atEnd()) {
-            if(!newInstanceConnection->waitForReadyRead()) {
-                newInstanceConnection->disconnectFromServer();
-                if(NULL != _logger) {
-                    _logger->error(QString("Server::Disconnecting an incoming connection, cause:%1").arg(newInstanceConnection->errorString()));
-                }
+        quint32 expected = 0 ;
+        int times = 0;
+        while(expected == 0) {
+            times++;
+            if(times >= 6) {
+                errorCloseConnection(newInstanceConnection);
                 return ;
             }
+            qint64 bytesAvailable = newInstanceConnection->bytesAvailable() ;
+            if(bytesAvailable >= (qint64)sizeof(qint32)) {
+                inputDataStream >> expected ;
+                if(expected == 0) {
+                    errorCloseConnection(newInstanceConnection);
+                    return ;
+                }
+            }
+            newInstanceConnection->waitForReadyRead(ReadTimeOutMs);
         }
+        times = 0 ;
+        while(newInstanceConnection->bytesAvailable() < expected) {
+            times++;
+            if(times >= 6) {
+                errorCloseConnection(newInstanceConnection);
+                return ;
+            }
+            newInstanceConnection->waitForReadyRead(ReadTimeOutMs);
+        }
+        inputDataStream.setVersion(QDataStream::Qt_4_0);
         StartParams params;
         quint32 aType ;
         inputDataStream >> aType ;
@@ -171,7 +198,6 @@ void QXmlEditApplication::newServerConnection()
         }
         switch(params.type) {
         case StartParams::OpenFile: {
-            MainWindow *newWindow = makeNewWindow();
             // scan existing files
             foreach(MainWindow * wnd, _appData->windows()) {
                 if(wnd->getRegola()->fileName() == params.fileName) {
@@ -184,8 +210,10 @@ void QXmlEditApplication::newServerConnection()
                     return ;
                 }
             }
+            MainWindow *newWindow = makeNewWindow();
             newWindow->loadFile(params.fileName);
             newWindow->show();
+            newWindow->raise();
             break;
         }
         case StartParams::VisFile: {
@@ -244,7 +272,6 @@ bool QXmlEditApplication::connectToExistingServer(StartParams * startParams)
             handled = true ;
             Utils::TODO_THIS_RELEASE("the lack of ack from the server can stop the file opening");
         }
-        socket->abort();
         socket->disconnectFromServer();
     }
     delete socket;
@@ -262,8 +289,11 @@ QByteArray QXmlEditApplication::paramsToByteArray(StartParams * startParams)
     QByteArray result;
     QDataStream dataStream(&result, QIODevice::WriteOnly);
     dataStream.setVersion(QDataStream::Qt_4_0);
+    dataStream << (quint32)0;
     dataStream << (quint32)startParams->type;
     dataStream << startParams->fileName;
     dataStream << (bool)startParams->parametersError;
+    dataStream.device()->seek(0);
+    dataStream << (quint32)(result.size() - sizeof(quint32));
     return result;
 }

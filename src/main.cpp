@@ -106,19 +106,19 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    MainWindow mainWindow(false, &app, &appData);
+    MainWindow *mainWindow = new MainWindow(false, &app, &appData);
 
-    mainWindow.show();
+    mainWindow->show();
     switch(startParams.type) {
     default:
     case StartParams::Nothing:
-        mainWindow.triggersWelcomeDialog();
+        mainWindow->triggersWelcomeDialog();
         break;
     case StartParams::OpenFile:
-        mainWindow.loadFile(startParams.fileName);
+        mainWindow->loadFile(startParams.fileName);
         break;
     case StartParams::VisFile:
-        mainWindow.loadVisFile(startParams.fileName);
+        mainWindow->loadVisFile(startParams.fileName);
         break;
     }
     app.connect(appData.notifier(), SIGNAL(newWindowRequested()), &app, SLOT(onNewWindow()));
@@ -228,7 +228,6 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("parificare main windows");
 }
 
 static void startTanslator(QApplication *app)

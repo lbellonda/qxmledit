@@ -38,6 +38,7 @@ class QXmlEditApplication : public QApplication
 private:
     static const QString ServerName;
     static const int ConnectionTimeout = 100 ;
+    static const int ReadTimeOutMs = 100 ;
 
     ApplicationData *_appData;
     QLocalServer *_server;
@@ -60,6 +61,7 @@ protected:
     bool connectToExistingServer(StartParams *startParams);
     QByteArray paramsToByteArray(StartParams *startParams);
     MainWindow *makeNewWindow();
+    bool errorCloseConnection(QLocalSocket *client);
 
 signals:
 

@@ -83,7 +83,6 @@ MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, Appl
     _controller.setWindow(this);
     _encodingGroup = NULL ;
     _attrFilter = NULL ;
-    isAutoDelete = false;
     started = false ;
     internalStateOk = false;
     _sessionStateWidget = NULL;
@@ -1172,11 +1171,6 @@ void MainWindow::setFileTitle()
     setWindowTitle(windowTitle);
 }
 
-void MainWindow::setAutoDelete()
-{
-    isAutoDelete = true ;
-}
-
 void MainWindow::closeEvent(QCloseEvent * event)
 {
     if(!checkAbandonChanges(OpenUsingSameWindow)) {
@@ -1184,9 +1178,7 @@ void MainWindow::closeEvent(QCloseEvent * event)
         return ;
     }
     event->accept();
-    if(isAutoDelete) {
-        deleteLater();
-    }
+    deleteLater();
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -2318,7 +2310,6 @@ MainWindow *MainWindow::makeNewWindow()
 {
     MainWindow *newWindow = new MainWindow(false, application, data);
     if(NULL != newWindow) {
-        newWindow->isAutoDelete = true ;
 #ifndef QXMLEDIT_TEST
         newWindow->show();
 #endif
