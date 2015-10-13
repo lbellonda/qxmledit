@@ -76,6 +76,7 @@ class MainWindow : public QMainWindow, UIDelegate
     QActionGroup *_encodingGroup;
     QIcon _windowIcon;
     QToolButton *_xsdButton ;
+    int _errorCount;
 
 public:
     enum EWindowOpen {
@@ -110,6 +111,8 @@ public:
     bool askYN(QWidget *parent, const QString & message);
     void errorNoSel(QWidget *parent) ;
     void errorOutOfMem(QWidget *parent);
+    void resetErrorCount() ;
+    int errorCount() ;
 
     QString msgOutOfMem() ;
 

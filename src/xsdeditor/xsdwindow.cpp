@@ -130,7 +130,6 @@ XSDWindow::XSDWindow(QXmlEditData *appData, QWidget *parent) :
     _itemContext(appData),
     currentHistoryPosition(-1)
 {
-    Utils::TODO_NEXT_RELEASE("create option for display styles");
     _context.setItemContext(&_itemContext);
     EVENTLOOP = NULL ;
     _isInError = false ;

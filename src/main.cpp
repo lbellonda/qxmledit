@@ -93,7 +93,6 @@ int main(int argc, char *argv[])
     app.setLogger(&logHandler);
 
     todo();
-
     Element::loadIcons();
     app.setWindowIcon(QIcon(":/tree/icon.png"));
 
@@ -127,10 +126,12 @@ int main(int argc, char *argv[])
     app.connect(appData.notifier(), SIGNAL(sessionRequested()), &app, SLOT(onManageSessions()));
     app.connect(appData.notifier(), SIGNAL(splitFileRequested()), &app, SLOT(onSplitFile()));
     app.connect(appData.notifier(), SIGNAL(viewMapRequested()), &app, SLOT(onViewData()));
+    app.connect(appData.notifier(), SIGNAL(raiseWindowsRequested()), &app, SLOT(onRaiseWindows()));
     MainMenuBlock mainMenuBlock;
     addMenuExtra(&app, &mainMenuBlock);
     int result = app.exec();
     removeMenuExtra(&app, &mainMenuBlock);
+    app.disconnect(appData.notifier(), SIGNAL(raiseWindowsRequested()), &app, SLOT(onRaiseWindows()));
     app.disconnect(appData.notifier(), SIGNAL(viewMapRequested()), &app, SLOT(onViewData()));
     app.disconnect(appData.notifier(), SIGNAL(splitFileRequested()), &app, SLOT(onSplitFile()));
     app.disconnect(appData.notifier(), SIGNAL(sessionRequested()), &app, SLOT(onManageSessions()));
@@ -153,6 +154,7 @@ static void addMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock)
     app->connect(mainMenuBlock->_sessionAction, SIGNAL(triggered()), app, SLOT(onManageSessions()));
     app->connect(mainMenuBlock->_splitFileAction, SIGNAL(triggered()), app, SLOT(onSplitFile()));
     app->connect(mainMenuBlock->_viewMapAction, SIGNAL(triggered()), app, SLOT(onViewData()));
+    app->connect(mainMenuBlock->_raiseWindows, SIGNAL(triggered()), app, SLOT(onRaiseWindows()));
 
 #if defined(MACOS_SPECIFIC)
     qt_mac_set_dock_menu(mainMenuBlock->_contextMenu);
@@ -167,6 +169,7 @@ static void removeMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlo
     app->disconnect(mainMenuBlock->_sessionAction, SIGNAL(triggered()), app, SLOT(onManageSessions()));
     app->disconnect(mainMenuBlock->_splitFileAction, SIGNAL(triggered()), app, SLOT(onSplitFile()));
     app->disconnect(mainMenuBlock->_viewMapAction, SIGNAL(triggered()), app, SLOT(onViewData()));
+    app->disconnect(mainMenuBlock->_raiseWindows, SIGNAL(triggered()), app, SLOT(onRaiseWindows()));
 
 #if defined(MACOS_SPECIFIC)
 

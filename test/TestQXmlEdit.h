@@ -89,6 +89,7 @@
 #include "testsortattributes.h"
 #include "testopeninnewwindow.h"
 #include "testelement.h"
+#include "testloadfile.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -178,6 +179,7 @@ private Q_SLOTS:
     void testSortAttributes();
     void testOpenInNewWindow();
     void testElement();
+    void testLoadFile();
 };
 
 

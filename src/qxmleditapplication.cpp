@@ -30,6 +30,7 @@
 #include "utils.h"
 #include <QDataStream>
 #include <QLocalSocket>
+#include "config.h"
 
 void extractFragmentsWindow(ExtractResults *extractResult, QWidget *parent);
 
@@ -149,6 +150,22 @@ bool QXmlEditApplication::errorCloseConnection(QLocalSocket *client)
     return false ;
 }
 
+void QXmlEditApplication::onRaiseWindows()
+{
+    MainWindow *lastWindow = NULL ;
+    foreach( MainWindow *window, appData()->windows() ) {
+        if( window->isMinimized()) {
+            window->showNormal();
+        }
+        window->show();
+        window->raise();
+        lastWindow = window ;
+    }
+    if( NULL != lastWindow ) {
+        lastWindow->activateWindow();
+    }
+}
+
 void QXmlEditApplication::newServerConnection()
 {
     Utils::TODO_THIS_RELEASE("finire");
@@ -230,6 +247,9 @@ void QXmlEditApplication::newServerConnection()
 
 bool QXmlEditApplication::handleSingleInstance(StartParams * startParams)
 {
+    if(!Config::getBool(Config::KEY_GENERAL_SINGLE_INSTANCE, true)) {
+        return false;
+    }
     if(connectToExistingServer(startParams)) {
         return true ;
     }
@@ -239,12 +259,20 @@ bool QXmlEditApplication::handleSingleInstance(StartParams * startParams)
 
 bool QXmlEditApplication::startServer()
 {
+    bool isConnected = false ;
     _server = new QLocalServer();
     connect(_server, SIGNAL(newConnection()), this, SLOT(newServerConnection()));
-    _server->listen(ServerName);
+    if(!_server->listen(ServerName)) {
+        _server->removeServer(ServerName);
+        if(_server->listen(ServerName)) {
+            isConnected = true ;
+        }
+    } else {
+        isConnected = true ;
+    }
     if(NULL != _logger) {
         if(_logger->isEnabled() && _logger->isLoggable(FrwLogger::DEBUG))
-            _logger->debug(QString("Server listening at:%1").arg(_server->fullServerName()));
+            _logger->debug(QString("Server listening=%1 at:'%2'").arg(isConnected).arg(_server->fullServerName()));
     }
     return false;
 }

@@ -45,7 +45,7 @@ private:
     FrwLogger *_logger;
 public:
     explicit QXmlEditApplication(int &argc, char **argv);
-    ~QXmlEditApplication();
+    virtual ~QXmlEditApplication();
 
     ApplicationData *appData() const;
     void setAppData(ApplicationData *appData);
@@ -72,6 +72,7 @@ public slots:
     void onEncodingTools();
     void onSplitFile();
     void onViewData();
+    void onRaiseWindows();
 private slots:
     void newServerConnection();
 

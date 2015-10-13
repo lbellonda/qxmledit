@@ -28,6 +28,7 @@
 #include <QHash>
 
 #define FILE_TEST_BASE_SIMPLE   "../test/data/test_base.xml"
+#define TEST_BASE_DATA   "../test/data/"
 
 class Element;
 class Regola;

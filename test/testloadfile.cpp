@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,50 +20,68 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef FAKEUIDELEGATE_H
-#define FAKEUIDELEGATE_H
 
-#include "UIDelegate.h"
+#include "testloadfile.h"
+#include "app.h"
 
-class FakeUIDelegate : public UIDelegate
+#define TEST_DATA TEST_BASE_DATA "/loadfile"
+
+#define FILE_OK TEST_DATA "fileok.xml"
+#define FILE_KO TEST_DATA "fileko.xml"
+
+TestLoadFile::TestLoadFile()
 {
-public:
-    QString lastErrorMsg;
-    bool isError ;
-    int _errors;
+}
 
-    FakeUIDelegate();
-    virtual ~FakeUIDelegate();
-
-    void error(const QString& message) ;
-    void error(QWidget *parent, const QString& message) ;
-    void warning(const QString& message) ;
-    void message(const QString& message) ;
-    virtual bool askYN(const QString & message) ;
-    virtual bool askYN(QWidget *parent, const QString & message);
-    virtual void errorNoSel(QWidget *parent) ;
-    virtual void errorOutOfMem(QWidget *parent);
-    virtual void resetErrorCount() ;
-    virtual int errorCount() ;
-
-    QString msgOutOfMem();
-
-    QWidget *getMainWidget();
-    QString getAppTitle();
-    QString editNodeElementAsXML(const bool isBase64Coded, Element *pElement, const QString &text, const bool isCData, bool &isCDataOut, bool &isOk);
-
-};
-
-class FakeUIDelegateYes : public FakeUIDelegate
+TestLoadFile::~TestLoadFile()
 {
-    public:
+}
 
-    FakeUIDelegateYes();
-    ~FakeUIDelegateYes();
+bool TestLoadFile::unitTest()
+{
+    _testName = "unitTest" ;
+    if(!loadFileOK()) {
+        return false;
+    }
+    if(!loadFileKO()) {
+        return false;
+    }
+    return true;
+}
 
-    virtual bool askYN(const QString & message) ;
-    virtual bool askYN(QWidget *parent, const QString & message);
+bool TestLoadFile::loadFileOK()
+{
+    _testName = "loadFileOK";
+    App app;
+    if(!app.init() ) {
+        return error("init");
+    }
+    app.getUiDelegate()->resetErrorCount();
+    if(!app.mainWindow()->loadFile(QString(FILE_OK))) {
+        return error("load file");
+    }
+    if(app.getUiDelegate()->errorCount()>0) {
+        return error(QString("Expected no errors, but found:%1").arg(app.getUiDelegate()->errorCount()));
+    }
+    return true ;
+}
 
-};
+bool TestLoadFile::loadFileKO()
+{
+    _testName = "loadFileKO";
+    App app;
+    if(!app.init() ) {
+        return error("init");
+    }
+    app.getUiDelegate()->resetErrorCount();
+    if(!app.mainWindow()->loadFile(QString(FILE_OK))) {
+        return error("load file");
+    }
+    if(app.getUiDelegate()->errorCount()==0) {
+        return error(QString("Expected errors, but found:%1").arg(app.getUiDelegate()->errorCount()));
+    }
+    return true ;
+}
 
-#endif // FAKEUIDELEGATE_H
+fare test di apparizione messaggio di errore se malformato e non messaggio se benformato:
+

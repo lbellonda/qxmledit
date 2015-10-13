@@ -67,7 +67,8 @@ private slots:
     void on_enableExperiments_stateChanged(int state);
     void on_chkDefBold_stateChanged(int state);
     void on_cbOpenFilesInNewWindow_stateChanged(int state);
-    void on_cbShowImagesInTextTooltip_stateChanged(int state);
+    void on_cbShowImagesInTextTooltip_stateChanged(int state);    
+    void on_cbSingleInstance_stateChanged(int state);
 };
 
 #endif // CONFIGURATIONGENERALOPTIONS_H

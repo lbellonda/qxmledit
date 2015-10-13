@@ -1,4 +1,6 @@
 0.9.1
+    Enabled the application single instance via a configuration key.
+    Inserted a menu to raise all the windows.
     Parified the behavior of the first windows to the other ones.
     Fixed a bug that did not show an error message when opening an invalid XML file.
     The application is now single instance when invoked from command line.

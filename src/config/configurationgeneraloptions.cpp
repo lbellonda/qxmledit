@@ -79,7 +79,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
     ui->chkDefBold->setChecked(Config::getBool(Config::KEY_VIEW_STYLE_DEFAULT_BOLD, QXmlEditData::DefaultStyleFontBold));
     ui->cbOpenFilesInNewWindow->setChecked(Config::getBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, QXmlEditData::DefaultOpenInNewWindow));
     ui->cbShowImagesInTextTooltip->setChecked(QXmlEditData::isShowImagesInTooltip());
-
+    ui->cbSingleInstance->setChecked(Config::getBool(Config::KEY_GENERAL_SINGLE_INSTANCE, true));
     _started = true ;
 }
 
@@ -184,6 +184,13 @@ void ConfigurationGeneralOptions::on_chkDefBold_stateChanged(int /*state*/)
     Config::saveBool(Config::KEY_VIEW_STYLE_DEFAULT_BOLD, ui->chkDefBold->isChecked());
 }
 
+void ConfigurationGeneralOptions::on_cbSingleInstance_stateChanged(int /*state*/)
+{
+    if(!_started) {
+        return ;
+    }
+    Config::saveBool(Config::KEY_GENERAL_SINGLE_INSTANCE, ui->cbSingleInstance->isChecked());
+}
 
 void ConfigurationGeneralOptions::on_changeElementsFont_clicked()
 {
@@ -204,6 +211,7 @@ void ConfigurationGeneralOptions::on_changeElementsFont_clicked()
         Config::saveBool(Config::KEY_ELEMENT_ELEMENTFONTITALIC, _elementFontItalic);
         Config::saveBool(Config::KEY_ELEMENT_ELEMENTFONTBOLD, _elementFontBold);
         Config::saveBool(Config::KEY_VIEW_STYLE_DEFAULT_BOLD, ui->chkDefBold->isChecked());
+        Config::saveBool(Config::KEY_GENERAL_SINGLE_INSTANCE, ui->cbSingleInstance->isChecked());
 
         setElementFontInfo();
     }

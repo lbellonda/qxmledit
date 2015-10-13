@@ -79,6 +79,7 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent) : QMainWindow(parent), uiDelegate(this), _windowIcon(":/icon/images/icon.png")
 {
+    _errorCount = 0 ;
     _xsdButton = NULL ;
     _controller.setWindow(this);
     _encodingGroup = NULL ;
@@ -2068,14 +2069,15 @@ void MainWindow::triggersWelcomeDialog()
 
 void MainWindow::error(const QString& message)
 {
+    _errorCount++;
     Utils::error(this, message);
 }
 
 void MainWindow::error(QWidget *widget, const QString& message)
 {
+    _errorCount++;
     Utils::error(widget, message);
 }
-
 
 void MainWindow::warning(const QString& message)
 {
@@ -2105,11 +2107,23 @@ QString MainWindow::msgOutOfMem()
 void MainWindow::errorNoSel(QWidget * parent)
 {
     Utils::errorNoSel(parent);
+    _errorCount++;
 }
 
 void MainWindow::errorOutOfMem(QWidget *parent)
 {
     Utils::errorOutOfMem(parent);
+    _errorCount++;
+}
+
+void MainWindow::resetErrorCount()
+{
+    _errorCount = 0;
+}
+
+int MainWindow::errorCount()
+{
+    return _errorCount;
 }
 
 

@@ -26,6 +26,7 @@
 FakeUIDelegate::FakeUIDelegate()
 {
     isError = false;
+    _errors = 0 ;
 }
 
 FakeUIDelegate::~FakeUIDelegate()
@@ -45,6 +46,7 @@ void FakeUIDelegate::error(const QString& message)
 {
     // fake method
     isError = true;
+    _errors++;
     lastErrorMsg = message ;
 }
 
@@ -52,6 +54,7 @@ void FakeUIDelegate::error(QWidget * /*parent*/, const QString& message)
 {
     // fake method
     isError = true;
+    _errors++;
     lastErrorMsg = message ;
 }
 
@@ -94,6 +97,7 @@ void FakeUIDelegate::errorNoSel(QWidget * /*parent*/)
 {
     // fake method
     isError = true;
+    _errors++;
     lastErrorMsg = "NO SEL" ;
 
 }
@@ -102,6 +106,7 @@ void FakeUIDelegate::errorOutOfMem(QWidget * /*parent*/)
 {
     // fake method
     isError = true;
+    _errors++;
     lastErrorMsg = msgOutOfMem();
 }
 
@@ -127,4 +132,14 @@ QString FakeUIDelegate::editNodeElementAsXML(const bool /*isBase64Coded*/, Eleme
 QString FakeUIDelegate::msgOutOfMem()
 {
     return Utils::msgOutOfMem();
+}
+
+void FakeUIDelegate::resetErrorCount()
+{
+    _errors = 0;
+}
+
+int FakeUIDelegate::errorCount()
+{
+    return _errors;
 }

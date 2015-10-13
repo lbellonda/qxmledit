@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,50 +20,19 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef FAKEUIDELEGATE_H
-#define FAKEUIDELEGATE_H
 
-#include "UIDelegate.h"
+#ifndef TESTLOADFILE_H
+#define TESTLOADFILE_H
 
-class FakeUIDelegate : public UIDelegate
+#include    "testbase.h"
+
+class TestLoadFile : public TestBase
 {
 public:
-    QString lastErrorMsg;
-    bool isError ;
-    int _errors;
+    TestLoadFile();
+    ~TestLoadFile();
 
-    FakeUIDelegate();
-    virtual ~FakeUIDelegate();
-
-    void error(const QString& message) ;
-    void error(QWidget *parent, const QString& message) ;
-    void warning(const QString& message) ;
-    void message(const QString& message) ;
-    virtual bool askYN(const QString & message) ;
-    virtual bool askYN(QWidget *parent, const QString & message);
-    virtual void errorNoSel(QWidget *parent) ;
-    virtual void errorOutOfMem(QWidget *parent);
-    virtual void resetErrorCount() ;
-    virtual int errorCount() ;
-
-    QString msgOutOfMem();
-
-    QWidget *getMainWidget();
-    QString getAppTitle();
-    QString editNodeElementAsXML(const bool isBase64Coded, Element *pElement, const QString &text, const bool isCData, bool &isCDataOut, bool &isOk);
-
+    bool testUnit();
 };
 
-class FakeUIDelegateYes : public FakeUIDelegate
-{
-    public:
-
-    FakeUIDelegateYes();
-    ~FakeUIDelegateYes();
-
-    virtual bool askYN(const QString & message) ;
-    virtual bool askYN(QWidget *parent, const QString & message);
-
-};
-
-#endif // FAKEUIDELEGATE_H
+#endif // TESTLOADFILE_H

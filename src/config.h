@@ -39,6 +39,7 @@ public:
     static const QString KEY_GENERAL_NOTIFICATIONS_ENABLED;
     static const QString KEY_GENERAL_LICENSE_AGREED;
     static const QString KEY_GENERAL_OPEN_NEWWINDOW;
+    static const QString KEY_GENERAL_SINGLE_INSTANCE;
     // element
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY;
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHSIZE;

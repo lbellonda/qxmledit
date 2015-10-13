@@ -56,6 +56,7 @@ void MainMenuBlock::setup()
     _sessionAction = new QAction(tr("Manage Sessions"), this);
     _viewMapAction = new QAction(tr("View Data"), this);
     _splitFileAction = new QAction(tr("Extract Fragments from a File"), this);
+    _raiseWindows = new QAction(tr("Raise all windows"), this);
     _contextMenu->addAction(_newWindowAction);
     _contextMenu->addSeparator();
     _contextMenu->addAction(_encodingToolsAction);
@@ -63,6 +64,7 @@ void MainMenuBlock::setup()
     _contextMenu->addAction(_sessionAction);
     _contextMenu->addAction(_viewMapAction);
     _contextMenu->addAction(_splitFileAction);
+    _contextMenu->addAction(_raiseWindows);
 }
 
 //-----
@@ -98,6 +100,9 @@ ANotifier::~ANotifier()
     if(NULL != _mainMenuBlock._splitFileAction) {
         disconnect(_mainMenuBlock._splitFileAction, SIGNAL(triggered()), this, SLOT(onSplitFile()));
     }
+    if(NULL != _mainMenuBlock._raiseWindows) {
+        disconnect(_mainMenuBlock._raiseWindows, SIGNAL(triggered()), this, SLOT(onRaiseWindow()));
+    }
 
     _trayIcon.setContextMenu(NULL);
 }
@@ -117,6 +122,7 @@ void ANotifier::setup()
     connect(_mainMenuBlock._sessionAction, SIGNAL(triggered()), this, SLOT(onManageSessions()));
     connect(_mainMenuBlock._viewMapAction, SIGNAL(triggered()), this, SLOT(onViewMapXml()));
     connect(_mainMenuBlock._splitFileAction, SIGNAL(triggered()), this, SLOT(onSplitFile()));
+    connect(_mainMenuBlock._raiseWindows, SIGNAL(triggered()), this, SLOT(onRaiseWindow()));
 
     _trayIcon.setContextMenu(_mainMenuBlock._contextMenu);
     // end menu
@@ -203,6 +209,11 @@ void ANotifier::onManageSessions()
 void ANotifier::onViewMapXml()
 {
     emit viewMapRequested();
+}
+
+void ANotifier::onRaiseWindow()
+{
+    emit raiseWindowRequested();
 }
 
 void ANotifier::onSplitFile()

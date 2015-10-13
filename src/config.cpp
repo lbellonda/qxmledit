@@ -32,6 +32,7 @@ const QString Config::KEY_GENERAL_AUTOSCROLL_ENABLED("generalConfiguration/autoS
 const QString Config::KEY_GENERAL_NOTIFICATIONS_ENABLED("generalConfiguration/notificationsEnabled");
 const QString Config::KEY_GENERAL_LICENSE_AGREED("generalConfiguration/licenseAgreed");
 const QString Config::KEY_GENERAL_OPEN_NEWWINDOW("generalConfiguration/openNewWindow");
+const QString Config::KEY_GENERAL_SINGLE_INSTANCE("generalConfiguration/singleInstance");
 // element
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY("element/fontFidexWidthFamily");
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHSIZE("element/fontFidexWidthSize");

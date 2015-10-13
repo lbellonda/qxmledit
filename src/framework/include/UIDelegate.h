@@ -48,6 +48,9 @@ public:
     virtual QWidget *getMainWidget() = 0;
     virtual QString getAppTitle() = 0;
     virtual QString editNodeElementAsXML(const bool isBase64Coded, Element *pElement, const QString &text, const bool isCData, bool &isCDataOut, bool &isOk) = 0;
+
+    virtual void resetErrorCount() = 0 ;
+    virtual int errorCount() = 0 ;
 };
 
 #endif // FRAMEWORK_UIDELEGATE_H

@@ -1167,6 +1167,16 @@ void TestQXmlEdit::testElement()
     }
 }
 
+void TestQXmlEdit::testLoadFile()
+{
+    bool result ;
+
+    {
+        TestLoadFile test1;
+        result = test1.testUnit();
+        QVERIFY2(result, (QString("test TestLoadFile: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
 /*
 
 // This function enabled for debug purposes. DO NOT REMOVE
@@ -1187,6 +1197,7 @@ void TestQXmlEdit::testNew()
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
     testElement();
+    testLoadFile();
 }
 
 QTEST_MAIN(TestQXmlEdit)
