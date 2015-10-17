@@ -382,7 +382,7 @@ private:
 
     void setDocument(QDomDocument &document, const QString &filePath, const bool isSetState);
 
-    bool checkAbandonChanges(const EWindowOpen useWindow = OpenUsingDefaultSettings);
+    bool checkAbandonChanges(const EWindowOpen useWindow = OpenUsingDefaultSettings, const QString &filePath = "");
 
     QAction *createAnAction(QMenu *menu, const QString &label, const QString &tag, const QString &tooltip);
 

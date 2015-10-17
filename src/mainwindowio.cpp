@@ -35,7 +35,7 @@ public:
     MainWindowIOHelper();
     ~MainWindowIOHelper();
 
-    MainWindow *getWindow(MainWindow *baseWindow, const MainWindow::EWindowOpen useWindow);
+    MainWindow *getWindow(MainWindow *baseWindow, const MainWindow::EWindowOpen useWindow, const QString &file = "");
     MainWindow *result(const bool ok);
 };
 
@@ -50,7 +50,7 @@ MainWindowIOHelper::~MainWindowIOHelper()
 
 }
 
-MainWindow *MainWindowIOHelper::getWindow(MainWindow *baseWindow, const MainWindow::EWindowOpen useWindow)
+MainWindow *MainWindowIOHelper::getWindow(MainWindow *baseWindow, const MainWindow::EWindowOpen useWindow, const QString &filePath)
 {
     const bool forceSameWindow = (MainWindow::OpenUsingSameWindow == useWindow);
     const bool forceNewWindow = (MainWindow::OpenUsingNewWindow == useWindow);
@@ -58,8 +58,19 @@ MainWindow *MainWindowIOHelper::getWindow(MainWindow *baseWindow, const MainWind
     otherWindow = false ;
     if(baseWindow->controller()->isOpenInNewWidow() && !forceSameWindow) {
         if(!baseWindow->getRegola()->isEmpty(false)) {
-            theWindow = baseWindow->makeNewWindow();
-            otherWindow = true ;
+            // find an existing window;
+            if(!filePath.isEmpty()) {
+                theWindow = baseWindow->appData()->findWindowByPath(filePath);
+                if(NULL != theWindow) {
+                    if(!theWindow->checkAbandonChanges(MainWindow::OpenUsingNewWindow, filePath)) {
+                        return NULL ;
+                    }
+                }
+            }
+            if(NULL == theWindow) {
+                theWindow = baseWindow->makeNewWindow();
+                otherWindow = true ;
+            }
         }
     } else if(forceNewWindow) {
         theWindow = baseWindow->makeNewWindow();
@@ -95,7 +106,10 @@ MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const b
         const EWindowOpen useWindow, const bool isRegularFile)
 {
     MainWindowIOHelper ioHelper;
-    MainWindow *theWindow = ioHelper.getWindow(this, useWindow);
+    MainWindow *theWindow = ioHelper.getWindow(this, useWindow, filePath);
+    if(NULL == theWindow) {
+        return NULL ;
+    }
     bool ok = theWindow->loadFileInner(filePath, isRegularFile, activateModes);
     return ioHelper.result(ok);
 }
@@ -106,7 +120,6 @@ MainWindow *MainWindow::createFromClipboard(const EWindowOpen useWindow)
     MainWindow *theWindow = ioHelper.getWindow(this, useWindow);
     bool ok = theWindow->newFromClipboard();
     return ioHelper.result(ok);
-    return NULL;
 }
 
 bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile, const bool activateModes)

@@ -33,6 +33,7 @@
 #include "sessions/data_access/sqllitedataaccess.h"
 #include "modules/services/systemservices.h"
 #include "modules/xsd/namespacemanager.h"
+#include "mainwindow.h"
 
 #define VERSION_STRING_PREFIXED  "\0" VERSION_STRING
 #define DB_DATA_DIR "dbstorage"
@@ -115,6 +116,16 @@ void ApplicationData::end()
 QList<MainWindow*> ApplicationData::windows() const
 {
     return _windows.toList();
+}
+
+MainWindow *ApplicationData::findWindowByPath(const QString &filePath)
+{
+    foreach(MainWindow * window, _windows) {
+        if(window->getRegola()->fileName() == filePath) {
+            return window ;
+        }
+    }
+    return NULL ;
 }
 
 void ApplicationData::addWindow(MainWindow* newWindow)

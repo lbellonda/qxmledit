@@ -70,6 +70,7 @@ public:
     void removeWindow(MainWindow* newWindow);
     int windowsCount();
     QList<MainWindow*> windows() const ;
+    MainWindow *findWindowByPath(const QString &filePath);
 
     void setLogger(FrwLogger *newLogger);
     void setSessionDBPath(const QString &sessionDBPath);

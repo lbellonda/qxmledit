@@ -1,4 +1,5 @@
 0.9.1
+    Fixed some behavior on file reopen.
     Enabled the application single instance via a configuration key.
     Inserted a menu to raise all the windows.
     Parified the behavior of the first windows to the other ones.

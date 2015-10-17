@@ -132,6 +132,7 @@ MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, Appl
     setDisplayMode(qxmledit::SCAN);
     showNavigationBox();
     ************************************************************************/
+    ui.editor->setFocus();
 }
 
 MainWindow::~MainWindow()
@@ -1184,7 +1185,7 @@ void MainWindow::closeEvent(QCloseEvent * event)
 
 void MainWindow::on_actionQuit_triggered()
 {
-    if(MainWindow::checkAbandonChanges()) {
+    if(checkAbandonChanges()) {
         application->quit();
     }
 }
@@ -1245,7 +1246,7 @@ void MainWindow::dropEvent(QDropEvent *event)
             }
         }
         if(filePath.length() > 0) {
-            if(!checkAbandonChanges()) {
+            if(!checkAbandonChanges(OpenUsingDefaultSettings, filePath)) {
                 event->ignore();
                 return ;
             }
@@ -1884,7 +1885,7 @@ bool MainWindow::verifyAbandonChanges()
     return true ;
 }
 
-bool MainWindow::checkAbandonChanges(const EWindowOpen useWindow)
+bool MainWindow::checkAbandonChanges(const EWindowOpen useWindow, const QString &filePath)
 {
     Regola *regola = getRegola();
     if(NULL == regola) {
@@ -1895,6 +1896,12 @@ bool MainWindow::checkAbandonChanges(const EWindowOpen useWindow)
     if((!_controller.isOpenInNewWidow() && !forceNewWindow) || forceSameWindow) {
         return verifyAbandonChanges();
     } else {
+        if(_controller.isOpenInNewWidow() && !filePath.isEmpty()) {
+            MainWindow *window = appData()->findWindowByPath(filePath);
+            if(NULL != window) {
+                return window->verifyAbandonChanges();
+            }
+        }
         return true ;
     }
 }
