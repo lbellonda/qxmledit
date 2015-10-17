@@ -213,7 +213,7 @@ void ANotifier::onViewMapXml()
 
 void ANotifier::onRaiseWindow()
 {
-    emit raiseWindowRequested();
+    emit raiseWindowsRequested();
 }
 
 void ANotifier::onSplitFile()

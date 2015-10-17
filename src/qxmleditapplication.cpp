@@ -153,15 +153,15 @@ bool QXmlEditApplication::errorCloseConnection(QLocalSocket *client)
 void QXmlEditApplication::onRaiseWindows()
 {
     MainWindow *lastWindow = NULL ;
-    foreach( MainWindow *window, appData()->windows() ) {
-        if( window->isMinimized()) {
+    foreach(MainWindow * window, appData()->windows()) {
+        if(window->isMinimized()) {
             window->showNormal();
         }
         window->show();
         window->raise();
         lastWindow = window ;
     }
-    if( NULL != lastWindow ) {
+    if(NULL != lastWindow) {
         lastWindow->activateWindow();
     }
 }

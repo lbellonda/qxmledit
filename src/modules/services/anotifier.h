@@ -93,7 +93,7 @@ signals:
     void sessionRequested();
     void splitFileRequested();
     void viewMapRequested();
-    void raiseWindowRequested();
+    void raiseWindowsRequested();
 };
 
 #endif // ANOTIFIER_H
