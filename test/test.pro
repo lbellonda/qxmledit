@@ -148,7 +148,8 @@ SOURCES += \
     testsortattributes.cpp \
     testopeninnewwindow.cpp \
     testelement.cpp \
-    testloadfile.cpp
+    testloadfile.cpp \
+    testhelpers/testmainwindow.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -248,7 +249,8 @@ HEADERS += \
     testsortattributes.h \
     testopeninnewwindow.h \
     testelement.h \
-    testloadfile.h
+    testloadfile.h \
+    testhelpers/testmainwindow.h
 
 #OTHER_FILES += \
 

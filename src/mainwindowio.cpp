@@ -27,6 +27,25 @@ extern const char *APP_TITLE ;
 #include "mainwindow.h"
 #include "config.h"
 
+/* Logic for ask for modifications (to be replicated in tests)
+ * Operation: before:  1! n  after: 1! n
+ * Reload              a  a         -  -
+ * Drop                a  -         -  s
+ * Session             a  -         -  s
+ * Recent              a  -         -  s
+ * Preferred           a  -         -  s
+ * New Clip            a  -         -  s
+ * New Spec            a  -         -  s
+ * Load                a  -         -  s
+ *
+ * a: ask unconditionally.
+ * s: ask if the file is in one of the editor windows.
+ *
+ * Ask:
+ * -if single + mod -> ask
+ * -if force + mod -> ask
+ */
+
 class MainWindowIOHelper
 {
     bool otherWindow ;

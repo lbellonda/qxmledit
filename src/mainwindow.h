@@ -89,7 +89,7 @@ public:
     virtual ~MainWindow();
 
     ApplicationData *appData();
-    bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
+    virtual bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
     MainWindow *loadFileAndReturnWindow(const QString &filePath, const bool activateModes = true,
                                         const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
     MainWindow *createFromClipboard(const EWindowOpen useWindow = OpenUsingDefaultSettings);
@@ -446,19 +446,23 @@ private:
     void markAsAllEdited();
 protected:
     virtual void changeEvent(QEvent *e);
+    bool openDroppedFile(const QString &filePath);
+
 
     void onShowHideMainButtons();
     void onShowHideStatusBar();
 
     friend class MainWndController;
     friend class MainWindowIOHelper;
-
+#ifdef QXMLEDIT_TEST
     friend class TestFilterAttributes;
     friend class TestCopyAttrs;
     friend class TestNewFromTemplate;
     friend class TestMetadata;
     friend class TestEncoding;
     friend class TestXSIType;
+    friend class TestLoadFile;
+#endif
 };
 
 void searchInFiles(QWidget * parent);

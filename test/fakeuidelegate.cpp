@@ -27,6 +27,9 @@ FakeUIDelegate::FakeUIDelegate()
 {
     isError = false;
     _errors = 0 ;
+    _askCountBeforeLoad = 0 ;
+    _askCountAfterLoad = 0 ;
+    _beforeLoad = true ;
 }
 
 FakeUIDelegate::~FakeUIDelegate()
@@ -40,6 +43,20 @@ FakeUIDelegateYes::FakeUIDelegateYes()
 
 FakeUIDelegateYes::~FakeUIDelegateYes()
 {
+}
+
+void FakeUIDelegate::registerAsk()
+{
+    if(_beforeLoad) {
+        _askCountBeforeLoad ++ ;
+    } else {
+        _askCountAfterLoad ++ ;
+    }
+}
+
+void FakeUIDelegate::justBeforeLoad()
+{
+    _beforeLoad = false ;
 }
 
 void FakeUIDelegate::error(const QString& message)
@@ -71,24 +88,28 @@ void FakeUIDelegate::message(const QString& /*message*/)
 bool FakeUIDelegate::askYN(const QString & /*message*/)
 {
     // fake method
+    registerAsk();
     return false ;
 }
 
 bool FakeUIDelegate::askYN(QWidget * /*parent*/, const QString & /*message*/)
 {
     // fake method
+    registerAsk();
     return false ;
 }
 
 bool FakeUIDelegateYes::askYN(const QString & /*message*/)
 {
     // fake method
+    registerAsk();
     return true ;
 }
 
 bool FakeUIDelegateYes::askYN(QWidget * /*parent*/, const QString & /*message*/)
 {
     // fake method
+    registerAsk();
     return true ;
 }
 
@@ -143,3 +164,29 @@ int FakeUIDelegate::errorCount()
 {
     return _errors;
 }
+
+int FakeUIDelegate::askTotalCount() const
+{
+    return _askCountBeforeLoad + _askCountAfterLoad ;
+}
+
+int FakeUIDelegate::askCountBeforeLoad() const
+{
+    return _askCountBeforeLoad;
+}
+
+void FakeUIDelegate::setAskCountBeforeLoad(int askCountBeforeLoad)
+{
+    _askCountBeforeLoad = askCountBeforeLoad;
+}
+
+int FakeUIDelegate::askCountAfterLoad() const
+{
+    return _askCountAfterLoad;
+}
+
+void FakeUIDelegate::setAskCountAfterLoad(int askCountAfterLoad)
+{
+    _askCountAfterLoad = askCountAfterLoad;
+}
+

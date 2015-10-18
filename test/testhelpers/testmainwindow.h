@@ -21,31 +21,24 @@
  **************************************************************************/
 
 
-#ifndef TESTLOADFILE_H
-#define TESTLOADFILE_H
+#ifndef TESTMAINWINDOW_H
+#define TESTMAINWINDOW_H
 
-#include    "testbase.h"
+#include "mainwindow.h"
 
-class App;
+#include "app.h"
 
-class TestLoadFile : public TestBase
+class TestMainWindow : public MainWindow
 {
-    bool loadFileOK();
-    bool loadFileKO();
-    bool testLoadWithModifications();
-    bool loadDrop();
-    bool actionDrop(App *app, const QString & filePath);
-
-    bool loadFileForMod(const QString &filePath, const bool isModification,
-                        const int expectingAskingFirst, const int expectingAskingLater,
-                        const int expectedWindows,
-                        bool (TestLoadFile::*method)(App *, const QString &));
+    Q_OBJECT
+    FakeUIDelegate *_fakeUIdelegate;
 public:
-    TestLoadFile();
-    ~TestLoadFile();
 
-    bool testUnit();
-    bool testFast();
+    TestMainWindow(const bool isSlave, QApplication *application, ApplicationData *data, QMainWindow *parent = 0);
+    ~TestMainWindow();
+    virtual bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
+    FakeUIDelegate *fakeUIdelegate() const;
+    void setFakeUIDelegate(FakeUIDelegate *fakeUIdelegate);
 };
 
-#endif // TESTLOADFILE_H
+#endif // TESTMAINWINDOW_H

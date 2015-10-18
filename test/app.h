@@ -40,6 +40,8 @@ class App : public QObject
     QMap<QString, QVariant> _configBackend;
     FakeUIDelegate uiDelegate;
     FakeUIDelegateYes uiDelegateYes;
+    bool _useTestWindow;
+    FakeUIDelegate *_currentDelegate;
 
     bool internalInit();
 
@@ -57,8 +59,11 @@ public:
     MainWindow *mainWindow();
     ApplicationData* data();
 
+    FakeUIDelegate *getCurrentUIDelegate();
     FakeUIDelegate *getUiDelegate();
     FakeUIDelegate *getUiDelegateYes();
+    bool useTestWindow() const;
+    void setUseTestWindow(bool useTestWindow);
 };
 
 #endif // APP_H

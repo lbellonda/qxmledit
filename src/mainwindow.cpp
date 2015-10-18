@@ -1245,15 +1245,23 @@ void MainWindow::dropEvent(QDropEvent *event)
                 break;
             }
         }
-        if(filePath.length() > 0) {
-            if(!checkAbandonChanges(OpenUsingDefaultSettings, filePath)) {
-                event->ignore();
-                return ;
-            }
-            loadFile(filePath);
+        if(!openDroppedFile(filePath)) {
+            event->ignore();
+            return ;
         }
         event->acceptProposedAction();
     }
+}
+
+bool MainWindow::openDroppedFile(const QString &filePath)
+{
+    if(!filePath.isEmpty()) {
+        if(!checkAbandonChanges()) {
+            return false ;
+        }
+        return loadFile(filePath);
+    }
+    return false;
 }
 
 void MainWindow::on_actionFind_triggered()

@@ -136,7 +136,7 @@ static bool probeForImageData(const QString &data)
     if(!data.startsWith("<html>")) {
         return false;
     }
-    if(!data.indexOf("<img src=\"data:image")<0) {
+    if(data.indexOf("<img src=\"data:image")<0) {
         return false;
     }
     return true;

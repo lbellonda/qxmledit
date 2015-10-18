@@ -21,31 +21,33 @@
  **************************************************************************/
 
 
-#ifndef TESTLOADFILE_H
-#define TESTLOADFILE_H
+#include "testmainwindow.h"
 
-#include    "testbase.h"
 
-class App;
-
-class TestLoadFile : public TestBase
+TestMainWindow::TestMainWindow(const bool isSlave, QApplication *application, ApplicationData *data, QMainWindow *parent) :
+    MainWindow(isSlave, application, data, parent)
 {
-    bool loadFileOK();
-    bool loadFileKO();
-    bool testLoadWithModifications();
-    bool loadDrop();
-    bool actionDrop(App *app, const QString & filePath);
+    _fakeUIdelegate = NULL ;
+}
 
-    bool loadFileForMod(const QString &filePath, const bool isModification,
-                        const int expectingAskingFirst, const int expectingAskingLater,
-                        const int expectedWindows,
-                        bool (TestLoadFile::*method)(App *, const QString &));
-public:
-    TestLoadFile();
-    ~TestLoadFile();
+TestMainWindow::~TestMainWindow()
+{
+}
 
-    bool testUnit();
-    bool testFast();
-};
+FakeUIDelegate *TestMainWindow::fakeUIdelegate() const
+{
+    return _fakeUIdelegate;
+}
 
-#endif // TESTLOADFILE_H
+void TestMainWindow::setFakeUIDelegate(FakeUIDelegate *fakeUIdelegate)
+{
+    _fakeUIdelegate = fakeUIdelegate;
+}
+
+bool TestMainWindow::loadFile(const QString &filePath, const bool activateModes, const EWindowOpen useWindow, const bool isRegularFile)
+{
+    if( NULL != _fakeUIdelegate ) {
+        _fakeUIdelegate->justBeforeLoad();
+    }
+    return MainWindow::loadFile(filePath, activateModes, useWindow, isRegularFile);
+}

@@ -22,10 +22,13 @@
 
 
 #include "app.h"
+#include "testhelpers/testmainwindow.h"
 
 App::App()
 {
     _mainWindow = NULL ;
+    _useTestWindow = false;
+    _currentDelegate = NULL ;
 }
 
 App::~App()
@@ -35,6 +38,17 @@ App::~App()
         _mainWindow = NULL ;
     }
     Config::setBackend(NULL);
+}
+
+
+bool App::useTestWindow() const
+{
+    return _useTestWindow;
+}
+
+void App::setUseTestWindow(bool value)
+{
+    _useTestWindow = value;
 }
 
 bool App::internalInit()
@@ -59,14 +73,25 @@ bool App::internalInit()
 bool App::init(const bool delegateYes)
 {
     internalInit();
-    _mainWindow = new MainWindow(false, qApp, &appData);
+    TestMainWindow *testWindow = NULL ;
+    if(_useTestWindow) {
+        testWindow = new TestMainWindow(false, qApp, &appData);
+        _mainWindow = testWindow ;
+    } else {
+        _mainWindow = new MainWindow(false, qApp, &appData);
+    }
     if(NULL == _mainWindow) {
         return false;
     }
     if(delegateYes) {
         _mainWindow->setUIDelegate(&uiDelegateYes);
+        _currentDelegate = &uiDelegateYes ;
     } else {
         _mainWindow->setUIDelegate(&uiDelegate);
+        _currentDelegate = &uiDelegate ;
+    }
+    if( NULL != testWindow ) {
+        testWindow->setFakeUIDelegate(_currentDelegate);
     }
     return true ;
 }
@@ -118,4 +143,9 @@ FakeUIDelegate *App::getUiDelegate()
 FakeUIDelegate *App::getUiDelegateYes()
 {
     return &uiDelegateYes;
+}
+
+FakeUIDelegate *App::getCurrentUIDelegate()
+{
+    return _currentDelegate ;
 }

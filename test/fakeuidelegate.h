@@ -31,6 +31,9 @@ public:
     QString lastErrorMsg;
     bool isError ;
     int _errors;
+    bool _beforeLoad ;
+    int _askCountBeforeLoad;
+    int _askCountAfterLoad;
 
     FakeUIDelegate();
     virtual ~FakeUIDelegate();
@@ -46,17 +49,25 @@ public:
     virtual void resetErrorCount() ;
     virtual int errorCount() ;
 
+    void justBeforeLoad();
+    void registerAsk();
+
     QString msgOutOfMem();
 
     QWidget *getMainWidget();
     QString getAppTitle();
     QString editNodeElementAsXML(const bool isBase64Coded, Element *pElement, const QString &text, const bool isCData, bool &isCDataOut, bool &isOk);
 
+    int askCountBeforeLoad() const;
+    void setAskCountBeforeLoad(int askCountBeforeLoad);
+    int askCountAfterLoad() const;
+    void setAskCountAfterLoad(int askCountAfterLoad);
+    int askTotalCount() const ;
 };
 
 class FakeUIDelegateYes : public FakeUIDelegate
 {
-    public:
+public:
 
     FakeUIDelegateYes();
     ~FakeUIDelegateYes();

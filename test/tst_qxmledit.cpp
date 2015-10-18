@@ -1173,6 +1173,11 @@ void TestQXmlEdit::testLoadFile()
 
     {
         TestLoadFile test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test TestLoadFile: testFast '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestLoadFile test1;
         result = test1.testUnit();
         QVERIFY2(result, (QString("test TestLoadFile: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
     }
@@ -1196,8 +1201,8 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testElement();
     testLoadFile();
+    testElement();
 }
 
 QTEST_MAIN(TestQXmlEdit)
