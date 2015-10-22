@@ -169,3 +169,14 @@ void Base64Dialog::loadTextFile(const QString &filePath)
         ui->textEdit->setPlainText(newText);
     }
 }
+
+void Base64Dialog::on_cmdSaveBinaryData_clicked()
+{
+    QString text = ui->base64Edit->toPlainText();
+    if(!text.isEmpty()) {
+        Base64Utils base64Utils;
+        if(!base64Utils.saveBase64ToBinaryFile(this, text, QXmlEditData::sysFilePathForOperation(_fileDataPath))) {
+            Utils::error(this, tr("Operation failed"));
+        }
+    }
+}

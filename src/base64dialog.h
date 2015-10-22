@@ -64,6 +64,7 @@ private slots:
     void onCurrentEncodingChanged(int newIndex);
     void on_cmdLoadFromFile_clicked();
     void on_cmdLoadFromTextFile_clicked();
+    void on_cmdSaveBinaryData_clicked();
 #ifdef  QXMLEDIT_TEST
     friend class TestBase64;
 #endif
