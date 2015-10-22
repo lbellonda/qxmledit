@@ -1201,6 +1201,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testOpenInNewWindow();
     testLoadFile();
     testElement();
 }

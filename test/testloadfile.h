@@ -34,12 +34,33 @@ class TestLoadFile : public TestBase
     bool loadFileKO();
     bool testLoadWithModifications();
     bool loadDrop();
+    bool loadReload();
+    bool loadSession();
+    bool loadRecent();
+    bool loadPreferredDir();
+    bool newSpec();
+    bool actionReload(App *app, const QString & filePath);
     bool actionDrop(App *app, const QString & filePath);
+    bool actionLoadSession(App *app, const QString & filePath);
+    bool actionLoadRecent(App *app, const QString & filePath);
+    bool actionLoadPreferredDir(App *app, const QString & filePath);
+    bool actionNewSpecialized(App *app, const QString & /*filePath*/);
 
-    bool loadFileForMod(const QString &filePath, const bool isModification,
+    bool loadFileForMod(const bool openOtherWindow, const QString &filePath, const bool isModification,
                         const int expectingAskingFirst, const int expectingAskingLater,
                         const int expectedWindows,
                         bool (TestLoadFile::*method)(App *, const QString &));
+    bool loadFileMod(
+                                      const bool openOtherWindow,
+                                      const int expectingAskingFirst, const int expectingAskingLater,
+                                      const int expectedWindows,
+                                      bool (TestLoadFile::*method)(App *, const QString &) );
+    bool loadFileNoMod(
+                                      const bool openOtherWindow,
+                                      const int expectingAskingFirst, const int expectingAskingLater,
+                                      const int expectedWindows,
+                                      bool (TestLoadFile::*method)(App *, const QString &) );
+
 public:
     TestLoadFile();
     ~TestLoadFile();

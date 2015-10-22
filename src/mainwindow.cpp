@@ -118,7 +118,9 @@ MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, Appl
     QString windowTitle = APP_TITLE;
     setWindowTitle(windowTitle);
 
-    data->addWindow(this);
+    if(!isSlave) {
+        data->addWindow(this);
+    }
 
     autoTest();
     if(Config::getBool(Config::KEY_TEST_SHOW_XSD_EDITOR, false)) {
@@ -137,7 +139,9 @@ MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, Appl
 
 MainWindow::~MainWindow()
 {
-    data->removeWindow(this);
+    if(!isSlave) {
+        data->removeWindow(this);
+    }
     cleanExtractResults(); //TODO
     removeAttributesFilter();
     if(NULL != _snippetManager) {
@@ -1180,7 +1184,9 @@ void MainWindow::closeEvent(QCloseEvent * event)
         return ;
     }
     event->accept();
-    deleteLater();
+    if(!isSlave) {
+        deleteLater();
+    }
 }
 
 void MainWindow::on_actionQuit_triggered()
@@ -1465,22 +1471,28 @@ void MainWindow::on_actionCompare_triggered()
 
 void MainWindow::on_actionReload_triggered()
 {
+    reload();
+}
+
+bool MainWindow::reload()
+{
     Regola *regola = getRegola();
     if(NULL == regola) {
-        return;
+        return false ;
     }
     QString filePath = regola->fileName();
     if(filePath.isEmpty()) {
-        return ;
+        return false ;
     }
     if(!checkAbandonChanges(OpenUsingSameWindow)) {
-        return ;
+        return false ;
     }
     // save presets
     RegolaSettings *settings = regola->getSettings();
-    loadFile(filePath, false, OpenUsingSameWindow);
+    bool result = loadFile(filePath, false, OpenUsingSameWindow);
     // restore presets
     getRegola()->restoreSettings(settings);
+    return result;
 }
 
 void MainWindow::onRecentFile()
@@ -1489,12 +1501,20 @@ void MainWindow::onRecentFile()
     if(NULL != actionFile) {
         QString filePath = actionFile->data().toString();
         if(!filePath.isEmpty()) {
-            if(!checkAbandonChanges()) {
-                return ;
-            }
-            loadFile(filePath);
+            recentFile(filePath);
         }
     }
+}
+
+bool MainWindow::recentFile(const QString &filePath)
+{
+    if(!filePath.isEmpty()) {
+        if(!checkAbandonChanges()) {
+            return false;
+        }
+        return loadFile(filePath);
+    }
+    return false ;
 }
 
 void MainWindow::onPreferredDir()
@@ -1502,15 +1522,29 @@ void MainWindow::onPreferredDir()
     QAction *actionFile = qobject_cast<QAction*>(sender());
     if(NULL != actionFile) {
         QString dirPath = actionFile->data().toString();
-        if(!MainWindow::checkAbandonChanges()) {
-            return ;
-        }
-        QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
-                           QXmlEditData::sysFilePathForOperation(dirPath), Utils::getFileFilterForOpenFile());
-        if(!filePath.isEmpty()) {
-            loadFile(filePath);
-        }
+        preferredDir(dirPath);
     }
+}
+
+bool MainWindow::preferredDir(const QString &dirPath)
+{
+    if(!checkAbandonChanges()) {
+        return false;
+    }
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
+                       QXmlEditData::sysFilePathForOperation(dirPath), Utils::getFileFilterForOpenFile());
+    if(!filePath.isEmpty()) {
+        return preferredDirLoadFile(filePath);
+    }
+    return false;
+}
+
+bool MainWindow::preferredDirLoadFile(const QString &filePath)
+{
+    if(!filePath.isEmpty()) {
+        return loadFile(filePath);
+    }
+    return false;
 }
 
 void MainWindow::updateMRU(const QString &entry, QList<QAction*>actions)
@@ -2210,14 +2244,15 @@ void MainWindow::onSessionEnablingChanged()
     ui.actionNewSession->setEnabled(isEnabled);
 }
 
-void MainWindow::onSessionfileLoadRequest(const QString& filePath)
+bool MainWindow::onSessionfileLoadRequest(const QString& filePath)
 {
     if(!filePath.isEmpty()) {
         if(!checkAbandonChanges()) {
-            return ;
+            return false ;
         }
-        loadFile(filePath);
+        return loadFile(filePath);
     }
+    return false ;
 }
 
 void MainWindow::onSessionFolderOpenRequest(const QString& path)

@@ -96,13 +96,32 @@ bool TestLoadFile::loadFileKO()
 }
 
 
+/* Logic for ask for modifications (to be replicated in tests)
+ * Operation: before:  1! n  after: 1! n
+ * Reload              a  a         -  -
+ * Drop                a  -         -  s
+ * Session             a  -         -  s
+ * Recent              a  -         -  s
+ * Preferred           a  -         -  s
+ * New Clip            a  -         -  s
+ * New Spec            a  -         -  s
+ * Load                a  -         -  s
+ *
+ * a: ask unconditionally.
+ * s: ask if the file is in one of the editor windows.
+ *
+ * Ask:
+ * -if single + mod -> ask
+ * -if force + mod -> ask
+ */
+
 bool TestLoadFile::testLoadWithModifications()
 {
     _testName = "testLoadWithModifications" ;
     if(!loadDrop()) {
         return false;
     }
-    /*if(!loadReload()) {
+    if(!loadReload()) {
         return false;
     }
     if(!loadSession()) {
@@ -114,22 +133,23 @@ bool TestLoadFile::testLoadWithModifications()
     if(!loadPreferredDir()) {
         return false;
     }
-    if(!loadOpen()) {
+    /*if(!loadOpen()) {
         return false;
-    }
+    }*/
     if(!newSpec()) {
         return false;
     }
-    if(!newFromClp()) {
+    /*if(!newFromClp()) {
         return false;
     }
     if(!newNew()) {
         return false;
     }*/
-    return error("nyi");
+    return true ;
 }
 
-bool TestLoadFile::loadFileForMod(const QString &filePath, const bool isModification,
+bool TestLoadFile::loadFileForMod(const bool openOtherWindow,
+                                  const QString &filePath, const bool isModification,
                                   const int expectingAskingFirst, const int expectingAskingLater,
                                   const int expectedWindows,
                                   bool (TestLoadFile::*method)(App *, const QString &) )
@@ -139,7 +159,7 @@ bool TestLoadFile::loadFileForMod(const QString &filePath, const bool isModifica
     if(!app.init(true) ) {
         return error("init");
     }
-    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, true);
+    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, openOtherWindow);
     app.getUiDelegate()->resetErrorCount();
     if(!app.mainWindow()->loadFile(QString(filePath))) {
         return error(QString("Loading file:'%1'").arg(filePath));
@@ -147,17 +167,18 @@ bool TestLoadFile::loadFileForMod(const QString &filePath, const bool isModifica
     if( isModification ) {
         app.mainWindow()->getRegola()->setModified(true);
     }
+    app.getCurrentUIDelegate()->resetErrorCount();
     if( !(this->*method)(&app, filePath) ) {
         return error("Method returned false");
     }
     if( isModification ) {
         if(app.getCurrentUIDelegate()->askCountBeforeLoad()!=expectingAskingFirst) {
             return error(QString("Expected %1 questions before, but found %2")
-                         .arg(expectingAskingFirst).arg(app.getUiDelegate()->askCountBeforeLoad()));
+                         .arg(expectingAskingFirst).arg(app.getCurrentUIDelegate()->askCountBeforeLoad()));
         }
         if(app.getCurrentUIDelegate()->askCountAfterLoad()!=expectingAskingLater) {
             return error(QString("Expected %1 questions after, but found %2")
-                         .arg(expectingAskingLater).arg(app.getUiDelegate()->askCountAfterLoad()));
+                         .arg(expectingAskingLater).arg(app.getCurrentUIDelegate()->askCountAfterLoad()));
         }
     } else {
         if(app.getCurrentUIDelegate()->askTotalCount()!=0) {
@@ -171,6 +192,30 @@ bool TestLoadFile::loadFileForMod(const QString &filePath, const bool isModifica
     return true ;
 }
 
+bool TestLoadFile::loadFileMod(
+                                  const bool openOtherWindow,
+                                  const int expectingAskingFirst, const int expectingAskingLater,
+                                  const int expectedWindows,
+                                  bool (TestLoadFile::*method)(App *, const QString &) )
+{
+    return loadFileForMod(openOtherWindow, FILE_OK, true,
+                                expectingAskingFirst, expectingAskingLater,
+                                expectedWindows,
+                                method );
+}
+
+bool TestLoadFile::loadFileNoMod(
+                                  const bool openOtherWindow,
+                                  const int expectingAskingFirst, const int expectingAskingLater,
+                                  const int expectedWindows,
+                                  bool (TestLoadFile::*method)(App *, const QString &) )
+{
+    return loadFileForMod(openOtherWindow, FILE_OK, false,
+                                expectingAskingFirst, expectingAskingLater,
+                                expectedWindows,
+                                method );
+}
+
 bool TestLoadFile::actionDrop(App *app, const QString & filePath)
 {
     return app->mainWindow()->openDroppedFile(filePath);
@@ -180,12 +225,135 @@ bool TestLoadFile::loadDrop()
 {
     _testName = "loadDrop" ;
     // no mod
-    if( !loadFileForMod(FILE_OK, false, 0, 0, 1, &TestLoadFile::actionDrop ) ) {
+    if( !loadFileNoMod(true, 0, 0, 1, &TestLoadFile::actionDrop ) ) {
         return false;
     }
     // mod
-    if( !loadFileForMod(FILE_OK, true, 0, 1, 1, &TestLoadFile::actionDrop ) ) {
+    if( !loadFileMod(true, 0, 1, 1, &TestLoadFile::actionDrop ) ) {
+        return false;
+    }
+    if( !loadFileNoMod(false, 0, 0, 1, &TestLoadFile::actionDrop ) ) {
+        return false;
+    }
+    if( !loadFileMod(false, 1, 0, 1, &TestLoadFile::actionDrop ) ) {
         return false;
     }
     return true;
 }
+
+bool TestLoadFile::actionReload(App *app, const QString & /*filePath*/)
+{
+    return app->mainWindow()->reload();
+}
+
+bool TestLoadFile::loadReload()
+{
+    _testName = "loadReload" ;
+    if( !loadFileNoMod(true, 0, 0, 1, &TestLoadFile::actionReload ) ) {
+        return false;
+    }
+    if( !loadFileMod(true, 1, 0, 1, &TestLoadFile::actionReload ) ) {
+        return false;
+    }
+    if( !loadFileNoMod(false, 0, 0, 1, &TestLoadFile::actionReload ) ) {
+        return false;
+    }
+    if( !loadFileMod(false, 1, 0, 1, &TestLoadFile::actionReload ) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestLoadFile::actionLoadSession(App *app, const QString & filePath)
+{
+    return app->mainWindow()->onSessionfileLoadRequest(filePath);
+}
+
+bool TestLoadFile::loadSession()
+{
+    _testName = "loadSession" ;
+    if( !loadFileNoMod(true, 0, 0, 1, &TestLoadFile::actionLoadSession ) ) {
+        return false;
+    }
+    if( !loadFileMod(true, 0, 1, 1, &TestLoadFile::actionLoadSession ) ) {
+        return false;
+    }
+    if( !loadFileNoMod(false, 0, 0, 1, &TestLoadFile::actionLoadSession ) ) {
+        return false;
+    }
+    if( !loadFileMod(false, 1, 0, 1, &TestLoadFile::actionLoadSession ) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestLoadFile::actionLoadRecent(App *app, const QString & filePath)
+{
+    return app->mainWindow()->recentFile(filePath);
+}
+
+bool TestLoadFile::loadRecent()
+{
+    _testName = "loadRecent" ;
+    if( !loadFileNoMod(true, 0, 0, 1, &TestLoadFile::actionLoadRecent ) ) {
+        return false;
+    }
+    if( !loadFileMod(true, 0, 1, 1, &TestLoadFile::actionLoadRecent ) ) {
+        return false;
+    }
+    if( !loadFileNoMod(false, 0, 0, 1, &TestLoadFile::actionLoadRecent ) ) {
+        return false;
+    }
+    if( !loadFileMod(false, 1, 0, 1, &TestLoadFile::actionLoadRecent ) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestLoadFile::actionLoadPreferredDir(App *app, const QString & filePath)
+{
+    return app->mainWindow()->preferredDirLoadFile(filePath);
+}
+
+bool TestLoadFile::loadPreferredDir()
+{
+    _testName = "loadPreferredDir" ;
+    if( !loadFileNoMod(true, 0, 0, 1, &TestLoadFile::actionLoadPreferredDir ) ) {
+        return false;
+    }
+    if( !loadFileMod(true, 0, 1, 1, &TestLoadFile::actionLoadPreferredDir ) ) {
+        return false;
+    }
+    if( !loadFileNoMod(false, 0, 0, 1, &TestLoadFile::actionLoadPreferredDir ) ) {
+        return false;
+    }
+    if( !loadFileMod(false, 0, 0, 1, &TestLoadFile::actionLoadPreferredDir ) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestLoadFile::actionNewSpecialized(App *app, const QString & /*filePath*/)
+{
+    app->mainWindow()->on_actionNewMavenPOM_triggered();
+    return true;
+}
+
+bool TestLoadFile::newSpec()
+{
+    _testName = "newSpec" ;
+    if( !loadFileNoMod(true, 0, 0, 2, &TestLoadFile::actionNewSpecialized ) ) {
+        return false;
+    }
+    if( !loadFileMod(true, 0, 0, 2, &TestLoadFile::actionNewSpecialized ) ) {
+        return false;
+    }
+    if( !loadFileNoMod(false, 0, 0, 1, &TestLoadFile::actionNewSpecialized ) ) {
+        return false;
+    }
+    if( !loadFileMod(false, 1, 0, 1, &TestLoadFile::actionNewSpecialized ) ) {
+        return false;
+    }
+    return true;
+}
+

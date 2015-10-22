@@ -168,7 +168,6 @@ void QXmlEditApplication::onRaiseWindows()
 
 void QXmlEditApplication::newServerConnection()
 {
-    Utils::TODO_THIS_RELEASE("finire");
     QLocalSocket *newInstanceConnection = _server->nextPendingConnection();
     if(NULL != newInstanceConnection) {
         connect(newInstanceConnection, SIGNAL(disconnected()), newInstanceConnection, SLOT(deleteLater()));
@@ -218,12 +217,13 @@ void QXmlEditApplication::newServerConnection()
             // scan existing files
             foreach(MainWindow * wnd, _appData->windows()) {
                 if(wnd->getRegola()->fileName() == params.fileName) {
-                    wnd->show();
-                    wnd->raise();
-                    wnd->activateWindow();
                     if(NULL != _logger) {
                         _logger->debug(QString("Server::reusing window for:'%1'").arg(params.fileName));
                     }
+                    wnd->show();
+                    wnd->raise();
+                    wnd->activateWindow();
+                    wnd->reload();
                     return ;
                 }
             }
@@ -250,8 +250,10 @@ bool QXmlEditApplication::handleSingleInstance(StartParams * startParams)
     if(!Config::getBool(Config::KEY_GENERAL_SINGLE_INSTANCE, true)) {
         return false;
     }
-    if(connectToExistingServer(startParams)) {
-        return true ;
+    if(startParams->type != StartParams::Nothing) {
+        if(connectToExistingServer(startParams)) {
+            return true ;
+        }
     }
     startServer();
     return false;

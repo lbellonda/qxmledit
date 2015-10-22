@@ -158,6 +158,9 @@ QString FakeUIDelegate::msgOutOfMem()
 void FakeUIDelegate::resetErrorCount()
 {
     _errors = 0;
+    _askCountAfterLoad = 0;
+    _askCountBeforeLoad = 0 ;
+    _beforeLoad = true ;
 }
 
 int FakeUIDelegate::errorCount()

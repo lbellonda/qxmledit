@@ -135,6 +135,8 @@ public:
     void onAnonymize(AnonAlg *alg);
     MainWndController *controller();
 
+    bool reload();
+
 protected:
     //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.
     void setSnippetManager(SnippetManager *newSnippetManager);
@@ -341,7 +343,7 @@ private slots:
     void onNewMessage(const QString &newMessage);
     void setClipBoardActionsState(const bool isAction);
     void onShowStatusMessage(const QString &message, const bool isLongTimeout);
-    void onSessionfileLoadRequest(const QString& path);
+    bool onSessionfileLoadRequest(const QString& path);
     void onSessionFolderOpenRequest(const QString& path);
     void onShowSessionManagement();
     void onUndoStateUpdated(const bool isUndo, const bool isRedo);
@@ -447,7 +449,9 @@ private:
 protected:
     virtual void changeEvent(QEvent *e);
     bool openDroppedFile(const QString &filePath);
-
+    bool recentFile(const QString &filePath);
+    bool preferredDir(const QString &filePath);
+    bool preferredDirLoadFile(const QString &filePath);
 
     void onShowHideMainButtons();
     void onShowHideStatusBar();

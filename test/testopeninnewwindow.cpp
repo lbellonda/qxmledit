@@ -27,6 +27,7 @@
 #define FILE_BASE   "../test/data/xml/loading/"
 #define FILE_OK FILE_BASE "ok.xml"
 #define FILE_KO FILE_BASE "ko.xml"
+#define FILE_OK1 FILE_BASE "ok1.xml"
 
 TestOpenInNewWindow::TestOpenInNewWindow()
 {
@@ -79,8 +80,8 @@ bool TestOpenInNewWindow::testSingleUsingSettings(const bool isEmpty, const bool
     }
     Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, !isOpenSame);
     if( !isEmpty ) {
-        if(!app.mainWindow()->loadFile(FILE_OK)) {
-            return error(QString("Error loading file '%1'").arg(FILE_OK));
+        if(!app.mainWindow()->loadFile(FILE_OK1)) {
+            return error(QString("Error loading file '%1'").arg(FILE_OK1));
         }
         if(!testSingleResult(&app, 1, "start")) {
             return false;
