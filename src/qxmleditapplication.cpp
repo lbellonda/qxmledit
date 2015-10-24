@@ -42,7 +42,6 @@ QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
 {
     _server = NULL ;
     _logger = NULL ;
-    Utils::TODO_THIS_RELEASE("logger to error");
 }
 
 QXmlEditApplication::~QXmlEditApplication()
@@ -171,7 +170,6 @@ void QXmlEditApplication::newServerConnection()
     QLocalSocket *newInstanceConnection = _server->nextPendingConnection();
     if(NULL != newInstanceConnection) {
         connect(newInstanceConnection, SIGNAL(disconnected()), newInstanceConnection, SLOT(deleteLater()));
-        Utils::TODO_THIS_RELEASE("newInstanceConnection->open(QLocalSocket::ReadOnly);");
         QDataStream inputDataStream(newInstanceConnection);
         inputDataStream.setVersion(QDataStream::Qt_4_0);
         quint32 expected = 0 ;
@@ -300,7 +298,6 @@ bool QXmlEditApplication::connectToExistingServer(StartParams * startParams)
                 _logger->debug(QString("Client::sent request for:'%1'").arg(startParams->fileName));
             }
             handled = true ;
-            Utils::TODO_THIS_RELEASE("the lack of ack from the server can stop the file opening");
         }
         socket->disconnectFromServer();
     }

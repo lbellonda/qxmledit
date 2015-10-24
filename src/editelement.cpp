@@ -50,7 +50,6 @@ EditElement::EditElement(QWidget * parent) : QDialog(parent)
     target = NULL;
     checkNamespace();
     enableOK();
-    Utils::TODO_THIS_RELEASE("test per il meglio");
     //this->showMaximized();
     this->setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
     Utils::TODO_NEXT_RELEASE("insert namespace for attribute");
