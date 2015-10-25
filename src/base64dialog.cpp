@@ -34,7 +34,6 @@ void Base64Dialog::showDialog()
     dialog.exec();
 }
 
-
 Base64Dialog::Base64Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Base64Dialog)
@@ -62,8 +61,8 @@ void Base64Dialog::setupOther()
     Utils::selectComboValue(ui->fontEncoding, currentCodec);
     QStringList base64Labels;
     QList<int> base64Values;
-    base64Labels << "RFC4648 (Standard)";
-    base64Labels << "RFC6920 (Url)";
+    base64Labels << QString("RFC4648 %1").arg("(Standard)");
+    base64Labels << QString("RFC6920 %1").arg("(Url)");
     base64Values << Base64Utils::RFC4648Standard;
     base64Values << Base64Utils::RFC6920Url;
     Utils::loadComboCodedArrays(ui->cbType, _type, base64Labels, base64Values);
