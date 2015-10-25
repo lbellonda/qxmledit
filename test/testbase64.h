@@ -24,6 +24,7 @@
 #define TESTBASE64_H
 
 #include "testbase.h"
+#include "modules/utils/base64utils.h"
 
 class TestBase64 : public TestBase
 {
@@ -31,9 +32,14 @@ class TestBase64 : public TestBase
 
     bool test_base64_utils_binary();
     bool test_base64_utils_text();
+    bool testUnitUtilsEncode();
+    bool testUnitUtilsDecode();
+    bool testUnitUtilsEncode(const Base64Utils::EBase64 type );
+    bool testUnitUtilsDecode(const Base64Utils::EBase64 type );
 public:
     TestBase64();
 
+    bool testUnits();
     bool test_base64();
     bool test_base64_base();
     bool test_base64_file();

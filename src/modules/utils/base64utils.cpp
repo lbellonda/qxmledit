@@ -32,7 +32,55 @@ Base64Utils::~Base64Utils()
 {
 }
 
-QString Base64Utils::loadFromBinaryFile(QWidget *window, const QString &filePath, bool &isError, bool isAbort)
+
+QString Base64Utils::standardToSpecific(const EBase64 type, const QString &text)
+{
+    if(RFC6920Url == type) {
+        QString res(text);
+        res = res.replace("+", "-");
+        res = res.replace("/", "_");
+        return res;
+    }
+    return text ;
+}
+
+
+QString Base64Utils::specificToStandard(const EBase64 type, const QString &text)
+{
+    if(RFC6920Url == type) {
+        QString res(text);
+        res = res.replace("-", "+");
+        res = res.replace("_", "/");
+        return res;
+    }
+    return text ;
+}
+
+QString Base64Utils::toBase64(const EBase64 type, const QString &text)
+{
+    QString result = Utils::toBase64(text);
+    result = standardToSpecific(type, result);
+    return result ;
+}
+
+QString Base64Utils::toBase64(const EBase64 type, const QByteArray &input)
+{
+    QByteArray resultBytes = input.toBase64();
+    QString result(resultBytes);
+    result = standardToSpecific(type, result);
+    return result ;
+}
+
+QByteArray Base64Utils::fromBase64(const EBase64 type, const QString &text)
+{
+    QString toConvert = specificToStandard(type, text);
+    QByteArray array(toConvert.toLatin1());
+    QByteArray array2 = QByteArray::fromBase64(array);
+    return array2;
+}
+
+
+QString Base64Utils::loadFromBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, bool &isError, bool isAbort)
 {
     QString result;
     isError = true ;
@@ -58,7 +106,9 @@ QString Base64Utils::loadFromBinaryFile(QWidget *window, const QString &filePath
             Utils::error(window, QObject::tr("Error reading file."));
         } else {
             QByteArray converted = data.toBase64();
+            // this is ASCII, always
             result = converted.data();
+            result = standardToSpecific(type, result);
         }
     } else {
         Utils::error(window, QString(QObject::tr("Unable to load file.\nError code is '%1'")).arg(file.error()));
@@ -69,23 +119,23 @@ QString Base64Utils::loadFromBinaryFile(QWidget *window, const QString &filePath
 
 /////------------
 
-bool Base64Utils::saveBase64ToBinaryFile(QWidget *window, const QString &text, const QString &fileStartPath)
+bool Base64Utils::saveBase64ToBinaryFile(const EBase64 type, QWidget *window, const QString &text, const QString &fileStartPath)
 {
     QString filePath = QFileDialog::getSaveFileName(window, QObject::tr("Save Base 64 Coded Data to File"),
                        QXmlEditData::sysFilePathForOperation(fileStartPath),
                        QObject::tr("XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;"));
     if(!filePath.isEmpty()) {
-        return saveToBinaryFile(window, filePath, text);
+        return saveToBinaryFile(type, window, filePath, text);
     }
     return false;
 }
 
-bool Base64Utils::saveToBinaryFile(QWidget *window, const QString &filePath, const QString &text)
+bool Base64Utils::saveToBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, const QString &text)
 {
     bool isError = true ;
     QFile file(filePath);
     if(file.open(QIODevice::WriteOnly)) {
-        if(saveToBinaryDevice(&file, text)) {
+        if(saveToBinaryDevice(type, &file, text)) {
             isError = false ;
         }
         file.close();
@@ -101,9 +151,10 @@ bool Base64Utils::saveToBinaryFile(QWidget *window, const QString &filePath, con
     return !isError ;
 }
 
-bool Base64Utils::saveToBinaryDevice(QIODevice *device, const QString &text)
+bool Base64Utils::saveToBinaryDevice(const EBase64 type, QIODevice *device, const QString &text)
 {
     bool isOk = true ;
+    QString base64 = specificToStandard(type, text);
     QByteArray array(text.toLatin1());
     QByteArray binaryArray = QByteArray::fromBase64(array);
     if(-1 == device->write(binaryArray)) {

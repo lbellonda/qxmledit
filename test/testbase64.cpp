@@ -29,7 +29,6 @@
 #include "utils.h"
 #include "edittextnode.h"
 #include "fakeuidelegate.h"
-#include "modules/utils/base64utils.h"
 #include "base64dialog.h"
 
 #define BASE64_INPUTFILE    "../test/data/base64/base64_input.xml"
@@ -184,7 +183,7 @@ bool TestBase64::test_base64_utils_binary()
     Base64Utils base64;
     bool isError = false;
     bool isAbort = false ;
-    QString decoded = base64.loadFromBinaryFile(NULL, BASE64_FILE_UTILS, isError, isAbort);
+    QString decoded = base64.loadFromBinaryFile( Base64Utils::RFC4648Standard, NULL, BASE64_FILE_UTILS, isError, isAbort);
     if(isAbort) {
         return error("Loading is aborted.");
     }
@@ -198,7 +197,7 @@ bool TestBase64::test_base64_utils_binary()
 
     QBuffer buffer ;
     buffer.open(QIODevice::ReadWrite);
-    if(!base64.saveToBinaryDevice( &buffer, decoded )) {
+    if(!base64.saveToBinaryDevice( Base64Utils::RFC4648Standard, &buffer, decoded )) {
         return error("writing binary");
     }
     buffer.close();
@@ -250,4 +249,95 @@ bool TestBase64::test_base64_utils_text()
     }
 
     return true;
+}
+
+bool TestBase64::testUnits()
+{
+    if(!testUnitUtilsEncode()) {
+        return false;
+    }
+    if(!testUnitUtilsDecode()) {
+        return false;
+    }
+    return error("nyi");
+}
+
+bool TestBase64::testUnitUtilsEncode()
+{
+    _testName = "testUnitUtilsEncode";
+    if(!testUnitUtilsEncode(Base64Utils::RFC4648Standard)) {
+        return false;
+    }
+    if(!testUnitUtilsEncode(Base64Utils::RFC6920Url)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestBase64::testUnitUtilsDecode()
+{
+    _testName = "testUnitUtilsDecode";
+    if(!testUnitUtilsDecode(Base64Utils::RFC4648Standard)) {
+        return false;
+    }
+    if(!testUnitUtilsDecode(Base64Utils::RFC6920Url)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestBase64::testUnitUtilsEncode(const Base64Utils::EBase64 type )
+{
+    Base64Utils base64;
+    QByteArray data ;
+    data.resize(3);
+    data[0] = 3;
+    data[1] = 0xFF;
+    data[2] = 0xAE;
+    QString expected ;
+    QString result = base64.toBase64(type, data );
+    if( type == Base64Utils::RFC4648Standard ) {
+        expected = "A/+u" ;
+    } else if ( type == Base64Utils::RFC6920Url ) {
+        expected = "A_-u" ;
+    } else {
+        return error(QString("Invalid variant specified:%1").arg(type));
+    }
+    if( result != expected ) {
+        return error(QString("Error encoding variant:%1, expected '%2', found '%3'").arg(type).arg(expected).arg(result));
+    }
+    return true ;
+}
+
+bool TestBase64::testUnitUtilsDecode(const Base64Utils::EBase64 type )
+{
+    QString source ;
+    if( type == Base64Utils::RFC4648Standard ) {
+        source = "A/+u" ;
+    } else if ( type == Base64Utils::RFC6920Url ) {
+        source = "A_-u" ;
+    } else {
+        return error(QString("Invalid variant specified:%1").arg(type));
+    }
+    Base64Utils base64;
+    QByteArray data = base64.fromBase64(type, source );
+    if( data.length() != 3 ) {
+        return error(QString("Error len decoding variant:%1, expected '%2', found '%3'").arg(type).arg(3).arg(data.length()));
+    }
+    char expected = 3 ;
+    int index = 0 ;
+    if( data[index] != expected ) {
+        return error(QString("Error decoding variant index %4 :%1, expected '%2', found '%3'").arg(type).arg(expected).arg(data[index]).arg(index));
+    }
+    expected = 0xFF ;
+    index = 1 ;
+    if( data[index] != expected ) {
+        return error(QString("Error decoding variant index %4 :%1, expected '%2', found '%3'").arg(type).arg(expected).arg(data[index]).arg(index));
+    }
+    expected = 0xAE ;
+    index = 2 ;
+    if( data[index] != expected ) {
+        return error(QString("Error decoding variant index %4 :%1, expected '%2', found '%3'").arg(type).arg(expected).arg(data[index]).arg(index));
+    }
+    return true ;
 }

@@ -26,6 +26,7 @@
 
 #include <QDialog>
 #include <QTextCodec>
+#include "modules/utils/base64utils.h"
 
 namespace Ui
 {
@@ -41,6 +42,7 @@ class Base64Dialog : public QDialog
     QTextCodec *_currentCodec;
     bool _isConverting;
     QString _fileDataPath;
+    Base64Utils::EBase64 _type;
 
     void setupOther();
 
@@ -65,6 +67,7 @@ private slots:
     void on_cmdLoadFromFile_clicked();
     void on_cmdLoadFromTextFile_clicked();
     void on_cmdSaveBinaryData_clicked();
+    void on_cbType_currentIndexChanged(int index);
 #ifdef  QXMLEDIT_TEST
     friend class TestBase64;
 #endif

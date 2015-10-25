@@ -212,6 +212,9 @@ public:
     static const QString KEY_XML_SAVE_SORTATTRIBUTES;
     static const QString KEY_XML_LOAD_STREAM;
 
+    // base64
+    static const QString KEY_BASE64_TYPE;
+
     // test
     static const QString KEY_TEST;
 

@@ -24,9 +24,9 @@
 #include "base64dialog.h"
 #include "ui_base64dialog.h"
 #include "qxmleditdata.h"
-#include "modules/utils/base64utils.h"
 #include "utils.h"
-#include <QTextStream>
+#include "config.h"
+
 
 void Base64Dialog::showDialog()
 {
@@ -41,6 +41,7 @@ Base64Dialog::Base64Dialog(QWidget *parent) :
 {
     _isConverting = false;
     _currentCodec = NULL ;
+    _type = (Base64Utils::EBase64)Config::getBool(Config::KEY_BASE64_TYPE, Base64Utils::RFC4648Standard);
     ui->setupUi(this);
     setupOther();
     setAcceptDrops(true);
@@ -59,6 +60,13 @@ void Base64Dialog::setupOther()
     Utils::setupComboEncoding(ui->fontEncoding);
     int currentCodec = QTextCodec::codecForName("UTF-8")->mibEnum();
     Utils::selectComboValue(ui->fontEncoding, currentCodec);
+    QStringList base64Labels;
+    QList<int> base64Values;
+    base64Labels << "RFC4648 (Standard)";
+    base64Labels << "RFC6920 (Url)";
+    base64Values << Base64Utils::RFC4648Standard;
+    base64Values << Base64Utils::RFC6920Url;
+    Utils::loadComboCodedArrays(ui->cbType, _type, base64Labels, base64Values);
 }
 
 void Base64Dialog::base64textChanged()
@@ -68,9 +76,8 @@ void Base64Dialog::base64textChanged()
     }
     _isConverting = true ;
     QString base64Text = ui->base64Edit->toPlainText();
-
-    QByteArray array(base64Text.toLatin1());
-    QByteArray array2 = QByteArray::fromBase64(array);
+    Base64Utils base64;
+    QByteArray array2 = base64.fromBase64(_type, base64Text);
     QTextStream textStream(array2);
     textStream.setAutoDetectUnicode(false);
     if(NULL != _currentCodec) {
@@ -88,7 +95,9 @@ void Base64Dialog::textChanged()
     }
     _isConverting = true ;
     QString text = ui->textEdit->toPlainText();
-    QString result = Utils::toBase64(text);
+    Base64Utils base64;
+    QByteArray bytes = _currentCodec->fromUnicode(text);
+    QString result = base64.toBase64(_type, bytes);
     ui->base64Edit->setPlainText(result);
     _isConverting = false ;
 }
@@ -142,7 +151,7 @@ void Base64Dialog::loadFromBinaryFile(const QString &filePath)
     bool isError = true ;
     bool isAbort = false ;
     Base64Utils base64Utils;
-    QString strBase64 = base64Utils.loadFromBinaryFile(this, filePath, isError, isAbort);
+    QString strBase64 = base64Utils.loadFromBinaryFile(_type, this, filePath, isError, isAbort);
     if(!(isError || isAbort)) {
         ui->base64Edit->setPlainText(strBase64);
     }
@@ -175,8 +184,19 @@ void Base64Dialog::on_cmdSaveBinaryData_clicked()
     QString text = ui->base64Edit->toPlainText();
     if(!text.isEmpty()) {
         Base64Utils base64Utils;
-        if(!base64Utils.saveBase64ToBinaryFile(this, text, QXmlEditData::sysFilePathForOperation(_fileDataPath))) {
+        if(!base64Utils.saveBase64ToBinaryFile(_type, this, text, QXmlEditData::sysFilePathForOperation(_fileDataPath))) {
             Utils::error(this, tr("Operation failed"));
         }
+    }
+}
+
+void Base64Dialog::on_cbType_currentIndexChanged(int index)
+{
+    if(index >= 0) {
+        int value = ui->cbType->itemData(index).toInt();
+        _type = (Base64Utils::EBase64) value;
+        Config::saveBool(Config::KEY_BASE64_TYPE, _type);
+        //reload data
+        textChanged();
     }
 }

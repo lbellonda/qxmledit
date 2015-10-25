@@ -880,7 +880,7 @@ void EditElement::on_cmdLoadFileBase64_clicked()
         bool isError = true ;
         bool isAbort = false ;
         Base64Utils base64Utils;
-        QString strBase64 = base64Utils.loadFromBinaryFile(this, filePath, isError, isAbort);
+        QString strBase64 = base64Utils.loadFromBinaryFile(Base64Utils::RFC4648Standard, this, filePath, isError, isAbort);
         if(!(isError || isAbort)) {
             QTableWidgetItem *currentItem = ui.attrTable->item(currentRow, A_COLUMN_TEXT);
             currentItem->setText(strBase64);
@@ -901,6 +901,6 @@ void EditElement::on_cmdSaveFileBase64_clicked()
     QTableWidgetItem *itemValue = ui.attrTable->item(currentRow, A_COLUMN_TEXT);
     QString text = itemValue->text() ;
     Base64Utils base64Utils;
-    base64Utils.saveBase64ToBinaryFile(this, text, QXmlEditData::sysFilePathForOperation(""));
+    base64Utils.saveBase64ToBinaryFile(Base64Utils::RFC4648Standard, this, text, QXmlEditData::sysFilePathForOperation(""));
 }
 

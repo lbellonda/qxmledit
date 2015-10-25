@@ -32,14 +32,27 @@ class LIBQXMLEDITSHARED_EXPORT Base64Utils
     static const int InputSizeLimit = 1024 * 1024 ;
 
 public:
+
+    enum EBase64 {
+        RFC4648Standard,
+        RFC6920Url,
+    };
+
     Base64Utils();
     virtual ~Base64Utils();
 
-    QString loadFromBinaryFile(QWidget *window, const QString &filePath, bool &isError, bool isAbort);
-    bool saveBase64ToBinaryFile(QWidget *window, const QString &text, const QString &filePath);
+    QString loadFromBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, bool &isError, bool isAbort);
+    bool saveBase64ToBinaryFile(const EBase64 type, QWidget *window, const QString &text, const QString &filePath);
 
-    bool saveToBinaryDevice(QIODevice *device, const QString &text);
-    bool saveToBinaryFile(QWidget *window, const QString &filePath, const QString &text);
+    bool saveToBinaryDevice(const EBase64 type, QIODevice *device, const QString &text);
+    bool saveToBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, const QString &text);
+
+    QString toBase64(const EBase64 type, const QString &text);
+    QString toBase64(const EBase64 type, const QByteArray &input);
+    QByteArray fromBase64(const EBase64 type, const QString &text);
+protected:
+    static QString standardToSpecific(const EBase64 type, const QString &text);
+    static QString specificToStandard(const EBase64 type, const QString &text);
 
 };
 

@@ -107,6 +107,7 @@ public:
 
     static void loadComboTextArray(QStringList strings, QList<QComboBox*> &combos);
     static void loadComboTextArrays(QComboBox *combo, const QString &selectedValue, const QStringList &texts, const QStringList &values);
+    static void loadComboCodedArrays(QComboBox *combo, const int selectedValue, const QStringList &texts, const QList<int> &values);
     static void loadButtonMenu(QToolButton *button, const QStringList &texts, const QStringList &values, QObject *target, const char *method);
     static void setupComboEncoding(QComboBox *combo);
     static void setupComboEncoding(QComboBox *combo, const bool allowEmpty, const QString &currentSelection);

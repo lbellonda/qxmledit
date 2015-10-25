@@ -645,6 +645,21 @@ void Utils::loadComboTextArrays(QComboBox *combo, const QString &selectedValue, 
     }
 }
 
+void Utils::loadComboCodedArrays(QComboBox *combo, const int selectedValue, const QStringList &texts, const QList<int> &values)
+{
+    int index = 0;
+    bool found = false ;
+    foreach(QString str, texts) {
+        int value = values.at(index) ;
+        combo->insertItem(index, str, value);
+        if(!found && (value == selectedValue)) {
+            combo->setCurrentIndex(index);
+            found = true ;
+        }
+        index ++;
+    }
+}
+
 void Utils::loadButtonMenu(QToolButton *button, const QStringList &texts, const QStringList &values, QObject *target, const char *method)
 {
     QMenu *menu = new QMenu(button);

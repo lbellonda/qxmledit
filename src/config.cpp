@@ -158,7 +158,6 @@ const QString Config::KEY_XSD_DIAGRAM_BK_GRADIENTDIRECTION("xsd/gradient/gradien
 const QString Config::KEY_XSD_DIAGRAM_BK_GRADIENTHEIGHT("xsd/gradient/gradientHeight");
 const QString Config::KEY_XSD_DIAGRAM_BK_GRADIENTUNITS("xsd/gradient/gradientUnits");
 
-
 //logs
 const QString Config::KEY_LOGS_ENABLED("logs/enabled");
 const QString Config::KEY_LOGS_LEVEL("logs/level");
@@ -207,6 +206,9 @@ const QString Config::KEY_COLOR_ANONATTRPREVIEW("colors/anonAttrPreview");
 const QString Config::KEY_XML_SAVE_STREAM("xml/saveStream");
 const QString Config::KEY_XML_SAVE_SORTATTRIBUTES("xml/sortAttributes");
 const QString Config::KEY_XML_LOAD_STREAM("xml/loadStream");
+
+// base64
+const QString Config::KEY_BASE64_TYPE("base64/type");
 
 // test
 const QString Config::KEY_TEST("test");

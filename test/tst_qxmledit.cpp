@@ -221,16 +221,32 @@ void TestQXmlEdit::testMixedContent()
 
 void TestQXmlEdit::testBase64()
 {
-    TestBase64 testBase64;
     bool result ;
-    result = testBase64.test_base64();
-    QVERIFY2(result, "TestBase64");
-    result = testBase64.test_base64_base();
-    QVERIFY2(result, "TestBase64 base");
-    result = testBase64.test_base64_file();
-    QVERIFY2(result, (QString("TestBase64 file: %1").arg(testBase64.errorString())).toLatin1().data());
-    result = testBase64.test_base64_utils();
-    QVERIFY2(result, (QString("TestBase64 utils: %1").arg(testBase64.errorString())).toLatin1().data());
+    {
+        TestBase64 testBase64;
+        result = testBase64.testUnits();
+        QVERIFY2(result, (QString("TestBase64 testUnits: %1").arg(testBase64.errorString())).toLatin1().data());
+    }
+    {
+        TestBase64 testBase64;
+        result = testBase64.test_base64();
+        QVERIFY2(result, (QString("TestBase64 test_base64: %1").arg(testBase64.errorString())).toLatin1().data());
+    }
+    {
+        TestBase64 testBase64;
+        result = testBase64.test_base64_base();
+        QVERIFY2(result, (QString("TestBase64 test_base64_base: %1").arg(testBase64.errorString())).toLatin1().data());
+    }
+    {
+        TestBase64 testBase64;
+        result = testBase64.test_base64_file();
+        QVERIFY2(result, (QString("TestBase64 file: %1").arg(testBase64.errorString())).toLatin1().data());
+    }
+    {
+        TestBase64 testBase64;
+        result = testBase64.test_base64_utils();
+        QVERIFY2(result, (QString("TestBase64 utils: %1").arg(testBase64.errorString())).toLatin1().data());
+    }
 }
 
 
@@ -1201,6 +1217,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testBase64();
     testOpenInNewWindow();
     testLoadFile();
     testElement();
