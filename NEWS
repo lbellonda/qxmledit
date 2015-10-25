@@ -1,4 +1,5 @@
 0.9.1
+    Variants of base 64 handled in the base 64 dialog.
     Fixed some behavior on file reopen.
     Enabled the application single instance via a configuration key.
     Inserted a menu to raise all the windows.
