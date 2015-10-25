@@ -30,12 +30,15 @@ class TestBase64 : public TestBase
 {
     bool _showXML;
 
-    bool test_base64_utils_binary();
+    bool test_base64_utils_binary(const Base64Utils::EBase64 type);
     bool test_base64_utils_text();
     bool testUnitUtilsEncode();
     bool testUnitUtilsDecode();
     bool testUnitUtilsEncode(const Base64Utils::EBase64 type );
     bool testUnitUtilsDecode(const Base64Utils::EBase64 type );
+    bool testUnitUtilsSaveDecoded();
+    bool testUnitLoadEncoded();
+    bool testIO(const Base64Utils::EBase64 type);
 public:
     TestBase64();
 

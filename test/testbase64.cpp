@@ -168,7 +168,10 @@ bool TestBase64::test_base64_file()
 bool TestBase64::test_base64_utils()
 {
     _testName = "test_base64_utils" ;
-    if(!test_base64_utils_binary()) {
+    if(!test_base64_utils_binary(Base64Utils::RFC4648Standard)) {
+        return false;
+    }
+    if(!test_base64_utils_binary(Base64Utils::RFC6920Url)) {
         return false;
     }
     if(!test_base64_utils_text()) {
@@ -177,13 +180,13 @@ bool TestBase64::test_base64_utils()
     return true;
 }
 
-bool TestBase64::test_base64_utils_binary()
+bool TestBase64::test_base64_utils_binary(const Base64Utils::EBase64 type)
 {
     _testName = "test_base64_utils_binary" ;
     Base64Utils base64;
     bool isError = false;
     bool isAbort = false ;
-    QString decoded = base64.loadFromBinaryFile( Base64Utils::RFC4648Standard, NULL, BASE64_FILE_UTILS, isError, isAbort);
+    QString decoded = base64.loadFromBinaryFile( type, NULL, BASE64_FILE_UTILS, isError, isAbort);
     if(isAbort) {
         return error("Loading is aborted.");
     }
@@ -197,7 +200,7 @@ bool TestBase64::test_base64_utils_binary()
 
     QBuffer buffer ;
     buffer.open(QIODevice::ReadWrite);
-    if(!base64.saveToBinaryDevice( Base64Utils::RFC4648Standard, &buffer, decoded )) {
+    if(!base64.saveToBinaryDevice( type, &buffer, decoded )) {
         return error("writing binary");
     }
     buffer.close();
@@ -259,7 +262,13 @@ bool TestBase64::testUnits()
     if(!testUnitUtilsDecode()) {
         return false;
     }
-    return error("nyi");
+    if(!testIO(Base64Utils::RFC4648Standard)) {
+        return false;
+    }
+    if(!testIO(Base64Utils::RFC6920Url)) {
+        return false;
+    }
+    return true;
 }
 
 bool TestBase64::testUnitUtilsEncode()
@@ -340,4 +349,87 @@ bool TestBase64::testUnitUtilsDecode(const Base64Utils::EBase64 type )
         return error(QString("Error decoding variant index %4 :%1, expected '%2', found '%3'").arg(type).arg(expected).arg(data[index]).arg(index));
     }
     return true ;
+}
+
+bool TestBase64::testIO(const Base64Utils::EBase64 type)
+{
+    _testName = QString("testIO: %1").arg(type) ;
+    bool isError = false;
+    bool isAbort = false ;
+
+    QTemporaryFile tempFile;
+    tempFile.setAutoRemove(true);
+    if( !tempFile.open() ) {
+        return error("Unable to open temp file");
+    }
+    Base64Utils base64;
+    QByteArray data ;
+    data.resize(3);
+    data[0] = 3;
+    data[1] = 0xFF;
+    data[2] = 0xAE;
+
+    tempFile.write(data);
+    tempFile.flush();
+    tempFile.close();
+
+    if(tempFile.error() != QFile::NoError ) {
+        return error(QString("Error temp file:%1").arg(tempFile.error()));
+    }
+    QFileInfo info(tempFile);
+    QString filePath = info.absoluteFilePath();
+    QString encoded = base64.loadFromBinaryFile( type, NULL, filePath, isError, isAbort);
+    if(isAbort) {
+        return error("Loading is aborted.");
+    }
+    if(isError) {
+        return error("Loading is error.");
+    }
+    QString expected;
+    if( type == Base64Utils::RFC4648Standard ) {
+        expected = "A/+u" ;
+    } else if ( type == Base64Utils::RFC6920Url ) {
+        expected = "A_-u" ;
+    } else {
+        return error(QString("Invalid variant specified:%1").arg(type));
+    }
+    if(encoded!=expected) {
+        return error(QString("Load differs variant:%5 decoded (%1):'%2'\nExpected (%3):%4")
+                     .arg(encoded.length()).arg(encoded).arg(expected.length()).arg(expected).arg(type));
+    }
+
+    QBuffer buffer ;
+    buffer.open(QIODevice::ReadWrite);
+    if(!base64.saveToBinaryDevice( type, &buffer, encoded )) {
+        return error("writing binary");
+    }
+    buffer.close();
+    QFile fileIn(filePath);
+    if( !fileIn.open(QIODevice::ReadOnly)) {
+        return error("open file in");
+    }
+    QByteArray srcData = fileIn.readAll();
+    int errorN = fileIn.error() ;
+    bool isOk = ( fileIn.error() == QFile::NoError );
+    fileIn.close();
+    if( !isOk ) {
+        return error(QString("reading file: %1").arg(errorN));
+    }
+
+    // compare the buffer with the data;
+    QByteArray origData = buffer.data();
+    // Extra info not needed now.
+
+    if( origData != srcData ) {
+        return error(QString("Compare differs Decoded (%1):'%2'\nExpected (%3):%4")
+                     .arg(srcData.length()).arg(QString(srcData.toBase64()))
+                     .arg(origData.length()).arg(QString(origData.toBase64())));
+    }
+
+    if( data != srcData ) {
+        return error(QString("Compare 2 differs Decoded (%1):'%2'\nExpected (%3):%4")
+                     .arg(srcData.length()).arg(QString(srcData.toBase64()))
+                     .arg(origData.length()).arg(QString(data.toBase64())));
+    }
+    return true;
 }

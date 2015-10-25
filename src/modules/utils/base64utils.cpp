@@ -155,7 +155,7 @@ bool Base64Utils::saveToBinaryDevice(const EBase64 type, QIODevice *device, cons
 {
     bool isOk = true ;
     QString base64 = specificToStandard(type, text);
-    QByteArray array(text.toLatin1());
+    QByteArray array(base64.toLatin1());
     QByteArray binaryArray = QByteArray::fromBase64(array);
     if(-1 == device->write(binaryArray)) {
         isOk = false ;
