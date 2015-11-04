@@ -109,7 +109,9 @@ void XSDTypeDialog::updateFromData()
     }
 
     // initial values
-    ui->ename->setText(_params.name());
+    if(ui->ename->text() != _params.name()) {
+        ui->ename->setText(_params.name());
+    }
     switch(_params.typeTo()) {
     case XSDOperationParameters::EXT_REFERENCE_TYPE:
         isReference = true;

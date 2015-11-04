@@ -877,6 +877,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionRemoveXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionInsertXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionInsertXmlSchemaReferences->setEnabled(!getEditor()->isReadOnly());
+    ui.actionFillSerie->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -1492,6 +1493,9 @@ bool MainWindow::reload()
     bool result = loadFile(filePath, false, OpenUsingSameWindow);
     // restore presets
     getRegola()->restoreSettings(settings);
+    if(Utils::fileIsXSLT(getEditor()->getRegola())) {
+        activateXSLTonNewFile();
+    }
     return result;
 }
 
@@ -3060,4 +3064,9 @@ void MainWindow::on_actionOpenSameWindow_triggered()
 MainWndController *MainWindow::controller()
 {
     return &_controller ;
+}
+
+void MainWindow::on_actionFillSerie_triggered()
+{
+    ui.editor->actionFillSerie();
 }

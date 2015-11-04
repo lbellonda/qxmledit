@@ -405,7 +405,10 @@ SOURCES += xmleditwidget.cpp \
     modules/xml/insertxsdreference.cpp \
     modules/xml/xmlio.cpp \
     modules/xml/xmlloadcontext.cpp \
-    undo/undodtd.cpp
+    undo/undodtd.cpp \
+    modules/replica/replicacommand.cpp \
+    modules/replica/replicamanager.cpp \
+    modules/replica/replicasettingsdialog.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -628,7 +631,10 @@ HEADERS += precompiled_lib.h \
     modules/xsd/schemareferencesdialog.h \
     modules/namespace/namespacereferenceentry.h \
     modules/xml/xmlloadcontext.h \
-    undo/undodtd.h
+    undo/undodtd.h \
+    modules/replica/replicacommand.h \
+    modules/replica/replicamanager.h \
+    modules/replica/replicasettingsdialog.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -682,7 +688,8 @@ FORMS += xmleditwidget.ui \
     modules/namespace/namespacemanagementdialog.ui \
     modules/namespace/choosenamespacedialog.ui \
     modules/namespace/editnamespacedialog.ui \
-    modules/xsd/schemareferencesdialog.ui
+    modules/xsd/schemareferencesdialog.ui \
+    modules/replica/replicasettingsdialog.ui
 
 
 symbian {

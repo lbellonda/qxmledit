@@ -1198,6 +1198,28 @@ void TestQXmlEdit::testLoadFile()
         QVERIFY2(result, (QString("test TestLoadFile: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
     }
 }
+
+void TestQXmlEdit::testReplica()
+{
+    bool result ;
+
+    {
+        TestReplica test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test TestReplica: testFast '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestReplica test1;
+        result = test1.testUnit();
+        QVERIFY2(result, (QString("test TestReplica: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestReplica test1;
+        result = test1.testAction();
+        QVERIFY2(result, (QString("test TestReplica: testAction '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
+
 /*
 
 // This function enabled for debug purposes. DO NOT REMOVE
@@ -1217,6 +1239,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testReplica();
     testBase64();
     testOpenInNewWindow();
     testLoadFile();

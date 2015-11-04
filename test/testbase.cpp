@@ -22,6 +22,7 @@
 
 #include "testbase.h"
 #include "regola.h"
+#include "comparexml.h"
 #include <QTextCodec>
 #include <QClipboard>
 #include <QAction>
@@ -524,4 +525,25 @@ bool TestBase::testHash(QHash<QString,QString> expected, QHash<QString,QString> 
         }
     }
     return true;
+}
+
+bool TestBase::compare(Regola *regola, const QString &id, const QString &fileResult)
+{
+    QByteArray resultData = regola->writeMemory();
+    QDomDocument document1;
+    QDomDocument document2;
+    CompareXML compare;
+    if(!compare.loadFileIntoDocument(fileResult, document1)) {
+        return error(QString("id: %1, load file result %2").arg(id).arg(fileResult));
+    }
+    QBuffer outputData(&resultData);
+    if(!compare.loadFileIntoDocument(&outputData, document2)) {
+        return error(QString("id %1 load modified data").arg(id));
+    }
+    bool result = compare.compareDomDocuments(document1, document2);
+    if( !result ) {
+        compare.dumpErrorCause();
+        return error(QString("Step: %1 comparing file with doc: %2").arg(id).arg(compare.errorString()));
+    }
+    return true ;
 }

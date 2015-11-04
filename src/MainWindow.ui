@@ -272,6 +272,7 @@
     </property>
     <addaction name="actionCompare"/>
     <addaction name="actionCompareXSD"/>
+    <addaction name="actionFillSerie"/>
     <addaction name="separator"/>
     <addaction name="actionPlugins"/>
     <addaction name="actionAnonymizeFile"/>
@@ -1953,6 +1954,14 @@
     <string>Close the siblings of the current element.</string>
    </property>
   </action>
+  <action name="actionFillSerie">
+   <property name="text">
+    <string>Fill serie...</string>
+   </property>
+   <property name="toolTip">
+    <string>Fill a set of elements with consecutive values.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1969,7 +1978,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

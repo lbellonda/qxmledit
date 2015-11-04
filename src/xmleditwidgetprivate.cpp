@@ -58,6 +58,8 @@
 #include "modules/xsd/schemareferencesdialog.h"
 #include "modules/namespace/namespacereferenceentry.h"
 #include "modules/xml/xmlloadcontext.h"
+#include "modules/replica/replicasettingsdialog.h"
+#include "modules/replica/replicamanager.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -3040,3 +3042,31 @@ void XmlEditWidgetPrivate::showError(const QString &errorMessage)
     }
 }
 
+
+bool XmlEditWidgetPrivate::actionFillSerie()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        Element *element = getSelectedItem();
+        if(NULL != element) {
+            ReplicaSettingsDialog dlg(element, p->window());
+            dlg.setModal(true);
+            if(dlg.exec() == QDialog::Accepted) {
+                bool result = false;
+                ReplicaCommand *command = dlg.result();
+                if(NULL != command) {
+                    ReplicaManager manager ;
+                    p->window()->setEnabled(false);
+                    result = manager.apply(getEditor(), getRegola(), element, command);
+                    p->window()->setEnabled(true);
+                } else {
+                    Utils::errorOutOfMem(p->window());
+                }
+                if(NULL != command) {
+                    delete command ;
+                }
+                return result ;
+            }
+        }
+    }
+    return false;
+}

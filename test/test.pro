@@ -149,7 +149,8 @@ SOURCES += \
     testopeninnewwindow.cpp \
     testelement.cpp \
     testloadfile.cpp \
-    testhelpers/testmainwindow.cpp
+    testhelpers/testmainwindow.cpp \
+    testreplica.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -250,7 +251,8 @@ HEADERS += \
     testopeninnewwindow.h \
     testelement.h \
     testloadfile.h \
-    testhelpers/testmainwindow.h
+    testhelpers/testmainwindow.h \
+    testreplica.h
 
 #OTHER_FILES += \
 

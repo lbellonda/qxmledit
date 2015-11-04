@@ -1084,3 +1084,8 @@ bool XmlEditWidget::insertXsdReference(NamespaceReferenceEntry *entry)
     return d->insertXsdReference(entry);
 }
 
+bool XmlEditWidget::actionFillSerie()
+{
+    return d->actionFillSerie();
+}
+

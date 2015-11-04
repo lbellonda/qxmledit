@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<root>
+	<child1 attrib="a" attr2="b"/>
+	<child>
+		<sub1 />
+		<sub1 attrib="A-date_a" />
+		<sub1 attrib="B-date_a"/>
+		<sub1 attrib="C"/>
+		<sub1 attrib="D-xyz" />
+		<sub1 attrib="E"/>
+		<!-- comment-->
+		<sub1 attrib="F">
+			<sub2 attrib="A"/>
+			<sub2 attrib="B"/>
+		</sub1>
+	</child>
+</root>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>SQLLiteDataAccess::Private</name>
     <message>
@@ -42,7 +42,7 @@
 <context>
     <name>SessionCategoryAccess</name>
     <message>
-        <location filename="../sessionsummarydata.cpp" line="100"/>
+        <location filename="../sessionsummarydata.cpp" line="101"/>
         <source>CATEGORY</source>
         <translation>SKUPINA</translation>
     </message>
@@ -129,7 +129,7 @@
 <context>
     <name>SessionDirectoryAccess</name>
     <message>
-        <location filename="../sessionsummarydata.cpp" line="210"/>
+        <location filename="../sessionsummarydata.cpp" line="211"/>
         <source>%1
   last access: %2</source>
         <translation>%1
@@ -176,7 +176,7 @@
 <context>
     <name>SessionFileAccess</name>
     <message>
-        <location filename="../sessionsummarydata.cpp" line="182"/>
+        <location filename="../sessionsummarydata.cpp" line="183"/>
         <source>%1
   last accessed on %2
   last updated on %3
@@ -189,7 +189,7 @@
   přistoupeno %5 krát</translation>
     </message>
     <message>
-        <location filename="../sessionsummarydata.cpp" line="188"/>
+        <location filename="../sessionsummarydata.cpp" line="189"/>
         <source>%1 (%2)</source>
         <translation>%1 (%2)</translation>
     </message>

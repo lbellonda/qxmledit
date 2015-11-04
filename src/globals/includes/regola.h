@@ -417,6 +417,7 @@ public:
     QString dtd();
     void setDtd(const QString &dtd);
     bool setNewDTD(const QString &newDtd);
+    void updateElement(Element* pElement, const bool updateGUI = false);
 
 signals:
     void wasModified();
@@ -464,7 +465,9 @@ private:
     DocumentType *_docType;
 
     void clear();
+public:
     void clearUndo();
+private:
     void addUndoInsert(QTreeWidget * tree, Element * element);
     QTreeWidgetItem *getSelItem(QTreeWidget *tree);
     bool editNodeElementAsXML(const bool isBase64Coded, Element *pElement, UIDelegate *uiDelegate);

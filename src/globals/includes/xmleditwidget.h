@@ -185,6 +185,7 @@ public:
     void insertXSITypeAttribute(const QString &newValue);
     void insertXmlSchemaReferences();
     bool insertXsdReference(NamespaceReferenceEntry *entry);
+    bool actionFillSerie();
 
     QMenu* getCopyMenu();
 

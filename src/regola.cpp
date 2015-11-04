@@ -2909,3 +2909,14 @@ bool Regola::setNewDTD(const QString &newDtd)
     return false;
 }
 
+void Regola::updateElement(Element* pElement, const bool updateGUI)
+{
+    pElement->updateSizeInfo();
+    if(NULL != pElement->getUI()) {
+        pElement->display(pElement->getUI(), paintInfo);
+    }
+    if(updateGUI) {
+        pElement->forceUpdateGui(true);
+    }
+    setModified(true);
+}

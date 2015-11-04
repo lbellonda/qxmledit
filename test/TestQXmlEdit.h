@@ -90,6 +90,7 @@
 #include "testopeninnewwindow.h"
 #include "testelement.h"
 #include "testloadfile.h"
+#include "testreplica.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -180,6 +181,7 @@ private Q_SLOTS:
     void testOpenInNewWindow();
     void testElement();
     void testLoadFile();
+    void testReplica();
 };
 
 

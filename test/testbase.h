@@ -95,6 +95,7 @@ protected:
     Element * addAttrs(Element *el, const QString &attribs);
     QString dumpHash(QHash<QString,QString> hash);
     bool testHash(QHash<QString,QString> expected, QHash<QString,QString> found);
+    bool compare(Regola *regola, const QString &id, const QString &fileResult);
 
 };
 

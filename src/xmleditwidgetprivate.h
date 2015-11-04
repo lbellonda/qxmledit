@@ -381,6 +381,7 @@ private slots:
     void removeXSITypeAttribute();
     void insertXSITypeAttribute(const QString &newValue);
     void insertXmlSchemaReferences();
+    bool actionFillSerie();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

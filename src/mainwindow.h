@@ -318,6 +318,7 @@ private slots:
     void on_actionInsertXSITypeAttribute_triggered();
     void on_actionInsertXmlSchemaReferences_triggered();
     void on_actionOpenSameWindow_triggered();
+    void on_actionFillSerie_triggered();
 
     //----- other slots ------------------
 

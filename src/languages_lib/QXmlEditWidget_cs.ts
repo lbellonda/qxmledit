@@ -4,7 +4,7 @@
 <context>
     <name>ANotifier</name>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="111"/>
+        <location filename="../modules/services/anotifier.cpp" line="116"/>
         <source>QXmlEdit</source>
         <translation>QXmlEdit</translation>
     </message>
@@ -1778,17 +1778,17 @@ row=%1, column=%2</source>
 <context>
     <name>Dialog</name>
     <message>
-        <location filename="../EditElement.ui" line="20"/>
+        <location filename="../EditElement.ui" line="23"/>
         <source>Edit Element</source>
         <translation>Upravit prvek</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="36"/>
+        <location filename="../EditElement.ui" line="49"/>
         <source>Path:</source>
         <translation>Cesta:</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="46"/>
+        <location filename="../EditElement.ui" line="59"/>
         <source>------</source>
         <translation>------</translation>
     </message>
@@ -1797,82 +1797,82 @@ row=%1, column=%2</source>
         <translation type="obsolete">Text prvku</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="84"/>
+        <location filename="../EditElement.ui" line="97"/>
         <source>Ta&amp;g:</source>
         <translation>&amp;Značka:</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="110"/>
+        <location filename="../EditElement.ui" line="123"/>
         <source>Warning: the namespace is not declared.</source>
         <translation>Chyba: Jmenný prostor není deklarován.</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="123"/>
+        <location filename="../EditElement.ui" line="136"/>
         <source>Namespaces</source>
         <translation>Jmenné prostory</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="132"/>
+        <location filename="../EditElement.ui" line="145"/>
         <source>Text &amp;Nodes:</source>
         <translation>Textové &amp;uzly:</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="182"/>
+        <location filename="../EditElement.ui" line="195"/>
         <source>CDATA Section</source>
         <translation>Oddíl CDATA</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="187"/>
+        <location filename="../EditElement.ui" line="200"/>
         <source>Text Content</source>
         <translation>Textový obsah</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="202"/>
+        <location filename="../EditElement.ui" line="215"/>
         <source>+ (&amp;t)</source>
         <translation>+ (&amp;t)</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="212"/>
+        <location filename="../EditElement.ui" line="225"/>
         <source>- (&amp;r)</source>
         <translation>- (&amp;r)</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="232"/>
+        <location filename="../EditElement.ui" line="245"/>
         <source>&amp;Up</source>
         <translation>&amp;Nahoru</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="242"/>
+        <location filename="../EditElement.ui" line="255"/>
         <source>&amp;Down</source>
         <translation>&amp;Dolů</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="353"/>
+        <location filename="../EditElement.ui" line="366"/>
         <source>To base64</source>
         <translation>Do Base 64</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="363"/>
+        <location filename="../EditElement.ui" line="376"/>
         <source>From base64</source>
         <translation>Od Base 64</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="373"/>
+        <location filename="../EditElement.ui" line="386"/>
         <source>s</source>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="376"/>
+        <location filename="../EditElement.ui" line="389"/>
         <source>Save base64</source>
         <translation>Uložit base64</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="386"/>
+        <location filename="../EditElement.ui" line="399"/>
         <source>Load a binary file and insert it into the current attribute as base64 coded text.</source>
         <translation>Nahrát binární soubor a vložit jej do nynější vlastnosti jako text kódovaný base64.</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="389"/>
+        <location filename="../EditElement.ui" line="402"/>
         <source>Load base64</source>
         <translation>Nahrát base64</translation>
     </message>
@@ -1885,7 +1885,7 @@ row=%1, column=%2</source>
         <translation type="obsolete">-</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="222"/>
+        <location filename="../EditElement.ui" line="235"/>
         <source>Mod...</source>
         <translation>Režim...</translation>
     </message>
@@ -1898,27 +1898,27 @@ row=%1, column=%2</source>
         <translation type="obsolete">Dolů</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="276"/>
+        <location filename="../EditElement.ui" line="289"/>
         <source>&amp;Attributes</source>
         <translation>&amp;Vlastnosti</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="313"/>
+        <location filename="../EditElement.ui" line="326"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="318"/>
+        <location filename="../EditElement.ui" line="331"/>
         <source>Value</source>
         <translation>Hodnota</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="333"/>
+        <location filename="../EditElement.ui" line="346"/>
         <source>+ (&amp;b)</source>
         <translation>+ (&amp;b)</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="343"/>
+        <location filename="../EditElement.ui" line="356"/>
         <source>- (&amp;d)</source>
         <translation>- (&amp;d)</translation>
     </message>
@@ -1931,7 +1931,7 @@ row=%1, column=%2</source>
         <translation type="obsolete">Od Base 64</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="451"/>
+        <location filename="../EditElement.ui" line="464"/>
         <source>editItem</source>
         <translation>Upravit položku</translation>
     </message>
@@ -2009,22 +2009,22 @@ row=%1, column=%2</source>
 <context>
     <name>EditElement</name>
     <message>
-        <location filename="../editelement.cpp" line="174"/>
+        <location filename="../editelement.cpp" line="176"/>
         <source>** child **</source>
         <translation>** potomek **</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="177"/>
+        <location filename="../editelement.cpp" line="179"/>
         <source>** comment **</source>
         <translation>** poznámka **</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="180"/>
+        <location filename="../editelement.cpp" line="182"/>
         <source>** element: &lt;%1&gt;</source>
         <translation>** prvek: &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="183"/>
+        <location filename="../editelement.cpp" line="185"/>
         <source>** processing instruction: %1</source>
         <translation>** zpracovává se příkaz: %1</translation>
     </message>
@@ -2033,12 +2033,12 @@ row=%1, column=%2</source>
         <translation type="obsolete">Žádný cíl</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="213"/>
+        <location filename="../editelement.cpp" line="215"/>
         <source>Tag text is invalid</source>
         <translation>Text značky je neplatný</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="228"/>
+        <location filename="../editelement.cpp" line="230"/>
         <source>An attribute is invalid at row %1</source>
         <translation>Nějaká vlastnost je neplatná na řádku %1</translation>
     </message>
@@ -2047,49 +2047,49 @@ row=%1, column=%2</source>
         <translation type="obsolete">Tato operace vlastnost zničí.\nOpravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="208"/>
+        <location filename="../editelement.cpp" line="210"/>
         <source>No element</source>
         <translation>Žádný prvek</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="368"/>
+        <location filename="../editelement.cpp" line="370"/>
         <source>This operation will destroy the attribute.
 Do you really want to continue?</source>
         <translation>Tato operace vlastnost zničí.
 Opravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="375"/>
+        <location filename="../editelement.cpp" line="377"/>
         <source>No attribute selected</source>
         <translation>Nevybrána žádná vlastnost</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="381"/>
+        <location filename="../editelement.cpp" line="383"/>
         <source>No attribute selected, can&apos;t execute command.</source>
         <translation>Nevybrána žádná vlastnost. Příkaz nelze provést.</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="386"/>
+        <location filename="../editelement.cpp" line="388"/>
         <source>Please, insert name and value for attribute.</source>
         <translation>Zadejte, prosím, název a hodnotu vlastnosti.</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="468"/>
+        <location filename="../editelement.cpp" line="470"/>
         <source>This operation will destroy the text node. Do you really want to continue ?</source>
         <translation>Tato operace textový uzel zničí. Opravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="476"/>
+        <location filename="../editelement.cpp" line="478"/>
         <source>No text node selected</source>
         <translation>Nevybrán žádný textový uzel</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="871"/>
+        <location filename="../editelement.cpp" line="876"/>
         <source>Choose a File to be Transformed in Base 64 Encoded Text</source>
         <translation>Vybrat soubor, který má být přeměněn na kódovaný text Base 64</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="873"/>
+        <location filename="../editelement.cpp" line="878"/>
         <source>All files (*);;XML files (*.xml);;XML Schema files (*.xsd);;</source>
         <translation>Všechny soubory (*);;Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;</translation>
     </message>
@@ -2427,21 +2427,21 @@ Kód chyby je &apos;%1&apos;</translation>
 <context>
     <name>Element</name>
     <message>
-        <location filename="../element.cpp" line="263"/>
-        <location filename="../element.cpp" line="286"/>
+        <location filename="../element.cpp" line="264"/>
+        <location filename="../element.cpp" line="287"/>
         <location filename="../modules/xml/elementPaint.cpp" line="77"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../element.cpp" line="476"/>
+        <location filename="../element.cpp" line="477"/>
         <source> Attributes:
 </source>
         <translation> Vlastnosti:
 </translation>
     </message>
     <message>
-        <location filename="../element.cpp" line="479"/>
+        <location filename="../element.cpp" line="480"/>
         <source>%1
 path: %2
 %3</source>
@@ -2450,7 +2450,15 @@ cesta: %2
 %3</translation>
     </message>
     <message>
-        <location filename="../element.cpp" line="515"/>
+        <location filename="../element.cpp" line="531"/>
+        <location filename="../element.cpp" line="537"/>
+        <location filename="../element.cpp" line="564"/>
+        <location filename="../element.cpp" line="569"/>
+        <source>Image base 64 coded:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../element.cpp" line="556"/>
         <source>text (anon):
 &quot;%1&quot;
  orig:
@@ -2461,7 +2469,7 @@ cesta: %2
 &quot;%2&quot;</translation>
     </message>
     <message>
-        <location filename="../element.cpp" line="518"/>
+        <location filename="../element.cpp" line="559"/>
         <source>text:
 &quot;%1&quot;</source>
         <translation>text:
@@ -2491,7 +2499,7 @@ cesta: %2
         <translation>Neznámý uzel</translation>
     </message>
     <message>
-        <location filename="../element.cpp" line="2386"/>
+        <location filename="../element.cpp" line="2440"/>
         <source>element</source>
         <translation>Prvek</translation>
     </message>
@@ -3452,6 +3460,11 @@ Kód chyby je &apos;%1&apos;</translation>
         <location filename="../modules/services/anotifier.cpp" line="58"/>
         <source>Extract Fragments from a File</source>
         <translation>Vytáhnout kousky ze souboru</translation>
+    </message>
+    <message>
+        <location filename="../modules/services/anotifier.cpp" line="59"/>
+        <source>Raise all windows</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5163,42 +5176,42 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="../modules/utils/base64utils.cpp" line="45"/>
-        <location filename="../utils.cpp" line="910"/>
+        <location filename="../modules/utils/base64utils.cpp" line="93"/>
+        <location filename="../utils.cpp" line="927"/>
         <source>Warning: the size of the file to import is %1. Do you want to continue?</source>
         <translation>Varování: velikost souboru k zavedení je %1. Chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../modules/utils/base64utils.cpp" line="58"/>
-        <location filename="../utils.cpp" line="923"/>
+        <location filename="../modules/utils/base64utils.cpp" line="106"/>
+        <location filename="../utils.cpp" line="940"/>
         <source>Error reading file.</source>
         <translation>Chyba při čtení souboru.</translation>
     </message>
     <message>
-        <location filename="../modules/utils/base64utils.cpp" line="64"/>
-        <location filename="../utils.cpp" line="926"/>
+        <location filename="../modules/utils/base64utils.cpp" line="114"/>
+        <location filename="../utils.cpp" line="943"/>
         <source>Unable to load file.
 Error code is &apos;%1&apos;</source>
         <translation>Nelze nahrát soubor.
 Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../modules/utils/base64utils.cpp" line="74"/>
+        <location filename="../modules/utils/base64utils.cpp" line="124"/>
         <source>Save Base 64 Coded Data to File</source>
         <translation>Uložit data kódovaná jako Base 64 do souboru</translation>
     </message>
     <message>
-        <location filename="../modules/utils/base64utils.cpp" line="76"/>
+        <location filename="../modules/utils/base64utils.cpp" line="126"/>
         <source>XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;</source>
         <translation>Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="../modules/utils/base64utils.cpp" line="96"/>
+        <location filename="../modules/utils/base64utils.cpp" line="146"/>
         <source>Error writing to file.</source>
         <translation>Chyba při zápisu do souboru.</translation>
     </message>
     <message>
-        <location filename="../modules/utils/base64utils.cpp" line="99"/>
+        <location filename="../modules/utils/base64utils.cpp" line="149"/>
         <source>Unable to open file.
  Error code is &apos;%1&apos;</source>
         <translation>Nelze otevřít soubor.
@@ -5230,27 +5243,27 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation>XML Schema (xsd nebo xs)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="112"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="113"/>
         <source>XSL-FO 1.0 (fo)</source>
         <translation>XSL-FO 1.0 (fo)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="113"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="114"/>
         <source>XSL 1.0 (xsl)</source>
         <translation>XSL 1.0 (xsl)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="114"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="116"/>
         <source>xquery local functions (local)</source>
         <translation>xquery místní funkce (místní)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="115"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="117"/>
         <source>Maven POM 4 (local)</source>
         <translation>Maven POM 4 (místní)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="116"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="118"/>
         <source>XHTML 1.1 (html)</source>
         <translation>XHTML 1.1 (html)</translation>
     </message>
@@ -5356,49 +5369,49 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation>Neznámý typ uzlu</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="928"/>
+        <location filename="../regola.cpp" line="927"/>
         <source>A fatal error occurred</source>
         <translation>Vyskytla se vážná chyba</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1025"/>
+        <location filename="../regola.cpp" line="1024"/>
         <source>Only one root item in permitted in XML syntax.</source>
         <translation>Ve skladbě XML je povolena pouze jedna kořenová položka.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1092"/>
+        <location filename="../regola.cpp" line="1091"/>
         <source>It is not possible to place another element as root.</source>
         <translation>Nelze umístit další prvek jako kořen.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1160"/>
+        <location filename="../regola.cpp" line="1159"/>
         <source>No attributes to paste.</source>
         <translation>Žádné vlastnosti k vložení.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1181"/>
-        <location filename="../regola.cpp" line="1206"/>
+        <location filename="../regola.cpp" line="1180"/>
+        <location filename="../regola.cpp" line="1205"/>
         <source>The attributes are valid only for an element.</source>
         <translation>Vlastnosti jsou platné pouze pro tento prvek.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1198"/>
-        <location filename="../regola.cpp" line="1223"/>
+        <location filename="../regola.cpp" line="1197"/>
+        <location filename="../regola.cpp" line="1222"/>
         <source>Error while pasting attributes.</source>
         <translation>Chyba při vkládání vlastností.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2797"/>
+        <location filename="../regola.cpp" line="2796"/>
         <source>XSLT eXtensible Stylesheet Language Transformations</source>
         <translation>Transformace XSLT eXtensible Stylesheet Language</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2800"/>
+        <location filename="../regola.cpp" line="2799"/>
         <source>XML Schema (XSD)</source>
         <translation>XML Schema (XSD)</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2803"/>
+        <location filename="../regola.cpp" line="2802"/>
         <source>XML Schema Instance</source>
         <translation>Instance XML Schema</translation>
     </message>
@@ -5407,37 +5420,37 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation type="obsolete">Chyba při vkládání.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1305"/>
+        <location filename="../regola.cpp" line="1304"/>
         <source>Please, select an element to append the comment</source>
         <translation>Vyberte, prosím, nějaký prvek pro připojení poznámky</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1941"/>
+        <location filename="../regola.cpp" line="1940"/>
         <source>A root item exists already, cannot proceed.</source>
         <translation>Kořenová položka již existuje. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1948"/>
+        <location filename="../regola.cpp" line="1947"/>
         <source>The selected elmement is not a comment, cannot proceed.</source>
         <translation>Vybraný prvek není poznámka. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1969"/>
+        <location filename="../regola.cpp" line="1968"/>
         <source>The content of the comment is not valid XML. Cannot proceed.</source>
         <translation>Obsah poznámky není platné XML. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2006"/>
+        <location filename="../regola.cpp" line="2005"/>
         <source>When element has mixed contents you must edit text nodes.</source>
         <translation>Když má prvek smíšený obsah, musíte upravit textové uzly.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2100"/>
+        <location filename="../regola.cpp" line="2099"/>
         <source>Element</source>
         <translation>Prvek</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2102"/>
+        <location filename="../regola.cpp" line="2101"/>
         <source>Attributes</source>
         <translation>Vlastnosti</translation>
     </message>
@@ -5446,8 +5459,8 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation type="obsolete">První položka musí být jedinečná, aby se bral ohled na skladbu XML.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1299"/>
-        <location filename="../regola.cpp" line="1340"/>
+        <location filename="../regola.cpp" line="1298"/>
+        <location filename="../regola.cpp" line="1339"/>
         <source>Comments can be added only to elements, consider appending, instead</source>
         <translation>Poznámky je možné přidávat jen k prvkům. Zvažte místo toho připojení</translation>
     </message>
@@ -5456,13 +5469,13 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation type="obsolete">Vyberte, prosím, nějaký prvek pro připojení poznámky</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1385"/>
-        <location filename="../regola.cpp" line="1426"/>
+        <location filename="../regola.cpp" line="1384"/>
+        <location filename="../regola.cpp" line="1425"/>
         <source>Processing instructions can be added only to elements, consider appending, instead</source>
         <translation>Příkazy pro zpracování je možné přidávat jen k prvkům. Zvažte místo toho připojení</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1432"/>
+        <location filename="../regola.cpp" line="1431"/>
         <source>Please, select an element to append the processing instruction</source>
         <translation>Vyberte, prosím, nějaký prvek pro připojení příkazu pro zpracování</translation>
     </message>
@@ -5600,14 +5613,14 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation>S&amp;mazat</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/schemareferencesdialog.cpp" line="133"/>
-        <location filename="../modules/xsd/schemareferencesdialog.cpp" line="165"/>
-        <location filename="../modules/xsd/schemareferencesdialog.cpp" line="192"/>
+        <location filename="../modules/xsd/schemareferencesdialog.cpp" line="132"/>
+        <location filename="../modules/xsd/schemareferencesdialog.cpp" line="164"/>
+        <location filename="../modules/xsd/schemareferencesdialog.cpp" line="191"/>
         <source>Invalid values for location or namespace.</source>
         <translation>Neplatné hodnoty pro umístění nebo jmenný prostor.</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/schemareferencesdialog.cpp" line="150"/>
+        <location filename="../modules/xsd/schemareferencesdialog.cpp" line="149"/>
         <source>Do you really want to delete this declaration?</source>
         <translation>Opravdu chcete smazat tuto deklaraci?</translation>
     </message>
@@ -6337,132 +6350,132 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation>Chyba při zápisu dat</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="670"/>
+        <location filename="../utils.cpp" line="687"/>
         <source>%1 Gb</source>
         <translation>%1 GB</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="674"/>
+        <location filename="../utils.cpp" line="691"/>
         <source>%1 Mb</source>
         <translation>%1 MB</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="678"/>
+        <location filename="../utils.cpp" line="695"/>
         <source>%1 Kb</source>
         <translation>%1 KB</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="680"/>
+        <location filename="../utils.cpp" line="697"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="687"/>
+        <location filename="../utils.cpp" line="704"/>
         <source>no error occurred</source>
         <translation>Nevyskytla se žádná chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="690"/>
+        <location filename="../utils.cpp" line="707"/>
         <source>error triggered by consumer</source>
         <translation>Chyba spuštěna spotřebitelem</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="693"/>
+        <location filename="../utils.cpp" line="710"/>
         <source>unexpected end of file</source>
         <translation>Neočekávaný konec souboru</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="696"/>
+        <location filename="../utils.cpp" line="713"/>
         <source>more than one document type definition</source>
         <translation>Více než jedno vymezení typu dokumentu</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="699"/>
+        <location filename="../utils.cpp" line="716"/>
         <source>tag mismatch</source>
         <translation>Nesoulad značek</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="702"/>
+        <location filename="../utils.cpp" line="719"/>
         <source>error occurred while parsing content</source>
         <translation>Při zpracování obsahu se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="705"/>
+        <location filename="../utils.cpp" line="722"/>
         <source>unexpected character</source>
         <translation>Neočekávaný znak</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="708"/>
+        <location filename="../utils.cpp" line="725"/>
         <source>invalid name for processing instruction</source>
         <translation>Neplatný název příkazu pro zpracování</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="711"/>
+        <location filename="../utils.cpp" line="728"/>
         <source>version expected while reading the XML declaration</source>
         <translation>Při čtení deklarace XML očekávána verze</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="714"/>
+        <location filename="../utils.cpp" line="731"/>
         <source>wrong value for standalone declaration</source>
         <translation>Nesprávná hodnota pro samostatnou deklaraci</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="717"/>
+        <location filename="../utils.cpp" line="734"/>
         <source>encoding declaration or standalone declaration expected while reading the XML declaration</source>
         <translation>Při čtení deklarace XML očekávány deklarace kódování nebo samostatná deklarace</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="720"/>
+        <location filename="../utils.cpp" line="737"/>
         <source>standalone declaration expected while reading the XML declaration</source>
         <translation>Při čtení deklarace XML očekávána samostatná deklarace</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="723"/>
+        <location filename="../utils.cpp" line="740"/>
         <source>error occurred while parsing document type definition</source>
         <translation>Při zpracování vymezení typu dokumentu se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="726"/>
+        <location filename="../utils.cpp" line="743"/>
         <source>letter is expected</source>
         <translation>Je očekáváno písmeno</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="729"/>
+        <location filename="../utils.cpp" line="746"/>
         <source>error occurred while parsing comment</source>
         <translation>Při zpracování poznámky se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="732"/>
+        <location filename="../utils.cpp" line="749"/>
         <source>error occurred while parsing reference</source>
         <translation>Při zpracování odkazu se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="735"/>
+        <location filename="../utils.cpp" line="752"/>
         <source>internal general entity reference not allowed in DTD</source>
         <translation>Vnitřní odkaz na obecnou entitu v DTD nepovolen</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="738"/>
+        <location filename="../utils.cpp" line="755"/>
         <source>external parsed general entity reference not allowed in attribute value</source>
         <translation>Vnější zpracovaný odkaz na obecnou entitu v hodnotě vlastnosti nepovolen</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="741"/>
+        <location filename="../utils.cpp" line="758"/>
         <source>external parsed general entity reference not allowed in DTD</source>
         <translation>Vnější zpracovaný odkaz na obecnou entitu v DTD nepovolen</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="744"/>
+        <location filename="../utils.cpp" line="761"/>
         <source>unparsed entity reference in wrong context</source>
         <translation>Nezpracovaný odkaz na entitu v chybném kontextu</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="747"/>
+        <location filename="../utils.cpp" line="764"/>
         <source>recursive entities</source>
         <translation>Rekurzivní entity</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="750"/>
+        <location filename="../utils.cpp" line="767"/>
         <source>error in the text declaration of an external entity</source>
         <translation>Chyba v deklaraci textu vnější entity</translation>
     </message>
@@ -8541,22 +8554,22 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Nelze vytvořit obrazové prvky</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="406"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="405"/>
         <source>Copy Element Text &apos;%1&apos;</source>
         <translation>Kopírovat text prvku &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="406"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="405"/>
         <source>Copy Element Text</source>
         <translation>Kopírovat text prvku</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="409"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="408"/>
         <source>Copy Element Tag &lt;%1&gt;</source>
         <translation>Kopírovat značku prvku &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="409"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="408"/>
         <source>Copy Element Tag</source>
         <translation>Kopírovat značku prvku</translation>
     </message>
@@ -8565,7 +8578,7 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Kopírovat název vlastnosti &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="419"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="418"/>
         <source>Copy Attribute Name</source>
         <translation>Kopírovat název vlastnosti</translation>
     </message>
@@ -8574,22 +8587,22 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Kopírovat hodnotu vlastnosti =&apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="427"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="426"/>
         <source>Copy Attribute Value</source>
         <translation>Kopírovat hodnotu vlastnosti</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="443"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="442"/>
         <source>== No style ==</source>
         <translation>== Žádný styl ==</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="443"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="442"/>
         <source>don&apos;t use a style</source>
         <translation>Nepoužívat styl</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="565"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="564"/>
         <source>Error activating style</source>
         <translation>Chyba při zapínání stylu</translation>
     </message>
@@ -8614,12 +8627,12 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Dekódovaný text</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="845"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="846"/>
         <source>No main structure</source>
         <translation>Žádná hlavní stavba</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="892"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="893"/>
         <source>This operation will destroy the element and all his children. Do you really want to continue?</source>
         <translation>Tato operace zničí prvek a všechny jeho potomky. Opravdu chcete pokračovat?</translation>
     </message>
@@ -8648,18 +8661,18 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Vlastnosti/Text</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="419"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="418"/>
         <source>Copy attr. name &apos;%1&apos;</source>
         <translation>Kopírovat název vlastnosti &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="427"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="426"/>
         <source>Copy attr. value %1=&apos;%2&apos;</source>
         <translation>Kopírovat hodnotu vlastnosti %1=&apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="1015"/>
-        <location filename="../xmleditwidgetprivate.cpp" line="1033"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1016"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1034"/>
         <source>No data can be pasted</source>
         <translation>Nelze vložit žádná data</translation>
     </message>
@@ -8712,7 +8725,7 @@ Chyba: %2</translation>
     </message>
     <message>
         <location filename="../xmleditwidgetprivate.cpp" line="1292"/>
-        <location filename="../xmleditwidgetprivate.cpp" line="2873"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2874"/>
         <source>No match found.</source>
         <translation>Nenalezena žádná shoda.</translation>
     </message>
@@ -8741,49 +8754,49 @@ Chcete data prozkoumat jako text?</translation>
     </message>
     <message>
         <location filename="../xmleditwidgetprivate.cpp" line="1760"/>
-        <location filename="../xmleditwidgetprivate.cpp" line="1800"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1801"/>
         <source>Data loaded</source>
         <translation>Data nahrána</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="1853"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1854"/>
         <source>doc type: %1</source>
         <translation>Typ dokumentu: %1</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="1948"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1949"/>
         <source>Error loading schema.
 %1</source>
         <translation>Chyba při nahrávání schématu.
 %1</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="1950"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1951"/>
         <source>Unknown exception.</source>
         <translation>Neznámá výjimka.</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="1953"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1954"/>
         <source>No root item</source>
         <translation>Žádná kořenová položka</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="1963"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1964"/>
         <source>error loading schema</source>
         <translation>Chyba při nahrávání schématu</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="1967"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1968"/>
         <source>schema: ?</source>
         <translation>Schéma: ?</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="1969"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="1970"/>
         <source>schema: %1</source>
         <translation>Schéma: %1</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="3009"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="3010"/>
         <source>This operation needs a root element.</source>
         <translation>Tato operace potřebuje kořenový prvek.</translation>
     </message>
@@ -8792,12 +8805,12 @@ Chcete data prozkoumat jako text?</translation>
         <translation type="obsolete">Nyní QXmlEdit pracuje pouze s jedním souborem XML Schema, i když soubor s daty odkazuje na více schémat.</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2121"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2122"/>
         <source>schema: loading %1</source>
         <translation>Schéma: nahrává se %1</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2124"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2125"/>
         <source>No schema</source>
         <translation>Žádné schéma</translation>
     </message>
@@ -8814,32 +8827,32 @@ Chcete data prozkoumat jako text?</translation>
         <translation type="obsolete">Odkaz na schéma je již přítomen.</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2288"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2289"/>
         <source>No XSD is present in the editor.</source>
         <translation>V editoru není přítomen žádný XSD.</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2303"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2304"/>
         <source>Attributes copied</source>
         <translation>Vlastnosti zkopírovány</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2465"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2466"/>
         <source>Updatable metadata not found.</source>
         <translation>Aktualizovatelná popisná data nenalezena.</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2473"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2474"/>
         <source>Problem applying metadata</source>
         <translation>Potíže při použití popisných dat</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2865"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2866"/>
         <source>Replaced %1 items</source>
         <translation>Nahrazeno %1 položek</translation>
     </message>
     <message numerus="yes">
-        <location filename="../xmleditwidgetprivate.cpp" line="2868"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2869"/>
         <source> Found %n error(s)</source>
         <translation>
             <numerusform> Nalezena %n chyba</numerusform>
@@ -8848,12 +8861,12 @@ Chcete data prozkoumat jako text?</translation>
         </translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2910"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2911"/>
         <source>Unable to start a replace; please, check the parameters.</source>
         <translation>Není možné spustit nahrazování. Prověřte, prosím, parametry.</translation>
     </message>
     <message>
-        <location filename="../xmleditwidgetprivate.cpp" line="2914"/>
+        <location filename="../xmleditwidgetprivate.cpp" line="2915"/>
         <source>Replace does not support XQuery syntax, please, check the parameters.</source>
         <translation>Nahrazování nepodporuje skladbu XQuery. Prověřte, prosím, parametry.</translation>
     </message>
