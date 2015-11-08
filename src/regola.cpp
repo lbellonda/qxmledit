@@ -22,7 +22,6 @@
 
 #include "regoladefinitions.h"
 #include "undo/elupdateelementcommand.h"
-#include "undo/elupdateinplacecommand.h"
 #include "undo/undodtd.h"
 #include "xmlsavecontext.h"
 
@@ -2792,7 +2791,7 @@ void Regola::anonymize(AnonContext *context, QTreeWidget *treeWidget, const bool
         root()->copyTo(*element);
         QList<int> path = root()->indexPath();
         element->anonymize(context);
-        new ElUpdateInPlaceCommand(treeWidget, this, root(), element, path, undoCommand);
+        new ElUpdateCommand(treeWidget, this, element, path, undoCommand);
         addUndo(undoCommand);
     }
     w->setEnabled(true);

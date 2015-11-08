@@ -880,6 +880,44 @@ bool TestReplica::checkCombo(QStringList values, const QString &comboName, const
     }\
 }
 
+#define TEST_EDIT(field, name)\
+{\
+    DLG(dlg);\
+    QLineEdit *cb = dlg.findChild<QLineEdit*>(name);\
+    if( NULL == cb ) {\
+        return error(QString("null edit %1").arg(name));\
+    }\
+    QString theValue = "" ;\
+    cb->setText(theValue);\
+    dlg.accept();\
+    ReplicaCommand *cmd = dlg.result();\
+    if( NULL == cmd ) {\
+        return error("Null command");\
+    }\
+    bool ok = true ;\
+    if( cmd->field() != theValue) {\
+        ok = error( QString("Expected: '%1' found: '%2' ").arg(theValue).arg(cmd->field()));\
+    }\
+    delete cmd;\
+    if( !ok ) {\
+        return false;\
+    }\
+    theValue = "aaa";\
+    cb->setText(theValue);\
+    dlg.accept();\
+    cmd = dlg.result();\
+    if( NULL == cmd ) {\
+        return error("Null command");\
+    }\
+    ok = true ;\
+    if( cmd->field() != theValue) {\
+        ok = error( QString("Expected: '%1' found: '%2' ").arg(theValue).arg(cmd->field()));\
+    }\
+    delete cmd;\
+    if( !ok ) {\
+        return false;\
+    }\
+}
 
 bool TestReplica::testCommandDialog()
 {
@@ -895,8 +933,7 @@ bool TestReplica::testCommandDialog()
     TEST_BOOL(atEnd, "cbAtEnd");
     TEST_BOOL(recursive, "cbApplyChildren");
     TEST_BOOL(overwrite, "cbOverWrite");
+    TEST_EDIT(separator,"separator");
     return true ;
 }
-
-
 
