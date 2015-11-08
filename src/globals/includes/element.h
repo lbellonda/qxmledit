@@ -181,7 +181,7 @@ public:
 
     enum ElType { ET_ATTRIBUTE = -1, ET_ELEMENT = 0, ET_PROCESSING_INSTRUCTION, ET_COMMENT, ET_TEXT /*, ET_ATTRIBUTE this is reserved*/};
 
-    Element(const QString newTag, const QString &text, Regola *regola, Element *parent = 0);
+    Element(const QString &newTag, const QString &text, Regola *regola, Element *parent = 0);
     Element(Regola *regola, const ElType newType, Element *parent);
     Element(Regola *regola);
     ~Element();
@@ -259,6 +259,7 @@ public:
     QTreeWidgetItem *getUI() const {
         return ui;
     }
+
     void forceUpdateGui(const bool forceLayout);
     bool isFirstChild() ;
     bool isLastChild() ;

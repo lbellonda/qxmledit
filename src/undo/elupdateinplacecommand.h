@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,38 +21,24 @@
  **************************************************************************/
 
 
-#include "elupdateelementcommand.h"
-#include "utils.h"
+#ifndef ELUPDATEINPLACECOMMAND_H
+#define ELUPDATEINPLACECOMMAND_H
 
-ElUpdateCommand::ElUpdateCommand(QTreeWidget *theWidget, Regola *newRegola, Element *newElement, QList<int> newPath, QUndoCommand *parentCommand)
-    : ElBaseCommand(theWidget, newRegola, newElement, newPath, parentCommand)
-{
-    _addToBookmarks = false;
-}
+#include "elbasecommand.h"
 
-ElUpdateCommand::~ElUpdateCommand()
+class ElUpdateInPlaceCommand : public ElBaseCommand
 {
-}
+    Element *_orignal;
+    bool _addToBookmarks;
+public:
+    ElUpdateInPlaceCommand(QTreeWidget *theWidget, Regola *newRegola, Element *originalElement, Element *newElement, QList<int> path, QUndoCommand *parentCommand = NULL);
+    virtual ~ElUpdateInPlaceCommand();
 
-void ElUpdateCommand::undo()
-{
-    replaceElement(true);
-    if(_addToBookmarks) {
-        regola->addBookmark(_element);
-    }
-}
+    virtual void undo();
+    virtual void redo();
+    bool addToBookmarks() const;
+    void setAddToBookmarks(bool addToBookmarks);
 
-void ElUpdateCommand::redo()
-{
-    replaceElement(false);
-}
+};
 
-bool ElUpdateCommand::addToBookmarks() const
-{
-    return _addToBookmarks;
-}
-
-void ElUpdateCommand::setAddToBookmarks(bool addToBookmarks)
-{
-    _addToBookmarks = addToBookmarks;
-}
+#endif // ELUPDATEINPLACECOMMAND_H

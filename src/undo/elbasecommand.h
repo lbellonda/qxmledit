@@ -60,7 +60,8 @@ protected:
     void setCurrentElement(Element *newElement);
     Element *removeElementAndReturnIt();
     void replaceElement(const bool isUndo);
-
+    void replaceElementInPlace(const bool isUndo, Element *source);
+    void updateElementObj(Element *current, Element *newValues, const bool isUndo);
 };
 
 #endif // ELBASECOMMAND_H

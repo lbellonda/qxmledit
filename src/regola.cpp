@@ -22,6 +22,7 @@
 
 #include "regoladefinitions.h"
 #include "undo/elupdateelementcommand.h"
+#include "undo/elupdateinplacecommand.h"
 #include "undo/undodtd.h"
 #include "xmlsavecontext.h"
 
@@ -1254,6 +1255,20 @@ Element *Regola::insertInternal(QTreeWidget *tree, Element *parentElement, Eleme
     theNewElement->markEditedRecursive();
     setModified(true);
     return theNewElement ;
+}
+
+Element *Regola::updateElementUI(Element *element)
+{
+    //if not sel, at the root iif rule is empty
+    //sse extists an item
+    //append l'item ( o lo inserisce, con tutti i figli e poi ricarica la lista)
+    if(NULL == element) {
+        return NULL ;
+    }
+    element->display(element->getUI(), paintInfo, true);
+    element->markEditedRecursive();
+    setModified(true);
+    return element ;
 }
 
 void Regola::expand(QTreeWidget *tree)
@@ -2777,7 +2792,7 @@ void Regola::anonymize(AnonContext *context, QTreeWidget *treeWidget, const bool
         root()->copyTo(*element);
         QList<int> path = root()->indexPath();
         element->anonymize(context);
-        new ElUpdateCommand(treeWidget, this, element, path, undoCommand);
+        new ElUpdateInPlaceCommand(treeWidget, this, root(), element, path, undoCommand);
         addUndo(undoCommand);
     }
     w->setEnabled(true);

@@ -207,6 +207,7 @@ public:
     void pasteInternals(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position);
     void pasteNoUI(Element *pasteElement, Element *pasteTo);
     Element *insertInternal(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position);
+    Element *updateElementUI(Element *element);
     void pasteAttributesInternals(QTreeWidget *tree, Element *element, CopyAttributesSession *attributesCopied);
     void pasteClearAttributesInternals(QTreeWidget *tree, Element *element, CopyAttributesSession *attributesCopied);
     void pasteAttributes(QWidget *window, QTreeWidget *tree, CopyAttributesSession *attributesCopied);

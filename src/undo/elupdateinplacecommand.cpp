@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,38 +21,42 @@
  **************************************************************************/
 
 
-#include "elupdateelementcommand.h"
-#include "utils.h"
+#include "elupdateinplacecommand.h"
 
-ElUpdateCommand::ElUpdateCommand(QTreeWidget *theWidget, Regola *newRegola, Element *newElement, QList<int> newPath, QUndoCommand *parentCommand)
+ElUpdateInPlaceCommand::ElUpdateInPlaceCommand(QTreeWidget *theWidget, Regola *newRegola, Element *originalElement, Element *newElement, QList<int> newPath, QUndoCommand *parentCommand)
     : ElBaseCommand(theWidget, newRegola, newElement, newPath, parentCommand)
 {
     _addToBookmarks = false;
+    _orignal = originalElement->copyTo(*new Element("", "", NULL, NULL), false);
 }
 
-ElUpdateCommand::~ElUpdateCommand()
+ElUpdateInPlaceCommand::~ElUpdateInPlaceCommand()
 {
+    if(NULL != _orignal) {
+        delete _orignal ;
+    }
 }
 
-void ElUpdateCommand::undo()
+void ElUpdateInPlaceCommand::undo()
 {
-    replaceElement(true);
+    replaceElementInPlace(true, _orignal);
     if(_addToBookmarks) {
         regola->addBookmark(_element);
     }
 }
 
-void ElUpdateCommand::redo()
+void ElUpdateInPlaceCommand::redo()
 {
-    replaceElement(false);
+    replaceElementInPlace(false, _element);
 }
 
-bool ElUpdateCommand::addToBookmarks() const
+bool ElUpdateInPlaceCommand::addToBookmarks() const
 {
     return _addToBookmarks;
 }
 
-void ElUpdateCommand::setAddToBookmarks(bool addToBookmarks)
+void ElUpdateInPlaceCommand::setAddToBookmarks(bool addToBookmarks)
 {
     _addToBookmarks = addToBookmarks;
 }
+

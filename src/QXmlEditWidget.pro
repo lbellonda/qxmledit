@@ -408,7 +408,8 @@ SOURCES += xmleditwidget.cpp \
     undo/undodtd.cpp \
     modules/replica/replicacommand.cpp \
     modules/replica/replicamanager.cpp \
-    modules/replica/replicasettingsdialog.cpp
+    modules/replica/replicasettingsdialog.cpp \
+    undo/elupdateinplacecommand.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -634,7 +635,8 @@ HEADERS += precompiled_lib.h \
     undo/undodtd.h \
     modules/replica/replicacommand.h \
     modules/replica/replicamanager.h \
-    modules/replica/replicasettingsdialog.h
+    modules/replica/replicasettingsdialog.h \
+    undo/elupdateinplacecommand.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

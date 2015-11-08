@@ -23,7 +23,7 @@
 #include <QtGui>
 #include "xmlEdit.h"
 #include "findtextparams.h"
-#include "undo/elupdateelementcommand.h"
+#include "undo/elupdateinplacecommand.h"
 #include "utils.h"
 #include "regola.h"
 #include "config.h"
@@ -454,8 +454,8 @@ void ReplaceTextParams::buildOperationElement()
     mTexts.clear();
     mReplaceElement = new Element("", "", NULL, NULL);
     mCurrentElement->copyTo(*mReplaceElement);
-    ElUpdateCommand *updateCommand = new ElUpdateCommand(mCurrentElement->getUI()->treeWidget(),
-            mCurrentElement->getParentRule(),
+    ElUpdateInPlaceCommand *updateCommand = new ElUpdateInPlaceCommand(mCurrentElement->getUI()->treeWidget(),
+            mCurrentElement->getParentRule(), mCurrentElement,
             mReplaceElement, mCurrentElement->indexPath(), mUndoGroup);
     mCurrentCommand = updateCommand ;
     foreach(Attribute * attrib, mReplaceElement->attributes) {

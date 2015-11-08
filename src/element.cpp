@@ -120,7 +120,7 @@ TextChunk *TextChunk::clone()
 
 long  Element::instances = 0;
 
-Element::Element(const QString newTag, const QString &itext, Regola *regola, Element *parent)
+Element::Element(const QString &newTag, const QString &itext, Regola *regola, Element *parent)
 {
     houseWork(regola, parent);
     _tag = newTag ;

@@ -117,6 +117,32 @@ void ElBaseCommand::insertElementObj(Element *element, const bool isUndo)
     }
 }
 
+void ElBaseCommand::updateElementObj(Element *current, Element *newValue, const bool isUndo)
+{
+    if(NULL != _element) {
+        // insert the command at the parent index.
+        QList<int> pathPos(path);
+        pathPos.removeLast();
+        Element *parentElement = NULL ;
+        if(!pathPos.isEmpty()) {
+            parentElement = regola->findElementByArray(pathPos);
+        }
+        newValue->copyTo(*current, false);
+        _lastOpElement = current ;
+        regola->updateElementUI(current);
+        if(NULL != current) {
+            widget->setCurrentItem(current->getUI());
+        }
+        if(_selectParent && (NULL != parentElement)) {
+            widget->setCurrentItem(parentElement->getUI());
+        }
+        if(!isUndo && _hilite && (NULL != current)) {
+            current->hilite();
+        }
+    }
+}
+
+
 void ElBaseCommand::removeElement()
 {
     Element *element = regola->findElementByArray(path);
@@ -143,4 +169,10 @@ void ElBaseCommand::replaceElement(const bool isUndo)
     Element *currentElement = removeElementAndReturnIt();
     insertElementObj(_element, isUndo);
     setCurrentElement(currentElement);
+}
+
+void ElBaseCommand::replaceElementInPlace(const bool isUndo, Element *source)
+{
+    Element *currentElement = regola->findElementByArray(path);
+    updateElementObj(currentElement, source, isUndo);
 }
