@@ -26,6 +26,7 @@
 #include "modules/replica/replicamanager.h"
 #include "modules/replica/replicasettingsdialog.h"
 #include "app.h"
+#include <QSpinBox>
 
 #define BASE_PATH "../test/data/xml/replica/"
 #define INPUT1  BASE_PATH "input1.xml"
@@ -919,6 +920,45 @@ bool TestReplica::checkCombo(QStringList values, const QString &comboName, const
     }\
 }
 
+#define TEST_SPIN(field, name)\
+{\
+    DLG(dlg);\
+    QSpinBox *cb = dlg.findChild<QSpinBox*>(name);\
+    if( NULL == cb ) {\
+        return error(QString("null QSpinBox %1").arg(name));\
+    }\
+    int theValue = 2 ;\
+    cb->setValue(theValue);\
+    dlg.accept();\
+    ReplicaCommand *cmd = dlg.result();\
+    if( NULL == cmd ) {\
+        return error("Null command");\
+    }\
+    bool ok = true ;\
+    if( cmd->field() != theValue) {\
+        ok = error( QString("Expected: '%1' found: '%2' ").arg(theValue).arg(cmd->field()));\
+    }\
+    delete cmd;\
+    if( !ok ) {\
+        return false;\
+    }\
+    theValue = 3;\
+    cb->setValue(theValue);\
+    dlg.accept();\
+    cmd = dlg.result();\
+    if( NULL == cmd ) {\
+        return error("Null command");\
+    }\
+    ok = true ;\
+    if( cmd->field() != theValue) {\
+        ok = error( QString("Expected: '%1' found: '%2' ").arg(theValue).arg(cmd->field()));\
+    }\
+    delete cmd;\
+    if( !ok ) {\
+        return false;\
+    }\
+}
+
 bool TestReplica::testCommandDialog()
 {
     _testName = "testCommandDialog" ;
@@ -934,6 +974,7 @@ bool TestReplica::testCommandDialog()
     TEST_BOOL(recursive, "cbApplyChildren");
     TEST_BOOL(overwrite, "cbOverWrite");
     TEST_EDIT(separator,"separator");
+    TEST_SPIN(startNumber,"startNumber");
     return true ;
 }
 
