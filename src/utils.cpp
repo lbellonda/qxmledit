@@ -956,3 +956,11 @@ QString Utils::formatTextForTooltipHtml(const QString &input)
     escaped = escaped.replace("\n", "<br/>");
     return escaped ;
 }
+
+
+QString Utils::normalizeFilePath(const QString &inputPath)
+{
+    QString result(inputPath);
+    result = result.replace("\\", "/");
+    return result ;
+}

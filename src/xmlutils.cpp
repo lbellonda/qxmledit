@@ -215,3 +215,4 @@ bool XmlUtils::isS(const QChar &qch)
     }
     return false;
 }
+

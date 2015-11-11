@@ -146,6 +146,7 @@ public:
     static QString loadTextFile(QWidget *window, const QString &filePath, bool &isError, bool isAbort);
     static bool isStartingWithDataImage(const QString &data);
     static QString formatTextForTooltipHtml(const QString &input);
+    static QString normalizeFilePath(const QString &inputPath);
 };
 
 

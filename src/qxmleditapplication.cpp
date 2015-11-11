@@ -213,8 +213,9 @@ void QXmlEditApplication::newServerConnection()
         switch(params.type) {
         case StartParams::OpenFile: {
             // scan existing files
+            QString normalizedInputFile = Utils::normalizeFilePath(params.fileName);
             foreach(MainWindow * wnd, _appData->windows()) {
-                if(wnd->getRegola()->fileName() == params.fileName) {
+                if(Utils::normalizeFilePath(wnd->getRegola()->fileName()) == normalizedInputFile) {
                     if(NULL != _logger) {
                         _logger->debug(QString("Server::reusing window for:'%1'").arg(params.fileName));
                     }
