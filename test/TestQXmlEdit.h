@@ -91,6 +91,7 @@
 #include "testelement.h"
 #include "testloadfile.h"
 #include "testreplica.h"
+#include "testutils.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -182,6 +183,7 @@ private Q_SLOTS:
     void testElement();
     void testLoadFile();
     void testReplica();
+    void testUtils();
 };
 
 

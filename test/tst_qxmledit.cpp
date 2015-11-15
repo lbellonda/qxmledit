@@ -1220,6 +1220,17 @@ void TestQXmlEdit::testReplica()
     }
 }
 
+void TestQXmlEdit::testUtils()
+{
+    bool result ;
+
+    {
+        TestUtils test1;
+        result = test1.testUnit();
+        QVERIFY2(result, (QString("test TestUtils: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
+
 /*
 
 // This function enabled for debug purposes. DO NOT REMOVE
@@ -1239,6 +1250,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testUtils();
     testReplica();
     testBase64();
     testOpenInNewWindow();

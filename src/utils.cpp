@@ -957,10 +957,12 @@ QString Utils::formatTextForTooltipHtml(const QString &input)
     return escaped ;
 }
 
-
 QString Utils::normalizeFilePath(const QString &inputPath)
 {
-    QString result(inputPath);
-    result = result.replace("\\", "/");
-    return result ;
+    if(inputPath.isEmpty()) {
+        return inputPath;
+    }
+    QFileInfo fileInfo(inputPath);
+    QString absPath = fileInfo.absoluteFilePath();
+    return absPath ;
 }
