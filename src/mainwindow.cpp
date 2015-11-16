@@ -1192,7 +1192,7 @@ void MainWindow::closeEvent(QCloseEvent * event)
 
 void MainWindow::on_actionQuit_triggered()
 {
-    if(checkAbandonChanges()) {
+    if(checkAbandonChanges(OpenUsingSameWindow)) {
         application->quit();
     }
 }
