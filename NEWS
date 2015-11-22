@@ -1,3 +1,5 @@
+0.9.2
+
 0.9.1
     New tool: fill serie to fill a set of elements with consecutive values.
     Variants of base 64 handled in the base 64 dialog.
