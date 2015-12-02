@@ -56,7 +56,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
 
 QMAKE_CXXFLAGS +=-Werror=format-security
 
-equals(INST_AVOID_PRECOMP_HEADER, "") {
+equals(INST_AVOID_PRECOMP_HEADERS, "") {
  CONFIG += precompile_header
  PRECOMPILED_HEADER  = ../src/precompiled_app.h
 }

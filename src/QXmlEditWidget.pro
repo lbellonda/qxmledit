@@ -93,7 +93,7 @@ TARGET = QXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 os2:TARGET = QXmlEdtW
 TEMPLATE = lib
 
-equals(INST_AVOID_PRECOMP_HEADER, "") {
+equals(INST_AVOID_PRECOMP_HEADERS, "") {
  CONFIG += precompile_header
  PRECOMPILED_HEADER=precompiled_lib.h
 }

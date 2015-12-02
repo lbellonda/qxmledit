@@ -113,7 +113,7 @@ lessThan(QT_MAJOR_VERSION, 5) {
     QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
 }
 
-equals(INST_AVOID_PRECOMP_HEADER, "") {
+equals(INST_AVOID_PRECOMP_HEADERS, "") {
  CONFIG += precompile_header
  PRECOMPILED_HEADER  = precompiled_lib.h
 }
