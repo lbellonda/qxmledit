@@ -48,6 +48,8 @@ class XSDOperationParameters;
 class AnonAlg ;
 class XSDAnnotationEditProvider;
 class NamespaceReferenceEntry;
+class ReplicaCommand;
+class ReplicaCloneInfo;
 
 namespace Ui
 {
@@ -186,6 +188,7 @@ public:
     void insertXmlSchemaReferences();
     bool insertXsdReference(NamespaceReferenceEntry *entry);
     bool actionFillSerie();
+    bool doReplica(ReplicaCloneInfo *cmd, Element *element);
 
     QMenu* getCopyMenu();
 

@@ -42,6 +42,7 @@ folder for the documentation: QXMLEDIT_INST_DOC_DIR
 folder for the shared libraries: QXMLEDIT_INST_LIB_DIR
 folder for the language translations: QXMLEDIT_INST_TRANSLATIONS_DIR
 folder for the includes of the xml edit widget: QXMLEDIT_INST_INCLUDE_DIR
+disable the precompiled headers by setting the value to non empty string: QXMLEDIT_INST_AVOID_PRECOMP_HEADERS
 
 To link with qwt3dplot library set QXMLEDIT_USE_QWTPLOT environment variable to "Y" before
  calling qmake (or define USE_QWTPLOT="Y" in the application project file).

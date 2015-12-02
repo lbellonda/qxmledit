@@ -20,8 +20,8 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "elupdateinplacecommand.h"
+#include "regola.h"
 
 ElUpdateInPlaceCommand::ElUpdateInPlaceCommand(QTreeWidget *theWidget, Regola *newRegola, Element *originalElement, Element *newElement, QList<int> newPath, QUndoCommand *parentCommand)
     : ElBaseCommand(theWidget, newRegola, newElement, newPath, parentCommand)

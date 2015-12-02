@@ -77,6 +77,11 @@ isEmpty(USE_QWTPLOT) {
     USE_QWTPLOT="N"
 }
 
+INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+isEmpty(INST_AVOID_PRECOMP_HEADERS) {
+    INST_AVOID_PRECOMP_HEADERS = ""
+}
+
 TARGET_NAME_UNIXSTYLE=$$(QXMLEDIT_UNIX_LOWERCASE_NAME)
 
 LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
@@ -167,8 +172,10 @@ lessThan(QT_MAJOR_VERSION, 5) {
 
 ############ CONFIGURATION SENT TO THE PROGRAM ############
 
-CONFIG += precompile_header
-PRECOMPILED_HEADER  = precompiled_app.h
+equals(INST_AVOID_PRECOMP_HEADER, "") {
+ CONFIG += precompile_header
+ PRECOMPILED_HEADER  = precompiled_app.h
+}
 
 # translations folder (inside the resources folder).
 DEFINES += TRANLASTION_DIR=translations
@@ -240,7 +247,8 @@ HEADERS = precompiled_app.h \
     modules/anonymize/anonsettingwidget.h \
     precompiled_app.h \
     qxmeditmetainfo.h \
-    infodialog.h
+    infodialog.h \
+    modules/replica/replicaclonedialog.h
 
 SOURCES = \
     main.cpp \
@@ -292,7 +300,8 @@ SOURCES = \
     modules/anonymize/anonimyzebatchdialog.cpp \
     modules/anonymize/anonsettingwidget.cpp \
     infodialog.cpp \
-    mainwindowio.cpp
+    mainwindowio.cpp \
+    modules/replica/replicaclonedialog.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -327,7 +336,8 @@ FORMS = MainWindow.ui \
     modules/anonymize/anoneditprofiledialog.ui \
     modules/anonymize/anonimyzebatchdialog.ui \
     modules/anonymize/anonsettingwidget.ui \
-    infodialog.ui
+    infodialog.ui \
+    modules/replica/replicaclonedialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

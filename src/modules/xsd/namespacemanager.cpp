@@ -21,6 +21,7 @@
  **************************************************************************/
 
 #include "namespacemanager.h"
+#include "regola.h"
 #include "utils.h"
 
 //#define WellKnownNamespacesFile ":/xsd/well_known_namespaces"

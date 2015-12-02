@@ -20,8 +20,8 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "elupdateelementcommand.h"
+#include "regola.h"
 #include "utils.h"
 
 ElUpdateCommand::ElUpdateCommand(QTreeWidget *theWidget, Regola *newRegola, Element *newElement, QList<int> newPath, QUndoCommand *parentCommand)

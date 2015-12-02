@@ -51,12 +51,17 @@ isEmpty(INST_TRANSLATIONS_DIR) {
     INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
 }
 
+INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+isEmpty(INST_AVOID_PRECOMP_HEADERS) {
+    INST_AVOID_PRECOMP_HEADERS = ""
+}
+
+
 LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
 include("../version.pri")
-
 
 #default value for the lib version name
 LIB_VERSIONED_DEFAULT=""
@@ -108,9 +113,10 @@ lessThan(QT_MAJOR_VERSION, 5) {
     QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
 }
 
-CONFIG += precompile_header
-PRECOMPILED_HEADER  = precompiled_lib.h
-
+equals(INST_AVOID_PRECOMP_HEADER, "") {
+ CONFIG += precompile_header
+ PRECOMPILED_HEADER  = precompiled_lib.h
+}
 DEFINES += QXMLEDITSESSIONS_LIBRARY
 
 INCLUDEPATH += $$PWD/include

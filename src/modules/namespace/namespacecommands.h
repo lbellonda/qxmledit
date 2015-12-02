@@ -24,7 +24,7 @@
 #ifndef NAMESPACECOMMANDS_H
 #define NAMESPACECOMMANDS_H
 
-#include <QString>
+#include "xmlEdit.h"
 
 class NamespaceSpec
 {

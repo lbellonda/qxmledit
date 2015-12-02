@@ -24,8 +24,7 @@
 #ifndef XSDOPERATIONPARAMETERS_H
 #define XSDOPERATIONPARAMETERS_H
 
-#include <QString>
-
+#include "xmlEdit.h"
 #include "libQXmlEdit_global.h"
 
 class Element;

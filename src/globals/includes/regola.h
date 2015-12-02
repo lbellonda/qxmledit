@@ -206,7 +206,7 @@ public:
     void pasteAsSibling(QWidget *window, QTreeWidget *tree, QList<Element*> &pasteElements);
     void pasteInternals(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position);
     void pasteNoUI(Element *pasteElement, Element *pasteTo);
-    Element *insertInternal(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position);
+    Element *insertInternal(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position, const bool isRecursive = true);
     Element *updateElementUI(Element *element);
     void pasteAttributesInternals(QTreeWidget *tree, Element *element, CopyAttributesSession *attributesCopied);
     void pasteClearAttributesInternals(QTreeWidget *tree, Element *element, CopyAttributesSession *attributesCopied);

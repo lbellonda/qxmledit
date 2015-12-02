@@ -31,17 +31,29 @@ class AnonContext;
 class AnonAlg;
 class AnonymizeParameters;
 class Regola;
+class ReplicaCloneInfo;
+class Element;
 
-class MainWndController : public QObject
+class ReplicaInfoProvider
+{
+public:
+    ReplicaInfoProvider();
+    virtual ~ReplicaInfoProvider();
+    virtual ReplicaCloneInfo *getCloneInfo(QWidget *parent, Element *element) = 0;
+};
+
+class MainWndController : public QObject, ReplicaInfoProvider
 {
     Q_OBJECT
     MainWindow *_w;
+    ReplicaInfoProvider *_replicaInfoProvider;
 
     bool anonymizeGetParams(AnonymizeParameters *params);
 
     void innerAnonymize(AnonAlg *alg);
     void innerAnonymize(AnonContext *context);
 
+    ReplicaCloneInfo * getCloneInfo(QWidget *parent, Element *element);
 public:
     explicit MainWndController(QObject *parent = 0);
     virtual ~MainWndController();
@@ -59,6 +71,8 @@ public:
     bool isOpenInNewWidow();
     void createDocumentFromSnippet(Regola* newRegola);
     bool createDocumentFromResources(const QString &path);
+    ReplicaInfoProvider *setReplicaInfoProvider(ReplicaInfoProvider *theProvider);
+    bool cloneReplica();
 
 signals:
 

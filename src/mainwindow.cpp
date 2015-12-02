@@ -878,6 +878,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionInsertXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionInsertXmlSchemaReferences->setEnabled(!getEditor()->isReadOnly());
     ui.actionFillSerie->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
+    ui.actionCloneElements->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -3060,7 +3061,6 @@ void MainWindow::on_actionOpenSameWindow_triggered()
                         _controller.isOpenInNewWidow() ? OpenUsingSameWindow : OpenUsingNewWindow);
 }
 
-
 MainWndController *MainWindow::controller()
 {
     return &_controller ;
@@ -3069,4 +3069,16 @@ MainWndController *MainWindow::controller()
 void MainWindow::on_actionFillSerie_triggered()
 {
     ui.editor->actionFillSerie();
+}
+
+void MainWindow::on_actionCloneElements_triggered()
+{
+    if(!isReadOnly()) {
+        controller()->cloneReplica();
+    }
+}
+
+void MainWindow::on_actionClose_triggered()
+{
+    close();
 }

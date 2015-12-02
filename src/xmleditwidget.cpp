@@ -1089,3 +1089,7 @@ bool XmlEditWidget::actionFillSerie()
     return d->actionFillSerie();
 }
 
+bool XmlEditWidget::doReplica(ReplicaCloneInfo *cmd, Element *element)
+{
+    return d->doReplica(cmd, element);
+}

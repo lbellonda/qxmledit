@@ -21,37 +21,71 @@
  **************************************************************************/
 
 
-#ifndef REPLICAMANAGER_H
-#define REPLICAMANAGER_H
+#include "replicaclonedialog.h"
+#include "ui_replicaclonedialog.h"
+#include "replicacloneinfo.h"
+#include "replicacommand.h"
+#include "replicasettingsdialog.h"
+#include "utils.h"
 
-#include <QObject>
-
-#include "regola.h"
-
-class ReplicaCommand;
-
-class ReplicaManager : public QObject
+ReplicaCloneDialog::ReplicaCloneDialog(QWidget *parent, Element *theElement) :
+    QDialog(parent),
+    ui(new Ui::ReplicaCloneDialog)
 {
-    Q_OBJECT
+    _fillInfo = NULL ;
+    _element = theElement;
+    ui->setupUi(this);
+    enableDeleteFillInfo();
+}
 
-    bool applyReplicaToElement(Regola *regola, ReplicaCommand *cmd, Element *element, const int startIndex, const int numSiblings);
-    int totalWidth(int count, int base);
-    int base(ReplicaCommand *cmd);
-    QString formatNumber(const int index, const bool isPadded, const int totalWidth);
-    QString formatAlpha(const int index, const bool isPadded, const int totalWidth);
-    QString makeId(ReplicaCommand *cmd, int index, int totalWidth);
-public:
-    explicit ReplicaManager(QObject *parent = 0);
-    ~ReplicaManager();
+ReplicaCloneDialog::~ReplicaCloneDialog()
+{
+    delete ui;
+    deleteFillInfo();
+}
 
-    bool apply(QTreeWidget *widget, Regola *regola, Element *selected, ReplicaCommand *cmd, const int maxNum = -1);
-#ifdef  QXMLEDIT_TEST
-    friend class TestReplica;
-#endif
-signals:
+void ReplicaCloneDialog::deleteFillInfo()
+{
+    if(NULL != _fillInfo) {
+        delete _fillInfo;
+        _fillInfo = NULL ;
+    }
+}
 
-public slots:
+ReplicaCloneInfo *ReplicaCloneDialog::results()
+{
+    ReplicaCloneInfo *info = new ReplicaCloneInfo();
+    if(NULL != _fillInfo) {
+        info->setFillInfo(_fillInfo->clone());
+    }
+    info->setDeep(ui->cbRecursive->isChecked());
+    info->setNumClones(ui->numClones->value());
+    Utils::TODO_THIS_RELEASE("finire");
+    return info ;
+}
 
-};
 
-#endif // REPLICAMANAGER_H
+void ReplicaCloneDialog::on_removeIndex_clicked()
+{
+    deleteFillInfo();
+    enableDeleteFillInfo();
+}
+
+void ReplicaCloneDialog::on_addIndex_clicked()
+{
+    ReplicaSettingsDialog dlg(_element, this);
+    dlg.setModal(true);
+    if(dlg.exec() == QDialog::Accepted) {
+        ReplicaCommand *command = dlg.result();
+        if(NULL != command) {
+            deleteFillInfo();
+            _fillInfo = command;
+        }
+    }
+    enableDeleteFillInfo();
+}
+
+void ReplicaCloneDialog::enableDeleteFillInfo()
+{
+    ui->removeIndex->setEnabled(NULL != _fillInfo);
+}

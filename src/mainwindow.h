@@ -319,6 +319,8 @@ private slots:
     void on_actionInsertXmlSchemaReferences_triggered();
     void on_actionOpenSameWindow_triggered();
     void on_actionFillSerie_triggered();
+    void on_actionCloneElements_triggered();
+    void on_actionClose_triggered();
 
     //----- other slots ------------------
 

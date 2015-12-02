@@ -36,11 +36,20 @@
 #include "modules/anonymize/anonimyzebatchdialog.h"
 #include "modules/xsd/namespacemanager.h"
 #include "modules/xsd/xsiinsertattribute.h"
+#include "modules/replica/replicacloneinfo.h"
+#include "modules/replica/replicaclonedialog.h"
+#include "modules/replica/replicasettingsdialog.h"
+
+//----------
+ReplicaInfoProvider::ReplicaInfoProvider() {}
+ReplicaInfoProvider::~ReplicaInfoProvider() {}
+//----------
 
 MainWndController::MainWndController(QObject *parent) :
     QObject(parent)
 {
     _w = NULL ;
+    _replicaInfoProvider = this ;
 }
 
 MainWndController::~MainWndController()
@@ -183,4 +192,44 @@ bool MainWndController::createDocumentFromResources(const QString &path)
         return true;
     }
     return false;
+}
+
+bool MainWndController::cloneReplica()
+{
+    if(_w->isReadOnly()) {
+        return false;
+    }
+    Element *element = _w->getSelectedItem();
+    if(NULL != element) {
+        ReplicaCloneInfo *info = _replicaInfoProvider->getCloneInfo(_w, element);
+        if(NULL != info) {
+            return _w->getEditor()->doReplica(info, element);
+        }
+    }
+    return false;
+}
+
+ReplicaInfoProvider *MainWndController::setReplicaInfoProvider(ReplicaInfoProvider *theProvider)
+{
+    ReplicaInfoProvider *current = _replicaInfoProvider;
+    _replicaInfoProvider = theProvider ;
+    return current ;
+}
+
+ReplicaCloneInfo * MainWndController::getCloneInfo(QWidget *parent, Element *element)
+{
+    ReplicaCloneInfo *command = NULL ;
+    ReplicaCloneDialog dlg(parent , element);
+    if(dlg.exec() == QDialog::Accepted) {
+        command = dlg.results();
+        if(NULL != command) {
+            if(command->numClones() > 100) {
+                if(!Utils::askYN(parent, tr("You will create a very big number of objects (%1). Do you want to continue?").arg(command->numClones()))) {
+                    delete command ;
+                    command = NULL ;
+                }
+            }
+        }
+    }
+    return command ;
 }

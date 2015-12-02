@@ -25,12 +25,19 @@
 #include "modules/replica/replicacommand.h"
 #include "modules/replica/replicamanager.h"
 #include "modules/replica/replicasettingsdialog.h"
+#include "modules/replica/replicacloneinfo.h"
 #include "app.h"
+#include "comparexml.h"
 #include <QSpinBox>
 
 #define BASE_PATH "../test/data/xml/replica/"
 #define INPUT1  BASE_PATH "input1.xml"
 #define OUTPUT1  BASE_PATH "output1.xml"
+
+#define FILE_START_CLONE1  BASE_PATH "start_clone1.xml"
+#define FILE_FINAL_CLONE1  BASE_PATH "final_clone1.xml"
+#define FILE_FINAL_CLONE2  BASE_PATH "final_clone2.xml"
+
 
 TestReplica::TestReplica()
 {
@@ -42,8 +49,15 @@ TestReplica::~TestReplica()
 
 bool TestReplica::testFast()
 {
+    if(!testSkeletonCloneComplex("3", FILE_START_CLONE1, FILE_FINAL_CLONE2, &TestReplica::doCloneRecursive)) {
+        return false;
+    }
+
+    if(!testApplyFast()) {
+        return false;
+    }
     //enumAlpha();
-    if(!testUnitCommand()) {
+    if(!testClone()) {
         return false;
     }
     return testApply();
@@ -323,7 +337,8 @@ static QString fillCommand(ReplicaCommand *cmd,
                         const QString &attributeName,
                         const int startNumber,
                         const bool atEnd,
-                        const QString &separator)
+                        const QString &separator,
+                        const bool replace)
 {
     cmd->setFormat(format);
     cmd->setOverwrite(overwrite);
@@ -332,6 +347,7 @@ static QString fillCommand(ReplicaCommand *cmd,
     cmd->setStartNumber(startNumber);
     cmd->setAtEnd(atEnd);
     cmd->setSeparator(separator);
+    cmd->setReplace(replace);
     QString resultFile = QString("o_%1_%2_%3_%4_%5_%6_%7.xml").arg(format).arg(fromBool(overwrite)).arg(fromBool(recursive))
             .arg(attributeName).arg(startNumber).arg(fromBool(atEnd)).arg(separator);
     return resultFile ;
@@ -357,7 +373,7 @@ bool TestReplica::testApply()
     for( int startNumber = 0 ; startNumber < 2 ; startNumber ++ ) {
         foreach( bool atEnd, bools ) {
             foreach( QString separator, seps ) {
-                QString resultFileName = fillCommand(&command, (ReplicaCommand::EFormat)format, overwrite, recursive, attributeName, startNumber, atEnd, separator) ;
+                QString resultFileName = fillCommand(&command, (ReplicaCommand::EFormat)format, overwrite, recursive, attributeName, startNumber, atEnd, separator, false) ;
                 QString resultFile = QString(BASE_PATH).append(resultFileName);
                 if( !baseApply( QString("%1").arg(index), INPUT1, resultFile, selection, &command ) ) {
                     return false;
@@ -380,7 +396,7 @@ bool TestReplica::testApply()
             int startNumber = 0 ;
             foreach( bool atEnd, bools ) {
                 QString separator = "-";
-                QString resultFileName = fillCommand(&command, (ReplicaCommand::EFormat)format, overwrite, recursive, attributeName, startNumber, atEnd, separator) ;
+                QString resultFileName = fillCommand(&command, (ReplicaCommand::EFormat)format, overwrite, recursive, attributeName, startNumber, atEnd, separator, false) ;
                 QString resultFile = QString(BASE_PATH).append(resultFileName);
                 if( !baseApply( QString("%1").arg(index), INPUT1, resultFile, selection, &command ) ) {
                     return false;
@@ -398,7 +414,7 @@ bool TestReplica::testApply()
         int startNumber = 1000 ;
         bool atEnd = false;
         QString separator = "-";
-        QString resultFileName = fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator) ;
+        QString resultFileName = fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator, false) ;
         QString resultFile = QString(BASE_PATH).append(resultFileName);
         if( !baseApply( QString("%1").arg(index), INPUT1, resultFile, selection, &command ) ) {
             return false;
@@ -413,9 +429,42 @@ bool TestReplica::testApply()
         int startNumber = 26*2+4 ;
         bool atEnd = false;
         QString separator = "-";
-        QString resultFileName = fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator) ;
+        QString resultFileName = fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator, false) ;
         QString resultFile = QString(BASE_PATH).append(resultFileName);
         if( !baseApply( QString("%1").arg(index), INPUT1, resultFile, selection, &command ) ) {
+            return false;
+        }
+        index ++ ;
+    }
+    // test replace
+    {
+        ReplicaCommand::EFormat format = ReplicaCommand::NumberUnpadded;
+        bool overwrite = true ;
+        bool recursive = true ;
+        QString attributeName = "attrib" ;
+        int startNumber = 3 ;
+        bool atEnd = false;
+        QString separator = "-";
+        QString resultFileName = "test_replace_final.xml";
+        fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator, true) ;
+        QString resultFile = QString(BASE_PATH).append(resultFileName);
+        if( !baseApply( QString("%1").arg(index), INPUT1, resultFile, selection, &command ) ) {
+            return false;
+        }
+        index ++ ;
+    }
+    {
+        ReplicaCommand::EFormat format = ReplicaCommand::NumberUnpadded;
+        bool overwrite = true ;
+        bool recursive = true ;
+        QString attributeName = "attrib" ;
+        int startNumber = 3 ;
+        bool atEnd = false;
+        QString separator = "-";
+        QString resultFileName = "test_replace_count_final.xml";
+        fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator, true) ;
+        QString resultFile = QString(BASE_PATH).append(resultFileName);
+        if( !applyCount( QString("%1").arg(index), INPUT1, resultFile, selection, &command, 2 ) ) {
             return false;
         }
         index ++ ;
@@ -429,10 +478,57 @@ bool TestReplica::testApply()
     return true ;
 }
 
-bool TestReplica::baseApply(const QString &id,
+bool TestReplica::testApplyFast()
+{
+    _testName = "testApplyFast" ;
+    ReplicaCommand command;
+    QList<int> selection ;
+    selection << 1 << 1 << 1 ;
+    QList<bool> bools;
+    bools << false << true ;
+    QStringList seps;
+    seps << "_" << "" ;
+
+    int index = 0 ;
+    QString attributeName = "attrib" ;
+    //test cases reduced
+    //TODO: add more formatting, but specific
+
+    //0/1_0_1/0_attrib_0_0/1_-;
+    //for( int format = ReplicaCommand::NumberUnpadded ; format < ReplicaCommand::AlphaPadded ; format++ ) {
+    QList<int> fmts;
+    fmts << ReplicaCommand::NumberUnpadded << ReplicaCommand::AlphaUnpadded ;
+    // test replace
+    {
+        ReplicaCommand::EFormat format = ReplicaCommand::NumberUnpadded;
+        bool overwrite = true ;
+        bool recursive = true ;
+        QString attributeName = "attrib" ;
+        int startNumber = 3 ;
+        bool atEnd = false;
+        QString separator = "-";
+        QString resultFileName = "test_replace_count_final.xml";
+        fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator, true) ;
+        QString resultFile = QString(BASE_PATH).append(resultFileName);
+        if( !applyCount( QString("%1").arg(index), INPUT1, resultFile, selection, &command, 2 ) ) {
+            return false;
+        }
+        index ++ ;
+    }
+    if(!testFormatNumber()) {
+        return false;
+    }
+    if(!testFormatAlpha()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestReplica::internalApply(const QString &id,
                             const QString &fileIn, const QString &fileCompare,
-                                   QList<int> selection,
-                                    ReplicaCommand *command )
+                            QList<int> selection,
+                            ReplicaCommand *command,
+                            const int count)
 {
     App app;
     if(!app.init()) {
@@ -447,12 +543,33 @@ bool TestReplica::baseApply(const QString &id,
         return error(QString("Null element: %1").arg(id));
     }
     ReplicaManager replica;
-    replica.apply( NULL, regola, selectedElement, command );
+    if( count >= 0 ) {
+        replica.apply( NULL, regola, selectedElement, command, count );
+    } else {
+        replica.apply( NULL, regola, selectedElement, command );
+    }
 
     if(!compare( regola, id, fileCompare )) {
         return false ;
     }
     return true;
+}
+
+bool TestReplica::baseApply(const QString &id,
+                            const QString &fileIn, const QString &fileCompare,
+                                   QList<int> selection,
+                                    ReplicaCommand *command )
+{
+    return internalApply( id, fileIn, fileCompare, selection, command, -1 );
+}
+
+bool TestReplica::applyCount(const QString &id,
+                            const QString &fileIn, const QString &fileCompare,
+                                   QList<int> selection,
+                                    ReplicaCommand *command,
+                            const int count )
+{
+    return internalApply( id, fileIn, fileCompare, selection, command, count );
 }
 
 bool TestReplica::compareAttributes(Element *element, const QString &attributeName, const QString &expected )
@@ -475,7 +592,7 @@ bool TestReplica::testFormatNumber()
     int startNumber = 0 ;
     bool atEnd = false;
     QString separator = "-";
-    fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator) ;
+    fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator, false ) ;
 
     App app;
     if(!app.init()) {
@@ -529,7 +646,7 @@ bool TestReplica::testFormatAlpha()
     int startNumber = 0 ;
     bool atEnd = false;
     QString separator = "-";
-    fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator) ;
+    fillCommand(&command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator, false ) ;
 
     App app;
     if(!app.init()) {
@@ -597,7 +714,7 @@ static void defaultCommand(ReplicaCommand *command)
     int startNumber = 0 ;
     bool atEnd = false;
     QString separator = "-";
-    fillCommand(command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator) ;
+    fillCommand(command, format, overwrite, recursive, attributeName, startNumber, atEnd, separator, false ) ;
 }
 
 bool TestReplica::testCheckParams()
@@ -973,8 +1090,193 @@ bool TestReplica::testCommandDialog()
     TEST_BOOL(atEnd, "cbAtEnd");
     TEST_BOOL(recursive, "cbApplyChildren");
     TEST_BOOL(overwrite, "cbOverWrite");
+    TEST_BOOL(replace, "cbReplace");
     TEST_EDIT(separator,"separator");
     TEST_SPIN(startNumber,"startNumber");
     return true ;
 }
 
+
+bool TestReplica::testClone()
+{
+    _testName = "testClone" ;
+    if(!testCloneDo()) {
+        return false ;
+    }
+    if(!testCloneDialog()) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestReplica::testCloneDo()
+{
+    _testName = "testCloneDo" ;
+    if(!testSkeletonClone("1", FILE_START_CLONE1, FILE_FINAL_CLONE1, &TestReplica::doSimpleClone)) {
+        return false ;
+    }
+    _testName = "testCloneDo" ;
+    if(!testSkeletonClone("2", FILE_START_CLONE1, FILE_FINAL_CLONE2, &TestReplica::doCloneRecursive)) {
+        return false ;
+    }
+    _testName = "testCloneMod" ;
+    if(!testSkeletonCloneComplex("3", FILE_START_CLONE1, FILE_FINAL_CLONE2, &TestReplica::doCloneRecursive)) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestReplica::testCloneDialog()
+{
+    _testName = "testCloneDialog" ;
+    if(!testSkeletonClone("1", FILE_START_CLONE1, FILE_FINAL_CLONE1, &TestReplica::doSimpleDialogClone)) {
+        return false ;
+    }
+    _testName = "testCloneDialog" ;
+    if(!testSkeletonClone("2", FILE_START_CLONE1, FILE_FINAL_CLONE2, &TestReplica::doCloneDialogRecursive)){
+        return false ;
+    }
+    return true ;
+}
+
+bool TestReplica::doSimpleClone(MainWindow * wnd, Element* element)
+{
+    XmlEditWidget *editor = wnd->getEditor();
+    ReplicaCloneInfo *command = new ReplicaCloneInfo();
+    command->setNumClones(10);
+    command->setDeep(false);
+    return editor->doReplica(command, element);
+}
+
+bool TestReplica::doCloneRecursive(MainWindow * wnd, Element* element)
+{
+    XmlEditWidget *editor = wnd->getEditor();
+    ReplicaCloneInfo *command = new ReplicaCloneInfo();
+    command->setNumClones(10);
+    command->setDeep(true);
+    return editor->doReplica(command, element);
+}
+
+ReplicaCloneInfo *TestReplica::getCloneInfo(QWidget */*parent*/, Element * /*element*/)
+{
+    return _theCommand ;
+}
+
+bool TestReplica::doSimpleDialogClone(MainWindow * wnd, Element* /*element*/)
+{
+    _theCommand = new ReplicaCloneInfo();
+    _theCommand->setNumClones(10);
+    _theCommand->setDeep(false);
+    MainWndController *controller = wnd->controller();
+    controller->setReplicaInfoProvider(this);
+    return controller->cloneReplica();
+}
+
+bool TestReplica::doCloneDialogRecursive(MainWindow * wnd, Element* /*element*/)
+{
+    _theCommand = new ReplicaCloneInfo();
+    _theCommand->setNumClones(10);
+    _theCommand->setDeep(true);
+    MainWndController *controller = wnd->controller();
+    controller->setReplicaInfoProvider(this);
+    return controller->cloneReplica();
+}
+
+
+bool TestReplica::testSkeletonClone( const QString &id, const QString &fileStart, const QString &fileFinal, bool (TestReplica::*apply)(MainWindow *, Element *) )
+{
+    _testName = _testName.append(id);
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    QList<int> selPath ;
+    selPath << 1 << 1 ;
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = NULL ;
+    selectedElement = app.mainWindow()->getRegola()->findElementByArray(selPath);
+    if(NULL == selectedElement) {
+        return error("no element selected");
+    }
+    app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+    if(!(this->*apply)(app.mainWindow(), selectedElement)) {
+        return error("method returned false");
+    }
+    if(!cfr(regola, "do", fileFinal)){
+        return false;
+    }
+    app.mainWindow()->getRegola()->undo();
+    if(!cfr(regola, "op undo", fileStart)){
+        return false;
+    }
+    app.mainWindow()->getRegola()->redo();
+    if(!cfr(regola, "op redo", fileFinal)){
+        return false;
+    }
+    return true;
+}
+
+bool TestReplica::testSkeletonCloneComplex( const QString &id, const QString &fileStart, const QString &fileFinal, bool (TestReplica::*apply)(MainWindow *, Element *) )
+{
+    _testName = _testName.append(id);
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    QList<int> selPath ;
+    selPath << 1 << 1 ;
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = NULL ;
+    selectedElement = app.mainWindow()->getRegola()->findElementByArray(selPath);
+    if(NULL == selectedElement) {
+        return error("no element selected");
+    }
+    app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+    if(!(this->*apply)(app.mainWindow(), selectedElement)) {
+        return error("method returned false");
+    }
+    if(!cfr(regola, "do", fileFinal)){
+        return false;
+    }
+    app.mainWindow()->getEditor()->onActionCut();
+
+    app.mainWindow()->getRegola()->undo();
+    app.mainWindow()->getRegola()->undo();
+    if(!cfr(regola, "op undo", fileStart)){
+        return false;
+    }
+    app.mainWindow()->getRegola()->redo();
+    app.mainWindow()->getRegola()->redo();
+    app.mainWindow()->getRegola()->undo();
+    if(!cfr(regola, "op redo", fileFinal)){
+        return false;
+    }
+    return true;
+}
+
+bool TestReplica::cfr(Regola *regola, const QString &step, const QString &fileResult)
+{
+    QByteArray resultData = regola->writeMemory();
+    QDomDocument document1;
+    QDomDocument document2;
+    CompareXML compare;
+    if(!compare.loadFileIntoDocument(fileResult, document1)) {
+        return error(QString("step: %1, load file result %2").arg(step).arg(fileResult));
+    }
+    QBuffer outputData(&resultData);
+    if(!compare.loadFileIntoDocument(&outputData, document2)) {
+        return error(QString("step %1 load modified data").arg(step));
+    }
+    bool result = compare.compareDomDocuments(document1, document2);
+    if( !result ) {
+        compare.dumpErrorCause();
+        return error(QString("Step: %1 comparing file with doc: %2").arg(step).arg(compare.errorString()));
+    }
+    return true ;
+}

@@ -26,9 +26,16 @@
 
 #include "testbase.h"
 #include "modules/replica/replicacommand.h"
+#include "mainwndcontroller.h"
 
-class TestReplica : public TestBase
+class MainWindow ;
+class ReplicaCloneInfo ;
+
+class TestReplica : public TestBase, ReplicaInfoProvider
 {
+    ReplicaCloneInfo *_theCommand;
+
+    bool testApplyFast();
     void enumAlpha();
     bool testUnitReplica();
     bool testFormat();
@@ -43,6 +50,16 @@ class TestReplica : public TestBase
                                 const QString &fileIn, const QString &fileCompare,
                                        QList<int> selection,
                                         ReplicaCommand *command );
+    bool applyCount(const QString &id,
+                    const QString &fileIn, const QString &fileCompare,
+                    QList<int> selection,
+                    ReplicaCommand *command,
+                    const int count );
+    bool internalApply(const QString &id,
+                        const QString &fileIn, const QString &fileCompare,
+                        QList<int> selection,
+                        ReplicaCommand *command,
+                        const int count);
     bool testFormatNumber();
     bool testFormatAlpha();
     bool compareAttributes(Element *element, const QString &attributeName, const QString &expected );
@@ -53,6 +70,16 @@ class TestReplica : public TestBase
     bool testCommandClone();
     bool testCommandDialog();
     bool checkCombo(QStringList values, const QString &comboName, const QString &expected);
+    bool testSkeletonClone(const QString &id, const QString &fileStart, const QString &fileFinal, bool (TestReplica::*apply) (MainWindow *, Element*) );
+    bool testSkeletonCloneComplex( const QString &id, const QString &fileStart, const QString &fileFinal, bool (TestReplica::*apply)(MainWindow *, Element *) );
+    bool testCloneDo();
+    bool testCloneDialog();
+    bool doSimpleClone(MainWindow *wnd, Element* element);
+    bool doCloneRecursive(MainWindow *wnd, Element*element);
+    bool cfr(Regola *regola, const QString &step, const QString &fileResult);
+    ReplicaCloneInfo *getCloneInfo(QWidget *parent, Element *);
+    bool doCloneDialogRecursive(MainWindow * wnd, Element* element);
+    bool doSimpleDialogClone(MainWindow * wnd, Element* element);
 public:
     TestReplica();
     ~TestReplica();
@@ -61,6 +88,7 @@ public:
     bool testUnit();
     bool testAction();
     bool testApply();
+    bool testClone();
 };
 
 #endif // TESTREPLICA_H

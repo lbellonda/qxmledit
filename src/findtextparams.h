@@ -30,6 +30,7 @@
 
 class Element;
 class Attribute;
+class TextChunk;
 
 class LIBQXMLEDITSHARED_EXPORT FindTextParams
 {

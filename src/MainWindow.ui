@@ -172,6 +172,8 @@
     <addaction name="actionSaveACopyAs"/>
     <addaction name="menuExport_2"/>
     <addaction name="actionReload"/>
+    <addaction name="actionClose"/>
+    <addaction name="separator"/>
     <addaction name="actionLastFiles"/>
     <addaction name="separator"/>
     <addaction name="actionQuit"/>
@@ -273,6 +275,7 @@
     <addaction name="actionCompare"/>
     <addaction name="actionCompareXSD"/>
     <addaction name="actionFillSerie"/>
+    <addaction name="actionCloneElements"/>
     <addaction name="separator"/>
     <addaction name="actionPlugins"/>
     <addaction name="actionAnonymizeFile"/>
@@ -1962,6 +1965,25 @@
     <string>Fill a set of elements with consecutive values.</string>
    </property>
   </action>
+  <action name="actionCloneElements">
+   <property name="text">
+    <string>Clone Elements...</string>
+   </property>
+   <property name="toolTip">
+    <string>Clone the selected element.</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="text">
+    <string>Close</string>
+   </property>
+   <property name="toolTip">
+    <string>Close the window.</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -1978,6 +2000,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

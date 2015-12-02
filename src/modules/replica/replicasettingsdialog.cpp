@@ -42,6 +42,7 @@ ReplicaSettingsDialog::~ReplicaSettingsDialog()
 
 void ReplicaSettingsDialog::setupValues()
 {
+    Utils::TODO_THIS_RELEASE("abilita cb replace sse overwrite");
     ReplicaCommand defaultCommand;
     {
         QStringList attributes ;
@@ -65,6 +66,8 @@ void ReplicaSettingsDialog::setupValues()
     ui->startNumber->setValue(defaultCommand.startNumber());
     ui->cbAtEnd->setChecked(defaultCommand.atEnd());
     ui->separator->setText(defaultCommand.separator());
+    ui->cbReplace->setChecked(defaultCommand.replace());
+    enableOverwrite();
 }
 
 
@@ -77,6 +80,7 @@ void ReplicaSettingsDialog::readValues(ReplicaCommand *cmd)
     cmd->setStartNumber(ui->startNumber->value());
     cmd->setAtEnd(ui->cbAtEnd->isChecked());
     cmd->setSeparator(ui->separator->text());
+    cmd->setReplace(ui->cbReplace->isChecked());
 }
 
 
@@ -126,4 +130,14 @@ ReplicaCommand *ReplicaSettingsDialog::result()
 {
     ReplicaCommand *cloned = _result.clone();
     return cloned ;
+}
+
+void ReplicaSettingsDialog::enableOverwrite()
+{
+    bool isOverwrite = ui->cbOverWrite->isChecked();
+    ui->cbReplace->setEnabled(isOverwrite);
+    bool isReplace = ui->cbReplace->isChecked();
+    ui->cbAtEnd->setEnabled(isOverwrite && !isReplace);
+    ui->separator->setEnabled(isOverwrite && !isReplace);
+    Utils::TODO_THIS_RELEASE("chiamare questa funzione");
 }

@@ -52,6 +52,7 @@ private:
     bool _atEnd;
     QString _separator;
     EFormat _format;
+    bool _replace;
 public:
 
     ReplicaCommand();
@@ -70,6 +71,8 @@ public:
     void setSeparator(const QString &separatorAndFormat);
     EFormat format() const;
     void setFormat(const EFormat &format);
+    bool replace() const;
+    void setReplace(bool replace);
     EErrorCode check();
     QString errorMessage(const EErrorCode err);
     bool isLegalFormat();

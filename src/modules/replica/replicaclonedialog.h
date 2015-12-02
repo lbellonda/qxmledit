@@ -21,37 +21,39 @@
  **************************************************************************/
 
 
-#ifndef REPLICAMANAGER_H
-#define REPLICAMANAGER_H
+#ifndef REPLICACLONEDIALOG_H
+#define REPLICACLONEDIALOG_H
 
-#include <QObject>
+#include <QDialog>
 
-#include "regola.h"
+namespace Ui
+{
+class ReplicaCloneDialog;
+}
 
+class ReplicaCloneInfo;
 class ReplicaCommand;
+class Element ;
 
-class ReplicaManager : public QObject
+class ReplicaCloneDialog : public QDialog
 {
     Q_OBJECT
+    Element *_element;
+    ReplicaCommand *_fillInfo;
 
-    bool applyReplicaToElement(Regola *regola, ReplicaCommand *cmd, Element *element, const int startIndex, const int numSiblings);
-    int totalWidth(int count, int base);
-    int base(ReplicaCommand *cmd);
-    QString formatNumber(const int index, const bool isPadded, const int totalWidth);
-    QString formatAlpha(const int index, const bool isPadded, const int totalWidth);
-    QString makeId(ReplicaCommand *cmd, int index, int totalWidth);
+    void deleteFillInfo();
+    void enableDeleteFillInfo();
 public:
-    explicit ReplicaManager(QObject *parent = 0);
-    ~ReplicaManager();
+    explicit ReplicaCloneDialog(QWidget *parent, Element *element);
+    ~ReplicaCloneDialog();
 
-    bool apply(QTreeWidget *widget, Regola *regola, Element *selected, ReplicaCommand *cmd, const int maxNum = -1);
-#ifdef  QXMLEDIT_TEST
-    friend class TestReplica;
-#endif
-signals:
+    ReplicaCloneInfo *results();
 
-public slots:
-
+private:
+    Ui::ReplicaCloneDialog *ui;
+private slots:
+    void on_addIndex_clicked();
+    void on_removeIndex_clicked();
 };
 
-#endif // REPLICAMANAGER_H
+#endif // REPLICACLONEDIALOG_H

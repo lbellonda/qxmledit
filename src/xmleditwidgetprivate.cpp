@@ -60,6 +60,7 @@
 #include "modules/xml/xmlloadcontext.h"
 #include "modules/replica/replicasettingsdialog.h"
 #include "modules/replica/replicamanager.h"
+#include "undo/undoreplicacommand.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -3066,6 +3067,18 @@ bool XmlEditWidgetPrivate::actionFillSerie()
                 }
                 return result ;
             }
+        }
+    }
+    return false;
+}
+
+bool XmlEditWidgetPrivate::doReplica(ReplicaCloneInfo *cmd, Element *element)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        if((NULL != cmd) && (NULL != element)) {
+            UndoReplicaCommand *undo = new UndoReplicaCommand(cmd, getEditor(), regola, element->indexPath());
+            regola->addUndo(undo);
+            return true ;
         }
     }
     return false;

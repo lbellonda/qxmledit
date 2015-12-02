@@ -28,6 +28,7 @@
 
 class Element ;
 class Regola ;
+class Attribute ;
 
 class UndoAddChildContainerCommand : public UndoCommand
 {

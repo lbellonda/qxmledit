@@ -1224,7 +1224,7 @@ void Regola::pasteClearAttributesInternals(QTreeWidget *tree, Element *element, 
     }
 }
 
-Element *Regola::insertInternal(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position)
+Element *Regola::insertInternal(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position, const bool isRecursive)
 {
     //if not sel, at the root iif rule is empty
     //sse extists an item
@@ -1234,11 +1234,11 @@ Element *Regola::insertInternal(QTreeWidget *tree, Element *parentElement, Eleme
         return NULL ;
     }
     if(NULL == parentElement) {
-        theNewElement = pasteElement->copyTo(*new Element(this));
+        theNewElement = pasteElement->copyTo(*new Element(this), isRecursive);
         addTopElement(theNewElement, position);
         theNewElement->caricaFigli(tree, NULL, paintInfo, true, -1);
     } else {
-        theNewElement = pasteElement->copyTo(*new Element(this));
+        theNewElement = pasteElement->copyTo(*new Element(this), isRecursive);
         // serve???
         if(!parentElement->isElement()) {
             delete theNewElement ;

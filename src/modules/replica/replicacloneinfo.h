@@ -21,37 +21,28 @@
  **************************************************************************/
 
 
-#ifndef REPLICAMANAGER_H
-#define REPLICAMANAGER_H
+#ifndef REPLICACLONEINFO_H
+#define REPLICACLONEINFO_H
 
-#include <QObject>
+#include "xmlEdit.h"
+#include "libQXmlEdit_global.h"
 
-#include "regola.h"
+class ReplicaCommand ;
 
-class ReplicaCommand;
-
-class ReplicaManager : public QObject
+class LIBQXMLEDITSHARED_EXPORT ReplicaCloneInfo
 {
-    Q_OBJECT
-
-    bool applyReplicaToElement(Regola *regola, ReplicaCommand *cmd, Element *element, const int startIndex, const int numSiblings);
-    int totalWidth(int count, int base);
-    int base(ReplicaCommand *cmd);
-    QString formatNumber(const int index, const bool isPadded, const int totalWidth);
-    QString formatAlpha(const int index, const bool isPadded, const int totalWidth);
-    QString makeId(ReplicaCommand *cmd, int index, int totalWidth);
+    int _numClones;
+    bool _deep;
+    ReplicaCommand *_fillInfo;
 public:
-    explicit ReplicaManager(QObject *parent = 0);
-    ~ReplicaManager();
-
-    bool apply(QTreeWidget *widget, Regola *regola, Element *selected, ReplicaCommand *cmd, const int maxNum = -1);
-#ifdef  QXMLEDIT_TEST
-    friend class TestReplica;
-#endif
-signals:
-
-public slots:
-
+    ReplicaCloneInfo();
+    virtual ~ReplicaCloneInfo();
+    int numClones() const;
+    void setNumClones(int numClones);
+    bool deep() const;
+    void setDeep(bool deep);
+    ReplicaCommand *fillInfo() const;
+    void setFillInfo(ReplicaCommand *fillInfo);
 };
 
-#endif // REPLICAMANAGER_H
+#endif // REPLICACLONEINFO_H

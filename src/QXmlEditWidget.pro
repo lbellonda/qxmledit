@@ -52,6 +52,11 @@ isEmpty(INST_INCLUDE_DIR) {
     INST_INCLUDE_DIR = /opt/qxmledit
 }
 
+INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+isEmpty(INST_AVOID_PRECOMP_HEADERS) {
+    INST_AVOID_PRECOMP_HEADERS = ""
+}
+
 LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
@@ -88,8 +93,10 @@ TARGET = QXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 os2:TARGET = QXmlEdtW
 TEMPLATE = lib
 
-CONFIG += precompile_header
-PRECOMPILED_HEADER  = ../src/precompiled_app.h
+equals(INST_AVOID_PRECOMP_HEADER, "") {
+ CONFIG += precompile_header
+ PRECOMPILED_HEADER=precompiled_lib.h
+}
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 win32 {
@@ -131,9 +138,6 @@ TRANSL = \
 
 translationsfiles.path = $$INST_TRANSLATIONS_DIR
 translationsfiles.files = $$TRANSL
-
-CONFIG += precompile_header
-PRECOMPILED_HEADER=precompiled_lib.h
 
 DEFINES += LIBQXMLEDIT_LIBRARY
 
@@ -409,7 +413,9 @@ SOURCES += xmleditwidget.cpp \
     modules/replica/replicacommand.cpp \
     modules/replica/replicamanager.cpp \
     modules/replica/replicasettingsdialog.cpp \
-    undo/elupdateinplacecommand.cpp
+    undo/elupdateinplacecommand.cpp \
+    undo/undoreplicacommand.cpp \
+    modules/replica/replicacloneinfo.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -636,7 +642,9 @@ HEADERS += precompiled_lib.h \
     modules/replica/replicacommand.h \
     modules/replica/replicamanager.h \
     modules/replica/replicasettingsdialog.h \
-    undo/elupdateinplacecommand.h
+    undo/elupdateinplacecommand.h \
+    undo/undoreplicacommand.h \
+    modules/replica/replicacloneinfo.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

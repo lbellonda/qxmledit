@@ -23,6 +23,7 @@
 #ifndef XVALIDATIONCONTEXT_H
 #define XVALIDATIONCONTEXT_H
 
+#include "xmlEdit.h"
 #include <QString>
 
 class XElementContent;

@@ -21,37 +21,25 @@
  **************************************************************************/
 
 
-#ifndef REPLICAMANAGER_H
-#define REPLICAMANAGER_H
+#ifndef UNDOREPLICACOMMAND_H
+#define UNDOREPLICACOMMAND_H
 
-#include <QObject>
+#include "undocommand.h"
+#include "modules/replica/replicacloneinfo.h"
+#include "element.h"
 
-#include "regola.h"
-
-class ReplicaCommand;
-
-class ReplicaManager : public QObject
+class UndoReplicaCommand : public UndoCommand
 {
-    Q_OBJECT
+    ReplicaCloneInfo *_info;
+    int _cloned;
 
-    bool applyReplicaToElement(Regola *regola, ReplicaCommand *cmd, Element *element, const int startIndex, const int numSiblings);
-    int totalWidth(int count, int base);
-    int base(ReplicaCommand *cmd);
-    QString formatNumber(const int index, const bool isPadded, const int totalWidth);
-    QString formatAlpha(const int index, const bool isPadded, const int totalWidth);
-    QString makeId(ReplicaCommand *cmd, int index, int totalWidth);
+    void insertChildrenRecursive(Element *newParent, Element *source);
 public:
-    explicit ReplicaManager(QObject *parent = 0);
-    ~ReplicaManager();
+    UndoReplicaCommand(ReplicaCloneInfo *theInfo, QTreeWidget *theWidget, Regola *newRegola, QList<int> newPath, QUndoCommand *parent = NULL);
+    virtual ~UndoReplicaCommand();
 
-    bool apply(QTreeWidget *widget, Regola *regola, Element *selected, ReplicaCommand *cmd, const int maxNum = -1);
-#ifdef  QXMLEDIT_TEST
-    friend class TestReplica;
-#endif
-signals:
-
-public slots:
-
+    virtual void undo();
+    virtual void redo();
 };
 
-#endif // REPLICAMANAGER_H
+#endif // UNDOREPLICACOMMAND_H

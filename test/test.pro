@@ -24,6 +24,12 @@
 #
 #-------------------------------------------------
 
+INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+isEmpty(INST_AVOID_PRECOMP_HEADERS) {
+    INST_AVOID_PRECOMP_HEADERS = ""
+}
+
+
 # This is necessary to build the test executable as an app
 DEFINES += LIBQXMLEDIT_LIBRARY_STATIC
 DEFINES += QXMLEDITSESSIONS_LIBRARY_STATIC
@@ -50,8 +56,10 @@ lessThan(QT_MAJOR_VERSION, 5) {
 
 QMAKE_CXXFLAGS +=-Werror=format-security
 
-CONFIG += precompile_header
-PRECOMPILED_HEADER  = ../src/precompiled_app.h
+equals(INST_AVOID_PRECOMP_HEADER, "") {
+ CONFIG += precompile_header
+ PRECOMPILED_HEADER  = ../src/precompiled_app.h
+}
 
 QMAKE_CXXFLAGS += -Wall
 QMAKE_CXXFLAGS +=-Werror

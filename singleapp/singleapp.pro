@@ -58,6 +58,11 @@ isEmpty(INST_TRANSLATIONS_DIR) {
     INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
 }
 
+INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+isEmpty(INST_AVOID_PRECOMP_HEADERS) {
+    INST_AVOID_PRECOMP_HEADERS = ""
+}
+
 USE_QWTPLOT=$$(QXMLEDIT_USE_QWTPLOT)
 isEmpty(USE_QWTPLOT) {
     USE_QWTPLOT="N"
@@ -114,8 +119,11 @@ TEMPLATE = app
 
 DESTDIR = ../build
 
-CONFIG += precompile_header
-PRECOMPILED_HEADER  = ../src/precompiled_app.h
+equals(INST_AVOID_PRECOMP_HEADER, "") {
+ CONFIG += precompile_header
+ PRECOMPILED_HEADER  = ../src/precompiled_app.h
+}
+
 HEADERS += ../src/precompiled_app.h
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

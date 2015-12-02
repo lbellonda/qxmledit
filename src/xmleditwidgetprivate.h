@@ -41,6 +41,8 @@ class AnonymizeParameters;
 class ValidatorMessageHandler;
 class FindNodeWithLocationInfo;
 class NamespaceReferenceEntry;
+class ReplicaCommand;
+class ReplicaCloneInfo;
 
 class XmlEditWidgetPrivate : public QObject, XSDAnnotationEditProvider
 {
@@ -382,6 +384,7 @@ private slots:
     void insertXSITypeAttribute(const QString &newValue);
     void insertXmlSchemaReferences();
     bool actionFillSerie();
+    bool doReplica(ReplicaCloneInfo *cmd, Element *element);
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

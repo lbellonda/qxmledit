@@ -24,8 +24,9 @@
 #ifndef REPLICASETTINGSDIALOG_H
 #define REPLICASETTINGSDIALOG_H
 
-#include <QDialog>
 #include "xmlEdit.h"
+#include <QDialog>
+#include "libQXmlEdit_global.h"
 #include "element.h"
 #include "modules/replica/replicacommand.h"
 
@@ -34,7 +35,7 @@ namespace Ui
 class ReplicaSettingsDialog;
 }
 
-class ReplicaSettingsDialog : public QDialog
+class LIBQXMLEDITSHARED_EXPORT ReplicaSettingsDialog : public QDialog
 {
     Q_OBJECT
     Element *_base;
@@ -43,6 +44,7 @@ public:
     explicit ReplicaSettingsDialog(Element *base, QWidget *parent = 0);
     ~ReplicaSettingsDialog();
     ReplicaCommand *result();
+    void enableOverwrite();
 
 protected:
     virtual void accept();

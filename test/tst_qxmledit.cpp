@@ -1218,7 +1218,11 @@ void TestQXmlEdit::testReplica()
         result = test1.testAction();
         QVERIFY2(result, (QString("test TestReplica: testAction '%1'").arg(test1.errorString())).toLatin1().data());
     }
-}
+    {
+        TestReplica test1;
+        result = test1.testClone();
+        QVERIFY2(result, (QString("test TestReplica: testClone '%1'").arg(test1.errorString())).toLatin1().data());
+    }}
 
 void TestQXmlEdit::testUtils()
 {
@@ -1250,12 +1254,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testUtils();
     testReplica();
-    testBase64();
-    testOpenInNewWindow();
-    testLoadFile();
-    testElement();
 }
 
 QTEST_MAIN(TestQXmlEdit)

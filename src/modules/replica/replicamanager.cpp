@@ -23,6 +23,7 @@
 #include "replicamanager.h"
 #include "regola.h"
 #include "modules/replica/replicacommand.h"
+#include "utils.h"
 
 ReplicaManager::ReplicaManager(QObject *parent) :
     QObject(parent)
@@ -33,22 +34,30 @@ ReplicaManager::~ReplicaManager()
 {
 }
 
-bool ReplicaManager::apply(QTreeWidget *widget, Regola *regola, Element *selected, ReplicaCommand *cmd)
+bool ReplicaManager::apply(QTreeWidget *widget, Regola *regola, Element *selected, ReplicaCommand *cmd, const int maxNum)
 {
+    Utils::TODO_THIS_RELEASE("test con numero");
     bool changed = false;
 
     if(NULL != widget) {
         widget->setUpdatesEnabled(false);
     }
-    regola->clearUndo();
     if(NULL == selected->parent()) {
         changed = applyReplicaToElement(regola, cmd, selected, 0, 1);
     } else {
         Element *parent = selected->parent();
         int startIndex = selected->indexOfSelfAsChild();
         int totalCount = parent->getChildItemsCount();
+        int endIndexPlusOne = totalCount ;
+        if(maxNum > 0) {
+            // take the min
+            endIndexPlusOne = startIndex + maxNum ;
+            if(endIndexPlusOne > totalCount) {
+                endIndexPlusOne = totalCount ;
+            }
+        }
         int index = 0 ;
-        for(int i = startIndex ; i < totalCount ; i ++) {
+        for(int i = startIndex ; i < endIndexPlusOne ; i ++) {
             Element *element = parent->getChildAt(i);
             if(element->isElement()) {
                 if(applyReplicaToElement(regola, cmd, element, index + cmd->startNumber(), totalCount)) {
@@ -77,7 +86,7 @@ bool ReplicaManager::applyReplicaToElement(Regola *regola, ReplicaCommand *cmd, 
         }
         QString newId = makeId(cmd, startIndex, totalWidthPattern);
         QString newValue ;
-        if(oldValue.isEmpty()) {
+        if(oldValue.isEmpty() || cmd->replace()) {
             newValue = newId ;
         } else {
             if(cmd->atEnd()) {

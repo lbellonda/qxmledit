@@ -20,38 +20,50 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "replicacloneinfo.h"
+#include "replicacommand.h"
 
-#ifndef REPLICAMANAGER_H
-#define REPLICAMANAGER_H
-
-#include <QObject>
-
-#include "regola.h"
-
-class ReplicaCommand;
-
-class ReplicaManager : public QObject
+ReplicaCloneInfo::ReplicaCloneInfo()
 {
-    Q_OBJECT
+    _numClones = 1;
+    _deep = false;
+    _fillInfo = NULL ;
+}
 
-    bool applyReplicaToElement(Regola *regola, ReplicaCommand *cmd, Element *element, const int startIndex, const int numSiblings);
-    int totalWidth(int count, int base);
-    int base(ReplicaCommand *cmd);
-    QString formatNumber(const int index, const bool isPadded, const int totalWidth);
-    QString formatAlpha(const int index, const bool isPadded, const int totalWidth);
-    QString makeId(ReplicaCommand *cmd, int index, int totalWidth);
-public:
-    explicit ReplicaManager(QObject *parent = 0);
-    ~ReplicaManager();
+ReplicaCloneInfo::~ReplicaCloneInfo()
+{
+    if(NULL != _fillInfo) {
+        delete _fillInfo;
+        _fillInfo = NULL ;
+    }
+}
 
-    bool apply(QTreeWidget *widget, Regola *regola, Element *selected, ReplicaCommand *cmd, const int maxNum = -1);
-#ifdef  QXMLEDIT_TEST
-    friend class TestReplica;
-#endif
-signals:
+int ReplicaCloneInfo::numClones() const
+{
+    return _numClones;
+}
 
-public slots:
+void ReplicaCloneInfo::setNumClones(int numClones)
+{
+    _numClones = numClones;
+}
 
-};
+bool ReplicaCloneInfo::deep() const
+{
+    return _deep;
+}
 
-#endif // REPLICAMANAGER_H
+void ReplicaCloneInfo::setDeep(bool deep)
+{
+    _deep = deep;
+}
+
+ReplicaCommand *ReplicaCloneInfo::fillInfo() const
+{
+    return _fillInfo;
+}
+
+void ReplicaCloneInfo::setFillInfo(ReplicaCommand *fillInfo)
+{
+    _fillInfo = fillInfo;
+}
