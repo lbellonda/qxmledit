@@ -126,6 +126,12 @@ void ReplicaSettingsDialog::on_attributes_editTextChanged(const QString & /*text
     evalOk();
 }
 
+void ReplicaSettingsDialog::on_cbOverWrite_stateChanged(int)
+{
+    enableOverwrite();
+    evalOk();
+}
+
 ReplicaCommand *ReplicaSettingsDialog::result()
 {
     ReplicaCommand *cloned = _result.clone();

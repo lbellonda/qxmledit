@@ -60,6 +60,7 @@ private slots:
     void on_attributes_editTextChanged(const QString & text);
     void on_separator_textEdited(const QString & text);
     void on_startNumber_valueChanged(int i);
+    void on_cbOverWrite_stateChanged(int);
 #ifdef  QXMLEDIT_TEST
     friend class TestReplica;
 #endif
