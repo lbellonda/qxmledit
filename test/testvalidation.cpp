@@ -25,7 +25,7 @@
 #include "testvalidation.h"
 #include "fakeuidelegate.h"
 #include "../src/mainwindow.h"
-#include "../src/config.h"
+#include "../src/qxmleditconfig.h"
 #include "../src/xmleditwidgetprivate.h"
 #include "../src/xsdeditor/validator/xelementcontent.h"
 

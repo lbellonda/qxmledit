@@ -22,7 +22,7 @@
 #include "app.h"
 #include "testmixedcontent.h"
 #include "comparexml.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "mainwindow.h"
 #include "utils.h"
 #include "fakeuidelegate.h"

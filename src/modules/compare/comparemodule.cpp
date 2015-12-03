@@ -24,7 +24,7 @@
 #include "comparemodule.h"
 #include "ui_comparemodule.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "comparesidebysideview.h"
 #include "compareresulttextformat.h"
 #include "qxmleditdata.h"

@@ -22,7 +22,7 @@
 
 #include "xsdeditor/xsdgraphiccontext.h"
 #include "xsdeditor/xsdwindow.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 XsdGraphicContext::XsdGraphicContext(QObject *parent) :
     QObject(parent)

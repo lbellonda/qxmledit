@@ -26,7 +26,7 @@
 #include <QDir>
 #include <QDateTime>
 #include <QTextCodec>
-#include "config.h"
+#include "qxmleditconfig.h"
 
 const qint64 ExtractionOperation::InputFileBufferSize = 512000;
 

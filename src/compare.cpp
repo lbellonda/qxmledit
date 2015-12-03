@@ -23,7 +23,7 @@
 #include "xmlEdit.h"
 #include "compare.h"
 #include "modules/compare/comparemodule.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 void CompareBridge::doCompare(QWidget *parent, const bool isReferenceInEditor, Regola *original, UIDelegate *uiDelegate, QStringList lastFiles)
 {

@@ -28,7 +28,7 @@ extern const char *APP_TITLE ;
 #include <xmlEdit.h>
 #include "utils.h"
 #include "mainwindow.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "configurationdialog.h"
 #include "compare.h"
 #include "preferreddirs.h"

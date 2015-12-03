@@ -22,7 +22,7 @@
 
 #include "testelement.h"
 #include "app.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 #define BASE_PATH "../test/data/element/"
 #define TOOLTIP  BASE_PATH "tooltip.xml"

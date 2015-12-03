@@ -23,7 +23,7 @@
 
 #include "xsdcomparetools.h"
 #include "xsdcompare.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "ui_xsdcomparetools.h"
 #include "xsdeditor/xsdwindow.h"
 #include "utils.h"

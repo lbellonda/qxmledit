@@ -26,7 +26,7 @@
 #include "xmlwidgetutilities.h"
 
 #include "regola.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 
 void SearchResultsDialog::go(QWidget *parent, QXmlEditData *appData, QList<Element*> &items, Regola *regola, Element *currentSelection, const QString &curText, FindTextParams* settings)

@@ -23,7 +23,7 @@
 #include "configurestyle.h"
 #include "ui_configurestyle.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include <QDir>
 #include <QUrl>
 #include <QDesktopServices>

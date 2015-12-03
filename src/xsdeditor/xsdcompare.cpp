@@ -22,7 +22,7 @@
 
 #include "xsdcompare.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "xsdeditor/xsdwindow.h"
 #include "xsdeditor/xsdcomparedata.h"
 #include "qxmleditdata.h"

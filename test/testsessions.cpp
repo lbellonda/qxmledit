@@ -25,7 +25,7 @@
 #include "fakeuidelegate.h"
 #include "app.h"
 #include "../src/mainwindow.h"
-#include "../src/config.h"
+#include "../src/qxmleditconfig.h"
 #include "sqlliteaccess.h"
 
 #define FILE_1  "../test/data/test1.xml"

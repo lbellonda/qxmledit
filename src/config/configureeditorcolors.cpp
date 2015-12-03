@@ -22,7 +22,7 @@
 
 
 #include "configureeditorcolors.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 #include "ui_configureeditorcolors.h"
 #include <QColorDialog>

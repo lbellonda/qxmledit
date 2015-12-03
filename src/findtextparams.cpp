@@ -26,7 +26,7 @@
 #include "undo/elupdateinplacecommand.h"
 #include "utils.h"
 #include "regola.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 #define SPLIT_SCOPE_CHAR '/'
 #define ATTR_CHAR        '@'

@@ -23,7 +23,7 @@
 #include "balsamiqbasedialog.h"
 #include <QFileDialog>
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "balsamiqwork.h"
 #include "ui_balsamiqui.h"
 #include <QUrl>

@@ -33,7 +33,7 @@ Next time we access an element, all counters are consitent.
 #include "xmlEdit.h"
 #include "qxmleditdata.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 const int POLL_TIMEOUT = 500 ;
 const int MAX_PATTERN_SIZE = 10 ;

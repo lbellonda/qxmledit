@@ -22,7 +22,7 @@
 
 #include "testcolor.h"
 #include "app.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "testhelpers/testconfigcolors.h"
 
 

@@ -24,7 +24,7 @@
 #include "element.h"
 #include "findtextparams.h"
 #include "regola.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 #include "xmlutils.h"
 #include "xmlsavecontext.h"

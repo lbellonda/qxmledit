@@ -23,7 +23,7 @@
 
 #include "xsdgraphicsconfiguration.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 
 XSDGraphicsBackgroundConfiguration::XSDGraphicsBackgroundConfiguration()

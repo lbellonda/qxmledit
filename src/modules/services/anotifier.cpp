@@ -23,7 +23,7 @@
 #include "anotifier.h"
 #include <QStatusBar>
 #include <QMenu>
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 
 #define SHORT_TIMEOUT   5000

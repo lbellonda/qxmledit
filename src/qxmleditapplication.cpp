@@ -30,7 +30,7 @@
 #include "utils.h"
 #include <QDataStream>
 #include <QLocalSocket>
-#include "config.h"
+#include "qxmleditconfig.h"
 
 void extractFragmentsWindow(ExtractResults *extractResult, QWidget *parent);
 

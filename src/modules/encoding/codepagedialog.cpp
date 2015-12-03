@@ -23,7 +23,7 @@
 
 #include "codepagedialog.h"
 #include "ui_codepagedialog.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 #include "codepageitemdelegate.h"
 

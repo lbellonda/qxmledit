@@ -22,7 +22,7 @@
 #include "configurationgeneraloptions.h"
 #include "ui_configurationgeneraloptions.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "element.h"
 
 ConfigurationGeneralOptions::ConfigurationGeneralOptions(QWidget *parent) :

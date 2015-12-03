@@ -27,7 +27,7 @@
 #include "qattributedelegate.h"
 #include "paintinfo.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "element.h"
 #include "modules/delegates/elementitemsingledelegate.h"
 

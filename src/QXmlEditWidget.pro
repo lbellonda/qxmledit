@@ -440,7 +440,7 @@ HEADERS += precompiled_lib.h \
     balsamiqsrc/balsamiqcontrol.h \
     balsamiqsrc/balsamiqbasedialog.h \
     balsamiqsrc/balsamiqtree.h \
-    config.h \
+    qxmleditconfig.h \
     editelement.h \
     edittextnode.h \
     editcomment.h \

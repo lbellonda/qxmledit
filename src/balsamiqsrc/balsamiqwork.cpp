@@ -25,7 +25,7 @@
 #include "balsamiqwork.h"
 #include "balsamiqproxy.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include <QFileInfo>
 
 //---------------------------------------------------------------------------

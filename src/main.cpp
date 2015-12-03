@@ -23,7 +23,7 @@
 #include <QApplication>
 #include "xmlEdit.h"
 #include "xmleditglobals.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "mainwindow.h"
 #include "element.h"
 #include "utils.h"

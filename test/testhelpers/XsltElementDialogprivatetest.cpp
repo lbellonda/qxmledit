@@ -24,7 +24,7 @@
 #include "XsltElementDialogprivatetest.h"
 
 #include "ui_xsltelementdialog.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 
 const QString XsltElementDialog::PrivateTest::KEY_CHECKBOX("/XsltElementDialog/checkParameters");

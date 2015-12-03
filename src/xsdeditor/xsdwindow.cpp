@@ -22,7 +22,7 @@
 #include "xsdwindow.h"
 #include "utils.h"
 #include "ui_xsdwindow.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "xsdeditor/widgets/xsdgenericeditor.h"
 #include <QSvgGenerator>
 

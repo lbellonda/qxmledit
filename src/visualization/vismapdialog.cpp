@@ -31,7 +31,7 @@
 #include "extraction/extractfragmentsdialog.h"
 #include "choosecolormap.h"
 #include "modules/graph/nodesrelationsdialog.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "qxmleditdata.h"
 
 #include <QXmlSimpleReader>

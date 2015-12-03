@@ -25,7 +25,7 @@ extern const char *APP_TITLE ;
 #include <xmlEdit.h>
 #include "utils.h"
 #include "mainwindow.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 /* Logic for ask for modifications (to be replicated in tests)
  * Operation: before:  1! n  after: 1! n

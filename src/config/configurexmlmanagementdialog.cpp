@@ -23,7 +23,7 @@
 
 #include "configurexmlmanagementdialog.h"
 #include "ui_configurexmlmanagementdialog.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 
 ConfigureXMLManagementDialog::ConfigureXMLManagementDialog(QWidget *parent) :

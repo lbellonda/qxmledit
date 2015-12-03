@@ -22,7 +22,7 @@
 
 
 #include "colormanager.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 #define TAGS_COLOR_DEFAULT  QColor(0xC0, 0x40, 0xC0)
 #define PROCINSTR_COLOR_DEFAULT QColor(0, 0xC0, 0xC0)

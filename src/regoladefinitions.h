@@ -37,7 +37,7 @@
 #include "findtextparams.h"
 #include "regola.h"
 #include "editelement.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "edittextnode.h"
 #include "xsaxhandler.h"
 #include "xmlutils.h"

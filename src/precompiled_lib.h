@@ -27,7 +27,7 @@
 #include <xmlEdit.h>
 #include <xmleditglobals.h>
 #include "xmleditwidget.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "regola.h"
 #include "element.h"
 #include "xsdeditor/xschema.h"

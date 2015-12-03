@@ -25,7 +25,7 @@
 
 #include <QObject>
 
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "mainwindow.h"
 #include "utils.h"
 

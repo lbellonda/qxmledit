@@ -24,7 +24,7 @@
 #ifndef APPCONFIG_H
 #define APPCONFIG_H
 
-#include "config.h"
+#include "qxmleditconfig.h"
 
 /**
   *\brief configurations specific to the application

@@ -23,7 +23,7 @@
 #include "testxsd.h"
 #include "mainwindow.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "xsdeditor/xsdwindow.h"
 #include <QTest>
 

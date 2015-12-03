@@ -21,7 +21,7 @@
  **************************************************************************/
 
 #include "paintinfo.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 #define MAX_ZOOM    (5)
 #define MIN_ZOOM    (1)

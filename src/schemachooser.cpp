@@ -22,7 +22,7 @@
 #include "schemachooser.h"
 #include "ui_schemachooser.h"
 #include "SchemaInterface.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 #include "qxmleditdata.h"
 #include <QInputDialog>

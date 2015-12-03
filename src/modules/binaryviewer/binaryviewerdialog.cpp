@@ -25,7 +25,7 @@
 #include "ui_binaryviewerdialog.h"
 #include <QFileDialog>
 #include "qxmleditdata.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 #include <QFileInfo>
 

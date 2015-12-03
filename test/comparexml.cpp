@@ -23,7 +23,7 @@
 #include "comparexml.h"
 #include "app.h"
 #include "mainwindow.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 
 #define TEST_FILE1   "../test/data/test1.xml"

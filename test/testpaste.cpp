@@ -24,7 +24,7 @@
 #include "comparexml.h"
 #include "mainwindow.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 #define TEST_FILE_PASTE_INPUT "../test/data/paste_input.xml"
 #define TEST_FILE_PASTE_RESULT "../test/data/paste_result.xml"

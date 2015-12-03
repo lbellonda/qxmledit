@@ -25,7 +25,7 @@
 #include "ui_base64dialog.h"
 #include "qxmleditdata.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 
 void Base64Dialog::showDialog()

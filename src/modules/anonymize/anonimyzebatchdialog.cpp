@@ -25,7 +25,7 @@
 #include "ui_anonimyzebatchdialog.h"
 #include "utils.h"
 #include "qxmleditdata.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "modules/services/systemservices.h"
 #include "modules/anonymize/anonprofile.h"
 #include "modules/anonymize/anonprofiledialog.h"

@@ -25,7 +25,7 @@
 
 #include <QDesktopServices>
 #include <QDir>
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 #include "stylepersistence.h"
 #include "balsamiqsrc/balsamiqplugin.h"

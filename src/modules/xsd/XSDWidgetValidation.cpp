@@ -32,7 +32,7 @@
 #include "elementitemdelegate.h"
 #include "alloweditemsinsert.h"
 #include "qattributedelegate.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "findtextparams.h"
 #include "regola.h"
 #include "utils.h"

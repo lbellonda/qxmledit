@@ -26,7 +26,7 @@
 #include "xmleditglobals.h"
 #include "regola.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 
 const int Utils::ReasonableIterationCount = 100 ;

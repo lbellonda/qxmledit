@@ -23,7 +23,7 @@
 
 #include "XSLTAutoModeDialogprivatetest.h"
 #include "ui_xsltautomodedialog.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 XSLTAutoModeDialog::PrivateTest::Tests XSLTAutoModeDialog::PrivateTest::testToExecute()
 {

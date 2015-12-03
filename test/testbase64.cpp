@@ -24,7 +24,7 @@
 
 #include "app.h"
 #include "comparexml.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "mainwindow.h"
 #include "utils.h"
 #include "edittextnode.h"

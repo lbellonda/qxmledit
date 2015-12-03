@@ -22,7 +22,7 @@
 
 
 #include "colorentry.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "utils.h"
 
 ColorEntry::ColorEntry(const QString &newKey, const QColor newDefaultValue)

@@ -22,7 +22,7 @@
 
 
 #include "searchmanager.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 
 SearchManager::SearchManager(QObject *parent) :
     QObject(parent)

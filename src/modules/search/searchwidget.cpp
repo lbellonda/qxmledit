@@ -24,7 +24,7 @@
 #include "searchwidget.h"
 #include "ui_searchwidget.h"
 #include "utils.h"
-#include "config.h"
+#include "qxmleditconfig.h"
 #include "modules/search/searchletmanager.h"
 
 #define LIM_SEARCH_SIZE (10)
