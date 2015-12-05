@@ -145,5 +145,4 @@ void ReplicaSettingsDialog::enableOverwrite()
     bool isReplace = ui->cbReplace->isChecked();
     ui->cbAtEnd->setEnabled(isOverwrite && !isReplace);
     ui->separator->setEnabled(isOverwrite && !isReplace);
-    Utils::TODO_THIS_RELEASE("chiamare questa funzione");
 }

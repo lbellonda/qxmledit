@@ -40,12 +40,16 @@ class ReplicaCloneDialog : public QDialog
     Q_OBJECT
     Element *_element;
     ReplicaCommand *_fillInfo;
+    bool _fillWasCleared;
 
     void deleteFillInfo();
     void enableDeleteFillInfo();
+    void addIndex();
 public:
     explicit ReplicaCloneDialog(QWidget *parent, Element *element);
     ~ReplicaCloneDialog();
+
+    virtual void accept();
 
     ReplicaCloneInfo *results();
 

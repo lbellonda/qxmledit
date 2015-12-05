@@ -32,6 +32,7 @@ ReplicaCloneDialog::ReplicaCloneDialog(QWidget *parent, Element *theElement) :
     QDialog(parent),
     ui(new Ui::ReplicaCloneDialog)
 {
+    _fillWasCleared = false ;
     _fillInfo = NULL ;
     _element = theElement;
     ui->setupUi(this);
@@ -60,18 +61,24 @@ ReplicaCloneInfo *ReplicaCloneDialog::results()
     }
     info->setDeep(ui->cbRecursive->isChecked());
     info->setNumClones(ui->numClones->value());
-    Utils::TODO_THIS_RELEASE("finire");
     return info ;
 }
 
-
 void ReplicaCloneDialog::on_removeIndex_clicked()
 {
+    _fillWasCleared = true ;
     deleteFillInfo();
     enableDeleteFillInfo();
 }
 
 void ReplicaCloneDialog::on_addIndex_clicked()
+{
+    _fillWasCleared = true ;
+    addIndex();
+    enableDeleteFillInfo();
+}
+
+void ReplicaCloneDialog::addIndex()
 {
     ReplicaSettingsDialog dlg(_element, this);
     dlg.setModal(true);
@@ -82,10 +89,19 @@ void ReplicaCloneDialog::on_addIndex_clicked()
             _fillInfo = command;
         }
     }
-    enableDeleteFillInfo();
 }
 
 void ReplicaCloneDialog::enableDeleteFillInfo()
 {
     ui->removeIndex->setEnabled(NULL != _fillInfo);
+}
+
+void ReplicaCloneDialog::accept()
+{
+    if((NULL == _fillInfo) && !_fillWasCleared) {
+        if(Utils::askYN(this, tr("Do you want to use an unique index for the new data?"))) {
+            addIndex();
+        }
+    }
+    QDialog::accept();
 }

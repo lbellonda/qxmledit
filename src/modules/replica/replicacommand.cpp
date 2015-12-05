@@ -24,19 +24,8 @@
 #include "replicacommand.h"
 #include "utils.h"
 
-
-bool ReplicaCommand::replace() const
-{
-    return _replace;
-}
-
-void ReplicaCommand::setReplace(bool replace)
-{
-    _replace = replace;
-}
 ReplicaCommand::ReplicaCommand()
 {
-    Utils::TODO_THIS_RELEASE("fare sovrascrivi anche se contiene valore");
     _recursive = false;
     _overwrite = true ;
     _startNumber = 1;
@@ -193,4 +182,14 @@ bool ReplicaCommand::isLegalFormat()
     default:
         return false;
     }
+}
+
+bool ReplicaCommand::replace() const
+{
+    return _replace;
+}
+
+void ReplicaCommand::setReplace(bool replace)
+{
+    _replace = replace;
 }
