@@ -23,51 +23,12 @@
    <string notr="true">background-color:none</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="searchIcon">
-       <property name="toolTip">
-        <string>Search</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../../risorse.qrc">:/editText/edit-find</pixmap>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="searchBox">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="placeholderText">
-        <string>search...</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="clearButton">
-       <property name="styleSheet">
-        <string notr="true">margin-left:0
-</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../../risorse.qrc">
-         <normaloff>:/editText/images/edit-clear-locationbar-rtl.png</normaloff>:/editText/images/edit-clear-locationbar-rtl.png</iconset>
-       </property>
-       <property name="flat">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QGroupBox" name="invitation">
      <property name="sizePolicy">
@@ -164,6 +125,89 @@
     </widget>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QToolButton" name="cmdSearch">
+       <property name="toolTip">
+        <string>Open or close the search panel.</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../../risorse.qrc">
+         <normaloff>:/editText/edit-find</normaloff>:/editText/edit-find</iconset>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QFrame" name="searchFrame">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLineEdit" name="searchBox">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>search...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="clearButton">
+        <property name="styleSheet">
+         <string notr="true">margin-left:0
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../../risorse.qrc">
+          <normaloff>:/editText/images/edit-clear-locationbar-rtl.png</normaloff>:/editText/images/edit-clear-locationbar-rtl.png</iconset>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QTreeView" name="mainTree">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
@@ -225,8 +269,8 @@
  </widget>
  <resources>
   <include location="../../risorse.qrc"/>
-  <include location="../../risorse.qrc"/>
   <include location="../sessions.qrc"/>
+  <include location="../../risorse.qrc"/>
  </resources>
  <connections/>
 </ui>

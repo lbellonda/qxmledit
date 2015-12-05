@@ -51,6 +51,7 @@ void SessionDrawerWidgetPrivate::init()
     connect(p->ui->clearButton, SIGNAL(clicked()), this, SLOT(clearSearchText()));
     connect(p->ui->moreCmd, SIGNAL(clicked()), this, SLOT(onMoreCmd()));
     connect(p->ui->createSession, SIGNAL(clicked()), this, SLOT(onCreateSession()));
+    connect(p->ui->cmdSearch, SIGNAL(clicked()), this, SLOT(onSearchChanged()));
     setNoSessionWidgetVisible(true);
     p->ui->mainTree->setTextElideMode(Qt::ElideMiddle);
     onEnablingChanged();
@@ -82,6 +83,11 @@ void SessionDrawerWidgetPrivate::onSessionStateChanged(Session::SessionState)
     onEnablingChanged();
 }
 
+void SessionDrawerWidgetPrivate::onSearchChanged()
+{
+    onEnablingChanged();
+}
+
 void SessionDrawerWidgetPrivate::onEnablingChanged()
 {
     bool areSessionControlsVisible = false ;
@@ -97,9 +103,7 @@ void SessionDrawerWidgetPrivate::onEnablingChanged()
     }
     p->setEnabled(isSessionEnabled);
     setNoSessionWidgetVisible(!areSessionControlsVisible || isSessionDefault);
-    p->ui->searchBox->setVisible(areSessionControlsVisible);
-    p->ui->clearButton->setVisible(areSessionControlsVisible);
-    p->ui->searchIcon->setVisible(areSessionControlsVisible);
+    p->ui->searchFrame->setVisible(p->ui->cmdSearch->isChecked());
 }
 
 void SessionDrawerWidgetPrivate::treeItemDoubleClicked(const QModelIndex & index)

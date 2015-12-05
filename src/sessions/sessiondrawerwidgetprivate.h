@@ -63,6 +63,7 @@ public slots:
     void onMoreCmd();
     void onSessionStateChanged(Session::SessionState);
     void onCreateSession();
+    void onSearchChanged();
 };
 
 #endif // SESSIONDRAWERWIDGETPRIVATE_H
