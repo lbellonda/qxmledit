@@ -724,6 +724,7 @@ void MainWindow::onComputeSelectionState()
     bool isShownAsBase64 = false ;
     bool isXSDPresent = isValidXsd();
     bool isElementSelected = false;
+    bool isElementRoot = false;
     bool isRegolaReadOnly = isReadOnly();
 
     qxmledit::EDisplayMode displayMode = ui.editor->displayMode();
@@ -739,6 +740,7 @@ void MainWindow::onComputeSelectionState()
         if(element->getType() == Element::ET_ELEMENT) {
             canAddChild = true;
             isElementSelected = true ;
+            isElementRoot = element->isTopLevel();
         }
         isNormalViewState = element->isNormalViewState();
         isSomeItemSelected = true ;
@@ -878,7 +880,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionInsertXSITypeAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionInsertXmlSchemaReferences->setEnabled(!getEditor()->isReadOnly());
     ui.actionFillSerie->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
-    ui.actionCloneElements->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
+    ui.actionCloneElements->setEnabled(!getEditor()->isReadOnly() && isElementSelected && !isElementRoot);
 
     onComputeSelectionStateExperimentalFeatures();
 }

@@ -3075,7 +3075,7 @@ bool XmlEditWidgetPrivate::actionFillSerie()
 bool XmlEditWidgetPrivate::doReplica(ReplicaCloneInfo *cmd, Element *element)
 {
     if(isActionMode() && (NULL != getRegola())) {
-        if((NULL != cmd) && (NULL != element)) {
+        if((NULL != cmd) && (NULL != element) && (element->isElement() && !element->isTopLevel())) {
             UndoReplicaCommand *undo = new UndoReplicaCommand(cmd, getEditor(), regola, element->indexPath());
             regola->addUndo(undo);
             return true ;

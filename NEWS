@@ -1,4 +1,5 @@
 0.9.2
+    The search panel on session data is now opening on request.
     New close window menu item.
     Project option to disable precompiled headers.
     New flags for fill data.

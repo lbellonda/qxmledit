@@ -1613,6 +1613,11 @@ void Element::clearTextNodes()
     textNodes.clear();
 }
 
+bool Element::isTopLevel()
+{
+    return (NULL != parentRule) && (NULL == parent()) ;
+}
+
 const QString &Element::getPITarget()
 {
     return text;

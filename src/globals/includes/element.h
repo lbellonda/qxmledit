@@ -324,6 +324,7 @@ public:
     bool isText() const {
         return ET_TEXT == type ? true : false ;
     }
+    bool isTopLevel();
 
     const QString &getPITarget();
     const QString getPIData();
