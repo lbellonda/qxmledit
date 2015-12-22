@@ -1,6 +1,6 @@
 <?xml  version="1.0" encoding="UTF-8"?>
 <profile useNamespace="false">
- <params mode="1" useFixedLetter="false" />
+ <params mode="1" useFixedLetter="false" threshold="3"/>
  <exceptions>
   <exception criteria="0" path="/a/b/c" fixedValue="123" useNamespace="false" anonType="0"/>
   <exception criteria="0" path="/a/b/c" fixedValue="123" useNamespace="true" anonType="0"/>

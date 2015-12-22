@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root a="ff z" b="ffff">
+ <elementYes a1="9 4692 iS" a2="" a3="z" a4="gg" a5="9"/>
+ <elementNo/>
+ <parent1>
+  <p1>r92 iS a</p1>
+  <P2>9</P2>
+  <P3/>
+  <P4>a</P4>
+ </parent1>
+ <parent2>z s92 iS<a/>
+  <b/>123456 9<c/>
+ </parent2>
+ <parent1CDATA>
+  <p1><![CDATA[z is92 iS]]></p1>
+  <P2><![CDATA[]]></P2>
+  <P3><![CDATA[ ]]></P3>
+  <P4><![CDATA[s]]></P4>
+ </parent1CDATA>
+</root>

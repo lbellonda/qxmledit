@@ -243,9 +243,12 @@ AnonAlg *AnonContext::getAlg(AnonymizeParameters *params)
     case AnonymizeParameters::AllText:
         alg = new AnonAllAlg(true, producer);
         break;
-    case AnonymizeParameters::UsingPatterns:
-        alg = new AnonCodeAlg(true, producer);
-        break;
+    case AnonymizeParameters::UsingPatterns: {
+        AnonCodeAlg *alg2 = new AnonCodeAlg(true, producer);
+        alg2->setThreshold(params->threshold);
+        alg = alg2 ;
+    }
+    break;
     }
     return alg;
 }

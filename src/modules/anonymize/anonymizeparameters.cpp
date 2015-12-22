@@ -23,27 +23,30 @@
 
 #include "anonymizeparameters.h"
 #include "xmlutils.h"
+#include "modules/anonymize/anoncodealg.h"
 
 #define     ATTR_MODE   "mode"
 #define     ATTR_USEFIXEDLETTER "useFixedLetter"
+#define     ATTR_THRESHOLD "threshold"
 
 
 AnonymizeParameters::AnonymizeParameters()
 {
     mode = UsingPatterns;
     useFixedLetter = false ;
+    threshold = AnonCodeAlg::Threshold;
 }
 
 AnonymizeParameters::AnonymizeParameters(const Emodes newMode, const bool newUseFixedLetter)
 {
     mode = newMode;
     useFixedLetter = newUseFixedLetter ;
+    threshold = AnonCodeAlg::Threshold;
 }
 
 AnonymizeParameters::~AnonymizeParameters()
 {
 }
-
 
 bool AnonymizeParameters::readFromDom(const QDomElement &element)
 {
@@ -51,6 +54,7 @@ bool AnonymizeParameters::readFromDom(const QDomElement &element)
 
     mode = (Emodes)XmlUtils::readFromInt(element.attribute(ATTR_MODE), mode);
     useFixedLetter = XmlUtils::readFromBool(element.attribute(ATTR_USEFIXEDLETTER), useFixedLetter);
+    threshold = XmlUtils::readFromInt(element.attribute(ATTR_THRESHOLD), threshold);
     return result;
 }
 
@@ -59,6 +63,7 @@ bool AnonymizeParameters::saveToDom(QDomElement &element)
     bool result = true;
     element.setAttribute(ATTR_MODE, XmlUtils::intToStringValue(mode));
     element.setAttribute(ATTR_USEFIXEDLETTER, XmlUtils::boolToBoolValue(useFixedLetter));
+    element.setAttribute(ATTR_THRESHOLD, XmlUtils::intToStringValue(threshold));
     return result;
 }
 
@@ -66,7 +71,7 @@ bool AnonymizeParameters::saveToDom(QDomElement &element)
 bool AnonymizeParameters::equals(AnonymizeParameters *other)
 {
     bool isEqual = true ;
-    isEqual = (mode == other->mode) && (useFixedLetter == other->useFixedLetter);
+    isEqual = (mode == other->mode) && (useFixedLetter == other->useFixedLetter) && (threshold == other->threshold);
     return isEqual  ;
 }
 
@@ -74,4 +79,5 @@ void AnonymizeParameters::copyValuesFrom(AnonymizeParameters *other)
 {
     mode = other->mode ;
     useFixedLetter = other->useFixedLetter ;
+    threshold = other->threshold ;
 }

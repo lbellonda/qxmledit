@@ -25,6 +25,7 @@
 
 AnonCodeAlg::AnonCodeAlg(const bool parmAutodelete, AnonProducer *theProducer) : AnonAlg(parmAutodelete, theProducer)
 {
+    _threshold = Threshold ;
 }
 
 AnonCodeAlg::~AnonCodeAlg()
@@ -40,7 +41,7 @@ QString AnonCodeAlg::processText(const QString &input)
         QChar ch = input.at(i);
         if(ch.isLetterOrNumber()) {
             letters ++ ;
-            if(letters > Threshold) {
+            if(letters > _threshold) {
                 anonymize = true;
                 break ;
             }
@@ -63,4 +64,15 @@ QString AnonCodeAlg::processText(const QString &input)
         return result ;
     }
     return input ;
+}
+
+
+int AnonCodeAlg::threshold() const
+{
+    return _threshold;
+}
+
+void AnonCodeAlg::setThreshold(int threshold)
+{
+    _threshold = threshold;
 }

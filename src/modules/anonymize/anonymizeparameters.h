@@ -39,6 +39,7 @@ public:
 
     Emodes mode;
     bool useFixedLetter;
+    int threshold;
     QList<AnonException*> _exceptions;
 public:
     AnonymizeParameters();

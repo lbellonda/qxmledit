@@ -29,11 +29,16 @@
 
 class LIBQXMLEDITSHARED_EXPORT AnonCodeAlg : public AnonAlg
 {
-    static const int Threshold = 3 ;
+    int _threshold ;
 public:
+
+    static const int Threshold = 3 ;
+
     AnonCodeAlg(const bool parmAutodelete, AnonProducer *theProducer);
     virtual ~AnonCodeAlg();
     virtual QString processText(const QString &input) ;
+    int threshold() const;
+    void setThreshold(int threshold);
 };
 
 #endif // ANONCODEALG_H

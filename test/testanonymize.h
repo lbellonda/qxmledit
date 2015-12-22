@@ -97,6 +97,13 @@ class TestAnonymize : public TestBase
     //--
     bool testUnitPath();
     bool testUnitPathBase(const QString &testToken, const QString &fileStart, const QString &spec, QList<int> selection, const QString &expected, const Resolution resolution);
+    //------
+    bool testCodeWithLen1();
+    bool testCodeWithLen2();
+    bool testCodeWithLen10();
+    bool testCodeWithLen20();
+    bool testAlgCodeVariableLen(const int len, const QString &fileStart, const QString &fileEnd);
+    bool testAlgCodeVariableCodeLen();
 
 public:
     bool testExceptionTextInclude();

@@ -126,6 +126,71 @@ bool TestAnonymize::testUnit()
     if(!testAlgCodeProdSeq()) {
         return false;
     }
+    if(!testAlgCodeVariableCodeLen()) {
+        return false;
+    }
+
+    return true ;
+}
+
+//--------------------------------------------------
+bool TestAnonymize::testAlgCodeVariableCodeLen()
+{
+    _testName = "testAlgCodeVariableCodeLen";
+    if(!testCodeWithLen1()) {
+        return false;
+    }
+    if(!testCodeWithLen2()) {
+        return false;
+    }
+    if(!testCodeWithLen10()) {
+        return false;
+    }
+    if(!testCodeWithLen20()) {
+        return false;
+    }
+    return true;
+}
+
+#define FILE_IN_VARLEN1     TEST_BASE_DATA "anon/varlen1_in.xml"
+#define FILE_OUT_VARLEN1     TEST_BASE_DATA "anon/varlen1_out.xml"
+#define FILE_IN_VARLEN2     TEST_BASE_DATA "anon/varlen2_in.xml"
+#define FILE_OUT_VARLEN2     TEST_BASE_DATA "anon/varlen2_out.xml"
+#define FILE_IN_VARLEN10     TEST_BASE_DATA "anon/varlen10_in.xml"
+#define FILE_OUT_VARLEN10     TEST_BASE_DATA "anon/varlen10_out.xml"
+#define FILE_IN_VARLEN20     TEST_BASE_DATA "anon/varlen20_in.xml"
+#define FILE_OUT_VARLEN20     TEST_BASE_DATA "anon/varlen20_out.xml"
+
+//--------------------------------------------------
+bool TestAnonymize::testCodeWithLen1()
+{
+    if(!testAlgCodeVariableLen(1, FILE_IN_VARLEN1, FILE_OUT_VARLEN1)) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestAnonymize::testCodeWithLen2()
+{
+    if(!testAlgCodeVariableLen(2, FILE_IN_VARLEN2, FILE_OUT_VARLEN2)) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestAnonymize::testCodeWithLen10()
+{
+    if(!testAlgCodeVariableLen(10, FILE_IN_VARLEN10, FILE_OUT_VARLEN10)) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestAnonymize::testCodeWithLen20()
+{
+    if(!testAlgCodeVariableLen(20, FILE_IN_VARLEN20, FILE_OUT_VARLEN20)) {
+        return false;
+    }
     return true ;
 }
 
@@ -197,6 +262,20 @@ bool TestAnonymize::cfrMem(QBuffer *resultData, const QString &step, const QStri
         return error(QString("Step: %1 comparing file with doc: %2").arg(step).arg(compare.errorString()));
     }
     return true ;
+}
+
+//--------------------------------------------------
+bool TestAnonymize::testAlgCodeVariableLen(const int len, const QString &fileStart, const QString &fileEnd)
+{
+    _testName = QString("testAlgCodeVariableLen").append(len);
+
+    AnonFixedProducer *producer = new AnonFixedProducer();
+    AnonCodeAlg anonCodeAlg( false, producer);
+    anonCodeAlg.setThreshold(len);
+    if( !testSkeleton(fileStart, fileEnd, &anonCodeAlg) ) {
+        return false ;
+    }
+    return true;
 }
 
 //--------------------------------------------------
@@ -1232,7 +1311,27 @@ bool TestAnonymize::compareProfilesParamsInverse(AnonProfile *profile)
         return error("unable to deserialize");
     }
     profile->params()->useFixedLetter = !profile->params()->useFixedLetter ;
+    if(!compareProfilesWrongParams(&newProfile, profile)) {
+        return false;
+    }
+    // reset
+    profile->params()->useFixedLetter = !profile->params()->useFixedLetter ;
+    //
     profile->params()->mode = (AnonymizeParameters::Emodes)(profile->params()->mode + 1) ;
+    if(!compareProfilesWrongParams(&newProfile, profile)) {
+        return false;
+    }
+    // reset
+    profile->params()->mode = (AnonymizeParameters::Emodes)(profile->params()->mode - 1) ;
+    //
+    profile->params()->threshold = (profile->params()->threshold + 1) ;
+    if(!compareProfilesWrongParams(&newProfile, profile)) {
+        return false;
+    }
+    // all
+    profile->params()->useFixedLetter = !profile->params()->useFixedLetter ;
+    profile->params()->mode = (AnonymizeParameters::Emodes)(profile->params()->mode + 1) ;
+    profile->params()->threshold = (profile->params()->threshold + 1) ;
     if(!compareProfilesWrongParams(&newProfile, profile)) {
         return false;
     }
@@ -1252,24 +1351,49 @@ bool TestAnonymize::testProfileParams()
         delete profile ;
         return error("Compare params 0");
     }
+    int oldt = params->threshold;
+    params->threshold += 15 ;
+    if(!compareProfilesParams(profile)) {
+        delete profile ;
+        return error("Compare params 0.1");
+    }
+    params->threshold = oldt ;
     params->mode = AnonymizeParameters::AllText ;
     params->useFixedLetter = true ;
     if(!compareProfilesParams(profile)) {
         delete profile ;
         return error("Compare params 1");
     }
+    params->threshold += 15 ;
+    if(!compareProfilesParams(profile)) {
+        delete profile ;
+        return error("Compare params 1.1");
+    }
+    params->threshold = oldt ;
     params->mode = AnonymizeParameters::UsingPatterns;
     params->useFixedLetter = false ;
     if(!compareProfilesParams(profile)) {
         delete profile ;
         return error("Compare params 2");
     }
+    params->threshold += 15 ;
+    if(!compareProfilesParams(profile)) {
+        delete profile ;
+        return error("Compare params 2.1");
+    }
+    params->threshold = oldt ;
     params->mode = AnonymizeParameters::UsingPatterns;
     params->useFixedLetter = true ;
     if(!compareProfilesParams(profile)) {
         delete profile ;
         return error("Compare params 3");
     }
+    params->threshold += 15 ;
+    if(!compareProfilesParams(profile)) {
+        delete profile ;
+        return error("Compare params 3.1");
+    }
+    params->threshold = oldt ;
     params->mode = AnonymizeParameters::UsingPatterns;
     params->useFixedLetter = true ;
     if(!compareProfilesParamsInverse(profile)) {
