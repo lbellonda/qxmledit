@@ -264,7 +264,7 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
         case QXmlStreamReader::StartElement: {
             // The reader reports the start of an element with namespaceUri() and name().
             //Attributes are reported in attributes(), namespace declarations in namespaceDeclarations().
-            QString tag = xmlReader.name().toString();
+            QString tag = xmlReader.qualifiedName().toString();
             AnonContext *thisContext = new AnonContext(currentContext, tag);
             contexts.append(thisContext);
             currentContext = thisContext;
