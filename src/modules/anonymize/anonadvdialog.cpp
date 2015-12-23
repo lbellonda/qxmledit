@@ -27,6 +27,7 @@
 #include "anoncontext.h"
 #include "anonprofilemanager.h"
 #include "anoneditprofiledialog.h"
+#include "anoncodealg.h"
 #include "ui_anonadvdialog.h"
 #include "utils.h"
 
@@ -85,6 +86,9 @@ void AnonAdvDialog::endSetup()
     params()->mode = AnonymizeParameters::UsingPatterns ;
     params()->useFixedLetter = false;
     ui->codeChk->setChecked(true);
+    params()->threshold = AnonCodeAlg::Threshold;
+    ui->threshold->setValue(params()->threshold);
+    enableThreshold();
 
     //---
     _ex_in = QIcon(":/anon/an_ex_in");
@@ -355,6 +359,7 @@ void AnonAdvDialog::on_codeChk_clicked(bool /*checked*/)
         params()->mode = AnonymizeParameters::UsingPatterns ;
         updateThings();
     }
+    enableThreshold();
 }
 
 void AnonAdvDialog::on_chkFixedPattern_clicked(bool /*checked*/)
@@ -364,6 +369,7 @@ void AnonAdvDialog::on_chkFixedPattern_clicked(bool /*checked*/)
         params()->useFixedLetter = ui->chkFixedPattern->isChecked();
         updateThings();
     }
+    enableThreshold();
 }
 
 void AnonAdvDialog::on_exceptions_currentItemChanged(QTableWidgetItem * /*current*/, QTableWidgetItem * /*previous*/)
@@ -505,7 +511,9 @@ void AnonAdvDialog::updateProfileData()
         case  AnonymizeParameters::AllText:
             ui->allChk->setChecked(true);
         }
+        ui->threshold->setValue(params()->threshold);
         updateThings(false);
+        enableThreshold();
     } else {
         ui->profileName->setText(tr("<No profile>"));
     }
@@ -693,6 +701,19 @@ void AnonAdvDialog::on_cmdExportExceptions_clicked()
     } else {
         Utils::warning(this, tr("Unable to export exceptions in the clipboard."));
     }
+}
 
+void AnonAdvDialog::enableThreshold()
+{
+    ui->threshold->setEnabled(ui->codeChk->isChecked());
+}
 
+void AnonAdvDialog::on_threshold_valueChanged(int /*i*/)
+{
+    int newValue = ui->threshold->value();
+    if( params()->threshold != newValue ) {
+        setChanged(true);
+        params()->threshold = ui->threshold->value();
+        updateThings();
+    }
 }

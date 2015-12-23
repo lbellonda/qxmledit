@@ -33,6 +33,8 @@ AnonymizeDialog::AnonymizeDialog(QWidget *parent, AnonymizeParameters *theParams
     _params->mode = AnonymizeParameters::UsingPatterns ;
     _params->useFixedLetter = false;
     ui->codeChk->setChecked(true);
+    ui->threshold->setValue(_params->threshold);
+    ui->threshold->setEnabled(ui->codeChk->isChecked());
 }
 
 AnonymizeDialog::~AnonymizeDialog()
@@ -48,11 +50,13 @@ void AnonymizeDialog::accept()
 void AnonymizeDialog::on_allChk_clicked(bool /*checked*/)
 {
     _params->mode = AnonymizeParameters::AllText ;
+    ui->threshold->setEnabled(ui->codeChk->isChecked());
 }
 
 void AnonymizeDialog::on_codeChk_clicked(bool /*checked*/)
 {
     _params->mode = AnonymizeParameters::UsingPatterns ;
+    ui->threshold->setEnabled(ui->codeChk->isChecked());
 }
 
 void AnonymizeDialog::on_chkFixedPattern_clicked(bool /*checked*/)
@@ -60,3 +64,7 @@ void AnonymizeDialog::on_chkFixedPattern_clicked(bool /*checked*/)
     _params->useFixedLetter = ui->chkFixedPattern->isChecked();
 }
 
+void AnonymizeDialog::on_threshold_valueChanged(int /*i*/)
+{
+    _params->threshold = ui->threshold->value();
+}

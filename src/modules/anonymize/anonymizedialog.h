@@ -51,7 +51,7 @@ private slots:
     void on_allChk_clicked(bool checked);
     void on_codeChk_clicked(bool checked);
     void on_chkFixedPattern_clicked(bool checked);
-
+    void on_threshold_valueChanged(int i);
 };
 
 #endif // ANONYMIZEDIALOG_H

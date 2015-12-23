@@ -78,6 +78,7 @@ class AnonAdvDialog : public QDialog
     int import(QTextStream &stream);
     QString cleanParmCSV(const QString &val);
     bool importUsingFile(const QString &filePath);
+    void enableThreshold();
 
 public:
     explicit AnonAdvDialog(QXmlEditData *appData, Regola *inputData, QWidget *parent = 0);
@@ -111,6 +112,7 @@ private slots:
     void treeContextMenu(const QPoint &pt);
     void on_cmdImportException_clicked();
     void on_cmdExportExceptions_clicked();
+    void on_threshold_valueChanged(int /*i*/);
 
     friend class TestAnonymize;
 };
