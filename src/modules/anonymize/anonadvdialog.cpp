@@ -711,7 +711,7 @@ void AnonAdvDialog::enableThreshold()
 void AnonAdvDialog::on_threshold_valueChanged(int /*i*/)
 {
     int newValue = ui->threshold->value();
-    if( params()->threshold != newValue ) {
+    if(params()->threshold != newValue) {
         setChanged(true);
         params()->threshold = ui->threshold->value();
         updateThings();
