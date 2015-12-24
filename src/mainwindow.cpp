@@ -211,12 +211,18 @@ void MainWindow::changeEvent(QEvent *e)
 
 void MainWindow::on_actionNew_triggered()
 {
-    if(!verifyAbandonChanges()) {
+    if(!checkAbandonChanges()) {
         return ;
     }
-    ui.editor->doNew();
-    removeAttributesFilter();
-    updateWindowFilePath();
+    MainWindow *theWindow ;
+    if(_controller.isOpenInNewWidow()) {
+        theWindow = makeNewWindow();
+    } else {
+        theWindow = this ;
+        ui.editor->doNew();
+    }
+    theWindow->removeAttributesFilter();
+    theWindow->updateWindowFilePath();
 }
 
 void MainWindow::startUIState()

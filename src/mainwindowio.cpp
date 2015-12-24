@@ -77,6 +77,7 @@ MainWindow *MainWindowIOHelper::getWindow(MainWindow *baseWindow, const MainWind
     otherWindow = false ;
     if(baseWindow->controller()->isOpenInNewWidow() && !forceSameWindow) {
         if(!baseWindow->getRegola()->isEmpty(false)) {
+            theWindow = NULL ;
             // find an existing window;
             if(!filePath.isEmpty()) {
                 theWindow = baseWindow->appData()->findWindowByPath(filePath);
