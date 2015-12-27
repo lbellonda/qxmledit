@@ -71,6 +71,8 @@
 #define PROFILE_XML                     "../test/data/anon/profilexml.xml"
 //----
 #define ANON_BATCH_COPY1                "../test/data/anon/batch.copy.xml"
+#define ANON_BATCH_QUAL1                "../test/data/anon/batch.qual.1.xml"
+#define ANON_BATCH_QUAL2                "../test/data/anon/batch.qual.2.xml"
 
 
 TestAnonymize::TestAnonymize()
@@ -1505,6 +1507,17 @@ bool TestAnonymize::testBatchBase()
         AnonNullAlg *anonNullAlg = new AnonNullAlg();
         context.setAlg(anonNullAlg);
         if(!testBatchBaseSkeleton(ANON_BATCH_COPY1, ANON_BATCH_COPY1, &context) ) {
+            return false;
+        }
+    }
+    _testName = "testBatchBase/qualified";
+    {
+        AnonContext context(NULL, "");
+        AnonFixedProducer *producer = new AnonFixedProducer();
+        AnonCodeAlg *anonCodeAlg = new AnonCodeAlg(false, producer);
+        anonCodeAlg->setThreshold(4);
+        context.setAlg(anonCodeAlg);
+        if(!testBatchBaseSkeleton(ANON_BATCH_QUAL1, ANON_BATCH_QUAL2, &context) ) {
             return false;
         }
     }
