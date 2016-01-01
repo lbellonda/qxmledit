@@ -36,7 +36,6 @@ ReplicaManager::~ReplicaManager()
 
 bool ReplicaManager::apply(QTreeWidget *widget, Regola *regola, Element *selected, ReplicaCommand *cmd, const int maxNum)
 {
-    Utils::TODO_THIS_RELEASE("test con numero");
     bool changed = false;
 
     if(NULL != widget) {

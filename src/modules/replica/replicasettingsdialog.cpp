@@ -42,7 +42,6 @@ ReplicaSettingsDialog::~ReplicaSettingsDialog()
 
 void ReplicaSettingsDialog::setupValues()
 {
-    Utils::TODO_THIS_RELEASE("abilita cb replace sse overwrite");
     ReplicaCommand defaultCommand;
     {
         QStringList attributes ;
