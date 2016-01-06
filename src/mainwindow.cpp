@@ -219,10 +219,19 @@ void MainWindow::on_actionNew_triggered()
         theWindow = makeNewWindow();
     } else {
         theWindow = this ;
-        ui.editor->doNew();
     }
+    theWindow->ui.editor->doNew();
     theWindow->removeAttributesFilter();
     theWindow->updateWindowFilePath();
+    //QTimer::singleShot(200, theWindow, SLOT(onRaiseWindow()));
+}
+
+
+void MainWindow::onRaiseWindow()
+{
+    activateWindow();
+    raise();
+    show();
 }
 
 void MainWindow::startUIState()
