@@ -14,13 +14,7 @@ TODO:
 
 #new is:99
 
-99 - parificare comportamento main windows
-
-98 - think if is possible to stare a new instance without using unique app
-
-97 - write tests for element tooltip
-
-96 - tests for loading error -> show dialog with location
+98 - Investigare andata a capo su prologo seguito da commento o processing instr.
 
 95 - Use stream when exporting source
 
