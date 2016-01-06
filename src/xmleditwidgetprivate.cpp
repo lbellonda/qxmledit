@@ -1302,6 +1302,7 @@ Element * XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, cons
     p->ui->treeWidget->setUpdatesEnabled(true);
     p->setEnabled(true);
     Utils::restoreCursor();
+    emit p->reevaluateSelectionState();
     return foundElement ;
 }
 
