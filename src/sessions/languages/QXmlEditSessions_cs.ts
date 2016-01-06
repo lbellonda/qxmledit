@@ -144,31 +144,35 @@
         <translation>Formulář</translation>
     </message>
     <message>
-        <location filename="../widgets/sessiondrawerwidget.ui" line="31"/>
         <source>Search</source>
-        <translation>Hledat</translation>
+        <translation type="obsolete">Hledat</translation>
     </message>
     <message>
-        <location filename="../widgets/sessiondrawerwidget.ui" line="47"/>
+        <location filename="../widgets/sessiondrawerwidget.ui" line="185"/>
         <source>search...</source>
         <translation>Hledat...</translation>
     </message>
     <message>
-        <location filename="../widgets/sessiondrawerwidget.ui" line="107"/>
+        <location filename="../widgets/sessiondrawerwidget.ui" line="68"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;No session active.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;You can create a new session.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Žádné sezení není činné.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Můžete vytvořit nové sezení.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../widgets/sessiondrawerwidget.ui" line="138"/>
+        <location filename="../widgets/sessiondrawerwidget.ui" line="99"/>
         <source>Create a new session...</source>
         <translation>Vytvořit nové sezení...</translation>
+    </message>
+    <message>
+        <location filename="../widgets/sessiondrawerwidget.ui" line="132"/>
+        <source>Open or close the search panel.</source>
+        <translation>Otevřít nebo zavřít panel pro hledání.</translation>
     </message>
     <message>
         <source>No session active.</source>
         <translation type="obsolete">Žádné sezení není činné.</translation>
     </message>
     <message>
-        <location filename="../widgets/sessiondrawerwidget.ui" line="218"/>
+        <location filename="../widgets/sessiondrawerwidget.ui" line="262"/>
         <source>More...</source>
         <translation>Více...</translation>
     </message>
