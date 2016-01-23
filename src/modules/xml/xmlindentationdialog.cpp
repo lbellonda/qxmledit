@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -47,6 +47,7 @@ XmlIndentationDialog::~XmlIndentationDialog()
 void XmlIndentationDialog::init()
 {
     bool checkNoIndent = false;
+    _attributeHelper.init(ui->attrNoIndendation, ui->attrNewLineAt, ui->attrCharacters);
 
     ui->indentSettings->setChecked(_regola->useIndentation());
     int indentValue = _regola->indentation();
@@ -57,12 +58,20 @@ void XmlIndentationDialog::init()
         checkNoIndent = true ;
     }
     ui->chkNoIndent->setChecked(checkNoIndent);
+    _attributeHelper.setUp(_regola->xmlIndentAttributesType(), _regola->xmlIndentAttributesColumns());
+
     _started = true ;
+    Utils::TODO_THIS_RELEASE("test me");
 }
 
 void XmlIndentationDialog::on_chkNoIndent_stateChanged(int /*state*/)
 {
     ui->xmlIndent->setEnabled(!ui->chkNoIndent->isChecked());
+}
+
+void XmlIndentationDialog::doAccept()
+{
+    accept();
 }
 
 void XmlIndentationDialog::accept()
@@ -75,9 +84,30 @@ void XmlIndentationDialog::accept()
             _regola->setIndentationForce(ui->xmlIndent->value());
         }
         _regola->setSaveAttributesMethod(ui->cbSortAttributesAlpha->isChecked() ? Regola::SaveAttributesSortingAlphabetically : Regola::SaveAttributesNoSort);
+        Utils::TODO_THIS_RELEASE("finire");
+        _regola->setIndentAttributesSettings(true, _attributeHelper.type(), _attributeHelper.columns());
+        _regola->setUseXmlIndentAttributesSettings(true);
     } else {
         _regola->setIndentationForce(_appData->xmlIndent());
         _regola->setSaveAttributesMethod(Regola::SaveAttributesUsingDefault);
+        Utils::TODO_THIS_RELEASE("finire");
+        _regola->setIndentAttributesSettings(true, _appData->xmlIndentAttributesType(), _appData->xmlIndentAttributes());
+        _regola->setUseXmlIndentAttributesSettings(false);
     }
     QDialog::accept();
+}
+
+void XmlIndentationDialog::on_cmdPredefinedAttributes_clicked()
+{
+    _attributeHelper.doPredefined();
+}
+
+void XmlIndentationDialog::on_attrNoIndendation_clicked(bool /*checked*/)
+{
+    _attributeHelper.onSelection();
+}
+
+void XmlIndentationDialog::on_attrNewLineAt_clicked(bool /*checked*/)
+{
+    _attributeHelper.onSelection();
 }

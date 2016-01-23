@@ -30,6 +30,7 @@
         <file alias="group">images/group.png</file>
         <file alias="filter">images/view-filter.png</file>
         <file>images/mask.png</file>
+        <file alias="indent">images/format-indent-more.png</file>
     </qresource>
     <qresource prefix="/icon">
         <file>images/icon.png</file>

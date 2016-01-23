@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -256,7 +256,7 @@ void XsltHelper::doAction(const bool isInsert, XsltElement *el)
     }
     CopyAttributesSession *cas = NULL ;
     // open up dialog
-    QStringList pathList;
+    //QStringList pathList;
     XsltElementDialogParam params;
     if(prepareInsertElement(&params, isInsert, el)) {
         cas = XsltElementDialog::dialogProperties(&params);
@@ -266,11 +266,11 @@ void XsltHelper::doAction(const bool isInsert, XsltElement *el)
             }
             return ;
         }
-    }
-    insertElement(&params, cas, isInsert);
-    if(NULL != cas) {
-        cas->clear();
-        delete cas ;
+        insertElement(&params, cas, isInsert);
+        if(NULL != cas) {
+            cas->clear();
+            delete cas ;
+        }
     }
 }
 
@@ -360,6 +360,7 @@ void XsltHelper::insertElement(XsltElementDialogParam *params, CopyAttributesSes
     }
     Element *selectedElement = params->selectedElement;
     bool isModified = true ;
+    Utils::TODO_THIS_RELEASE("puo essere nullo... BUG un otherwise a livello di sibling di where");
     if(params->xsltElement->isClearAttributes) {
         // remove empty attributes
         cas->removeEmptyAttributes();
@@ -399,7 +400,7 @@ void XsltHelper::insertElement(XsltElementDialogParam *params, CopyAttributesSes
                 // find the specific position, this should be checked when creating the menu
                 Element *parentContextElement = selectedElement->parent();
                 if(NULL != parentContextElement) {
-                    Element *lastSibling = findLastSibling(parentContextElement, el);
+                    Element *lastSibling = findLastSibling(parentContextElement, el, true);
                     _owner->appendElementComplete(newElementToInsert, lastSibling);
                 } else {
                     // log no work to do
@@ -459,11 +460,14 @@ bool XsltHelper::prepareInsertElement(XsltElementDialogParam *params, const bool
                 if(NULL != parentContextElement) {
                     Element *lastSibling = findLastSibling(parentContextElement, el);
                     if(NULL == lastSibling) {
-                        Utils::error(_owner->getMainTreeWidget()->window(), tr("Invalid XSLT structure for the operation."));
-                        return false;
+                        parentForPath = selectedElement;
+                        baseElement = selectedElement ;
+                        /*Utils::error(_owner->getMainTreeWidget()->window(), tr("Invalid XSLT structure for the operation."));
+                        return false;*/
+                    } else {
+                        parentForPath = lastSibling->parent();
+                        baseElement = lastSibling ;
                     }
-                    parentForPath = lastSibling->parent();
-                    baseElement = lastSibling ;
                 }
             }
         }
@@ -490,7 +494,6 @@ bool XsltHelper::prepareInsertElement(XsltElementDialogParam *params, const bool
     return true;
 }
 
-
 /**
  * @brief XsltHelper::findLastSibling
  * @abstract finds the element that will be before the new one.
@@ -499,7 +502,7 @@ bool XsltHelper::prepareInsertElement(XsltElementDialogParam *params, const bool
  * @param el
  * @return the element before the new one
  */
-Element *XsltHelper::findLastSibling(Element *parentElement, XsltElement *el)
+Element *XsltHelper::findLastSibling(Element *parentElement, XsltElement *el, const bool useLast)
 {
     Element *lastChildren = NULL ;
     QString prefix = _owner->namespacePrefixXslt();
@@ -513,7 +516,10 @@ Element *XsltHelper::findLastSibling(Element *parentElement, XsltElement *el)
             if(element->tag() == tag) {
                 lastChildren = element;
             } else {
-                return lastChildren ;
+                if(!useLast) {
+                    return lastChildren ;
+                }
+                lastChildren = element ;
             }
         }
     }

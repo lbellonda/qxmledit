@@ -188,12 +188,13 @@ public:
     static const QString KEY_XML_AUTOINSERT_ENCODING;
     static const QString KEY_XML_INSERT_ENCODING;
     static const QString KEY_XML_INDENT;
+    static const QString KEY_XML_INDENT_ATTRIBUTES_COLUMNS;
+    static const QString KEY_XML_INDENT_ATTRIBUTES_TYPE;
 
     // code page
     static const QString KEY_CODEPAGE_VISUTF8;
     static const QString KEY_CODEPAGE_VISVALUE;
     static const QString KEY_CODEPAGE_VISNAMES;
-
 
     // colors
     static const QString KEY_COLOR_TAGS;

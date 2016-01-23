@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -28,10 +28,37 @@ XMLSaveContext::XMLSaveContext()
     _indentation = 0;
     _isSortAttributesAlpha = false ;
     _isDTDWritten = false ;
+    _attributesMaxColumns = 0 ;
+    _isAttributesColumns = false ;
+    _level = 0;
+    _currentAttrPos = 0;
+    _baseAttrPos = 0 ;
+    _attrIndex = 0 ;
 }
 
 XMLSaveContext::~XMLSaveContext()
 {
+}
+
+void XMLSaveContext::incLevel()
+{
+    _level ++ ;
+}
+
+void XMLSaveContext::decLevel()
+{
+    _level -- ;
+}
+
+int XMLSaveContext::level()
+{
+    return _level ;
+}
+
+int XMLSaveContext::indentBase(const QString &tag)
+{
+    int result = level() * indentation() + tag.length() + 2;
+    return result ;
 }
 
 bool XMLSaveContext::isDoIndent() const
@@ -72,4 +99,56 @@ bool XMLSaveContext::isDTDWritten() const
 void XMLSaveContext::setIsDTDWritten(bool isDTDWritten)
 {
     _isDTDWritten = isDTDWritten;
+}
+
+int XMLSaveContext::attributesMaxColumns() const
+{
+    return _attributesMaxColumns;
+}
+
+void XMLSaveContext::setAttributesMaxColumns(int attributesMaxColumns)
+{
+    _attributesMaxColumns = attributesMaxColumns;
+}
+
+bool XMLSaveContext::isAttributesColumns() const
+{
+    return _isAttributesColumns;
+}
+
+void XMLSaveContext::setIsAttributesColumns(bool isAttributesColumns)
+{
+    _isAttributesColumns = isAttributesColumns;
+}
+
+
+void XMLSaveContext::startElement(QIODevice *device)
+{
+    _currentAttrPos = 0;
+    _baseAttrPos = device->pos();
+    _attrIndex = 0;
+}
+
+void XMLSaveContext::incAttributePos(QIODevice *device, const int indentBase)
+{
+    if((_indentation > 0) && isAttributesColumns() && (_attrIndex > 0)) {
+        if(_currentAttrPos >= attributesMaxColumns()) {
+            device->write("\n");
+            // WARNING: PEEKING INTO SOURCE: x-1, the last space is added by writer code.
+            for(int i = 0 ; i < (indentBase - 1) ; i ++) {
+                device->write(" ");
+            }
+            _currentAttrPos = 0 ;
+            _baseAttrPos = device->pos();
+        }
+    }
+    _attrIndex++;
+}
+
+void XMLSaveContext::afterAttributePos(QIODevice *device)
+{
+    if((_indentation > 0) && isAttributesColumns()) {
+        qint64 nowPos = device->pos();
+        _currentAttrPos = nowPos - _baseAttrPos ;
+    }
 }

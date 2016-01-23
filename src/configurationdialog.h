@@ -91,6 +91,10 @@ private:
 private slots:
     void on_buttonBox_accepted();
     void accept();
+
+#ifdef QXMLEDIT_TEST
+    friend class TestIndent;
+#endif
 };
 
 #endif // CONFIGURATIONDIALOG_H

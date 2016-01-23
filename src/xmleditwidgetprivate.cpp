@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -102,7 +102,7 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
 Regola *XmlEditWidgetPrivate::newRegola(const bool bind)
 {
     Regola *newRule = new Regola();
-    newRule->setIndentation(_appData->xmlIndent());
+    houseworkRegola(newRule);
     newRule->setPaintInfo(&paintInfo);
     newRule->setNamespaceManager(_appData->namespaceManager());
     bindRegola(newRule, bind);
@@ -338,6 +338,8 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
     p->ui->navigation->setVisible(isNavigation);
     p->ui->navigation->setEnabled(isNavigation);
     p->ui->docTypeLabel->setVisible(false);
+
+    connect(p->ui->indent, SIGNAL(clicked()), this, SLOT(onSetIndent()));
 
     VStyle *style = loadStyleMenu();
     setNewStyle(style);
@@ -1788,6 +1790,7 @@ void XmlEditWidgetPrivate::setDocument(QDomDocument &document, const QString &fi
 bool XmlEditWidgetPrivate::readData(QXmlStreamReader *xmlReader, const QString &filePath, const bool isSetState)
 {
     Regola *newModel = new Regola(filePath);
+    houseworkRegola(newModel);
     XMLLoadContext context;
     if(!newModel->readFromStream(&context, xmlReader)) {
         showError(context.errorMessage());
@@ -1798,10 +1801,17 @@ bool XmlEditWidgetPrivate::readData(QXmlStreamReader *xmlReader, const QString &
     return true;
 }
 
+void XmlEditWidgetPrivate::houseworkRegola(Regola *regola)
+{
+    regola->setIndentation(_appData->xmlIndent());
+    regola->setIndentAttributesSettings(true, _appData->xmlIndentAttributesType(), _appData->xmlIndentAttributes());
+}
+
 void XmlEditWidgetPrivate::assignRegola(Regola *newModel, const bool isSetState)
 {
     newModel->setPaintInfo(&paintInfo);
     newModel->setNamespaceManager(_appData->namespaceManager());
+    houseworkRegola(newModel);
     p->emitDataReadyMessage(tr("Data loaded"));
     deleteRegola();
     regola = newModel;
@@ -1881,6 +1891,7 @@ void XmlEditWidgetPrivate::showToolbar(const bool how)
 {
     p->ui->copySpecial->setVisible(how);
     p->ui->styleButton->setVisible(how);
+    p->ui->indent->setVisible(how);
 }
 
 void XmlEditWidgetPrivate::onActionHideView(const bool isChecked)
@@ -3083,4 +3094,11 @@ bool XmlEditWidgetPrivate::doReplica(ReplicaCloneInfo *cmd, Element *element)
         }
     }
     return false;
+}
+
+void XmlEditWidgetPrivate::updateAttributeIndentationSettings()
+{
+    if(NULL != regola) {
+        regola->setIndentAttributesSettings(true, _appData->xmlIndentAttributesType(), _appData->xmlIndentAttributes());
+    }
 }

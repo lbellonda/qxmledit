@@ -189,6 +189,7 @@ public:
     bool insertXsdReference(NamespaceReferenceEntry *entry);
     bool actionFillSerie();
     bool doReplica(ReplicaCloneInfo *cmd, Element *element);
+    void updateAttributeIndentationSettings();
 
     QMenu* getCopyMenu();
 

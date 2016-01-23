@@ -127,6 +127,9 @@ Regola::~Regola()
 
 void Regola::housework()
 {
+    _attributesIndentSettings = false;
+    _indentAttributes = QXmlEditData::XmlIndentAttributesTypeDefault;
+    _indentAttributesColumns = QXmlEditData::XmlIndentAttributesColumnsDefault ;
     _saveAttributesMethod = SaveAttributesUsingDefault ;
     _useNoNamespaceXSD = false;
     _useNamespaceXSD = false ;
@@ -238,7 +241,6 @@ void Regola::emitIndentationChange()
 {
     emit indentationChanged((_indent >= 0), _indent);
 }
-
 
 void Regola::caricaValori(QTreeWidget *pTree)
 {
@@ -352,6 +354,8 @@ bool Regola::writeStreamInternal(QIODevice *device, const bool useEncoding, Elem
     XMLSaveContext context;
     context.setIndentation(_indent);
     context.setIsSortAttributesAlpha(isSavingSortingAttributes());
+    context.setAttributesMaxColumns(xmlIndentAttributesColumns());
+    context.setIsAttributesColumns(xmlIndentAttributesType() == QXmlEditData::AttributesIndentationMaxCols);
 
     outputStream.setAutoFormatting(false);
     outputStream.setAutoFormattingIndent(_indent);
@@ -2934,3 +2938,45 @@ void Regola::updateElement(Element* pElement, const bool updateGUI)
     }
     setModified(true);
 }
+
+void Regola::setIndentAttributesSettings(const bool forceSettings, const QXmlEditData::EIndentAttributes valueSetting, const int valueCols)
+{
+    if(_attributesIndentSettings || forceSettings) {
+        _indentAttributes = valueSetting ;
+        _indentAttributesColumns = valueCols ;
+        emitIndentationChange();
+    }
+}
+
+int Regola::xmlIndentAttributesColumns()
+{
+    return _indentAttributesColumns ;
+}
+
+void Regola::setXmlIndentAttributesColumns(const int value)
+{
+    _indentAttributesColumns = value ;
+    emitIndentationChange();
+}
+
+QXmlEditData::EIndentAttributes Regola::xmlIndentAttributesType()
+{
+    return _indentAttributes ;
+}
+
+void Regola::setXmlIndentAttributesType(const QXmlEditData::EIndentAttributes value)
+{
+    _indentAttributes = value ;
+    emitIndentationChange();
+}
+
+bool Regola::isUseXmlIndentAttributesSettings()
+{
+    return _attributesIndentSettings ;
+}
+
+void Regola::setUseXmlIndentAttributesSettings(const bool value)
+{
+    _attributesIndentSettings = value ;
+}
+

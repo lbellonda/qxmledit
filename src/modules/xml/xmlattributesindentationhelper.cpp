@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,45 +20,54 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "xmlattributesindentationhelper.h"
 
-#ifndef XMLINDENTATIONDIALOG_H
-#define XMLINDENTATIONDIALOG_H
-
-#include "xmlEdit.h"
-#include "modules/xml/xmlattributesindentationhelper.h"
-
-namespace Ui
+XMLAttributesIndentationHelper::XMLAttributesIndentationHelper()
 {
-class XmlIndentationDialog;
+    _noIndent = NULL ;
+    _indentCol = NULL ;
+    _charsSpinBox = NULL ;
 }
 
-class Regola;
-class QXmlEditData;
-
-class XmlIndentationDialog : public QDialog
+XMLAttributesIndentationHelper::~XMLAttributesIndentationHelper()
 {
-    Q_OBJECT
-    bool _started;
-    Regola *_regola;
-    QXmlEditData *_appData;
-    XMLAttributesIndentationHelper _attributeHelper;
+}
 
-public:
-    explicit XmlIndentationDialog(QWidget *parent, Regola *newRegola, QXmlEditData *appData);
-    virtual ~XmlIndentationDialog();
-    void doAccept();
+void XMLAttributesIndentationHelper::init(QRadioButton *noIndent, QRadioButton *indentCol, QSpinBox *charsSpinBox)
+{
+    _noIndent = noIndent;
+    _indentCol = indentCol ;
+    _charsSpinBox = charsSpinBox;
+}
 
-private:
-    Ui::XmlIndentationDialog *ui;
+void XMLAttributesIndentationHelper::setUp(const QXmlEditData::EIndentAttributes value, const int columnsValue)
+{
+    if(QXmlEditData::AttributesIndentationNone == value) {
+        _noIndent->setChecked(true);
+    } else {
+        _indentCol->setChecked(true);
+    }
+    _charsSpinBox->setValue(columnsValue);
+    onSelection();
+}
 
-    void init();
-    void accept();
+void XMLAttributesIndentationHelper::doPredefined()
+{
+    _noIndent->setChecked(true);
+    onSelection();
+}
 
-private slots:
-    void on_chkNoIndent_stateChanged(int /*state*/);
-    void on_cmdPredefinedAttributes_clicked();
-    void on_attrNoIndendation_clicked(bool checked);
-    void on_attrNewLineAt_clicked(bool checked);
-};
+void XMLAttributesIndentationHelper::onSelection()
+{
+    _charsSpinBox->setEnabled(_indentCol->isChecked());
+}
 
-#endif // XMLINDENTATIONDIALOG_H
+QXmlEditData::EIndentAttributes XMLAttributesIndentationHelper::type()
+{
+    return _noIndent->isChecked() ? QXmlEditData::AttributesIndentationNone : QXmlEditData::AttributesIndentationMaxCols ;
+}
+
+int XMLAttributesIndentationHelper::columns()
+{
+    return _charsSpinBox->value();
+}

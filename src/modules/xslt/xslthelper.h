@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -19,7 +19,6 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
-
 
 #ifndef XSLTHELPER_H
 #define XSLTHELPER_H
@@ -54,7 +53,7 @@ class XsltHelper : public QObject
     void doAction(const bool isInsert, XsltElement *el);
     void loadAction(QMenu *contextMenu, QAction *action, XsltElement *el);
     bool isTemplate(const QString &tag);
-    Element *findLastSibling(Element *parentElement, XsltElement *el);
+    Element *findLastSibling(Element *parentElement, XsltElement *el, const bool useLast = false);
     bool isXsdElement(Element *referenceElement, const QString &prefix);
     bool isXsdElementOfKind(Element *element, const QString &prefix, const QString &kind);
     Element *findRootTag(const QString &nameToFind, const QString &typeName);

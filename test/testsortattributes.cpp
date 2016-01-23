@@ -69,22 +69,6 @@ bool TestSortAttributes::testSaving()
     return true ;
 }
 
-static bool readFromFile(const QString &file, QString &result)
-{
-    bool ok = false ;
-    QFile data(file);
-    if (data.open(QFile::ReadOnly | QFile::Text)) {
-        ok = true ;
-        QTextStream streamIn(&data);
-        result = streamIn.readAll();
-        if(data.error() != QFile::NoError) {
-            ok = false;
-        }
-        data.close();
-    }
-    return ok;
-}
-
 bool TestSortAttributes::baseSetup(const QString &fileIn, const QString &fileCompare,
                                    const bool setGlobal, const bool setSortGlobal,
                                    const bool setLocal, const bool setSortLocal)

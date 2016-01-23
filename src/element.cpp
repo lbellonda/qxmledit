@@ -1026,6 +1026,9 @@ bool Element::writeStream(XMLSaveContext *context, QXmlStreamWriter &writer, Ele
         writer.writeStartElement(tag());
         checkSaveAndSetIndent(context, writer);
 
+        int indentBase = context->indentBase(tag());
+        context->startElement(writer.device());
+
         //itera sulla lista e prendi i valori dalla chiave
         if(context->isSortAttributesAlpha()) {
             QMap<QString, QString> sortedCollection;
@@ -1038,13 +1041,17 @@ bool Element::writeStream(XMLSaveContext *context, QXmlStreamWriter &writer, Ele
             }
             foreach(QString key, sortedCollection.keys()) {
                 QString value = sortedCollection[key];
+                context->incAttributePos(writer.device(), indentBase);
                 writer.writeAttribute(key, value);
+                context->afterAttributePos(writer.device());
             }
         } else {
             QVectorIterator<Attribute*>  attrs(attributes);
             while(attrs.hasNext()) {
+                context->incAttributePos(writer.device(), indentBase);
                 Attribute* attribute = attrs.next();
                 writer.writeAttribute(attribute->name, attribute->value);
+                context->afterAttributePos(writer.device());
             }
         }
 
@@ -1057,12 +1064,14 @@ bool Element::writeStream(XMLSaveContext *context, QXmlStreamWriter &writer, Ele
                 writer.writeCharacters(tx->text);
             }
         }
+        context->incLevel();
         foreach(Element * value, childItems) {
             if(!value->writeStream(context, writer, dataMap)) {
                 result = false;
                 break;
             }
         }
+        context->decLevel();
         writer.writeEndElement();
     }
     break;

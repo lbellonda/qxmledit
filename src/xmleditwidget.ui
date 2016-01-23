@@ -281,6 +281,23 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QToolButton" name="indent">
+           <property name="toolTip">
+            <string>Indentation</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="risorse.qrc">
+             <normaloff>:/editText/indent</normaloff>:/editText/indent</iconset>
+           </property>
+           <property name="popupMode">
+            <enum>QToolButton::DelayedPopup</enum>
+           </property>
+          </widget>
+         </item>
         </layout>
        </item>
       </layout>
@@ -304,7 +321,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

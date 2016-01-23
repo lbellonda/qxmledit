@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2014-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -51,6 +51,7 @@ public:
     void setAppData(ApplicationData *appData);
 
     bool handleSingleInstance(StartParams *startParams);
+    void updateEditors();
 
     FrwLogger *logger() const;
     void setLogger(FrwLogger *logger);

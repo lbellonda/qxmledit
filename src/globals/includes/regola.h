@@ -22,6 +22,8 @@
 #ifndef QXMLEDITWIDGET_REGOLA_H
 #define QXMLEDITWIDGET_REGOLA_H
 
+#include "xmlEdit.h"
+
 #include <QAbstractItemModel>
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomNode>
@@ -36,6 +38,7 @@
 #include "bookmark.h"
 #include "paintinfo.h"
 #include "xmlprolog.h"
+#include "qxmleditdata.h"
 
 class Element;
 class DocumentType;
@@ -63,8 +66,10 @@ class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
     Q_OBJECT
     Q_PROPERTY(bool modified READ isModified WRITE setModified)
 
+private:
+#ifdef QXMLEDIT_TEST
     friend class TestXsd;
-
+#endif
     static const int ModelName;
     static const int ModelValue;
     static const int ModelColumns;
@@ -77,6 +82,9 @@ class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
         UndoLimitCount = 10
     };
 
+    bool _attributesIndentSettings;
+    QXmlEditData::EIndentAttributes _indentAttributes;
+    int _indentAttributesColumns;
     bool _useIndent;
     int _indent;
     bool _useMixedContent;
@@ -419,6 +427,16 @@ public:
     void setDtd(const QString &dtd);
     bool setNewDTD(const QString &newDtd);
     void updateElement(Element* pElement, const bool updateGUI = false);
+
+    //--- begin (indent attributes)
+    void setIndentAttributesSettings(const bool forceSettings, const QXmlEditData::EIndentAttributes valueSetting, const int valueCols);
+    int xmlIndentAttributesColumns();
+    void setXmlIndentAttributesColumns(const int value);
+    QXmlEditData::EIndentAttributes xmlIndentAttributesType();
+    void setXmlIndentAttributesType(const QXmlEditData::EIndentAttributes value);
+    bool isUseXmlIndentAttributesSettings();
+    void setUseXmlIndentAttributesSettings(const bool value);
+    //--- end (indent attributes)
 
 signals:
     void wasModified();

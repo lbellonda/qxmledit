@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -57,6 +57,7 @@ extern const char *APP_TITLE ;
 #include "modules/xsd/xsdmanager.h"
 #include "modules/xsd/xsdelementreferencedialog.h"
 #include "widgets/qlabelwithsignals.h"
+#include "qxmleditapplication.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -1403,6 +1404,21 @@ void MainWindow::on_actionConfigure_triggered()
     if(version != nowVersion) {
         ui.editor->invalidatePaintData();
     }
+    QXmlEditApplication *thisAppl = qXmlEditApplication();
+    if(0 != thisAppl) {
+        thisAppl->updateEditors();
+    }
+}
+
+QXmlEditApplication* MainWindow::qXmlEditApplication()
+{
+    QXmlEditApplication *thisAppl = qobject_cast<QXmlEditApplication *>(application);
+    return thisAppl ;
+}
+
+void MainWindow::updateAfterPreferences()
+{
+    getEditor()->updateAttributeIndentationSettings();
 }
 
 void MainWindow::on_ok_clicked()

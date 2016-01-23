@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,44 +21,28 @@
  **************************************************************************/
 
 
-#ifndef XMLINDENTATIONDIALOG_H
-#define XMLINDENTATIONDIALOG_H
+#ifndef XMLATTRIBUTESINDENTATIONHELPER_H
+#define XMLATTRIBUTESINDENTATIONHELPER_H
 
 #include "xmlEdit.h"
-#include "modules/xml/xmlattributesindentationhelper.h"
+#include "libQXmlEdit_global.h"
+#include "qxmleditdata.h"
 
-namespace Ui
+class LIBQXMLEDITSHARED_EXPORT XMLAttributesIndentationHelper
 {
-class XmlIndentationDialog;
-}
-
-class Regola;
-class QXmlEditData;
-
-class XmlIndentationDialog : public QDialog
-{
-    Q_OBJECT
-    bool _started;
-    Regola *_regola;
-    QXmlEditData *_appData;
-    XMLAttributesIndentationHelper _attributeHelper;
-
+    QRadioButton *_noIndent;
+    QRadioButton *_indentCol;
+    QSpinBox *_charsSpinBox;
 public:
-    explicit XmlIndentationDialog(QWidget *parent, Regola *newRegola, QXmlEditData *appData);
-    virtual ~XmlIndentationDialog();
-    void doAccept();
+    XMLAttributesIndentationHelper();
+    virtual ~XMLAttributesIndentationHelper();
 
-private:
-    Ui::XmlIndentationDialog *ui;
-
-    void init();
-    void accept();
-
-private slots:
-    void on_chkNoIndent_stateChanged(int /*state*/);
-    void on_cmdPredefinedAttributes_clicked();
-    void on_attrNoIndendation_clicked(bool checked);
-    void on_attrNewLineAt_clicked(bool checked);
+    void init(QRadioButton *noIndent, QRadioButton *indentCol, QSpinBox *charsSpinBox);
+    void doPredefined();
+    int columns();
+    QXmlEditData::EIndentAttributes type();
+    void onSelection();
+    void setUp(const QXmlEditData::EIndentAttributes value, const int columnsValue);
 };
 
-#endif // XMLINDENTATIONDIALOG_H
+#endif // XMLATTRIBUTESINDENTATIONHELPER_H

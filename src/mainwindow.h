@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -40,7 +40,9 @@
 #include "widgets/attrfilterstatus.h"
 #include "mainwndcontroller.h"
 
+
 class SnippetManager;
+class QXmlEditApplication;
 
 class MainWindow : public QMainWindow, UIDelegate
 {
@@ -136,6 +138,8 @@ public:
     MainWndController *controller();
 
     bool reload();
+    QXmlEditApplication* qXmlEditApplication();
+    void updateAfterPreferences();
 
 protected:
     //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.

@@ -547,3 +547,19 @@ bool TestBase::compare(Regola *regola, const QString &id, const QString &fileRes
     }
     return true ;
 }
+
+bool TestBase::readFromFile(const QString &file, QString &result)
+{
+    bool ok = false ;
+    QFile data(file);
+    if (data.open(QFile::ReadOnly | QFile::Text)) {
+        ok = true ;
+        QTextStream streamIn(&data);
+        result = streamIn.readAll();
+        if(data.error() != QFile::NoError) {
+            ok = false;
+        }
+        data.close();
+    }
+    return ok;
+}

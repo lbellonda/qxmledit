@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2014-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -41,12 +41,39 @@ class TestIndent : public TestBase
     bool writeSettings(App *app, QBuffer *outData);
     bool simpleWrite(App *app, QBuffer *outData);
 
+    //---
+    bool testSettingsFromDialog();
+    bool testSettingsFromPreferences();
+    //---
+    bool testIndentAttributesUnit();
+    bool testIndentAttributesIndent();
+    bool testIndentAttributesWithoutDefaultValues();
+    bool testIndentAttributesWithDefaultValues();
+    //--
+    bool testIndentAttributesWithDefaultValuesInner(const int indentValue);
+    bool testIndentAttributesWithoutDefaultValuesInner(const int indentValue);
+    bool testIndentAttributesIndentInner(const int indentValue, const int attributeIndentation);
+    bool saveAndCompareAttributesIndentation(const QString &caseId,
+                                             //--
+                                             const int appIndentation,
+                                             const int specificIndentation,
+                                             const bool useSpecificIndentation, const bool useIndentation,
+                                             //--
+                                             const bool setDefaultValues,
+                                             const int attributeIndentationDefaultValue,
+                                             const bool setSpecificValue,
+                                             const int attributeIndentationSpecificValue,
+                                             // --
+                                             const QString &fileReference );
+
 public:
     TestIndent();
     ~TestIndent();
 
     bool testSaving();
     bool testSettings();
+    bool testFast();
+    bool testIndentAttributes();
 };
 
 #endif // TESTINDENT_H

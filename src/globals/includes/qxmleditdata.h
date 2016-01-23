@@ -22,8 +22,6 @@
 #ifndef QXMLEDITDATA_H
 #define QXMLEDITDATA_H
 
-#include <QObject>
-
 #include "libQXmlEdit_global.h"
 
 #include "xmlEdit.h"
@@ -53,12 +51,12 @@ enum EStylesDir {
     ESTYLE_DIR_USEAPPL
 };
 
-
 class XsdPlugin;
 class Element;
 class UnicodeHelper;
 class XSDManager;
 class NamespaceManager;
+class Regola;
 
 class LIBQXMLEDITSHARED_EXPORT ClipboardElementList
 {
@@ -137,6 +135,10 @@ public:
     QXmlEditData();
     virtual ~QXmlEditData();
 
+    enum EIndentAttributes {
+        AttributesIndentationNone,
+        AttributesIndentationMaxCols,
+    };
 
     virtual void init();
     virtual void end();
@@ -266,8 +268,14 @@ public:
 
     //--- region(indentxml)
     static const int XmlIndentDefault = 1 ;
+    static const int XmlIndentAttributesColumnsDefault = 40 ;
+    static const EIndentAttributes XmlIndentAttributesTypeDefault = AttributesIndentationNone;
     int xmlIndent();
     void setXmlIndent(const int value);
+    int xmlIndentAttributes();
+    void setXmlIndentAttributes(const int value);
+    EIndentAttributes xmlIndentAttributesType();
+    void setXmlIndentAttributesType(const EIndentAttributes value);
     //--- endregion(indentxml)
 
     //--- region(xsdMode)

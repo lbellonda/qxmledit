@@ -1,3 +1,8 @@
+0.9.3
+    Fixed a bug on XSLT element insert.
+    New option for set attribute maximum offset from element tag when saving.
+    New tool button for indentation settings.
+
 0.9.2
     After a search operation the menu status is evaluated.
     Fixed a regression on "New".

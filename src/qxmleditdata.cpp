@@ -667,6 +667,26 @@ void QXmlEditData::setXmlIndent(const int value)
     Config::saveInt(Config::KEY_XML_INDENT, value);
 }
 
+int QXmlEditData::xmlIndentAttributes()
+{
+    return Config::getInt(Config::KEY_XML_INDENT_ATTRIBUTES_COLUMNS, XmlIndentAttributesColumnsDefault);
+}
+
+void QXmlEditData::setXmlIndentAttributes(const int value)
+{
+    Config::saveInt(Config::KEY_XML_INDENT_ATTRIBUTES_COLUMNS, value);
+}
+
+QXmlEditData::EIndentAttributes QXmlEditData::xmlIndentAttributesType()
+{
+    return (QXmlEditData::EIndentAttributes)Config::getInt(Config::KEY_XML_INDENT_ATTRIBUTES_TYPE, XmlIndentAttributesTypeDefault);
+}
+
+void QXmlEditData::setXmlIndentAttributesType(const QXmlEditData::EIndentAttributes value)
+{
+    Config::saveInt(Config::KEY_XML_INDENT_ATTRIBUTES_TYPE, value);
+}
+
 //--- endregion(indentxml)
 
 //--- region(xsdMode)

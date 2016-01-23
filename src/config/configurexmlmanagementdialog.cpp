@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -34,6 +34,7 @@ ConfigureXMLManagementDialog::ConfigureXMLManagementDialog(QWidget *parent) :
     ui->setupUi(this);
     ui->xmlIndent->setMinimum(0);
     ui->xmlIndent->setMaximum(16);
+    _attributeHelper.init(ui->attrNoIndendation, ui->attrNewLineAt, ui->attrCharacters);
 }
 
 ConfigureXMLManagementDialog::~ConfigureXMLManagementDialog()
@@ -61,12 +62,15 @@ void ConfigureXMLManagementDialog::init(ApplicationData* data)
     enableIndent();
     ui->cbSaveStream->setChecked(Regola::isSaveUsingStream());
     ui->chkSortAttributes->setChecked(Regola::isSaveSortAlphaAttribute());
+    _attributeHelper.setUp(data->xmlIndentAttributesType(), data->xmlIndentAttributes());
     _started = true ;
 }
 
 
 void ConfigureXMLManagementDialog::saveIfChanged()
 {
+    _data->setXmlIndentAttributesType(_attributeHelper.type());
+    _data->setXmlIndentAttributes(_attributeHelper.columns());
 }
 
 void ConfigureXMLManagementDialog::on_chkMetadata_clicked(bool /*state*/)
@@ -149,5 +153,22 @@ void ConfigureXMLManagementDialog::on_chkSortAttributes_stateChanged(int /*state
     }
 }
 
+void ConfigureXMLManagementDialog::on_attrCharacters_valueChanged(int /*i*/)
+{
+    // can ignore it, just update it on saving
+}
 
+void ConfigureXMLManagementDialog::on_cmdPredefinedAttributes_clicked()
+{
+    _attributeHelper.doPredefined();
+}
 
+void ConfigureXMLManagementDialog::on_attrNoIndendation_clicked(bool /*checked*/)
+{
+    _attributeHelper.onSelection();
+}
+
+void ConfigureXMLManagementDialog::on_attrNewLineAt_clicked(bool /*checked*/)
+{
+    _attributeHelper.onSelection();
+}

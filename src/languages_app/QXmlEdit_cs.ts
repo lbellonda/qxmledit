@@ -2849,7 +2849,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="178"/>
-        <source>Resets the xml iindentation value.</source>
+        <source>Resets the xml indentation value.</source>
         <translation>Nastaví znovu hodnotu odsazení XML.</translation>
     </message>
     <message>

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,6 +24,7 @@
 #ifndef XMLEDITWIDGETPRIVATE_H
 #define XMLEDITWIDGETPRIVATE_H
 
+#include "xmlEdit.h"
 #include "xmleditwidget.h"
 #include "ui_xmleditwidget.h"
 #include "xmlwidgetutilities.h"
@@ -385,6 +386,7 @@ private slots:
     void insertXmlSchemaReferences();
     bool actionFillSerie();
     bool doReplica(ReplicaCloneInfo *cmd, Element *element);
+    void updateAttributeIndentationSettings();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);
@@ -394,6 +396,7 @@ private:
     bool findDomNodeScan(QDomNode node, QDomNode nodeTarget, const int lineSearched, const int columnSearched, FindNodeWithLocationInfo &info);
     void recalcRowHeightClass();
     void showError(const QString &errMessage);
+    void houseworkRegola(Regola *regola);
 protected:
     bool eventFilter(QObject *obj, QEvent * event);
 

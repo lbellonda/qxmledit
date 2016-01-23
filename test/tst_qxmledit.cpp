@@ -828,7 +828,11 @@ void TestQXmlEdit::testColors()
 void TestQXmlEdit::testIndent()
 {
     bool result ;
-
+    {
+        TestIndent test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test TestIndent: testFast '%1'").arg(test1.errorString())).toLatin1().data());
+    }
     {
         TestIndent test1;
         result = test1.testSaving();
@@ -838,6 +842,11 @@ void TestQXmlEdit::testIndent()
         TestIndent test1;
         result = test1.testSettings();
         QVERIFY2(result, (QString("test TestIndent: testSettings '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestIndent test1;
+        result = test1.testIndentAttributes();
+        QVERIFY2(result, (QString("test TestIndent: testIndentAttributes '%1'").arg(test1.errorString())).toLatin1().data());
     }
 }
 
@@ -1254,8 +1263,10 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testAnonymize();
+    testIndent();
+    /*testAnonymize();
     testReplica();
+    testSortAttributes();*/
 }
 
 QTEST_MAIN(TestQXmlEdit)

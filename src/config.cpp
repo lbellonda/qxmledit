@@ -184,7 +184,8 @@ const QString Config::KEY_XML_AUTOINSERT_PROLOG("xmlManagement/autoInsertProlog"
 const QString Config::KEY_XML_AUTOINSERT_ENCODING("xmlManagement/autoInsertPrologEncoding");
 const QString Config::KEY_XML_INSERT_ENCODING("xmlManagement/insertPrologEncoding");
 const QString Config::KEY_XML_INDENT("xmlManagement/indent");
-
+const QString Config::KEY_XML_INDENT_ATTRIBUTES_COLUMNS("xmlManagement/indentAttributesColumns");
+const QString Config::KEY_XML_INDENT_ATTRIBUTES_TYPE("xmlManagement/indentAttributesType");
 // code page
 const QString Config::KEY_CODEPAGE_VISUTF8("codePage/visUTF8");
 const QString Config::KEY_CODEPAGE_VISVALUE("codePage/visValue");

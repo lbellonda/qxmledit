@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,9 +20,10 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #ifndef XMLSAVECONTEXT_H
 #define XMLSAVECONTEXT_H
+
+#include "xmlEdit.h"
 
 class XMLSaveContext
 {
@@ -30,10 +31,15 @@ class XMLSaveContext
     int _indentation;
     bool _isSortAttributesAlpha;
     bool _isDTDWritten;
+    int _attributesMaxColumns;
+    bool _isAttributesColumns;
+    int _level;
+    qint64 _currentAttrPos ;
+    qint64 _baseAttrPos ;
+    int _attrIndex;
 public:
     XMLSaveContext();
     ~XMLSaveContext();
-
 
     bool isDoIndent() const;
     void setDoIndent(bool doIndent);
@@ -43,6 +49,18 @@ public:
     void setIsSortAttributesAlpha(bool isSortAttributesAlpha);
     bool isDTDWritten() const;
     void setIsDTDWritten(bool isDTDWritten);
+    int attributesMaxColumns() const;
+    void setAttributesMaxColumns(int attributesMaxColumns);
+    bool isAttributesColumns() const;
+    void setIsAttributesColumns(bool isAttributesColumns);
+
+    void incLevel();
+    void decLevel();
+    int level();
+    int indentBase(const QString &tag);
+    void startElement(QIODevice *device);
+    void afterAttributePos(QIODevice *device);
+    void incAttributePos(QIODevice *device, const int indentBase);
 };
 
 #endif // XMLSAVECONTEXT_H

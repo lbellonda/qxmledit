@@ -1093,3 +1093,8 @@ bool XmlEditWidget::doReplica(ReplicaCloneInfo *cmd, Element *element)
 {
     return d->doReplica(cmd, element);
 }
+
+void XmlEditWidget::updateAttributeIndentationSettings()
+{
+    d->updateAttributeIndentationSettings();
+}

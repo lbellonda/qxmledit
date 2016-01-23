@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -70,6 +70,9 @@
 #include <QTableWidget>
 #include <QUndoStack>
 #include <QToolTip>
+#include <QSpinBox>
+#include <QRadioButton>
+#include <QGroupBox>
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 #include <QtConcurrent/QtConcurrentRun>

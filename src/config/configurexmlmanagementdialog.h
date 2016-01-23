@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,9 +24,9 @@
 #ifndef CONFIGUREXMLMANAGEMENTDIALOG_H
 #define CONFIGUREXMLMANAGEMENTDIALOG_H
 
-#include <QDialog>
+#include "xmlEdit.h"
+#include "modules/xml/xmlattributesindentationhelper.h"
 #include "applicationdata.h"
-
 
 namespace Ui
 {
@@ -38,6 +38,7 @@ class ConfigureXMLManagementDialog : public QDialog
     Q_OBJECT
     ApplicationData* _data;
     bool _started ;
+    XMLAttributesIndentationHelper _attributeHelper;
 
 public:
     explicit ConfigureXMLManagementDialog(QWidget *parent = 0);
@@ -62,6 +63,10 @@ private slots:
     void on_chkNoIndent_stateChanged(int /*state*/);
     void on_cbSaveStream_stateChanged(int /*state*/);
     void on_chkSortAttributes_stateChanged(int /*state*/);
+    void on_attrCharacters_valueChanged(int /*i*/);
+    void on_attrNoIndendation_clicked(bool /*checked*/);
+    void on_attrNewLineAt_clicked(bool /*checked*/);
+    void on_cmdPredefinedAttributes_clicked();
 };
 
 #endif // CONFIGUREXMLMANAGEMENTDIALOG_H
