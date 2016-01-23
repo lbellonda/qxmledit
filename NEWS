@@ -1,4 +1,5 @@
 0.9.3
+    New menu to show the containing folder in system browser.
     Fixed a bug on XSLT element insert.
     New option for set attribute maximum offset from element tag when saving.
     New tool button for indentation settings.

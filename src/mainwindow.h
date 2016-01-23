@@ -207,6 +207,7 @@ private slots:
     void on_actionCompare_triggered();
     void on_actionReload_triggered();
     void on_actionCopyPathToClipboard_triggered();
+    void on_actionShowContainingFolder_triggered();
     void on_actionAddCurrentDirectory_triggered();
     void on_actionEditPreferredDirectories_triggered();
     void on_actionValidate_triggered();

@@ -823,6 +823,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionReload->setEnabled((NULL != regola) && !regola->fileName().isEmpty());
     enableZoom();
     ui.actionCopyPathToClipboard->setEnabled((NULL != regola) && !regola->fileName().isEmpty());
+    ui.actionShowContainingFolder->setEnabled((NULL != regola) && !regola->fileName().isEmpty());
     ui.actionAddCurrentDirectory->setEnabled((NULL != regola) && !regola->fileName().isEmpty());
     // TODO: test
     //ui.testNext->setEnabled((NULL!=regola)?regola->nextBookmark()>=0:false);
@@ -1628,6 +1629,22 @@ void MainWindow::loadRecentFilesSettings()
 void MainWindow::on_actionCopyPathToClipboard_triggered()
 {
     ui.editor->onActionCopyPathToClipboard();
+}
+
+void MainWindow::on_actionShowContainingFolder_triggered()
+{
+    Regola *regola = getRegola();
+    if((NULL != regola) && !regola->fileName().isEmpty()) {
+        QFileInfo info(regola->fileName());
+        QDir dir = info.dir();
+        if(dir.exists()) {
+            if(!QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath())) ) {
+                error( tr("Error opening folder.") );
+            }
+        } else {
+            error(tr("The folder does not exists"));
+        }
+    }
 }
 
 void MainWindow::on_actionAddCurrentDirectory_triggered()

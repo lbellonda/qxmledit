@@ -123,6 +123,7 @@
     <addaction name="actionInfo"/>
     <addaction name="actionAnonymize"/>
     <addaction name="actionCopyPathToClipboard"/>
+    <addaction name="actionShowContainingFolder"/>
     <addaction name="separator"/>
     <addaction name="actionConfigureSnippets"/>
     <addaction name="actionConfigure"/>
@@ -1984,6 +1985,14 @@
     <string>Ctrl+W</string>
    </property>
   </action>
+  <action name="actionShowContainingFolder">
+   <property name="text">
+    <string>Show Containing Folder</string>
+   </property>
+   <property name="toolTip">
+    <string>Opens the containing folder in the system browser.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -2000,7 +2009,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>
