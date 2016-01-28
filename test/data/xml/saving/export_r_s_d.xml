@@ -1,0 +1,5 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+ <childtwo b="b" xmlns="xxx" xmlns:b="bbbb">
+  <b:b b="b"/>
+ </childtwo>
+

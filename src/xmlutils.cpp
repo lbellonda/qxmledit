@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -138,6 +138,7 @@ bool XmlUtils::isDataAttribute(const QString &attributeName)
  */
 bool XmlUtils::getNsPrefix(const QString &name, QString &prefix)
 {
+    Utils::TODO_THIS_RELEASE("refactor in isNsPrefix");
     prefix = "" ;
     if(name == "xmlns") {
         return true;

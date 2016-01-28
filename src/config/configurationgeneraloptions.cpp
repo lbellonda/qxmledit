@@ -80,6 +80,10 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
     ui->cbOpenFilesInNewWindow->setChecked(Config::getBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, QXmlEditData::DefaultOpenInNewWindow));
     ui->cbShowImagesInTextTooltip->setChecked(QXmlEditData::isShowImagesInTooltip());
     ui->cbSingleInstance->setChecked(Config::getBool(Config::KEY_GENERAL_SINGLE_INSTANCE, true));
+
+    ui->cbAttrLen->setChecked(Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, PaintInfo::NumColumnsPerAttributeDefault) > 0);
+    ui->attrLenCols->setValue(Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, PaintInfo::NumColumnsPerAttributeDefault));
+
     _started = true ;
 }
 
@@ -98,6 +102,9 @@ void ConfigurationGeneralOptions::save()
     _data->enableWelcomeDialog(ui->showWelcomePage->isChecked());
     _data->enableAutoscroll(ui->autoscroll->isChecked());
     Config::saveBool(Config::KEY_MAIN_EXPANDONLOAD, ui->expandTreeAfterLoad->isChecked()) ;
+    Config::saveBool(Config::KEY_GENERAL_SINGLE_INSTANCE, ui->cbSingleInstance->isChecked());
+    //
+    Config::saveInt(Config::KEY_MAIN_ATTRCOLLLIMIT, ui->cbAttrLen->isChecked() ? ui->attrLenCols->value() : 0);
 }
 
 void ConfigurationGeneralOptions::saveIfChanged()
@@ -198,7 +205,7 @@ void ConfigurationGeneralOptions::on_changeElementsFont_clicked()
         return ;
     }
 
-    bool isOk;
+    bool isOk = true ;
     QFont selectedFont = QFontDialog::getFont(&isOk, QFont(_elementFontName, _elementFontSize, _elementFontBold ? QFont::Bold : -1, _elementFontItalic), this, tr("Select the font for elements text display")) ;
     if(isOk) {
         _elementFontName = selectedFont.family();
@@ -211,7 +218,6 @@ void ConfigurationGeneralOptions::on_changeElementsFont_clicked()
         Config::saveBool(Config::KEY_ELEMENT_ELEMENTFONTITALIC, _elementFontItalic);
         Config::saveBool(Config::KEY_ELEMENT_ELEMENTFONTBOLD, _elementFontBold);
         Config::saveBool(Config::KEY_VIEW_STYLE_DEFAULT_BOLD, ui->chkDefBold->isChecked());
-        Config::saveBool(Config::KEY_GENERAL_SINGLE_INSTANCE, ui->cbSingleInstance->isChecked());
 
         setElementFontInfo();
     }
@@ -246,4 +252,9 @@ void ConfigurationGeneralOptions::on_cbOpenFilesInNewWindow_stateChanged(int /*s
         return ;
     }
     Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, ui->cbOpenFilesInNewWindow->isChecked());
+}
+
+void ConfigurationGeneralOptions::on_cbAttrLen_stateChanged(int /*state*/)
+{
+    ui->attrLenCols->setEnabled(ui->cbAttrLen->isChecked());
 }

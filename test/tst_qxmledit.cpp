@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011,2014 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -762,13 +762,26 @@ void TestQXmlEdit::testExport()
 {
     bool result ;
 
-    TestExport test;
-    result = test.testExportJava();
-    QVERIFY2(result, (QString("test TestExportJava: testSuiteParsing '%1'").arg(test.errorString())).toLatin1().data());
-    TestExport testC;
-    result = testC.testExportC();
-    QVERIFY2(result, (QString("test TestExportC: testSuiteParsing '%1'").arg(testC.errorString())).toLatin1().data());
-}
+    {
+        TestExport test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("test testFast: '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestExport test;
+        result = test.testExportJava();
+        QVERIFY2(result, (QString("test TestExportJava: testSuiteParsing '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestExport testC;
+        result = testC.testExportC();
+        QVERIFY2(result, (QString("test TestExportC: testSuiteParsing '%1'").arg(testC.errorString())).toLatin1().data());
+    }
+    {
+        TestExport testC;
+        result = testC.testExportSelected();
+        QVERIFY2(result, (QString("test testExportSelected: '%1'").arg(testC.errorString())).toLatin1().data());
+    }}
 
 void TestQXmlEdit::testEncoding()
 {
@@ -1263,6 +1276,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testExport();
     testIndent();
     /*testAnonymize();
     testReplica();

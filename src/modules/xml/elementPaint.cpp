@@ -244,8 +244,24 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
             QString fontAnonColorValues = QString("<FONT COLOR=\"%1\">").arg(dataInfo->_attrAnonValuesColor.name());
             QString fontColorNames = QString("<FONT COLOR=\"%1\">").arg(dataInfo->_attrNamesColor.name());
 
+            Utils::TODO_THIS_RELEASE("In compact view limit the length of the attributes to a value+sort them alpha?");
+            QVector<Attribute*> sortedAttributes ;
+            QVector<Attribute*> *theAttributes = &attributes ;
+            const int attributesColumnLimit = paintInfo->attributesColumnLimit();
+            if(paintInfo->isSortAttributesAlpha()) {
+                QMap<QString, Attribute*> attrMap;
+                foreach(Attribute * attribute, attributes) {
+                    attrMap.insert(attribute->name, attribute);
+                }
+                //sorteds
+                foreach(QString key, attrMap.keys()) {
+                    sortedAttributes.append(attrMap.value(key));
+                }
+                theAttributes = &sortedAttributes ;
+            }
+            int attrTextLen = 0;
             for(int attr = 0; attr < size ; attr++) {
-                Attribute* attribute = attributes.at(attr);
+                Attribute* attribute = theAttributes->at(attr);
                 QString key = attribute->name;
                 QString value = Utils::escape(attribute->value);
                 if(NULL != filter) {
@@ -260,9 +276,12 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
                 } else {
                     if(isOneAttributePerLine) {
                         if(isCompactView) {
-                            if(attrIndex > ATTR_PER_COLUMN) {
-                                attrIndex = 1 ;
+                            bool condOne = (attributesColumnLimit > 0) && (attrTextLen > attributesColumnLimit);
+                            bool condTwo = (attributesColumnLimit <= 0) && (attrIndex > ATTR_PER_COLUMN);
+                            if(condOne || condTwo) {
                                 attrList.append("<br/>\n");
+                                attrTextLen = 0 ;
+                                attrIndex = 1 ;
                             } else {
                                 attrList.append(", ");
                             }
@@ -270,9 +289,20 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
                             attrList.append("<br/>\n");
                         }
                     } else { //OneAttribute
-                        attrList.append(", ");
+                        if(isCompactView) {
+                            attrList.append(", ");
+                        } else {
+                            bool condOne = (attributesColumnLimit > 0) && (attrTextLen > attributesColumnLimit);
+                            bool condTwo = (attributesColumnLimit <= 0) && (attrIndex > ATTR_PER_COLUMN);
+                            if(condOne || condTwo) {
+                                attrList.append("<br/>\n");
+                                attrTextLen = 0;
+                                attrIndex = 1 ;
+                            }
+                        }
                     }
                 }
+                attrTextLen += key.length() + attribute->value.length() + 6;
                 attrList.append(fontColorNames);
                 attrList.append(key);
                 if(isShowAttributesLength) {

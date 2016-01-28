@@ -1433,6 +1433,21 @@ void XmlEditWidgetPrivate::onActionCompactView(const bool isChecked)
     repaint();
 }
 
+void XmlEditWidgetPrivate::onActionShowAttributesSorted(const bool isChecked)
+{
+    paintInfo.setSortAttributesAlpha(isChecked);
+    _helper.setDataColumnTitle(p->ui->treeWidget, &paintInfo, paintInfo.compactView());
+    recalcRowHeightClass();
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+    QAbstractItemModel *model = p->ui->treeWidget->model();
+    emit model->layoutAboutToBeChanged();
+    emit model->layoutChanged();
+#endif
+    repaint();
+}
+
+
+
 void XmlEditWidgetPrivate::onActionShowAlwaysFullTextComments(const bool isShow)
 {
     paintInfo.setShowFullComments(isShow);

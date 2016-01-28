@@ -203,32 +203,76 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="expandTreeAfterLoad">
-     <property name="text">
-      <string>Automatically expand editor tree when loading data</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="cbShowImagesInTextTooltip">
-     <property name="text">
-      <string>Show images in text tooltip</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="cbOpenFilesInNewWindow">
-     <property name="text">
-      <string>Open files in new window</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="cbSingleInstance">
-     <property name="text">
-      <string>Single instance application</string>
-     </property>
-    </widget>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QCheckBox" name="expandTreeAfterLoad">
+       <property name="text">
+        <string>Automatically expand editor tree when loading data</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="cbAttrLen">
+         <property name="text">
+          <string>Limit atttributes length to columns:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="attrLenCols">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>2500</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <widget class="QCheckBox" name="cbShowImagesInTextTooltip">
+       <property name="text">
+        <string>Show images in text tooltip</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="cbOpenFilesInNewWindow">
+       <property name="text">
+        <string>Open files in new window</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QCheckBox" name="cbSingleInstance">
+       <property name="text">
+        <string>Single instance application</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <widget class="QLabel" name="label_7">

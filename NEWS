@@ -1,4 +1,8 @@
 0.9.3
+    New option to limit the attributes line length to a given column.
+    Option to show the attributes alphabetically sorted.
+    Fixed a bug on the single instance application option saving.
+    Export the selected element to file.
     New menu to show the containing folder in system browser.
     Fixed a bug on XSLT element insert.
     New option for set attribute maximum offset from element tag when saving.

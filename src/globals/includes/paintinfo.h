@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -33,6 +33,8 @@ class ColorManager;
 
 class LIBQXMLEDITSHARED_EXPORT PaintInfo
 {
+public:
+    static const int NumColumnsPerAttributeDefault = 60 ;
 private:
     bool isChanged;
     //----------
@@ -51,6 +53,8 @@ private:
     bool isHideView;
     ColorManager *_colorManager;
     bool isShowFullComments;
+    bool _sortAttributesAlpha;
+    int _attributesColumnLimit;
 
     void internalSetZoom(const int newValue);
     void recalcColumns();
@@ -116,6 +120,12 @@ public:
 
     ColorManager *colorManager() const;
     void setColorManager(ColorManager *colorManager);
+    bool isSortAttributesAlpha() const;
+    void setSortAttributesAlpha(bool sortAttributesAlpha);
+    bool isLimitAttributesPerColumns() const;
+    int attributesColumnLimit() const;
+    void setAttributesColumnLimit(int attributesColumnLimit);
+    void updateAttributeColumnsLimit();
 };
 
 #endif

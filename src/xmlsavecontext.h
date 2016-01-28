@@ -37,6 +37,7 @@ class XMLSaveContext
     qint64 _currentAttrPos ;
     qint64 _baseAttrPos ;
     int _attrIndex;
+    QHash<QString, QString> _namespacesToInsert;
 public:
     XMLSaveContext();
     ~XMLSaveContext();
@@ -61,6 +62,11 @@ public:
     void startElement(QIODevice *device);
     void afterAttributePos(QIODevice *device);
     void incAttributePos(QIODevice *device, const int indentBase);
+    //---
+    void clearNamespaceDeclarations();
+    QHash<QString, QString> namespaceDeclarations();
+    QHash<QString, QString> &namespaceDeclarationsReference();
+    bool hasNamespaceDeclarations();
 };
 
 #endif // XMLSAVECONTEXT_H

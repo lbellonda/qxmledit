@@ -67,6 +67,9 @@ public:
     static const QString  KEY_MAIN_SHOWFULLCOMMENTS;
     static const QString  KEY_MAIN_SHOWBUTTONS;
     static const QString  KEY_MAIN_SHOWSTATUSBAR;
+    static const QString  KEY_MAIN_SORTATTRIBUTESALPHA;
+    static const QString  KEY_MAIN_ATTRCOLLLIMIT;
+
     // style
     static const QString KEY_VIEW_STYLE;
     //search

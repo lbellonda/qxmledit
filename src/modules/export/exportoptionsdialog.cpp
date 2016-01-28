@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,52 +21,29 @@
  **************************************************************************/
 
 
-#ifndef ELMPATH_H
-#define ELMPATH_H
+#include "exportoptionsdialog.h"
+#include "ui_exportoptionsdialog.h"
 
-#include <QMap>
-#include <QString>
-#include "libQXmlEdit_global.h"
-
-class Element ;
-
-class LIBQXMLEDITSHARED_EXPORT ElmPath
+ExportOptionsDialog::ExportOptionsDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::ExportOptionsDialog)
 {
-    Element *_element;
-    QMap<QString, QString> _namespacesByPrefix;
-    ElmPath *_parent;
-    bool _calculated;
-    QString _cachedValue;
-public:
-    ElmPath();
-    ~ElmPath();
+    ui->setupUi(this);
+}
 
-    QString uriFromPrefix(const QString &prefix);
-    QString contextPath();
-    QString namespaceForPrefix(const QString &prefix);
-    QString namespaceForName(const QString &name);
-    void addNamespace(const QString &prefix, const QString &namespaceUri);
-
-    friend class ElmPathResolver;
-
-};
-
-
-class LIBQXMLEDITSHARED_EXPORT ElmPathResolver
+ExportOptionsDialog::~ExportOptionsDialog()
 {
-    QList<ElmPath*> pathList;
-    Element *baseElement;
+    delete ui;
+}
 
-    void reset();
-public:
-    ElmPathResolver();
-    ~ElmPathResolver();
-
-    void select(Element *element);
-    QString path();
-    QString textPath();
-    QString attributePath(const QString &attributeName);
-    void collectParentNamespaces(Element *element, QHash<QString, QString> &nsMap);
-};
-
-#endif // ELMPATH_H
+Regola::EExportOptions ExportOptionsDialog::options()
+{
+    Regola::EExportOptions options = Regola::ExportOptionNone ;
+    if(ui->useNamespaces) {
+        options |= Regola::ExportOptionUseNamespace ;
+    }
+    if(ui->insertDeclaration) {
+        options |= Regola::ExportOptionUseDeclaration ;
+    }
+    return options;
+}

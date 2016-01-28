@@ -1,0 +1,10 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<root xmlns="xxx" xmlns:b="bbbb">
+ <childone a="">
+  <aa aa=""/>
+ </childone>
+ <childtwo b="b">
+  <b:b b="b"/>
+ </childtwo>
+ <b:c b="b"/>
+</root>

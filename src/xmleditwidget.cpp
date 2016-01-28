@@ -482,6 +482,11 @@ void XmlEditWidget::onActionCompactView(const bool isChecked)
     d->onActionCompactView(isChecked);
 }
 
+void XmlEditWidget::onActionShowAttributesSorted(const bool isChecked)
+{
+    d->onActionShowAttributesSorted(isChecked);
+}
+
 void XmlEditWidget::onActionShowAlwaysFullTextComments(const bool isShow)
 {
     d->onActionShowAlwaysFullTextComments(isShow);

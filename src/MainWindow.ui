@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -172,6 +172,7 @@
     <addaction name="actionSaveAs"/>
     <addaction name="actionSaveACopyAs"/>
     <addaction name="menuExport_2"/>
+    <addaction name="actionExportElementToFile"/>
     <addaction name="actionReload"/>
     <addaction name="actionClose"/>
     <addaction name="separator"/>
@@ -332,6 +333,7 @@
     <addaction name="actionShowAttrLine"/>
     <addaction name="actionShowAlwaysFullTextComments"/>
     <addaction name="actionShowChildIndex"/>
+    <addaction name="actionShowAttributesSorted"/>
     <addaction name="actionFixedSizeAttributes"/>
     <addaction name="actionShowAttributesLength"/>
     <addaction name="actionShowElementTextLength"/>
@@ -1993,6 +1995,25 @@
     <string>Opens the containing folder in the system browser.</string>
    </property>
   </action>
+  <action name="actionExportElementToFile">
+   <property name="text">
+    <string>Export Element to File</string>
+   </property>
+   <property name="toolTip">
+    <string>Export the selected element to a file.</string>
+   </property>
+  </action>
+  <action name="actionShowAttributesSorted">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show Attributes Sorted</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the attributes sorted alphabetically.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -2009,6 +2030,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

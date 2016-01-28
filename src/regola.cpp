@@ -24,6 +24,7 @@
 #include "undo/elupdateelementcommand.h"
 #include "undo/undodtd.h"
 #include "xmlsavecontext.h"
+#include "modules/xml/elmpath.h"
 
 //-----
 
@@ -410,6 +411,82 @@ bool Regola::writeStream(QIODevice *device, const bool isMarkSaved, ElementLoadI
         redisplay();
     }
     return result;
+}
+
+bool Regola::exportElement(const QString &filePath, EExportOptions options, Element *selected)
+{
+    QFile   file(filePath);
+    QIODevice *outDevice = NULL ;
+    if(NULL != _deviceProvider) {
+        outDevice = _deviceProvider->newDeviceForWrite(filePath);
+    } else {
+        outDevice = &file ;
+    }
+    return writeStreamElement(outDevice, options, selected);
+}
+
+bool Regola::exportElement(QIODevice *outDevice, EExportOptions options, Element *selected)
+{
+    return writeStreamElement(outDevice, options, selected);
+}
+
+bool Regola::writeStreamElement(QIODevice *device, EExportOptions options, Element *selected)
+{
+    if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
+        Utils::error(tr("Error writing data: %1").arg(device->errorString()));
+        return false;
+    }
+    bool result = writeStreamInternalElement(device, options, selected);
+    return result;
+}
+
+bool Regola::writeStreamInternalElement(QIODevice *device, EExportOptions options, Element *selected)
+{
+    if(!device->isOpen()) {
+        if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
+            Utils::error(tr("Error writing data: %1").arg(device->errorString()));
+            return false;
+        }
+    }
+
+    QXmlStreamWriter outputStream(device);
+    XMLSaveContext context;
+    context.setIndentation(_indent);
+    context.setIsSortAttributesAlpha(isSavingSortingAttributes());
+    context.setAttributesMaxColumns(xmlIndentAttributesColumns());
+    context.setIsAttributesColumns(xmlIndentAttributesType() == QXmlEditData::AttributesIndentationMaxCols);
+
+    outputStream.setAutoFormatting(false);
+    outputStream.setAutoFormattingIndent(_indent);
+    QString theEncoding = encoding();
+    outputStream.setCodec(theEncoding.toLatin1().data());
+
+    Element *first = childItems.size() > 0 ? childItems.at(0) : NULL;
+    if(options.testFlag(ExportOptionUseDeclaration)
+            && (NULL != first)
+            && (first->getType() == Element::ET_PROCESSING_INSTRUCTION) && (first->getPITarget() == "xml")) {
+        if(!first->writeStream(&context, outputStream, NULL)) {
+            return false;
+        }
+    }
+    if(options.testFlag(ExportOptionUseNamespace)) {
+        // build namespace map
+        ElmPathResolver resolver;
+        resolver.collectParentNamespaces(selected, context.namespaceDeclarationsReference());
+        // set map
+        // assign it to the element
+    }
+
+    if(!selected->writeStream(&context, outputStream, NULL)) {
+        return false;
+    }
+    if((_indent >= 0) && !childItems.isEmpty()) {
+        outputStream.writeCharacters("\n");
+    }
+
+    device->close();
+
+    return true;
 }
 
 bool Regola::write(const QString &filePath, const bool isMarkSaved)

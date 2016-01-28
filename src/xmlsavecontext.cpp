@@ -152,3 +152,23 @@ void XMLSaveContext::afterAttributePos(QIODevice *device)
         _currentAttrPos = nowPos - _baseAttrPos ;
     }
 }
+
+void XMLSaveContext::clearNamespaceDeclarations()
+{
+    _namespacesToInsert.clear();
+}
+
+QHash<QString, QString> XMLSaveContext::namespaceDeclarations()
+{
+    return _namespacesToInsert ;
+}
+
+QHash<QString, QString> &XMLSaveContext::namespaceDeclarationsReference()
+{
+    return _namespacesToInsert ;
+}
+
+bool XMLSaveContext::hasNamespaceDeclarations()
+{
+    return _namespacesToInsert.size() > 0;
+}

@@ -265,6 +265,7 @@ public:
     void onActionCloseThisAllBrothers();
     bool onActionNewFromClipboard();
     void onActionCompactView(const bool isChecked);
+    void onActionShowAttributesSorted(const bool isChecked);
     void onActionShowAlwaysFullTextComments(const bool isShow);
     void onActionHideBrothers();
     void closeSiblings();

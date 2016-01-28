@@ -52,3 +52,4 @@ After release
 - Change the version number in MacOS pList
 - Change the version number in version.pri
 - Change the version number in environment/appdata.xml
+- Clear the testNew method

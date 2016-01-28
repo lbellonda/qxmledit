@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,56 +20,28 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGURATIONGENERALOPTIONS_H
-#define CONFIGURATIONGENERALOPTIONS_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
+#ifndef EXPORTOPTIONSDIALOG_H
+#define EXPORTOPTIONSDIALOG_H
+
+#include "xmlEdit.h"
+#include "regola.h"
 
 namespace Ui
 {
-class ConfigurationGeneralOptions;
+class ExportOptionsDialog;
 }
 
-class ConfigurationGeneralOptions : public QWidget
+class ExportOptionsDialog : public QDialog
 {
     Q_OBJECT
 
-    ApplicationData* _data;
-    QString _elementFontName;
-    int _elementFontSize;
-    bool _elementFontItalic;
-    bool _elementFontBold;
-    bool _started;
-
 public:
-    explicit ConfigurationGeneralOptions(QWidget *parent = 0);
-    ~ConfigurationGeneralOptions();
-
-    void init(ApplicationData* data);
-    void checkEnablingStatus();
-    void setElementFontInfo();
-    void saveIfChanged();
-
+    explicit ExportOptionsDialog(QWidget *parent = 0);
+    ~ExportOptionsDialog();
+    Regola::EExportOptions options();
 private:
-    Ui::ConfigurationGeneralOptions *ui;
-
-    void save();
-private slots:
-    void on_fixedSizeAttributeFontSize_valueChanged(int value);
-    void on_enableFWAFont_stateChanged(int state);
-    void on_fixedSizeAttrComboFont_currentFontChanged(const QFont & font);
-    void on_changeElementsFont_clicked();
-    void on_enableEFontSize_stateChanged(int state);
-    void on_enableLogs_stateChanged(int state);
-    void on_logLevelCombo_currentIndexChanged(int index);
-    void on_enableExperiments_stateChanged(int state);
-    void on_chkDefBold_stateChanged(int state);
-    void on_cbOpenFilesInNewWindow_stateChanged(int state);
-    void on_cbShowImagesInTextTooltip_stateChanged(int state);
-    void on_cbSingleInstance_stateChanged(int state);
-    void on_cbAttrLen_stateChanged(int /*state*/);
+    Ui::ExportOptionsDialog *ui;
 };
 
-#endif // CONFIGURATIONGENERALOPTIONS_H
+#endif // EXPORTOPTIONSDIALOG_H

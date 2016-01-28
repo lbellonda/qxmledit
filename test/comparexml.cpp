@@ -344,10 +344,10 @@ bool CompareXML::compareFiles(const QString &file1, QIODevice *file2)
     QDomDocument document1;
     QDomDocument document2;
     if(!loadFileIntoDocument(file1, document1)) {
-        return false;
+        return error("error loading file 1");
     }
     if(!loadFileIntoDocument(file2, document2)) {
-        return false;
+        return error("error loading file 2");
     }
     bool result = compareDomDocuments(document1, document2);
 

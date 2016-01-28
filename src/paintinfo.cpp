@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -22,6 +22,7 @@
 
 #include "paintinfo.h"
 #include "qxmleditconfig.h"
+#include "utils.h"
 
 #define MAX_ZOOM    (5)
 #define MIN_ZOOM    (1)
@@ -45,6 +46,8 @@ PaintInfo::PaintInfo()
     isHideView = false ;
     _colorManager = NULL ;
     isShowFullComments = false ;
+    _sortAttributesAlpha = false ;
+    _attributesColumnLimit = NumColumnsPerAttributeDefault ;
     recalcColumns();
 }
 
@@ -65,6 +68,8 @@ void PaintInfo::loadState()
     isHideView = Config::getBool(Config::KEY_MAIN_HIDEVIEW, false);
     internalSetZoom(Config::getInt(Config::KEY_MAIN_SHOWZOOM, 1));
     isShowFullComments = Config::getBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, false);
+    _sortAttributesAlpha = Config::getBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, false);
+    _attributesColumnLimit = Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, NumColumnsPerAttributeDefault) ;
     recalcColumns();
     isChanged = false;
 }
@@ -96,6 +101,10 @@ bool PaintInfo::saveState()
     if(!Config::saveBool(Config::KEY_MAIN_HIDEVIEW, hideView()))
         isOK = false;
     if(!Config::saveBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, showFullComments()))
+        isOK = false;
+    if(!Config::saveBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, isSortAttributesAlpha()))
+        isOK = false;
+    if(!Config::saveInt(Config::KEY_MAIN_ATTRCOLLLIMIT, attributesColumnLimit()))
         isOK = false;
     return isOK;
 }
@@ -195,6 +204,32 @@ void PaintInfo::setZoom(const int newValue)
     saveState();
 }
 
+bool PaintInfo::isSortAttributesAlpha() const
+{
+    return _sortAttributesAlpha;
+}
+
+void PaintInfo::setSortAttributesAlpha(bool newValue)
+{
+    _sortAttributesAlpha = newValue;
+    isChanged = true ;
+    saveState();
+}
+
+bool PaintInfo::isLimitAttributesPerColumns() const
+{
+    return _attributesColumnLimit > 0;
+}
+
+int PaintInfo::attributesColumnLimit() const
+{
+    return _attributesColumnLimit;
+}
+
+void PaintInfo::setAttributesColumnLimit(int value)
+{
+    _attributesColumnLimit = value;
+}
 
 void PaintInfo::internalSetZoom(const int newValue)
 {
@@ -359,4 +394,9 @@ void PaintInfo::setShowFullComments(const bool value)
     isShowFullComments = value ;
     isChanged = true ;
     saveState();
+}
+
+void PaintInfo::updateAttributeColumnsLimit()
+{
+    _attributesColumnLimit = Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, NumColumnsPerAttributeDefault) ;
 }

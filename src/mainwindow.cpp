@@ -58,6 +58,7 @@ extern const char *APP_TITLE ;
 #include "modules/xsd/xsdelementreferencedialog.h"
 #include "widgets/qlabelwithsignals.h"
 #include "qxmleditapplication.h"
+#include "modules/export/exportoptionsdialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -392,6 +393,7 @@ bool MainWindow::finishSetUpUi()
     ui.actionShowBase64->setChecked(paintInfo->showUnBase64());
     ui.actionShowElementSize->setChecked(paintInfo->showElementSize());
     ui.actionHideView->setChecked(paintInfo->hideView());
+    ui.actionShowAttributesSorted->setChecked(paintInfo->isSortAttributesAlpha());
 
     updateUndoState(false, false);
 
@@ -898,6 +900,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionInsertXmlSchemaReferences->setEnabled(!getEditor()->isReadOnly());
     ui.actionFillSerie->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
     ui.actionCloneElements->setEnabled(!getEditor()->isReadOnly() && isElementSelected && !isElementRoot);
+    ui.actionExportElementToFile->setEnabled(isElementSelected);
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -976,6 +979,7 @@ bool MainWindow::newFromClipboard()
     if(ui.editor->onActionNewFromClipboard()) {
         removeAttributesFilter();
         updateWindowFilePath();
+        clearExportFilePath();
         if(Utils::fileIsXSLT(getEditor()->getRegola())) {
             activateXSLTonNewFile();
         }
@@ -1347,6 +1351,11 @@ void MainWindow::on_actionCompactView_triggered()
     ui.editor->onActionCompactView(ui.actionCompactView->isChecked());
 }
 
+void MainWindow::on_actionShowAttributesSorted_triggered()
+{
+    ui.editor->onActionShowAttributesSorted(ui.actionShowAttributesSorted->isChecked());
+}
+
 void MainWindow::on_actionShowAlwaysFullTextComments_triggered()
 {
     ui.editor->onActionShowAlwaysFullTextComments(ui.actionShowAlwaysFullTextComments->isChecked());
@@ -1420,6 +1429,7 @@ QXmlEditApplication* MainWindow::qXmlEditApplication()
 void MainWindow::updateAfterPreferences()
 {
     getEditor()->updateAttributeIndentationSettings();
+    getEditor()->getPaintInfo()->updateAttributeColumnsLimit();
 }
 
 void MainWindow::on_ok_clicked()
@@ -1638,8 +1648,8 @@ void MainWindow::on_actionShowContainingFolder_triggered()
         QFileInfo info(regola->fileName());
         QDir dir = info.dir();
         if(dir.exists()) {
-            if(!QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath())) ) {
-                error( tr("Error opening folder.") );
+            if(!QDesktopServices::openUrl(QUrl::fromLocalFile(dir.absolutePath()))) {
+                error(tr("Error opening folder."));
             }
         } else {
             error(tr("The folder does not exists"));
@@ -3131,4 +3141,54 @@ void MainWindow::on_actionCloneElements_triggered()
 void MainWindow::on_actionClose_triggered()
 {
     close();
+}
+
+void MainWindow::on_actionExportElementToFile_triggered()
+{
+    Element *selection = getSelectedItem();
+    Regola * regola = getRegola();
+    if((NULL == regola) || (NULL == selection)
+            || ((NULL != selection) && !selection->isElement())) {
+        error(tr("No data to save."));
+        return ;
+    }
+    QString newFilePath = askFileName(getExportPath());
+    if(newFilePath.isEmpty()) {
+        return ;
+    }
+    Regola::EExportOptions options = askExportOption();
+    if(!regola->exportElement(newFilePath, options, selection)) {
+        error(tr("Error exporting data."));
+        return ;
+    }
+    statusBar()->showMessage(tr("Data exported"), SHORT_TIMEOUT);
+    updateExportFilePath(newFilePath);
+}
+
+void MainWindow::updateExportFilePath(const QString &newPath)
+{
+    _exportPath = newPath;
+    Utils::TODO_THIS_RELEASE("resettare su new o load");
+}
+
+void MainWindow::clearExportFilePath()
+{
+    _exportPath = "" ;
+}
+
+QString MainWindow::getExportPath()
+{
+    if(!_exportPath.isEmpty()) {
+        return _exportPath ;
+    }
+    return getRegola()->fileName();
+}
+
+Regola::EExportOptions MainWindow::askExportOption()
+{
+    ExportOptionsDialog dialog(this);
+    if(dialog.exec() == QDialog::Accepted) {
+        return dialog.options();
+    }
+    return Regola::ExportOptionNone ;
 }

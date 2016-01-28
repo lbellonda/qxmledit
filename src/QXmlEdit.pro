@@ -248,7 +248,8 @@ HEADERS = precompiled_app.h \
     precompiled_app.h \
     qxmeditmetainfo.h \
     infodialog.h \
-    modules/replica/replicaclonedialog.h
+    modules/replica/replicaclonedialog.h \
+    modules/export/exportoptionsdialog.h
 
 SOURCES = \
     main.cpp \
@@ -301,7 +302,8 @@ SOURCES = \
     modules/anonymize/anonsettingwidget.cpp \
     infodialog.cpp \
     mainwindowio.cpp \
-    modules/replica/replicaclonedialog.cpp
+    modules/replica/replicaclonedialog.cpp \
+    modules/export/exportoptionsdialog.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -337,7 +339,8 @@ FORMS = MainWindow.ui \
     modules/anonymize/anonimyzebatchdialog.ui \
     modules/anonymize/anonsettingwidget.ui \
     infodialog.ui \
-    modules/replica/replicaclonedialog.ui
+    modules/replica/replicaclonedialog.ui \
+    modules/export/exportoptionsdialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

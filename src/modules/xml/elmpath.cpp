@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -141,6 +141,41 @@ void ElmPathResolver::select(Element *element)
     }
 }
 
+void ElmPathResolver::collectParentNamespaces(Element *element, QHash<QString, QString> &nsMap)
+{
+    baseElement = NULL ;
+    reset();
+    if((NULL == element) || !element->isElement()) {
+        return ;
+    }
+    QSet<QString> thisNamespaces;
+    baseElement = element ;
+    Element *aParent = element->parent();
+
+    //inserisci tutte le dichiarazioni attuali in namespaces;
+    //poi escludile;
+    foreach(Attribute * attribute, element->getAttributesList()) {
+        if(XmlUtils::isDeclaringNS(attribute->name)) {
+            QString nsPrefix;
+            if(XmlUtils::getNsPrefix(attribute->name, nsPrefix)) {
+                thisNamespaces.insert(nsPrefix);
+            }
+        }
+    }
+    while(NULL != aParent) {
+        foreach(Attribute * attribute, aParent->getAttributesList()) {
+            if(XmlUtils::isDeclaringNS(attribute->name)) {
+                QString nsPrefix;
+                if(XmlUtils::getNsPrefix(attribute->name, nsPrefix)) {
+                    if(!thisNamespaces.contains(nsPrefix)) {
+                        nsMap.insert(nsPrefix, attribute->value);
+                    }
+                }
+            }
+        }
+        aParent = aParent->parent();
+    }
+}
 
 QString ElmPathResolver::path()
 {

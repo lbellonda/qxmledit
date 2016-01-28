@@ -79,6 +79,7 @@ class MainWindow : public QMainWindow, UIDelegate
     QIcon _windowIcon;
     QToolButton *_xsdButton ;
     int _errorCount;
+    QString _exportPath ;
 
 public:
     enum EWindowOpen {
@@ -153,6 +154,10 @@ protected:
     bool loadFileInnerDom(const QString &filePath, const bool isRegularFile, const bool activateModes);
     bool readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState);
     void newUsingXMLSchema();
+    Regola::EExportOptions askExportOption();
+    QString getExportPath();
+    void updateExportFilePath(const QString &newPath);
+    void clearExportFilePath();
 
 private slots:
     void onRaiseWindow();
@@ -191,6 +196,7 @@ private slots:
     void on_actionNewFromClipboard_triggered();
     void on_actionQuit_triggered();
     void on_actionCompactView_triggered();
+    void on_actionShowAttributesSorted_triggered();
     void on_actionShowAlwaysFullTextComments_triggered();
     void on_actionHideBrothers_triggered();
     void on_actionCloseSiblings_triggered();
@@ -327,6 +333,7 @@ private slots:
     void on_actionFillSerie_triggered();
     void on_actionCloneElements_triggered();
     void on_actionClose_triggered();
+    void on_actionExportElementToFile_triggered();
 
     //----- other slots ------------------
 

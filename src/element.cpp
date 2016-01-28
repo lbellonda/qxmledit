@@ -1054,6 +1054,16 @@ bool Element::writeStream(XMLSaveContext *context, QXmlStreamWriter &writer, Ele
                 context->afterAttributePos(writer.device());
             }
         }
+        if(context->hasNamespaceDeclarations()) {
+            QHash<QString, QString> nss = context->namespaceDeclarations();
+            foreach(QString key, nss.keys()) {
+                context->incAttributePos(writer.device(), indentBase);
+                QString name = XmlUtils::makeNSDeclaration(key);
+                writer.writeAttribute(name, nss.value(key));
+                context->afterAttributePos(writer.device());
+            }
+            context->clearNamespaceDeclarations();
+        }
 
         QVectorIterator<TextChunk*> tt(textNodes);
         while(tt.hasNext()) {

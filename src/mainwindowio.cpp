@@ -131,6 +131,7 @@ MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const b
         return NULL ;
     }
     bool ok = theWindow->loadFileInner(filePath, isRegularFile, activateModes);
+    theWindow->clearExportFilePath();
     return ioHelper.result(ok);
 }
 

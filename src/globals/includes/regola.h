@@ -93,6 +93,14 @@ private:
     QUndoStack _undoStack;
     XmlProlog _prolog;
 public:
+
+    enum EExportOption {
+        ExportOptionNone = 0,
+        ExportOptionUseDeclaration = 1,
+        ExportOptionUseNamespace = 2
+    };
+    Q_DECLARE_FLAGS(EExportOptions, EExportOption)
+
     enum ESaveAttributes {
         SaveAttributesUsingDefault,
         SaveAttributesSortingAlphabetically,
@@ -174,8 +182,12 @@ public:
     bool write(const QString &filePath, const bool isMarkSaved);
     bool write(QIODevice *device, const bool isMarkSaved);
     bool writeStream(QIODevice *device, const bool isMarkSaved, ElementLoadInfoMap *map = NULL);
+    bool writeStreamElement(QIODevice *device, EExportOptions options, Element *selected);
+    bool exportElement(const QString &filePath, EExportOptions options, Element *selected);
+    bool exportElement(QIODevice *outDevice, EExportOptions options, Element *selected);
 private:
     bool writeStreamInternal(QIODevice *device, const bool useEncoding, ElementLoadInfoMap *map);
+    bool writeStreamInternalElement(QIODevice *device, EExportOptions options, Element *selected);
 public:
     bool writeAsJavaString(QIODevice *device);
     bool writeAsCString(QIODevice *device);
@@ -543,6 +555,8 @@ private:
     bool filterCommentsAfterReading(XMLLoadContext *context);
 
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Regola::EExportOptions)
 
 // external edit
 bool EditCommentNode(QWidget * parent, Element *pTarget);

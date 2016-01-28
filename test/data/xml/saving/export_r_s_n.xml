@@ -1,0 +1,3 @@
+ <childtwo xmlns="xxx" xmlns:b="bbbb" b="b">
+  <b:b b="b"/>
+ </childtwo>
