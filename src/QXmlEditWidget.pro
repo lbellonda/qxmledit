@@ -416,7 +416,9 @@ SOURCES += xmleditwidget.cpp \
     undo/elupdateinplacecommand.cpp \
     undo/undoreplicacommand.cpp \
     modules/replica/replicacloneinfo.cpp \
-    modules/xml/xmlattributesindentationhelper.cpp
+    modules/xml/xmlattributesindentationhelper.cpp \
+    modules/xml/sortAttributes.cpp \
+    undo/undosortattributes.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -646,7 +648,8 @@ HEADERS += precompiled_lib.h \
     undo/elupdateinplacecommand.h \
     undo/undoreplicacommand.h \
     modules/replica/replicacloneinfo.h \
-    modules/xml/xmlattributesindentationhelper.h
+    modules/xml/xmlattributesindentationhelper.h \
+    undo/undosortattributes.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

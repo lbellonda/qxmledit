@@ -59,7 +59,7 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
     _filePath = fileName ;
     ui->exportStatsCmd->setEnabled(false);
     ui->cmdViewGraph->setEnabled(false);
-    ui->checkAnalyzeNodes->setChecked(Config::getBool(Config::KEY_VIEW_OPTION_ANALYZENODES, false));
+    ui->checkAnalyzeNodes->setChecked(true);
 
     ui->comboLoudness->addItem(QString("None"), QVariant(DataWidget::NoLoudness));
     ui->comboLoudness->addItem(QString("Grow"), QVariant(DataWidget::LoudnessMax));
@@ -500,5 +500,4 @@ void VisMapDialog::on_cmdViewGraph_clicked()
 
 void VisMapDialog::on_checkAnalyzeNodes_stateChanged(int /*newState*/)
 {
-    Config::saveBool(Config::KEY_VIEW_OPTION_ANALYZENODES, ui->checkAnalyzeNodes->isChecked());
 }

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -30,6 +30,8 @@
 #define UNSORTED_NOINDENT  BASE_PATH "unsorted_noindent.xml"
 #define SORTED_NOINDENT  BASE_PATH "sorted_noindent.xml"
 
+#define SORT_SORTALLINPUT BASE_PATH "sort_all_input.xml"
+
 TestSortAttributes::TestSortAttributes()
 {
 }
@@ -40,7 +42,7 @@ TestSortAttributes::~TestSortAttributes()
 
 bool TestSortAttributes::testFast()
 {
-    return testSaving() ;
+    return testUnitSort() ;
 }
 
 /**
@@ -156,6 +158,327 @@ bool TestSortAttributes::noSortAndRegolaUnSort()
         return false;
     }
     if(!baseSetup(UNSORTED, UNSORTED_NOINDENT, true, true, true, false )) {
+        return false;
+    }
+    return true ;
+}
+
+//-----------------------------------------------------------------------------
+
+bool TestSortAttributes::testUnitSort()
+{
+    _testName = "testUnitSort";
+    // test for effective attribute operations.
+    if(!testUnitOperation()) {
+        return false;
+    }
+    if(!testSortUnsorted()) {
+        return false;
+    }
+    if(!testSortSorted()) {
+        return false;
+    }
+    if(!testSortUndo()) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSortAttributes::addAttributeVerify(Element *el, const QString &aName, const QString &aValue)
+{
+    el->addAttribute(aName, aValue);
+    Attribute *attr = el->attributes.at(el->attributes.size()-1);
+    if( NULL == attr ) {
+        return error(QString("addAttributeVerify: for attr:'%1', expected last, but was not").arg(aName));
+    }
+    if( attr->name != aName ) {
+        return error(QString("addAttributeVerify: for attr:'%1', expected name, but was:'%2'").arg(aName).arg(attr->name));
+    }
+    if( attr->value != aValue ) {
+        return error(QString("addAttributeVerify: for attr:'%1', expected value:'%2', but was:'%3'").arg(aName).arg(aValue).arg(attr->value));
+    }
+    return true ;
+}
+
+
+bool TestSortAttributes::verifyAttributesList(Element *el, QStringList values)
+{
+    if( el->attributes.size() != values.count()) {
+        return error(QString("verifyAttributesList: expected count:'%1', found %2").arg(values.count()).arg(el->attributes.size()));
+    }
+    int max = values.count();
+    FORINT( index, max ) {
+        Attribute *attr = el->attributes.at(index);
+        QString expected = values.at(index);
+        if( attr->name != expected ) {
+            return error(QString("verifyAttributesList: for attr:'%1'', expected value:'%2'").arg(attr->name).arg(expected));
+        }
+
+    }
+    return true ;
+}
+
+
+bool TestSortAttributes::testUnitOperation()
+{
+    _testName = "testUnitOperation";
+    Element el1("a","", NULL);
+    if(!addAttributeVerify(&el1, "a", "a-val")) {
+        return false;
+    }
+    if(!addAttributeVerify(&el1, "b", "b-val")) {
+        return false;
+    }
+    if(!addAttributeVerify(&el1, "c", "c-val")) {
+        return false;
+    }
+    //----
+    {
+        QStringList vals ;
+        vals << "a" << "b" << "c" ;
+        if(!verifyAttributesList( &el1, vals))
+        {
+            return false;
+        }
+    }
+    //--------------------------
+    return true;
+}
+
+bool TestSortAttributes::fillDefaultAttributesUnsorted(Element *el)
+{
+    if(!addAttributeVerify(el, "c", "c-val")) {
+        return false;
+    }
+    if(!addAttributeVerify(el, "b", "b-val")) {
+        return false;
+    }
+    if(!addAttributeVerify(el, "a", "a-val")) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestSortAttributes::fillDefaultAttributesSorted(Element *el)
+{
+    if(!addAttributeVerify(el, "a", "a-val")) {
+        return false;
+    }
+    if(!addAttributeVerify(el, "b", "b-val")) {
+        return false;
+    }
+    if(!addAttributeVerify(el, "c", "c-val")) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestSortAttributes::testSortUnsorted()
+{
+    _testName = "testSortUnsorted";
+    // reverse
+    {
+        Element el1("a","", NULL);
+        if(!fillDefaultAttributesUnsorted(&el1)) {
+            return false;
+        }
+
+        QList<int> list;
+        el1.sortAttributes(&list, false);
+        QStringList vals ;
+        vals << "a" << "b" << "c" ;
+        if(!verifyAttributesList( &el1, vals))
+        {
+            return false;
+        }
+        QList<int> expected;
+        expected << 2 << 1 << 0 ;
+        if(!compareListInts("Position list", expected, list)) {
+            return false;
+        }
+    }
+    {
+        Element el1("a","", NULL);
+        if(!fillDefaultAttributesUnsorted(&el1)) {
+            return false;
+        }
+
+        el1.sortAttributes(NULL, false);
+        QStringList vals ;
+        vals << "a" << "b" << "c" ;
+        if(!verifyAttributesList( &el1, vals))
+        {
+            return false;
+        }
+    }
+    {
+        Element el1("a","", NULL);
+        if(!fillDefaultAttributesUnsorted(&el1)) {
+            return false;
+        }
+        Element *e2 = new Element( "b", "", NULL, &el1);
+        el1.addChild(e2);
+        if(!fillDefaultAttributesUnsorted(e2)) {
+            return false;
+        }
+
+        el1.sortAttributes(NULL, true);
+        QStringList vals ;
+        vals << "a" << "b" << "c" ;
+        if(!verifyAttributesList( &el1, vals))
+        {
+            return false;
+        }
+        if(!verifyAttributesList( e2, vals))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool TestSortAttributes::testSortSorted()
+{
+    _testName = "testSortSorted";
+    {
+        Element el1("a","", NULL);
+        if(!fillDefaultAttributesSorted(&el1)) {
+            return false;
+        }
+
+        QList<int> list;
+        el1.sortAttributes(&list, false);
+        QStringList vals ;
+        vals << "a" << "b" << "c" ;
+        if(!verifyAttributesList( &el1, vals))
+        {
+            return false;
+        }
+        QList<int> expected;
+        expected << 0 << 1 << 2 ;
+        if(!compareListInts("Position list", expected, list)) {
+            return false;
+        }
+    }
+    {
+        Element el1("a","", NULL);
+        if(!fillDefaultAttributesSorted(&el1)) {
+            return false;
+        }
+
+        el1.sortAttributes(NULL, false);
+        QStringList vals ;
+        vals << "a" << "b" << "c" ;
+        if(!verifyAttributesList( &el1, vals))
+        {
+            return false;
+        }
+    }
+    {
+        Element el1("a","", NULL);
+        if(!fillDefaultAttributesUnsorted(&el1)) {
+            return false;
+        }
+        Element *e2 = new Element( "b", "", NULL, &el1);
+        el1.addChild(e2);
+        if(!fillDefaultAttributesSorted(e2)) {
+            return false;
+        }
+
+        el1.sortAttributes(NULL, true);
+        QStringList vals ;
+        vals << "a" << "b" << "c" ;
+        if(!verifyAttributesList( &el1, vals))
+        {
+            return false;
+        }
+        if(!verifyAttributesList( e2, vals))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+/*!
+ * \brief TestSortAttributes::testSortUndo this test relies on the correct working of the previous one
+ * \return
+ */
+bool TestSortAttributes::testSortUndo()
+{
+    _testName = "testSortUndo";
+    // reverse
+    {
+        Element el1("a","", NULL);
+        if(!fillDefaultAttributesUnsorted(&el1)) {
+            return false;
+        }
+
+        QList<int> list;
+        el1.sortAttributes(&list, false);
+        el1.sortAttributesByMap(list);
+        QStringList vals ;
+        vals << "c" << "b" << "a" ;
+        if(!verifyAttributesList( &el1, vals))
+        {
+            return false;
+        }
+        QList<int> expected;
+        expected << 2 << 1 << 0 ;
+        if(!compareListInts("Position list", expected, list)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//-----------------------------------------------------------------------------
+bool TestSortAttributes::checkAttributesOrder(Element *el, QStringList attr)
+{
+    if(!verifyAttributesList( el, attr)) {
+        return false ;
+    }
+    foreach( Element * child, el->getChildItemsRef()) {
+        if( !checkAttributesOrder(child, attr) ) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool TestSortAttributes::checkAttributesOrder(Regola *regola, QStringList attr)
+{
+    Element *root = regola->root();
+    if( NULL == root ) {
+        return error("Missiing root");
+    }
+    if(!checkAttributesOrder(root, attr)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSortAttributes::testSortInEditor()
+{
+    _testName = "testSortInEditor";
+
+    App app;
+    if(!app.init()) {
+        return error("app init");
+    }
+    // 1 - Use default: check
+    if( !app.mainWindow()->loadFile(QString(SORT_SORTALLINPUT)) ) {
+        return error(QString("Opening test file: '%1' ").arg(SORT_SORTALLINPUT));
+    }
+    QStringList attrBefore;
+    attrBefore << "c" << "b" << "a" ;
+    if(!checkAttributesOrder(app.mainWindow()->getRegola(), attrBefore)) {
+        return false;
+    }
+    app.mainWindow()->getEditor()->sortAttributes();
+    QStringList attrAfter;
+    attrAfter << "a" << "b" << "c" ;
+    if(!checkAttributesOrder(app.mainWindow()->getRegola(), attrAfter)) {
         return false;
     }
     return true ;

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,41 +21,20 @@
  **************************************************************************/
 
 
-#ifndef TESTSORTATTRIBUTES_H
-#define TESTSORTATTRIBUTES_H
+#ifndef UNDOSORTATTRIBUTES_H
+#define UNDOSORTATTRIBUTES_H
 
-#include "testbase.h"
+#include "elbasecommand.h"
 
-class TestSortAttributes : public TestBase
+class UndoSortAttributes : public ElBaseCommand
 {
-    bool saveDefaultWithSorted();
-    bool saveDefaultWithUnsorted();
-    bool noSortAndRegolaSort();
-    bool noSortAndRegolaUnSort();
-
-    bool baseSetup(const QString &fileIn, const QString &fileCompare,
-                   const bool setGlobal, const bool setSortGlobal,
-                   const bool setLocal, const bool setSortLocal);
-    //----
-    bool testUnitOperation();
-    bool testSortUnsorted();
-    bool testSortSorted();
-    bool testSortUndo();
-    bool verifyAttributesList(Element *el, QStringList values);
-    bool addAttributeVerify(Element *el, const QString &aName, const QString &aValue);
-    bool fillDefaultAttributesUnsorted(Element *el);
-    bool fillDefaultAttributesSorted(Element *el);
-    bool checkAttributesOrder(Element *el, QStringList attr);
-    bool checkAttributesOrder(Regola *regola, QStringList attr);
-
+    bool _isRecursive;
+    QList<int> _oldPositionsForAttributes;
 public:
-    TestSortAttributes();
-    ~TestSortAttributes();
-
-    bool testFast();
-    bool testSaving();
-    bool testUnitSort();
-    bool testSortInEditor();
+    UndoSortAttributes(QTreeWidget *theWidget, Regola *newRegola, QList<int> path, const bool isRecursive, QUndoCommand *parentCommand = NULL);
+    virtual ~UndoSortAttributes();
+    virtual void undo();
+    virtual void redo();
 };
 
-#endif // TESTSORTATTRIBUTES_H
+#endif // UNDOSORTATTRIBUTES_H

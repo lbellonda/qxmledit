@@ -104,7 +104,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="label_6">
            <property name="text">
-            <string>Write attributes:</string>
+            <string>Attributes line length:</string>
            </property>
           </widget>
          </item>
@@ -113,7 +113,7 @@
            <item>
             <widget class="QRadioButton" name="attrNoIndendation">
              <property name="text">
-              <string>N&amp;o indentation</string>
+              <string>N&amp;o limit</string>
              </property>
             </widget>
            </item>

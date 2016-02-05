@@ -1170,6 +1170,16 @@ void TestQXmlEdit::testSortAttributes()
         result = test1.testSaving();
         QVERIFY2(result, (QString("test TestSortAttributes: testSaving '%1'").arg(test1.errorString())).toLatin1().data());
     }
+    {
+        TestSortAttributes test1;
+        result = test1.testUnitSort();
+        QVERIFY2(result, (QString("test TestSortAttributes: testUnitSort'%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestSortAttributes test1;
+        result = test1.testSortInEditor();
+        QVERIFY2(result, (QString("test TestSortAttributes: testSortInEditor'%1'").arg(test1.errorString())).toLatin1().data());
+    }
 }
 
 
@@ -1276,11 +1286,9 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testSortAttributes();
     testExport();
     testIndent();
-    /*testAnonymize();
-    testReplica();
-    testSortAttributes();*/
 }
 
 QTEST_MAIN(TestQXmlEdit)

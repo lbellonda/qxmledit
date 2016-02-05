@@ -40,6 +40,7 @@ void SearchManager::init()
     if(_started) {
         return ;
     }
+    _started = true ;
     Config::loadStringArray(Config::KEY_SEARCH_ITEMS, _searchTerms);
     Config::loadStringArray(Config::KEY_SEARCH_SCOPES, _searchScopes);
 }

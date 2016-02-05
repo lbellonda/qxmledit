@@ -61,7 +61,6 @@ void XmlIndentationDialog::init()
     _attributeHelper.setUp(_regola->xmlIndentAttributesType(), _regola->xmlIndentAttributesColumns());
 
     _started = true ;
-    Utils::TODO_THIS_RELEASE("test me");
 }
 
 void XmlIndentationDialog::on_chkNoIndent_stateChanged(int /*state*/)
@@ -84,13 +83,11 @@ void XmlIndentationDialog::accept()
             _regola->setIndentationForce(ui->xmlIndent->value());
         }
         _regola->setSaveAttributesMethod(ui->cbSortAttributesAlpha->isChecked() ? Regola::SaveAttributesSortingAlphabetically : Regola::SaveAttributesNoSort);
-        Utils::TODO_THIS_RELEASE("finire");
         _regola->setIndentAttributesSettings(true, _attributeHelper.type(), _attributeHelper.columns());
         _regola->setUseXmlIndentAttributesSettings(true);
     } else {
         _regola->setIndentationForce(_appData->xmlIndent());
         _regola->setSaveAttributesMethod(Regola::SaveAttributesUsingDefault);
-        Utils::TODO_THIS_RELEASE("finire");
         _regola->setIndentAttributesSettings(true, _appData->xmlIndentAttributesType(), _appData->xmlIndentAttributes());
         _regola->setUseXmlIndentAttributesSettings(false);
     }

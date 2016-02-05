@@ -225,6 +225,7 @@ void MainWindow::on_actionNew_triggered()
     theWindow->ui.editor->doNew();
     theWindow->removeAttributesFilter();
     theWindow->updateWindowFilePath();
+    theWindow->clearExportFilePath();
     //QTimer::singleShot(200, theWindow, SLOT(onRaiseWindow()));
 }
 
@@ -901,6 +902,11 @@ void MainWindow::onComputeSelectionState()
     ui.actionFillSerie->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
     ui.actionCloneElements->setEnabled(!getEditor()->isReadOnly() && isElementSelected && !isElementRoot);
     ui.actionExportElementToFile->setEnabled(isElementSelected);
+
+    ui.actionSortAttributes->setEnabled(!isRegolaReadOnly);
+    ui.actionSortAttributesElement->setEnabled(!isRegolaReadOnly && isElementSelected);
+    ui.actionSortAttributesElementRecursive->setEnabled(!isRegolaReadOnly && isElementSelected);
+
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -1979,6 +1985,7 @@ void MainWindow::newUsingXMLSchema()
     }
     removeAttributesFilter();
     updateWindowFilePath();
+    clearExportFilePath();
 }
 
 bool MainWindow::verifyAbandonChanges()
@@ -3168,7 +3175,6 @@ void MainWindow::on_actionExportElementToFile_triggered()
 void MainWindow::updateExportFilePath(const QString &newPath)
 {
     _exportPath = newPath;
-    Utils::TODO_THIS_RELEASE("resettare su new o load");
 }
 
 void MainWindow::clearExportFilePath()
@@ -3192,3 +3198,27 @@ Regola::EExportOptions MainWindow::askExportOption()
     }
     return Regola::ExportOptionNone ;
 }
+
+void MainWindow::on_actionSortAttributes_triggered()
+{
+    if(!isReadOnly()) {
+        getEditor()->sortAttributes();
+    }
+}
+
+void MainWindow::on_actionSortAttributesElement_triggered()
+{
+    Element *element = getSelectedItem();
+    if(!isReadOnly() && (NULL != element)) {
+        getEditor()->sortAttributesElement(element, false);
+    }
+}
+
+void MainWindow::on_actionSortAttributesElementRecursive_triggered()
+{
+    Element *element = getSelectedItem();
+    if(!isReadOnly() && (NULL != element)) {
+        getEditor()->sortAttributesElement(element, true);
+    }
+}
+

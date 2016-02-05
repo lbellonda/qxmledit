@@ -138,7 +138,6 @@ bool XmlUtils::isDataAttribute(const QString &attributeName)
  */
 bool XmlUtils::getNsPrefix(const QString &name, QString &prefix)
 {
-    Utils::TODO_THIS_RELEASE("refactor in isNsPrefix");
     prefix = "" ;
     if(name == "xmlns") {
         return true;

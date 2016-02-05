@@ -334,6 +334,9 @@ private slots:
     void on_actionCloneElements_triggered();
     void on_actionClose_triggered();
     void on_actionExportElementToFile_triggered();
+    void on_actionSortAttributesElementRecursive_triggered();
+    void on_actionSortAttributesElement_triggered();
+    void on_actionSortAttributes_triggered();
 
     //----- other slots ------------------
 

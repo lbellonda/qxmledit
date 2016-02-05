@@ -360,7 +360,6 @@ void XsltHelper::insertElement(XsltElementDialogParam *params, CopyAttributesSes
     }
     Element *selectedElement = params->selectedElement;
     bool isModified = true ;
-    Utils::TODO_THIS_RELEASE("puo essere nullo... BUG un otherwise a livello di sibling di where");
     if(params->xsltElement->isClearAttributes) {
         // remove empty attributes
         cas->removeEmptyAttributes();

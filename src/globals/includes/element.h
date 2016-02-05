@@ -261,6 +261,7 @@ public:
     }
 
     void forceUpdateGui(const bool forceLayout);
+    void repaint();
     bool isFirstChild() ;
     bool isLastChild() ;
 
@@ -569,6 +570,8 @@ public:
     bool compareToElement(Element *other, QString &msg);
     bool setOrClearAttribute(const bool isRemoveAttribute, const QString &attrName, const QString &value);
     bool handleMixedContentToInnerText();
+    bool sortAttributesByMap(QList<int> oldPositions);
+    void sortAttributes(QList<int> *undoPositionList, const bool isRecursive);
 
 #ifdef  QXMLEDIT_TEST
     friend class TestStyle;

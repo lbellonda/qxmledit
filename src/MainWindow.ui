@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -156,6 +156,7 @@
      <property name="title">
       <string>Export</string>
      </property>
+     <addaction name="actionExportElementToFile"/>
      <addaction name="actionCopyAllToClipboard"/>
      <addaction name="actionExportAsJavaJavascriptSource"/>
      <addaction name="actionExportAsCSource"/>
@@ -172,7 +173,6 @@
     <addaction name="actionSaveAs"/>
     <addaction name="actionSaveACopyAs"/>
     <addaction name="menuExport_2"/>
-    <addaction name="actionExportElementToFile"/>
     <addaction name="actionReload"/>
     <addaction name="actionClose"/>
     <addaction name="separator"/>
@@ -234,6 +234,14 @@
      <addaction name="actionInsertXSITypeAttribute"/>
      <addaction name="actionRemoveNilAttribute"/>
     </widget>
+    <widget class="QMenu" name="menuSort_Attributes">
+     <property name="title">
+      <string>Sort Attributes</string>
+     </property>
+     <addaction name="actionSortAttributesElement"/>
+     <addaction name="actionSortAttributesElementRecursive"/>
+     <addaction name="actionSortAttributes"/>
+    </widget>
     <addaction name="actionXMLEditMode"/>
     <addaction name="actionXSLTEditMode"/>
     <addaction name="actionScanXMLTagsAndNamesXSLTAutocompletion"/>
@@ -261,6 +269,7 @@
     <addaction name="actionEditInnerXML"/>
     <addaction name="actionEditInnerBase64Text"/>
     <addaction name="actionPasteAndSubstituteText"/>
+    <addaction name="menuSort_Attributes"/>
     <addaction name="actionTransforminSnippet"/>
     <addaction name="separator"/>
     <addaction name="actionMoveUp"/>
@@ -2012,6 +2021,24 @@
    </property>
    <property name="toolTip">
     <string>Show the attributes sorted alphabetically.</string>
+   </property>
+  </action>
+  <action name="actionSortAttributesElement">
+   <property name="text">
+    <string>Sort Attributes of the Selection</string>
+   </property>
+   <property name="toolTip">
+    <string>Sort Attributes of the Selection</string>
+   </property>
+  </action>
+  <action name="actionSortAttributesElementRecursive">
+   <property name="text">
+    <string>Sort Attributes of the Selection and Its Children</string>
+   </property>
+  </action>
+  <action name="actionSortAttributes">
+   <property name="text">
+    <string>Sort Attributes in All the Elements</string>
    </property>
   </action>
  </widget>

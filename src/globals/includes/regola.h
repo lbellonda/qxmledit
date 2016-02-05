@@ -227,7 +227,7 @@ public:
     void pasteInternals(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position);
     void pasteNoUI(Element *pasteElement, Element *pasteTo);
     Element *insertInternal(QTreeWidget *tree, Element *parentElement, Element *pasteElement, const int position, const bool isRecursive = true);
-    Element *updateElementUI(Element *element);
+    Element *updateElementUI(Element *element, const bool isRecursive = true);
     void pasteAttributesInternals(QTreeWidget *tree, Element *element, CopyAttributesSession *attributesCopied);
     void pasteClearAttributesInternals(QTreeWidget *tree, Element *element, CopyAttributesSession *attributesCopied);
     void pasteAttributes(QWidget *window, QTreeWidget *tree, CopyAttributesSession *attributesCopied);
@@ -450,6 +450,10 @@ public:
     void setUseXmlIndentAttributesSettings(const bool value);
     //--- end (indent attributes)
 
+    //--- begin (sort attributes)
+    bool sortAttributesOfElement(Element* element, const bool isRecursive);
+    void sortAttributes();
+    //--- end (sort attributes)
 signals:
     void wasModified();
     void undoStateChanged();

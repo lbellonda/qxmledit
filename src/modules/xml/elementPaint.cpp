@@ -244,7 +244,6 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
             QString fontAnonColorValues = QString("<FONT COLOR=\"%1\">").arg(dataInfo->_attrAnonValuesColor.name());
             QString fontColorNames = QString("<FONT COLOR=\"%1\">").arg(dataInfo->_attrNamesColor.name());
 
-            Utils::TODO_THIS_RELEASE("In compact view limit the length of the attributes to a value+sort them alpha?");
             QVector<Attribute*> sortedAttributes ;
             QVector<Attribute*> *theAttributes = &attributes ;
             const int attributesColumnLimit = paintInfo->attributesColumnLimit();

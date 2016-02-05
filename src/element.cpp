@@ -3003,3 +3003,10 @@ void Element::forceUpdateGui(const bool forceLayout)
         }
     }
 }
+
+void Element::repaint()
+{
+    if((NULL != ui) && (NULL != parentRule)) {
+        display(ui, parentRule->getPaintInfo());
+    }
+}

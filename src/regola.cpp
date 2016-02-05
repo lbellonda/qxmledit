@@ -1337,7 +1337,7 @@ Element *Regola::insertInternal(QTreeWidget *tree, Element *parentElement, Eleme
     return theNewElement ;
 }
 
-Element *Regola::updateElementUI(Element *element)
+Element *Regola::updateElementUI(Element *element, const bool isRecursive)
 {
     //if not sel, at the root iif rule is empty
     //sse extists an item
@@ -1346,7 +1346,11 @@ Element *Regola::updateElementUI(Element *element)
         return NULL ;
     }
     element->display(element->getUI(), paintInfo, true);
-    element->markEditedRecursive();
+    if(isRecursive) {
+        element->markEditedRecursive();
+    } else {
+        element->markEdited();
+    }
     setModified(true);
     return element ;
 }
@@ -3056,4 +3060,3 @@ void Regola::setUseXmlIndentAttributesSettings(const bool value)
 {
     _attributesIndentSettings = value ;
 }
-

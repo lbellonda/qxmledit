@@ -334,6 +334,8 @@ public:
     bool XSDApplyOperation(const ElementOp::Op op, XSDOperationParameters *params);
     bool XSDApplyOperationOnElement(const ElementOp::Op op, XSDOperationParameters *params, Element *element);
 
+    void sortAttributes();
+    void sortAttributesElement(Element *element, const bool isRecursive);
 private:
     QHash<void *, QString> *anonDataForPreview();
 

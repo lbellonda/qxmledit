@@ -169,8 +169,6 @@ const QString Config::KEY_LOGS_LEVEL("logs/level");
 const QString Config::KEY_COMPARE_OPTION_TEXT("compare/optionText");
 const QString Config::KEY_COMPARE_OPTION_COMMENT("compare/optionComment");
 const QString Config::KEY_COMPARE_OPTION_DENORMALIZEEOL("compare/optionDenormEOL");
-//view xml options
-const QString Config::KEY_VIEW_OPTION_ANALYZENODES("view/analyzeNodes");
 
 // XSL
 const QString Config::KEY_XSL_SHOW_PANEL("xsl/showPanel");

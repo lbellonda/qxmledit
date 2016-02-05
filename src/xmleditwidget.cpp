@@ -1103,3 +1103,15 @@ void XmlEditWidget::updateAttributeIndentationSettings()
 {
     d->updateAttributeIndentationSettings();
 }
+
+void XmlEditWidget::sortAttributes()
+{
+    d->sortAttributes();
+}
+
+void XmlEditWidget::sortAttributesElement(Element *element, const bool isRecursive)
+{
+    d->sortAttributesElement(element, isRecursive);
+}
+
+

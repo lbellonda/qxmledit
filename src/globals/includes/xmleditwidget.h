@@ -328,7 +328,8 @@ public:
     bool XSDApplyOperation(const ElementOp::Op op, XSDOperationParameters *params);
     //-----------------------
 
-    //------------------- slots
+    void sortAttributesElement(Element *element, const bool isRecursive);
+    void sortAttributes();
 signals:
     void reevaluateSelectionState();
     void documentIsModified(const bool isModified);// TODO: emit this

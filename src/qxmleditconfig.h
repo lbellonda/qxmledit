@@ -173,9 +173,6 @@ public:
     static const QString KEY_COMPARE_OPTION_COMMENT;
     static const QString KEY_COMPARE_OPTION_DENORMALIZEEOL;
 
-    //view xml options
-    static const QString KEY_VIEW_OPTION_ANALYZENODES;
-
     // XSL
     static const QString KEY_XSL_SHOW_PANEL;
     static const QString KEY_XSL_AUTOMODE;

@@ -178,6 +178,7 @@ void MainWndController::createDocumentFromSnippet(Regola* newRegola)
         return ;
     }
     theWindow->createDocumentFromSnippet(newRegola);
+    theWindow->clearExportFilePath();
 }
 
 

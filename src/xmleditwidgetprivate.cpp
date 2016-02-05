@@ -3117,3 +3117,18 @@ void XmlEditWidgetPrivate::updateAttributeIndentationSettings()
         regola->setIndentAttributesSettings(true, _appData->xmlIndentAttributesType(), _appData->xmlIndentAttributes());
     }
 }
+
+void XmlEditWidgetPrivate::sortAttributes()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        getRegola()->sortAttributes();
+        repaint();
+    }
+}
+
+void XmlEditWidgetPrivate::sortAttributesElement(Element *element, const bool isRecursive)
+{
+    if(isActionMode() && (NULL != getRegola() && (NULL != element))) {
+        getRegola()->sortAttributesOfElement(element, isRecursive);
+    }
+}

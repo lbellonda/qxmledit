@@ -1,4 +1,6 @@
 0.9.3
+    Fixed a bug in the save search terms that was writing more than one time the same item.
+    Implemented the sorting of attributes in the current element or in all the file.
     New option to limit the attributes line length to a given column.
     Option to show the attributes alphabetically sorted.
     Fixed a bug on the single instance application option saving.
