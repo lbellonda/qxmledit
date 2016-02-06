@@ -61,6 +61,7 @@
 #include "modules/replica/replicasettingsdialog.h"
 #include "modules/replica/replicamanager.h"
 #include "undo/undoreplicacommand.h"
+#include "modules/copyattr/copiedattribute.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 

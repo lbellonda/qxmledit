@@ -27,6 +27,8 @@
 #include "xmleditwidgetprivate.h"
 #include "modules/xslt/xsltelementdialog.h"
 #include "modules/xslt/saxnamesscan.h"
+#include "modules/xslt/xsltmanager.h"
+#include "modules/copyattr/copiedattribute.h"
 
 //-------------------------------------------------------------
 

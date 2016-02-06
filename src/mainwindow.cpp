@@ -59,6 +59,8 @@ extern const char *APP_TITLE ;
 #include "widgets/qlabelwithsignals.h"
 #include "qxmleditapplication.h"
 #include "modules/export/exportoptionsdialog.h"
+#include "modules/copyattr/copiedattribute.h"
+#include "modules/services/anotifier.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000

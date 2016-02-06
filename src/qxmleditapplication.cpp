@@ -26,6 +26,7 @@
 #include "modules/encoding/codepagedialog.h"
 #include "uiservices.h"
 #include "visualization/datavisualization.h"
+#include "modules/services/anotifier.h"
 #include "StartParams.h"
 #include "utils.h"
 #include <QDataStream>

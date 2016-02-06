@@ -24,9 +24,11 @@
 #ifndef CONFIGUREEDITORCOLORS_H
 #define CONFIGUREEDITORCOLORS_H
 
+#include "xmlEdit.h"
 #include <QDialog>
 #include <QTreeWidgetItem>
 #include "applicationdata.h"
+#include "modules/services/colormanager.h"
 
 namespace Ui
 {

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -23,7 +23,6 @@
 #include "configurationdialog.h"
 #include "ui_configurationdialog.h"
 #include "utils.h"
-
 
 void ConfigurationDialog::doOptions(QWidget * const parentWindow, ApplicationData* data)
 {

@@ -31,6 +31,7 @@
 #include "services/loghandler.h"
 #include <QtGlobal>
 #include "qxmleditapplication.h"
+#include "modules/services/anotifier.h"
 
 #include "licensedialog.h"
 

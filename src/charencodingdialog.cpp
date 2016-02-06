@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -27,6 +27,7 @@
 #include "appconfig.h"
 #include "modules/encoding/codepagedialog.h"
 #include "qxmleditdata.h"
+#include "modules/encoding/unicodehelper.h"
 
 #include "utils.h"
 

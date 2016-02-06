@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -33,6 +33,7 @@
 #include "modules/graph/nodesrelationsdialog.h"
 #include "qxmleditconfig.h"
 #include "qxmleditdata.h"
+#include "modules/services/anotifier.h"
 
 #include <QXmlSimpleReader>
 #include <QFileDialog>
