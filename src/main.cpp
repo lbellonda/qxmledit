@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,8 +20,8 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include <QApplication>
 #include "xmlEdit.h"
+#include <QApplication>
 #include "xmleditglobals.h"
 #include "qxmleditconfig.h"
 #include "mainwindow.h"

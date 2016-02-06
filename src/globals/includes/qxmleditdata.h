@@ -32,7 +32,6 @@
 #include <QtNetwork/QNetworkAccessManager>
 
 #include "data/DataInterface.h"
-#include "framework/include/Notifier.h"
 
 #define STYLE_DIR_USESTD    "Standard"
 #define STYLE_DIR_USEDIR    "Directory"
