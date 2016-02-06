@@ -31,15 +31,8 @@
 #include <QtNetwork/QNetworkDiskCache>
 #include <QtNetwork/QNetworkAccessManager>
 
-#include "modules/copyattr/copiedattribute.h"
-#include "modules/xslt/xsltmanager.h"
-#include "modules/search/searchmanager.h"
-#include "modules/services/colormanager.h"
-
 #include "data/DataInterface.h"
 #include "framework/include/Notifier.h"
-#include "modules/services/anotifier.h"
-#include "modules/encoding/unicodehelper.h"
 
 #define STYLE_DIR_USESTD    "Standard"
 #define STYLE_DIR_USEDIR    "Directory"
@@ -57,6 +50,12 @@ class UnicodeHelper;
 class XSDManager;
 class NamespaceManager;
 class Regola;
+class SearchManager;
+class ColorManager;
+class CopyAttributesManager;
+class UnicodeHelper;
+class XsltManager;
+class ANotifier;
 
 class LIBQXMLEDITSHARED_EXPORT ClipboardElementList
 {
@@ -75,7 +74,7 @@ class LIBQXMLEDITSHARED_EXPORT QXmlEditData : public QObject
     Q_OBJECT
 protected:
 
-    SearchManager _searchManager;
+    SearchManager *_searchManager;
 
     //--- region(styles)
     static const QString XsltStyleName;
@@ -85,17 +84,17 @@ protected:
     QVector<VStyle*>  _predefinedStyles;
     VStyle*  _defaultStyle;
     VStyle*  _xsltStyle;
-    ColorManager _colorManager;
+    ColorManager *_colorManager;
     //--- endregion(styles)
 
     QNetworkAccessManager _networkAccessManager ;
     bool _experimentalFeaturesEnabled;
-    CopyAttributesManager _copyAttributesManager;
+    CopyAttributesManager *_copyAttributesManager;
     QStringList _searchTerms;
-    UnicodeHelper _unicodeHelper;
+    UnicodeHelper *_unicodeHelper;
 
     //--- region(xslt)
-    XsltManager _xsltManager;
+    XsltManager *_xsltManager;
     //--- endregion(xslt)
 
     //--- region(clipboard)
@@ -117,7 +116,7 @@ protected:
     //--- endregion(styleVersion)
 
     //--- region(notify)
-    ANotifier _notifier;
+    ANotifier *_notifier;
     //--- endregion(notify)
 
     //--- region(xsdMode)

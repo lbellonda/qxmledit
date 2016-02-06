@@ -33,6 +33,12 @@
 #include "modules/services/systemservices.h"
 #include "modules/xsd/xsdmanager.h"
 #include "modules/xsd/namespacemanager.h"
+#include "modules/search/searchmanager.h"
+#include "modules/services/colormanager.h"
+#include "modules/copyattr/copiedattribute.h"
+#include "modules/xslt/xsltmanager.h"
+#include "modules/services/anotifier.h"
+#include "modules/encoding/unicodehelper.h"
 
 const QString QXmlEditData::XsltStyleName = "XSLT";
 const QString QXmlEditData::XsltStyleDescription = tr("Xslt predefined style");
@@ -40,6 +46,12 @@ const QString QXmlEditData::XsltStyleDescription = tr("Xslt predefined style");
 
 QXmlEditData::QXmlEditData()
 {
+    _notifier = NULL ;
+    _xsltManager  = NULL ;
+    _unicodeHelper = NULL ;
+    _copyAttributesManager = NULL ;
+    _colorManager = NULL ;
+    _searchManager = NULL ;
     _namespaceManager = NULL ;
     _xsdManager = NULL;
     _dataInterface = NULL ;
@@ -66,6 +78,24 @@ QXmlEditData::~QXmlEditData()
     }
     if(NULL != _namespaceManager) {
         delete _namespaceManager ;
+    }
+    if(NULL != _searchManager) {
+        delete _searchManager;
+    }
+    if(NULL != _colorManager) {
+        delete _colorManager;
+    }
+    if(NULL != _copyAttributesManager) {
+        delete _copyAttributesManager;
+    }
+    if(NULL != _unicodeHelper) {
+        delete _unicodeHelper;
+    }
+    if(NULL != _notifier) {
+        delete _notifier;
+    }
+    if(NULL != _xsltManager) {
+        delete _xsltManager;
     }
 }
 
@@ -133,12 +163,18 @@ void QXmlEditData::init()
             Utils::error(tr("Error loading styles"));
         }
     }
+    _notifier = new ANotifier();
+    _xsltManager = new XsltManager();
+    _unicodeHelper = new UnicodeHelper();
+    _copyAttributesManager = new CopyAttributesManager();
+    _colorManager = new ColorManager();
+    _searchManager = new SearchManager();
     _namespaceManager = new NamespaceManager();
     _xsdManager = new XSDManager();
     _xsltStyle = new VStyle(XsltStyleName, XsltStyleDescription);
     _xsltStyle->setResFileName(":/xslt/xsltStyle");
     _predefinedStyles.append(_xsltStyle);
-    _colorManager.readCfg();
+    _colorManager->readCfg();
     _experimentalFeaturesEnabled = Config::getBool(Config::KEY_MAIN_ENABLEEXPERIMENTS, false);
     connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(onClipboardDataChanged()));
 }
@@ -163,7 +199,7 @@ const QVector<VStyle*> &QXmlEditData::getPredefinedStyles() const
 
 ColorManager *QXmlEditData::colorManager()
 {
-    return &_colorManager;
+    return _colorManager;
 }
 
 EStylesDir QXmlEditData::getStylesDirLocation()
@@ -295,7 +331,7 @@ QString QXmlEditData::getDocsDir()
 //--- region(notify)
 ANotifier *QXmlEditData::notifier()
 {
-    return &_notifier;
+    return _notifier;
 }
 
 //--- endregion(notify)
@@ -367,7 +403,7 @@ void QXmlEditData::setExperimentalFeaturesEnabled(const bool value)
 //--- region(copyAttributes)
 CopyAttributesManager *QXmlEditData::copyAttributesManager()
 {
-    return &_copyAttributesManager;
+    return _copyAttributesManager;
 }
 //--- endregion(copyAttributes)
 
@@ -382,7 +418,7 @@ QStringList &QXmlEditData::searchTerms()
 
 XsltManager *QXmlEditData::xsltManager()
 {
-    return &_xsltManager ;
+    return _xsltManager ;
 }
 bool QXmlEditData::isShowXSLTPanel()
 {
@@ -463,7 +499,7 @@ void QXmlEditData::setInsertPrologEncoding(const QString &value)
 
 SearchManager *QXmlEditData::searchManager()
 {
-    return &_searchManager;
+    return _searchManager;
 }
 
 //--- endregion(xslt)
@@ -719,7 +755,7 @@ int QXmlEditData::styleVersion()
 
 UnicodeHelper *QXmlEditData::unicodeHelper()
 {
-    return &_unicodeHelper ;
+    return _unicodeHelper ;
 }
 
 bool QXmlEditData::isShowImagesInTooltip()
