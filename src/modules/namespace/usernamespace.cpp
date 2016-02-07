@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -44,6 +44,9 @@ UserNamespace::UserNamespace()
 
 UserNamespace::~UserNamespace()
 {
+    if(NULL != _data) {
+        delete _data ;
+    }
 }
 
 

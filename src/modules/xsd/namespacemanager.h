@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -56,6 +56,7 @@ public:
         XSLFO_NAMESPACE,
         XSL1_NAMESPACE,
         XQUERY_LOCALFUNC_NAMESPACE,
+        MAVEN_NAMESPACE
     };
 
     QString namespaceUri(const EWellKnownNs eWellKnownNs);
