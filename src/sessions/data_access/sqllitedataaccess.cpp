@@ -182,7 +182,8 @@ void SQLLiteDataAccess::setLogger(FrwLogger *newLogger)
 void SQLLiteDataAccess::closeAndDispose()
 {
     d->close();
-    deleteLater();
+    //deleteLater();
+    delete this ;
 }
 
 bool SQLLiteDataAccess::newSession(SessionOperationStatus &context, SessionModel *model)

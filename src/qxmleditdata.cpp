@@ -60,7 +60,7 @@ QXmlEditData::QXmlEditData()
     _xsltStyle = NULL ;
     _styleVersion = 0 ;
     _experimentalFeaturesEnabled = false;
-    init();
+    internalInit();
 }
 
 QXmlEditData::~QXmlEditData()
@@ -156,6 +156,11 @@ QString QXmlEditData::predefinedStyleName()
 }
 
 void QXmlEditData::init()
+{
+    // nothing atm
+}
+
+void QXmlEditData::internalInit()
 {
     if(NULL == _defaultStyle) {
         _defaultStyle = createDefaultStyle() ;

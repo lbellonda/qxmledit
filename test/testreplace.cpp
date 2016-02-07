@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,7 +24,7 @@
 #include "testreplace.h"
 #include "app.h"
 #include "comparexml.h"
-
+#include "modules/search/searchmanager.h"
 
 /**
   Tests have this characteristic:

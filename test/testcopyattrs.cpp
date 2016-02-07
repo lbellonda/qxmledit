@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -25,6 +25,7 @@
 #include "app.h"
 #include "modules/copyattr/copyattributesdialog.h"
 #include "comparexml.h"
+#include "modules/copyattr/copiedattribute.h"
 
 #define FILE_BASE "../test/data/copyattr/base.xml"
 #define FILE_STEP1 "../test/data/copyattr/copyall1.xml"

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -31,6 +31,7 @@
 #include "xmleditwidget.h"
 #include "comparexml.h"
 #include "helpers/comparetrees.h"
+#include "modules/copyattr/copiedattribute.h"
 
 #define INSERT_TRUE (true)
 #define EDIT_TRUE (false)

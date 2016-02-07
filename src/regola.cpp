@@ -28,23 +28,6 @@
 
 //-----
 
-class RegolaSettings
-{
-    int indentation;
-    bool useIndent;
-public:
-    RegolaSettings() {
-        indentation = 0;
-        useIndent = false;
-    }
-    ~RegolaSettings() {}
-    int getIndentation() const;
-    void setIndentation(int value);
-    bool isUseIndent() const;
-    void setUseIndent(bool value);
-};
-
-
 bool RegolaSettings::isUseIndent() const
 {
     return useIndent;

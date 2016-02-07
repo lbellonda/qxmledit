@@ -1549,6 +1549,7 @@ bool MainWindow::reload()
     if(Utils::fileIsXSLT(getEditor()->getRegola())) {
         activateXSLTonNewFile();
     }
+    delete settings ;
     return result;
 }
 

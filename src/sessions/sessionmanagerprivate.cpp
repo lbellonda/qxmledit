@@ -39,9 +39,7 @@ SessionManager::Private::Private(SessionManager* manager, QObject *parent) :
 
 SessionManager::Private::~Private()
 {
-    if(_dataAccess != NULL) {
-        _dataAccess->closeAndDispose();
-    }
+    // _dataAccess is owned by the external entity, so we do not close it.
     if(_currentSession != NULL) {
         delete _currentSession;
         _currentSession = NULL ;

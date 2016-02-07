@@ -58,7 +58,7 @@ SearchWidget::SearchWidget(QWidget *parent) :
 
 SearchWidget::~SearchWidget()
 {
-    void resetSearchletManagerFactory();
+    resetSearchletManagerFactory();
     delete ui;
 }
 

@@ -58,8 +58,24 @@ public:
 };
 
 class XMLSaveContext;
-class RegolaSettings;
 class NamespaceManager;
+
+class LIBQXMLEDITSHARED_EXPORT RegolaSettings
+{
+    int indentation;
+    bool useIndent;
+public:
+    RegolaSettings() {
+        indentation = 0;
+        useIndent = false;
+    }
+    ~RegolaSettings() {}
+    int getIndentation() const;
+    void setIndentation(int value);
+    bool isUseIndent() const;
+    void setUseIndent(bool value);
+};
+
 
 class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
 {

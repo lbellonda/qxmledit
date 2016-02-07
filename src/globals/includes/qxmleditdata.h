@@ -288,9 +288,12 @@ public:
     static bool isShowImagesInTooltip();
 
 private:
+    //--- region(clipboard)
     void cleanClipBoardData();
     void setClipBoardActionsState();
     //--- endregion(clipboard)
+
+    void internalInit();
 };
 
 
