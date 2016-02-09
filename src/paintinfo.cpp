@@ -396,7 +396,9 @@ void PaintInfo::setShowFullComments(const bool value)
     saveState();
 }
 
-void PaintInfo::updateAttributeColumnsLimit()
+bool PaintInfo::updateAttributeColumnsLimit()
 {
+    int oldValue = _attributesColumnLimit ;
     _attributesColumnLimit = Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, NumColumnsPerAttributeDefault) ;
+    return oldValue != _attributesColumnLimit ;
 }

@@ -125,7 +125,7 @@ public:
     bool isLimitAttributesPerColumns() const;
     int attributesColumnLimit() const;
     void setAttributesColumnLimit(int attributesColumnLimit);
-    void updateAttributeColumnsLimit();
+    bool updateAttributeColumnsLimit();
 };
 
 #endif

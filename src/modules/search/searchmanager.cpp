@@ -41,21 +41,20 @@ void SearchManager::init()
         return ;
     }
     _started = true ;
-    Config::loadStringArray(Config::KEY_SEARCH_ITEMS, _searchTerms);
-    Config::loadStringArray(Config::KEY_SEARCH_SCOPES, _searchScopes);
+    loadSearchItems();
 }
 
 
 void SearchManager::loadSearchItems()
 {
-    Config::loadStringArray(Config::KEY_SEARCH_ITEMS, _searchTerms);
-    Config::loadStringArray(Config::KEY_SEARCH_SCOPES, _searchScopes);
+    Config::loadStringArray(Config::KEY_SEARCH_ITEMS, _searchTerms, LIM_SEARCH_SIZE);
+    Config::loadStringArray(Config::KEY_SEARCH_SCOPES, _searchScopes, LIM_SEARCH_SIZE);
 }
 
 void SearchManager::saveSearchItems()
 {
-    Config::saveStringArray(Config::KEY_SEARCH_ITEMS, _searchTerms);
-    Config::saveStringArray(Config::KEY_SEARCH_SCOPES, _searchScopes);
+    Config::saveStringArray(Config::KEY_SEARCH_ITEMS, _searchTerms, LIM_SEARCH_SIZE);
+    Config::saveStringArray(Config::KEY_SEARCH_SCOPES, _searchScopes, LIM_SEARCH_SIZE);
 }
 
 void SearchManager::registerSearchItems(const QString &value, QStringList &list)

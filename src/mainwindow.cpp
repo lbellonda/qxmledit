@@ -1437,7 +1437,9 @@ QXmlEditApplication* MainWindow::qXmlEditApplication()
 void MainWindow::updateAfterPreferences()
 {
     getEditor()->updateAttributeIndentationSettings();
-    getEditor()->getPaintInfo()->updateAttributeColumnsLimit();
+    if(getEditor()->getPaintInfo()->updateAttributeColumnsLimit()) {
+        getEditor()->invalidatePaintData();
+    }
 }
 
 void MainWindow::on_ok_clicked()
