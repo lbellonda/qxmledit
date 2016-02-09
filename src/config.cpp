@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,8 +20,8 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include <QtGui>
 #include "xmlEdit.h"
+#include <QtGui>
 #include "utils.h"
 #include "qxmleditconfig.h"
 #include <QSettings>
@@ -405,9 +405,12 @@ bool Config::saveColor(const QString &key, const QColor &value)
     return false ;
 }
 
-bool Config::loadStringArray(const QString &keyBase, QStringList &result)
+bool Config::loadStringArray(const QString &keyBase, QStringList &result, const int maxEntries)
 {
     int numValues = getInt(QString("%1_num").arg(keyBase), 0);
+    if(maxEntries > 0) {
+        numValues = qMin(numValues, maxEntries);
+    }
     for(int i = 0 ; i < numValues ; i ++) {
         QString key = QString("%1_%2").arg(keyBase).arg(i);
         QString value = getString(key, "");
@@ -416,10 +419,13 @@ bool Config::loadStringArray(const QString &keyBase, QStringList &result)
     return true;
 }
 
-bool Config::saveStringArray(const QString &keyBase, QStringList &values)
+bool Config::saveStringArray(const QString &keyBase, QStringList &values, const int maxEntries)
 {
     bool isOk = true;
     int numValues = values.size() ;
+    if(maxEntries > 0) {
+        numValues = qMin(numValues, maxEntries);
+    }
     if(!saveInt(QString("%1_num").arg(keyBase), numValues)) {
         isOk  = false ;
     }

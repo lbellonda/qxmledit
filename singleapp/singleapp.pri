@@ -155,4 +155,4 @@ FORMS += $$files(../src/modules/namespace/*.ui)
 FORMS += $$files(../src/modules/replica/*.ui)
 FORMS += $$files(../src/modules/export/*.ui)
 
-RESOURCES = ../src/risorse.qrc
+RESOURCES += ../src/risorse.qrc

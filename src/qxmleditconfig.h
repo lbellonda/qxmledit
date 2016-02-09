@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -236,8 +236,8 @@ public:
     static bool saveReal(const QString &key, const qreal value);
     static bool saveColor(const QString &key, const QColor &value);
 
-    static bool loadStringArray(const QString &keyBase, QStringList &result);
-    static bool saveStringArray(const QString &keyBase, QStringList &values);
+    static bool loadStringArray(const QString &keyBase, QStringList &result, const int maxEntries = -1);
+    static bool saveStringArray(const QString &keyBase, QStringList &values, const int maxEntries = -1);
 
     static bool loadIntArray(const QString &keyBase, QList<int> &result);
     static bool saveIntArray(const QString &keyBase, QList<int> &values);

@@ -1254,7 +1254,8 @@ void TestQXmlEdit::testReplica()
         TestReplica test1;
         result = test1.testClone();
         QVERIFY2(result, (QString("test TestReplica: testClone '%1'").arg(test1.errorString())).toLatin1().data());
-    }}
+    }
+}
 
 void TestQXmlEdit::testUtils()
 {
@@ -1264,6 +1265,17 @@ void TestQXmlEdit::testUtils()
         TestUtils test1;
         result = test1.testUnit();
         QVERIFY2(result, (QString("test TestUtils: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
+
+void TestQXmlEdit::testConfig()
+{
+    bool result ;
+
+    {
+        TestConfig test1;
+        result = test1.testUnit();
+        QVERIFY2(result, (QString("test TestConfig: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
     }
 }
 
@@ -1286,6 +1298,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testConfig();
     testSortAttributes();
     testExport();
     testIndent();

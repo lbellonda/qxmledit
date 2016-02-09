@@ -159,7 +159,8 @@ SOURCES += \
     testloadfile.cpp \
     testhelpers/testmainwindow.cpp \
     testreplica.cpp \
-    testutils.cpp
+    testutils.cpp \
+    testconfig.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -262,7 +263,8 @@ HEADERS += \
     testloadfile.h \
     testhelpers/testmainwindow.h \
     testreplica.h \
-    testutils.h
+    testutils.h \
+    testconfig.h
 
 #OTHER_FILES += \
 
