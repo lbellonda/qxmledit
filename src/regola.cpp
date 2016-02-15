@@ -1192,6 +1192,36 @@ void Regola::pasteInternals(QTreeWidget *tree, Element *parentElement, Element *
     setModified(true);
 }
 
+Element *Regola::attachElementAt(QTreeWidget *tree, Element *parentElement, Element *attachedElement, const int position)
+{
+    //if not sel, at the root iif rule is empty
+    //sse extists an item
+    //append l'item ( o lo inserisce, con tutti i figli e poi ricarica la lista)
+    if(NULL == attachedElement) {
+        return NULL ;
+    }
+    attachedElement->setRegola(this, true);
+    if(NULL == parentElement) {
+        addTopElement(attachedElement, position);
+        attachedElement->caricaFigli(tree, NULL, paintInfo, true, -1);
+    } else {
+        // serve???
+        if(!parentElement->isElement()) {
+            delete attachedElement ;
+            return NULL ;
+        }
+        if(-1 == position) {
+            parentElement->addChild(attachedElement);
+        } else {
+            parentElement->addChildAt(attachedElement, position);
+        }
+        attachedElement->caricaFigli(tree, parentElement->getUI(), paintInfo, true, position);
+    }
+    attachedElement->markEditedRecursive();
+    setModified(true);
+    return attachedElement ;
+}
+
 void Regola::pasteNoUI(Element *pasteElement, Element *pasteTo)
 {
     Element *theNewElement = NULL ;

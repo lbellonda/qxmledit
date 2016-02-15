@@ -1279,6 +1279,17 @@ void TestQXmlEdit::testConfig()
     }
 }
 
+void TestQXmlEdit::testDeleteSiblings()
+{
+    bool result ;
+
+    {
+        TestDeleteSiblings test1;
+        result = test1.testUnit();
+        QVERIFY2(result, (QString("test TestDeleteSiblings: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
+
 /*
 
 // This function enabled for debug purposes. DO NOT REMOVE
@@ -1298,6 +1309,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testDeleteSiblings();
     testConfig();
     testSortAttributes();
     testExport();

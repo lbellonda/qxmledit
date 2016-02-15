@@ -160,7 +160,8 @@ SOURCES += \
     testhelpers/testmainwindow.cpp \
     testreplica.cpp \
     testutils.cpp \
-    testconfig.cpp
+    testconfig.cpp \
+    testdeletesiblings.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -264,7 +265,8 @@ HEADERS += \
     testhelpers/testmainwindow.h \
     testreplica.h \
     testutils.h \
-    testconfig.h
+    testconfig.h \
+    testdeletesiblings.h
 
 #OTHER_FILES += \
 

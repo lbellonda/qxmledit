@@ -1,0 +1,18 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<a c="c" b="b" a="a">
+  <b0 c="c" b="b" a="a">
+    <bb0 c="c" b="b" a="a"/>
+  </b0>
+  <b1 c="c" b="b" a="a">
+    <bb1 c="c" b="b" a="a"/>
+  </b1>
+  <b2 c="c" b="b" a="a">
+    <bb2 c="c" b="b" a="a"/>
+  </b2>
+  <b3 c="c" b="b" a="a">
+    <bb3 c="c" b="b" a="a"/>
+  </b3>
+  <b4 c="c" b="b" a="a">
+    <bb4 c="c" b="b" a="a"/>
+  </b4>
+</a>

@@ -60,6 +60,33 @@ public:
 class XMLSaveContext;
 class NamespaceManager;
 
+enum QxmlEditDeleteElements {
+    DeleteAllSiblings,
+    DeleteAllSiblingsBefore,
+    DeleteAllSiblingsAfter,
+};
+
+class LIBQXMLEDITSHARED_EXPORT RegolaDeleteSiblings
+{
+    /*QxmlEditDeleteElements _condition;
+    int _valueLeaveAfter;*/
+    RegolaDeleteSiblings();
+    ~RegolaDeleteSiblings();
+public:
+    enum DeleteOptions {
+        DeleteAllSiblings,
+        DeleteAllSiblingsBefore,
+        DeleteAllSiblingsAfter,
+    };
+
+    /*RegolaDeleteInfo();
+    ~RegolaDeleteInfo();
+    QxmlEditDeleteElements condition() const;
+    void setCondition(const QxmlEditDeleteElements &condition);
+    int valueLeaveAfter() const;
+    void setValueLeaveAfter(int valueLeaveAfter);*/
+};
+
 class LIBQXMLEDITSHARED_EXPORT RegolaSettings
 {
     int indentation;
@@ -217,6 +244,7 @@ private:
 public:
     void removeAllElements(QTreeWidget *tree);
     void insertElementForce(Element *element);
+    Element *attachElementAt(QTreeWidget *tree, Element *parentElement, Element *attachedElement, const int position);
     Element * syncRoot();
 
     Element *newElement();

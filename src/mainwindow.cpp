@@ -909,6 +909,9 @@ void MainWindow::onComputeSelectionState()
     ui.actionSortAttributesElement->setEnabled(!isRegolaReadOnly && isElementSelected);
     ui.actionSortAttributesElementRecursive->setEnabled(!isRegolaReadOnly && isElementSelected);
 
+    ui.actionRemoveAllSiblings->setEnabled(!isRegolaReadOnly && isElementSelected);
+    ui.actionRemoveAllSiblingsAfter->setEnabled(!isRegolaReadOnly && isElementSelected);
+    ui.actionRemoveAllSiblingsBefore->setEnabled(!isRegolaReadOnly && isElementSelected);
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -3227,3 +3230,26 @@ void MainWindow::on_actionSortAttributesElementRecursive_triggered()
     }
 }
 
+void MainWindow::on_actionRemoveAllSiblings_triggered()
+{
+    Element *element = getSelectedItem();
+    if(!isReadOnly() && (NULL != element)) {
+        getEditor()->deleteSiblings(RegolaDeleteSiblings::DeleteAllSiblings, element);
+    }
+}
+
+void MainWindow::on_actionRemoveAllSiblingsAfter_triggered()
+{
+    Element *element = getSelectedItem();
+    if(!isReadOnly() && (NULL != element)) {
+        getEditor()->deleteSiblings(RegolaDeleteSiblings::DeleteAllSiblingsAfter, element);
+    }
+}
+
+void MainWindow::on_actionRemoveAllSiblingsBefore_triggered()
+{
+    Element *element = getSelectedItem();
+    if(!isReadOnly() && (NULL != element)) {
+        getEditor()->deleteSiblings(RegolaDeleteSiblings::DeleteAllSiblingsBefore, element);
+    }
+}

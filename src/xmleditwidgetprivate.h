@@ -336,6 +336,7 @@ public:
 
     void sortAttributes();
     void sortAttributesElement(Element *element, const bool isRecursive);
+    void deleteSiblings(const RegolaDeleteSiblings::DeleteOptions option, Element *selectedItem);
 private:
     QHash<void *, QString> *anonDataForPreview();
 

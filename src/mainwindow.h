@@ -337,6 +337,9 @@ private slots:
     void on_actionSortAttributesElementRecursive_triggered();
     void on_actionSortAttributesElement_triggered();
     void on_actionSortAttributes_triggered();
+    void on_actionRemoveAllSiblings_triggered();
+    void on_actionRemoveAllSiblingsAfter_triggered();
+    void on_actionRemoveAllSiblingsBefore_triggered();
 
     //----- other slots ------------------
 

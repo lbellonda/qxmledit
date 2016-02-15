@@ -93,6 +93,7 @@
 #include "testreplica.h"
 #include "testutils.h"
 #include "testconfig.h"
+#include "testdeletesiblings.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -186,6 +187,7 @@ private Q_SLOTS:
     void testReplica();
     void testUtils();
     void testConfig();
+    void testDeleteSiblings();
 };
 
 

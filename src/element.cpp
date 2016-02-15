@@ -2093,10 +2093,10 @@ void Element::addChildInfo(Element *child)
 }
 
 
-void Element::updateSizeInfo()
+void Element::updateSizeInfo(const bool isRecursive)
 {
     if((parentRule != NULL) && parentRule->collectSizeData()) {
-        recalcSize(false);
+        recalcSize(isRecursive);
         propagateChildInfoChange();
     }
 }

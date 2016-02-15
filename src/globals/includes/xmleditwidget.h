@@ -330,6 +330,7 @@ public:
 
     void sortAttributesElement(Element *element, const bool isRecursive);
     void sortAttributes();
+    void deleteSiblings(const RegolaDeleteSiblings::DeleteOptions option, Element *selectedItem);
 signals:
     void reevaluateSelectionState();
     void documentIsModified(const bool isModified);// TODO: emit this

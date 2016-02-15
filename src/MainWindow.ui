@@ -242,6 +242,14 @@
      <addaction name="actionSortAttributesElementRecursive"/>
      <addaction name="actionSortAttributes"/>
     </widget>
+    <widget class="QMenu" name="menuSiblings">
+     <property name="title">
+      <string>Siblings</string>
+     </property>
+     <addaction name="actionRemoveAllSiblingsBefore"/>
+     <addaction name="actionRemoveAllSiblingsAfter"/>
+     <addaction name="actionRemoveAllSiblings"/>
+    </widget>
     <addaction name="actionXMLEditMode"/>
     <addaction name="actionXSLTEditMode"/>
     <addaction name="actionScanXMLTagsAndNamesXSLTAutocompletion"/>
@@ -255,6 +263,7 @@
     <addaction name="actionInsertChildContainer"/>
     <addaction name="actionInsertParent"/>
     <addaction name="actionRemoveParent"/>
+    <addaction name="menuSiblings"/>
     <addaction name="actionTransformInComment"/>
     <addaction name="actionExtractElementsFromComment"/>
     <addaction name="actionInsertSnippet"/>
@@ -2039,6 +2048,30 @@
   <action name="actionSortAttributes">
    <property name="text">
     <string>Sort Attributes in All the Elements</string>
+   </property>
+  </action>
+  <action name="actionRemoveAllSiblingsBefore">
+   <property name="text">
+    <string>Remove All Siblings Before</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove all the siblings before the selected element.</string>
+   </property>
+  </action>
+  <action name="actionRemoveAllSiblingsAfter">
+   <property name="text">
+    <string>Remove All Siblings After</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove all the siblings after the selected element.</string>
+   </property>
+  </action>
+  <action name="actionRemoveAllSiblings">
+   <property name="text">
+    <string>Remove All Siblings</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove all the siblings of the selected element.</string>
    </property>
   </action>
  </widget>

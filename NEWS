@@ -1,4 +1,5 @@
 0.9.3
+    Added a delete siblings feature.
     Fixed small memory leaks.
     Fixed a bug in the save search terms that was writing more than one time the same item.
     Implemented the sorting of attributes in the current element or in all the file.

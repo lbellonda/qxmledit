@@ -383,7 +383,7 @@ public:
     void recalcSize();
     int textSize();
 
-    void updateSizeInfo();
+    void updateSizeInfo(const bool isRecursive = false);
     void modifiedChildInfo();
     void addChildInfo(Element *child);
     void removeChildInfo(Element *childToRemove);

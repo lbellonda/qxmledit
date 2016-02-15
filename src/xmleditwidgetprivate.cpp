@@ -62,6 +62,7 @@
 #include "modules/replica/replicamanager.h"
 #include "undo/undoreplicacommand.h"
 #include "modules/copyattr/copiedattribute.h"
+#include "undo/undodeletesiblings.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -3133,3 +3134,12 @@ void XmlEditWidgetPrivate::sortAttributesElement(Element *element, const bool is
         getRegola()->sortAttributesOfElement(element, isRecursive);
     }
 }
+
+void XmlEditWidgetPrivate::deleteSiblings(const RegolaDeleteSiblings::DeleteOptions option, Element *selectedItem)
+{
+    if(isActionMode() && (NULL != getRegola()) && (NULL != selectedItem) && (NULL != selectedItem->parent())) {
+        DeleteSiblingsCommand *deleteSiblingsCommand = new DeleteSiblingsCommand(option, getEditor(), regola, selectedItem->indexPath());
+        regola->addUndo(deleteSiblingsCommand);
+    }
+}
+

@@ -106,7 +106,6 @@ bool Regola::sortAttributesOfElement(Element* element, const bool isRecursive)
  */
 void Regola::sortAttributes()
 {
-    Utils::TODO_THIS_RELEASE("attenzione: manca la parte di paint e update;");
     clearUndo();
 
     QVectorIterator<Element*> it(childItems);

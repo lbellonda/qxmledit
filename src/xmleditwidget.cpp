@@ -1114,4 +1114,7 @@ void XmlEditWidget::sortAttributesElement(Element *element, const bool isRecursi
     d->sortAttributesElement(element, isRecursive);
 }
 
-
+void XmlEditWidget::deleteSiblings(const RegolaDeleteSiblings::DeleteOptions option, Element *selectedItem)
+{
+    return d->deleteSiblings(option, selectedItem);
+}
