@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,32 +20,10 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "modules/anonymize/anonoperationbatch.h"
 
-#ifndef STARTPARAMS_H
-#define STARTPARAMS_H
+AnonOperationBatchOutputFileProvider::AnonOperationBatchOutputFileProvider() {}
 
-class StartParams
-{
-public:
-    enum ESPType {
-        Nothing,
-        OpenFile,
-        VisFile,
-        Anonymize
-    };
+AnonOperationBatchOutputFileProvider::~AnonOperationBatchOutputFileProvider() {}
 
-    ESPType type;
-    QString fileName;
-    QString arg1;
-    QString arg2;
-    bool parametersError ;
-    QString errorMessage;
-
-    StartParams() {
-        fileName = "" ;
-        type = Nothing;
-        parametersError = false ;
-    }
-};
-
-#endif // STARTPARAMS_H
+void AnonOperationBatchOutputFileProvider::xping() {}

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2014-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -34,10 +34,12 @@ class AnonProfile;
 class GenericPersistentData;
 class AnonOperationBatch;
 class App;
+class ApplicationData;
 
 #include "modules/anonymize/anonexception.h"
+#include "modules/anonymize/anonoperationbatch.h"
 
-class TestAnonymize : public TestBase
+class TestAnonymize : public TestBase, AnonOperationBatchOutputFileProvider
 {
     enum Resolution {
         ResolveElement = 0,
@@ -45,6 +47,13 @@ class TestAnonymize : public TestBase
         ResolveText = 2
     };
 
+    QString _askedOutString;
+    QIODevice *_retProvided;
+public:
+    virtual QIODevice *outProviderProvide(const QString &filePath);
+    virtual void outProviderAutoDelete();
+    virtual void outProviderDeleteIO(QIODevice *);
+private:
     QDateTime _baseDate;
     bool errorButton(const QString &buttonName );
     bool errorText(const QString &widgetName );
@@ -54,7 +63,7 @@ class TestAnonymize : public TestBase
     bool compareProfilesWrongParams(AnonProfile *p1, AnonProfile *p2);
     bool compareExceptions(const int index, AnonException *e1, AnonException *e2);
     AnonProfile *createProfile();
-    void fillProfile(GenericPersistentData *o1, const QString &newPayload);
+    void fillProfile(GenericPersistentData *o1, const QString &newPayload, const QString &newName="");
     bool testImportExceptions();
     bool testExportExceptions();
 
@@ -128,6 +137,9 @@ private:
     bool testBaseProfile();
     bool checkgetExc(QList<int> &selection, App *app, const bool expectedNamespace, const QString &expectedPath , const bool isElement);
     bool checkgetAttrExc(QList<int> &selection, App *app, const bool expectedNamespace, const QString &expectedPath);
+    bool innerBatchCommandLine(const QString &id, const QString &newFileInputPath, const QString &newProfileName, const QString &newFileOutputPath,
+                                              const bool expectedResult, const QString &compareOutput);
+    bool insProfile(ApplicationData *data, const QString &name);
 public:
     TestAnonymize();
     ~TestAnonymize();
@@ -137,6 +149,7 @@ public:
     bool testExc();
     bool testFast();
     bool testBatch();
+    bool testBatchCommandLine();
 };
 
 #endif // TESTANONYMIZE_H

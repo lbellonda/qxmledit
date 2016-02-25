@@ -419,7 +419,8 @@ SOURCES += xmleditwidget.cpp \
     modules/xml/xmlattributesindentationhelper.cpp \
     modules/xml/sortAttributes.cpp \
     undo/undosortattributes.cpp \
-    undo/undodeletesiblings.cpp
+    undo/undodeletesiblings.cpp \
+    modules/anonymize/anonoperationbatchoutputfileprovider.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \

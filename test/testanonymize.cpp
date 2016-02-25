@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2014-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -41,6 +41,7 @@
 #include "modules/anonymize/anonadvdialog.h"
 #include "modules/anonymize/anonsettingwidget.h"
 #include "modules/anonymize/anonattrexcdialog.h"
+#include "modules/anonymize/anonymizebatch.h"
 
 #define FILE_START_ALGALL_SEQALL            "../test/data/anon/algall_seqall_start.xml"
 #define FILE_START_ALGALL_SEQALL2           "../test/data/anon/algall_seqall_start2.xml"
@@ -74,9 +75,15 @@
 #define ANON_BATCH_QUAL1                "../test/data/anon/batch.qual.1.xml"
 #define ANON_BATCH_QUAL2                "../test/data/anon/batch.qual.2.xml"
 
+//---------------------
+#define ANON_BATCH_CL_START                "../test/data/anon/batch.start.cl.xml"
+#define ANON_BATCH_CL_END                "../test/data/anon/batch.end.cl.xml"
+
+//---------------------
 
 TestAnonymize::TestAnonymize()
 {
+    _retProvided = NULL ;
 }
 
 TestAnonymize::~TestAnonymize()
@@ -87,6 +94,10 @@ TestAnonymize::~TestAnonymize()
 bool TestAnonymize::testFast()
 {
     _testName = "testFast";
+
+    if(!testBatchCommandLine()) {
+        return false;
+    }
 
     if(!testInsertException()){
         return false;
@@ -1406,13 +1417,14 @@ bool TestAnonymize::testProfileParams()
     return true ;
 }
 
-void TestAnonymize::fillProfile(GenericPersistentData *o1, const QString &newPayload)
+void TestAnonymize::fillProfile(GenericPersistentData *o1, const QString &newPayload, const QString &newName)
 {
     o1->setCreationDate(_baseDate);
     o1->setDescription("description");
 
     o1->setCreationUser("setCreationUser");
-    o1->setName("name");
+    QString name = newName.isEmpty()? "name" : newName ;
+    o1->setName(name);
     o1->setPayload(newPayload);
     o1->setReadOnly(false);
     QSet<QString> tags;
@@ -1854,3 +1866,104 @@ bool TestAnonymize::testExportExceptions()
     return true ;
 
 }
+
+//----
+
+bool TestAnonymize::insProfile(ApplicationData* data, const QString &name)
+{
+    AnonProfile *profile1 = createProfile();
+    QString xmlProfile = profile1->toXMLSerializedString();
+
+    GenericPersistentData *snippet = data->storageManager()->newPersistentDatum(QXMLE_PDATA_TypeAnonProfile);
+    if(NULL == snippet) {
+        return error("Unable to create new profile.");
+    }
+    fillProfile(snippet, xmlProfile, name);
+    OperationStatus* oper = NULL ;
+    oper = data->storageManager()->insertGenericData(snippet);
+    if((NULL == oper) || !oper->isOk()) {
+        delete oper;
+        return error("Error saving data.");
+    }
+    delete oper;
+    return true;
+}
+
+bool TestAnonymize::innerBatchCommandLine(const QString &id,
+                                            const QString &newFileInputPath, const QString &newProfileName, const QString &newFileOutputPath,
+                                            const bool expectedResult, const QString &compareOutput)
+{
+    _testName = id;
+    SQLLiteTestAccess access;
+    if(!access.init()) {
+        return error("init db");
+    }
+    App app;
+    app.sessionDBPath = access.dbFileName;
+    if(!app.init1()){
+        return error("init 1");
+    }
+    // insert 2 profiles
+    if(!insProfile(app.data(),"pro1")) {
+        return false;
+    }
+    if(!insProfile(app.data(),"pro2")) {
+        return false;
+    }
+    if(!insProfile(app.data(), "pro2")) {
+        return false;
+    }
+    AnonymizeBatch batch( app.data(), newFileInputPath, newProfileName, newFileOutputPath );
+    QBuffer buffer;
+    _retProvided = &buffer ;
+    batch.setOutputProvider(this);
+    bool res = batch.operation();
+    if( res != expectedResult ) {
+        return error(QString("Command line result, expected %1, found %2").arg(expectedResult).arg(res));
+    }
+    if(expectedResult) {
+        if(_askedOutString!=newFileOutputPath) {
+            return error(QString("Command line out file, expected '%1, found '%2'").arg(newFileOutputPath).arg(_askedOutString));
+        }
+        CompareXML compare;
+        if(!compare.compareBufferWithFile(&buffer, compareOutput)) {
+            return error(QString("Error comparing files: %1, data is:%2").arg(compare.errorString()).arg(QString(buffer.data())));
+        }
+    }
+    return true;
+}
+
+QIODevice *TestAnonymize::outProviderProvide(const QString &filePath)
+{
+    _askedOutString = filePath;
+    return _retProvided ;
+}
+
+void TestAnonymize::outProviderAutoDelete()
+{}
+
+void TestAnonymize::outProviderDeleteIO(QIODevice *) {}
+
+bool TestAnonymize::testBatchCommandLine()
+{
+    _testName = "testBatchCommandLine";
+    // no input file
+    if(!innerBatchCommandLine("no input file", "ANON_BATCH_CL_START", "pro1", "a", false, ANON_BATCH_CL_END)) {
+        return false;
+    }
+    // no profile
+    if(!innerBatchCommandLine("no profile", ANON_BATCH_CL_START, "asas", "a", false, ANON_BATCH_CL_END)) {
+        return false;
+    }
+    // double profile
+    if(!innerBatchCommandLine("double profile", ANON_BATCH_CL_START, "pro2", "a", false, ANON_BATCH_CL_END)) {
+        return false;
+    }
+    // correct
+    if(!innerBatchCommandLine("correct", ANON_BATCH_CL_START, "pro1", "a", true, ANON_BATCH_CL_END)) {
+        return false;
+    }
+
+    return true;
+}
+

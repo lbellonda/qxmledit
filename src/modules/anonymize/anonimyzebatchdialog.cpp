@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -19,7 +19,6 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
-
 
 #include "anonimyzebatchdialog.h"
 #include "ui_anonimyzebatchdialog.h"

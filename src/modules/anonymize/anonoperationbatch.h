@@ -66,7 +66,19 @@ class QXmlStreamReader;
 class AnonContext;
 class QXmlStreamAttributes;
 
-class LIBQXMLEDITSHARED_EXPORT  AnonOperationBatch : public QObject
+class LIBQXMLEDITSHARED_EXPORT AnonOperationBatchOutputFileProvider
+{
+public:
+    AnonOperationBatchOutputFileProvider();
+    virtual ~AnonOperationBatchOutputFileProvider();
+
+    virtual QIODevice *outProviderProvide(const QString &filePath) = 0;
+    virtual void outProviderDeleteIO(QIODevice *) = 0;
+    virtual void outProviderAutoDelete() = 0;
+    void xping();
+};
+
+class LIBQXMLEDITSHARED_EXPORT AnonOperationBatch : public QObject, public AnonOperationBatchOutputFileProvider
 {
     Q_OBJECT
 
@@ -78,6 +90,7 @@ class LIBQXMLEDITSHARED_EXPORT  AnonOperationBatch : public QObject
     QMutex _mutex;
     volatile int _counterOperations;
     int _indent;
+    AnonOperationBatchOutputFileProvider *_outProvider;
 public:
     explicit AnonOperationBatch(QObject *parent = 0);
     virtual ~AnonOperationBatch();
@@ -89,7 +102,10 @@ public:
     int operationsCount();
     int getIndent() const;
     void setIndent(int value);
-
+    void setOutputProvider(AnonOperationBatchOutputFileProvider* newProvider);
+    virtual QIODevice *outProviderProvide(const QString &filePath);
+    virtual void outProviderDeleteIO(QIODevice *);
+    virtual void outProviderAutoDelete();
 private:
     bool checkStatus(AnonOperationResult *result);
     bool handleError(AnonOperationResult *result, QXmlStreamReader *xmlReader);

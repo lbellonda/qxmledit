@@ -84,10 +84,7 @@ AnonOperationResult::ECode AnonOperationResult::code()  const
     return _code ;
 }
 
-
 //--------------------------------------------------------------
-
-
 
 int AnonOperationBatch::getIndent() const
 {
@@ -98,21 +95,47 @@ void AnonOperationBatch::setIndent(int value)
 {
     _indent = value;
 }
+
 AnonOperationBatch::AnonOperationBatch(QObject *parent) :
     QObject(parent)
 {
+    _outProvider = this ;
     _isDocumentStandalone = false;
     isAborted = false ;
     _counterOperations = 0 ;
+    _indent = 0;
 }
 
 AnonOperationBatch::~AnonOperationBatch()
 {
+    _outProvider->outProviderAutoDelete();
 }
 
 const AnonOperationResult *AnonOperationBatch::result()
 {
     return &_result ;
+}
+
+QIODevice *AnonOperationBatch::outProviderProvide(const QString &fileOutputPath)
+{
+    return new QFile(fileOutputPath);
+}
+
+void AnonOperationBatch::outProviderDeleteIO(QIODevice *outFile)
+{
+    delete outFile;
+}
+
+void AnonOperationBatch::outProviderAutoDelete()
+{
+    // do nothing
+}
+
+void AnonOperationBatch::setOutputProvider(AnonOperationBatchOutputFileProvider* newProvider)
+{
+    if(NULL != newProvider) {
+        _outProvider = newProvider ;
+    }
 }
 
 const AnonOperationResult * AnonOperationBatch::perform(const QString & fileInputPath, const QString & fileOutputPath, AnonContext * startContext)
@@ -124,17 +147,22 @@ const AnonOperationResult * AnonOperationBatch::perform(const QString & fileInpu
         return result();
     }
     QFile fileInput(fileInputPath);
-    QFile fileOutput(fileOutputPath);
-    if(!fileInput.open(QFile::ReadOnly)) {
-        _result.setError(AnonOperationResult::RES_ERR_OPEN_INPUT_FILE, tr("Unable to open input file:'%1'").arg(fileInputPath));
+    QIODevice *fileOutput = _outProvider->outProviderProvide(fileOutputPath);
+    if(NULL == fileOutput) {
+        _result.setError(AnonOperationResult::RES_ERR_OPEN_OUTPUT_FILE, tr("Unable to get output file:'%1'").arg(fileOutputPath));
     } else {
-        if(!fileOutput.open(QFile::WriteOnly)) {
-            _result.setError(AnonOperationResult::RES_ERR_OPEN_OUTPUT_FILE, tr("Unable to open output file:'%1'").arg(fileOutputPath));
+        if(!fileInput.open(QFile::ReadOnly)) {
+            _result.setError(AnonOperationResult::RES_ERR_OPEN_INPUT_FILE, tr("Unable to open input file:'%1'").arg(fileInputPath));
         } else {
-            execute(&fileInput, &fileOutput, startContext);
-            fileOutput.close();
+            if(!fileOutput->open(QIODevice::WriteOnly)) {
+                _result.setError(AnonOperationResult::RES_ERR_OPEN_OUTPUT_FILE, tr("Unable to open output file:'%1'").arg(fileOutputPath));
+            } else {
+                execute(&fileInput, fileOutput, startContext);
+                fileOutput->close();
+            }
+            fileInput.close();
         }
-        fileInput.close();
+        _outProvider->outProviderDeleteIO(fileOutput);
     }
     return result() ;
 }

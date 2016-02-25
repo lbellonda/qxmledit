@@ -32,6 +32,7 @@
 #include <QDataStream>
 #include <QLocalSocket>
 #include "qxmleditconfig.h"
+#include "modules/anonymize/anonymizebatch.h"
 
 void extractFragmentsWindow(ExtractResults *extractResult, QWidget *parent);
 
@@ -66,6 +67,7 @@ void QXmlEditApplication::setLogger(FrwLogger *logger)
 {
     _logger = logger;
 }
+
 
 ApplicationData *QXmlEditApplication::appData() const
 {
@@ -250,6 +252,9 @@ bool QXmlEditApplication::handleSingleInstance(StartParams * startParams)
     if(!Config::getBool(Config::KEY_GENERAL_SINGLE_INSTANCE, true)) {
         return false;
     }
+    if(startParams->type == StartParams::Anonymize) {
+        return false;
+    }
     if(startParams->type != StartParams::Nothing) {
         if(connectToExistingServer(startParams)) {
             return true ;
@@ -333,3 +338,15 @@ void QXmlEditApplication::updateEditors()
         window->updateAfterPreferences();
     }
 }
+
+OperationResult *QXmlEditApplication::anonymizeBatch(const QString &newFileInputPath, const QString &newProfileName, const QString &newFileOutputPath)
+{
+    OperationResult *result = new OperationResult();
+    AnonymizeBatch batchOperation(_appData, newFileInputPath, newProfileName, newFileOutputPath);
+    batchOperation.operation();
+    if(batchOperation.isError()) {
+        result->setErrorWithText(batchOperation.errorMessage());
+    }
+    return result;
+}
+

@@ -58,7 +58,6 @@ SOURCES += $$files(../src/modules/namespace/*.cpp)
 SOURCES += $$files(../src/modules/utils/*.cpp)
 SOURCES += $$files(../src/modules/replica/*.cpp)
 SOURCES += $$files(../src/modules/export/*.cpp)
-SOURCES -= ../src/main.cpp
 
 HEADERS += $$files(../src/*.h)
 HEADERS += $$files(../src/widgets/*.h)

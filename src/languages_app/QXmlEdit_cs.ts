@@ -4812,7 +4812,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../MainWindow.ui" line="738"/>
         <location filename="../MainWindow.ui" line="741"/>
-        <source>Close This and All Brothers</source>
+        <source>Close This and All Siblings</source>
         <translation>Zavřít toto a všechny bratry</translation>
     </message>
     <message>
@@ -4842,12 +4842,12 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="768"/>
-        <source>&amp;Hide Brothers</source>
+        <source>&amp;Hide Siblings</source>
         <translation>&amp;Skrýt bratry</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="771"/>
-        <source>Hide Brothers</source>
+        <source>Hide Siblings</source>
         <translation>Skrýt bratry</translation>
     </message>
     <message>
@@ -5889,7 +5889,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1954"/>
-        <source>Close Brothers</source>
+        <source>Close Siblings</source>
         <translation>Zavřít bratry</translation>
     </message>
     <message>

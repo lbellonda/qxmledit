@@ -41,12 +41,11 @@
 #endif
 #endif
 
+#if !defined(QXMLEDIT_NOMAIN)
 
 #if defined(MACOS_SPECIFIC)
 #include <QtMac>
 #endif
-
-#if !defined(QXMLEDIT_NOMAIN)
 
 const char *APP_TITLE = QT_TR_NOOP("QXmlEdit");
 
@@ -54,7 +53,9 @@ const char *APP_TITLE = QT_TR_NOOP("QXmlEdit");
 #define QXMLEDITWIDGET_TRANSLATIONS_PREFIX  "QXmlEditWidget_"
 #define QXMLEDITSESSION_TRANSLATIONS_PREFIX "QXmlEditSessions_"
 
-static bool decodeCommandLine(QApplication &app, StartParams *params);
+void printHelp();
+
+bool decodeCommandLine(QStringList args, StartParams *params);
 static void startTanslator(QApplication *app);
 static void initLogger();
 static void todo();
@@ -62,6 +63,7 @@ static void installMsgHandler();
 static void addMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock);
 static void removeMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock);
 static bool licenseAgreement();
+static int doAnonymize(QXmlEditApplication *app, StartParams &startParams);
 
 static QTranslator qtLibTranslator;
 static QTranslator qXmlEditTranslator;
@@ -71,7 +73,7 @@ static QTranslator qXmlEditSessionTranslator;
 static LogHandler logHandler;
 static StartParams startParams ;
 
-int main(int argc, char *argv[])
+int internalMain(int argc, char *argv[])
 {
     QXmlEditApplication app(argc, argv);
     Q_INIT_RESOURCE(risorse);
@@ -101,9 +103,13 @@ int main(int argc, char *argv[])
         return -1 ;
     }
 
-    decodeCommandLine(app, &startParams);
+    decodeCommandLine(app.arguments(), &startParams);
     if(app.handleSingleInstance(&startParams)) {
         return 0;
+    }
+    if(startParams.type == StartParams::Anonymize) {
+        int returnCode = doAnonymize(&app, startParams);
+        return returnCode;
     }
 
     MainWindow *mainWindow = new MainWindow(false, &app, &appData);
@@ -177,41 +183,34 @@ static void removeMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlo
 #endif
 }
 
+static int doAnonymize(QXmlEditApplication *app, StartParams &startParams)
+{
+    QTextStream stdErr(stderr);
+    if(startParams.parametersError) {
+        stdErr << startParams.errorMessage ;
+        return -1;
+    }
+    OperationResult *result = app->anonymizeBatch(startParams.fileName, startParams.arg1, startParams.arg2);
+    if(NULL == result) {
+        stdErr << QObject::tr("Error: unable to complete the operation.");
+        return -1 ;
+    }
+    int returnCode = 0;
+    if(result->isError()) {
+        stdErr << result->message();
+        returnCode = -1 ;
+    }
+    delete result;
+    return returnCode ;
+}
+
+
 static void initLogger()
 {
     bool isEnabled = Config::getBool(Config::KEY_LOGS_ENABLED, false);
     int logLevel = Config::getInt(Config::KEY_LOGS_LEVEL, FrwLogger::INFO);
     logHandler.setLevel((FrwLogger::ELogLevel)logLevel);
     logHandler.setEnabled(isEnabled);
-}
-
-static bool decodeCommandLine(QApplication &app, StartParams *params)
-{
-    QStringList args = app.arguments();
-    if(args.size() > 1) {
-        QString arg1 = args.at(1);
-
-        if(arg1 == QString("-vis")) {
-            if(args.size() > 2) {
-                params->fileName = args.at(2);
-                if(!params->fileName.isEmpty()) {
-                    params->type = StartParams::VisFile ;
-                    return true;
-                } else {
-                    params->parametersError = true ;
-                }
-            }
-        } else {
-            params->fileName = args.at(1);
-            if(!params->fileName.isEmpty()) {
-                params->type = StartParams::OpenFile ;
-                return true;
-            } else {
-                params->parametersError = true ;
-            }
-        }
-    }
-    return false;
 }
 
 void msgBoxDebug(const QString message)
@@ -273,4 +272,85 @@ static bool licenseAgreement()
     return true;
 }
 
+int main(int argc, char *argv[])
+{
+    return internalMain(argc, argv);
+}
+
 #endif //QXMLEDIT_NOMAIN
+
+void printHelp()
+{
+#if !defined(QXMLEDIT_NOMAIN)
+    QTextStream stdOut(stdout);
+    stdOut << QString("QXmlEdit %1\n").arg(VERSION);
+    stdOut << QObject::tr("Usage:\n");
+    stdOut << QObject::tr(" -vis <file>: opens the data visualization panel\n");
+    stdOut << QObject::tr(" -anonymize <inputfile> <profile> <ouputfile>: anonymize\n");
+    stdOut << QObject::tr(" any other argument is used as a file to open.\n");
+#endif //QXMLEDIT_NOMAIN
+}
+
+bool decodeCommandLine(QStringList args, StartParams *params)
+{
+    Utils::TODO_THIS_RELEASE("descrivi parametri nel manuale e nell'help");
+    if(args.size() > 1) {
+        QString arg1 = args.at(1);
+
+        if(arg1 == QString("-vis")) {
+            params->type = StartParams::VisFile ;
+            if(args.size() > 2) {
+                params->fileName = args.at(2);
+                if(params->fileName.isEmpty()) {
+                    params->parametersError = true ;
+                    params->errorMessage = QObject::tr("The input file name is empty.");
+                    return false;
+                }
+            } else {
+                params->parametersError = true ;
+                params->errorMessage = QObject::tr("Missing parameters for the data visualization option.");
+                printHelp();
+                return false;
+            }
+        } else if(arg1 == QString("-anonymize")) {
+            params->type = StartParams::Anonymize ;
+            if(args.size() > 4) {
+                params->fileName = args.at(2);
+                params->arg1 = args.at(3);
+                params->arg2 = args.at(4);
+                if(params->fileName.isEmpty()) {
+                    params->parametersError = true ;
+                    params->errorMessage = QObject::tr("The input file name is empty.");
+                    return false;
+                }
+                if(params->arg1.isEmpty()) {
+                    params->parametersError = true ;
+                    params->errorMessage = QObject::tr("The profile name is empty.");
+                    return false;
+                }
+                if(params->arg2.isEmpty()) {
+                    params->parametersError = true ;
+                    params->errorMessage = QObject::tr("The anonymized file name (output) is empty.");
+                    return false;
+                }
+                params->type = StartParams::Anonymize ;
+            } else {
+                params->parametersError = true ;
+                params->errorMessage = QObject::tr("Missing parameters for the anonymize option.");
+                printHelp();
+                return false;
+            }
+        } else {
+            params->fileName = args.at(1);
+            if(!params->fileName.isEmpty()) {
+                params->type = StartParams::OpenFile ;
+            } else {
+                params->parametersError = true ;
+                params->errorMessage = QObject::tr("The input file name is empty.");
+                return false;
+            }
+        }
+    }
+    return true;
+}
+

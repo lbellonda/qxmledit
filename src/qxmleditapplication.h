@@ -27,6 +27,7 @@
 #include "xmlEdit.h"
 #include <QLocalServer>
 #include "log.h"
+#include "operationresult.h"
 
 class ApplicationData;
 class StartParams;
@@ -55,6 +56,8 @@ public:
 
     FrwLogger *logger() const;
     void setLogger(FrwLogger *logger);
+
+    OperationResult *anonymizeBatch(const QString &newFileInputPath, const QString &newProfileName, const QString &newFileOutputPath);
 
 protected:
     bool event(QEvent *event);

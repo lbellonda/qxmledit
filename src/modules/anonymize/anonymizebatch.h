@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,31 +21,44 @@
  **************************************************************************/
 
 
-#ifndef STARTPARAMS_H
-#define STARTPARAMS_H
+#ifndef ANONYMIZEBATCH_H
+#define ANONYMIZEBATCH_H
 
-class StartParams
+#include "xmlEdit.h"
+
+class ApplicationData;
+class AnonProfile;
+class AnonOperationBatchOutputFileProvider;
+
+class AnonymizeBatch : public QObject
 {
+    Q_OBJECT
+    QString _fileInputPath;
+    QString _profileName;
+    QString _fileOutputPath;
+    QString _errorMessage ;
+    bool _error ;
+    ApplicationData *_data;
+    //---
+    bool error();
+    bool setError(const QString &message);
+    AnonProfile* loadProfile();
+    GenericPersistentData* getProfile(const QString &profileName);
+    AnonProfile* getProfileFromProfileData(GenericPersistentData *input);
+    AnonOperationBatchOutputFileProvider *_outProvider;
 public:
-    enum ESPType {
-        Nothing,
-        OpenFile,
-        VisFile,
-        Anonymize
-    };
+    explicit AnonymizeBatch(ApplicationData *newData, const QString &newFileInputPath, const QString &newProfileName, const QString &newFileOutputPath, QObject *parent = 0);
+    ~AnonymizeBatch();
+    bool isError();
 
-    ESPType type;
-    QString fileName;
-    QString arg1;
-    QString arg2;
-    bool parametersError ;
-    QString errorMessage;
+    bool operation();
+    QString errorMessage();
+    void setOutputProvider(AnonOperationBatchOutputFileProvider* newProvider);
 
-    StartParams() {
-        fileName = "" ;
-        type = Nothing;
-        parametersError = false ;
-    }
+signals:
+
+public slots:
+
 };
 
-#endif // STARTPARAMS_H
+#endif // ANONYMIZEBATCH_H

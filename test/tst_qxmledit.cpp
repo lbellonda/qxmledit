@@ -1142,6 +1142,11 @@ void TestQXmlEdit::testAnonymize()
         result = test2.testBatch();
         QVERIFY2(result, (QString("test testAnonymize: testBatch() '%1'").arg(test2.errorString())).toLatin1().data());
     }
+    {
+        TestAnonymize test2;
+        result = test2.testBatchCommandLine();
+        QVERIFY2(result, (QString("test testAnonymize: testBatchCommandLine() '%1'").arg(test2.errorString())).toLatin1().data());
+    }
 }
 
 
@@ -1290,6 +1295,23 @@ void TestQXmlEdit::testDeleteSiblings()
     }
 }
 
+
+void TestQXmlEdit::testCommandLine()
+{
+    bool result ;
+
+    {
+        TestCommandLine test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test testCommandLine: testFast '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestCommandLine test1;
+        result = test1.testUnit();
+        QVERIFY2(result, (QString("test testCommandLine: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+}
+
 /*
 
 // This function enabled for debug purposes. DO NOT REMOVE
@@ -1309,6 +1331,8 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testCommandLine();
+    testAnonymize();
     testDeleteSiblings();
     testConfig();
     testSortAttributes();

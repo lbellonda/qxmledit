@@ -249,7 +249,8 @@ HEADERS = precompiled_app.h \
     qxmeditmetainfo.h \
     infodialog.h \
     modules/replica/replicaclonedialog.h \
-    modules/export/exportoptionsdialog.h
+    modules/export/exportoptionsdialog.h \
+    modules/anonymize/anonymizebatch.h
 
 SOURCES = \
     main.cpp \
@@ -303,7 +304,8 @@ SOURCES = \
     infodialog.cpp \
     mainwindowio.cpp \
     modules/replica/replicaclonedialog.cpp \
-    modules/export/exportoptionsdialog.cpp
+    modules/export/exportoptionsdialog.cpp \
+    modules/anonymize/anonymizebatch.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \

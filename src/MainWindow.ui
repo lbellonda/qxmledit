@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -63,7 +63,6 @@
     <addaction name="actionGo_To_Parent"/>
     <addaction name="actionGo_to_Previous_Brother"/>
     <addaction name="actionGo_to_Next_Brother"/>
-    <addaction name="actionCloseThisAllBrothers"/>
     <addaction name="separator"/>
     <addaction name="actionShowXSLNavigator"/>
    </widget>
@@ -250,6 +249,14 @@
      <addaction name="actionRemoveAllSiblingsAfter"/>
      <addaction name="actionRemoveAllSiblings"/>
     </widget>
+    <widget class="QMenu" name="menuHierarchy">
+     <property name="title">
+      <string>Hierarchy</string>
+     </property>
+     <addaction name="actionInsertChildContainer"/>
+     <addaction name="actionInsertParent"/>
+     <addaction name="actionRemoveParent"/>
+    </widget>
     <addaction name="actionXMLEditMode"/>
     <addaction name="actionXSLTEditMode"/>
     <addaction name="actionScanXMLTagsAndNamesXSLTAutocompletion"/>
@@ -260,9 +267,7 @@
     <addaction name="actionAppendComment"/>
     <addaction name="actionAddProcessingInstruction"/>
     <addaction name="actionAppendProcessingInstruction"/>
-    <addaction name="actionInsertChildContainer"/>
-    <addaction name="actionInsertParent"/>
-    <addaction name="actionRemoveParent"/>
+    <addaction name="menuHierarchy"/>
     <addaction name="menuSiblings"/>
     <addaction name="actionTransformInComment"/>
     <addaction name="actionExtractElementsFromComment"/>
@@ -336,13 +341,20 @@
      <addaction name="actionShowMainButtons"/>
      <addaction name="actionShowStatusBar"/>
     </widget>
+    <widget class="QMenu" name="viewSiblings">
+     <property name="title">
+      <string>Siblings</string>
+     </property>
+     <addaction name="actionCloseThisAllBrothers"/>
+     <addaction name="actionHideBrothers"/>
+     <addaction name="actionCloseSiblings"/>
+    </widget>
     <addaction name="menuPanels"/>
     <addaction name="actionColumnView"/>
     <addaction name="menuAdvanced"/>
     <addaction name="actionExpandAll"/>
     <addaction name="actionExpandSelectedItem"/>
-    <addaction name="actionHideBrothers"/>
-    <addaction name="actionCloseSiblings"/>
+    <addaction name="viewSiblings"/>
     <addaction name="actionHideAllLeafChildren"/>
     <addaction name="actionShowAllLeafChildren"/>
     <addaction name="menuFilter_Attributes"/>
@@ -756,10 +768,10 @@
   </action>
   <action name="actionCloseThisAllBrothers">
    <property name="text">
-    <string>Close This and All Brothers</string>
+    <string>Close This and All Siblings</string>
    </property>
    <property name="toolTip">
-    <string>Close This and All Brothers</string>
+    <string>Close This and All Siblings</string>
    </property>
    <property name="shortcut">
     <string>F12</string>
@@ -786,10 +798,10 @@
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>&amp;Hide Brothers</string>
+    <string>&amp;Hide Siblings</string>
    </property>
    <property name="toolTip">
-    <string>Hide Brothers</string>
+    <string>Hide Siblings</string>
    </property>
   </action>
   <action name="actionFixedSizeAttributes">
@@ -1972,7 +1984,7 @@
   </action>
   <action name="actionCloseSiblings">
    <property name="text">
-    <string>Close Brothers</string>
+    <string>Close Siblings</string>
    </property>
    <property name="toolTip">
     <string>Close the siblings of the current element.</string>
