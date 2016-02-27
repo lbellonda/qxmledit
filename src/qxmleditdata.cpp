@@ -765,5 +765,5 @@ UnicodeHelper *QXmlEditData::unicodeHelper()
 
 bool QXmlEditData::isShowImagesInTooltip()
 {
-    return Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, true);
+    return Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE, false);
 }
