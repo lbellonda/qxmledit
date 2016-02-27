@@ -1,0 +1,39 @@
+.TH QXmlEdit 1 "2016-02-26" "qxmledit"
+.SH NAME
+qxmledit \- simple XML editor and XSD viewer
+.SH SYNOPSIS
+.B qxmledit
+.RI [ options ]
+.RI [ file ]
+.SH DESCRIPTION
+\fBQXmlEdit\fP is an XML editor with tools to view and manipulate large XML files.
+.PP
+.br
+It can edit XML files supporting base 64 coded data, but sports tool for view XSD
+files, compare XML files, compare XSD files, split large files,
+anonymizing data and process encodings.
+.br
+
+.PP
+.SH OPTIONS
+The parameters are:
+
+.IP \fB-vis\fP\ <file>
+opens the data visualization panel
+.IP \fB-anonymize\fP\ <inputfile>\ <profile>\ <outputfile>
+anonymize the file \<inputfile\> using the profile <profile> writing the result into <outputfile>.
+.br
+With this option \fBQXmlEdit\fP exits after the operation.
+.PP
+
+.SH SAMPLE
+qxmledit file_input.xml
+
+.SH AUTHOR
+Luca Bellonda and contributors.
+
+.SH COPYRIGHT
+Copyright (c) Luca Bellonda Luca Bellonda and contributors 2008-2016. License LGPL V2
+
+.PP
+This manual page was originally written by Luca Bellonda <lbellonda@gmail.com>
