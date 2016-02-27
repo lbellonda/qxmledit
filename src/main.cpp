@@ -293,7 +293,6 @@ void printHelp()
 
 bool decodeCommandLine(QStringList args, StartParams *params)
 {
-    Utils::TODO_THIS_RELEASE("descrivi parametri nel manuale e nell'help");
     if(args.size() > 1) {
         QString arg1 = args.at(1);
 
