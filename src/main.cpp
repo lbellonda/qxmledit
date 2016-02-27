@@ -286,7 +286,7 @@ void printHelp()
     stdOut << QString("QXmlEdit %1\n").arg(VERSION);
     stdOut << QObject::tr("Usage:\n");
     stdOut << QObject::tr(" -vis <file>: opens the data visualization panel\n");
-    stdOut << QObject::tr(" -anonymize <inputfile> <profile> <ouputfile>: anonymize\n");
+    stdOut << QObject::tr(" -anonymize <inputfile> <profile> <outputfile>: anonymize\n");
     stdOut << QObject::tr(" any other argument is used as a file to open.\n");
 #endif //QXMLEDIT_NOMAIN
 }
