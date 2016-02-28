@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs_CZ">
+<TS version="2.1" language="cs_CZ">
 <context>
     <name>SQLLiteDataAccess::Private</name>
     <message>
-        <location filename="../data_access/sqllitedataaccess.cpp" line="434"/>
+        <location filename="../data_access/sqllitedataaccess.cpp" line="435"/>
         <source>can&apos;t open sessions database:%1</source>
         <translation>Nelze otevřít databázi se sezeními: %1</translation>
     </message>
@@ -219,7 +219,7 @@
 <context>
     <name>SessionManager::Private</name>
     <message>
-        <location filename="../sessionmanagerprivate.cpp" line="318"/>
+        <location filename="../sessionmanagerprivate.cpp" line="316"/>
         <source>unable to read sessions data.</source>
         <translation>Nelze přečíst data sezení.</translation>
     </message>
