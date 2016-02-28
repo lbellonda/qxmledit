@@ -110,12 +110,21 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
     case ET_ELEMENT: {
         firstColText += "<";
         firstColText += tag() ;
-        if(!areChildrenLeavesHidden(getUI())) {
-            dataInfo->_icon = isBookmarked ? elementBkmIcon : elementIcon;
+        if(paintInfo->isShowElementsIcon()) {
+            if(!areChildrenLeavesHidden(getUI())) {
+                dataInfo->_icon = isBookmarked ? elementBkmIcon : elementIcon;
+            } else {
+                dataInfo->_icon = isBookmarked ? childrenHiddenBkmIcon : childrenHiddenIcon;
+            }
         } else {
-            dataInfo->_icon = isBookmarked ? childrenHiddenBkmIcon : childrenHiddenIcon;
+            if(isBookmarked) {
+                if(!areChildrenLeavesHidden(getUI())) {
+                    dataInfo->_icon = elementBkmIcon ;
+                } else {
+                    dataInfo->_icon = childrenHiddenBkmIcon ;
+                }
+            }
         }
-        //firstColText += ">";
         QString qualifiedInfo = getIdUsingStyle(paintInfo);
         if(qualifiedInfo.length() > 0) {
             QString idString = " - ";

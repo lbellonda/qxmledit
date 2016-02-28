@@ -48,6 +48,7 @@ PaintInfo::PaintInfo()
     isShowFullComments = false ;
     _sortAttributesAlpha = false ;
     _attributesColumnLimit = NumColumnsPerAttributeDefault ;
+    _showElementsIcon = true ;
     recalcColumns();
 }
 
@@ -70,6 +71,7 @@ void PaintInfo::loadState()
     isShowFullComments = Config::getBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, false);
     _sortAttributesAlpha = Config::getBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, false);
     _attributesColumnLimit = Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, NumColumnsPerAttributeDefault) ;
+    _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, true);
     recalcColumns();
     isChanged = false;
 }
@@ -105,6 +107,8 @@ bool PaintInfo::saveState()
     if(!Config::saveBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, isSortAttributesAlpha()))
         isOK = false;
     if(!Config::saveInt(Config::KEY_MAIN_ATTRCOLLLIMIT, attributesColumnLimit()))
+        isOK = false;
+    if(!Config::saveBool(Config::KEY_MAIN_SHOWELEMNTSICON, isShowElementsIcon()))
         isOK = false;
     return isOK;
 }
@@ -229,6 +233,20 @@ int PaintInfo::attributesColumnLimit() const
 void PaintInfo::setAttributesColumnLimit(int value)
 {
     _attributesColumnLimit = value;
+    isChanged = true ;
+    saveState();
+}
+
+bool PaintInfo::isShowElementsIcon() const
+{
+    return _showElementsIcon;
+}
+
+void PaintInfo::setShowElementsIcon(bool showElementsIcon)
+{
+    _showElementsIcon = showElementsIcon;
+    isChanged = true ;
+    saveState();
 }
 
 void PaintInfo::internalSetZoom(const int newValue)
@@ -401,4 +419,11 @@ bool PaintInfo::updateAttributeColumnsLimit()
     int oldValue = _attributesColumnLimit ;
     _attributesColumnLimit = Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, NumColumnsPerAttributeDefault) ;
     return oldValue != _attributesColumnLimit ;
+}
+
+bool PaintInfo::updateShowElementIcon()
+{
+    int oldValue = _showElementsIcon ;
+    _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, true);
+    return oldValue != _showElementsIcon ;
 }

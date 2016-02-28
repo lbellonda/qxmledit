@@ -83,6 +83,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
 
     ui->cbAttrLen->setChecked(Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, PaintInfo::NumColumnsPerAttributeDefault) > 0);
     ui->attrLenCols->setValue(Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, PaintInfo::NumColumnsPerAttributeDefault));
+    ui->cbSHowElementsIcon->setChecked(Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, true));
 
     _started = true ;
 }
@@ -257,4 +258,10 @@ void ConfigurationGeneralOptions::on_cbOpenFilesInNewWindow_stateChanged(int /*s
 void ConfigurationGeneralOptions::on_cbAttrLen_stateChanged(int /*state*/)
 {
     ui->attrLenCols->setEnabled(ui->cbAttrLen->isChecked());
+}
+
+
+void ConfigurationGeneralOptions::on_cbSHowElementsIcon_stateChanged(int /*state*/)
+{
+    Config::saveBool(Config::KEY_MAIN_SHOWELEMNTSICON, ui->cbSHowElementsIcon->isChecked());
 }

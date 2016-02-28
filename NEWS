@@ -1,4 +1,5 @@
 0.9.3
+    Added an option to show the element icon in the editor.
     Added man page.
     Added a command line option for anonymization.
     Added a delete siblings feature.

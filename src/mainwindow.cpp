@@ -1440,7 +1440,14 @@ QXmlEditApplication* MainWindow::qXmlEditApplication()
 void MainWindow::updateAfterPreferences()
 {
     getEditor()->updateAttributeIndentationSettings();
+    bool isChanged = false;
     if(getEditor()->getPaintInfo()->updateAttributeColumnsLimit()) {
+        isChanged = true ;
+    }
+    if(getEditor()->getPaintInfo()->updateShowElementIcon()) {
+        isChanged = true ;
+    }
+    if(isChanged) {
         getEditor()->invalidatePaintData();
     }
 }

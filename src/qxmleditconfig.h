@@ -69,6 +69,7 @@ public:
     static const QString  KEY_MAIN_SHOWSTATUSBAR;
     static const QString  KEY_MAIN_SORTATTRIBUTESALPHA;
     static const QString  KEY_MAIN_ATTRCOLLLIMIT;
+    static const QString  KEY_MAIN_SHOWELEMNTSICON;
 
     // style
     static const QString KEY_VIEW_STYLE;

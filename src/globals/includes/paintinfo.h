@@ -55,6 +55,7 @@ private:
     bool isShowFullComments;
     bool _sortAttributesAlpha;
     int _attributesColumnLimit;
+    bool _showElementsIcon;
 
     void internalSetZoom(const int newValue);
     void recalcColumns();
@@ -126,6 +127,9 @@ public:
     int attributesColumnLimit() const;
     void setAttributesColumnLimit(int attributesColumnLimit);
     bool updateAttributeColumnsLimit();
+    bool isShowElementsIcon() const;
+    void setShowElementsIcon(bool showElementsIcon);
+    bool updateShowElementIcon();
 };
 
 #endif

@@ -65,6 +65,7 @@ const QString Config::KEY_MAIN_SHOWBUTTONS("main/showButtons");
 const QString Config::KEY_MAIN_SHOWSTATUSBAR("main/showStatusBar");
 const QString Config::KEY_MAIN_SORTATTRIBUTESALPHA("main/showSortAttrAlpha");
 const QString Config::KEY_MAIN_ATTRCOLLLIMIT("main/showAttrCols");
+const QString Config::KEY_MAIN_SHOWELEMNTSICON("main/showElementsIcon");
 
 // style
 const QString Config::KEY_VIEW_STYLE("view/styleSelected");

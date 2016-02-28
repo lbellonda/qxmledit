@@ -70,6 +70,7 @@ private slots:
     void on_cbShowImagesInTextTooltip_stateChanged(int state);
     void on_cbSingleInstance_stateChanged(int state);
     void on_cbAttrLen_stateChanged(int /*state*/);
+    void on_cbSHowElementsIcon_stateChanged(int /*state*/);
 };
 
 #endif // CONFIGURATIONGENERALOPTIONS_H
