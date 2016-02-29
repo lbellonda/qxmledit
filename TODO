@@ -2,19 +2,19 @@
 Check issues:
 -------------
 
-xsd: liste esagonali non centrate con il testo
-xsd: metti i tooltip a tutti gli oggetti xsd
-a volte non fa cancel su edit inner (non ripetibile)
-viewxsd non chiude con cancel
-compara xml: tooltip deve mostrare full di entrambi i rami
-
-
-
 TODO:
 
-#new is:99
+#new is:105
 
-98 - Investigare andata a capo su prologo seguito da commento o processing instr.
+104 - Silence any message box in batch: check
+
+103 - compara xml: tooltip deve mostrare full di entrambi i rami
+
+102 - Export, remember folder
+
+101 - import as child
+
+100 - import as sibling
 
 95 - Use stream when exporting source
 
@@ -25,8 +25,6 @@ TODO:
 66 - show and hide navigation pane does not enlarge graphical view
 
 33 - Configurable data directory (see https://wiki.edubuntu.org/PackagingGuide/QtApplication for a guide)
-
-29 - limita testo su edit snippet (verifica)
 
 24- generatore di codice per XSD
 
