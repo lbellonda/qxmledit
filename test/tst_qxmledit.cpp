@@ -33,9 +33,8 @@ TestQXmlEdit::TestQXmlEdit()
 
 void TestQXmlEdit::initTestCase()
 {
+    Utils::setBatch(true);
     Utils::isUnitTest = true ;
-    Utils::silenceMessages1 = true ;
-    Utils::silenceMessages2 = true ;
 }
 
 void TestQXmlEdit::cleanupTestCase()

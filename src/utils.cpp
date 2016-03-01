@@ -28,13 +28,36 @@
 #include "utils.h"
 #include "qxmleditconfig.h"
 
+#define BATCH_ON_NOZERO    (0x55)
 
 const int Utils::ReasonableIterationCount = 100 ;
 bool Utils::isUnitTest = false ;
-bool Utils::silenceMessages1 = false ;
+int Utils::silenceMessages1 = false ;
 bool Utils::filler1 = false ; // filler to avoid memory corruption if possible. Used as a double security with a # def.
 bool Utils::filler2 = false ;
-bool Utils::silenceMessages2 = false ;
+int Utils::silenceMessages2 = false ;
+
+void Utils::setBatch(const bool asBatch)
+{
+    if(asBatch) {
+        QXmlEditGlobals::batchMode = BATCH_ON_NOZERO ;
+        silenceMessages1 = BATCH_ON_NOZERO;
+        silenceMessages2 = BATCH_ON_NOZERO;
+    } else {
+        QXmlEditGlobals::batchMode = 0 ;
+        silenceMessages1 = 0;
+        silenceMessages2 = 0;
+    }
+}
+
+bool Utils::isSilenceMode()
+{
+    return
+                (BATCH_ON_NOZERO == QXmlEditGlobals::batchMode )
+            &&  (BATCH_ON_NOZERO == silenceMessages1 )
+            &&  (BATCH_ON_NOZERO == silenceMessages2 )
+            && !filler1  && !filler2 ;
+}
 
 void Utils::error(const QString & message)
 {
@@ -44,11 +67,9 @@ void Utils::error(const QString & message)
 void Utils::error(QWidget *parent, const QString & message)
 {
     qWarning("%s", message.toLatin1().data());
-#ifdef QXMLEDIT_TEST
-    if(isUnitTest && silenceMessages1 && !filler1  && !filler2 && silenceMessages2) {
+    if(isSilenceMode()) {
         return ;
     }
-#endif
     QMessageBox::critical(parent, QXmlEditGlobals::appTitle(), message) ;
 }
 
@@ -60,11 +81,9 @@ void Utils::warning(const QString & message)
 void Utils::warning(QWidget *parent, const QString & message)
 {
     qWarning("%s", message.toLatin1().data());
-#ifdef QXMLEDIT_TEST
-    if(isUnitTest && silenceMessages1 && !filler1  && !filler2 && silenceMessages2) {
+    if(isSilenceMode()) {
         return ;
     }
-#endif
     QMessageBox::warning(parent, QXmlEditGlobals::appTitle(), message) ;
 }
 
@@ -78,19 +97,17 @@ void Utils::message(const QString & message)
 
 void Utils::message(QWidget *parent, const QString & message)
 {
-#ifdef QXMLEDIT_TEST
-    if(isUnitTest && silenceMessages1 && !filler1  && !filler2 && silenceMessages2) {
+    if(isSilenceMode()) {
         return ;
     }
-#endif
     QMessageBox::information(parent, QXmlEditGlobals::appTitle(), message) ;
 }
 
 bool Utils::askYN(QWidget *parent, const QString & message)
 {
-#ifdef QXMLEDIT_TEST
-    return false;
-#endif
+    if(isSilenceMode()) {
+        return false;
+    }
     if(QMessageBox::Yes == QMessageBox::question(parent, QXmlEditGlobals::appTitle(), message, QMessageBox::Yes | QMessageBox::No)) {
         return true ;
     }

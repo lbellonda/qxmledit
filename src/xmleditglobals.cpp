@@ -25,6 +25,8 @@
 
 QString QXmlEditGlobals::_appTitle = QT_TR_NOOP("QXmlEdit");
 
+int QXmlEditGlobals::batchMode = 0 ;
+
 QXmlEditGlobals::QXmlEditGlobals()
 {
 }

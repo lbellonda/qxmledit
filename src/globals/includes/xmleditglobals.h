@@ -33,7 +33,7 @@ class LIBQXMLEDITSHARED_EXPORT QXmlEditGlobals
 private:
     QXmlEditGlobals();
 public:
-
+    static int batchMode;
     static void setAppTitle(const QString newTitle);
     static QString appTitle();
 };

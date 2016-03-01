@@ -42,11 +42,14 @@ private:
 public:
     static const int ReasonableIterationCount ;
     static bool isUnitTest ;
-    static bool silenceMessages1;
+    static int silenceMessages1;
     static bool filler1; // filler to avoid memory corruption if possible
     static bool filler2;
-    static bool silenceMessages2;
+    static int silenceMessages2;
 
+    static void setBatch(const bool asBatch);
+    static bool isSilenceMode();
+    // --
     static void error(const QString& message);
     static void error(QWidget *parent, const QString & message);
     static void warning(const QString& message);

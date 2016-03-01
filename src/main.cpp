@@ -185,6 +185,7 @@ static void removeMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlo
 
 static int doAnonymize(QXmlEditApplication *app, StartParams &startParams)
 {
+    Utils::setBatch(true);
     QTextStream stdErr(stderr);
     if(startParams.parametersError) {
         stdErr << startParams.errorMessage ;
