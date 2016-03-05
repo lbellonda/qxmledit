@@ -1,3 +1,6 @@
+0.9.3.1
+    Fix for compilation errors on OS/2 due to precompiled headers.
+
 0.9.3
     Added an option to show or hide the element icon in the editor.
     Added man page.
