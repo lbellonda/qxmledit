@@ -72,7 +72,7 @@ public:
     static QString errorNoSelString();
 
     static void todo(const QString &message);
-    //static void TODO_THIS_RELEASE(const QString &message);
+    static void TODO_THIS_RELEASE(const QString &message);
     static void TODO_CHECK_FIX(const QString &message);
     static void TODO_NEXT_RELEASE(const QString &inputMessage);
     //------
