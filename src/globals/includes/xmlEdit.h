@@ -37,8 +37,8 @@
 #else
 #define VERSION_BRANCH ""
 #endif
-#define VERSION_BASE "0.9.3"
-#define VERSION_NUMBER 0x00090300
+#define VERSION_BASE "0.9.3.1"
+#define VERSION_NUMBER 0x00090301
 // this is the version number of the welcome dialog
 #define VERSION_NUMBER_WELCOME 0x00050200
 //------------------------------------------------
