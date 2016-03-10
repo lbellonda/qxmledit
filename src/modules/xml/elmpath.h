@@ -25,6 +25,7 @@
 #define ELMPATH_H
 
 #include <QMap>
+#include <QHash>
 #include <QString>
 #include "libQXmlEdit_global.h"
 

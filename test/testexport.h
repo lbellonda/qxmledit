@@ -25,6 +25,7 @@
 #define TESTEXPORT_H
 
 #include "testbase.h"
+#include "regola.h"
 
 class TestExport : public TestBase
 {

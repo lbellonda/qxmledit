@@ -53,10 +53,10 @@ void Utils::setBatch(const bool asBatch)
 bool Utils::isSilenceMode()
 {
     return
-                (BATCH_ON_NOZERO == QXmlEditGlobals::batchMode )
-            &&  (BATCH_ON_NOZERO == silenceMessages1 )
-            &&  (BATCH_ON_NOZERO == silenceMessages2 )
-            && !filler1  && !filler2 ;
+        (BATCH_ON_NOZERO == QXmlEditGlobals::batchMode)
+        && (BATCH_ON_NOZERO == silenceMessages1)
+        && (BATCH_ON_NOZERO == silenceMessages2)
+        && !filler1  && !filler2 ;
 }
 
 void Utils::error(const QString & message)

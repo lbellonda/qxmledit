@@ -29,6 +29,7 @@
 class ApplicationData;
 class AnonProfile;
 class AnonOperationBatchOutputFileProvider;
+class GenericPersistentData;
 
 class AnonymizeBatch : public QObject
 {
