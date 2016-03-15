@@ -1,4 +1,6 @@
 #!/bin/sh
+# this file is part of QXmlEdit
+# merge_branch_squash.sh <branch name>: merges the given branch to master with squash of the commits
 export BRANCH=$1
 if [ -z $BRANCH  ]; then
     echo "branch not set"

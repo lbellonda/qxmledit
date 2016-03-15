@@ -150,7 +150,7 @@ os2:RC_FILE = ../src/os2.rc
 
 DEFINES += TRANLASTION_DIR= translations
 
-macx:QMAKE_INFO_PLIST    = ../src/QXmlEdit.plist
+macx:QMAKE_INFO_PLIST    = ../src/resources/QXmlEdit.plist
 
 TRANSLATIONS = \
    ../src/languages_app/QXmlEdit_cs.ts \
@@ -201,10 +201,16 @@ unix:INSTALLS += manual
 unix:INSTALLS += desktopInfo
 
 contains(USE_QWTPLOT, Y) {
-    QT += opengl
-    LIBS += -lqwtplot3d-qt4
-    DEFINES += QWT_PLOT3D
-    #LIBS += -L$$OUT_PWD/../../../qwtplot/qwtplot3d/lib -lqwtplot3d
+
+#sarebbe 4.8?
+# greaterThan(QT_MAJOR_VERSION, 4) {
+
+#    QT += opengl
+#    INCLUDEPATH += ../contrib/qwtplot3d/src
+#    SOURCES += $$files(../contrib/qwtplot3d/src/*.cpp)
+#    HEADERS += $$files(../contrib/qwtplot3d/include/*.h)
+#    DEPENDPATH += ../contrib/qwtplot3d/include
+# }
 }
 
 include(singleapp.pri)

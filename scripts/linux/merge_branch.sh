@@ -1,4 +1,6 @@
 #!/bin/sh
+# this file is part of QXmlEdit
+# merge_branch.sh <branch name>: merges the given branch to master
 export BRANCH=$1
 if [ -z $BRANCH  ]; then
     echo "branch not set"

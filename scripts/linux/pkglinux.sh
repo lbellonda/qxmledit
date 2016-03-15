@@ -5,6 +5,7 @@
 
 # this script should be launched in the main project directory
 # it builds a linux binary package
+# pkglinux.sh <tagname>: creates the archive of the given tag
 
 #REQUIRES ENVIRONMENT VARIABLE  ENV_APPVERSION
 # use it in a empty folder
@@ -15,6 +16,11 @@ BASEDIRNAME=qxmledit
 DIRNAME=tagsrc_${BASEDIRNAME}-${APPVERSION}
 BUILDDIR=build
 TAG_NAME=$ENV_APPVERSION
+
+if [ -z "$APPVERSION" ]; then
+    echo "ENV_APPVERSION not set"
+    exit 1
+fi
 
 echo "application:       $APPNAME-$APPVERSION"
 echo "directory:         $DIRNAME"

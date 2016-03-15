@@ -376,7 +376,7 @@ ICON = images/qxmledit.icns
 win32:RC_FILE = win.rc
 os2:RC_FILE = os2.rc
 
-macx:QMAKE_INFO_PLIST    = QXmlEdit.plist
+macx:QMAKE_INFO_PLIST    = resources/QXmlEdit.plist
 
 styles.path = $$INST_DATA_DIR
 styles.files = data/sample.style
@@ -413,7 +413,8 @@ OTHER_FILES += \
     QXmlEdit.plist \
     resources/data/unicodeChars.xml \
     version.pri \
-    ../doc/release_checklist.txt
+    ../doc/release_checklist.txt \
+    ../doc/wiki/scripts.txt
 
 INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD

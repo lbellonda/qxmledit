@@ -1,0 +1,12 @@
+Summary of scripts
+------------------
+
+linux:
+archive_head.sh: creates the archive of the head in the current folder
+push_local_to_remote.sh: pushes master to remote
+merge_branch.sh <branch name>: merges the given branch to master
+merge_branch_squash.sh <branch name>: merges the given branch to master with squash of the commits
+maketag.sh (env): create a tag named tagname and pushes it to remote
+maketag_local.sh (env): create a tag named tagname without pushing it to remote
+push_tag_to_remote (env): pushes the tag tagname to remote
+pkglinux.sh (env): creates the archive of the given tag
