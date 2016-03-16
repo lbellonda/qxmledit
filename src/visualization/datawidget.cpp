@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -422,10 +422,14 @@ void DataWidget::computeImage()
                             }
                         }
                     } else {
+                        int intPtiPerPxY = (int)ptiPerPxY ;
+                        int intPtiPerPxX = (int)ptiPerPxX ;
+                        Utils::TODO_THIS_RELEASE("check if values are zero");
+
                         if(_loudness == NoLoudness) {
                             value = getValue(e);
-                            for(int yi = 0; yi < ptiPerPxY ; yi++) {
-                                for(int xi = 0; xi < ptiPerPxX ; xi++) {
+                            for(int yi = 0; yi < intPtiPerPxY ; yi++) {
+                                for(int xi = 0; xi < intPtiPerPxX ; xi++) {
                                     ElementBase *e2 = getElement(xxx - limx + xi, yyy - limy + yi);
                                     if(NULL != e2) {
                                         values ++ ;
@@ -436,8 +440,8 @@ void DataWidget::computeImage()
                             value /= values ;
                         } else {
                             value = getValue(e);
-                            for(int yi = 0; yi < ptiPerPxY ; yi++) {
-                                for(int xi = 0; xi < ptiPerPxX ; xi++) {
+                            for(int yi = 0; yi < intPtiPerPxY ; yi++) {
+                                for(int xi = 0; xi < intPtiPerPxX ; xi++) {
                                     ElementBase *e2 = getElement(xxx - limx + xi, yyy - limy + yi);
                                     if(NULL != e2) {
                                         float nowValue = getValue(e2);

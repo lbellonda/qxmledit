@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,6 +24,7 @@
 #ifndef DATAWIDGET_H
 #define DATAWIDGET_H
 
+#include "xmlEdit.h"
 #include <QWidget>
 #include <QImage>
 #include <QPaintEvent>

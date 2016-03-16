@@ -131,35 +131,44 @@ void VisMapDialog::onLoadFile()
 
 void VisMapDialog::loadFile(const QString &fileName)
 {
+    QDateTime tstart = QDateTime::currentDateTime();
     if(!fileName.isEmpty()) {
+        QProgressDialog progressDialogLoad(tr("Loading file %1").arg(fileName), tr("Abort"), 0, 0, this);
+        progressDialogLoad.setAutoClose(true);
+        progressDialogLoad.setWindowTitle(tr("Loading Data"));
+        progressDialogLoad.setModal(true);
         setEnabled(false);
+        progressDialogLoad.setEnabled(true);
         clearTagNodes();
         QHash<QString, TagNode*> *nodes = NULL ;
         if(ui->checkAnalyzeNodes->isChecked()) {
             nodes = &_tagNodes;
         }
-        VisDataSax handler(&names, nodes);
-        QXmlSimpleReader reader;
-        reader.setFeature("http://xml.org/sax/features/namespaces", false);
-        reader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
-        reader.setContentHandler(&handler);
-        reader.setErrorHandler(&handler);
 
-        QFile file(fileName);
-        if(!file.open(QFile::ReadOnly | QFile::Text)) {
-            Utils::error(tr("An error occurred opening the file."));
-            return ;
-        }
         _filePath = fileName ;
 
-        bool isOk = true ;
-        QXmlInputSource xmlInput(&file);
-        if(!reader.parse(xmlInput)) {
-            isOk = false  ;
+        VisDataSax handler(&names, nodes);
+        QFutureWatcher<void> loadWatcher;
+        connect(&progressDialogLoad, SIGNAL(finished()), &loadWatcher, SLOT(cancel()));
+        connect(&loadWatcher, SIGNAL(finished()), &progressDialogLoad, SLOT(reset()));
+        QFuture<void> future = QtConcurrent::run(this, &VisMapDialog::loadFileWorkerMethod, &handler, fileName);
+        loadWatcher.setFuture(future);
+        progressDialogLoad.exec();
+        disconnect(&progressDialogLoad, SIGNAL(finished()), &loadWatcher, SLOT(cancel()));
+        disconnect(&loadWatcher, SIGNAL(finished()), &progressDialogLoad, SLOT(reset()));
+        if(progressDialogLoad.wasCanceled() || loadWatcher.isCanceled()) {
+            handler.setUserAborted(true);
         }
-        file.close();
+        loadWatcher.waitForFinished();
+
+        bool isOk = !(progressDialogLoad.wasCanceled() || handler.hasError() || loadWatcher.isCanceled()) ;
         if(!isOk) {
-            Utils::error(tr("An error occurred loading data."));
+            _filePath = "" ;
+            if(progressDialogLoad.wasCanceled() || handler.userAborted()) {
+                Utils::error(this, tr("User aborted."));
+            } else {
+                Utils::error(this, tr("An error occurred loading data: %1").arg(handler.errorMessage()));
+            }
         }
         ui->dataWidget->freeze();
         ui->dataWidget->setData(NULL);
@@ -188,7 +197,37 @@ void VisMapDialog::loadFile(const QString &fileName)
             _appData->notifier()->notify(NULL, tr("Data ready."));
         }
         setEnabled(true);
+        QDateTime tend = QDateTime::currentDateTime();
+        qint64  msecs = tend.toMSecsSinceEpoch() - tstart.toMSecsSinceEpoch();
+        Utils::error(this, QString("Time: %1").arg((msecs / 1000)));
+        Utils::TODO_THIS_RELEASE("delete comments below");
     }
+}
+
+/*!
+ * \brief VisMapDialog::loadFileWorkerMethod uses instance variable to complete work
+ * \param fileName
+ */
+void VisMapDialog::loadFileWorkerMethod(VisDataSax *handler, const QString &fileName)
+{
+    QXmlSimpleReader reader;
+    reader.setFeature("http://xml.org/sax/features/namespaces", false);
+    reader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
+    reader.setContentHandler(handler);
+    reader.setErrorHandler(handler);
+
+    QFile file(fileName);
+    if(!file.open(QFile::ReadOnly | QFile::Text)) {
+        Utils::error(tr("An error occurred opening the file."));
+        return ;
+    }
+    _filePath = fileName ;
+
+    QXmlInputSource xmlInput(&file);
+    if(!reader.parse(xmlInput)) {
+        handler->setHasError(true);
+    }
+    file.close();
 }
 
 void VisMapDialog::on_loadFile_clicked()

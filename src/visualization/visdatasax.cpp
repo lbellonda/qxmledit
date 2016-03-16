@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -30,10 +30,44 @@ VisDataSax::VisDataSax(QSet<QString> *newNames, QHash<QString, TagNode*> *newTag
     currentElement = NULL ;
     names = newNames;
     tagNodes = newTagNodes;
+    _elementsCount = 0;
+    _userAborted = false;
+    _hasError = false ;
 }
 
 VisDataSax::~VisDataSax()
 {
+}
+
+
+bool VisDataSax::hasError() const
+{
+    return _hasError;
+}
+
+void VisDataSax::setHasError(bool value)
+{
+    _hasError = value;
+}
+
+QString VisDataSax::errorMessage() const
+{
+    return _errorMessage;
+}
+
+void VisDataSax::setErrorMessage(const QString &errorMessage)
+{
+    _errorMessage = errorMessage;
+}
+
+bool VisDataSax::userAborted() const
+{
+    return _userAborted;
+}
+
+void VisDataSax::setUserAborted(bool value)
+{
+    _userAborted = value;
 }
 
 void VisDataSax::addTagNode(const QString &name)
@@ -62,6 +96,11 @@ void VisDataSax::addTagNode(const QString &name)
 bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /*localName*/,
                               const QString &qName, const QXmlAttributes &attributes)
 {
+    _elementsCount ++ ;
+    // I know, but can only be set from another thread
+    if(_userAborted) {
+        return false;
+    }
     QSet<QString>::const_iterator iter = names->insert(qName);
     QString name = *iter;
     if(NULL != tagNodes) {
@@ -103,19 +142,21 @@ bool VisDataSax::characters(const QString &str)
 
 bool VisDataSax::fatalError(const QXmlParseException &exception)
 {
-    Utils::error(QObject::tr("Parse error (2) at line %1, column %2:\n%3")
-                 .arg(exception.lineNumber())
-                 .arg(exception.columnNumber())
-                 .arg(exception.message()));
+    _hasError = true ;
+    _errorMessage = QObject::tr("Parse error (2) at line %1, column %2:\n%3")
+                    .arg(exception.lineNumber())
+                    .arg(exception.columnNumber())
+                    .arg(exception.message());
     return false;
 }
 
 bool VisDataSax::error(const QXmlParseException &exception)
 {
-    Utils::error(QObject::tr("Parse error (1) at line %1, column %2:\n%3")
-                 .arg(exception.lineNumber())
-                 .arg(exception.columnNumber())
-                 .arg(exception.message()));
+    _hasError = true ;
+    _errorMessage = QObject::tr("Parse error (1) at line %1, column %2:\n%3")
+                    .arg(exception.lineNumber())
+                    .arg(exception.columnNumber())
+                    .arg(exception.message());
     return false;
 }
 

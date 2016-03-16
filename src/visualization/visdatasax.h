@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -26,6 +26,7 @@
 
 #include <QXmlDefaultHandler>
 #include <QSet>
+#include "xmlEdit.h"
 #include "elementbase.h"
 #include "modules/graph/tagnodes.h"
 
@@ -36,6 +37,11 @@ public:
     ElementBase *currentElement;
     QSet<QString> *names;
     QHash<QString, TagNode*> *tagNodes;
+    int _elementsCount;
+private :
+    bool _hasError;
+    QString _errorMessage;
+    volatile bool _userAborted;
 private:
     void addTagNode(const QString &name);
 public:
@@ -50,6 +56,12 @@ public:
     bool fatalError(const QXmlParseException &exception);
     bool error(const QXmlParseException &exception);
     QString errorString() const;
+    bool hasError() const;
+    void setHasError(bool hasError);
+    QString errorMessage() const;
+    void setErrorMessage(const QString &errorMessage);
+    bool userAborted() const;
+    void setUserAborted(bool userAborted);
 };
 
 

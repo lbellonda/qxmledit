@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,8 +24,10 @@
 #ifndef VISMAPDIALOG_H
 #define VISMAPDIALOG_H
 
+#include "xmlEdit.h"
 #include <QDialog>
 #include <QSet>
+#include <QFutureWatcher>
 #include "elementbase.h"
 #include "colormap.h"
 #include "stdcolormap.h"
@@ -34,6 +36,8 @@
 #include "summarydata.h"
 #include "modules/graph/tagnodes.h"
 #include "qxmleditdata.h"
+
+class VisDataSax;
 
 namespace Ui
 {
@@ -80,7 +84,7 @@ private:
     void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
     void closeEvent(QCloseEvent * event);
-
+    void loadFileWorkerMethod(VisDataSax *handler, const QString &fileName);
 
 private slots:
     void on_loadFile_clicked();
