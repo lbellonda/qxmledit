@@ -41,6 +41,7 @@
 #include <QTextStream>
 #include <QDateTime>
 #include <QUrl>
+#include <QFutureWatcher>
 
 VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString &fileName) :
     QDialog(parent),
@@ -71,7 +72,7 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
     ui->visType->addItem(QString("Attributes"), QVariant(DataWidget::Attributes));
     ui->visType->addItem(QString("Elements"), QVariant(DataWidget::Elements));
     ui->visType->addItem(QString("Structure"), QVariant(DataWidget::Distribution));
-    ui->visType->addItem(QString("Payload"), QVariant(DataWidget::Payload));
+    ui->visType->addItem(QString("Text"), QVariant(DataWidget::Payload));
 
     ui->sliceLevel->setEnabled(false);
     ui->visType->setCurrentIndex(0);
@@ -131,7 +132,7 @@ void VisMapDialog::onLoadFile()
 
 void VisMapDialog::loadFile(const QString &fileName)
 {
-    QDateTime tstart = QDateTime::currentDateTime();
+    //QDateTime tstart = QDateTime::currentDateTime();
     if(!fileName.isEmpty()) {
         QProgressDialog progressDialogLoad(tr("Loading file %1").arg(fileName), tr("Abort"), 0, 0, this);
         progressDialogLoad.setAutoClose(true);
@@ -197,10 +198,9 @@ void VisMapDialog::loadFile(const QString &fileName)
             _appData->notifier()->notify(NULL, tr("Data ready."));
         }
         setEnabled(true);
-        QDateTime tend = QDateTime::currentDateTime();
+        /*QDateTime tend = QDateTime::currentDateTime();
         qint64  msecs = tend.toMSecsSinceEpoch() - tstart.toMSecsSinceEpoch();
-        Utils::error(this, QString("Time: %1").arg((msecs / 1000)));
-        Utils::TODO_THIS_RELEASE("delete comments below");
+        Utils::message(this, QString("Time: %1").arg((msecs / 1000)));*/
     }
 }
 

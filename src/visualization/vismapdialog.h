@@ -27,7 +27,6 @@
 #include "xmlEdit.h"
 #include <QDialog>
 #include <QSet>
-#include <QFutureWatcher>
 #include "elementbase.h"
 #include "colormap.h"
 #include "stdcolormap.h"
