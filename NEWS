@@ -1,3 +1,8 @@
+0.9.4
+    Enriched the export statistics of view data panel.
+    Attributes sorted case insensitive.
+    Asynchronous load of data in Data Visualization dialog.
+
 0.9.3.1
     Fix for compilation errors on OS/2 due to precompiled headers.
 

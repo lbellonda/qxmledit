@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -68,7 +68,7 @@ class LIBQXMLEDITSHARED_EXPORT NodesRelationsDialog : public QDialog
     bool timerActive;
     NodesRelationsController  controller;
     QString inputFileName;
-
+    QString _saveStatsPath;
     //--
     void resetData();
     void feedNewData(QList<TagNode*> &dataList);
@@ -81,6 +81,7 @@ public:
     bool loadFile(const QString &filePath);
     NodesRelationsController *getController();
     QTableWidget *getTableWidget();
+    void saveStatisticsToStream(QTextStream &outStream);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event);
@@ -103,7 +104,7 @@ private slots:
     void on_springLengthSlider_valueChanged();
     void on_cmdBrowseFile_clicked();
     void on_chkViewOnlySelected_clicked();
-
+    void onExportCmd();
 };
 
 

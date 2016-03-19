@@ -376,7 +376,6 @@
  </widget>
  <resources>
   <include location="../../risorse.qrc"/>
-  <include location="../../risorse.qrc"/>
  </resources>
  <connections>
   <connection>

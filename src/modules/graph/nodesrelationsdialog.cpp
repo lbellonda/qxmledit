@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -93,6 +93,13 @@ NodesRelationsDialog::NodesRelationsDialog(const bool newCanLoadData, QList<TagN
     if(newCanLoadData) {
         QTimer::singleShot(200, this, SLOT(on_cmdBrowseFile_clicked()));
     }
+    QToolButton *button = new QToolButton();
+    QIcon icon(":/save-as/images/document-save-as.png");
+    button->setAutoRaise(true);
+    button->setIcon(icon);
+    button->setToolTip(tr("Export data to file."));
+    ui->tabWidget->setCornerWidget(button);
+    connect(button, SIGNAL(clicked()), this, SLOT(onExportCmd()));
 }
 
 NodesRelationsDialog::~NodesRelationsDialog()
@@ -328,4 +335,42 @@ NodesRelationsController* NodesRelationsDialog::getController()
 QTableWidget *NodesRelationsDialog::getTableWidget()
 {
     return ui->dataTable ;
+}
+
+void NodesRelationsDialog::saveStatisticsToStream(QTextStream &outStream)
+{
+    controller.saveDataToStream(outStream);
+}
+
+void NodesRelationsDialog::onExportCmd()
+{
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Export Statistics"),
+                       QXmlEditData::sysFilePathForOperation(_saveStatsPath), tr("DAT files (*.dat);;All files (*);;"));
+
+    if(filePath.isEmpty()) {
+        return ;
+    }
+    _saveStatsPath = filePath ;
+    bool isOK = false ;
+    QFile data(_saveStatsPath);
+    if(data.open(QFile::WriteOnly | QFile::Truncate)) {
+        QTextStream outStream(&data);
+        QDateTime now = QDateTime::currentDateTime();
+        outStream << tr("Statistics on %1 (ISO %2)\n").arg(now.toString(Qt::TextDate)).arg(now.toString(Qt::ISODate));
+        if(!inputFileName.isEmpty()) {
+            outStream << tr(" for file '%1'\n").arg(inputFileName);
+        }
+        outStream << tr("\n------\n");
+        controller.saveDataToStream(outStream);
+        outStream << tr("\n------\n");
+        data.flush();
+        data.close();
+        if(data.error() == QFile::NoError) {
+            isOK = true;
+        }
+        data.close();
+    }
+    if(!isOK) {
+        Utils::error(this, tr("Error writing data."));
+    }
 }

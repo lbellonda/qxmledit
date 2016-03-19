@@ -198,6 +198,7 @@ void NodesRelationsController::loadDataList(QTableWidget *dataTable)
         {
             NumTableWidgetItem *itemNum = new NumTableWidgetItem();
             itemNum->setText(QString::number(nd->count));
+            itemNum->setTextAlignment(Qt::AlignCenter | Qt::AlignRight);
             dataTable->setItem(row, 1, itemNum);
         }
 
@@ -205,18 +206,21 @@ void NodesRelationsController::loadDataList(QTableWidget *dataTable)
             NumTableWidgetItem *itemNum = new NumTableWidgetItem();
             double pct = getPct(nd);
             itemNum->setText(QString("%1 %").arg(QString::number(pct, 'g', 2), 10));
+            itemNum->setTextAlignment(Qt::AlignCenter | Qt::AlignRight);
             dataTable->setItem(row, 2, itemNum);
         }
 
         {
             NumTableWidgetItem * itemNum = new NumTableWidgetItem();
             itemNum->setText(QString::number(nd->linksIn));
+            itemNum->setTextAlignment(Qt::AlignCenter | Qt::AlignRight);
             dataTable->setItem(row, 3, itemNum);
         }
 
         {
             NumTableWidgetItem *itemNum = new NumTableWidgetItem();
             itemNum->setText(QString::number(nd->linksOut));
+            itemNum->setTextAlignment(Qt::AlignCenter | Qt::AlignRight);
             dataTable->setItem(row, 4, itemNum);
         }
 
@@ -228,6 +232,7 @@ void NodesRelationsController::loadDataList(QTableWidget *dataTable)
                 if(target->count > 0) {
                     NumTableWidgetItem *itemNum = new NumTableWidgetItem();
                     itemNum->setText(QString::number(target->count));
+                    itemNum->setTextAlignment(Qt::AlignCenter | Qt::AlignRight);
                     dataTable->setItem(row, 4 + innerIndex, itemNum);
                 }
             }
@@ -237,6 +242,82 @@ void NodesRelationsController::loadDataList(QTableWidget *dataTable)
     }
     dataTable->setHorizontalHeaderLabels(headers);
     dataTable->setUpdatesEnabled(true);
+}
+
+void NodesRelationsController::saveDataToStream(QTextStream &outStream)
+{
+    QMap<QString, TagNode*> names;
+    foreach(TagNode * nd, nodes) {
+        names.insert(nd->tag, nd);
+    }
+
+    QString separator = ",";
+    outStream << "\n\n";
+    outStream << tr("Elements summary");
+    outStream << "\n\n";
+
+    outStream << tr("Row");
+    outStream << separator;
+    outStream << tr("Node");
+    outStream << separator;
+    outStream << tr("Count");
+    outStream << separator;
+    outStream << tr("Percent");
+    outStream << separator;
+    outStream << tr("Incoming Links");
+    outStream << separator;
+    outStream << tr("Outcoming Links");
+    outStream << separator;
+    foreach(QString tag, names.keys()) {
+        TagNode * nd = names[tag];
+        outStream << nd->tag;
+        outStream << separator;
+        Utils::TODO_THIS_RELEASE("ultimo separatore?");
+    }
+    outStream << "\n";
+
+    int row = 0;
+    foreach(QString tag, names.keys()) {
+        TagNode * nd = names[tag];
+
+        outStream << row;
+        outStream << separator;
+
+        outStream << nd->tag;
+        outStream << separator;
+
+        outStream << QString::number(nd->count);
+        outStream << separator;
+
+        double pct = getPct(nd);
+        outStream << QString("%1 %").arg(QString::number(pct, 'g', 2), 10);
+        outStream << separator;
+
+        outStream << QString::number(nd->linksIn);
+        outStream << separator;
+
+        outStream << QString::number(nd->linksOut);
+        outStream << separator;
+
+        int innerIndex = 1;
+        foreach(QString tag2, names.keys()) {
+            TagNode * nd2 = names[tag2];
+            TagNodeTarget *target = nd->targets.value(nd2->tag);
+            if(NULL != target) {
+                if(target->count > 0) {
+                    outStream << QString::number(target->count);
+                }
+            }
+            outStream << separator;
+            Utils::TODO_THIS_RELEASE("ultimo separatore?");
+            innerIndex ++ ;
+        }
+        outStream << "\n";
+        row++ ;
+    }
+    outStream << "\n";
+    outStream << tr("End of table.");
+    outStream << "\n\n";
 }
 
 

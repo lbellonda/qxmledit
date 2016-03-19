@@ -107,6 +107,7 @@ public:
     void setViewOnlySelectedMode(const bool newMode);
 
     void onMarkerClicked(TagMarker *marker);
+    void saveDataToStream(QTextStream &outStream);
 
 signals:
     void recalc();

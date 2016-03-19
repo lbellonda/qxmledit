@@ -435,16 +435,22 @@ void VisMapDialog::on_exportStatsCmd_clicked()
     if(data.open(QFile::WriteOnly | QFile::Truncate)) {
         QTextStream outStream(&data);
         QDateTime now = QDateTime::currentDateTime();
-        outStream << tr("Statistics on %1 ( ISO %2)\n").arg(now.toString(Qt::TextDate)).arg(now.toString(Qt::ISODate));
+        outStream << tr("Statistics on %1 (ISO %2)\n").arg(now.toString(Qt::TextDate)).arg(now.toString(Qt::ISODate));
         outStream << tr(" for file '%1'\n").arg(_filePath);
         outStream << tr(" total fragments '%1'\n").arg(_summary.totalFragments) ;
         outStream << tr(" total attributes '%1'\n").arg(_summary.totalAttributes) ;
         outStream << tr(" total elements '%1'\n").arg(_summary.totalElements) ;
         outStream << tr(" total size '%1'\n").arg(_summary.totalSize) ;
-        outStream << tr(" total payload '%1'\n").arg(_summary.totalPayload) ;
+        outStream << tr(" total text '%1'\n").arg(_summary.totalPayload) ;
         outStream << tr(" levels '%1'\n").arg(_summary.levels) ;
         outStream << tr("\n------\n");
-
+        {
+            QList<TagNode*> nodesList ;
+            nodesList.append(_tagNodes.values());
+            NodesRelationsDialog dialog(false, nodesList);
+            dialog.saveStatisticsToStream(outStream);
+        }
+        outStream << tr("\n------\n");
         ui->dataWidget->writeDetails(outStream);
         data.flush();
         data.close();
@@ -531,7 +537,7 @@ void VisMapDialog::on_cmdViewGraph_clicked()
     if(_tagNodes.count() > 0) {
         QList<TagNode*> nodesList ;
         nodesList.append(_tagNodes.values());
-        NodesRelationsDialog dialog(false, nodesList);
+        NodesRelationsDialog dialog(false, nodesList, this);
         dialog.exec();
     } else {
         Utils::error(this, tr("No data to show."));

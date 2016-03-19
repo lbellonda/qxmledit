@@ -6805,7 +6805,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="399"/>
-        <source>Statistics on %1 ( ISO %2)
+        <source>Statistics on %1 (ISO %2)
 </source>
         <translation>Statistiky na %1 (ISO %2)</translation>
     </message>
@@ -6841,7 +6841,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="405"/>
-        <source> total payload &apos;%1&apos;
+        <source> total text &apos;%1&apos;
 </source>
         <translation> celkové užitečné zatížení &apos;%1&apos;</translation>
     </message>
