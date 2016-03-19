@@ -256,6 +256,12 @@ void NodesRelationsController::saveDataToStream(QTextStream &outStream)
     outStream << tr("Elements summary");
     outStream << "\n\n";
 
+
+    if(0 == names.keys().size()) {
+        outStream << tr("There are no data.");
+        outStream << "\n\n";
+        return ;
+    }
     outStream << tr("Row");
     outStream << separator;
     outStream << tr("Node");

@@ -35,6 +35,12 @@ bool NumTableWidgetItem::operator< (const QTableWidgetItem & other)  const
 {
     QString thisText = text();
     QString otherText = other.text();
+    if(thisText.endsWith("%")) {
+        thisText = thisText.left(thisText.length() - 1);
+    }
+    if(otherText.endsWith("%")) {
+        otherText = otherText.left(otherText.length() - 1);
+    }
     bool true1 = false;
     bool true2 = false;
     double d1 = thisText.toDouble(&true1) ;
