@@ -32,19 +32,22 @@
  */
 void Element::sortAttributes(QList<int> *undoPositionList, const bool isRecursive)
 {
-    QMap<QString, int> sortedPosAndOriginalPosition;
+    QHash<QString, int> unsortedPosAndOriginalPosition;
     QHash<QString, Attribute*> well;
     QVector<Attribute*> newPos;
+    QStringList names;
     int index = 0;
     foreach(Attribute * attribute, attributes) {
-        sortedPosAndOriginalPosition.insert(attribute->name, index);
+        names << attribute->name;
+        unsortedPosAndOriginalPosition.insert(attribute->name, index);
         well.insert(attribute->name, attribute);
         index ++ ;
     }
-    foreach(QString key, sortedPosAndOriginalPosition.keys()) {
+    names.sort(Qt::CaseInsensitive);
+    foreach(const QString & key, names) {
         newPos.append(well.value(key));
         if((NULL != undoPositionList) && !isRecursive) {
-            undoPositionList->append(sortedPosAndOriginalPosition.value(key));
+            undoPositionList->append(unsortedPosAndOriginalPosition.value(key));
         }
     }
     if(isRecursive) {
@@ -118,4 +121,24 @@ void Regola::sortAttributes()
     setModified(true);
 }
 
+QList<Attribute*> Element::sortAttributesList(QVector<Attribute *> *attributes)
+{
+    QVector<Attribute*>::iterator it;
+    QStringList attrNamesList;
+    QHash<QString, Attribute*> unsortedCollection;
+    foreach(Attribute * attr, *attributes) {
+        if(NULL != attr) {
+            attrNamesList << attr->name;
+            unsortedCollection.insert(attr->name, attr);
+        }
+    }
+    attrNamesList.sort(Qt::CaseInsensitive);
+    QList<Attribute*> result;
+    foreach(const QString & key, attrNamesList) {
+        Attribute* value = unsortedCollection[key];
+        result.append(value);
+    }
+    return result;
+    //---
+}
 

@@ -573,6 +573,8 @@ public:
     bool sortAttributesByMap(QList<int> oldPositions);
     void sortAttributes(QList<int> *undoPositionList, const bool isRecursive);
 
+    static QList<Attribute*> sortAttributesList(QVector<Attribute*> *attributes);
+
 #ifdef  QXMLEDIT_TEST
     friend class TestStyle;
 #endif

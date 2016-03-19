@@ -138,17 +138,9 @@ void EditElement::setTarget(Element* pTarget, Element *parent)
     Regola *regola = (NULL != theParent) ? theParent->getParentRule() : NULL;
     if(((NULL == regola) && Regola::isSaveSortAlphaAttribute())
             || ((NULL != regola) && regola->isSavingSortingAttributes())) {
-        QVector<Attribute*>::iterator it;
-        QMap<QString, QString> sortedCollection;
-        for(it = target->attributes.begin(); it != target->attributes.end(); ++it) {
-            Attribute* attr = *it;
-            if(NULL != attr) {
-                sortedCollection.insert(attr->name, attr->value);
-            }
-        }
-        foreach(QString key, sortedCollection.keys()) {
-            QString value = sortedCollection[key];
-            appendAttrNodeInTable(ui.attrTable, -1, key, value);
+        QList<Attribute*> attributes = Element::sortAttributesList(&target->attributes);
+        foreach(Attribute * attr, attributes) {
+            appendAttrNodeInTable(ui.attrTable, -1, attr->name, attr->value);
         }
     } else {
         foreach(Attribute * attr, target->attributes) {

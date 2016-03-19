@@ -477,25 +477,17 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
             attributesLabel += tr(" Attributes:\n");
         }
 
-        QString tooltip = QString(tr("%1\npath: %2\n%3")).arg(theTag).arg(thePath).arg(attributesLabel);
-
-        QMap<QString, Attribute*> sortedCollection;
-        QVector<Attribute*>::iterator it;
-        for(it = attributes.begin(); it != attributes.end(); ++it) {
-            Attribute* attr = *it;
-            if(NULL != attr) {
-                sortedCollection.insert(attr->name, attr);
-            }
-        }
+        QString tooltip = tr("%1\npath: %2\n%3").arg(theTag).arg(thePath).arg(attributesLabel);
+        // sort case insensitive
+        QList<Attribute*> attributesList = Element::sortAttributesList(&this->attributes);
         QString imageData ;
-        foreach(QString key, sortedCollection.keys()) {
-            Attribute *attr = sortedCollection[key];
+        foreach(Attribute * attr, attributesList) {
             if(isAnon && (mapDataAnon->contains(attr))) {
                 QString origValue = mapDataAnon->value(attr);
-                QString attrValue = QString("     %1 (anon.)=\"%2\" org:\"%3\"\n").arg(key).arg(limitTextWithEllipsis(attr->value)).arg(limitTextWithEllipsis(origValue));
+                QString attrValue = tr("     %1 (anon.)=\"%2\" orig:\"%3\"\n").arg(attr->name).arg(limitTextWithEllipsis(attr->value)).arg(limitTextWithEllipsis(origValue));
                 tooltip += attrValue ;
             } else {
-                QString attrValue = QString("     %1=\"%2\"\n").arg(key).arg(limitTextWithEllipsis(attr->value));
+                QString attrValue = QString("     %1=\"%2\"\n").arg(attr->name).arg(limitTextWithEllipsis(attr->value));
                 tooltip += attrValue ;
                 if(attr->name.endsWith("href") || attr->name.endsWith(":href")) {
                     if(Utils::isStartingWithDataImage(attr->value)) {
@@ -556,7 +548,7 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
             QString tooltip = QString(tr("text (anon):\n\"%1\"\n orig:\n\"%2\"")).arg(textContained).arg(str);
             return QVariant(tooltip);
         } else {
-            QString tooltip = QString(tr("text:\n\"%1\"")).arg(textContained);
+            QString tooltip = QString(tr("text (len:%2):\n\"%1\"")).arg(textContained).arg(text.length());
             if(QXmlEditData::isShowImagesInTooltip()) {
                 if(Utils::isStartingWithDataImage(text)) {
                     tooltip = QString("<html>%1<br/>%2<br/><br/><img src=\"%3\"/></html>")
@@ -1029,20 +1021,12 @@ bool Element::writeStream(XMLSaveContext *context, QXmlStreamWriter &writer, Ele
         int indentBase = context->indentBase(tag());
         context->startElement(writer.device());
 
-        //itera sulla lista e prendi i valori dalla chiave
         if(context->isSortAttributesAlpha()) {
-            QMap<QString, QString> sortedCollection;
-            QVector<Attribute*>::iterator it;
-            for(it = attributes.begin(); it != attributes.end(); ++it) {
-                Attribute* attr = *it;
-                if(NULL != attr) {
-                    sortedCollection.insert(attr->name, attr->value);
-                }
-            }
-            foreach(QString key, sortedCollection.keys()) {
-                QString value = sortedCollection[key];
+            QList<Attribute*> attributesList = Element::sortAttributesList(&attributes);
+
+            foreach(Attribute * attr, attributesList) {
                 context->incAttributePos(writer.device(), indentBase);
-                writer.writeAttribute(key, value);
+                writer.writeAttribute(attr->name, attr->value);
                 context->afterAttributePos(writer.device());
             }
         } else {
