@@ -71,7 +71,7 @@ void PaintInfo::loadState()
     isShowFullComments = Config::getBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, false);
     _sortAttributesAlpha = Config::getBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, false);
     _attributesColumnLimit = Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, NumColumnsPerAttributeDefault) ;
-    _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, true);
+    _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false);
     recalcColumns();
     isChanged = false;
 }
@@ -424,6 +424,6 @@ bool PaintInfo::updateAttributeColumnsLimit()
 bool PaintInfo::updateShowElementIcon()
 {
     int oldValue = _showElementsIcon ;
-    _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, true);
+    _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false);
     return oldValue != _showElementsIcon ;
 }
