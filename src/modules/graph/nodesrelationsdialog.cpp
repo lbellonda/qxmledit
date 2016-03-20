@@ -363,6 +363,7 @@ void NodesRelationsDialog::onExportCmd()
         outStream << tr("\n------\n");
         controller.saveDataToStream(outStream);
         outStream << tr("\n------\n");
+        outStream.flush();
         data.flush();
         data.close();
         if(data.error() == QFile::NoError) {
