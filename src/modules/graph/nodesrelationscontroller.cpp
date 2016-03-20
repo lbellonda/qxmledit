@@ -273,16 +273,14 @@ void NodesRelationsController::saveDataToStream(QTextStream &outStream)
     outStream << tr("Incoming Links");
     outStream << separator;
     outStream << tr("Outcoming Links");
-    outStream << separator;
     foreach(QString tag, names.keys()) {
         TagNode * nd = names[tag];
-        outStream << nd->tag;
         outStream << separator;
-        Utils::TODO_THIS_RELEASE("ultimo separatore?");
+        outStream << nd->tag;
     }
     outStream << "\n";
 
-    int row = 0;
+    int row = 1;
     foreach(QString tag, names.keys()) {
         TagNode * nd = names[tag];
 
@@ -303,10 +301,10 @@ void NodesRelationsController::saveDataToStream(QTextStream &outStream)
         outStream << separator;
 
         outStream << QString::number(nd->linksOut);
-        outStream << separator;
 
         int innerIndex = 1;
         foreach(QString tag2, names.keys()) {
+            outStream << separator;
             TagNode * nd2 = names[tag2];
             TagNodeTarget *target = nd->targets.value(nd2->tag);
             if(NULL != target) {
@@ -314,8 +312,6 @@ void NodesRelationsController::saveDataToStream(QTextStream &outStream)
                     outStream << QString::number(target->count);
                 }
             }
-            outStream << separator;
-            Utils::TODO_THIS_RELEASE("ultimo separatore?");
             innerIndex ++ ;
         }
         outStream << "\n";
