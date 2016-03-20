@@ -479,7 +479,7 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
 
         QString tooltip = tr("%1\npath: %2\n%3").arg(theTag).arg(thePath).arg(attributesLabel);
         // sort case insensitive
-        QList<Attribute*> attributesList = Element::sortAttributesList(&this->attributes);
+        QList<Attribute*> attributesList = Element::sortAttributesList(this->attributes);
         QString imageData ;
         foreach(Attribute * attr, attributesList) {
             if(isAnon && (mapDataAnon->contains(attr))) {
@@ -1022,7 +1022,7 @@ bool Element::writeStream(XMLSaveContext *context, QXmlStreamWriter &writer, Ele
         context->startElement(writer.device());
 
         if(context->isSortAttributesAlpha()) {
-            QList<Attribute*> attributesList = Element::sortAttributesList(&attributes);
+            QList<Attribute*> attributesList = Element::sortAttributesList(attributes);
 
             foreach(Attribute * attr, attributesList) {
                 context->incAttributePos(writer.device(), indentBase);

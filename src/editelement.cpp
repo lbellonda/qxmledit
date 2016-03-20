@@ -138,7 +138,7 @@ void EditElement::setTarget(Element* pTarget, Element *parent)
     Regola *regola = (NULL != theParent) ? theParent->getParentRule() : NULL;
     if(((NULL == regola) && Regola::isSaveSortAlphaAttribute())
             || ((NULL != regola) && regola->isSavingSortingAttributes())) {
-        QList<Attribute*> attributes = Element::sortAttributesList(&target->attributes);
+        QList<Attribute*> attributes = Element::sortAttributesList(target->attributes);
         foreach(Attribute * attr, attributes) {
             appendAttrNodeInTable(ui.attrTable, -1, attr->name, attr->value);
         }

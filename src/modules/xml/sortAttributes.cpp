@@ -121,12 +121,12 @@ void Regola::sortAttributes()
     setModified(true);
 }
 
-QList<Attribute*> Element::sortAttributesList(QVector<Attribute *> *attributes)
+QList<Attribute*> Element::sortAttributesList(const QVector<Attribute *> &attributes)
 {
     QVector<Attribute*>::iterator it;
     QStringList attrNamesList;
     QHash<QString, Attribute*> unsortedCollection;
-    foreach(Attribute * attr, *attributes) {
+    foreach(Attribute * attr, attributes) {
         if(NULL != attr) {
             attrNamesList << attr->name;
             unsortedCollection.insert(attr->name, attr);
