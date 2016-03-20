@@ -349,6 +349,20 @@
      <addaction name="actionHideBrothers"/>
      <addaction name="actionCloseSiblings"/>
     </widget>
+    <widget class="QMenu" name="menuAdvanced_2">
+     <property name="title">
+      <string>Advanced</string>
+     </property>
+     <addaction name="actionShowAlwaysFullTextComments"/>
+     <addaction name="actionFixedSizeAttributes"/>
+     <addaction name="actionShowAttributesLength"/>
+     <addaction name="actionShowElementTextLength"/>
+     <addaction name="actionShowBase64"/>
+     <addaction name="actionShowCurrentElementTextBase64"/>
+
+     <addaction name="actionHideLeafChildren"/>
+     <addaction name="actionShowLeafChildren"/>
+    </widget>
     <addaction name="menuPanels"/>
     <addaction name="actionColumnView"/>
     <addaction name="menuAdvanced"/>
@@ -361,17 +375,12 @@
     <addaction name="separator"/>
     <addaction name="actionCompactView"/>
     <addaction name="actionShowAttrLine"/>
-    <addaction name="actionShowAlwaysFullTextComments"/>
+
     <addaction name="actionShowChildIndex"/>
     <addaction name="actionShowAttributesSorted"/>
-    <addaction name="actionFixedSizeAttributes"/>
-    <addaction name="actionShowAttributesLength"/>
-    <addaction name="actionShowElementTextLength"/>
+
     <addaction name="actionShowElementSize"/>
-    <addaction name="actionShowBase64"/>
-    <addaction name="actionShowCurrentElementTextBase64"/>
-    <addaction name="actionHideLeafChildren"/>
-    <addaction name="actionShowLeafChildren"/>
+    <addaction name="menuAdvanced_2"/>
     <addaction name="separator"/>
     <addaction name="actionZoomIn"/>
     <addaction name="actionZoomOut"/>
@@ -2102,7 +2111,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>
