@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,11 +24,11 @@
 #ifndef TESTVIS_H
 #define TESTVIS_H
 
+#include "testbase.h"
 #include "visualization/elementbase.h"
 
-class TestVis
+class TestVis : public TestBase
 {
-    bool error();
     void count(ElementBase *e, int &total );
     bool testBaseElement();
     bool testDialog();
@@ -36,6 +36,7 @@ public:
     TestVis();
 
     bool test();
+    bool testSummary();
 };
 
 #endif // TESTVIS_H

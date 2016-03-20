@@ -83,8 +83,11 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
 
     calcVerticalPosition();
     setAcceptDrops(true);
-    if(! fileName.isEmpty()) {
+    if(!fileName.isEmpty()) {
         QTimer::singleShot(200, this, SLOT(onLoadFile()));
+    } else {
+        Utils::TODO_THIS_RELEASE("");
+        //on_loadFile_clicked();
     }
 }
 
@@ -150,12 +153,12 @@ void VisMapDialog::loadFile(const QString &fileName)
 
         VisDataSax handler(&names, nodes);
         QFutureWatcher<void> loadWatcher;
-        connect(&progressDialogLoad, SIGNAL(finished()), &loadWatcher, SLOT(cancel()));
+        connect(&progressDialogLoad, SIGNAL(canceled()), &loadWatcher, SLOT(cancel()));
         connect(&loadWatcher, SIGNAL(finished()), &progressDialogLoad, SLOT(reset()));
         QFuture<void> future = QtConcurrent::run(this, &VisMapDialog::loadFileWorkerMethod, &handler, fileName);
         loadWatcher.setFuture(future);
         progressDialogLoad.exec();
-        disconnect(&progressDialogLoad, SIGNAL(finished()), &loadWatcher, SLOT(cancel()));
+        disconnect(&progressDialogLoad, SIGNAL(canceled()), &loadWatcher, SLOT(cancel()));
         disconnect(&loadWatcher, SIGNAL(finished()), &progressDialogLoad, SLOT(reset()));
         if(progressDialogLoad.wasCanceled() || loadWatcher.isCanceled()) {
             handler.setUserAborted(true);
@@ -452,6 +455,7 @@ void VisMapDialog::on_exportStatsCmd_clicked()
         }
         outStream << tr("\n------\n");
         ui->dataWidget->writeDetails(outStream);
+        outStream.flush();
         data.flush();
         data.close();
         if(data.error() == QFile::NoError) {

@@ -368,11 +368,18 @@ void TestQXmlEdit::testEditing()
 
 void TestQXmlEdit::testVis()
 {
-    TestVis tv;
-    bool result ;
-
-    result = tv.test();
-    QVERIFY2(result, "TestVis test");
+    {
+        TestVis tv;
+        bool result ;
+        result = tv.test();
+        QVERIFY2(result, (QString("test TestVis: test() '%1'").arg(tv.errorString())).toLatin1().data());
+    }
+    {
+        TestVis tv;
+        bool result ;
+        result = tv.testSummary();
+        QVERIFY2(result, (QString("test TestVis: testSummary() '%1'").arg(tv.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testUndoRedo()
@@ -1330,6 +1337,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testVis();
     testCommandLine();
     testAnonymize();
     testDeleteSiblings();
