@@ -98,6 +98,9 @@ protected:
     bool compare(Regola *regola, const QString &id, const QString &fileResult);
     bool readFromFile(const QString &file, QString &result);
 
+    static void dumpTree(QTreeWidget *tree);
+    static void dumpItem(const int index, const int level, QTreeWidgetItem *item);
+
 };
 
 #endif // TESTBASE_H

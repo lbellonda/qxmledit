@@ -123,7 +123,6 @@ void Regola::sortAttributes()
 
 QList<Attribute*> Element::sortAttributesList(const QVector<Attribute *> &attributes)
 {
-    QVector<Attribute*>::iterator it;
     QStringList attrNamesList;
     QHash<QString, Attribute*> unsortedCollection;
     foreach(Attribute * attr, attributes) {

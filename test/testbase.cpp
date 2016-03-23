@@ -563,3 +563,28 @@ bool TestBase::readFromFile(const QString &file, QString &result)
     }
     return ok;
 }
+
+void TestBase::dumpTree(QTreeWidget *tree)
+{
+    printf("Dump tree begin\n");
+    int items = tree->topLevelItemCount();
+    printf("top level items count:%d\n", items);
+    for( int i = 0 ; i < items ; i ++ ) {
+        dumpItem( i+1, 0, tree->topLevelItem(i));
+    }
+    printf("\n\nDump tree end\n");
+}
+
+void TestBase::dumpItem(const int index, const int level, QTreeWidgetItem *item)
+{
+    for( int i = 0 ; i < level ; i ++ ) {
+        printf(" ");
+    }
+    printf("%d- ", index);
+    QString text = item->text(0);
+    printf( "len:%d '%s'\n", text.length(), text.toLatin1().data_ptr()->data());
+    int itemsLeft = item->childCount();
+    for( int i = 0 ; i < itemsLeft ; i ++ ) {
+        dumpItem(i, index+1, item->child(i));
+    }
+}

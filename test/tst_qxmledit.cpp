@@ -1337,14 +1337,16 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testVis();
+    testCopyAttrs();
+    testXSDNavigation();
+    /*testVis();
     testCommandLine();
     testAnonymize();
     testDeleteSiblings();
     testConfig();
     testSortAttributes();
     testExport();
-    testIndent();
+    testIndent();*/
 }
 
 QTEST_MAIN(TestQXmlEdit)

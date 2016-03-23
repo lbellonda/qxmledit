@@ -124,11 +124,11 @@ bool TestXSDNavigation::checkTopNavigation(QTreeWidgetItem *topItem)
 bool TestXSDNavigation::checkTopElements(QTreeWidgetItem *topItem)
 {
     if( topItem->childCount()!=1) {
-        return false;
+        return error(QString("top elements count expected 1 found:%1").arg(topItem->childCount()));
     }
     QTreeWidgetItem *item = topItem->child(0);
     if(item->text(0)!= "e1") {
-        return false;
+        return error(QString("top elements expected 'e1' found:'%1'").arg(item->text(0)));
     }
     return true;
 }
@@ -238,13 +238,22 @@ bool TestXSDNavigation::openXsdViewer(App *app)
 {
     xsdEditor = new TestXSDWindow(app->data(), app->mainWindow()) ;
     QString xmlAsString = app->mainWindow()->getRegola()->getAsText();
-    xsdEditor->show();
     xsdEditor->setFileName("test");
     xsdEditor->setTitle("test");
-    xsdEditor->loadString(xmlAsString);
-    QTest::qWait(200);
+    xsdEditor->loadStringImmediate(xmlAsString);
+    int index = 0 ;
+    while(index < 120) {
+        index ++ ;
+        QTest::qWait(10);
+        if( NULL != xsdEditor->schema() ) {
+            break;
+        }
+    }
     if( xsdEditor->isInError() ) {
         return error("data not loaded");
+    }
+    if( NULL == xsdEditor->schema() ) {
+        return error("data not loaded:2 ");
     }
     return true;
 }
@@ -252,6 +261,7 @@ bool TestXSDNavigation::openXsdViewer(App *app)
 bool TestXSDNavigation::checkNavigation()
 {
     NavigationTree *navigationTree = xsdEditor->navigation();
+    //dumpTree(navigationTree);
     // get top level elements and check them
     QTreeWidgetItem *topNavigation = navigationTree->topLevelItem(0);
     if(!checkTopNavigation(topNavigation)) {
@@ -259,7 +269,7 @@ bool TestXSDNavigation::checkNavigation()
     }
     QTreeWidgetItem *topElements = navigationTree->topLevelItem(2);
     if(!checkTopElements(topElements)) {
-        return error("top elements");
+        return false;
     }
     QTreeWidgetItem *topGroups = navigationTree->topLevelItem(4);
     if(!checkTopGroups(topGroups)) {
@@ -312,3 +322,4 @@ bool TestXSDNavigation::testNavigation()
 }
 
 //---------------------------
+

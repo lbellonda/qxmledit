@@ -126,7 +126,6 @@ private Q_SLOTS:
     void testXSDDiff9();
     void testXSDDiff10();
     void testXSDDiff11();
-    //void testXSDDiff12();
 
     void testDocType();
     void testBase64();

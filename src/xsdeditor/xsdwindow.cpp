@@ -580,6 +580,11 @@ XSchemaObject *XSDWindow::schema()
     return _context.schema();
 }
 
+XSDItem *XSDWindow::root()
+{
+    return _mainItem ;
+}
+
 XSDItem *XSDWindow::getSelectedItem()
 {
     if(NULL == _scene) {

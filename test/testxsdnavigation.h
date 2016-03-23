@@ -63,12 +63,12 @@ class TestXSDNavigation : public TestBase
 
     bool openXsdViewer(App *app);
     bool checkNavigation();
+
 public:
     TestXSDNavigation();
     ~TestXSDNavigation();
 
     bool testNavigation();
-    bool testPanel();
 
 };
 

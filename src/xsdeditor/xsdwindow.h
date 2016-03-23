@@ -1047,6 +1047,7 @@ public:
     void setSelectedObjectKey(const QString &theSelectedElementKey);
     void setSelectedExitKey(const QString &key);
     QString selectedExitKey();
+    XSDItem *root();
 
 protected:
     void changeEvent(QEvent *e);
