@@ -25,6 +25,13 @@
 #include "utils.h"
 #include "undo/undosortattributes.h"
 
+#if QT_VERSION < QT_VERSION_CHECK(5,0,0)
+static bool sortFunctionCaseInsensitive(const QString &firstParameter, const QString &secondParameter)
+{
+    return firstParameter.toLower() < secondParameter.toLower();
+}
+#endif
+
 /*!
  * \brief Element::sortAttributes sorts the attributes of element registering their
  * original position in a list passed as parameter if it is not null
@@ -43,7 +50,11 @@ void Element::sortAttributes(QList<int> *undoPositionList, const bool isRecursiv
         well.insert(attribute->name, attribute);
         index ++ ;
     }
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     names.sort(Qt::CaseInsensitive);
+#else
+    qSort(names.begin(), names.end(), sortFunctionCaseInsensitive);
+#endif
     foreach(const QString & key, names) {
         newPos.append(well.value(key));
         if((NULL != undoPositionList) && !isRecursive) {
