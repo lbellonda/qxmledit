@@ -28,7 +28,7 @@
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 static bool sortFunctionCaseInsensitive(const QString &firstParameter, const QString &secondParameter)
 {
-    return firstParameter.toLower() < secondParameter.toLower();aaac
+    return firstParameter.toLower() < secondParameter.toLower();
 }
 #endif
 
