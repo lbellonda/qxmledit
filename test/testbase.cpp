@@ -582,7 +582,7 @@ void TestBase::dumpItem(const int index, const int level, QTreeWidgetItem *item)
     }
     printf("%d- ", index);
     QString text = item->text(0);
-    printf( "len:%d '%s'\n", text.length(), text.toLatin1().data_ptr()->data());
+    printf( "len:%d '%s'\n", text.length(), text.toLatin1().data());
     int itemsLeft = item->childCount();
     for( int i = 0 ; i < itemsLeft ; i ++ ) {
         dumpItem(i, index+1, item->child(i));
