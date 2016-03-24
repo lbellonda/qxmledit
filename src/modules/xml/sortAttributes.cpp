@@ -28,7 +28,7 @@
 #if QT_VERSION < QT_VERSION_CHECK(5,0,0)
 static bool sortFunctionCaseInsensitive(const QString &firstParameter, const QString &secondParameter)
 {
-    return firstParameter.toLower() < secondParameter.toLower();
+    return firstParameter.toLower() < secondParameter.toLower();aaac
 }
 #endif
 
@@ -142,7 +142,11 @@ QList<Attribute*> Element::sortAttributesList(const QVector<Attribute *> &attrib
             unsortedCollection.insert(attr->name, attr);
         }
     }
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     attrNamesList.sort(Qt::CaseInsensitive);
+#else
+    qSort(attrNamesList.begin(), attrNamesList.end(), sortFunctionCaseInsensitive);
+#endif
     QList<Attribute*> result;
     foreach(const QString & key, attrNamesList) {
         Attribute* value = unsortedCollection[key];
