@@ -64,6 +64,8 @@ ExtractFragmentsDialog::ExtractFragmentsDialog(ExtractResults *extractResult, QW
     _groupSplitOptions.addButton(ui->splitByPath);
 
     LoadComboBoxCfrOpr(ui->cfrOperator);
+    ui->rangeMin->setMinimum(1);
+    ui->rangeMax->setMinimum(1);
     ui->rangeMin->setMaximum(INT_MAX);
     ui->rangeMax->setMaximum(INT_MAX);
     ui->eachNFiles->setMaximum(INT_MAX);

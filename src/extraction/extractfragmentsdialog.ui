@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>832</width>
-    <height>715</height>
+    <height>752</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -216,6 +216,12 @@
        <property name="toolTip">
         <string>The range of fragments to extract starts from 1.</string>
        </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>9999999</number>
+       </property>
       </widget>
      </item>
      <item>
@@ -226,7 +232,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="rangeMax"/>
+      <widget class="QSpinBox" name="rangeMax">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>9999999</number>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QCheckBox" name="reverseRange">
@@ -941,7 +954,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>sfn5</tabstop>
  </tabstops>
  <resources>
-  <include location="../risorse.qrc"/>
   <include location="../risorse.qrc"/>
  </resources>
  <connections>
