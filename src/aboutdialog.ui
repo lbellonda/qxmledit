@@ -83,7 +83,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>(c) 2008-2015 Luca Bellonda</string>
+      <string>(c) 2008-2016 Luca Bellonda</string>
      </property>
     </widget>
     <widget class="QLabel" name="lblProjectLocation">

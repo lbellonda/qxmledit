@@ -48,6 +48,10 @@ const QString AuthorInfo::appName(APPLICATION_NAME) ;
 const QString AuthorInfo::version(VERSION_IDENTIFIER) ;
 const QString AuthorInfo::copyright = QString::fromUtf8("\u00A9 2008-2016 Luca Bellonda");
 const QString AuthorInfo::license("GNU Library Public License Version 2");
-const QString AuthorInfo::other("Icons by Oxygen (www.oxygen-icons.org), covered by LGPLv3 license (see README document)");
+const QString AuthorInfo::other("Icons by Oxygen (www.oxygen-icons.org), covered by LGPLv3 license (see README document)."
+#ifdef  QWT_PLOT3D
+                                "\nUses QwtPlot3D, copyright (C) 2003-2005 Michael Bieber with some modifications."
+#endif
+                               );
 
 
