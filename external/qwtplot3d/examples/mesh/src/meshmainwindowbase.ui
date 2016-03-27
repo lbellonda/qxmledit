@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Mesh2</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout">
+    <property name="margin">
+     <number>8</number>
+    </property>
+    <property name="spacing">
+     <number>6</number>
+    </property>
+    <item row="1" column="0">
+     <layout class="QHBoxLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <layout class="QHBoxLayout">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="normButton">
+          <property name="text">
+           <string>Std</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="lighting">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Lighting</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="lightingswitch">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:MS Shell Dlg; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Polygon Offset&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="offsSlider">
+            <property name="maximum">
+             <number>30</number>
+            </property>
+            <property name="pageStep">
+             <number>5</number>
+            </property>
+            <property name="value">
+             <number>5</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksAbove</enum>
+            </property>
+            <property name="tickInterval">
+             <number>2</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:MS Shell Dlg; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Resolution&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="resSlider">
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>100</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="tickPosition">
+             <enum>QSlider::TicksAbove</enum>
+            </property>
+            <property name="tickInterval">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>71</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <layout class="QHBoxLayout">
+      <property name="spacing">
+       <number>6</number>
+      </property>
+      <property name="margin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QFrame" name="frame">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout">
+        <property name="spacing">
+         <number>6</number>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QCheckBox" name="projection">
+            <property name="text">
+             <string>Ortho</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="colorlegend">
+            <property name="text">
+             <string>Legend</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="autoscale">
+            <property name="text">
+             <string>Autoscale</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="mouseinput">
+            <property name="text">
+             <string>Mouse</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="shader">
+            <property name="text">
+             <string>Shading</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout">
+          <property name="spacing">
+           <number>6</number>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;/head&gt;&lt;body style=&quot; white-space: pre-wrap; font-family:MS Shell Dlg; font-weight:400; font-style:normal; text-decoration:none;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Normals&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QSlider" name="normalsquality">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimum">
+               <number>3</number>
+              </property>
+              <property name="maximum">
+               <number>32</number>
+              </property>
+              <property name="pageStep">
+               <number>4</number>
+              </property>
+              <property name="value">
+               <number>3</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="invertedAppearance">
+               <bool>true</bool>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksAbove</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="normalslength">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+              <property name="maximum">
+               <number>100</number>
+              </property>
+              <property name="pageStep">
+               <number>5</number>
+              </property>
+              <property name="value">
+               <number>8</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="invertedAppearance">
+               <bool>true</bool>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksAbove</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="filemenu">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="openFile"/>
+    <addaction name="openMeshFile"/>
+    <addaction name="animation"/>
+    <addaction name="Exit"/>
+   </widget>
+   <widget class="QMenu" name="colormenu">
+    <property name="title">
+     <string>Color</string>
+    </property>
+    <addaction name="axescolor"/>
+    <addaction name="backgroundcolor"/>
+    <addaction name="meshcolor"/>
+    <addaction name="numbercolor"/>
+    <addaction name="labelcolor"/>
+    <addaction name="titlecolor"/>
+    <addaction name="datacolor"/>
+    <addaction name="resetcolor"/>
+   </widget>
+   <widget class="QMenu" name="fontmenu">
+    <property name="title">
+     <string>Fonts</string>
+    </property>
+    <addaction name="numberfont"/>
+    <addaction name="labelfont"/>
+    <addaction name="titlefont"/>
+    <addaction name="resetfont"/>
+   </widget>
+   <addaction name="filemenu"/>
+   <addaction name="colormenu"/>
+   <addaction name="fontmenu"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolbar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="openFile"/>
+   <addaction name="openMeshFile"/>
+   <addaction name="separator"/>
+   <addaction name="animation"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QToolBar" name="csToolbar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="Box"/>
+   <addaction name="Frame"/>
+   <addaction name="None"/>
+   <addaction name="front"/>
+   <addaction name="back"/>
+   <addaction name="right"/>
+   <addaction name="left"/>
+   <addaction name="ceil"/>
+   <addaction name="floor"/>
+   <addaction name="pointstyle"/>
+   <addaction name="wireframe"/>
+   <addaction name="hiddenline"/>
+   <addaction name="polygon"/>
+   <addaction name="filledmesh"/>
+   <addaction name="nodata"/>
+   <addaction name="floordata"/>
+   <addaction name="flooriso"/>
+   <addaction name="floornone"/>
+   <addaction name="normals"/>
+  </widget>
+  <action name="openFile">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/fileopen.png</normaloff>:/images/fileopen.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open File</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="openMeshFile">
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/filecell.png</normaloff>:/images/filecell.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open FEM File</string>
+   </property>
+  </action>
+  <action name="animation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/movie.png</normaloff>:/images/movie.png</iconset>
+   </property>
+   <property name="text">
+    <string>Animation</string>
+   </property>
+  </action>
+  <action name="Exit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="Box">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/box.png</normaloff>:/images/box.png</iconset>
+   </property>
+   <property name="text">
+    <string>Box</string>
+   </property>
+  </action>
+  <action name="Frame">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/frame.png</normaloff>:/images/frame.png</iconset>
+   </property>
+   <property name="text">
+    <string>Frame</string>
+   </property>
+  </action>
+  <action name="None">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/none.png</normaloff>:/images/none.png</iconset>
+   </property>
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="front">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/gridfr.png</normaloff>:/images/gridfr.png</iconset>
+   </property>
+   <property name="text">
+    <string>front</string>
+   </property>
+  </action>
+  <action name="back">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/gridb.png</normaloff>:/images/gridb.png</iconset>
+   </property>
+   <property name="text">
+    <string>back</string>
+   </property>
+  </action>
+  <action name="right">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/gridr.png</normaloff>:/images/gridr.png</iconset>
+   </property>
+   <property name="text">
+    <string>right</string>
+   </property>
+  </action>
+  <action name="left">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/gridl.png</normaloff>:/images/gridl.png</iconset>
+   </property>
+   <property name="text">
+    <string>left</string>
+   </property>
+  </action>
+  <action name="ceil">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/gridc.png</normaloff>:/images/gridc.png</iconset>
+   </property>
+   <property name="text">
+    <string>ceil</string>
+   </property>
+  </action>
+  <action name="floor">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/gridf.png</normaloff>:/images/gridf.png</iconset>
+   </property>
+   <property name="text">
+    <string>floor</string>
+   </property>
+  </action>
+  <action name="pointstyle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/scattered.png</normaloff>:/images/scattered.png</iconset>
+   </property>
+   <property name="text">
+    <string>pointstyle</string>
+   </property>
+  </action>
+  <action name="wireframe">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/wireframe.png</normaloff>:/images/wireframe.png</iconset>
+   </property>
+   <property name="text">
+    <string>wireframe</string>
+   </property>
+  </action>
+  <action name="hiddenline">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/hiddenline.png</normaloff>:/images/hiddenline.png</iconset>
+   </property>
+   <property name="text">
+    <string>hiddenline</string>
+   </property>
+  </action>
+  <action name="polygon">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/polygon.png</normaloff>:/images/polygon.png</iconset>
+   </property>
+   <property name="text">
+    <string>polygon</string>
+   </property>
+  </action>
+  <action name="filledmesh">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/filledmesh.png</normaloff>:/images/filledmesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>filledmesh</string>
+   </property>
+  </action>
+  <action name="nodata">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/nodata.png</normaloff>:/images/nodata.png</iconset>
+   </property>
+   <property name="text">
+    <string>nodata</string>
+   </property>
+  </action>
+  <action name="floordata">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/floordata.png</normaloff>:/images/floordata.png</iconset>
+   </property>
+   <property name="text">
+    <string>floordata</string>
+   </property>
+  </action>
+  <action name="flooriso">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/flooriso.png</normaloff>:/images/flooriso.png</iconset>
+   </property>
+   <property name="text">
+    <string>flooriso</string>
+   </property>
+  </action>
+  <action name="floornone">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/floorempty.png</normaloff>:/images/floorempty.png</iconset>
+   </property>
+   <property name="text">
+    <string>floornone</string>
+   </property>
+  </action>
+  <action name="normals">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../images.qrc">
+     <normaloff>:/images/normals.png</normaloff>:/images/normals.png</iconset>
+   </property>
+   <property name="text">
+    <string>normals</string>
+   </property>
+  </action>
+  <action name="axescolor">
+   <property name="text">
+    <string>&amp;Axes</string>
+   </property>
+  </action>
+  <action name="backgroundcolor">
+   <property name="text">
+    <string>&amp;Background</string>
+   </property>
+  </action>
+  <action name="meshcolor">
+   <property name="text">
+    <string>&amp;Mesh</string>
+   </property>
+  </action>
+  <action name="numbercolor">
+   <property name="text">
+    <string>&amp;Numbers</string>
+   </property>
+  </action>
+  <action name="labelcolor">
+   <property name="text">
+    <string>&amp;Label</string>
+   </property>
+  </action>
+  <action name="titlecolor">
+   <property name="text">
+    <string>&amp;Caption</string>
+   </property>
+  </action>
+  <action name="datacolor">
+   <property name="text">
+    <string>Data Color</string>
+   </property>
+  </action>
+  <action name="resetcolor">
+   <property name="text">
+    <string>&amp;Reset</string>
+   </property>
+  </action>
+  <action name="numberfont">
+   <property name="text">
+    <string>&amp;Scale numbering</string>
+   </property>
+  </action>
+  <action name="labelfont">
+   <property name="text">
+    <string>&amp;Axes label</string>
+   </property>
+  </action>
+  <action name="titlefont">
+   <property name="text">
+    <string>&amp;Caption</string>
+   </property>
+  </action>
+  <action name="resetfont">
+   <property name="text">
+    <string>&amp;Reset</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../../images.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>lightingswitch</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>lighting</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>181</x>
+     <y>568</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>568</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

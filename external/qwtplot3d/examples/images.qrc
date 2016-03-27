@@ -1,0 +1,31 @@
+<RCC>
+    <qresource>
+        <file>images/box.png</file>
+        <file>images/filecell.png</file>
+        <file>images/fileopen.png</file>
+        <file>images/filledmesh.png</file>
+        <file>images/floordata.png</file>
+        <file>images/floorempty.png</file>
+        <file>images/flooriso.png</file>
+        <file>images/floormesh.png</file>
+        <file>images/frame.png</file>
+        <file>images/grid.png</file>
+        <file>images/gridb.png</file>
+        <file>images/gridc.png</file>
+        <file>images/gridf.png</file>
+        <file>images/gridfr.png</file>
+        <file>images/gridl.png</file>
+        <file>images/gridr.png</file>
+        <file>images/hiddenline.png</file>
+        <file>images/icon.png</file>
+        <file>images/movie.png</file>
+        <file>images/nodata.png</file>
+        <file>images/none.png</file>
+        <file>images/normals.png</file>
+        <file>images/polygon.png</file>
+        <file>images/qwtplot.png</file>
+        <file>images/savecontent.png</file>
+        <file>images/scattered.png</file>
+        <file>images/wireframe.png</file>
+    </qresource>
+</RCC>

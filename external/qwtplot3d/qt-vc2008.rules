@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioToolFile
+	Name="Qt"
+	Version="8.00"
+	>
+	<Rules>
+		<CustomBuildRule
+			Name="QT Designer Form"
+			DisplayName="QT Form"
+			CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;$(IntDir)\..\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;"
+			Outputs="&quot;$(IntDir)\..\ui_$(InputName).h&quot;"
+			AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+			FileExtensions="*.ui"
+			ExecutionDescription="Uic&apos;ing $(InputFileName)..."
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="QT Resources"
+			DisplayName="QT Resources"
+			CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; $(InputPath) -no-compress -o $(IntDir)\..\qrc_$(InputName).cpp&quot;"
+			Outputs="&quot;$(IntDir)\..\qrc_$(InputName).cpp&quot;"
+			AdditionalDependencies="$(QTDIR)\bin\rcc.exe"
+			FileExtensions="*.qrc"
+			ExecutionDescription="Rcc&apos;ing $(InputFileName)..."
+			ShowOnlyRuleProperties="false"
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="QT Moc Metafile"
+			DisplayName="QT Moc"
+			CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot; &quot;$(InputDir)/$(InputName).h&quot; -o &quot;$(IntDir)\..\moc_$(InputName).cpp&quot; -D_WIN32"
+			Outputs="&quot;$(IntDir)\..\moc_$(InputName).cpp&quot;"
+			AdditionalDependencies="$(QTDIR)\bin\moc.exe;&quot;$(InputDir)/$(InputName).h&quot;"
+			FileExtensions="*.moc"
+			ExecutionDescription="Moc&apos;ing $(InputFileName)..."
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+		<CustomBuildRule
+			Name="Qt Linguist"
+			DisplayName="QT Linguist"
+			CommandLine="&quot;$(QTDIR)\bin\lrelease.exe&quot; &quot;$(InputPath)&quot; -qm &quot;$(SolutionDir)\GeneratedFiles\$(ProjectName)\$(InputName).qm&quot;"
+			Outputs="&quot;$(SolutionDir)\GeneratedFiles\$(ProjectName)\$(InputName).qm&quot;"
+			AdditionalDependencies="$(QTDIR)\bin\lrelease.exe"
+			FileExtensions="*.ts"
+			ExecutionDescription="Creating translation of $(InputFileName)..."
+			>
+			<Properties>
+			</Properties>
+		</CustomBuildRule>
+	</Rules>
+</VisualStudioToolFile>
