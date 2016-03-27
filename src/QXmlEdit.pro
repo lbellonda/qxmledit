@@ -72,9 +72,11 @@ isEmpty(INST_TRANSLATIONS_DIR) {
     INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
 }
 
-USE_QWTPLOT=$$(QXMLEDIT_USE_QWTPLOT)
-isEmpty(USE_QWTPLOT) {
+USE_QWTPLOT="Y"
+DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
+!isEmpty(DONTUSE_QWTPLOT) {
     USE_QWTPLOT="N"
+    message("No QWTPlot")
 }
 
 INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
@@ -248,6 +250,20 @@ HEADERS = precompiled_app.h \
     precompiled_app.h \
     qxmeditmetainfo.h \
     infodialog.h \
+   visualization/elementbase.h \
+    visualization/visdatamap.h \
+    visualization/vismapdialog.h \
+    visualization/visdatarow.h \
+    visualization/datavisualization.h \
+    visualization/datawidget.h \
+    visualization/visdatasax.h \
+    visualization/colormap.h \
+    visualization/vismapwidget.h \
+    visualization/summarydata.h \
+    visualization/stdcolormap.h \
+    visualization/choosecolormap.h \
+    visualization/cmapitemdelegate.h \
+    visualization/graycolormap.h \
     modules/replica/replicaclonedialog.h \
     modules/export/exportoptionsdialog.h \
     modules/anonymize/anonymizebatch.h
@@ -301,6 +317,20 @@ SOURCES = \
     modules/anonymize/anoneditprofiledialog.cpp \
     modules/anonymize/anonimyzebatchdialog.cpp \
     modules/anonymize/anonsettingwidget.cpp \
+    visualization/elementbase.cpp \
+    visualization/visdatamap.cpp \
+    visualization/vismapdialog.cpp \
+    visualization/visdatarow.cpp \
+    visualization/datavisualization.cpp \
+    visualization/datawidget.cpp \
+    visualization/visdatasax.cpp \
+    visualization/colormap.cpp \
+    visualization/vismapwidget.cpp \
+    visualization/summarydata.cpp \
+    visualization/stdcolormap.cpp \
+    visualization/choosecolormap.cpp \
+    visualization/cmapitemdelegate.cpp \
+    visualization/graycolormap.cpp \
     infodialog.cpp \
     mainwindowio.cpp \
     modules/replica/replicaclonedialog.cpp \
@@ -341,6 +371,11 @@ FORMS = MainWindow.ui \
     modules/anonymize/anonimyzebatchdialog.ui \
     modules/anonymize/anonsettingwidget.ui \
     infodialog.ui \
+    visualization/vismapdialog.ui \
+    visualization/datawidget.ui \
+    visualization/vismapwidget.ui \
+    visualization/choosecolormap.ui \
+    visualization/cmapitemdelegate.ui \
     modules/replica/replicaclonedialog.ui \
     modules/export/exportoptionsdialog.ui
 
@@ -433,13 +468,22 @@ else:macx: LIBS += -L$(DESTDIR) -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
 else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
 else:os2: LIBS += -L..\build -lQXEdtSes
 
-contains(USE_QWTPLOT, Y) {
+equals(USE_QWTPLOT, "Y") {
+
+ greaterThan(QT_MAJOR_VERSION, 4) {
+
     QT += opengl
-    LIBS += -lqwtplot3d-qt4
+    INCLUDEPATH += ../external/qwtplot3d/include
     DEFINES += QWT_PLOT3D
-    #LIBS += -L$$OUT_PWD/../../../qwtplot/qwtplot3d/lib -lqwtplot3d
+
+    LIBS += -L../build/ -lqwtplot3d
+
+    unix:!macx{
+        LIBS += -lGL -lGLU -lglut
+    }
+
+    win32:{
+        LIBS += -lopengl32  -lglu32
+    }
+  }
 }
-
-
-
-

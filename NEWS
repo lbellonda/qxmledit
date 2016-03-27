@@ -1,4 +1,6 @@
 0.9.4
+    Enabled the use of QWTPlot3d library and OpenGL.
+    Enforced limits in the data extraction panel.
     Enriched the export statistics of view data panel.
     Attributes sorted case insensitive.
     Asynchronous load of data in Data Visualization dialog.

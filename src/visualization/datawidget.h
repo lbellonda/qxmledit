@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,7 +24,6 @@
 #ifndef DATAWIDGET_H
 #define DATAWIDGET_H
 
-#include "xmlEdit.h"
 #include <QWidget>
 #include <QImage>
 #include <QPaintEvent>
@@ -37,9 +36,9 @@
 
 #ifdef  QWT_PLOT3D
 #include <math.h>
-#include <qwtplot3d-qt4/qwt3d_surfaceplot.h>
-#include <qwtplot3d-qt4/qwt3d_function.h>
-#include <qwtplot3d-qt4/qwt3d_plot.h>
+#include "../external/qwtplot3d/include/qwt3d_gridplot.h"
+#include "../external/qwtplot3d/include/qwt3d_function.h"
+#include "../external/qwtplot3d/include/qwt3d_plot3d.h"
 #endif
 
 namespace Ui
@@ -95,11 +94,11 @@ private:
     uint _emptyValueColor;
     ELoudness _loudness;
 #ifdef  QWT_PLOT3D
-    Qwt3D::SurfacePlot *_plot;
+    Qwt3D::GridPlot *_plot;
 #endif
     bool _is3d;
 
-    int _sizeOfPoints, _xPoints, _yPoints;
+    unsigned int _sizeOfPoints, _xPoints, _yPoints;
 
     void debugImage();
     void recalc();

@@ -24,6 +24,8 @@
 #ifndef EXTRACTFRAGMENTSDIALOG_H
 #define EXTRACTFRAGMENTSDIALOG_H
 
+#include "xmlEdit.h"
+#include "libQXmlEdit_global.h"
 #include <QDialog>
 #include <QComboBox>
 #include <QTimer>
@@ -37,7 +39,7 @@ class ExtractFragmentsDialog;
 
 
 
-class ExtractFragmentsDialog : public QDialog
+class LIBQXMLEDITSHARED_EXPORT ExtractFragmentsDialog : public QDialog
 {
     Q_OBJECT
 

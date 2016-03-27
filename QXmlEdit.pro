@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+# *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -25,9 +25,22 @@ macx {
 cache()
 }
 
+USE_QWTPLOT="Y"
+DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
+!isEmpty(DONTUSE_QWTPLOT) {
+    USE_QWTPLOT="N"
+    message("No QWTPlot")
+}
+
 TEMPLATE = subdirs
 
 CONFIG += ordered
+
+equals(USE_QWTPLOT, "Y") {
+    greaterThan(QT_MAJOR_VERSION, 4) {
+        SUBDIRS += external/qwtplot3d/qwtplot3d.pro
+    }
+}
 
 SUBDIRS += \
     src/QXmlEditWidget.pro \

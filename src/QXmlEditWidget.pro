@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+# *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -19,7 +19,6 @@
 # * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
 # * Boston, MA  02110-1301  USA                                            *
 # **************************************************************************/
-
 
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
 INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
@@ -55,6 +54,13 @@ isEmpty(INST_INCLUDE_DIR) {
 INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
 isEmpty(INST_AVOID_PRECOMP_HEADERS) {
     INST_AVOID_PRECOMP_HEADERS = ""
+}
+
+USE_QWTPLOT="Y"
+DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
+!isEmpty(DONTUSE_QWTPLOT) {
+    USE_QWTPLOT="N"
+    message("No QWTPlot")
 }
 
 LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
@@ -111,6 +117,7 @@ win32-msvc2010 {
 } else {
     QMAKE_CXXFLAGS += -Wall
     QMAKE_CXXFLAGS +=-Werror
+    #QMAKE_CXXFLAGS += -Winvalid-pch
 }
 
 lessThan(QT_MAJOR_VERSION, 5) {
@@ -266,19 +273,6 @@ SOURCES += xmleditwidget.cpp \
     modules/graph/tagmarker.cpp \
     modules/graph/tagspring.cpp \
     modules/graph/nodesrelationscontroller.cpp \
-    visualization/elementbase.cpp \
-    visualization/visdatamap.cpp \
-    visualization/vismapdialog.cpp \
-    visualization/visdatarow.cpp \
-    visualization/datavisualization.cpp \
-    visualization/datawidget.cpp \
-    visualization/visdatasax.cpp \
-    visualization/colormap.cpp \
-    visualization/vismapwidget.cpp \
-    visualization/summarydata.cpp \
-    visualization/stdcolormap.cpp \
-    visualization/choosecolormap.cpp \
-    visualization/cmapitemdelegate.cpp \
     extraction/extractfragmentsdialog.cpp \
     extraction/extractionfrontend.cpp \
     extraction/extractionoperation.cpp \
@@ -334,7 +328,6 @@ SOURCES += xmleditwidget.cpp \
     modules/xml/regolaContainer.cpp \
     undo/undoaddparentcommand.cpp \
     undo/undoremoveparentcommand.cpp \
-    visualization/graycolormap.cpp \
     xsdeditor/XSchemaTypeEngine.cpp \
     xsdeditor/XSchemaContainer.cpp \
     xsdeditor/XsdTypes.cpp \
@@ -516,19 +509,6 @@ HEADERS += precompiled_lib.h \
     modules/graph/tagmarker.h \
     modules/graph/tagspring.h \
     modules/graph/nodesrelationscontroller.h \
-   visualization/elementbase.h \
-    visualization/visdatamap.h \
-    visualization/vismapdialog.h \
-    visualization/visdatarow.h \
-    visualization/datavisualization.h \
-    visualization/datawidget.h \
-    visualization/visdatasax.h \
-    visualization/colormap.h \
-    visualization/vismapwidget.h \
-    visualization/summarydata.h \
-    visualization/stdcolormap.h \
-    visualization/choosecolormap.h \
-    visualization/cmapitemdelegate.h \
     extraction/extractfragmentsdialog.h \
     extraction/extractionfrontend.h \
     extraction/extractionoperation.h \
@@ -584,7 +564,6 @@ HEADERS += precompiled_lib.h \
     undo/undoaddchildcontainer.h \
     undo/undoaddparentcommand.h \
     undo/undoremoveparentcommand.h \
-    visualization/graycolormap.h \
     xsdeditor/xschemaoperationcontext.h \
     xsdeditor/io/xschemaloaderhelper.h \
     xsdeditor/items/xitemsdefinitions.h \
@@ -623,7 +602,6 @@ HEADERS += precompiled_lib.h \
     modules/xsd/xsdfullannotationsdialog.h \
     modules/xsd/xsddefaultannotationeditor.h \
     modules/xsd/xsdannotationmodel.h \
-    precompiled_lib.h \
     undo/undocommandgroup.h \
     modules/xml/xmlindentationdialog.h \
     widgets/qlabelwithsignals.h \
@@ -678,11 +656,6 @@ FORMS += xmleditwidget.ui \
     modules/compare/comparemodule.ui \
     modules/compare/diffmapwidget.ui \
     modules/graph/nodesrelationsdialog.ui \
-    visualization/vismapdialog.ui \
-    visualization/datawidget.ui \
-    visualization/vismapwidget.ui \
-    visualization/choosecolormap.ui \
-    visualization/cmapitemdelegate.ui \
     extraction/extractfragmentsdialog.ui \
     extraction/extractionfrontend.ui \
     modules/copyattr/copyattributesdialog.ui \
@@ -738,6 +711,4 @@ unix:!macx:DEFINES += UNIX_RESOURCES
 
 DEFINES += UNIX_RESOURCE_PATH=$$INST_DATA_DIR
 DEFINES += UNIX_DOC_PATH=$$INST_DOC_DIR
-
-
 

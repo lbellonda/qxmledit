@@ -9,6 +9,20 @@
  * License as published by the Free Software Foundation; either           *
  * version 2 of the License, or (at your option) any later version.       *
  *                                                                        *
+ * As a special exception, the copyright holders of QXmlEdit give you     *
+ * permission to combine QXmlEdit with free software programs or libraries*
+ * that are released under the GNU LGPL and with code included in the     *
+ * standard release of QWT3D under the ZLib license (or modified versions *
+ * of such code, with unchanged license). You may copy and distribute such*
+ * a system following the terms of the GNU LGPL for QXmlEdit and the      *
+ * licenses of the other code concerned.                                  *
+ * Note that people who make modified versions of QXmlEdit are not        *
+ * obligated to grant this special exception for their modified versions; *
+ * it is their choice whether to do so. The GNU Library General Public    *
+ * License gives permission to release a modified version without this    *
+ * exception; this exception also makes it possible to release a modified *
+ * version which carries forward this exception.                          *
+ *                                                                        *
  * This library is distributed in the hope that it will be useful,        *
  * but WITHOUT ANY WARRANTY; without even the implied warranty of         *
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU      *
@@ -21,7 +35,7 @@
  **************************************************************************/
 
 //#define LOG_CONSOLE 1
-//#include "xmlEdit.h"
+#include "xmlEdit.h"
 
 #include "datawidget.h"
 #include "ui_datawidget.h"
@@ -33,9 +47,10 @@
 #include "utils.h"
 
 #ifdef  QWT_PLOT3D
-#include <qwtplot3d-qt4/qwt3d_global.h>
-#include <qwtplot3d-qt4/qwt3d_axis.h>
-#include <qwtplot3d-qt4/qwt3d_mapping.h>
+#include "../external/qwtplot3d/include/qwt3d_global.h"
+#include "../external/qwtplot3d/include/qwt3d_axis.h"
+#include "../external/qwtplot3d/include/qwt3d_mapping.h"
+#include "../external/qwtplot3d/include/qwt3d_gridplot.h"
 #endif
 
 
@@ -83,7 +98,7 @@ DataWidget::DataWidget(QWidget *parent) :
 
     ui->setupUi(this);
 #ifdef  QWT_PLOT3D
-    _plot = new Qwt3D::SurfacePlot(this);
+    _plot = new Qwt3D::GridPlot(this);
     _plot->setParent(this);
     setupPlot();
     _plot->setVisible(false);
@@ -132,7 +147,7 @@ void DataWidget::draw3d()
     double *newData = new double[_sizeOfPoints];
     if((NULL != data) && (NULL != newData)) {
 
-        for(int x = 0 ; x < _xPoints ; x ++) {
+        for(unsigned int x = 0 ; x < _xPoints ; x ++) {
             data[x] = &newData[x * _yPoints];
             //data[x] = new double[_yPoints];
         }
@@ -151,8 +166,8 @@ void DataWidget::draw3d()
             factor /= maxVal ;
         }
 
-        unsigned columns = _xPoints ;
-        unsigned rows = _yPoints;
+        unsigned int columns = _xPoints ;
+        unsigned int rows = _yPoints;
         for(unsigned i = 0; i < columns; i++) {
             for(unsigned j = 0; j < rows; j++) {
                 data[i][j] = _dataPoints[(i * _xPoints) + j] * factor;
@@ -160,9 +175,15 @@ void DataWidget::draw3d()
         }
 
         //if(!_plot->loadFromData(data, _xPoints, _yPoints, 0, _dataMap->numColumns, 0, _dataMap->rows.size())) {
-        if(!_plot->loadFromData(data, _xPoints, _yPoints, 0, 100, 0, 100)) {
+
+        /*if(!_plot->loadFromData(data, _xPoints, _yPoints, 0, 100, 0, 100)) {
+            Utils::error(this, tr("Error loading data."));
+        }*/
+
+        if(_plot->createDataset(data, _xPoints, _yPoints, 0, 100, 0, 100, false) < 0) {
             Utils::error(this, tr("Error loading data."));
         }
+
         //_plot->coordinates()->axes[Qwt3D::Z1].setMajors(maxVal*factor/5.);
         //_plot->coordinates()->axes[Qwt3D::Z1].setMinors(maxVal*factor/10.);
 
@@ -422,14 +443,10 @@ void DataWidget::computeImage()
                             }
                         }
                     } else {
-                        int intPtiPerPxY = (int)ptiPerPxY ;
-                        int intPtiPerPxX = (int)ptiPerPxX ;
-                        Utils::TODO_THIS_RELEASE("check if values are zero");
-
                         if(_loudness == NoLoudness) {
                             value = getValue(e);
-                            for(int yi = 0; yi < intPtiPerPxY ; yi++) {
-                                for(int xi = 0; xi < intPtiPerPxX ; xi++) {
+                            for(int yi = 0; yi < ptiPerPxY ; yi++) {
+                                for(int xi = 0; xi < ptiPerPxX ; xi++) {
                                     ElementBase *e2 = getElement(xxx - limx + xi, yyy - limy + yi);
                                     if(NULL != e2) {
                                         values ++ ;
@@ -440,8 +457,8 @@ void DataWidget::computeImage()
                             value /= values ;
                         } else {
                             value = getValue(e);
-                            for(int yi = 0; yi < intPtiPerPxY ; yi++) {
-                                for(int xi = 0; xi < intPtiPerPxX ; xi++) {
+                            for(int yi = 0; yi < ptiPerPxY ; yi++) {
+                                for(int xi = 0; xi < ptiPerPxX ; xi++) {
                                     ElementBase *e2 = getElement(xxx - limx + xi, yyy - limy + yi);
                                     if(NULL != e2) {
                                         float nowValue = getValue(e2);

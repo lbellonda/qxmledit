@@ -57,3 +57,12 @@ Limitations
 No external schema are loaded.
 Very limited support of DTD.
 
+License and notes on QwtPlot3D
+------------------------------
+QXmlEdit is released under LGPL V2, includes Oxygen icons and optionally can link
+with QwtPlot3D library. QwtPlot3D is not part of QXmlEdit and its source is
+included for convenience when compiling.
+QwtPlot3D comes with its own license (ZLib like) as specified in its file.
+You are free to link or not with QwtPlot3D by enabling a compile time switch
+as defined in the INSTALL file.
+QwtPlot3D requires OpenGL.
