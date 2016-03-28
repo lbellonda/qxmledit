@@ -12,10 +12,10 @@
  * As a special exception, the copyright holders of QXmlEdit give you     *
  * permission to combine QXmlEdit with free software programs or libraries*
  * that are released under the GNU LGPL and with code included in the     *
- * standard release of QWT3D under the ZLib license (or modified versions *
- * of such code, with unchanged license). You may copy and distribute such*
- * a system following the terms of the GNU LGPL for QXmlEdit and the      *
- * licenses of the other code concerned.                                  *
+ * standard release of QwtPlot3D under the ZLib license (or modified      *
+ * versions of such code, with unchanged license).                        *
+ * You may copy and distribute such a system following the terms of the   *
+ * GNU LGPL for QXmlEdit and the licenses of the other code concerned.    *
  * Note that people who make modified versions of QXmlEdit are not        *
  * obligated to grant this special exception for their modified versions; *
  * it is their choice whether to do so. The GNU Library General Public    *
@@ -71,9 +71,7 @@ DataWidget::DataWidget(QWidget *parent) :
     _dataOffset(0, 0),
     ui(new Ui::DataWidget)
 {
-#ifdef  QWT_PLOT3D
     _plot = NULL ;
-#endif
     _bkpt = false ;
     _freeze = false;
     _sizeOfPoints = 0;
@@ -149,7 +147,6 @@ void DataWidget::draw3d()
 
         for(unsigned int x = 0 ; x < _xPoints ; x ++) {
             data[x] = &newData[x * _yPoints];
-            //data[x] = new double[_yPoints];
         }
 
         /*double *dst = newData;
@@ -174,24 +171,17 @@ void DataWidget::draw3d()
             }
         }
 
-        //if(!_plot->loadFromData(data, _xPoints, _yPoints, 0, _dataMap->numColumns, 0, _dataMap->rows.size())) {
-
-        /*if(!_plot->loadFromData(data, _xPoints, _yPoints, 0, 100, 0, 100)) {
-            Utils::error(this, tr("Error loading data."));
-        }*/
-
         if(_plot->createDataset(data, _xPoints, _yPoints, 0, 100, 0, 100, false) < 0) {
             Utils::error(this, tr("Error loading data."));
         }
+        setColors3d();
+        _plot->updateData();
+        _plot->updateNormals();
 
         //_plot->coordinates()->axes[Qwt3D::Z1].setMajors(maxVal*factor/5.);
         //_plot->coordinates()->axes[Qwt3D::Z1].setMinors(maxVal*factor/10.);
 
         delete [] newData;
-
-        /*for(int x = 0 ; x < _xPoints ; x ++) {
-            delete [] data[x] ;
-        }*/
 
         delete [] data;
     }
@@ -211,6 +201,37 @@ void DataWidget::draw3d()
             }
             delete [] newData;
         }*/
+}
+
+
+void DataWidget::setColors3d()
+{
+    if( NULL != _plot ) {
+        Qwt3D::RGBA rgb;
+        _cv.clear();
+        QList<uint> cols;
+        uint *vt = _colorMap->values();
+        FORINT(i, _colorMap->MapElements) {
+            uint u = *vt ;
+            vt ++;
+            rgb.r = (u>>16)&0x00FF ;
+            rgb.g  = (u>>8)&0x00FF ;
+            rgb.b = (u)&0x00FF ;
+            rgb.a = 1;
+            rgb.r /= 255;
+            rgb.g /= 255;
+            rgb.b /= 255;
+            _cv.push_back(rgb);
+        }
+        /*{
+            QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),"");
+            openColorMap(_cv, filePath);
+        }*/
+
+        _dataColor.setColorVector(_cv);
+
+        _plot->appearance(0).setDataColor(_dataColor);
+    }
 }
 
 #endif
@@ -294,6 +315,14 @@ void DataWidget::setColorMap(ColorMap *newMap)
     _emptyValueColor = newMap->emptyColor();
 
     _newData = true ;
+#ifdef  QWT_PLOT3D
+    setColors3d();
+    if( ( NULL != _plot ) && _plot->isVisible() ){
+        _plot->updateData();
+        _plot->updateNormals();
+        _plot->updateGL();
+    }
+#endif
     repaint();
 }
 
@@ -560,26 +589,28 @@ quint64 DataWidget::getMaxValue()
 bool DataWidget::event(QEvent * event)
 {
     if(event->type() == QEvent::ToolTip) {
-        QHelpEvent *toolTipEvent = static_cast<QHelpEvent *>(event);
-        QPoint pos = toolTipEvent->pos();
-        if((_dataWindow.height() > 0)  && (_dataWindow.width() > 0)) {
-            int y = _dataWindow.top() + (pos.y() * _dataWindow.height()) / height();
-            int x = _dataWindow.left() + (pos.x() * _dataWindow.width()) / width();
-            ElementBase *e = getElement(x, y);
-            ElementBase *selection = e;
-            if(NULL != e) {
-                // builds the chain
-                QString path = e->name ;
-                while(e->parent != NULL) {
-                    path = e->parent->name + "/" + path ;
-                    e = e->parent ;
+        if( (NULL == _plot ) || !_plot->isVisible() ) {
+            QHelpEvent *toolTipEvent = static_cast<QHelpEvent *>(event);
+            QPoint pos = toolTipEvent->pos();
+            if((_dataWindow.height() > 0)  && (_dataWindow.width() > 0)) {
+                int y = _dataWindow.top() + (pos.y() * _dataWindow.height()) / height();
+                int x = _dataWindow.left() + (pos.x() * _dataWindow.width()) / width();
+                ElementBase *e = getElement(x, y);
+                ElementBase *selection = e;
+                if(NULL != e) {
+                    // builds the chain
+                    QString path = e->name ;
+                    while(e->parent != NULL) {
+                        path = e->parent->name + "/" + path ;
+                        e = e->parent ;
+                    }
+                    path += tr("\nrow=%1, column=%2").arg(y).arg(x);
+                    path += "\n";
+                    path += tr("size: %1, attributes %2, children %3\n").arg(selection->size).arg(selection->attributesCount).arg(selection->childrenCount);
+                    path += tr("cumulative size: %1, attributes %2, children %3").arg(selection->totalSize).arg(selection->totalAttributesCount).arg(selection->totalChildrenCount);
+                    QToolTip::showText(toolTipEvent->globalPos(), path);
+                    return true;
                 }
-                path += tr("\nrow=%1, column=%2").arg(y).arg(x);
-                path += "\n";
-                path += tr("size: %1, attributes %2, children %3\n").arg(selection->size).arg(selection->attributesCount).arg(selection->childrenCount);
-                path += tr("cumulative size: %1, attributes %2, children %3").arg(selection->totalSize).arg(selection->totalAttributesCount).arg(selection->totalChildrenCount);
-                QToolTip::showText(toolTipEvent->globalPos(), path);
-                return true;
             }
         }
     }
@@ -966,3 +997,38 @@ void DataWidget::resizeEvent(QResizeEvent * event)
     }
 #endif
 }
+
+/*
+ * delete this code
+#include <fstream>
+bool DataWidget::openColorMap(Qwt3D::ColorVector& cv, QString fname)
+{
+  if (fname.isEmpty())
+    return false;
+
+  std::ifstream file(fname.toLatin1().data());
+
+    if (!file)
+        return false;
+
+    Qwt3D::RGBA rgb;
+    cv.clear();
+
+    while ( file )
+    {
+        file >> rgb.r >> rgb.g >> rgb.b;
+        file.ignore(1000,'\n');
+        if (!file.good())
+            break;
+        else
+        {
+            rgb.a = 1;
+            rgb.r /= 255;
+            rgb.g /= 255;
+            rgb.b /= 255;
+            cv.push_back(rgb);
+        }
+    }
+
+    return true;
+}*/

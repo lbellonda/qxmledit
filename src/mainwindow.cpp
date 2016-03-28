@@ -2472,7 +2472,8 @@ MainWindow *MainWindow::makeNewWindow()
 
 void MainWindow::on_actionViewData_triggered()
 {
-    DataVisualization::viewData(data, this, "");
+    QString fileName = askFileNameToOpen(getRegola()->fileName());
+    DataVisualization::viewData(data, this, fileName);
 }
 
 void MainWindow::loadVisFile(const QString &fileName)
@@ -3259,4 +3260,13 @@ void MainWindow::on_actionRemoveAllSiblingsBefore_triggered()
     if(!isReadOnly() && (NULL != element)) {
         getEditor()->deleteSiblings(RegolaDeleteSiblings::DeleteAllSiblingsBefore, element);
     }
+}
+
+QString MainWindow::askFileNameToOpen(const QString &startFolder)
+{
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
+                                                       QXmlEditData::sysFilePathForOperation(startFolder),
+                                                Utils::getFileFilterForOpenFile()
+                                            );
+    return filePath ;
 }

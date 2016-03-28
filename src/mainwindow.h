@@ -474,6 +474,7 @@ protected:
     bool recentFile(const QString &filePath);
     bool preferredDir(const QString &filePath);
     bool preferredDirLoadFile(const QString &filePath);
+    QString askFileNameToOpen(const QString &startFolder = "");
 
     void onShowHideMainButtons();
     void onShowHideStatusBar();

@@ -95,6 +95,10 @@ private:
     ELoudness _loudness;
 #ifdef  QWT_PLOT3D
     Qwt3D::GridPlot *_plot;
+    Qwt3D::StandardColor _dataColor;
+    Qwt3D::ColorVector _cv;
+#else
+    QWidget *_plot;
 #endif
     bool _is3d;
 
@@ -149,6 +153,8 @@ private:
 #ifdef  QWT_PLOT3D
     void setupPlot();
     void draw3d();
+    void setColors3d();
+    bool openColorMap(Qwt3D::ColorVector& cv, QString fname);
 #endif
 
 private slots:
