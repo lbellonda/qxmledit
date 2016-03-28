@@ -570,7 +570,6 @@ void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
     }
 }
 
-
 void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
 {
     // This body intentionally blank.
