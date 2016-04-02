@@ -141,6 +141,8 @@ public:
     bool reload();
     QXmlEditApplication* qXmlEditApplication();
     void updateAfterPreferences();
+    void setupFirstAccess();
+    void taskChooseDetail();
 
 protected:
     //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.
@@ -340,6 +342,8 @@ private slots:
     void on_actionRemoveAllSiblings_triggered();
     void on_actionRemoveAllSiblingsAfter_triggered();
     void on_actionRemoveAllSiblingsBefore_triggered();
+    void on_actionTaskDisplayDetail_triggered();
+    void on_actionHelpSetEditorDetail_triggered();
 
     //----- other slots ------------------
 

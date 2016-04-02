@@ -68,7 +68,9 @@ public:
 
     void loadState();
     bool saveState();
+    void setChanged();
 
+    void cloneTo(PaintInfo *other);
 
     void setIndexPerChild(const bool newValue);
     void setOneAttrPerLine(const bool newValue);
@@ -130,6 +132,17 @@ public:
     bool isShowElementsIcon() const;
     void setShowElementsIcon(bool showElementsIcon);
     bool updateShowElementIcon();
+    //-------
+    void applySettings(const bool parmIsOneAttrPerLine,
+                       const bool parmIsIndexPerChild,
+                       const bool parmIsCompactView ,
+                       const bool parmIsShowUnBase64,
+                       const bool parmIsShowElementTextLength,
+                       const bool parmIsShowElementSize,
+                       const bool parmIsShowFullComments,
+                       const bool parmIsSortAttributesAlpha,
+                       const int parmAttributesColumnLimit);
+    //-------
 };
 
 #endif

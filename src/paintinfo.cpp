@@ -76,6 +76,12 @@ void PaintInfo::loadState()
     isChanged = false;
 }
 
+
+void PaintInfo::setChanged()
+{
+    isChanged = true ;
+}
+
 bool PaintInfo::saveState()
 {
     if(!isChanged) {
@@ -426,4 +432,25 @@ bool PaintInfo::updateShowElementIcon()
     int oldValue = _showElementsIcon ;
     _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false);
     return oldValue != _showElementsIcon ;
+}
+
+void PaintInfo::applySettings(const bool parmIsOneAttrPerLine,
+                              const bool parmIsIndexPerChild,
+                              const bool parmIsCompactView ,
+                              const bool parmIsShowUnBase64,
+                              const bool parmIsShowElementTextLength,
+                              const bool parmIsShowElementSize,
+                              const bool parmIsShowFullComments,
+                              const bool parmIsSortAttributesAlpha,
+                              const int parmAttributesColumnLimit)
+{
+    isOneAttrPerLine = parmIsOneAttrPerLine;
+    isIndexPerChild = parmIsIndexPerChild;
+    isCompactView = parmIsCompactView;
+    isShowUnBase64 = parmIsShowUnBase64;
+    isShowElementTextLength = parmIsShowElementTextLength;
+    isShowElementSize = parmIsShowElementSize ;
+    isShowFullComments =  parmIsShowFullComments,
+    _sortAttributesAlpha  = parmIsSortAttributesAlpha;
+    _attributesColumnLimit = parmAttributesColumnLimit;
 }

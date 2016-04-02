@@ -115,6 +115,7 @@ int internalMain(int argc, char *argv[])
     MainWindow *mainWindow = new MainWindow(false, &app, &appData);
 
     mainWindow->show();
+    mainWindow->setupFirstAccess();
     switch(startParams.type) {
     default:
     case StartParams::Nothing:

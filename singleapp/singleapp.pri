@@ -58,6 +58,7 @@ SOURCES += $$files(../src/modules/namespace/*.cpp)
 SOURCES += $$files(../src/modules/utils/*.cpp)
 SOURCES += $$files(../src/modules/replica/*.cpp)
 SOURCES += $$files(../src/modules/export/*.cpp)
+SOURCES += $$files(../src/modules/style/*.cpp)
 
 HEADERS += $$files(../src/*.h)
 HEADERS += $$files(../src/widgets/*.h)
@@ -99,6 +100,7 @@ HEADERS += $$files(../src/modules/namespace/*.h)
 HEADERS += $$files(../src/modules/utils/*.h)
 HEADERS += $$files(../src/modules/replica/*.h)
 HEADERS += $$files(../src/modules/export/*.h)
+HEADERS += $$files(../src/modules/style/*.h)
 
 INCLUDEPATH += ../src
 INCLUDEPATH += ../src/sessions/include
@@ -125,6 +127,7 @@ DEPENDPATH += ../src/modules/namespace
 DEPENDPATH += ../src/modules/utils
 DEPENDPATH += ../src/modules/replica
 DEPENDPATH += ../src/modules/export
+DEPENDPATH += ../src/modules/style
 DEPENDPATH += ../src
 DEPENDPATH += .
 
@@ -154,5 +157,6 @@ FORMS += $$files(../src/modules/xml/*.ui)
 FORMS += $$files(../src/modules/namespace/*.ui)
 FORMS += $$files(../src/modules/replica/*.ui)
 FORMS += $$files(../src/modules/export/*.ui)
+FORMS += $$files(../src/modules/style/*.ui)
 
 RESOURCES += ../src/risorse.qrc

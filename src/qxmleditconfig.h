@@ -40,6 +40,7 @@ public:
     static const QString KEY_GENERAL_LICENSE_AGREED;
     static const QString KEY_GENERAL_OPEN_NEWWINDOW;
     static const QString KEY_GENERAL_SINGLE_INSTANCE;
+    static const QString KEY_GENERAL_VIEW_EDITOR_ADJUST;
     // element
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY;
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHSIZE;

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<server xmlns="urn:abcdef">
+        <properties path="a.property" relative-to="config.dir"/>
+        <!--Comment, this is a comment
+second line-->
+        <test>
+            <test-interface test="value" test1="value1" test2="value2" test3="value3" test4="value4" test5="value5">
+                <test-binding test="value">text node
+second line</test-binding><![CDATA[CDATA TEXT]]></test-interface>
+            <test-interface test="value">
+                <test-binding test="value"/>
+                <test-binding1 />
+                <test-binding2 />
+            </test-interface>
+            <test2 test-name="abc1234" context="true" enabled="true" name="the name"/>
+        </test>text, a text
+second line
+    <profile>
+        <subsystem xmlns="urn:abcde">
+                <url>a simple text</url>
+                <test aaa="false" name="pool" use="false" enabled="true" name2="name 2">
+                    <otherText>other text other text other text other text </otherText>
+                </test>
+        </subsystem>
+    </profile>
+</server>

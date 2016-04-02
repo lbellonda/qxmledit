@@ -213,6 +213,7 @@
     <qresource prefix="/styles">
         <file>images/wostyle.png</file>
         <file>images/wstyle.png</file>
+        <file alias="taskStyles.xml">resources/data/taskStyles.xml</file>
     </qresource>
     <qresource prefix="/xslt">
         <file alias="xsltTokens">resources/xslt/tokens.xml</file>

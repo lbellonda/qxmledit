@@ -61,6 +61,7 @@ extern const char *APP_TITLE ;
 #include "modules/export/exportoptionsdialog.h"
 #include "modules/copyattr/copiedattribute.h"
 #include "modules/services/anotifier.h"
+#include "modules/style/choosestyledialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -3265,8 +3266,47 @@ void MainWindow::on_actionRemoveAllSiblingsBefore_triggered()
 QString MainWindow::askFileNameToOpen(const QString &startFolder)
 {
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
-                                                       QXmlEditData::sysFilePathForOperation(startFolder),
-                                                Utils::getFileFilterForOpenFile()
-                                            );
+                       QXmlEditData::sysFilePathForOperation(startFolder),
+                       Utils::getFileFilterForOpenFile());
     return filePath ;
+}
+
+void MainWindow::setupFirstAccess()
+{
+    if(!Config::getBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, false)) {
+        Config::saveBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, true);
+        taskChooseDetail();
+    }
+}
+
+void MainWindow::taskChooseDetail()
+{
+    ChooseStyleDialog dlg(this);
+    dlg.setModal(true);
+    if(dlg.exec() == QDialog::Accepted) {
+        DisplayStyleSetting *theStyle = dlg.selectedStyle();
+        if(NULL != theStyle) {
+            // save the selection to the configuration
+            PaintInfo *mainPaintInfo = getEditor()->getPaintInfo() ;
+            theStyle->applyToPaintInfo(mainPaintInfo);
+            mainPaintInfo->setChanged();
+            mainPaintInfo->saveState();
+            // apply to all the editors
+            getEditor()->invalidatePaintData();
+            QXmlEditApplication *thisAppl = qXmlEditApplication();
+            if(0 != thisAppl) {
+                thisAppl->updateEditors();
+            }
+        }
+    }
+}
+
+void MainWindow::on_actionTaskDisplayDetail_triggered()
+{
+    taskChooseDetail();
+}
+
+void MainWindow::on_actionHelpSetEditorDetail_triggered()
+{
+    taskChooseDetail();
 }

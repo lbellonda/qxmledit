@@ -266,7 +266,9 @@ HEADERS = precompiled_app.h \
     visualization/graycolormap.h \
     modules/replica/replicaclonedialog.h \
     modules/export/exportoptionsdialog.h \
-    modules/anonymize/anonymizebatch.h
+    modules/anonymize/anonymizebatch.h \
+    modules/style/choosestyledialog.h \
+    modules/style/displaystylesetting.h
 
 SOURCES = \
     main.cpp \
@@ -335,7 +337,9 @@ SOURCES = \
     mainwindowio.cpp \
     modules/replica/replicaclonedialog.cpp \
     modules/export/exportoptionsdialog.cpp \
-    modules/anonymize/anonymizebatch.cpp
+    modules/anonymize/anonymizebatch.cpp \
+    modules/style/choosestyledialog.cpp \
+    modules/style/displaystylesetting.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -377,7 +381,8 @@ FORMS = MainWindow.ui \
     visualization/choosecolormap.ui \
     visualization/cmapitemdelegate.ui \
     modules/replica/replicaclonedialog.ui \
-    modules/export/exportoptionsdialog.ui
+    modules/export/exportoptionsdialog.ui \
+    modules/style/choosestyledialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

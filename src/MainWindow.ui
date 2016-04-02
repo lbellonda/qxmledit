@@ -70,8 +70,15 @@
     <property name="title">
      <string>&amp;Help</string>
     </property>
+    <widget class="QMenu" name="menuHow_Do_I">
+     <property name="title">
+      <string>How Do I...?</string>
+     </property>
+     <addaction name="actionHelpSetEditorDetail"/>
+    </widget>
     <addaction name="actionExecuteAutoTest"/>
     <addaction name="actionHelpOnQXmlEdit"/>
+    <addaction name="menuHow_Do_I"/>
     <addaction name="actionTipsOnVisualAppearance"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -359,7 +366,6 @@
      <addaction name="actionShowElementTextLength"/>
      <addaction name="actionShowBase64"/>
      <addaction name="actionShowCurrentElementTextBase64"/>
-
      <addaction name="actionHideLeafChildren"/>
      <addaction name="actionShowLeafChildren"/>
     </widget>
@@ -375,10 +381,8 @@
     <addaction name="separator"/>
     <addaction name="actionCompactView"/>
     <addaction name="actionShowAttrLine"/>
-
     <addaction name="actionShowChildIndex"/>
     <addaction name="actionShowAttributesSorted"/>
-
     <addaction name="actionShowElementSize"/>
     <addaction name="menuAdvanced_2"/>
     <addaction name="separator"/>
@@ -400,8 +404,15 @@
     <addaction name="separator"/>
     <addaction name="actionManageSessions"/>
    </widget>
+   <widget class="QMenu" name="menuTasks">
+    <property name="title">
+     <string>Tasks</string>
+    </property>
+    <addaction name="actionTaskDisplayDetail"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
+   <addaction name="menuTasks"/>
    <addaction name="menuBoorkmarkes"/>
    <addaction name="menu_XML"/>
    <addaction name="menu_Navigation"/>
@@ -2095,6 +2106,16 @@
     <string>Remove all the siblings of the selected element.</string>
    </property>
   </action>
+  <action name="actionHelpSetEditorDetail">
+   <property name="text">
+    <string>Set the Editor Detail</string>
+   </property>
+  </action>
+  <action name="actionTaskDisplayDetail">
+   <property name="text">
+    <string>Adjust Display Detail</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -2111,6 +2132,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>
