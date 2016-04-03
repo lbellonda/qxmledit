@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -31,6 +31,7 @@
 #include <QXmlStreamWriter>
 #include <QFile>
 #include "extractresults.h"
+#include "libQXmlEdit_global.h"
 
 /**************
   TODO:
@@ -50,7 +51,7 @@ public:
     ~ExtractInfo();
 };
 
-class ExtractionOperation : public QObject
+class LIBQXMLEDITSHARED_EXPORT ExtractionOperation : public QObject
 {
     Q_OBJECT
 

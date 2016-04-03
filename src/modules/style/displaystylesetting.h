@@ -24,6 +24,9 @@
 #ifndef DISPLAYSTYLESETTING_H
 #define DISPLAYSTYLESETTING_H
 
+#include "xmlEdit.h"
+class PaintInfo ;
+
 class DisplayStyleSetting
 {
 public:

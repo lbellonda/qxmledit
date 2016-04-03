@@ -206,7 +206,7 @@ void DataWidget::draw3d()
 
 void DataWidget::setColors3d()
 {
-    if( NULL != _plot ) {
+    if(NULL != _plot) {
         Qwt3D::RGBA rgb;
         _cv.clear();
         QList<uint> cols;
@@ -214,9 +214,9 @@ void DataWidget::setColors3d()
         FORINT(i, _colorMap->MapElements) {
             uint u = *vt ;
             vt ++;
-            rgb.r = (u>>16)&0x00FF ;
-            rgb.g  = (u>>8)&0x00FF ;
-            rgb.b = (u)&0x00FF ;
+            rgb.r = (u >> 16) & 0x00FF ;
+            rgb.g  = (u >> 8) & 0x00FF ;
+            rgb.b = (u) & 0x00FF ;
             rgb.a = 1;
             rgb.r /= 255;
             rgb.g /= 255;
@@ -317,7 +317,7 @@ void DataWidget::setColorMap(ColorMap *newMap)
     _newData = true ;
 #ifdef  QWT_PLOT3D
     setColors3d();
-    if( ( NULL != _plot ) && _plot->isVisible() ){
+    if((NULL != _plot) && _plot->isVisible()) {
         _plot->updateData();
         _plot->updateNormals();
         _plot->updateGL();
@@ -589,7 +589,7 @@ quint64 DataWidget::getMaxValue()
 bool DataWidget::event(QEvent * event)
 {
     if(event->type() == QEvent::ToolTip) {
-        if( (NULL == _plot ) || !_plot->isVisible() ) {
+        if((NULL == _plot) || !_plot->isVisible()) {
             QHelpEvent *toolTipEvent = static_cast<QHelpEvent *>(event);
             QPoint pos = toolTipEvent->pos();
             if((_dataWindow.height() > 0)  && (_dataWindow.width() > 0)) {

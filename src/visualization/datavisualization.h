@@ -25,10 +25,9 @@
 #define DATAVISUALIZATION_H
 
 #include <QWidget>
-#include "libQXmlEdit_global.h"
 #include "qxmleditdata.h"
 
-class LIBQXMLEDITSHARED_EXPORT DataVisualization
+class DataVisualization
 {
     DataVisualization();
     virtual ~DataVisualization();

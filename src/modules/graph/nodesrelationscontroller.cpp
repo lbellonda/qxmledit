@@ -31,6 +31,7 @@
 #include <QLinearGradient>
 #include <QDesktopWidget>
 #include <QApplication>
+#include <QTextStream>
 
 #define BACK_COLOR  QColor::fromRgb(0x10,0x80,0xC0)
 #define BACK_COLOR_2  QColor::fromRgb(0x0,0x00,0x80)
