@@ -56,7 +56,6 @@ For unix, except MacOS, the flag is automatically set.
 
 The variable QXMLEDIT_VERSIONED force library version number if not empty. On Linux the libraries are versioned by default.
 
-
 If the environment variables are not set, a default is used.
 
 IMPORTANT NOTE FOR LINUX INSTALLERS
@@ -76,10 +75,10 @@ There are resources for a Linux desktop installation:
 
 .desktop file in: install_scripts/environment/desktop/QXmlEdit.desktop
 AppData file in: install_scripts/environment/desktop/QXmlEdit.appdata.xml
+man file:  install_scripts/environment/man/qxmledit.1
 
 Pixmap icons in: install_scripts/environment/icon
 Scalable icon: source/images/icon.svg
-
 
 Mac OS X Note
 =============
