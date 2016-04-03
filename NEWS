@@ -1,4 +1,6 @@
 0.9.4
+    New dialog box to choose the detail level of the editor at the startup and recalled via menu.
+    Created the "Task" menu.
     Enabled the use of QWTPlot3d library and OpenGL.
     Enforced limits in the data extraction panel.
     Enriched the export statistics of view data panel.
