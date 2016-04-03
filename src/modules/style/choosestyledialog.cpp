@@ -71,7 +71,6 @@ XmlEditWidget *ChooseStyleDialog::setupEditor(const int index, QWidget *theParen
     editor->showToolbar(false);
     editor->setEncodingLabelVisible(false);
     editor->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
-    //editor->setMinimumSize(editor->maximumSize());
     theParent->layout()->addWidget(editor);
     loadSampleData(editor);
     setting->applyToPaintInfo(editor->getPaintInfo());

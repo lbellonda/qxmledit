@@ -316,6 +316,12 @@ This dialog can be recalled at any time using the menu &quot;Tasks&quot;.
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="minimumSize">
+        <size>
+         <width>130</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="frameShape">
         <enum>QFrame::Box</enum>
        </property>
@@ -329,7 +335,6 @@ This dialog can be recalled at any time using the menu &quot;Tasks&quot;.
   </layout>
  </widget>
  <resources>
-  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections/>
