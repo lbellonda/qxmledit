@@ -101,6 +101,9 @@ private slots:
     void on_threeD_stateChanged(int state);
     void on_cmdViewGraph_clicked();
     void on_checkAnalyzeNodes_stateChanged(int newState);
+    void on_cbGrid_stateChanged(int /*state*/);
+    void on_cbPoints_stateChanged(int /*state*/);
+
 };
 
 #endif // VISMAPDIALOG_H

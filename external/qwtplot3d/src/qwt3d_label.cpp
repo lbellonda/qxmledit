@@ -242,6 +242,11 @@ const char * Label::fontname()
 	return (const char*) name;
 }
 
+void Label::draw(double angle) //!< Actual drawing
+{
+    drawLabel(angle);
+}
+
 void Label::drawLabel(double angle)
 {
   if (text_.isEmpty())

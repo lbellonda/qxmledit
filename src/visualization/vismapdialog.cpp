@@ -79,7 +79,12 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
 #ifndef QWT_PLOT3D
     ui->threeD->setVisible(false);
     ui->threeD->setEnabled(false);
+    ui->cbGrid->setVisible(false);
+    ui->cbPoints->setVisible(false);
 #endif
+    ui->cbGrid->setEnabled(false);
+    ui->cbPoints->setEnabled(false);
+    ui->cbGrid->setChecked(true);
 
     calcVerticalPosition();
     setAcceptDrops(true);
@@ -528,11 +533,13 @@ void VisMapDialog::on_changeColorMap_clicked()
 void VisMapDialog::on_threeD_stateChanged(int /*state*/)
 {
 #ifdef QWT_PLOT3D
+    bool isEnabled = false;
     if(ui->threeD->checkState() == Qt::Checked) {
-        ui->dataWidget->set3D(true);
-    } else {
-        ui->dataWidget->set3D(false);
+        isEnabled = true ;
     }
+    ui->dataWidget->set3D(isEnabled);
+    ui->cbGrid->setEnabled(isEnabled);
+    ui->cbPoints->setEnabled(isEnabled);
 #endif
 }
 
@@ -550,4 +557,14 @@ void VisMapDialog::on_cmdViewGraph_clicked()
 
 void VisMapDialog::on_checkAnalyzeNodes_stateChanged(int /*newState*/)
 {
+}
+
+void VisMapDialog::on_cbGrid_stateChanged(int /*state*/)
+{
+    ui->dataWidget->setUseGrid(ui->cbGrid->isChecked());
+}
+
+void VisMapDialog::on_cbPoints_stateChanged(int /*state*/)
+{
+    ui->dataWidget->setUsePoints(ui->cbPoints->isChecked());
 }

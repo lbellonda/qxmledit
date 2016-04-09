@@ -97,6 +97,8 @@ private:
     Qwt3D::GridPlot *_plot;
     Qwt3D::StandardColor _dataColor;
     Qwt3D::ColorVector _cv;
+    bool _3dGrid;
+    bool _3dPoints;
 #else
     QWidget *_plot;
 #endif
@@ -133,6 +135,8 @@ public:
 #endif
     void setLoudness(const ELoudness newLoudness);
     ELoudness loudness();
+    void setUseGrid(const bool use);
+    void setUsePoints(const bool use);
 
 protected:
     virtual bool event(QEvent * event);

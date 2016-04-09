@@ -95,6 +95,9 @@ DataWidget::DataWidget(QWidget *parent) :
     _is3d = false ;
 
     ui->setupUi(this);
+    _3dGrid = true ;
+    _3dPoints = false ;
+
 #ifdef  QWT_PLOT3D
     _plot = new Qwt3D::GridPlot(this);
     _plot->setParent(this);
@@ -115,21 +118,37 @@ void DataWidget::setupPlot()
     _plot->setZoom(0.8);
     _plot->setRotation(30, 0, 15);
 
-    //_plot->setPlotStyle( Qwt3D::FILLEDMESH );
-    _plot->setPlotStyle(Qwt3D::FILLED);
     _plot->setCoordinateStyle(Qwt3D::BOX);
+
+    _plot->setPlotStyle(_3dPoints ? Qwt3D::POINTS : Qwt3D::FILLED);
 
     Qwt3D::CoordinateSystem* coordinates = _plot->coordinates();
 
+    coordinates->setAutoScale(true);
+    for(unsigned i = 0; i != _plot->coordinates()->axes.size(); ++i) {
+        coordinates->axes[i].setMajors(25);
+        coordinates->axes[i].setMinors(10);
+        coordinates->axes[i].setLabelColor(Qwt3D::RGBA(0, 0, 0.4));
+    }
+    coordinates->setLabelFont("Arial", 8, QFont::Bold);
     coordinates->axes[Qwt3D::X1].setLabelString(tr("rows (%)"));
     coordinates->axes[Qwt3D::Y1].setLabelString(tr("columns (%)"));
     coordinates->axes[Qwt3D::Z1].setLabelString(tr("value normal."));
-    coordinates->axes[Qwt3D::Z1].setAutoScale(true);
+    coordinates->axes[Qwt3D::X2].setLabelString(tr("rows (%)"));
+    coordinates->axes[Qwt3D::Y2].setLabelString(tr("columns (%)"));
+    coordinates->axes[Qwt3D::Z2].setLabelString(tr("value normal."));
+    coordinates->axes[Qwt3D::X3].setLabelString(tr("rows (%)"));
+    coordinates->axes[Qwt3D::Y3].setLabelString(tr("columns (%)"));
+    coordinates->axes[Qwt3D::Z3].setLabelString(tr("value normal."));
+    coordinates->axes[Qwt3D::X4].setLabelString(tr("rows (%)"));
+    coordinates->axes[Qwt3D::Y4].setLabelString(tr("columns (%)"));
+    coordinates->axes[Qwt3D::Z4].setLabelString(tr("value normal."));
+    Utils::TODO_THIS_RELEASE("unicita e check labels");
 
-    coordinates->setGridLinesColor(Qwt3D::RGBA(0, 1, 1));
+    coordinates->setGridLinesColor(Qwt3D::RGBA(0.8, 0.8, 0.8));
     coordinates->setNumberFont("Arial", 8);
-    //coordinates->adjustNumbers(5);
-    //coordinates->axes[Qwt3D::Z1].setScale(Qwt3D::LOG10SCALE);
+    coordinates->adjustNumbers(5);
+    coordinates->setGridLines(_3dGrid, false, Qwt3D::BACK | Qwt3D::RIGHT);
 
     _plot->move(0, 0);
     _plot->resize(width(), height());
@@ -137,7 +156,6 @@ void DataWidget::setupPlot()
     _plot->updateData();
     _plot->updateGL();
 }
-
 
 void DataWidget::draw3d()
 {
@@ -155,19 +173,24 @@ void DataWidget::draw3d()
         while( loop-- ) {
             *dst++ = *src++ ;
         }*/
+        // use a form factor to have a cubic image if possible
+        // let's say that the height is equal to the rows
+
         double factor = _yPoints;
         float maxVal = getMaxValue();
         if(maxVal == 0) {
             factor = 1;
         } else {
-            factor /= maxVal ;
+            // finalpt = max* (rows/max) = rows
+            factor = 100 / maxVal ;
         }
 
         unsigned int columns = _xPoints ;
         unsigned int rows = _yPoints;
         for(unsigned i = 0; i < columns; i++) {
+            int colBase = (i * _xPoints);
             for(unsigned j = 0; j < rows; j++) {
-                data[i][j] = _dataPoints[(i * _xPoints) + j] * factor;
+                data[i][j] = _dataPoints[colBase + j] * factor;
             }
         }
 
@@ -175,32 +198,17 @@ void DataWidget::draw3d()
             Utils::error(this, tr("Error loading data."));
         }
         setColors3d();
-        _plot->updateData();
-        _plot->updateNormals();
 
-        //_plot->coordinates()->axes[Qwt3D::Z1].setMajors(maxVal*factor/5.);
-        //_plot->coordinates()->axes[Qwt3D::Z1].setMinors(maxVal*factor/10.);
+//----
+
+        setupPlot();
+//----
 
         delete [] newData;
 
         delete [] data;
     }
-    _plot->coordinates()->axes[Qwt3D::Z1].setScale(Qwt3D::LOG10SCALE);
     _plot->repaint();
-
-    /*    double *newData = new double[_sizeOfPoints];
-        if( NULL != newData ) {
-            double *dst = newData;
-            float *src = _dataPoints ;
-            int loop = _sizeOfPoints ;
-            while( loop-- ) {
-                *dst++ = *src++ ;
-            }
-            if( !_plot->loadFromData (&newData, _xPoints, _yPoints, 0, _xPoints, 0, _yPoints) ) {
-                Utils::error(this, tr("Error loading data."));
-            }
-            delete [] newData;
-        }*/
 }
 
 
@@ -210,6 +218,12 @@ void DataWidget::setColors3d()
         Qwt3D::RGBA rgb;
         _cv.clear();
         QList<uint> cols;
+
+        rgb.r = 0.95;
+        rgb.g = 0.95;
+        rgb.b = 0.95;
+        _cv.push_back(rgb);
+
         uint *vt = _colorMap->values();
         FORINT(i, _colorMap->MapElements) {
             uint u = *vt ;
@@ -223,11 +237,6 @@ void DataWidget::setColors3d()
             rgb.b /= 255;
             _cv.push_back(rgb);
         }
-        /*{
-            QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),"");
-            openColorMap(_cv, filePath);
-        }*/
-
         _dataColor.setColorVector(_cv);
 
         _plot->appearance(0).setDataColor(_dataColor);
@@ -998,37 +1007,22 @@ void DataWidget::resizeEvent(QResizeEvent * event)
 #endif
 }
 
-/*
- * delete this code
-#include <fstream>
-bool DataWidget::openColorMap(Qwt3D::ColorVector& cv, QString fname)
+void DataWidget::setUseGrid(const bool value)
 {
-  if (fname.isEmpty())
-    return false;
-
-  std::ifstream file(fname.toLatin1().data());
-
-    if (!file)
-        return false;
-
-    Qwt3D::RGBA rgb;
-    cv.clear();
-
-    while ( file )
-    {
-        file >> rgb.r >> rgb.g >> rgb.b;
-        file.ignore(1000,'\n');
-        if (!file.good())
-            break;
-        else
-        {
-            rgb.a = 1;
-            rgb.r /= 255;
-            rgb.g /= 255;
-            rgb.b /= 255;
-            cv.push_back(rgb);
-        }
+    _3dGrid = value ;
+#ifdef  QWT_PLOT3D
+    if((NULL != _plot) && _is3d) {
+        setupPlot();
     }
+#endif
+}
 
-    return true;
-}*/
+void DataWidget::setUsePoints(const bool value)
+{
+    _3dPoints = value ;
+#ifdef  QWT_PLOT3D
+    if((NULL != _plot) && _is3d) {
+        setupPlot();
+    }
+#endif
+}

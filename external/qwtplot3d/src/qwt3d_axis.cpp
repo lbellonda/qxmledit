@@ -266,7 +266,7 @@ void Axis::drawTicLabel(Triple pos, int mtic)
     markerLabel_[mtic].setString(scale_->ticLabel(mtic));
     markerLabel_[mtic].setPosition(pos, scaleNumberAnchor_);
     markerLabel_[mtic].adjust(numbergap_);
-    markerLabel_[mtic].draw();
+    markerLabel_[mtic].drawLabel();
 }
 
 Triple Axis::drawTic(Triple nadir, double length)
