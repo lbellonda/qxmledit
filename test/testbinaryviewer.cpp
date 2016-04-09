@@ -219,14 +219,13 @@ bool TestBinaryViewer::testRows(BinaryViewerModel *model)
     QByteArray twoPagesAndHalf = buildTwoPages();
 
     BinaryTestDataPacket pck2pages("2pages", &twoPagesAndHalf);
-    //int linesSecondPage = 2*BinaryViewerModel::SizeOfPage-BinaryBlock::DataPerRow;
     int rowsSecondPage = BinaryViewerModel::RowsPerPage-1;
 
-    pck2pages.startTest= BinaryTestData("start",    0, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 00 00 00 01 00 00 00 02 00 00 00 03 ", "0" );
-    pck2pages.nextPage = BinaryTestData("nextPage",-1, true,  1, false,  true,                   rowsSecondPage, 0, "00 01 00 00 00 01 00 01 00 01 00 02 00 01 00 03 ", "262144" );
-    pck2pages.prevPage = BinaryTestData("prevPage",-1, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 00 00 00 01 00 00 00 02 00 00 00 03 ", "0" );
-    pck2pages.gotoPage = BinaryTestData("gotoPage", 1, false, 1, false,  true,                   rowsSecondPage, 0, "00 01 00 00 00 01 00 01 00 01 00 02 00 01 00 03 ", "262144" );
-    pck2pages.nePage   = BinaryTestData("nePage",   2, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 00 00 00 01 00 00 00 02 00 00 00 03 ", "0" );
+    pck2pages.startTest= BinaryTestData("start",    0, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0" );
+    pck2pages.nextPage = BinaryTestData("nextPage",-1, true,  1, false,  true,                   rowsSecondPage, 0, "00 01 00 00 | 00 01 00 01 | 00 01 00 02 | 00 01 00 03 ", "262144" );
+    pck2pages.prevPage = BinaryTestData("prevPage",-1, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0" );
+    pck2pages.gotoPage = BinaryTestData("gotoPage", 1, false, 1, false,  true,                   rowsSecondPage, 0, "00 01 00 00 | 00 01 00 01 | 00 01 00 02 | 00 01 00 03 ", "262144" );
+    pck2pages.nePage   = BinaryTestData("nePage",   2, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0" );
 
     if(!testNoModelPacket( &pck2pages ) ) {
         return false;

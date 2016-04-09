@@ -287,7 +287,11 @@ QVariant BinaryViewerModel::data(const QModelIndex &index, int role) const
         case DataColumn: {
             QByteArray array = const_cast<BinaryViewerModel*>(this)->getRowData(row);
             QString res;
-            for(int i = 0 ; i < array.length() ; i ++) {
+            int iMax = array.length() ;
+            for(int i = 0 ; i < iMax ; i ++) {
+                if((i > 0) && ((i & 0x3) == 0)) {
+                    res += "| ";
+                }
                 res += QString("%1 ").arg((array.at(i) & 0x00FF), 2, 16, QChar('0')).toUpper();
             }
             return res;
