@@ -1119,12 +1119,14 @@ void XmlEditWidgetPrivate::recalcRowHeightClass()
 #endif
 }
 
-
-void XmlEditWidgetPrivate::invalidatePaintData()
+void XmlEditWidgetPrivate::invalidatePaintData(const bool full)
 {
     ElementItemSingleDelegate *delegate = _helper.tagDelegate();
     if(NULL != delegate) {
         delegate->reset();
+    }
+    if(full) {
+        recalcRowHeightClass();
     }
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     QAbstractItemModel *model = getMainTreeWidget()->model();

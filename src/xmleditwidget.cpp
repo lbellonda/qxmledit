@@ -949,9 +949,9 @@ void XmlEditWidget::showCodePages(QWidget *parent)
     d->showCodePages(parent);
 }
 
-void XmlEditWidget::invalidatePaintData()
+void XmlEditWidget::invalidatePaintData(const bool full)
 {
-    d->invalidatePaintData();
+    d->invalidatePaintData(full);
 }
 
 void XmlEditWidget::showToolbar(const bool how)

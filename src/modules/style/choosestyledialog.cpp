@@ -72,8 +72,9 @@ XmlEditWidget *ChooseStyleDialog::setupEditor(const int index, QWidget *theParen
     editor->setEncodingLabelVisible(false);
     editor->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
     theParent->layout()->addWidget(editor);
-    loadSampleData(editor);
     setting->applyToPaintInfo(editor->getPaintInfo());
+    loadSampleData(editor);
+    editor->invalidatePaintData(true);
     ui->tabStyle->setTabToolTip(index, makeDetail(setting));
     return editor;
 }

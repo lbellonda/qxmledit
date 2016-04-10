@@ -319,7 +319,7 @@ public:
     bool setEncoding(const QString &newEncoding);
     void removeAllElements();
     void showCodePages(QWidget *parent);
-    void invalidatePaintData();
+    void invalidatePaintData(const bool full = false);
 
     void setReadOnly(const bool newState);
     bool isReadOnly();

@@ -310,7 +310,7 @@ public:
     void pasteAsSibling();
     void removeAllElements();
     void showCodePages(QWidget *parent);
-    void invalidatePaintData();
+    void invalidatePaintData(const bool full = false);
     void onInsertChildContainer();
     void onInsertParent();
     void onRemoveParent();
