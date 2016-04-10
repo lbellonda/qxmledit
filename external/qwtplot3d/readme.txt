@@ -39,3 +39,6 @@ Some examples are using data provided by Stanford 3D Scanning Repository
 
 See the original QwtPlot3D license file: license.txt
 
+Parts of the software has been modified to adapt it to QXmlEdit by QXmlEdit authros.
+These extensions are provided 'as-is', without any warranty.
+They are granted under the terms of the original QwtPlot3D license.
