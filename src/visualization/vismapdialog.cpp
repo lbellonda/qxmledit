@@ -91,7 +91,7 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
     if(!fileName.isEmpty()) {
         QTimer::singleShot(200, this, SLOT(onLoadFile()));
     } else {
-        Utils::TODO_THIS_RELEASE("");
+        Utils::TODO_THIS_RELEASE("todo 1");
         //on_loadFile_clicked();
     }
 }

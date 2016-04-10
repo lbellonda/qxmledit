@@ -103,6 +103,7 @@ DataWidget::DataWidget(QWidget *parent) :
     _plot->setParent(this);
     setupPlot();
     _plot->setVisible(false);
+    _plot->setToolTip(tr("Use arrows with ctrl, shift and alt and mouse wheel to pan, zoom and rotate."));
 #endif
 }
 
@@ -131,19 +132,24 @@ void DataWidget::setupPlot()
         coordinates->axes[i].setLabelColor(Qwt3D::RGBA(0, 0, 0.4));
     }
     coordinates->setLabelFont("Arial", 8, QFont::Bold);
-    coordinates->axes[Qwt3D::X1].setLabelString(tr("rows (%)"));
-    coordinates->axes[Qwt3D::Y1].setLabelString(tr("columns (%)"));
-    coordinates->axes[Qwt3D::Z1].setLabelString(tr("value normal."));
-    coordinates->axes[Qwt3D::X2].setLabelString(tr("rows (%)"));
-    coordinates->axes[Qwt3D::Y2].setLabelString(tr("columns (%)"));
-    coordinates->axes[Qwt3D::Z2].setLabelString(tr("value normal."));
-    coordinates->axes[Qwt3D::X3].setLabelString(tr("rows (%)"));
-    coordinates->axes[Qwt3D::Y3].setLabelString(tr("columns (%)"));
-    coordinates->axes[Qwt3D::Z3].setLabelString(tr("value normal."));
-    coordinates->axes[Qwt3D::X4].setLabelString(tr("rows (%)"));
-    coordinates->axes[Qwt3D::Y4].setLabelString(tr("columns (%)"));
-    coordinates->axes[Qwt3D::Z4].setLabelString(tr("value normal."));
-    Utils::TODO_THIS_RELEASE("unicita e check labels");
+    coordinates->setLabelColor(Qwt3D::RGBA(0, 0, 0.9));
+
+    QString xLabel = tr("rows (%)") ;
+    QString yLabel = tr("columns (%)");
+    QString zLabel = tr("normalized value");
+
+    coordinates->axes[Qwt3D::X1].setLabelString(xLabel);
+    coordinates->axes[Qwt3D::Y1].setLabelString(yLabel);
+    coordinates->axes[Qwt3D::Z1].setLabelString(zLabel);
+    coordinates->axes[Qwt3D::X2].setLabelString(xLabel);
+    coordinates->axes[Qwt3D::Y2].setLabelString(yLabel);
+    coordinates->axes[Qwt3D::Z2].setLabelString(zLabel);
+    coordinates->axes[Qwt3D::X3].setLabelString(xLabel);
+    coordinates->axes[Qwt3D::Y3].setLabelString(yLabel);
+    coordinates->axes[Qwt3D::Z3].setLabelString(zLabel);
+    coordinates->axes[Qwt3D::X4].setLabelString(xLabel);
+    coordinates->axes[Qwt3D::Y4].setLabelString(yLabel);
+    coordinates->axes[Qwt3D::Z4].setLabelString(zLabel);
 
     coordinates->setGridLinesColor(Qwt3D::RGBA(0.8, 0.8, 0.8));
     coordinates->setNumberFont("Arial", 8);

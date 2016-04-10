@@ -97,12 +97,12 @@ private:
     Qwt3D::GridPlot *_plot;
     Qwt3D::StandardColor _dataColor;
     Qwt3D::ColorVector _cv;
-    bool _3dGrid;
-    bool _3dPoints;
 #else
     QWidget *_plot;
 #endif
     bool _is3d;
+    bool _3dGrid;
+    bool _3dPoints;
 
     unsigned int _sizeOfPoints, _xPoints, _yPoints;
 
