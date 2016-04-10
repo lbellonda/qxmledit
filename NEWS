@@ -1,4 +1,5 @@
 0.9.4
+    Changed the formatting of the data in binary viewer.
     New dialog box to choose the detail level of the editor at the startup and recalled via menu.
     Created the "Task" menu.
     Enabled the use of QWTPlot3d library and OpenGL.
