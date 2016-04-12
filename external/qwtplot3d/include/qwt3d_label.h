@@ -44,7 +44,7 @@ public:
 	void setString(QString const& s);
   const QString& string() const;
   void drawLabel(double angle = 0.0); //!< Actual drawing
-  void draw(double angle = 0.0); //!< Actual drawing
+  void draw(); //!< Actual drawing
 
 	double width() const;
 	double height() const;

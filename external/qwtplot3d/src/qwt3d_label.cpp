@@ -242,9 +242,9 @@ const char * Label::fontname()
 	return (const char*) name;
 }
 
-void Label::draw(double angle) //!< Actual drawing
+void Label::draw() //!< Actual drawing
 {
-    drawLabel(angle);
+    drawLabel();
 }
 
 void Label::drawLabel(double angle)
