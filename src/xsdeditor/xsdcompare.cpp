@@ -172,7 +172,7 @@ QString XSDCompare::getTargetFile(QWidget *parent, const QString &folderPath)
     QString filePath = QFileDialog::getOpenFileName(
                            parent, tr("Open File"),
                            QXmlEditData::sysFilePathForOperation(folderPath),
-                           tr("XML Schema files (*.xsd);;All files (*);;")
+                           tr("XML Schema files (*.xsd);;All files (*)")
                        );
     return filePath;
 }

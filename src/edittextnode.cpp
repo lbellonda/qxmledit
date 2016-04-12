@@ -106,7 +106,7 @@ void EditTextNode::on_loadFromBinaryFile_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this,
                        tr("Choose a File to be Transformed in Base 64 Encoded Text"),
-                       QXmlEditData::sysFilePathForOperation(_fileDataPath), tr("All files (*);;XML files (*.xml);;XML Schema files (*.xsd);;"));
+                       QXmlEditData::sysFilePathForOperation(_fileDataPath), tr("All files (*);;XML files (*.xml);;XML Schema files (*.xsd)"));
     if(!filePath.isEmpty()) {
         _fileDataPath = filePath ;
         loadFromBinaryFile(filePath);
@@ -150,7 +150,7 @@ bool EditTextNode::loadFromBinaryFile(const QString &filePath)
 void EditTextNode::on_saveBase64IntoFile_clicked()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Save Base 64 Coded Data to File"),
-                       QXmlEditData::sysFilePathForOperation(_fileDataPath), tr("XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;"));
+                       QXmlEditData::sysFilePathForOperation(_fileDataPath), tr("XML files (*.xml);;XML Schema files (*.xsd);;All files (*)"));
     if(!filePath.isEmpty()) {
         saveToBinaryFile(filePath);
     }

@@ -345,7 +345,7 @@ void NodesRelationsDialog::saveStatisticsToStream(QTextStream &outStream)
 void NodesRelationsDialog::onExportCmd()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Export Statistics"),
-                       QXmlEditData::sysFilePathForOperation(_saveStatsPath), tr("DAT files (*.dat);;All files (*);;"));
+                       QXmlEditData::sysFilePathForOperation(_saveStatsPath), tr("DAT files (*.dat);;All files (*)"));
 
     if(filePath.isEmpty()) {
         return ;

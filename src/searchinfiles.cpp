@@ -83,7 +83,7 @@ void SearchInFiles::clearTable()
 void SearchInFiles::on_cmdOpenFile_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, tr("File to scan"),
-                       QXmlEditData::sysFilePathForOperation(ui->filePath->text()), tr("XML files (*.xml);;All files (*);;"));
+                       QXmlEditData::sysFilePathForOperation(ui->filePath->text()), tr("XML files (*.xml);;All files (*)"));
     if(!filePath.isEmpty()) {
         ui->filePath->setText(filePath);
     }

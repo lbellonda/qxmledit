@@ -123,7 +123,7 @@ bool Base64Utils::saveBase64ToBinaryFile(const EBase64 type, QWidget *window, co
 {
     QString filePath = QFileDialog::getSaveFileName(window, QObject::tr("Save Base 64 Coded Data to File"),
                        QXmlEditData::sysFilePathForOperation(fileStartPath),
-                       QObject::tr("XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;"));
+                       QObject::tr("XML files (*.xml);;XML Schema files (*.xsd);;All files (*)"));
     if(!filePath.isEmpty()) {
         return saveToBinaryFile(type, window, filePath, text);
     }

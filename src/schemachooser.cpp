@@ -200,7 +200,7 @@ void SchemaChooser::accept()
 void SchemaChooser::on_browseFile_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, tr("Choose a File "),
-                       QXmlEditData::sysFilePathForOperation(ui->textSelection->text()), tr("XSD files (*.xsd);;All files (*);;"));
+                       QXmlEditData::sysFilePathForOperation(ui->textSelection->text()), tr("XSD files (*.xsd);;All files (*)"));
     if(!filePath.isEmpty()) {
         ui->textSelection->setText(filePath);
     }

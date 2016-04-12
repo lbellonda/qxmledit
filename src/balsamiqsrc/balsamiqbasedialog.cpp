@@ -111,7 +111,7 @@ void BalsamiqBaseDialog::on_overwriteFiles_clicked()
 void BalsamiqBaseDialog::on_cmdChooseFiles_clicked()
 {
     QStringList filesPath = QFileDialog::getOpenFileNames(this, tr("Source Files"),
-                            _inputDir, tr("BMML files (*.bmml);;All files (*);;"));
+                            _inputDir, tr("BMML files (*.bmml);;All files (*)"));
     if(!filesPath.empty()) {
         _files = filesPath;
         ui->files->clear();

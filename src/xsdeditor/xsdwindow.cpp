@@ -1199,7 +1199,7 @@ void XSDWindow::on_printCmd_clicked()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Export as PDF"),
                        Utils::changeFileType(fileName, ".pdf"),
-                       tr("PDF documents (*.pdf);;All files (*);;"));
+                       tr("PDF documents (*.pdf);;All files (*)"));
     if(filePath.isEmpty()) {
         return ;
     }
@@ -1303,7 +1303,7 @@ void XSDWindow::on_svgCmd_clicked()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Export as SVG"),
                        Utils::changeFileType(fileName, ".svg"),
-                       tr("SVG images (*.svg);;All files (*);;"));
+                       tr("SVG images (*.svg);;All files (*)"));
 
     if(filePath.isEmpty()) {
         return ;

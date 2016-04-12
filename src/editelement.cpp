@@ -867,7 +867,7 @@ void EditElement::on_cmdLoadFileBase64_clicked()
     QString filePath = QFileDialog::getOpenFileName(this,
                        tr("Choose a File to be Transformed in Base 64 Encoded Text"),
                        QXmlEditData::sysFilePathForOperation(""),
-                       tr("All files (*);;XML files (*.xml);;XML Schema files (*.xsd);;"));
+                       tr("All files (*);;XML files (*.xml);;XML Schema files (*.xsd)"));
     if(!filePath.isEmpty()) {
         bool isError = true ;
         bool isAbort = false ;

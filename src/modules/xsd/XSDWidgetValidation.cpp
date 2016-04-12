@@ -125,7 +125,7 @@ void XmlEditWidgetPrivate::onActionValidateNewFile()
         return;
     }
     QString filePath = QFileDialog::getOpenFileName(p, tr("Open Schema File"),
-                       QXmlEditData::sysFilePathForOperation(regola->fileName()), tr("XML Schema files (*.xsd);;All files (*);;"));
+                       QXmlEditData::sysFilePathForOperation(regola->fileName()), tr("XML Schema files (*.xsd);;All files (*)"));
     if(!filePath.isEmpty()) {
         regola->setUserDefinedXsd(filePath);
         onActionValidate();
