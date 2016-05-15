@@ -49,6 +49,7 @@ class QUndoGroup;
 class QXmlEditData;
 class NamespaceReferenceEntry;
 class XMLLoadContext;
+class XSDOperationParameters;
 
 class LIBQXMLEDITSHARED_EXPORT DocumentDeviceProvider
 {
@@ -498,6 +499,8 @@ public:
     bool sortAttributesOfElement(Element* element, const bool isRecursive);
     void sortAttributes();
     //--- end (sort attributes)
+
+    void XSDSetNamespaceToParams(XSDOperationParameters *params, Element *element);
 signals:
     void wasModified();
     void undoStateChanged();

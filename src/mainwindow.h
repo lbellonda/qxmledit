@@ -320,6 +320,7 @@ private slots:
     void on_actionQuickReferenceElements_triggered();
     void on_actionAnonymizeFile_triggered();
     void on_actionEditXSDAnnotation_triggered();
+    void on_actionEditEnumerationFacet_triggered();
     void on_actionFindNext_triggered();
     void on_actionFindPrevious_triggered();
     void on_actionSetIndent_triggered();
@@ -344,6 +345,7 @@ private slots:
     void on_actionRemoveAllSiblingsBefore_triggered();
     void on_actionTaskDisplayDetail_triggered();
     void on_actionHelpSetEditorDetail_triggered();
+    void on_actionTEST_triggered();
 
     //----- other slots ------------------
 

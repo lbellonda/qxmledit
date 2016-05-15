@@ -170,6 +170,24 @@ Element *XSDAnnotationModel::makeElementList(Element *parent, XSDOperationParame
     return parent ;
 }
 
+XSchemaAnnotation *XSDAnnotationModel::makeElementList(XSchemaAnnotation *parent)
+{
+    XSDHelper helper;
+    foreach(XSchemaObject * child, _children) {
+        switch(child->getType()) {
+        default:
+            // not legal, discard
+            break;
+
+        case SchemaTypeDocumentation:
+        case SchemaTypeAppInfo:
+            XInfoBase *newChild = static_cast<XAppInfo*>(child)->clone();
+            parent->addXInfo(newChild);
+            break;
+        }
+    }
+    return parent ;
+}
 
 XSDAnnotationModel *XSDAnnotationModel::clone()
 {

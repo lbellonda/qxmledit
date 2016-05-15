@@ -55,6 +55,9 @@ public:
     void setTree(QTreeWidget *tree);
     bool filterEvent(QObject * obj, QEvent * event, QHash<void *, QString> *mapDataAnon = NULL);
     ElementItemSingleDelegate *tagDelegate();
+    //---
+    static void setTableBehavior(QTableWidget *table);
+    static void swapTableRows(QTableWidget *table, const int row1, const int row2);
 };
 
 #endif // XMLWIDGETUTILITIES_H

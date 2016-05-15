@@ -99,6 +99,14 @@ public:
     Element *makeElementOther(XSchemaOther *other, Element *parent);
     Element *makeElementDocumentation(XDocumentation *doc, Element *parent, XSDOperationParameters *params);
     Element *makeElementAppInfo(XAppInfo* appInfo, Element *parent, XSDOperationParameters *params);
+
+    //----region(facets)
+    QList<Element*> findFacetsElements(Element *element, XSDOperationParameters *params);
+    QList<XSDFacet*> fromElementsToFacets(QList<Element*> elements, XSDOperationParameters *params);
+    QList<Element*> fromFacetsToElements(QList<XSDFacet*> facets, XSDOperationParameters *params);
+    XSDFacet* fromElementToFacet(Element* element, XSDOperationParameters *params);
+    Element* fromFacetToElement(XSDFacet* facet, XSDOperationParameters *params);
+    //----endregion(facets)
 };
 
 class XSDAnnotationEditor
@@ -109,9 +117,11 @@ public:
     virtual bool hasResult() = 0 ;
     virtual void exec(Element *origAnnot, XSDOperationParameters *params) = 0;
     virtual Element *annotation() = 0 ;
+    virtual void exec(XSchemaAnnotation *origAnnot)  = 0 ;
+    virtual XSchemaAnnotation *annotationAsSchema() = 0 ;
 };
 
-class XSDAnnotationEditProvider
+class   XSDAnnotationEditProvider
 {
 public:
     XSDAnnotationEditProvider();

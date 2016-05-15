@@ -449,6 +449,7 @@ bool MainWindow::finishSetUpUi()
         xsdMenu->addAction(ui.actionXSDInsertType);
         xsdMenu->addSeparator();
         xsdMenu->addAction(ui.actionEditXSDAnnotation);
+        xsdMenu->addAction(ui.actionEditEnumerationFacet);
         _xsdButton->setMenu(xsdMenu);
         _xsdButton->setPopupMode(QToolButton::InstantPopup);
         _xsdButton->setIcon(QIcon(":/actions/xsd-edit"));
@@ -888,14 +889,15 @@ void MainWindow::onComputeSelectionState()
             parentTag = parent->localName();
         }
     }
-    ui.actionXSDAppendAttribute->setEnabled(xsdManager->canInsertAttribute(parentTag));
-    ui.actionXSDInsertAttribute->setEnabled(xsdManager->canInsertAttribute(elmTag));
-    ui.actionXSDAppendElement->setEnabled(xsdManager->canInsertElement(parentTag));
-    ui.actionXSDInsertElement->setEnabled(xsdManager->canInsertElement(elmTag));
-    ui.actionXSDAppendType->setEnabled(xsdManager->canInsertType(parentTag));
-    ui.actionXSDInsertType->setEnabled(xsdManager->canInsertType(elmTag));
-    ui.actionXSDModifyType->setEnabled(xsdManager->canModifyType(elmTag));
-    ui.actionEditXSDAnnotation->setEnabled(xsdManager->canEditAnnotation(elmTag));
+    ui.actionXSDAppendAttribute->setEnabled(xsdManager->canInsertAttribute(parentTag) && !isRegolaReadOnly);
+    ui.actionXSDInsertAttribute->setEnabled(xsdManager->canInsertAttribute(elmTag) && !isRegolaReadOnly);
+    ui.actionXSDAppendElement->setEnabled(xsdManager->canInsertElement(parentTag) && !isRegolaReadOnly);
+    ui.actionXSDInsertElement->setEnabled(xsdManager->canInsertElement(elmTag) && !isRegolaReadOnly);
+    ui.actionXSDAppendType->setEnabled(xsdManager->canInsertType(parentTag) && !isRegolaReadOnly);
+    ui.actionXSDInsertType->setEnabled(xsdManager->canInsertType(elmTag) && !isRegolaReadOnly);
+    ui.actionXSDModifyType->setEnabled(xsdManager->canModifyType(elmTag) && !isRegolaReadOnly);
+    ui.actionEditXSDAnnotation->setEnabled(xsdManager->canEditAnnotation(elmTag) && !isRegolaReadOnly);
+    ui.actionEditEnumerationFacet->setEnabled(xsdManager->canEditFacet(elmTag) && !isRegolaReadOnly);
 
     ui.actionRemoveNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionInsertNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
@@ -3053,6 +3055,11 @@ void MainWindow::on_actionEditXSDAnnotation_triggered()
     ui.editor->onEditXSDAnnotation();
 }
 
+void MainWindow::on_actionEditEnumerationFacet_triggered()
+{
+    ui.editor->onEditXSDFacet();
+}
+
 void MainWindow::on_actionFindNext_triggered()
 {
     ui.editor->onFindNext();
@@ -3309,4 +3316,15 @@ void MainWindow::on_actionTaskDisplayDetail_triggered()
 void MainWindow::on_actionHelpSetEditorDetail_triggered()
 {
     taskChooseDetail();
+}
+
+void MainWindow::on_actionTEST_triggered()
+{
+    /* Utils::TODO_THIS_RELEASE("a");
+     XSDFacet *facet = new XSDFacet(XSDFacet::Enumeration, "a");
+     QList<XSDFacet*> facetList ;
+     facetList << facet;
+     XSDEnumDialog dlg(this, facetList);
+     dlg.exec();
+     EMPTYPTRLIST(facetList, XSDFacet);*/
 }

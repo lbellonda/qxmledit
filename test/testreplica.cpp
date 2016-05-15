@@ -1262,7 +1262,8 @@ bool TestReplica::testSkeletonCloneComplex( const QString &id, const QString &fi
 
 bool TestReplica::cfr(Regola *regola, const QString &step, const QString &fileResult)
 {
-    QByteArray resultData = regola->writeMemory();
+    return compare(regola, step, fileResult);
+    /*QByteArray resultData = regola->writeMemory();
     QDomDocument document1;
     QDomDocument document2;
     CompareXML compare;
@@ -1278,5 +1279,5 @@ bool TestReplica::cfr(Regola *regola, const QString &step, const QString &fileRe
         compare.dumpErrorCause();
         return error(QString("Step: %1 comparing file with doc: %2").arg(step).arg(compare.errorString()));
     }
-    return true ;
+    return true ;*/
 }

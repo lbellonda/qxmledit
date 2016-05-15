@@ -22,6 +22,8 @@
 
 #include "xsdeditor/xschema.h"
 #include "xsdeditor/XSchemaIOContants.h"
+#include "modules/xsd/xsdoperationparameters.h"
+#include "xmlutils.h"
 #include "utils.h"
 
 #define PIXMAP_DEFAULT_XSD_OBJECT   ":/xsdimages/base"
@@ -101,6 +103,8 @@ void XBool::setValue(const bool newValue)
 RestrictionFacets::RestrictionFacets()
 {
     _isExaminedDiff = false ;
+    Utils::TODO_NEXT_RELEASE("fare tutti oggetti");
+
 }
 
 QString RestrictionFacets::getFacet(const QString &name, const QString &value)
@@ -733,6 +737,21 @@ bool XSchemaObject::readOtherAttributes(QDomAttr & attribute)
     return false;
 }
 
+bool XSchemaObject::readOtherAttributes(Attribute *attribute, XSDOperationParameters * params)
+{
+    QString localName ;
+    QString prefix;
+    XmlUtils::decodeQualifiedName(attribute->name, prefix, localName);
+    if(!prefix.isEmpty()) {
+        QString ns = params->getNSForPrefix(prefix);
+        if(ns != Regola::XSDNameSpace) {
+            _otherAttributes.insert(attribute->name, attribute->value);
+            return true;
+        }
+    }
+    return false;
+}
+
 void XSchemaObject::readHandleObject(XSDLoadContext *loadContext, QDomElement &element, XSchemaObject *newObject)
 {
     if(NULL == newObject) {
@@ -894,6 +913,39 @@ void XSchemaObject::raiseError(XSDLoadContext * loadContext, XSchemaObject *orig
     }
 }
 
+void XSchemaObject::raiseError(XSDLoadContext * loadContext, XSchemaObject *origin, Element *element, const QString &name, const bool isElement)
+{
+    QString parentName ;
+    QString className ;
+    const QMetaObject *mo = origin->metaObject();
+    if(NULL != mo)     {
+        className = mo->className();
+    }
+    Element *parent = element->parent();
+    if(NULL != parent) {
+        parentName = parent->tag();
+    }
+    QString msg;
+    if(isElement) {
+        msg = tr("[%4] Unexpected element '%1' contained in '%2' at position %3.")
+              .arg(name)
+              .arg(parentName)
+              .arg(element->indexPathString())
+              .arg(className);
+    } else {
+        msg = tr("[%4] Unexpected attribute '%1' contained in '%2' at position %3.")
+              .arg(name)
+              .arg(parentName)
+              .arg(element->indexPathString())
+              .arg(className);
+    }
+    if(loadContext->isPolicyThrowError()) {
+        throw new XsdException(msg);
+    } else {
+        loadContext->addError(XSD_LOAD_GENERICERROR, msg);
+    }
+}
+
 void XSchemaObject::raiseError(XSDLoadContext *loadContext, const EXSDLoadError errorCode, XSchemaObject *origin, QDomNode &node, const QString &message)
 {
     QString parentName ;
@@ -918,6 +970,36 @@ void XSchemaObject::raiseError(XSDLoadContext *loadContext, const EXSDLoadError 
     } else {
         loadContext->addError(errorCode, message);
     }
+}
+
+void XSchemaObject::raiseError(XSDLoadContext *loadContext, const EXSDLoadError errorCode, XSchemaObject *origin, Element *element, const QString &message)
+{
+    QString parentName ;
+    QString className ;
+    const QMetaObject *mo = origin->metaObject();
+    if(NULL != mo)     {
+        className = mo->className();
+    }
+    Element *parent = element->parent();
+    if(NULL != parent) {
+        parentName = parent->tag();
+    }
+    QString msg = tr("[%4] %6 '%1' contained in '%2' at position %3.")
+                  .arg(element->tag())
+                  .arg(parentName)
+                  .arg(element->indexPathString())
+                  .arg(className)
+                  .arg(message);
+    if(loadContext->isPolicyThrowError()) {
+        throw new XsdException(msg);
+    } else {
+        loadContext->addError(errorCode, message);
+    }
+}
+
+void XSchemaObject::raiseError(XSDLoadContext *loadContext, XSchemaObject *origin, Element *element, const QString &message)
+{
+    raiseError(loadContext, XSD_LOAD_GENERICERROR, origin, element, message);
 }
 
 void XSchemaObject::raiseError(XSDLoadContext *loadContext, XSchemaObject *origin, QDomNode &node, const QString &message)

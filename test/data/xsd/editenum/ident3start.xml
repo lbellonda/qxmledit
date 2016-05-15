@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            elementFormDefault="qualified"
+            xmlns:ns2="xxx">
+ <xsd:annotation>
+  <xsd:documentation>Sample document.</xsd:documentation>
+ </xsd:annotation>
+ <xsd:element name="sample">
+  <xsd:complexType>
+   <xsd:all>
+    <xsd:element name="sample-inner"
+                 type="xsd:string"
+                 minOccurs="0"/>
+   </xsd:all>
+   <xsd:attribute name="attribute"
+                  type="xsd:string"/>
+  </xsd:complexType>
+ </xsd:element>
+ <xsd:simpleType name="test1">
+  <xsd:restriction base="xsd:string">
+  <ciao/>
+   <xsd:enumeration value="unduetre"
+                    other_nonex="1"
+                    ns2:a="abc"/>
+    <xsd:enumeration value="quattrocinque" ns2:a="abc"/>
+    <xsd:enumeration value="6" ns2:a="abc"/>
+    <xsd:enumeration value="quattrocinque" ns2:a="abc"/>
+    <xsd:minInclusive value="-2" fixed="true" />
+    <xsd:maxExclusive value="5"/>
+    <iononcentro>
+    <nemmenoio perche="cosi" />
+    </iononcentro>
+    <xsd:minLength value="6" fixed="false"/>
+  </xsd:restriction>
+ </xsd:simpleType>
+</xsd:schema>

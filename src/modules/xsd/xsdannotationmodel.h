@@ -47,6 +47,7 @@ public:
     bool moveItem(const int startPosition, const int endPosition);
     bool removeItem(XSchemaObject *origItem);
     Element *makeElementList(Element *parent, XSDOperationParameters *params);
+    XSchemaAnnotation *makeElementList(XSchemaAnnotation *parent);
     int childrenCount();
     QList<XSchemaObject*> *childrenList();
 

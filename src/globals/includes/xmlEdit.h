@@ -109,5 +109,6 @@ void msgBoxDebug(const QString message);
 //----- end working environment
 
 #define FORINT(var,limit) for(int var = 0 ; var < limit ; var ++ )
+#define EMPTYPTRLIST(object, Type) foreach( Type *var, object) { delete var; } object.clear();
 
 #endif /*H_XML_EDIT*/

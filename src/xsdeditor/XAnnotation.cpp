@@ -26,6 +26,9 @@
 #include <QFile>
 #include "utils.h"
 #include "xsdeditor/XSchemaIOContants.h"
+#include "xmlutils.h"
+#include "modules/xsd/xsdoperationparameters.h"
+#include "modules/xsd/xsdhelper.h"
 
 XSchemaAnnotation::XSchemaAnnotation(XSchemaObject *newParent, XSchemaRoot *newRoot) : XSchemaObject(newParent, newRoot)
 {
@@ -66,17 +69,52 @@ void XSchemaAnnotation::reparent(XSchemaObject *newParent)
     }
 }
 
+bool XSchemaAnnotation::compareToSimple(const XSchemaAnnotation* other)
+{
+    if(NULL == other) {
+        return false;
+    }
+    XSDCompareOptions options;
+    bool result = XSDCompareObject::XSDOBJECT_UNCHANGED == innerCompareTo((XSchemaObject*)other, options) ;
+    return result ;
+}
+
+XSchemaAnnotation* XSchemaAnnotation::clone()
+{
+    XSchemaAnnotation *other = new XSchemaAnnotation(NULL, NULL);
+    foreach(XInfoBase * info, _infos) {
+        XInfoBase* newInfo = info->clone();
+        other->_infos.append(newInfo);
+    }
+    other->_id = _id ;
+    foreach(const QString & key, _otherAttributes.keys()) {
+        other->_otherAttributes.insert(key, _otherAttributes[key]);
+    }
+
+    return other ;
+}
+
+void XSchemaAnnotation::addXInfo(XInfoBase *newInfo)
+{
+    _infos.append(newInfo);
+}
+
+QList<XInfoBase*> XSchemaAnnotation::infos()
+{
+    return _infos ;
+}
+
 QString XSchemaAnnotation::description()
 {
-    QString theDescription(tr("Annotation"));//TODO
-    /*foreach( XInfoBase* infoBase, _infos ) {
-        QDomNode node = infoBase->content();
-        QDomDocumentFragment docf = node.toDocumentFragment();
-        QDomDocument doc = docf.toDocument();
-        QString str = doc.toString();
-        theDescription += str ;
-    }*/
-    return theDescription ;
+    QString theDescription ;
+    foreach(XInfoBase * infoBase, _infos) {
+        theDescription += " ";
+        theDescription += infoBase->contentString();
+    }
+    if(theDescription.length() > 100) {
+        return theDescription.left(100) + QString("...");
+    }
+    return theDescription;
 }
 
 QString XSchemaAnnotation::text()
@@ -168,10 +206,111 @@ void XSchemaAnnotation::loadFromDom(XSDLoadContext *loadContext, QDomElement &an
     }
 }
 
+void XSchemaAnnotation::loadFromElement(XSDLoadContext *loadContext, Element *annotation, XSDOperationParameters * params)
+{
+    XSDOperationParameters localParams(params);
+    localParams.setElementDeclarations(annotation, true);
+    foreach(Attribute * attribute, annotation->getAttributesList()) {
+        QString localName ;
+        QString prefix;
+        XmlUtils::decodeQualifiedName(attribute->name, prefix, localName);
+        if((localName == IO_SCHEMA_ATTR_ID)
+                && (prefix.isEmpty() || (localParams.getNSForPrefix(prefix) == Regola::XSDNameSpace))) {
+            _id = attribute->value;
+        } else {
+            if(!readOtherAttributes(attribute, &localParams)) {
+                raiseError(loadContext, this, annotation, attribute->name, false);
+            }
+        }
+    } // for
+
+    foreach(Element * child, *annotation->getChildItems()) {
+        if(child->isElement()) {
+
+            XSDOperationParameters childParams(&localParams);
+            childParams.setElementDeclarations(child, false);
+
+            QString childLocalName ;
+            QString childPrefix;
+            XmlUtils::decodeQualifiedName(child->tag(), childPrefix, childLocalName);
+
+            if((childLocalName == IO_XSD_TAGAPPINFO) && (Regola::XSDNameSpace == childParams.getNSForPrefix(childPrefix))) {
+                XAppInfo *xappInfo = new XAppInfo(this, _root);
+                if(NULL == xappInfo) {
+                    raiseError(loadContext, this, child, tr("Unable to read XAppInfo"));
+                }
+                if(child->hasAttribute(IO_APPINFO_ATTR_SOURCE)) {
+                    xappInfo->setSource(child->getAttributeValue(IO_APPINFO_ATTR_SOURCE));
+                }
+                xappInfo->setContentString(XmlUtils::innerContent(child->getStringRepresentationForClipboard()));
+                _infos.append(xappInfo);
+            } else if((childLocalName == IO_XSD_DOCUMENTATION) && (Regola::XSDNameSpace == childParams.getNSForPrefix(childPrefix))) {
+                XDocumentation *xdoc = new XDocumentation(this, _root);
+                if(NULL == xdoc) {
+                    raiseError(loadContext, this, child, tr("Unable to read XDocumentation"));
+                }
+
+                QString langAttribName = QString("xml:%1").arg(IO_XML_LANGUAGE);
+                if(child->hasAttribute(langAttribName)) {
+                    xdoc->setLanguage(child->getAttributeValue(langAttribName));
+                }
+                if(child->hasAttribute(IO_DOCUMENTATION_ATTR_SOURCE)) {
+                    xdoc->setSource(child->getAttributeValue(IO_DOCUMENTATION_ATTR_SOURCE));
+                }
+                xdoc->setContentString(XmlUtils::innerContent(child->getStringRepresentationForClipboard()));
+                _infos.append(xdoc);
+            } else {
+                raiseError(loadContext, this, child, child->tag(), true);
+            }
+        } // if element
+    } // foreach child
+}
+
+Element *XSchemaAnnotation::toElement(XSDOperationParameters * params)
+{
+    // make a copy of the annotation element
+    Element *theAnnotation = NULL ;
+    theAnnotation = new Element(params->makeNameForXSDObject(IO_XSD_ANNOTATION), "", NULL, NULL);
+
+    if(!_id.isEmpty()) {
+        theAnnotation->addAttribute(IO_SCHEMA_ATTR_ID, _id);
+    }
+    foreach(const QString & key, _otherAttributes.keys()) {
+        theAnnotation->addAttribute(key, _otherAttributes[key]);
+    }
+
+    // insert the children, using the model
+    // refactorize to share the most of code with tests
+    makeElementList(theAnnotation, params);
+    return theAnnotation ;
+}
+
+Element *XSchemaAnnotation::makeElementList(Element *parent, XSDOperationParameters *params)
+{
+    XSDHelper helper;
+    foreach(XInfoBase * object, _infos) {
+        Element *newChild = NULL ;
+        switch(object->getType()) {
+        case SchemaTypeDocumentation:
+            newChild = helper.makeElementDocumentation(static_cast<XDocumentation*>(object), parent, params);
+            break;
+
+        case SchemaTypeAppInfo:
+            newChild = helper.makeElementAppInfo(static_cast<XAppInfo*>(object), parent, params);
+            break;
+        default:
+            break;
+        }
+        if(NULL != newChild) {
+            parent->addChild(newChild);
+        }
+    }
+    return parent ;
+}
 
 //----------------------------------------------------------------------------------------------------
 
-XInfoBase::XInfoBase(XSchemaObject *newParent, XSchemaRoot *newRoot): XSchemaObject(newParent, newRoot)
+XInfoBase::XInfoBase(XSchemaObject * newParent, XSchemaRoot * newRoot): XSchemaObject(newParent, newRoot)
 {
 }
 
@@ -179,7 +318,7 @@ XInfoBase::~XInfoBase()
 {
 }
 
-void XInfoBase::generateInnerNodes(QDomNode &parent)
+void XInfoBase::generateInnerNodes(QDomNode & parent)
 {
     int nodi = _content.childNodes().count();
     for(int i = 0 ; i < nodi ; i ++) {
@@ -189,7 +328,7 @@ void XInfoBase::generateInnerNodes(QDomNode &parent)
     }
 }
 
-void XInfoBase::copyTo(XInfoBase *other)
+void XInfoBase::copyTo(XInfoBase * other)
 {
     other->_source = _source ;
     other-> _contentString = _contentString;
@@ -198,7 +337,7 @@ void XInfoBase::copyTo(XInfoBase *other)
 
 //----------------------------------------------------------------------------------------------------
 
-XDocumentation::XDocumentation(XSchemaObject *newParent, XSchemaRoot *newRoot): XInfoBase(newParent, newRoot)
+XDocumentation::XDocumentation(XSchemaObject * newParent, XSchemaRoot * newRoot): XInfoBase(newParent, newRoot)
 {
 }
 
@@ -206,7 +345,7 @@ XDocumentation::~XDocumentation()
 {
 }
 
-bool XDocumentation::generateDom(QDomDocument &document, QDomNode &parent)
+bool XDocumentation::generateDom(QDomDocument & document, QDomNode & parent)
 {
     QDomElement node = _root->createElementWithNamespace(document, IO_XSD_DOCUMENTATION);
     addAttrNotEmpty(node, IO_DOCUMENTATION_ATTR_SOURCE, source());
@@ -231,7 +370,7 @@ XDocumentation *XDocumentation::clone()
 
 //----------------------------------------------------------------------------------------------------
 
-XAppInfo::XAppInfo(XSchemaObject *newParent, XSchemaRoot *newRoot): XInfoBase(newParent, newRoot)
+XAppInfo::XAppInfo(XSchemaObject * newParent, XSchemaRoot * newRoot): XInfoBase(newParent, newRoot)
 {
 }
 
@@ -239,7 +378,7 @@ XAppInfo::~XAppInfo()
 {
 }
 
-bool XAppInfo::generateDom(QDomDocument &document, QDomNode &parent)
+bool XAppInfo::generateDom(QDomDocument & document, QDomNode & parent)
 {
     QDomElement node = _root->createElementWithNamespace(document, IO_XSD_TAGAPPINFO);
     addAttrNotEmpty(node, IO_APPINFO_ATTR_SOURCE, source());

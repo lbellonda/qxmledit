@@ -220,6 +220,7 @@
      <addaction name="menuAppend_sibling"/>
      <addaction name="actionXSDModifyType"/>
      <addaction name="actionEditXSDAnnotation"/>
+     <addaction name="actionEditEnumerationFacet"/>
     </widget>
     <widget class="QMenu" name="menuMetadata">
      <property name="title">
@@ -281,6 +282,7 @@
     <addaction name="actionInsertSnippet"/>
     <addaction name="menuSchema_Instance_XSI"/>
     <addaction name="menuXML_Schema"/>
+
     <addaction name="actionInsertProlog"/>
     <addaction name="menuMetadata"/>
     <addaction name="separator"/>
@@ -2114,6 +2116,19 @@
   <action name="actionTaskDisplayDetail">
    <property name="text">
     <string>Adjust Display Detail</string>
+   </property>
+  </action>
+  <action name="actionTEST">
+   <property name="text">
+    <string>TEST</string>
+   </property>
+  </action>
+  <action name="actionEditEnumerationFacet">
+   <property name="text">
+    <string>Edit Enumeration or Facet</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit facets, enumerations in particular.</string>
    </property>
   </action>
  </widget>

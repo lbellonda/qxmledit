@@ -26,7 +26,7 @@
 #include "undo/elinsertcommand.h"
 #include "undo/elupdateelementcommand.h"
 #include "xsdeditor/XSchemaIOContants.h"
-
+#include "xmlutils.h"
 #include <QUndoCommand>
 
 //-----
@@ -690,3 +690,125 @@ Element *XSDHelper::makeElementAppInfo(XAppInfo* appInfo, Element *parent, XSDOp
     copyInnerContent(appInfo, newElement);
     return newElement ;
 }
+
+//----region(facets)
+
+QList<Element*> XSDHelper::findFacetsElements(Element *element, XSDOperationParameters *params)
+{
+    QList<Element*> result ;
+    QSet<QString> tags ;
+    tags = XSDFacet::allTags();
+    QSet<QString> qNames ;
+    bool usePrefix = params->usePrefix();
+    if(usePrefix) {
+        foreach(QString key, params->xsdNamespacePrefixes().values()) {
+            qNames.insert(key);
+        }
+    }
+    foreach(Element * childElm, *element->getChildItems()) {
+        if(childElm->isElement()) {
+            QString prefix;
+            QString localName;
+            XmlUtils::decodeQualifiedName(childElm->tag(), prefix, localName);
+            if(tags.contains(localName)
+                    && ((usePrefix && qNames.contains(prefix))
+                        ||  !usePrefix)) {
+                result.append(childElm);
+            }
+        }
+    } // for children
+    return result ;
+}
+
+QList<XSDFacet*> XSDHelper::fromElementsToFacets(QList<Element*> elements, XSDOperationParameters *params)
+{
+    QList<XSDFacet*> result ;
+
+    foreach(Element * e, elements) {
+        result.append(fromElementToFacet(e, params));
+    }
+
+    return result;
+}
+
+QList<Element*> XSDHelper::fromFacetsToElements(QList<XSDFacet*> facets, XSDOperationParameters *params)
+{
+    QList<Element*> result;
+    foreach(XSDFacet * f, facets) {
+        result.append(fromFacetToElement(f, params));
+    }
+    return result;
+}
+
+Element* XSDHelper::fromFacetToElement(XSDFacet* facet, XSDOperationParameters *params)
+{
+    QString tag = facet->typeString();
+    QString prefix = params->xsdNamespacePrefix();
+    if(params->usePrefix() && !prefix.isEmpty()) {
+        tag = XmlUtils::makeQualifiedName(prefix, tag);
+    }
+    Element *e = new Element(tag, "", NULL, NULL);
+    if(facet->idPresent()) {
+        e->addAttribute("id", facet->id());
+    }
+    if((facet->fixed() != XEnums::XBOOL_UNSET) &&  facet->hasFixed()) {
+        e->addAttribute("fixed", (facet->fixed() == XEnums::XBOOL_TRUE) ? "true" : "false");
+    }
+    e->setAttribute("value", facet->value());
+    foreach(const QString & key, facet->otherAttributes().keys()) {
+        e->addAttribute(key, facet->otherAttributes()[key]);
+    }
+
+    if(NULL != facet->annotation()) {
+        Element *annotation = facet->annotation()->toElement(params);
+        e->addChild(annotation);
+    }
+    return  e;
+}
+
+
+XSDFacet* XSDHelper::fromElementToFacet(Element* element, XSDOperationParameters * params)
+{
+    XSDFacet *f = new XSDFacet(element->localName(), "");
+    foreach(Attribute * attribute, element->getAttributesList()) {
+        QString tag ;
+        QString prefix;
+        XmlUtils::decodeQualifiedName(attribute->name, prefix, tag);
+        if(prefix.isEmpty() || params->xsdNamespacePrefixes().contains(prefix)) {
+            if(tag == "id") {
+                f->setId(attribute->value);
+            } else if((tag == "fixed") && f->hasFixed()) {
+                f->setFixedString(attribute->value);
+            }  else if(tag == "value") {
+                f->setValue(attribute->value);
+            }
+        } else {
+            f->otherAttributes().insert(attribute->name, attribute->value);
+        }
+    }
+    XSDOperationParameters localParams;
+    localParams.setElementDeclarations(element, true);
+    // look at the content
+    foreach(Element * child, *element->getChildItems()) {
+
+        XSDOperationParameters childParams(&localParams);
+        childParams.setElementDeclarations(child, false);
+        QString localChildName ;
+        QString childPrefix;
+        XmlUtils::decodeQualifiedName(child->tag(), childPrefix, localChildName);
+        if((localChildName == IO_XSD_ANNOTATION) && (Regola::XSDNameSpace == childParams.getNSForPrefix(childPrefix))) {
+            XSchemaAnnotation *annotation = new XSchemaAnnotation(NULL, NULL);
+            XSDLoadContext loadContext;
+            loadContext.setErrorPolicy(XSD_LOADPOLICY_CONTINUE);
+            annotation->loadFromElement(&loadContext, child, &childParams);
+            f->setAnnotation(annotation);
+            break;
+        }
+        // else: ignore element
+    }
+    return f;
+}
+
+
+
+//----endregion(facets)

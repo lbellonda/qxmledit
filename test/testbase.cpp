@@ -543,7 +543,7 @@ bool TestBase::compare(Regola *regola, const QString &id, const QString &fileRes
     bool result = compare.compareDomDocuments(document1, document2);
     if( !result ) {
         compare.dumpErrorCause();
-        return error(QString("Step: %1 comparing file with doc: %2").arg(id).arg(compare.errorString()));
+        return error(QString("Step: %1 comparing file with regola: %2").arg(id).arg(compare.errorString()));
     }
     return true ;
 }

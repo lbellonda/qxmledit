@@ -25,6 +25,7 @@
 #include "xsdsinglecommentdialog.h"
 #include "xsdfullannotationsdialog.h"
 #include "xsdeditor/XSchemaIOContants.h"
+#include "xmlutils.h"
 #include "utils.h"
 
 XSDDefaultAnnotationEditor::XSDDefaultAnnotationEditor(QWidget *window)
@@ -34,6 +35,7 @@ XSDDefaultAnnotationEditor::XSDDefaultAnnotationEditor(QWidget *window)
     _window = window ;
     _params = NULL ;
     _origAnnot = NULL ;
+    _origAnnotSchema = NULL ;
 }
 
 XSDDefaultAnnotationEditor::~XSDDefaultAnnotationEditor()
@@ -54,7 +56,7 @@ bool XSDDefaultAnnotationEditor::hasResult()
     return _hasResult ;
 }
 
-void XSDDefaultAnnotationEditor::exec(Element *origAnnot, XSDOperationParameters *params)
+void XSDDefaultAnnotationEditor::exec(Element *origAnnot, XSDOperationParameters * params)
 {
     resetModel();
     _model = new XSDAnnotationModel();
@@ -62,6 +64,24 @@ void XSDDefaultAnnotationEditor::exec(Element *origAnnot, XSDOperationParameters
     _origAnnot = origAnnot ;
     //build info creating an item if none exists
     buildInfoAndCreateOneIfMissing(origAnnot, params);
+    //edit short or extended
+    if(hasOnlyOneInfo()) {
+        if(editSingleAnnotation() == EditExtended) {
+            editExtended();
+        }
+    } else {
+        editExtended();
+    }
+}
+
+void XSDDefaultAnnotationEditor::exec(XSchemaAnnotation *origAnnot)
+{
+    resetModel();
+    _model = new XSDAnnotationModel();
+    _params = NULL ;
+    _origAnnotSchema = origAnnot ;
+    //build info creating an item if none exists
+    buildInfoAndCreateOneIfMissing(origAnnot);
     //edit short or extended
     if(hasOnlyOneInfo()) {
         if(editSingleAnnotation() == EditExtended) {
@@ -88,6 +108,39 @@ Element *XSDDefaultAnnotationEditor::annotation()
     _model->makeElementList(theAnnotation, _params);
 
     return theAnnotation ;
+}
+
+XSchemaAnnotation *XSDDefaultAnnotationEditor::annotationAsSchema()
+{
+    // make a copy of the annotation element
+    XSchemaAnnotation *theAnnotation = new XSchemaAnnotation(NULL, NULL) ;
+    // insert the children, using the model
+    // refactorize to share the most of code with tests
+    _model->makeElementList(theAnnotation);
+
+    return theAnnotation ;
+}
+
+XInfoBase* XSDDefaultAnnotationEditor::buildInfoAndCreateOneIfMissing(XSchemaAnnotation *origAnnot)
+{
+    if(NULL == origAnnot) {
+        return makeDocumentation(NULL);
+    } else {
+        XInfoBase *result = NULL ;
+        XInfoBase *first = NULL ;
+        foreach(XInfoBase * info, origAnnot->infos()) {
+            result = info->clone();
+            _model->addChild(result);
+            if(NULL == first) {
+                first = result ;
+            }
+        }
+        if(NULL == first) {
+            first = makeDocumentation(NULL);
+            _model->addChild(result);
+        }
+        return first ;
+    }
 }
 
 XInfoBase* XSDDefaultAnnotationEditor::buildInfoAndCreateOneIfMissing(Element *origAnnot, XSDOperationParameters *params)
@@ -141,7 +194,7 @@ XAppInfo *XSDDefaultAnnotationEditor::makeAppInfo(Element *child)
 {
     XAppInfo *appInfo = new XAppInfo(NULL, NULL);
     appInfo->setSource(child->getAttributeValue(IO_APPINFO_ATTR_SOURCE));
-    appInfo->setContentString(innerContent(child->getStringRepresentationForClipboard()));
+    appInfo->setContentString(XmlUtils::innerContent(child->getStringRepresentationForClipboard()));
     _model->addChild(appInfo);
     return appInfo ;
 }
@@ -152,7 +205,7 @@ XDocumentation* XSDDefaultAnnotationEditor::makeDocumentation(Element *element)
     if(NULL != element) {
         documentation->setSource(element->getAttributeValue(IO_DOCUMENTATION_ATTR_SOURCE));
         documentation->setLanguage(element->getAttributeValue(XML_LANGUAGE));
-        documentation->setContentString(innerContent(element->getStringRepresentationForClipboard()));
+        documentation->setContentString(XmlUtils::innerContent(element->getStringRepresentationForClipboard()));
     }
     _model->addChild(documentation);
     return documentation;
@@ -163,30 +216,6 @@ void XSDDefaultAnnotationEditor::makeOther(Element *child)
     XSchemaOther *other = new XSchemaOther(NULL, NULL);
     other->setElement(child);
     _model->addChild(other);
-}
-
-/**
- * @brief XSDDefaultAnnotationEditor::innerContent
- * @param inputString
- * @param startTag
- * @return
- */
-QString XSDDefaultAnnotationEditor::innerContent(const QString &inputString)
-{
-    int indexOfEnd = inputString.indexOf(">");
-    if(indexOfEnd > 0) {
-        if(inputString.at(indexOfEnd - 1) == '/') {
-            return "";
-        }
-        // else
-        int lastOpenPar = inputString.lastIndexOf("<");
-        if(lastOpenPar >= 0) {
-            return inputString.mid(indexOfEnd + 1, lastOpenPar - indexOfEnd - 1);
-        }
-
-    }
-    // impossible to be here
-    return inputString ;
 }
 
 bool XSDDefaultAnnotationEditor::hasOnlyOneInfo()

@@ -82,7 +82,11 @@ private:
     EXSDTypeSpecSub _subOper;
     EXSDTypeContent _typeContent;
     QSet<QString> _xsdNamespacePrefixes;
+    XSDOperationParameters *_parent;
+    QHash<QString, QString> _prefixesToNamespaces;
 
+
+    void init();
 
     void setupSimpleType(Element *simpleType);
     bool setupComplexTypeSimpleContent(Element *simpleContent);
@@ -100,10 +104,13 @@ private:
 
 public:
     XSDOperationParameters();
+    XSDOperationParameters(XSDOperationParameters *theParent);
     ~XSDOperationParameters();
     //---
     QString xsdNamespacePrefix() const;
     void setXsdNamespacePrefix(const QString &xsdNamespacePrefix);
+    void setElementDeclarations(Element *element, const bool upToRoot);
+    QString getNSForPrefix(const QString &prefix);
     QString typeName() const;
     void setTypeName(const QString &typeName);
     EXSDTypeTo typeTo() const;

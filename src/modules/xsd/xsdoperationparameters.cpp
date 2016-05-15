@@ -24,11 +24,27 @@
 #include "xsdoperationparameters.h"
 #include "element.h"
 #include "xsdeditor/XSchemaIOContants.h"
+#include "utils.h"
 
 const QString XSDOperationParameters::TokenType("$type");
 const QString XSDOperationParameters::TokenName("$name");
 
 XSDOperationParameters::XSDOperationParameters()
+{
+    init();
+}
+
+/*!
+ * \brief XSDOperationParameters::XSDOperationParameters to build namespace declaration hierarchies
+ * \param theParent
+ */
+XSDOperationParameters::XSDOperationParameters(XSDOperationParameters *theParent)
+{
+    init();
+    _parent = theParent;
+}
+
+void XSDOperationParameters::init()
 {
     _typeTo = EXT_ANONYMOUS_TYPE ;
     _typeSpec = TS_COMPLEX;
@@ -37,6 +53,7 @@ XSDOperationParameters::XSDOperationParameters()
     _usePrefix = false;
     _subOper = TSS_NONE ;
     _typeContent = TSC_COMPLEX;
+    _parent = NULL;
 }
 
 XSDOperationParameters::~XSDOperationParameters()
@@ -80,6 +97,25 @@ QString XSDOperationParameters::xsdNamespacePrefix() const
 void XSDOperationParameters::setXsdNamespacePrefix(const QString &xsdNamespacePrefix)
 {
     _xsdNamespacePrefix = xsdNamespacePrefix;
+}
+
+void XSDOperationParameters::setElementDeclarations(Element *element, const bool upToRoot)
+{
+    element->declaredNamespaces(_prefixesToNamespaces);
+    if(upToRoot && (NULL != element->parent())) {
+        setElementDeclarations(element->parent(), upToRoot);
+    }
+}
+
+QString XSDOperationParameters::getNSForPrefix(const QString &prefix)
+{
+    if(_prefixesToNamespaces.contains(prefix)) {
+        return _prefixesToNamespaces[prefix];
+    }
+    if(NULL != _parent) {
+        return _parent->getNSForPrefix(prefix);
+    }
+    return "" ;
 }
 
 QString XSDOperationParameters::typeName() const

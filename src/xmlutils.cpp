@@ -216,3 +216,27 @@ bool XmlUtils::isS(const QChar &qch)
     return false;
 }
 
+
+/**
+ * @brief XSDDefaultAnnotationEditor::innerContent
+ * @param inputString
+ * @param startTag
+ * @return
+ */
+QString XmlUtils::innerContent(const QString &inputString)
+{
+    int indexOfEnd = inputString.indexOf(">");
+    if(indexOfEnd > 0) {
+        if(inputString.at(indexOfEnd - 1) == '/') {
+            return "";
+        }
+        // else
+        int lastOpenPar = inputString.lastIndexOf("<");
+        if(lastOpenPar >= 0) {
+            return inputString.mid(indexOfEnd + 1, lastOpenPar - indexOfEnd - 1);
+        }
+
+    }
+    // impossible to be here
+    return inputString ;
+}

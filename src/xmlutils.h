@@ -54,6 +54,8 @@ public:
 
     //--
     static bool isS(const QChar &qch);
+    //--
+    static QString innerContent(const QString &inputString);
 
 };
 

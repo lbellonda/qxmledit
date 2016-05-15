@@ -63,6 +63,8 @@
 #include "undo/undoreplicacommand.h"
 #include "modules/copyattr/copiedattribute.h"
 #include "undo/undodeletesiblings.h"
+#include "modules/xsd/xsdenumdialog.h"
+#include "undo/editxsdenumcommand.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -2798,11 +2800,7 @@ void XmlEditWidgetPrivate::onSearchPrev()
 
 void XmlEditWidgetPrivate::XSDSetNamespaceToParams(XSDOperationParameters *params, Element *element)
 {
-    QString prefix = regola->namespacePrefixXSD();
-    params->setXsdNamespacePrefix(prefix);
-    QSet<QString> prefixes = regola->namespacePrefixesXSD(element);
-    params->setXsdNamespacePrefixes(prefixes);
-    params->setUsePrefix(!prefixes.isEmpty());
+    regola->XSDSetNamespaceToParams(params, element);
 }
 
 
@@ -3145,3 +3143,41 @@ void XmlEditWidgetPrivate::deleteSiblings(const RegolaDeleteSiblings::DeleteOpti
     }
 }
 
+bool XmlEditWidgetPrivate::onEditEnum()
+{
+    bool result = false;
+    if(isActionMode()) {
+
+        Element *element = getSelectedItem();
+        if(NULL == element) {
+            return false ;
+        }
+        XSDHelper helper;
+        XSDOperationParameters params;
+        XSDSetNamespaceToParams(&params, element);
+        QList<Element*> inputElements = helper.findFacetsElements(element, &params);
+        QList<XSDFacet*> inputFacets = helper.fromElementsToFacets(inputElements, &params);
+        XSDEnumDialog editEnumDialog(p->window(), inputFacets);
+        if(editEnumDialog.exec() == QDialog::Accepted) {
+            QList<XSDFacet*> finalFacets = editEnumDialog.result();
+            setFacets(element, finalFacets);
+            EMPTYPTRLIST(finalFacets, XSDFacet);
+        }
+        EMPTYPTRLIST(inputFacets, XSDFacet);
+    }
+    return result;
+}
+
+void XmlEditWidgetPrivate::setFacets(Element *selection, QList<XSDFacet*> facets)
+{
+    if(isActionMode()) {
+        XSDHelper helper;
+        XSDOperationParameters params;
+        XSDSetNamespaceToParams(&params, selection);
+        QList<Element*> elements = helper.fromFacetsToElements(facets, &params);
+        EditXSDEnumCommand * editEnumCommand = new EditXSDEnumCommand(getEditor(), regola, selection->indexPath(), elements);
+        regola->addUndo(editEnumCommand);
+    }
+}
+
+//----

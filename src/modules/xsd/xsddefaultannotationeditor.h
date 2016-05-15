@@ -38,6 +38,7 @@ protected:
     XSDAnnotationModel *_model;
     XSDOperationParameters *_params;
     Element *_origAnnot;
+    XSchemaAnnotation *_origAnnotSchema;
 
     enum EditMode {
         End,
@@ -47,6 +48,7 @@ protected:
 
     void resetModel();
     XInfoBase* buildInfoAndCreateOneIfMissing(Element *origAnnot, XSDOperationParameters *params);
+    XInfoBase* buildInfoAndCreateOneIfMissing(XSchemaAnnotation *origAnnot);
     bool hasOnlyOneInfo();
     EditMode editSingleAnnotation();
     void editExtended();
@@ -54,7 +56,6 @@ protected:
     XAppInfo *makeAppInfo(Element *child);
     XDocumentation *makeDocumentation(Element *element);
     void makeOther(Element *child);
-    QString innerContent(const QString &inputString);
 
     bool isAppInfo(Element *element, XSDOperationParameters *params);
     bool isDocumentation(Element *element, XSDOperationParameters *params);
@@ -68,7 +69,9 @@ public:
 
     bool hasResult() ;
     void exec(Element *origAnnot, XSDOperationParameters *params);
+    void exec(XSchemaAnnotation *origAnnot);
     virtual Element *annotation() ;
+    virtual XSchemaAnnotation *annotationAsSchema();
 };
 
 #endif // XSDDEFAULTANNOTATIONEDITOR_H

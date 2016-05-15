@@ -62,6 +62,8 @@ XSDManager::XSDManager()
     _annotationParents << IO_XSD_REDEFINE << IO_XSD_RESTRICTION << IO_XSD_SCHEMA << IO_XSD_SELECTOR ;
     _annotationParents << IO_XSD_SEQUENCE << IO_XSD_SIMPLECONTENT << IO_XSD_SIMPLETYPE << IO_XSD_TOTALDIGITS ;
     _annotationParents << IO_XSD_UNION << IO_XSD_UNIQUE << IO_XSD_WHITESPACE ;
+    //--
+    _facetParents << IO_XSD_RESTRICTION ;
 }
 
 XSDManager::~XSDManager()
@@ -103,6 +105,14 @@ bool XSDManager::canModifyType(const QString &tag)
 bool XSDManager::canEditAnnotation(const QString &tag)
 {
     if(_annotationParents.contains(tag)) {
+        return true ;
+    }
+    return false;
+}
+
+bool XSDManager::canEditFacet(const QString &tag)
+{
+    if(_facetParents.contains(tag)) {
         return true ;
     }
     return false;

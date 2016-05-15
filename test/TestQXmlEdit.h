@@ -95,6 +95,7 @@
 #include "testconfig.h"
 #include "testdeletesiblings.h"
 #include "testcommandline.h"
+#include "testeditenum.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -189,6 +190,7 @@ private Q_SLOTS:
     void testConfig();
     void testDeleteSiblings();
     void testCommandLine();
+    void testEditEnum();
 };
 
 

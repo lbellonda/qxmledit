@@ -50,6 +50,7 @@ class XSDAnnotationEditProvider;
 class NamespaceReferenceEntry;
 class ReplicaCommand;
 class ReplicaCloneInfo;
+class XSDFacet;
 
 namespace Ui
 {
@@ -176,6 +177,7 @@ public:
     void onXSDAppendAttribute();
     void onXSDModifyType();
     bool onEditXSDAnnotation();
+    bool onEditXSDFacet();
     void setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData);
     void setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider);
     void onFindNext();
@@ -331,6 +333,10 @@ public:
     void sortAttributesElement(Element *element, const bool isRecursive);
     void sortAttributes();
     void deleteSiblings(const RegolaDeleteSiblings::DeleteOptions option, Element *selectedItem);
+    //----
+    void setFacets(Element *selection, QList<XSDFacet*> facets);
+    bool onEditEnum();
+
 signals:
     void reevaluateSelectionState();
     void documentIsModified(const bool isModified);// TODO: emit this

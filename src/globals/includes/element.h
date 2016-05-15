@@ -362,6 +362,7 @@ public:
     QList<Attribute*>getAttributesList();
     Attribute* getAttribute(const QString &attributeName);
     QString getAttributeValue(const QString &attributeName);
+    bool hasAttribute(const QString &attributeName);
 
     QString getAsText();
     QString getAsSimpleText(const bool isBase64);
@@ -399,6 +400,7 @@ public:
 
     //returns the position of the element
     QList<int> indexPath();
+    QString indexPathString();
     QStringList path();
     QStringList parentPath();
     // copy the first level attributes, text nodes and attributes to the target
@@ -565,6 +567,7 @@ public:
     Element *lastChildRecursive();
 
     void allNamespaces(QHash<QString, QSet<QString> > &nameSpacesMap);
+    void declaredNamespaces(QHash<QString, QString> &prefixToNameSpacesMap);
 
     QString toString();
     bool compareToElement(Element *other, QString &msg);

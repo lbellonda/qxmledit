@@ -36,7 +36,6 @@ QString Element::namespaceForPrefix(const QString &prefix)
     return NULL ;
 }
 
-
 Attribute *Element::nsDeclarationForPrefixOwned(const QString &prefix)
 {
     foreach(Attribute * attribute, attributes) {
@@ -46,7 +45,6 @@ Attribute *Element::nsDeclarationForPrefixOwned(const QString &prefix)
     }
     return NULL ;
 }
-
 
 bool Element::isUsingPrefixRecursive(const QString &prefix)
 {

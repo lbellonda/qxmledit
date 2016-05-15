@@ -413,7 +413,11 @@ SOURCES += xmleditwidget.cpp \
     modules/xml/sortAttributes.cpp \
     undo/undosortattributes.cpp \
     undo/undodeletesiblings.cpp \
-    modules/anonymize/anonoperationbatchoutputfileprovider.cpp
+    modules/anonymize/anonoperationbatchoutputfileprovider.cpp \
+    xsdeditor/xsdfacet.cpp \
+    modules/xsd/choosefacetdialog.cpp \
+    undo/editxsdenumcommand.cpp \
+    modules/xml/xmlnamespaces.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -630,7 +634,9 @@ HEADERS += precompiled_lib.h \
     modules/replica/replicacloneinfo.h \
     modules/xml/xmlattributesindentationhelper.h \
     undo/undosortattributes.h \
-    undo/undodeletesiblings.h
+    undo/undodeletesiblings.h \
+    modules/xsd/choosefacetdialog.h \
+    undo/editxsdenumcommand.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -680,7 +686,8 @@ FORMS += xmleditwidget.ui \
     modules/namespace/choosenamespacedialog.ui \
     modules/namespace/editnamespacedialog.ui \
     modules/xsd/schemareferencesdialog.ui \
-    modules/replica/replicasettingsdialog.ui
+    modules/replica/replicasettingsdialog.ui \
+    modules/xsd/choosefacetdialog.ui
 
 
 symbian {

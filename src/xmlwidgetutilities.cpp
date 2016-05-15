@@ -156,3 +156,23 @@ bool XmlWidgetUtilities::filterEvent(QObject * obj, QEvent * event, QHash<void *
     }
     return false;
 }
+
+void XmlWidgetUtilities::setTableBehavior(QTableWidget *table)
+{
+    table->horizontalHeader()->setStretchLastSection(true);
+    table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    table->setSelectionBehavior(QAbstractItemView::SelectRows);
+    table->setSelectionMode(QAbstractItemView::SingleSelection);
+    table->setTextElideMode(Qt::ElideMiddle);
+}
+
+void XmlWidgetUtilities::swapTableRows(QTableWidget *table, const int row1, const int row2)
+{
+    int columns = table->columnCount();
+    FORINT(i, columns) {
+        QTableWidgetItem *i1 = table->takeItem(row1, i);
+        QTableWidgetItem *i2 = table->takeItem(row2, i);
+        table->setItem(row1, i, i2);
+        table->setItem(row2, i, i1);
+    }
+}

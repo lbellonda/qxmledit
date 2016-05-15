@@ -391,6 +391,8 @@ private slots:
     bool actionFillSerie();
     bool doReplica(ReplicaCloneInfo *cmd, Element *element);
     void updateAttributeIndentationSettings();
+    void setFacets(Element *selection, QList<XSDFacet*> facets);
+    bool onEditEnum();
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

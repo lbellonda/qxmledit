@@ -1019,6 +1019,11 @@ bool XmlEditWidget::onEditXSDAnnotation()
     return d->onEditXSDAnnotation();
 }
 
+bool XmlEditWidget::onEditXSDFacet()
+{
+    return d->onEditEnum();
+}
+
 void XmlEditWidget::setOrigDataForAnonPreview(QHash<void *, QString> *newOrigData)
 {
     d->setOrigDataForAnonPreview(newOrigData);
@@ -1117,4 +1122,14 @@ void XmlEditWidget::sortAttributesElement(Element *element, const bool isRecursi
 void XmlEditWidget::deleteSiblings(const RegolaDeleteSiblings::DeleteOptions option, Element *selectedItem)
 {
     return d->deleteSiblings(option, selectedItem);
+}
+
+bool XmlEditWidget::onEditEnum()
+{
+    return d->onEditEnum();
+}
+
+void XmlEditWidget::setFacets(Element *selection, QList<XSDFacet*> facets)
+{
+    d->setFacets(selection, facets);
 }

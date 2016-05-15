@@ -32,7 +32,6 @@ ChooseStyleDialog::ChooseStyleDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChooseStyleDialog)
 {
-    Utils::TODO_THIS_RELEASE("check data: style/taskStyles.xml");
     _selectedStyle = NULL ;
     ui->setupUi(this);
     setup();

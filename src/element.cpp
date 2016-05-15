@@ -1927,6 +1927,11 @@ Attribute* Element::getAttribute(const QString &attributeName)
     return NULL ;
 }
 
+bool Element::hasAttribute(const QString &attributeName)
+{
+    return (NULL != getAttribute(attributeName));
+}
+
 QString Element::getAttributeValue(const QString &attributeName)
 {
     foreach(Attribute * attribute, attributes) {
@@ -2264,6 +2269,23 @@ QList<int> Element::indexPath()
     list.prepend(parentRule->getChildItems()->indexOf(target));
 
     return list ;
+}
+
+QString Element::indexPathString()
+{
+    QString position ;
+
+    Element *parentE = parentElement;
+    Element *target = this ;
+    while(parentE != NULL) {
+        if(NULL != parentE->parent()) {
+            position += ",";
+        }
+        position += QString("%1").arg(parentE->childIndex(target));
+        target = parentE ;
+        parentE = parentE->parentElement ;
+    }
+    return position ;
 }
 
 QStringList Element::path()
@@ -2814,7 +2836,10 @@ Element *Element::lastChildRecursive()
     return childItems.last()->lastChildRecursiveOrThis();
 }
 
-
+/*!
+ * \brief Element::allNamespaces all the namespaces, recursive, ns and all the prefixes
+ * \param nameSpacesMap
+ */
 void Element::allNamespaces(QHash<QString, QSet<QString> > &nameSpacesMap)
 {
     foreach(Element * child, childItems) {
@@ -2833,6 +2858,23 @@ void Element::allNamespaces(QHash<QString, QSet<QString> > &nameSpacesMap)
         }
     }
 } // allNamespaces()
+
+/*!
+ * \brief Element::declaredNamespaces only the ns declared iin the element, prefix-namespace
+ * \param prefixToNameSpacesMap
+ */
+void Element::declaredNamespaces(QHash<QString, QString> &prefixToNameSpacesMap)
+{
+    foreach(Attribute * attribute, attributes) {
+        if(XmlUtils::isDeclaringNS(attribute->name)) {
+            QString prefix ;
+            XmlUtils::getNsPrefix(attribute->name, prefix);
+            if(!prefixToNameSpacesMap.contains(prefix)) {
+                prefixToNameSpacesMap[prefix] = attribute->value;
+            }
+        }
+    }
+} // declaredNamespaces()
 
 /*!
  * \brief setOrClearAttribute: can delete the attribute (clear) or set it to a specific value

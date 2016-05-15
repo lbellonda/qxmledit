@@ -28,8 +28,8 @@
 #include <xmleditglobals.h>
 #include "xmleditwidget.h"
 #include "qxmleditconfig.h"
+#include "xsdeditor/xschema.h"
 #include "regola.h"
 #include "element.h"
-#include "xsdeditor/xschema.h"
 
 #endif // PRECOMPILED_LIB_H

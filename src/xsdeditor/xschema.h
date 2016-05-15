@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -159,6 +159,64 @@ public:
 };
 
 void XsdError(const QString &message);
+class XSchemaAnnotation;
+
+class XSDFacet
+{
+public:
+    enum EType {
+        MinExclusive,
+        MinInclusive,
+        MaxExclusive,
+        MaxInclusive,
+        TotalDigits,
+        FractionDigits,
+        Length,
+        MinLength,
+        MaxLength,
+        Enumeration,
+        WhiteSpace,
+        Pattern
+    };
+private:
+    QString _id;
+    bool _idPresent;
+    EType   _type;
+    QString _value ;
+    XEnums::XBool _fixed;
+    XSchemaAnnotation *_annotation;
+    QMap<QString, QString> _otherAttributes;
+public:
+    XSDFacet(const EType type, const QString &value);
+    XSDFacet(const QString &tagName, const QString &value);
+    ~XSDFacet();
+
+    QString typeString();
+    QString value();
+    void setValue(const QString &newValue);
+    QString annotationString();
+    QMap<QString, QString> &otherAttributes();
+
+    XSDFacet *clone();
+    bool compareTo(const XSDFacet *other);
+    QString toString();
+    XSchemaAnnotation *annotation() const;
+    void setAnnotation(XSchemaAnnotation *annotation);
+    EType type() const;
+    void setType(const EType type);
+    bool hasFixed();
+    XEnums::XBool fixed();
+    void setFixed(const XEnums::XBool newFixed);
+    void setFixedString(const QString &value);
+
+    //---
+    static QSet<QString> allTags();
+    //--
+    QString id() const;
+    void setId(const QString &id);
+    bool idPresent() const;
+    void setIdPresent(bool value);
+};
 
 class RestrictionFacets
 {
@@ -171,7 +229,7 @@ public:
     QString _minLength, _maxLength ;
     QStringList _enumeration ;
     QString _whiteSpace; // TODO: WRONG!!!!
-    QString _pattern;
+    QString _pattern; //e' una lista, non uno solo
     //---- compare only -------------
     QStringList _enumerationAdded ;
     QStringList _enumerationDeleted ;
@@ -506,6 +564,7 @@ protected:
     QDomElement createElement(QDomDocument &document, const QString &tagName) ;
     void addOtherAttributesToDom(QDomElement & node);
     bool readOtherAttributes(QDomAttr & attribute);
+    bool readOtherAttributes(Attribute *attribute, XSDOperationParameters * params);
     void addElementIfNotEmpty(QDomElement &element, const QString &elementTag, const QString &value);
     void addFacetIfNotEmpty(QDomElement &element, const QString &elementTag, const QString &value);
 
@@ -520,9 +579,12 @@ protected:
 
     void readHandleAnnotation(XSDLoadContext * loadContext, QDomElement &element);
     void raiseError(XSDLoadContext *loadContext, XSchemaObject *origin, QDomNode &node, const bool isElement);
+    void raiseError(XSDLoadContext * loadContext, XSchemaObject *origin, Element *element, const QString &name, const bool isElement);
     void raiseErrorForObject(XSDLoadContext *loadContext, QDomNode &node);
     void raiseError(XSDLoadContext *loadContext, XSchemaObject *origin, QDomNode &node, const QString &message);
     void raiseError(XSDLoadContext *loadContext, const EXSDLoadError errorCode, XSchemaObject *origin, QDomNode &node, const QString &message);
+    void raiseError(XSDLoadContext *loadContext, const EXSDLoadError errorCode, XSchemaObject *origin, Element *element, const QString &message);
+    void raiseError(XSDLoadContext *loadContext, XSchemaObject *origin, Element *node, const QString &message);
     void invalidObjectState(XSDLoadContext *loadContext, XSchemaObject *origin, QDomNode &node, const QString &fieldName);
     QStringList readFinalAttribute(const QString &value);
     EProcessContent decodeProcessContents(const QString &value);
@@ -940,16 +1002,22 @@ protected:
     friend class TestXSDDiff;
     virtual void reset();
     virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject *target, XSDCompareOptions &options);
-
+    Element *makeElementList(Element *parent, XSDOperationParameters *params);
 public:
     XSchemaAnnotation(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaAnnotation();
 
     virtual void loadFromDom(XSDLoadContext *loadContext, QDomElement &annotation);
+    virtual void loadFromElement(XSDLoadContext *loadContext, Element *annotation, XSDOperationParameters * params);
+    virtual Element *toElement(XSDOperationParameters * params);
     bool generateDom(QDomDocument &document, QDomNode & parent);
     virtual QString description();
     QString text();
     virtual void reparent(XSchemaObject *newParent);
+    bool compareToSimple(const XSchemaAnnotation* other);
+    XSchemaAnnotation* clone();
+    void addXInfo(XInfoBase *newInfo);
+    QList<XInfoBase*> infos();
 
     virtual ESchemaType getType() {
         return SchemaTypeAnnotation ;
@@ -1407,6 +1475,7 @@ public:
     }
     virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject *target, XSDCompareOptions &options) ;
     void copyTo(XInfoBase *other);
+    virtual XInfoBase* clone() = 0;
 };
 
 
@@ -1433,7 +1502,7 @@ public:
     }
 
     virtual bool isAnnotationElement();
-    XDocumentation *clone();
+    virtual XDocumentation *clone();
 };
 
 class XAppInfo : public XInfoBase
@@ -1450,7 +1519,7 @@ public:
     TAG("appinfo")
     virtual bool generateDom(QDomDocument &document, QDomNode &parent) ;
     virtual bool isAnnotationElement();
-    XAppInfo * clone();
+    virtual XAppInfo * clone();
 };
 
 class XSDSchema;
@@ -1772,4 +1841,3 @@ signals:
 #include "xsdeditor/xsdparseutils.h"
 
 #endif // XSCHEMA_H
-
