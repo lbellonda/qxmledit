@@ -897,7 +897,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionXSDInsertType->setEnabled(xsdManager->canInsertType(elmTag) && !isRegolaReadOnly);
     ui.actionXSDModifyType->setEnabled(xsdManager->canModifyType(elmTag) && !isRegolaReadOnly);
     ui.actionEditXSDAnnotation->setEnabled(xsdManager->canEditAnnotation(elmTag) && !isRegolaReadOnly);
-    ui.actionEditEnumerationFacet->setEnabled(xsdManager->canEditFacet(elmTag) && !isRegolaReadOnly);
+    ui.actionEditEnumerationFacet->setEnabled((xsdManager->canEditFacetAsParent(parentTag) || xsdManager->canEditFacet(elmTag)) && !isRegolaReadOnly);
 
     ui.actionRemoveNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionInsertNilAttribute->setEnabled(isElementSelected && !getEditor()->isReadOnly());

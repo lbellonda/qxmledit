@@ -35,6 +35,7 @@ class QAttributeDelegate;
 class PaintInfo;
 class Element;
 class ElementItemSingleDelegate;
+class QTableWidget;
 
 class LIBQXMLEDITSHARED_EXPORT XmlWidgetUtilities : public QObject
 {

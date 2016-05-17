@@ -35,6 +35,7 @@ class LIBQXMLEDITSHARED_EXPORT XSDManager
     QSet<QString> _modifiable;
     QSet<QString> _annotationParents;
     QSet<QString> _facetParents;
+    QSet<QString> _facets;
 
 public:
     XSDManager();
@@ -45,6 +46,7 @@ public:
     bool canModifyType(const QString &tag);
     bool canEditAnnotation(const QString &tag);
     bool canEditFacet(const QString &tag);
+    bool canEditFacetAsParent(const QString &tag);
 
 };
 

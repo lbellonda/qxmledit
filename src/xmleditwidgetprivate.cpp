@@ -65,6 +65,7 @@
 #include "undo/undodeletesiblings.h"
 #include "modules/xsd/xsdenumdialog.h"
 #include "undo/editxsdenumcommand.h"
+#include "xsdeditor/XSchemaIOContants.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -3149,6 +3150,12 @@ bool XmlEditWidgetPrivate::onEditEnum()
     if(isActionMode()) {
 
         Element *element = getSelectedItem();
+        if(NULL == element) {
+            return false ;
+        }
+        if(element->localName() != IO_XSD_RESTRICTION) {
+            element = element->parent();
+        }
         if(NULL == element) {
             return false ;
         }

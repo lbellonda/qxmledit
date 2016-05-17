@@ -63,7 +63,22 @@ XSDManager::XSDManager()
     _annotationParents << IO_XSD_SEQUENCE << IO_XSD_SIMPLECONTENT << IO_XSD_SIMPLETYPE << IO_XSD_TOTALDIGITS ;
     _annotationParents << IO_XSD_UNION << IO_XSD_UNIQUE << IO_XSD_WHITESPACE ;
     //--
-    _facetParents << IO_XSD_RESTRICTION ;
+    _facetParents.insert(IO_XSD_RESTRICTION);
+    //--
+    _facets << IO_XSD_RESTRICTION;
+    _facets << IO_XSD_MINEXCLUSIVE;
+    _facets << IO_XSD_MININCLUSIVE;
+    _facets << IO_XSD_MAXEXCLUSIVE;
+    _facets << IO_XSD_MAXINCLUSIVE;
+    _facets << IO_XSD_TOTALDIGITS;
+    _facets << IO_XSD_FRACTIONDIGITS;
+    _facets << IO_XSD_LENGTH;
+    _facets << IO_XSD_MINLENGTH;
+    _facets << IO_XSD_MAXLENGTH;
+    _facets << IO_XSD_ENUMERATION;
+    _facets << IO_XSD_WHITESPACE;
+    _facets << IO_XSD_PATTERN;
+    //
 }
 
 XSDManager::~XSDManager()
@@ -110,9 +125,17 @@ bool XSDManager::canEditAnnotation(const QString &tag)
     return false;
 }
 
-bool XSDManager::canEditFacet(const QString &tag)
+bool XSDManager::canEditFacetAsParent(const QString &tag)
 {
     if(_facetParents.contains(tag)) {
+        return true ;
+    }
+    return false;
+}
+
+bool XSDManager::canEditFacet(const QString &tag)
+{
+    if(_facets.contains(tag)) {
         return true ;
     }
     return false;

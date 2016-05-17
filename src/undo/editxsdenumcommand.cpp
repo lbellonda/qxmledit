@@ -28,7 +28,6 @@
 EditXSDEnumCommand::EditXSDEnumCommand(QTreeWidget *theWidget, Regola *newRegola, QList<int> newPath, QList<Element*> newElements)
     : UndoCommand(theWidget, newRegola, newPath)
 {
-    Utils::TODO_THIS_RELEASE("abilita anche su enum direttamente");
     foreach(Element * e, newElements) {
         _elementsToInsert.append(e);
     }
