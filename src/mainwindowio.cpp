@@ -192,30 +192,37 @@ bool MainWindow::loadFileInnerDom(const QString &filePath, const bool isRegularF
     return fileLoaded;
 }
 
+bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePath, const bool isRegularFile, const bool activateModes)
+{
+    bool fileLoaded = false ;
+    QXmlStreamReader reader ;
+    reader.setDevice(ioDevice);
+    if(readData(&reader, filePath, true)) {
+        if(isRegularFile) {
+            data->sessionManager()->enrollFile(filePath);
+            updateRecentFilesMenu(filePath);
+        } else {
+            getRegola()->setFileName("");
+        }
+        updateWindowFilePath();
+        autoLoadValidation();
+        fileLoaded = true ;
+        if(activateModes) {
+            if(Utils::fileIsXSLT(getEditor()->getRegola())) {
+                activateXSLTonNewFile();
+            }
+        }
+    }
+    return fileLoaded;
+}
+
 bool MainWindow::loadFileInnerStream(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
     bool fileLoaded = false;
     if(!filePath.isEmpty()) {
         QFile file(filePath);
         if(file.open(QIODevice::ReadOnly)) {
-            QXmlStreamReader reader ;
-            reader.setDevice(&file);
-            if(readData(&reader, filePath, true)) {
-                if(isRegularFile) {
-                    data->sessionManager()->enrollFile(filePath);
-                    updateRecentFilesMenu(filePath);
-                } else {
-                    getRegola()->setFileName("");
-                }
-                updateWindowFilePath();
-                autoLoadValidation();
-                fileLoaded = true ;
-                if(activateModes) {
-                    if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-                        activateXSLTonNewFile();
-                    }
-                }
-            }
+            fileLoaded = loadFileInnerStream(&file, filePath, isRegularFile, activateModes);
             file.close();
         } else {
             errorOnLoad(file);

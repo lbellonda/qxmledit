@@ -349,7 +349,6 @@ bool Regola::writeStreamInternal(QIODevice *device, const bool useEncoding, Elem
     } else {
         outputStream.setCodec("UTF-8"); // this should be the default anyway
     }
-
     int index = 0 ;
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
@@ -369,7 +368,6 @@ bool Regola::writeStreamInternal(QIODevice *device, const bool useEncoding, Elem
     if((_indent >= 0) && !childItems.isEmpty()) {
         outputStream.writeCharacters("\n");
     }
-
     device->close();
 
     return true;

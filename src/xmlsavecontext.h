@@ -59,9 +59,9 @@ public:
     void decLevel();
     int level();
     int indentBase(const QString &tag);
-    void startElement(QIODevice *device);
-    void afterAttributePos(QIODevice *device);
-    void incAttributePos(QIODevice *device, const int indentBase);
+    void startElement(QXmlStreamWriter &writer);
+    void afterAttributePos(QXmlStreamWriter &writer);
+    void incAttributePos(QXmlStreamWriter &writer, const int indentBase);
     //---
     void clearNamespaceDeclarations();
     QHash<QString, QString> namespaceDeclarations();

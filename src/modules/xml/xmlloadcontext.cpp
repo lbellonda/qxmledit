@@ -64,7 +64,7 @@ void XMLLoadContext::setErrorMessage(const QString &errorMessage)
 bool XMLLoadContext::setError(const QString &errorMessage, QXmlStreamReader *xmlReader)
 {
     setIsError(true);
-    QString errorMsg = QObject::tr("Error parsing XML: '%1' at row:%2 line:%3 offset:%4")
+    QString errorMsg = QObject::tr("Error parsing XML: '%1' at row:%2 column:%3 offset:%4")
                        .arg(errorMessage)
                        .arg(xmlReader->lineNumber())
                        .arg(xmlReader->columnNumber())
@@ -76,7 +76,7 @@ bool XMLLoadContext::setError(const QString &errorMessage, QXmlStreamReader *xml
 bool XMLLoadContext::setErrorFromReader(QXmlStreamReader *xmlReader)
 {
     if(xmlReader->hasError()) {
-        QString errorMsg = QObject::tr("Error parsing XML: '%1' code:'%2' at row:%3 line:%4 offset:%5")
+        QString errorMsg = QObject::tr("Error parsing XML: '%1' code:'%2' at row:%3 column:%4 offset:%5")
                            .arg(xmlReader->errorString())
                            .arg(xmlReader->error())
                            .arg(xmlReader->lineNumber())

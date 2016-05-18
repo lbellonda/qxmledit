@@ -1019,32 +1019,32 @@ bool Element::writeStream(XMLSaveContext *context, QXmlStreamWriter &writer, Ele
         checkSaveAndSetIndent(context, writer);
 
         int indentBase = context->indentBase(tag());
-        context->startElement(writer.device());
+        context->startElement(writer);
 
         if(context->isSortAttributesAlpha()) {
             QList<Attribute*> attributesList = Element::sortAttributesList(attributes);
 
             foreach(Attribute * attr, attributesList) {
-                context->incAttributePos(writer.device(), indentBase);
+                context->incAttributePos(writer, indentBase);
                 writer.writeAttribute(attr->name, attr->value);
-                context->afterAttributePos(writer.device());
+                context->afterAttributePos(writer);
             }
         } else {
             QVectorIterator<Attribute*>  attrs(attributes);
             while(attrs.hasNext()) {
-                context->incAttributePos(writer.device(), indentBase);
+                context->incAttributePos(writer, indentBase);
                 Attribute* attribute = attrs.next();
                 writer.writeAttribute(attribute->name, attribute->value);
-                context->afterAttributePos(writer.device());
+                context->afterAttributePos(writer);
             }
         }
         if(context->hasNamespaceDeclarations()) {
             QHash<QString, QString> nss = context->namespaceDeclarations();
             foreach(QString key, nss.keys()) {
-                context->incAttributePos(writer.device(), indentBase);
+                context->incAttributePos(writer, indentBase);
                 QString name = XmlUtils::makeNSDeclaration(key);
                 writer.writeAttribute(name, nss.value(key));
-                context->afterAttributePos(writer.device());
+                context->afterAttributePos(writer);
             }
             context->clearNamespaceDeclarations();
         }

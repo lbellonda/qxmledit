@@ -122,33 +122,33 @@ void XMLSaveContext::setIsAttributesColumns(bool isAttributesColumns)
 }
 
 
-void XMLSaveContext::startElement(QIODevice *device)
+void XMLSaveContext::startElement(QXmlStreamWriter &writer)
 {
     _currentAttrPos = 0;
-    _baseAttrPos = device->pos();
+    _baseAttrPos = writer.device()->pos();
     _attrIndex = 0;
 }
 
-void XMLSaveContext::incAttributePos(QIODevice *device, const int indentBase)
+void XMLSaveContext::incAttributePos(QXmlStreamWriter &writer, const int indentBase)
 {
     if((_indentation > 0) && isAttributesColumns() && (_attrIndex > 0)) {
         if(_currentAttrPos >= attributesMaxColumns()) {
-            device->write("\n");
+            writer.writeCharacters("\n");
             // WARNING: PEEKING INTO SOURCE: x-1, the last space is added by writer code.
             for(int i = 0 ; i < (indentBase - 1) ; i ++) {
-                device->write(" ");
+                writer.writeCharacters(" ");
             }
             _currentAttrPos = 0 ;
-            _baseAttrPos = device->pos();
+            _baseAttrPos = writer.device()->pos();
         }
     }
     _attrIndex++;
 }
 
-void XMLSaveContext::afterAttributePos(QIODevice *device)
+void XMLSaveContext::afterAttributePos(QXmlStreamWriter &writer)
 {
     if((_indentation > 0) && isAttributesColumns()) {
-        qint64 nowPos = device->pos();
+        qint64 nowPos = writer.device()->pos();
         _currentAttrPos = nowPos - _baseAttrPos ;
     }
 }

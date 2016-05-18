@@ -39,6 +39,10 @@ TestEncoding::~TestEncoding()
 }
 
 ///--------
+///
+
+#define BASE_PATH "../test/data/encoding/"
+
 #define INPUT_FILE_EMPTY        "../test/data/encoding/empty.xml"
 #define INPUT_FILE_UTF8         "../test/data/encoding/utf8.xml"
 #define INPUT_FILE_ISO885915    "../test/data/encoding/iso8859-15.xml"
@@ -46,8 +50,18 @@ TestEncoding::~TestEncoding()
 #define CHANGE_FILE_UTF8         "../test/data/encoding/changeutf8.xml"
 #define CHANGE_FILE_ISO885915    "../test/data/encoding/changeiso8859.xml"
 
+#define FILE_TEST_FOR_LOAD BASE_PATH "testLoad.xml"
+
 ///--------
 ///
+///
+
+bool TestEncoding::testFast()
+{
+    _testName = "testFast" ;
+    return testLoadSave();
+}
+
 bool TestEncoding::testUnitTests()
 {
     if(!testRecognizeEncoding(INPUT_FILE_EMPTY, DEFAULT_ENCODING)) {
@@ -1352,4 +1366,78 @@ bool TestEncoding::testExportClipboard()
         return false ;
     }
     return true ;
+}
+
+bool TestEncoding::testSkeleton( const QString &id, const QString &fileStart, const QString &newEncoding,
+                                 const int indentationValue, const bool sortAttributesAlpha,
+                                 const QXmlEditData::EIndentAttributes valueSetting, const int valueCols )
+{
+    App app;
+    if(!app.init() ) {
+        return error(QString("Init app failed for id:").arg(id));
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("For id:%2, unable to load input file: '%1' ").arg(fileStart).arg(id));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    regola->setIndentationForce(indentationValue);
+    regola->setSaveAttributesMethod(sortAttributesAlpha? Regola::SaveAttributesSortingAlphabetically : Regola::SaveAttributesNoSort);
+    regola->setIndentAttributesSettings(true, valueSetting, valueCols);
+    regola->setUseXmlIndentAttributesSettings(true);
+    if(!regola->setEncoding( app.mainWindow()->getEditor()->getMainTreeWidget(), app.mainWindow(), newEncoding) && (newEncoding != "UTF-8")) {
+        return error(QString("For id:%2, unable set encoding: '%1' ").arg(newEncoding).arg(id));
+    }
+    QByteArray savedData = regola->writeMemory();
+    QBuffer fakeFile(&savedData) ;
+    bool isLoaded = false ;
+    if(fakeFile.open(QIODevice::ReadOnly)) {
+        isLoaded = app.mainWindow()->loadFileInnerStream(&fakeFile, "a file", true, true);
+        fakeFile.close();
+        if(!isLoaded) {
+            return error(QString("For id:%1, unable to read anew saved data").arg(id));
+        }
+    } else {
+        return error(QString("For id:%1, unable to open saved data").arg(id));
+    }
+    return true;
+}
+
+bool TestEncoding::testLoadSave()
+{
+    _testName = "testLoadSave" ;
+    QList<bool> booleans;
+    booleans << true << false ;
+    QList<QXmlEditData::EIndentAttributes> indentValues ;
+    indentValues << QXmlEditData::AttributesIndentationNone << QXmlEditData::AttributesIndentationMaxCols ;
+    QStringList encodings;
+    encodings << "UTF-16" << "UTF-16BE" << "UTF-16LE" << "UTF-8" << "UTF-7" << "UTF-32" << "ISO-8859-15" << "WINDOWS-1252";
+    QList<int> indentationValues;
+    indentationValues << -1 << 0 << 1 << 2 << 4 ;
+    QList<int> attrCols;
+    attrCols << -1 << 0 << 1 << 2 << 4 ;
+
+    foreach( const QString &encoding, encodings ) {
+        printf("Encoding %s\n", encoding.toLatin1().data());
+        fflush(__stdoutp);
+        foreach( const QXmlEditData::EIndentAttributes indentValue, indentValues ) {
+            foreach( const int indentationValue, indentationValues ) {
+                foreach( const int attrCol, attrCols ) {
+                    foreach( const bool sortAttributesAlpha, booleans ) {
+                        QString id = QString("encoding:%1, indentValue:%2, indentation:%3, attr cols:%4, sort attr:%5")
+                                .arg(encoding).arg(indentValue).arg(indentationValue)
+                                .arg(attrCol).arg(sortAttributesAlpha);
+
+                        if(!testSkeleton( id, FILE_TEST_FOR_LOAD,
+                                                encoding,
+                                                 indentationValue, sortAttributesAlpha,
+                                                 indentValue, attrCol ) ) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
 }

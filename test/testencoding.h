@@ -71,12 +71,19 @@ class TestEncoding : public TestBase
     bool checkClipbpoardStringToJava(const QString &str);
     bool testExportClipboard();
 
+    bool testSkeleton( const QString &id, const QString &fileStart, const QString &newEncoding,
+                                     const int indentationValue, const bool sortAttributesAlpha,
+                                     const QXmlEditData::EIndentAttributes valueSetting, const int valueCols );
+
 public:
     TestEncoding();
     ~TestEncoding();
 
+    bool testFast();
     bool testUnitTests();
     bool testFunctionalTests();
+    bool testLoadSave();
+
 };
 
 #endif // TESTENCODING_H

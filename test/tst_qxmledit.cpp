@@ -793,12 +793,26 @@ void TestQXmlEdit::testEncoding()
 {
     bool result ;
 
-    TestEncoding test1;
-    result = test1.testUnitTests();
-    QVERIFY2(result, (QString("test TestEncoding: testUnitTests '%1'").arg(test1.errorString())).toLatin1().data());
-    TestEncoding test2;
-    result = test2.testFunctionalTests();
-    QVERIFY2(result, (QString("test TestEncoding: testFunctionalTests '%1'").arg(test2.errorString())).toLatin1().data());
+    {
+        TestEncoding test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("test TestEncoding: testFast '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestEncoding test1;
+        result = test1.testUnitTests();
+        QVERIFY2(result, (QString("test TestEncoding: testUnitTests '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestEncoding test2;
+        result = test2.testFunctionalTests();
+        QVERIFY2(result, (QString("test TestEncoding: testFunctionalTests '%1'").arg(test2.errorString())).toLatin1().data());
+    }
+    {
+        TestEncoding test2;
+        result = test2.testLoadSave();
+        QVERIFY2(result, (QString("test TestEncoding: testLoadSave '%1'").arg(test2.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testProlog()
@@ -1357,6 +1371,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testEncoding();
     testEditEnum();
     /*testBinaryViewer();
     testCopyAttrs();
