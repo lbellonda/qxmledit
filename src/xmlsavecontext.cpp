@@ -68,7 +68,7 @@ void XMLSaveContext::setCodec(QTextCodec * theCodec)
     /*QByteArray discard = */encoder->fromUnicode(" ");
     _spaceBytes = encoder->fromUnicode(" ");
     QBuffer buffer;
-    buffer.open(QIODevice::ReadWrite|QIODevice::Text);
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
     buffer.write("\n");
     buffer.close();
     QByteArray data = buffer.data();
@@ -150,10 +150,10 @@ void XMLSaveContext::incAttributePos(QXmlStreamWriter &writer, const int indentB
 {
     if((_indentation > 0) && isAttributesColumns() && (_attrIndex > 0)) {
         if(_currentAttrPos >= attributesMaxColumns()) {
-            writer.device()->write(_crBytes );
+            writer.device()->write(_crBytes);
             // WARNING: PEEKING INTO SOURCE: x-1, the last space is added by writer code.
             for(int i = 0 ; i < (indentBase - 1) ; i ++) {
-                writer.device()->write(_spaceBytes );
+                writer.device()->write(_spaceBytes);
             }
             _currentAttrPos = 0 ;
             _baseAttrPos = writer.device()->pos();
@@ -169,7 +169,7 @@ void XMLSaveContext::afterAttributePos(QXmlStreamWriter &writer)
         // using space len as average char width
         int diff1 = (nowPos - _baseAttrPos);
         int diffDiv = diff1 / _bytesPerChar ;
-        if( (0==diffDiv) && (diff1>0)) {
+        if((0 == diffDiv) && (diff1 > 0)) {
             diffDiv = 1 ;
         }
         _currentAttrPos = diffDiv ;
