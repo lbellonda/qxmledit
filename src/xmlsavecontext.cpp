@@ -34,6 +34,7 @@ XMLSaveContext::XMLSaveContext()
     _currentAttrPos = 0;
     _baseAttrPos = 0 ;
     _attrIndex = 0 ;
+    _bytesPerChar = 1 ;
 }
 
 XMLSaveContext::~XMLSaveContext()
@@ -59,6 +60,22 @@ int XMLSaveContext::indentBase(const QString &tag)
 {
     int result = level() * indentation() + tag.length() + 2;
     return result ;
+}
+
+void XMLSaveContext::setCodec(QTextCodec * theCodec)
+{
+    QTextEncoder *encoder = theCodec->makeEncoder();
+    /*QByteArray discard = */encoder->fromUnicode(" ");
+    _spaceBytes = encoder->fromUnicode(" ");
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite|QIODevice::Text);
+    buffer.write("\n");
+    buffer.close();
+    QByteArray data = buffer.data();
+    QString terminator(data);
+    _crBytes = encoder->fromUnicode(terminator);
+    _bytesPerChar = _spaceBytes.length();
+    delete encoder;
 }
 
 bool XMLSaveContext::isDoIndent() const
@@ -133,10 +150,10 @@ void XMLSaveContext::incAttributePos(QXmlStreamWriter &writer, const int indentB
 {
     if((_indentation > 0) && isAttributesColumns() && (_attrIndex > 0)) {
         if(_currentAttrPos >= attributesMaxColumns()) {
-            writer.writeCharacters("\n");
+            writer.device()->write(_crBytes );
             // WARNING: PEEKING INTO SOURCE: x-1, the last space is added by writer code.
             for(int i = 0 ; i < (indentBase - 1) ; i ++) {
-                writer.writeCharacters(" ");
+                writer.device()->write(_spaceBytes );
             }
             _currentAttrPos = 0 ;
             _baseAttrPos = writer.device()->pos();
@@ -149,7 +166,13 @@ void XMLSaveContext::afterAttributePos(QXmlStreamWriter &writer)
 {
     if((_indentation > 0) && isAttributesColumns()) {
         qint64 nowPos = writer.device()->pos();
-        _currentAttrPos = nowPos - _baseAttrPos ;
+        // using space len as average char width
+        int diff1 = (nowPos - _baseAttrPos);
+        int diffDiv = diff1 / _bytesPerChar ;
+        if( (0==diffDiv) && (diff1>0)) {
+            diffDiv = 1 ;
+        }
+        _currentAttrPos = diffDiv ;
     }
 }
 

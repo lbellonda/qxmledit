@@ -1,4 +1,5 @@
 0.9.4
+    Fixed a problem with file encoding with multibyte characters and attribute alignment.
     New editor for XSD facets.
     Fixed open file, file filter in MacOSX.
     Changed the formatting of the data in binary viewer.

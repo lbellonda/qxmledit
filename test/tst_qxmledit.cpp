@@ -1371,6 +1371,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testIndent();
     testEncoding();
     testEditEnum();
     /*testBinaryViewer();

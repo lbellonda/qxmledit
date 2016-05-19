@@ -1393,6 +1393,12 @@ bool TestEncoding::testSkeleton( const QString &id, const QString &fileStart, co
     if(fakeFile.open(QIODevice::ReadOnly)) {
         isLoaded = app.mainWindow()->loadFileInnerStream(&fakeFile, "a file", true, true);
         fakeFile.close();
+//----------------
+        /*QFile f1("/tmp/3.dat");
+        f1.open(QFile::WriteOnly);
+        f1.write(fakeFile.data());
+        f1.close();*/
+//----------------
         if(!isLoaded) {
             return error(QString("For id:%1, unable to read anew saved data").arg(id));
         }
@@ -1410,15 +1416,15 @@ bool TestEncoding::testLoadSave()
     QList<QXmlEditData::EIndentAttributes> indentValues ;
     indentValues << QXmlEditData::AttributesIndentationNone << QXmlEditData::AttributesIndentationMaxCols ;
     QStringList encodings;
-    encodings << "UTF-16" << "UTF-16BE" << "UTF-16LE" << "UTF-8" << "UTF-7" << "UTF-32" << "ISO-8859-15" << "WINDOWS-1252";
+    encodings << "UTF-16" << "UTF-16BE" << "UTF-16LE" << "UTF-8" << "UTF-32" << "ISO-8859-15" << "WINDOWS-1252";
     QList<int> indentationValues;
     indentationValues << -1 << 0 << 1 << 2 << 4 ;
     QList<int> attrCols;
     attrCols << -1 << 0 << 1 << 2 << 4 ;
 
     foreach( const QString &encoding, encodings ) {
-        printf("Encoding %s\n", encoding.toLatin1().data());
-        fflush(__stdoutp);
+        //printf("Encoding %s\n", encoding.toLatin1().data());
+        //fflush(stdout);
         foreach( const QXmlEditData::EIndentAttributes indentValue, indentValues ) {
             foreach( const int indentationValue, indentationValues ) {
                 foreach( const int attrCol, attrCols ) {

@@ -67,6 +67,9 @@ TestIndent::~TestIndent()
 
 bool TestIndent::testFast()
 {
+    if( !testIndentAttributesWithDefaultValuesInner(0)) {
+        return false;
+    }
     return testSettingsFromPreferences();
 }
 
@@ -465,6 +468,18 @@ bool TestIndent::saveAndCompareAttributesIndentation(const QString &caseId,
     // normalize cr
     reference = reference.replace("\r\n", "\n");
     regolaAsString = regolaAsString.replace("\r\n", "\n");
+
+///-----
+    /*QFile f1("/tmp/1.dat");
+    f1.open(QFile::WriteOnly);
+    f1.write(regolaAsString.toUtf8());
+    f1.close();
+    QFile f2("/tmp/2.dat");
+    f2.open(QFile::WriteOnly);
+    f2.write(reference.toUtf8());
+    f2.close();*/
+
+/// -----
 
     if( reference != regolaAsString ) {
         /*QFile f1("/tmp/1.dat");

@@ -38,10 +38,14 @@ class XMLSaveContext
     qint64 _baseAttrPos ;
     int _attrIndex;
     QHash<QString, QString> _namespacesToInsert;
+    QByteArray _spaceBytes;
+    QByteArray _crBytes;
+    int _bytesPerChar;
 public:
     XMLSaveContext();
     ~XMLSaveContext();
 
+    void setCodec(QTextCodec *theCodec);
     bool isDoIndent() const;
     void setDoIndent(bool doIndent);
     int indentation() const;
