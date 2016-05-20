@@ -262,7 +262,7 @@ void BinaryViewerModel::goToPageAbs(const int newPage)
 QString BinaryViewerModel::formatOffsetOfRow(const int row) const
 {
     qint64 address = (_currentPage * SizeOfPage) + (row * BinaryBlock::DataPerRow) ;
-    return QString("%1").arg(address);
+    return QString("%1 (0x%2)").arg(address).arg(address, 0, 16);
 }
 
 
