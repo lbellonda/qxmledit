@@ -221,11 +221,11 @@ bool TestBinaryViewer::testRows(BinaryViewerModel *model)
     BinaryTestDataPacket pck2pages("2pages", &twoPagesAndHalf);
     int rowsSecondPage = BinaryViewerModel::RowsPerPage-1;
 
-    pck2pages.startTest= BinaryTestData("start",    0, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0" );
-    pck2pages.nextPage = BinaryTestData("nextPage",-1, true,  1, false,  true,                   rowsSecondPage, 0, "00 01 00 00 | 00 01 00 01 | 00 01 00 02 | 00 01 00 03 ", "262144" );
-    pck2pages.prevPage = BinaryTestData("prevPage",-1, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0" );
-    pck2pages.gotoPage = BinaryTestData("gotoPage", 1, false, 1, false,  true,                   rowsSecondPage, 0, "00 01 00 00 | 00 01 00 01 | 00 01 00 02 | 00 01 00 03 ", "262144" );
-    pck2pages.nePage   = BinaryTestData("nePage",   2, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0" );
+    pck2pages.startTest= BinaryTestData("start",    0, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0 (0x0)" );
+    pck2pages.nextPage = BinaryTestData("nextPage",-1, true,  1, false,  true,                   rowsSecondPage, 0, "00 01 00 00 | 00 01 00 01 | 00 01 00 02 | 00 01 00 03 ", "262144 (0x40000)" );
+    pck2pages.prevPage = BinaryTestData("prevPage",-1, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0 (0x0)" );
+    pck2pages.gotoPage = BinaryTestData("gotoPage", 1, false, 1, false,  true,                   rowsSecondPage, 0, "00 01 00 00 | 00 01 00 01 | 00 01 00 02 | 00 01 00 03 ", "262144 (0x40000)" );
+    pck2pages.nePage   = BinaryTestData("nePage",   2, false, 0,  true, false,   BinaryViewerModel::RowsPerPage, 0, "00 00 00 00 | 00 00 00 01 | 00 00 00 02 | 00 00 00 03 ", "0 (0x0)" );
 
     if(!testNoModelPacket( &pck2pages ) ) {
         return false;
@@ -418,7 +418,7 @@ bool TestBinaryViewer::testFunctionalPages()
     dialog.setTestData(ioBuffer);
 
     QString data = dialog.firstRow();
-    if( "0" != data ) {
+    if( "0 (0x0)" != data ) {
         return error(QString( "Data offset found:'%1', expected :0").arg(data));
     }
 
@@ -430,8 +430,8 @@ bool TestBinaryViewer::testFunctionalPages()
     }
     btnNextPage->click();
     data = dialog.firstRow();
-    if( "262144" != data ) {
-        return error(QString( "Data offset found:'%1', expected :262.144").arg(data));
+    if( "262144 (0x40000)" != data ) {
+        return error(QString( "Data offset found:'%1', expected :262144 (0x40000)").arg(data));
     }
     if( !btnPrevPage->isEnabled()) {
         return error("PagePrev is disabled on page 1");
@@ -441,8 +441,8 @@ bool TestBinaryViewer::testFunctionalPages()
     }
     btnPrevPage->click();
     data = dialog.firstRow();
-    if( "0" != data ) {
-        return error(QString( "Data offset found:'%1', expected :0").arg(data));
+    if( "0 (0x0)" != data ) {
+        return error(QString( "Data offset found:'%1', expected :0 (0x0)").arg(data));
     }
     if( btnPrevPage->isEnabled()) {
         return error("PagePrev is enabled on page 0");
@@ -468,8 +468,8 @@ bool TestBinaryViewer::testFunctionalGotoOffset()
 
     QString data = dialog.selectedRow();
 
-    if( "32" != data ) {
-        return error(QString( "Data offset found:'%1', expected :32").arg(data));
+    if( "32 (0x20)" != data ) {
+        return error(QString( "Data offset found:'%1', expected :32 (0x20)").arg(data));
     }
     return true;
 }
@@ -489,8 +489,8 @@ bool TestBinaryViewer::testFunctionalSearch()
 
     QString data = dialog.selectedRow();
 
-    if( "16" != data ) {
-        return error(QString( "Data offset found:'%1', expected :16").arg(data));
+    if( "16 (0x10)" != data ) {
+        return error(QString( "Data offset found:'%1', expected :16 (0x10)").arg(data));
     }
     return true;
 }
