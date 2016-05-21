@@ -42,11 +42,35 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>If unsure, just choose &quot;Use Predefined&quot; or press enter.</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
        <property name="text">
         <string>The settings are available as separate options using the menu View.
-This dialog can be recalled at any time using the menu &quot;Tasks&quot;.
-</string>
+This dialog can be recalled at any time using the menu &quot;Tasks&quot;.</string>
        </property>
       </widget>
      </item>
@@ -335,6 +359,7 @@ This dialog can be recalled at any time using the menu &quot;Tasks&quot;.
   </layout>
  </widget>
  <resources>
+  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections/>
