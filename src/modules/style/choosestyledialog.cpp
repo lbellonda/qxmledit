@@ -111,32 +111,33 @@ QString ChooseStyleDialog::makeDetail(DisplayStyleSetting *setting)
     QString detail ;
     detail += setting->description;
     detail += ":";
+    QChar dot(0x2022);
     if(setting->isOneAttrPerLine) {
-        detail += tr("\n\u2022 One attribute per line");
+        detail += tr("\n%1 One attribute per line").arg(dot);
     }
     if(setting->isOneAttrPerLine) {
-        detail += tr("\n\u2022 Use child index");
+        detail += tr("\n%1 Use child index").arg(dot);
     }
     if(setting->isCompactView) {
-        detail += tr("\n\u2022 Compact view");
+        detail += tr("\n%1 Compact view").arg(dot);
     }
     if(setting->isShowUnBase64) {
-        detail += tr("\n\u2022 Show text base 64 coded");
+        detail += tr("\n%1 Show text base 64 coded").arg(dot);
     }
     if(setting->isShowElementSize) {
-        detail += tr("\n\u2022 Show element size\n   and children");
+        detail += tr("\n%1 Show element size\n   and children").arg(dot);
     }
     if(setting->isShowElementTextLength) {
-        detail += tr("\n\u2022 Show text length");
+        detail += tr("\n%1 Show text length").arg(dot);
     }
     if(setting->isShowFullComments) {
-        detail += tr("\n\u2022 Show full comments");
+        detail += tr("\n%1 Show full comments").arg(dot);
     }
     if(setting->isSortAttributesAlpha) {
-        detail += tr("\n\u2022 Sort attributes");
+        detail += tr("\n%1 Sort attributes").arg(dot);
     }
     if(setting->attributesColumnLimit >= 0) {
-        detail += tr("\n\u2022 Limit attributes\n   line length");
+        detail += tr("\n%1 Limit attributes\n   line length").arg(dot);
     }
     return detail;
 }
