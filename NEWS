@@ -1,4 +1,5 @@
 0.9.4
+    Fixed issue #36 Compilation error in openSUSE c++11 compatibility.
     Fixed a problem with file encoding with multibyte characters and attribute alignment.
     New editor for XSD facets.
     Fixed open file, file filter in MacOSX.

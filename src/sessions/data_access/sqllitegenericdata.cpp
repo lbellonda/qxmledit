@@ -310,8 +310,8 @@ void SQLLiteDataAccess::Private::GenericObjectRead::onData(DataResult &dataResul
     list.append(model);
 }
 
-#define QRY_READ_TAGS_TYPE "select tr.objectId, t.tag from "TABLE_TAGS_RELATIONS" tr join "TABLE_GENERIC_OBJECTS" o on o.type=:type and o.id=tr.objectId join " TABLE_TAGS " t on t.id=tr.tagId "
-#define QRY_READ_TAGS_TYPE_AND_ID "select tr.objectId, t.tag from "TABLE_TAGS_RELATIONS" tr join "TABLE_GENERIC_OBJECTS" o on o.type=:type and o.id=tr.objectId and o.id=:id join " TABLE_TAGS " t on t.id=tr.tagId "
+#define QRY_READ_TAGS_TYPE "select tr.objectId, t.tag from " TABLE_TAGS_RELATIONS " tr join " TABLE_GENERIC_OBJECTS " o on o.type=:type and o.id=tr.objectId join " TABLE_TAGS " t on t.id=tr.tagId "
+#define QRY_READ_TAGS_TYPE_AND_ID "select tr.objectId, t.tag from " TABLE_TAGS_RELATIONS " tr join " TABLE_GENERIC_OBJECTS " o on o.type=:type and o.id=tr.objectId and o.id=:id join " TABLE_TAGS " t on t.id=tr.tagId "
 
 void SQLLiteDataAccess::Private::GenericObjectRead::readTagsForObjects(DataResult &dataResult, SQLLiteDataAccess::Private *db)
 {
