@@ -202,7 +202,7 @@ bool TestIndent::saveAndCompare(const QString &caseId, const int appIndentation,
         compare.append("\n") ;
     }
     QBuffer compareBuffer;
-    compareBuffer.open(QIODevice::WriteOnly|QIODevice::Text);
+    compareBuffer.open(QIODevice::WriteOnly);
     QTextStream stream(&compareBuffer);
     stream.setCodec(QTextCodec::codecForName("UTF-8"));
     stream << compare ;
@@ -212,10 +212,10 @@ bool TestIndent::saveAndCompare(const QString &caseId, const int appIndentation,
     // compare as xml
     CompareXML compareXml ;
     if(!compareXml.compareBufferWithFile(&compareBuffer, FILE_TEST) ) {
-        return error(QString("Compaing ref Data for indent %1, details:%2").arg(indentation).arg(compareXml.errorString()) );
+        return error(QString("Comparing ref Data for indent %1, details:%2").arg(indentation).arg(compareXml.errorString()) );
     }
     if(!compareXml.compareBufferWithFile(&outData, FILE_TEST) ) {
-        return error(QString("Compaing out Data for indent %1, details:%2").arg(indentation).arg(compareXml.errorString()) );
+        return error(QString("Comparing out Data for indent %1, details:%2").arg(indentation).arg(compareXml.errorString()) );
     }
     QString compRef, compRes;
     if( !loadIOAsString(&compareBuffer, "UTF-8", &compRef) ) {
@@ -414,6 +414,20 @@ bool TestIndent::testIndentAttributesIndentInner(const int indentValue, const in
     return true;
 }
 
+
+static void dumpDataOnFile( const QString &fileName, const QByteArray &data)
+{
+    QFile f1(fileName);
+    f1.open(QFile::WriteOnly);
+    f1.write(data);
+    f1.close();
+}
+
+static void dumpStringOnFile( const QString &fileName, const QString &data)
+{
+    dumpDataOnFile(fileName, data.toUtf8());
+}
+
 bool TestIndent::saveAndCompareAttributesIndentation(const QString &caseId,
                                                      //--
                                                      const int appIndentation,
@@ -458,6 +472,8 @@ bool TestIndent::saveAndCompareAttributesIndentation(const QString &caseId,
     QString regolaFromByteArray = QString::fromUtf8(resultData.data());
     QString regolaAsString = regola->getAsText();
     if( regolaFromByteArray != regolaAsString ) {
+        //dumpDataOnFile("1.dat", resultData);
+        //dumpStringOnFile("2.dat", resultData);
         return error(QString("String and ba differ.\nByteArray:\n%1\nString:\n%2\n").arg(regolaFromByteArray).arg(regolaAsString));
     }
     // Compare results.
@@ -470,27 +486,11 @@ bool TestIndent::saveAndCompareAttributesIndentation(const QString &caseId,
     regolaAsString = regolaAsString.replace("\r\n", "\n");
 
 ///-----
-    /*QFile f1("/tmp/1.dat");
-    f1.open(QFile::WriteOnly);
-    f1.write(regolaAsString.toUtf8());
-    f1.close();
-    QFile f2("/tmp/2.dat");
-    f2.open(QFile::WriteOnly);
-    f2.write(reference.toUtf8());
-    f2.close();*/
-
+    //dumpStringOnFile("3.dat", regolaAsString);
+    //dumpStringOnFile("4.dat", reference);
 /// -----
 
     if( reference != regolaAsString ) {
-        /*QFile f1("/tmp/1.dat");
-        f1.open(QFile::WriteOnly);
-        f1.write(regolaAsString.toUtf8());
-        f1.close();
-        QFile f2("/tmp/2.dat");
-        f2.open(QFile::WriteOnly);
-        f2.write(reference.toUtf8());
-        f2.close();*/
-
         return error(QString("String not expected.\nExpected:%1\n%2\nString:%3\n%4\n")
                      .arg(reference.length())
                      .arg(reference)

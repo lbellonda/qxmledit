@@ -62,18 +62,30 @@ int XMLSaveContext::indentBase(const QString &tag)
     return result ;
 }
 
-void XMLSaveContext::setCodec(QTextCodec * theCodec)
+bool XMLSaveContext::isMultiByte()
+{
+    return _spaceBytes.length() > 1 ;
+}
+
+void XMLSaveContext::setCodec(QTextCodec *theCodec)
 {
     QTextEncoder *encoder = theCodec->makeEncoder();
     /*QByteArray discard = */encoder->fromUnicode(" ");
     _spaceBytes = encoder->fromUnicode(" ");
-    QBuffer buffer;
-    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
-    buffer.write("\n");
-    buffer.close();
-    QByteArray data = buffer.data();
-    QString terminator(data);
-    _crBytes = encoder->fromUnicode(terminator);
+    if( !isMultiByte() ) {
+        QBuffer buffer;
+        buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+        QTextStream stream(&buffer);
+        stream.setCodec(QTextCodec::codecForName("UTF-8"));
+        stream << "\n" ;
+        stream.flush();
+        buffer.close();
+        QByteArray data = buffer.data();
+        QString terminator(data);
+        _crBytes = encoder->fromUnicode(terminator);
+    } else {
+        _crBytes = encoder->fromUnicode("\n");
+    }
     _bytesPerChar = _spaceBytes.length();
     delete encoder;
 }

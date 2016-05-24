@@ -46,6 +46,7 @@ public:
     ~XMLSaveContext();
 
     void setCodec(QTextCodec *theCodec);
+    bool isMultiByte();
     bool isDoIndent() const;
     void setDoIndent(bool doIndent);
     int indentation() const;
