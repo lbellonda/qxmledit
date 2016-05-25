@@ -414,7 +414,7 @@ bool TestIndent::testIndentAttributesIndentInner(const int indentValue, const in
     return true;
 }
 
-
+/*
 static void dumpDataOnFile( const QString &fileName, const QByteArray &data)
 {
     QFile f1(fileName);
@@ -422,11 +422,12 @@ static void dumpDataOnFile( const QString &fileName, const QByteArray &data)
     f1.write(data);
     f1.close();
 }
-
+*/
+/*
 static void dumpStringOnFile( const QString &fileName, const QString &data)
 {
     dumpDataOnFile(fileName, data.toUtf8());
-}
+}*/
 
 bool TestIndent::saveAndCompareAttributesIndentation(const QString &caseId,
                                                      //--

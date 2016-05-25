@@ -328,7 +328,8 @@ bool Regola::write(QIODevice *device, const bool isMarkSaved)
 bool Regola::writeStreamInternal(QIODevice *device, const bool useEncoding, ElementLoadInfoMap *map)
 {
     if(!device->isOpen()) {
-        if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
+        // open the stream in binary, since the codec will take care of everything.
+        if(!device->open(QIODevice::WriteOnly)) {
             Utils::error(tr("Error writing data: %1").arg(device->errorString()));
             return false;
         }
@@ -350,7 +351,9 @@ bool Regola::writeStreamInternal(QIODevice *device, const bool useEncoding, Elem
         outputStream.setCodec("UTF-8"); // this should be the default anyway
     }
     context.setCodec(outputStream.codec());
-
+    //Se monobyte, usa text mode e crlf, se multibyte, solo \n. Questo a causa di un bug nello streamwritew.
+    // il mio codice inserisce crlf, quello di libreria, no.
+    device->setTextModeEnabled(context.canUseTextMode());
     int index = 0 ;
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
@@ -377,7 +380,7 @@ bool Regola::writeStreamInternal(QIODevice *device, const bool useEncoding, Elem
 
 bool Regola::writeStream(QIODevice *device, const bool isMarkSaved, ElementLoadInfoMap *map)
 {
-    if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
+    if(!device->open(QIODevice::WriteOnly)) {
         Utils::error(tr("Error writing data: %1").arg(device->errorString()));
         return false;
     }

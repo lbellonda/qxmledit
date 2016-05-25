@@ -41,6 +41,7 @@ class XMLSaveContext
     QByteArray _spaceBytes;
     QByteArray _crBytes;
     int _bytesPerChar;
+    bool _canUseTextMode;
 public:
     XMLSaveContext();
     ~XMLSaveContext();
@@ -72,6 +73,7 @@ public:
     QHash<QString, QString> namespaceDeclarations();
     QHash<QString, QString> &namespaceDeclarationsReference();
     bool hasNamespaceDeclarations();
+    bool canUseTextMode();
 };
 
 #endif // XMLSAVECONTEXT_H

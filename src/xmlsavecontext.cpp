@@ -35,10 +35,16 @@ XMLSaveContext::XMLSaveContext()
     _baseAttrPos = 0 ;
     _attrIndex = 0 ;
     _bytesPerChar = 1 ;
+    _canUseTextMode = false;
 }
 
 XMLSaveContext::~XMLSaveContext()
 {
+}
+
+bool XMLSaveContext::canUseTextMode()
+{
+    return _canUseTextMode ;
 }
 
 void XMLSaveContext::incLevel()
@@ -64,15 +70,17 @@ int XMLSaveContext::indentBase(const QString &tag)
 
 bool XMLSaveContext::isMultiByte()
 {
-    return _spaceBytes.length() > 1 ;
+    return _bytesPerChar > 1 ;
 }
 
 void XMLSaveContext::setCodec(QTextCodec *theCodec)
 {
+    _canUseTextMode = false;
     QTextEncoder *encoder = theCodec->makeEncoder();
     /*QByteArray discard = */encoder->fromUnicode(" ");
     _spaceBytes = encoder->fromUnicode(" ");
-    if( !isMultiByte() ) {
+    _bytesPerChar = _spaceBytes.length();
+    if(!isMultiByte()) {
         QBuffer buffer;
         buffer.open(QIODevice::ReadWrite | QIODevice::Text);
         QTextStream stream(&buffer);
@@ -82,11 +90,16 @@ void XMLSaveContext::setCodec(QTextCodec *theCodec)
         buffer.close();
         QByteArray data = buffer.data();
         QString terminator(data);
-        _crBytes = encoder->fromUnicode(terminator);
+        // the only approved way to enable a text mode
+        if( data == "\x0D\x0A" ) {
+            _canUseTextMode = true ;
+            _crBytes = encoder->fromUnicode(terminator);
+        } else {
+            _crBytes = encoder->fromUnicode("\n");
+        }
     } else {
         _crBytes = encoder->fromUnicode("\n");
     }
-    _bytesPerChar = _spaceBytes.length();
     delete encoder;
 }
 
