@@ -80,6 +80,7 @@ void XMLSaveContext::setCodec(QTextCodec *theCodec)
     /*QByteArray discard = */encoder->fromUnicode(" ");
     _spaceBytes = encoder->fromUnicode(" ");
     _bytesPerChar = _spaceBytes.length();
+    _crBytes = encoder->fromUnicode("\n");
     if(!isMultiByte()) {
         QBuffer buffer;
         buffer.open(QIODevice::ReadWrite | QIODevice::Text);
@@ -91,14 +92,9 @@ void XMLSaveContext::setCodec(QTextCodec *theCodec)
         QByteArray data = buffer.data();
         QString terminator(data);
         // the only approved way to enable a text mode
-        if( data == "\x0D\x0A" ) {
+        if(data == "\x0D\x0A") {
             _canUseTextMode = true ;
-            _crBytes = encoder->fromUnicode(terminator);
-        } else {
-            _crBytes = encoder->fromUnicode("\n");
         }
-    } else {
-        _crBytes = encoder->fromUnicode("\n");
     }
     delete encoder;
 }

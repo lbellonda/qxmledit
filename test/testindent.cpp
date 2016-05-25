@@ -25,6 +25,7 @@
 #include "comparexml.h"
 #include "modules/xml/xmlindentationdialog.h"
 #include "configurationdialog.h"
+#include "xmlsavecontext.h"
 
 #include <QTextCodec>
 #include <QBuffer>
@@ -203,8 +204,11 @@ bool TestIndent::saveAndCompare(const QString &caseId, const int appIndentation,
     }
     QBuffer compareBuffer;
     compareBuffer.open(QIODevice::WriteOnly);
+    XMLSaveContext context;
     QTextStream stream(&compareBuffer);
     stream.setCodec(QTextCodec::codecForName("UTF-8"));
+    context.setCodec(stream.codec());
+    compareBuffer.setTextModeEnabled(context.canUseTextMode());
     stream << compare ;
     stream.flush();
     compareBuffer.close();
