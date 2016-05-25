@@ -31,7 +31,7 @@
 // Version numbers are divided like that: 0x0005.02.00
 
 //------------------------------------------------
-//#define QXMLEDIT_VERSION_IS_SNAPSHOT 1
+#define QXMLEDIT_VERSION_IS_SNAPSHOT 1
 #if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
 #define VERSION_BRANCH "-SNAPSHOT"
 #else
