@@ -69,6 +69,11 @@ DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
     USE_QWTPLOT="N"
 }
 
+INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
+isEmpty(INST_USE_C11) {
+    INST_USE_C11 = ""
+}
+
 TARGET_NAME_UNIXSTYLE=$$(QXMLEDIT_UNIX_LOWERCASE_NAME)
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
@@ -113,6 +118,10 @@ lessThan(QT_MAJOR_VERSION, 5) {
 
 QMAKE_CXXFLAGS +=-Werror
 QMAKE_CXXFLAGS +=-Wall
+
+equals(INST_USE_C11, "y") {
+ QMAKE_CXXFLAGS +=-std=c++11
+}
 
 TARGET = QXmlEdit
 

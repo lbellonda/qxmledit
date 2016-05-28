@@ -1,6 +1,11 @@
 TARGET            = qwtplot3d
 TEMPLATE          = lib
 
+INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
+isEmpty(INST_USE_C11) {
+    INST_USE_C11 = ""
+}
+
 # object files
 #external/qwtplot/src
 OBJECTS_DIR = ../../../build/3dplot/obj
@@ -14,6 +19,10 @@ DESTDIR    = ../../../build
 
 CONFIG           += qt warn_on thread static
 QT               += opengl
+
+equals(INST_USE_C11, "y") {
+ QMAKE_CXXFLAGS +=-std=c++11
+}
 
 SOURCES           = *.cpp
 

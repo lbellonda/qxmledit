@@ -33,6 +33,8 @@ class Element;
 
 class TestEncoding : public TestBase
 {
+    bool testWriteStreamQtBug();
+    bool testFileMode();
     bool testRecognizeEncoding(const QString &file, const QString &expectedEncoding);
     bool testReadAndWriteEncoding();
     bool testReadAndWriteAnEncoding(const QString &fileInput, const QString &encoding);

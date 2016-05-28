@@ -984,3 +984,36 @@ QString Utils::normalizeFilePath(const QString &inputPath)
     QString absPath = fileInfo.absoluteFilePath();
     return absPath ;
 }
+
+
+QByteArray Utils::translateData(const QString &string, const QByteArray &encoding)
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QTextStream stream(&buffer);
+    stream.setCodec(QTextCodec::codecForName(encoding));
+    stream.setGenerateByteOrderMark(false);
+    stream << string ;
+    stream.flush();
+    buffer.close();
+    QByteArray data = buffer.data();
+    return data ;
+}
+
+bool Utils::isAsciiCompatible(const QByteArray &encoding)
+{
+    QByteArray result = translateData("a", encoding);
+    if((result.length() == 1) && (*result.data() == 'a')) {
+        return true ;
+    }
+    return false;
+}
+
+bool Utils::isEncoding8bitNotASCII(const QString &encoding)
+{
+    QByteArray result = translateData("a", encoding.toLatin1());
+    if((result.length() == 1) && (*result.data() != 'a')) {
+        return true ;
+    }
+    return false;
+}

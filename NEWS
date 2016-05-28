@@ -1,4 +1,6 @@
 0.9.4
+    New option to override stream saving to handle 8 bit non ASCII like encodings (EBCDIC)
+    Fixed an issue with contribution module and isnan definition.
     Fixed issue #36 Compilation error in openSUSE c++11 compatibility.
     Fixed a problem with file encoding with multibyte characters and attribute alignment.
     New editor for XSD facets.

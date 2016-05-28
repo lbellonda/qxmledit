@@ -29,6 +29,7 @@
 #include <QDomDocument>
 #include <QTreeWidgetItem>
 #include <QToolButton>
+#include <QByteArray>
 
 class Regola;
 class QMainWindow;
@@ -151,6 +152,10 @@ public:
     static bool isStartingWithDataImage(const QString &data);
     static QString formatTextForTooltipHtml(const QString &input);
     static QString normalizeFilePath(const QString &inputPath);
+    //--- encoding
+    static bool isEncoding8bitNotASCII(const QString &encoding);
+    static bool isAsciiCompatible(const QByteArray &encoding);
+    static QByteArray translateData(const QString &string, const QByteArray &encoding);
 };
 
 

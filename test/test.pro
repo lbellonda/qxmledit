@@ -29,6 +29,11 @@ isEmpty(INST_AVOID_PRECOMP_HEADERS) {
     INST_AVOID_PRECOMP_HEADERS = ""
 }
 
+INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
+isEmpty(INST_USE_C11) {
+    INST_USE_C11 = ""
+}
+
 
 # This is necessary to build the test executable as an app
 DEFINES += LIBQXMLEDIT_LIBRARY_STATIC
@@ -67,6 +72,10 @@ QMAKE_CXXFLAGS +=-Werror
 TARGET = qxmledittest
 CONFIG   += console
 CONFIG   -= app_bundle
+
+equals(INST_USE_C11, "y") {
+ QMAKE_CXXFLAGS +=-std=c++11
+}
 
 TEMPLATE = app
 DESTDIR = ../build

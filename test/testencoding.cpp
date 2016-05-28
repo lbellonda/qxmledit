@@ -27,6 +27,7 @@
 #include "regola.h"
 #include "editprocessinginstruction.h"
 #include "charencodingdialog.h"
+#include "xmlsavecontext.h"
 
 #define DEFAULT_ENCODING    "UTF-8"
 
@@ -59,7 +60,7 @@ TestEncoding::~TestEncoding()
 bool TestEncoding::testFast()
 {
     _testName = "testFast" ;
-    return testLoadSave();
+    return testWriteStreamQtBug();
 }
 
 bool TestEncoding::testUnitTests()
@@ -75,6 +76,9 @@ bool TestEncoding::testUnitTests()
     }
     if(!testExportClipboard()) {
         return false ;
+    }
+    if(!testFileMode()) {
+        return false;
     }
     return true;
 }
@@ -97,6 +101,9 @@ bool TestEncoding::testFunctionalTests()
         return false;
     }
     if(!testWriteEncoding()){
+        return false;
+    }
+    if(!testWriteStreamQtBug()){
         return false;
     }
     return true;
@@ -1408,6 +1415,30 @@ bool TestEncoding::testSkeleton( const QString &id, const QString &fileStart, co
     return true;
 }
 
+bool TestEncoding::testFileMode()
+{
+    _testName = "testFileMode" ;
+    QStringList encodings;
+    encodings << "UTF-16" << "UTF-16BE" << "UTF-16LE" << "UTF-8" << "UTF-32" << "ISO-8859-15" << "WINDOWS-1252" << "IBM-500" ;
+    foreach( const QString &encoding, encodings ) {
+        QByteArray device;
+        XMLSaveContext context;
+        QXmlStreamWriter outputStream(&device);
+        outputStream.setCodec(encoding.toLatin1().data());
+        const bool isTextMode = context.canUseTextMode();
+        bool expectedTextMode = false ;
+#ifdef ENVIRONMENT_WINDOWS
+        if( (encoding== "UTF-8") || (encoding== "ISO-8859-15") || (encoding== "WINDOWS-1252") ) {
+            expectedTextMode = true ;
+        }
+#endif
+        if( isTextMode != expectedTextMode ) {
+            return error(QString("For encoding:'%1' expected:%2").arg(encoding).arg(expectedTextMode));
+        }
+    }
+    return true;
+}
+
 bool TestEncoding::testLoadSave()
 {
     _testName = "testLoadSave" ;
@@ -1444,6 +1475,85 @@ bool TestEncoding::testLoadSave()
             }
         }
     }
-
     return true;
+}
+
+class TestSMES {
+public:
+    QString encoding;
+    bool expected;
+    TestSMES(const QString &newEncoding, const bool newExpected)
+    {
+        encoding = newEncoding ;
+        expected = newExpected;
+    }
+};
+
+static Regola* makeGetRegola(const QString &encoding)
+{
+    Regola *regola = new Regola;
+    Element *prolog = new Element(regola, Element::ET_PROCESSING_INSTRUCTION, NULL);
+    prolog->setPIData(QString("version=\"1.0\" encoding=\"%1\"").arg(encoding));
+    prolog->setPITarget("xml");
+    regola->addTopElement(prolog);
+    Element *root = new Element("root", "", regola, NULL);
+    regola->addTopElement(root);
+    return regola;
+}
+
+bool TestEncoding::testWriteStreamQtBug()
+{
+    _testName = "testWriteStreamQtBug" ;
+    QList<TestSMES*> tests;
+
+    tests << new TestSMES("UTF-8", true);
+    tests << new TestSMES("UTF-16", true);
+    tests << new TestSMES("UTF-16LE", true);
+    tests << new TestSMES("ISO-8859-15", true);
+    tests << new TestSMES("IBM500", false);
+    tests << new TestSMES("IBM1148", false);
+    tests << new TestSMES("WINDOWS-1252", true);
+    tests << new TestSMES("WINDOWS-1251", true); //cyrillic
+    tests << new TestSMES("WINDOWS-1256", true); //arabic
+
+    App app;
+    // this for the Config::management
+    if(!app.init()) {
+        return error("App init");
+    }
+    Config::saveBool(Config::KEY_XML_SAVE_STREAM, true);
+    Regola::setOverrideQTStreamEncodingBug(false);
+    foreach( TestSMES* test, tests) {
+        QString encoding = test->encoding;
+        QTextCodec *encoder = QTextCodec::codecForName(encoding.toLatin1());
+        if( NULL != encoder ) {
+            Regola *regola = makeGetRegola(encoding);
+            bool result = regola->isUseStreamForSaving();
+            if(!result) {
+                EMPTYPTRLIST(tests, TestSMES);
+                delete regola;
+                return error(QString("Set stream off, for encoding:'%1' expecting false").arg(encoding));
+            }
+            delete regola;
+        }
+    }
+    Regola::setOverrideQTStreamEncodingBug(true);
+    foreach( TestSMES* test, tests) {
+        QString encoding = test->encoding;
+        QTextCodec *encoder = QTextCodec::codecForName(encoding.toLatin1());
+        if( NULL != encoder ) {
+            Regola *regola = makeGetRegola(encoding);
+            bool result = regola->isUseStreamForSaving();
+            if(result != test->expected) {
+                QString message = QString("Set stream off, for encoding:'%1' expecting %2").arg(test->encoding).arg(test->expected);
+                EMPTYPTRLIST(tests, TestSMES);
+                delete regola;
+                return error(message);
+            }
+            delete regola;
+        }
+    }
+
+    EMPTYPTRLIST(tests, TestSMES);
+    return true ;
 }

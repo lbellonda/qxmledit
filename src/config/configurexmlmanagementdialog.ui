@@ -292,6 +292,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="cbBugEncodingQt">
+     <property name="toolTip">
+      <string>This option is provisional .</string>
+     </property>
+     <property name="text">
+      <string>Use DOM to overcoming QT problems with non ASCII derived 8 bit characters encoding (e.g. EBCDIC)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="chkSortAttributes">
      <property name="text">
       <string>Sort alphabetically the attributes</string>
@@ -301,9 +311,19 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>chkMetadata</tabstop>
   <tabstop>chkInsProlog</tabstop>
   <tabstop>comboEncoding</tabstop>
+  <tabstop>chkMetadata</tabstop>
+  <tabstop>xmlIndent</tabstop>
+  <tabstop>chkNoIndent</tabstop>
+  <tabstop>cmdIndentReset</tabstop>
+  <tabstop>attrNoIndendation</tabstop>
+  <tabstop>attrNewLineAt</tabstop>
+  <tabstop>attrCharacters</tabstop>
+  <tabstop>cmdPredefinedAttributes</tabstop>
+  <tabstop>cbSaveStream</tabstop>
+  <tabstop>cbBugEncodingQt</tabstop>
+  <tabstop>chkSortAttributes</tabstop>
  </tabstops>
  <resources/>
  <connections/>

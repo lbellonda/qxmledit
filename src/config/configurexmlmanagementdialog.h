@@ -67,6 +67,7 @@ private slots:
     void on_attrNoIndendation_clicked(bool /*checked*/);
     void on_attrNewLineAt_clicked(bool /*checked*/);
     void on_cmdPredefinedAttributes_clicked();
+    void on_cbBugEncodingQt_stateChanged(int /*state*/);
 };
 
 #endif // CONFIGUREXMLMANAGEMENTDIALOG_H

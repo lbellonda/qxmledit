@@ -63,6 +63,7 @@ void ConfigureXMLManagementDialog::init(ApplicationData* data)
     enableIndent();
     ui->cbSaveStream->setChecked(Regola::isSaveUsingStream());
     ui->chkSortAttributes->setChecked(Regola::isSaveSortAlphaAttribute());
+    ui->cbBugEncodingQt->setChecked(Regola::isOverrideQTStreamEncodingBug());
     _attributeHelper.setUp(data->xmlIndentAttributesType(), data->xmlIndentAttributes());
     _started = true ;
 }
@@ -151,6 +152,13 @@ void ConfigureXMLManagementDialog::on_chkSortAttributes_stateChanged(int /*state
 {
     if(_started) {
         Config::saveBool(Config::KEY_XML_SAVE_SORTATTRIBUTES, ui->chkSortAttributes->isChecked());
+    }
+}
+
+void ConfigureXMLManagementDialog::on_cbBugEncodingQt_stateChanged(int /*state*/)
+{
+    if(_started) {
+        Regola::setOverrideQTStreamEncodingBug(ui->cbBugEncodingQt->isChecked());
     }
 }
 

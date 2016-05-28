@@ -21,6 +21,7 @@
  **************************************************************************/
 
 #include "xmlsavecontext.h"
+#include "utils.h"
 
 XMLSaveContext::XMLSaveContext()
 {
@@ -72,7 +73,30 @@ bool XMLSaveContext::isMultiByte()
 {
     return _bytesPerChar > 1 ;
 }
+/*
+QByteArray XMLSaveContext::translateData(const QString &string, const QByteArray &encoding)
+{
+    QBuffer buffer;
+    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    QTextStream stream(&buffer);
+    stream.setCodec(QTextCodec::codecForName(encoding));
+    stream.setGenerateByteOrderMark(false);
+    stream << string ;
+    stream.flush();
+    buffer.close();
+    QByteArray data = buffer.data();
+    return data ;
+}
 
+bool XMLSaveContext::isAsciiCompatible(const QByteArray &encoding)
+{
+    QByteArray result = translateData("a", encoding );
+    if( ( result.length() == 1 ) && (*result.data() == 'a') ) {
+        return true ;
+    }
+    return false;
+}
+*/
 void XMLSaveContext::setCodec(QTextCodec *theCodec)
 {
     _canUseTextMode = false;
@@ -86,13 +110,13 @@ void XMLSaveContext::setCodec(QTextCodec *theCodec)
         buffer.open(QIODevice::ReadWrite | QIODevice::Text);
         QTextStream stream(&buffer);
         stream.setCodec(QTextCodec::codecForName("UTF-8"));
+        stream.setAutoDetectUnicode(false);
         stream << "\n" ;
         stream.flush();
         buffer.close();
         QByteArray data = buffer.data();
-        QString terminator(data);
         // the only approved way to enable a text mode
-        if(data == "\x0D\x0A") {
+        if((data == "\x0D\x0A") && Utils::isAsciiCompatible(theCodec->name())) {
             _canUseTextMode = true ;
         }
     }

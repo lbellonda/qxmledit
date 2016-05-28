@@ -7,6 +7,7 @@
 #endif
 
 #include <string>
+#include <cmath>
 
 #include <QtGlobal>
 #if defined(Q_OS_WIN)
@@ -14,7 +15,11 @@
 
     #define IS_NAN(x) _isnan(x)
 #else
-    #define IS_NAN(x) isnan(x)
+    #if defined (isnan)
+        #define IS_NAN(x) isnan(x)
+    #else
+        #define IS_NAN(x) std::isnan(x)
+    #endif
 #endif
 
 #include "qwt3d_portability.h"

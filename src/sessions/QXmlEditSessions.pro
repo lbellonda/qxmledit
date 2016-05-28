@@ -57,6 +57,12 @@ isEmpty(INST_AVOID_PRECOMP_HEADERS) {
 }
 
 
+INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
+isEmpty(INST_USE_C11) {
+    INST_USE_C11 = ""
+}
+
+
 LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
@@ -108,6 +114,9 @@ win32-msvc2010 {
     QMAKE_CXXFLAGS +=-Werror
 }
 
+equals(INST_USE_C11, "y") {
+ QMAKE_CXXFLAGS +=-std=c++11
+}
 
 lessThan(QT_MAJOR_VERSION, 5) {
     QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs

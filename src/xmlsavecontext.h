@@ -42,6 +42,10 @@ class XMLSaveContext
     QByteArray _crBytes;
     int _bytesPerChar;
     bool _canUseTextMode;
+
+    bool isAsciiCompatible(const QByteArray &encoding);
+    QByteArray translateData(const QString &string, const QByteArray &encoding);
+
 public:
     XMLSaveContext();
     ~XMLSaveContext();

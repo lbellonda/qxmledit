@@ -153,7 +153,7 @@ void Regola::checkEncodingByEl(Element *element)
 bool Regola::setEncoding(QTreeWidget *tree, UIDelegate *uiDelegate, const QString &newEncoding)
 {
     if(!hasProlog()) {
-        if(!uiDelegate->askYN(tr("The element is missina a prolog. In order to change the encoding a prolog must be inserted. Do you want to continue?"))) {
+        if(!uiDelegate->askYN(tr("The element is missing a prolog. In order to change the encoding a prolog must be inserted. Do you want to continue?"))) {
             return false;
         }
         Element *newProlog = insertPrologData(newEncoding);

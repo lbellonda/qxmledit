@@ -144,6 +144,16 @@ void Regola::clear()
     modified = false;
 }
 
+bool Regola::isOverrideQTStreamEncodingBug()
+{
+    return Config::getBool(Config::KEY_XML_SAVE_ASDOMQTBUG, true);
+}
+
+void Regola::setOverrideQTStreamEncodingBug(const bool newValue)
+{
+    Config::saveBool(Config::KEY_XML_SAVE_ASDOMQTBUG, newValue);
+}
+
 void Regola::setDeviceProvider(DocumentDeviceProvider * value)
 {
     _deviceProvider = value ;
@@ -287,9 +297,21 @@ QDomDocument Regola::createNewDocument()
     }
 }
 
+bool Regola::isUseStreamForSaving()
+{
+    bool isUsingDOMForQtBug = isOverrideQTStreamEncodingBug();
+    bool isEncoding8bitNotASCII = Utils::isEncoding8bitNotASCII(encoding());
+    if(isSaveUsingStream()) {
+        if(!isEncoding8bitNotASCII || (isEncoding8bitNotASCII && !isUsingDOMForQtBug)) {
+            return true ;
+        }
+    }
+    return false ;
+}
+
 bool Regola::write(QIODevice *device, const bool isMarkSaved)
 {
-    if(isSaveUsingStream()) {
+    if(isUseStreamForSaving()) {
         return writeStream(device, isMarkSaved);
     }
 
@@ -302,7 +324,7 @@ bool Regola::write(QIODevice *device, const bool isMarkSaved)
             return false;
     }
 
-    if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
+    if(!device->open(QIODevice::WriteOnly | (Utils::isEncoding8bitNotASCII(encoding()) ? (QIODevice::OpenModeFlag)0 : QIODevice::Text))) {
         Utils::error(tr("Error writing data: %1").arg(device->errorString()));
         return false;
     }

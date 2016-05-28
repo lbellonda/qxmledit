@@ -5695,7 +5695,7 @@ Odkazy na entity nyní nejsou podporovány.</translation>
     </message>
     <message>
         <location filename="../modules/xml/prolog.cpp" line="156"/>
-        <source>The element is missina a prolog. In order to change the encoding a prolog must be inserted. Do you want to continue?</source>
+        <source>The element is missing a prolog. In order to change the encoding a prolog must be inserted. Do you want to continue?</source>
         <translation>Prvku chybí prolog. Aby bylo možné změnit kódování, prolog musí být vložen. Chcete pokračovat?</translation>
     </message>
     <message>
