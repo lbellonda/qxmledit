@@ -60,7 +60,7 @@ TestEncoding::~TestEncoding()
 bool TestEncoding::testFast()
 {
     _testName = "testFast" ;
-    return testWriteStreamQtBug();
+    return testAskForWrite();
 }
 
 bool TestEncoding::testUnitTests()
@@ -104,6 +104,9 @@ bool TestEncoding::testFunctionalTests()
         return false;
     }
     if(!testWriteStreamQtBug()){
+        return false;
+    }
+    if(!testAskForWrite()){
         return false;
     }
     return true;
@@ -1501,17 +1504,68 @@ static Regola* makeGetRegola(const QString &encoding)
     return regola;
 }
 
+bool TestEncoding::is8BitEncodingHonoredForStreamWriter(const QString &encoding, bool &isError)
+{
+    bool result = false;
+    QBuffer ioDevice;
+    isError = true ;
+    if(ioDevice.open(QIODevice::WriteOnly)) {
+        QXmlStreamWriter outputStream(&ioDevice);
+        outputStream.setCodec(encoding.toLatin1().data());
+        ioDevice.setTextModeEnabled(false);
+        outputStream.writeStartDocument();
+        outputStream.writeStartElement("root");
+        outputStream.writeEndElement();
+        outputStream.writeEndDocument();
+        ioDevice.close();
+
+        // look at the first data
+        QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1());
+        if( NULL != codec ) {
+            QTextEncoder *encoder = codec->makeEncoder(QTextCodec::IgnoreHeader);
+            if( NULL != encoder ) {
+                isError = false  ;
+                QByteArray codedLt = encoder->fromUnicode("<");
+                if( codedLt.length() == 1 ) {
+                    QByteArray dataConverted = ioDevice.data();
+                    if( dataConverted.length() > 0 ) {
+                        if( dataConverted[0] == codedLt[0] ) {
+                            result = true;
+                        }
+                    }
+                }
+                delete encoder;
+            } // if encoder
+        }
+    }
+    return result;
+}
+
+
 bool TestEncoding::testWriteStreamQtBug()
 {
     _testName = "testWriteStreamQtBug" ;
+
+    bool isError = false ;
+    bool asExpectedIBM500 = is8BitEncodingHonoredForStreamWriter("IBM500", isError);
+    if(isError) {
+        return error("Error in evaluating IBM500");
+    }
+    bool asExpectedIBM1148 = is8BitEncodingHonoredForStreamWriter("IBM1148", isError);
+    if(isError) {
+        return error("Error in evaluating IBM1148");
+    }
+
     QList<TestSMES*> tests;
+
+    //tests << new TestSMES("IBM500", asExpectedIBM500);
 
     tests << new TestSMES("UTF-8", true);
     tests << new TestSMES("UTF-16", true);
     tests << new TestSMES("UTF-16LE", true);
     tests << new TestSMES("ISO-8859-15", true);
-    tests << new TestSMES("IBM500", false);
-    tests << new TestSMES("IBM1148", false);
+    tests << new TestSMES("IBM500", asExpectedIBM500);
+    tests << new TestSMES("IBM1148", asExpectedIBM1148);
     tests << new TestSMES("WINDOWS-1252", true);
     tests << new TestSMES("WINDOWS-1251", true); //cyrillic
     tests << new TestSMES("WINDOWS-1256", true); //arabic
@@ -1522,28 +1576,26 @@ bool TestEncoding::testWriteStreamQtBug()
         return error("App init");
     }
     Config::saveBool(Config::KEY_XML_SAVE_STREAM, true);
-    Regola::setOverrideQTStreamEncodingBug(false);
-    foreach( TestSMES* test, tests) {
+    /*foreach( TestSMES* test, tests) { TODELETE TODO
         QString encoding = test->encoding;
-        QTextCodec *encoder = QTextCodec::codecForName(encoding.toLatin1());
-        if( NULL != encoder ) {
+        QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1());
+        if( NULL != codec ) {
             Regola *regola = makeGetRegola(encoding);
-            bool result = regola->isUseStreamForSaving();
+            bool result = regola->isEncodingCompatibleWithStream();
             if(!result) {
                 EMPTYPTRLIST(tests, TestSMES);
                 delete regola;
-                return error(QString("Set stream off, for encoding:'%1' expecting false").arg(encoding));
+                return error(QString("Set stream off, no override, for encoding:'%1' expecting false").arg(encoding));
             }
             delete regola;
         }
-    }
-    Regola::setOverrideQTStreamEncodingBug(true);
+    }*/
     foreach( TestSMES* test, tests) {
         QString encoding = test->encoding;
-        QTextCodec *encoder = QTextCodec::codecForName(encoding.toLatin1());
-        if( NULL != encoder ) {
+        QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1());
+        if( NULL != codec ) {
             Regola *regola = makeGetRegola(encoding);
-            bool result = regola->isUseStreamForSaving();
+            bool result = regola->isEncodingCompatibleWithStream();
             if(result != test->expected) {
                 QString message = QString("Set stream off, for encoding:'%1' expecting %2").arg(test->encoding).arg(test->expected);
                 EMPTYPTRLIST(tests, TestSMES);
@@ -1554,6 +1606,97 @@ bool TestEncoding::testWriteStreamQtBug()
         }
     }
 
+    EMPTYPTRLIST(tests, TestSMES);
+    return true ;
+}
+
+bool TestEncoding::testAskForWrite()
+{
+    _testName = "testAskForWrite" ;
+
+    bool isError = false ;
+    bool asExpectedIBM500 = is8BitEncodingHonoredForStreamWriter("IBM500", isError);
+    if(isError) {
+        return error("Error in evaluating IBM500");
+    }
+    bool asExpectedIBM1148 = is8BitEncodingHonoredForStreamWriter("IBM1148", isError);
+    if(isError) {
+        return error("Error in evaluating IBM1148");
+    }
+
+    QList<TestSMES*> tests;
+
+    tests << new TestSMES("UTF-8", true);
+    tests << new TestSMES("UTF-16", true);
+    tests << new TestSMES("UTF-16LE", true);
+    tests << new TestSMES("ISO-8859-15", true);
+    tests << new TestSMES("IBM500", asExpectedIBM500);
+    tests << new TestSMES("IBM1148", asExpectedIBM1148);
+    tests << new TestSMES("WINDOWS-1252", true);
+    tests << new TestSMES("WINDOWS-1251", true); //cyrillic
+    tests << new TestSMES("WINDOWS-1256", true); //arabic
+
+    foreach( TestSMES* test, tests) {
+        QString encoding = test->encoding;
+        QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1());
+        if( NULL != codec ) {
+            App app;
+            if(!app.init(true)) {
+                EMPTYPTRLIST(tests, TestSMES);
+                return error("App init");
+            }
+            Config::saveBool(Config::KEY_XML_SAVE_STREAM, true);
+            MainWindow *mainWindow = app.mainWindow();
+            Regola *regola = mainWindow->getRegola();
+            FakeUIDelegate *delegate = app.getCurrentUIDelegate();
+            // 1- set encoding
+            regola->setEncoding(mainWindow->getMainTreeWidget(), app.getUiDelegateYes(), encoding);
+            delegate->setAskCountBeforeLoad(0);
+            // 2- test for saving
+            mainWindow->checkForSaveEncoding();
+            // 3- check expected
+            if(regola->isForceDOM() == test->expected ) {
+                QString message = QString("Step 2 for encoding:'%1' expecting %2").arg(test->encoding).arg(!test->expected);
+                EMPTYPTRLIST(tests, TestSMES);
+                return error(message);
+            }
+            // 4- check if ask called
+            int expectedCallsUID = 0 ;
+            if( regola->isForceDOM() ) {
+                expectedCallsUID = 1 ;
+            }
+            if( delegate->askTotalCount() != expectedCallsUID ) {
+                QString message = QString("Step 3 delegate not called %3 for encoding:'%1' found:%2")
+                        .arg(test->encoding).arg(delegate->askTotalCount()).arg(expectedCallsUID);
+                EMPTYPTRLIST(tests, TestSMES);
+                return error(message);
+            }
+            // 5- call anew
+            mainWindow->checkForSaveEncoding();
+            // 6- check if called (no)
+            delegate = app.getCurrentUIDelegate();
+            if( delegate->askTotalCount() != expectedCallsUID ) {
+                QString message = QString("Step 4 delegate called not %3 for encoding:'%1' found:%2")
+                        .arg(test->encoding).arg(delegate->askTotalCount()).arg(expectedCallsUID);
+                EMPTYPTRLIST(tests, TestSMES);
+                return error(message);
+            }
+            // 7- check value
+            if(regola->isForceDOM() == test->expected ) {
+                QString message = QString("Step 5 for encoding:'%1' force dom expecting %2").arg(test->encoding).arg(!test->expected);
+                EMPTYPTRLIST(tests, TestSMES);
+                return error(message);
+            }
+            // 8- set encoding
+            regola->setEncoding(mainWindow->getMainTreeWidget(), app.getUiDelegateYes(), "UTF-8");
+            // 9- check if flag is set
+            if(regola->isForceDOM() ) {
+                QString message = QString("Step 6 for encoding:'%1' force DOM not expected").arg(test->encoding);
+                EMPTYPTRLIST(tests, TestSMES);
+                return error(message);
+            }
+        }
+    }
     EMPTYPTRLIST(tests, TestSMES);
     return true ;
 }

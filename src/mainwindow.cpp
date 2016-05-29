@@ -1023,6 +1023,7 @@ void MainWindow::on_actionSaveAs_triggered()
 void MainWindow::actionSaveAs_internal(const QString &newFilePath)
 {
     Regola * regola = getRegola();
+    checkForSaveEncoding();
     if(!getEditor()->writeData(newFilePath)) {
         error(tr("Error saving data. Old file is still intact."));
         return ;
@@ -1058,6 +1059,8 @@ void MainWindow::actionSaveACopyAs_internal(const QString &newFilePath)
 {
     Regola * regola = getRegola();
     bool modifiedStatus = regola->isModified();
+
+    checkForSaveEncoding();
     if(!regola->write(newFilePath, false)) {
         error(tr("Error saving data. Old file is still intact."));
         return ;
@@ -1118,9 +1121,9 @@ void MainWindow::on_actionSave_triggered()
 
 bool MainWindow::actionSave_internal(const QString &newFilePath)
 {
+    checkForSaveEncoding();
     return getEditor()->writeData(newFilePath);
 }
-
 
 QString MainWindow::askFileName(const QString &actualName)
 {
@@ -3317,6 +3320,25 @@ void MainWindow::on_actionHelpSetEditorDetail_triggered()
 {
     taskChooseDetail();
 }
+
+/**
+ * @brief MainWindow::checkForSaveEncoding
+ * if the 8 bit encoding triggers a problem in Qt ask the user
+ * if DOM Should be used, warning about reduced functionality
+ * asking one time only
+ */
+void MainWindow::checkForSaveEncoding()
+{
+    Regola *regola = getRegola();
+    if(Regola::isSaveUsingStream() && !regola->isForceDOM()) {
+        if(!regola->isEncodingCompatibleWithStream()) {
+            if(uiDelegate->askYN(tr("QXmlEdit detected that current encoding can lead to a malformed file.\nDo you want to save it using DOM method?\nWarning: DOM does not support attribute alignment and DTD management."))) {
+                regola->setForceDOM(true);
+            }
+        } // if honored
+    } // if stream and not dom forced
+} // checkForSaveEncoding()
+
 
 void MainWindow::on_actionTEST_triggered()
 {

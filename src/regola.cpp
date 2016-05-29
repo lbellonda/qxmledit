@@ -111,6 +111,7 @@ Regola::~Regola()
 
 void Regola::housework()
 {
+    _forceDOM = false;
     _attributesIndentSettings = false;
     _indentAttributes = QXmlEditData::XmlIndentAttributesTypeDefault;
     _indentAttributesColumns = QXmlEditData::XmlIndentAttributesColumnsDefault ;
@@ -142,16 +143,6 @@ void Regola::clear()
     }
     rootItem = NULL ;
     modified = false;
-}
-
-bool Regola::isOverrideQTStreamEncodingBug()
-{
-    return Config::getBool(Config::KEY_XML_SAVE_ASDOMQTBUG, true);
-}
-
-void Regola::setOverrideQTStreamEncodingBug(const bool newValue)
-{
-    Config::saveBool(Config::KEY_XML_SAVE_ASDOMQTBUG, newValue);
 }
 
 void Regola::setDeviceProvider(DocumentDeviceProvider * value)
@@ -297,16 +288,23 @@ QDomDocument Regola::createNewDocument()
     }
 }
 
+bool Regola::isEncodingCompatibleWithStream()
+{
+    QString theEncoding = encoding();
+    bool isEncoding8bitNotASCII = Utils::isEncoding8bitNotASCII(theEncoding);
+    if(isEncoding8bitNotASCII) {
+        bool is8BitEncodingHonored = Utils::is8BitEncodingHonoredForStreamWriter(theEncoding);
+        return is8BitEncodingHonored ;
+    } // if honored
+    return true ;
+}
+
 bool Regola::isUseStreamForSaving()
 {
-    bool isUsingDOMForQtBug = isOverrideQTStreamEncodingBug();
-    bool isEncoding8bitNotASCII = Utils::isEncoding8bitNotASCII(encoding());
-    if(isSaveUsingStream()) {
-        if(!isEncoding8bitNotASCII || (isEncoding8bitNotASCII && !isUsingDOMForQtBug)) {
-            return true ;
-        }
+    if(isSaveUsingStream() && !isForceDOM()) {
+        return true ;
     }
-    return false ;
+    return false;
 }
 
 bool Regola::write(QIODevice *device, const bool isMarkSaved)
@@ -3097,4 +3095,14 @@ bool Regola::isUseXmlIndentAttributesSettings()
 void Regola::setUseXmlIndentAttributesSettings(const bool value)
 {
     _attributesIndentSettings = value ;
+}
+
+bool Regola::isForceDOM() const
+{
+    return _forceDOM;
+}
+
+void Regola::setForceDOM(bool newValue)
+{
+    _forceDOM = newValue;
 }

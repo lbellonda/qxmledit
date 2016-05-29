@@ -989,7 +989,7 @@ QString Utils::normalizeFilePath(const QString &inputPath)
 QByteArray Utils::translateData(const QString &string, const QByteArray &encoding)
 {
     QBuffer buffer;
-    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
+    buffer.open(QIODevice::ReadWrite);
     QTextStream stream(&buffer);
     stream.setCodec(QTextCodec::codecForName(encoding));
     stream.setGenerateByteOrderMark(false);
@@ -1017,3 +1017,38 @@ bool Utils::isEncoding8bitNotASCII(const QString &encoding)
     }
     return false;
 }
+
+
+bool Utils::is8BitEncodingHonoredForStreamWriter(const QString &encoding)
+{
+    bool result = true;
+    QBuffer ioDevice;
+    if(ioDevice.open(QIODevice::WriteOnly)) {
+        QXmlStreamWriter outputStream(&ioDevice);
+        outputStream.setCodec(encoding.toLatin1().data());
+        ioDevice.setTextModeEnabled(false);
+        outputStream.writeStartDocument();
+        outputStream.writeStartElement("root");
+        outputStream.writeEndElement();
+        outputStream.writeEndDocument();
+        ioDevice.close();
+
+        // look at the first data
+        QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1());
+        if(NULL != codec) {
+            QTextEncoder *encoder = codec->makeEncoder(QTextCodec::IgnoreHeader);
+            if(NULL != encoder) {
+                QByteArray codedLt = encoder->fromUnicode("<");
+                if(codedLt.length() == 1) {
+                    QByteArray dataConverted = ioDevice.data();
+                    if((dataConverted.length() > 0) && (dataConverted[0] != codedLt[0])) {
+                        result = false ;
+                    } // if check len
+                } // test len
+                delete encoder;
+            } // if encoder
+        } // if codec
+    } // open device: pessimistic evaluation
+    return result ;
+}
+

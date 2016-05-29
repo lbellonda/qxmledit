@@ -214,7 +214,6 @@ public:
     static const QString KEY_XML_SAVE_STREAM;
     static const QString KEY_XML_SAVE_SORTATTRIBUTES;
     static const QString KEY_XML_LOAD_STREAM;
-    static const QString KEY_XML_SAVE_ASDOMQTBUG;
 
     // base64
     static const QString KEY_BASE64_TYPE;

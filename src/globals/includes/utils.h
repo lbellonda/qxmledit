@@ -156,6 +156,7 @@ public:
     static bool isEncoding8bitNotASCII(const QString &encoding);
     static bool isAsciiCompatible(const QByteArray &encoding);
     static QByteArray translateData(const QString &string, const QByteArray &encoding);
+    static bool is8BitEncodingHonoredForStreamWriter(const QString &encoding);
 };
 
 

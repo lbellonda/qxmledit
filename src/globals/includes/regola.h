@@ -136,6 +136,7 @@ private:
     QHash<QString, QString> _crapCachePrefixNs;
     QUndoStack _undoStack;
     XmlProlog _prolog;
+    bool _forceDOM;
 public:
 
     enum EExportOption {
@@ -238,6 +239,7 @@ public:
     bool writeAsJavaStringInFile(const QString &filePath);
     bool writeAsCStringInFile(const QString &filePath);
     bool isUseStreamForSaving();
+    bool isEncodingCompatibleWithStream();
     QByteArray writeMemory();
     QString getAsText();
     QString getAsText(ElementLoadInfoMap *map);
@@ -478,12 +480,6 @@ public:
     void setSaveAttributesMethod(const ESaveAttributes saveAttributesMethod);
     static bool isSaveSortAlphaAttribute();
     static bool isSaveUsingStream();
-    /**
-     * @brief isOverrideQTStreamEncodingBug is use DOM when saving to avoid a Qt problem on 8 bpc encoding
-     * @return
-     */
-    static bool isOverrideQTStreamEncodingBug();
-    static void setOverrideQTStreamEncodingBug(const bool newValue);
 
     bool readFromStream(XMLLoadContext *context, QXmlStreamReader *xmlReader);
 
@@ -556,6 +552,9 @@ private:
     void clear();
 public:
     void clearUndo();
+    bool isForceDOM() const;
+    void setForceDOM(bool newValue);
+
 private:
     void addUndoInsert(QTreeWidget * tree, Element * element);
     QTreeWidgetItem *getSelItem(QTreeWidget *tree);

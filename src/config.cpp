@@ -210,7 +210,6 @@ const QString Config::KEY_COLOR_ANONATTRPREVIEW("colors/anonAttrPreview");
 const QString Config::KEY_XML_SAVE_STREAM("xml/saveStream");
 const QString Config::KEY_XML_SAVE_SORTATTRIBUTES("xml/sortAttributes");
 const QString Config::KEY_XML_LOAD_STREAM("xml/loadStream");
-const QString Config::KEY_XML_SAVE_ASDOMQTBUG("xml/saveAsDomForQtBug");
 
 // base64
 const QString Config::KEY_BASE64_TYPE("base64/type");

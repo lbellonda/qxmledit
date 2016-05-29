@@ -80,7 +80,6 @@ class MainWindow : public QMainWindow, UIDelegate
     QToolButton *_xsdButton ;
     int _errorCount;
     QString _exportPath ;
-
 public:
     enum EWindowOpen {
         OpenUsingDefaultSettings,
@@ -161,6 +160,7 @@ protected:
     QString getExportPath();
     void updateExportFilePath(const QString &newPath);
     void clearExportFilePath();
+    void checkForSaveEncoding();
 
 private slots:
     void onRaiseWindow();

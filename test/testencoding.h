@@ -33,6 +33,8 @@ class Element;
 
 class TestEncoding : public TestBase
 {
+    bool testAskForWrite();
+    bool is8BitEncodingHonoredForStreamWriter(const QString &encoding, bool &isError);
     bool testWriteStreamQtBug();
     bool testFileMode();
     bool testRecognizeEncoding(const QString &file, const QString &expectedEncoding);

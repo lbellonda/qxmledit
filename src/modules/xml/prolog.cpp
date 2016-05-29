@@ -160,6 +160,7 @@ bool Regola::setEncoding(QTreeWidget *tree, UIDelegate *uiDelegate, const QStrin
         newProlog->markEdited();
         newProlog->caricaFigli(tree, NULL, paintInfo, true, 0);
         afterInsertHousekeeping(newProlog, tree, true);
+        _forceDOM = false;
         emit encodingChanged(newEncoding);
         return true;
     } else {
@@ -180,6 +181,7 @@ bool Regola::setEncoding(QTreeWidget *tree, UIDelegate *uiDelegate, const QStrin
                     first->markEdited();
                     undoCommand->setModifiedElement(first);
                     _undoStack.push(undoCommand);
+                    _forceDOM = false;
                     emit encodingChanged(newEncoding);
                     return true;
                 }
