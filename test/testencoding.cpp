@@ -1541,20 +1541,19 @@ bool TestEncoding::is8BitEncodingHonoredForStreamWriter(const QString &encoding,
     return result;
 }
 
+bool TestEncoding::existsIBM500()
+{
+    QString encoding = "IBM500" ;
+    QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1());
+    if( NULL != codec ) {
+        return true ;
+    }
+    return false ;
+}
 
 bool TestEncoding::testWriteStreamQtBug()
 {
     _testName = "testWriteStreamQtBug" ;
-
-    bool isError = false ;
-    bool asExpectedIBM500 = is8BitEncodingHonoredForStreamWriter("IBM500", isError);
-    if(isError) {
-        return error("Error in evaluating IBM500");
-    }
-    bool asExpectedIBM1148 = is8BitEncodingHonoredForStreamWriter("IBM1148", isError);
-    if(isError) {
-        return error("Error in evaluating IBM1148");
-    }
 
     QList<TestSMES*> tests;
 
@@ -1564,8 +1563,21 @@ bool TestEncoding::testWriteStreamQtBug()
     tests << new TestSMES("UTF-16", true);
     tests << new TestSMES("UTF-16LE", true);
     tests << new TestSMES("ISO-8859-15", true);
-    tests << new TestSMES("IBM500", asExpectedIBM500);
-    tests << new TestSMES("IBM1148", asExpectedIBM1148);
+
+    if( existsIBM500()) {
+        bool isError = false ;
+        bool asExpectedIBM500 = is8BitEncodingHonoredForStreamWriter("IBM500", isError);
+        if(isError) {
+            return error("Error in evaluating IBM500");
+        }
+        bool asExpectedIBM1148 = is8BitEncodingHonoredForStreamWriter("IBM1148", isError);
+        if(isError) {
+            return error("Error in evaluating IBM1148");
+        }
+        tests << new TestSMES("IBM500", asExpectedIBM500);
+        tests << new TestSMES("IBM1148", asExpectedIBM1148);
+    }
+
     tests << new TestSMES("WINDOWS-1252", true);
     tests << new TestSMES("WINDOWS-1251", true); //cyrillic
     tests << new TestSMES("WINDOWS-1256", true); //arabic
@@ -1614,24 +1626,25 @@ bool TestEncoding::testAskForWrite()
 {
     _testName = "testAskForWrite" ;
 
-    bool isError = false ;
-    bool asExpectedIBM500 = is8BitEncodingHonoredForStreamWriter("IBM500", isError);
-    if(isError) {
-        return error("Error in evaluating IBM500");
-    }
-    bool asExpectedIBM1148 = is8BitEncodingHonoredForStreamWriter("IBM1148", isError);
-    if(isError) {
-        return error("Error in evaluating IBM1148");
-    }
-
     QList<TestSMES*> tests;
 
     tests << new TestSMES("UTF-8", true);
     tests << new TestSMES("UTF-16", true);
     tests << new TestSMES("UTF-16LE", true);
     tests << new TestSMES("ISO-8859-15", true);
-    tests << new TestSMES("IBM500", asExpectedIBM500);
-    tests << new TestSMES("IBM1148", asExpectedIBM1148);
+    if(existsIBM500()) {
+        bool isError = false ;
+        bool asExpectedIBM500 = is8BitEncodingHonoredForStreamWriter("IBM500", isError);
+        if(isError) {
+            return error("Error in evaluating IBM500");
+        }
+        bool asExpectedIBM1148 = is8BitEncodingHonoredForStreamWriter("IBM1148", isError);
+        if(isError) {
+            return error("Error in evaluating IBM1148");
+        }
+        tests << new TestSMES("IBM500", asExpectedIBM500);
+        tests << new TestSMES("IBM1148", asExpectedIBM1148);
+    }
     tests << new TestSMES("WINDOWS-1252", true);
     tests << new TestSMES("WINDOWS-1251", true); //cyrillic
     tests << new TestSMES("WINDOWS-1256", true); //arabic

@@ -33,6 +33,7 @@ class Element;
 
 class TestEncoding : public TestBase
 {
+    bool existsIBM500();
     bool testAskForWrite();
     bool is8BitEncodingHonoredForStreamWriter(const QString &encoding, bool &isError);
     bool testWriteStreamQtBug();
