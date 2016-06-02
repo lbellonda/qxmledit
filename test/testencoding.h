@@ -25,6 +25,7 @@
 #define TESTENCODING_H
 
 #include "testbase.h"
+#include "qxmleditdata.h"
 
 class TestEncodingParams;
 class App;
