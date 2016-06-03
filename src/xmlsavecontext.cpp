@@ -73,35 +73,12 @@ bool XMLSaveContext::isMultiByte()
 {
     return _bytesPerChar > 1 ;
 }
-/*
-QByteArray XMLSaveContext::translateData(const QString &string, const QByteArray &encoding)
-{
-    QBuffer buffer;
-    buffer.open(QIODevice::ReadWrite | QIODevice::Text);
-    QTextStream stream(&buffer);
-    stream.setCodec(QTextCodec::codecForName(encoding));
-    stream.setGenerateByteOrderMark(false);
-    stream << string ;
-    stream.flush();
-    buffer.close();
-    QByteArray data = buffer.data();
-    return data ;
-}
 
-bool XMLSaveContext::isAsciiCompatible(const QByteArray &encoding)
-{
-    QByteArray result = translateData("a", encoding );
-    if( ( result.length() == 1 ) && (*result.data() == 'a') ) {
-        return true ;
-    }
-    return false;
-}
-*/
 void XMLSaveContext::setCodec(QTextCodec *theCodec)
 {
     _canUseTextMode = false;
     QTextEncoder *encoder = theCodec->makeEncoder();
-    /*QByteArray discard = */encoder->fromUnicode(" ");
+    /*QByteArray discardBOMIfAny = */encoder->fromUnicode(" ");
     _spaceBytes = encoder->fromUnicode(" ");
     _bytesPerChar = _spaceBytes.length();
     _crBytes = encoder->fromUnicode("\n");

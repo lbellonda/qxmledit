@@ -1428,6 +1428,7 @@ bool TestEncoding::testFileMode()
         XMLSaveContext context;
         QXmlStreamWriter outputStream(&device);
         outputStream.setCodec(encoding.toLatin1().data());
+        context.setCodec(outputStream.codec());
         const bool isTextMode = context.canUseTextMode();
         bool expectedTextMode = false ;
 #ifdef ENVIRONMENT_WINDOWS
