@@ -2582,9 +2582,9 @@ bool Element::setAttributes(QList<Attribute*> newAttributes)
     bool isOk = true ;
     clearAttributes();
     foreach(Attribute * newAttribute, newAttributes) {
-        Attribute * attribute = newAttribute->clone();
-        if(NULL != attribute) {
-            attributes.append(newAttribute->clone());
+        Attribute * clonedAttribute = newAttribute->clone();
+        if(NULL != clonedAttribute) {
+            attributes.append(clonedAttribute);
         } else {
             isOk = false ;
         }
