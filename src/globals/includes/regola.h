@@ -165,6 +165,7 @@ private:
 
     QString _originalEncoding;
     ESaveAttributes _saveAttributesMethod;
+    bool _ownPaintInfo;
 
 public:
     Regola(QDomDocument &document, const QString &name, const bool useMixedContent = false);

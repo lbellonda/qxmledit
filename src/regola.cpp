@@ -66,7 +66,6 @@ Regola::Regola(QDomDocument &document, const QString &name, const bool useMixedC
 {
     housework();
     _useMixedContent = useMixedContent ;
-    paintInfo = new PaintInfo() ;
     modified = false;
     _collectSizeData = false ;
     xmlFileName = name ;
@@ -82,7 +81,6 @@ Regola::Regola(const QString &name, const bool useMixedContent)
 {
     housework();
     _useMixedContent = useMixedContent ;
-    paintInfo = new PaintInfo() ;
     modified = false;
     _collectSizeData = false ;
     xmlFileName = name ;
@@ -93,7 +91,6 @@ Regola::Regola(const QString &name, const bool useMixedContent)
 Regola::Regola()
 {
     housework();
-    paintInfo = new PaintInfo() ;
     bookmarks.clear();
     modified = false;
     rootItem = NULL;
@@ -107,10 +104,17 @@ Regola::~Regola()
     if(NULL != _docType) {
         delete _docType;
     }
+    if(_ownPaintInfo) {
+        if(NULL != paintInfo) {
+            delete paintInfo;
+        }
+    }
 }
 
 void Regola::housework()
 {
+    paintInfo = new PaintInfo() ;
+    _ownPaintInfo = true ;
     _forceDOM = false;
     _attributesIndentSettings = false;
     _indentAttributes = QXmlEditData::XmlIndentAttributesTypeDefault;
@@ -1655,16 +1659,20 @@ bool Regola::isBookmarked(Element* element)
 
 void Regola::setPaintInfo(PaintInfo *newValue)
 {
-    if(NULL != paintInfo) {
-        delete paintInfo;
+    if(_ownPaintInfo) {
+        if(NULL != paintInfo) {
+            delete paintInfo;
+        }
     }
     paintInfo = newValue ;
+    _ownPaintInfo = false;
 }
 
 PaintInfo *Regola::getPaintInfo()
 {
     if(NULL == paintInfo) {
         paintInfo = new PaintInfo();
+        _ownPaintInfo = true ;
     }
     return paintInfo;
 }

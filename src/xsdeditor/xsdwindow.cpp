@@ -157,6 +157,9 @@ XSDWindow::~XSDWindow()
     deleteAllItems();
     _context.setItemContext(NULL);
     _context.clear();
+    if(NULL != _scene) {
+        delete _scene ;
+    }
     delete ui;
 }
 
