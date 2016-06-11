@@ -1367,16 +1367,11 @@ static void msgHandler(QtMsgType, const QMessageLogContext &, const QString &msg
     printf("%s\n", msg.toLatin1().data());
 }
 */
+
 void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testIndent();
-    testEncoding();
-    testEditEnum();
-    /*testBinaryViewer();
-    testCopyAttrs();
-    testXSDNavigation();*/
 }
 
 QTEST_MAIN(TestQXmlEdit)

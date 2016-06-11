@@ -31,14 +31,14 @@
 // Version numbers are divided like that: 0x0005.02.00
 
 //------------------------------------------------
-//#define QXMLEDIT_VERSION_IS_SNAPSHOT 1
+#define QXMLEDIT_VERSION_IS_SNAPSHOT 1
 #if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
 #define VERSION_BRANCH "-SNAPSHOT"
 #else
 #define VERSION_BRANCH ""
 #endif
-#define VERSION_BASE "0.9.4"
-#define VERSION_NUMBER 0x00090400
+#define VERSION_BASE "0.9.5"
+#define VERSION_NUMBER 0x00090500
 // this is the version number of the welcome dialog
 #define VERSION_NUMBER_WELCOME 0x00050200
 //------------------------------------------------
