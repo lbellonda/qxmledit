@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+    <two one="a" two="b" three="c"/>
+    <two one="a" quattro="b" three="c"/>
+    <two one="a" two="b" sei="z"/>
+    <two a="a" b="b" c="c"/>
+    <two/>
+</root>

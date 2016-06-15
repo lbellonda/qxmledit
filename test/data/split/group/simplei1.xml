@@ -1,0 +1,21 @@
+<root>
+	<one>
+                <two one="a" two="b" three="c">
+                <child a="1"/>
+                </two>
+	</one>
+        <child a="1"/>
+	<one>
+		<two one="a" two="b" three="c"/>
+                <two one="a" two="b" three="z"/>
+	</one>
+        <child a="1"/>
+        <!-- comment -->
+        abc
+        <abc>
+                <two one="a" two="b" three="c"/>
+                <rrr one="1" two="2" three="3"/>
+        </abc>
+        <child a="1"/>
+        <child a="1"/>
+</root>

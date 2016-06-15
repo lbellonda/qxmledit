@@ -1,0 +1,13 @@
+<root>
+	<one>
+		<two one="a" two="b" three="c"/>
+	</one>
+	<one>
+		<two one="a" two="b" three="c"/>
+                <two one="a" two="b" three="z"/>
+	</one>
+        <abc>
+                <two one="a" two="b" three="c"/>
+                <rrr one="1" two="2" three="3"/>
+        </abc>
+</root>

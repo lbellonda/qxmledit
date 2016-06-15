@@ -1,0 +1,28 @@
+<root>
+    <!-- -->
+    <one>
+        <two one="a" two="b" three="c">
+            <child a="1"/>
+        </two>
+    </one>
+    <child a="1"/>
+    <one>
+        <two one="a" quattro="b" three="c"/>
+        <two one="a" two="b" sei="z"/>
+    </one>
+    <child a="1"/>
+    <!-- comment -->
+        abc
+        <abc>
+        <two a="1a" b="2b" c="c"/>
+        <rrr c="3" bb="2" aa="1"/>
+        <two/>
+    </abc>
+    <one>
+        <two a="a" b="b" c="c"/>
+        <rrr c="3" bb="2" aa="1"/>
+        <two/>
+    </one>
+    <child a="1"/>
+    <child a="1"/>
+</root>
