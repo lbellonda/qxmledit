@@ -127,7 +127,6 @@ public:
     static const QString  KEY_FRAGMENTS_FILESNAMEPATTERN;
     static const QString  KEY_FRAGMENTS_SUBFOLDERSNAMEPATTERN;
     static const QString  KEY_FRAGMENTS_REVERSERANGE;
-    static const QString  KEY_FRAGMENTS_ISAFILTER;
     static const QString  KEY_FRAGMENTS_ATTRIBUTENAME;
     static const QString  KEY_FRAGMENTS_COMPARISONTERM;
     static const QString  KEY_FRAGMENTS_COMPARISONTYPE;
@@ -136,6 +135,7 @@ public:
     static const QString  KEY_FRAGMENTS_FILTERALLTEXT;
     static const QString  KEY_FRAGMENTS_FILTERTEXTFORPATH;
     static const QString  KEY_FRAGMENTS_FILTERTEXT_PATH;
+    static const QString  KEY_FRAGMENTS_OPERATION_TYPE;
 
     // welcome dialog
     static const QString  KEY_WELCOMEDIALOG_ENABLED;

@@ -123,7 +123,6 @@ const QString Config::KEY_FRAGMENTS_SUBFOLDERSEACH("extractFragments/subFoldersE
 const QString Config::KEY_FRAGMENTS_FILESNAMEPATTERN("extractFragments/filenamesPattern");
 const QString Config::KEY_FRAGMENTS_SUBFOLDERSNAMEPATTERN("extractFragments/subFoldersNamePattern");
 const QString Config::KEY_FRAGMENTS_REVERSERANGE("extractFragments/reverseRange");
-const QString Config::KEY_FRAGMENTS_ISAFILTER("extractFragments/isAFilter");
 const QString Config::KEY_FRAGMENTS_ATTRIBUTENAME("extractFragments/attributeName");
 const QString Config::KEY_FRAGMENTS_COMPARISONTERM("extractFragments/comparisonTerm");
 const QString Config::KEY_FRAGMENTS_COMPARISONTYPE("extractFragments/comparisonType");
@@ -132,6 +131,8 @@ const QString Config::KEY_FRAGMENTS_SPLITTYPE("extractFragments/splitType");
 const QString Config::KEY_FRAGMENTS_FILTERALLTEXT("extractFragments/filterAllText");
 const QString Config::KEY_FRAGMENTS_FILTERTEXTFORPATH("extractFragments/filterTextForPath");
 const QString Config::KEY_FRAGMENTS_FILTERTEXT_PATH("extractFragments/pathForFilterText");
+const QString Config::KEY_FRAGMENTS_OPERATION_TYPE("extractFragments/operationType");
+
 
 // welcome dialog
 const QString Config::KEY_WELCOMEDIALOG_ENABLED("welcomeDialog/enabled");

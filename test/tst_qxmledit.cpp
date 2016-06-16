@@ -172,6 +172,11 @@ void TestQXmlEdit::testSplit()
     TestSplit ts;
     bool result ;
 
+    {
+        TestSplit test;
+        result = test.testFast();
+        QVERIFY2(result, QString("Test Split: testFast. details: %1").arg(test.errorString()).toLatin1().data());
+    }
     result = ts.testParameters();
     QVERIFY2(result, QString("Test Split: parameters. details: %1").arg(ts.errorString()).toLatin1().data());
     result = ts.testParametersNoExtract();
@@ -203,7 +208,9 @@ void TestQXmlEdit::testSplit()
     QVERIFY2(result, "Test Split absolute: filter diff.");
     result = ts.testSplitFilterTextRelative();
     QVERIFY2(result, "Test Split Relative: filter diff.");
-
+    //---
+    result = ts.testSplitGroup();
+    QVERIFY2(result, "Test testSplitGroup: diff.");
 }
 
 void TestQXmlEdit::testMixedContent()
@@ -1372,6 +1379,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testSplit();
 }
 
 QTEST_MAIN(TestQXmlEdit)

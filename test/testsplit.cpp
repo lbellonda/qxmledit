@@ -148,6 +148,10 @@ bool TestSplit::testParameters()
     if(!checkResetParametersFilterText(op) ) {
         return error();
     }
+    op.setOperationType((ExtractionOperation::EOperationType)-1);
+    if(ExtractionOperation::ParamErrorBadOperationType != op.checkParameters() ) {
+        return error("check error EOperationType");
+    }
     return true ;
 }
 
@@ -362,6 +366,14 @@ bool TestSplit::checkFilter(const QString &file1, const QString &file2)
     return true ;
 }
 
+bool TestSplit::checkCSV(const QString &file1, const QString &fileReference)
+{
+    if(!compareFiles(file1, fileReference)) {
+        return false;
+    }
+    return true ;
+}
+
 bool TestSplit::testSplitAndNavigate()
 {
     ExtractResults results;
@@ -433,7 +445,7 @@ void TestSplit::setupFilterParameters(ExtractionOperation *operation, const bool
     operation->setExtractFolder(extractFolder);
     operation->setIsMakeSubFolders(true);
     operation->setSubFoldersEachNFiles(1);
-    operation->setIsAFilter(true);
+    operation->setOperationType(ExtractionOperation::OperationFilter);
     QStringList list;
     list.append(timeStamp);
     operation->setFilesNamePattern(list);
@@ -457,7 +469,7 @@ void TestSplit::setupFilterParametersCfr(ExtractionOperation *operation, const Q
     operation->setExtractFolder(extractFolder);
     operation->setIsMakeSubFolders(true);
     operation->setSubFoldersEachNFiles(1);
-    operation->setIsAFilter(true);
+    operation->setOperationType(ExtractionOperation::OperationFilter);
     QStringList list;
     list.append(timeStamp);
     operation->setFilesNamePattern(list);
@@ -726,7 +738,7 @@ void TestSplit::setupFilterParametersFilterText(ExtractionOperation *operation,
     operation->setExtractFolder(extractFolder);
     operation->setIsMakeSubFolders(true);
     operation->setSubFoldersEachNFiles(1000);
-    operation->setIsAFilter(isFilter);
+    operation->setOperationType(isFilter?ExtractionOperation::OperationFilter:ExtractionOperation::OperationSplit);
     if( isFilter ) {
         operation->setSplitDepth(1);
         operation->setSplitType(ExtractionOperation::SplitUsingDepth);
@@ -860,3 +872,126 @@ bool TestSplit::testFilterTextAbsoluteFilterWrongPath()
     return splitAndNavigateFilterText(INPUT_FILTER_TEXT, true, INPUT_FILTER_TEXT, "", "/a/b/c/d/e");
 }
 
+#define BASE_DATA    "../test/data/split/group/"
+
+#define INPUT_FILE_CSV_I0   BASE_DATA "simplei.xml"
+#define OUTPUT_FILE_CSV_OCSV   BASE_DATA "simplepath.csv"
+#define OUTPUT_FILE_CSV_OXML   BASE_DATA "simplepath.xml"
+#define OUTPUT_FILE_CSV_O1CSV   BASE_DATA "simplen.csv"
+#define OUTPUT_FILE_CSV_O1XML   BASE_DATA "simplen.xml"
+
+#define INPUT_FILE_CSV_I1   BASE_DATA "simplei1.xml"
+
+#define OUTPUT_FILE_CSV_1CSV   OUTPUT_FILE_CSV_OCSV
+#define OUTPUT_FILE_CSV_1XML   OUTPUT_FILE_CSV_OXML
+#define OUTPUT_FILE_CSV_11CSV   OUTPUT_FILE_CSV_O1CSV
+#define OUTPUT_FILE_CSV_11XML   OUTPUT_FILE_CSV_O1XML
+
+//----------
+#define INPUT_FILE_CSV_I2   BASE_DATA "simplei2.xml"
+#define OUTPUT_FILE_CSV_2CSV   BASE_DATA "simplepath2.csv"
+#define OUTPUT_FILE_CSV_2XML   BASE_DATA "simplepath2.xml"
+#define OUTPUT_FILE_CSV_21CSV   BASE_DATA "simplen2.csv"
+#define OUTPUT_FILE_CSV_21XML   BASE_DATA "simplen2.xml"
+//----------
+#define INPUT_FILE_CSV_I3   BASE_DATA "simplei3.xml"
+#define OUTPUT_FILE_CSV_3CSV   BASE_DATA "simplepath3.csv"
+#define OUTPUT_FILE_CSV_3XML   BASE_DATA "simplepath3.xml"
+#define OUTPUT_FILE_CSV_31CSV   BASE_DATA "simplen3.csv"
+#define OUTPUT_FILE_CSV_31XML   BASE_DATA "simplen3.xml"
+//----------
+
+bool TestSplit::testFast()
+{
+    return testSplitGroup();
+}
+
+bool TestSplit::testSplitGroup()
+{
+    _testName = "testSplitGroup";
+
+    // CSV
+    // one attribute
+    if(!group(INPUT_FILE_CSV_I0, OUTPUT_FILE_CSV_OCSV, OUTPUT_FILE_CSV_OXML, OUTPUT_FILE_CSV_O1CSV, OUTPUT_FILE_CSV_O1XML) ) {
+        return false ;
+    }
+    // same attributes on more lines
+    if(!group(INPUT_FILE_CSV_I1, OUTPUT_FILE_CSV_1CSV, OUTPUT_FILE_CSV_1XML, OUTPUT_FILE_CSV_11CSV, OUTPUT_FILE_CSV_11XML) ) {
+        return false ;
+    }
+    // with lacunes, even in first position
+    if(!group(INPUT_FILE_CSV_I2, OUTPUT_FILE_CSV_2CSV, OUTPUT_FILE_CSV_2XML, OUTPUT_FILE_CSV_21CSV, OUTPUT_FILE_CSV_21XML) ) {
+        return false ;
+    }
+    // differen text features
+    if(!group(INPUT_FILE_CSV_I3, OUTPUT_FILE_CSV_3CSV, OUTPUT_FILE_CSV_3XML, OUTPUT_FILE_CSV_31CSV, OUTPUT_FILE_CSV_31XML) ) {
+        return false ;
+    }
+    return true ;
+}
+
+bool TestSplit::group(const QString &fileReference, const QString &fileResultCSV, const QString &fileResultXML, const QString &fileResultCSVN, const QString &fileResultXMLN )
+{
+    if(!groupCSVXML(false, fileReference, fileResultCSV, true ) ) {
+        return false;
+    }
+    if(!groupCSVXML(false, fileReference, fileResultCSVN, false ) ) {
+        return false;
+    }
+    if(!groupCSVXML(true, fileReference, fileResultXML, true ) ) {
+        return false;
+    }
+    if(!groupCSVXML(true, fileReference, fileResultXMLN, false ) ) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestSplit::groupCSVXML(const bool isXMLOrCSV, const QString &fileReference, const QString &fileResult, const bool isPath)
+{
+    _testName = QString("groupCSVXML %1 %2 %3").arg(isXMLOrCSV).arg(fileResult).arg(isPath);
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    QString extractFolder(SystemServices::tempLocation());
+
+    QString timeStamp = newTS();
+    setupFilterParametersFilterText(&op, extractFolder, timeStamp, fileReference, "", !isPath);
+    if(!isPath) {
+        op.setSplitDepth(3);
+        op.setSplitType(ExtractionOperation::SplitUsingDepth);
+    } else {
+        op.setSplitPath("/root/one/two");
+        op.setSplitType( ExtractionOperation::SplitUsingPath);
+    }
+
+    op.setOperationType(isXMLOrCSV?ExtractionOperation::OperationExportAndGroupXML:ExtractionOperation::OperationExportAndGroupCSV);
+
+    QStringList list;
+    list.append(timeStamp);
+    list.append("%counter%");
+    QStringList listF;
+    listF.append(timeStamp);
+    listF.append("qxmledit_test");
+    extractFolder.append(QDir::separator());
+    extractFolder.append(timeStamp);
+    extractFolder.append("qxmledit_test");
+    QString fileName1 = op.makeAName(extractFolder, 1, list, 1);
+    fileName1.append(isXMLOrCSV?".xml":".csv");
+    // do operation
+    op.performExtraction();
+    if(op.isError()) {
+        return error(QString("Split relative Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
+    }
+    if(isXMLOrCSV) {
+        bool result = checkFilter(fileResult, fileName1);
+        if(!result) {
+            return error("Filter is not correct 1\n");
+        }
+    } else {
+        bool result = checkCSV(fileName1, fileResult);
+        if(!result) {
+            return false;
+        }
+    }
+    return true ;
+}

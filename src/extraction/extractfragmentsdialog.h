@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -57,7 +57,8 @@ public:
 private:
     Ui::ExtractFragmentsDialog *ui;
 
-    void LoadComboBoxCfrOpr(QComboBox *combo);
+    void loadComboBoxCfrOpr(QComboBox *combo);
+    void loadComboBoxOperation();
     void initUIFromOperation();
     void fillOperationFromUI();
     bool checkOperationParameters();

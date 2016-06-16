@@ -30,6 +30,7 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QFile>
+#include <QTextStream>
 #include "extractresults.h"
 #include "libQXmlEdit_global.h"
 
@@ -45,7 +46,9 @@ public:
     QFile outputFile;
     uint currentSubfolderDocument;
     QXmlStreamWriter xmlWriter;
+    QTextStream csvWriter;
     QString currentFolderPath;
+    QHash<QString, int> _mapForCSVColumns;
 
     ExtractInfo();
     ~ExtractInfo();
@@ -89,6 +92,13 @@ public:
         SplitUsingDepth
     };
 
+    enum EOperationType {
+        OperationSplit,
+        OperationFilter,
+        OperationExportAndGroupXML,
+        OperationExportAndGroupCSV,
+    };
+
 public:
     QMutex _mutex;
     QString currentSubFolder;
@@ -108,7 +118,7 @@ private:
     int _splitDepth;
     ESplitType _splitType;
     bool _isExtractDocuments;
-    bool _isAFilter ;
+    EOperationType _operationType ;
     bool _isReverseRange ;
     unsigned int _minDoc, _maxDoc;
     QString _extractFolder;
@@ -135,7 +145,10 @@ private:
     EXMLErrors decodeError(const QXmlStreamReader::Error error);
     void handleError(QXmlStreamReader &reader);
     void handleWriteError();
+    bool handleExportedElement(ExtractInfo &info, QXmlStreamReader &reader);
     void setError(const EXMLErrors code, const QString message);
+    bool isExportCSV() const;
+    bool isXMLFilterExport() const;
     void execute(QFile *file);
     bool checkStatus();
 
@@ -194,8 +207,8 @@ public:
     QString errorMessage();
     bool isAborted();
     void setAborted(const bool value);
-    bool isAFilter();
-    void setIsAFilter(const bool value);
+    EOperationType OperationType();
+    void setOperationType(const EOperationType value);
     bool isReverseRange();
     void setReverseRange(const bool value);
     bool isDebug();
@@ -244,7 +257,8 @@ public:
         ParamErrorCfrAttr,
         ParamErrorSplitDepth, // invalid depth
         ParamErrorSplitType, // invalid type
-        ParamErrorNoDeleteTextPath
+        ParamErrorNoDeleteTextPath,
+        ParamErrorBadOperationType
     };
 
     EParamErrors checkParameters();

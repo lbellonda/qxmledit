@@ -54,7 +54,7 @@ void ExtractionOperation::init()
     _subfolderNamePattern.clear();
     _filesNamePattern.clear();
     _isExtractDocuments = true ;
-    _isAFilter = false;
+    _operationType = OperationSplit ;
     _isReverseRange = false;
     _comparisonType = CFR_EQ ;
     _isDocumentStandalone = false ;
@@ -125,6 +125,16 @@ bool ExtractionOperation::isFilterTextPathAbsolute()
     return false;
 }
 
+bool ExtractionOperation::isExportCSV() const
+{
+    return OperationExportAndGroupCSV == _operationType ;
+}
+
+bool ExtractionOperation::isXMLFilterExport() const
+{
+    return OperationExportAndGroupXML == _operationType ;
+}
+
 void ExtractionOperation::execute(QFile *file)
 {
     bool debugIO = _debug ;
@@ -164,7 +174,7 @@ void ExtractionOperation::execute(QFile *file)
     //rawData.reserve(InputFileBufferSize);
 
     //file->seek(0);
-
+    info._mapForCSVColumns.clear();
     if(!_isMakeSubFolders) {
         info.currentFolderPath = _extractFolder ;
     }
@@ -174,7 +184,8 @@ void ExtractionOperation::execute(QFile *file)
     }
     bool registerNextLinePos = false ;
     bool isInterDocument = false;
-    bool isAFilteredExtraction =  _isExtractDocuments && !isExtractAllDocuments() && _isAFilter;
+    bool isAFilteredExtraction =  _isExtractDocuments && !isExtractAllDocuments() && (OperationFilter == _operationType);
+    bool isAnExportExtraction =  _isExtractDocuments && ((OperationExportAndGroupCSV == _operationType) || (OperationExportAndGroupXML == _operationType));
 
     while(true) {
 
@@ -249,6 +260,7 @@ void ExtractionOperation::execute(QFile *file)
                     }
                     if(isCurrentElementFilterText) {
                         dontWrite = true ;
+                        Utils::TODO_THIS_RELEASE(";<< per export, ecc");
                     }
                 }
                 break;
@@ -259,7 +271,7 @@ void ExtractionOperation::execute(QFile *file)
                 _documentVersion = xmlReader.documentVersion().toString();
                 isInterDocument = true;
                 // if it is a filter, open the file or fail
-                if(isAFilteredExtraction) {
+                if(isAFilteredExtraction || isAnExportExtraction) {
                     dontWrite = true ;
                     if(!handleNewFile(info)) {
                         handleCloseOutputFile(info);
@@ -316,12 +328,18 @@ void ExtractionOperation::execute(QFile *file)
                         }
                         insideAFragment = true ;
                         if(registerDocument) {
-                            isWriting = true ;
-                            if(!isAFilteredExtraction) {
-                                if(!handleNewFile(info)) {
+                            if(isAnExportExtraction) {
+                                if(!handleExportedElement(info, xmlReader)) {
                                     isError = true ;
                                 }
-                            } // check new file iff it is not a filtered op.
+                            } else {
+                                isWriting = true ;
+                                if(!isAFilteredExtraction) {
+                                    if(!handleNewFile(info)) {
+                                        isError = true ;
+                                    }
+                                } // check new file iff it is not a filtered op.
+                            }
                         }
                     }
                 }
@@ -548,23 +566,32 @@ bool ExtractionOperation::openFile(ExtractInfo &info)
     QString filePath = info.currentFolderPath;
     filePath.append(QDir::separator());
     filePath.append(fileName);
-    filePath.append(".xml");
+    filePath.append(isExportCSV() ? ".csv" : ".xml");
     info.outputFile.setFileName(filePath);
     if(!info.outputFile.open(QIODevice::WriteOnly)) {
         setError(EXML_OpenWriteError, tr("Unable to open for writing the file '%1'").arg(filePath));
         return false;
     }
-    info.xmlWriter.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
-    info.xmlWriter.setDevice(&info.outputFile);
-    info.xmlWriter.setAutoFormatting(true);
-    if(_isDocumentStandalone) {
-        info.xmlWriter.writeStartDocument(_documentVersion, _isDocumentStandalone);
+    if(isExportCSV()) {
+        info.csvWriter.setDevice(&info.outputFile);
+        info.csvWriter.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
     } else {
-        if(!_documentVersion.isEmpty()) {
-            info.xmlWriter.writeStartDocument(_documentVersion);
+        info.xmlWriter.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
+        info.xmlWriter.setDevice(&info.outputFile);
+        info.xmlWriter.setAutoFormatting(true);
+        if(_isDocumentStandalone) {
+            info.xmlWriter.writeStartDocument(_documentVersion, _isDocumentStandalone);
         } else {
-            info.xmlWriter.writeStartDocument();
+            if(!_documentVersion.isEmpty()) {
+                info.xmlWriter.writeStartDocument(_documentVersion);
+            } else {
+                info.xmlWriter.writeStartDocument();
+            }
         }
+    }
+    // se filtro XML, inserisci radice
+    if(isXMLFilterExport()) {
+        info.xmlWriter.writeStartElement("root");
     }
     if(info.outputFile.error() != QFile::NoError) {
         setError(EXML_OpenWriteError, tr("Unable to open document for file '%1'").arg(filePath));
@@ -576,7 +603,14 @@ bool ExtractionOperation::openFile(ExtractInfo &info)
 bool ExtractionOperation::handleCloseOutputFile(ExtractInfo &info)
 {
     if(info.outputFile.isOpen()) {
-        info.xmlWriter.writeEndDocument();
+        if(isExportCSV()) {
+            info.csvWriter.flush();
+        } else {
+            if(isXMLFilterExport()) {
+                info.xmlWriter.writeEndElement();
+            }
+            info.xmlWriter.writeEndDocument();
+        }
         info.outputFile.close();
         if(info.outputFile.error() != QFile::NoError) {
             setError(EXML_WriteError, tr("Error while closing output file"));
@@ -638,7 +672,7 @@ void ExtractionOperation::loadSettings()
     Config::loadStringArray(Config::KEY_FRAGMENTS_SUBFOLDERSNAMEPATTERN, _subfolderNamePattern);
     Config::loadStringArray(Config::KEY_FRAGMENTS_FILESNAMEPATTERN, _filesNamePattern);
     _isReverseRange = Config::getBool(Config::KEY_FRAGMENTS_REVERSERANGE, false);
-    _isAFilter = Config::getBool(Config::KEY_FRAGMENTS_ISAFILTER, false);
+    _operationType = static_cast<EOperationType>(Config::getInt(Config::KEY_FRAGMENTS_OPERATION_TYPE, OperationSplit));
     //-------------------
     _attributeName = Config::getString(Config::KEY_FRAGMENTS_ATTRIBUTENAME, "");
     _comparisonTerm = Config::getString(Config::KEY_FRAGMENTS_COMPARISONTERM, "");
@@ -672,7 +706,7 @@ void ExtractionOperation::saveSettings()
     Config::saveStringArray(Config::KEY_FRAGMENTS_SUBFOLDERSNAMEPATTERN, _subfolderNamePattern);
     Config::saveStringArray(Config::KEY_FRAGMENTS_FILESNAMEPATTERN, _filesNamePattern);
     Config::saveBool(Config::KEY_FRAGMENTS_REVERSERANGE, _isReverseRange);
-    Config::saveBool(Config::KEY_FRAGMENTS_ISAFILTER, _isAFilter);
+    Config::saveInt(Config::KEY_FRAGMENTS_OPERATION_TYPE, _operationType);
     Config::saveBool(Config::KEY_FRAGMENTS_FILTERTEXTFORPATH, _filterTextForPath);
     Config::saveStringArray(Config::KEY_FRAGMENTS_FILTERTEXT_PATH, _pathsForFilterText);
 
@@ -693,6 +727,7 @@ void ExtractionOperation::saveSettingsForExtractionFragmentNumber(const QString 
     Config::saveInt(Config::KEY_FRAGMENTS_EXTRACTIONTYPE, ET_RANGE);
     Config::saveInt(Config::KEY_FRAGMENTS_MINDOC, fragment);
     Config::saveInt(Config::KEY_FRAGMENTS_MAXDOC, fragment);
+    Config::saveInt(Config::KEY_FRAGMENTS_OPERATION_TYPE, OperationSplit);
 }
 
 
@@ -777,6 +812,17 @@ ExtractionOperation::EParamErrors ExtractionOperation::checkParameters()
             return ParamErrorNoDeleteTextPath;
         }
     }
+    Utils::TODO_THIS_RELEASE("fare test errore");
+    switch(_operationType) {
+    case OperationSplit:
+    case OperationFilter:
+    case OperationExportAndGroupXML:
+    case OperationExportAndGroupCSV:
+        break;
+    default:
+        return ParamErrorBadOperationType ;
+    }
+
     //---------------------------------
     return ParamNoError ;
 }
@@ -957,14 +1003,14 @@ void ExtractionOperation::setAborted(const bool value)
     }
 }
 
-bool ExtractionOperation::isAFilter()
+ExtractionOperation::EOperationType ExtractionOperation::OperationType()
 {
-    return _isAFilter;
+    return _operationType;
 }
 
-void ExtractionOperation::setIsAFilter(const bool value)
+void ExtractionOperation::setOperationType(const EOperationType value)
 {
-    _isAFilter = value ;
+    _operationType = value ;
 }
 
 bool ExtractionOperation::isReverseRange()
@@ -1078,6 +1124,56 @@ QString ExtractionOperation::pathForDeleteText()
     }
 }
 
+bool ExtractionOperation::handleExportedElement(ExtractInfo &info, QXmlStreamReader &reader)
+{
+    // startElement, verify, please
+    if(!reader.isStartElement()) {
+        setError(EXML_UnexpectedElementError, tr("Unexpected obejct in input stream type is: %1, waiting for: %2").arg(reader.tokenType()).arg(QXmlStreamReader::StartElement));
+        return false ;
+    }
+    if(isExportCSV()) {
+        QString separator = ",";
+        Utils::TODO_THIS_RELEASE("attenzione a crlf su win;");
+        QXmlStreamAttributes streamAttributes = reader.attributes();
+        QHash<int, QString> columnsForAttributes;
+        QList<int> columnPositions;
+        // insert columns
+        foreach(const QXmlStreamAttribute & attr, streamAttributes) {
+            QString attrName = attr.qualifiedName().toString();
+            if(!info._mapForCSVColumns.contains(attrName)) {
+                info._mapForCSVColumns.insert(attrName, info._mapForCSVColumns.size());
+            }
+            const int position = info._mapForCSVColumns[attrName] ;
+            columnsForAttributes.insert(position, attrName);
+            columnPositions << position ;
+        }
+        // sort existing attributes for column
+        qSort(columnPositions);
+        // write attributes, with empty columns in between.
+        int index = 0 ;
+        foreach(const int pos, columnPositions) {
+            for(int fromLast = index ; fromLast < pos ; fromLast ++) {
+                if(0 != fromLast) {
+                    info.csvWriter << separator;
+                }
+                index++;
+            }
+            const QString &attrName = columnsForAttributes[pos];
+            const QString &attrValue = streamAttributes.value(attrName).toString();
+            info.csvWriter << Utils::valueStringCSV(attrValue, (0 == index));
+            index ++ ;
+        }
+        info.csvWriter << "\n";
+    } else {
+        info.xmlWriter.writeCurrentToken(reader);
+        info.xmlWriter.writeEndElement();
+    }
+    if(info.outputFile.error() != QFile::NoError) {
+        handleWriteError();
+        return false ;
+    }
+    return true ;
+}
 
 //--------------------------------------------------------------------------
 

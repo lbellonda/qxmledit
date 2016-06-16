@@ -64,6 +64,7 @@ protected:
     bool toggleAction(QList<QMenu*> menus, const QString &actionName);
     void insertItems(QSet<QString> *items, ... );
 
+    bool compareFiles(const QString &file1, const QString &file2);
     bool compareStringSets(const QString &msg, QSet<QString> &referenceSet, QSet<QString> &compareSet);
     QString dumpStringSet(QSet<QString> &set, const QString &name);
     QString stringSetErrorString(const QString &explain, QSet<QString> &referenceSet, QSet<QString> &compareSet);

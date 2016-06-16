@@ -296,7 +296,52 @@ with this option the extracted fragments will be: 3, 4, 5.</string>
     </layout>
    </item>
    <item>
+    <widget class="QLabel" name="label_16">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Operation</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout_12">
+     <item>
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>Operation type:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cbOperationType">
+       <item>
+        <property name="text">
+         <string>Split</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Act as a filter producing only 1 (one) file</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Extract and group. Only the split element will be selected</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Extract anc export in CSV the path element</string>
+        </property>
+       </item>
+      </widget>
+     </item>
      <item>
       <spacer name="horizontalSpacer_5">
        <property name="orientation">
@@ -309,23 +354,6 @@ with this option the extracted fragments will be: 3, 4, 5.</string>
         </size>
        </property>
       </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="actAsAFilter">
-       <property name="font">
-        <font>
-         <weight>50</weight>
-         <bold>false</bold>
-         <underline>false</underline>
-        </font>
-       </property>
-       <property name="toolTip">
-        <string>With this option the input is copied into output as is if the documents are in the range specified by the two numeric fields on same row. Only one output file will be created.</string>
-       </property>
-       <property name="text">
-        <string>Act as a filter producing only 1 (one) file</string>
-       </property>
-      </widget>
      </item>
     </layout>
    </item>
@@ -916,19 +944,13 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <tabstops>
-  <tabstop>chkExtractFiles</tabstop>
-  <tabstop>extractAll</tabstop>
-  <tabstop>buttonBox</tabstop>
-  <tabstop>extractDir</tabstop>
-  <tabstop>cmdDirScan</tabstop>
-  <tabstop>cmdViewInBrowser</tabstop>
-  <tabstop>optimizeSpeed</tabstop>
   <tabstop>sourceFile</tabstop>
   <tabstop>sourceFIleSearch</tabstop>
   <tabstop>splitByPath</tabstop>
   <tabstop>splitPath</tabstop>
   <tabstop>splitByDepth</tabstop>
   <tabstop>depth</tabstop>
+  <tabstop>extractAll</tabstop>
   <tabstop>extractRange</tabstop>
   <tabstop>rangeMin</tabstop>
   <tabstop>rangeMax</tabstop>
@@ -937,9 +959,12 @@ p, li { white-space: pre-wrap; }
   <tabstop>attrName</tabstop>
   <tabstop>cfrOperator</tabstop>
   <tabstop>compTerm</tabstop>
-  <tabstop>actAsAFilter</tabstop>
+  <tabstop>cbOperationType</tabstop>
   <tabstop>chkDeleteUsingPath</tabstop>
   <tabstop>pathToDeleteText</tabstop>
+  <tabstop>extractDir</tabstop>
+  <tabstop>cmdDirScan</tabstop>
+  <tabstop>cmdViewInBrowser</tabstop>
   <tabstop>makeSubfolders</tabstop>
   <tabstop>eachNFiles</tabstop>
   <tabstop>sfp1</tabstop>
@@ -952,6 +977,8 @@ p, li { white-space: pre-wrap; }
   <tabstop>sfn3</tabstop>
   <tabstop>sfn4</tabstop>
   <tabstop>sfn5</tabstop>
+  <tabstop>chkExtractFiles</tabstop>
+  <tabstop>optimizeSpeed</tabstop>
  </tabstops>
  <resources>
   <include location="../risorse.qrc"/>

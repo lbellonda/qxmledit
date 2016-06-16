@@ -31,6 +31,11 @@ class TestSplit : public TestBase
 {
     QString _lastTimeStamp;
     bool _showXML;
+
+    bool groupCSVXML(const bool isXMLOrCSV, const QString &fileReference, const QString &fileResult, const bool isPath);
+    bool checkCSV(const QString &file1, const QString &fileReference);
+    bool group(const QString &fileReference, const QString &fileResultCSV, const QString &fileResultXML , const QString &fileResultCSVN, const QString &fileResultXMLN);
+
     bool compareData(const QString &dataXML, const QString &fileName);
     bool checkSplit(ExtractResults &results, const int id, const QString &referenceFile);
     bool splitAndNavigateFilter(const bool isReverseRange, const QString &fileReference, const QString &fileResult, const int minDoc = 2, const int MaxDoc = 4);
@@ -79,6 +84,7 @@ class TestSplit : public TestBase
 public:
     TestSplit();
 
+    bool testFast();
     bool testParameters();
     bool testParametersNoExtract();
     bool testSplit();
@@ -93,6 +99,7 @@ public:
     bool testSplitAndNavigateFilterMore();
     bool testSplitAndNavigateFilterIdDifferent();
     bool testSplitAndNavigateFilterIdEqual();
+    bool testSplitGroup();
 
 };
 

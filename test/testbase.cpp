@@ -413,6 +413,24 @@ bool TestBase::loadIOAsString(QIODevice *device, const QString &encoding, QStrin
     return error(QString("error opening data "));
 }
 
+bool TestBase::compareFiles(const QString &file1, const QString &file2)
+{
+    QString string1;
+    QString string2;
+    if(!loadFileAsString(file1, "UTF-8", &string1)) {
+        return error(QString("Unable to load file 1 '%1'").arg(file1));
+    }
+    if(!loadFileAsString(file2, "UTF-8", &string2)) {
+        return error(QString("Unable to load file 2 '%1'").arg(file2));
+    }
+    if(string1 != string2) {
+        return error(QString("Strings differ len1:%1, len2:%2\n document (1) is:\n%3\n reference (2) is:\n%4\n---end\n")
+                     .arg(string1.length()).arg(string2.length()).arg(string1).arg(string2) );
+    }
+    return true ;
+}
+
+
 bool TestBase::checkOneWidgetEnabled( QWidget *editor, const QString &childName, const bool expected)
 {
     QWidget *widget = editor->findChild<QWidget*>(childName);

@@ -34,8 +34,8 @@ class LIBQXMLEDITSHARED_EXPORT ExtractResults : public QObject
 {
     Q_OBJECT
 public:
-    bool _isError ;
-    bool _isAborted ;
+    volatile bool _isError ;
+    volatile bool _isAborted ;
     QString _fileName;
     unsigned int _numFragments;
     unsigned int _numDocumentsCreated;

@@ -328,10 +328,10 @@ bool CompareXML::compareFiles(const QString &file1, const QString &file2)
     QDomDocument document1;
     QDomDocument document2;
     if(!loadFileIntoDocument(file1, document1)) {
-        return false;
+        return error(QString("Unable to load %1").arg(file1));
     }
     if(!loadFileIntoDocument(file2, document2)) {
-        return false;
+        return error(QString("Unable to load %1").arg(file2));
     }
     bool result = compareDomDocuments(document1, document2);
 

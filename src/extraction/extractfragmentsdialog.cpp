@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -63,7 +63,8 @@ ExtractFragmentsDialog::ExtractFragmentsDialog(ExtractResults *extractResult, QW
     _groupSplitOptions.addButton(ui->splitByDepth);
     _groupSplitOptions.addButton(ui->splitByPath);
 
-    LoadComboBoxCfrOpr(ui->cfrOperator);
+    loadComboBoxCfrOpr(ui->cfrOperator);
+    loadComboBoxOperation();
     ui->rangeMin->setMinimum(1);
     ui->rangeMax->setMinimum(1);
     ui->rangeMin->setMaximum(INT_MAX);
@@ -93,10 +94,27 @@ void ExtractFragmentsDialog::closeEvent(QCloseEvent * event)
         deleteLater();
     }
 }
-void ExtractFragmentsDialog::LoadComboBoxCfrOpr(QComboBox *combo)
+
+void ExtractFragmentsDialog::loadComboBoxCfrOpr(QComboBox *combo)
 {
     combo->addItem(tr("equal"), ExtractionOperation::CFR_EQ);
     combo->addItem(tr("not equal"), ExtractionOperation::CFR_NEQ);
+}
+
+void ExtractFragmentsDialog::loadComboBoxOperation()
+{
+    ui->cbOperationType->clear();
+    QStringList texts;
+    QList<int> values ;
+    texts  << tr("Split");
+    values  << ExtractionOperation::OperationSplit;
+    texts  << tr("Act as a filter producing only 1 (one) file");
+    values  << ExtractionOperation::OperationFilter;
+    texts  << tr("Extract and group XML format. Only the splitting element will be extracted");
+    values  << ExtractionOperation::OperationExportAndGroupXML;
+    texts  << tr("Extract and group, CSV format. Only the splitting element will be extracted");
+    values  << ExtractionOperation::OperationExportAndGroupCSV;
+    Utils::loadComboCodedArrays(ui->cbOperationType, _operation.OperationType(), texts, values);
 }
 
 
@@ -145,7 +163,7 @@ void ExtractFragmentsDialog::initUIFromOperation()
     ui->sourceFile->setText(_operation.inputFile());
     ui->optimizeSpeed->setChecked(_operation.results()->_optimizeSpeed);
     ui->reverseRange->setChecked(_operation.isReverseRange());
-    ui->actAsAFilter->setChecked(_operation.isAFilter());
+    Utils::selectComboValue(ui->cbOperationType, _operation.OperationType());
     ui->attrName->setText(_operation.attributeName());
     ui->compTerm->setText(_operation.comparisonTerm());
     Utils::selectComboValue(ui->cfrOperator, _operation.comparisonType());
@@ -208,7 +226,7 @@ void ExtractFragmentsDialog::fillOperationFromUI()
     _operation.setSubFoldersEachNFiles(ui->eachNFiles->value());
     _operation.results()->_optimizeSpeed = ui->optimizeSpeed->isChecked();
     _operation.setReverseRange(ui->reverseRange->isChecked());
-    _operation.setIsAFilter(ui->actAsAFilter->isChecked());
+    _operation.setOperationType(static_cast<ExtractionOperation::EOperationType>(Utils::comboSelectedCodeAsInt(ui->cbOperationType, -1)));
     _operation.setAttributeName(ui->attrName->text());
     _operation.setComparisonTerm(ui->compTerm->text());
     _operation.setComparisonType((ExtractionOperation::ECfrOp)Utils::comboSelectedCodeAsInt(ui->cfrOperator, ExtractionOperation::CFR_EQ));
@@ -288,6 +306,9 @@ bool ExtractFragmentsDialog::checkOperationParameters()
     case ExtractionOperation::ParamErrorNoDeleteTextPath:
         _errorMessage = tr("Delete text has been seletced but no path or an invalid path was given.");
         break;
+    case ExtractionOperation::ParamErrorBadOperationType:
+        _errorMessage = tr("Unknown operation type.");
+        break;
     }
     Utils::error(this, _errorMessage);
     return false;
@@ -301,7 +322,7 @@ void ExtractFragmentsDialog::accept()
         return ;
     }
     if(_operation.isFilterTextForPath()) {
-        if(!Utils::askYN(this, tr("This opertation fill take out some text from the result. Do you want to continue?"))) {
+        if(!Utils::askYN(this, tr("This operation will take out some text from the result. Do you want to continue?"))) {
             return ;
         }
     }
@@ -341,7 +362,7 @@ void ExtractFragmentsDialog::enableControls()
 {
     bool isEnabledSplitByPath = ui->splitByPath->isChecked();
     bool enableExtraction = ui->chkExtractFiles->isChecked();
-    bool isAll = ui->extractAll->isChecked();
+    Utils::TODO_THIS_RELEASE("bool isAll = ui->extractAll->isChecked();");
     bool isRange = ui->extractRange->isChecked();
     bool isCfr = ui->extractWithCfr->isChecked();
     bool isFilterTextUsingPath = ui->chkDeleteUsingPath->isChecked();
@@ -352,7 +373,7 @@ void ExtractFragmentsDialog::enableControls()
     ui->rangeMin->setEnabled(enableExtraction && isRange);
     ui->rangeMax->setEnabled(enableExtraction && isRange);
     ui->reverseRange->setEnabled(enableExtraction && isRange);
-    ui->actAsAFilter->setEnabled(enableExtraction && !isAll);
+    Utils::TODO_THIS_RELEASE("ui->actAsAFilter->setEnabled(enableExtraction && !isAll);da pensarci bene");
     ui->attrName->setEnabled(enableExtraction && isCfr);
     ui->cfrOperator->setEnabled(enableExtraction && isCfr);
     ui->compTerm->setEnabled(enableExtraction && isCfr);
@@ -457,7 +478,12 @@ void ExtractFragmentsDialog::showNaming()
     addNamePattern(fileNames, ui->sfn4->currentText().trimmed());
     addNamePattern(fileNames, ui->sfn5->currentText().trimmed());
     naming += showSingleNaming(fileNames);
-    naming += tr("'.xml ");
+    ExtractionOperation::EOperationType currentOperation = static_cast<ExtractionOperation::EOperationType>(Utils::comboSelectedCodeAsInt(ui->cbOperationType, -1));
+    if(currentOperation == ExtractionOperation::OperationExportAndGroupCSV) {
+        naming += "'.xml";
+    } else {
+        naming += "'.csv";
+    }
     ui->lblLike->setText(naming);
 }
 
