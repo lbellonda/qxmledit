@@ -13,7 +13,7 @@
     <child a="1"/>
     <!-- comment -->
         abc
-        <abc>
+    <abc>
         <two a="1a" b="2b" c="c"/>
         <rrr c="3" bb="2" aa="1"/>
         <two/>

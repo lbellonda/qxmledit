@@ -1,8 +1,8 @@
 <root>
 <!-- -->
 	<one>
-                <two one="a&quot;" two="b
-                a b &#10;" three="c">
+<two one="a&quot;" two="b
+ a b &#10;" three="c">
                 <child a="1"/>
                 </two>
 	</one>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+    <two one="a" two="b" three="c"/>
+    <two one="a" quattro="b" three="c"/>
+    <two one="a" two="b" sei="z"/>
+    <two a="1a" b="2b" c="c"/>
+    <rrr c="3" bb="2" aa="1"/>
+    <two/>
+    <two a="a" b="b" c="c"/>
+    <rrr c="3" bb="2" aa="1"/>
+    <two/>
+</root>
