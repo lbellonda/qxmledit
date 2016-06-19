@@ -49,6 +49,11 @@ public:
     QTextStream csvWriter;
     QString currentFolderPath;
     QHash<QString, int> _mapForCSVColumns;
+    //--------
+    QString csvRealFilePath;
+    QString csvResourcesPath;
+    QFile csvTempFile;
+    //--------
 
     ExtractInfo();
     ~ExtractInfo();
@@ -73,7 +78,8 @@ public:
         EXML_SubFolderExists,
         EXML_SubFolderError,
         EXML_WriteError,
-        EXML_OpenWriteError
+        EXML_OpenWriteError,
+        EXML_BuildingCSVError
     };
 
     enum ECfrOp {
@@ -166,6 +172,17 @@ private:
     QString getPathArrayString();
     QVector<QString> getPathArray();
     bool isFilterTextPathAbsolute();
+
+    //--------
+    bool writeCSVHeader(ExtractInfo &info);
+    bool csvError(ExtractInfo &info, const EXMLErrors errorCode, const QString &message);
+    bool manageOpenCSV(ExtractInfo &info);
+    bool appendCSVData(ExtractInfo &info);
+    bool closeCSVDataFile(ExtractInfo &info);
+    bool handleCloseCSVOutputFile(ExtractInfo &info);
+    bool removeCSVTempFile(ExtractInfo &info);
+    bool isCSVBothFilesError(ExtractInfo &info);
+    //--------
 
 public:
     explicit ExtractionOperation(ExtractResults *results, QObject *parent = 0);

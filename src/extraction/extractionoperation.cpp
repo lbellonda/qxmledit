@@ -551,6 +551,21 @@ bool ExtractionOperation::handleNewFile(ExtractInfo &info)
     return true ;
 }
 
+bool ExtractionOperation::manageOpenCSV(ExtractInfo &info)
+{
+    info.csvRealFilePath = info.outputFile.fileName();
+    info.csvResourcesPath = info.outputFile.fileName() + ".temp";
+    info.csvTempFile.setFileName(info.csvResourcesPath);
+    if(!info.csvTempFile.open(QIODevice::WriteOnly)) {
+        if(info.outputFile.isOpen()) {
+            info.outputFile.close();
+        }
+        return csvError(info, EXML_OpenWriteError, tr("Unable to open for the CSV file '%1'").arg(info.csvResourcesPath));
+    }
+    info.csvWriter.setDevice(&info.csvTempFile);
+    info.csvWriter.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
+    return true ;
+}
 
 bool ExtractionOperation::openFile(ExtractInfo &info)
 {
@@ -573,8 +588,10 @@ bool ExtractionOperation::openFile(ExtractInfo &info)
         return false;
     }
     if(isExportCSV()) {
-        info.csvWriter.setDevice(&info.outputFile);
-        info.csvWriter.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
+        Utils::TODO_THIS_RELEASE("controllare crlf windows");
+        if(!manageOpenCSV(info)) {
+            return false ;
+        }
     } else {
         info.xmlWriter.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
         info.xmlWriter.setDevice(&info.outputFile);
@@ -600,11 +617,155 @@ bool ExtractionOperation::openFile(ExtractInfo &info)
     return true;
 }
 
+bool ExtractionOperation::csvError(ExtractInfo &info, const EXMLErrors errorCode, const QString &message)
+{
+    if(info.csvTempFile.isOpen()) {
+        info.csvTempFile.close();
+    }
+    if(info.outputFile.isOpen()) {
+        info.csvTempFile.close();
+    }
+    setError(errorCode, message);
+    return false;
+}
+
+bool ExtractionOperation::writeCSVHeader(ExtractInfo &info)
+{
+    QTextStream headerStream;
+    headerStream.setDevice(&info.outputFile);
+    headerStream.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
+    Utils::TODO_THIS_RELEASE("manca il controllo errore su file speciffico csv: apri scrivi chiudi");
+    Utils::TODO_THIS_RELEASE("attenzione a crlf su win;");
+    QHash<int, QString> columnsForName;
+    // insert columns
+    const int  columnsCount = info._mapForCSVColumns.size();
+    foreach(const QString & name, info._mapForCSVColumns.keys()) {
+        const int colPos = info._mapForCSVColumns[name];
+        columnsForName.insert(colPos, name);
+    }
+    FORINT(index, columnsCount) {
+        const QString &name = columnsForName[index];
+        headerStream << Utils::valueStringCSV(name, (0 == index));
+    }
+    headerStream << "\n";
+    headerStream.flush();
+    if(QTextStream::Ok != headerStream.status()) {
+        return false;
+    }
+    info.outputFile.close();
+    if(info.outputFile.error() != QFile::NoError) {
+        return false;
+    }
+    return true ;
+}
+
+bool ExtractionOperation::closeCSVDataFile(ExtractInfo &info)
+{
+    info.csvWriter.flush();
+    if(QTextStream::Ok != info.csvWriter.status()) {
+        return false;
+    }
+    info.csvTempFile.close();
+    if(info.csvTempFile.error() != QFile::NoError) {
+        return false;
+    }
+    return true ;
+}
+
+bool ExtractionOperation::isCSVBothFilesError(ExtractInfo &info)
+{
+    return (info.outputFile.error() != QFile::NoError) || (info.csvTempFile.error() != QFile::NoError);
+}
+
+bool ExtractionOperation::appendCSVData(ExtractInfo &info)
+{
+    bool status = false;
+    if(info.outputFile.isOpen() || info.csvTempFile.isOpen()) {
+        Utils::TODO_THIS_RELEASE("segnala errore");
+        return false;
+    }
+    Utils::TODO_THIS_RELEASE("fare");
+    if(info.outputFile.open(QFile::Append | QFile::WriteOnly)) {
+        if(info.csvTempFile.open(QFile::ReadOnly)) {
+            // copy data
+            const int BufferSize = 8000;
+            char buffer[BufferSize + 50];
+            qint64 bytes = 0;
+            bool isError = false;
+            do {
+                bytes = info.csvTempFile.read(buffer, BufferSize);
+                if(bytes > 0) {
+                    if(info.outputFile.write(buffer, bytes) != bytes) {
+                        isError = true ;
+                    }
+                }
+                if((-1 == bytes) || isCSVBothFilesError(info)) {
+                    setError(EXML_BuildingCSVError, tr("Error writing CSV final: '%1'").arg(info.outputFile.fileName()));
+                    isError = true ;
+                }
+            } while(!isError && (bytes > 0));
+            info.outputFile.flush();
+            // close files
+            info.csvTempFile.close();
+            // check errors
+            // set error message
+            if(!isError && !isCSVBothFilesError(info)) {
+                status = true;
+            }
+        } else {
+            setError(EXML_BuildingCSVError, tr("Error opening CSV 2 for rewind: '%1'").arg(info.outputFile.fileName()));
+            info.outputFile.close();
+        }
+
+    } else {
+
+        setError(EXML_BuildingCSVError, tr("Error opening CSV 1 for rewind: '%1'").arg(info.outputFile.fileName()));
+    }
+    // check errors in files
+    if(status) {
+        if(isCSVBothFilesError(info)) {
+            setError(EXML_BuildingCSVError, tr("Error writing CSV after final check: '%1'").arg(info.outputFile.fileName()));
+            status = false;
+        }
+    }
+    return status;
+}
+
+
+bool ExtractionOperation::handleCloseCSVOutputFile(ExtractInfo &info)
+{
+    info.csvWriter.flush();
+    // close data file
+    if(!closeCSVDataFile(info)) {
+        return csvError(info, EXML_BuildingCSVError, tr("Error closing CSV data phase 1"));
+    }
+    // write header in the real file
+    if(!writeCSVHeader(info)) {
+        return csvError(info, EXML_BuildingCSVError, tr("Error writing CSV header"));
+    }
+    // now both the files are closed
+    // close file and reopen it
+    if(!appendCSVData(info)) {
+        return csvError(info, EXML_BuildingCSVError, tr("Error appending CSV data"));
+    }
+    // remove temporary file
+    if(!removeCSVTempFile(info)) {
+        // not a real error
+        _errorMessage = tr("Error removing temporary CSV file");
+    }
+    return true ;
+}
+
+bool ExtractionOperation::removeCSVTempFile(ExtractInfo & info)
+{
+    return info.csvTempFile.remove();
+}
+
 bool ExtractionOperation::handleCloseOutputFile(ExtractInfo &info)
 {
     if(info.outputFile.isOpen()) {
         if(isExportCSV()) {
-            info.csvWriter.flush();
+            return handleCloseCSVOutputFile(info);
         } else {
             if(isXMLFilterExport()) {
                 info.xmlWriter.writeEndElement();
@@ -812,7 +973,6 @@ ExtractionOperation::EParamErrors ExtractionOperation::checkParameters()
             return ParamErrorNoDeleteTextPath;
         }
     }
-    Utils::TODO_THIS_RELEASE("fare test errore");
     switch(_operationType) {
     case OperationSplit:
     case OperationFilter:
@@ -1132,7 +1292,7 @@ bool ExtractionOperation::handleExportedElement(ExtractInfo &info, QXmlStreamRea
         return false ;
     }
     if(isExportCSV()) {
-        QString separator = ",";
+        QString separator = Utils::separatorStringCSV();
         Utils::TODO_THIS_RELEASE("attenzione a crlf su win;");
         QXmlStreamAttributes streamAttributes = reader.attributes();
         QHash<int, QString> columnsForAttributes;
@@ -1164,6 +1324,14 @@ bool ExtractionOperation::handleExportedElement(ExtractInfo &info, QXmlStreamRea
             index ++ ;
         }
         info.csvWriter << "\n";
+        if(info.csvWriter.status() != QTextStream::Ok) {
+            handleWriteError();
+            return false ;
+        }
+        if(info.csvTempFile.error() != QFile::NoError) {
+            handleWriteError();
+            return false ;
+        }
     } else {
         info.xmlWriter.writeCurrentToken(reader);
         info.xmlWriter.writeEndElement();
@@ -1187,6 +1355,9 @@ ExtractInfo::~ExtractInfo()
 {
     if(outputFile.isOpen()) {
         outputFile.close();
+    }
+    if(csvTempFile.isOpen()) {
+        csvTempFile.close();
     }
 }
 
