@@ -812,14 +812,11 @@ QString Utils::valueStringCSV(const QString &value, const bool isSkipCommaBefore
 {
     QString ret ;
     if(!isSkipCommaBefore) {
-        QChar separator = ',';
-        ret += separator ;
+        ret += separatorStringCSV() ;
     }
     if(!value.isEmpty()) {
         QString data = value ;
         data = data.replace("\"", "\"\"");
-        data = data.replace("\n", "\\n");
-        data = data.replace("\r", "\\r");
         ret += "\"";
         ret += data ;
         ret += "\"";

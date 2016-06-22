@@ -338,6 +338,12 @@ bool TestSplit::compareData(const QString &dataXML, const QString &fileName)
 
 bool TestSplit::checkSplit(ExtractResults &results, const int id, const QString &referenceFile)
 {
+    QDateTime dt = QDateTime::currentDateTime();
+    const qint64 now = dt.toMSecsSinceEpoch();
+    do {
+        dt = QDateTime::currentDateTime();
+    } while(dt.toMSecsSinceEpoch()==now);
+
     StringOperationResult sresult;
     results.loadFragment(id + 1, sresult);
     if(sresult.isError()) {

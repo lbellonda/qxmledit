@@ -1288,7 +1288,7 @@ bool ExtractionOperation::handleExportedElement(ExtractInfo &info, QXmlStreamRea
 {
     // startElement, verify, please
     if(!reader.isStartElement()) {
-        setError(EXML_UnexpectedElementError, tr("Unexpected obejct in input stream type is: %1, waiting for: %2").arg(reader.tokenType()).arg(QXmlStreamReader::StartElement));
+        setError(EXML_UnexpectedElementError, tr("Unexpected object in input stream type is: %1, waiting for: %2").arg(reader.tokenType()).arg(QXmlStreamReader::StartElement));
         return false ;
     }
     if(isExportCSV()) {
@@ -1323,7 +1323,9 @@ bool ExtractionOperation::handleExportedElement(ExtractInfo &info, QXmlStreamRea
             info.csvWriter << Utils::valueStringCSV(attrValue, (0 == index));
             index ++ ;
         }
-        info.csvWriter << "\n";
+        // rfc 4180
+        Utils::TODO_THIS_RELEASE("check rfc");
+        info.csvWriter << "\r\n";
         if(info.csvWriter.status() != QTextStream::Ok) {
             handleWriteError();
             return false ;

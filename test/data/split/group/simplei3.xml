@@ -2,7 +2,7 @@
 <!-- -->
 	<one>
 <two one="a&quot;" two="b
- a b &#10;" three="c">
+ a b&#10;2" three="c">
                 <child a="1"/>
                 </two>
 	</one>
