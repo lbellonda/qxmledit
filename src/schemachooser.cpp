@@ -69,6 +69,7 @@ QString SchemaChooser::selection()
 
 void SchemaChooser::loadPreferredData()
 {
+    _preferitesFilesNames.clear();
     Config::loadStringArray(Config::KEY_SCHEMA_PREFERITES, _preferitesFilesNames);
     foreach(QString file, _preferitesFilesNames) {
         /*QListWidgetItem *item = */new QListWidgetItem(file, ui->favoritesList) ;
@@ -177,7 +178,7 @@ void SchemaChooser::on_remPrefsSchema_clicked()
     if(NULL != item) {
         urlToRemove = item->text();
     }
-    if(!urlToRemove.isEmpty()) {
+    if(urlToRemove.isEmpty()) {
         Utils::errorNoSel(this);
         return ;
     }
