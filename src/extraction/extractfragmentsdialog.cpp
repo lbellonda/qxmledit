@@ -309,6 +309,9 @@ bool ExtractFragmentsDialog::checkOperationParameters()
     case ExtractionOperation::ParamErrorBadOperationType:
         _errorMessage = tr("Unknown operation type.");
         break;
+    case ExtractionOperation::ParamErrorFilesNamePattern:
+        _errorMessage = tr("The output file name is not valid.");
+        break;
     }
     Utils::error(this, _errorMessage);
     return false;

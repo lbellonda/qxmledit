@@ -1,4 +1,7 @@
 0.9.5
+    Added error message in splitting files operation.
+    New options for splitting files: extract and group, even in CSV format.
+    Fixed a bug on schema choose dialog.
 
 0.9.4
     Option to override stream saving to handle 8 bit non ASCII like encodings (EBCDIC) when Qt has problems.
