@@ -30,13 +30,14 @@
 #include "xmlutils.h"
 #include "modules/namespace/namespacemanagementdialog.h"
 #include "modules/utils/base64utils.h"
+#include "modules/delegates/automitemeditorfactory.h"
 
 #define MOD_WIDTH   (8)
-
 
 EditElement::EditElement(QWidget * parent) : QDialog(parent)
 {
     _parent = NULL ;
+    _autoItemEditorFactory = NULL ;
     _namespaceManager = NULL ;
     _textModified = false;
     isStarted = false;
@@ -45,8 +46,12 @@ EditElement::EditElement(QWidget * parent) : QDialog(parent)
     ui.setupUi(this);
     ui.elementTable->setColumnWidth(T_COLUMN_MOD, MOD_WIDTH);
     ui.attrTable->setColumnWidth(A_COLUMN_MOD, MOD_WIDTH);
-    _attributeDelegate = new AttributeColumnItemDelegate(ui.attrTable, A_COLUMN_TEXT, ui.attrTable);
-    ui.attrTable->setItemDelegateForColumn(A_COLUMN_TEXT, _attributeDelegate);
+    _attributeTextDelegate = new AttributeColumnItemDelegate(ui.attrTable, A_COLUMN_TEXT, ui.attrTable);
+    _attributeNameDelegate = new AttributeColumnItemDelegate(ui.attrTable, A_COLUMN_NAME, ui.attrTable);
+    _autoItemEditorFactory = new AutoItemEditorFactory();
+    _attributeNameDelegate->setItemEditorFactory(_autoItemEditorFactory);
+    ui.attrTable->setItemDelegateForColumn(A_COLUMN_TEXT, _attributeTextDelegate);
+    ui.attrTable->setItemDelegateForColumn(A_COLUMN_NAME, _attributeNameDelegate);
     target = NULL;
     checkNamespace();
     enableOK();
@@ -58,6 +63,10 @@ EditElement::EditElement(QWidget * parent) : QDialog(parent)
 
 EditElement::~EditElement()
 {
+    _attributeNameDelegate->setItemEditorFactory(NULL);
+    if(NULL != _autoItemEditorFactory) {
+        delete _autoItemEditorFactory ;
+    }
 }
 
 void EditElement::enableOK()
@@ -182,6 +191,9 @@ void EditElement::setTarget(Element* pTarget, Element *parent)
     }
     ui.elementTable->setUpdatesEnabled(true);
     ui.elementTable->resizeRowsToContents();
+    if(NULL != regola) {
+        _attributeNameDelegate->setSourceData(regola->attributeNamesPoolByValue());
+    }
     enableOK();
     checkNamespace();
     _textModified = false;
@@ -223,11 +235,14 @@ bool EditElement::updateTarget(Element *targetElement)
             return false ;
         }
     }
-
+    Regola *regola = (NULL != _parent) ? _parent->getParentRule() : NULL;
     for(int row = 0 ; row < rows ; row ++) {
         QTableWidgetItem *itemName = ui.attrTable->item(row, A_COLUMN_NAME);
         QTableWidgetItem *itemValue = ui.attrTable->item(row, A_COLUMN_TEXT);
         QString name = itemName->text().trimmed() ;
+        if(NULL != regola) {
+            name = regola->getAttributeNameString(name);
+        }
         QString value = itemValue->text().trimmed() ;
         targetElement->addAttribute(name, value);
     }
@@ -356,14 +371,21 @@ void EditElement::on_attrTable_itemChanged(QTableWidgetItem * item)
 
 void EditElement::on_delAttribute_clicked()
 {
-    int currentRow = ui.attrTable->currentRow();
-    if(currentRow >= 0) {
-        if(QMessageBox::No == QMessageBox::question(this, QXmlEditGlobals::appTitle(),
-                tr("This operation will destroy the attribute.\nDo you really want to continue?"),
-                QMessageBox::Yes | QMessageBox::No)) {
-            return ;
+    QList<QTableWidgetItem *> selectedItems = ui.attrTable->selectedItems();
+    QSet<int> rows;
+    foreach(QTableWidgetItem * item, selectedItems) {
+        rows.insert(item->row());
+    }
+    if(!rows.isEmpty()) {
+        QList<int> rowList = rows.toList() ;
+        qSort(rowList.begin(), rowList.end(), qGreater<int>());
+        const int rowCount = rows.count();
+        if(rowCount > 0) {
+            // remove from the last row
+            foreach(const int row, rowList) {
+                ui.attrTable->removeRow(row);
+            }
         }
-        ui.attrTable->removeRow(currentRow);
         checkNamespace();
     } else {
         Utils::error(this, tr("No attribute selected"));

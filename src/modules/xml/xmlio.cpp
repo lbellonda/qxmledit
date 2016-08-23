@@ -81,7 +81,7 @@ Element *Regola::assegnaValori(QDomNode &node, Element *parent, QVector<Element*
                 int attrMax = attrList.count();
                 for(int a = 0 ; a < attrMax ; a ++) {
                     QDomAttr attr = attrList.item(a).toAttr();
-                    Attribute *attribute = new Attribute(getAttributeString(attr.name()), getAttributeString(attr.value()));
+                    Attribute *attribute = new Attribute(getAttributeNameString(attr.name()), getAttributeString(attr.value()));
                     elem->attributes.append(attribute);
                 }
             }
@@ -198,7 +198,7 @@ bool Regola::setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader
             QXmlStreamAttributes streamAttributes = xmlReader->attributes();
             foreach(QXmlStreamAttribute streamAttribute, streamAttributes) {
                 Attribute *attribute = new Attribute(
-                    getAttributeString(streamAttribute.qualifiedName().toString()),
+                    getAttributeNameString(streamAttribute.qualifiedName().toString()),
                     getAttributeString(streamAttribute.value().toString()));
                 elem->attributes.append(attribute);
             }

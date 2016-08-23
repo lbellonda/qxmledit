@@ -426,7 +426,8 @@ SOURCES += xmleditwidget.cpp \
     xsdeditor/xsdfacet.cpp \
     modules/xsd/choosefacetdialog.cpp \
     undo/editxsdenumcommand.cpp \
-    modules/xml/xmlnamespaces.cpp
+    modules/xml/xmlnamespaces.cpp \
+    modules/delegates/automitemeditorfactory.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -645,7 +646,8 @@ HEADERS += precompiled_lib.h \
     undo/undosortattributes.h \
     undo/undodeletesiblings.h \
     modules/xsd/choosefacetdialog.h \
-    undo/editxsdenumcommand.h
+    undo/editxsdenumcommand.h \
+    modules/delegates/automitemeditorfactory.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

@@ -32,12 +32,15 @@ class AttributeColumnItemDelegate : public QStyledItemDelegate
     Q_OBJECT
     mutable QWidget *_lastEditor;
     QAbstractItemDelegate *_originalDelegate;
+    QSet<QString> _sourceData;
 public:
     explicit AttributeColumnItemDelegate(QTableWidget *table, const int column, QObject *parent = 0);
     virtual ~AttributeColumnItemDelegate();
 
     virtual QWidget *createEditor(QWidget * parent, const QStyleOptionViewItem & option, const QModelIndex & index) const;
     QWidget *lastEditor();
+
+    void setSourceData(QSet<QString> newData);
 signals:
 
 public slots:

@@ -31,6 +31,7 @@
 #include "element.h"
 #include "modules/delegates/attributecolumnitemdelegate.h"
 #include "modules/namespace/namespacecommands.h"
+#include "modules/delegates/automitemeditorfactory.h"
 
 class NamespaceManager;
 
@@ -57,7 +58,9 @@ protected:
     QColor modColor;
     bool isStarted ;
     NamespaceManager *_namespaceManager;
-    AttributeColumnItemDelegate *_attributeDelegate;
+    AttributeColumnItemDelegate *_attributeTextDelegate;
+    AttributeColumnItemDelegate *_attributeNameDelegate;
+    AutoItemEditorFactory *_autoItemEditorFactory;
     QHash<QString, QString> _visibleNamespaces;
     Element *_parent;
 

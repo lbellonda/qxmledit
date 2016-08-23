@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,43 +21,9 @@
  **************************************************************************/
 
 
-#include "attributecolumnitemdelegate.h"
-#include "modules/widgets/lineeditwithcompleter.h"
-#include <QLineEdit>
-#include "utils.h"
+#include "automitemeditorfactory.h"
 
-AttributeColumnItemDelegate::AttributeColumnItemDelegate(QTableWidget *table, const int column, QObject *parent) :
-    QStyledItemDelegate(parent)
+AutomItemEditorFactory::AutomItemEditorFactory(QObject *parent) :
+    QItemEditorFactory(parent)
 {
-    _lastEditor = NULL ;
-    _originalDelegate = table->itemDelegateForColumn(column);
-}
-
-AttributeColumnItemDelegate::~AttributeColumnItemDelegate()
-{
-}
-
-QWidget *AttributeColumnItemDelegate::createEditor(QWidget * parent, const QStyleOptionViewItem & option, const QModelIndex & index) const
-{
-    QWidget * editor = QStyledItemDelegate::createEditor(parent, option, index) ;
-    QLineEdit *edit = qobject_cast<QLineEdit*>(editor);
-    if(NULL != edit) {
-        edit->setMaxLength(-1);
-    }
-    LineEditWithCompleter *editWithCompleter = qobject_cast<LineEditWithCompleter*>(editor);
-    if(NULL != editWithCompleter) {
-        editWithCompleter->setData(_sourceData);
-    }
-    _lastEditor = editor ;
-    return editor;
-}
-
-QWidget *AttributeColumnItemDelegate::lastEditor()
-{
-    return _lastEditor;
-}
-
-void AttributeColumnItemDelegate::setSourceData(QSet<QString> newData)
-{
-    _sourceData = newData ;
 }

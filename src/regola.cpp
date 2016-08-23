@@ -2183,9 +2183,25 @@ QString Regola::getAttributeString(const QString &attributeString)
     return *it ;
 }
 
+QString Regola::getAttributeNameString(const QString &attributeString)
+{
+    QSet<QString>::const_iterator it = _attributeNamesPool.insert(attributeString);
+    return *it ;
+}
+
 QSet<QString> *Regola::namesPool()
 {
     return &_namesPool;
+}
+
+QSet<QString> *Regola::attributeNamesPool()
+{
+    return &_attributeNamesPool;
+}
+
+QSet<QString> Regola::attributeNamesPoolByValue()
+{
+    return _attributeNamesPool;
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------

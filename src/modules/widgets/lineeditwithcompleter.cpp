@@ -66,6 +66,15 @@ void LineEditWithCompleter::setData(QSet<QString> *newData)
     _namesModel.setStringList(newList);
 }
 
+void LineEditWithCompleter::setData(QSet<QString> newData)
+{
+    QStringList newList;
+    newList = newData.toList();
+    // do a sort
+    qSort(newList.begin(), newList.end(), Utils::caseInsensitiveLessThanCompareFunction);
+    _namesModel.setStringList(newList);
+}
+
 QSet<QString> LineEditWithCompleter::data()
 {
     QSet<QString>  result;

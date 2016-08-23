@@ -58,6 +58,7 @@ public:
 
     void setup();
     void setActionShortcut(QAction *action);
+    void setData(QSet<QString> newData);
     void setData(QSet<QString> *newData);
     QSet<QString> data();
     void autocomplete();

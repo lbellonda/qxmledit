@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,43 +21,21 @@
  **************************************************************************/
 
 
-#include "attributecolumnitemdelegate.h"
-#include "modules/widgets/lineeditwithcompleter.h"
-#include <QLineEdit>
-#include "utils.h"
+#ifndef AUTOMITEMEDITORFACTORY_H
+#define AUTOMITEMEDITORFACTORY_H
 
-AttributeColumnItemDelegate::AttributeColumnItemDelegate(QTableWidget *table, const int column, QObject *parent) :
-    QStyledItemDelegate(parent)
-{
-    _lastEditor = NULL ;
-    _originalDelegate = table->itemDelegateForColumn(column);
-}
+#include <QItemEditorFactory>
 
-AttributeColumnItemDelegate::~AttributeColumnItemDelegate()
+class AutomItemEditorFactory : public QItemEditorFactory
 {
-}
+    Q_OBJECT
+public:
+    explicit AutomItemEditorFactory(QObject *parent = 0);
 
-QWidget *AttributeColumnItemDelegate::createEditor(QWidget * parent, const QStyleOptionViewItem & option, const QModelIndex & index) const
-{
-    QWidget * editor = QStyledItemDelegate::createEditor(parent, option, index) ;
-    QLineEdit *edit = qobject_cast<QLineEdit*>(editor);
-    if(NULL != edit) {
-        edit->setMaxLength(-1);
-    }
-    LineEditWithCompleter *editWithCompleter = qobject_cast<LineEditWithCompleter*>(editor);
-    if(NULL != editWithCompleter) {
-        editWithCompleter->setData(_sourceData);
-    }
-    _lastEditor = editor ;
-    return editor;
-}
+signals:
 
-QWidget *AttributeColumnItemDelegate::lastEditor()
-{
-    return _lastEditor;
-}
+public slots:
 
-void AttributeColumnItemDelegate::setSourceData(QSet<QString> newData)
-{
-    _sourceData = newData ;
-}
+};
+
+#endif // AUTOMITEMEDITORFACTORY_H

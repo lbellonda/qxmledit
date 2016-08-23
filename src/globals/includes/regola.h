@@ -377,7 +377,10 @@ public:
 
     QString addNameToPool(const QString &inputString);
     QString getAttributeString(const QString &attributeName);
+    QString getAttributeNameString(const QString &attributeString);
     QSet<QString> *namesPool();
+    QSet<QString> *attributeNamesPool();
+    QSet<QString> attributeNamesPoolByValue();
     bool isValidXsd();
     void transformInComment(QWidget *window, QTreeWidget *tree, Element *elementToTransform);
     bool generateFromComment(QTreeWidget *tree, UIDelegate *uiDelegate, Element *elementToTransform);
@@ -548,6 +551,7 @@ private:
     QMap<QString, int>   _namesMap;
     QSet<QString>   _namesPool;
     QSet<QString>   _attributeValuesPool;
+    QSet<QString>   _attributeNamesPool;
     DocumentType *_docType;
 
     void clear();

@@ -1,4 +1,5 @@
 0.9.5
+    Autocompletion editing attributes (activated with ctrl+space).
     Added error message in splitting files operation.
     New options for splitting files: extract and group, even in CSV format.
     Fixed a bug on schema choose dialog.
