@@ -46,6 +46,7 @@ QWidget *AttributeColumnItemDelegate::createEditor(QWidget * parent, const QStyl
     }
     LineEditWithCompleter *editWithCompleter = qobject_cast<LineEditWithCompleter*>(editor);
     if(NULL != editWithCompleter) {
+        editWithCompleter->setFireIfMatch(false);
         editWithCompleter->setData(_sourceData);
     }
     _lastEditor = editor ;

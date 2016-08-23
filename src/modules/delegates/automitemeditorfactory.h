@@ -26,12 +26,13 @@
 
 #include <QItemEditorFactory>
 
-class AutomItemEditorFactory : public QItemEditorFactory
+class AutoItemEditorFactory : public QItemEditorFactory
 {
-    Q_OBJECT
 public:
-    explicit AutomItemEditorFactory(QObject *parent = 0);
+    explicit AutoItemEditorFactory();
+    virtual ~AutoItemEditorFactory();
 
+    virtual QWidget *createEditor(int userType, QWidget * parent) const;
 signals:
 
 public slots:

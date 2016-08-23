@@ -37,6 +37,7 @@ LineEditWithCompleter::LineEditWithCompleter(QWidget *parent) :
     _wordSeparator = "/\\.@![]~{};";
     _wordStart = -1 ;
     _keyToActivate = -1 ;
+    _fireIfMatch = true ;
     setup();
 }
 
@@ -142,7 +143,7 @@ void LineEditWithCompleter::activateCompleter(const QString & prefix)
     QString currentCompletion = _completer->currentCompletion();
     // if a match is given, use it
     int matchedItems = _completer->completionCount();
-    if(1 == matchedItems) {
+    if((1 == matchedItems) && _fireIfMatch) {
         onCompleterFired(currentCompletion);
     } else {
         // activates the completer
@@ -184,7 +185,8 @@ void LineEditWithCompleter::keyPressEvent(QKeyEvent * event)
         TRACEQ(QString("ignored 1"));
         event->ignore();
     } else {
-        if(!_completer->popup()->isVisible() && (event->key() ==  Qt::Key_Space) && (event->modifiers() ==  Qt::ControlModifier)) {
+        const bool isCompleterVisible = _completer->popup()->isVisible() ;
+        if(!isCompleterVisible && (event->key() ==  Qt::Key_Space) && (event->modifiers() ==  Qt::ControlModifier)) {
             // start handling
             TRACEQ(QString("activated "));
             onAutocompleteFunctionActivated();
@@ -193,11 +195,29 @@ void LineEditWithCompleter::keyPressEvent(QKeyEvent * event)
             if(!handleKeyEvent(event)) {
                 TRACEQ(QString("default keyp"));
                 QLineEdit::keyPressEvent(event);
+                if(!isCompleterVisible) {
+                    QString theText = text();
+                    int len = theText.length();
+                    if(len > 3) {
+                        onAutocompleteFunctionActivated();
+                    }
+                }
             } else {
                 TRACEQ(QString("handled by"));
             }
         }
     }
+}
+
+
+bool LineEditWithCompleter::fireIfMatch() const
+{
+    return _fireIfMatch;
+}
+
+void LineEditWithCompleter::setFireIfMatch(bool fireIfMatch)
+{
+    _fireIfMatch = fireIfMatch;
 }
 
 bool LineEditWithCompleter::handleKeyEvent(QKeyEvent * event)

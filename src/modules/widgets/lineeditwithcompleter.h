@@ -38,6 +38,10 @@ class LineEditWithCompleter : public QLineEdit, public ICompleter
     Q_INTERFACES(ICompleter)
 
     bool _isCompleting;
+    /*!
+     * \brief _fireIfMatch: if true, if there is only one match, the completion is fired
+     */
+    bool _fireIfMatch;
     QCompleter *_completer;
     QStringListModel _namesModel;
     QKeySequence *_keySequence;
@@ -63,6 +67,9 @@ public:
     QSet<QString> data();
     void autocomplete();
 
+
+    bool fireIfMatch() const;
+    void setFireIfMatch(bool fireIfMatch);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

@@ -22,8 +22,22 @@
 
 
 #include "automitemeditorfactory.h"
+#include "modules/widgets/lineeditwithcompleter.h"
 
-AutomItemEditorFactory::AutomItemEditorFactory(QObject *parent) :
-    QItemEditorFactory(parent)
+AutoItemEditorFactory::AutoItemEditorFactory() :
+    QItemEditorFactory()
 {
+}
+
+AutoItemEditorFactory::~AutoItemEditorFactory()
+{
+}
+
+QWidget *AutoItemEditorFactory::createEditor(int userType, QWidget * parent) const
+{
+    if(QVariant::String == userType) {
+        return new LineEditWithCompleter(parent);
+    } else {
+        return QItemEditorFactory::createEditor(userType, parent);
+    }
 }
