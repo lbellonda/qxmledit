@@ -42,6 +42,8 @@ class LineEditWithCompleter : public QLineEdit, public ICompleter
      * \brief _fireIfMatch: if true, if there is only one match, the completion is fired
      */
     bool _fireIfMatch;
+    bool _fireifLimit;
+    static const int Limit = 3 ;
     QCompleter *_completer;
     QStringListModel _namesModel;
     QKeySequence *_keySequence;
@@ -70,6 +72,9 @@ public:
 
     bool fireIfMatch() const;
     void setFireIfMatch(bool fireIfMatch);
+
+    bool fireifLimit() const;
+    void setFireifLimit(bool fireifLimit);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

@@ -38,6 +38,7 @@ LineEditWithCompleter::LineEditWithCompleter(QWidget *parent) :
     _wordStart = -1 ;
     _keyToActivate = -1 ;
     _fireIfMatch = true ;
+    _fireifLimit = false ;
     setup();
 }
 
@@ -196,10 +197,12 @@ void LineEditWithCompleter::keyPressEvent(QKeyEvent * event)
                 TRACEQ(QString("default keyp"));
                 QLineEdit::keyPressEvent(event);
                 if(!isCompleterVisible) {
-                    QString theText = text();
-                    int len = theText.length();
-                    if(len > 3) {
-                        onAutocompleteFunctionActivated();
+                    if(_fireifLimit) {
+                        QString theText = text();
+                        int len = theText.length();
+                        if(len > Limit) {
+                            onAutocompleteFunctionActivated();
+                        }
                     }
                 }
             } else {
@@ -218,6 +221,17 @@ bool LineEditWithCompleter::fireIfMatch() const
 void LineEditWithCompleter::setFireIfMatch(bool fireIfMatch)
 {
     _fireIfMatch = fireIfMatch;
+}
+
+
+bool LineEditWithCompleter::fireifLimit() const
+{
+    return _fireifLimit;
+}
+
+void LineEditWithCompleter::setFireifLimit(bool fireifLimit)
+{
+    _fireifLimit = fireifLimit;
 }
 
 bool LineEditWithCompleter::handleKeyEvent(QKeyEvent * event)
