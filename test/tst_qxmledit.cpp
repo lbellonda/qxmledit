@@ -1379,6 +1379,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testLoadFile();
     testSplit();
 }
 

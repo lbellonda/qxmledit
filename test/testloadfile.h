@@ -32,6 +32,8 @@ class TestLoadFile : public TestBase
 {
     bool loadFileOK();
     bool loadFileKO();
+    bool testVerifyLoad1();
+    bool testVerifyLoad2();
     bool testLoadWithModifications();
     bool loadDrop();
     bool loadReload();

@@ -47,6 +47,7 @@ bool TestLoadFile::testFast()
 bool TestLoadFile::testUnit()
 {
     _testName = "testUnit" ;
+
     if(!loadFileOK()) {
         return false;
     }
@@ -56,6 +57,16 @@ bool TestLoadFile::testUnit()
     if(!testLoadWithModifications()) {
         return false;
     }
+#if QT_VERSION >= QT_VERSION_CHECK(5,6,2)
+    if(!testVerifyLoad1()) {
+        return false;
+    }
+
+    if(!testVerifyLoad2()) {
+        return false;
+    }
+#endif
+
     return true;
 }
 
@@ -91,6 +102,58 @@ bool TestLoadFile::loadFileKO()
     }
     if(app.getUiDelegate()->errorCount()==0) {
         return error(QString("Expected errors, but found:%1").arg(app.getUiDelegate()->errorCount()));
+    }
+    return true ;
+}
+
+bool TestLoadFile::testVerifyLoad1()
+{
+    _testName = "testVerifyLoad1";
+    App app;
+    if(!app.init() ) {
+        return error("init");
+    }
+    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, true);
+    app.getUiDelegate()->resetErrorCount();
+    const char *sz = "<?xml version='1.0' standalone='yes'?><root a='a&#1A;'/>";
+    QString strTest = sz ;
+    QBuffer ioDevice;
+    ioDevice.setData(strTest.toUtf8());
+    if(ioDevice.open(QIODevice::ReadOnly)) {
+        if( app.mainWindow()->loadFileInnerStream(&ioDevice, "a", false, true)) {
+            return error("Invalid xml loaded.");
+        }
+        if(app.getUiDelegate()->errorCount()==0) {
+            return error(QString("Expected errors, but found:%1").arg(app.getUiDelegate()->errorCount()));
+        }
+    } else {
+        return error("Unable to load test data.");
+    }
+    return true ;
+}
+
+bool TestLoadFile::testVerifyLoad2()
+{
+    _testName = "testVerifyLoad2";
+    App app;
+    if(!app.init() ) {
+        return error("init");
+    }
+    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, true);
+    app.getUiDelegate()->resetErrorCount();
+    const char *sz = "<?xml version='1.0' standalone='yes'?><root a='a\x1A'/>";
+    QString strTest = sz ;
+    QBuffer ioDevice;
+    ioDevice.setData(strTest.toUtf8());
+    if(ioDevice.open(QIODevice::ReadOnly)) {
+        if( app.mainWindow()->loadFileInnerStream(&ioDevice, "a", false, true)) {
+            return error("Invalid xml loaded.");
+        }
+        if(app.getUiDelegate()->errorCount()==0) {
+            return error(QString("Expected errors, but found:%1").arg(app.getUiDelegate()->errorCount()));
+        }
+    } else {
+        return error("Unable to load test data.");
     }
     return true ;
 }
