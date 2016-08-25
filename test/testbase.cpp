@@ -394,6 +394,8 @@ bool TestBase::loadFileAsString(const QString &fileInput, const QString &encodin
         file.close();
         QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1().data());
         *result = codec->toUnicode(dataFile);
+        // now normalize crlf from text mode to string.
+        *result = result->replace("\r\n", "\n");
         return true;
     }
     return error(QString("error opening final '%1'").arg(fileInput));
