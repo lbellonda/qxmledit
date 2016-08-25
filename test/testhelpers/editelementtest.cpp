@@ -33,7 +33,7 @@ EditElementTest::~EditElementTest()
 
 AttributeColumnItemDelegate *EditElementTest::attributeDelegate()
 {
-    return _attributeDelegate;
+    return _attributeTextDelegate;
 }
 
 int EditElementTest::columnForEditAttributes()

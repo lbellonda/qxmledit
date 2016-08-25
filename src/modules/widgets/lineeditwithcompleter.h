@@ -43,7 +43,8 @@ class LineEditWithCompleter : public QLineEdit, public ICompleter
      */
     bool _fireIfMatch;
     bool _fireifLimit;
-    static const int Limit = 3 ;
+    static const int DefaultLimit = 3 ;
+    int _charLimit ;
     QCompleter *_completer;
     QStringListModel _namesModel;
     QKeySequence *_keySequence;
@@ -75,6 +76,9 @@ public:
 
     bool fireifLimit() const;
     void setFireifLimit(bool fireifLimit);
+
+    int charLimit() const;
+    void setCharLimit(int charLimit);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

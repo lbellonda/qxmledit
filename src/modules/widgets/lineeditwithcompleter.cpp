@@ -36,6 +36,7 @@ LineEditWithCompleter::LineEditWithCompleter(QWidget *parent) :
     _keySequence = NULL ;
     _wordSeparator = "/\\.@![]~{};";
     _wordStart = -1 ;
+    _charLimit = DefaultLimit ;
     _keyToActivate = -1 ;
     _fireIfMatch = true ;
     _fireifLimit = false ;
@@ -200,7 +201,7 @@ void LineEditWithCompleter::keyPressEvent(QKeyEvent * event)
                     if(_fireifLimit) {
                         QString theText = text();
                         int len = theText.length();
-                        if(len > Limit) {
+                        if(len > _charLimit) {
                             onAutocompleteFunctionActivated();
                         }
                     }
@@ -232,6 +233,17 @@ bool LineEditWithCompleter::fireifLimit() const
 void LineEditWithCompleter::setFireifLimit(bool fireifLimit)
 {
     _fireifLimit = fireifLimit;
+}
+
+
+int LineEditWithCompleter::charLimit() const
+{
+    return _charLimit;
+}
+
+void LineEditWithCompleter::setCharLimit(int charLimit)
+{
+    _charLimit = charLimit;
 }
 
 bool LineEditWithCompleter::handleKeyEvent(QKeyEvent * event)
