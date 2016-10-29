@@ -39,6 +39,14 @@
 #include "modules/replica/replicacloneinfo.h"
 #include "modules/replica/replicaclonedialog.h"
 #include "modules/replica/replicasettingsdialog.h"
+#include "undo/prefixremovecommand.h"
+#include "modules/namespace/removeprefixdialog.h"
+#include "modules/namespace/removenamespacesdialog.h"
+#include "modules/namespace/setprefixdialog.h"
+#include "modules/namespace/setnamespacedialog.h"
+#include "modules/namespace/replacenamespacedialog.h"
+#include "modules/namespace/replaceprefixdialog.h"
+#include "modules/namespace/normalizenamespacedialog.h"
 
 //----------
 ReplicaInfoProvider::ReplicaInfoProvider() {}
@@ -233,4 +241,91 @@ ReplicaCloneInfo * MainWndController::getCloneInfo(QWidget *parent, Element *ele
         }
     }
     return command ;
+}
+
+
+void MainWndController::removePrefix()
+{
+    if(!_w->isReadOnly()) {
+        RemovePrefixInfo info;
+        info.element = _w->getSelectedItem();
+        _w->getRegola()->collectPrefixes(info.prefixInfo, info.element);
+        if(RemovePrefixDialog::getRemovePrefixInfo(_w, &info)) {
+            _w->getEditor()->prefixRemove(info.removedPrefix, info.element, info.targetSelection, info.isAllPrefixes);
+        }
+    }
+}
+
+void MainWndController::removeNamespace()
+{
+    if(!_w->isReadOnly()) {
+        RemoveNamespacesInfo info;
+        info.element = _w->getSelectedItem();
+        _w->getRegola()->collectNamespaces(info.namespacesInfo, info.element);
+        if(RemoveNamespacesDialog::getRemoveNamespacesInfo(_w, &info)) {
+            _w->getEditor()->namespaceRemove(info.removedNamespace, info.element, info.targetSelection, info.isAllNamespaces, info.isRemoveDeclarations);
+        }
+    }
+}
+
+void MainWndController::setPrefix()
+{
+    if(!_w->isReadOnly()) {
+        SetPrefixInfo info;
+        info.element = _w->getSelectedItem();
+        _w->getRegola()->collectPrefixes(info.prefixInfo, info.element);
+        if(SetPrefixDialog::getSetPrefixInfo(_w, &info)) {
+            _w->getEditor()->prefixSet(info.setPrefix, info.element, info.targetSelection);
+        }
+    }
+}
+
+void MainWndController::setNamespace()
+{
+    if(!_w->isReadOnly()) {
+        SetNamespaceInfo info;
+        info.element = _w->getSelectedItem();
+        _w->getRegola()->collectNamespaces(info.namespacesInfo, info.element);
+        if(SetNamespaceDialog::getSetNamespaceInfo(_w, &info, _w->getRegola()->namespaceManager())) {
+            _w->getEditor()->namespaceSet(info.nsURI, info.setPrefix, info.element, info.targetSelection, info.remapPrefixes, &info.namespacesInfo);
+        }
+    }
+}
+
+void MainWndController::replacePrefix()
+{
+    if(!_w->isReadOnly()) {
+        ReplacePrefixInfo info;
+        info.element = _w->getSelectedItem();
+        _w->getRegola()->collectPrefixes(info.prefixInfo, info.element);
+        if(ReplacePrefixDialog::getReplacePrefixInfo(_w, &info)) {
+            _w->getEditor()->prefixReplace(info.toReplacePrefix, info.setPrefix, info.element, info.targetSelection, info.isAllPrefixes);
+        }
+    }
+}
+
+void MainWndController::replaceNamespace()
+{
+    if(!_w->isReadOnly()) {
+        ReplaceNamespaceInfo info;
+        info.element = _w->getSelectedItem();
+        Regola *regola = _w->getRegola();
+        regola->collectNamespaces(info.namespacesInfo, info.element);
+        if(ReplaceNamespaceDialog::getReplaceNamespaceInfo(_w, &info, regola->namespaceManager())) {
+            _w->getEditor()->namespaceReplace(info.toReplaceNSUri, info.nsURI, info.setPrefix, info.element, info.targetSelection, info.remapPrefixes, &info.namespacesInfo);
+        }
+    }
+}
+
+void MainWndController::normalizeNamespace()
+{
+    if(!_w->isReadOnly()) {
+        NormalizeNamespaceInfo info;
+        info.element = _w->getSelectedItem();
+        Regola *regola = _w->getRegola();
+        regola->collectNamespaces(info.namespacesInfo, info.element);
+        if(NormalizeNamespaceDialog::getNormalizeNamespaceInfo(_w, &info, regola->namespaceManager())) {
+            _w->getEditor()->namespaceNormalize(info.nsURI, info.setPrefix, info.element, info.targetSelection, info.declareOnRoot, info.remapPrefixes, &info.namespacesInfo);
+        }
+    }
 }

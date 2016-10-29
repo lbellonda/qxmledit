@@ -1,0 +1,7 @@
+<a1:a xmlns:a1="a">
+        <b1:b xmlns:b1="b"/>
+        <a2:a xmlns:a2="ab">
+                <c1:c xmlns:c="c1"/>
+                <d1:d xmlns:d="d1"/>
+        </a2:a>
+</a1:a>

@@ -1,0 +1,133 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<a:root xmlns:a="abca"
+        xmlns:newp="newns"
+        xmlns:c="abcc">
+  <one>
+    <a:b a:a="a"
+         b="b"
+         c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+    </a:b>
+    <b a:a="a"
+       b="b"
+       c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+    </b>
+    <c:c a:a="a"
+         b="b"
+         c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+    </c:c>
+    <!--a:a-->
+  </one>
+  <newp:a newp:a="a" c:c="c" d="d">
+    <a:b a:a="a"
+         b="b"
+         c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+    </a:b>
+    <b a:a="a"
+       b="b"
+       c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+    </b>
+    <c:c a:a="a"
+         b="b"
+         c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+    </c:c>
+    <!--a:a-->
+  </newp:a>
+  <a:a a:a="a" c:c="c" d="d">
+    <a:b a:a="a"
+         b="b"
+         c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+      <!--a:a-->
+    </a:b>
+    <b a:a="a"
+       b="b"
+       c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+      <!--a:a-->
+    </b>
+    <c:c a:a="a"
+         b="b"
+         c:c="c">
+      <one a:a="a"
+           b="b"
+           c:c="c"/>
+      <a:b a:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c a:a="a"
+           b="b"
+           c:c="c"/>
+    </c:c>
+  </a:a>
+  <!--a:a-->
+</a:root>

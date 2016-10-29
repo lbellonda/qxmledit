@@ -1,0 +1,12 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<uno xmlns:a="ns1" xmlns:b="ns1">
+  <a:uno>
+    <uno/>
+  </a:uno>
+  <a0:uno xmlns:a0="ns2" xmlns:b="ns2">
+    <a1:uno xmlns:a1="ns3" />
+  </a0:uno>
+  <b:uno>
+    <uno/>
+  </b:uno>
+</uno>

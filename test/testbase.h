@@ -33,9 +33,13 @@
 class Element;
 class Regola;
 class QAction;
+class MainWindow;
 
 class TestBase
 {
+public:
+    bool error(const QString &msg);
+
 protected:
     bool _isError ;
     QString _errorString;
@@ -43,10 +47,16 @@ protected:
     QString _origName;
 
     bool error(const QString &testName, const QString &msg);
-    bool error(const QString &msg);
     bool error(const TestBase &inner);
     static bool False();
     void resetError();
+
+    enum TestSelSpec {
+        SelOnlySelection,
+        SelOnlyBookmark,
+        SelSelectionAndBookmark
+    };
+
 private:
     static QList<bool> _boolArray;
 
@@ -101,6 +111,9 @@ protected:
 
     static void dumpTree(QTreeWidget *tree);
     static void dumpItem(const int index, const int level, QTreeWidgetItem *item);
+
+    bool testSkeletonBase(const QString &id, const QString &fileStart, const QString &fileFinal, bool (*apply)(TestBase *, MainWindow *, Element *), QList<int> selPath, const TestSelSpec selSpec = SelOnlySelection);
+    bool testSkeletonBaseNoOp( const QString &id, const QString &fileStart, bool (*apply)(TestBase *arg, MainWindow *, Element *, void* aptr), QList<int> selPath, const TestSelSpec selSpec, void* aptr );
 
 };
 

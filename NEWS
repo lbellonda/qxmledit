@@ -1,4 +1,7 @@
 0.9.5
+    Manipulation of namespaces: set, remove, replace, normalize.
+    Manipulation of prefixes: set, remove, replace.
+    Fix #37 (https://github.com/lbellonda/qxmledit/issues/37).
     Autocompletion editing attributes (activated with ctrl+space).
     Added error message in splitting files operation.
     New options for splitting files: extract and group, even in CSV format.

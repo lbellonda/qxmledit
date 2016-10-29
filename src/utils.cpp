@@ -422,9 +422,10 @@ bool Utils::writeXDocumentToFile(QDomDocument &document, const QString &filePath
 
 //-----------------------------------------------------------------
 
-bool Utils::checkNsPrefix(const QString &prefix)
+bool Utils::checkNsPrefix(const QString &prefix, const bool emptyIsLegal)
 {
-    if((!prefix.isEmpty() && !Utils::checkXMLName(prefix)) || (prefix.indexOf(":") >= 0)) {
+    bool emptyTest = (prefix.isEmpty() && emptyIsLegal) || !prefix.isEmpty();
+    if((emptyTest && !Utils::checkXMLName(prefix)) || (prefix.indexOf(":") >= 0)) {
         return false;
     }
     return true ;
@@ -560,6 +561,7 @@ void Utils::todo(const QString &inputMessage)
 }
 */
 
+/*
 void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
 {
     if(isUnitTest) {
@@ -567,7 +569,7 @@ void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
     } else {
         //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
     }
-}
+}*/
 
 void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
 {
@@ -582,6 +584,11 @@ void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
 void Utils::TODO_CHECK_FIX(const QString & fix)
 {
     printf("CHECK FIX:%s\n", fix.toLatin1().data());
+}
+
+bool Utils::askYNRemapNamespaces(QWidget *parent)
+{
+    return askYN(parent, QObject::tr("The prefix is already used for other namespaces. If you want to perform the operation, you must allow me to rename the existing prefix."));
 }
 
 /**
@@ -1046,4 +1053,38 @@ bool Utils::is8BitEncodingHonoredForStreamWriter(const QString &encoding)
     } // open device: pessimistic evaluation
     return result ;
 }
+
+void Utils::replaceWidget(QLayout *layout, QWidget *oldWidget, QWidget *newWidget, const bool setAlignment, const Qt::Alignment alignment, const bool preferredSize)
+{
+    if(preferredSize) {
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        newWidget->setSizePolicy(sizePolicy);
+    }
+    layout->removeWidget(oldWidget);
+    oldWidget->setParent(NULL);
+    layout->addWidget(newWidget);
+    if(setAlignment) {
+        layout->setAlignment(newWidget, alignment);
+    }
+    layout->update();
+}
+
+void Utils::updateEditableCombo(QComboBox *combo, const QStringList & values)
+{
+    QString currentTextValue = combo->currentText();
+    //--------
+    combo->clear();
+    loadComboTextArrays(combo, currentTextValue, values, values);
+    combo->setEditText(currentTextValue);
+}
+
+void Utils::updateNonEditableCombo(QComboBox *combo, const QStringList & values)
+{
+    QString currentTextValue = combo->currentText();
+    combo->clear();
+    loadComboTextArrays(combo, currentTextValue, values, values);
+}
+
 

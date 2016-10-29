@@ -427,7 +427,22 @@ SOURCES += xmleditwidget.cpp \
     modules/xsd/choosefacetdialog.cpp \
     undo/editxsdenumcommand.cpp \
     modules/xml/xmlnamespaces.cpp \
-    modules/delegates/automitemeditorfactory.cpp
+    modules/delegates/automitemeditorfactory.cpp \
+    undo/prefixremovecommand.cpp \
+    modules/namespace/regolaprefixes.cpp \
+    undo/writeelementundoobserver.cpp \
+    undo/undodatareply.cpp \
+    modules/namespace/nscontext.cpp \
+    undo/namespaceremovecommand.cpp \
+    undo/prefixaddcommand.cpp \
+    widgets/elementselectiontypewidget.cpp \
+    undo/namespacesetcommand.cpp \
+    undo/namespacereplacecommand.cpp \
+    undo/namespacenormalizecommand.cpp \
+    undo/prefixreplacecommand.cpp \
+    modules/namespace/elementnamespace.cpp \
+    modules/namespace/elementprefix.cpp \
+    undo/namespaceavoidclashcommand.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -647,7 +662,19 @@ HEADERS += precompiled_lib.h \
     undo/undodeletesiblings.h \
     modules/xsd/choosefacetdialog.h \
     undo/editxsdenumcommand.h \
-    modules/delegates/automitemeditorfactory.h
+    modules/delegates/automitemeditorfactory.h \
+    undo/prefixremovecommand.h \
+    undo/writeelementundoobserver.h \
+    undo/undodatareply.h \
+    modules/namespace/nscontext.h \
+    undo/namespaceremovecommand.h \
+    undo/prefixaddcommand.h \
+    widgets/elementselectiontypewidget.h \
+    undo/namespacesetcommand.h \
+    undo/namespacereplacecommand.h \
+    undo/namespacenormalizecommand.h \
+    undo/prefixreplacecommand.h \
+    undo/namespaceavoidclashcommand.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -698,7 +725,8 @@ FORMS += xmleditwidget.ui \
     modules/namespace/editnamespacedialog.ui \
     modules/xsd/schemareferencesdialog.ui \
     modules/replica/replicasettingsdialog.ui \
-    modules/xsd/choosefacetdialog.ui
+    modules/xsd/choosefacetdialog.ui \
+    widgets/elementselectiontypewidget.ui
 
 
 symbian {

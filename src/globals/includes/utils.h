@@ -73,7 +73,7 @@ public:
     static QString errorNoSelString();
 
     static void todo(const QString &message);
-    static void TODO_THIS_RELEASE(const QString &message);
+    //static void TODO_THIS_RELEASE(const QString &message);
 #define UNTESTED(msg) TODO_THIS_RELEASE( QString("UNTESTED:%1 %2").arg(__FILE__).arg(_LINE__))
     static void TODO_CHECK_FIX(const QString &message);
     static void TODO_NEXT_RELEASE(const QString &inputMessage);
@@ -85,6 +85,8 @@ public:
     static void selectComboValue(QComboBox *combo, const int value);
     static int comboSelectedCodeAsInt(QComboBox *combo, const int defaultValue);
     static void selectComboText(QComboBox *combo, const QString &text);
+    static void updateEditableCombo(QComboBox *combo, const QStringList &values);
+    static void updateNonEditableCombo(QComboBox *combo, const QStringList &values);
 
     static bool decodeBoolean(const QString &str);
     static int decodeInt(const QString &str, const int defaultVale);
@@ -101,7 +103,7 @@ public:
     static bool writeXDocumentToFile(QDomDocument &document, const QString &filePath, const bool isOverWrite);
 
     static bool checkXMLName(const QString &theTag);
-    static bool checkNsPrefix(const QString &prefix);
+    static bool checkNsPrefix(const QString &prefix, const bool emptyIsLegal = false);
     static bool canStartXmlName(const QChar &ch);
     static bool canFollowXmlStartName(const QChar &ch);
 
@@ -157,6 +159,9 @@ public:
     static bool isAsciiCompatible(const QByteArray &encoding);
     static QByteArray translateData(const QString &string, const QByteArray &encoding);
     static bool is8BitEncodingHonoredForStreamWriter(const QString &encoding);
+    //
+    static void replaceWidget(QLayout *layout, QWidget *oldWidget, QWidget *newWidget, const bool setAlignment = false, const Qt::Alignment alignment = 0, const bool preferredSize = false);
+    static bool askYNRemapNamespaces(QWidget *parent);
 };
 
 

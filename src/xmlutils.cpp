@@ -79,7 +79,6 @@ bool XmlUtils::hasPrefix(const QString &tag, const QString &nsPrefix)
     return result;
 }
 
-
 QString XmlUtils::boolToBoolValue(const bool input)
 {
     return input ? "true" : "false";
@@ -178,13 +177,13 @@ QString XmlUtils::makeQualifiedName(const QString &prefix, const QString &localN
     return QString("%1:%2").arg(prefix).arg(localName);
 }
 
-QString XmlUtils::makeNSDeclaration(const QString &ns)
+QString XmlUtils::makeNSDeclaration(const QString &nsPrefix)
 {
     QString xmlNs = "xmlns" ;
-    if(ns.isEmpty()) {
+    if(nsPrefix.isEmpty()) {
         return xmlNs ;
     }
-    return QString("%1:%2").arg(xmlNs).arg(ns);
+    return QString("%1:%2").arg(xmlNs).arg(nsPrefix);
 }
 
 bool XmlUtils::isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix)
@@ -239,4 +238,27 @@ QString XmlUtils::innerContent(const QString &inputString)
     }
     // impossible to be here
     return inputString ;
+}
+
+QString XmlUtils::makeNewPrefixForChangePrefixKey(const QString &ns, const QString &prefix)
+{
+    return QString("%1:%2").arg(prefix).arg(ns);
+}
+
+QString XmlUtils::makeNewPrefixForChangePrefix(QHash<QString, QString> &prefixes, QSet<QString> &allPrefixes, const QString &ns, const QString &prefix)
+{
+    QString key = makeNewPrefixForChangePrefixKey(ns, prefix);
+    if(prefixes.contains(key)) {
+        return prefixes[key];
+    }
+    int index = 0;
+    while(true) {
+        QString newPrefix = prefix + QString::number(index);
+        if(!allPrefixes.contains(newPrefix)) {
+            allPrefixes.insert(newPrefix);
+            prefixes.insert(key, newPrefix);
+            return newPrefix;
+        }
+        index++ ;
+    }
 }

@@ -33,7 +33,11 @@ AutoItemEditorFactory::~AutoItemEditorFactory()
 {
 }
 
+#if QT_VERSION < QT_VERSION_CHECK(5,3,0)
+QWidget *AutoItemEditorFactory::createEditor(QVariant::Type userType, QWidget * parent) const
+#else
 QWidget *AutoItemEditorFactory::createEditor(int userType, QWidget * parent) const
+#endif
 {
     if(QVariant::String == userType) {
         return new LineEditWithCompleter(parent);

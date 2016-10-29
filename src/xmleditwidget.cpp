@@ -1133,3 +1133,59 @@ void XmlEditWidget::setFacets(Element *selection, QList<XSDFacet*> facets)
 {
     d->setFacets(selection, facets);
 }
+
+//---region(names)
+void XmlEditWidget::prefixRemove(const QString &removedPrefix, Element *element, const TargetSelection::Type targetSelection, const bool isAllPrefixes)
+{
+    d->prefixRemove(removedPrefix, element, targetSelection, isAllPrefixes);
+}
+
+void XmlEditWidget::prefixSet(const QString &newPrefix, Element * element, const TargetSelection::Type targetSelection)
+{
+    d->prefixSet(newPrefix, element, targetSelection);
+}
+
+void XmlEditWidget::prefixReplace(const QString &oldPrefix, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool isAllPrefixes)
+{
+    d->prefixReplace(oldPrefix, newPrefix, element, targetSelection, isAllPrefixes);
+}
+
+//---endregion(names)
+
+//---region(namespaces)
+void XmlEditWidget::namespaceRemove(const QString &removedNS, Element *element, const TargetSelection::Type targetSelection, const bool isAllNS, const bool isRemoveDeclarations)
+{
+    d->namespaceRemove(removedNS, element, targetSelection, isAllNS, isRemoveDeclarations);
+}
+
+void XmlEditWidget::namespaceSet(const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool avoidClash, NamespacesInfo *info)
+{
+    d->namespaceSet(newNS, newPrefix, element, targetSelection, avoidClash, info);
+}
+
+void XmlEditWidget::namespaceReplace(const QString &oldNS, const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool avoidClash, NamespacesInfo *info)
+{
+    d->namespaceReplace(oldNS, newNS, newPrefix, element, targetSelection, avoidClash, info);
+}
+
+void XmlEditWidget::namespaceNormalize(const QString &ns, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool declareOnRoot, const bool avoidClash, NamespacesInfo *info)
+{
+    d->namespaceNormalize(ns, newPrefix, element, targetSelection, declareOnRoot, avoidClash, info);
+}
+
+void XmlEditWidget::namespaceAvoidClash(const QString &ns, const QString &newPrefix, NamespacesInfo *namespacesInfo)
+{
+    d->namespaceAvoidClash(ns, newPrefix, namespacesInfo);
+}
+
+//---endregion(namespaces)
+
+
+
+
+
+
+
+
+
+

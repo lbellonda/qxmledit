@@ -1,0 +1,6 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<a >
+    <b>
+        <pr:c xmlns:a="abca" xmlns:pr="newns"/>
+    </b>
+</a>

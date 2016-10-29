@@ -36,6 +36,9 @@ class FindTextParams;
 class ReplaceTextParams;
 class ElementViewInfo;
 class AnonAlg;
+class NSContext;
+class ElementUndoObserver;
+class ElementUndoInfo;
 
 class ElementOp
 {
@@ -72,6 +75,31 @@ public:
 class AnonContext ;
 class AnonElem;
 class AnonException;
+
+
+class LIBQXMLEDITSHARED_EXPORT PrefixInfo
+{
+public:
+    QSet<QString> selectionPrefixes;
+    QSet<QString> selectionPrefixesRecursive;
+    QSet<QString> allPrefixes;
+    QSet<QString> bookmarksPrefixes;
+    QSet<QString> bookmarksPrefixesRecursive;
+};
+
+class LIBQXMLEDITSHARED_EXPORT NamespacesInfo
+{
+public:
+    QSet<QString> selectionNamespaces;
+    QSet<QString> selectionNamespacesRecursive;
+    QSet<QString> allNamespaces;
+    QSet<QString> bookmarksNamespaces;
+    QSet<QString> bookmarksNamespacesRecursive;
+    QHash<QString, QSet<QString> > prefixesForNamespaces;
+
+    bool isUsedPrefixForOtherNamespace(const QString &nsURI, const QString &prefix);
+    NamespacesInfo *clone();
+};
 
 class LIBQXMLEDITSHARED_EXPORT Attribute
 {
@@ -131,6 +159,19 @@ public:
 
 class XMLSaveContext;
 
+class LIBQXMLEDITSHARED_EXPORT TargetSelection
+{
+public:
+    enum Type {
+        AllItems,
+        SelectedItem,
+        SelectedItemAndChildren,
+        Bookmarks,
+        BookmarksAndChildren
+    };
+    static bool isRecursive(const Type type) ;
+};
+
 class LIBQXMLEDITSHARED_EXPORT Element
 {
 
@@ -167,6 +208,8 @@ public:
     QString _tag;
     QString tag();
     void setTag(const QString &newTag);
+    void setTagAuto(const QString &newTag);
+    QString attributeNameAuto(const QString &newName);
     bool isShowTextBase64;
     bool wasOpen ;
     ElementInfo selfInfo;
@@ -264,6 +307,7 @@ public:
     void repaint();
     bool isFirstChild() ;
     bool isLastChild() ;
+    bool isChildOf(Element* other);
 
     void expand(QTreeWidget *tree);
     void deleteUI();
@@ -361,6 +405,7 @@ public:
 
     QList<Attribute*>getAttributesList();
     Attribute* getAttribute(const QString &attributeName);
+    Attribute* getAttributeAt(const int index);
     QString getAttributeValue(const QString &attributeName);
     bool hasAttribute(const QString &attributeName);
 
@@ -577,6 +622,30 @@ public:
     void sortAttributes(QList<int> *undoPositionList, const bool isRecursive);
 
     static QList<Attribute*> sortAttributesList(const QVector<Attribute *> &attributes);
+
+    void handleNamespace(NSContext *context);
+    bool removeNamespace(const QString &removedNS, TargetSelection::Type targetSelection,
+                         const bool isAllNamespaces, const bool removeDeclarations, ElementUndoObserver *observer,
+                         const NSContext *parentContext);
+    bool setNamespace(const QString &newNS, const QString &newPrefix, TargetSelection::Type targetSelection,
+                      ElementUndoObserver *observer, const NSContext *parentContext, const bool canDeclare);
+    bool replaceNamespace(const QString &replacedNS, const QString &newNS, const QString &newPrefix, TargetSelection::Type targetSelection,
+                          ElementUndoObserver *observer, const NSContext *parentContext, const bool isRoot, const bool nsVisible);
+    bool removePrefix(const QString &removedPrefix, TargetSelection::Type targetSelection,
+                      const bool isAllPrefixes, ElementUndoObserver *observer);
+    bool replacePrefix(const QString &oldPrefix, const QString &newPrefix, TargetSelection::Type targetSelection,
+                       const bool isAllPrefixes, ElementUndoObserver *observer);
+    bool setPrefix(const QString &newPrefix, TargetSelection::Type targetSelection, ElementUndoObserver *observer);
+    void serializeAttributesToInfo(ElementUndoInfo &info);
+    void collectPrefixes(PrefixInfo& info, Element * selection, const bool inSelection, const bool inBookmark);
+    void collectNamespaces(NamespacesInfo & info, NSContext *parentContext, Element * selection, const bool inSelection, const bool inBookmark);
+    bool namespaceAvoidClash(NSContext *parentContext, const QString &prefixToAvoid, const QString &legalNS,
+                             QHash<QString, QString> &prefixes, QSet<QString> &allPrefixes, ElementUndoObserver *observer);
+    bool normalizeNamespace(const QString &theNS, const QString &thePrefix,
+                            const bool declareOnlyOnRoot, const bool isRoot,
+                            const bool wasDeclared,
+                            ElementUndoObserver *observer, const NSContext *parentContext);
+    void setNewTagWithUndo(const QString &newTag, ElementUndoInfo &info);
 
 #ifdef  QXMLEDIT_TEST
     friend class TestStyle;

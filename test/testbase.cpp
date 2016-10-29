@@ -27,7 +27,7 @@
 #include <QClipboard>
 #include <QAction>
 #include <QTest>
-
+#include "app.h"
 
 QList<bool> TestBase::_boolArray;
 
@@ -607,4 +607,97 @@ void TestBase::dumpItem(const int index, const int level, QTreeWidgetItem *item)
     for( int i = 0 ; i < itemsLeft ; i ++ ) {
         dumpItem(i, index+1, item->child(i));
     }
+}
+
+bool TestBase::testSkeletonBase( const QString &id, const QString &fileStart, const QString &fileFinal, bool (*apply)(TestBase *arg, MainWindow *, Element *), QList<int> selPath, const TestSelSpec selSpec)
+{
+    QString oldName = _testName ;
+    _testName = _testName.append(id);
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = NULL ;
+    selectedElement = app.mainWindow()->getRegola()->findElementByArray(selPath);
+    if(NULL == selectedElement) {
+        return error("no element selected");
+    }
+    switch(selSpec) {
+    default:
+        return error(QString("Unknown selection type:%1").arg(selSpec));
+        break;
+    case SelOnlySelection:
+        app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+        break;
+    case SelOnlyBookmark:
+        regola->addBookmark(selectedElement);
+        break;
+    case SelSelectionAndBookmark:
+        regola->addBookmark(selectedElement);
+        app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+        break;
+    }
+    if(!(*apply)(this, app.mainWindow(), selectedElement)) {
+        return error("method returned false");
+    }
+    if(!compare(regola, "do", fileFinal)){
+        return false;
+    }
+    app.mainWindow()->getRegola()->undo();
+    if(!compare(regola, "op undo", fileStart)){
+        return false;
+    }
+    app.mainWindow()->getRegola()->redo();
+    if(!compare(regola, "op redo", fileFinal)){
+        return false;
+    }
+    app.mainWindow()->getRegola()->undo();
+    if(!compare(regola, "op undo", fileStart)){
+        return false;
+    }
+    _testName = oldName ;
+    return true;
+}
+
+bool TestBase::testSkeletonBaseNoOp( const QString &id, const QString &fileStart, bool (*apply)(TestBase *arg, MainWindow *, Element *, void* aptr), QList<int> selPath, const TestSelSpec selSpec, void* aptr )
+{
+    QString oldName = _testName ;
+    _testName = _testName.append(id);
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = NULL ;
+    selectedElement = app.mainWindow()->getRegola()->findElementByArray(selPath);
+    if(NULL == selectedElement) {
+        return error("no element selected");
+    }
+    switch(selSpec) {
+    default:
+        return error(QString("Unknown selection type:%1").arg(selSpec));
+        break;
+    case SelOnlySelection:
+        app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+        break;
+    case SelOnlyBookmark:
+        regola->addBookmark(selectedElement);
+        break;
+    case SelSelectionAndBookmark:
+        regola->addBookmark(selectedElement);
+        app.mainWindow()->getEditor()->setCurrentItem(selectedElement);
+        break;
+    }
+    if(!(*apply)(this, app.mainWindow(), selectedElement, aptr)) {
+        return error("method returned false");
+    }
+    _testName = oldName ;
+    return true;
 }

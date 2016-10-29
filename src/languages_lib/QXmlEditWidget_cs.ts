@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>ANotifier</name>
     <message>
@@ -275,7 +275,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>BMML files (*.bmml);;All files (*);;</source>
-        <translation type="vanished">Soubory BMML (*.bmml);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Soubory BMML (*.bmml);;Všechny soubory (*);;</translation>
     </message>
 </context>
 <context>
@@ -682,11 +682,11 @@ Kód chyby je &apos;%1&apos;</translation>
     <name>CMapItemDelegate</name>
     <message>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation type="obsolete">Formulář</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="vanished">Textový štítek</translation>
+        <translation type="obsolete">Textový štítek</translation>
     </message>
 </context>
 <context>
@@ -704,15 +704,15 @@ Kód chyby je &apos;%1&apos;</translation>
     <name>ChooseColorMap</name>
     <message>
         <source>Color Map Chooser</source>
-        <translation type="vanished">Volič barevné mapy</translation>
+        <translation type="obsolete">Volič barevné mapy</translation>
     </message>
     <message>
         <source>Choose a color map:</source>
-        <translation type="vanished">Vybrat barevnou mapu:</translation>
+        <translation type="obsolete">Vybrat barevnou mapu:</translation>
     </message>
     <message>
         <source>Error loading data.</source>
-        <translation type="vanished">Chyba při nahrávání dat.</translation>
+        <translation type="obsolete">Chyba při nahrávání dat.</translation>
     </message>
 </context>
 <context>
@@ -1759,99 +1759,99 @@ p, li { white-space: pre-wrap; }
     <name>DataWidget</name>
     <message>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation type="obsolete">Formulář</translation>
     </message>
     <message>
         <source>Copy Data to Clipboard</source>
-        <translation type="vanished">Kopírovat data do schránky</translation>
+        <translation type="obsolete">Kopírovat data do schránky</translation>
     </message>
     <message>
         <source>Extract This Fragment...</source>
-        <translation type="vanished">Vytáhnout tento kousek...</translation>
+        <translation type="obsolete">Vytáhnout tento kousek...</translation>
     </message>
     <message>
         <source>Copy Path to the Clipboard</source>
-        <translation type="vanished">Kopírovat cestu do schránky</translation>
+        <translation type="obsolete">Kopírovat cestu do schránky</translation>
     </message>
     <message>
         <source>rows (%)</source>
-        <translation type="vanished">Řádky (%)</translation>
+        <translation type="obsolete">Řádky (%)</translation>
     </message>
     <message>
         <source>columns (%)</source>
-        <translation type="vanished">Sloupce (%)</translation>
+        <translation type="obsolete">Sloupce (%)</translation>
     </message>
     <message>
         <source>value normal.</source>
-        <translation type="vanished">Hodnota normální.</translation>
+        <translation type="obsolete">Hodnota normální.</translation>
     </message>
     <message>
         <source>Error loading data.</source>
-        <translation type="vanished">Chyba při nahrávání dat.</translation>
+        <translation type="obsolete">Chyba při nahrávání dat.</translation>
     </message>
     <message>
         <source>DataWidget::getValue() type not valid: %d</source>
-        <translation type="vanished">DataWidget::getValue() typ není platný: %d</translation>
+        <translation type="obsolete">DataWidget::getValue() typ není platný: %d</translation>
     </message>
     <message>
         <source>
 row=%1, column=%2</source>
-        <translation type="vanished">
+        <translation type="obsolete">
 řádek: %1, sloupec: %2</translation>
     </message>
     <message>
         <source>size: %1, attributes %2, children %3
 </source>
-        <translation type="vanished">Velikost: %1, vlastnosti %2, potomci %3</translation>
+        <translation type="obsolete">Velikost: %1, vlastnosti %2, potomci %3</translation>
     </message>
     <message>
         <source>cumulative size: %1, attributes %2, children %3</source>
-        <translation type="vanished">Souhrnná velikost: %1, vlastnosti %2, potomci %3</translation>
+        <translation type="obsolete">Souhrnná velikost: %1, vlastnosti %2, potomci %3</translation>
     </message>
     <message>
         <source>No data available
 </source>
-        <translation type="vanished">Žádná data dostupná</translation>
+        <translation type="obsolete">Žádná data dostupná</translation>
     </message>
     <message>
         <source>Measurement type: %1 %2
 </source>
-        <translation type="vanished">Typ měření: %1 %2</translation>
+        <translation type="obsolete">Typ měření: %1 %2</translation>
     </message>
     <message>
         <source>cumulative</source>
-        <translation type="vanished">Kumulativní</translation>
+        <translation type="obsolete">Kumulativní</translation>
     </message>
     <message>
         <source>non cumulative</source>
-        <translation type="vanished">Nekumulativní</translation>
+        <translation type="obsolete">Nekumulativní</translation>
     </message>
     <message>
         <source>Max value : %1 
 </source>
-        <translation type="vanished">Největší hodnota: %1  </translation>
+        <translation type="obsolete">Největší hodnota: %1  </translation>
     </message>
     <message>
         <source>Data Window (%1,%2) -%3 x %4
 </source>
-        <translation type="vanished">Okno s daty (%1, %2) -%3 x %4
+        <translation type="obsolete">Okno s daty (%1, %2) -%3 x %4
 </translation>
     </message>
     <message>
         <source>row :%1 
 </source>
-        <translation type="vanished">Řádek: %1 
+        <translation type="obsolete">Řádek: %1 
 </translation>
     </message>
     <message>
         <source>Data Window (%1, %2) -%3 x %4
 </source>
-        <translation type="vanished">Okno s daty (%1, %2) -%3 x %4
+        <translation type="obsolete">Okno s daty (%1, %2) -%3 x %4
 </translation>
     </message>
     <message>
         <source>Data copied to the clipboard.</source>
-        <translation type="vanished">Data zkopírována do schránky</translation>
+        <translation type="obsolete">Data zkopírována do schránky</translation>
     </message>
 </context>
 <context>
@@ -2176,7 +2176,7 @@ Opravdu chcete pokračovat?</translation>
     </message>
     <message>
         <source>All files (*);;XML files (*.xml);;XML Schema files (*.xsd);;</source>
-        <translation type="vanished">Všechny soubory (*);;Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;</translation>
+        <translation type="obsolete">Všechny soubory (*);;Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;</translation>
     </message>
 </context>
 <context>
@@ -2466,7 +2466,7 @@ Opravdu chcete pokračovat?</translation>
     </message>
     <message>
         <source>All files (*);;XML files (*.xml);;XML Schema files (*.xsd);;</source>
-        <translation type="vanished">Všechny soubory (*);;Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;</translation>
+        <translation type="obsolete">Všechny soubory (*);;Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;</translation>
     </message>
     <message>
         <location filename="../edittextnode.cpp" line="109"/>
@@ -2502,7 +2502,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;</source>
-        <translation type="vanished">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
         <location filename="../edittextnode.cpp" line="172"/>
@@ -2576,7 +2576,7 @@ cesta: %2
     <message>
         <source>text:
 &quot;%1&quot;</source>
-        <translation type="vanished">text:
+        <translation type="obsolete">text:
 &quot;%1&quot;</translation>
     </message>
     <message>
@@ -3305,7 +3305,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../extraction/extractfragmentsdialog.cpp" line="304"/>
-        <source>This opertation fill take out some text from the result. Do you want to continue?</source>
+        <source>This operation will take out some text from the result. Do you want to continue?</source>
         <translation>Tato operace vezme z výsledku nějaký text. Chcete pokračovat?</translation>
     </message>
     <message>
@@ -5375,7 +5375,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;</source>
-        <translation type="vanished">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
         <location filename="../modules/utils/base64utils.cpp" line="146"/>
@@ -5391,11 +5391,11 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Error parsing XML: &apos;%1&apos; at row:%2 line:%3 offset:%4</source>
-        <translation type="vanished">Chyba při zpracovávání XML: &apos;%1&apos; na řádku: %2, řádek %3 posun: %4</translation>
+        <translation type="obsolete">Chyba při zpracovávání XML: &apos;%1&apos; na řádku: %2, řádek %3 posun: %4</translation>
     </message>
     <message>
         <source>Error parsing XML: &apos;%1&apos; code:&apos;%2&apos; at row:%3 line:%4 offset:%5</source>
-        <translation type="vanished">Chyba při zpracovávání XML: &apos;%1&apos; kód &apos;%2&apos; na řádku: %3, řádek %4 posun: %5</translation>
+        <translation type="obsolete">Chyba při zpracovávání XML: &apos;%1&apos; kód &apos;%2&apos; na řádku: %3, řádek %4 posun: %5</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlloadcontext.cpp" line="67"/>
@@ -5496,9 +5496,8 @@ Kód chyby je &apos;%1&apos;</translation>
 <context>
     <name>QXmlEditData</name>
     <message>
-        <location filename="../qxmleditdata.cpp" line="44"/>
         <source>Xslt predefined style</source>
-        <translation>Předem určený styl Xslt</translation>
+        <translation type="obsolete">Předem určený styl Xslt</translation>
     </message>
     <message>
         <location filename="../qxmleditdata.cpp" line="140"/>
@@ -5514,15 +5513,14 @@ Kód chyby je &apos;%1&apos;</translation>
 <context>
     <name>QXmlEditGlobals</name>
     <message>
-        <location filename="../xmleditglobals.cpp" line="26"/>
         <source>QXmlEdit</source>
-        <translation>QXmlEdit</translation>
+        <translation type="obsolete">QXmlEdit</translation>
     </message>
 </context>
 <context>
     <name>Regola</name>
     <message>
-        <location filename="../regola.cpp" line="160"/>
+        <location filename="../regola.cpp" line="161"/>
         <source>Unable to load file &apos;%1&apos;. Error code is &apos;%2&apos;</source>
         <translation>Nelze nahrát soubor  &apos;%1&apos;. Kód chyby je &apos;%2&apos;</translation>
     </message>
@@ -5551,11 +5549,11 @@ Odkazy na entity nyní nejsou podporovány.</translation>
     <message>
         <location filename="../modules/xml/export.cpp" line="34"/>
         <location filename="../modules/xml/export.cpp" line="107"/>
-        <location filename="../regola.cpp" line="306"/>
-        <location filename="../regola.cpp" line="332"/>
-        <location filename="../regola.cpp" line="381"/>
-        <location filename="../regola.cpp" line="419"/>
-        <location filename="../regola.cpp" line="430"/>
+        <location filename="../regola.cpp" line="326"/>
+        <location filename="../regola.cpp" line="353"/>
+        <location filename="../regola.cpp" line="404"/>
+        <location filename="../regola.cpp" line="442"/>
+        <location filename="../regola.cpp" line="453"/>
         <source>Error writing data: %1</source>
         <translation>Chyba při zapisování dat: %1</translation>
     </message>
@@ -5564,63 +5562,63 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation type="obsolete">Chyba při zapisování dat</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="743"/>
-        <location filename="../regola.cpp" line="791"/>
-        <location filename="../regola.cpp" line="839"/>
-        <location filename="../regola.cpp" line="877"/>
-        <location filename="../regola.cpp" line="934"/>
+        <location filename="../regola.cpp" line="766"/>
+        <location filename="../regola.cpp" line="814"/>
+        <location filename="../regola.cpp" line="862"/>
+        <location filename="../regola.cpp" line="900"/>
+        <location filename="../regola.cpp" line="957"/>
         <source>Error editing the element.</source>
         <translation>Chyba při upravování prvku.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="967"/>
+        <location filename="../regola.cpp" line="990"/>
         <source>Unknown node type</source>
         <translation>Neznámý typ uzlu</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="991"/>
+        <location filename="../regola.cpp" line="1014"/>
         <source>A fatal error occurred</source>
         <translation>Vyskytla se vážná chyba</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1088"/>
+        <location filename="../regola.cpp" line="1111"/>
         <source>Only one root item in permitted in XML syntax.</source>
         <translation>Ve skladbě XML je povolena pouze jedna kořenová položka.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1155"/>
+        <location filename="../regola.cpp" line="1178"/>
         <source>It is not possible to place another element as root.</source>
         <translation>Nelze umístit další prvek jako kořen.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1253"/>
+        <location filename="../regola.cpp" line="1276"/>
         <source>No attributes to paste.</source>
         <translation>Žádné vlastnosti k vložení.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1274"/>
-        <location filename="../regola.cpp" line="1299"/>
+        <location filename="../regola.cpp" line="1297"/>
+        <location filename="../regola.cpp" line="1322"/>
         <source>The attributes are valid only for an element.</source>
         <translation>Vlastnosti jsou platné pouze pro tento prvek.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1291"/>
-        <location filename="../regola.cpp" line="1316"/>
+        <location filename="../regola.cpp" line="1314"/>
+        <location filename="../regola.cpp" line="1339"/>
         <source>Error while pasting attributes.</source>
         <translation>Chyba při vkládání vlastností.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2908"/>
+        <location filename="../regola.cpp" line="2931"/>
         <source>XSLT eXtensible Stylesheet Language Transformations</source>
         <translation>Transformace XSLT eXtensible Stylesheet Language</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2911"/>
+        <location filename="../regola.cpp" line="2934"/>
         <source>XML Schema (XSD)</source>
         <translation>XML Schema (XSD)</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2914"/>
+        <location filename="../regola.cpp" line="2937"/>
         <source>XML Schema Instance</source>
         <translation>Instance XML Schema</translation>
     </message>
@@ -5629,37 +5627,37 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation type="obsolete">Chyba při vkládání.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1416"/>
+        <location filename="../regola.cpp" line="1439"/>
         <source>Please, select an element to append the comment</source>
         <translation>Vyberte, prosím, nějaký prvek pro připojení poznámky</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2052"/>
+        <location filename="../regola.cpp" line="2075"/>
         <source>A root item exists already, cannot proceed.</source>
         <translation>Kořenová položka již existuje. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2059"/>
+        <location filename="../regola.cpp" line="2082"/>
         <source>The selected elmement is not a comment, cannot proceed.</source>
         <translation>Vybraný prvek není poznámka. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2080"/>
+        <location filename="../regola.cpp" line="2103"/>
         <source>The content of the comment is not valid XML. Cannot proceed.</source>
         <translation>Obsah poznámky není platné XML. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2117"/>
+        <location filename="../regola.cpp" line="2140"/>
         <source>When element has mixed contents you must edit text nodes.</source>
         <translation>Když má prvek smíšený obsah, musíte upravit textové uzly.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2211"/>
+        <location filename="../regola.cpp" line="2234"/>
         <source>Element</source>
         <translation>Prvek</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2213"/>
+        <location filename="../regola.cpp" line="2236"/>
         <source>Attributes</source>
         <translation>Vlastnosti</translation>
     </message>
@@ -5668,8 +5666,8 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation type="obsolete">První položka musí být jedinečná, aby se bral ohled na skladbu XML.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1410"/>
-        <location filename="../regola.cpp" line="1451"/>
+        <location filename="../regola.cpp" line="1433"/>
+        <location filename="../regola.cpp" line="1474"/>
         <source>Comments can be added only to elements, consider appending, instead</source>
         <translation>Poznámky je možné přidávat jen k prvkům. Zvažte místo toho připojení</translation>
     </message>
@@ -5678,13 +5676,13 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation type="obsolete">Vyberte, prosím, nějaký prvek pro připojení poznámky</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1496"/>
-        <location filename="../regola.cpp" line="1537"/>
+        <location filename="../regola.cpp" line="1519"/>
+        <location filename="../regola.cpp" line="1560"/>
         <source>Processing instructions can be added only to elements, consider appending, instead</source>
         <translation>Příkazy pro zpracování je možné přidávat jen k prvkům. Zvažte místo toho připojení</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="1543"/>
+        <location filename="../regola.cpp" line="1566"/>
         <source>Please, select an element to append the processing instruction</source>
         <translation>Vyberte, prosím, nějaký prvek pro připojení příkazu pro zpracování</translation>
     </message>
@@ -6608,15 +6606,15 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>XML files (*.xml *.xsd *.xsl *.xslt *.fo);;XML Schema files (*.xsd);;Style sheets files (*.xsl *.xslt);;All files (*);;</source>
-        <translation type="vanished">Soubory XML (*.xml *.xsd *.xsl *.xslt *.fo);;Soubory XML Schema (*.xsd);;Soubory se stylovými listy (*.xsl *.xslt);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Soubory XML (*.xml *.xsd *.xsl *.xslt *.fo);;Soubory XML Schema (*.xsd);;Soubory se stylovými listy (*.xsl *.xslt);;Všechny soubory (*);;</translation>
     </message>
     <message>
         <source>Java/Javascript (*.java *.js *.as *.txt);;All files (*);;</source>
-        <translation type="vanished">Java/Javascript (*.java *.js *.as *.txt);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Java/Javascript (*.java *.js *.as *.txt);;Všechny soubory (*);;</translation>
     </message>
     <message>
         <source>CSV files (*.csv);;All files (*);;</source>
-        <translation type="vanished">Soubory CSV (*.csv);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Soubory CSV (*.csv);;Všechny soubory (*);;</translation>
     </message>
     <message>
         <location filename="../utils.cpp" line="324"/>
@@ -6793,111 +6791,111 @@ Kód chyby je &apos;%1&apos;</translation>
     <name>VisMapDialog</name>
     <message>
         <source>XML Data visualization</source>
-        <translation type="vanished">Znázornění dat XML</translation>
+        <translation type="obsolete">Znázornění dat XML</translation>
     </message>
     <message>
         <source>File:</source>
-        <translation type="vanished">Soubor:</translation>
+        <translation type="obsolete">Soubor:</translation>
     </message>
     <message>
         <source>TextLabel</source>
-        <translation type="vanished">Textový štítek</translation>
+        <translation type="obsolete">Textový štítek</translation>
     </message>
     <message>
         <source>Load...</source>
-        <translation type="vanished">Nahrát...</translation>
+        <translation type="obsolete">Nahrát...</translation>
     </message>
     <message>
         <source>Loudness:</source>
-        <translation type="vanished">Hlasitost:</translation>
+        <translation type="obsolete">Hlasitost:</translation>
     </message>
     <message>
         <source>Slice at level:</source>
-        <translation type="vanished">Řezat na úrovni:</translation>
+        <translation type="obsolete">Řezat na úrovni:</translation>
     </message>
     <message>
         <source>Cumulative values</source>
-        <translation type="vanished">Sčítající se hodnoty</translation>
+        <translation type="obsolete">Sčítající se hodnoty</translation>
     </message>
     <message>
         <source>View as:</source>
-        <translation type="vanished">Prohlížet jako:</translation>
+        <translation type="obsolete">Prohlížet jako:</translation>
     </message>
     <message>
         <source>Measure</source>
-        <translation type="vanished">Měření</translation>
+        <translation type="obsolete">Měření</translation>
     </message>
     <message>
         <source>Data</source>
-        <translation type="vanished">Datenformat</translation>
+        <translation type="obsolete">Datenformat</translation>
     </message>
     <message>
         <source>Zoom:</source>
-        <translation type="vanished">Zvětšení:</translation>
+        <translation type="obsolete">Zvětšení:</translation>
     </message>
     <message>
         <source>1</source>
-        <translation type="vanished">1</translation>
+        <translation type="obsolete">1</translation>
     </message>
     <message>
         <source>100</source>
-        <translation type="vanished">100</translation>
+        <translation type="obsolete">100</translation>
     </message>
     <message>
         <source>Export Stats...</source>
-        <translation type="vanished">Vyvést statistiky...</translation>
+        <translation type="obsolete">Vyvést statistiky...</translation>
     </message>
     <message>
         <source>Extract fragment...</source>
-        <translation type="vanished">Vytáhnout kousek...</translation>
+        <translation type="obsolete">Vytáhnout kousek...</translation>
     </message>
     <message>
         <source>3D</source>
-        <translation type="vanished">3D</translation>
+        <translation type="obsolete">3D</translation>
     </message>
     <message>
         <source>Analyze relations</source>
-        <translation type="vanished">Provést rozbor vztahů</translation>
+        <translation type="obsolete">Provést rozbor vztahů</translation>
     </message>
     <message>
         <source>View Relations...</source>
-        <translation type="vanished">Zobrazit vztahy...</translation>
+        <translation type="obsolete">Zobrazit vztahy...</translation>
     </message>
     <message>
         <source>Color map:</source>
-        <translation type="vanished">Barevná mapa:</translation>
+        <translation type="obsolete">Barevná mapa:</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation type="vanished">Změnit...</translation>
+        <translation type="obsolete">Změnit...</translation>
     </message>
     <message>
         <source>Color Map</source>
-        <translation type="vanished">Barevná mapa</translation>
+        <translation type="obsolete">Barevná mapa</translation>
     </message>
     <message>
         <source>Standard Color Map</source>
-        <translation type="vanished">Běžná barevná mapa</translation>
+        <translation type="obsolete">Běžná barevná mapa</translation>
     </message>
     <message>
         <source>--- No file ---</source>
-        <translation type="vanished">--- Žádný soubor ---</translation>
+        <translation type="obsolete">--- Žádný soubor ---</translation>
     </message>
     <message>
         <source>An error occurred opening the file.</source>
-        <translation type="vanished">Při otevírání souboru se vyskytla chyba.</translation>
+        <translation type="obsolete">Při otevírání souboru se vyskytla chyba.</translation>
     </message>
     <message>
         <source>An error occurred loading data.</source>
-        <translation type="vanished">Při nahrávání dat se vyskytla chyba.</translation>
+        <translation type="obsolete">Při nahrávání dat se vyskytla chyba.</translation>
     </message>
     <message>
         <source>Data ready.</source>
-        <translation type="vanished">Data připravena.</translation>
+        <translation type="obsolete">Data připravena.</translation>
     </message>
     <message>
         <source>Open File</source>
-        <translation type="vanished">Otevřít soubor</translation>
+        <translation type="obsolete">Otevřít soubor</translation>
     </message>
     <message>
         <source>XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;</source>
@@ -6905,118 +6903,118 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Fragments</source>
-        <translation type="vanished">Kousky</translation>
+        <translation type="obsolete">Kousky</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation type="vanished">Velikost</translation>
+        <translation type="obsolete">Velikost</translation>
     </message>
     <message>
         <source>Levels</source>
-        <translation type="vanished">Úrovně</translation>
+        <translation type="obsolete">Úrovně</translation>
     </message>
     <message>
         <source>Elements</source>
-        <translation type="vanished">Prvky</translation>
+        <translation type="obsolete">Prvky</translation>
     </message>
     <message>
         <source>Attributes</source>
-        <translation type="vanished">Vlastnosti</translation>
+        <translation type="obsolete">Vlastnosti</translation>
     </message>
     <message>
         <source>Payload</source>
-        <translation type="vanished">Užitečné zatížení</translation>
+        <translation type="obsolete">Užitečné zatížení</translation>
     </message>
     <message>
         <source>Max attributes</source>
-        <translation type="vanished">Nejvíce vlastností</translation>
+        <translation type="obsolete">Nejvíce vlastností</translation>
     </message>
     <message>
         <source>Max children</source>
-        <translation type="vanished">Nejvíce potomků</translation>
+        <translation type="obsolete">Nejvíce potomků</translation>
     </message>
     <message>
         <source>Max size</source>
-        <translation type="vanished">Největší velikost</translation>
+        <translation type="obsolete">Největší velikost</translation>
     </message>
     <message>
         <source>Max Payload</source>
-        <translation type="vanished">Největší užitečné zatížení</translation>
+        <translation type="obsolete">Největší užitečné zatížení</translation>
     </message>
     <message>
         <source>Export Statistics</source>
-        <translation type="vanished">Vyvést statistiky</translation>
+        <translation type="obsolete">Vyvést statistiky</translation>
     </message>
     <message>
         <source>DAT files (*.dat);;All files (*);;</source>
-        <translation type="vanished">Soubory DAT (*.dat);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Soubory DAT (*.dat);;Všechny soubory (*);;</translation>
     </message>
     <message>
         <source>Statistics on %1 ( ISO %2)
 </source>
-        <translation type="vanished">Statistiky na %1 (ISO %2)</translation>
+        <translation type="obsolete">Statistiky na %1 (ISO %2)</translation>
     </message>
     <message>
         <source> for file &apos;%1&apos;
 </source>
-        <translation type="vanished"> pro soubor &apos;%1&apos;</translation>
+        <translation type="obsolete"> pro soubor &apos;%1&apos;</translation>
     </message>
     <message>
         <source> total fragments &apos;%1&apos;
 </source>
-        <translation type="vanished"> celkem kousků &apos;%1&apos;</translation>
+        <translation type="obsolete"> celkem kousků &apos;%1&apos;</translation>
     </message>
     <message>
         <source> total attributes &apos;%1&apos;
 </source>
-        <translation type="vanished"> celkem vlastností &apos;%1&apos;</translation>
+        <translation type="obsolete"> celkem vlastností &apos;%1&apos;</translation>
     </message>
     <message>
         <source> total elements &apos;%1&apos;
 </source>
-        <translation type="vanished"> celkem prvků &apos;%1&apos;</translation>
+        <translation type="obsolete"> celkem prvků &apos;%1&apos;</translation>
     </message>
     <message>
         <source> total size &apos;%1&apos;
 </source>
-        <translation type="vanished"> celková velikost &apos;%1&apos;</translation>
+        <translation type="obsolete"> celková velikost &apos;%1&apos;</translation>
     </message>
     <message>
         <source> total payload &apos;%1&apos;
 </source>
-        <translation type="vanished"> celkové užitečné zatížení &apos;%1&apos;</translation>
+        <translation type="obsolete"> celkové užitečné zatížení &apos;%1&apos;</translation>
     </message>
     <message>
         <source> levels &apos;%1&apos;
 </source>
-        <translation type="vanished"> úrovní &apos;%1&apos;</translation>
+        <translation type="obsolete"> úrovní &apos;%1&apos;</translation>
     </message>
     <message>
         <source>
 ------
 </source>
-        <translation type="vanished">
+        <translation type="obsolete">
 ------
 </translation>
     </message>
     <message>
         <source>Error writing data.</source>
-        <translation type="vanished">Chyba při zapisování dat.</translation>
+        <translation type="obsolete">Chyba při zapisování dat.</translation>
     </message>
     <message>
         <source>To extract a fragment, move the nouse over the data in the image and use the contextual menu.</source>
-        <translation type="vanished">Pro vytažení kousku přesuňte ukazovátko myši nad data v obrázku a použijte související nabídku, která se objeví po stisknutí pravého tlačítka myši.</translation>
+        <translation type="obsolete">Pro vytažení kousku přesuňte ukazovátko myši nad data v obrázku a použijte související nabídku, která se objeví po stisknutí pravého tlačítka myši.</translation>
     </message>
     <message>
         <source>No data to show.</source>
-        <translation type="vanished">Žádná data k ukázání.</translation>
+        <translation type="obsolete">Žádná data k ukázání.</translation>
     </message>
 </context>
 <context>
     <name>VisMapWidget</name>
     <message>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation type="obsolete">Formulář</translation>
     </message>
 </context>
 <context>
@@ -7326,7 +7324,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>XML Schema files (*.xsd);;All files (*);;</source>
-        <translation type="vanished">Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdcompare.cpp" line="265"/>
@@ -7521,11 +7519,11 @@ p, li { white-space: pre-wrap; }
     <name>XSDEnumDialog</name>
     <message>
         <source>Dialog</source>
-        <translation type="vanished">Dialog</translation>
+        <translation type="obsolete">Dialog</translation>
     </message>
     <message>
         <source>Enumeration</source>
-        <translation type="vanished">Výčet</translation>
+        <translation type="obsolete">Výčet</translation>
     </message>
     <message>
         <location filename="../modules/xsd/xsdenumdialog.ui" line="14"/>
@@ -8249,7 +8247,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <name>XSchemaAnnotation</name>
     <message>
         <source>Annotation</source>
-        <translation type="vanished">Vysvětlivka</translation>
+        <translation type="obsolete">Vysvětlivka</translation>
     </message>
     <message>
         <location filename="../xsdeditor/XAnnotation.cpp" line="240"/>
@@ -9054,7 +9052,7 @@ Chyba: %2</translation>
     </message>
     <message>
         <source>XML Schema files (*.xsd);;All files (*);;</source>
-        <translation type="vanished">Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
+        <translation type="obsolete">Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
         <location filename="../xmleditwidgetprivate.cpp" line="1304"/>
@@ -9536,7 +9534,7 @@ Chcete data prozkoumat jako text?</translation>
     </message>
     <message>
         <source>Invalid XSLT structure for the operation.</source>
-        <translation type="vanished">Neplatná stavba XSLT pro operaci.</translation>
+        <translation type="obsolete">Neplatná stavba XSLT pro operaci.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xslthelper.cpp" line="619"/>

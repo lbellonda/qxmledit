@@ -25,6 +25,8 @@
 #define XMLUTILS_H
 
 #include <QString>
+#include <QHash>
+
 class AnonContext;
 
 class XmlUtils
@@ -48,9 +50,11 @@ public:
     static bool getNsPrefix(const QString &name, QString &prefix);
     static void decodeQualifiedName(const QString &name, QString &prefix, QString &localName);
     static QString makeQualifiedName(const QString &prefix, const QString &localName);
-    static QString makeNSDeclaration(const QString &ns);
+    static QString makeNSDeclaration(const QString &nsPrefix);
 
     static bool isNamespaceDeclarationForPrefix(const QString &name, const QString &prefix);
+    static QString makeNewPrefixForChangePrefixKey(const QString &ns, const QString &prefix);
+    static QString makeNewPrefixForChangePrefix(QHash<QString, QString> &prefixes, QSet<QString> &allPrefixes, const QString &ns, const QString &prefix);
 
     //--
     static bool isS(const QChar &qch);

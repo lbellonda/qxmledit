@@ -69,8 +69,6 @@ enum QxmlEditDeleteElements {
 
 class LIBQXMLEDITSHARED_EXPORT RegolaDeleteSiblings
 {
-    /*QxmlEditDeleteElements _condition;
-    int _valueLeaveAfter;*/
     RegolaDeleteSiblings();
     ~RegolaDeleteSiblings();
 public:
@@ -80,12 +78,6 @@ public:
         DeleteAllSiblingsAfter,
     };
 
-    /*RegolaDeleteInfo();
-    ~RegolaDeleteInfo();
-    QxmlEditDeleteElements condition() const;
-    void setCondition(const QxmlEditDeleteElements &condition);
-    int valueLeaveAfter() const;
-    void setValueLeaveAfter(int valueLeaveAfter);*/
 };
 
 class LIBQXMLEDITSHARED_EXPORT RegolaSettings
@@ -104,6 +96,30 @@ public:
     void setUseIndent(bool value);
 };
 
+class LIBQXMLEDITSHARED_EXPORT ElementUndoInfo
+{
+public:
+    QList<int> path;
+    QString tag;
+    bool replaceAttributes;
+    QList<QPair<QString, QString> > attributes;
+    ElementUndoInfo() {
+        replaceAttributes = false ;
+    }
+    void undoReplaceAttributes() {
+        replaceAttributes = false;
+        attributes.clear();
+    }
+};
+
+class LIBQXMLEDITSHARED_EXPORT ElementUndoObserver
+{
+public:
+    ElementUndoObserver();
+    virtual ~ElementUndoObserver();
+
+    virtual bool observe(ElementUndoInfo *info) = 0 ;
+};
 
 class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
 {
@@ -343,6 +359,7 @@ public:
     void removeBookmark(Element* element);
     void toggleBookmark(Element *element);
     bool isBookmarked(Element* element);
+    QList<Element*> getUniqueBookmarksElements(const TargetSelection::Type type);
 
     Element *gotoPreviousBookmark();
     Element *gotoNextBookmark();
@@ -374,13 +391,14 @@ public:
     bool collectSizeData();
     void setCollectSizeData(const bool isCollect);
     void assignCollectSizeDataFlag(const bool isCollect);
-
+    //---region(names)
     QString addNameToPool(const QString &inputString);
     QString getAttributeString(const QString &attributeName);
     QString getAttributeNameString(const QString &attributeString);
     QSet<QString> *namesPool();
     QSet<QString> *attributeNamesPool();
     QSet<QString> attributeNamesPoolByValue();
+    //---endregion(names)
     bool isValidXsd();
     void transformInComment(QWidget *window, QTreeWidget *tree, Element *elementToTransform);
     bool generateFromComment(QTreeWidget *tree, UIDelegate *uiDelegate, Element *elementToTransform);
@@ -560,6 +578,28 @@ public:
     bool isForceDOM() const;
     void setForceDOM(bool newValue);
 
+    bool updateElementInplace(ElementUndoInfo *info);
+    //------------region(prefixes)
+    void collectPrefixes(PrefixInfo &info, Element *selection);
+    bool removePrefix(const QString &removedPrefix, QList<Element*> elements, TargetSelection::Type targetSelection, const bool isAllPrefixes, ElementUndoObserver *observer);
+    bool setPrefix(const QString &newPrefix, QList<Element*> elements, TargetSelection::Type targetSelection, ElementUndoObserver *observer);
+    bool replacePrefix(const QString &oldPrefix, const QString &newPrefix, QList<Element*> elements, TargetSelection::Type targetSelection, const bool isAllPrefixes, ElementUndoObserver *observer);
+
+    //------------endregion(prefixes)
+
+    //------------region(namespaces)
+    void collectNamespaces(NamespacesInfo &info, Element *selection);
+    bool removeNamespace(const QString &removedNS, QList<Element*> elements, TargetSelection::Type targetSelection,
+                         const bool isAllNamespaces, const bool removeDeclarations, ElementUndoObserver *observer);
+    bool setNamespace(const QString &ns, const QString &prefix, QList<Element*> elements, TargetSelection::Type targetSelection,
+                      ElementUndoObserver *observer);
+    bool replaceNamespace(const QString &replacedNS, const QString &newNS, const QString &newPrefix, QList<Element*> elements,
+                          TargetSelection::Type targetSelection, ElementUndoObserver *observer);
+    bool namespaceAvoidClash(const QString &prefixToAvoid, const QString &legalNS, NamespacesInfo *namespacesInfo, ElementUndoObserver *observer);
+    bool namespaceNormalize(const QString &thePrefix, const QString &theNS, QList<Element*> elements, const bool declareOnlyOnRoot, ElementUndoObserver *observer);
+    //------------endregion(namespaces)
+
+
 private:
     void addUndoInsert(QTreeWidget * tree, Element * element);
     QTreeWidgetItem *getSelItem(QTreeWidget *tree);
@@ -615,6 +655,7 @@ private:
     bool setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader *xmlReader, Element *parent, QVector<Element*> *collection, const bool isTopLevel);
     bool decodePreamble(QXmlStreamReader *xmlReader, const QString &encoding);
     bool filterCommentsAfterReading(XMLLoadContext *context);
+    NSContext* buildContextInfo(QList<NSContext*> &contexts, Element *element);
 
 };
 

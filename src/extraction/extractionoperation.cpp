@@ -20,6 +20,7 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "xmlEdit.h"
 #include "extractionoperation.h"
 #include "utils.h"
 #include <QXmlStreamReader>
@@ -260,7 +261,6 @@ void ExtractionOperation::execute(QFile *file)
                     }
                     if(isCurrentElementFilterText) {
                         dontWrite = true ;
-                        Utils::TODO_THIS_RELEASE(";<< per export, ecc");
                     }
                 }
                 break;
@@ -564,6 +564,8 @@ bool ExtractionOperation::manageOpenCSV(ExtractInfo &info)
     }
     info.csvWriter.setDevice(&info.csvTempFile);
     info.csvWriter.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
+    // section 4.1.1. of RFC 2046 states explicitly that
+    info.crLf = "\r\n" ;
     return true ;
 }
 
@@ -588,7 +590,6 @@ bool ExtractionOperation::openFile(ExtractInfo &info)
         return false;
     }
     if(isExportCSV()) {
-        Utils::TODO_THIS_RELEASE("controllare crlf windows");
         if(!manageOpenCSV(info)) {
             return false ;
         }
@@ -634,8 +635,7 @@ bool ExtractionOperation::writeCSVHeader(ExtractInfo &info)
     QTextStream headerStream;
     headerStream.setDevice(&info.outputFile);
     headerStream.setCodec(QTextCodec::codecForName(_documentEncoding.toLatin1().data()));
-    Utils::TODO_THIS_RELEASE("manca il controllo errore su file speciffico csv: apri scrivi chiudi");
-    Utils::TODO_THIS_RELEASE("attenzione a crlf su win;");
+
     QHash<int, QString> columnsForName;
     // insert columns
     const int  columnsCount = info._mapForCSVColumns.size();
@@ -647,7 +647,7 @@ bool ExtractionOperation::writeCSVHeader(ExtractInfo &info)
         const QString &name = columnsForName[index];
         headerStream << Utils::valueStringCSV(name, (0 == index));
     }
-    headerStream << "\n";
+    headerStream << info.crLf ;
     headerStream.flush();
     if(QTextStream::Ok != headerStream.status()) {
         return false;
@@ -681,10 +681,10 @@ bool ExtractionOperation::appendCSVData(ExtractInfo &info)
 {
     bool status = false;
     if(info.outputFile.isOpen() || info.csvTempFile.isOpen()) {
-        Utils::TODO_THIS_RELEASE("segnala errore");
+        setError(EXML_BuildingCSVError, tr("Error unexpected state opening file CSV final: '%1'").arg(info.outputFile.fileName()));
         return false;
     }
-    Utils::TODO_THIS_RELEASE("fare");
+
     if(info.outputFile.open(QFile::Append | QFile::WriteOnly)) {
         if(info.csvTempFile.open(QFile::ReadOnly)) {
             // copy data
@@ -1293,7 +1293,7 @@ bool ExtractionOperation::handleExportedElement(ExtractInfo &info, QXmlStreamRea
     }
     if(isExportCSV()) {
         QString separator = Utils::separatorStringCSV();
-        Utils::TODO_THIS_RELEASE("attenzione a crlf su win;");
+
         QXmlStreamAttributes streamAttributes = reader.attributes();
         QHash<int, QString> columnsForAttributes;
         QList<int> columnPositions;
@@ -1324,8 +1324,7 @@ bool ExtractionOperation::handleExportedElement(ExtractInfo &info, QXmlStreamRea
             index ++ ;
         }
         // rfc 4180
-        Utils::TODO_THIS_RELEASE("check rfc");
-        info.csvWriter << "\r\n";
+        info.csvWriter << info.crLf ;
         if(info.csvWriter.status() != QTextStream::Ok) {
             handleWriteError();
             return false ;

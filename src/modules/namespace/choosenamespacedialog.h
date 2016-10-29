@@ -27,6 +27,7 @@
 #include "xmlEdit.h"
 #include "modules/namespace/nstableutils.h"
 #include "modules/namespace/namespaceresult.h"
+#include "libQXmlEdit_global.h"
 
 namespace Ui
 {
@@ -37,7 +38,7 @@ class NamespaceManager ;
 class UserNamespace;
 class NamespaceDef;
 
-class ChooseNamespaceDialog : public QDialog
+class LIBQXMLEDITSHARED_EXPORT ChooseNamespaceDialog : public QDialog
 {
     Q_OBJECT
 

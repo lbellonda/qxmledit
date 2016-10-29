@@ -1,0 +1,133 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<newp:root xmlns:a="abca"
+        xmlns:newp="newns"
+        xmlns:c="abcc">
+  <one>
+    <newp:b newp:a="a"
+         b="b"
+         c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+    </newp:b>
+    <b newp:a="a"
+       b="b"
+       c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+    </b>
+    <c:c newp:a="a"
+         b="b"
+         c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+    </c:c>
+    <!--a:a-->
+  </one>
+  <newp:a newp:a="a" c:c="c" d="d">
+    <newp:b newp:a="a"
+         b="b"
+         c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+    </newp:b>
+    <b newp:a="a"
+       b="b"
+       c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+    </b>
+    <c:c newp:a="a"
+         b="b"
+         c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+    </c:c>
+    <!--a:a-->
+  </newp:a>
+  <newp:a newp:a="a" c:c="c" d="d">
+    <newp:b newp:a="a"
+         b="b"
+         c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+      <!--a:a-->
+    </newp:b>
+    <b newp:a="a"
+       b="b"
+       c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+      <!--a:a-->
+    </b>
+    <c:c newp:a="a"
+         b="b"
+         c:c="c">
+      <one newp:a="a"
+           b="b"
+           c:c="c"/>
+      <newp:b newp:a="a"
+           b="b"
+           c:c="c"/>
+      <c:c newp:a="a"
+           b="b"
+           c:c="c"/>
+    </c:c>
+  </newp:a>
+  <!--a:a-->
+</newp:root>

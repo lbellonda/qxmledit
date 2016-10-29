@@ -347,6 +347,13 @@ private slots:
     void on_actionTaskDisplayDetail_triggered();
     void on_actionHelpSetEditorDetail_triggered();
     void on_actionTEST_triggered();
+    void on_actionRemovePrefix_triggered();
+    void on_actionRemoveNamespace_triggered();
+    void on_actionSetPrefix_triggered();
+    void on_actionSetNamespace_triggered();
+    void on_actionReplacePrefix_triggered();
+    void on_actionReplaceNamespace_triggered();
+    void on_actionNormalizeNamespace_triggered();
 
     //----- other slots ------------------
 

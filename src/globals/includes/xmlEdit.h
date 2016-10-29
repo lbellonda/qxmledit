@@ -111,4 +111,10 @@ void msgBoxDebug(const QString message);
 #define FORINT(var,limit) for(int var = 0 ; var < limit ; var ++ )
 #define EMPTYPTRLIST(object, Type) foreach( Type *var, object) { delete var; } object.clear();
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,3,1)
+#define    STYLEVIEWITEM_OPTION4(option) const QStyleOptionViewItem &option4(option);
+#else
+#define    STYLEVIEWITEM_OPTION4(option) const QStyleOptionViewItemV4 &option4(option);
+#endif
+
 #endif /*H_XML_EDIT*/

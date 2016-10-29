@@ -1,0 +1,6 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<pr:a xmlns:pr="abca" >
+    <pr:b b="b">
+        <pr:c/>
+    </pr:b>
+</pr:a>

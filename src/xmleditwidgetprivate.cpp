@@ -66,6 +66,14 @@
 #include "modules/xsd/xsdenumdialog.h"
 #include "undo/editxsdenumcommand.h"
 #include "xsdeditor/XSchemaIOContants.h"
+#include "undo/prefixremovecommand.h"
+#include "undo/namespaceremovecommand.h"
+#include "undo/prefixaddcommand.h"
+#include "undo/prefixreplacecommand.h"
+#include "undo/namespacesetcommand.h"
+#include "undo/namespacereplacecommand.h"
+#include "undo/namespacenormalizecommand.h"
+#include "undo/namespaceavoidclashcommand.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -3187,4 +3195,104 @@ void XmlEditWidgetPrivate::setFacets(Element *selection, QList<XSDFacet*> facets
     }
 }
 
-//----
+QList<int> XmlEditWidgetPrivate::pathForElement(Element * element)
+{
+    if(NULL != element) {
+        return element->indexPath() ;
+    }
+    QList<int> path ;
+    return path;
+}
+
+//----region(names)
+
+void XmlEditWidgetPrivate::prefixRemove(const QString &removedPrefix, Element * element, const TargetSelection::Type targetSelection, const bool isAllPrefixes)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        QList<int> path = pathForElement(element);
+        PrefixRemoveCommand *command = new PrefixRemoveCommand(p->ui->treeWidget, getRegola(), removedPrefix, path, targetSelection, isAllPrefixes);
+        getRegola()->addUndo(command);
+    }
+}
+
+void XmlEditWidgetPrivate::prefixSet(const QString &setPrefix, Element * element, const TargetSelection::Type targetSelection)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        QList<int> path = pathForElement(element);
+        PrefixSetCommand *command = new PrefixSetCommand(p->ui->treeWidget, getRegola(), setPrefix, path, targetSelection);
+        getRegola()->addUndo(command);
+    }
+}
+
+void XmlEditWidgetPrivate::prefixReplace(const QString &oldPrefix, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool isAllPrefixes)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        QList<int> path = pathForElement(element);
+        PrefixReplaceCommand *command = new PrefixReplaceCommand(p->ui->treeWidget, getRegola(), oldPrefix, newPrefix, path, targetSelection, isAllPrefixes);
+        getRegola()->addUndo(command);
+    }
+}
+
+//----endregion(names)
+
+//---region(namespaces)
+void XmlEditWidgetPrivate::namespaceRemove(const QString &removedNS, Element *element, const TargetSelection::Type targetSelection, const bool isAllNS, const bool isRemoveDeclarations)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        QList<int> path = pathForElement(element);
+        NamespaceRemoveCommand *command = new NamespaceRemoveCommand(p->ui->treeWidget, getRegola(), removedNS, path, targetSelection, isAllNS, isRemoveDeclarations);
+        getRegola()->addUndo(command);
+    }
+}
+
+void XmlEditWidgetPrivate::namespaceSet(const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool avoidClash, NamespacesInfo *info)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        QList<int> path = pathForElement(element);
+        QUndoCommand *parentCommand = new QUndoCommand();
+        parentCommand->setText(tr("Assign namespace"));
+        if(avoidClash) {
+            /*NamespaceAvoidClashCommand *namespaceAvoidClashCommand =*/ new NamespaceAvoidClashCommand(p->ui->treeWidget, getRegola(), newNS, newPrefix, info, parentCommand);
+        }
+        /*NamespaceSetCommand *command =*/ new NamespaceSetCommand(p->ui->treeWidget, getRegola(), newNS, newPrefix, path, targetSelection, parentCommand);
+        getRegola()->addUndo(parentCommand);
+    }
+}
+
+void XmlEditWidgetPrivate::namespaceReplace(const QString &oldNS, const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool avoidClash, NamespacesInfo *namespacesInfo)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        QList<int> path = pathForElement(element);
+        QUndoCommand *parentCommand = new QUndoCommand();
+        parentCommand->setText(tr("Replace namespace"));
+        if(avoidClash) {
+            /*NamespaceAvoidClashCommand *namespaceAvoidClashCommand =*/ new NamespaceAvoidClashCommand(p->ui->treeWidget, getRegola(), newNS, newPrefix, namespacesInfo, parentCommand);
+        }
+        /*NamespaceReplaceCommand *command =*/ new NamespaceReplaceCommand(p->ui->treeWidget, getRegola(), oldNS, newNS, newPrefix, path, targetSelection, parentCommand);
+        getRegola()->addUndo(parentCommand);
+    }
+}
+
+void XmlEditWidgetPrivate::namespaceNormalize(const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool declareOnRoot, const bool avoidClash, NamespacesInfo *namespacesInfo)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        QList<int> path = pathForElement(element);
+        QUndoCommand *parentCommand = new QUndoCommand();
+        parentCommand->setText(tr("Normalize namespace"));
+        if(avoidClash) {
+            /*NamespaceAvoidClashCommand *namespaceAvoidClashCommand =*/ new NamespaceAvoidClashCommand(p->ui->treeWidget, getRegola(), newNS, newPrefix, namespacesInfo, parentCommand);
+        }
+        /*NamespaceNormalizeCommand *command =*/ new NamespaceNormalizeCommand(p->ui->treeWidget, getRegola(), newNS, newPrefix, path, targetSelection, declareOnRoot, parentCommand);
+        getRegola()->addUndo(parentCommand);
+    }
+}
+
+void XmlEditWidgetPrivate::namespaceAvoidClash(const QString &newNS, const QString &newPrefix, NamespacesInfo *namespacesInfo)
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        NamespaceAvoidClashCommand *command = new NamespaceAvoidClashCommand(p->ui->treeWidget, getRegola(), newNS, newPrefix, namespacesInfo);
+        getRegola()->addUndo(command);
+    }
+}
+
+//---endregion(namespaces)

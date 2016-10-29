@@ -36,7 +36,7 @@ CodePageItemDelegate::~CodePageItemDelegate()
 
 void CodePageItemDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-    QStyleOptionViewItemV4 option4(option);
+    STYLEVIEWITEM_OPTION4(option);
 
     bool isReverse = option4.widget->layoutDirection() == Qt::RightToLeft ? true : false ;
     bool isSelected = option.state & QStyle::State_Selected;

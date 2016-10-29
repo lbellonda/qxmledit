@@ -31,8 +31,11 @@ class AutoItemEditorFactory : public QItemEditorFactory
 public:
     explicit AutoItemEditorFactory();
     virtual ~AutoItemEditorFactory();
-
+#if QT_VERSION < QT_VERSION_CHECK(5,3,0)
+    virtual QWidget *createEditor(QVariant::Type userType, QWidget * parent) const ;
+#else
     virtual QWidget *createEditor(int userType, QWidget * parent) const;
+#endif
 signals:
 
 public slots:

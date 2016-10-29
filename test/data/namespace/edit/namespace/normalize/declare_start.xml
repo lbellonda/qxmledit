@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<a:a xmlns:a="aaa" xmlns:b="abca" xmlns:x="abca">
+ <y/>
+ <x:b>
+  <x:c/>
+ </x:b>
+</a:a>

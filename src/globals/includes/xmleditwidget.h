@@ -51,6 +51,7 @@ class NamespaceReferenceEntry;
 class ReplicaCommand;
 class ReplicaCloneInfo;
 class XSDFacet;
+class SetNamespaceInfo;
 
 namespace Ui
 {
@@ -336,6 +337,20 @@ public:
     //----
     void setFacets(Element *selection, QList<XSDFacet*> facets);
     bool onEditEnum();
+    //---region(names)
+    void prefixRemove(const QString &removedPrefix, Element *element, const TargetSelection::Type targetSelection, const bool isAllPrefixes);
+    void prefixSet(const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection);
+    void prefixReplace(const QString &oldPrefix, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool isAllPrefixes);
+    //---endregion(names)
+
+    //---region(namespaces)
+    void namespaceRemove(const QString &removedNS, Element *element, const TargetSelection::Type targetSelection, const bool isAllNS, const bool isRemoveDeclarations);
+    void namespaceSet(const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool avoidClash = false, NamespacesInfo *info = NULL);
+    void namespaceReplace(const QString &oldNS, const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool avoidClash = false, NamespacesInfo *info = NULL);
+    void namespaceNormalize(const QString &ns, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool declareOnRoot, const bool avoidClash = false, NamespacesInfo *info = NULL);
+    void namespaceAvoidClash(const QString &ns, const QString &newPrefix, NamespacesInfo *namespacesInfo);
+    //---endregion(namespaces)
+
 
 signals:
     void reevaluateSelectionState();

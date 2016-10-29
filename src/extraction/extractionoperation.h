@@ -53,6 +53,7 @@ public:
     QString csvRealFilePath;
     QString csvResourcesPath;
     QFile csvTempFile;
+    QString crLf;
     //--------
 
     ExtractInfo();

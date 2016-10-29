@@ -3350,3 +3350,53 @@ void MainWindow::on_actionTEST_triggered()
      dlg.exec();
      EMPTYPTRLIST(facetList, XSDFacet);*/
 }
+
+
+void MainWindow::on_actionRemovePrefix_triggered()
+{
+    if(!isReadOnly()) {
+        _controller.removePrefix();
+    }
+}
+
+void MainWindow::on_actionRemoveNamespace_triggered()
+{
+    if(!isReadOnly()) {
+        _controller.removeNamespace();
+    }
+}
+
+void MainWindow::on_actionSetPrefix_triggered()
+{
+    if(!isReadOnly()) {
+        _controller.setPrefix();
+    }
+}
+
+void MainWindow::on_actionSetNamespace_triggered()
+{
+    if(!isReadOnly()) {
+        _controller.setNamespace();
+    }
+}
+
+void MainWindow::on_actionReplacePrefix_triggered()
+{
+    if(!isReadOnly()) {
+        _controller.replacePrefix();
+    }
+}
+
+void MainWindow::on_actionReplaceNamespace_triggered()
+{
+    if(!isReadOnly()) {
+        _controller.replaceNamespace();
+    }
+}
+
+void MainWindow::on_actionNormalizeNamespace_triggered()
+{
+    if(!isReadOnly()) {
+        _controller.normalizeNamespace();
+    }
+}

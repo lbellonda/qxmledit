@@ -172,7 +172,8 @@ SOURCES += \
     testconfig.cpp \
     testdeletesiblings.cpp \
     testcommandline.cpp \
-    testeditenum.cpp
+    testeditenum.cpp \
+    testnamespaces.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -279,7 +280,8 @@ HEADERS += \
     testconfig.h \
     testdeletesiblings.h \
     testcommandline.h \
-    testeditenum.h
+    testeditenum.h \
+    testnamespaces.h
 
 #OTHER_FILES += \
 

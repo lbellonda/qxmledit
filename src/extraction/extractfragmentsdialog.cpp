@@ -365,7 +365,6 @@ void ExtractFragmentsDialog::enableControls()
 {
     bool isEnabledSplitByPath = ui->splitByPath->isChecked();
     bool enableExtraction = ui->chkExtractFiles->isChecked();
-    Utils::TODO_THIS_RELEASE("bool isAll = ui->extractAll->isChecked();");
     bool isRange = ui->extractRange->isChecked();
     bool isCfr = ui->extractWithCfr->isChecked();
     bool isFilterTextUsingPath = ui->chkDeleteUsingPath->isChecked();
@@ -376,7 +375,6 @@ void ExtractFragmentsDialog::enableControls()
     ui->rangeMin->setEnabled(enableExtraction && isRange);
     ui->rangeMax->setEnabled(enableExtraction && isRange);
     ui->reverseRange->setEnabled(enableExtraction && isRange);
-    Utils::TODO_THIS_RELEASE("ui->actAsAFilter->setEnabled(enableExtraction && !isAll);da pensarci bene");
     ui->attrName->setEnabled(enableExtraction && isCfr);
     ui->cfrOperator->setEnabled(enableExtraction && isCfr);
     ui->compTerm->setEnabled(enableExtraction && isCfr);

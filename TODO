@@ -3,8 +3,26 @@ Check issues:
 -------------
 
 TODO:
+----
 
-#new is:105
+#new is:115
+
+
+114 - Elenco prefissi utilizzati
+113 - Lista ns con prefisso (click seleziona nell'albero)
+112 - Albero con dipendenza (doppio click vai a elemento, click seleziona nella lista)
+
+111 - con grossi file aprendo edit xml inner cancel non funziona piu, verificare
+
+109 - caricamento file dati nella finestra: asincrono
+
+108 - goto: al parent con combo
+107 - goto al prossimo sibling del prossimo/precedente padre
+
+106 - goto: sibling sibling di prossimo padre, sibling di prev padre
+padre n livelli (calcola)
+
+105 - vedi commenti, solo commenti
 
 104 - Silence any message box in batch: check
 

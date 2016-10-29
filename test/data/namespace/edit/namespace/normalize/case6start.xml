@@ -1,0 +1,10 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<a:a xmlns:a="abca" xmlns:b="bbbb" xmlns:c="abca">
+    <a:a xmlns:a="abca" a:ax="x" a2="a2">
+        <z:a xmlns:z="abca" z:att="a" a:ax="x" a2="a2"/>
+    </a:a>
+    <a:a xmlns:a="abca"/>
+    <v:c xmlns:v="bbbb" />
+    <b:b/>
+    <o/>
+</a:a>

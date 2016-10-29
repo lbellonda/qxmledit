@@ -111,6 +111,8 @@ void AnonAttrExcDialog::loadData()
         Utils::error(this, tr("Fatal error"));
         close();
     }
+    ui->attributes->resizeColumnsToContents();
+    ui->attributes->sortByColumn(1, Qt::AscendingOrder) ;
     ui->attributes->setUpdatesEnabled(true);
 }
 

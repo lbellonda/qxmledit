@@ -48,7 +48,7 @@ void ElementItemDelegate::paint(QPainter * painter, const QStyleOptionViewItem &
     baseDelegate->paint(painter, option, index);
     Element * element = Element::fromModelIndex(index);
     if(NULL != element) {
-        QStyleOptionViewItemV4 option4(option);
+        STYLEVIEWITEM_OPTION4(option);
         QRect markRect = option.rect;
         int startPosition = static_cast<const QTreeWidget*>(option4.widget)->columnViewportPosition(0) ;
         markRect.setLeft(startPosition);

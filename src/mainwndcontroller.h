@@ -73,6 +73,13 @@ public:
     bool createDocumentFromResources(const QString &path);
     ReplicaInfoProvider *setReplicaInfoProvider(ReplicaInfoProvider *theProvider);
     bool cloneReplica();
+    void removePrefix();
+    void setPrefix();
+    void removeNamespace();
+    void setNamespace();
+    void replacePrefix();
+    void replaceNamespace();
+    void normalizeNamespace();
 
 signals:
 

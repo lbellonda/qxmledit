@@ -28,12 +28,14 @@
 #include <QObject>
 #include <QUndoCommand>
 #include <QTreeWidget>
+#include <QDataStream>
 
 class Regola;
 
 class UndoCommand : public QUndoCommand
 {
 protected:
+
     /**
       the path to the element
       */
@@ -43,6 +45,7 @@ protected:
 public:
     UndoCommand(QTreeWidget *theWidget, Regola *newRegola, QList<int> path, QUndoCommand *parent = NULL);
     virtual ~UndoCommand();
+
 };
 
 #endif // UNDOCOMMAND_H

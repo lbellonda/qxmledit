@@ -33,6 +33,48 @@
 #include "undo/undopasteattributescommand.h"
 #include "modules/anonymize/anonbase.h"
 
+
+bool NamespacesInfo::isUsedPrefixForOtherNamespace(const QString &nsURI, const QString &prefix)
+{
+    foreach(const QString & ns, prefixesForNamespaces.keys()) {
+        if(ns != nsURI) {
+            foreach(const QString & prf, prefixesForNamespaces[ns]) {
+                if(prefix == prf) {
+                    return true ;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+NamespacesInfo *NamespacesInfo::clone()
+{
+    NamespacesInfo *cloned = new NamespacesInfo();
+    cloned->selectionNamespaces = selectionNamespaces;
+    cloned->selectionNamespacesRecursive = selectionNamespacesRecursive ;
+    cloned->allNamespaces = allNamespaces ;
+    cloned->bookmarksNamespaces = bookmarksNamespaces ;
+    cloned->bookmarksNamespacesRecursive = bookmarksNamespacesRecursive ;
+    cloned->prefixesForNamespaces = prefixesForNamespaces ;
+    return cloned ;
+}
+
+
+bool TargetSelection::isRecursive(const TargetSelection::Type type)
+{
+    switch(type) {
+    case AllItems:
+    case SelectedItemAndChildren:
+    case BookmarksAndChildren:
+        return true ;
+    default:
+        return false;
+    }
+}
+
+//----------------------------------------------------
+
 /***********************************************************************************************************
   Element class uses the following userData of the WidgetItem:
   UserData: a pointer to self
@@ -1917,6 +1959,14 @@ QList<Attribute*>Element::getAttributesList()
     return attrList ;
 }
 
+Attribute* Element::getAttributeAt(const int index)
+{
+    if((index >= 0) && (attributes.size() > index)) {
+        return attributes.at(index);
+    }
+    return NULL ;
+}
+
 Attribute* Element::getAttribute(const QString &attributeName)
 {
     foreach(Attribute * attribute, attributes) {
@@ -2103,6 +2153,24 @@ QString Element::tag()
 void Element::setTag(const QString &newTag)
 {
     _tag = newTag ;
+}
+
+void Element::setTagAuto(const QString &newTag)
+{
+    if(NULL != parentRule) {
+        _tag =  parentRule->addNameToPool(newTag);
+    } else {
+        _tag = newTag ;
+    }
+}
+
+QString Element::attributeNameAuto(const QString &newName)
+{
+    if(NULL != parentRule) {
+        return parentRule->getAttributeNameString(newName);
+    } else {
+        return newName ;
+    }
 }
 
 void Element::namespaceOfElement(QString &elPrefix, QString &elLocalName)
@@ -3035,4 +3103,17 @@ void Element::repaint()
     if((NULL != ui) && (NULL != parentRule)) {
         display(ui, parentRule->getPaintInfo());
     }
+}
+
+bool Element::isChildOf(Element* other)
+{
+    Element *parent = this ;
+    do {
+        parent = parent->parent();
+        if(other == parent) {
+            return true;
+        }
+    } while(parent != NULL) ;
+
+    return false;
 }

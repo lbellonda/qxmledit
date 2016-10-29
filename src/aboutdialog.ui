@@ -239,9 +239,9 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="applicationName">
    <property name="geometry">
     <rect>
-     <x>120</x>
+     <x>150</x>
      <y>0</y>
-     <width>191</width>
+     <width>471</width>
      <height>91</height>
     </rect>
    </property>
@@ -254,7 +254,13 @@ p, li { white-space: pre-wrap; }
     </font>
    </property>
    <property name="text">
-    <string>QXmlEdit</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QXmlEdit &lt;span style=&quot; font-size:18pt;&quot;&gt;xxx&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::RichText</enum>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
   <widget class="Line" name="line">
@@ -268,24 +274,6 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="version">
-   <property name="geometry">
-    <rect>
-     <x>301</x>
-     <y>27</y>
-     <width>311</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>18</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>x.xx</string>
    </property>
   </widget>
   <widget class="QLabel" name="envir">
@@ -320,14 +308,33 @@ p, li { white-space: pre-wrap; }
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>440</y>
+     <width>511</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+     <italic>true</italic>
+    </font>
+   </property>
+   <property name="text">
+    <string>If you like or find useful this program, help others, even when you know they can’t help you back.</string>
+   </property>
+  </widget>
   <zorder>label_2</zorder>
   <zorder>buttonBox</zorder>
   <zorder>tabWidget</zorder>
   <zorder>label</zorder>
   <zorder>applicationName</zorder>
   <zorder>line</zorder>
-  <zorder>version</zorder>
   <zorder>envir</zorder>
+  <zorder>label_4</zorder>
  </widget>
  <resources>
   <include location="risorse.qrc"/>

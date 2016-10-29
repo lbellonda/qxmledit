@@ -337,6 +337,22 @@ public:
     void sortAttributes();
     void sortAttributesElement(Element *element, const bool isRecursive);
     void deleteSiblings(const RegolaDeleteSiblings::DeleteOptions option, Element *selectedItem);
+
+    //---region(names)
+    void prefixRemove(const QString &removedPrefix, Element *element, const TargetSelection::Type targetSelection, const bool isAllPrefixes);
+    void prefixSet(const QString &newPrefix, Element * element, const TargetSelection::Type targetSelection);
+    void prefixReplace(const QString &oldPrefix, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool isAllPrefixes);
+    //---endregion(names)
+
+    //---region(namespaces)
+    void namespaceRemove(const QString &removedNS, Element *element, const TargetSelection::Type targetSelection, const bool isAllNS, const bool isRemoveDeclarations);
+    void namespaceSet(const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool avoidClash, NamespacesInfo *info);
+    void namespaceReplace(const QString &oldNS, const QString &newNS, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool avoidClash, NamespacesInfo *info);
+    void namespaceNormalize(const QString &ns, const QString &newPrefix, Element *element, const TargetSelection::Type targetSelection, const bool declareOnRoot, const bool avoidClash, NamespacesInfo *info);
+    void namespaceAvoidClash(const QString &ns, const QString &newPrefix, NamespacesInfo *namespacesInfo);
+    //---endregion(namespaces)
+
+
 private:
     QHash<void *, QString> *anonDataForPreview();
 
@@ -403,6 +419,7 @@ private:
     void recalcRowHeightClass();
     void showError(const QString &errMessage);
     void houseworkRegola(Regola *regola);
+    static QList<int> pathForElement(Element * element);
 protected:
     bool eventFilter(QObject *obj, QEvent * event);
 

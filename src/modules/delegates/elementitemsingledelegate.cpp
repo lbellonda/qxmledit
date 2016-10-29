@@ -134,8 +134,8 @@ void ElementItemSingleDelegate::setOrigDataForAnonPreview(QHash<void *, QString>
 
 void ElementItemSingleDelegate::calcTextColor(const QStyleOptionViewItem & option)
 {
+    STYLEVIEWITEM_OPTION4(option);
     _inited = true;
-    QStyleOptionViewItemV4 option4(option);
     QStyle * style = option4.widget->style();
     if(NULL != style) {
         if(!strcmp(style->metaObject()->className(), "QWindowsVistaStyle")) {
@@ -257,7 +257,7 @@ void ElementItemSingleDelegate::calcTextColor(const QStyleOptionViewItem & optio
 
 void ElementItemSingleDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-    QStyleOptionViewItemV4 option4(option);
+    STYLEVIEWITEM_OPTION4(option);
     if(!_inited) {
         const_cast<ElementItemSingleDelegate*>(this)->calcTextColor(option);
     }

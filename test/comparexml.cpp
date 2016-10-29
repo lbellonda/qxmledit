@@ -498,7 +498,7 @@ bool CompareXML::comparaFigli(QDomNode &node1, QDomNode &node2)
         QDomNodeList childNodes1 = node1.childNodes();
         QDomNodeList childNodes2 = node2.childNodes();
         dumpTwoNodes(childNodes1, childNodes2);
-        return errorFlag(node1, QString("nodes count a:%1, b:%2").arg(nodi1Count).arg(nodi2Count) );
+        return errorFlag(node1, QString("nodes count a:%1, b:%2 at").arg(nodi1Count).arg(nodi2Count) );
     }
     QDomNodeList childNodes1 = node1.childNodes();
     QDomNodeList childNodes2 = node2.childNodes();

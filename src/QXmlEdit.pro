@@ -278,7 +278,14 @@ HEADERS = precompiled_app.h \
     modules/export/exportoptionsdialog.h \
     modules/anonymize/anonymizebatch.h \
     modules/style/choosestyledialog.h \
-    modules/style/displaystylesetting.h
+    modules/style/displaystylesetting.h \
+    modules/namespace/removeprefixdialog.h \
+    modules/namespace/removenamespacesdialog.h \
+    modules/namespace/setprefixdialog.h \
+    modules/namespace/replaceprefixdialog.h \
+    modules/namespace/setnamespacedialog.h \
+    modules/namespace/normalizenamespacedialog.h \
+    modules/namespace/replacenamespacedialog.h
 
 SOURCES = \
     main.cpp \
@@ -349,7 +356,14 @@ SOURCES = \
     modules/export/exportoptionsdialog.cpp \
     modules/anonymize/anonymizebatch.cpp \
     modules/style/choosestyledialog.cpp \
-    modules/style/displaystylesetting.cpp
+    modules/style/displaystylesetting.cpp \
+    modules/namespace/removeprefixdialog.cpp \
+    modules/namespace/removenamespacesdialog.cpp \
+    modules/namespace/setprefixdialog.cpp \
+    modules/namespace/replaceprefixdialog.cpp \
+    modules/namespace/setnamespacedialog.cpp \
+    modules/namespace/normalizenamespacedialog.cpp \
+    modules/namespace/replacenamespacedialog.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -392,7 +406,14 @@ FORMS = MainWindow.ui \
     visualization/cmapitemdelegate.ui \
     modules/replica/replicaclonedialog.ui \
     modules/export/exportoptionsdialog.ui \
-    modules/style/choosestyledialog.ui
+    modules/style/choosestyledialog.ui \
+    modules/namespace/removeprefixdialog.ui \
+    modules/namespace/removenamespacesdialog.ui \
+    modules/namespace/setprefixdialog.ui \
+    modules/namespace/replaceprefixdialog.ui \
+    modules/namespace/setnamespacedialog.ui \
+    modules/namespace/normalizenamespacedialog.ui \
+    modules/namespace/replacenamespacedialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

@@ -53,7 +53,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -265,6 +265,19 @@
      <addaction name="actionInsertParent"/>
      <addaction name="actionRemoveParent"/>
     </widget>
+    <widget class="QMenu" name="menuNamespaces">
+     <property name="title">
+      <string>Namespaces</string>
+     </property>
+     <addaction name="actionSetPrefix"/>
+     <addaction name="actionReplacePrefix"/>
+     <addaction name="actionRemovePrefix"/>
+     <addaction name="separator"/>
+     <addaction name="actionSetNamespace"/>
+     <addaction name="actionReplaceNamespace"/>
+     <addaction name="actionRemoveNamespace"/>
+     <addaction name="actionNormalizeNamespace"/>
+    </widget>
     <addaction name="actionXMLEditMode"/>
     <addaction name="actionXSLTEditMode"/>
     <addaction name="actionScanXMLTagsAndNamesXSLTAutocompletion"/>
@@ -282,7 +295,7 @@
     <addaction name="actionInsertSnippet"/>
     <addaction name="menuSchema_Instance_XSI"/>
     <addaction name="menuXML_Schema"/>
-
+    <addaction name="menuNamespaces"/>
     <addaction name="actionInsertProlog"/>
     <addaction name="menuMetadata"/>
     <addaction name="separator"/>
@@ -2129,6 +2142,62 @@
    </property>
    <property name="toolTip">
     <string>Edit facets, enumerations in particular.</string>
+   </property>
+  </action>
+  <action name="actionRemovePrefix">
+   <property name="text">
+    <string>Remove Prefix...</string>
+   </property>
+   <property name="toolTip">
+    <string>Removes prefixes from elements and attributes.</string>
+   </property>
+  </action>
+  <action name="actionRemoveNamespace">
+   <property name="text">
+    <string>Remove Namespace...</string>
+   </property>
+   <property name="toolTip">
+    <string>Removes namespaces from elements and attributes.</string>
+   </property>
+  </action>
+  <action name="actionSetPrefix">
+   <property name="text">
+    <string>Assign Prefix...</string>
+   </property>
+   <property name="toolTip">
+    <string>Assign a prefix.</string>
+   </property>
+  </action>
+  <action name="actionReplacePrefix">
+   <property name="text">
+    <string>Replace Prefix...</string>
+   </property>
+   <property name="toolTip">
+    <string>Replace one or all the prefixes.</string>
+   </property>
+  </action>
+  <action name="actionSetNamespace">
+   <property name="text">
+    <string>Assign Namespace...</string>
+   </property>
+   <property name="toolTip">
+    <string>Assign a namespace.</string>
+   </property>
+  </action>
+  <action name="actionReplaceNamespace">
+   <property name="text">
+    <string>Replace Namespace...</string>
+   </property>
+   <property name="toolTip">
+    <string>Replace one or more namespaces.</string>
+   </property>
+  </action>
+  <action name="actionNormalizeNamespace">
+   <property name="text">
+    <string>Normalize namespaces</string>
+   </property>
+   <property name="toolTip">
+    <string>Normalize namespace prefixes.</string>
    </property>
   </action>
  </widget>

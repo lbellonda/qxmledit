@@ -1357,7 +1357,36 @@ void TestQXmlEdit::testEditEnum()
         TestEditEnum test1;
         result = test1.testEdit();
         QVERIFY2(result, (QString("test testEditEnum: testEdit '%1'").arg(test1.errorString())).toLatin1().data());
-    }}
+    }
+}
+
+void TestQXmlEdit::testNamespaces()
+{
+    bool result;
+    {
+        TestNamespaces test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("test TestNamespaces: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+    {
+        TestNamespaces test;
+        result = test.testUnit();
+        QVERIFY2(result, (QString("test TestNamespaces: testUnit() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+    {
+        TestNamespaces test;
+        result = test.testPrefixes();
+        QVERIFY2(result, (QString("test TestNamespaces: testPrefixes() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestNamespaces test;
+        result = test.testNamespaces();
+        QVERIFY2(result, (QString("test TestNamespaces: testNamespaces() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+}
+
 
 /*
 
@@ -1379,6 +1408,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testNamespaces();
     testSplit();
     testLoadFile();
     testEditing();

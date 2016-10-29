@@ -25,6 +25,7 @@
 #include "qxmledit.h"
 #include "xmlEdit.h"
 #include "qxmeditmetainfo.h"
+#include "utils.h"
 
 AboutDialog::AboutDialog(QWidget *parent,
                          const QString &applicationName, const QString &version,
@@ -34,10 +35,11 @@ AboutDialog::AboutDialog(QWidget *parent,
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-    ui->applicationName->setText(applicationName);
-    QString versionWithSpaces = " ";
-    versionWithSpaces += version ;
-    ui->version->setText(versionWithSpaces);
+    ui->applicationName->setToolTip(tr("If you like or find useful this program, help others, even when you know they can’t help you back."));
+    QString pgmTitle = ui->applicationName->text();
+    pgmTitle.replace("QXmlEdit", applicationName);
+    pgmTitle.replace("xxx", version);
+    ui->applicationName->setText(pgmTitle);
     ui->copyR->setText(copyRight);
     ui->license->setText(tr("License: %1").arg(license)) ;
     ui->icons->setText(otherLicenses);
