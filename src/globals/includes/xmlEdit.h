@@ -33,7 +33,7 @@
 //------------------------------------------------
 #define QXMLEDIT_VERSION_IS_SNAPSHOT 1
 #if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
-#define VERSION_BRANCH "-SNAPSHOT"
+#define VERSION_BRANCH "-RC1"
 #else
 #define VERSION_BRANCH ""
 #endif
