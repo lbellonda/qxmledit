@@ -308,25 +308,6 @@ p, li { white-space: pre-wrap; }
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>440</y>
-     <width>511</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>7</pointsize>
-     <italic>true</italic>
-    </font>
-   </property>
-   <property name="text">
-    <string>If you like or find useful this program, help others, even when you know they can’t help you back.</string>
-   </property>
-  </widget>
   <zorder>label_2</zorder>
   <zorder>buttonBox</zorder>
   <zorder>tabWidget</zorder>
@@ -334,7 +315,6 @@ p, li { white-space: pre-wrap; }
   <zorder>applicationName</zorder>
   <zorder>line</zorder>
   <zorder>envir</zorder>
-  <zorder>label_4</zorder>
  </widget>
  <resources>
   <include location="risorse.qrc"/>
