@@ -1,45 +1,49 @@
 Release Checklist
 -----------------
 
-- Check no TODO_THIS_RELEASE are present in the code
+- Check no TODO_THIS_RELEASE are present in the code.
 
-- Check translations (do lupdate/lrelease)
+- Check translations (do lupdate/lrelease).
 
-- Update the manual, check version number, check properties
+- Test with valgrind.
 
-- Generate the PDF copy of the manual
+- Compile all with Qt 4.7.3 without precopiled headers.
 
-- Remove SNAPSHOT flag in xmlEdit.h
+- Update the manual, check version number, check properties.
 
-- Check the version number in xmlEdit.h file as number and string
+- Generate the PDF copy of the manual.
 
-- Check the version number in version.pri
+- Remove SNAPSHOT flag in xmlEdit.h.
 
-- Change the version number on install scripts Linux and Windows in /install_scripts directory
+- Check the version number in xmlEdit.h file as number and string.
 
-- Change the version number in MacOS pList
+- Check the version number in version.pri.
 
-- Change the version number in environment/appdata.xml
+- Change the version number on install scripts Linux and Windows in /install_scripts directory.
 
-- Do a checkout from sources
+- Change the version number in MacOS pList.
 
-- Do a test installation and deinstallation using a fresh checkout from sources
+- Change the version number in environment/appdata.xml.
 
-- Do a build under Windows and test install
+- Do a checkout from sources.
 
-- Update Windows setup using exe, manual, README
+- Do a test installation and deinstallation using a fresh checkout from sources.
 
-- Make a tag from the sources
+- Do a build under Windows and test install.
 
-- Build a source packages using the script making a svn export
+- Update Windows setup using exe, manual, README.
 
-- Release the package and upload it
+- Make a tag from the sources.
 
-- Compile under Windows, build the package and try it
+- Build a source packages using the script making a svn export.
 
-- Upload Windows installer
+- Release the package and upload it.
 
-- Announce on qt-apps
+- Compile under Windows, build the package and try it.
+
+- Upload Windows installer.
+
+- Announce on qt-apps.
 
 After release
 -------------
@@ -48,8 +52,8 @@ After release
 - Set SNAPSHOT flag in xmlEdit.h
 - Set VERSION_ID to snapshot in XmlEdit.h.
 - Change TODO_NEXT_RELEASE in TODO_THIS_RELEASE.
-- Enable TODO_THIS_RELEASE in utils.h
-- Change the version number in MacOS pList
-- Change the version number in version.pri
-- Change the version number in environment/appdata.xml
-- Clear the testNew method
+- Enable TODO_THIS_RELEASE in utils.h.
+- Change the version number in MacOS pList.
+- Change the version number in version.pri.
+- Change the version number in environment/appdata.xml.
+- Clear the testNew method.
