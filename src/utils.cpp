@@ -1064,6 +1064,7 @@ void Utils::replaceWidget(QLayout *layout, QWidget *oldWidget, QWidget *newWidge
     }
     layout->removeWidget(oldWidget);
     oldWidget->setParent(NULL);
+    oldWidget->deleteLater();
     layout->addWidget(newWidget);
     if(setAlignment) {
         layout->setAlignment(newWidget, alignment);
