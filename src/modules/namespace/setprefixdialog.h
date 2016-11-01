@@ -61,7 +61,7 @@ public:
     static bool getSetPrefixInfo(QWidget *window, SetPrefixInfo *info);
 
     explicit SetPrefixDialog(SetPrefixInfo *info, QWidget *parent = 0);
-    ~SetPrefixDialog();
+    virtual ~SetPrefixDialog();
 
 private:
     Ui::SetPrefixDialog *ui;

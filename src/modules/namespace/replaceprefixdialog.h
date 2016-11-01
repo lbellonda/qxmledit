@@ -66,7 +66,7 @@ public:
     static bool getReplacePrefixInfo(QWidget *window, ReplacePrefixInfo *info);
 
     explicit ReplacePrefixDialog(ReplacePrefixInfo *info, QWidget *parent = 0);
-    ~ReplacePrefixDialog();
+    virtual ~ReplacePrefixDialog();
 
 private:
     Ui::ReplacePrefixDialog *ui;

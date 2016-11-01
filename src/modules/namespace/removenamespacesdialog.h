@@ -68,7 +68,7 @@ public:
     static bool getRemoveNamespacesInfo(QWidget *window, RemoveNamespacesInfo *info);
 
     explicit RemoveNamespacesDialog(RemoveNamespacesInfo *info, QWidget *parent = 0);
-    ~RemoveNamespacesDialog();
+    virtual ~RemoveNamespacesDialog();
 
 private:
     Ui::RemoveNamespacesDialog *ui;

@@ -76,7 +76,7 @@ public:
 
 public:
     explicit ReplaceNamespaceDialog(ReplaceNamespaceInfo *info, QWidget *parent = 0);
-    ~ReplaceNamespaceDialog();
+    virtual ~ReplaceNamespaceDialog();
 
     NamespaceManager *namespaceManager() const ;
     void setNamespaceManager(NamespaceManager *namespaceManager);

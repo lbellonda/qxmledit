@@ -73,7 +73,7 @@ public:
     static bool getSetNamespaceInfo(QWidget *window, SetNamespaceInfo *info, NamespaceManager *namespaceManager);
 
     explicit SetNamespaceDialog(SetNamespaceInfo *info, QWidget *parent = 0);
-    ~SetNamespaceDialog();
+    virtual ~SetNamespaceDialog();
 
     NamespaceManager *namespaceManager() const;
     void setNamespaceManager(NamespaceManager *namespaceManager);

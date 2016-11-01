@@ -75,7 +75,7 @@ public:
     static bool getNormalizeNamespaceInfo(QWidget *window, NormalizeNamespaceInfo *info, NamespaceManager *namespaceManager);
 
     explicit NormalizeNamespaceDialog(NormalizeNamespaceInfo *info, QWidget *parent = 0);
-    ~NormalizeNamespaceDialog();
+    virtual ~NormalizeNamespaceDialog();
 
     NamespaceManager *namespaceManager() const;
     void setNamespaceManager(NamespaceManager *namespaceManager);
