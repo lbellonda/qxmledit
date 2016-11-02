@@ -84,6 +84,7 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent) : QMainWindow(parent), uiDelegate(this), _windowIcon(":/icon/images/icon.png")
 {
+    _slaveIsClosed = false ;
     _errorCount = 0 ;
     _xsdButton = NULL ;
     _controller.setWindow(this);
@@ -95,6 +96,7 @@ MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, Appl
     _labelIndentation = NULL ;
     _snippetManager = new SnippetManager();
 
+    _returnCodeAsSlave = 0 ;
     labelSchema = NULL;
     navigationModeIndicator = NULL ;
     maxLastFiles = MAX_LAST_FILES;
@@ -162,20 +164,22 @@ ApplicationData *MainWindow::appData()
 QString MainWindow::editNodeElementAsXML(const bool isBase64Coded, Element *pElement, const QString & /*text*/, const bool /*isCData*/, bool &isCDataOut, bool &isOk)
 {
     QString result;
-    MainWindow mainWindow(true, application, data, this) ;
-    mainWindow.setWindowModality(Qt::WindowModal);
-    mainWindow.ui.editor->loadText(pElement->getAsSimpleText(isBase64Coded));
-    mainWindow.ui.editor->setCDATA(pElement->isCDATA());
-    QEventLoop eventLoop;
-    mainWindow.setEventLoop(&eventLoop);
-    mainWindow.show();
-    if(eventLoop.exec() > 0) {
-        result = mainWindow.getContentAsText();
+    MainWindow *mainWindow = new MainWindow(true, application, data, this) ;
+    mainWindow->setWindowModality(Qt::WindowModal);
+    mainWindow->ui.editor->loadText(pElement->getAsSimpleText(isBase64Coded));
+    mainWindow->ui.editor->setCDATA(pElement->isCDATA());
+    QEventLoop *eventLoop = new QEventLoop();
+    mainWindow->setEventLoop(eventLoop);
+    mainWindow->show();
+    if(eventLoop->exec() > 0) {
+        result = mainWindow->getContentAsText();
         isCDataOut = ui.editor->isCDATA();
         isOk = true;
     } else {
         isOk = false;
     }
+    delete mainWindow;
+    eventLoop->deleteLater();
     return result;
 }
 
@@ -274,8 +278,8 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(documentIsModified(const bool)), this, SLOT(onDocumentIsModified(const bool)));
     connect(ui.editor, SIGNAL(reevaluateSelectionState()), this, SLOT(onComputeSelectionState()));
     connect(ui.editor, SIGNAL(signalSetClipBoardActionsState(const bool)), this, SLOT(setClipBoardActionsState(const bool)));
-    connect(ui.editor, SIGNAL(okClicked()), this, SLOT(on_ok_clicked()));
-    connect(ui.editor, SIGNAL(cancelClicked()), this, SLOT(on_cancel_clicked()));
+    connect(ui.editor, SIGNAL(okClicked()), this, SLOT(onOkClicked()));
+    connect(ui.editor, SIGNAL(cancelClicked()), this, SLOT(onCancelClicked()));
     connect(ui.editor, SIGNAL(viewAsXsdRequested()), this, SLOT(on_actionViewAsXsd_triggered()));
     connect(ui.editor, SIGNAL(schemaLabelChanged(const QString &)), this, SLOT(schemaLoadComplete(const QString &)));
     connect(ui.editor, SIGNAL(dataReadyMessage(const QString &)), this, SLOT(onNewMessage(const QString &)));
@@ -300,7 +304,7 @@ bool MainWindow::finishSetUpUi()
     // turn off autoscroll
     navigationModeIndicator = new NavigationMode(statusBar());
     if(NULL == navigationModeIndicator) {
-        Utils::error(tr("Error creating user interface"));
+        Utils::error( this, tr("Error creating user interface"));
         return false;
     }
     navigationModeIndicator->setExploreMode(ui.editor->displayMode());
@@ -308,7 +312,7 @@ bool MainWindow::finishSetUpUi()
 
     labelSchema = new QLabel(statusBar());
     if(NULL == labelSchema) {
-        Utils::error(tr("Error creating user interface"));
+        Utils::error( this, tr("Error creating user interface"));
         return false;
     }
     setSchemaLabel(tr(""));
@@ -1221,13 +1225,22 @@ void MainWindow::setFileTitle()
 
 void MainWindow::closeEvent(QCloseEvent * event)
 {
-    if(!checkAbandonChanges(OpenUsingSameWindow)) {
-        event->ignore();
-        return ;
+    const bool slaveCondition = (isSlave && (0 == _returnCodeAsSlave));
+    const bool notSlaveCondition = !isSlave ;
+    if(slaveCondition || notSlaveCondition) {
+        if(!checkAbandonChanges(OpenUsingSameWindow)) {
+            event->ignore();
+            return ;
+        }
     }
     event->accept();
     if(!isSlave) {
         deleteLater();
+    } else {
+        _slaveIsClosed = true ;
+        if(NULL != eventLoop) {
+            eventLoop->exit(_returnCodeAsSlave);
+        }
     }
 }
 
@@ -1458,17 +1471,25 @@ void MainWindow::updateAfterPreferences()
     }
 }
 
-void MainWindow::on_ok_clicked()
+void MainWindow::onOkClicked()
 {
-    if(NULL != eventLoop) {
-        eventLoop->exit(1);
+    if(isSlave && _slaveIsClosed) {
+        return ;
+    }
+    _returnCodeAsSlave = 1 ;
+    if(isSlave && (NULL != eventLoop)) {
+        close();
     }
 }
 
-void MainWindow::on_cancel_clicked()
+void MainWindow::onCancelClicked()
 {
-    if(NULL != eventLoop) {
-        eventLoop->exit(0);
+    if(isSlave && _slaveIsClosed) {
+        return ;
+    }
+    _returnCodeAsSlave = 0 ;
+    if(isSlave && (NULL != eventLoop)) {
+        close();
     }
 }
 

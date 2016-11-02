@@ -55,6 +55,8 @@ class MainWindow : public QMainWindow, UIDelegate
     ApplicationData *data;
     bool isSlave; // use and forward
     QEventLoop *eventLoop;
+    int _returnCodeAsSlave;
+    bool _slaveIsClosed;
     int maxLastFiles;
     int maxPrefDirs;
     QList<QAction*> lastFiles;
@@ -366,8 +368,8 @@ private slots:
 
     void treeContextMenu(const QPoint& position);
 
-    void on_ok_clicked();
-    void on_cancel_clicked();
+    void onOkClicked();
+    void onCancelClicked();
 
     void onRecentFile();
     void onPreferredDir();
