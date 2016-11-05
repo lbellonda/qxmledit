@@ -30,11 +30,14 @@ AnonAttrExcDialog::AnonAttrExcDialog(Element *element, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AnonAttrExcDialog)
 {
+    setWindowFlags(windowFlags() | Qt::WindowMaximizeButtonHint);
+
     _element = element ;
     ui->setupUi(this);
     loadData();
     on_cmdSelectAll_clicked();
     setupUi();
+    showMaximized();
 }
 
 AnonAttrExcDialog::~AnonAttrExcDialog()
