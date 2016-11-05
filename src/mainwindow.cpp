@@ -304,7 +304,7 @@ bool MainWindow::finishSetUpUi()
     // turn off autoscroll
     navigationModeIndicator = new NavigationMode(statusBar());
     if(NULL == navigationModeIndicator) {
-        Utils::error( this, tr("Error creating user interface"));
+        Utils::error(this, tr("Error creating user interface"));
         return false;
     }
     navigationModeIndicator->setExploreMode(ui.editor->displayMode());
@@ -312,7 +312,7 @@ bool MainWindow::finishSetUpUi()
 
     labelSchema = new QLabel(statusBar());
     if(NULL == labelSchema) {
-        Utils::error( this, tr("Error creating user interface"));
+        Utils::error(this, tr("Error creating user interface"));
         return false;
     }
     setSchemaLabel(tr(""));
@@ -656,13 +656,15 @@ void MainWindow::treeContextMenu(const QPoint& position)
     }
     //---
     QMenu *advancedCopyMenu = contextMenu.addMenu(tr("Advanced"));
-    advancedCopyMenu->addAction(ui.actionCopyAttributes);
-    if(isActionMode) {
-        advancedCopyMenu->addAction(ui.actionPasteLastAttributes);
+    if((NULL != element) && element->isElement()) {
+        advancedCopyMenu->addAction(ui.actionCopyAttributes);
+        if(isActionMode) {
+            advancedCopyMenu->addAction(ui.actionPasteLastAttributes);
+        }
     }
-    advancedCopyMenu->addSeparator();
     QMenu *copyMenu = getEditor()->getCopyMenu();
     if(NULL != copyMenu) {
+        advancedCopyMenu->addSeparator();
         foreach(QAction * action, copyMenu->actions()) {
             advancedCopyMenu->addAction(action);
         }

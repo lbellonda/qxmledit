@@ -416,16 +416,24 @@ void XmlEditWidgetPrivate::buildCopyMenu()
     }
     copyMenu = new QMenu(p);
 
-    if(element->isElement() && (NULL != _copyPathAction)) {
-        copyMenu->addAction(_copyPathAction);
+    if(element->isElement()) {
+        if(NULL != _copyPathAction) {
+            copyMenu->addAction(_copyPathAction);
+        }
+        QString text = element->getAsSimpleTextWithLimit(8);
+        if(!text.isEmpty()) {
+            if(text.length() > 8) {
+                text = text.left(8);
+                text += "...";
+            }
+            QAction *elementTextAction = createAnAction(copyMenu, QString(tr("Copy Text '%1'")).arg(text), CS_ELEMENT_TEXT, tr("Copy Element Text"));
+            connect(elementTextAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
+            copyMenu->addAction(elementTextAction);
+        }
+        QAction *elementTagAction = createAnAction(copyMenu, QString(tr("Copy Tag <%1>")).arg(element->tag()), CS_ELEMENT_TAG, tr("Copy Element Tag"));
+        connect(elementTagAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
+        copyMenu->addAction(elementTagAction);
     }
-
-    QAction *elementTextAction = createAnAction(copyMenu, QString(tr("Copy Element Text '%1'")).arg(element->tag()), CS_ELEMENT_TEXT, tr("Copy Element Text"));
-    connect(elementTextAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
-    copyMenu->addAction(elementTextAction);
-    QAction *elementTagAction = createAnAction(copyMenu, QString(tr("Copy Element Tag <%1>")).arg(element->tag()), CS_ELEMENT_TAG, tr("Copy Element Tag"));
-    connect(elementTagAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
-    copyMenu->addAction(elementTagAction);
     QList<Attribute*>attributes = element->getAttributesList();
     QMap<QString, QString> attributesMap;
     foreach(Attribute * attribute, attributes) {
@@ -433,7 +441,7 @@ void XmlEditWidgetPrivate::buildCopyMenu()
     }
     foreach(QString attributeName, attributesMap.keys()) {
         QString attributeValue = attributesMap[attributeName];
-        QAction *attributeNameAction = createAnAction(copyMenu, QString(tr("Copy attr. name '%1'")).arg(attributeName), CS_ATTRIBUTE_NAME + attributeName, tr("Copy Attribute Name"));
+        QAction *attributeNameAction = createAnAction(copyMenu, QString(tr("Copy '%1'")).arg(attributeName), CS_ATTRIBUTE_NAME + attributeName, tr("Copy Attribute Name"));
         connect(attributeNameAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
         copyMenu->addAction(attributeNameAction);
         QString value = attributeValue;
@@ -441,7 +449,7 @@ void XmlEditWidgetPrivate::buildCopyMenu()
             value = value.left(10);
             value += "...";
         }
-        QAction *attributeValueAction = createAnAction(copyMenu, QString(tr("Copy attr. value %1='%2'")).arg(attributeName).arg(value), CS_ATTRIBUTE_VALUE + attributeName, tr("Copy Attribute Value"));
+        QAction *attributeValueAction = createAnAction(copyMenu, QString(tr("Copy value %1='%2'")).arg(attributeName).arg(value), CS_ATTRIBUTE_VALUE + attributeName, tr("Copy Attribute Value"));
         connect(attributeValueAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
         copyMenu->addAction(attributeValueAction);
 

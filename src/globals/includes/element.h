@@ -412,6 +412,7 @@ public:
     QString getAsText();
     QString getAsSimpleText(const bool isBase64);
     QString getAsSimpleTextXml(const bool isBase64);
+    QString getAsSimpleTextWithLimit(const int limit);
 
     bool isCDATA();
     void setAsSingleTextNode(const QString &newText, const bool isBase64, const bool isCData);

@@ -743,6 +743,26 @@ QString Element::getAsText()
     return textToShow ;
 }
 
+QString Element::getAsSimpleTextWithLimit(const int limit)
+{
+    QString textToShow;
+    if(type == ET_TEXT) {
+        return text ;
+    } else {
+        QString result;
+        QVectorIterator<TextChunk*> tt(textNodes);
+        while(tt.hasNext()) {
+            TextChunk   *tx = tt.next();
+            result.append(tx->text);
+            if(result.length() > limit) {
+                return result;
+            }
+        }
+        return result;
+    }
+    return textToShow ;
+}
+
 QString Element::getAsSimpleText(const bool isBase64)
 {
     QString textToShow;
