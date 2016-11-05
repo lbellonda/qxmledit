@@ -1,4 +1,5 @@
 0.9.5
+    Fixed some memory leaks.
     Manipulation of namespaces: set, remove, replace, normalize.
     Manipulation of prefixes: set, remove, replace.
     Fix #37 (https://github.com/lbellonda/qxmledit/issues/37).
