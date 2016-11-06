@@ -37,7 +37,9 @@ AnonAttrExcDialog::AnonAttrExcDialog(Element *element, QWidget *parent) :
     loadData();
     on_cmdSelectAll_clicked();
     setupUi();
+#ifndef QXMLEDIT_TEST
     showMaximized();
+#endif
 }
 
 AnonAttrExcDialog::~AnonAttrExcDialog()
