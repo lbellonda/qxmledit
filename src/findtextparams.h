@@ -82,6 +82,7 @@ protected:
     bool      mUseXQuery;
     bool        mIsWrapAround;
     QList<Element*> *mSelection;
+    Element     *mFirstMatch;
 
 public:
     FindTextParams();
@@ -106,6 +107,8 @@ public:
 
     void saveState() const;
     void loadState();
+
+    Element  * firstMatch();
 
     const QString &getTextToFind() const {
         return mTextToFind;

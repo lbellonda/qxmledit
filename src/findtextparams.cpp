@@ -80,6 +80,7 @@ void FindTextParams::init(const EFindType findType, const QString &textToFind, c
     }
     mIsWrapAround = isWrapAround ;
     mUseXQuery = useXQuery;
+    mFirstMatch = NULL ;
 }
 
 FindTextParams::FindTextParams()
@@ -101,6 +102,7 @@ FindTextParams::FindTextParams()
     mUseXQuery = false;
     mIsWrapAround = true ;
     mSelection = NULL ;
+    mFirstMatch = NULL ;
 }
 
 FindTextParams::~FindTextParams()
@@ -262,10 +264,16 @@ void FindTextParams::saveState() const
     Config::saveBool(Config::KEY_SEARCH_USEXQUERY, mUseXQuery);
 }
 
+Element  *FindTextParams::firstMatch()
+{
+    return mFirstMatch ;
+}
+
 void FindTextParams::start()
 {
     mOccurrences = 0 ;
     mSize = 0 ;
+    mFirstMatch = NULL ;
 }
 
 void FindTextParams::newOccurence(const int size)
@@ -317,6 +325,9 @@ void FindTextParams::addSelection(Element *newSelection)
 {
     if(NULL != mSelection) {
         mSelection->append(newSelection);
+    }
+    if( NULL == mFirstMatch ) {
+        mFirstMatch = newSelection ;
     }
 }
 

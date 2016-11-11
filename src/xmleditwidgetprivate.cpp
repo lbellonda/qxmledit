@@ -1290,6 +1290,7 @@ void XmlEditWidgetPrivate::countTextOccurrences()
 Element * XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, const FindTextParams::EFindType findType)
 {
     Element *foundElement = NULL;
+    Element *firstOccurrence = NULL ;
     bool isGlobalSearch = FindTextParams::FindAllOccurrences == findType;
     if(NULL != regola) {
 
@@ -1312,6 +1313,7 @@ Element * XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, cons
             regola->unhiliteAll();
             findArgs->start();
             foundElement = regola->findText(*findArgs, getSelectedItem());
+            firstOccurrence = findArgs->firstMatch();
             p->ui->searchWidget->setSearchResults(findArgs);
             if(isGlobalSearch) {
                 p->emitShowStatusMessage(p->ui->searchWidget->messageCount(), true);
@@ -1325,6 +1327,9 @@ Element * XmlEditWidgetPrivate::findTextOperation(const bool isFindOrCount, cons
         }
     }
     p->ui->treeWidget->setUpdatesEnabled(true);
+    if(NULL != firstOccurrence) {
+        p->ui->treeWidget->scrollToItem(firstOccurrence->getUI(), QAbstractItemView::PositionAtTop);
+    }
     p->setEnabled(true);
     Utils::restoreCursor();
     emit p->reevaluateSelectionState();
