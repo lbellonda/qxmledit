@@ -1408,10 +1408,6 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testNamespaces();
-    testSplit();
-    testLoadFile();
-    testEditing();
 }
 
 QTEST_MAIN(TestQXmlEdit)
