@@ -778,8 +778,9 @@ void MainWindow::onComputeSelectionState()
         //disabilita accoda, mvup e down
         //altrimenti se il selected si trova al primo o ultimo posto della catena deselezmv up o down
     } else {
-        if(regola->isEmpty(true))
+        if(regola->isEmpty(true)) {
             canAddChild = true;
+        }
     }
     bool enableGoToParent = false;
     bool enableNextBrother = false;
@@ -1293,8 +1294,9 @@ void MainWindow::on_actionAddProcessingInstruction_triggered()
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
-    if(event->mimeData()->hasFormat("text/uri-list"))
+    if(event->mimeData()->hasFormat("text/uri-list")) {
         event->acceptProposedAction();
+    }
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
