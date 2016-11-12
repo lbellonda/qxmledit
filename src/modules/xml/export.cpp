@@ -27,8 +27,9 @@ bool Regola::writeAsJavaString(QIODevice * device)
     QDomDocument    document = createNewDocument();
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
-        if(!it.next()->generateDom(document, document))
+        if(!it.next()->generateDom(document, document)) {
             return false;
+        }
     }
     if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
         Utils::error(tr("Error writing data: %1").arg(device->errorString()));
@@ -100,8 +101,9 @@ bool Regola::writeAsCString(QIODevice * device)
     QDomDocument    document = createNewDocument();
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
-        if(!it.next()->generateDom(document, document))
+        if(!it.next()->generateDom(document, document)) {
             return false;
+        }
     }
     if(!device->open(QIODevice::WriteOnly | QIODevice::Text)) {
         Utils::error(tr("Error writing data: %1").arg(device->errorString()));

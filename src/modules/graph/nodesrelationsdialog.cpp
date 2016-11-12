@@ -257,8 +257,9 @@ void NodesRelationsDialog::dragEnterEvent(QDragEnterEvent *event)
         return;
     }
 
-    if(event->mimeData()->hasFormat("text/uri-list"))
+    if(event->mimeData()->hasFormat("text/uri-list")) {
         event->acceptProposedAction();
+    }
 }
 
 void NodesRelationsDialog::dropEvent(QDropEvent *event)

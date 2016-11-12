@@ -88,34 +88,48 @@ bool PaintInfo::saveState()
         return true;
     }
     bool isOK = true ;
-    if(!Config::saveBool(Config::KEY_MAIN_INDEXPERCHILD, indexPerChild()))
+    if(!Config::saveBool(Config::KEY_MAIN_INDEXPERCHILD, indexPerChild())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_ONEATTRLINE, oneAttrPerLine()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_ONEATTRLINE, oneAttrPerLine())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_COMPACTVIEW, compactView()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_COMPACTVIEW, compactView())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_SHOWATTRLEN, showAttributesLength()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_SHOWATTRLEN, showAttributesLength())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_ATTRFIXEDS, useFixedLengthFont()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_ATTRFIXEDS, useFixedLengthFont())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_SHOWBASE64, showUnBase64()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_SHOWBASE64, showUnBase64())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_SHOWELTEXTLEN, showElementTextLength()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_SHOWELTEXTLEN, showElementTextLength())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_SHOWELSIZE, showElementSize()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_SHOWELSIZE, showElementSize())) {
         isOK = false;
-    if(!Config::saveInt(Config::KEY_MAIN_SHOWZOOM, zoom()))
+    }
+    if(!Config::saveInt(Config::KEY_MAIN_SHOWZOOM, zoom())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_HIDEVIEW, hideView()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_HIDEVIEW, hideView())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, showFullComments()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, showFullComments())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, isSortAttributesAlpha()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, isSortAttributesAlpha())) {
         isOK = false;
-    if(!Config::saveInt(Config::KEY_MAIN_ATTRCOLLLIMIT, attributesColumnLimit()))
+    }
+    if(!Config::saveInt(Config::KEY_MAIN_ATTRCOLLLIMIT, attributesColumnLimit())) {
         isOK = false;
-    if(!Config::saveBool(Config::KEY_MAIN_SHOWELEMNTSICON, isShowElementsIcon()))
+    }
+    if(!Config::saveBool(Config::KEY_MAIN_SHOWELEMNTSICON, isShowElementsIcon())) {
         isOK = false;
+    }
     return isOK;
 }
 

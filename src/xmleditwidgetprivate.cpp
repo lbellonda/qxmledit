@@ -657,8 +657,9 @@ void XmlEditWidgetPrivate::computeSelectionState()
         Element *element = Element::fromItemData(p->ui->treeWidget->selectedItems().at(0));
         selectSpecialsUp = !element->isFirstChild();
         selectSpecialsDown = !element->isLastChild();
-        if(element->getType() == Element::ET_ELEMENT)
+        if(element->getType() == Element::ET_ELEMENT) {
             canAddChild = true;
+        }
         //isNormalViewState = element->isNormalViewState();
         isSomeItemSelected = true ;
         //isShownAsBase64 = element->isShownBase64();
@@ -666,8 +667,9 @@ void XmlEditWidgetPrivate::computeSelectionState()
         //disabilita accoda, mvup e down
         //altrimenti se il selected si trova al primo o ultimo posto della catena deselezmv up o down
     } else {
-        if(regola->isEmpty(true))
+        if(regola->isEmpty(true)) {
             canAddChild = true;
+        }
     }
     p->ui->addChild->setEnabled(canAddChild && isModifiable);
     p->ui->addBrother->setEnabled(selectSpecials && isModifiable);
@@ -808,8 +810,9 @@ void XmlEditWidgetPrivate::elementDoubleClicked(QTreeWidgetItem * item, int /*co
 QTreeWidgetItem *XmlEditWidgetPrivate::getSelItem()
 {
     QList<QTreeWidgetItem *>selItems =  p->ui->treeWidget->selectedItems();
-    if(selItems.count() < 1)
+    if(selItems.count() < 1) {
         return NULL;
+    }
     return selItems.at(0);
 }
 
@@ -1099,8 +1102,9 @@ ClipboardElementList* XmlEditWidgetPrivate::getClipBoardItemList(const bool only
 
 void XmlEditWidgetPrivate::onActionExpandAll()
 {
-    if(regola != NULL)
+    if(regola != NULL) {
         regola->expand(p->ui->treeWidget);
+    }
 }
 
 void XmlEditWidgetPrivate::onActionExpandSelectedItem()

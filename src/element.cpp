@@ -253,8 +253,9 @@ Element *Element::getFirstChildByLocalName(const QString &seekName)
 
 void Element::loadIcons()
 {
-    if(isLoadedIcons)
+    if(isLoadedIcons) {
         return ;
+    }
     isLoadedIcons = true ;
     procInstrIcon.addPixmap(QPixmap(QString::fromUtf8(":/tree/pi_icon.png")), QIcon::Normal, QIcon::Off);
     commentIcon.addPixmap(QPixmap(QString::fromUtf8(":/tree/comm_icon.png")), QIcon::Normal, QIcon::Off);
@@ -1272,8 +1273,9 @@ int Element::addChildAfter(Element *newElement, Element *brotherElement)
 bool Element::moveUp(QVector<Element*> &items, Element *element)
 {
     int indexOf = items.indexOf(element);
-    if(indexOf <= 0)
+    if(indexOf <= 0) {
         return false;
+    }
     Element *pToSwap = items.at(indexOf - 1);
     items.replace(indexOf - 1, element);
     items.replace(indexOf, pToSwap);
@@ -1307,8 +1309,9 @@ bool Element::moveUp(Element *element)
 bool Element::moveDown(QVector<Element*> &items, Element *element)
 {
     int indexOf = items.indexOf(element);
-    if((indexOf < 0) || (indexOf >= (items.size() - 1)))
+    if((indexOf < 0) || (indexOf >= (items.size() - 1))) {
         return false;
+    }
     Element *pToSwap = items.at(indexOf + 1);
     items.replace(indexOf + 1, element);
     items.replace(indexOf, pToSwap);
@@ -1589,15 +1592,17 @@ bool Element::isLastChild()
         indexOf = parentElement->childItems.indexOf(this);
         size = parentElement->childItems.size();
     }
-    if((indexOf < 0) || (indexOf >= (size - 1)))
+    if((indexOf < 0) || (indexOf >= (size - 1))) {
         return true;
+    }
     return false;
 }
 
 void Element::expand(QTreeWidget *tree)
 {
-    if(NULL != ui)
+    if(NULL != ui) {
         tree->expandItem(ui);
+    }
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
         it.next()->expand(tree);
@@ -1863,8 +1868,9 @@ void Element::hideBrothers()
         size = parentElement->childItems.size();
         elems = this->parentElement->getChildItems();
     }
-    if((indexOfThis < 0) || (indexOfThis >= size))
+    if((indexOfThis < 0) || (indexOfThis >= size)) {
         return ;
+    }
     int previousIndex = indexOfThis - 1 ;
     int nextIndex = indexOfThis + 1 ;
 
@@ -1911,8 +1917,9 @@ void Element::showBrothers()
         size = parentElement->childItems.size();
         elems = this->parentElement->getChildItems();
     }
-    if((indexOfThis < 0) || (indexOfThis >= size))
+    if((indexOfThis < 0) || (indexOfThis >= size)) {
         return ;
+    }
 
     QVectorIterator<Element*> it(*elems);
     PaintInfo *paintInfo = parentRule->getPaintInfo();
