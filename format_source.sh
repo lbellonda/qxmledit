@@ -1,6 +1,6 @@
 #!/bin/sh
 #style code using KDE conventions
-astyle --indent=spaces=4 --brackets=linux \
+astyle --indent=spaces=4 --style=1tbs \
        --indent-labels --pad-oper --unpad-paren \
        --keep-one-line-statements --convert-tabs \
        --indent-preprocessor \

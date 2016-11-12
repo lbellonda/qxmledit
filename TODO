@@ -5,7 +5,23 @@ Check issues:
 TODO:
 ----
 
-#new is:115
+#new is:130.
+
+129 - Editing XSD into viewer.
+128 - Content assist XSD with annotations as help.
+127 - Drag into other programs.
+126 - Editing in comparison.
+125 - In/Out JSON.
+124 - In/Out YAML.
+123 - SCXML support for templates and known namespaces.
+122 - New edit window layout with toolbar.
+121 - Edit text field with shortcut.
+120 - Quick copy/paste attributes.
+119 - Edit elements in textual mode.
+118 - Load files with errors
+117 - Show load errors in a panel
+116 - sistemare format source per astyle > 2.1
+115 - Show the first occurrence in select - all
 
 
 114 - Elenco prefissi utilizzati
