@@ -322,8 +322,9 @@ bool Regola::write(QIODevice *device, const bool isMarkSaved)
     //document.setInvalidDataPolicy(QDomImplementation::ReturnNullNode); TODO
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
-        if(!it.next()->generateDom(document, document))
+        if(!it.next()->generateDom(document, document)) {
             return false;
+        }
     }
 
     if(!device->open(QIODevice::WriteOnly | (Utils::isEncoding8bitNotASCII(encoding()) ? (QIODevice::OpenModeFlag)0 : QIODevice::Text))) {
@@ -532,8 +533,9 @@ QString Regola::getAsText(ElementLoadInfoMap *map)
     QDomDocument    document = createNewDocument();
     QVectorIterator<Element*> it(childItems);
     while(it.hasNext()) {
-        if(!it.next()->generateDom(document, document, map))
+        if(!it.next()->generateDom(document, document, map)) {
             return "";
+        }
     }
     QString result = document.toString(_indent);
     return result ;
@@ -1043,8 +1045,9 @@ void Regola::addChild(QWidget *window, QTreeWidget *tree, Element *preElement)
     Element *parentElement = NULL ;
     if(NULL != currItem) {
         parentElement = Element::fromItemData(currItem);
-        if(parentElement->getType() != Element::ET_ELEMENT)
+        if(parentElement->getType() != Element::ET_ELEMENT) {
             return ;
+        }
     } else {
         if(!isEmptyE) {
             Utils::errorNoSel(window);
@@ -1069,8 +1072,9 @@ Element* Regola::addChildToElement(QWidget *window, QTreeWidget *tree, Element *
 {
     bool isEmptyE = isEmpty(true);
     if(NULL != parentElement) {
-        if(parentElement->getType() != Element::ET_ELEMENT)
+        if(parentElement->getType() != Element::ET_ELEMENT) {
             return NULL ;
+        }
     } else {
         if(!isEmptyE) {
             Utils::errorNoSel(window);
@@ -1087,8 +1091,9 @@ Element* Regola::addChildToElement(QWidget *window, QTreeWidget *tree, Element *
 QTreeWidgetItem *Regola::getSelItem(QTreeWidget *tree)
 {
     QList<QTreeWidgetItem *>selItems =  tree->selectedItems();
-    if(selItems.count() < 1)
+    if(selItems.count() < 1) {
         return NULL;
+    }
     return selItems.at(0);
 }
 
@@ -1263,8 +1268,9 @@ void Regola::pasteNoUI(Element *pasteElement, Element *pasteTo)
         // lo inserisce come figlio dell'item corrente
         theNewElement = pasteElement->copyTo(*new Element(this));
         Element *parentElement = pasteTo;
-        if(!parentElement->isElement())
+        if(!parentElement->isElement()) {
             return ;
+        }
         parentElement->addChild(theNewElement);
         theNewElement->caricaFigli(NULL, parentElement->getUI(), paintInfo, false, -1);
     }

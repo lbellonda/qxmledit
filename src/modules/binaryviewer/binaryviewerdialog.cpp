@@ -394,8 +394,9 @@ void BinaryViewerDialog::keyPressEvent(QKeyEvent *e)
 
 void BinaryViewerDialog::dragEnterEvent(QDragEnterEvent *event)
 {
-    if(event->mimeData()->hasFormat("text/uri-list"))
+    if(event->mimeData()->hasFormat("text/uri-list")) {
         event->acceptProposedAction();
+    }
 }
 
 void BinaryViewerDialog::dropEvent(QDropEvent *event)

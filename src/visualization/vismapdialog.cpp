@@ -508,8 +508,9 @@ void VisMapDialog::dropEvent(QDropEvent *event)
 
 void VisMapDialog::dragEnterEvent(QDragEnterEvent *event)
 {
-    if(event->mimeData()->hasFormat("text/uri-list"))
+    if(event->mimeData()->hasFormat("text/uri-list")) {
         event->acceptProposedAction();
+    }
 }
 
 

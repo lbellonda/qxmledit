@@ -278,8 +278,9 @@ bool QXmlEditApplication::startServer()
         isConnected = true ;
     }
     if(NULL != _logger) {
-        if(_logger->isEnabled() && _logger->isLoggable(FrwLogger::DEBUG))
+        if(_logger->isEnabled() && _logger->isLoggable(FrwLogger::DEBUG)) {
             _logger->debug(QString("Server listening=%1 at:'%2'").arg(isConnected).arg(_server->fullServerName()));
+        }
     }
     return false;
 }

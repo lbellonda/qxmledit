@@ -124,8 +124,9 @@ QSet<QString> AnonEditProfileDialog::tagsFromUI()
     foreach(QString tg, tags) {
         QString tx = tg.trimmed();
         if(!tx.isEmpty()) {
-            if(!newTags.contains(tx))
+            if(!newTags.contains(tx)) {
                 newTags.insert(tx);
+            }
         }
     }
     return newTags;

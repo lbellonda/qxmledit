@@ -423,8 +423,9 @@ void CompareModule::enableFileInfoUI()
 //------------------------- region(file management) ---
 void CompareModule::dragEnterEvent(QDragEnterEvent *event)
 {
-    if(event->mimeData()->hasFormat("text/uri-list"))
+    if(event->mimeData()->hasFormat("text/uri-list")) {
         event->acceptProposedAction();
+    }
 }
 
 void CompareModule::dropEvent(QDropEvent *event)
