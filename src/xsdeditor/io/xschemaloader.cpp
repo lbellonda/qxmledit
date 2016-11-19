@@ -33,7 +33,8 @@ public:
     XSDSchema *schema;
     XSchemaLoader::Code code ;
     bool used ;
-    OperationResults() {
+    OperationResults()
+    {
         used = false;
         schema = NULL ;
         code = XSchemaLoader::SCHEMA_WAIT ;

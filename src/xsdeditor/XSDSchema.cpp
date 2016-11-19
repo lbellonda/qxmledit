@@ -482,8 +482,8 @@ bool XSDSchema::canAddChild(const ESchemaType newType)
     case SchemaTypeInclude:
     case SchemaTypeImport:
     case SchemaTypeRedefine:
-        //TODO case SchemaTypeSimpleType????
-        //TODO   complexType
+    //TODO case SchemaTypeSimpleType????
+    //TODO   complexType
     case SchemaTypeGroup:
     case SchemaTypeAttributeGroup:
     case SchemaTypeNotation:

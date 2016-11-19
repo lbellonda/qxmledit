@@ -40,7 +40,8 @@ public:
     QString specialities;
     EAuthorRole role;
 
-    AuthorInfo(const QString &newName, const QString &newContactInfo, const EAuthorRole newRole, const QString &newSpecialities) {
+    AuthorInfo(const QString &newName, const QString &newContactInfo, const EAuthorRole newRole, const QString &newSpecialities)
+    {
         name = newName ;
         contactInfo = newContactInfo;
         role = newRole;

@@ -68,8 +68,8 @@ public:
 
     // vediamo di allargare poi
     static const int BlocksPerPage = 16;
-    static const int RowsPerPage = BlocksPerPage*BinaryBlock::RowsPerBlock;
-    static const int SizeOfPage = BlocksPerPage*BinaryBlock::SizeOfBlock;
+    static const int RowsPerPage = BlocksPerPage * BinaryBlock::RowsPerBlock;
+    static const int SizeOfPage = BlocksPerPage * BinaryBlock::SizeOfBlock;
 
     static const int SearchBufferSize = 100 * 1024;
 

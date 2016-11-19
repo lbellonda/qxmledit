@@ -228,7 +228,7 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
             break;// no-op
         case QXmlStreamReader::NoToken:
             break;
-            //-- pass through ---------------------------------------------------
+        //-- pass through ---------------------------------------------------
         case QXmlStreamReader::Comment:
         case QXmlStreamReader::DTD:
         case QXmlStreamReader::EntityReference:
@@ -236,7 +236,7 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
             //default:
             xmlWriter.writeCurrentToken(xmlReader);
             break;
-            //-------------------------------------------------------------------
+        //-------------------------------------------------------------------
         case QXmlStreamReader::Invalid:
             //if(!xmlReader.atEnd()) {
             handleError(&_result, &xmlReader);

@@ -46,7 +46,8 @@ public:
     int insNsInList(QTableWidget *table, const int desiredRow, const QString &prefix, const QString &uri, const QString &schemaLocation, const QString &description, void *data);
     void *userData(QTableWidget *table, const int row, const int column);
     template<typename T>
-    inline T* userDataType(QTableWidget *table, const int row, const int column) {
+    inline T* userDataType(QTableWidget *table, const int row, const int column)
+    {
         QTableWidgetItem *item = table->item(row, column);
         if(NULL != item) {
             QVariant data = item->data(Qt::UserRole);

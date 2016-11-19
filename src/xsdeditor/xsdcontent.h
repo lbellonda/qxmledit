@@ -48,7 +48,8 @@ public:
     ~XSchemaSimpleContent();
     bool readBaseProperties(XSDLoadContext *loadContext, QDomElement &element);
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSimpleContent;
     }
 
@@ -77,7 +78,8 @@ public:
     XSchemaSimpleContentRestriction(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaSimpleContentRestriction();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSimpleContentRestriction ;
     }
     TAG("restriction")
@@ -103,7 +105,8 @@ public:
     XSchemaSimpleContentExtension(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaSimpleContentExtension();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSimpleContentExtension ;
     }
     TAG("extension")
@@ -141,7 +144,8 @@ public:
     QDomElement writeBaseProperties(QDomElement &element);
     virtual void reparent(XSchemaObject *newParent);
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeComplexContent ;
     }
     TAG("complexContent")
@@ -170,7 +174,8 @@ public:
     XSchemaComplexContentRestriction(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaComplexContentRestriction();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeComplexContentRestriction ;
     }
     TAG("restriction")
@@ -195,7 +200,8 @@ public:
     XSchemaComplexContentExtension(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaComplexContentExtension();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeComplexContentExtension ;
     }
     TAG("extension")

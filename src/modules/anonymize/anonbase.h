@@ -49,10 +49,12 @@ public:
     AnonAlg(const bool parmAutodelete, AnonProducer *theProducer = NULL);
     virtual ~AnonAlg();
 
-    void setProducer(AnonProducer *theProducer) {
+    void setProducer(AnonProducer *theProducer)
+    {
         _producer = theProducer ;
     }
-    AnonProducer * producer() {
+    AnonProducer * producer()
+    {
         return _producer ;
     }
 

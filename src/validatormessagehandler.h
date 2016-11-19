@@ -44,22 +44,28 @@ public:
 
     void handleMessage(QtMsgType type, const QString & description, const QUrl & identifier, const QSourceLocation & sourceLocation);
 
-    QtMsgType type() {
+    QtMsgType type()
+    {
         return _type;
     }
-    const QString & description() {
+    const QString & description()
+    {
         return _description ;
     }
-    const QUrl & identifier() {
+    const QUrl & identifier()
+    {
         return _identifier;
     }
-    const QSourceLocation &sourceLocation() {
+    const QSourceLocation &sourceLocation()
+    {
         return _sourceLocation ;
     }
-    int line() {
+    int line()
+    {
         return _sourceLocation.line() ;
     }
-    int column() {
+    int column()
+    {
         return _sourceLocation.column() ;
     }
 

@@ -254,7 +254,7 @@ bool XSchemaElement::collectAllElementsOfBaseTypes(XSchemaInquiryContext &contex
         container->collectChildrenOfObject(context, this);
         result.append(container);
     }
-    // nothing collectElementsOfSimpleDerived(result);
+        // nothing collectElementsOfSimpleDerived(result);
     break;
     case EES_REFERENCE:
         // we should never go here

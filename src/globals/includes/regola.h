@@ -85,7 +85,8 @@ class LIBQXMLEDITSHARED_EXPORT RegolaSettings
     int indentation;
     bool useIndent;
 public:
-    RegolaSettings() {
+    RegolaSettings()
+    {
         indentation = 0;
         useIndent = false;
     }
@@ -103,10 +104,12 @@ public:
     QString tag;
     bool replaceAttributes;
     QList<QPair<QString, QString> > attributes;
-    ElementUndoInfo() {
+    ElementUndoInfo()
+    {
         replaceAttributes = false ;
     }
-    void undoReplaceAttributes() {
+    void undoReplaceAttributes()
+    {
         replaceAttributes = false;
         attributes.clear();
     }
@@ -360,10 +363,12 @@ public:
     bool applyMetadata(QTreeWidget *tree, MetadataInfo *info);
     //--endregion(metadata)
 
-    QVector<Element*> &getItems() {
+    QVector<Element*> &getItems()
+    {
         return childItems;
     }
-    QVector<Element*> *getChildItems() {
+    QVector<Element*> *getChildItems()
+    {
         return &childItems;
     }
 
@@ -402,10 +407,12 @@ public:
 
     bool loadXplore(const QString &fileName);
 
-    QString documentXsd() {
+    QString documentXsd()
+    {
         return _documentXsd ;
     }
-    QString userDefinedXsd() {
+    QString userDefinedXsd()
+    {
         return _userDefinedXsd;
     }
     void setUserAndDocumentXsd(const QString &newXsd);

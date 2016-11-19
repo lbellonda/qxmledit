@@ -42,7 +42,8 @@ public:
     XSchemaSimpleType(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaSimpleType();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSimpleType ;
     }
     TAG("simpleContent")
@@ -80,7 +81,8 @@ public:
 
     virtual QString description();
     QString descriptionDiffHtml();
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSimpleTypeRestriction ;
     }
     TAG("restriction")
@@ -111,7 +113,8 @@ public:
     XSchemaSimpleTypeUnion(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaSimpleTypeUnion();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSimpleTypeUnion ;
     }
     TAG("union")
@@ -143,7 +146,8 @@ public:
     XSchemaSimpleTypeList(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaSimpleTypeList();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSimpleTypeList ;
     }
     TAG("list")

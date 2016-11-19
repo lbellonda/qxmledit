@@ -52,7 +52,8 @@ public:
     virtual ~SourceElementDiffOperation();
 
     void setTestData();
-    Element *element() {
+    Element *element()
+    {
         return _sourceElement ;
     }
 
@@ -105,7 +106,8 @@ public:
     EqualsDiffNodeResult(SourceElementDiffOperation* newReferenceElement, SourceElementDiffOperation* newCompareElement);
     virtual ~EqualsDiffNodeResult();
 
-    EDiff::KDiff type() {
+    EDiff::KDiff type()
+    {
         return EDiff::ED_EQUAL ;
     }
 };
@@ -116,7 +118,8 @@ class AddedDiffNodeResult : public DiffSingleNodeResult
 public:
     AddedDiffNodeResult(SourceElementDiffOperation* newReferenceElement);
     virtual ~AddedDiffNodeResult();
-    EDiff::KDiff type() {
+    EDiff::KDiff type()
+    {
         return EDiff::ED_ADDED ;
     }
 };
@@ -126,7 +129,8 @@ class DeletedDiffNodeResult : public DiffSingleNodeResult
 public:
     DeletedDiffNodeResult(SourceElementDiffOperation* newCompareElement);
     virtual ~DeletedDiffNodeResult();
-    EDiff::KDiff type() {
+    EDiff::KDiff type()
+    {
         return EDiff::ED_DELETED ;
     }
 };
@@ -136,7 +140,8 @@ class ModifiedDiffNodeResult : public DiffSingleNodeResult
 public:
     ModifiedDiffNodeResult(SourceElementDiffOperation* newReferenceElement, SourceElementDiffOperation* newCompareElement);
     virtual ~ModifiedDiffNodeResult();
-    EDiff::KDiff type() {
+    EDiff::KDiff type()
+    {
         return EDiff::ED_MODIFIED ;
     }
 };

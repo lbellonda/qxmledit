@@ -29,7 +29,8 @@ public:
     bool childFound;
     bool fieldFound;
     bool selectorFound;
-    XScanContext() {
+    XScanContext()
+    {
         childFound = false ;
         fieldFound = false ;
         selectorFound = false ;

@@ -341,13 +341,13 @@ void AllowedItemsInsert::addAttributeItem(QTableWidget *table, AttrCollectInfo* 
     {
         Utils::TODO_NEXT_RELEASE("anche tipo");
         QTableWidgetItem *itemName = new QTableWidgetItem(name);
-        itemName->setFlags(itemName ->flags()& ~(Qt::ItemIsEditable));
+        itemName->setFlags(itemName ->flags() & ~(Qt::ItemIsEditable));
         itemName->setData(Qt::UserRole, qVariantFromValue((void*)info));
         table->setItem(rows, 1, itemName);
     }
     {
         QTableWidgetItem *itemValue = new QTableWidgetItem(value);
-        itemValue->setFlags(itemValue->flags()& ~(Qt::ItemIsUserCheckable));
+        itemValue->setFlags(itemValue->flags() & ~(Qt::ItemIsUserCheckable));
         itemValue->setData(Qt::UserRole, qVariantFromValue((void*)info));
         table->setItem(rows, 2, itemValue);
     }

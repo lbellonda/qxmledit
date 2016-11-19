@@ -311,11 +311,11 @@ QVariant BinaryViewerModel::data(const QModelIndex &index, int role) const
         }
         break;
     case Qt::FontRole:
-        //return element->styleElementTagFont(paintInfo);
+    //return element->styleElementTagFont(paintInfo);
     case Qt::ForegroundRole:
-        //return element->styleElementTagColor(paintInfo);
+    //return element->styleElementTagColor(paintInfo);
     case Qt::DecorationRole:
-        //return element->styleElementTagIcon();
+    //return element->styleElementTagIcon();
     default:
         break;
     } // switch displayRole

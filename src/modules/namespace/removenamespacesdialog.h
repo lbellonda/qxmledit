@@ -37,7 +37,8 @@ public:
     bool isAllNamespaces;
     NamespacesInfo namespacesInfo;
     bool isRemoveDeclarations;
-    RemoveNamespacesInfo() {
+    RemoveNamespacesInfo()
+    {
         element = NULL ;
         targetSelection = TargetSelection::AllItems;
         isAllNamespaces = true ;

@@ -146,7 +146,8 @@ public:
     bool execQuery(SessionOperationStatus &context, const QString &queryLiteral);
     bool execQueryNoTrans(SessionOperationStatus &context, const QString &queryLiteral);
     int countFiles(SessionOperationStatus &context);
-    QString connectionName() {
+    QString connectionName()
+    {
         return _connectionName;
     }
 
@@ -182,7 +183,8 @@ private:
     public:
         SQLLiteDataAccess::Private *obj ;
         QString idOperaz;
-        SqlOperBase(SQLLiteDataAccess::Private *value, const QString &newIdOperaz) {
+        SqlOperBase(SQLLiteDataAccess::Private *value, const QString &newIdOperaz)
+        {
             obj = value ;
             idOperaz = newIdOperaz ;
         }
@@ -224,7 +226,8 @@ private:
         QDateTime reference;
         bool isFileToo ;
     public:
-        SqlOperDeleteAllSessionDataWithDateFilter(SQLLiteDataAccess::Private *value, const QString &newIdOperaz, SessionDataInterface::EDateInterval pDateRange, QDateTime pRreference, const bool pIsFileToo) : SqlOperBase(value, newIdOperaz) {
+        SqlOperDeleteAllSessionDataWithDateFilter(SQLLiteDataAccess::Private *value, const QString &newIdOperaz, SessionDataInterface::EDateInterval pDateRange, QDateTime pRreference, const bool pIsFileToo) : SqlOperBase(value, newIdOperaz)
+        {
             dateRange = pDateRange;
             reference = pRreference;
             isFileToo = pIsFileToo ;
@@ -236,7 +239,8 @@ private:
     {
         QString literal;
     public:
-        SqlOperLiteralQuery(SQLLiteDataAccess::Private *value, const QString &newIdOperaz, const QString &pliteral) : SqlOperBase(value, newIdOperaz) {
+        SqlOperLiteralQuery(SQLLiteDataAccess::Private *value, const QString &newIdOperaz, const QString &pliteral) : SqlOperBase(value, newIdOperaz)
+        {
             literal = pliteral;
         }
         virtual bool doOper(SessionOperationStatus &context, SessionModel *model);
@@ -247,7 +251,8 @@ private:
     public:
         int result;
 
-        SqlOperCountQuery(SQLLiteDataAccess::Private *value, const QString &newIdOperaz, const QString &ptable) : SqlOperBase(value, newIdOperaz) {
+        SqlOperCountQuery(SQLLiteDataAccess::Private *value, const QString &newIdOperaz, const QString &ptable) : SqlOperBase(value, newIdOperaz)
+        {
             result = 0 ;
             table = ptable;
         }

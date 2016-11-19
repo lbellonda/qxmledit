@@ -540,10 +540,10 @@ int EditElement::appendTextNodeInTable(QTableWidget *table, const bool isEditabl
     itemCDATA->setCheckState(isCDATA ? Qt::Checked : Qt::Unchecked);
     itemCDATA->setFlags(itemCDATA->flags() & (~Qt::ItemIsEditable));
     itemCDATA->setData(Qt::UserRole, qVariantFromValue((void*)userData));
-    itemMod->setFlags(itemMod->flags()& ~(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable));
+    itemMod->setFlags(itemMod->flags() & ~(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable));
     itemMod->setData(Qt::UserRole, qVariantFromValue((void*)userData));
     if(!isEditable) {
-        itemCDATA->setFlags(itemCDATA->flags()& ~(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsUserCheckable));
+        itemCDATA->setFlags(itemCDATA->flags() & ~(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsUserCheckable));
         itemCDATA->setBackgroundColor(QColor::fromRgb(0xC0, 0xC0, 0xC0));
     }
 
@@ -556,7 +556,7 @@ int EditElement::appendTextNodeInTable(QTableWidget *table, const bool isEditabl
     table->setItem(row, T_COLUMN_MOD, itemMod);
     itemText->setData(Qt::UserRole, qVariantFromValue((void*)userData));
     if(!isEditable) {
-        itemText->setFlags(itemText->flags()& ~(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsUserCheckable));
+        itemText->setFlags(itemText->flags() & ~(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsUserCheckable));
         itemText->setBackgroundColor(QColor::fromRgb(0xC0, 0xC0, 0xC0));
     }
     _textModified = true;
@@ -575,7 +575,7 @@ int EditElement::appendAttrNodeInTable(QTableWidget *table, const int desiredRow
     QTableWidgetItem *itemName = new QTableWidgetItem(name);
     QTableWidgetItem *itemValue = new QTableWidgetItem(value);
     QTableWidgetItem *itemMod = new QTableWidgetItem("");
-    itemMod->setFlags(itemMod->flags()& ~(Qt::ItemIsEnabled | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable));
+    itemMod->setFlags(itemMod->flags() & ~(Qt::ItemIsEnabled | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable));
     table->setItem(row, A_COLUMN_NAME, itemName);
     table->setItem(row, A_COLUMN_TEXT, itemValue);
     table->setItem(row, A_COLUMN_MOD, itemMod);

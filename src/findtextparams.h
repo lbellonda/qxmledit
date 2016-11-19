@@ -110,68 +110,85 @@ public:
 
     Element  * firstMatch();
 
-    const QString &getTextToFind() const {
+    const QString &getTextToFind() const
+    {
         return mTextToFind;
     }
 
-    bool isCountingOnly() const {
+    bool isCountingOnly() const
+    {
         return mIsCountingOnly ;
     }
 
     bool isTextMatched(const QString &textToExamine) const ;
     bool isTextBase64Matched(const QString & textToExamine) const;
 
-    bool isLookOnlyChildren() const {
+    bool isLookOnlyChildren() const
+    {
         return mIsOnlyChildren ;
     }
     bool isHiliteAll() const ;
 
-    EFindTarget getFindTarget() const {
+    EFindTarget getFindTarget() const
+    {
         return mFindTarget;
     }
-    bool isSelToBookmarks() const {
+    bool isSelToBookmarks() const
+    {
         return mIsSelToBookmarks;
     }
-    bool isCloseUnrelated() const {
+    bool isCloseUnrelated() const
+    {
         return mIsCloseUnrelated;
     }
-    bool isCaseSensitive() const {
+    bool isCaseSensitive() const
+    {
         return mIsCaseSensitive;
     }
-    bool isIsMatchExact() const {
+    bool isIsMatchExact() const
+    {
         return mIsMatchExact;
     }
-    bool isSearchInAttribute() const {
+    bool isSearchInAttribute() const
+    {
         return mIsSearchAttribute;
     }
-    bool isSearchWithScope() const {
+    bool isSearchWithScope() const
+    {
         return mIsScoped ;
     }
-    const QString &attributeName() const {
+    const QString &attributeName() const
+    {
         return mAttributeName;
     }
 
-    const QString &mainScope() const {
+    const QString &mainScope() const
+    {
         return mScope;
     }
 
-    int getOccurrences() const {
+    int getOccurrences() const
+    {
         return mOccurrences;
     }
 
-    bool isShowSize() const {
+    bool isShowSize() const
+    {
         return mIsShowSize;
     }
 
-    bool isWrapAround() const {
+    bool isWrapAround() const
+    {
         return mIsWrapAround;
     }
 
-    int size() const {
+    int size() const
+    {
         return mSize;
     }
 
-    bool useXQuery() const {
+    bool useXQuery() const
+    {
         return mUseXQuery;
     }
 

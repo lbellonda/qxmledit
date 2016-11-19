@@ -209,11 +209,11 @@ SchemaSearchContext::ESearchState XSingleElementContent::scanForPosition(SchemaS
             default:
                 Utils::TODO_NEXT_RELEASE("errore");
                 return SchemaSearchContext::ERRORSTOP;
-                //------------------------------
+            //------------------------------
             case SchemaSearchContext::FOUND:
                 TRACEQ(QString("..scanForPosition returns FOUND"));
                 return  SchemaSearchContext::FOUND;
-                //------------------------------
+            //------------------------------
             case SchemaSearchContext::NOTFOUND:
                 TRACEQ(QString("..scanForPosition NOT FOUND"));
                 if(!(isChoice() || isAll())) {
@@ -225,10 +225,10 @@ SchemaSearchContext::ESearchState XSingleElementContent::scanForPosition(SchemaS
                 // this is a no-op
                 TRACEQ(QString("..scanForPosition SKIP"));
                 break;
-                //------------------------------
+            //------------------------------
             case SchemaSearchContext::ERRORSTOP:
                 return SchemaSearchContext::ERRORSTOP;
-                //------------------------------
+            //------------------------------
             case SchemaSearchContext::OK:
                 TRACEQ(QString("..scanForPosition OK"));
                 handleOk(context);

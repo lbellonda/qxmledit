@@ -41,7 +41,8 @@ public:
     bool parametersError ;
     QString errorMessage;
 
-    StartParams() {
+    StartParams()
+    {
         fileName = "" ;
         type = Nothing;
         parametersError = false ;

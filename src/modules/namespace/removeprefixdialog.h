@@ -36,7 +36,8 @@ public:
     TargetSelection::Type targetSelection;
     bool isAllPrefixes;
     PrefixInfo prefixInfo;
-    RemovePrefixInfo() {
+    RemovePrefixInfo()
+    {
         element = NULL ;
         targetSelection = TargetSelection::AllItems;
         isAllPrefixes = true ;

@@ -66,7 +66,8 @@ class QXmlException
 public:
     QString cause;
     int code;
-    QXmlException(const int newCode, const QString &theCause) {
+    QXmlException(const int newCode, const QString &theCause)
+    {
         code = newCode ;
         cause = theCause ;
     }
@@ -299,7 +300,8 @@ public:
     void removeReferencesFromRegola();
     void setRegola(Regola *newRegola, const bool isRecursive);
 
-    QTreeWidgetItem *getUI() const {
+    QTreeWidgetItem *getUI() const
+    {
         return ui;
     }
 
@@ -316,20 +318,25 @@ public:
     void setText(const QString &data);
     void setTextOfTextNode(const QString &data, const bool isCData);
 
-    ElType getType() const {
+    ElType getType() const
+    {
         return type ;
     }
-    QVector<Element*> &getChildItemsRef() {
+    QVector<Element*> &getChildItemsRef()
+    {
         return childItems;
     }
-    QVector<Element*> *getChildItems() {
+    QVector<Element*> *getChildItems()
+    {
         return &childItems;
     }
-    int getChildItemsCount() {
+    int getChildItemsCount()
+    {
         return childItems.size();
     }
 
-    QVector<Element*> &getItems() {
+    QVector<Element*> &getItems()
+    {
         return childItems;
     }
 
@@ -338,15 +345,18 @@ public:
     Element* firstChild();
     Element* lastChild();
 
-    QVector<TextChunk*> &getTextChunks() {
+    QVector<TextChunk*> &getTextChunks()
+    {
         return textNodes;
     }
 
-    int getTextChunksNumber() {
+    int getTextChunksNumber()
+    {
         return textNodes.size();
     }
 
-    bool hasChildren() {
+    bool hasChildren()
+    {
         return !childItems.isEmpty();
     }
 
@@ -363,10 +373,12 @@ public:
 
     void addTextNode(TextChunk *text);
     void clearTextNodes();
-    bool isElement() const {
+    bool isElement() const
+    {
         return ET_ELEMENT == type ? true : false ;
     }
-    bool isText() const {
+    bool isText() const
+    {
         return ET_TEXT == type ? true : false ;
     }
     bool isTopLevel();
@@ -384,7 +396,8 @@ public:
     void unhilite();
     void hilite();
 
-    long getInstanceId() const {
+    long getInstanceId() const
+    {
         return instanceId;
     }
 

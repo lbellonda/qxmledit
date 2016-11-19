@@ -94,14 +94,17 @@ public:
 
     void clear();
 
-    QFont mainFont() {
+    QFont mainFont()
+    {
         return _mainFont;
     }
 
-    QFont normalFont() {
+    QFont normalFont()
+    {
         return _normalFont;
     }
-    QFont typeFont() {
+    QFont typeFont()
+    {
         return _typeFont;
     }
 

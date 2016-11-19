@@ -38,7 +38,8 @@ public:
     NamespacesInfo namespacesInfo;
     bool remapPrefixes;
     bool declareOnRoot;
-    NormalizeNamespaceInfo() {
+    NormalizeNamespaceInfo()
+    {
         element = NULL ;
         targetSelection = TargetSelection::AllItems;
         remapPrefixes = false ;

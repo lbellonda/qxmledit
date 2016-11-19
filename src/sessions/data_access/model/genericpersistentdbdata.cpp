@@ -170,14 +170,16 @@ void GenericPersistentDBData::setFieldName(QString *field, const QString &fieldN
     if( x() != other->x()) { \
         setFieldName(field, #x);\
         return false;\
-    }\
-     
+    }
+
+
 #define CHECKTIME(x)    \
     if( x().toString() != other->x().toString()) { \
         setFieldName(field, #x);\
         return false;\
-    }\
-     
+    }
+
+
 
 bool GenericPersistentDBData::compareTags(GenericPersistentData *other)
 {

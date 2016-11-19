@@ -37,7 +37,8 @@ public:
     TargetSelection::Type targetSelection;
     NamespacesInfo namespacesInfo;
     bool remapPrefixes;
-    SetNamespaceInfo() {
+    SetNamespaceInfo()
+    {
         element = NULL ;
         targetSelection = TargetSelection::AllItems;
         remapPrefixes = false;

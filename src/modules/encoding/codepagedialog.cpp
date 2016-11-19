@@ -146,7 +146,7 @@ void CodePageDialog::repaint()
     for(int r = 0 ; r < 16 ; r ++) {
         for(int c = 0 ; c < 16 ; c ++) {
             QTableWidgetItem *item = new QTableWidgetItem();
-            item->setFlags(item->flags()&~Qt::ItemIsEditable);
+            item->setFlags(item->flags() & ~Qt::ItemIsEditable);
             int value = r * 16 + c;
             QByteArray data(1, (char)value);
             bool canEncode = false ;

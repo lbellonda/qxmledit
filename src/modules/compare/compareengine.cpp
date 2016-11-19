@@ -452,11 +452,11 @@ void CompareEngine::compareOrdered(OperationResult *result, DiffNodesChangeList 
                 root->setDifferent();
                 break;
 
-                // if the object is not found, examine the list until it is found.
-                // if a match is found, all the elements between the current+1 and the found, are marked deleted, the index of target is moved to the last pos
-                // if no match is found, the scan follows with the next element and the current is new.
-                // all the elements that are remaining in the target list, are considedered deleted.
-                // the cloned elements are inserted at the end of the scan.
+            // if the object is not found, examine the list until it is found.
+            // if a match is found, all the elements between the current+1 and the found, are marked deleted, the index of target is moved to the last pos
+            // if no match is found, the scan follows with the next element and the current is new.
+            // all the elements that are remaining in the target list, are considedered deleted.
+            // the cloned elements are inserted at the end of the scan.
             case EDiff::ED_DIFFERENT:
                 compareDifferentObjects(result, root, parentList, referenceChild, data, options);
                 root->setDifferent();

@@ -210,7 +210,7 @@ bool Regola::setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader
             QString encoding = xmlReader->documentEncoding().toString();
             context->setEncoding(encoding);
         }
-        // ignore at the moment
+            // ignore at the moment
         break;
         case QXmlStreamReader::EndDocument:
             if(!isTopLevel) {

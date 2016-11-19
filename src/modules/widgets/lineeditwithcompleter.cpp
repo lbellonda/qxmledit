@@ -276,7 +276,7 @@ bool LineEditWithCompleter::handleKeyEventForCompleter(QKeyEvent * event)
 {
     if(_completer->popup()->isVisible()) {
         switch(event->key()) {
-            // enter
+        // enter
         case Qt::Key_Return:
         case Qt::Key_Enter:
             return true;

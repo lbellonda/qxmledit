@@ -62,10 +62,12 @@ public:
     void incrementFragment(const qint64 line, const qint64 column);
     void endFragment(const qint64 line, const qint64 column);
     // inline
-    uint currentFragment() {
+    uint currentFragment()
+    {
         return _numFragments;
     }
-    uint currentFolderCount() {
+    uint currentFolderCount()
+    {
         return _numFoldersCreated;
     }
     int numFragments();

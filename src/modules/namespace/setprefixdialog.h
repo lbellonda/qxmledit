@@ -35,7 +35,8 @@ public:
     Element *element;
     TargetSelection::Type targetSelection;
     PrefixInfo prefixInfo;
-    SetPrefixInfo() {
+    SetPrefixInfo()
+    {
         element = NULL ;
         targetSelection = TargetSelection::AllItems;
     }

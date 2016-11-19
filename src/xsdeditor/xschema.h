@@ -642,7 +642,8 @@ public:
 
     virtual QString description();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeAttribute ;
     }
     static QString toStringUse(const EUse theUse);
@@ -753,7 +754,8 @@ public:
     virtual QString tagName();
     virtual QString nameOrReference();
     //TODO: a seconda della categoria?
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeElement ;
     }
     virtual void reparent(XSchemaObject *newParent);
@@ -767,7 +769,8 @@ public:
     virtual bool isSimpleType() ;
     bool isComplexType();
 
-    QList<XSchemaObject*> &attributes() {
+    QList<XSchemaObject*> &attributes()
+    {
         return _attributes;
     }
 
@@ -921,7 +924,8 @@ public:
     virtual void scanForAttributes(XSDLoadContext *loadContext, QDomAttr &attribute, void * context);
     virtual void scanForElements(XSDLoadContext *loadContext, QDomElement &element, void *context);
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeChoice ;
     }
     TAG("choice")
@@ -967,7 +971,8 @@ public:
     XSchemaSequence(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaSequence();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSequence ;
     }
     TAG("sequence")
@@ -1019,7 +1024,8 @@ public:
     void addXInfo(XInfoBase *newInfo);
     QList<XInfoBase*> infos();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeAnnotation ;
     }
     TAG("annotation")
@@ -1045,7 +1051,8 @@ public:
     XSchemaAll(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaAll();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeAll ;
     }
     TAG("all")
@@ -1076,7 +1083,8 @@ public:
     XSchemaAny(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaAny();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeAny ;
     }
     TAG("any")
@@ -1104,7 +1112,8 @@ public:
     XSchemaAnyAttribute(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaAnyAttribute();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeAnyAttribute ;
     }
     TAG("anyAttribute")
@@ -1135,7 +1144,8 @@ public:
 
     virtual QString nameOrReference();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeAttributeGroup ;
     }
     TAG("attributeGroup")
@@ -1167,7 +1177,8 @@ public:
     XSchemaField(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaField();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeField ;
     }
     TAG("field")
@@ -1198,7 +1209,8 @@ public:
     ~XSchemaGroup();
     virtual QString description();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeGroup ;
     }
     TAG("group")
@@ -1233,7 +1245,8 @@ public:
     XSchemaImport(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaImport();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeImport ;
     }
 
@@ -1262,7 +1275,8 @@ public:
     XSchemaInclude(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaInclude();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeInclude ;
     }
 
@@ -1291,7 +1305,8 @@ public:
     XSchemaKey(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaKey();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeKey ;
     }
     TAG("key")
@@ -1317,7 +1332,8 @@ public:
     XSchemaKeyRef(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaKeyRef();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeKeyRef ;
     }
     TAG("keyref")
@@ -1341,7 +1357,8 @@ public:
     XSchemaUnique(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaUnique();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeUnique ;
     }
     TAG("unique")
@@ -1368,7 +1385,8 @@ public:
     XSchemaNotation(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaNotation();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeNotation ;
     }
     TAG("notation")
@@ -1398,7 +1416,8 @@ public:
 
     QString schemaLocation() ;
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeRedefine ;
     }
     TAG("redefine")
@@ -1424,7 +1443,8 @@ public:
     XSchemaSelector(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaSelector();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSelector ;
     }
     TAG("selector")
@@ -1450,27 +1470,34 @@ public:
     XInfoBase(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XInfoBase();
     virtual bool generateDom(QDomDocument &document, QDomNode &parent) = 0 ;
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeBaseDocumentation ;
     }
     void generateInnerNodes(QDomNode &parent);
 
-    void setContent(QDomNode node) {
+    void setContent(QDomNode node)
+    {
         _content = node ;
     }
-    QDomNode &content() {
+    QDomNode &content()
+    {
         return _content ;
     }
-    void setSource(const QString &newSource) {
+    void setSource(const QString &newSource)
+    {
         _source = newSource;
     }
-    QString source() {
+    QString source()
+    {
         return _source ;
     }
-    QString contentString() {
+    QString contentString()
+    {
         return _contentString ;
     }
-    void setContentString(const QString &newValue) {
+    void setContentString(const QString &newValue)
+    {
         _contentString = newValue;
     }
     virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject *target, XSDCompareOptions &options) ;
@@ -1486,7 +1513,8 @@ protected:
     virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject *target, XSDCompareOptions &options) ;
 
 public:
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeDocumentation ;
     }
     TAG("documentation")
@@ -1494,10 +1522,12 @@ public:
     XDocumentation(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XDocumentation();
     virtual bool generateDom(QDomDocument &document, QDomNode &parent) ;
-    void setLanguage(const QString &newLanguage) {
+    void setLanguage(const QString &newLanguage)
+    {
         _language = newLanguage;
     }
-    QString language() {
+    QString language()
+    {
         return _language ;
     }
 
@@ -1513,7 +1543,8 @@ protected:
 public:
     XAppInfo(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XAppInfo();
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeAppInfo ;
     }
     TAG("appinfo")
@@ -1644,7 +1675,8 @@ protected:
     QList<XSchemaRedefine*> getRedefines();
     QList<XSchemaImport*> getImports();
     template< class T, ESchemaType atype>
-    inline QList<T*> getFirstLevelChildren() {
+    inline QList<T*> getFirstLevelChildren()
+    {
         QList<XSchemaObject*> data = getChildrenByType(atype) ;
         QList<T*> result ;
         foreach(XSchemaObject * o, data) {
@@ -1679,7 +1711,8 @@ public:
     ~XSDSchema();
 
     void postLoad();
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaTypeSchema ;
     }
     TAG("schema")
@@ -1703,7 +1736,8 @@ public:
     static bool IsXsdValid(const QString &nsUri, const QString &localName);
 
     // general utility functions
-    static const QString xsdURI() {
+    static const QString xsdURI()
+    {
         return _xsdURI ;
     }
     QString qName(const QString &name);
@@ -1780,13 +1814,15 @@ public:
     XSchemaContainer(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~ XSchemaContainer();
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaContainer ;
     }
     void collectChildrenOfObject(XSchemaInquiryContext &context, XSchemaObject* target);
     void addExistingChild(XSchemaObject *newChild);
 
-    QList<XSchemaObject*> &existingChildren() {
+    QList<XSchemaObject*> &existingChildren()
+    {
         return _existingChildren;
     }
     TAG("XXX")
@@ -1818,14 +1854,17 @@ public:
 
     void setElement(Element *newElement);
     Element *element();
-    virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject * /*target*/, XSDCompareOptions & /*options*/) {
+    virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject * /*target*/, XSDCompareOptions & /*options*/)
+    {
         return XSDCompareObject::XSDOBJECT_DIFFERENT;
     }
-    virtual bool generateDom(QDomDocument & /*document*/, QDomNode & /*parent*/) {
+    virtual bool generateDom(QDomDocument & /*document*/, QDomNode & /*parent*/)
+    {
         return false;
     }
 
-    virtual ESchemaType getType() {
+    virtual ESchemaType getType()
+    {
         return SchemaOtherElement;
     }
     TAG("other")

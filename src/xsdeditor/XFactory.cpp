@@ -42,15 +42,15 @@ XSchemaObject* XSchemaObject::addNewChild(const ESchemaType newType)
     case SchemaTypeComplexContent: Utils::error(tr("pure virtual function called")); //("return new XSchemaComplexContent(this, _root);"); return NULL;
     case SchemaTypeComplexContentRestriction: return new XSchemaComplexContentRestriction(this, _root);
     case SchemaTypeComplexContentExtension: return new XSchemaComplexContentExtension(this, _root);
-        //case SchemaTypeSimpleType:abstract
+    //case SchemaTypeSimpleType:abstract
     case SchemaTypeSimpleTypeRestriction: return new XSchemaSimpleTypeRestriction(this, _root);
     case SchemaTypeSimpleTypeUnion: return new XSchemaSimpleTypeUnion(this, _root);
     case SchemaTypeSimpleTypeList: return new XSchemaSimpleTypeList(this, _root);
 
     case SchemaTypeAnnotation: return new XSchemaAnnotation(this, _root);
-        //SchemaTypeBaseDocumentation:abstract
-        //TODO case SchemaTypeDocumentation:return new XSchema( this, _root );
-        //TODO case SchemaTypeAppInfo:return new XSchema( this, _root );
+    //SchemaTypeBaseDocumentation:abstract
+    //TODO case SchemaTypeDocumentation:return new XSchema( this, _root );
+    //TODO case SchemaTypeAppInfo:return new XSchema( this, _root );
     case SchemaTypeAll: return new XSchemaAll(this, _root);
     case SchemaTypeAny: return new XSchemaAny(this, _root);
     case SchemaTypeAnyAttribute: return new XSchemaAnyAttribute(this, _root);

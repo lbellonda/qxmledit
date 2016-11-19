@@ -115,7 +115,8 @@ class RChild
 public:
     RChild(XSDItem *newParent, XSDItem *newItem, LineItem *newLine);
     ~RChild();
-    XSDItem *item() const {
+    XSDItem *item() const
+    {
         return _item ;
     }
     void updatePosition() ;
@@ -136,7 +137,8 @@ public:
     int childrenSize();
     RChild* childAt(const int index);
     bool createChild(XSDItem *parent, XSDItem *item);
-    QList<RChild*> &children() {
+    QList<RChild*> &children()
+    {
         return _children;
     }
     int findObject(XSchemaObject *object);
@@ -295,14 +297,17 @@ public:
 
     XSDSchema *schema() const;
     void setItem(XSDSchema *newItem)  ;
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
 
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "RootItem";
     }
 
@@ -338,14 +343,17 @@ public:
     virtual ~ContainerItem();
 
     void setItem(XSchemaContainer *newItem)  ;
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
 
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "ContainerItem";
     }
     virtual qreal offsetHeight();
@@ -384,14 +392,17 @@ public:
     XSchemaAttribute *item() const ;
     void setItem(XSchemaAttribute *newItem)  ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphics ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
 
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "AttributeItem";
     }
 
@@ -435,17 +446,20 @@ public:
     XSchemaElement *element() const ;
     void setItem(XSchemaElement *newItem)  ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
 
     virtual AttributeItem *addAttribute(XSchemaAttribute *attribute, QPointF pos);
 
     void changeGraphics();
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "ElementItem";
     }
 };
@@ -479,13 +493,16 @@ public:
     XSchemaChoice *choice() const ;
     void setItem(XSchemaChoice *newItem)  ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "ChoiceItem";
     }
 };
@@ -519,13 +536,16 @@ public:
     XSchemaSequence *sequence() const ;
     void setItem(XSchemaSequence *newItem)  ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "SequenceItem";
     }
 
@@ -557,13 +577,16 @@ public:
     XSchemaObject *restriction() const ;
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "RestrictionItem";
     }
 
@@ -592,13 +615,16 @@ public:
     XSchemaSimpleTypeUnion *xunion() const ;
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "UnionItem";
     }
 
@@ -627,13 +653,16 @@ public:
     XSchemaSimpleTypeList *list() const ;
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "ListItem";
     }
 };
@@ -665,13 +694,16 @@ public:
     //XSchemaObject *all() const ;
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "GenericItem";
     }
 
@@ -705,13 +737,16 @@ public:
     //XSchemaObject *all() const ;
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "GroupItem";
     }
 
@@ -744,13 +779,16 @@ public:
     //XSchemaObject *all() const ;
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "AttributeGroupItem";
     }
 
@@ -782,13 +820,16 @@ public:
 
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "IncludeItem";
     }
 
@@ -820,13 +861,16 @@ public:
 
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "RedefineItem";
     }
 };
@@ -857,13 +901,16 @@ public:
 
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "ImportItem";
     }
 
@@ -895,13 +942,16 @@ public:
 
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "AllItem";
     }
 
@@ -935,13 +985,16 @@ public:
     //XSchemaObject *all() const ;
     void setItem(XSchemaObject *newItem) ;
 
-    virtual QGraphicsItem *graphicItem() {
+    virtual QGraphicsItem *graphicItem()
+    {
         return _graphicsItem ;
     }
-    virtual XSchemaObject *item() {
+    virtual XSchemaObject *item()
+    {
         return _item ;
     }
-    virtual QString itemClassName() {
+    virtual QString itemClassName()
+    {
         return "DerivationItem";
     }
 };
@@ -1171,7 +1224,8 @@ public:
     QEventLoop *EVENTLOOP;
     void closeEvent(QCloseEvent *event);
 
-    XsdGraphicContext * context() {
+    XsdGraphicContext * context()
+    {
         return &_context;
     }
 
