@@ -285,7 +285,8 @@ HEADERS = precompiled_app.h \
     modules/namespace/replaceprefixdialog.h \
     modules/namespace/setnamespacedialog.h \
     modules/namespace/normalizenamespacedialog.h \
-    modules/namespace/replacenamespacedialog.h
+    modules/namespace/replacenamespacedialog.h \
+    modules/xml/xmlerrormanagerdialog.h
 
 SOURCES = \
     main.cpp \
@@ -363,7 +364,8 @@ SOURCES = \
     modules/namespace/replaceprefixdialog.cpp \
     modules/namespace/setnamespacedialog.cpp \
     modules/namespace/normalizenamespacedialog.cpp \
-    modules/namespace/replacenamespacedialog.cpp
+    modules/namespace/replacenamespacedialog.cpp \
+    modules/xml/xmlerrormanagerdialog.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -413,7 +415,8 @@ FORMS = MainWindow.ui \
     modules/namespace/replaceprefixdialog.ui \
     modules/namespace/setnamespacedialog.ui \
     modules/namespace/normalizenamespacedialog.ui \
-    modules/namespace/replacenamespacedialog.ui
+    modules/namespace/replacenamespacedialog.ui \
+    modules/xml/xmlerrormanagerdialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

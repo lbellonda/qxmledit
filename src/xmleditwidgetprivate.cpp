@@ -1833,16 +1833,20 @@ void XmlEditWidgetPrivate::setDocument(QDomDocument &document, const QString &fi
     assignRegola(newModel, isSetState);
 }
 
-//TODO: error checking
-bool XmlEditWidgetPrivate::readData(QXmlStreamReader *xmlReader, const QString &filePath, const bool isSetState)
+bool XmlEditWidgetPrivate::readData(XMLLoadStatus *status, QXmlStreamReader *xmlReader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler)
 {
+    Utils::TODO_THIS_RELEASE("work in progress");
+    XMLLoadContext context;
+    status->clearErrors();
     Regola *newModel = new Regola(filePath);
     houseworkRegola(newModel);
-    XMLLoadContext context;
     if(!newModel->readFromStream(&context, xmlReader)) {
-        showError(context.errorMessage());
-        delete newModel;
-        return false;
+        if(showLoadError(context.errorMessage(), errorHandler, &context, xmlReader)) {
+            status->setErrorsPresent();
+        } else {
+            delete newModel;
+            return false;
+        }
     }
     assignRegola(newModel, isSetState);
     return true;
@@ -3098,6 +3102,19 @@ void XmlEditWidgetPrivate::showError(const QString &errorMessage)
     }
 }
 
+bool XmlEditWidgetPrivate::showLoadError(const QString &errorMessage, XMLLoadErrorHandler *handler, XMLLoadContext *context, QXmlStreamReader *xmlReader)
+{
+    if(NULL != handler) {
+        return handler->showErrorAndAskUserIfContinue(p->window(), context, xmlReader);
+    } else {
+        if(NULL != _uiDelegate) {
+            _uiDelegate->error(errorMessage);
+        } else {
+            Utils::error(p->window(), errorMessage);
+        }
+        return false;
+    }
+}
 
 bool XmlEditWidgetPrivate::actionFillSerie()
 {

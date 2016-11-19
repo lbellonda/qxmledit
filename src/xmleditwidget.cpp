@@ -691,9 +691,9 @@ void XmlEditWidget::setDocument(QDomDocument &document, const QString &filePath,
     d->setDocument(document, filePath, isSetState);
 }
 
-bool XmlEditWidget::readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState)
+bool XmlEditWidget::readData(XMLLoadStatus *status, QXmlStreamReader *reader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler)
 {
-    return d->readData(reader, filePath, isSetState);
+    return d->readData(status, reader, filePath, isSetState, errorHandler);
 }
 
 void XmlEditWidget::onActionHideView(const bool isChecked)

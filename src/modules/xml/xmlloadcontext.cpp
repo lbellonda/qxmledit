@@ -23,11 +23,19 @@
 
 #include "xmlloadcontext.h"
 
+qint64 XMLLoadContext::characterOffset() const
+{
+    return _characterOffset;
+}
+
 XMLLoadContext::XMLLoadContext()
 {
     _isError = false;
     _firstElementSeen = false;
     _isAfterDTD = false;
+    _line = -1 ;
+    _column = -1 ;
+    _characterOffset = -1 ;
 }
 
 XMLLoadContext::~XMLLoadContext()
@@ -61,6 +69,11 @@ void XMLLoadContext::setErrorMessage(const QString &errorMessage)
     _errorMessage = errorMessage;
 }
 
+void XMLLoadContext::copyErrorData(QXmlStreamReader *xmlReader)
+{
+    setErrorPosition(xmlReader->lineNumber(), xmlReader->columnNumber(), xmlReader->characterOffset());
+}
+
 bool XMLLoadContext::setError(const QString &errorMessage, QXmlStreamReader *xmlReader)
 {
     setIsError(true);
@@ -70,6 +83,7 @@ bool XMLLoadContext::setError(const QString &errorMessage, QXmlStreamReader *xml
                        .arg(xmlReader->columnNumber())
                        .arg(xmlReader->characterOffset());
     setErrorMessage(errorMsg);
+    copyErrorData(xmlReader);
     return false;
 }
 
@@ -84,10 +98,18 @@ bool XMLLoadContext::setErrorFromReader(QXmlStreamReader *xmlReader)
                            .arg(xmlReader->characterOffset());
         setIsError(true);
         setErrorMessage(errorMsg);
+        copyErrorData(xmlReader);
     } else {
         setError(QObject::tr("Unexpected error"), xmlReader);
     }
     return false;
+}
+
+void XMLLoadContext::setErrorPosition(const qint64 line, const qint64 column, const qint64 offset)
+{
+    _line = line;
+    _column = column;
+    _characterOffset = offset;
 }
 
 QString XMLLoadContext::encoding() const

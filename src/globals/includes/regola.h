@@ -121,6 +121,32 @@ public:
     virtual bool observe(ElementUndoInfo *info) = 0 ;
 };
 
+/*!
+ * \brief The XMLLoadStatus class
+ * status and coded for evalutaing the load operatoin
+ */
+class LIBQXMLEDITSHARED_EXPORT XMLLoadStatus
+{
+    bool _areErrorsPresent;
+public:
+    XMLLoadStatus();
+    virtual ~XMLLoadStatus();
+
+    bool areErrorsPresent() const ;
+    void setErrorsPresent() ;
+    void clearErrors() ;
+};
+
+class LIBQXMLEDITSHARED_EXPORT XMLLoadErrorHandler
+{
+public:
+    XMLLoadErrorHandler();
+    virtual ~XMLLoadErrorHandler();
+
+    virtual bool showErrorAndAskUserIfContinue(QWidget *parent, XMLLoadContext *context, QXmlStreamReader *xmlReader) = 0 ;
+};
+
+
 class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
 {
     Q_OBJECT

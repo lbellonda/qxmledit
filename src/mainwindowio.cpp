@@ -26,6 +26,7 @@ extern const char *APP_TITLE ;
 #include "utils.h"
 #include "mainwindow.h"
 #include "qxmleditconfig.h"
+#include "modules/xml/xmlerrormanagerdialog.h"
 
 /* Logic for ask for modifications (to be replicated in tests)
  * Operation: before:  1! n  after: 1! n
@@ -145,6 +146,7 @@ MainWindow *MainWindow::createFromClipboard(const EWindowOpen useWindow)
 
 bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
+    Utils::TODO_THIS_RELEASE("Remove the option of dom");
     if(Config::getBool(Config::KEY_XML_LOAD_STREAM, true)) {
         return loadFileInnerStream(filePath, isRegularFile, activateModes);
     } else {
@@ -197,13 +199,22 @@ bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePat
     bool fileLoaded = false ;
     QXmlStreamReader reader ;
     reader.setDevice(ioDevice);
-    if(readData(&reader, filePath, true)) {
+    XMLLoadStatus status;
+    if(readData(&status, &reader, filePath, true, this)) {
         if(isRegularFile) {
             data->sessionManager()->enrollFile(filePath);
             updateRecentFilesMenu(filePath);
+            Utils::TODO_THIS_RELEASE("fare");
+            /*if(status.areErrorsPresent()) {
+                Utils::TODO_THIS_RELEASE("fare");
+            }*/
         } else {
             getRegola()->setFileName("");
         }
+        Utils::TODO_THIS_RELEASE("fare");
+        /*if(status.isLoadedWithErrors()) {
+            SHOW_WARNING();
+        }*/
         updateWindowFilePath();
         autoLoadValidation();
         fileLoaded = true ;
@@ -241,4 +252,25 @@ void MainWindow::errorOnLoad(QFile &file)
 void MainWindow::errorFileName()
 {
     Utils::error(this, tr("File name empty.\nUnable to load."));
+}
+
+#ifdef QXMLEDIT_TEST
+void MainWindow::setLoadErrorHandler(XMLLoadErrorHandler *newHandler)
+{
+    _loadErrorHandler = newHandler ;
+}
+#endif
+
+bool MainWindow::showErrorAndAskUserIfContinue(QWidget * /*parent*/, XMLLoadContext *context, QXmlStreamReader *xmlReader)
+{
+#ifdef QXMLEDIT_TEST
+    if(NULL != _loadErrorHandler) {
+        return _loadErrorHandler->showErrorAndAskUserIfContinue(this, context, xmlReader);
+    }
+#endif
+    XMLErrorManagerDialog errorManager(this, context, xmlReader);
+    if(errorManager.exec() == QDialog::Accepted) {
+        return true;
+    }
+    return false;
 }

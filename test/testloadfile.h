@@ -25,13 +25,20 @@
 #define TESTLOADFILE_H
 
 #include    "testbase.h"
+#include    "regola.h"
 
 class App;
 
-class TestLoadFile : public TestBase
+class TestLoadFile : public TestBase, XMLLoadErrorHandler
 {
+    bool _xmlLoadHandlerAnswer;
+
+    bool testErrorLoadAnyway();
+    bool testError0Pos();
+    bool testErrorLoadUnit();
     bool loadFileOK();
     bool loadFileKO();
+    bool testErrorNOK();
     bool testVerifyLoad1();
     bool testVerifyLoad2();
     bool testLoadWithModifications();
@@ -62,6 +69,11 @@ class TestLoadFile : public TestBase
                                       const int expectingAskingFirst, const int expectingAskingLater,
                                       const int expectedWindows,
                                       bool (TestLoadFile::*method)(App *, const QString &) );
+    bool testAnErrorPos(              const QString &dataIn,
+                                      const qint64 line, const qint64 column, const qint64 offset,
+                                      const QString &expectedBefore,
+                                      const QString &expectedIn,
+                                      const QString &expectedAfter);
 
 public:
     TestLoadFile();
@@ -69,6 +81,11 @@ public:
 
     bool testUnit();
     bool testFast();
+    bool testErrorsManagement();
+
+    //-- interface(XMLLoadErrorHandler)
+    bool showErrorAndAskUserIfContinue(QWidget *parent, XMLLoadContext *context, QXmlStreamReader *xmlReader) ;
+
 };
 
 #endif // TESTLOADFILE_H

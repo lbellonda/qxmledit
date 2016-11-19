@@ -132,7 +132,6 @@ public:
     void editXSLTElement();
 
     void autoLoadValidation();
-    //void triggersWelcomeDialog();
 
     void error(const QString& message) ;
     void warning(const QString& message) ;
@@ -151,7 +150,7 @@ public:
     void setDisplayMode(const qxmledit::EDisplayMode value);
 
     void setDocument(QDomDocument &document, const QString &filePath, const bool isSetState);
-    bool readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState);
+    bool readData(XMLLoadStatus *status, QXmlStreamReader *reader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler);
     void setNavigationDataAndEnable(const int minFragment, const int maxFragment);
     void showNavigationBox();
     void showToolbar(const bool how);

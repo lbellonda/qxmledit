@@ -84,6 +84,7 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent) : QMainWindow(parent), uiDelegate(this), _windowIcon(":/icon/images/icon.png")
 {
+    _loadErrorHandler = NULL ;
     _slaveIsClosed = false ;
     _errorCount = 0 ;
     _xsdButton = NULL ;
@@ -1940,9 +1941,9 @@ void MainWindow::setDocument(QDomDocument &document, const QString &filePath, co
     onNewXSDSchemaForValidation("");
 }
 
-bool MainWindow::readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState)
+bool MainWindow::readData(XMLLoadStatus *status, QXmlStreamReader *reader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler)
 {
-    bool result = ui.editor->readData(reader, filePath, isSetState);
+    bool result = ui.editor->readData(status, reader, filePath, isSetState, errorHandler);
     if(result) {
         statusBar()->showMessage(tr("Data loaded"), SHORT_TIMEOUT);
         onReadOnlyStateChanged();
