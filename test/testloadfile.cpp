@@ -24,6 +24,8 @@
 #include "testloadfile.h"
 #include "app.h"
 #include "testhelpers/testmainwindow.h"
+#include "modules/xml/xmlerrormanagerdialog.h"
+#include "modules/xml/xmlloadcontext.h"
 
 #define TEST_DATA TEST_BASE_DATA "/xml/loading/"
 
@@ -32,6 +34,7 @@
 
 TestLoadFile::TestLoadFile()
 {
+    _xmlLoadHandlerAnswer = false;
 }
 
 TestLoadFile::~TestLoadFile()
@@ -41,7 +44,7 @@ TestLoadFile::~TestLoadFile()
 bool TestLoadFile::testFast()
 {
     _testName = "testFastt" ;
-    return testLoadWithModifications();
+    return testErrorsManagement();
 }
 
 bool TestLoadFile::testUnit()
@@ -420,3 +423,230 @@ bool TestLoadFile::newSpec()
     return true;
 }
 
+//----------------------------
+
+bool TestLoadFile::testErrorsManagement()
+{
+    _testName = "testErrorsManagement" ;
+    if( !testErrorLoadUnit() ) {
+        return false;
+    }
+    if( !testError0Pos() ) {
+        return false;
+    }
+    if( !testErrorLoadAnyway() ) {
+        return false;
+    }
+
+    if( !testErrorNOK() ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestLoadFile::testErrorLoadUnit()
+{
+    _testName = "testErrorLoadUnit";
+    int res = 0;
+    int expected = -1 ;
+    res = XMLErrorManagerDialog::charsBeforeError( 0, XMLErrorManagerDialog::CharsBefore );
+    if( res != expected ) {
+        return error(QString("Expected %1 returned '%2'").arg(expected).arg(res));
+    }
+    expected = 0 ;
+    res = XMLErrorManagerDialog::charsBeforeError( 1, XMLErrorManagerDialog::CharsBefore );
+    if( res != expected ) {
+        return error(QString("Expected %1 returned '%2'").arg(expected).arg(res));
+    }
+    expected = XMLErrorManagerDialog::CharsBefore-2 ;
+    res = XMLErrorManagerDialog::charsBeforeError( XMLErrorManagerDialog::CharsBefore-1, XMLErrorManagerDialog::CharsBefore );
+    if( res != expected ) {
+        return error(QString("Expected %1 returned '%2'").arg(expected).arg(res));
+    }
+    expected = XMLErrorManagerDialog::CharsBefore ;
+    res = XMLErrorManagerDialog::charsBeforeError( XMLErrorManagerDialog::CharsBefore, XMLErrorManagerDialog::CharsBefore );
+    if( res != expected ) {
+        return error(QString("Expected %1 returned '%2'").arg(expected).arg(res));
+    }
+    expected = XMLErrorManagerDialog::CharsBefore ;
+    res = XMLErrorManagerDialog::charsBeforeError( XMLErrorManagerDialog::CharsBefore+1, XMLErrorManagerDialog::CharsBefore );
+    if( res != expected ) {
+        return error(QString("Expected %1 returned '%2'").arg(expected).arg(res));
+    }
+    expected = XMLErrorManagerDialog::CharsBefore/2 -1 ;
+    res = XMLErrorManagerDialog::charsBeforeError( XMLErrorManagerDialog::CharsBefore/2, XMLErrorManagerDialog::CharsBefore );
+    if( res != expected ) {
+        return error(QString("Expected %1 returned '%2'").arg(expected).arg(res));
+    }
+    return true;
+}
+
+static QString makeString(const int val )
+{
+    QString str;
+    str.fill('1', val);
+    return str;
+}
+
+bool TestLoadFile::testError0Pos()
+{
+    _testName = "testError00Pos" ;
+    {
+        QString dataIn = "" ;
+        if(!testAnErrorPos( dataIn, 0, 0, 0, "", "", "")) {
+            return false;
+        }
+    }
+    _testName = "testError01Pos" ;
+    {
+        QString dataIn = "a" ;
+        if(!testAnErrorPos( dataIn, 0, 1, 1, "", "a", "")) {
+            return false;
+        }
+    }
+    _testName = "testError02Pos" ;
+    {
+        QString dataIn = "azzz" ;
+        if(!testAnErrorPos( dataIn, 0, 1, 1, "", "a", "zzz")) {
+            return false;
+        }
+    }
+    _testName = "testError03Pos" ;
+    {
+        QString dataIn = "12345a" ;
+        if(!testAnErrorPos( dataIn, 0, 6, 6, "12345", "a", "")) {
+            return false;
+        }
+    }
+    _testName = "testError04Pos" ;
+    {
+        QString dataIn = "12345avv" ;
+        if(!testAnErrorPos( dataIn, 0, 6, 6, "12345", "a", "vv")) {
+            return false;
+        }
+    }
+    _testName = "testError05aPos" ;
+    {
+        const int size = XMLErrorManagerDialog::BlockSize;
+        QString dataIn = makeString(size);
+        dataIn += "avv" ;
+        if(!testAnErrorPos( dataIn, 0, size, size, "11111111111111111111", "a", "vv")) {
+            return false;
+        }
+    }
+    _testName = "testError05Pos" ;
+    {
+        const int size = XMLErrorManagerDialog::BlockSize;
+        QString dataIn = makeString(size-2);
+        dataIn += "22avv" ;
+        if(!testAnErrorPos( dataIn, 0, size, size, "11111111111111111122", "a", "vv")) {
+            return false;
+        }
+    }
+    _testName = "testError06Pos" ;
+    {
+        const int size = 2*XMLErrorManagerDialog::BlockSize;
+        QString dataIn = makeString(size-1);
+        dataIn += "2avv" ;
+        if(!testAnErrorPos( dataIn, 0, size, size, "11111111111111111112", "a", "vv")) {
+            return false;
+        }
+    }
+    _testName = "testError07Pos" ;
+    {
+        const int size = 2*XMLErrorManagerDialog::BlockSize;
+        QString dataIn = makeString(size);
+        dataIn += "avv" ;
+        if(!testAnErrorPos( dataIn, 0, size, size, "11111111111111111111", "a", "vv")) {
+            return false;
+        }
+    }
+    _testName = "testError07Pos" ;
+    {
+        const int size = (6*XMLErrorManagerDialog::BlockSize);
+        QString dataIn = makeString(size);
+        dataIn += "222avv" ;
+        if(!testAnErrorPos( dataIn, 0, size+3, size+3, "11111111111111111222", "a", "vv")) {
+            return false;
+        }
+    }
+    _testName = "testError08Pos" ;
+    {
+        const int size = (6*XMLErrorManagerDialog::BlockSize);
+        QString dataIn = makeString(size);
+        dataIn += "222a" ;
+        if(!testAnErrorPos( dataIn, 0, size+3, size+3, "11111111111111111222", "a", "")) {
+            return false;
+        }
+    }
+    return true ;
+}
+
+bool TestLoadFile::testAnErrorPos( const QString &dataIn,
+                                    const qint64 line, const qint64 column, const qint64 offset,
+                                  const QString &expectedBefore,
+                                  const QString &expectedIn,
+                                  const QString &expectedAfter)
+{
+    QByteArray array = dataIn.toUtf8();
+    QBuffer buffer(&array);
+    buffer.open(QBuffer::ReadOnly);
+    QXmlStreamReader reader(&buffer);
+    XMLLoadContext context;
+    context.setEncoding("UTF-8");
+    context.setErrorPosition(line, column, offset);
+    XMLErrorManagerDialog dlg( NULL, &context, &reader);
+    if(expectedBefore != dlg._beforeString ) {
+        return error(QString("Before: expected '%1', found: '%2'").arg(expectedBefore).arg(dlg._beforeString));
+    }
+    if(expectedIn != dlg._errorPosString ) {
+        return error(QString("Pos: expected '%1', found: '%2'").arg(expectedIn).arg(dlg._errorPosString));
+    }
+    if(expectedAfter != dlg._afterString ) {
+        return error(QString("After: expected '%1', found: '%2'").arg(expectedAfter).arg(dlg._afterString));
+    }
+    return true;
+}
+
+#define FILE_KO_PARTIAL TEST_DATA "partialko.xml"
+#define FILE_KO_NOPE TEST_DATA "partialko.xml"
+
+bool TestLoadFile::testErrorLoadAnyway()
+{
+    _testName = "testErrorLoadAnyway" ;
+
+    _xmlLoadHandlerAnswer = true ;
+    //  next: readonly
+    App app;
+    if(!app.init() ) {
+        return error("init");
+    }
+    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, false);
+    app.mainWindow()->setLoadErrorHandler(this);
+    if(!app.mainWindow()->loadFile(QString(FILE_KO_PARTIAL))) {
+        return error("load partial error file should not be error");
+    }
+    return true ;
+}
+
+bool TestLoadFile::testErrorNOK()
+{
+    _testName = "testErrorLoadNOK" ;
+
+    _xmlLoadHandlerAnswer = false ;
+    App app;
+    if(!app.init() ) {
+        return error("init");
+    }
+    Config::saveBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, false);
+    app.mainWindow()->setLoadErrorHandler(this);
+    if(app.mainWindow()->loadFile(QString(FILE_KO_NOPE))) {
+        return error("load partial error file should be error");
+    }
+    return true ;
+}
+
+bool TestLoadFile::showErrorAndAskUserIfContinue(QWidget * /*parent*/, XMLLoadContext * /*context*/, QXmlStreamReader * /*xmlReader*/)
+{
+    return _xmlLoadHandlerAnswer;
+}

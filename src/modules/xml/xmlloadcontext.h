@@ -36,6 +36,9 @@ class XMLLoadContext
     bool _firstElementSeen;
     bool _isAfterDTD;
     QList<Element *> _firstComments;
+    qint64 _line;
+    qint64 _column;
+    qint64 _characterOffset;
 public:
     XMLLoadContext();
     ~XMLLoadContext();
@@ -46,6 +49,7 @@ public:
     void setIsError(bool isError);
     QString errorMessage() const;
     void setErrorMessage(const QString &errorMessage);
+    void copyErrorData(QXmlStreamReader *xmlReader);
     /*!
      * \brief setError sets the error with the specified message and return false to chaing this method in a return
      * \param errorMessage the error message
@@ -61,6 +65,14 @@ public:
     void setIsAfterDTD(bool isAfterDTD);
     QList<Element *> &firstComments() ;
     void addFirstComment(Element *comment);
+    qint64 characterOffset() const;
+    void setErrorPosition(const qint64 line, const qint64 column, const qint64 offset);
+    bool testAnErrorPos(const QString &dataIn,
+                        const qint64 line, const qint64 column, const qint64 offset,
+                        const QString &expectedBefore,
+                        const QString &expectedIn,
+                        const QString &expectedAfter);
+
 };
 
 #endif // XMLLOADCONTEXT_H

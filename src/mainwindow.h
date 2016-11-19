@@ -44,7 +44,7 @@
 class SnippetManager;
 class QXmlEditApplication;
 
-class MainWindow : public QMainWindow, UIDelegate
+class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 {
     Q_OBJECT
     bool    started;
@@ -82,6 +82,7 @@ class MainWindow : public QMainWindow, UIDelegate
     QToolButton *_xsdButton ;
     int _errorCount;
     QString _exportPath ;
+    XMLLoadErrorHandler *_loadErrorHandler;
 public:
     enum EWindowOpen {
         OpenUsingDefaultSettings,
@@ -156,7 +157,7 @@ protected:
      * \deprecated
      */
     bool loadFileInnerDom(const QString &filePath, const bool isRegularFile, const bool activateModes);
-    bool readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState);
+    bool readData(XMLLoadStatus *status, QXmlStreamReader *reader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler);
     void newUsingXMLSchema();
     Regola::EExportOptions askExportOption();
     QString getExportPath();
@@ -484,6 +485,10 @@ private:
     void errorOnLoad(QFile &file);
     void errorFileName();
     void markAsAllEdited();
+
+    //-- interface(XMLLoadErrorHandler)
+    bool showErrorAndAskUserIfContinue(QWidget *parent, XMLLoadContext *context, QXmlStreamReader *xmlReader) ;
+
 protected:
     virtual void changeEvent(QEvent *e);
     bool openDroppedFile(const QString &filePath);
@@ -505,6 +510,7 @@ protected:
     friend class TestEncoding;
     friend class TestXSIType;
     friend class TestLoadFile;
+    void setLoadErrorHandler(XMLLoadErrorHandler *newHandler);
 #endif
 };
 

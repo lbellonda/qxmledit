@@ -84,6 +84,7 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent) : QMainWindow(parent), uiDelegate(this), _windowIcon(":/icon/images/icon.png")
 {
+    _loadErrorHandler = NULL ;
     _slaveIsClosed = false ;
     _errorCount = 0 ;
     _xsdButton = NULL ;
@@ -778,8 +779,9 @@ void MainWindow::onComputeSelectionState()
         //disabilita accoda, mvup e down
         //altrimenti se il selected si trova al primo o ultimo posto della catena deselezmv up o down
     } else {
-        if(regola->isEmpty(true))
+        if(regola->isEmpty(true)) {
             canAddChild = true;
+        }
     }
     bool enableGoToParent = false;
     bool enableNextBrother = false;
@@ -1293,8 +1295,9 @@ void MainWindow::on_actionAddProcessingInstruction_triggered()
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
-    if(event->mimeData()->hasFormat("text/uri-list"))
+    if(event->mimeData()->hasFormat("text/uri-list")) {
         event->acceptProposedAction();
+    }
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
@@ -1938,9 +1941,9 @@ void MainWindow::setDocument(QDomDocument &document, const QString &filePath, co
     onNewXSDSchemaForValidation("");
 }
 
-bool MainWindow::readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState)
+bool MainWindow::readData(XMLLoadStatus *status, QXmlStreamReader *reader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler)
 {
-    bool result = ui.editor->readData(reader, filePath, isSetState);
+    bool result = ui.editor->readData(status, reader, filePath, isSetState, errorHandler);
     if(result) {
         statusBar()->showMessage(tr("Data loaded"), SHORT_TIMEOUT);
         onReadOnlyStateChanged();

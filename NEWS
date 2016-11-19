@@ -1,3 +1,6 @@
+0.9.6
+    Details on error loading data, giving the option to load the incomplete file.
+
 0.9.5
     Fixed some memory leaks.
     Manipulation of namespaces: set, remove, replace, normalize.

@@ -168,7 +168,7 @@ public:
     void setDisplayMode(const qxmledit::EDisplayMode value);
 
     void setDocument(QDomDocument &document, const QString &filePath, const bool isSetState);
-    bool readData(QXmlStreamReader *reader, const QString &filePath, const bool isSetState);
+    bool readData(XMLLoadStatus *status, QXmlStreamReader *reader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler);
     void setNavigationDataAndEnable(const int minFragment, const int maxFragment);
     void showNavigationBox();
     bool loadText(const QString &text, const bool isChangeState = true, const bool isAskForReview = false);
@@ -418,6 +418,7 @@ private:
     bool findDomNodeScan(QDomNode node, QDomNode nodeTarget, const int lineSearched, const int columnSearched, FindNodeWithLocationInfo &info);
     void recalcRowHeightClass();
     void showError(const QString &errMessage);
+    bool showLoadError(const QString &errorMessage, XMLLoadErrorHandler *handler, XMLLoadContext *context, QXmlStreamReader *xmlReader);
     void houseworkRegola(Regola *regola);
     static QList<int> pathForElement(Element * element);
 protected:

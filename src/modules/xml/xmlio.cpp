@@ -27,6 +27,43 @@
 #include "xmlsavecontext.h"
 #include "modules/xml/xmlloadcontext.h"
 
+//--------------------------------------------------
+
+XMLLoadStatus::XMLLoadStatus()
+{
+    _areErrorsPresent = false;
+}
+
+XMLLoadStatus::~XMLLoadStatus()
+{
+}
+
+bool XMLLoadStatus::areErrorsPresent() const
+{
+    return _areErrorsPresent ;
+}
+
+void XMLLoadStatus::setErrorsPresent()
+{
+    _areErrorsPresent = true ;
+}
+
+void XMLLoadStatus::clearErrors()
+{
+    _areErrorsPresent = false ;
+}
+
+//--------------------------------------------------
+XMLLoadErrorHandler::XMLLoadErrorHandler()
+{
+}
+XMLLoadErrorHandler::~XMLLoadErrorHandler()
+{
+}
+
+//--------------------------------------------------
+
+
 Element *Regola::assegnaValori(QDomNode &node, Element *parent, QVector<Element*> *collection)
 {
     _isCrapCacheNSActivated = false;

@@ -326,7 +326,7 @@ void FindTextParams::addSelection(Element *newSelection)
     if(NULL != mSelection) {
         mSelection->append(newSelection);
     }
-    if( NULL == mFirstMatch ) {
+    if(NULL == mFirstMatch) {
         mFirstMatch = newSelection ;
     }
 }
