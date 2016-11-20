@@ -76,7 +76,7 @@ MainWindow *MainWindowIOHelper::getWindow(MainWindow *baseWindow, const MainWind
     const bool forceNewWindow = (MainWindow::OpenUsingNewWindow == useWindow);
     theWindow = baseWindow ;
     otherWindow = false ;
-    if(baseWindow->controller()->isOpenInNewWidow() && !forceSameWindow) {
+    if(baseWindow->controller()->isOpenInNewWindow() && !forceSameWindow) {
         if(!baseWindow->getRegola()->isEmpty(false)) {
             theWindow = NULL ;
             // find an existing window;
@@ -126,6 +126,7 @@ bool MainWindow::loadFile(const QString &filePath, const bool activateModes, con
 MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const bool activateModes,
         const EWindowOpen useWindow, const bool isRegularFile)
 {
+    beforeLoadingNewData();
     MainWindowIOHelper ioHelper;
     MainWindow *theWindow = ioHelper.getWindow(this, useWindow, filePath);
     if(NULL == theWindow) {
@@ -138,6 +139,7 @@ MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const b
 
 MainWindow *MainWindow::createFromClipboard(const EWindowOpen useWindow)
 {
+    beforeLoadingNewData();
     MainWindowIOHelper ioHelper;
     MainWindow *theWindow = ioHelper.getWindow(this, useWindow);
     bool ok = theWindow->newFromClipboard();
@@ -146,7 +148,7 @@ MainWindow *MainWindow::createFromClipboard(const EWindowOpen useWindow)
 
 bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
-    Utils::TODO_THIS_RELEASE("Remove the option of dom");
+    Utils::TODO_THIS_RELEASE("Remove the option of dom do not delete code, only the option");
     if(Config::getBool(Config::KEY_XML_LOAD_STREAM, true)) {
         return loadFileInnerStream(filePath, isRegularFile, activateModes);
     } else {
@@ -204,17 +206,12 @@ bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePat
         if(isRegularFile) {
             data->sessionManager()->enrollFile(filePath);
             updateRecentFilesMenu(filePath);
-            Utils::TODO_THIS_RELEASE("fare");
-            /*if(status.areErrorsPresent()) {
-                Utils::TODO_THIS_RELEASE("fare");
-            }*/
+            if(status.areErrorsPresent()) {
+                ui.loadWarningWidget->setVisible(true);
+            }
         } else {
             getRegola()->setFileName("");
         }
-        Utils::TODO_THIS_RELEASE("fare");
-        /*if(status.isLoadedWithErrors()) {
-            SHOW_WARNING();
-        }*/
         updateWindowFilePath();
         autoLoadValidation();
         fileLoaded = true ;

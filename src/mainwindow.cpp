@@ -62,6 +62,7 @@ extern const char *APP_TITLE ;
 #include "modules/copyattr/copiedattribute.h"
 #include "modules/services/anotifier.h"
 #include "modules/style/choosestyledialog.h"
+#include "widgets/warningswidget.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -108,6 +109,7 @@ MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, Appl
     application = newApplication ;
     data = newData ;
     ui.setupUi(this);
+    ui.loadWarningWidget->setVisible(false);
     ui.actionAbout->setMenuRole(QAction::AboutRole);
     //----------------------------------------------------------------------------------
     internalStateOk = finishSetUpUi();
@@ -225,11 +227,12 @@ void MainWindow::on_actionNew_triggered()
         return ;
     }
     MainWindow *theWindow ;
-    if(_controller.isOpenInNewWidow()) {
+    if(_controller.isOpenInNewWindow()) {
         theWindow = makeNewWindow();
     } else {
         theWindow = this ;
     }
+    theWindow->beforeLoadingNewData();
     theWindow->ui.editor->doNew();
     theWindow->removeAttributesFilter();
     theWindow->updateWindowFilePath();
@@ -371,7 +374,7 @@ bool MainWindow::finishSetUpUi()
     //------------------------------ status bar widgets ----------------------------------
 
     startUIState();
-    if(_controller.isOpenInNewWidow()) {
+    if(_controller.isOpenInNewWindow()) {
         ui.actionOpenSameWindow->setText(tr("&Open in Same Window..."));
         ui.actionOpenSameWindow->setToolTip(tr("Open in same window."));
     } else {
@@ -1044,6 +1047,7 @@ void MainWindow::actionSaveAs_internal(const QString &newFilePath)
     data->sessionManager()->enrollFile(newFilePath);
     statusBar()->showMessage(tr("File saved"), SHORT_TIMEOUT);
     updateWindowFilePath();
+    ui.loadWarningWidget->setVisible(false);
 }
 void MainWindow::on_actionSaveACopyAs_triggered()
 {
@@ -1945,7 +1949,12 @@ bool MainWindow::readData(XMLLoadStatus *status, QXmlStreamReader *reader, const
 {
     bool result = ui.editor->readData(status, reader, filePath, isSetState, errorHandler);
     if(result) {
-        statusBar()->showMessage(tr("Data loaded"), SHORT_TIMEOUT);
+        if(status->areErrorsPresent()) {
+            ui.editor->setReadOnly(true);
+            statusBar()->showMessage(tr("Data loaded with errors."), SHORT_TIMEOUT);
+        } else {
+            statusBar()->showMessage(tr("Data loaded"), SHORT_TIMEOUT);
+        }
         onReadOnlyStateChanged();
         onNewXSDSchemaForValidation("");
     } else {
@@ -2028,6 +2037,7 @@ void MainWindow::newUsingXMLSchema()
     QString schemaURL;
     schemaURL = chooseSchemaFile(this, isOk) ;
     if(isOk) {
+        beforeLoadingNewData();
         ui.editor->onActionNewUsingXMLSchema(schemaURL);
     }
     removeAttributesFilter();
@@ -2054,10 +2064,10 @@ bool MainWindow::checkAbandonChanges(const EWindowOpen useWindow, const QString 
     }
     const bool forceSameWindow = (OpenUsingSameWindow == useWindow);
     const bool forceNewWindow = (OpenUsingNewWindow == useWindow);
-    if((!_controller.isOpenInNewWidow() && !forceNewWindow) || forceSameWindow) {
+    if((!_controller.isOpenInNewWindow() && !forceNewWindow) || forceSameWindow) {
         return verifyAbandonChanges();
     } else {
-        if(_controller.isOpenInNewWidow() && !filePath.isEmpty()) {
+        if(_controller.isOpenInNewWindow() && !filePath.isEmpty()) {
             MainWindow *window = appData()->findWindowByPath(filePath);
             if(NULL != window) {
                 return window->verifyAbandonChanges();
@@ -2743,6 +2753,7 @@ void MainWindow::on_actionNewFromSnippet_triggered()
 
 void MainWindow::createDocumentFromSnippet(Regola* newRegola)
 {
+    beforeLoadingNewData();
     ui.editor->assignRegola(newRegola);
     markAsAllEdited();
     removeAttributesFilter();
@@ -3178,7 +3189,7 @@ void MainWindow::on_actionOpenSameWindow_triggered()
 {
     // reverse settings behavior
     openFileUsingDialog(getRegola()->fileName(),
-                        _controller.isOpenInNewWidow() ? OpenUsingSameWindow : OpenUsingNewWindow);
+                        _controller.isOpenInNewWindow() ? OpenUsingSameWindow : OpenUsingNewWindow);
 }
 
 MainWndController *MainWindow::controller()
@@ -3424,5 +3435,12 @@ void MainWindow::on_actionNormalizeNamespace_triggered()
 {
     if(!isReadOnly()) {
         _controller.normalizeNamespace();
+    }
+}
+
+void MainWindow::beforeLoadingNewData()
+{
+    if(!_controller.isOpenInNewWindow()) {
+        ui.loadWarningWidget->setVisible(false);
     }
 }

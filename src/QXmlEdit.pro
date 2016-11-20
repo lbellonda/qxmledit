@@ -286,7 +286,8 @@ HEADERS = precompiled_app.h \
     modules/namespace/setnamespacedialog.h \
     modules/namespace/normalizenamespacedialog.h \
     modules/namespace/replacenamespacedialog.h \
-    modules/xml/xmlerrormanagerdialog.h
+    modules/xml/xmlerrormanagerdialog.h \
+    widgets/warningswidget.h
 
 SOURCES = \
     main.cpp \
@@ -365,7 +366,8 @@ SOURCES = \
     modules/namespace/setnamespacedialog.cpp \
     modules/namespace/normalizenamespacedialog.cpp \
     modules/namespace/replacenamespacedialog.cpp \
-    modules/xml/xmlerrormanagerdialog.cpp
+    modules/xml/xmlerrormanagerdialog.cpp \
+    widgets/warningswidget.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -416,7 +418,8 @@ FORMS = MainWindow.ui \
     modules/namespace/setnamespacedialog.ui \
     modules/namespace/normalizenamespacedialog.ui \
     modules/namespace/replacenamespacedialog.ui \
-    modules/xml/xmlerrormanagerdialog.ui
+    modules/xml/xmlerrormanagerdialog.ui \
+    widgets/warningswidget.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

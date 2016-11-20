@@ -68,7 +68,7 @@ public:
     bool actionInfo();
     //---
     QString askNewXSIType(Element *selection);
-    bool isOpenInNewWidow();
+    bool isOpenInNewWindow();
     void createDocumentFromSnippet(Regola* newRegola);
     bool createDocumentFromResources(const QString &path);
     ReplicaInfoProvider *setReplicaInfoProvider(ReplicaInfoProvider *theProvider);

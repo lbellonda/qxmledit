@@ -7278,6 +7278,13 @@ Kód chyby je &apos;%1&apos;</translation>
         <location filename="../mainwindow.cpp" line="1900"/>
         <location filename="../mainwindow.cpp" line="1913"/>
         <location filename="../mainwindow.cpp" line="1922"/>
+        <source>Data loaded.</source>
+        <translation>Data nahrána.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1900"/>
+        <location filename="../mainwindow.cpp" line="1913"/>
+        <location filename="../mainwindow.cpp" line="1922"/>
         <source>Data loaded</source>
         <translation>Data nahrána</translation>
     </message>

@@ -42,7 +42,6 @@ n-4 = -2
 */
 int XMLErrorManagerDialog::charsBeforeError(const qint64 charOffset, const int bufferSize)
 {
-    Utils::TODO_THIS_RELEASE("eliminare?");
     qint64 charErrorPosition = 0;
     const qint64 firstCharacterToLoad = charOffset - bufferSize ;
     if(firstCharacterToLoad < 0) {

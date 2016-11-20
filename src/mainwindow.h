@@ -164,6 +164,7 @@ protected:
     void updateExportFilePath(const QString &newPath);
     void clearExportFilePath();
     void checkForSaveEncoding();
+    void beforeLoadingNewData();
 
 private slots:
     void onRaiseWindow();

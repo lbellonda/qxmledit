@@ -156,7 +156,7 @@ QString MainWndController::askNewXSIType(Element *selection)
     return askNewXSITypeAttribute(_w, prefixNS);
 }
 
-bool MainWndController::isOpenInNewWidow()
+bool MainWndController::isOpenInNewWindow()
 {
     return Config::getBool(Config::KEY_GENERAL_OPEN_NEWWINDOW, QXmlEditData::DefaultOpenInNewWindow);
 }
@@ -179,7 +179,7 @@ bool MainWndController::actionInfo()
 void MainWndController::createDocumentFromSnippet(Regola* newRegola)
 {
     MainWindow *theWindow = _w ;
-    if(isOpenInNewWidow()) {
+    if(isOpenInNewWindow()) {
         theWindow = _w->makeNewWindow();
     }
     if(!theWindow->checkAbandonChanges()) {

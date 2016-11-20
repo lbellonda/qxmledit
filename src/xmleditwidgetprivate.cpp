@@ -1835,7 +1835,6 @@ void XmlEditWidgetPrivate::setDocument(QDomDocument &document, const QString &fi
 
 bool XmlEditWidgetPrivate::readData(XMLLoadStatus *status, QXmlStreamReader *xmlReader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler)
 {
-    Utils::TODO_THIS_RELEASE("work in progress");
     XMLLoadContext context;
     status->clearErrors();
     Regola *newModel = new Regola(filePath);

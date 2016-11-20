@@ -1,4 +1,5 @@
 0.9.6
+    New warning panel if loading incomplete data.
     Details on error loading data, giving the option to load the incomplete file.
 
 0.9.5
