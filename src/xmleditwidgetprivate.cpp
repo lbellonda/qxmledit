@@ -3104,6 +3104,9 @@ void XmlEditWidgetPrivate::showError(const QString &errorMessage)
 bool XmlEditWidgetPrivate::showLoadError(const QString &errorMessage, XMLLoadErrorHandler *handler, XMLLoadContext *context, QXmlStreamReader *xmlReader)
 {
     if(NULL != handler) {
+        if(NULL != _uiDelegate) {
+            _uiDelegate->registerError();
+        }
         return handler->showErrorAndAskUserIfContinue(p->window(), context, xmlReader);
     } else {
         if(NULL != _uiDelegate) {

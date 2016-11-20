@@ -60,7 +60,7 @@ bool TestLoadFile::testUnit()
     if(!testLoadWithModifications()) {
         return false;
     }
-#if QT_VERSION >= QT_VERSION_CHECK(5,6,2)
+#if QT_VERSION >= QT_VERSION_CHECK(5,7,1)
     if(!testVerifyLoad1()) {
         return false;
     }

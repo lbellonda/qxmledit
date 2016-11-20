@@ -264,6 +264,7 @@ bool MainWindow::showErrorAndAskUserIfContinue(QWidget * /*parent*/, XMLLoadCont
     if(NULL != _loadErrorHandler) {
         return _loadErrorHandler->showErrorAndAskUserIfContinue(this, context, xmlReader);
     }
+    return false;
 #endif
     XMLErrorManagerDialog errorManager(this, context, xmlReader);
     if(errorManager.exec() == QDialog::Accepted) {

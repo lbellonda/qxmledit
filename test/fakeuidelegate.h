@@ -38,6 +38,7 @@ public:
     FakeUIDelegate();
     virtual ~FakeUIDelegate();
 
+    void registerError();
     void error(const QString& message) ;
     void error(QWidget *parent, const QString& message) ;
     void warning(const QString& message) ;

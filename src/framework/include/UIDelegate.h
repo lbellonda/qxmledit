@@ -33,6 +33,7 @@ class Element;
 class UIDelegate
 {
 public:
+    virtual void registerError() = 0 ;
     virtual void error(const QString& message) = 0 ;
     virtual void error(QWidget *widget, const QString& message) = 0 ;
     virtual void warning(const QString& message) = 0 ;

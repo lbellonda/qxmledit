@@ -2304,6 +2304,11 @@ int MainWindow::errorCount()
     return _errorCount;
 }
 
+void MainWindow::registerError()
+{
+    _errorCount++;
+}
+
 
 QTreeWidget *MainWindow::getMainTreeWidget()
 {

@@ -107,7 +107,7 @@ public:
 
     void autoLoadValidation();
     void triggersWelcomeDialog();
-
+    // region(uiDelegate)
     void error(const QString& message) ;
     void error(QWidget *widget, const QString& message) ;
     void warning(const QString& message) ;
@@ -118,6 +118,8 @@ public:
     void errorOutOfMem(QWidget *parent);
     void resetErrorCount() ;
     int errorCount() ;
+    void registerError();
+    // region(uiDelegate)
 
     QString msgOutOfMem() ;
 

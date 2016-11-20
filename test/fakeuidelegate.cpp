@@ -59,6 +59,12 @@ void FakeUIDelegate::justBeforeLoad()
     _beforeLoad = false ;
 }
 
+void FakeUIDelegate::registerError()
+{
+    isError = true;
+    _errors++;
+}
+
 void FakeUIDelegate::error(const QString& message)
 {
     // fake method
