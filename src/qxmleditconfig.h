@@ -213,6 +213,7 @@ public:
     // xml
     static const QString KEY_XML_SAVE_STREAM;
     static const QString KEY_XML_SAVE_SORTATTRIBUTES;
+    //deprecated: do not use
     static const QString KEY_XML_LOAD_STREAM;
 
     // base64

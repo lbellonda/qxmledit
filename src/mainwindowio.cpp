@@ -148,12 +148,7 @@ MainWindow *MainWindow::createFromClipboard(const EWindowOpen useWindow)
 
 bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
-    Utils::TODO_THIS_RELEASE("Remove the option of dom do not delete code, only the option");
-    if(Config::getBool(Config::KEY_XML_LOAD_STREAM, true)) {
-        return loadFileInnerStream(filePath, isRegularFile, activateModes);
-    } else {
-        return loadFileInnerDom(filePath, isRegularFile, activateModes);
-    }
+    return loadFileInnerStream(filePath, isRegularFile, activateModes);
 }
 
 bool MainWindow::loadFileInnerDom(const QString &filePath, const bool isRegularFile, const bool activateModes)
