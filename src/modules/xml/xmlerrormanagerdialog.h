@@ -18,6 +18,8 @@ class XMLErrorManagerDialog : public QDialog
     QString _afterString ;
     XMLLoadContext *_context;
     QXmlStreamReader *_xmlReader ;
+    QString _filePath ;
+    QString _dirPath ;
 
     static const qint64 CharsBefore = 20 ;
     static const qint64 BlockSize = 10000 ;
@@ -28,8 +30,9 @@ public:
 
 private slots:
     void on_buttonBox_accepted();
-
     void on_buttonBox_rejected();
+    void on_copyFilePath_clicked();
+    void on_showContainingFolder_clicked();
 
 private:
     Ui::XMLErrorManagerDialog *ui;

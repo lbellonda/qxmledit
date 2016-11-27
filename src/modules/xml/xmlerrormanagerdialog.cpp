@@ -1,6 +1,7 @@
 #include "xmlerrormanagerdialog.h"
 #include "ui_xmlerrormanagerdialog.h"
 #include "modules/xml/xmlloadcontext.h"
+#include <QDesktopServices>
 #include "utils.h"
 
 XMLErrorManagerDialog::XMLErrorManagerDialog(QWidget *parent, XMLLoadContext *newContext, QXmlStreamReader *xmlReader) :
@@ -17,6 +18,21 @@ XMLErrorManagerDialog::XMLErrorManagerDialog(QWidget *parent, XMLLoadContext *ne
     QPushButton *noButton = ui->buttonBox->button(QDialogButtonBox::No);
     if(NULL != noButton) {
         noButton->setDefault(true);
+    }
+    if(NULL != xmlReader) {
+        QFile *file = qobject_cast<QFile*>(xmlReader->device());
+        if(NULL != file) {
+            _filePath = file->fileName();
+            QFileInfo info(*file);
+            QDir dir = info.dir();
+            _dirPath = dir.absolutePath();
+        }
+    }
+    if(_filePath.isEmpty()) {
+        ui->copyFilePath->setEnabled(false);
+    }
+    if(_dirPath.isEmpty()) {
+        ui->showContainingFolder->setEnabled(false);
     }
 }
 
@@ -134,4 +150,19 @@ void XMLErrorManagerDialog::on_buttonBox_accepted()
 void XMLErrorManagerDialog::on_buttonBox_rejected()
 {
     reject();
+}
+
+void XMLErrorManagerDialog::on_showContainingFolder_clicked()
+{
+    Utils::TODO_THIS_RELEASE("test");
+    QDesktopServices::openUrl(QUrl::fromLocalFile(_dirPath));
+}
+
+void XMLErrorManagerDialog::on_copyFilePath_clicked()
+{
+    Utils::TODO_THIS_RELEASE("test");
+    QClipboard *clipboard = QApplication::clipboard();
+    if(NULL != clipboard) {
+        clipboard->setText(_filePath);
+    }
 }
