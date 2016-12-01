@@ -1,0 +1,6 @@
+<?xml version='1.0'?>
+<div>
+  <zi:include href="example.txt" parse="text" xmlns:zi="http://www.w3.org/2001/XInclude">
+    <zi:fallback/>
+  </zi:include>
+</div>
