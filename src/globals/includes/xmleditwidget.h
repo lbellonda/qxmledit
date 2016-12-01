@@ -350,6 +350,8 @@ public:
     void namespaceAvoidClash(const QString &ns, const QString &newPrefix, NamespacesInfo *namespacesInfo);
     //---endregion(namespaces)
 
+    void insertSpecial();
+    void appendSpecial();
 
 signals:
     void reevaluateSelectionState();
@@ -373,6 +375,7 @@ signals:
     void newXSDSchemaForValidation(const QString &newSchemaUrl);
     void requestInsert();
     void requestDelete();
+    void requestAppend();
 
     //--------------- signals
 };

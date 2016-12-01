@@ -74,6 +74,7 @@
 #include "undo/namespacereplacecommand.h"
 #include "undo/namespacenormalizecommand.h"
 #include "undo/namespaceavoidclashcommand.h"
+#include "modules/xsd/namespacemanager.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -144,6 +145,9 @@ void XmlEditWidgetPrivate::secondStepConstructor()
     shortcutInsert->setKey(Qt::Key_Insert);
     connect(shortcutDelete, SIGNAL(activated()), this, SLOT(onShortcutDelete()));
     connect(shortcutInsert, SIGNAL(activated()), this, SLOT(onShortcutInsert()));
+    QShortcut *shortcutAppend = new QShortcut(tree);
+    shortcutAppend->setKey(Qt::Key_Insert+Qt::SHIFT);
+    connect(shortcutAppend, SIGNAL(activated()), this, SLOT(onShortcutAppend()));
     recalcRowHeightClass();
 
     started = true ;
@@ -213,6 +217,7 @@ void XmlEditWidgetPrivate::setData(QApplication *newApplication, QXmlEditData *n
     application = newApplication ;
     if(NULL != newData) {
         _appData = newData ;
+        _appData->namespaceManager()->init();
     }
     Regola *regola = getRegola();
     if(NULL != regola) {
@@ -2477,6 +2482,13 @@ void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const 
                 editXSLTElement(item);
             }
         } else {
+            NamespaceManager *namespaceManager = _appData->namespaceManager();
+            if(NULL != namespaceManager) {
+                Element *element = Element::fromItemData(item);
+                if(namespaceManager->editElement(p->window(), getEditor(), regola, element)) {
+                    return ;
+                }
+            }
             editElement(item);
         }
     }
@@ -3022,6 +3034,11 @@ void XmlEditWidgetPrivate::onShortcutInsert()
     emit p->requestInsert();
 }
 
+void XmlEditWidgetPrivate::onShortcutAppend()
+{
+    emit p->requestAppend();
+}
+
 void XmlEditWidgetPrivate::removeNilAttribute()
 {
     if(isActionMode() && (NULL != getRegola())) {
@@ -3332,3 +3349,25 @@ void XmlEditWidgetPrivate::namespaceAvoidClash(const QString &newNS, const QStri
 }
 
 //---endregion(namespaces)
+
+void XmlEditWidgetPrivate::insertSpecial()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        NamespaceManager *namespaceManager = _appData->namespaceManager();
+        if(NULL != namespaceManager) {
+            Element *element = getSelectedItem();
+            namespaceManager->insertElement(getEditor()->window(), getEditor(), getRegola(), element, true) ;
+        }
+    }
+}
+
+void XmlEditWidgetPrivate::appendSpecial()
+{
+    if(isActionMode() && (NULL != getRegola())) {
+        NamespaceManager *namespaceManager = _appData->namespaceManager();
+        if(NULL != namespaceManager) {
+            Element *element = getSelectedItem();
+            namespaceManager->insertElement(getEditor()->window(), getEditor(), getRegola(), element, false) ;
+        }
+    }
+}

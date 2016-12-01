@@ -297,6 +297,7 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(schemaValidationError(const QString &, Element *)), this, SLOT(onSchemaValidationError(const QString &, Element *)));
     connect(ui.editor, SIGNAL(newXSDSchemaForValidation(const QString &)), this, SLOT(onNewXSDSchemaForValidation(const QString &)));
     connect(ui.editor, SIGNAL(requestInsert()), this, SLOT(on_actionAddChildElement_triggered()));
+    connect(ui.editor, SIGNAL(requestAppend()), this, SLOT(on_actionAppendChildElement_triggered()));
     connect(ui.editor, SIGNAL(requestDelete()), this, SLOT(on_actionDelete_triggered()));
 
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
@@ -926,6 +927,10 @@ void MainWindow::onComputeSelectionState()
     ui.actionRemoveAllSiblings->setEnabled(!isRegolaReadOnly && isElementSelected);
     ui.actionRemoveAllSiblingsAfter->setEnabled(!isRegolaReadOnly && isElementSelected);
     ui.actionRemoveAllSiblingsBefore->setEnabled(!isRegolaReadOnly && isElementSelected);
+    ui.actionInsertSnippet->setEnabled(!getEditor()->isReadOnly());
+
+    ui.actionInsertSpecial->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
+    ui.actionAppendSpecial->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -1771,14 +1776,16 @@ void MainWindow::on_actionValidateUsingDocumentReferences_triggered()
 
 void MainWindow::on_actionInsertSnippet_triggered()
 {
-    Regola* regola = getRegola();
-    if(NULL == regola) {
-        return;
-    }
-    Regola* newRegola = _snippetManager->chooseSnippets(data, this) ;
-    if(NULL != newRegola) {
-        ui.editor->insertSnippet(newRegola);
-        delete newRegola;
+    if(!isReadOnly()) {
+        Regola* regola = getRegola();
+        if(NULL == regola) {
+            return;
+        }
+        Regola* newRegola = _snippetManager->chooseSnippets(data, this) ;
+        if(NULL != newRegola) {
+            ui.editor->insertSnippet(newRegola);
+            delete newRegola;
+        }
     }
 }
 
@@ -2748,6 +2755,11 @@ void MainWindow::on_actionNewMavenPOM_triggered()
     _controller.createDocumentFromResources(":/templates/templatePOM");
 }
 
+void MainWindow::on_actionNewSCXMLDocument_triggered()
+{
+    _controller.createDocumentFromResources(":/templates/templateSCXML");
+}
+
 void MainWindow::on_actionNewFromSnippet_triggered()
 {
     Regola* newRegola = _snippetManager->chooseSnippets(data, this) ;
@@ -3447,5 +3459,19 @@ void MainWindow::beforeLoadingNewData()
 {
     if(!_controller.isOpenInNewWindow()) {
         ui.loadWarningWidget->setVisible(false);
+    }
+}
+
+void MainWindow::on_actionInsertSpecial_triggered()
+{
+    if(!isReadOnly()) {
+        getEditor()->insertSpecial();
+    }
+}
+
+void MainWindow::on_actionAppendSpecial_triggered()
+{
+    if(!isReadOnly()) {
+        getEditor()->appendSpecial();
     }
 }

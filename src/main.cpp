@@ -230,6 +230,9 @@ void qt_mac_set_dock_menu(QMenu *menu);
 
 void todo()
 {
+    Utils::TODO_THIS_RELEASE("shift ins per append sibling");
+    Utils::TODO_THIS_RELEASE("alt ins per child specializ");
+    Utils::TODO_THIS_RELEASE("gli attributi sono attaccati nell'editor");
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif

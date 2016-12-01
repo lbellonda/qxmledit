@@ -631,7 +631,10 @@ public:
     bool namespaceAvoidClash(const QString &prefixToAvoid, const QString &legalNS, NamespacesInfo *namespacesInfo, ElementUndoObserver *observer);
     bool namespaceNormalize(const QString &thePrefix, const QString &theNS, QList<Element*> elements, const bool declareOnlyOnRoot, ElementUndoObserver *observer);
     //------------endregion(namespaces)
+    static NSContext* buildContextInfo(QList<NSContext*> &contexts, Element *element);
 
+    bool editElementWrapper(QTreeWidget *treeWidget, Element *newElement, Element *selectedElement);
+    bool applyEditAndSwapElement(Element *newElement, Element *swapElement, QList<int> path);
 
 private:
     void addUndoInsert(QTreeWidget * tree, Element * element);
@@ -688,8 +691,6 @@ private:
     bool setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader *xmlReader, Element *parent, QVector<Element*> *collection, const bool isTopLevel);
     bool decodePreamble(QXmlStreamReader *xmlReader, const QString &encoding);
     bool filterCommentsAfterReading(XMLLoadContext *context);
-    NSContext* buildContextInfo(QList<NSContext*> &contexts, Element *element);
-
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Regola::EExportOptions)

@@ -22,9 +22,28 @@
 
 #include "namespacemanager.h"
 #include "regola.h"
+#include "modules/specialized/xinclude/xincludeeditormanager.h"
+#include "modules/specialized/specificpropertiesdialog.h"
 #include "utils.h"
 
 //#define WellKnownNamespacesFile ":/xsd/well_known_namespaces"
+
+//------
+
+NamespaceEditorInsertChoiceProvider::NamespaceEditorInsertChoiceProvider() {}
+NamespaceEditorInsertChoiceProvider::~NamespaceEditorInsertChoiceProvider() {}
+
+//------
+
+NamespaceHandlerForEdit::NamespaceHandlerForEdit()
+{
+}
+
+NamespaceHandlerForEdit::~NamespaceHandlerForEdit()
+{
+}
+
+//------
 
 NamespaceDef::NamespaceDef(const NamespaceManager::EWellKnownNs theCodeForWellKnown, const QString &theNamespace, const QString &theSchemaLocation,
                            const QString &theDescription, const QString &defaultPrefix)
@@ -81,19 +100,36 @@ void NamespaceDef::setUri(const QString &value)
 }
 
 //------
+
+HandlerForInsert::HandlerForInsert()
+{
+}
+
+HandlerForInsert::~HandlerForInsert()
+{
+    EMPTYPTRLIST(elements, SingleHandlerForInsert);
+}
+
+//------
+
 const QString NamespaceManager::XSLFONamespace("http://www.w3.org/1999/XSL/Format");
 const QString NamespaceManager::XSL1Namespace("http://www.w3.org/1999/XSL/Transform");
 const QString NamespaceManager::XQueryLocalFuncNamespace("http://www.w3.org/2005/xquery-local-functions");
 const QString NamespaceManager::MavenPom4Namespace("http://maven.apache.org/xsd/maven-4.0.0.xsd");
 const QString NamespaceManager::XHTML11Namespace("http://www.w3.org/1999/xhtml");
+const QString NamespaceManager::XIncludeNamespace("http://www.w3.org/2001/XInclude");
+const QString NamespaceManager::SCXMLNamespace("http://www.w3.org/2005/07/scxml");
 
 const QString NamespaceManager::NoNamespaceSchemaLocationAttributeName("noNamespaceSchemaLocation");
 const QString NamespaceManager::SchemaLocationAttributeName("schemaLocation");
+
+const QString NamespaceManager::XIncludePrefix("xi");
 
 NamespaceManager::NamespaceManager()
 {
     _inited = false;
     _dataInterface = NULL;
+    _insertEditorProvider = this ;
 }
 
 NamespaceManager::~NamespaceManager()
@@ -110,13 +146,15 @@ void NamespaceManager::init()
 
     insertItem(XSI_NAMESPACE, Regola::XSDSchemaInstance, Regola::XSDSchemaInstance, QObject::tr("Schema Instance (xsi)"), "xsi");
     insertItem(XSD_NAMESPACE, Regola::XSDNameSpace, "http://www.w3.org/2009/XMLSchema.xsd" /*"http://www.w3.org/2012/04/XMLSchema.xsd"*/, QObject::tr("XML Schema (xsd or xs)"), "xsd");
-    // there is no "official" xsl*-fo schema reository
+    // there is no "official" xsl*-fo schema repository
     insertItem(XSLFO_NAMESPACE, XSLFONamespace, "", QObject::tr("XSL-FO 1.0 (fo)"), "fo");
     insertItem(XSL1_NAMESPACE, XSL1Namespace, "http://www.w3.org/1999/11/xslt10.dtd", QObject::tr("XSL 1.0 (xsl)"), "xsl");
     // predefined namespace
     insertItem(XQUERY_LOCALFUNC_NAMESPACE, XQueryLocalFuncNamespace, "", QObject::tr("xquery local functions (local)"), "local");
     insertItem(MAVEN_NAMESPACE, MavenPom4Namespace, "http://maven.apache.org/xsd/maven-4.0.0.xsd", QObject::tr("Maven POM 4 (local)"), "local");
     insertItem(GENERIC_NAMESPACE, XHTML11Namespace, "http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd", QObject::tr("XHTML 1.1 (html)"), "html");
+    insertItem(XINCLUDE_NAMESPACE, XIncludeNamespace, "https://www.w3.org/2001/XInclude/XInclude.xsd", QObject::tr("XInclude 1.1 (xi)"), XIncludePrefix, new XIncludeEditorManager());
+    insertItem(SCXML_NAMESPACE, SCXMLNamespace, "http://www.w3.org/2011/04/SCXML/scxml.xsd", QObject::tr("SXCML 1.1 (scxml)"), "scxml");
 }
 
 DataInterface *NamespaceManager::dataInterface() const
@@ -159,59 +197,74 @@ void NamespaceManager::reset()
     foreach(NamespaceDef * def, _namespaces.values()) {
         delete def;
     }
+    EMPTYPTRLIST(_editHandlers.values(), NamespaceHandlerForEdit);
     _namespaces.clear();
 }
 
-void NamespaceManager::insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theSchemaLocation, const QString &theDescription, const QString &defaultPrefix)
+void NamespaceManager::insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theSchemaLocation,
+                                  const QString &theDescription, const QString &defaultPrefix, NamespaceHandlerForEdit *editHandler)
 {
     NamespaceDef *def = new NamespaceDef(wellKnownNs, theNamespace, theSchemaLocation, theDescription, defaultPrefix);
     _namespaces.insert(wellKnownNs, def);
     if(wellKnownNs != GENERIC_NAMESPACE) {
         _uriNamespaces.insert(theNamespace, def);
     }
+    if(NULL != editHandler) {
+        _editHandlers.insert(theNamespace, editHandler);
+    }
 }
 
-/*
-bool NamespaceManager::scanData(QDomNode &rootNode)
+bool NamespaceManager::editElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element)
 {
-    bool isOk = true ;
-    mapTokens.clear();
-    int nodi = rootNode.childNodes().count();
-    for(int i = 0 ; i < nodi ; i ++) {
-        QDomNode childNode = rootNode.childNodes().item(i) ;
+    if((NULL != element) && element->isElement()) {
+        QXName qname ;
+        element->qName(&qname);
+        NamespaceHandlerForEdit *handler = _editHandlers[qname.ns];
+        if(NULL != handler) {
+            return handler->handleEdit(parent, tree, regola, element);
+        }
+    }
+    return false;
+}
 
-        if(childNode.isElement()) {
-            QDomElement element = childNode.toElement();
-            QString name = element.attribute("uri", "");
-            QString description = element.attribute("description", "");
-            QString prefix = element.attribute("prefix", "");
-non mi e' chiara la costante a chi serve e chi la usa...
-        ma serve veramente il file esterno? e con cosa lo decodifico?
-                                                come faccio ad essere sicuro che le costanti siano a posto?
-            insertItem(XSI_NAMESPACE, uri, description, prefix);
-            if(isOk) {
-                completeStyle(style);
+bool NamespaceManager::insertElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling)
+{
+    bool result = false ;
+    if((NULL != element) && element->isElement()) {
+        QXName qname ;
+        element->qName(&qname);
+        QList<HandlerForInsert*> handlers ;
+        foreach(NamespaceHandlerForEdit *handler, _editHandlers.values()) {
+            HandlerForInsert* hfi = handler->handlerForInsert(regola, element, isChildOrSibling) ;
+            if(NULL != hfi) {
+                handlers.append(hfi);
             }
         }
-    }//for
-    return isOk ;
-}//scanData()
-
-bool NamespaceManager::loadWellKnownNamespaces()
-{
-    bool isOk = false;
-    QFile file(WellKnownNamespacesFile);
-    if(file.open(QIODevice::ReadOnly)) {
-        QDomDocument document;
-        if(document.setContent(&file)) {
-            isOk = scanData(document);
-        } else {
-            Utils::error(tr("Unable to parse system namespaces XML"));
-        }
-        file.close();
-    } else {
-        Utils::error(QString(tr("Unable to load system namespaces.\n Error code is '%1'")).arg(file.error()));
+        HandlerForInsert * handler = _insertEditorProvider->handleInsertElementForSpecialized(parent, &handlers);
+        result = handler->handler->handleInsert(tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
+        EMPTYPTRLIST(handlers, HandlerForInsert);
     }
-    return isOk ;
+    return result;
 }
-*/
+
+HandlerForInsert *NamespaceManager::handleInsertElementForSpecialized(QWidget *parent, QList<HandlerForInsert*> *handlers)
+{
+    SpecificPropertiesDialog spd(parent, handlers);
+    if(spd.exec() == QDialog::Accepted) {
+        spd.handler()->outputSelectedCode = spd.selectedItemCode() ;
+        return spd.handler();
+    }
+    return NULL ;
+}
+
+
+void NamespaceManager::setProviderForInsert(NamespaceEditorInsertChoiceProvider *newProvider)
+{
+    _insertEditorProvider = newProvider ;
+}
+
+XIncludeEditorManager *NamespaceManager::xIncludeEditorManager()
+{
+    return static_cast<XIncludeEditorManager *>(_editHandlers[XIncludeNamespace]);
+}
+

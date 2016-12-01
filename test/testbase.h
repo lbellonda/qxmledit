@@ -67,6 +67,10 @@ public:
     bool isError();
     QString errorString();
 
+    //-- utility
+    bool setTextWidget(QWidget *widget, const QString &actionName, const QString &text);
+    bool setComboWidget(QWidget *widget, const QString &actionName, const QString &text);
+
 protected:
     bool fireAction(QMainWindow *window, const QString &actionName);
     bool fireAction(QList<QMenu*> menus, const QString &actionName);
@@ -87,7 +91,6 @@ protected:
     bool checkOneWidgetEnabled( QWidget *editor, const QString &childName, const bool expected);
     QAction *findAction(QList<QMenu*> menus, const QString &actionName);
     bool clickButton(QWidget *widget, const QString &actionName);
-    bool setTextWidget(QWidget *widget, const QString &actionName, const QString &text);
     bool checkActionEnabled(QMainWindow *window, const QString &actionName, bool &boolResult);
 
     void buildRegola(Regola *regola, const QList<Element*> &elements);

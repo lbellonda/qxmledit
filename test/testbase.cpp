@@ -105,6 +105,16 @@ bool TestBase::setTextWidget(QWidget *widget, const QString &actionName, const Q
     return false;
 }
 
+bool TestBase::setComboWidget(QWidget *widget, const QString &actionName, const QString &text)
+{
+    QList<QComboBox*> texts = widget->findChildren<QComboBox*>(actionName);
+    if(texts.size()>0) {
+        texts.at(0)->setCurrentText(text);
+        return true ;
+    }
+    return false;
+}
+
 bool TestBase::fireAction(QMainWindow *window, const QString &actionName)
 {
     QList<QMenu*> menus = window->menuBar()->findChildren<QMenu*>();

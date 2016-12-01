@@ -30,8 +30,55 @@
 
 class NamespaceDef;
 class DataInterface;
+class QWidget;
+class Element;
+class QTreeWidget;
+class Regola ;
+class NamespaceHandlerForEdit;
+class XIncludeEditorManager;
 
-class LIBQXMLEDITSHARED_EXPORT NamespaceManager
+class SingleHandlerForInsert
+{
+public:
+    QString name ;
+    QString description ;
+    QString id;
+};
+
+class NamespaceHandlerForEdit;
+
+class HandlerForInsert
+{
+public:
+    QString nameSpace;
+    QString name;
+    QString outputSelectedCode;
+    QList<SingleHandlerForInsert*> elements;
+    NamespaceHandlerForEdit *handler;
+    HandlerForInsert();
+    ~HandlerForInsert();
+};
+
+class LIBQXMLEDITSHARED_EXPORT NamespaceHandlerForEdit
+{
+public:
+    NamespaceHandlerForEdit();
+    virtual ~NamespaceHandlerForEdit();
+    virtual bool handleEdit(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element) = 0 ;
+    virtual HandlerForInsert *handlerForInsert(Regola *regola, Element *element, const bool isChild) = 0 ;
+    virtual bool handleInsert(QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) = 0 ;
+};
+
+class LIBQXMLEDITSHARED_EXPORT NamespaceEditorInsertChoiceProvider
+{
+public:
+    NamespaceEditorInsertChoiceProvider();
+    virtual ~NamespaceEditorInsertChoiceProvider();
+
+    virtual HandlerForInsert *handleInsertElementForSpecialized(QWidget *parent, QList<HandlerForInsert*> *handlers) = 0;
+};
+
+class LIBQXMLEDITSHARED_EXPORT NamespaceManager : public NamespaceEditorInsertChoiceProvider
 {
     DataInterface *_dataInterface;
     bool _inited;
@@ -44,9 +91,13 @@ public:
     static const QString XQueryLocalFuncNamespace;
     static const QString MavenPom4Namespace;
     static const QString XHTML11Namespace;
+    static const QString XIncludeNamespace;
+    static const QString SCXMLNamespace;
 
     static const QString NoNamespaceSchemaLocationAttributeName;
     static const QString SchemaLocationAttributeName;
+    //
+    static const QString XIncludePrefix;
 
     // constants for namespaces
     enum EWellKnownNs {
@@ -56,7 +107,9 @@ public:
         XSLFO_NAMESPACE,
         XSL1_NAMESPACE,
         XQUERY_LOCALFUNC_NAMESPACE,
-        MAVEN_NAMESPACE
+        MAVEN_NAMESPACE,
+        XINCLUDE_NAMESPACE,
+        SCXML_NAMESPACE
     };
 
     QString namespaceUri(const EWellKnownNs eWellKnownNs);
@@ -66,13 +119,24 @@ public:
     DataInterface *dataInterface() const;
     void setDataInterface(DataInterface *dataInterface);
 
+    bool editElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element);
+    bool insertElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling);
+    void init();
+
+    HandlerForInsert *handleInsertElementForSpecialized(QWidget *parent, QList<HandlerForInsert*> *handlers);
+    void setProviderForInsert(NamespaceEditorInsertChoiceProvider *newProvider);
+    XIncludeEditorManager *xIncludeEditorManager();
+
 private:
     QHash<EWellKnownNs, NamespaceDef*> _namespaces;
     QHash<QString, NamespaceDef*> _uriNamespaces;
+    QHash<QString, NamespaceHandlerForEdit *> _editHandlers;
+    NamespaceEditorInsertChoiceProvider *_insertEditorProvider;
 
     void reset();
-    void init();
-    void insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theSchemaLocation, const QString &theDescription, const QString &defaultPrefix);
+    void insertItem(const EWellKnownNs wellKnownNs, const QString &theNamespace, const QString &theSchemaLocation,
+                    const QString &theDescription, const QString &defaultPrefix,
+                    NamespaceHandlerForEdit *editHandler = NULL);
 
 };
 

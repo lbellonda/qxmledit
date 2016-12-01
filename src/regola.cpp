@@ -22,6 +22,7 @@
 
 #include "regoladefinitions.h"
 #include "undo/elupdateelementcommand.h"
+#include "undo/undosimpleeditcommand.h"
 #include "undo/undodtd.h"
 #include "xmlsavecontext.h"
 #include "modules/xml/elmpath.h"
@@ -3135,4 +3136,39 @@ bool Regola::isForceDOM() const
 void Regola::setForceDOM(bool newValue)
 {
     _forceDOM = newValue;
+    Utils::TODO_THIS_RELEASE("finire sotto");
 }
+
+bool Regola::editElementWrapper(QTreeWidget *treeWidget, Element *newElement, Element *selectedElement)
+{
+    UndoSimpleEditCommand* undoCommand = new UndoSimpleEditCommand(treeWidget, this, selectedElement->indexPath(), newElement);
+    if(NULL == undoCommand) {
+        Utils::errorOutOfMem(treeWidget->window());
+        return false;
+    }
+    _undoStack.push(undoCommand);
+    return true ;
+}
+
+bool Regola::applyEditAndSwapElement(Element *newElement, Element *swapElement, QList<int> path)
+{
+    Element *selectedElement = findElementByArray(path);
+    if(NULL == selectedElement) {
+        return false;
+    }
+    const int beforeAttributesCount = selectedElement->getAttributesList().size();
+    selectedElement->copyTo(*swapElement, false);
+    newElement->copyTo(*selectedElement, false);
+    selectedElement->updateSizeInfo();
+    selectedElement->display(selectedElement->getUI(), paintInfo);
+    const int nowAttributesCount = selectedElement->getAttributesList().size();
+    if(selectedElement->isElement() && (nowAttributesCount != beforeAttributesCount)) {
+        selectedElement->forceUpdateGui(true);
+    }
+    setModified(true);
+    if(NULL == selectedElement->parent()) {
+        checkEncoding();
+    }
+    return true;
+}
+

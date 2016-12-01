@@ -97,6 +97,7 @@
 #include "testcommandline.h"
 #include "testeditenum.h"
 #include "testnamespaces.h"
+#include "testspecials.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -193,6 +194,7 @@ private Q_SLOTS:
     void testCommandLine();
     void testEditEnum();
     void testNamespaces();
+    void testSpecials();
 };
 
 

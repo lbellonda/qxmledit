@@ -102,6 +102,13 @@ public:
     NamespacesInfo *clone();
 };
 
+class LIBQXMLEDITSHARED_EXPORT QXName
+{
+public:
+    QString ns;
+    QString name;
+};
+
 class LIBQXMLEDITSHARED_EXPORT Attribute
 {
 
@@ -462,6 +469,7 @@ public:
     QString indexPathString();
     QStringList path();
     QStringList parentPath();
+    QList<int> indexPathOfNewRelative(const bool isChildOrSibling);
     // copy the first level attributes, text nodes and attributes to the target
     bool copyTextNodesToTarget(Element *target);
 
@@ -660,6 +668,7 @@ public:
                             const bool wasDeclared,
                             ElementUndoObserver *observer, const NSContext *parentContext);
     void setNewTagWithUndo(const QString &newTag, ElementUndoInfo &info);
+    void qName(QXName *pQName);
 
 #ifdef  QXMLEDIT_TEST
     friend class TestStyle;

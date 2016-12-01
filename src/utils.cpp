@@ -1087,4 +1087,28 @@ void Utils::updateNonEditableCombo(QComboBox *combo, const QStringList & values)
     loadComboTextArrays(combo, currentTextValue, values, values);
 }
 
+bool Utils::isRFC4288(const QString &name)
+{
+    QStringList values = name.split("/");
+    if(values.size() != 2) {
+        return false;
+    }
+    if(!isRegNameRFC4288(values[0])) {
+        return false;
+    }
+    if(!isRegNameRFC4288(values[1])) {
+        return false;
+    }
+    return true ;
+}
 
+bool Utils::isRegNameRFC4288(const QString &name)
+{
+    Utils::TODO_THIS_RELEASE("test, check");
+    if((name.length() < 1) || (name.length() > 127)) {
+        return false;
+    }
+    QRegExp re;
+    re.setPattern("[0-9,a-z,A-Z,\\!,\\#,\\$,\\&,\\.,\\+,\\-,\\^,\\_]*");
+    return re.exactMatch(name);
+}

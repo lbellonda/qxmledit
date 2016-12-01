@@ -292,6 +292,7 @@ private slots:
     void on_actionNewXSDDocument_triggered();
     void on_actionNewXSLFODocument_triggered();
     void on_actionNewMavenPOM_triggered();
+    void on_actionNewSCXMLDocument_triggered();
     void on_actionNewFromSnippet_triggered();
     void on_actionEditXSLTitem_triggered();
     void on_actionScanXMLTagsAndNamesXSLTAutocompletion_triggered();
@@ -360,6 +361,8 @@ private slots:
     void on_actionReplacePrefix_triggered();
     void on_actionReplaceNamespace_triggered();
     void on_actionNormalizeNamespace_triggered();
+    void on_actionInsertSpecial_triggered();
+    void on_actionAppendSpecial_triggered();
 
     //----- other slots ------------------
 

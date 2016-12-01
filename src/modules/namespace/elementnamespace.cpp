@@ -442,3 +442,21 @@ bool Element::normalizeNamespace(const QString &theNS, const QString &thePrefix,
     }
     return ok;
 }
+
+void Element::qName(QXName *pQName)
+{
+    pQName->name = "" ;
+    pQName->ns = "" ;
+    if(isElement()) {
+        QList<NSContext*> contexts;
+        NSContext *lastContext = Regola::buildContextInfo(contexts, this);
+        NSContext context(lastContext);
+        handleNamespace(&context);
+        QString name, prefix;
+        XmlUtils::decodeQualifiedName(tag(), prefix, name);
+        const QString &elementNamespace = context.uriFromPrefix(prefix);
+        pQName->ns = elementNamespace ;
+        pQName->name = name ;
+        EMPTYPTRLIST(contexts, NSContext);
+    }
+}

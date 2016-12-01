@@ -1392,6 +1392,22 @@ void TestQXmlEdit::testNamespaces()
     }
 }
 
+void TestQXmlEdit::testSpecials()
+{
+    bool result;
+    {
+        TestSpecials test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("test TestSpecials: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+    {
+        TestSpecials test;
+        result = test.testXInclude();
+        QVERIFY2(result, (QString("test TestSpecials: testXInclude() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+}
 
 /*
 
@@ -1413,6 +1429,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testSpecials();
     testLoadFile();
 }
 

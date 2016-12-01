@@ -60,7 +60,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -161,6 +161,7 @@
      <addaction name="actionNewXSLTSheet"/>
      <addaction name="actionNewXSDDocument"/>
      <addaction name="actionNewXSLFODocument"/>
+     <addaction name="actionNewSCXMLDocument"/>
      <addaction name="actionNewMavenPOM"/>
      <addaction name="separator"/>
      <addaction name="actionNewFromSnippet"/>
@@ -294,6 +295,10 @@
     <addaction name="actionAddComment"/>
     <addaction name="actionAppendComment"/>
     <addaction name="actionAddProcessingInstruction"/>
+    <addaction name="separator"/>
+    <addaction name="actionAppendSpecial"/>
+    <addaction name="actionInsertSpecial"/>
+    <addaction name="separator"/>
     <addaction name="actionAppendProcessingInstruction"/>
     <addaction name="menuHierarchy"/>
     <addaction name="menuSiblings"/>
@@ -2205,6 +2210,30 @@
    </property>
    <property name="toolTip">
     <string>Normalize namespace prefixes.</string>
+   </property>
+  </action>
+  <action name="actionInsertSpecial">
+   <property name="text">
+    <string>Insert Special...</string>
+   </property>
+   <property name="toolTip">
+    <string>Insert a specialized element.</string>
+   </property>
+  </action>
+  <action name="actionNewSCXMLDocument">
+   <property name="text">
+    <string>New SCXML document</string>
+   </property>
+   <property name="toolTip">
+    <string>Creates a new empty SCXML document.</string>
+   </property>
+  </action>
+  <action name="actionAppendSpecial">
+   <property name="text">
+    <string>Append Special...</string>
+   </property>
+   <property name="toolTip">
+    <string>Append a specialized element.</string>
    </property>
   </action>
  </widget>

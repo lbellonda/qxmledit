@@ -224,6 +224,7 @@
         <file alias="templateXsd">resources/templates/templateXsd.xml</file>
         <file alias="templateFo">resources/templates/templateFo.xml</file>
         <file alias="templatePOM">resources/templates/templateMavenPOM.xml</file>
+        <file alias="templateSCXML">resources/templates/templateSCXML.xml</file>
     </qresource>
     <qresource prefix="/colors">
         <file alias="sampleData.xml">resources/data/colordata.xml</file>

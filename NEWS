@@ -1,4 +1,9 @@
 0.9.6
+    New template for SCXML.
+    Infrastructure to edit specialized elements.
+    Handling of XInclude and fallback elements.
+    Inserted a shortcut to append siblings (shift Ins).
+    Fixed an insert problem with read only enabled.
     New options to copy file path in the load error handling dialog.
     Removed the option to load files using DOM.
     New warning panel if loading incomplete data.

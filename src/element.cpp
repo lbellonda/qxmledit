@@ -2407,6 +2407,20 @@ QStringList Element::parentPath()
     return list ;
 }
 
+QList<int> Element::indexPathOfNewRelative(const bool isChildOrSibling)
+{
+    QList<int> destPath = indexPath();
+    if(isChildOrSibling) {
+        destPath.append(getChildItemsCount());
+    } else {
+        int lastId = destPath.last();
+        lastId ++;
+        destPath.removeLast();
+        destPath.append(lastId);
+    }
+    return destPath ;
+}
+
 bool Element::copyTextNodesToTarget(Element *target)
 {
     if(NULL != target) {

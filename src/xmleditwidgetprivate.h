@@ -352,6 +352,8 @@ public:
     void namespaceAvoidClash(const QString &ns, const QString &newPrefix, NamespacesInfo *namespacesInfo);
     //---endregion(namespaces)
 
+    void insertSpecial();
+    void appendSpecial();
 
 private:
     QHash<void *, QString> *anonDataForPreview();
@@ -399,6 +401,7 @@ private slots:
     void onIndentationChanged(const bool indentationEnabled, const int newIndentation);
     void onShortcutDelete();
     void onShortcutInsert();
+    void onShortcutAppend();
     void removeNilAttribute();
     void insertNilAttribute();
     void removeXSITypeAttribute();

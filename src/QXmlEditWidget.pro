@@ -442,7 +442,12 @@ SOURCES += xmleditwidget.cpp \
     undo/prefixreplacecommand.cpp \
     modules/namespace/elementnamespace.cpp \
     modules/namespace/elementprefix.cpp \
-    undo/namespaceavoidclashcommand.cpp
+    undo/namespaceavoidclashcommand.cpp \
+    modules/specialized/xinclude/xincludedialog.cpp \
+    modules/specialized/scxml/scxmlroot.cpp \
+    modules/specialized/specificpropertiesdialog.cpp \
+    modules/specialized/xinclude/xincludeeditormanager.cpp \
+    undo/undosimpleeditcommand.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -674,7 +679,12 @@ HEADERS += precompiled_lib.h \
     undo/namespacereplacecommand.h \
     undo/namespacenormalizecommand.h \
     undo/prefixreplacecommand.h \
-    undo/namespaceavoidclashcommand.h
+    undo/namespaceavoidclashcommand.h \
+    modules/specialized/xinclude/xincludedialog.h \
+    modules/specialized/scxml/scxmlroot.h \
+    modules/specialized/specificpropertiesdialog.h \
+    modules/specialized/xinclude/xincludeeditormanager.h \
+    undo/undosimpleeditcommand.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -726,7 +736,10 @@ FORMS += xmleditwidget.ui \
     modules/xsd/schemareferencesdialog.ui \
     modules/replica/replicasettingsdialog.ui \
     modules/xsd/choosefacetdialog.ui \
-    widgets/elementselectiontypewidget.ui
+    widgets/elementselectiontypewidget.ui \
+    modules/specialized/xinclude/xincludedialog.ui \
+    modules/specialized/scxml/scxmlroot.ui \
+    modules/specialized/specificpropertiesdialog.ui
 
 
 symbian {

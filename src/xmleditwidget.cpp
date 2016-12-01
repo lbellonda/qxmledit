@@ -1180,10 +1180,15 @@ void XmlEditWidget::namespaceAvoidClash(const QString &ns, const QString &newPre
 
 //---endregion(namespaces)
 
+void XmlEditWidget::insertSpecial()
+{
+    d->insertSpecial();
+}
 
-
-
-
+void XmlEditWidget::appendSpecial()
+{
+    d->appendSpecial();
+}
 
 
 
