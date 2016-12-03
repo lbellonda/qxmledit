@@ -23,6 +23,7 @@
 #include "namespacemanager.h"
 #include "regola.h"
 #include "modules/specialized/xinclude/xincludeeditormanager.h"
+#include "modules/specialized/scxml/scxmleditormanager.h"
 #include "modules/specialized/specificpropertiesdialog.h"
 #include "utils.h"
 
@@ -124,6 +125,7 @@ const QString NamespaceManager::NoNamespaceSchemaLocationAttributeName("noNamesp
 const QString NamespaceManager::SchemaLocationAttributeName("schemaLocation");
 
 const QString NamespaceManager::XIncludePrefix("xi");
+const QString NamespaceManager::SCXLMPrefix("scxml");
 
 NamespaceManager::NamespaceManager()
 {
@@ -154,7 +156,7 @@ void NamespaceManager::init()
     insertItem(MAVEN_NAMESPACE, MavenPom4Namespace, "http://maven.apache.org/xsd/maven-4.0.0.xsd", QObject::tr("Maven POM 4 (local)"), "local");
     insertItem(GENERIC_NAMESPACE, XHTML11Namespace, "http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd", QObject::tr("XHTML 1.1 (html)"), "html");
     insertItem(XINCLUDE_NAMESPACE, XIncludeNamespace, "https://www.w3.org/2001/XInclude/XInclude.xsd", QObject::tr("XInclude 1.1 (xi)"), XIncludePrefix, new XIncludeEditorManager());
-    insertItem(SCXML_NAMESPACE, SCXMLNamespace, "http://www.w3.org/2011/04/SCXML/scxml.xsd", QObject::tr("SXCML 1.1 (scxml)"), "scxml");
+    insertItem(SCXML_NAMESPACE, SCXMLNamespace, "http://www.w3.org/2011/04/SCXML/scxml.xsd", QObject::tr("SXCML 1.1 (scxml)"), SCXLMPrefix, new SCXMLEditorManager());
 }
 
 DataInterface *NamespaceManager::dataInterface() const
@@ -237,11 +239,18 @@ bool NamespaceManager::insertElement(QWidget *parent, QTreeWidget *tree, Regola 
         foreach(NamespaceHandlerForEdit *handler, _editHandlers.values()) {
             HandlerForInsert* hfi = handler->handlerForInsert(regola, element, isChildOrSibling) ;
             if(NULL != hfi) {
-                handlers.append(hfi);
+                if(!hfi->elements.isEmpty()) {
+                    handlers.append(hfi);
+                } else {
+                    delete hfi;
+                }
             }
         }
+        Utils::TODO_THIS_RELEASE("se in modo speciale, riordinare");
         HandlerForInsert * handler = _insertEditorProvider->handleInsertElementForSpecialized(parent, &handlers);
-        result = handler->handler->handleInsert(tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
+        if(NULL != handler) {
+            result = handler->handler->handleInsert(tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
+        }
         EMPTYPTRLIST(handlers, HandlerForInsert);
     }
     return result;

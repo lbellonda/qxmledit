@@ -246,4 +246,7 @@
         <file>images/replace.skip.next.png</file>
         <file>images/replace.skip.prev.png</file>
     </qresource>
+    <qresource prefix="/SCXML">
+        <file alias="scxmltokens.xml">resources/SCXML/scxmltokens.xml</file>
+    </qresource>
 </RCC>

@@ -98,6 +98,7 @@ public:
     static const QString SchemaLocationAttributeName;
     //
     static const QString XIncludePrefix;
+    static const QString SCXLMPrefix;
 
     // constants for namespaces
     enum EWellKnownNs {

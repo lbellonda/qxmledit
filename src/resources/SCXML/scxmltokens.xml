@@ -1,0 +1,599 @@
+<root>
+<token name="" ref="root">
+    <child name="scxml" min="1" max="1" d="Root element."/>
+</token>
+    <token name="scxml" ref="2">
+        <child name="state" min="0" max="u" d="A compound or atomic state. Occurs zero or more times."/>
+        <child name="parallel" min="0" max="u" d="A parallel state. Occurs zero or more times."/>
+        <child name="final" min="0" max="u" d="A top-level final state in the state machine. Occurs zero or more times. The SCXML processor MUST terminate processing when the state machine reaches this state."/>
+        <child name="datamodel" min="0" max="1" d="Defines part or all of the data model. Occurs 0 or 1 times."/>
+        <child name="script" min="0" max="1" d="Provides scripting capability. Occurs 0 or 1 times."/>
+    </token>
+</root>
+<!--
+scxml
+
+2 Children
+
+    <state> A compound or atomic state. Occurs zero or more times. See 3.3 <state> for details.
+    <parallel> A parallel state. Occurs zero or more times. See 3.4 <parallel> for details.
+    <final> A top-level final state in the state machine. Occurs zero or more times. The SCXML processor MUST terminate processing when the state machine reaches this state. See 3.7 <final> for details.
+    <datamodel> Defines part or all of the data model. Occurs 0 or 1 times. See 5.2 <datamodel>
+    <script> Provides scripting capability. Occurs 0 or 1 times. 5.8 <script>
+
+		$$$$$
+<state>
+	3.3.2 Children
+
+	    <onentry> Optional element holding executable content to be run upon entering this <state>. Occurs 0 or more times. See 3.8 <onentry>
+	    <onexit> Optional element holding executable content to be run when exiting this <state>. Occurs 0 or more times. See 3.9 <onexit>
+	    <transition> Defines an outgoing transition from this state. Occurs 0 or more times. See 3.5 <transition>
+	    <initial> In states that have substates, an optional child which identifies the default initial state. Any transition which takes the parent state as its target will result in the state machine also taking the transition contained inside the <initial> element. See 3.6 <initial>
+	    <state> Defines a sequential substate of the parent state. Occurs 0 or more times.
+	    <parallel> Defines a parallel substate. Occurs 0 or more times. See 3.4 <parallel>
+	    <final>. Defines a final substate. Occurs 0 or more times. See 3.7 <final>.
+	    <history> A child pseudo-state which records the descendant state(s) that the parent state was in the last time the system transitioned from the parent. May occur 0 or more times. See 3.10 <history>.
+	    <datamodel> Defines part or all of the data model. Occurs 0 or 1 times. See 5.2 <datamodel>
+	    <invoke> Invokes an external service. Occurs 0 or more times. See 6.4 <invoke> for details.
+
+
+
+
+3.4 <parallel>
+3.4.2 Children
+
+    <onentry> Holds executable content to be run upon entering the <parallel> element. Occurs 0 or more times. See 3.8 <onentry>
+    <onexit> Holds executable content to be run when exiting this element. Occurs 0 or more times. See 3.9 <onexit>
+    <transition> Defines an outgoing transition from this state. Occurs 0 or more times. See 3.5 <transition>
+    <state> Defines a parallel substate region. Occurs 0 or more times. See 3.3 <state>.
+    <parallel> Defines a nested set of parallel regions. Occurs 0 or more times.
+    <history> A child which represents the state configuration that this state was in the last time the system transitioned from it. A transition with this history pseudo-state as its target is in fact a transition to the set of descendant states that were active the last time this state was exited. Occurs 0 or more times. See 3.10 <history>.
+    <datamodel> Defines part or all of the data model. Occurs 0 or 1 times. See 5.2 <datamodel>
+    <invoke> Invokes an external service. Occurs 0 or more times. See 6.4 <invoke> for details.
+
+
+
+
+3.5 <transition>
+
+3.5.2 Children
+
+    The children of <transition> are executable content that is run after all the <onexit> handlers and before the all <onentry> handlers that are triggered by this transition. See 4 Executable Content
+
+A conformant SCXML document MUST specify at least one of 'event', 'cond' or 'target'. 3.13 Selecting and Executing Transitions contains more detail on the semantics of transitions.
+
+
+
+3.6 <initial>
+3.6.2 Children
+
+    <transition> A transition whose 'target' specifies the default initial state(s). Occurs once. In a conformant SCXML document, this transition MUST NOT contain 'cond' or 'event' attributes, and MUST specify a non-null 'target' whose value is a valid state specification consisting solely of descendants of the containing state (see 3.11 Legal State Configurations and Specifications for details). This transition MAY contain executable content.
+
+
+
+
+3.7 <final>
+3.7.2 Children
+
+    <onentry> Optional element holding executable content to be run upon entering this state. Occurs 0 or more times. See 3.8 <onentry> for details.
+    <onexit> Optional element holding executable content to be run when exiting this state. Occurs 0 or more times. See 3.9 <onexit> for details.
+    <donedata> Optional element specifying data to be included in the done.state.id or done.invoke.id event. See 5.5 <donedata> for details.
+
+When the state machine enters the <final> child of a <state> element, the SCXML Processor MUST generate the event done.state.id after completion of the <onentry> elements, where id is the id of the parent state. Immediately thereafter, if the parent <state> is a child of a <parallel> element, and all of the <parallel>'s other children are also in final states, the Processor MUST generate the event done.state.id where id is the id of the <parallel> element.
+
+When the state machine reaches the <final> child of an <scxml> element, it MUST terminate. See D Algorithm for SCXML Interpretation for details. If the SCXML session was triggered as the result by an <invoke> element in another session, the SCXML processor MUST generate the event done.invoke.id after termination and return it to the other session, where id is the unique identifier generated when the <invoke> element was executed. See 6.4 <invoke> for details.
+
+
+
+
+
+3.8 <onentry>
+
+[This section is normative.]
+
+A wrapper element containing executable content to be executed when the state is entered.
+3.8.1 Attribute Details
+
+None.
+3.8.2 Children
+
+The children of the <onentry> handler consist of executable content as defined in 4 Executable Content.
+
+The SCXML processor MUST execute the <onentry> handlers of a state in document order when the state is entered. In doing so, it MUST treat each handler as a separate block of executable content.
+
+3.9 <onexit>
+
+[This section is normative.]
+
+A wrapper element containing executable content to be executed when the state is exited.
+3.9.1 Attribute Details
+
+None.
+3.9.2 Children
+
+The children of the <onexit> handler consist of executable content as defined in 4 Executable Content.
+
+The SCXML processor MUST execute the <onexit> handlers of a state in document order when the state is exited. In doing so, it MUST treat each handler as a separate block of executable content.
+
+
+3.10 <history>
+
+The <history> pseudo-state allows a state machine to remember its state configuration. A <transition> taking the <history> state as its target will return the state machine to this recorded configuration.
+3.10.1 Attribute Details
+Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+id 	false 		ID 	none 	A valid id as defined in [XML Schema] 	Identifier for this pseudo-state. See 3.14 IDs for details.
+type 	false 		enum 	"shallow" 	"deep" or "shallow" 	Determines whether the active atomic substate(s) of the current state or only its immediate active substate(s) are recorded.
+3.10.2 Children
+
+    <transition> A transition whose 'target' specifies the default history configuration. Occurs once. In a conformant SCXML document, this transition MUST NOT contain 'cond' or 'event' attributes, and MUST specify a non-null 'target' whose value is a valid state specification (see 3.11 Legal State Configurations and Specifications). This transition MAY contain executable content. If 'type' is "shallow", then the 'target' of this <transition> MUST contain only immediate children of the parent state. Otherwise it MUST contain only descendants of the parent. Occurs once. (Note that under the definition of a legal state specification, if the parent of the history element is <state> and the default state specification contains a multiple states, then, in a conformant SCXML document, the 'type' of the history element MUST be "deep" and the states MUST be atomic descendants of a <parallel> element that is itself a descendant of the parent <state> element.)
+
+If the 'type' of a <history> element is "shallow", the SCXML processor MUST record the immediately active children of its parent before taking any transition that exits the parent. If the 'type' of a <history> element is "deep", the SCXML processor MUST record the active atomic descendants of the parent before taking any transition that exits the parent. After the parent state has been visited for the first time, for each <history> element, we define the set of states that the processor has recorded to be the 'stored state configuration' for that history state. We also define the states specified by the 'target' of the <history> element's <transition> child to be the 'default stored state configuration' for that element. If a transition is executed that takes the <history> state as its target, the behavior depends on whether the parent state has been visited before. If it has, the SCXML processor MUST behave as if the transition had taken the stored state configuration for that history state as its target. If it has not, the SCXML processor MUST behave as if the transition had taken the default stored state configuration for that history state as its target. The Process MUST execute any executable content in the transition after the parent state's onentry handlers, and, in the case where the history pseudo-state is the target of an <initial> transition, the executable content inside the <initial> transition. (Note that in a conformant SCXML document, a <state> or <parallel> element MAY have both "deep" and "shallow" <history> children.)
+
+
+
+3.11 Legal State Configurations and Specifications
+
+[This section is normative.]
+
+[Definition: A <state> or <parallel> element is active if it has been entered by a transition and has not subsequently been exited.]
+
+[Definition: The state configuration of a state machine is the set of currently active states. ]
+
+An SCXML document places the state machine in an initial state configuration at initialization time (via the 'initial' attribute of the <scxml> element). Each transition that the state machine takes thereafter places the state machine in another state configuration (which need not be distinct from the former one.) A conformant SCXML document MUST place the state machine only in legal state configurations, where a legal state configuration is one that meets the following conditions:
+
+    The configuration contains exactly one child of the <scxml> element.
+    The configuration contains one or more atomic states.
+    When the configuration contains an atomic state, it contains all of its <state> and <parallel> ancestors.
+    When the configuration contains a non-atomic <state>, it contains one and only one of the state's children.
+    If the configuration contains a <parallel> state, it contains all of its children.
+
+It follows from this definition that if a state machine is in more than one atomic state, the atomic states can be traced back through a chain of <state> or <parallel> ancestors to a single <parallel> ancestor.
+
+The 'target' attribute of a <transition> (or the 'initial' attribute of a <state> or <scxml> element) do not in the general case specify a full legal state configuration since 1) they can contain <parallel> or non-atomic <state> elements 2) they do not contain the ancestors of the states in the list. We therefore define a legal state specification to be a set of states such that 1) no state is an ancestor of any other state on the list, and 2) a full legal state configuration results when all ancestors and default initial descendants have been added. (Note that the process of adding default initial descendants is recursive, since the 'initial' value may itself be non-atomic.) In a conformant SCXML document, the value of an 'initial' attribute or the 'target' of a <transition> MUST either be empty or contain a legal state specification.
+
+In a conformant SCXML document, there is an additional requirement on the value of the 'initial' attribute of a <state> and on the 'target' of a <transition> inside an <initial> or <history> element: all the states MUST be descendants of the containing <state> or <parallel> element.
+
+
+
+
+4.2 <raise>
+
+[This section is normative.]
+
+The <raise> element raises an event in the current SCXML session. Note that the event will not be processed until the current block of executable content has completed and all events that are already in the internal event queue have been processed. For example, suppose the <raise> element occurs first in the <onentry> handler of state S followed by executable content elements ec1 and ec2. If event e1 is already in the internal event queue when S is entered, the event generated by <raise> will not be processed until ec1 and ec2 have finished execution and e1 has been processed.
+4.2.2 Children
+None.
+
+The SCXML processor MUST place the event that is generated at the rear of the session's internal event queue.
+
+4.3 <if>
+
+[This section is normative.]
+
+<if> is a container for conditionally executed elements.
+4.3.1 Attribute Details
+Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+cond 	true 		Conditional expression 	none 	A valid conditional expression 	A boolean expression. See 5.9.1 Conditional Expressions for details.
+4.3.2 Children
+
+    <elseif> Occurs 0 or more times. See 4.4 <elseif>
+    <else> Occurs 0 or 1 times. See 4.5 <else>
+    The other children of <if> consist of executable content. Note that since <if> itself is executable content, nested <if> statements are allowed.
+
+The behavior of <if> is defined in terms of partitions of executable content. The first partition consists of the executable content between the <if> and the first <elseif>, <else> or </if> tag. Each <elseif> tag defines a partition that extends from it to the next <elseif>, <else> or </if> tag. The <else> tag defines a partition that extends from it to the closing </if> tag. In a conformant SCXML document, a partition MAY be empty. In a conformant SCXML document, <else> MUST occur after all <elseif> tags.
+
+When the <if> element is executed, the SCXML processor MUST execute the first partition in document order that is defined by a tag whose 'cond' attribute evaluates to true, if there is one. Otherwise, it MUST execute the partition defined by the <else> tag, if there is one. Otherwise it MUST NOT execute any of the executable content.
+
+4.4 <elseif>
+
+[This section is normative.]
+4.4.1 Overview
+
+<elseif> is an empty element that partitions the content of an <if>, and provides a condition that determines whether the partition is executed.
+
+
+
+	4.5 <else>
+
+	[This section is normative.]
+	4.5.1 Overview
+
+	<else> is an empty element that partitions the content of an <if>. It is equivalent to an <elseif> with a "cond" that always evaluates to true.
+	4.5.2 Attribute Details
+
+	None.
+
+
+
+	4.6 <foreach>
+
+	[This section is normative.]
+	4.6.1 Overview
+
+	The <foreach> element allows an SCXML application to iterate through a collection in the data model and to execute the actions contained within it for each item in the collection.
+	4.6.2 Attribute Details
+	Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+	array 	true 		Value expression 	none 	A value expression that evaluates to an iterable collection. 	The <foreach> element will iterate over a shallow copy of this collection.
+	item 	true 		xsd:string 	none 	Any variable name that is valid in the specified data model. 	A variable that stores a different item of the collection in each iteration of the loop.
+	index 	false 		xsd:string 	none 	Any variable name that is valid in the specified data model. 	A variable that stores the current iteration index upon each iteration of the foreach loop.
+	4.6.3 Children
+
+	The children of <foreach> consist of one or more items of executable content. (Note that they are considered to be part of the same block of executable content as the parent <foreach> element.)
+
+	The SCXML processor MUST declare a new variable if the one specified by 'item' is not already defined. If 'index' is present, the SCXML processor MUST declare a new variable if the one specified by 'index' is not already defined. If 'array' does not evaluate to a legal iterable collection, or if 'item' does not specify a legal variable name, the SCXML processor MUST terminate execution of the <foreach> element and the block that contains it, and place the error error.execution on the internal event queue.
+
+	The SCXML processor MUST act as if it has made a shallow copy of the collection produced by the evaluation of 'array'. Specifically, modifications to the collection during the execution of <foreach> MUST NOT affect the iteration behavior. The SCXML processor MUST start with the first item in the collection and proceed to the last item in the iteration order that is defined for the collection. (This order depends on the data model in use. ) For each item in turn, the processor MUST assign it to the item variable. (Note that the assigned value MAY be null or undefined if the collection contains a null or undefined item.) After making the assignment, the SCXML processor MUST evaluate its child executable content. It MUST then proceed to the next item in iteration order. If the evaluation of any child element causes an error, the processor MUST cease execution of the <foreach> element and the block that contains it. (Note that SCXML does not provide break functionality to interrupt <foreach>, however targetless and/or eventless transitions can provide sophisticated iterative behavior within the SCXML application itself.)
+
+
+
+	4.7 <log>
+
+	[This section is normative.]
+	4.7.1 Overview
+
+	<log> allows an application to generate a logging or debug message.
+	4.7.2 Attribute Details
+	Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+	label 	false 		string 	empty string 		A character string with an implementation-dependent interpretation. It is intended to provide meta-data about the log string specified by 'expr'.
+	expr 	false 		Value expression 	none 		An expression returning the value to be logged. See 5.9.3 Legal Data Values and Value Expressions for details. The nature of the logging mechanism is implementation-dependent. For example, the SCXML processor may convert this value to a convenient format before logging it.
+	4.7.3 Children
+
+	None.
+
+	The manner in which the message is displayed or logged is platform-dependent. The SCXML processor MUST ensure that <log> has no side-effects on document interpretation.
+
+
+
+	4.8 Other Executable Content
+
+	[This section is normative.]
+
+	The following elements of executable content are defined elsewhere in this specification. They MAY occur wherever executable content is allowed and MUST NOT occur anyplace else.
+
+	    <assign>. Changes the value of a location in the data model. See 5.4 <assign> for details.
+	    <script>. Provides scripting capabilities. See 5.8 <script> for details.
+	    <send>. Sends an event to a specified destination. See 6.2 <send> for details.
+	    <cancel>. Cancels an event that was to be sent See 6.3 <cancel> for details.
+
+
+
+
+			5.2 <datamodel>
+
+			[This section is normative.]
+
+			<datamodel> is a wrapper element which encapsulates any number of <data> elements, each of which defines a single data object. The exact nature of the data object depends on the data model language used.
+			5.2.1 Attribute Details
+
+			None.
+			5.2.2 Children
+
+			    <data> Occurs 0 or more times. Each instance defines a named data element.
+
+
+
+					5.3 <data>
+
+					[This section is normative.]
+
+					The <data> element is used to declare and populate portions of the data model.
+					5.3.1 Attribute Details
+					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+					id 	true 		ID 	none 		The name of the data item. See 3.14 IDs for details.
+					src 	false 		URI 	none 		Gives the location from which the data object should be fetched. See 5.9.3 Legal Data Values and Value Expressions for details.
+					expr 	false 		Expression 	none 	Any valid value expression 	Evaluates to provide the value of the data item. See 5.9.3 Legal Data Values and Value Expressions for details.
+					5.3.2 Children
+
+					The children of the <data> element represent an in-line specification of the value of the data object.
+
+					In a conformant SCXML document, a <data> element MAY have either a 'src' or an 'expr' attribute, but MUST NOT have both. Furthermore, if either attribute is present, the element MUST NOT have any children. Thus 'src', 'expr' and children are mutually exclusive in the <data> element.
+
+					The SCXML Processor MUST use any values provided by the environment at instantiation time in place of those contained in the top-level <data> elements. (Top-level data elements are those that are children of the <datamodel > element that is a child of <scxml>). The manner in which the environment specifies these overriding values is platform-dependent.
+
+					If the 'expr' attribute is present, the Platform MUST evaluate the corresponding expression at the time specified by the 'binding' attribute of <scxml> and MUST assign the resulting value as the value of the data element. If the 'src' attribute is present, the Platform MUST fetch the specified object at the time specified by the 'binding' attribute of <scxml> and MUST assign it as the value of the data element. If child content is specified, the Platform MUST assign it as the value of the data element at the time specified by the 'binding' attribute of <scxml>. Note that in the latter two cases, the interpretation of the object or content will depend on the data model. See B Data Models for details. If the value specified for a <data> element (by 'src', children, or the environment) is not a legal data value, the SCXML Processor MUST raise place error.execution in the internal event queue and MUST create an empty data element in the data model with the specified id.
+
+					Implementations MAY predeclare and predefine variables in the data model. However, conformant SCXML implementations SHOULD NOT assume the existence of any predeclared or predefined variables (i.e., ones not explicitly defined by <data>).
+
+					Note that this specification does not define any way to modify the data model except by<assign>, <finalize>, and possibly platform-specific elements of executable content. In particular, no means is defined for external entities to modify the data model. In this sense the data model is local to the SCXML session and the SCXML Processor checks for eventless transitions (i.e. ones that are triggered based only on the state of the data model) only after entering a state or processing an event. However in some deployments it may be possible for external entities to modify the data model. For example, if SCXML is implemented in JavaScript in a browser, the scope of a document's data model is always accessible through the main window object and thus JavaScript code elsewhere in the window can modify the data model independent of the SCXML interpretation algorithm. Such a situation can lead to race conditions and unpredictable behavior
+
+
+
+
+					5.4 <assign>
+
+					[This section is normative.]
+
+					The <assign> element is used to modify the data model.
+					5.4.1 Attribute Details
+					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+					location 	true 		path expression 	none 	Any valid location expression. 	The location in the data model into which to insert the new value. See 5.9.2 Location Expressions for details.
+					expr 	false 	This attribute must not occur in an <assign> element that has children. 	value expression 	none 	Any valid value expression 	An expression returning the value to be assigned. See 5.9.3 Legal Data Values and Value Expressions for details.
+					5.4.2 Children
+
+					The children of the <assign>element provide an in-line specification of the legal data value (see 5.9.3 Legal Data Values and Value Expressions) to be inserted into the data model at the specified location.
+
+					A conformant SCXML document MUST specify either "expr" or children of <assign>, but not both.
+
+					Assignment to a data model is done by using a location expression to denote the part of the data model where the insertion is to be made. If the location expression does not denote a valid location in the data model or if the value specified (by 'expr' or children) is not a legal value for the location specified, the SCXML Processor MUST place the error 'error.execution' in the internal event queue. Otherwise, the SCXML Processor MUST place the specified value at the specified location. Note that the nature of the insertion and the definition of a legal value depends on the data model language used. Note also that data models MAY support additional attributes for <assign> beyond those specified here. See B Data Models for details.
+					
+					
+
+					5.5 <donedata>
+
+					[This section is normative.]
+
+					A wrapper element holding data to be returned when a <final> state is entered.
+					5.5.1 Attribute Details
+
+					None.
+					5.5.2 Children
+
+					    <content>. Specifies data to include in the event. May occur 0 or 1 times. See 5.6 <content> .
+					    <param> Extracts data from the data model to include in the event. See 5.7 <param> for details. May occur 0 or more times.
+
+					A conformant SCXML document MUST specify either a single <content> element or one or more <param> elements as children of <donedata>, but not both.
+
+					In cases where the SCXML Processor generates a 'done' event upon entry into the final state, it MUST evaluate the <donedata> elements <param> or <content> children and place the resulting data in the _event.data field. The exact format of that data will be determined by the data model (see B Data Models for details). In other cases (namely when the <final> element is a child of <scxml> and the state machine has not been triggered by <invoke>), the SCXML Processor SHOULD return the data to the environment in an implementation-dependent manner.
+					
+					
+					
+
+					5.6 <content>
+
+					[This section is normative.]
+
+					A container element holding data to be passed to an external service.
+					5.6.1 Attribute Details
+					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+					expr 	false 	must not occur with child content 	Value expression 	none 	Any valid value expression 	A value expression. See 5.9.3 Legal Data Values and Value Expressions for details.
+					5.6.2 Children
+
+					A conformant SCXML document MUST NOT specify both the 'expr' attribute and child content. When present, the children of <content> MAY consist of text, XML from any namespace, or a mixture of both.
+
+					The use of the <content> element depends on the context in which it occurs. See 5.5 <donedata>, 6.2 <send> and 6.4 <invoke> for details. When the SCXML Processor evaluates the <content> element, if the 'expr' value expression is present, the Processor MUST evaluate it and use the result as the output of the <content> element. If the evaluation of 'expr' produces an error, the Processor MUST place error.execution in the internal event queue and use the empty string as the value of the <content> element. If the 'expr' attribute is not present, the Processor MUST use the children of <content> as the output. The interpretation of the output of the <content> element depends on the data model. See B Data Models for details. For the use of namespaces inside <content>, see G.6 Inline Content and Namespaces.
+					
+					
+					
+					
+					5.7 <param>
+
+					[This section is normative.]
+
+					The <param> tag provides a general way of identifying a key and a dynamically calculated value which can be passed to an external service or included in an event.
+					5.7.1 Attribute Details
+					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+					name 	true 		NMTOKEN 	none 	A string literal 	The name of the key.
+					expr 	false 	May not occur with 'location' 	value expression 	none 	Valid value expression 	A value expression (see 5.9.3 Legal Data Values and Value Expressions) that is evaluated to provide the value.
+					location 	false 	May not occur with 'expr' 	location expression 	none 	Valid location expression 	A location expression (see 5.9.2 Location Expressions) that specifies the location in the datamodel to retrieve the value from.
+
+					A conformant SCXML document MUST specify either the 'expr' attribute of <param> or the 'location' attribute, but MUST NOT specify both. If the 'location' attribute does not refer to a valid location in the data model, or if the evaluation of the 'expr' produces an error, the SCXML Processor MUST place the error 'error.execution' on the internal event queue and MUST ignore the name and value. Otherwise the use of the name and value depends on the context in which the <param> element occurs. See 5.5 <donedata>, 6.2 <send> and 6.4 <invoke> for details.
+					5.7.2 Children
+
+					None.
+					
+					
+					5.8 <script>
+
+					[This section is normative.]
+
+					The <script> element adds scripting capability to the state machine.
+					5.8.1 Attribute Details
+					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+					src 	false 	May not occur if the element has children. 		none 	A valid URI 	Gives the location from which the script should be downloaded.
+					5.8.2 Children
+
+					The child content of the <script> element represents the script code to be executed.
+
+					A conformant SCXML document MUST specify either the 'src' attribute or child content, but not both. If 'src' is specified, the SCXML Processor MUST download the script from the specified location at load time. If the script can not be downloaded within a platform-specific timeout interval, the document is considered non-conformant, and the platform MUST reject it.
+
+					The SCXML Processor MUST evaluate any <script> element that is a child of <scxml> at document load time. It MUST evaluate all other <script> elements as part of normal executable content evaluation.
+
+					In a conformant SCXML document, the name of any script variable MAY be used as a location expression (see 5.9.2 Location Expressions).
+
+					For an example of a data model incorporating scripting, see B.2 The ECMAScript Data Model.
+					
+					
+					6.2 <send>
+
+					[This section is normative.]
+					6.2.1 Overview
+
+					<send> is used to send events and data to external systems, including external SCXML Interpreters, or to raise events in the current SCXML session.
+
+
+
+
+						6.2 <send>
+
+						[This section is normative.]
+						6.2.1 Overview
+
+						<send> is used to send events and data to external systems, including external SCXML Interpreters, or to raise events in the current SCXML session.
+						6.2.2 Attribute Details
+						Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+						event 	false 	Must not occur with 'eventexpr'. If the type is http://www.w3.org/TR/scxml/#SCXMLEventProcessor, either this attribute or 'eventexpr' must be present. 	EventType.datatype 	none 		A string indicating the name of message being generated. See E Schema for details on the data type.
+						eventexpr 	false 	Must not occur with 'event'. If the type is http://www.w3.org/TR/scxml/#SCXMLEventProcessor, either this attribute or 'event' must be present. 	Value expression 	none 		A dynamic alternative to 'event'. If this attribute is present, the SCXML Processor MUST evaluate it when the parent <send> element is evaluated and treat the result as if it had been entered as the value of 'event'.
+						target 	false 	Must not occur with 'targetexpr' 	URI 	none 	A valid target URI 	The unique identifier of the message target that the platform should send the event to. See 6.2.4 The Target of Send for details.
+						targetexpr 	false 	Must not occur with 'target' 	Value expression 	none 	An expression evaluating to a valid target URI 	A dynamic alternative to 'target'. If this attribute is present, the SCXML Processor MUST evaluate it when the parent <send> element is evaluated and treat the result as if it had been entered as the value of 'target'.
+						type 	false 	Must not occur with 'typeexpr' 	URI 	none 		The URI that identifies the transport mechanism for the message. See 6.2.5 The Type of Send for details.
+						typeexpr 	false 	Must not occur with 'type' 	value expression 	none 		A dynamic alternative to 'type'. If this attribute is present, the SCXML Processor MUST evaluate it when the parent <send> element is evaluated and treat the result as if it had been entered as the value of 'type'.
+						id 	false 	Must not occur with 'idlocation'. 	xml:ID 	none 	Any valid token 	A string literal to be used as the identifier for this instance of <send>. See 3.14 IDs for details.
+						idlocation 	false 	Must not occur with 'id'. 	Location expression 	none 	Any valid location expression 	Any location expression evaluating to a data model location in which a system-generated id can be stored. See below for details.
+						delay 	false 	Must not occur with 'delayexpr' or when the attribute 'target' has the value "_internal". 	Duration.datatype 	None 	A time designation as defined in CSS2 [CSS2] format 	Indicates how long the processor should wait before dispatching the message. See E Schema for details on the data type.
+						delayexpr 	false 	Must not occur with 'delay' or when the attribute 'target' has the value "_internal". 	Value expression 	None 	A value expression which returns a time designation as defined in CSS2 [CSS2] format 	A dynamic alternative to 'delay'. If this attribute is present, the SCXML Processor MUST evaluate it when the parent <send> element is evaluated and treat the result as if it had been entered as the value of 'delay'.
+						namelist 	false 	Must not be specified in conjunction with <content> element. 	List of location expressions 	none 	List of valid location expressions 	A space-separated list of one or more data model locations to be included as attribute/value pairs with the message. (The name of the location is the attribute and the value stored at the location is the value.) See 5.9.2 Location Expressions for details.
+						6.2.3 Children
+
+						    <param>. The SCXML Processor MUST evaluate this element when the parent <send> element is evaluated and pass the resulting data to the external service when the message is delivered. Occurs 0 or more times. See 5.7 <param> for details.
+						    <content>. The SCXML Processor MUST evaluate this element when the parent <send> element is evaluated and pass the resulting data to the external service when the message is delivered. Occurs 0 or 1 times. See 5.6 <content> for details.
+
+						A conformant SCXML document MUST specify exactly one of 'event', 'eventexpr' and <content>. A conformant document MUST NOT specify "namelist" or <param> with <content>.
+
+						The SCXML Processor MUST include all attributes and values provided by <param> or 'namelist' even if duplicates occur.
+
+						If 'idlocation' is present, the SCXML Processor MUST generate an id when the parent <send> element is evaluated and store it in this location. See 3.14 IDs for details.
+
+						If a delay is specified via 'delay' or 'delayexpr', the SCXML Processor MUST interpret the character string as a time interval. It MUST dispatch the message only when the delay interval elapses. (Note that the evaluation of the send tag will return immediately.) The Processor MUST evaluate all arguments to <send> when the <send> element is evaluated, and not when the message is actually dispatched. If the evaluation of <send>'s arguments produces an error, the Processor MUST discard the message without attempting to deliver it. If the SCXML session terminates before the delay interval has elapsed, the SCXML Processor MUST discard the message without attempting to deliver it.
+						6.2.4 The Target of Send
+
+						The target of the <send> operation specifies the destination of the event. The target is defined by either the 'target' or the 'targetexpr' attribute. In most cases, the format of the target depends on the type of the target (for example a SIP URL for SIP-INFO messages or a HTTP URL for Web Services). If the value of the 'target' or 'targetexpr' attribute is not supported or invalid, the Processor MUST place the error error.execution on the internal event queue. If it is unable to dispatch the message, the Processor MUST place the error error.communication on the internal event queue.
+						6.2.5 The Type of Send
+
+						The type of the <send> operation specifies the method that the SCXML processor MUST use to deliver the message to its target. A conformant SCXML document MAY use either the 'type' or the 'typeexpr' attribute to define the type. If neither the 'type' nor the 'typeexpr' is defined, the SCXML Processor MUST assume the default value of http://www.w3.org/TR/scxml/#SCXMLEventProcessor. If the SCXML Processor does not support the type that is specified, it MUST place the event error.execution on the internal event queue.
+
+						SCXML Processors MUST support the following type:
+						Value 	Details
+						http://www.w3.org/TR/scxml/#SCXMLEventProcessor 	Target is an SCXML session. The transport mechanism is platform-specific.
+
+						For details on the http://www.w3.org/TR/scxml/#SCXMLEventProcessor type, see C.1 SCXML Event I/O Processor.
+
+						Support for HTTP POST is optional, however Processors that support it must use the following value for the "type" attribute:
+						Value 	Details
+						http://www.w3.org/TR/scxml/#BasicHTTPEventProcessor 	Target is a URL. Data is sent via HTTP POST
+
+						For details on the http://www.w3.org/TR/scxml/#BasicHTTPEventProcessor type, see C.2 Basic HTTP Event I/O Processor.
+
+						Processors MAY support other types such as web-services, SIP or basic HTTP GET. When they do so, they SHOULD assign such types the URI of the description of the relevant Event I/O Processor. Processors MAY define short form notations as an authoring convenience (e.g., "scxml" as equivalent to http://www.w3.org/TR/scxml/#SCXMLEventProcessor).
+						6.2.6 Message Content
+
+						The sending SCXML Interpreter MUST not alter the content of the <send> and MUST include it in the message that it sends to the destination specified in the target attribute of <send>.
+
+						Note that the document author can specify the message content in one of two mutually exclusive ways:
+
+						    An optional 'event' attribute, combined with an optional 'namelist' attribute, combined with 0 or more <param> children. Here is an example using the 'event' and 'namelist' attributes:
+
+						    <datamodel>
+						    <data id="target" expr="'tel:+18005551212'"/>
+						    <data id="content" expr="'http://www.example.com/mycontent.txt'"/>
+						    </datamodel>
+						       ...
+						    <send target="target" type="x-messaging" event="fax.SEND" namelist="content"/>
+
+						    A single <content> child containing inline content specifying the message body. See 5.6 <content> for details.
+
+						    <send target="csta://csta-server.example.com/" type="x-csta">
+						          <content>
+						          <csta:MakeCall>
+						            <csta:callingDevice>22343</callingDevice>
+						            <csta:calledDirectoryNumber>18005551212</csta:calledDirectoryNumber>
+						          </csta:MakeCall>
+						          </content>
+						    </send>
+
+						Note that the absence of any error events does not mean that the event was successfully delivered to its target, but only that the platform was able to dispatch the event.
+
+
+
+
+						6.3 <cancel>
+
+						[This section is normative.]
+
+						The <cancel> element is used to cancel a delayed <send> event. The SCXML Processor MUST NOT allow <cancel> to affect events that were not raised in the same session. The Processor SHOULD make its best attempt to cancel all delayed events with the specified id. Note, however, that it can not be guaranteed to succeed, for example if the event has already been delivered by the time the <cancel> tag executes.
+						6.3.1 Attribute Details
+						Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+						sendid 	false 	Must not occur with sendidexpr. 	IDREF 	none 	The sendid of a delayed event 	The ID of the event(s) to be cancelled. If multiple delayed events have this sendid, the Processor will cancel them all.
+						sendidexpr 	false 	Must not occur with sendid. 	Value Expression 	none 	Any expression that evaluates to the ID of a delayed event 	A dynamic alternative to 'sendid'. If this attribute is present, the SCXML Processor MUST evaluate it when the parent <cancel> element is evaluated and treat the result as if it had been entered as the value of 'sendid'.
+
+						A conformant SCXML document MUST specify exactly one of sendid or sendidexpr.
+						6.3.2 Children
+
+						None
+						6.4 <invoke>
+
+						[This section is normative.]
+
+						The <invoke> element is used to create an instance of an external service.
+						6.4.1 Attribute Details
+						Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
+						type 	false 	Must not occur with the 'typeexpr' attribute. 	URI 	none 	http://www.w3.org/TR/scxml/, http://www.w3.org/TR/ccxml/, http://www.w3.org/TR/voicexml30/, http://www.w3.org/TR/voicexml21/ plus other platform-specific values. 	A URI specifying the type of the external service. See below for details.
+						typeexpr 	false 	Must not occur with the 'type' attribute. 	value expression 	none 	Any value expression that evaluates to a URI that would be a valid value for 'type'. 	A dynamic alternative to 'type'. If this attribute is present, the SCXML Processor MUST evaluate it when the parent <invoke> element is evaluated and treat the result as if it had been entered as the value of 'type'.
+						src 	false 	Must not occur with the 'srcexpr' attribute or the <content> element. 	URI 	None 	Any URI. 	A URI to be passed to the external service. See below for details.
+						srcexpr 	false 	Must not occur with the 'src' attribute or the <content> element. 	Value expression 	None 	Any expression evaluating to a valid URI. 	A dynamic alternative to 'src'. If this attribute is present, the SCXML Processor MUST evaluate it when the parent <invoke> element is evaluated and treat the result as if it had been entered as the value of 'src'.
+						id 	false 	Must not occur with the 'idlocation' attribute. 	ID 	none 	Any valid token 	A string literal to be used as the identifier for this instance of <invoke>. See 3.14 IDs for details.
+						idlocation 	false 	Must not occur with the 'id' attribute. 	Location expression 	none 	Any valid location expression 	Any data model expression evaluating to a data model location. See 5.9.2 Location Expressions for details.
+						namelist 	false 	Must not occur with the <param> element. 	List of location expressions 	none 	List of valid location expressions 	A space-separated list of one or more data model locations to be passed as attribute/value pairs to the invoked service. (The name of the location is the attribute and the value stored at the location is the value.) See 6.4.4 Data Sharing and 5.9.2 Location Expressions for details.
+						autoforward 	false 		boolean 	false 	true or false 	A flag indicating whether to forward events to the invoked process. See below for details.
+						6.4.2 Children
+
+						    <param>. Element containing data to be passed to the external service. Occurs 0 or more times. See 5.7 <param>.
+						    <finalize>. Element containing executable content to massage the data returned from the invoked component. Occurs 0 or 1 times. See 6.5 <finalize> for details.
+						    <content>. The SCXML Processor MUST evaluate this element when the parent <invoke> element is evaluated and pass the resulting data to the invoked service. Occurs 0 or 1 times. See 5.6 <content> for details.
+
+						Platforms MUST support http://www.w3.org/TR/scxml/ as a value for the 'type' attribute. Platforms MAY support http://www.w3.org/TR/voicexml21/, which indicates a VoiceXML 2.1 interpreter, http://www.w3.org/TR/voicexml30/, which indicates a VoiceXML 3.x interpreter, and http://www.w3.org/TR/ccxml/, which indicates a CCXML 1.0 interpreter. Platforms MAY support additional values, but they SHOULD assign them the URI of a description of the relevant service. Processors MAY define short form notations as an authoring convenience (e.g., "scxml" as equivalent to http://www.w3.org/TR/scxml/).
+
+						A conformant SCXML document MAY specify either the 'id' or 'idlocation' attribute, but MUST NOT specify both. If the 'idlocation' attribute is present, the SCXML Processor MUST generate an id automatically when the <invoke> element is evaluated and store it in the location specified by 'idlocation'. (In the rest of this document, we will refer to this identifier as the "invokeid", regardless of whether it is specified by the author or generated by the platform). The automatically generated identifier MUST have the form stateid.platformid, where stateid is the id of the state containing this element and platformid is automatically generated. platformid MUST be unique within the current session.
+
+						When the <invoke> element is executed, if the evaluation of its arguments produces an error, the SCXML Processor MUST terminate the processing of the element without further action. Otherwise the Processor MUST start a new logical instance of the external service specified in 'type' or 'typeexpr', passing it the URL specified by 'src' or the data specified by <content>, "namelist" or <param>. (Note that the invoked service may ignore some or all of the data passed to it. See 6.4.3 Implementation of <invoke> for a discussion of how the passed data is treated by an invoked SCXML service.) The service instance MAY be local or remote. In addition to the explicit arguments, the Processor MUST keep track of the unique invokeid and ensure that it is included in all events that the invoked service returns to the invoking session.
+
+						When the 'autoforward' attribute is set to true, the SCXML Processor MUST send an exact copy of every external event it receives to the invoked process. All the fields specified in 5.10.1 The Internal Structure of Events MUST have the same values in the forwarded copy of the event. The SCXML Processor MUST forward the event at the point at which it removes it from the external event queue of the invoking session for processing.
+
+						The external service MAY return multiple events while it is processing. If there is a <finalize> handler in the instance of <invoke> that created the service that generated the event, the SCXML Processor MUST execute the code in that <finalize> handler right before it removes the event from the event queue for processing. It MUST NOT execute the <finalize> handler in any other instance of <invoke>. Once the external service has finished processing it MUST return a special event 'done.invoke.id' to the external event queue of the invoking process, where id is the invokeid for the corresponding <invoke> element. The external service MUST NOT generate any other events after this done event. If the invoking session takes a transition out of the state containing the <invoke> before it receives the 'done.invoke.id' event, the SCXML Processor MUST automatically cancel the invoked component and stop its processing. The cancel operation MUST act as if it were the final <onexit> handler in the invoking state.
+
+						Invoked services of type http://www.w3.org/TR/scxml/, http://www.w3.org/TR/ccxml/, http://www.w3.org/TR/voicexml30/, or http://www.w3.org/TR/voicexml21/ MUST interpret values specified by the <content> element or 'src' attribute as markup to be executed. Similarly, they MUST interpret values specified by <param> element or 'namelist' attribute as values that are to be injected into their data models. For targets of other invoked service types, the interpretation of <param> and <content> elements and the 'src' and 'namelist' attributes is platform-specific. However, these services MUST treat values specified by <param> and namelist identically. They MUST also treat values specified by 'src' and <content> identically.
+						6.4.3 Implementation of <invoke>
+
+						The implementation of <invoke>, including communication between parent and child processes, is platform-specific, but the following requirements hold in the case where the invoked process is itself an SCXML session:
+
+						    If the 'name' of a <param> element in the <invoke> matches the 'id' of a <data> element in the top-level data declarations of the invoked session, the SCXML Processor MUST use the value of the <param> element as the initial value of the corresponding <data> element. (The top-level data declarations are those that are contained in the <datamodel> element that is a child of <scxml>.) (Note that this means that any value specified in the <data> element is ignored.) The behavior of 'namelist' is similar. If the value of a key in the namelist matches the 'id' of a <data> element in the top-level data model of the invoked session, the SCXML Processor MUST use the value of the key as the initial value of the corresponding <data> element. If the names do not match, the Processor MUST NOT add the value of the <param> element or namelist key/value pair to the invoked session's data model. However the Processor MAY make the values available by some other platform-specific means.
+						    When the invoked state machine reaches a top-level final state, the Processor MUST place the event done.invoke.id on the external event queue of the invoking machine, where id is the invokeid for this invocation. Note that reaching a top level final state corresponds to normal termination of the machine and that it cannot generate or process any further events once it is in this state.
+						    As described above, if the invoking state machine exits the state containing the invocation before it receives the done.invoke.id event, it cancels the invoked session. The method for doing this is platform-specific. However, when it is cancelled, the invoked session MUST exit at the end of the next microstep. The Processor MUST execute the <onexit> handlers for all active states in the invoked session, but it MUST NOT generate the done.invoke.id event. Once it cancels the invoked session, the Processor MUST ignore any events it receives from that session. In particular it MUST NOT not insert them into the external event queue of the invoking session.
+						    The SCXML Processor MUST support the use of SCXML Event/IO processor (C.1 SCXML Event I/O Processor) to communicate between the invoking and the invoked sessions. The Processor MAY support the use of other Event/IO processors to communicate between the invoking and the invoked sessions.
+
+						6.4.4 Data Sharing
+
+						[This section is informative.]
+
+						The invoked external resource is logically separate from the state machine that invokes it and does not share data with it unless the author explicitly requests this with the <param> or <content> elements and/or the 'src' and 'namelist' attributes.
+
+						The invoked and invoking process can also communicate via events. In addition to automatic forwarding specified by the 'autoforward' attribute. SCXML scripts can also use the <send> tag to send messages to the child process on an ad-hoc basis. The 'type' attribute of <send> is set to the same value as was used in the original <invoke>, while the target has the special form #_invokeid, where invokeid is the identifier corresponding to the original <invoke> tag. For example, in a document using ECMAScript as the data model, the following code would invoke a VoiceXML session:
+
+						  <invoke type="http://www.w3.org/TR/voicexml21/" idlocation="myInvoke"/>
+      
+
+						In this case, the unique invoke identifier has been stored in the data model location MyInvoke. Since the target attribute is an expression which is evaluated, the following code will extract that identifier and send a message to the invoked VoiceXML session:
+
+         
+						  <send type="http://www.w3.org/TR/voicexml21/" targetexpr="'#_' + myInvoke"/>
+           
+
+						Finally, in the case where the invoked external service is an SCXML session, it can use <send> with the special target '_parent' and type 'scxml' to send events, possibly containing data, to the invoking session.
+						6.5 <finalize>
+
+						[This section is normative.]
+
+						The <finalize> element enables an invoking session to update its data model with data contained in events returned by the invoked session. <finalize> contains executable content that is executed whenever the external service returns an event after the <invoke> has been executed. This content is applied before the system looks for transitions that match the event. Within the executable content, the system variable '_event' can be used to refer to the data contained in the event which is being processed.In the case of parallel states, only the finalize code in the original invoking state is executed.
+						6.5.1 Attribute Details
+
+						None.
+						6.5.2 Children
+
+						<finalize>'s children consist of 0 or more elements of executable content.
+
+						In a conformant SCXML document, the executable content inside <finalize> MUST NOT raise events or invoke external actions. In particular, the <send> and <raise> elements MUST NOT occur.
+
+						If one or more elements of executable content is specified, the SCXML Processor MUST execute them each time an event is received from the child process that was created by the parent <invoke> element. The Processor MUST execute them right before the event is pulled off the external event queue for processing. The Processor MUST NOT execute them at any other time or in response to any other events.
+
+						If no executable content is specified, the SCXML Processor MUST update the data model each time an event is received from the child process that was created by the parent <invoke> element. Specifically if the parent <invoke> element contains a 'namelist' attribute or one or more <param> children containing 'location' attributes, then for each item in the 'namelist' attribute and each such <param> element, the Processor MUST update the corresponding location as if by <assign> with any return value that has a name that matches the 'namelist' item or the 'name' of the <param> element. Thus the effect of an <invoke> with an empty <finalize> element and either a 'namelist' attribute or a <param> element with a 'location' attribute is first to send the part of the data model specified by 'namelist' or 'location' to the invoked component and then to update that part of the data model with any returned values that have the same name. Note that the automatic update does not take place if the <finalize> element is absent as opposed to empty.
+
+						In the example below, a state machine using an ECMAScript data model invokes a clock object that returns the current time in a ping event with an XML payload that includes the currentSecond, currentMinute, currentHour (1-12), and an isAm flag. <finalize> maps this data into an ECMAScript date object that is used in the condition of a transition. Thus <finalize> normalizes the data before the conditions on transitions are evaluated.
+
+						<scxml version="1.0" datamodel="ecmascript">
+						....
+						 <state id=”getTime”>
+						   <transition event=”ping” cond=”time.getHours() > 17 || time.getHours() < 9” target=”storeClosed”/>
+						   <transition event=”ping” target=”takeOrder”/>
+						   <datamodel>
+						     <data id=”time” expr=”new Date()”/>
+						   </datamodel>
+						   <invoke id=”timer” type=”x-clock” src=”clock.pl”>
+						     <finalize>
+						       <script>
+						         time.setSeconds(_event.data.currentSecond);
+						         time.setMinutes(_event.data.currentMinute);
+						         time.setHours(_event.data.currentHour + (_event.isAm ? 0 : 12) - 1);
+						       </script>
+						     </finalize>
+						   </invoke>
+						 </state>
+-->

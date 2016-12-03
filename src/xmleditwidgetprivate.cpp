@@ -146,7 +146,7 @@ void XmlEditWidgetPrivate::secondStepConstructor()
     connect(shortcutDelete, SIGNAL(activated()), this, SLOT(onShortcutDelete()));
     connect(shortcutInsert, SIGNAL(activated()), this, SLOT(onShortcutInsert()));
     QShortcut *shortcutAppend = new QShortcut(tree);
-    shortcutAppend->setKey(Qt::Key_Insert+Qt::SHIFT);
+    shortcutAppend->setKey(Qt::Key_Insert + Qt::SHIFT);
     connect(shortcutAppend, SIGNAL(activated()), this, SLOT(onShortcutAppend()));
     recalcRowHeightClass();
 

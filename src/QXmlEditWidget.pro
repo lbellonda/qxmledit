@@ -447,7 +447,12 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/scxmlroot.cpp \
     modules/specialized/specificpropertiesdialog.cpp \
     modules/specialized/xinclude/xincludeeditormanager.cpp \
-    undo/undosimpleeditcommand.cpp
+    undo/undosimpleeditcommand.cpp \
+    modules/specialized/scxml/scxmleditormanager.cpp \
+    modules/specialized/scxml/scxmltokenmanager.cpp \
+    modules/specialized/scxml/scxmltoken.cpp \
+    modules/specialized/scxml/scxmltokenloader.cpp \
+    modules/specialized/scxml/scxmltokens.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -684,7 +689,11 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/scxmlroot.h \
     modules/specialized/specificpropertiesdialog.h \
     modules/specialized/xinclude/xincludeeditormanager.h \
-    undo/undosimpleeditcommand.h
+    undo/undosimpleeditcommand.h \
+    modules/specialized/scxml/scxmleditormanager.h \
+    modules/specialized/scxml/scxmltokenmanager.h \
+    modules/specialized/scxml/scxmltoken.h \
+    modules/specialized/scxml/scxmltokenloader.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
