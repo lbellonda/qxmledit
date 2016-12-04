@@ -21,6 +21,7 @@
  **************************************************************************/
 
 #include "scxmltoken.h"
+#include "scxmlroot.h"
 #include "utils.h"
 
 SCXMLGenericToken::SCXMLGenericToken()
@@ -65,10 +66,14 @@ SCXMLscxmlToken::~SCXMLscxmlToken()
 
 //bool SCXMLscxmlToken::editToken(QWidget *window, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
 //               Element *toModifyElement, Element *selectedElement, Element *parentElement)
-bool SCXMLscxmlToken::editToken(QWidget *, Regola *, const bool , const bool ,
+bool SCXMLscxmlToken::editToken(QWidget *window, Regola *, const bool , const bool ,
                                 Element *, Element *, Element *)
 {
     Utils::TODO_THIS_RELEASE("fare");
+    SCXMLRoot dialog(window);
+    if(dialog.exec() == QDialog::Accepted) {
+        return true;
+    }
     return false;
 }
 

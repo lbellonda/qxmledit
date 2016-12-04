@@ -23,7 +23,6 @@
 #include "xincludeeditormanager.h"
 #include "regola.h"
 #include "modules/specialized/xinclude/xincludedialog.h"
-#include "undo/elinsertcommand.h"
 #include "xmlutils.h"
 #include "utils.h"
 
@@ -53,15 +52,19 @@ bool XIncludeEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Rego
     element->qName(&qName);
     if((qName.ns == NamespaceManager::XIncludeNamespace) && (qName.name == XINCLUDE_TAG)) {
         Element *newElement = new Element(NULL);
-        element->copyTo(*newElement, false);
-        XIncludeDialog dlg(parent, newElement);
-        if(dlg.exec() == QDialog::Accepted) {
-            if(!regola->editElementWrapper(tree, newElement, element)) {
-                Utils::error(parent, QObject::tr("Error applying the editing."));
-                delete newElement ;
+        if(NULL != newElement) {
+            element->copyTo(*newElement, false);
+            XIncludeDialog dlg(parent, newElement);
+            if(dlg.exec() == QDialog::Accepted) {
+                if(regola->editElementWrapper(tree, newElement, element)) {
+                    return true ;
+                } else {
+                    Utils::error(parent, QObject::tr("Error applying the editing."));
+                }
             }
+            delete newElement ;
         }
-        return true;
+        return false;
     }
     return false;
 }
@@ -69,15 +72,17 @@ bool XIncludeEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Rego
 HandlerForInsert *XIncludeEditorManager::handlerForInsert(Regola *, Element *element, const bool isChild)
 {
     bool isFallback = false;
-    Element *theParent = element ;
-    if(!isChild) {
-        theParent = element->parent();
-    }
-    if(NULL != theParent) {
-        QXName qName ;
-        element->qName(&qName);
-        if((qName.ns == NamespaceManager::XIncludeNamespace) && (qName.name == XINCLUDE_TAG)) {
-            isFallback = true;
+    if(NULL != element) {
+        Element *theParent = element ;
+        if(!isChild && (NULL != element)) {
+            theParent = element->parent();
+        }
+        if(NULL != theParent) {
+            QXName qName ;
+            element->qName(&qName);
+            if((qName.ns == NamespaceManager::XIncludeNamespace) && (qName.name == XINCLUDE_TAG)) {
+                isFallback = true;
+            }
         }
     }
 
@@ -132,10 +137,7 @@ bool XIncludeEditorManager::handleInsert(QTreeWidget *tree, Regola *regola, Elem
     }
 
     if(goAhead) {
-        QList<int> destPath = element->indexPathOfNewRelative(isChild);
-        ElInsertCommand *cmd = new ElInsertCommand(tree, regola, newElement, destPath);
-        regola->addUndo(cmd);
-        return true ;
+        return insertAction(tree, regola, element, newElement, isChild);
     }
     delete newElement ;
     return false ;

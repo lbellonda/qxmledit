@@ -3356,6 +3356,9 @@ void XmlEditWidgetPrivate::insertSpecial()
         NamespaceManager *namespaceManager = _appData->namespaceManager();
         if(NULL != namespaceManager) {
             Element *element = getSelectedItem();
+            if((NULL == element) && (NULL != getRegola()->root())) {
+                return ;
+            }
             namespaceManager->insertElement(getEditor()->window(), getEditor(), getRegola(), element, true) ;
         }
     }
@@ -3367,6 +3370,9 @@ void XmlEditWidgetPrivate::appendSpecial()
         NamespaceManager *namespaceManager = _appData->namespaceManager();
         if(NULL != namespaceManager) {
             Element *element = getSelectedItem();
+            if((NULL == element) && (NULL != getRegola()->root())) {
+                return ;
+            }
             namespaceManager->insertElement(getEditor()->window(), getEditor(), getRegola(), element, false) ;
         }
     }

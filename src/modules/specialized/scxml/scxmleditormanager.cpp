@@ -36,25 +36,28 @@ SCXMLEditorManager::~SCXMLEditorManager()
 {
 }
 
-//bool SCXMLEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Regola *regola, Element *element)
-bool SCXMLEditorManager::handleEdit(QWidget *, QTreeWidget *, Regola *, Element *)
+bool SCXMLEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Regola *regola, Element *element)
 {
     init();
-    /*QXName qName ;
-    element->qName(&qName);*/
+    QXName qName ;
+    element->qName(&qName);
     Utils::TODO_THIS_RELEASE("fare");
-    /*if((qName.ns == NamespaceManager::XIncludeNamespace) && (qName.name == XINCLUDE_TAG)) {
-        Element *newElement = new Element(NULL);
+    SCXMLToken *token = _tokenMakager.tokenForName(qName.name);
+    if(NULL == token) {
+        return false;
+    }
+    Element *newElement = new Element(NULL);
+    if(NULL != newElement) {
         element->copyTo(*newElement, false);
-        XIncludeDialog dlg(parent, newElement);
-        if(dlg.exec() == QDialog::Accepted) {
-            if(!regola->editElementWrapper(tree, newElement, element)) {
+        if(token->editToken(parent, regola, false, false, newElement, element, element->parent())) {
+            if(regola->editElementWrapper(tree, newElement, element)) {
+                return true ;
+            } else {
                 Utils::error(parent, QObject::tr("Error applying the editing."));
-                delete newElement ;
             }
         }
-        return true;
-    }*/
+        delete newElement ;
+    }
     return false;
 }
 
@@ -68,14 +71,12 @@ bool SCXMLEditorManager::handleInsert(QTreeWidget *tree, Regola *regola, Element
     if(NULL == token) {
         return false;
     }
-    Utils::TODO_THIS_RELEASE("if(token->editToken(tree->window(), newElement, element))"); {
-        //goAhead = true ;
+    Element *theParent = (NULL != element) ? element->parent() : NULL ;
+    if(token->editToken(tree->window(), regola, true, isChild, newElement, element, theParent)) {
+        goAhead = true ;
     }
     if(goAhead) {
-        QList<int> destPath = element->indexPathOfNewRelative(isChild);
-        ElInsertCommand *cmd = new ElInsertCommand(tree, regola, newElement, destPath);
-        regola->addUndo(cmd);
-        return true ;
+        return insertAction(tree, regola, element, newElement, isChild);
     }
     delete newElement ;
     return false ;
@@ -85,7 +86,7 @@ HandlerForInsert *SCXMLEditorManager::handlerForInsert(Regola *, Element *elemen
 {
     init();
     Element *theParent = element ;
-    if(!isChild) {
+    if(!isChild && (NULL != element)) {
         theParent = element->parent();
     }
     QList<SCXMLTokenChild*> tokens ;
@@ -93,7 +94,7 @@ HandlerForInsert *SCXMLEditorManager::handlerForInsert(Regola *, Element *elemen
     QList<NSContext*> contexts;
     NSContext *lastContext = NULL;
 
-    if(NULL != theParent) {
+    if((NULL != theParent) && (NULL != element)) {
         lastContext = Regola::buildContextInfo(contexts, theParent);
         QXName qName ;
         element->qName(&qName);
@@ -102,7 +103,8 @@ HandlerForInsert *SCXMLEditorManager::handlerForInsert(Regola *, Element *elemen
             parentIsSCXML = true;
         }
     }
-    if(!parentIsSCXML) {
+    // as root?
+    if(!parentIsSCXML && (NULL == element)) {
         QVector<Element*> emptyList;
         tokens = _tokenMakager.tokensForParentAsList("", &emptyList, NULL);
     }

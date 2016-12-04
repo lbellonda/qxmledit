@@ -48,13 +48,6 @@ SCXMLToken *SCXMLTokenManager::tokenForName(const QString &itemCode)
     return NULL ;
 }
 
-//bool SCXMLTokenManager::editToken(QWidget *window, Element *editElement, Element *parentElement)
-bool SCXMLTokenManager::editToken(QWidget *, Element *, Element *)
-{
-    Utils::TODO_THIS_RELEASE("fare");
-    return false;
-}
-
 QList<SCXMLTokenChild*> SCXMLTokenManager::tokensForParentAsList(const QString &parentTag, QVector<Element*> *children, NSContext *parentContext)
 {
     QList<SCXMLTokenChild*> result;

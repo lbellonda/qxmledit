@@ -67,6 +67,7 @@ public:
     virtual bool handleEdit(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element) = 0 ;
     virtual HandlerForInsert *handlerForInsert(Regola *regola, Element *element, const bool isChild) = 0 ;
     virtual bool handleInsert(QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) = 0 ;
+    virtual bool insertAction(QTreeWidget *tree, Regola *regola, Element *element, Element *newElement, const bool isChild);
 };
 
 class LIBQXMLEDITSHARED_EXPORT NamespaceEditorInsertChoiceProvider

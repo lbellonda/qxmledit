@@ -79,11 +79,16 @@ void ElBaseCommand::insertElement()
     if(NULL != _element) {
         // insert the command at the parent index.
         QList<int> pathPos(path);
-        int lastPos = pathPos.last();
-        pathPos.removeLast();
+        int lastPos = -1;
+        Utils::TODO_THIS_RELEASE("puo andare bene come prima, testare");
         Element *parentElement = NULL ;
+        // empty path as root
         if(!pathPos.isEmpty()) {
-            parentElement = regola->findElementByArray(pathPos);
+            lastPos = pathPos.last();
+            pathPos.removeLast();
+            if(!pathPos.isEmpty()) {
+                parentElement = regola->findElementByArray(pathPos);
+            }
         }
         _lastOpElement = regola->insertInternal(widget, parentElement, _element, lastPos);
         if(_selectParent && (NULL != parentElement)) {

@@ -760,6 +760,7 @@ void MainWindow::onComputeSelectionState()
     bool isElementSelected = false;
     bool isElementRoot = false;
     bool isRegolaReadOnly = isReadOnly();
+    bool hasRoot = (NULL != regola) ? (NULL != regola->root()) : false;
 
     qxmledit::EDisplayMode displayMode = ui.editor->displayMode();
     bool isExplore = (displayMode != qxmledit::NORMAL) && (displayMode != qxmledit::SCAN) ;
@@ -929,7 +930,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionRemoveAllSiblingsBefore->setEnabled(!isRegolaReadOnly && isElementSelected);
     ui.actionInsertSnippet->setEnabled(!getEditor()->isReadOnly());
 
-    ui.actionInsertSpecial->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
+    ui.actionInsertSpecial->setEnabled(!getEditor()->isReadOnly() && (isElementSelected || (!isSomeItemSelected && !hasRoot)));
     ui.actionAppendSpecial->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
 
     onComputeSelectionStateExperimentalFeatures();

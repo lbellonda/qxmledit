@@ -25,6 +25,8 @@
 #include "modules/specialized/xinclude/xincludeeditormanager.h"
 #include "modules/specialized/scxml/scxmleditormanager.h"
 #include "modules/specialized/specificpropertiesdialog.h"
+#include "undo/elinsertcommand.h"
+
 #include "utils.h"
 
 //#define WellKnownNamespacesFile ":/xsd/well_known_namespaces"
@@ -42,6 +44,22 @@ NamespaceHandlerForEdit::NamespaceHandlerForEdit()
 
 NamespaceHandlerForEdit::~NamespaceHandlerForEdit()
 {
+}
+
+bool NamespaceHandlerForEdit::insertAction(QTreeWidget *tree, Regola *regola, Element *element, Element *newElement, const bool isChild)
+{
+    // empty path as root
+    QList<int> destPath ;
+    if(NULL != element) {
+        destPath = element->indexPathOfNewRelative(isChild);
+    } else {
+        // as root
+        destPath << regola->getChildItems()->size();
+    }
+    ElInsertCommand *cmd = new ElInsertCommand(tree, regola, newElement, destPath);
+    regola->addUndo(cmd);
+    return true ;
+
 }
 
 //------
@@ -231,28 +249,29 @@ bool NamespaceManager::editElement(QWidget *parent, QTreeWidget *tree, Regola *r
 
 bool NamespaceManager::insertElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling)
 {
+    Utils::TODO_THIS_RELEASE("rinire, gestire root");
     bool result = false ;
-    if((NULL != element) && element->isElement()) {
-        QXName qname ;
-        element->qName(&qname);
-        QList<HandlerForInsert*> handlers ;
-        foreach(NamespaceHandlerForEdit *handler, _editHandlers.values()) {
-            HandlerForInsert* hfi = handler->handlerForInsert(regola, element, isChildOrSibling) ;
-            if(NULL != hfi) {
-                if(!hfi->elements.isEmpty()) {
-                    handlers.append(hfi);
-                } else {
-                    delete hfi;
-                }
+    //if((NULL != element) && element->isElement()) {
+    /*QXName qname ;
+    element->qName(&qname);*/
+    QList<HandlerForInsert*> handlers ;
+    foreach(NamespaceHandlerForEdit *handler, _editHandlers.values()) {
+        HandlerForInsert* hfi = handler->handlerForInsert(regola, element, isChildOrSibling) ;
+        if(NULL != hfi) {
+            if(!hfi->elements.isEmpty()) {
+                handlers.append(hfi);
+            } else {
+                delete hfi;
             }
         }
-        Utils::TODO_THIS_RELEASE("se in modo speciale, riordinare");
-        HandlerForInsert * handler = _insertEditorProvider->handleInsertElementForSpecialized(parent, &handlers);
-        if(NULL != handler) {
-            result = handler->handler->handleInsert(tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
-        }
-        EMPTYPTRLIST(handlers, HandlerForInsert);
     }
+    Utils::TODO_THIS_RELEASE("se in modo speciale, riordinare");
+    HandlerForInsert * handler = _insertEditorProvider->handleInsertElementForSpecialized(parent, &handlers);
+    if(NULL != handler) {
+        result = handler->handler->handleInsert(tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
+    }
+    EMPTYPTRLIST(handlers, HandlerForInsert);
+    //}
     return result;
 }
 
