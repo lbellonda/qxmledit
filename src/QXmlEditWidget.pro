@@ -452,7 +452,12 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/scxmltokenmanager.cpp \
     modules/specialized/scxml/scxmltoken.cpp \
     modules/specialized/scxml/scxmltokenloader.cpp \
-    modules/specialized/scxml/scxmltokens.cpp
+    modules/specialized/scxml/scxmltokens.cpp \
+    modules/specialized/scxml/scxmlinfo.cpp \
+    modules/specialized/scxml/dialogs/baseddata.cpp \
+    modules/specialized/scxml/dialogs/scxmlstatedialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlparalleldialog.cpp \
+    modules/specialized/scxml/dialogs/scxmltransitiondialog.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -693,7 +698,12 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/scxmleditormanager.h \
     modules/specialized/scxml/scxmltokenmanager.h \
     modules/specialized/scxml/scxmltoken.h \
-    modules/specialized/scxml/scxmltokenloader.h
+    modules/specialized/scxml/scxmltokenloader.h \
+    modules/specialized/scxml/scxmlinfo.h \
+    modules/specialized/scxml/dialogs/baseddata.h \
+    modules/specialized/scxml/dialogs/scxmlstatedialog.h \
+    modules/specialized/scxml/dialogs/scxmlparalleldialog.h \
+    modules/specialized/scxml/dialogs/scxmltransitiondialog.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -748,7 +758,10 @@ FORMS += xmleditwidget.ui \
     widgets/elementselectiontypewidget.ui \
     modules/specialized/xinclude/xincludedialog.ui \
     modules/specialized/scxml/scxmlroot.ui \
-    modules/specialized/specificpropertiesdialog.ui
+    modules/specialized/specificpropertiesdialog.ui \
+    modules/specialized/scxml/dialogs/scxmlstatedialog.ui \
+    modules/specialized/scxml/dialogs/scxmlparalleldialog.ui \
+    modules/specialized/scxml/dialogs/scxmltransitiondialog.ui
 
 
 symbian {

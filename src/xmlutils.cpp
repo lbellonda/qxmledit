@@ -262,3 +262,35 @@ QString XmlUtils::makeNewPrefixForChangePrefix(QHash<QString, QString> &prefixes
         index++ ;
     }
 }
+
+bool XmlUtils::isNCNAME(const QString &name)
+{
+    if( Utils::checkXMLName(name) ) {
+        if(name.indexOf(":")>=0) {
+            return false;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool XmlUtils::isNMTOKEN(const QString &name)
+{
+    if(name.isEmpty()) {
+        return false;
+    }
+    //tokens composed of characters, digits, period, colons, hyphens
+    const QString val(".:_");
+    int len = name.length() ;
+    FORINT(i, len) {
+        const QChar ch = name.at(i);
+        if(val.indexOf(ch)>=0) {
+            continue;
+        }
+        if( ch.isLetterOrNumber() ) {
+            continue ;
+        }
+        return false ;
+    }
+    return true;
+}

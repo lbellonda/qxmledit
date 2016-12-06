@@ -20,47 +20,54 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SCXMLROOT_H
-#define SCXMLROOT_H
+#ifndef TESTSCXML_H
+#define TESTSCXML_H
 
-#include "xmlEdit.h"
-#include "modules/specialized/scxml/scxmlinfo.h"
-#include "modules/specialized/scxml/dialogs/baseddata.h"
+#include "testbase.h"
 
-namespace Ui
+class TestSCXML : public TestBase
 {
-class SCXMLRoot;
-}
-
-class Element ;
-class Regola;
-
-class SCXMLRoot : public QDialog
-{
-    Q_OBJECT
-
-    const bool _isInsertOrEdit;
-    const bool _isInsertOrAppend;
-    Element *_selectedElement;
-    BaseDData _d;
-    Element *_parentElement;
-    SCXMLInfo *_info;
-    Regola *_regola ;
-
+    bool testTemplatesCompile();
+    bool testTemplatesLoadStates();
     //---
-
-    void setupInsert();
-    void setupEdit();
-    void setupCommon();
-
+    bool setEAE(QWidget *widget, const QString &name, const QString &attr, const QString value, Element *e1);
+    bool setEAC(QWidget *widget, const QString &name, const QString &attr, const QString value, Element *e1);
+    bool setEAB(QWidget *widget, const QString &name, const bool checked, const QString &attr, const QString value, Element *e1);
+    //---
+    bool testEditassign();
+    bool testEditcancel();
+    bool testEditcontent();
+    bool testEditdata();
+    bool testEditdatamodel();
+    bool testEditelse();
+    bool testEditelseif();
+    bool testEditraise();
+    bool testEditfinal();
+    bool testEditfinalize();
+    bool testEdithistory();
+    bool testEditif();
+    bool testEditinitial();
+    bool testEditinvoke();
+    bool testEditforeach();
+    bool testEditlog();
+    bool testEditonentry();
+    bool testEditonexit();
+    bool testEditparallel();
+    bool testEditparam();
+    bool testEditscript();
+    bool testEditscxml();
+    bool testEditsend();
+    bool testEditstate();
+    bool testEdittransition();
+    bool testEditvar();
 public:
-    explicit SCXMLRoot(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                       Element *toModifyElement, Element *selectedElement, Element *parentElement);
-    virtual ~SCXMLRoot();
+    TestSCXML();
+    ~TestSCXML();
 
-    virtual void accept();
-private:
-    Ui::SCXMLRoot *ui;
+    bool testFast();
+    bool testLoadTokens();
+    bool testEditTokens();
+    bool testTemplates();
 };
 
-#endif // SCXMLROOT_H
+#endif // TESTSCXML_H

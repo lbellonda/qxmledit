@@ -25,6 +25,7 @@
 #include "undo/elinsertcommand.h"
 #include "xmlutils.h"
 #include "modules/namespace/nscontext.h"
+#include "modules/specialized/scxml/scxmlinfo.h"
 #include "utils.h"
 
 SCXMLEditorManager::SCXMLEditorManager()
@@ -49,13 +50,16 @@ bool SCXMLEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Regola 
     Element *newElement = new Element(NULL);
     if(NULL != newElement) {
         element->copyTo(*newElement, false);
-        if(token->editToken(parent, regola, false, false, newElement, element, element->parent())) {
+        Utils::TODO_THIS_RELEASE("fare info");
+        SCXMLInfo *info = new SCXMLInfo();
+        if(token->editToken(parent, info, regola, false, false, newElement, element, element->parent())) {
             if(regola->editElementWrapper(tree, newElement, element)) {
                 return true ;
             } else {
                 Utils::error(parent, QObject::tr("Error applying the editing."));
             }
         }
+        delete info;
         delete newElement ;
     }
     return false;
@@ -72,9 +76,12 @@ bool SCXMLEditorManager::handleInsert(QTreeWidget *tree, Regola *regola, Element
         return false;
     }
     Element *theParent = (NULL != element) ? element->parent() : NULL ;
-    if(token->editToken(tree->window(), regola, true, isChild, newElement, element, theParent)) {
+    Utils::TODO_THIS_RELEASE("fare info");
+    SCXMLInfo *info = new SCXMLInfo();
+    if(token->editToken(tree->window(), info, regola, true, isChild, newElement, element, theParent)) {
         goAhead = true ;
     }
+    delete info;
     if(goAhead) {
         return insertAction(tree, regola, element, newElement, isChild);
     }

@@ -75,19 +75,19 @@ bool SCXMLTokenLoader::load(const QString &fileName, QHash<QString, SCXMLToken*>
     return isOk ;
 }
 
-bool SCXMLTokenLoader::startElement(const QString &/*namespaceURI*/, const QString &localName,
-                                    const QString & /*qName*/, const QXmlAttributes &attributes)
+bool SCXMLTokenLoader::startElement(const QString &/*namespaceURI*/, const QString &/*localName*/,
+                                    const QString & qName, const QXmlAttributes &attributes)
 {
     // names with and without ns
-    if(localName == ROOT) {
+    if(qName == ROOT) {
         _foundChildren = false;
         return true ;
     }
-    if(localName == CHILDREN) {
+    if(qName == CHILDREN) {
         _foundChildren = true ;
         return true ;
     }
-    if(localName == TOKEN) {
+    if(qName == TOKEN) {
         _foundChildren = false ;
         QString tag ;
         tag = attributes.value(A_NAME);
@@ -106,12 +106,11 @@ bool SCXMLTokenLoader::startElement(const QString &/*namespaceURI*/, const QStri
         _tokens->insert(_currentToken->name(), _currentToken);
         return true;
     }
-    if(localName == CHILD) {
+    if(qName == CHILD) {
         if(!_foundChildren) {
             setErrorMessage(QObject::tr("Bad SCXML data, code 1"));
             return false;
         }
-        _foundChildren = false ;
         if(NULL == _currentToken) {
             setErrorMessage(QObject::tr("Bad SCXML data, code 3"));
             return false;
@@ -195,6 +194,10 @@ SCXMLToken *SCXMLTokenLoader::createSCXMLToken(const QString &tag)
         return new SCXMLRootToken();
     } else if(tag == SCXMLToken::Tag_scxml) {
         return new SCXMLscxmlToken();
+    } else if(tag == SCXMLToken::Tag_state) {
+        return new SCXMLstateToken();
+    } else if(tag == SCXMLToken::Tag_parallel) {
+        return new SCXMLparallelToken();
     }
     return new SCXMLGenericToken();
 }

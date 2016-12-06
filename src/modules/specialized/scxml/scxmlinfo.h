@@ -20,47 +20,32 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SCXMLROOT_H
-#define SCXMLROOT_H
+#ifndef SCXMLINFO_H
+#define SCXMLINFO_H
 
 #include "xmlEdit.h"
-#include "modules/specialized/scxml/scxmlinfo.h"
-#include "modules/specialized/scxml/dialogs/baseddata.h"
-
-namespace Ui
-{
-class SCXMLRoot;
-}
 
 class Element ;
-class Regola;
 
-class SCXMLRoot : public QDialog
-{
-    Q_OBJECT
-
-    const bool _isInsertOrEdit;
-    const bool _isInsertOrAppend;
-    Element *_selectedElement;
-    BaseDData _d;
-    Element *_parentElement;
-    SCXMLInfo *_info;
-    Regola *_regola ;
-
-    //---
-
-    void setupInsert();
-    void setupEdit();
-    void setupCommon();
-
+class SCXMLState {
+    QList<SCXMLState*> _children;
+    Element *element;
 public:
-    explicit SCXMLRoot(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                       Element *toModifyElement, Element *selectedElement, Element *parentElement);
-    virtual ~SCXMLRoot();
+    SCXMLState();
+    virtual ~SCXMLState();
 
-    virtual void accept();
-private:
-    Ui::SCXMLRoot *ui;
+    bool isAtomic();
+    bool isParallel();
 };
 
-#endif // SCXMLROOT_H
+class SCXMLInfo
+{
+    QList<SCXMLState*> _children;
+public:
+    SCXMLInfo();
+    virtual ~SCXMLInfo();
+
+    QStringList allStates();
+};
+
+#endif // SCXMLINFO_H

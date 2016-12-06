@@ -20,25 +20,22 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SCXMLROOT_H
-#define SCXMLROOT_H
+#ifndef SCXMLPARALLELDIALOG_H
+#define SCXMLPARALLELDIALOG_H
 
 #include "xmlEdit.h"
 #include "modules/specialized/scxml/scxmlinfo.h"
 #include "modules/specialized/scxml/dialogs/baseddata.h"
 
-namespace Ui
-{
-class SCXMLRoot;
+namespace Ui {
+class SCXMLParallelDialog;
 }
 
-class Element ;
 class Regola;
 
-class SCXMLRoot : public QDialog
+class SCXMLParallelDialog : public QDialog
 {
     Q_OBJECT
-
     const bool _isInsertOrEdit;
     const bool _isInsertOrAppend;
     Element *_selectedElement;
@@ -47,20 +44,19 @@ class SCXMLRoot : public QDialog
     SCXMLInfo *_info;
     Regola *_regola ;
 
-    //---
-
     void setupInsert();
     void setupEdit();
     void setupCommon();
 
 public:
-    explicit SCXMLRoot(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                       Element *toModifyElement, Element *selectedElement, Element *parentElement);
-    virtual ~SCXMLRoot();
+    explicit SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                                 Element *toModifyElement, Element *selectedElement, Element *parentElement);
+    ~SCXMLParallelDialog();
 
-    virtual void accept();
+    void accept();
+
 private:
-    Ui::SCXMLRoot *ui;
+    Ui::SCXMLParallelDialog *ui;
 };
 
-#endif // SCXMLROOT_H
+#endif // SCXMLPARALLELDIALOG_H

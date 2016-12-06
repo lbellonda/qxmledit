@@ -24,14 +24,23 @@
 #define SCXMLTOKEN_H
 
 #include "xmlEdit.h"
+class SCXMLInfo;
 class SCXMLTokenChild;
+class Regola;
+class Element;
 
 #define DECL_SCXML_TAG(x) static const QString Tag_ ## x
+#define IMPL_SCXML_TAG(x) const QString SCXMLToken::Tag_ ## x = #x
+#define SC_DECL_ATTR_TK(a)  static const QString A_ ## a
+#define SC_IMPL_ATTR_TK(a, cla)  const QString cla::A_ ## a = # a
+//--
 
 class SCXMLToken
 {
 public:
     DECL_SCXML_TAG(scxml);
+    DECL_SCXML_TAG(state);
+    DECL_SCXML_TAG(parallel);
 private:
     QString _name;
     QString _description;
@@ -57,7 +66,7 @@ public:
      * @param parentElement: the parent element of the existing element, if existing
      * @return
      */
-    virtual bool editToken(QWidget *window, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                            Element *toModifyElement, Element *selectedElement, Element *parentElement) = 0;
 };
 
@@ -66,7 +75,7 @@ class SCXMLRootToken : public SCXMLToken
 public:
     SCXMLRootToken();
     virtual ~SCXMLRootToken();
-    virtual bool editToken(QWidget *window, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                            Element *toModifyElement, Element *selectedElement, Element *parentElement);
 };
 
@@ -75,7 +84,7 @@ class SCXMLGenericToken : public SCXMLToken
 public:
     SCXMLGenericToken();
     virtual ~SCXMLGenericToken();
-    virtual bool editToken(QWidget *window, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                            Element *toModifyElement, Element *selectedElement, Element *parentElement);
 };
 
@@ -84,8 +93,35 @@ class SCXMLscxmlToken : public SCXMLToken
 public:
     SCXMLscxmlToken();
     virtual ~SCXMLscxmlToken();
-    virtual bool editToken(QWidget *window, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                            Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(initial);
+    SC_DECL_ATTR_TK(name);
+    SC_DECL_ATTR_TK(xmlns);
+    SC_DECL_ATTR_TK(version);
+    SC_DECL_ATTR_TK(datamodel);
+    SC_DECL_ATTR_TK(binding);
+};
+
+class SCXMLstateToken : public SCXMLToken
+{
+public:
+    SCXMLstateToken();
+    virtual ~SCXMLstateToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(initial);
+    SC_DECL_ATTR_TK(id);
+};
+
+class SCXMLparallelToken : public SCXMLToken
+{
+public:
+    SCXMLparallelToken();
+    virtual ~SCXMLparallelToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(id);
 };
 
 class SCXMLTokenChild

@@ -60,6 +60,10 @@ public:
     static bool isS(const QChar &qch);
     //--
     static QString innerContent(const QString &inputString);
+    //---
+    static bool isNCNAME(const QString &name);
+    static bool isNMTOKEN(const QString &name);
+
 
 };
 

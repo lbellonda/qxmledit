@@ -1,89 +1,83 @@
 <root>
-<token name="" ref="root">
-    <child name="scxml" min="1" max="1" d="Root element."/>
-</token>
+    <token name="" ref="root">
+        <children>
+            <child name="scxml" min="1" max="1" d="Root element."/>
+        </children>
+    </token>
     <token name="scxml" ref="2">
-        <child name="state" min="0" max="u" d="A compound or atomic state. Occurs zero or more times."/>
-        <child name="parallel" min="0" max="u" d="A parallel state. Occurs zero or more times."/>
-        <child name="final" min="0" max="u" d="A top-level final state in the state machine. Occurs zero or more times. The SCXML processor MUST terminate processing when the state machine reaches this state."/>
-        <child name="datamodel" min="0" max="1" d="Defines part or all of the data model. Occurs 0 or 1 times."/>
-        <child name="script" min="0" max="1" d="Provides scripting capability. Occurs 0 or 1 times."/>
+        <children>
+            <child name="state" min="0" max="u" d="A compound or atomic state. Occurs zero or more times."/>
+            <child name="parallel" min="0" max="u" d="A parallel state. Occurs zero or more times."/>
+            <child name="final" min="0" max="u" d="A top-level final state in the state machine. Occurs zero or more times. The SCXML processor MUST terminate processing when the state machine reaches this state."/>
+            <child name="datamodel" min="0" max="1" d="Defines part or all of the data model. Occurs 0 or 1 times."/>
+            <child name="script" min="0" max="1" d="Provides scripting capability. Occurs 0 or 1 times."/>
+         </children>
+    </token>
+    <token name="state">
+        <children>
+            <child name="onentry" min="0" max="u" d="Optional element holding executable content to be run upon entering this state."/>
+            <child name="onexit" min="0" max="u" d="Optional element holding executable content to be run when exiting this state."/>
+            <child name="transition" min="0" max="u" d="Defines an outgoing transition from this state."/>
+            <child name="initial" min="0" max="1" d="In states that have substates, an optional child which identifies the default initial state. Any transition which takes the parent state as its target will result in the state machine also taking the transition contained inside the initial element."/>
+            <child name="state" min="0" max="u" d="Defines a sequential substate of the parent state."/>
+            <child name="parallel" min="0" max="u" d="Defines a parallel substate."/>
+            <child name="final" min="0" max="u" d="Defines a final substate."/>
+            <child name="history" min="0" max="u" d="A child pseudo-state which records the descendant state(s) that the parent state was in the last time the system transitioned from the parent."/>
+            <child name="datamodel" min="0" max="1" d="Defines part or all of the data model."/>
+            <child name="invoke" min="0" max="u" d="Invokes an external service."/>
+         </children>
+    </token>
+    <token name="parallel">
+        <children>
+            <child name="onentry" min="0" max="u" d="Holds executable content to be run upon entering the parallel element."/>
+            <child name="onexit" min="0" max="u" d="Holds executable content to be run when exiting this element."/>
+            <child name="transition" min="0" max="u" d="Defines an outgoing transition from this state."/>
+            <child name="state" min="0" max="u" d="Defines a parallel substate region."/>
+            <child name="parallel" min="0" max="u" d="Defines a nested set of parallel regions."/>
+            <child name="history" min="0" max="u" d="A child which represents the state configuration that this state was in the last time the system transitioned from it."/>
+            <child name="datamodel" min="0" max="1" d="Defines part or all of the data model."/>
+            <child name="invoke" min="0" max="u" d="Invokes an external service."/>
+         </children>
+    </token>
+    <token name="transition">
+        <children>
+            <child name="raise" min="0" max="u" d=""/>
+            <child name="if" min="0" max="u" d=""/>
+            <child name="elseif" min="0" max="u" d=""/>
+            <child name="else" min="0" max="u" d=""/>
+            <child name="foreach" min="0" max="u" d=""/>
+            <child name="log" min="0" max="u" d=""/>
+            <child name="assign" min="0" max="u" d=""/>
+            <child name="script" min="0" max="1" d=""/>
+            <child name="send" min="0" max="u" d=""/>
+            <child name="cancel" min="0" max="u" d=""/>
+         </children>
+    </token>
+    <token name="initial">
+        <children>
+            <child name="transition" min="0" max="1" d=""/>
+         </children>
+    </token>
+    <token name="final">
+        <children>
+            <child name="onentry" min="0" max="u" d="Optional element holding executable content to be run upon entering this state."/>
+            <child name="onexit" min="0" max="u" d="Optional element holding executable content to be run when exiting this state."/>
+            <child name="donedata" min="0" max="1" d="Optional element specifying data to be included in the done.state.id or done.invoke.id event."/>
+         </children>
     </token>
 </root>
 <!--
-scxml
-
-2 Children
-
-    <state> A compound or atomic state. Occurs zero or more times. See 3.3 <state> for details.
-    <parallel> A parallel state. Occurs zero or more times. See 3.4 <parallel> for details.
-    <final> A top-level final state in the state machine. Occurs zero or more times. The SCXML processor MUST terminate processing when the state machine reaches this state. See 3.7 <final> for details.
-    <datamodel> Defines part or all of the data model. Occurs 0 or 1 times. See 5.2 <datamodel>
-    <script> Provides scripting capability. Occurs 0 or 1 times. 5.8 <script>
-
-		$$$$$
-<state>
-	3.3.2 Children
-
-	    <onentry> Optional element holding executable content to be run upon entering this <state>. Occurs 0 or more times. See 3.8 <onentry>
-	    <onexit> Optional element holding executable content to be run when exiting this <state>. Occurs 0 or more times. See 3.9 <onexit>
-	    <transition> Defines an outgoing transition from this state. Occurs 0 or more times. See 3.5 <transition>
-	    <initial> In states that have substates, an optional child which identifies the default initial state. Any transition which takes the parent state as its target will result in the state machine also taking the transition contained inside the <initial> element. See 3.6 <initial>
-	    <state> Defines a sequential substate of the parent state. Occurs 0 or more times.
-	    <parallel> Defines a parallel substate. Occurs 0 or more times. See 3.4 <parallel>
-	    <final>. Defines a final substate. Occurs 0 or more times. See 3.7 <final>.
-	    <history> A child pseudo-state which records the descendant state(s) that the parent state was in the last time the system transitioned from the parent. May occur 0 or more times. See 3.10 <history>.
-	    <datamodel> Defines part or all of the data model. Occurs 0 or 1 times. See 5.2 <datamodel>
-	    <invoke> Invokes an external service. Occurs 0 or more times. See 6.4 <invoke> for details.
-
-
-
-
-3.4 <parallel>
-3.4.2 Children
-
-    <onentry> Holds executable content to be run upon entering the <parallel> element. Occurs 0 or more times. See 3.8 <onentry>
-    <onexit> Holds executable content to be run when exiting this element. Occurs 0 or more times. See 3.9 <onexit>
-    <transition> Defines an outgoing transition from this state. Occurs 0 or more times. See 3.5 <transition>
-    <state> Defines a parallel substate region. Occurs 0 or more times. See 3.3 <state>.
-    <parallel> Defines a nested set of parallel regions. Occurs 0 or more times.
-    <history> A child which represents the state configuration that this state was in the last time the system transitioned from it. A transition with this history pseudo-state as its target is in fact a transition to the set of descendant states that were active the last time this state was exited. Occurs 0 or more times. See 3.10 <history>.
-    <datamodel> Defines part or all of the data model. Occurs 0 or 1 times. See 5.2 <datamodel>
-    <invoke> Invokes an external service. Occurs 0 or more times. See 6.4 <invoke> for details.
-
-
-
-
-3.5 <transition>
-
-3.5.2 Children
-
-    The children of <transition> are executable content that is run after all the <onexit> handlers and before the all <onentry> handlers that are triggered by this transition. See 4 Executable Content
-
-A conformant SCXML document MUST specify at least one of 'event', 'cond' or 'target'. 3.13 Selecting and Executing Transitions contains more detail on the semantics of transitions.
-
 
 
 3.6 <initial>
 3.6.2 Children
 
-    <transition> A transition whose 'target' specifies the default initial state(s). Occurs once. In a conformant SCXML document, this transition MUST NOT contain 'cond' or 'event' attributes, and MUST specify a non-null 'target' whose value is a valid state specification consisting solely of descendants of the containing state (see 3.11 Legal State Configurations and Specifications for details). This transition MAY contain executable content.
-
-
-
-
-3.7 <final>
-3.7.2 Children
-
-    <onentry> Optional element holding executable content to be run upon entering this state. Occurs 0 or more times. See 3.8 <onentry> for details.
-    <onexit> Optional element holding executable content to be run when exiting this state. Occurs 0 or more times. See 3.9 <onexit> for details.
-    <donedata> Optional element specifying data to be included in the done.state.id or done.invoke.id event. See 5.5 <donedata> for details.
-
-When the state machine enters the <final> child of a <state> element, the SCXML Processor MUST generate the event done.state.id after completion of the <onentry> elements, where id is the id of the parent state. Immediately thereafter, if the parent <state> is a child of a <parallel> element, and all of the <parallel>'s other children are also in final states, the Processor MUST generate the event done.state.id where id is the id of the <parallel> element.
-
-When the state machine reaches the <final> child of an <scxml> element, it MUST terminate. See D Algorithm for SCXML Interpretation for details. If the SCXML session was triggered as the result by an <invoke> element in another session, the SCXML processor MUST generate the event done.invoke.id after termination and return it to the other session, where id is the unique identifier generated when the <invoke> element was executed. See 6.4 <invoke> for details.
-
-
+    <initial> A transition w
+    hose 'target' specifies the default initial state(s). Occurs once. In a confo
+    rmant SCXML document, this transition MUST NOT contain 'cond' or 'event' attributes, and
+    MUST specify a non-null 'target' whose value is a valid state specification consistin
+    g solely of descendants of the containing state (see 3.11 Legal State Con
+    figurations and Specifications for details). This transition MAY contain executable content.
 
 
 

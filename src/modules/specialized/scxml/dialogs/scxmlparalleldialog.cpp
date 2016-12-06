@@ -20,108 +20,64 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "scxmltoken.h"
+#include "scxmlparalleldialog.h"
+#include "ui_scxmlparalleldialog.h"
+#include "regola.h"
+#include "modules/specialized/scxml/scxmltoken.h"
+#include "modules/xsd/namespacemanager.h"
 #include "utils.h"
 
-#define IMPL_SCXML_TAG(x) const QString SCXMLToken::Tag_ ## x = #x
-
-IMPL_SCXML_TAG(scxml);
-IMPL_SCXML_TAG(state);
-IMPL_SCXML_TAG(parallel);
-
-QString SCXMLToken::name() const
+SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                                         Element *toModifyElement, Element *selectedElement, Element *parentElement) :
+    QDialog(parent),
+    _isInsertOrEdit(isInsertOrEdit),
+    _isInsertOrAppend(isInsertOrAppend),
+    _d(toModifyElement),
+    ui(new Ui::SCXMLParallelDialog)
 {
-    return _name;
+    Utils::TODO_THIS_RELEASE("icona");
+    _regola = regola;
+    _info = info ;
+    _selectedElement = selectedElement;
+    _parentElement = parentElement;
+    ui->setupUi(this);
+    setupCommon();
+    if(_isInsertOrEdit) {
+        setupInsert();
+    }
+    setupEdit();
 }
 
-void SCXMLToken::setName(const QString &name)
+SCXMLParallelDialog::~SCXMLParallelDialog()
 {
-    _name = name;
+    delete ui;
 }
 
-QString SCXMLToken::description() const
+void SCXMLParallelDialog::setupCommon()
 {
-    return _description;
+    Utils::TODO_THIS_RELEASE("fare");
 }
 
-void SCXMLToken::setDescription(const QString &description)
+// use default values
+void SCXMLParallelDialog::setupInsert()
 {
-    _description = description;
+    _d.assignTag(SCXMLToken::Tag_parallel, _regola, _parentElement);
 }
 
-QList<SCXMLTokenChild *> SCXMLToken::children() const
+void SCXMLParallelDialog::setupEdit()
 {
-    return _children;
+    ui->id->setText(_d.attributeString(SCXMLstateToken::A_id));
 }
 
-void SCXMLToken::addChild(SCXMLTokenChild *child)
+void SCXMLParallelDialog::accept()
 {
-    _children.append(child);
-}
+    Utils::TODO_THIS_RELEASE("fare validazioni");
+    Utils::TODO_THIS_RELEASE("set dati in elemento");
+    Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
 
-SCXMLToken::SCXMLToken()
-{
-}
-
-SCXMLToken::~SCXMLToken()
-{
-    EMPTYPTRLIST(_children, SCXMLTokenChild);
-}
-
-QString SCXMLTokenChild::name() const
-{
-    return _name;
-}
-
-void SCXMLTokenChild::setName(const QString &name)
-{
-    _name = name;
-}
-
-QString SCXMLTokenChild::description() const
-{
-    return _description;
-}
-
-void SCXMLTokenChild::setDescription(const QString &description)
-{
-    _description = description;
-}
-
-int SCXMLTokenChild::min() const
-{
-    return _min;
-}
-
-void SCXMLTokenChild::setMin(int min)
-{
-    _min = min;
-}
-
-int SCXMLTokenChild::max() const
-{
-    return _max;
-}
-
-void SCXMLTokenChild::setMax(int max)
-{
-    _max = max;
-}
-
-SCXMLToken *SCXMLTokenChild::parent() const
-{
-    return _parent;
-}
-
-void SCXMLTokenChild::setParent(SCXMLToken *parent)
-{
-    _parent = parent;
-}
-
-SCXMLTokenChild::SCXMLTokenChild()
-{
-}
-
-SCXMLTokenChild::~SCXMLTokenChild()
-{
+    _d.setAttributeString(SCXMLparallelToken::A_id, ui->id->text());
+    if( !_d.checkID(this, SCXMLparallelToken::A_id) ) {
+        return;
+    }
+    QDialog::accept();
 }

@@ -20,47 +20,28 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SCXMLROOT_H
-#define SCXMLROOT_H
+#ifndef BASEDDATA_H
+#define BASEDDATA_H
 
 #include "xmlEdit.h"
-#include "modules/specialized/scxml/scxmlinfo.h"
-#include "modules/specialized/scxml/dialogs/baseddata.h"
+#include "regola.h"
 
-namespace Ui
+class BaseDData
 {
-class SCXMLRoot;
-}
-
-class Element ;
-class Regola;
-
-class SCXMLRoot : public QDialog
-{
-    Q_OBJECT
-
-    const bool _isInsertOrEdit;
-    const bool _isInsertOrAppend;
-    Element *_selectedElement;
-    BaseDData _d;
-    Element *_parentElement;
-    SCXMLInfo *_info;
-    Regola *_regola ;
-
-    //---
-
-    void setupInsert();
-    void setupEdit();
-    void setupCommon();
-
+    bool error(QWidget *window, const QString &attrName);
 public:
-    explicit SCXMLRoot(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                       Element *toModifyElement, Element *selectedElement, Element *parentElement);
-    virtual ~SCXMLRoot();
+    Element *element;
 
-    virtual void accept();
-private:
-    Ui::SCXMLRoot *ui;
+    BaseDData(Element *toModifyElement);
+    virtual ~BaseDData();
+
+    QString attributeString(const QString &name, const QString &defaultValue = "");
+    void setAttributeString(const QString &name, const QString &value);
+    void setAttributeStringIfMissing(const QString &name, const QString &value);
+    void assignTag(const QString &tag, Regola *regola, Element *parent);
+    bool checkIDREFS(QWidget *window, const QString &attrName);
+    bool checkNMTOKEN(QWidget *window, const QString &attrName);
+    bool checkID(QWidget *window, const QString &attrName);
 };
 
-#endif // SCXMLROOT_H
+#endif // BASEDDATA_H

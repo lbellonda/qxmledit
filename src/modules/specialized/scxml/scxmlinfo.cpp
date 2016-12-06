@@ -20,47 +20,34 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SCXMLROOT_H
-#define SCXMLROOT_H
+#include "scxmlinfo.h"
+#include "utils.h"
 
-#include "xmlEdit.h"
-#include "modules/specialized/scxml/scxmlinfo.h"
-#include "modules/specialized/scxml/dialogs/baseddata.h"
-
-namespace Ui
+SCXMLState::SCXMLState()
 {
-class SCXMLRoot;
+    element = NULL ;
 }
 
-class Element ;
-class Regola;
-
-class SCXMLRoot : public QDialog
+SCXMLState::~SCXMLState()
 {
-    Q_OBJECT
+    EMPTYPTRLIST(_children, SCXMLState);
+}
 
-    const bool _isInsertOrEdit;
-    const bool _isInsertOrAppend;
-    Element *_selectedElement;
-    BaseDData _d;
-    Element *_parentElement;
-    SCXMLInfo *_info;
-    Regola *_regola ;
+//-------------
 
-    //---
+SCXMLInfo::SCXMLInfo()
+{
+}
 
-    void setupInsert();
-    void setupEdit();
-    void setupCommon();
+SCXMLInfo::~SCXMLInfo()
+{
+    EMPTYPTRLIST(_children, SCXMLState);
+}
 
-public:
-    explicit SCXMLRoot(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                       Element *toModifyElement, Element *selectedElement, Element *parentElement);
-    virtual ~SCXMLRoot();
-
-    virtual void accept();
-private:
-    Ui::SCXMLRoot *ui;
-};
-
-#endif // SCXMLROOT_H
+QStringList SCXMLInfo::allStates()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    QStringList x;
+    x << "a" << "b" << "c" ;
+    return x ;
+}

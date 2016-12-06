@@ -20,47 +20,61 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SCXMLROOT_H
-#define SCXMLROOT_H
+#include "scxmltransitiondialog.h"
+#include "ui_scxmltransitiondialog.h"
+#include "regola.h"
+#include "modules/specialized/scxml/scxmltoken.h"
+#include "modules/xsd/namespacemanager.h"
+#include "utils.h"
 
-#include "xmlEdit.h"
-#include "modules/specialized/scxml/scxmlinfo.h"
-#include "modules/specialized/scxml/dialogs/baseddata.h"
-
-namespace Ui
+SCXMLTransitionDialog::SCXMLTransitionDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                                             Element *toModifyElement, Element *selectedElement, Element *parentElement) :
+    QDialog(parent),
+    _isInsertOrEdit(isInsertOrEdit),
+    _isInsertOrAppend(isInsertOrAppend),
+    _d(toModifyElement),
+    ui(new Ui::SCXMLTransitionDialog)
 {
-class SCXMLRoot;
+    Utils::TODO_THIS_RELEASE("icona");
+    _regola = regola;
+    _info = info ;
+    _selectedElement = selectedElement;
+    _parentElement = parentElement;
+    ui->setupUi(this);
+    setupCommon();
+    if(_isInsertOrEdit) {
+        setupInsert();
+    }
+    setupEdit();
 }
 
-class Element ;
-class Regola;
-
-class SCXMLRoot : public QDialog
+SCXMLTransitionDialog::~SCXMLTransitionDialog()
 {
-    Q_OBJECT
+    delete ui;
+}
 
-    const bool _isInsertOrEdit;
-    const bool _isInsertOrAppend;
-    Element *_selectedElement;
-    BaseDData _d;
-    Element *_parentElement;
-    SCXMLInfo *_info;
-    Regola *_regola ;
+void SCXMLTransitionDialog::setupCommon()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+}
 
-    //---
+// use default values
+void SCXMLTransitionDialog::setupInsert()
+{
+    _d.assignTag(SCXMLToken::Tag_parallel, _regola, _parentElement);
+}
 
-    void setupInsert();
-    void setupEdit();
-    void setupCommon();
+void SCXMLTransitionDialog::setupEdit()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+}
 
-public:
-    explicit SCXMLRoot(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                       Element *toModifyElement, Element *selectedElement, Element *parentElement);
-    virtual ~SCXMLRoot();
+void SCXMLTransitionDialog::accept()
+{
+    Utils::TODO_THIS_RELEASE("fare validazioni");
+    Utils::TODO_THIS_RELEASE("set dati in elemento");
+    Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
 
-    virtual void accept();
-private:
-    Ui::SCXMLRoot *ui;
-};
-
-#endif // SCXMLROOT_H
+    Utils::TODO_THIS_RELEASE("fare");
+    QDialog::accept();
+}

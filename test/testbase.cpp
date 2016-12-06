@@ -115,6 +115,16 @@ bool TestBase::setComboWidget(QWidget *widget, const QString &actionName, const 
     return false;
 }
 
+bool TestBase::setCheckBoxWidget(QWidget *widget, const QString &actionName, const bool isChecked)
+{
+    QList<QCheckBox*> texts = widget->findChildren<QCheckBox*>(actionName);
+    if(texts.size()>0) {
+        texts.at(0)->setChecked(isChecked);
+        return true ;
+    }
+    return false;
+}
+
 bool TestBase::fireAction(QMainWindow *window, const QString &actionName)
 {
     QList<QMenu*> menus = window->menuBar()->findChildren<QMenu*>();
@@ -576,6 +586,50 @@ bool TestBase::compare(Regola *regola, const QString &id, const QString &fileRes
         return error(QString("Step: %1 comparing file with regola: %2").arg(id).arg(compare.errorString()));
     }
     return true ;
+}
+
+bool TestBase::compare(Element *e1, Element *e2)
+{
+    if(e1->getType() != e2->getType() ) {
+        return error(QString("type differ: %1/%2").arg(e1->getType()).arg(e2->getType()));
+    }
+    if(e1->tag() != e2->tag() ) {
+        return error(QString("tag differ: %1/%2").arg(e1->tag()).arg(e2->tag()));
+    }
+    QList<Attribute*> aa = e1->getAttributesList();
+    QList<Attribute*> bb = e1->getAttributesList();
+    QHash<QString, QString> reference ;
+    QHash<QString, QString> compare ;
+    foreach(Attribute *a1, aa) {
+        reference.insert(a1->name, a1->value);
+    }
+    foreach(Attribute *b1, bb) {
+        compare.insert(b1->name, b1->value);
+    }
+    QString errorMessage;
+    bool isOk = true;
+    if( reference.keys().size() != compare.keys().size() ) {
+        isOk = false;
+        errorMessage += QString("arguments count differs %1/%2\n").arg(reference.keys().size()).arg(compare.keys().size());
+    }
+    foreach( const QString &key, reference.keys() ) {
+        if(!compare.contains(key)) {
+            errorMessage += QString("\nItem %1 only reference:%2\n").arg(key).arg(reference[key]);
+            isOk = false;
+        } else {
+            compare.remove(key);
+        }
+    }
+    foreach( const QString &key, compare.keys() ) {
+        errorMessage += QString("\nItem %1 only compare:%2\n").arg(key).arg(compare[key]);
+        isOk = false;
+    }
+    if(!isOk) {
+        QString err = "items differs\n";
+        err += errorMessage;
+        return error(err);
+    }
+    return true;
 }
 
 bool TestBase::readFromFile(const QString &file, QString &result)

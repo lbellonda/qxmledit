@@ -1406,7 +1406,32 @@ void TestQXmlEdit::testSpecials()
         result = test.testXInclude();
         QVERIFY2(result, (QString("test TestSpecials: testXInclude() '%1'").arg(test.errorString())).toLatin1().data());
     }
+}
 
+void TestQXmlEdit::testSCXML()
+{
+    bool result;
+    {
+        TestSCXML test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("test testSCXML: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+    {
+        TestSCXML test;
+        result = test.testLoadTokens();
+        QVERIFY2(result, (QString("test testSCXML: testLoadTokens() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestSCXML test;
+        result = test.testEditTokens();
+        QVERIFY2(result, (QString("test testSCXML: testEditTokens() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestSCXML test;
+        result = test.testTemplates();
+        QVERIFY2(result, (QString("test testSCXML: testTemplates() '%1'").arg(test.errorString())).toLatin1().data());
+    }
 }
 
 /*
@@ -1429,6 +1454,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testSCXML();
     testSpecials();
     testLoadFile();
 }

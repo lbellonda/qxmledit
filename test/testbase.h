@@ -70,6 +70,7 @@ public:
     //-- utility
     bool setTextWidget(QWidget *widget, const QString &actionName, const QString &text);
     bool setComboWidget(QWidget *widget, const QString &actionName, const QString &text);
+    bool setCheckBoxWidget(QWidget *widget, const QString &actionName, const bool isChecked);
 
 protected:
     bool fireAction(QMainWindow *window, const QString &actionName);
@@ -110,6 +111,7 @@ protected:
     QString dumpHash(QHash<QString,QString> hash);
     bool testHash(QHash<QString,QString> expected, QHash<QString,QString> found);
     bool compare(Regola *regola, const QString &id, const QString &fileResult);
+    bool compare(Element *e1, Element *e2);
     bool readFromFile(const QString &file, QString &result);
 
     static void dumpTree(QTreeWidget *tree);

@@ -98,6 +98,7 @@
 #include "testeditenum.h"
 #include "testnamespaces.h"
 #include "testspecials.h"
+#include "testscxml.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -195,6 +196,7 @@ private Q_SLOTS:
     void testEditEnum();
     void testNamespaces();
     void testSpecials();
+    void testSCXML();
 };
 
 
@@ -204,5 +206,10 @@ private Q_SLOTS:
     #define QXMLEDIT_SKIP(msg) QSKIP(msg, SkipSingle)
 #endif
 
+#if QT_VERSION < 0x050000
+    #define QXMLEDIT_SKIP_V(result, msg) QSKIP(msg)
+#else
+    #define QXMLEDIT_SKIP_V(result, msg) QSKIP(msg, SkipSingle)
+#endif
 
 #endif // TESTQXMLEDIT_H

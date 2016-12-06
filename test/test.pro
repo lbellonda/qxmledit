@@ -174,7 +174,8 @@ SOURCES += \
     testcommandline.cpp \
     testeditenum.cpp \
     testnamespaces.cpp \
-    testspecials.cpp
+    testspecials.cpp \
+    testscxml.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -283,7 +284,8 @@ HEADERS += \
     testcommandline.h \
     testeditenum.h \
     testnamespaces.h \
-    testspecials.h
+    testspecials.h \
+    testscxml.h
 
 #OTHER_FILES += \
 
