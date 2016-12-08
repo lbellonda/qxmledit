@@ -71,7 +71,7 @@ void BaseDData::assignTag(const QString &tag, Regola *regola, Element *parent)
 
 bool BaseDData::error(QWidget *window, const QString &attrName)
 {
-    QString msg = QObject::tr("Invalid attribute '%1'").arg(attrName);
+    QString msg = QObject::tr("Invalid value for attribute '%1'").arg(attrName);
     Utils::error(window, msg);
     return false;
 }

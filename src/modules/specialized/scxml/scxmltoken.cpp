@@ -43,6 +43,7 @@ void SCXMLGroup::addChild(SCXMLTokenChild* newToken)
 IMPL_SCXML_TAG(scxml);
 IMPL_SCXML_TAG(state);
 IMPL_SCXML_TAG(parallel);
+IMPL_SCXML_TAG(transition);
 
 QString SCXMLToken::name() const
 {

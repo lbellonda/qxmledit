@@ -24,6 +24,7 @@
 #include "scxmlroot.h"
 #include "dialogs/scxmlstatedialog.h"
 #include "dialogs/scxmlparalleldialog.h"
+#include "dialogs/scxmltransitiondialog.h"
 #include "utils.h"
 
 SCXMLGenericToken::SCXMLGenericToken()
@@ -125,6 +126,32 @@ bool SCXMLparallelToken::editToken(QWidget *window, SCXMLInfo *info, Regola * re
 {
     Utils::TODO_THIS_RELEASE("fare");
     SCXMLParallelDialog dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);
+    if(dialog.exec() == QDialog::Accepted) {
+        return true;
+    }
+    return false;
+}
+
+//------------------------------------------------------------------
+
+SC_IMPL_ATTR_TK(event, SCXMLtransitionToken);
+SC_IMPL_ATTR_TK(cond, SCXMLtransitionToken);
+SC_IMPL_ATTR_TK(target, SCXMLtransitionToken);
+SC_IMPL_ATTR_TK(type, SCXMLtransitionToken);
+
+SCXMLtransitionToken::SCXMLtransitionToken()
+{
+}
+
+SCXMLtransitionToken::~SCXMLtransitionToken()
+{
+}
+
+bool SCXMLtransitionToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                                     Element *toModifyElement, Element *selectedElement, Element *parentElement)
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    SCXMLTransitionDialog dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);
     if(dialog.exec() == QDialog::Accepted) {
         return true;
     }

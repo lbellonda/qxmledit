@@ -27,22 +27,19 @@
 #include "modules/xsd/namespacemanager.h"
 #include "utils.h"
 
+#define External  "external"
+#define Internal  "internal"
+
 SCXMLTransitionDialog::SCXMLTransitionDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
         Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
-    _isInsertOrEdit(isInsertOrEdit),
-    _isInsertOrAppend(isInsertOrAppend),
-    _d(toModifyElement),
+    p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
+    d(&p._d),
     ui(new Ui::SCXMLTransitionDialog)
 {
-    Utils::TODO_THIS_RELEASE("icona");
-    _regola = regola;
-    _info = info ;
-    _selectedElement = selectedElement;
-    _parentElement = parentElement;
     ui->setupUi(this);
     setupCommon();
-    if(_isInsertOrEdit) {
+    if(p._isInsertOrEdit) {
         setupInsert();
     }
     setupEdit();
@@ -55,26 +52,43 @@ SCXMLTransitionDialog::~SCXMLTransitionDialog()
 
 void SCXMLTransitionDialog::setupCommon()
 {
-    Utils::TODO_THIS_RELEASE("fare");
+    QStringList allStates = p._info->allStates();
+    Utils::loadComboTextArrays(ui->target, "", allStates, allStates);
+    QStringList types;
+    types << External << Internal;
+    Utils::loadComboTextArrays(ui->type, "", types, types);
 }
 
 // use default values
 void SCXMLTransitionDialog::setupInsert()
 {
-    _d.assignTag(SCXMLToken::Tag_parallel, _regola, _parentElement);
+    p.assignTag(SCXMLToken::Tag_transition);
+    d->setAttributeString(SCXMLtransitionToken::A_type, External);
 }
 
 void SCXMLTransitionDialog::setupEdit()
 {
-    Utils::TODO_THIS_RELEASE("fare");
+    ui->event->setText(d->attributeString(SCXMLtransitionToken::A_event));
+    ui->cond->setText(d->attributeString(SCXMLtransitionToken::A_cond));
+    ui->target->setEditText(d->attributeString(SCXMLtransitionToken::A_target));
+    Utils::selectComboText(ui->type, d->attributeString(SCXMLtransitionToken::A_type, External));
 }
 
 void SCXMLTransitionDialog::accept()
 {
-    Utils::TODO_THIS_RELEASE("fare validazioni");
-    Utils::TODO_THIS_RELEASE("set dati in elemento");
-    Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
+    d->setAttributeString(SCXMLtransitionToken::A_type, ui->type->currentText());
+    d->setAttributeString(SCXMLtransitionToken::A_target, ui->target->currentText());
+    d->setAttributeString(SCXMLtransitionToken::A_cond, ui->cond->text());
+    d->setAttributeString(SCXMLtransitionToken::A_event, ui->event->text());
 
-    Utils::TODO_THIS_RELEASE("fare");
+    if(!d->checkIDREFS(this, SCXMLtransitionToken::A_target)) {
+        return ;
+    }
+    if(d->attributeString(SCXMLtransitionToken::A_event).trimmed().isEmpty()
+            &&  d->attributeString(SCXMLtransitionToken::A_cond).trimmed().isEmpty()
+            &&  d->attributeString(SCXMLtransitionToken::A_target).trimmed().isEmpty()) {
+        Utils::error(this, tr("Please specify at least one condition, event or target."));
+        return;
+    }
     QDialog::accept();
 }

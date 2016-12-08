@@ -30,8 +30,7 @@
 SCXMLStateDialog::SCXMLStateDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                    Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
-    p(info, regola, isInsertOrEdit, isInsertOrAppend,
-      toModifyElement, selectedElement, parentElement),
+    p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
     d(&p._d),
     ui(new Ui::SCXMLStateDialog)
 {
@@ -51,14 +50,14 @@ SCXMLStateDialog::~SCXMLStateDialog()
 
 void SCXMLStateDialog::setupCommon()
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    Utils::loadComboTextArrays(ui->initial, "", p._info->allStates(), p._info->allStates());
+    QStringList allStates = p._info->allStates();
+    Utils::loadComboTextArrays(ui->initial, "", allStates, allStates);
 }
 
 // use default values
 void SCXMLStateDialog::setupInsert()
 {
-    d->assignTag(SCXMLToken::Tag_state, p._regola, p._parentElement);
+    p.assignTag(SCXMLToken::Tag_state);
 }
 
 void SCXMLStateDialog::setupEdit()
@@ -69,10 +68,6 @@ void SCXMLStateDialog::setupEdit()
 
 void SCXMLStateDialog::accept()
 {
-    Utils::TODO_THIS_RELEASE("fare validazioni");
-    Utils::TODO_THIS_RELEASE("set dati in elemento");
-    Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
-
     d->setAttributeString(SCXMLstateToken::A_id, ui->id->text());
     d->setAttributeString(SCXMLstateToken::A_initial, ui->initial->currentText());
 

@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>725</width>
-    <height>258</height>
+    <height>245</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Transition Properties</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -25,18 +29,18 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>Event:</string>
+        <string>&amp;Event:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>name</cstring>
+        <cstring>event</cstring>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="name"/>
+      <widget class="QLineEdit" name="event"/>
      </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_3">
@@ -62,20 +66,13 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Condition:</string>
+        <string>&amp;Condition:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>initial</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QComboBox" name="initial">
-       <property name="editable">
-        <bool>true</bool>
+        <cstring>cond</cstring>
        </property>
       </widget>
      </item>
@@ -97,29 +94,13 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>Target</string>
+        <string>&amp;Target</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>version</cstring>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="version">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>1.0</string>
+        <cstring>target</cstring>
        </property>
       </widget>
      </item>
@@ -141,36 +122,14 @@
      <item row="6" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>Anchor:</string>
+        <string>T&amp;ype:</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>datamodel</cstring>
+        <cstring>type</cstring>
        </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QComboBox" name="datamodel">
-       <property name="editable">
-        <bool>true</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string>null</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>ecmascript</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>xpath</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item row="7" column="1">
@@ -181,10 +140,27 @@
         </font>
        </property>
        <property name="text">
-        <string>The type of the anchor to transition</string>
+        <string>Determines whether the source state is exited in transitions whose target state is a descendant of the source state.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="cond"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QComboBox" name="type">
+       <property name="editable">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QComboBox" name="target">
+       <property name="editable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -210,6 +186,12 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -235,7 +217,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../risorse.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

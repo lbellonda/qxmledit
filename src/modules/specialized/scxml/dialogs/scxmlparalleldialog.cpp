@@ -30,19 +30,13 @@
 SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
         Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
-    _isInsertOrEdit(isInsertOrEdit),
-    _isInsertOrAppend(isInsertOrAppend),
-    _d(toModifyElement),
+    p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
+    d(&p._d),
     ui(new Ui::SCXMLParallelDialog)
 {
-    Utils::TODO_THIS_RELEASE("icona");
-    _regola = regola;
-    _info = info ;
-    _selectedElement = selectedElement;
-    _parentElement = parentElement;
     ui->setupUi(this);
     setupCommon();
-    if(_isInsertOrEdit) {
+    if(p._isInsertOrEdit) {
         setupInsert();
     }
     setupEdit();
@@ -55,28 +49,23 @@ SCXMLParallelDialog::~SCXMLParallelDialog()
 
 void SCXMLParallelDialog::setupCommon()
 {
-    Utils::TODO_THIS_RELEASE("fare");
 }
 
 // use default values
 void SCXMLParallelDialog::setupInsert()
 {
-    _d.assignTag(SCXMLToken::Tag_parallel, _regola, _parentElement);
+    p.assignTag(SCXMLToken::Tag_parallel);
 }
 
 void SCXMLParallelDialog::setupEdit()
 {
-    ui->id->setText(_d.attributeString(SCXMLstateToken::A_id));
+    ui->id->setText(d->attributeString(SCXMLparallelToken::A_id));
 }
 
 void SCXMLParallelDialog::accept()
 {
-    Utils::TODO_THIS_RELEASE("fare validazioni");
-    Utils::TODO_THIS_RELEASE("set dati in elemento");
-    Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
-
-    _d.setAttributeString(SCXMLparallelToken::A_id, ui->id->text());
-    if(!_d.checkID(this, SCXMLparallelToken::A_id)) {
+    d->setAttributeString(SCXMLparallelToken::A_id, ui->id->text());
+    if(!d->checkID(this, SCXMLparallelToken::A_id)) {
         return;
     }
     QDialog::accept();

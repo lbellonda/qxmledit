@@ -53,6 +53,7 @@ public:
     DECL_SCXML_TAG(scxml);
     DECL_SCXML_TAG(state);
     DECL_SCXML_TAG(parallel);
+    DECL_SCXML_TAG(transition);
 private:
     QString _name;
     QString _description;
@@ -134,6 +135,19 @@ public:
     virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                            Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
     SC_DECL_ATTR_TK(id);
+};
+
+class SCXMLtransitionToken : public SCXMLToken
+{
+public:
+    SCXMLtransitionToken();
+    virtual ~SCXMLtransitionToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(event);
+    SC_DECL_ATTR_TK(cond);
+    SC_DECL_ATTR_TK(target);
+    SC_DECL_ATTR_TK(type);
 };
 
 class SCXMLTokenChild

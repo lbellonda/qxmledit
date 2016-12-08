@@ -28,6 +28,8 @@
 #include "modules/specialized/scxml/scxmlroot.h"
 #include "modules/specialized/scxml/scxmleditormanager.h"
 #include "modules/specialized/scxml/dialogs/scxmlstatedialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlparalleldialog.h"
+#include "modules/specialized/scxml/dialogs/scxmltransitiondialog.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
 #include <QScxmlStateMachine>
 #include <QScxmlError>
@@ -58,13 +60,13 @@ static QStringList allTokens()
     //tokens << "log";
     //tokens << "onentry";
     //tokens << "onexit";
-    //tokens << "parallel";
+    tokens << "parallel";
     //tokens << "param";
     //tokens << "script";
     tokens << "scxml";
     //tokens << "send";
     tokens << "state";
-    //tokens << "transition";
+    tokens << "transition";
     //tokens <<  "var";
     return tokens ;
 }
@@ -119,8 +121,11 @@ bool TestSCXML::testEditTokens()
     bool testEditlog();
     bool testEditonentry();
     bool testEditonexit();
-    bool testEditparallel();
-    bool testEditparam();
+    bool testEditparallel();*/
+    if(!testEditparallel() ) {
+        return false;
+    }
+    /*bool testEditparam();
     bool testEditscript();*/
     if(!testEditscxml() ) {
         return false;
@@ -129,7 +134,10 @@ bool TestSCXML::testEditTokens()
     if(!testEditstate() ) {
         return false;
     }
-    /*bool testEdittransition();
+    if(!testEdittransition() ) {
+        return false;
+    }
+    /*
     bool testEditvar();*/
     return true;
 }
@@ -266,6 +274,43 @@ bool TestSCXML::testEditstate()
     return true;
 }
 
+bool TestSCXML::testEditparallel()
+{
+    _testName ="testEditparallel" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_parallel) ;
+    SCXMLParallelDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "id", SCXMLparallelToken::A_id, "aId", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEdittransition()
+{
+    _testName ="testEdittransition" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_transition) ;
+    SCXMLTransitionDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAC(&dialog, "target", SCXMLtransitionToken::A_target, "aTarget", &elementCompare)){return false;}
+    if(!setEAC(&dialog, "type", SCXMLtransitionToken::A_type, "Internal", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "cond", SCXMLtransitionToken::A_cond, "cond", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "event", SCXMLtransitionToken::A_event, "aEvent", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
 bool TestSCXML::testEditassign()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditcancel()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditcontent()
@@ -284,11 +329,9 @@ bool TestSCXML::testEditassign()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditlog()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditonentry()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditonexit()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditparallel()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditparam()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditscript()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditsend()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEdittransition()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditvar()
 {_testName ="" ;return error("nyi");}
 

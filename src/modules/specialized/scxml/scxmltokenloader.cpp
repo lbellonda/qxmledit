@@ -253,6 +253,8 @@ SCXMLToken *SCXMLTokenLoader::createSCXMLToken(const QString &tag)
         return new SCXMLstateToken();
     } else if(tag == SCXMLToken::Tag_parallel) {
         return new SCXMLparallelToken();
+    } else if(tag == SCXMLToken::Tag_transition) {
+        return new SCXMLtransitionToken();
     }
     return new SCXMLGenericToken();
 }

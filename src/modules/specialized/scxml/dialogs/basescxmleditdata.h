@@ -41,6 +41,7 @@ public:
     BaseSCXMLEditData(SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                       Element *toModifyElement, Element *selectedElement, Element *parentElement);
     virtual ~BaseSCXMLEditData();
+    void assignTag(const QString &tag);
 };
 
 #endif // BASESCXMLEDITDATA_H

@@ -23,9 +23,7 @@
 #ifndef SCXMLPARALLELDIALOG_H
 #define SCXMLPARALLELDIALOG_H
 
-#include "xmlEdit.h"
-#include "modules/specialized/scxml/scxmlinfo.h"
-#include "modules/specialized/scxml/dialogs/baseddata.h"
+#include "modules/specialized/scxml/dialogs/basescxmleditdata.h"
 
 namespace Ui
 {
@@ -37,13 +35,8 @@ class Regola;
 class SCXMLParallelDialog : public QDialog
 {
     Q_OBJECT
-    const bool _isInsertOrEdit;
-    const bool _isInsertOrAppend;
-    Element *_selectedElement;
-    BaseDData _d;
-    Element *_parentElement;
-    SCXMLInfo *_info;
-    Regola *_regola ;
+    BaseSCXMLEditData p;
+    BaseDData *d;
 
     void setupInsert();
     void setupEdit();

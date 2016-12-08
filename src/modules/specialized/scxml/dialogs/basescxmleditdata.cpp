@@ -37,3 +37,8 @@ BaseSCXMLEditData::BaseSCXMLEditData(SCXMLInfo *info, Regola *regola, const bool
 BaseSCXMLEditData::~BaseSCXMLEditData()
 {
 }
+
+void BaseSCXMLEditData::assignTag(const QString &tag)
+{
+    _d.assignTag(tag, _regola, _parentElement);
+}
