@@ -58,12 +58,12 @@ bool SCXMLRootToken::editToken(QWidget *, SCXMLInfo *, Regola *, const bool , co
 
 //------------------------------------------------------------------
 
-SC_IMPL_ATTR_TK(initial,SCXMLscxmlToken);
-SC_IMPL_ATTR_TK(name,SCXMLscxmlToken);
-SC_IMPL_ATTR_TK(xmlns,SCXMLscxmlToken);
-SC_IMPL_ATTR_TK(version,SCXMLscxmlToken);
-SC_IMPL_ATTR_TK(datamodel,SCXMLscxmlToken);
-SC_IMPL_ATTR_TK(binding,SCXMLscxmlToken);
+SC_IMPL_ATTR_TK(initial, SCXMLscxmlToken);
+SC_IMPL_ATTR_TK(name, SCXMLscxmlToken);
+SC_IMPL_ATTR_TK(xmlns, SCXMLscxmlToken);
+SC_IMPL_ATTR_TK(version, SCXMLscxmlToken);
+SC_IMPL_ATTR_TK(datamodel, SCXMLscxmlToken);
+SC_IMPL_ATTR_TK(binding, SCXMLscxmlToken);
 
 SCXMLscxmlToken::SCXMLscxmlToken()
 {
@@ -74,7 +74,7 @@ SCXMLscxmlToken::~SCXMLscxmlToken()
 }
 
 bool SCXMLscxmlToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-               Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                                Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     SCXMLRoot dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);
@@ -86,8 +86,8 @@ bool SCXMLscxmlToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regol
 
 //------------------------------------------------------------------
 
-SC_IMPL_ATTR_TK(initial,SCXMLstateToken);
-SC_IMPL_ATTR_TK(id,SCXMLstateToken);
+SC_IMPL_ATTR_TK(initial, SCXMLstateToken);
+SC_IMPL_ATTR_TK(id, SCXMLstateToken);
 
 SCXMLstateToken::SCXMLstateToken()
 {
@@ -98,7 +98,7 @@ SCXMLstateToken::~SCXMLstateToken()
 }
 
 bool SCXMLstateToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-               Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                                Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     SCXMLStateDialog dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);
@@ -110,7 +110,7 @@ bool SCXMLstateToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regol
 
 //------------------------------------------------------------------
 
-SC_IMPL_ATTR_TK(id,SCXMLparallelToken);
+SC_IMPL_ATTR_TK(id, SCXMLparallelToken);
 
 SCXMLparallelToken::SCXMLparallelToken()
 {
@@ -121,7 +121,7 @@ SCXMLparallelToken::~SCXMLparallelToken()
 }
 
 bool SCXMLparallelToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-               Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                                   Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     SCXMLParallelDialog dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);

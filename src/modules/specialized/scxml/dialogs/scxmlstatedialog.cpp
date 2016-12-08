@@ -30,19 +30,15 @@
 SCXMLStateDialog::SCXMLStateDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                    Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
-    _isInsertOrEdit(isInsertOrEdit),
-    _isInsertOrAppend(isInsertOrAppend),
-    _d(toModifyElement),
+    p(info, regola, isInsertOrEdit, isInsertOrAppend,
+      toModifyElement, selectedElement, parentElement),
+    d(&p._d),
     ui(new Ui::SCXMLStateDialog)
 {
     Utils::TODO_THIS_RELEASE("icona");
-    _regola = regola;
-    _info = info ;
-    _selectedElement = selectedElement;
-    _parentElement = parentElement;
     ui->setupUi(this);
     setupCommon();
-    if(_isInsertOrEdit) {
+    if(p._isInsertOrEdit) {
         setupInsert();
     }
     setupEdit();
@@ -56,19 +52,19 @@ SCXMLStateDialog::~SCXMLStateDialog()
 void SCXMLStateDialog::setupCommon()
 {
     Utils::TODO_THIS_RELEASE("fare");
-    Utils::loadComboTextArrays(ui->initial, "", _info->allStates(), _info->allStates());
+    Utils::loadComboTextArrays(ui->initial, "", p._info->allStates(), p._info->allStates());
 }
 
 // use default values
 void SCXMLStateDialog::setupInsert()
 {
-    _d.assignTag(SCXMLToken::Tag_state, _regola, _parentElement);
+    d->assignTag(SCXMLToken::Tag_state, p._regola, p._parentElement);
 }
 
 void SCXMLStateDialog::setupEdit()
 {
-    ui->id->setText(_d.attributeString(SCXMLstateToken::A_id));
-    ui->initial->setEditText(_d.attributeString(SCXMLstateToken::A_initial));
+    ui->id->setText(d->attributeString(SCXMLstateToken::A_id));
+    ui->initial->setEditText(d->attributeString(SCXMLstateToken::A_initial));
 }
 
 void SCXMLStateDialog::accept()
@@ -77,11 +73,11 @@ void SCXMLStateDialog::accept()
     Utils::TODO_THIS_RELEASE("set dati in elemento");
     Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
 
-    _d.setAttributeString(SCXMLstateToken::A_id, ui->id->text());
-    _d.setAttributeString(SCXMLstateToken::A_initial, ui->initial->currentText());
+    d->setAttributeString(SCXMLstateToken::A_id, ui->id->text());
+    d->setAttributeString(SCXMLstateToken::A_initial, ui->initial->currentText());
 
-    if(     !_d.checkIDREFS(this, SCXMLstateToken::A_initial)
-        ||  !_d.checkID(this, SCXMLstateToken::A_id) ) {
+    if(!d->checkIDREFS(this, SCXMLstateToken::A_initial)
+            ||  !d->checkID(this, SCXMLstateToken::A_id)) {
         return;
     }
     QDialog::accept();

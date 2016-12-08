@@ -35,6 +35,18 @@ class Element;
 #define SC_IMPL_ATTR_TK(a, cla)  const QString cla::A_ ## a = # a
 //--
 
+class SCXMLToken;
+
+class SCXMLGroup
+{
+public:
+    QString _name;
+    QList<SCXMLTokenChild*>_children;
+    SCXMLGroup(const QString &newName);
+    ~SCXMLGroup();
+    void addChild(SCXMLTokenChild* newToken);
+};
+
 class SCXMLToken
 {
 public:

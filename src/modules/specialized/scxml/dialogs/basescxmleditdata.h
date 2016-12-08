@@ -20,23 +20,16 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SCXMLTRANSITIONDIALOG_H
-#define SCXMLTRANSITIONDIALOG_H
+#ifndef BASESCXMLEDITDATA_H
+#define BASESCXMLEDITDATA_H
 
 #include "xmlEdit.h"
 #include "modules/specialized/scxml/scxmlinfo.h"
 #include "modules/specialized/scxml/dialogs/baseddata.h"
 
-namespace Ui
+class BaseSCXMLEditData
 {
-class SCXMLTransitionDialog;
-}
-
-class Regola;
-
-class SCXMLTransitionDialog : public QDialog
-{
-    Q_OBJECT
+public:
     const bool _isInsertOrEdit;
     const bool _isInsertOrAppend;
     Element *_selectedElement;
@@ -45,19 +38,9 @@ class SCXMLTransitionDialog : public QDialog
     SCXMLInfo *_info;
     Regola *_regola ;
 
-    void setupInsert();
-    void setupEdit();
-    void setupCommon();
-
-public:
-    explicit SCXMLTransitionDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                   Element *toModifyElement, Element *selectedElement, Element *parentElement);
-    ~SCXMLTransitionDialog();
-
-    void accept();
-
-private:
-    Ui::SCXMLTransitionDialog *ui;
+    BaseSCXMLEditData(SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                      Element *toModifyElement, Element *selectedElement, Element *parentElement);
+    virtual ~BaseSCXMLEditData();
 };
 
-#endif // SCXMLTRANSITIONDIALOG_H
+#endif // BASESCXMLEDITDATA_H

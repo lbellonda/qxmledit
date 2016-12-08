@@ -265,8 +265,8 @@ QString XmlUtils::makeNewPrefixForChangePrefix(QHash<QString, QString> &prefixes
 
 bool XmlUtils::isNCNAME(const QString &name)
 {
-    if( Utils::checkXMLName(name) ) {
-        if(name.indexOf(":")>=0) {
+    if(Utils::checkXMLName(name)) {
+        if(name.indexOf(":") >= 0) {
             return false;
         }
         return true;
@@ -284,10 +284,10 @@ bool XmlUtils::isNMTOKEN(const QString &name)
     int len = name.length() ;
     FORINT(i, len) {
         const QChar ch = name.at(i);
-        if(val.indexOf(ch)>=0) {
+        if(val.indexOf(ch) >= 0) {
             continue;
         }
-        if( ch.isLetterOrNumber() ) {
+        if(ch.isLetterOrNumber()) {
             continue ;
         }
         return false ;

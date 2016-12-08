@@ -36,6 +36,7 @@ class QTreeWidget;
 class Regola ;
 class NamespaceHandlerForEdit;
 class XIncludeEditorManager;
+class SCXMLEditorManager;
 
 class SingleHandlerForInsert
 {
@@ -128,6 +129,7 @@ public:
     HandlerForInsert *handleInsertElementForSpecialized(QWidget *parent, QList<HandlerForInsert*> *handlers);
     void setProviderForInsert(NamespaceEditorInsertChoiceProvider *newProvider);
     XIncludeEditorManager *xIncludeEditorManager();
+    SCXMLEditorManager *scxmlEditorManager();
 
 private:
     QHash<EWellKnownNs, NamespaceDef*> _namespaces;

@@ -27,7 +27,8 @@
 #include "modules/specialized/scxml/scxmlinfo.h"
 #include "modules/specialized/scxml/dialogs/baseddata.h"
 
-namespace Ui {
+namespace Ui
+{
 class SCXMLParallelDialog;
 }
 

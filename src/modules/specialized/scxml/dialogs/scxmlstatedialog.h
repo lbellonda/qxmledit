@@ -23,11 +23,10 @@
 #ifndef SCXMLSTATEDIALOG_H
 #define SCXMLSTATEDIALOG_H
 
-#include "xmlEdit.h"
-#include "modules/specialized/scxml/scxmlinfo.h"
-#include "modules/specialized/scxml/dialogs/baseddata.h"
+#include "modules/specialized/scxml/dialogs/basescxmleditdata.h"
 
-namespace Ui {
+namespace Ui
+{
 class SCXMLStateDialog;
 }
 
@@ -36,13 +35,8 @@ class Regola;
 class SCXMLStateDialog : public QDialog
 {
     Q_OBJECT
-    const bool _isInsertOrEdit;
-    const bool _isInsertOrAppend;
-    Element *_selectedElement;
-    BaseDData _d;
-    Element *_parentElement;
-    SCXMLInfo *_info;
-    Regola *_regola ;
+    BaseSCXMLEditData p;
+    BaseDData *d;
 
     void setupInsert();
     void setupEdit();

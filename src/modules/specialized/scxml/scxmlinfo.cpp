@@ -23,14 +23,58 @@
 #include "scxmlinfo.h"
 #include "utils.h"
 
+Element *SCXMLState::element() const
+{
+    return _element;
+}
+
+void SCXMLState::setElement(Element *element)
+{
+    _element = element;
+}
+
+QString SCXMLState::id() const
+{
+    return _id;
+}
+
+void SCXMLState::setId(const QString &id)
+{
+    _id = id;
+}
+
+bool SCXMLState::isParallel() const
+{
+    return _parallel;
+}
+
+void SCXMLState::setParallel(bool parallel)
+{
+    _parallel = parallel;
+}
+
 SCXMLState::SCXMLState()
 {
-    element = NULL ;
+    _element = NULL ;
+    _parallel = false ;
 }
 
 SCXMLState::~SCXMLState()
 {
     EMPTYPTRLIST(_children, SCXMLState);
+}
+
+void SCXMLState::addChild(SCXMLState *child)
+{
+    _children.append(child);
+}
+
+void SCXMLState::allStates(QStringList &result)
+{
+    result << id();
+    foreach(SCXMLState *state, _children) {
+        state->allStates(result);
+    }
 }
 
 //-------------
@@ -44,10 +88,20 @@ SCXMLInfo::~SCXMLInfo()
     EMPTYPTRLIST(_children, SCXMLState);
 }
 
+void SCXMLInfo::addChild(SCXMLState *child)
+{
+    _children.append(child);
+}
+
 QStringList SCXMLInfo::allStates()
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    QStringList x;
+    Utils::TODO_THIS_RELEASE("fare SCXMLInfo::allStates");
+    QStringList result ;
+    foreach(SCXMLState *state, _children) {
+        state->allStates(result);
+    }
+    return result;
+    /*QStringList x;
     x << "a" << "b" << "c" ;
-    return x ;
+    return x ;*/
 }

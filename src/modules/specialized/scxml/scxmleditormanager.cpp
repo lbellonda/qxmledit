@@ -51,15 +51,15 @@ bool SCXMLEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Regola 
     if(NULL != newElement) {
         element->copyTo(*newElement, false);
         Utils::TODO_THIS_RELEASE("fare info");
-        SCXMLInfo *info = new SCXMLInfo();
-        if(token->editToken(parent, info, regola, false, false, newElement, element, element->parent())) {
+        SCXMLInfo info;
+        findInfoStates(regola, &info);
+        if(token->editToken(parent, &info, regola, false, false, newElement, element, element->parent())) {
             if(regola->editElementWrapper(tree, newElement, element)) {
                 return true ;
             } else {
                 Utils::error(parent, QObject::tr("Error applying the editing."));
             }
         }
-        delete info;
         delete newElement ;
     }
     return false;
@@ -77,11 +77,11 @@ bool SCXMLEditorManager::handleInsert(QTreeWidget *tree, Regola *regola, Element
     }
     Element *theParent = (NULL != element) ? element->parent() : NULL ;
     Utils::TODO_THIS_RELEASE("fare info");
-    SCXMLInfo *info = new SCXMLInfo();
-    if(token->editToken(tree->window(), info, regola, true, isChild, newElement, element, theParent)) {
+    SCXMLInfo info;
+    findInfoStates(regola, &info);
+    if(token->editToken(tree->window(), &info, regola, true, isChild, newElement, element, theParent)) {
         goAhead = true ;
     }
-    delete info;
     if(goAhead) {
         return insertAction(tree, regola, element, newElement, isChild);
     }
@@ -141,4 +141,68 @@ void SCXMLEditorManager::init()
     _inited = true;
     _tokenMakager.init();
     Utils::TODO_THIS_RELEASE("fare");
+}
+
+bool SCXMLEditorManager::findInfoStates(Regola *regola, SCXMLInfo *info)
+{
+    if(NULL != regola->root()) {
+        return findInfoStates(regola->root(), info, NULL, false, NULL);
+    }
+    return false;
+}
+
+SCXMLState *SCXMLEditorManager::addStateForInfo(SCXMLInfo *info, SCXMLState *currentState, SCXMLState *state)
+{
+    if(NULL != currentState) {
+        currentState->addChild(state);
+    } else {
+        info->addChild(state);
+    }
+    return state ;
+}
+
+bool SCXMLEditorManager::findInfoStates(Element *element, SCXMLInfo *info, NSContext *parent, const bool rootFound, SCXMLState *currentState)
+{
+    NSContext thisContext(parent);
+    if(element->isElement()) {
+        element->handleNamespace(&thisContext);
+        QString name, prefix;
+        XmlUtils::decodeQualifiedName(element->tag(), prefix, name);
+        const QString &elementNamespace = thisContext.uriFromPrefix(prefix);
+        bool doChildren = false;
+        bool haveRoot = rootFound ;
+        if(elementNamespace == NamespaceManager::SCXMLNamespace) {
+            if(!rootFound) {
+                if(name == SCXMLRootToken::SCXMLToken::Tag_scxml) {
+                    doChildren = true;
+                    haveRoot = true;
+                }
+            } else {
+                if(name == SCXMLRootToken::SCXMLToken::Tag_state) {
+                    SCXMLState *state = new SCXMLState();
+                    state->setElement(element);
+                    state->setId(element->getAttributeValue(SCXMLstateToken::A_id));
+                    currentState = addStateForInfo(info, currentState, state);
+                    doChildren = true ;
+                } else if(name == SCXMLRootToken::SCXMLToken::Tag_parallel) {
+                    SCXMLState *state = new SCXMLState();
+                    state->setElement(element);
+                    state->setId(element->getAttributeValue(SCXMLparallelToken::A_id));
+                    state->setParallel(true);
+                    currentState = addStateForInfo(info, currentState, state);
+                    doChildren = true;
+                }
+            }
+        } else {
+            if(!rootFound) {
+                doChildren = true;
+            }
+        }
+        if(doChildren) {
+            foreach(Element *child, *element->getChildItems()) {
+                findInfoStates(child, info, &thisContext, haveRoot || rootFound, currentState);
+            }
+        }
+    }
+    return true;
 }

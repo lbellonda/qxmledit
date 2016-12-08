@@ -27,15 +27,25 @@
 
 class Element ;
 
-class SCXMLState {
+class SCXMLState
+{
     QList<SCXMLState*> _children;
-    Element *element;
+    Element *_element;
+    QString _id;
+    bool _parallel;
 public:
     SCXMLState();
     virtual ~SCXMLState();
 
-    bool isAtomic();
-    bool isParallel();
+    void allStates(QStringList &result);
+
+    void addChild(SCXMLState *state);
+    bool isParallel() const;
+    Element *element() const;
+    void setElement(Element *element);
+    QString id() const;
+    void setId(const QString &id);
+    void setParallel(bool parallel);
 };
 
 class SCXMLInfo
@@ -46,6 +56,7 @@ public:
     virtual ~SCXMLInfo();
 
     QStringList allStates();
+    void addChild(SCXMLState *state);
 };
 
 #endif // SCXMLINFO_H

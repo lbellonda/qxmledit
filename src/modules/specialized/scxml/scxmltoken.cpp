@@ -23,6 +23,21 @@
 #include "scxmltoken.h"
 #include "utils.h"
 
+SCXMLGroup::SCXMLGroup(const QString &newName)
+{
+    _name = newName ;
+}
+
+SCXMLGroup::~SCXMLGroup()
+{
+    EMPTYPTRLIST(_children, SCXMLTokenChild);
+}
+
+void SCXMLGroup::addChild(SCXMLTokenChild* newToken)
+{
+    _children.append(newToken);
+}
+
 #define IMPL_SCXML_TAG(x) const QString SCXMLToken::Tag_ ## x = #x
 
 IMPL_SCXML_TAG(scxml);

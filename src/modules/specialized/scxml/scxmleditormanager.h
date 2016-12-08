@@ -26,12 +26,18 @@
 #include "modules/xsd/namespacemanager.h"
 #include "modules/specialized/scxml/scxmltokenmanager.h"
 
+class SCXMLState;
+class NSContext ;
+
 class SCXMLEditorManager : public NamespaceHandlerForEdit
 {
     SCXMLTokenManager _tokenMakager;
     bool _inited;
 
     void init();
+    bool findInfoStates(Element *element, SCXMLInfo *info, NSContext *parent, const bool rootFound, SCXMLState *currentState);
+    SCXMLState *addStateForInfo(SCXMLInfo *info, SCXMLState *currentState, SCXMLState *state);
+
 public:
     SCXMLEditorManager();
     virtual ~SCXMLEditorManager();
@@ -39,6 +45,7 @@ public:
     virtual bool handleEdit(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element);
     virtual HandlerForInsert *handlerForInsert(Regola *regola, Element *element, const bool isChild) ;
     virtual bool handleInsert(QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) ;
+    bool findInfoStates(Regola *regola, SCXMLInfo *info);
 };
 
 #endif // SCXMLEDITORMANAGER_H

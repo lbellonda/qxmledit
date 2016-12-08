@@ -324,7 +324,7 @@ bool TestBase::compareListGeneric(const QString &msg, QList<T> &reference, QList
     bool isOk = true;
     if( reference.count() != compare.count() ) {
         isOk = false;
-        errorMessage += "arguments count differs \n";
+        errorMessage += QString("arguments count differs %1 (ref) vs %2 (cand)\n").arg(reference.count()).arg(compare.count());
     }
     int maxop = reference.count();
     for( int i = 0 ; i < maxop ; i ++ ) {
@@ -345,15 +345,15 @@ bool TestBase::compareListGeneric(const QString &msg, QList<T> &reference, QList
             isOk = false;
         }
         if(!isRef && isCompare) {
-            errorMessage += QString("\nItem %1 only reference:%2\n").arg(i).arg(r);
+            errorMessage += QString("\nItem %1 only reference:'%2'\n").arg(i).arg(r);
             isOk = false;
         }
         if(isRef && !isCompare) {
-            errorMessage += QString("\nItem %1 only compare :%2\n").arg(i).arg(c);
+            errorMessage += QString("\nItem %1 only compare :'%2'\n").arg(i).arg(c);
             isOk = false;
         }
         if(isRef && isCompare) {
-            errorMessage += QString("\nItem %1 reference:%2 compare:%3\n").arg(i).arg(r).arg(c);
+            errorMessage += QString("\nItem %1 reference:'%2'' compare:'%3'\n").arg(i).arg(r).arg(c);
             if( r != c ) {
                 isOk = false;
             }

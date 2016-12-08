@@ -28,7 +28,7 @@
 #include "utils.h"
 
 SCXMLTransitionDialog::SCXMLTransitionDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                             Element *toModifyElement, Element *selectedElement, Element *parentElement) :
+        Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
     _isInsertOrEdit(isInsertOrEdit),
     _isInsertOrAppend(isInsertOrAppend),

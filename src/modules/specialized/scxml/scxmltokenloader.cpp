@@ -28,6 +28,9 @@
 #define TOKEN "token"
 #define CHILD "child"
 #define CHILDREN "children"
+#define MEMBER "member"
+#define GROUP "group"
+#define GROUPREF "groupRef"
 
 #define A_NAME  "name"
 #define A_MIN   "min"
@@ -42,19 +45,23 @@
 SCXMLTokenLoader::SCXMLTokenLoader()
 {
     _currentToken = NULL ;
+    _currentGroup = NULL ;
     _tokens = NULL ;
     _foundChildren = false ;
 }
 
 SCXMLTokenLoader::~SCXMLTokenLoader()
 {
-
+    QList<SCXMLGroup*> groups = _groups.values();
+    EMPTYPTRLIST(groups, SCXMLGroup);
+    _groups.clear();
 }
 
 bool SCXMLTokenLoader::load(const QString &fileName, QHash<QString, SCXMLToken*> *tokens)
 {
     _tokens = tokens ;
     _currentToken = NULL ;
+    _currentGroup = NULL ;
     _foundChildren = false;
     bool isOk = false;
     QXmlSimpleReader reader;
@@ -94,8 +101,6 @@ bool SCXMLTokenLoader::startElement(const QString &/*namespaceURI*/, const QStri
         QString ref = attributes.value(A_REF);
         if(tag.isEmpty() && (ref != V_ROOT)) {
             setErrorMessage(QObject::tr("Bad SCXML data, code 2"));
-            delete _currentToken ;
-            _currentToken = NULL ;
             return false;
         }
         _currentToken = createSCXMLToken(tag);
@@ -106,14 +111,21 @@ bool SCXMLTokenLoader::startElement(const QString &/*namespaceURI*/, const QStri
         _tokens->insert(_currentToken->name(), _currentToken);
         return true;
     }
-    if(qName == CHILD) {
-        if(!_foundChildren) {
-            setErrorMessage(QObject::tr("Bad SCXML data, code 1"));
-            return false;
-        }
-        if(NULL == _currentToken) {
-            setErrorMessage(QObject::tr("Bad SCXML data, code 3"));
-            return false;
+    if((qName == CHILD) || (qName == MEMBER)) {
+        if(qName == CHILD) {
+            if(!_foundChildren) {
+                setErrorMessage(QObject::tr("Bad SCXML data, code 1"));
+                return false;
+            }
+            if(NULL == _currentToken) {
+                setErrorMessage(QObject::tr("Bad SCXML data, code 3"));
+                return false;
+            }
+        } else {
+            if(NULL == _currentGroup) {
+                setErrorMessage(QObject::tr("Bad SCXML data, code 10"));
+                return false;
+            }
         }
         //<child name="state" min="0" max="u" d="A compound or atomic state. Occurs zero or more times."/>
         QString childName = attributes.value(A_NAME);
@@ -132,7 +144,50 @@ bool SCXMLTokenLoader::startElement(const QString &/*namespaceURI*/, const QStri
             setErrorMessage(QObject::tr("Bad SCXML data for '%1'/'%2', code 4").arg(_currentToken->name()).arg(childName));
             return false;
         }
-        _currentToken->addChild(child);
+        if(qName == CHILD) {
+            _currentToken->addChild(child);
+        } else {
+            _currentGroup->addChild(child);
+        }
+        return true;
+    }
+    if(qName == GROUPREF) {
+        if(NULL == _currentToken) {
+            return setErrorMessage(QObject::tr("Bad SCXML data, code 20"));
+        }
+        QString groupName = attributes.value(A_NAME);
+        SCXMLGroup *group = _groups[groupName];
+        if(NULL == group) {
+            return setErrorMessage(QObject::tr("Bad SCXML data, code 21 for '%1'").arg(groupName));
+        }
+        // copy children
+        foreach(SCXMLTokenChild *gChild, group->_children) {
+            SCXMLTokenChild * child = new SCXMLTokenChild();
+            if(NULL == child) {
+                return oomError();
+            }
+            child->setName(gChild->name());
+            child->setDescription(gChild->description());
+            child->setMax(gChild->max());
+            child->setMin(gChild->min());
+            _currentToken->addChild(child);
+        }
+        //--- end
+    }
+
+    if(qName == GROUP) {
+        _foundChildren = false ;
+        QString name ;
+        name = attributes.value(A_NAME);
+        if(name.isEmpty()) {
+            setErrorMessage(QObject::tr("Bad SCXML data, code 6"));
+            return false;
+        }
+        _currentGroup = new SCXMLGroup(name);
+        if(NULL == _currentGroup) {
+            return oomError();
+        }
+        _groups.insert(_currentGroup->_name, _currentGroup);
         return true;
     }
     return true ;

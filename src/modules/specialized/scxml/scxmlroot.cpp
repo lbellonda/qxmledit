@@ -30,21 +30,18 @@
 SCXMLRoot::SCXMLRoot(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                      Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
-    _isInsertOrEdit(isInsertOrEdit),
-    _isInsertOrAppend(isInsertOrAppend),
-    _d(toModifyElement),
+    p(info, regola, isInsertOrEdit, isInsertOrAppend,
+      toModifyElement, selectedElement, parentElement),
+    d(&p._d),
     ui(new Ui::SCXMLRoot)
 {
-    _regola = regola;
-    _info = info ;
-    _selectedElement = selectedElement;
-    _parentElement = parentElement;
     ui->setupUi(this);
     setupCommon();
-    if(_isInsertOrEdit) {
+    if(p._isInsertOrEdit) {
         setupInsert();
     }
     setupEdit();
+    Utils::TODO_THIS_RELEASE("valutare se dichiarare xincludens");
 }
 
 SCXMLRoot::~SCXMLRoot()
@@ -54,32 +51,28 @@ SCXMLRoot::~SCXMLRoot()
 
 void SCXMLRoot::setupCommon()
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    Utils::loadComboTextArrays(ui->initial, "", _info->allStates(), _info->allStates());
+    Utils::loadComboTextArrays(ui->initial, "", p._info->allStates(), p._info->allStates());
 }
 
 // use default values
 void SCXMLRoot::setupInsert()
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    _d.setAttributeString(SCXMLscxmlToken::A_binding, "early");
-    _d.setAttributeString(SCXMLscxmlToken::A_datamodel, "null" );
-    _d.setAttributeString(SCXMLscxmlToken::A_name, tr("New Machine"));
-    _d.setAttributeString(SCXMLscxmlToken::A_version, "1.0");
-    _d.setAttributeString(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
-    _d.assignTag(SCXMLToken::Tag_scxml, _regola, _parentElement);
+    d->setAttributeString(SCXMLscxmlToken::A_binding, "early");
+    d->setAttributeString(SCXMLscxmlToken::A_datamodel, "null");
+    d->setAttributeString(SCXMLscxmlToken::A_name, tr("New Machine"));
+    d->setAttributeString(SCXMLscxmlToken::A_version, "1.0");
+    d->setAttributeString(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
+    d->assignTag(SCXMLToken::Tag_scxml, p._regola, p._parentElement);
 }
 
 void SCXMLRoot::setupEdit()
 {
     //fai fill su elemento se insert, poi una sola funzione per settare UI.
-
-    Utils::TODO_THIS_RELEASE("fare");
-    ui->binding->setChecked(_d.attributeString(SCXMLscxmlToken::A_datamodel, "early")!= "late");
-    ui->datamodel->setEditText(_d.attributeString(SCXMLscxmlToken::A_datamodel));
-    ui->name->setText(_d.attributeString(SCXMLscxmlToken::A_name));
-    ui->version->setText(_d.attributeString(SCXMLscxmlToken::A_version));
-    ui->initial->setEditText(_d.attributeString(SCXMLscxmlToken::A_initial));
+    ui->binding->setChecked(d->attributeString(SCXMLscxmlToken::A_datamodel, "early") != "late");
+    ui->datamodel->setEditText(d->attributeString(SCXMLscxmlToken::A_datamodel));
+    ui->name->setText(d->attributeString(SCXMLscxmlToken::A_name));
+    ui->version->setText(d->attributeString(SCXMLscxmlToken::A_version));
+    ui->initial->setEditText(d->attributeString(SCXMLscxmlToken::A_initial));
 }
 
 void SCXMLRoot::accept()
@@ -89,17 +82,17 @@ void SCXMLRoot::accept()
     Utils::TODO_THIS_RELEASE("set dati in elemento");
     Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
 
-    _d.setAttributeString(SCXMLscxmlToken::A_binding, ui->binding->isChecked()?"early":"late");
-    _d.setAttributeString(SCXMLscxmlToken::A_datamodel, ui->datamodel->currentText() );
-    _d.setAttributeString(SCXMLscxmlToken::A_name, ui->name->text());
-    _d.setAttributeString(SCXMLscxmlToken::A_version, ui->version->text());
-    _d.setAttributeString(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
-    _d.setAttributeString(SCXMLscxmlToken::A_initial, ui->initial->currentText());
-    //_d.setAttributeStringIfMissing(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
+    d->setAttributeString(SCXMLscxmlToken::A_binding, ui->binding->isChecked() ? "early" : "late");
+    d->setAttributeString(SCXMLscxmlToken::A_datamodel, ui->datamodel->currentText());
+    d->setAttributeString(SCXMLscxmlToken::A_name, ui->name->text());
+    d->setAttributeString(SCXMLscxmlToken::A_version, ui->version->text());
+    d->setAttributeString(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
+    d->setAttributeString(SCXMLscxmlToken::A_initial, ui->initial->currentText());
+    //d->setAttributeStringIfMissing(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
 
-    if(     !_d.checkIDREFS(this, SCXMLscxmlToken::A_initial)
-        ||  !_d.checkNMTOKEN(this, SCXMLscxmlToken::A_name)
-        ||  !_d.checkNMTOKEN(this, SCXMLscxmlToken::A_datamodel)) {
+    if(!d->checkIDREFS(this, SCXMLscxmlToken::A_initial)
+            ||  !d->checkNMTOKEN(this, SCXMLscxmlToken::A_name)
+            ||  !d->checkNMTOKEN(this, SCXMLscxmlToken::A_datamodel)) {
         return;
     }
 

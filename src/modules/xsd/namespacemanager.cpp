@@ -249,7 +249,7 @@ bool NamespaceManager::editElement(QWidget *parent, QTreeWidget *tree, Regola *r
 
 bool NamespaceManager::insertElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling)
 {
-    Utils::TODO_THIS_RELEASE("rinire, gestire root");
+    Utils::TODO_THIS_RELEASE("riunire, gestire root");
     bool result = false ;
     //if((NULL != element) && element->isElement()) {
     /*QXName qname ;
@@ -296,3 +296,7 @@ XIncludeEditorManager *NamespaceManager::xIncludeEditorManager()
     return static_cast<XIncludeEditorManager *>(_editHandlers[XIncludeNamespace]);
 }
 
+SCXMLEditorManager *NamespaceManager::scxmlEditorManager()
+{
+    return static_cast<SCXMLEditorManager *>(_editHandlers[SCXMLNamespace]);
+}

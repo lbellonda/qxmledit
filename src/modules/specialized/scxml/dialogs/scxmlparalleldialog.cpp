@@ -28,7 +28,7 @@
 #include "utils.h"
 
 SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                         Element *toModifyElement, Element *selectedElement, Element *parentElement) :
+        Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
     _isInsertOrEdit(isInsertOrEdit),
     _isInsertOrAppend(isInsertOrAppend),
@@ -76,7 +76,7 @@ void SCXMLParallelDialog::accept()
     Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
 
     _d.setAttributeString(SCXMLparallelToken::A_id, ui->id->text());
-    if( !_d.checkID(this, SCXMLparallelToken::A_id) ) {
+    if(!_d.checkID(this, SCXMLparallelToken::A_id)) {
         return;
     }
     QDialog::accept();

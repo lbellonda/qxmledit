@@ -1,4 +1,16 @@
 <root>
+    <group name="executableContent">
+        <member name="raise" min="0" max="u" d=""/>
+        <member name="if" min="0" max="u" d=""/>
+        <member name="elseif" min="0" max="u" d=""/>
+        <member name="else" min="0" max="u" d=""/>
+        <member name="foreach" min="0" max="u" d=""/>
+        <member name="log" min="0" max="u" d=""/>
+        <member name="assign" min="0" max="u" d=""/>
+        <member name="script" min="0" max="1" d=""/>
+        <member name="send" min="0" max="u" d=""/>
+        <member name="cancel" min="0" max="u" d=""/>
+    </group>
     <token name="" ref="root">
         <children>
             <child name="scxml" min="1" max="1" d="Root element."/>
@@ -41,16 +53,7 @@
     </token>
     <token name="transition">
         <children>
-            <child name="raise" min="0" max="u" d=""/>
-            <child name="if" min="0" max="u" d=""/>
-            <child name="elseif" min="0" max="u" d=""/>
-            <child name="else" min="0" max="u" d=""/>
-            <child name="foreach" min="0" max="u" d=""/>
-            <child name="log" min="0" max="u" d=""/>
-            <child name="assign" min="0" max="u" d=""/>
-            <child name="script" min="0" max="1" d=""/>
-            <child name="send" min="0" max="u" d=""/>
-            <child name="cancel" min="0" max="u" d=""/>
+            <groupRef name="executableContent" />
          </children>
     </token>
     <token name="initial">

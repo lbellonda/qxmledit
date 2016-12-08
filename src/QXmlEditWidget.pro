@@ -457,7 +457,8 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/dialogs/baseddata.cpp \
     modules/specialized/scxml/dialogs/scxmlstatedialog.cpp \
     modules/specialized/scxml/dialogs/scxmlparalleldialog.cpp \
-    modules/specialized/scxml/dialogs/scxmltransitiondialog.cpp
+    modules/specialized/scxml/dialogs/scxmltransitiondialog.cpp \
+    modules/specialized/scxml/dialogs/basescxmleditdata.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -703,7 +704,8 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/dialogs/baseddata.h \
     modules/specialized/scxml/dialogs/scxmlstatedialog.h \
     modules/specialized/scxml/dialogs/scxmlparalleldialog.h \
-    modules/specialized/scxml/dialogs/scxmltransitiondialog.h
+    modules/specialized/scxml/dialogs/scxmltransitiondialog.h \
+    modules/specialized/scxml/dialogs/basescxmleditdata.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

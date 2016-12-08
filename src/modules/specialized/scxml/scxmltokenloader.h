@@ -30,8 +30,10 @@
 class SCXMLTokenLoader : public QXmlDefaultHandler
 {
     SCXMLToken    *_currentToken ;
+    SCXMLGroup    *_currentGroup ;
     bool _foundChildren;
     QHash<QString, SCXMLToken*> *_tokens;
+    QHash<QString, SCXMLGroup*> _groups;
     QString _parseError;
 
     bool oomError();

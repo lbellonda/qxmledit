@@ -35,9 +35,8 @@ BaseDData::~BaseDData()
 
 QString BaseDData::attributeString(const QString &name, const QString &defaultValue)
 {
-    Utils::TODO_THIS_RELEASE("refactor");
     Attribute *a = element->getAttribute(name);
-    if( NULL != a ) {
+    if(NULL != a) {
         return a->value ;
     }
     return defaultValue ;
@@ -46,7 +45,7 @@ QString BaseDData::attributeString(const QString &name, const QString &defaultVa
 void BaseDData::setAttributeStringIfMissing(const QString &name, const QString &value)
 {
     Attribute *a = element->getAttribute(name);
-    if( NULL == a ) {
+    if(NULL == a) {
         element->setAttribute(name, value);
     }
 }
@@ -59,7 +58,7 @@ void BaseDData::setAttributeString(const QString &name, const QString &value)
 void BaseDData::assignTag(const QString &tag, Regola *regola, Element *parent)
 {
     QString prefix;
-    if( NULL != parent ) {
+    if(NULL != parent) {
         QString name;
         XmlUtils::decodeQualifiedName(parent->tag(), prefix, name);
     }
@@ -82,7 +81,7 @@ bool BaseDData::checkIDREFS(QWidget *window, const QString &attrName)
     QString value = element->getAttributeValue(attrName);
     if(!value.isEmpty()) {
         QStringList values = value.split(" ");
-        foreach( const QString &v, values ) {
+        foreach(const QString &v, values) {
             if(!XmlUtils::isNCNAME(v)) {
                 return error(window, attrName);
             }

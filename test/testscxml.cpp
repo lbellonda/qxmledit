@@ -26,8 +26,14 @@
 #include "modules/xsd/namespacemanager.h"
 #include "modules/specialized/scxml/scxmltokenmanager.h"
 #include "modules/specialized/scxml/scxmlroot.h"
+#include "modules/specialized/scxml/scxmleditormanager.h"
+#include "modules/specialized/scxml/dialogs/scxmlstatedialog.h"
+#if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
+#include <QScxmlStateMachine>
+#include <QScxmlError>
+#endif
 
-#define BASE_PATH "../test/data/xml/specialized/scxml"
+#define BASE_PATH "../test/data/xml/special/scxml"
 #define FILE_STATES BASE_PATH "/states.xml"
 
 static QStringList allTokens()
@@ -57,7 +63,7 @@ static QStringList allTokens()
     //tokens << "script";
     tokens << "scxml";
     //tokens << "send";
-    //tokens << "state";
+    tokens << "state";
     //tokens << "transition";
     //tokens <<  "var";
     return tokens ;
@@ -74,7 +80,7 @@ TestSCXML::~TestSCXML()
 bool TestSCXML::testFast()
 {
     _testName = "testFast" ;
-    return testEditscxml();
+    return testEditTokens();
 }
 
 bool TestSCXML::testLoadTokens()
@@ -119,9 +125,11 @@ bool TestSCXML::testEditTokens()
     if(!testEditscxml() ) {
         return false;
     }
-    /*bool testEditsend();
-    bool testEditstate();
-    bool testEdittransition();
+    /*bool testEditsend();*/
+    if(!testEditstate() ) {
+        return false;
+    }
+    /*bool testEdittransition();
     bool testEditvar();*/
     return true;
 }
@@ -141,13 +149,34 @@ bool TestSCXML::testTemplates()
 bool TestSCXML::testTemplatesCompile()
 {
     _testName = "testTemplatesCompile" ;
-    return error("nyi");
+#if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
+    bool isError = false;
+    QString msg;
+    QScxmlStateMachine *testMachine = QScxmlStateMachine::fromFile(":/templates/templateSCXML");
+    if( NULL != testMachine ) {
+        if (!testMachine->parseErrors().isEmpty()) {
+            isError = true;
+            foreach (const QScxmlError &error, testMachine->parseErrors()) {
+                msg += error.toString();
+            }
+        }
+        delete testMachine ;
+    } else {
+        msg = "null SCXML machine";
+        isError = true;
+    }
+
+    if(isError) {
+        return error(msg);
+    }
+#endif
+    return true ;
 }
 
 bool TestSCXML::testTemplatesLoadStates()
 {
     _testName = "testTemplatesLoadStates" ;
-    /*App app;
+    App app;
     if(!app.init() ) {
         return error("init app failed");
     }
@@ -155,8 +184,18 @@ bool TestSCXML::testTemplatesLoadStates()
         return error(QString("unable to load input file: '%1' ").arg(FILE_STATES));
     }
     Regola *regola = app.mainWindow()->getRegola();
-*/
-    return error("nyi");
+    SCXMLEditorManager *mgr = regola->namespaceManager()->scxmlEditorManager();
+    if( NULL == mgr ) {
+        return error("null manager");
+    }
+    SCXMLInfo info;
+    mgr->findInfoStates(regola, &info);
+    QStringList expected ;
+    expected << "initial" << "multi" << "one" << "two" << "multi2" << "TwoOne" << "TwoTwo";
+    if( !compareStringList("allStates", expected, info.allStates())) {
+        return false;
+    }
+    return true;
 }
 
 bool TestSCXML::setEAE(QWidget *widget, const QString &name, const QString &attr, const QString value, Element *e1)
@@ -209,6 +248,23 @@ bool TestSCXML::testEditscxml()
     return true;
 }
 
+bool TestSCXML::testEditstate()
+{
+    _testName ="testEditstate" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_state) ;
+    SCXMLStateDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAC(&dialog, "initial", SCXMLstateToken::A_initial, "aInit", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "id", SCXMLstateToken::A_id, "aId", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
 
 bool TestSCXML::testEditassign()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditcancel()
@@ -232,7 +288,6 @@ bool TestSCXML::testEditassign()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditparam()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditscript()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditsend()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditstate()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEdittransition()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditvar()
 {_testName ="" ;return error("nyi");}
