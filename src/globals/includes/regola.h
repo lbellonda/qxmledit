@@ -636,6 +636,8 @@ public:
     bool editElementWrapper(QTreeWidget *treeWidget, Element *newElement, Element *selectedElement);
     bool applyEditAndSwapElement(Element *newElement, Element *swapElement, QList<int> path);
 
+    QList<int> elementPathForPath(QList<int> &inputPos);
+
 private:
     void addUndoInsert(QTreeWidget * tree, Element * element);
     QTreeWidgetItem *getSelItem(QTreeWidget *tree);

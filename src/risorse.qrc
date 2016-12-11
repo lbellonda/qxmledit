@@ -10,6 +10,8 @@
         <file alias="style">images/view-media-visualization.png</file>
         <file alias="empty">images/empty.png</file>
         <file alias="warning">images/dialog-warning.png</file>
+        <file alias="error">images/dialog-error.png</file>
+        <file alias="info">images/dialog-information.png</file>
     </qresource>
     <qresource prefix="/arrows">
         <file>images/go-down.png</file>

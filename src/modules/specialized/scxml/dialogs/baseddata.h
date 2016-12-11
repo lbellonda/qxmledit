@@ -38,10 +38,13 @@ public:
     QString attributeString(const QString &name, const QString &defaultValue = "");
     void setAttributeString(const QString &name, const QString &value);
     void setAttributeStringIfMissing(const QString &name, const QString &value);
+    void setAttributeStringIfExisting(const QString &name, const QString &value);
     void assignTag(const QString &tag, Regola *regola, Element *parent);
     bool checkIDREFS(QWidget *window, const QString &attrName);
-    bool checkNMTOKEN(QWidget *window, const QString &attrName);
-    bool checkID(QWidget *window, const QString &attrName);
+    bool checkNMTOKEN(QWidget *window, const QString &attrName, const bool required = false);
+    bool checkID(QWidget *window, const QString &attrName, const bool required = false);
+    bool checkBooleanCond(QWidget *window, const QString &attrName);
+    bool checkExistingOrMissing(QWidget *window, const QString &attrName);
 };
 
 #endif // BASEDDATA_H

@@ -24,7 +24,7 @@
 #ifndef MAINWNDCONTROLLER_H
 #define MAINWNDCONTROLLER_H
 
-#include <QObject>
+#include "xmlEdit.h"
 
 class MainWindow;
 class AnonContext;
@@ -33,6 +33,7 @@ class AnonymizeParameters;
 class Regola;
 class ReplicaCloneInfo;
 class Element;
+class SourceMessage;
 
 class ReplicaInfoProvider
 {
@@ -80,6 +81,9 @@ public:
     void replacePrefix();
     void replaceNamespace();
     void normalizeNamespace();
+    bool checkSCXML();
+    void sourceDecode(QBuffer *dataStream, QList<SourceMessage*> &errors, Regola *regola);
+    QBuffer* getDataForSourceDecode();
 
 signals:
 

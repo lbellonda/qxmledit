@@ -363,6 +363,8 @@ private slots:
     void on_actionNormalizeNamespace_triggered();
     void on_actionInsertSpecial_triggered();
     void on_actionAppendSpecial_triggered();
+    void on_showSCXMLNavigator_triggered();
+    void on_actionValidateSCXML_triggered();
 
     //----- other slots ------------------
 

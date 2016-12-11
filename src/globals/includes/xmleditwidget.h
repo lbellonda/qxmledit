@@ -303,6 +303,7 @@ public:
     bool isValidXsd();
     void loadSchema(const QString &schemaURL);
     void setCurrentItem(Element *newSelection);
+    void selectAndShowItem(Element *newSelection);
 
     void viewNodes();
     void addXsltMenuItems(QMenu *contextMenu);

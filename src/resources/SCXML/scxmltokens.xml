@@ -1,9 +1,9 @@
 <root>
     <group name="executableContent">
-        <member name="raise" min="0" max="u" d=""/>
-        <member name="if" min="0" max="u" d=""/>
-        <member name="elseif" min="0" max="u" d=""/>
-        <member name="else" min="0" max="u" d=""/>
+        <member name="raise" min="0" max="u" d="Raises an event."/>
+        <member name="if" min="0" max="u" d="Container for conditionally executed elements."/>
+        <member name="elseif" min="0" max="u" d="Else if clause."/>
+        <member name="else" min="0" max="1" d="Else clause."/>
         <member name="foreach" min="0" max="u" d=""/>
         <member name="log" min="0" max="u" d=""/>
         <member name="assign" min="0" max="u" d=""/>
@@ -58,7 +58,7 @@
     </token>
     <token name="initial">
         <children>
-            <child name="transition" min="0" max="1" d=""/>
+            <child name="transition" min="1" max="1" d="Default initial state for a complex state element."/>
          </children>
     </token>
     <token name="final">
@@ -68,179 +68,53 @@
             <child name="donedata" min="0" max="1" d="Optional element specifying data to be included in the done.state.id or done.invoke.id event."/>
          </children>
     </token>
+    <token name="onentry">
+        <children>
+            <groupRef name="executableContent" />
+         </children>
+    </token>
+    <token name="onexit">
+        <children>
+            <groupRef name="executableContent" />
+         </children>
+    </token>
+    <token name="history">
+        <children>
+            <child name="transition" min="1" max="1" d="A transition whose 'target' specifies the default history configuration."/>
+        </children>
+    </token>
+    <token name="raise">
+        <children>
+        </children>
+    </token>
+    <token name="if">
+        <children>
+            <!--child name="elseif" min="0" max="u" d="Else if clause."/>
+            <child name="else" min="0" max="1" d="Else clause."/-->
+            <groupRef name="executableContent" />
+        </children>
+    </token>
+    <token name="elseif">
+        <children>
+            <groupRef name="executableContent" />
+        </children>
+    </token>
+    <token name="else">
+        <children>
+            <groupRef name="executableContent" />
+        </children>
+    </token>
+    <token name="foreach">
+        <children>
+            <groupRef name="executableContent" />
+        </children>
+    </token>
+    <token name="log">
+        <children>
+        </children>
+    </token>
 </root>
 <!--
-
-
-3.6 <initial>
-3.6.2 Children
-
-    <initial> A transition w
-    hose 'target' specifies the default initial state(s). Occurs once. In a confo
-    rmant SCXML document, this transition MUST NOT contain 'cond' or 'event' attributes, and
-    MUST specify a non-null 'target' whose value is a valid state specification consistin
-    g solely of descendants of the containing state (see 3.11 Legal State Con
-    figurations and Specifications for details). This transition MAY contain executable content.
-
-
-
-3.8 <onentry>
-
-[This section is normative.]
-
-A wrapper element containing executable content to be executed when the state is entered.
-3.8.1 Attribute Details
-
-None.
-3.8.2 Children
-
-The children of the <onentry> handler consist of executable content as defined in 4 Executable Content.
-
-The SCXML processor MUST execute the <onentry> handlers of a state in document order when the state is entered. In doing so, it MUST treat each handler as a separate block of executable content.
-
-3.9 <onexit>
-
-[This section is normative.]
-
-A wrapper element containing executable content to be executed when the state is exited.
-3.9.1 Attribute Details
-
-None.
-3.9.2 Children
-
-The children of the <onexit> handler consist of executable content as defined in 4 Executable Content.
-
-The SCXML processor MUST execute the <onexit> handlers of a state in document order when the state is exited. In doing so, it MUST treat each handler as a separate block of executable content.
-
-
-3.10 <history>
-
-The <history> pseudo-state allows a state machine to remember its state configuration. A <transition> taking the <history> state as its target will return the state machine to this recorded configuration.
-3.10.1 Attribute Details
-Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-id 	false 		ID 	none 	A valid id as defined in [XML Schema] 	Identifier for this pseudo-state. See 3.14 IDs for details.
-type 	false 		enum 	"shallow" 	"deep" or "shallow" 	Determines whether the active atomic substate(s) of the current state or only its immediate active substate(s) are recorded.
-3.10.2 Children
-
-    <transition> A transition whose 'target' specifies the default history configuration. Occurs once. In a conformant SCXML document, this transition MUST NOT contain 'cond' or 'event' attributes, and MUST specify a non-null 'target' whose value is a valid state specification (see 3.11 Legal State Configurations and Specifications). This transition MAY contain executable content. If 'type' is "shallow", then the 'target' of this <transition> MUST contain only immediate children of the parent state. Otherwise it MUST contain only descendants of the parent. Occurs once. (Note that under the definition of a legal state specification, if the parent of the history element is <state> and the default state specification contains a multiple states, then, in a conformant SCXML document, the 'type' of the history element MUST be "deep" and the states MUST be atomic descendants of a <parallel> element that is itself a descendant of the parent <state> element.)
-
-If the 'type' of a <history> element is "shallow", the SCXML processor MUST record the immediately active children of its parent before taking any transition that exits the parent. If the 'type' of a <history> element is "deep", the SCXML processor MUST record the active atomic descendants of the parent before taking any transition that exits the parent. After the parent state has been visited for the first time, for each <history> element, we define the set of states that the processor has recorded to be the 'stored state configuration' for that history state. We also define the states specified by the 'target' of the <history> element's <transition> child to be the 'default stored state configuration' for that element. If a transition is executed that takes the <history> state as its target, the behavior depends on whether the parent state has been visited before. If it has, the SCXML processor MUST behave as if the transition had taken the stored state configuration for that history state as its target. If it has not, the SCXML processor MUST behave as if the transition had taken the default stored state configuration for that history state as its target. The Process MUST execute any executable content in the transition after the parent state's onentry handlers, and, in the case where the history pseudo-state is the target of an <initial> transition, the executable content inside the <initial> transition. (Note that in a conformant SCXML document, a <state> or <parallel> element MAY have both "deep" and "shallow" <history> children.)
-
-
-
-3.11 Legal State Configurations and Specifications
-
-[This section is normative.]
-
-[Definition: A <state> or <parallel> element is active if it has been entered by a transition and has not subsequently been exited.]
-
-[Definition: The state configuration of a state machine is the set of currently active states. ]
-
-An SCXML document places the state machine in an initial state configuration at initialization time (via the 'initial' attribute of the <scxml> element). Each transition that the state machine takes thereafter places the state machine in another state configuration (which need not be distinct from the former one.) A conformant SCXML document MUST place the state machine only in legal state configurations, where a legal state configuration is one that meets the following conditions:
-
-    The configuration contains exactly one child of the <scxml> element.
-    The configuration contains one or more atomic states.
-    When the configuration contains an atomic state, it contains all of its <state> and <parallel> ancestors.
-    When the configuration contains a non-atomic <state>, it contains one and only one of the state's children.
-    If the configuration contains a <parallel> state, it contains all of its children.
-
-It follows from this definition that if a state machine is in more than one atomic state, the atomic states can be traced back through a chain of <state> or <parallel> ancestors to a single <parallel> ancestor.
-
-The 'target' attribute of a <transition> (or the 'initial' attribute of a <state> or <scxml> element) do not in the general case specify a full legal state configuration since 1) they can contain <parallel> or non-atomic <state> elements 2) they do not contain the ancestors of the states in the list. We therefore define a legal state specification to be a set of states such that 1) no state is an ancestor of any other state on the list, and 2) a full legal state configuration results when all ancestors and default initial descendants have been added. (Note that the process of adding default initial descendants is recursive, since the 'initial' value may itself be non-atomic.) In a conformant SCXML document, the value of an 'initial' attribute or the 'target' of a <transition> MUST either be empty or contain a legal state specification.
-
-In a conformant SCXML document, there is an additional requirement on the value of the 'initial' attribute of a <state> and on the 'target' of a <transition> inside an <initial> or <history> element: all the states MUST be descendants of the containing <state> or <parallel> element.
-
-
-
-
-4.2 <raise>
-
-[This section is normative.]
-
-The <raise> element raises an event in the current SCXML session. Note that the event will not be processed until the current block of executable content has completed and all events that are already in the internal event queue have been processed. For example, suppose the <raise> element occurs first in the <onentry> handler of state S followed by executable content elements ec1 and ec2. If event e1 is already in the internal event queue when S is entered, the event generated by <raise> will not be processed until ec1 and ec2 have finished execution and e1 has been processed.
-4.2.2 Children
-None.
-
-The SCXML processor MUST place the event that is generated at the rear of the session's internal event queue.
-
-4.3 <if>
-
-[This section is normative.]
-
-<if> is a container for conditionally executed elements.
-4.3.1 Attribute Details
-Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-cond 	true 		Conditional expression 	none 	A valid conditional expression 	A boolean expression. See 5.9.1 Conditional Expressions for details.
-4.3.2 Children
-
-    <elseif> Occurs 0 or more times. See 4.4 <elseif>
-    <else> Occurs 0 or 1 times. See 4.5 <else>
-    The other children of <if> consist of executable content. Note that since <if> itself is executable content, nested <if> statements are allowed.
-
-The behavior of <if> is defined in terms of partitions of executable content. The first partition consists of the executable content between the <if> and the first <elseif>, <else> or </if> tag. Each <elseif> tag defines a partition that extends from it to the next <elseif>, <else> or </if> tag. The <else> tag defines a partition that extends from it to the closing </if> tag. In a conformant SCXML document, a partition MAY be empty. In a conformant SCXML document, <else> MUST occur after all <elseif> tags.
-
-When the <if> element is executed, the SCXML processor MUST execute the first partition in document order that is defined by a tag whose 'cond' attribute evaluates to true, if there is one. Otherwise, it MUST execute the partition defined by the <else> tag, if there is one. Otherwise it MUST NOT execute any of the executable content.
-
-4.4 <elseif>
-
-[This section is normative.]
-4.4.1 Overview
-
-<elseif> is an empty element that partitions the content of an <if>, and provides a condition that determines whether the partition is executed.
-
-
-
-	4.5 <else>
-
-	[This section is normative.]
-	4.5.1 Overview
-
-	<else> is an empty element that partitions the content of an <if>. It is equivalent to an <elseif> with a "cond" that always evaluates to true.
-	4.5.2 Attribute Details
-
-	None.
-
-
-
-	4.6 <foreach>
-
-	[This section is normative.]
-	4.6.1 Overview
-
-	The <foreach> element allows an SCXML application to iterate through a collection in the data model and to execute the actions contained within it for each item in the collection.
-	4.6.2 Attribute Details
-	Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-	array 	true 		Value expression 	none 	A value expression that evaluates to an iterable collection. 	The <foreach> element will iterate over a shallow copy of this collection.
-	item 	true 		xsd:string 	none 	Any variable name that is valid in the specified data model. 	A variable that stores a different item of the collection in each iteration of the loop.
-	index 	false 		xsd:string 	none 	Any variable name that is valid in the specified data model. 	A variable that stores the current iteration index upon each iteration of the foreach loop.
-	4.6.3 Children
-
-	The children of <foreach> consist of one or more items of executable content. (Note that they are considered to be part of the same block of executable content as the parent <foreach> element.)
-
-	The SCXML processor MUST declare a new variable if the one specified by 'item' is not already defined. If 'index' is present, the SCXML processor MUST declare a new variable if the one specified by 'index' is not already defined. If 'array' does not evaluate to a legal iterable collection, or if 'item' does not specify a legal variable name, the SCXML processor MUST terminate execution of the <foreach> element and the block that contains it, and place the error error.execution on the internal event queue.
-
-	The SCXML processor MUST act as if it has made a shallow copy of the collection produced by the evaluation of 'array'. Specifically, modifications to the collection during the execution of <foreach> MUST NOT affect the iteration behavior. The SCXML processor MUST start with the first item in the collection and proceed to the last item in the iteration order that is defined for the collection. (This order depends on the data model in use. ) For each item in turn, the processor MUST assign it to the item variable. (Note that the assigned value MAY be null or undefined if the collection contains a null or undefined item.) After making the assignment, the SCXML processor MUST evaluate its child executable content. It MUST then proceed to the next item in iteration order. If the evaluation of any child element causes an error, the processor MUST cease execution of the <foreach> element and the block that contains it. (Note that SCXML does not provide break functionality to interrupt <foreach>, however targetless and/or eventless transitions can provide sophisticated iterative behavior within the SCXML application itself.)
-
-
-
-	4.7 <log>
-
-	[This section is normative.]
-	4.7.1 Overview
-
-	<log> allows an application to generate a logging or debug message.
-	4.7.2 Attribute Details
-	Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-	label 	false 		string 	empty string 		A character string with an implementation-dependent interpretation. It is intended to provide meta-data about the log string specified by 'expr'.
-	expr 	false 		Value expression 	none 		An expression returning the value to be logged. See 5.9.3 Legal Data Values and Value Expressions for details. The nature of the logging mechanism is implementation-dependent. For example, the SCXML processor may convert this value to a convenient format before logging it.
-	4.7.3 Children
-
-	None.
-
-	The manner in which the message is displayed or logged is platform-dependent. The SCXML processor MUST ensure that <log> has no side-effects on document interpretation.
-
-
-
 	4.8 Other Executable Content
 
 	[This section is normative.]
@@ -251,8 +125,6 @@ When the <if> element is executed, the SCXML processor MUST execute the first pa
 	    <script>. Provides scripting capabilities. See 5.8 <script> for details.
 	    <send>. Sends an event to a specified destination. See 6.2 <send> for details.
 	    <cancel>. Cancels an event that was to be sent See 6.3 <cancel> for details.
-
-
 
 
 			5.2 <datamodel>
@@ -292,8 +164,6 @@ When the <if> element is executed, the SCXML processor MUST execute the first pa
 					Implementations MAY predeclare and predefine variables in the data model. However, conformant SCXML implementations SHOULD NOT assume the existence of any predeclared or predefined variables (i.e., ones not explicitly defined by <data>).
 
 					Note that this specification does not define any way to modify the data model except by<assign>, <finalize>, and possibly platform-specific elements of executable content. In particular, no means is defined for external entities to modify the data model. In this sense the data model is local to the SCXML session and the SCXML Processor checks for eventless transitions (i.e. ones that are triggered based only on the state of the data model) only after entering a state or processing an event. However in some deployments it may be possible for external entities to modify the data model. For example, if SCXML is implemented in JavaScript in a browser, the scope of a document's data model is always accessible through the main window object and thus JavaScript code elsewhere in the window can modify the data model independent of the SCXML interpretation algorithm. Such a situation can lead to race conditions and unpredictable behavior
-
-
 
 
 					5.4 <assign>

@@ -732,6 +732,11 @@ void XmlEditWidget::loadSchema(const QString &schemaURL)
     d->loadSchema(schemaURL);
 }
 
+void XmlEditWidget::selectAndShowItem(Element *newSelection)
+{
+    d->selectAndShowItem(newSelection);
+}
+
 void XmlEditWidget::setCurrentItem(Element *newSelection)
 {
     d->setCurrentItem(newSelection);

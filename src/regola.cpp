@@ -3172,3 +3172,26 @@ bool Regola::applyEditAndSwapElement(Element *newElement, Element *swapElement, 
     return true;
 }
 
+QList<int> Regola::elementPathForPath(QList<int> &inputPos)
+{
+    Utils::TODO_THIS_RELEASE("to test");
+    QList<int> result;
+    // Now find the pos into the real data
+    QVector<Element*> *elements = getChildItems();
+    foreach(const int indexToSearch, inputPos) {
+        int thisPos = 0;
+        foreach(Element *element, *elements) {
+            if(element->isElement()) {
+                if(thisPos == indexToSearch) {
+                    result.append(thisPos);
+                    elements = element->getChildItems();
+                    break;
+                }
+                thisPos ++;
+            }
+            // error: a position could not be found.
+            return QList<int>();
+        } // foreach elements
+    } // foreach pos
+    return result;
+}

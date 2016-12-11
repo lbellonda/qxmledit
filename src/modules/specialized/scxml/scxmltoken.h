@@ -54,6 +54,17 @@ public:
     DECL_SCXML_TAG(state);
     DECL_SCXML_TAG(parallel);
     DECL_SCXML_TAG(transition);
+    DECL_SCXML_TAG(initial);
+    DECL_SCXML_TAG(final);
+    DECL_SCXML_TAG(onentry);
+    DECL_SCXML_TAG(onexit);
+    DECL_SCXML_TAG(history);
+    DECL_SCXML_TAG(raise);
+    DECL_SCXML_TAG(if);
+    DECL_SCXML_TAG(else);
+    DECL_SCXML_TAG(elseif);
+    DECL_SCXML_TAG(foreach);
+    DECL_SCXML_TAG(log);
 private:
     QString _name;
     QString _description;
@@ -149,6 +160,118 @@ public:
     SC_DECL_ATTR_TK(target);
     SC_DECL_ATTR_TK(type);
 };
+
+class SCXMLinitialToken : public SCXMLToken
+{
+public:
+    SCXMLinitialToken();
+    virtual ~SCXMLinitialToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+};
+
+class SCXMLfinalToken : public SCXMLToken
+{
+public:
+    SCXMLfinalToken();
+    virtual ~SCXMLfinalToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(id);
+};
+
+class SCXMLonentryToken : public SCXMLToken
+{
+public:
+    SCXMLonentryToken();
+    virtual ~SCXMLonentryToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+};
+
+class SCXMLonexitToken : public SCXMLToken
+{
+public:
+    SCXMLonexitToken();
+    virtual ~SCXMLonexitToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+};
+
+class SCXMLhistoryToken : public SCXMLToken
+{
+public:
+    SCXMLhistoryToken();
+    virtual ~SCXMLhistoryToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(id);
+    SC_DECL_ATTR_TK(type);
+};
+
+class SCXMLraiseToken : public SCXMLToken
+{
+public:
+    SCXMLraiseToken();
+    virtual ~SCXMLraiseToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(event);
+};
+
+class SCXMLifToken : public SCXMLToken
+{
+public:
+    SCXMLifToken();
+    virtual ~SCXMLifToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(cond);
+};
+
+class SCXMLelseifToken : public SCXMLToken
+{
+public:
+    SCXMLelseifToken();
+    virtual ~SCXMLelseifToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(cond);
+};
+
+class SCXMLelseToken : public SCXMLToken
+{
+public:
+    SCXMLelseToken();
+    virtual ~SCXMLelseToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+};
+
+class SCXMLforeachToken : public SCXMLToken
+{
+public:
+    SCXMLforeachToken();
+    virtual ~SCXMLforeachToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(array);
+    SC_DECL_ATTR_TK(item);
+    SC_DECL_ATTR_TK(index);
+};
+
+class SCXMLlogToken : public SCXMLToken
+{
+public:
+    SCXMLlogToken();
+    virtual ~SCXMLlogToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(label);
+    SC_DECL_ATTR_TK(expr);
+};
+
+//------------------------------------------------------------------------------------------
 
 class SCXMLTokenChild
 {

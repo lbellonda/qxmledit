@@ -30,6 +30,14 @@
 #include "modules/specialized/scxml/dialogs/scxmlstatedialog.h"
 #include "modules/specialized/scxml/dialogs/scxmlparalleldialog.h"
 #include "modules/specialized/scxml/dialogs/scxmltransitiondialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlfinaldialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlhistoryldialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlraisedialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlifdialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlelseifdialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlforeachdialog.h"
+#include "modules/messages/sourceerror.h"
+#include "sourcemessagemanager.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
 #include <QScxmlStateMachine>
 #include <QScxmlError>
@@ -37,6 +45,7 @@
 
 #define BASE_PATH "../test/data/xml/special/scxml"
 #define FILE_STATES BASE_PATH "/states.xml"
+#define FILE_CHECKLOAD BASE_PATH "/checkload.txt"
 
 static QStringList allTokens()
 {
@@ -47,19 +56,19 @@ static QStringList allTokens()
     //tokens << "content";
     //tokens << "data";
     //tokens << "datamodel";
-    //tokens << "else";
-    //tokens << "elseif";
-    //tokens << "raise";
-    //tokens << "final";
+    tokens << "else";
+    tokens << "elseif";
+    tokens << "raise";
+    tokens << "final";
     //tokens << "finalize";
-    //tokens << "history";
-    //tokens << "if";
-    //tokens << "initial";
+    tokens << "history";
+    tokens << "if";
+    tokens << "initial";
     //tokens << "invoke";
-    //tokens << "foreach";
-    //tokens << "log";
-    //tokens << "onentry";
-    //tokens << "onexit";
+    tokens << "foreach";
+    tokens << "log";
+    tokens << "onentry";
+    tokens << "onexit";
     tokens << "parallel";
     //tokens << "param";
     //tokens << "script";
@@ -82,7 +91,7 @@ TestSCXML::~TestSCXML()
 bool TestSCXML::testFast()
 {
     _testName = "testFast" ;
-    return testEditTokens();
+    return testTemplates();
 }
 
 bool TestSCXML::testLoadTokens()
@@ -110,18 +119,36 @@ bool TestSCXML::testEditTokens()
     bool testEditdatamodel();
     bool testEditelse();
     bool testEditelseif();
-    bool testEditraise();
-    bool testEditfinal();
-    bool testEditfinalize();
-    bool testEdithistory();
-    bool testEditif();
-    bool testEditinitial();
-    bool testEditinvoke();
-    bool testEditforeach();
-    bool testEditlog();
-    bool testEditonentry();
-    bool testEditonexit();
-    bool testEditparallel();*/
+    */
+    if(!testEditif() ) {
+        return false;
+    }
+    if(!testEditraise() ) {
+        return false;
+    }
+    if(!testEditfinal() ) {
+        return false;
+    }
+    /*bool testEditfinalize();*/
+    if(!testEdithistory() ) {
+        return false;
+    }
+    if(!testEditinitial() ) {
+        return false;
+    }
+    /*bool testEditinvoke();*/
+    if(!testEditforeach() ) {
+        return false;
+    }
+    if(!testEditlog() ) {
+        return false;
+    }
+    if(!testEditonentry() ) {
+        return false;
+    }
+    if(!testEditonexit() ) {
+        return false;
+    }
     if(!testEditparallel() ) {
         return false;
     }
@@ -151,7 +178,10 @@ bool TestSCXML::testTemplates()
     if(!testTemplatesLoadStates()) {
         return false;
     }
-    return error("nyi");
+    if(!testLoadMessages()) {
+        return false;
+    }
+    return true;
 }
 
 bool TestSCXML::testTemplatesCompile()
@@ -311,27 +341,274 @@ bool TestSCXML::testEdittransition()
     return true;
 }
 
+bool TestSCXML::testEditinitial()
+{
+    _testName ="testEditinitial" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_initial) ;
+    SCXMLinitialToken token;
+    token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditfinal()
+{
+    _testName ="testEditfinal" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_final) ;
+    SCXMLFinalDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "id", SCXMLfinalToken::A_id, "id", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditonentry()
+{
+    _testName ="testEditonentry" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_onentry) ;
+    SCXMLonentryToken token;
+    token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditonexit()
+{
+    _testName ="testEditonexit" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_onexit) ;
+    SCXMLonexitToken token;
+    token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+
+bool TestSCXML::testEdithistory()
+{
+    _testName ="testEdithistory" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_history) ;
+    SCXMLHistoryDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "id", SCXMLhistoryToken::A_id, "id", &elementCompare)){return false;}
+    if(!setEAC(&dialog, "type", SCXMLhistoryToken::A_type, "type", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditraise()
+{
+    _testName ="testEditraise" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_raise) ;
+    SCXMLRaiseDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "event", SCXMLraiseToken::A_event, "event", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditif()
+{
+    _testName ="testEditif" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_if) ;
+    SCXMLIfDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "cond", SCXMLifToken::A_cond, "cond", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+
+bool TestSCXML::testEditelse()
+{
+    _testName ="testEditelse" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_else) ;
+    SCXMLelseToken token;
+    token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditelseif()
+{
+    _testName ="testEditelseif" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_elseif) ;
+    SCXMLElseIfDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "cond", SCXMLelseifToken::A_cond, "cond", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditforeach()
+{
+    _testName ="testEditforeach" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_foreach) ;
+    SCXMLForeachDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "array", SCXMLforeachToken::A_array, "aArray", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "index", SCXMLforeachToken::A_index, "aindex", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "item", SCXMLforeachToken::A_item, "aitem", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditlog()
+{
+    _testName ="testEditlog" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_log) ;
+    SCXMLTransitionDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "label", SCXMLlogToken::A_label, "alabel", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "expr", SCXMLlogToken::A_expr, "aexpr", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+
+
 bool TestSCXML::testEditassign()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditcancel()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditcontent()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditdata()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditdatamodel()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditelse()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditelseif()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditraise()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditfinal()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditfinalize()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEdithistory()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditif()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditinitial()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditinvoke()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditforeach()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditlog()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditonentry()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditonexit()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditparam()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditscript()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditsend()
 {_testName ="" ;return error("nyi");}bool TestSCXML::testEditvar()
 {_testName ="" ;return error("nyi");}
 
+//----
+static SourceMessage *newMsg(const int line, const int column, const QString &text)
+{
+    SourceMessage *sourceError = new SourceMessage();
+    sourceError->setColumn(column);
+    sourceError->setLine(line);
+    sourceError->setDescription(text);
+    sourceError->setType(SourceMessage::Error);
+    return sourceError;
+}
+
+bool TestSCXML::testLoadMessages()
+{
+    _testName = "testLoadMessages" ;
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(FILE_CHECKLOAD) ) {
+        return error(QString("unable to load input file: '%1' ").arg(FILE_CHECKLOAD));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    QList<SourceMessage*> errors;
+    errors.append(newMsg(2, 1, "root"));
+    errors.append(newMsg(3, 6, "a"));
+    errors.append(newMsg(5, 1, "d"));
+
+    QBuffer *dataStream = app.mainWindow()->controller()->getDataForSourceDecode();
+    if( NULL == dataStream ) {
+        return error("Unable to write data");
+    }
+    dataStream->open(QIODevice::ReadOnly);
+    SourceMessageManager manager;
+    manager.bindToSource(dataStream, errors, regola);
+    {
+        SourceMessage *m1 = errors.at(0);
+        QList<int> pos ;
+        QList<int> path = m1->path() ;
+        pos << 1 ;
+        if(!compareListInts("msg0", pos, path)) {
+            EMPTYPTRLIST(errors, SourceMessage);
+            return false;
+        }
+    }
+    {
+        SourceMessage *m1 = errors.at(1);
+        QList<int> pos ;
+        QList<int> path = m1->path() ;
+        pos << 1 << 0 ;
+        if(!compareListInts("msg1", pos, path)) {
+            EMPTYPTRLIST(errors, SourceMessage);
+            return false;
+        }
+    }
+    {
+        SourceMessage *m1 = errors.at(2);
+        QList<int> pos ;
+        QList<int> path = m1->path() ;
+        pos << 1 << 0 << 1 ;
+        if(!compareListInts("msg2", pos, path)) {
+            EMPTYPTRLIST(errors, SourceMessage);
+            return false;
+        }
+    }
+    EMPTYPTRLIST(errors, SourceMessage);
+    return true ;
+}

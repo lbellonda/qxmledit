@@ -290,6 +290,7 @@ qxmledit::EDisplayMode XmlEditWidgetPrivate::displayMode()
 
 bool XmlEditWidgetPrivate::finishSetUpUi()
 {
+    p->ui->toolBox->setVisible(false);
     _helper.setTree(p->ui->treeWidget);
     p->ui->treeWidget->setExpandsOnDoubleClick(false);
     // connect to search widget. In the original code these actions were inseted into the UI
@@ -2338,6 +2339,14 @@ void XmlEditWidgetPrivate::regolaUndoChanged()
     notifyUndo();
 }
 
+void XmlEditWidgetPrivate::selectAndShowItem(Element *newSelection)
+{
+    if(NULL != newSelection) {
+        p->ui->treeWidget->setCurrentItem(newSelection->getUI());
+        p->ui->treeWidget->scrollToItem(newSelection->getUI(), QAbstractItemView::PositionAtTop);
+    }
+}
+
 void XmlEditWidgetPrivate::setCurrentItem(Element *newSelection)
 {
     if(NULL != newSelection) {
@@ -2466,7 +2475,7 @@ void XmlEditWidgetPrivate::showXSLNavigator()
         XSLTNavigatorDialog dlg(&_xsltHelper, p->window());
         Element *choosenElement = dlg.go();
         if((NULL != choosenElement) && (NULL != choosenElement->getUI())) {
-            getMainTreeWidget()-> scrollToItem(choosenElement->getUI(), QAbstractItemView::PositionAtTop);
+            getMainTreeWidget()->scrollToItem(choosenElement->getUI(), QAbstractItemView::PositionAtTop);
             getMainTreeWidget()->setCurrentItem(choosenElement->getUI(), 0);
         }
     }

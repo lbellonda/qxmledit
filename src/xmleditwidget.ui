@@ -243,6 +243,32 @@
         </spacer>
        </item>
        <item>
+        <widget class="QToolBox" name="toolBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="page">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>103</width>
+            <height>127</height>
+           </rect>
+          </property>
+          <attribute name="label">
+           <string>SCXML Navigator</string>
+          </attribute>
+         </widget>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLowLayout">
          <property name="sizeConstraint">
           <enum>QLayout::SetDefaultConstraint</enum>
@@ -321,7 +347,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

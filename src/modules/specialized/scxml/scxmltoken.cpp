@@ -44,6 +44,17 @@ IMPL_SCXML_TAG(scxml);
 IMPL_SCXML_TAG(state);
 IMPL_SCXML_TAG(parallel);
 IMPL_SCXML_TAG(transition);
+IMPL_SCXML_TAG(initial);
+IMPL_SCXML_TAG(final);
+IMPL_SCXML_TAG(onentry);
+IMPL_SCXML_TAG(onexit);
+IMPL_SCXML_TAG(history);
+IMPL_SCXML_TAG(raise);
+IMPL_SCXML_TAG(if);
+IMPL_SCXML_TAG(elseif);
+IMPL_SCXML_TAG(else);
+IMPL_SCXML_TAG(foreach);
+IMPL_SCXML_TAG(log);
 
 QString SCXMLToken::name() const
 {

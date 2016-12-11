@@ -458,7 +458,15 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/dialogs/scxmlstatedialog.cpp \
     modules/specialized/scxml/dialogs/scxmlparalleldialog.cpp \
     modules/specialized/scxml/dialogs/scxmltransitiondialog.cpp \
-    modules/specialized/scxml/dialogs/basescxmleditdata.cpp
+    modules/specialized/scxml/dialogs/basescxmleditdata.cpp \
+    modules/specialized/scxml/dialogs/scxmlfinaldialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlhistoryldialog.cpp \
+    modules/specialized/scxml/widgets/scxmlnavigatorwidget.cpp \
+    modules/specialized/scxml/dialogs/scxmlraisedialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlifdialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlelseifdialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlforeachdialog.cpp \
+    modules/specialized/scxml/dialogs/scxmllogdialog.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -705,7 +713,15 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/dialogs/scxmlstatedialog.h \
     modules/specialized/scxml/dialogs/scxmlparalleldialog.h \
     modules/specialized/scxml/dialogs/scxmltransitiondialog.h \
-    modules/specialized/scxml/dialogs/basescxmleditdata.h
+    modules/specialized/scxml/dialogs/basescxmleditdata.h \
+    modules/specialized/scxml/dialogs/scxmlfinaldialog.h \
+    modules/specialized/scxml/dialogs/scxmlhistoryldialog.h \
+    modules/specialized/scxml/widgets/scxmlnavigatorwidget.h \
+    modules/specialized/scxml/dialogs/scxmlraisedialog.h \
+    modules/specialized/scxml/dialogs/scxmlifdialog.h \
+    modules/specialized/scxml/dialogs/scxmlelseifdialog.h \
+    modules/specialized/scxml/dialogs/scxmlforeachdialog.h \
+    modules/specialized/scxml/dialogs/scxmllogdialog.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -763,7 +779,15 @@ FORMS += xmleditwidget.ui \
     modules/specialized/specificpropertiesdialog.ui \
     modules/specialized/scxml/dialogs/scxmlstatedialog.ui \
     modules/specialized/scxml/dialogs/scxmlparalleldialog.ui \
-    modules/specialized/scxml/dialogs/scxmltransitiondialog.ui
+    modules/specialized/scxml/dialogs/scxmltransitiondialog.ui \
+    modules/specialized/scxml/dialogs/scxmlfinaldialog.ui \
+    modules/specialized/scxml/dialogs/scxmlhistoryldialog.ui \
+    modules/specialized/scxml/widgets/scxmlnavigatorwidget.ui \
+    modules/specialized/scxml/dialogs/scxmlraisedialog.ui \
+    modules/specialized/scxml/dialogs/scxmlifdialog.ui \
+    modules/specialized/scxml/dialogs/scxmlelseifdialog.ui \
+    modules/specialized/scxml/dialogs/scxmlforeachdialog.ui \
+    modules/specialized/scxml/dialogs/scxmllogdialog.ui
 
 
 symbian {

@@ -230,6 +230,15 @@ void qt_mac_set_dock_menu(QMenu *menu);
 
 void todo()
 {
+    Utils::error("This development version is still partly untested.")
+    Utils::TODO_THIS_RELEASE("scxml controlla attributi opzionali e settali e rimuovili se vuoti");
+    Utils::TODO_THIS_RELEASE("controllare attributi non richiesti ed elimiare se mancanti scxml");
+    Utils::TODO_THIS_RELEASE("unico menu valida?");
+    Utils::TODO_THIS_RELEASE("scxml ordine tab tutti i dialog");
+    Utils::TODO_THIS_RELEASE("test per check scxml compila, test ok e test ko");
+    Utils::TODO_THIS_RELEASE("check scxml compila");
+    Utils::TODO_THIS_RELEASE("abilita check scxml compila sse qt5.7");
+    Utils::TODO_THIS_RELEASE("controlla non salva dopo anonimizza ma senza salvare profilo");
     Utils::TODO_THIS_RELEASE("shift ins per append sibling");
     Utils::TODO_THIS_RELEASE("alt ins per child specializ");
     Utils::TODO_THIS_RELEASE("gli attributi sono attaccati nell'editor");

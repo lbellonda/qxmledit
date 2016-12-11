@@ -29,6 +29,7 @@ class TestSCXML : public TestBase
 {
     bool testTemplatesCompile();
     bool testTemplatesLoadStates();
+    bool testLoadMessages();
     //---
     bool setEAE(QWidget *widget, const QString &name, const QString &attr, const QString value, Element *e1);
     bool setEAC(QWidget *widget, const QString &name, const QString &attr, const QString value, Element *e1);

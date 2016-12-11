@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2014-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -132,7 +132,7 @@ bool TestSelectXsd::findElementPos(Regola *regola, QList<int>pos, const QString 
     if( element->tag() != expectedName ) {
        return error(QString( "Element at pos, found:'%3' expected key:'%1', expected name='%2' is not an element").arg(expectedKey).arg(expectedName).arg(element->tag()));
     }
-    // trova elemento per chiave di ricerca e controlla che corrisponda a quello selezionagto.
+    // trova elemento per chiave di ricerca e controlla che corrisponda a quello selezionato.
     Element *searchedElement = loadInfoMap->dataMap[expectedKey];
     if( NULL == searchedElement ) {
         return error(QString("Unable to find element with key:'%1'', map is:%2").arg(expectedKey).arg(dumpInfoMap(loadInfoMap)));

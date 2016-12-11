@@ -185,6 +185,7 @@ public:
     void redo();
     void notifyUndo();
     void setCurrentItem(Element *newSelection);
+    void selectAndShowItem(Element *newSelection);
 
     XSDAnnotationEditProvider *XSDAnnotationEditProviderObject();
     void setXSDAnnotationEditProviderObject(XSDAnnotationEditProvider *newProvider);

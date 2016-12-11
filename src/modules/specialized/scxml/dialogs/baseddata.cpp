@@ -50,6 +50,15 @@ void BaseDData::setAttributeStringIfMissing(const QString &name, const QString &
     }
 }
 
+void BaseDData::setAttributeStringIfExisting(const QString &name, const QString &value)
+{
+    if(value.isEmpty()) {
+        element->removeAttribute(name);
+    } else {
+        element->setAttribute(name, value);
+    }
+}
+
 void BaseDData::setAttributeString(const QString &name, const QString &value)
 {
     element->setAttribute(name, value);
@@ -90,24 +99,48 @@ bool BaseDData::checkIDREFS(QWidget *window, const QString &attrName)
     return true;
 }
 
-bool BaseDData::checkNMTOKEN(QWidget *window, const QString &attrName)
+bool BaseDData::checkNMTOKEN(QWidget *window, const QString &attrName, const bool required)
 {
-    QString value = element->getAttributeValue(attrName);
+    QString value = element->getAttributeValue(attrName).trimmed();
     if(!value.isEmpty()) {
         if(!XmlUtils::isNMTOKEN(value)) {
             return error(window, attrName);
         }
+    } else if(required) {
+        return error(window, attrName);
     }
     return true;
 }
 
-bool BaseDData::checkID(QWidget *window, const QString &attrName)
+bool BaseDData::checkID(QWidget *window, const QString &attrName, const bool required)
 {
-    QString value = element->getAttributeValue(attrName);
+    QString value = element->getAttributeValue(attrName).trimmed();
     if(!value.isEmpty()) {
         if(!XmlUtils::isNCNAME(value)) {
             return error(window, attrName);
         }
+    } else if(required) {
+        return error(window, attrName);
     }
     return true;
+}
+
+bool BaseDData::checkBooleanCond(QWidget *window, const QString &attrName)
+{
+    QString value = element->getAttributeValue(attrName);
+    if(value.isEmpty()) {
+        return error(window, attrName);
+    }
+    return true;
+}
+
+bool BaseDData::checkExistingOrMissing(QWidget *window, const QString &attrName)
+{
+    Attribute *a = element->getAttribute(attrName);
+    if(NULL != a) {
+        if(a->value.trimmed().isEmpty()) {
+            return error(window, attrName);
+        }
+    }
+    return true ;
 }

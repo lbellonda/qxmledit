@@ -243,9 +243,11 @@ int SCXMLTokenLoader::decodeCardinality(const QString &value)
     return result ;
 }
 
+#define LOAD(xxx)     else if(tag == SCXMLToken::Tag_ ## xxx ) { return new SCXML ## xxx ##Token(); }
+
 SCXMLToken *SCXMLTokenLoader::createSCXMLToken(const QString &tag)
 {
-    if(tag.isEmpty()) {
+    /*if(tag.isEmpty()) {
         return new SCXMLRootToken();
     } else if(tag == SCXMLToken::Tag_scxml) {
         return new SCXMLscxmlToken();
@@ -255,6 +257,39 @@ SCXMLToken *SCXMLTokenLoader::createSCXMLToken(const QString &tag)
         return new SCXMLparallelToken();
     } else if(tag == SCXMLToken::Tag_transition) {
         return new SCXMLtransitionToken();
+    } else if(tag == SCXMLToken::Tag_initial) {
+        return new SCXMLinitialToken();
+    } else if(tag == SCXMLToken::Tag_final) {
+        return new SCXMLfinalToken();
+    } else if(tag == SCXMLToken::Tag_onentry) {
+        return new SCXMLonentryToken();
+    } else if(tag == SCXMLToken::Tag_onexit) {
+        return new SCXMLonexitToken();
+    } else if(tag == SCXMLToken::Tag_history) {
+        return new SCXMLhistoryToken();
+    } else if(tag == SCXMLToken::Tag_raise) {
+        return new SCXMLraiseToken();
+    } else if(tag == SCXMLToken::Tag_if) {
+        return new SCXMLifToken();
+    }*/
+    if(tag.isEmpty()) {
+        return new SCXMLRootToken();
     }
+    LOAD(scxml)
+    LOAD(state)
+    LOAD(parallel)
+    LOAD(transition)
+    LOAD(initial)
+    LOAD(final)
+    LOAD(onentry)
+    LOAD(onexit)
+    LOAD(history)
+    LOAD(raise)
+    LOAD(if)
+    LOAD(elseif)
+    LOAD(else)
+    LOAD(foreach)
+    LOAD(log)
+
     return new SCXMLGenericToken();
 }

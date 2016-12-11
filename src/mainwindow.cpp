@@ -532,6 +532,10 @@ bool MainWindow::finishSetUpUi()
     ui.actionShowStatusBar->setChecked(currentStatusBarState);
     onShowHideStatusBar();
 
+#if QT_VERSION < QT_VERSION_CHECK(5,7,0)
+    ui.actionValidateSCXML->setVisible(false);
+#endif
+
     //---- region(experimental)
     //---- endregion(experimental)
     onComputeSelectionState();
@@ -3476,3 +3480,16 @@ void MainWindow::on_actionAppendSpecial_triggered()
         getEditor()->appendSpecial();
     }
 }
+
+void MainWindow::on_showSCXMLNavigator_triggered()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    Utils::TODO_THIS_RELEASE("getEditor()->showSCXMLNavigator(ui.actionSCXMLNavigator.isChecked());");
+}
+
+void MainWindow::on_actionValidateSCXML_triggered()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    _controller.checkSCXML();
+}
+

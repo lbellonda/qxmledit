@@ -60,7 +60,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -72,6 +72,7 @@
     <addaction name="actionGo_to_Next_Brother"/>
     <addaction name="separator"/>
     <addaction name="actionShowXSLNavigator"/>
+    <addaction name="actionShowSCXMLNavigator"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -319,6 +320,7 @@
     <addaction name="actionPasteAndSubstituteText"/>
     <addaction name="menuSort_Attributes"/>
     <addaction name="actionTransforminSnippet"/>
+    <addaction name="actionValidateSCXML"/>
     <addaction name="separator"/>
     <addaction name="actionMoveUp"/>
     <addaction name="actionMoveDown"/>
@@ -2234,6 +2236,25 @@
    </property>
    <property name="toolTip">
     <string>Append a specialized element.</string>
+   </property>
+  </action>
+  <action name="actionShowSCXMLNavigator">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Show SCXML Navigator</string>
+   </property>
+   <property name="toolTip">
+    <string>Shows or hides the SCXML navigator.</string>
+   </property>
+  </action>
+  <action name="actionValidateSCXML">
+   <property name="text">
+    <string>Validate SCXML</string>
+   </property>
+   <property name="toolTip">
+    <string>Validate the SCXML machine.</string>
    </property>
   </action>
  </widget>
