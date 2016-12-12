@@ -21,6 +21,7 @@
  **************************************************************************/
 
 #include "sourcemessagemanager.h"
+#include "regola.h"
 #include "utils.h"
 
 SourceMessageManager::SourceMessageManager()
@@ -93,14 +94,9 @@ bool SourceMessageManager::bindToSource(QXmlStreamReader *xmlReader, QList<Sourc
                         error->setFound(true);
                         setPath(error, regola, previous);
                     } else if(xmlReader->lineNumber() == error->line()) {
-                        if(xmlReader->columnNumber() > error->column()) {
-                            if(error->foundColumn() > -1) {
-                                error->setFound(true);
-                                setPath(error, regola, previous);
-                            } else {
-                                setSource(xmlReader, error, true);
-                                setPath(error, regola, thisElement);
-                            }
+                        if(xmlReader->columnNumber() >= error->column()) {
+                            setSource(xmlReader, error, true);
+                            setPath(error, regola, thisElement);
                         }
                     }
                     // last known position if still open

@@ -144,3 +144,14 @@ bool BaseDData::checkExistingOrMissing(QWidget *window, const QString &attrName)
     }
     return true ;
 }
+
+bool BaseDData::checkNotNull(QWidget *window, const QString &attrName)
+{
+    Attribute *a = element->getAttribute(attrName);
+    if(NULL != a) {
+        if(!a->value.trimmed().isEmpty()) {
+            return true ;
+        }
+    }
+    return error(window, attrName);
+}

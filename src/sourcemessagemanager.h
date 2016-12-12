@@ -27,6 +27,8 @@
 #include "modules/messages/sourceerror.h"
 #include "modules/utils/simpletree.h"
 
+class Regola;
+
 class SourceMessageManager
 {
     QList<int> findPath(SimpleTreeItem *current, Regola* regola);

@@ -466,7 +466,12 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/dialogs/scxmlifdialog.cpp \
     modules/specialized/scxml/dialogs/scxmlelseifdialog.cpp \
     modules/specialized/scxml/dialogs/scxmlforeachdialog.cpp \
-    modules/specialized/scxml/dialogs/scxmllogdialog.cpp
+    modules/specialized/scxml/dialogs/scxmllogdialog.cpp \
+    modules/specialized/scxml/dialogs/scxmldatadialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlassigndialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlcontentdialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlparamdialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlscriptdialog.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -721,7 +726,12 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/dialogs/scxmlifdialog.h \
     modules/specialized/scxml/dialogs/scxmlelseifdialog.h \
     modules/specialized/scxml/dialogs/scxmlforeachdialog.h \
-    modules/specialized/scxml/dialogs/scxmllogdialog.h
+    modules/specialized/scxml/dialogs/scxmllogdialog.h \
+    modules/specialized/scxml/dialogs/scxmldatadialog.h \
+    modules/specialized/scxml/dialogs/scxmlassigndialog.h \
+    modules/specialized/scxml/dialogs/scxmlcontentdialog.h \
+    modules/specialized/scxml/dialogs/scxmlparamdialog.h \
+    modules/specialized/scxml/dialogs/scxmlscriptdialog.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -787,7 +797,12 @@ FORMS += xmleditwidget.ui \
     modules/specialized/scxml/dialogs/scxmlifdialog.ui \
     modules/specialized/scxml/dialogs/scxmlelseifdialog.ui \
     modules/specialized/scxml/dialogs/scxmlforeachdialog.ui \
-    modules/specialized/scxml/dialogs/scxmllogdialog.ui
+    modules/specialized/scxml/dialogs/scxmllogdialog.ui \
+    modules/specialized/scxml/dialogs/scxmldatadialog.ui \
+    modules/specialized/scxml/dialogs/scxmlassigndialog.ui \
+    modules/specialized/scxml/dialogs/scxmlcontentdialog.ui \
+    modules/specialized/scxml/dialogs/scxmlparamdialog.ui \
+    modules/specialized/scxml/dialogs/scxmlscriptdialog.ui
 
 
 symbian {

@@ -20,53 +20,35 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "scxmlparalleldialog.h"
-#include "ui_scxmlparalleldialog.h"
-#include "regola.h"
-#include "modules/specialized/scxml/scxmltoken.h"
-#include "modules/xsd/namespacemanager.h"
-#include "utils.h"
+#ifndef SCXMLDATADIALOG_H
+#define SCXMLDATADIALOG_H
 
-SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-        Element *toModifyElement, Element *selectedElement, Element *parentElement) :
-    QDialog(parent),
-    p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
-    d(&p._d),
-    ui(new Ui::SCXMLParallelDialog)
+#include "modules/specialized/scxml/dialogs/basescxmleditdata.h"
+
+namespace Ui
 {
-    ui->setupUi(this);
-    setupCommon();
-    if(p._isInsertOrEdit) {
-        setupInsert();
-    }
-    setupEdit();
+class SCXMLDataDialog;
 }
 
-SCXMLParallelDialog::~SCXMLParallelDialog()
+class SCXMLDataDialog : public QDialog
 {
-    delete ui;
-}
+    Q_OBJECT
+    BaseSCXMLEditData p;
+    BaseDData *d;
 
-void SCXMLParallelDialog::setupCommon()
-{
-}
+    void setupInsert();
+    void setupEdit();
+    void setupCommon();
 
-// use default values
-void SCXMLParallelDialog::setupInsert()
-{
-    p.assignTag(SCXMLToken::Tag_parallel);
-}
+public:
+    explicit SCXMLDataDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                             Element *toModifyElement, Element *selectedElement, Element *parentElement);
+    ~SCXMLDataDialog();
 
-void SCXMLParallelDialog::setupEdit()
-{
-    ui->id->setText(d->attributeString(SCXMLparallelToken::A_id));
-}
+    void accept();
 
-void SCXMLParallelDialog::accept()
-{
-    d->setAttributeStringIfExisting(SCXMLparallelToken::A_id, ui->id->text());
-    if(!d->checkID(this, SCXMLparallelToken::A_id)) {
-        return;
-    }
-    QDialog::accept();
-}
+private:
+    Ui::SCXMLDataDialog *ui;
+};
+
+#endif // SCXMLDATADIALOG_H

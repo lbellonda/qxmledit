@@ -67,8 +67,8 @@ void SCXMLStateDialog::setupEdit()
 
 void SCXMLStateDialog::accept()
 {
-    d->setAttributeString(SCXMLstateToken::A_id, ui->id->text());
-    d->setAttributeString(SCXMLstateToken::A_initial, ui->initial->currentText());
+    d->setAttributeStringIfExisting(SCXMLstateToken::A_id, ui->id->text());
+    d->setAttributeStringIfExisting(SCXMLstateToken::A_initial, ui->initial->currentText());
 
     if(!d->checkIDREFS(this, SCXMLstateToken::A_initial)
             ||  !d->checkID(this, SCXMLstateToken::A_id)) {

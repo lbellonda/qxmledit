@@ -25,7 +25,6 @@
 
 #include "modules/specialized/scxml/dialogs/basescxmleditdata.h"
 
-
 namespace Ui
 {
 class SCXMLForeachDialog;

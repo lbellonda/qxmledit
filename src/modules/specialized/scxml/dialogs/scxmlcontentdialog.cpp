@@ -20,20 +20,22 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "scxmlparalleldialog.h"
-#include "ui_scxmlparalleldialog.h"
+#include "scxmlcontentdialog.h"
+#include "ui_scxmlcontentdialog.h"
+
 #include "regola.h"
 #include "modules/specialized/scxml/scxmltoken.h"
 #include "modules/xsd/namespacemanager.h"
 #include "utils.h"
 
-SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-        Element *toModifyElement, Element *selectedElement, Element *parentElement) :
+SCXMLContentDialog::SCXMLContentDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                                       Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
     p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
     d(&p._d),
-    ui(new Ui::SCXMLParallelDialog)
+    ui(new Ui::SCXMLContentDialog)
 {
+    Utils::TODO_THIS_RELEASE("icona");
     ui->setupUi(this);
     setupCommon();
     if(p._isInsertOrEdit) {
@@ -42,31 +44,29 @@ SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regol
     setupEdit();
 }
 
-SCXMLParallelDialog::~SCXMLParallelDialog()
+SCXMLContentDialog::~SCXMLContentDialog()
 {
     delete ui;
 }
 
-void SCXMLParallelDialog::setupCommon()
+void SCXMLContentDialog::setupCommon()
 {
 }
 
 // use default values
-void SCXMLParallelDialog::setupInsert()
+void SCXMLContentDialog::setupInsert()
 {
-    p.assignTag(SCXMLToken::Tag_parallel);
+    p.assignTag(SCXMLToken::Tag_content);
 }
 
-void SCXMLParallelDialog::setupEdit()
+void SCXMLContentDialog::setupEdit()
 {
-    ui->id->setText(d->attributeString(SCXMLparallelToken::A_id));
+    ui->expr->setText(d->attributeString(SCXMLcontentToken::A_expr));
 }
 
-void SCXMLParallelDialog::accept()
+void SCXMLContentDialog::accept()
 {
-    d->setAttributeStringIfExisting(SCXMLparallelToken::A_id, ui->id->text());
-    if(!d->checkID(this, SCXMLparallelToken::A_id)) {
-        return;
-    }
+    d->setAttributeStringIfExisting(SCXMLcontentToken::A_expr, ui->expr->text());
+
     QDialog::accept();
 }

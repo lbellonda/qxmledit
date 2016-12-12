@@ -83,11 +83,11 @@ void SCXMLRoot::accept()
     Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
 
     d->setAttributeString(SCXMLscxmlToken::A_binding, ui->binding->isChecked() ? "early" : "late");
-    d->setAttributeString(SCXMLscxmlToken::A_datamodel, ui->datamodel->currentText());
-    d->setAttributeString(SCXMLscxmlToken::A_name, ui->name->text());
+    d->setAttributeStringIfExisting(SCXMLscxmlToken::A_datamodel, ui->datamodel->currentText());
+    d->setAttributeStringIfExisting(SCXMLscxmlToken::A_name, ui->name->text());
     d->setAttributeString(SCXMLscxmlToken::A_version, ui->version->text());
     d->setAttributeString(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
-    d->setAttributeString(SCXMLscxmlToken::A_initial, ui->initial->currentText());
+    d->setAttributeStringIfExisting(SCXMLscxmlToken::A_initial, ui->initial->currentText());
     //d->setAttributeStringIfMissing(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
 
     if(!d->checkIDREFS(this, SCXMLscxmlToken::A_initial)

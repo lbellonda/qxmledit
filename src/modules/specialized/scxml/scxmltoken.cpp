@@ -55,6 +55,13 @@ IMPL_SCXML_TAG(elseif);
 IMPL_SCXML_TAG(else);
 IMPL_SCXML_TAG(foreach);
 IMPL_SCXML_TAG(log);
+IMPL_SCXML_TAG(datamodel);
+IMPL_SCXML_TAG(data);
+IMPL_SCXML_TAG(assign);
+IMPL_SCXML_TAG(donedata);
+IMPL_SCXML_TAG(content);
+IMPL_SCXML_TAG(param);
+IMPL_SCXML_TAG(script);
 
 QString SCXMLToken::name() const
 {

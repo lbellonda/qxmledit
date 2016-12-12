@@ -65,6 +65,13 @@ public:
     DECL_SCXML_TAG(elseif);
     DECL_SCXML_TAG(foreach);
     DECL_SCXML_TAG(log);
+    DECL_SCXML_TAG(datamodel);
+    DECL_SCXML_TAG(data);
+    DECL_SCXML_TAG(assign);
+    DECL_SCXML_TAG(donedata);
+    DECL_SCXML_TAG(content);
+    DECL_SCXML_TAG(param);
+    DECL_SCXML_TAG(script);
 private:
     QString _name;
     QString _description;
@@ -269,6 +276,79 @@ public:
                            Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
     SC_DECL_ATTR_TK(label);
     SC_DECL_ATTR_TK(expr);
+};
+
+class SCXMLdatamodelToken : public SCXMLToken
+{
+public:
+    SCXMLdatamodelToken();
+    virtual ~SCXMLdatamodelToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+};
+
+class SCXMLdataToken : public SCXMLToken
+{
+public:
+    SCXMLdataToken();
+    virtual ~SCXMLdataToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(id);
+    SC_DECL_ATTR_TK(src);
+    SC_DECL_ATTR_TK(expr);
+};
+
+class SCXMLassignToken : public SCXMLToken
+{
+public:
+    SCXMLassignToken();
+    virtual ~SCXMLassignToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(location);
+    SC_DECL_ATTR_TK(expr);
+};
+
+class SCXMLdonedataToken : public SCXMLToken
+{
+public:
+    SCXMLdonedataToken();
+    virtual ~SCXMLdonedataToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+};
+
+class SCXMLcontentToken : public SCXMLToken
+{
+public:
+    SCXMLcontentToken();
+    virtual ~SCXMLcontentToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(expr);
+};
+
+class SCXMLparamToken : public SCXMLToken
+{
+public:
+    SCXMLparamToken();
+    virtual ~SCXMLparamToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(expr);
+    SC_DECL_ATTR_TK(name);
+    SC_DECL_ATTR_TK(location);
+};
+
+class SCXMLscriptToken : public SCXMLToken
+{
+public:
+    SCXMLscriptToken();
+    virtual ~SCXMLscriptToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(src);
 };
 
 //------------------------------------------------------------------------------------------

@@ -35,6 +35,7 @@ class TestSCXML : public TestBase
     bool setEAC(QWidget *widget, const QString &name, const QString &attr, const QString value, Element *e1);
     bool setEAB(QWidget *widget, const QString &name, const bool checked, const QString &attr, const QString value, Element *e1);
     //---
+    bool testEditdonedata();
     bool testEditassign();
     bool testEditcancel();
     bool testEditcontent();

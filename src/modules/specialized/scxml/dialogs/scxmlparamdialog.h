@@ -20,53 +20,34 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "scxmlparalleldialog.h"
-#include "ui_scxmlparalleldialog.h"
-#include "regola.h"
-#include "modules/specialized/scxml/scxmltoken.h"
-#include "modules/xsd/namespacemanager.h"
-#include "utils.h"
+#ifndef SCXMLPARAMDIALOG_H
+#define SCXMLPARAMDIALOG_H
 
-SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-        Element *toModifyElement, Element *selectedElement, Element *parentElement) :
-    QDialog(parent),
-    p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
-    d(&p._d),
-    ui(new Ui::SCXMLParallelDialog)
-{
-    ui->setupUi(this);
-    setupCommon();
-    if(p._isInsertOrEdit) {
-        setupInsert();
-    }
-    setupEdit();
+#include "modules/specialized/scxml/dialogs/basescxmleditdata.h"
+
+namespace Ui {
+class SCXMLParamDialog;
 }
 
-SCXMLParallelDialog::~SCXMLParallelDialog()
+class SCXMLParamDialog : public QDialog
 {
-    delete ui;
-}
+    Q_OBJECT
+    BaseSCXMLEditData p;
+    BaseDData *d;
 
-void SCXMLParallelDialog::setupCommon()
-{
-}
+    void setupInsert();
+    void setupEdit();
+    void setupCommon();
 
-// use default values
-void SCXMLParallelDialog::setupInsert()
-{
-    p.assignTag(SCXMLToken::Tag_parallel);
-}
+public:
+    explicit SCXMLParamDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                              Element *toModifyElement, Element *selectedElement, Element *parentElement);
+    ~SCXMLParamDialog();
 
-void SCXMLParallelDialog::setupEdit()
-{
-    ui->id->setText(d->attributeString(SCXMLparallelToken::A_id));
-}
+    void accept();
 
-void SCXMLParallelDialog::accept()
-{
-    d->setAttributeStringIfExisting(SCXMLparallelToken::A_id, ui->id->text());
-    if(!d->checkID(this, SCXMLparallelToken::A_id)) {
-        return;
-    }
-    QDialog::accept();
-}
+private:
+    Ui::SCXMLParamDialog *ui;
+};
+
+#endif // SCXMLPARAMDIALOG_H

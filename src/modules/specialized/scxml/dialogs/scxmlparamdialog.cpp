@@ -20,20 +20,22 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "scxmlparalleldialog.h"
-#include "ui_scxmlparalleldialog.h"
+#include "scxmlparamdialog.h"
+#include "ui_scxmlparamdialog.h"
+
 #include "regola.h"
 #include "modules/specialized/scxml/scxmltoken.h"
 #include "modules/xsd/namespacemanager.h"
 #include "utils.h"
 
-SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-        Element *toModifyElement, Element *selectedElement, Element *parentElement) :
+SCXMLParamDialog::SCXMLParamDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                                   Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
     p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
     d(&p._d),
-    ui(new Ui::SCXMLParallelDialog)
+    ui(new Ui::SCXMLParamDialog)
 {
+    Utils::TODO_THIS_RELEASE("icona");
     ui->setupUi(this);
     setupCommon();
     if(p._isInsertOrEdit) {
@@ -42,31 +44,39 @@ SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regol
     setupEdit();
 }
 
-SCXMLParallelDialog::~SCXMLParallelDialog()
+SCXMLParamDialog::~SCXMLParamDialog()
 {
     delete ui;
 }
 
-void SCXMLParallelDialog::setupCommon()
+void SCXMLParamDialog::setupCommon()
 {
 }
 
 // use default values
-void SCXMLParallelDialog::setupInsert()
+void SCXMLParamDialog::setupInsert()
 {
-    p.assignTag(SCXMLToken::Tag_parallel);
+    p.assignTag(SCXMLToken::Tag_param);
 }
 
-void SCXMLParallelDialog::setupEdit()
+void SCXMLParamDialog::setupEdit()
 {
-    ui->id->setText(d->attributeString(SCXMLparallelToken::A_id));
+    ui->location->setText(d->attributeString(SCXMLparamToken::A_location));
+    ui->expr->setText(d->attributeString(SCXMLparamToken::A_expr));
+    ui->name->setText(d->attributeString(SCXMLparamToken::A_name));
 }
 
-void SCXMLParallelDialog::accept()
+void SCXMLParamDialog::accept()
 {
-    d->setAttributeStringIfExisting(SCXMLparallelToken::A_id, ui->id->text());
-    if(!d->checkID(this, SCXMLparallelToken::A_id)) {
-        return;
+    d->setAttributeStringIfExisting(SCXMLparamToken::A_location, ui->location->text());
+    d->setAttributeStringIfExisting(SCXMLparamToken::A_expr, ui->expr->text());
+    d->setAttributeString(SCXMLparamToken::A_name, ui->name->text());
+
+    if(!d->checkNotNull(this, SCXMLparamToken::A_name)) {
+        return ;
+    }
+    if(!d->checkNMTOKEN(this, SCXMLparamToken::A_name)) {
+        return ;
     }
     QDialog::accept();
 }

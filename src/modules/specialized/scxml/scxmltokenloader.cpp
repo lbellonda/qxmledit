@@ -290,6 +290,12 @@ SCXMLToken *SCXMLTokenLoader::createSCXMLToken(const QString &tag)
     LOAD(else)
     LOAD(foreach)
     LOAD(log)
-
+    LOAD(datamodel)
+    LOAD(data)
+    LOAD(assign)
+    LOAD(donedata)
+    LOAD(content)
+    LOAD(param)
+    LOAD(script)
     return new SCXMLGenericToken();
 }

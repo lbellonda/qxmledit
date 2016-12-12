@@ -113,153 +113,42 @@
         <children>
         </children>
     </token>
+    <token name="datamodel">
+        <children>
+            <child name="data" min="0" max="u" d="Data element."/>
+        </children>
+    </token>
+    <token name="data">
+        <children>
+        </children>
+    </token>
+    <token name="assign">
+        <children>
+        </children>
+    </token>
+    <token name="donedata">
+        <children>
+            <child name="content" min="0" max="1" d="Data to include."/>
+            <child name="param" min="0" max="u" d="Data to include."/>
+        </children>
+    </token>
+    <token name="content">
+        <children>
+            <child name="content" min="0" max="1" d="Data to include."/>
+            <child name="param" min="0" max="u" d="Data to include."/>
+        </children>
+    </token>
+    <token name="param">
+        <children>
+        </children>
+    </token>
+    <token name="script">
+        <children>
+        </children>
+    </token>
+
 </root>
 <!--
-	4.8 Other Executable Content
-
-	[This section is normative.]
-
-	The following elements of executable content are defined elsewhere in this specification. They MAY occur wherever executable content is allowed and MUST NOT occur anyplace else.
-
-	    <assign>. Changes the value of a location in the data model. See 5.4 <assign> for details.
-	    <script>. Provides scripting capabilities. See 5.8 <script> for details.
-	    <send>. Sends an event to a specified destination. See 6.2 <send> for details.
-	    <cancel>. Cancels an event that was to be sent See 6.3 <cancel> for details.
-
-
-			5.2 <datamodel>
-
-			[This section is normative.]
-
-			<datamodel> is a wrapper element which encapsulates any number of <data> elements, each of which defines a single data object. The exact nature of the data object depends on the data model language used.
-			5.2.1 Attribute Details
-
-			None.
-			5.2.2 Children
-
-			    <data> Occurs 0 or more times. Each instance defines a named data element.
-
-
-
-					5.3 <data>
-
-					[This section is normative.]
-
-					The <data> element is used to declare and populate portions of the data model.
-					5.3.1 Attribute Details
-					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-					id 	true 		ID 	none 		The name of the data item. See 3.14 IDs for details.
-					src 	false 		URI 	none 		Gives the location from which the data object should be fetched. See 5.9.3 Legal Data Values and Value Expressions for details.
-					expr 	false 		Expression 	none 	Any valid value expression 	Evaluates to provide the value of the data item. See 5.9.3 Legal Data Values and Value Expressions for details.
-					5.3.2 Children
-
-					The children of the <data> element represent an in-line specification of the value of the data object.
-
-					In a conformant SCXML document, a <data> element MAY have either a 'src' or an 'expr' attribute, but MUST NOT have both. Furthermore, if either attribute is present, the element MUST NOT have any children. Thus 'src', 'expr' and children are mutually exclusive in the <data> element.
-
-					The SCXML Processor MUST use any values provided by the environment at instantiation time in place of those contained in the top-level <data> elements. (Top-level data elements are those that are children of the <datamodel > element that is a child of <scxml>). The manner in which the environment specifies these overriding values is platform-dependent.
-
-					If the 'expr' attribute is present, the Platform MUST evaluate the corresponding expression at the time specified by the 'binding' attribute of <scxml> and MUST assign the resulting value as the value of the data element. If the 'src' attribute is present, the Platform MUST fetch the specified object at the time specified by the 'binding' attribute of <scxml> and MUST assign it as the value of the data element. If child content is specified, the Platform MUST assign it as the value of the data element at the time specified by the 'binding' attribute of <scxml>. Note that in the latter two cases, the interpretation of the object or content will depend on the data model. See B Data Models for details. If the value specified for a <data> element (by 'src', children, or the environment) is not a legal data value, the SCXML Processor MUST raise place error.execution in the internal event queue and MUST create an empty data element in the data model with the specified id.
-
-					Implementations MAY predeclare and predefine variables in the data model. However, conformant SCXML implementations SHOULD NOT assume the existence of any predeclared or predefined variables (i.e., ones not explicitly defined by <data>).
-
-					Note that this specification does not define any way to modify the data model except by<assign>, <finalize>, and possibly platform-specific elements of executable content. In particular, no means is defined for external entities to modify the data model. In this sense the data model is local to the SCXML session and the SCXML Processor checks for eventless transitions (i.e. ones that are triggered based only on the state of the data model) only after entering a state or processing an event. However in some deployments it may be possible for external entities to modify the data model. For example, if SCXML is implemented in JavaScript in a browser, the scope of a document's data model is always accessible through the main window object and thus JavaScript code elsewhere in the window can modify the data model independent of the SCXML interpretation algorithm. Such a situation can lead to race conditions and unpredictable behavior
-
-
-					5.4 <assign>
-
-					[This section is normative.]
-
-					The <assign> element is used to modify the data model.
-					5.4.1 Attribute Details
-					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-					location 	true 		path expression 	none 	Any valid location expression. 	The location in the data model into which to insert the new value. See 5.9.2 Location Expressions for details.
-					expr 	false 	This attribute must not occur in an <assign> element that has children. 	value expression 	none 	Any valid value expression 	An expression returning the value to be assigned. See 5.9.3 Legal Data Values and Value Expressions for details.
-					5.4.2 Children
-
-					The children of the <assign>element provide an in-line specification of the legal data value (see 5.9.3 Legal Data Values and Value Expressions) to be inserted into the data model at the specified location.
-
-					A conformant SCXML document MUST specify either "expr" or children of <assign>, but not both.
-
-					Assignment to a data model is done by using a location expression to denote the part of the data model where the insertion is to be made. If the location expression does not denote a valid location in the data model or if the value specified (by 'expr' or children) is not a legal value for the location specified, the SCXML Processor MUST place the error 'error.execution' in the internal event queue. Otherwise, the SCXML Processor MUST place the specified value at the specified location. Note that the nature of the insertion and the definition of a legal value depends on the data model language used. Note also that data models MAY support additional attributes for <assign> beyond those specified here. See B Data Models for details.
-					
-					
-
-					5.5 <donedata>
-
-					[This section is normative.]
-
-					A wrapper element holding data to be returned when a <final> state is entered.
-					5.5.1 Attribute Details
-
-					None.
-					5.5.2 Children
-
-					    <content>. Specifies data to include in the event. May occur 0 or 1 times. See 5.6 <content> .
-					    <param> Extracts data from the data model to include in the event. See 5.7 <param> for details. May occur 0 or more times.
-
-					A conformant SCXML document MUST specify either a single <content> element or one or more <param> elements as children of <donedata>, but not both.
-
-					In cases where the SCXML Processor generates a 'done' event upon entry into the final state, it MUST evaluate the <donedata> elements <param> or <content> children and place the resulting data in the _event.data field. The exact format of that data will be determined by the data model (see B Data Models for details). In other cases (namely when the <final> element is a child of <scxml> and the state machine has not been triggered by <invoke>), the SCXML Processor SHOULD return the data to the environment in an implementation-dependent manner.
-					
-					
-					
-
-					5.6 <content>
-
-					[This section is normative.]
-
-					A container element holding data to be passed to an external service.
-					5.6.1 Attribute Details
-					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-					expr 	false 	must not occur with child content 	Value expression 	none 	Any valid value expression 	A value expression. See 5.9.3 Legal Data Values and Value Expressions for details.
-					5.6.2 Children
-
-					A conformant SCXML document MUST NOT specify both the 'expr' attribute and child content. When present, the children of <content> MAY consist of text, XML from any namespace, or a mixture of both.
-
-					The use of the <content> element depends on the context in which it occurs. See 5.5 <donedata>, 6.2 <send> and 6.4 <invoke> for details. When the SCXML Processor evaluates the <content> element, if the 'expr' value expression is present, the Processor MUST evaluate it and use the result as the output of the <content> element. If the evaluation of 'expr' produces an error, the Processor MUST place error.execution in the internal event queue and use the empty string as the value of the <content> element. If the 'expr' attribute is not present, the Processor MUST use the children of <content> as the output. The interpretation of the output of the <content> element depends on the data model. See B Data Models for details. For the use of namespaces inside <content>, see G.6 Inline Content and Namespaces.
-					
-					
-					
-					
-					5.7 <param>
-
-					[This section is normative.]
-
-					The <param> tag provides a general way of identifying a key and a dynamically calculated value which can be passed to an external service or included in an event.
-					5.7.1 Attribute Details
-					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-					name 	true 		NMTOKEN 	none 	A string literal 	The name of the key.
-					expr 	false 	May not occur with 'location' 	value expression 	none 	Valid value expression 	A value expression (see 5.9.3 Legal Data Values and Value Expressions) that is evaluated to provide the value.
-					location 	false 	May not occur with 'expr' 	location expression 	none 	Valid location expression 	A location expression (see 5.9.2 Location Expressions) that specifies the location in the datamodel to retrieve the value from.
-
-					A conformant SCXML document MUST specify either the 'expr' attribute of <param> or the 'location' attribute, but MUST NOT specify both. If the 'location' attribute does not refer to a valid location in the data model, or if the evaluation of the 'expr' produces an error, the SCXML Processor MUST place the error 'error.execution' on the internal event queue and MUST ignore the name and value. Otherwise the use of the name and value depends on the context in which the <param> element occurs. See 5.5 <donedata>, 6.2 <send> and 6.4 <invoke> for details.
-					5.7.2 Children
-
-					None.
-					
-					
-					5.8 <script>
-
-					[This section is normative.]
-
-					The <script> element adds scripting capability to the state machine.
-					5.8.1 Attribute Details
-					Name 	Required 	Attribute Constraints 	Type 	Default Value 	Valid Values 	Description
-					src 	false 	May not occur if the element has children. 		none 	A valid URI 	Gives the location from which the script should be downloaded.
-					5.8.2 Children
-
-					The child content of the <script> element represents the script code to be executed.
-
-					A conformant SCXML document MUST specify either the 'src' attribute or child content, but not both. If 'src' is specified, the SCXML Processor MUST download the script from the specified location at load time. If the script can not be downloaded within a platform-specific timeout interval, the document is considered non-conformant, and the platform MUST reject it.
-
-					The SCXML Processor MUST evaluate any <script> element that is a child of <scxml> at document load time. It MUST evaluate all other <script> elements as part of normal executable content evaluation.
-
-					In a conformant SCXML document, the name of any script variable MAY be used as a location expression (see 5.9.2 Location Expressions).
-
-					For an example of a data model incorporating scripting, see B.2 The ECMAScript Data Model.
-					
-					
 					6.2 <send>
 
 					[This section is normative.]

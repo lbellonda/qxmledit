@@ -3179,19 +3179,25 @@ QList<int> Regola::elementPathForPath(QList<int> &inputPos)
     // Now find the pos into the real data
     QVector<Element*> *elements = getChildItems();
     foreach(const int indexToSearch, inputPos) {
-        int thisPos = 0;
+        int thisPosAsChild = 0;
+        int thisPosAsElement = 0;
+        bool found = false;
         foreach(Element *element, *elements) {
             if(element->isElement()) {
-                if(thisPos == indexToSearch) {
-                    result.append(thisPos);
+                if(thisPosAsElement == indexToSearch) {
+                    result.append(thisPosAsChild);
                     elements = element->getChildItems();
+                    found = true;
                     break;
                 }
-                thisPos ++;
+                thisPosAsElement++;
             }
+            thisPosAsChild ++;
             // error: a position could not be found.
-            return QList<int>();
         } // foreach elements
+        if(!found) {
+            return QList<int>();
+        }
     } // foreach pos
     return result;
 }

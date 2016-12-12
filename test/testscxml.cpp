@@ -36,6 +36,11 @@
 #include "modules/specialized/scxml/dialogs/scxmlifdialog.h"
 #include "modules/specialized/scxml/dialogs/scxmlelseifdialog.h"
 #include "modules/specialized/scxml/dialogs/scxmlforeachdialog.h"
+#include "modules/specialized/scxml/dialogs/scxmllogdialog.h"
+#include "modules/specialized/scxml/dialogs/scxmldatadialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlassigndialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlparamdialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlscriptdialog.h"
 #include "modules/messages/sourceerror.h"
 #include "sourcemessagemanager.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
@@ -51,11 +56,12 @@ static QStringList allTokens()
 {
     QStringList tokens ;
 
-    //tokens << "assign";
+    tokens << "assign";
+    tokens << "donedata";
     //tokens << "cancel";
-    //tokens << "content";
-    //tokens << "data";
-    //tokens << "datamodel";
+    tokens << "content";
+    tokens << "data";
+    tokens << "datamodel";
     tokens << "else";
     tokens << "elseif";
     tokens << "raise";
@@ -71,7 +77,7 @@ static QStringList allTokens()
     tokens << "onexit";
     tokens << "parallel";
     //tokens << "param";
-    //tokens << "script";
+    tokens << "script";
     tokens << "scxml";
     //tokens << "send";
     tokens << "state";
@@ -112,14 +118,28 @@ bool TestSCXML::testLoadTokens()
 bool TestSCXML::testEditTokens()
 {
     _testName = "testEditTokens" ;
-    /*bool testEditassign();
-    bool testEditcancel();
-    bool testEditcontent();
-    bool testEditdata();
-    bool testEditdatamodel();
-    bool testEditelse();
-    bool testEditelseif();
-    */
+
+    if(!testEditassign() ) {
+        return false;
+    }
+    if(!testEditcancel() ) {
+        return false;
+    }
+    if(!testEditcontent() ) {
+        return false;
+    }
+    if(!testEditdata() ) {
+        return false;
+    }
+    if(!testEditdatamodel() ) {
+        return false;
+    }
+    if(!testEditelse() ) {
+        return false;
+    }
+    if(!testEditelseif() ) {
+        return false;
+    }
     if(!testEditif() ) {
         return false;
     }
@@ -129,14 +149,18 @@ bool TestSCXML::testEditTokens()
     if(!testEditfinal() ) {
         return false;
     }
-    /*bool testEditfinalize();*/
+    if(!testEditfinalize() ) {
+        return false;
+    }
     if(!testEdithistory() ) {
         return false;
     }
     if(!testEditinitial() ) {
         return false;
     }
-    /*bool testEditinvoke();*/
+    if(!testEditinvoke() ) {
+        return false;
+    }
     if(!testEditforeach() ) {
         return false;
     }
@@ -152,20 +176,30 @@ bool TestSCXML::testEditTokens()
     if(!testEditparallel() ) {
         return false;
     }
-    /*bool testEditparam();
-    bool testEditscript();*/
+    if(!testEditparam() ) {
+        return false;
+    }
+    if(!testEditscript() ) {
+        return false;
+    }
     if(!testEditscxml() ) {
         return false;
     }
-    /*bool testEditsend();*/
+    if(!testEditsend() ) {
+        return false;
+    }
     if(!testEditstate() ) {
         return false;
     }
     if(!testEdittransition() ) {
         return false;
     }
-    /*
-    bool testEditvar();*/
+    if(!testEditvar() ) {
+        return false;
+    }
+    if(!testEditdonedata() ) {
+        return false;
+    }
     return true;
 }
 
@@ -459,7 +493,6 @@ bool TestSCXML::testEditif()
     return true;
 }
 
-
 bool TestSCXML::testEditelse()
 {
     _testName ="testEditelse" ;
@@ -520,7 +553,7 @@ bool TestSCXML::testEditlog()
     Regola regola;
     SCXMLInfo info;
     elementCompare.setTag(SCXMLToken::Tag_log) ;
-    SCXMLTransitionDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    SCXMLLogDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
     if(!setEAE(&dialog, "label", SCXMLlogToken::A_label, "alabel", &elementCompare)){return false;}
     if(!setEAE(&dialog, "expr", SCXMLlogToken::A_expr, "aexpr", &elementCompare)){return false;}
     dialog.accept();
@@ -530,20 +563,134 @@ bool TestSCXML::testEditlog()
     return true;
 }
 
+bool TestSCXML::testEditdatamodel()
+{
+    _testName ="testEditdatamodel" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_datamodel) ;
+    SCXMLdatamodelToken token;
+    token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
 
+bool TestSCXML::testEditdata()
+{
+    _testName ="testEditdata" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_data) ;
+    SCXMLDataDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "id", SCXMLdataToken::A_id, "aID", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "expr", SCXMLdataToken::A_expr, "aExpr", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "src", SCXMLdataToken::A_src, "aSrc", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
 
 bool TestSCXML::testEditassign()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditcancel()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditcontent()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditdata()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditdatamodel()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditfinalize()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditinvoke()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditparam()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditscript()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditsend()
-{_testName ="" ;return error("nyi");}bool TestSCXML::testEditvar()
-{_testName ="" ;return error("nyi");}
+{
+    _testName ="testEditassign" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_assign) ;
+    SCXMLAssignDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "location", SCXMLassignToken::A_location, "aLocation", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "expr", SCXMLassignToken::A_expr, "aExpr", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditdonedata()
+{
+    _testName ="testEditdonedata" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_donedata) ;
+    SCXMLdonedataToken token;
+    token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditcontent()
+{
+    _testName ="testEditcontent" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_content) ;
+    SCXMLAssignDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "expr", SCXMLcontentToken::A_expr, "aExpr", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditparam()
+{
+    _testName ="testEditparam" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_param) ;
+    SCXMLParamDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "expr", SCXMLparamToken::A_expr, "aExpr", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "name", SCXMLparamToken::A_name, "aName", &elementCompare)){return false;}
+    if(!setEAE(&dialog, "location", SCXMLparamToken::A_location, "aLocation", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+
+bool TestSCXML::testEditscript()
+{
+    _testName ="testEditscript" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_script) ;
+    SCXMLScriptDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!setEAE(&dialog, "src", SCXMLscriptToken::A_src, "aSrc", &elementCompare)){return false;}
+    dialog.accept();
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditcancel(){_testName ="" ;return error("nyi");}
+bool TestSCXML::testEditfinalize(){_testName ="" ;return error("nyi");}
+bool TestSCXML::testEditinvoke(){_testName ="" ;return error("nyi");}
+bool TestSCXML::testEditsend(){_testName ="" ;return error("nyi");}
+bool TestSCXML::testEditvar(){_testName ="" ;return error("nyi");}
 
 //----
 static SourceMessage *newMsg(const int line, const int column, const QString &text)

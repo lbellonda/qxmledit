@@ -67,7 +67,7 @@ void SCXMLLogDialog::setupEdit()
 
 void SCXMLLogDialog::accept()
 {
-    d->setAttributeString(SCXMLlogToken::A_label, ui->label->text());
-    d->setAttributeString(SCXMLlogToken::A_expr, ui->expr->text());
+    d->setAttributeStringIfExisting(SCXMLlogToken::A_label, ui->label->text());
+    d->setAttributeStringIfExisting(SCXMLlogToken::A_expr, ui->expr->text());
     QDialog::accept();
 }

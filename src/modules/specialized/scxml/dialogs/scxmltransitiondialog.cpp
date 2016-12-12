@@ -76,10 +76,10 @@ void SCXMLTransitionDialog::setupEdit()
 
 void SCXMLTransitionDialog::accept()
 {
-    d->setAttributeString(SCXMLtransitionToken::A_type, ui->type->currentText());
-    d->setAttributeString(SCXMLtransitionToken::A_target, ui->target->currentText());
-    d->setAttributeString(SCXMLtransitionToken::A_cond, ui->cond->text());
-    d->setAttributeString(SCXMLtransitionToken::A_event, ui->event->text());
+    d->setAttributeStringIfExisting(SCXMLtransitionToken::A_type, ui->type->currentText());
+    d->setAttributeStringIfExisting(SCXMLtransitionToken::A_target, ui->target->currentText());
+    d->setAttributeStringIfExisting(SCXMLtransitionToken::A_cond, ui->cond->text());
+    d->setAttributeStringIfExisting(SCXMLtransitionToken::A_event, ui->event->text());
 
     if(!d->checkIDREFS(this, SCXMLtransitionToken::A_target)) {
         return ;

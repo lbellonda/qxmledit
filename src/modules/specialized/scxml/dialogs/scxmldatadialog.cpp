@@ -20,20 +20,22 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "scxmlparalleldialog.h"
-#include "ui_scxmlparalleldialog.h"
+#include "scxmldatadialog.h"
+#include "ui_scxmldatadialog.h"
+
 #include "regola.h"
 #include "modules/specialized/scxml/scxmltoken.h"
 #include "modules/xsd/namespacemanager.h"
 #include "utils.h"
 
-SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-        Element *toModifyElement, Element *selectedElement, Element *parentElement) :
+SCXMLDataDialog::SCXMLDataDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                                 Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
     p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
     d(&p._d),
-    ui(new Ui::SCXMLParallelDialog)
+    ui(new Ui::SCXMLDataDialog)
 {
+    Utils::TODO_THIS_RELEASE("icona");
     ui->setupUi(this);
     setupCommon();
     if(p._isInsertOrEdit) {
@@ -42,31 +44,40 @@ SCXMLParallelDialog::SCXMLParallelDialog(QWidget *parent, SCXMLInfo *info, Regol
     setupEdit();
 }
 
-SCXMLParallelDialog::~SCXMLParallelDialog()
+SCXMLDataDialog::~SCXMLDataDialog()
 {
     delete ui;
 }
 
-void SCXMLParallelDialog::setupCommon()
+void SCXMLDataDialog::setupCommon()
 {
 }
 
 // use default values
-void SCXMLParallelDialog::setupInsert()
+void SCXMLDataDialog::setupInsert()
 {
-    p.assignTag(SCXMLToken::Tag_parallel);
+    p.assignTag(SCXMLToken::Tag_data);
 }
 
-void SCXMLParallelDialog::setupEdit()
+void SCXMLDataDialog::setupEdit()
 {
-    ui->id->setText(d->attributeString(SCXMLparallelToken::A_id));
+    ui->id->setText(d->attributeString(SCXMLdataToken::A_id));
+    ui->src->setText(d->attributeString(SCXMLdataToken::A_src));
+    ui->expr->setText(d->attributeString(SCXMLdataToken::A_expr));
 }
 
-void SCXMLParallelDialog::accept()
+void SCXMLDataDialog::accept()
 {
-    d->setAttributeStringIfExisting(SCXMLparallelToken::A_id, ui->id->text());
-    if(!d->checkID(this, SCXMLparallelToken::A_id)) {
-        return;
+    d->setAttributeString(SCXMLdataToken::A_id, ui->id->text());
+    d->setAttributeString(SCXMLdataToken::A_src, ui->src->text());
+    d->setAttributeStringIfExisting(SCXMLdataToken::A_expr, ui->expr->text());
+
+    if(!d->checkID(this, SCXMLdataToken::A_id, true)) {
+        return ;
+    }
+    if(!d->attributeString(SCXMLdataToken::A_src).trimmed().isEmpty() && !d->attributeString(SCXMLdataToken::A_expr).trimmed().isEmpty()) {
+        Utils::error(this, tr("'src' and 'expr' cannot be both present."));
+        return ;
     }
     QDialog::accept();
 }
