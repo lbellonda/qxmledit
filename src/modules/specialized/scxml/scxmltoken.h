@@ -72,6 +72,10 @@ public:
     DECL_SCXML_TAG(content);
     DECL_SCXML_TAG(param);
     DECL_SCXML_TAG(script);
+    DECL_SCXML_TAG(cancel);
+    DECL_SCXML_TAG(finalize);
+    DECL_SCXML_TAG(send);
+    DECL_SCXML_TAG(invoke);
 private:
     QString _name;
     QString _description;
@@ -349,6 +353,63 @@ public:
     virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                            Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
     SC_DECL_ATTR_TK(src);
+};
+
+class SCXMLcancelToken : public SCXMLToken
+{
+public:
+    SCXMLcancelToken();
+    virtual ~SCXMLcancelToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+};
+
+class SCXMLfinalizeToken : public SCXMLToken
+{
+public:
+    SCXMLfinalizeToken();
+    virtual ~SCXMLfinalizeToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+};
+
+class SCXMLinvokeToken : public SCXMLToken
+{
+public:
+    SCXMLinvokeToken();
+    virtual ~SCXMLinvokeToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(type);
+    SC_DECL_ATTR_TK(typeexpr);
+    SC_DECL_ATTR_TK(src);
+    SC_DECL_ATTR_TK(srcexpr);
+    SC_DECL_ATTR_TK(id);
+    SC_DECL_ATTR_TK(idlocation);
+    SC_DECL_ATTR_TK(namelist);
+    SC_DECL_ATTR_TK(autoforward);
+
+};
+
+class SCXMLsendToken : public SCXMLToken
+{
+public:
+    SCXMLsendToken();
+    virtual ~SCXMLsendToken();
+    virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                           Element *toModifyElement, Element *selectedElement, Element *parentElement) ;
+    SC_DECL_ATTR_TK(event);
+    SC_DECL_ATTR_TK(eventexpr);
+    SC_DECL_ATTR_TK(target);
+    SC_DECL_ATTR_TK(targetexpr);
+    SC_DECL_ATTR_TK(type);
+    SC_DECL_ATTR_TK(typeexpr);
+    SC_DECL_ATTR_TK(id);
+    SC_DECL_ATTR_TK(idlocation);
+    SC_DECL_ATTR_TK(delay);
+    SC_DECL_ATTR_TK(delayexpr);
+    SC_DECL_ATTR_TK(namelist);
+
 };
 
 //------------------------------------------------------------------------------------------

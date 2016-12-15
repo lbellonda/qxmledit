@@ -46,6 +46,7 @@ public:
     bool checkBooleanCond(QWidget *window, const QString &attrName);
     bool checkExistingOrMissing(QWidget *window, const QString &attrName);
     bool checkNotNull(QWidget *window, const QString &attrName);
+    bool checkExclusive(QWidget *window, const QString &a1, const QString &a2);
 };
 
 #endif // BASEDDATA_H

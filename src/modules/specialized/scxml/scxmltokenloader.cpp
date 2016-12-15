@@ -297,5 +297,9 @@ SCXMLToken *SCXMLTokenLoader::createSCXMLToken(const QString &tag)
     LOAD(content)
     LOAD(param)
     LOAD(script)
+    LOAD(cancel)
+    LOAD(finalize)
+    LOAD(send)
+    LOAD(invoke)
     return new SCXMLGenericToken();
 }

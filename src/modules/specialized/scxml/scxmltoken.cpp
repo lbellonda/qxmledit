@@ -62,6 +62,10 @@ IMPL_SCXML_TAG(donedata);
 IMPL_SCXML_TAG(content);
 IMPL_SCXML_TAG(param);
 IMPL_SCXML_TAG(script);
+IMPL_SCXML_TAG(cancel);
+IMPL_SCXML_TAG(finalize);
+IMPL_SCXML_TAG(send);
+IMPL_SCXML_TAG(invoke);
 
 QString SCXMLToken::name() const
 {

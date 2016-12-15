@@ -61,7 +61,6 @@ class TestSCXML : public TestBase
     bool testEditsend();
     bool testEditstate();
     bool testEdittransition();
-    bool testEditvar();
 public:
     TestSCXML();
     ~TestSCXML();

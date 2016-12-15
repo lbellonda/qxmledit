@@ -20,54 +20,35 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "scxmlscriptdialog.h"
-#include "ui_scxmlscriptdialog.h"
+#ifndef SCXMLSENDDIALOG_H
+#define SCXMLSENDDIALOG_H
 
-#include "regola.h"
-#include "modules/specialized/scxml/scxmltoken.h"
-#include "modules/xsd/namespacemanager.h"
-#include "utils.h"
+#include "modules/specialized/scxml/dialogs/basescxmleditdata.h"
 
-SCXMLScriptDialog::SCXMLScriptDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                     Element *toModifyElement, Element *selectedElement, Element *parentElement) :
-    QDialog(parent),
-    p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
-    d(&p._d),
-    ui(new Ui::SCXMLScriptDialog)
-{
-    Utils::TODO_THIS_RELEASE("icona");
-    ui->setupUi(this);
-    setupCommon();
-    if(p._isInsertOrEdit) {
-        setupInsert();
-    }
-    setupEdit();
+namespace Ui {
+class SCXMLSendDialog;
 }
 
-SCXMLScriptDialog::~SCXMLScriptDialog()
+class SCXMLSendDialog : public QDialog
 {
-    delete ui;
-}
+    Q_OBJECT
+    BaseSCXMLEditData p;
+    BaseDData *d;
+
+    void setupInsert();
+    void setupEdit();
+    void setupCommon();
 
 
-void SCXMLScriptDialog::setupCommon()
-{
-}
+public:
+    explicit SCXMLSendDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+                             Element *toModifyElement, Element *selectedElement, Element *parentElement);
+    ~SCXMLSendDialog();
 
-// use default values
-void SCXMLScriptDialog::setupInsert()
-{
-    p.assignTag(SCXMLToken::Tag_script);
-}
+    void accept();
 
-void SCXMLScriptDialog::setupEdit()
-{
-    ui->src->setText(d->attributeString(SCXMLscriptToken::A_src));
-}
+private:
+    Ui::SCXMLSendDialog *ui;
+};
 
-void SCXMLScriptDialog::accept()
-{
-    d->setAttributeString(SCXMLscriptToken::A_src, ui->src->text());
-
-    QDialog::accept();
-}
+#endif // SCXMLSENDDIALOG_H

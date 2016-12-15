@@ -231,6 +231,9 @@ void qt_mac_set_dock_menu(QMenu *menu);
 void todo()
 {
     Utils::error("This development version is still partly untested.")
+    Utils::TODO_THIS_RELEASE("menu special");
+    Utils::TODO_THIS_RELEASE("edit mode scxml");
+    Utils::TODO_THIS_RELEASE("ordine alfabetico profili anonimizzazione");
     Utils::TODO_THIS_RELEASE("scxml controlla attributi opzionali e settali e rimuovili se vuoti");
     Utils::TODO_THIS_RELEASE("controllare attributi non richiesti ed elimiare se mancanti scxml");
     Utils::TODO_THIS_RELEASE("unico menu valida?");

@@ -41,6 +41,8 @@
 #include "modules/specialized/scxml/dialogs/scxmlassigndialog.h"
 #include "modules/specialized/scxml/dialogs/scxmlparamdialog.h"
 #include "modules/specialized/scxml/dialogs/scxmlscriptdialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlinvokedialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlsenddialog.h"
 #include "modules/messages/sourceerror.h"
 #include "sourcemessagemanager.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
@@ -58,7 +60,7 @@ static QStringList allTokens()
 
     tokens << "assign";
     tokens << "donedata";
-    //tokens << "cancel";
+    tokens << "cancel";
     tokens << "content";
     tokens << "data";
     tokens << "datamodel";
@@ -66,23 +68,22 @@ static QStringList allTokens()
     tokens << "elseif";
     tokens << "raise";
     tokens << "final";
-    //tokens << "finalize";
+    tokens << "finalize";
     tokens << "history";
     tokens << "if";
     tokens << "initial";
-    //tokens << "invoke";
+    tokens << "invoke";
     tokens << "foreach";
     tokens << "log";
     tokens << "onentry";
     tokens << "onexit";
     tokens << "parallel";
-    //tokens << "param";
+    tokens << "param";
     tokens << "script";
     tokens << "scxml";
-    //tokens << "send";
+    tokens << "send";
     tokens << "state";
     tokens << "transition";
-    //tokens <<  "var";
     return tokens ;
 }
 
@@ -192,9 +193,6 @@ bool TestSCXML::testEditTokens()
         return false;
     }
     if(!testEdittransition() ) {
-        return false;
-    }
-    if(!testEditvar() ) {
         return false;
     }
     if(!testEditdonedata() ) {
@@ -668,7 +666,6 @@ bool TestSCXML::testEditparam()
     return true;
 }
 
-
 bool TestSCXML::testEditscript()
 {
     _testName ="testEditscript" ;
@@ -686,11 +683,137 @@ bool TestSCXML::testEditscript()
     return true;
 }
 
-bool TestSCXML::testEditcancel(){_testName ="" ;return error("nyi");}
-bool TestSCXML::testEditfinalize(){_testName ="" ;return error("nyi");}
-bool TestSCXML::testEditinvoke(){_testName ="" ;return error("nyi");}
-bool TestSCXML::testEditsend(){_testName ="" ;return error("nyi");}
-bool TestSCXML::testEditvar(){_testName ="" ;return error("nyi");}
+bool TestSCXML::testEditcancel()
+{
+    _testName ="testEditcancel" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_cancel) ;
+    SCXMLcancelToken token;
+    token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditfinalize()
+{
+    _testName ="testEditfinalize" ;
+    Element elementEdit(NULL);
+    Element elementCompare(NULL);
+    Regola regola;
+    SCXMLInfo info;
+    elementCompare.setTag(SCXMLToken::Tag_finalize) ;
+    SCXMLelseToken token;
+    token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    if(!compare(&elementCompare, &elementEdit)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSCXML::testEditinvoke()
+{
+    _testName ="testEditinvoke" ;
+    {
+        Element elementEdit(NULL);
+        Element elementCompare(NULL);
+        Regola regola;
+        SCXMLInfo info;
+        elementCompare.setTag(SCXMLToken::Tag_invoke) ;
+        SCXMLInvokeDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+        //if(!setEAC(&dialog, "type", SCXMLinvokeToken::A_type, "atype", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "typeexpr", SCXMLinvokeToken::A_typeexpr, "atypeexpr", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "src", SCXMLinvokeToken::A_src, "asrc", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "srcexpr", SCXMLinvokeToken::A_srcexpr, "asrcexpr", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "id", SCXMLinvokeToken::A_id, "aid", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "idlocation", SCXMLinvokeToken::A_idlocation, "aidlocation", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "namelist", SCXMLinvokeToken::A_namelist, "anamelist", &elementCompare)){return false;}
+        if(!setEAB(&dialog, "autoforward", true, SCXMLinvokeToken::A_autoforward, "autoforward", &elementCompare)){return false;}
+        dialog.accept();
+        if(!compare(&elementCompare, &elementEdit)) {
+            return false;
+        }
+    }
+    //---
+    {
+        Element elementEdit(NULL);
+        Element elementCompare(NULL);
+        Regola regola;
+        SCXMLInfo info;
+        elementCompare.setTag(SCXMLToken::Tag_invoke) ;
+        SCXMLInvokeDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+        if(!setEAC(&dialog, "type", SCXMLinvokeToken::A_type, "atype", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "typeexpr", SCXMLinvokeToken::A_typeexpr, "atypeexpr", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "src", SCXMLinvokeToken::A_src, "asrc", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "srcexpr", SCXMLinvokeToken::A_srcexpr, "asrcexpr", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "id", SCXMLinvokeToken::A_id, "aid", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "idlocation", SCXMLinvokeToken::A_idlocation, "aidlocation", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "namelist", SCXMLinvokeToken::A_namelist, "anamelist", &elementCompare)){return false;}
+        if(!setEAB(&dialog, "autoforward", true, SCXMLinvokeToken::A_autoforward, "autoforward", &elementCompare)){return false;}
+        dialog.accept();
+        if(!compare(&elementCompare, &elementEdit)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool TestSCXML::testEditsend()
+{
+    _testName ="testEditsend" ;
+    {
+        Element elementEdit(NULL);
+        Element elementCompare(NULL);
+        Regola regola;
+        SCXMLInfo info;
+        elementCompare.setTag(SCXMLToken::Tag_send) ;
+        SCXMLSendDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+        if(!setEAE(&dialog, "event", SCXMLsendToken::A_event, "aevent", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "eventexpr", SCXMLsendToken::A_eventexpr, "aeventexpr", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "target", SCXMLsendToken::A_target, "atarget", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "targetexpr", SCXMLsendToken::A_targetexpr, "atargetexpr", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "type", SCXMLsendToken::A_type, "atype", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "typeexpr", SCXMLsendToken::A_typeexpr, "atypeexpr", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "id", SCXMLsendToken::A_id, "aid", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "idlocation", SCXMLsendToken::A_idlocation, "aidlocation", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "delay", SCXMLsendToken::A_delay, "adelay", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "delayexpr", SCXMLsendToken::A_delayexpr, "adelayexpr", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "namelist", SCXMLsendToken::A_namelist, "anamelist", &elementCompare)){return false;}
+        dialog.accept();
+        if(!compare(&elementCompare, &elementEdit)) {
+            return false;
+        }
+    }
+    //---
+    {
+        Element elementEdit(NULL);
+        Element elementCompare(NULL);
+        Regola regola;
+        SCXMLInfo info;
+        elementCompare.setTag(SCXMLToken::Tag_send) ;
+        SCXMLSendDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+        //if(!setEAE(&dialog, "event", SCXMLsendToken::A_event, "aevent", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "eventexpr", SCXMLsendToken::A_eventexpr, "aeventexpr", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "target", SCXMLsendToken::A_target, "atarget", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "targetexpr", SCXMLsendToken::A_targetexpr, "atargetexpr", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "type", SCXMLsendToken::A_type, "atype", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "typeexpr", SCXMLsendToken::A_typeexpr, "atypeexpr", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "id", SCXMLsendToken::A_id, "aid", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "idlocation", SCXMLsendToken::A_idlocation, "aidlocation", &elementCompare)){return false;}
+        //if(!setEAE(&dialog, "delay", SCXMLsendToken::A_delay, "adelay", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "delayexpr", SCXMLsendToken::A_delayexpr, "adelayexpr", &elementCompare)){return false;}
+        if(!setEAE(&dialog, "namelist", SCXMLsendToken::A_namelist, "anamelist", &elementCompare)){return false;}
+        dialog.accept();
+        if(!compare(&elementCompare, &elementEdit)) {
+            return false;
+        }
+    }
+    return true;
+}
 
 //----
 static SourceMessage *newMsg(const int line, const int column, const QString &text)

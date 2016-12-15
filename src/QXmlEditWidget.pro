@@ -471,7 +471,9 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/dialogs/scxmlassigndialog.cpp \
     modules/specialized/scxml/dialogs/scxmlcontentdialog.cpp \
     modules/specialized/scxml/dialogs/scxmlparamdialog.cpp \
-    modules/specialized/scxml/dialogs/scxmlscriptdialog.cpp
+    modules/specialized/scxml/dialogs/scxmlscriptdialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlsenddialog.cpp \
+    modules/specialized/scxml/dialogs/scxmlinvokedialog.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -731,7 +733,9 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/dialogs/scxmlassigndialog.h \
     modules/specialized/scxml/dialogs/scxmlcontentdialog.h \
     modules/specialized/scxml/dialogs/scxmlparamdialog.h \
-    modules/specialized/scxml/dialogs/scxmlscriptdialog.h
+    modules/specialized/scxml/dialogs/scxmlscriptdialog.h \
+    modules/specialized/scxml/dialogs/scxmlsenddialog.h \
+    modules/specialized/scxml/dialogs/scxmlinvokedialog.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -802,7 +806,9 @@ FORMS += xmleditwidget.ui \
     modules/specialized/scxml/dialogs/scxmlassigndialog.ui \
     modules/specialized/scxml/dialogs/scxmlcontentdialog.ui \
     modules/specialized/scxml/dialogs/scxmlparamdialog.ui \
-    modules/specialized/scxml/dialogs/scxmlscriptdialog.ui
+    modules/specialized/scxml/dialogs/scxmlscriptdialog.ui \
+    modules/specialized/scxml/dialogs/scxmlsenddialog.ui \
+    modules/specialized/scxml/dialogs/scxmlinvokedialog.ui
 
 
 symbian {
