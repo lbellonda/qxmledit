@@ -32,7 +32,7 @@
 #define READ_FROM_TEXT(field) d->setAttributeStringIfExisting(SCXMLinvokeToken::A_ ## field, ui-> field ->text() )
 
 SCXMLInvokeDialog::SCXMLInvokeDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                 Element *toModifyElement, Element *selectedElement, Element *parentElement) :
+                                     Element *toModifyElement, Element *selectedElement, Element *parentElement) :
     QDialog(parent),
     p(info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement),
     d(&p._d),
@@ -92,16 +92,16 @@ void SCXMLInvokeDialog::accept()
     READ_FROM_TEXT(namelist);
     d->setAttributeString(SCXMLinvokeToken::A_autoforward, ui->autoforward->isChecked() ? "true" : "false");
 
-    if(!d->checkID(this, SCXMLstateToken::A_id) ) {
+    if(!d->checkID(this, SCXMLstateToken::A_id)) {
         return;
     }
-    if(!d->checkExclusive(this, SCXMLinvokeToken::A_id, SCXMLinvokeToken::A_idlocation ) ) {
+    if(!d->checkExclusive(this, SCXMLinvokeToken::A_id, SCXMLinvokeToken::A_idlocation)) {
         return ;
     }
-    if(!d->checkExclusive(this, SCXMLinvokeToken::A_type, SCXMLinvokeToken::A_typeexpr ) ) {
+    if(!d->checkExclusive(this, SCXMLinvokeToken::A_type, SCXMLinvokeToken::A_typeexpr)) {
         return ;
     }
-    if(!d->checkExclusive(this, SCXMLinvokeToken::A_src, SCXMLinvokeToken::A_srcexpr ) ) {
+    if(!d->checkExclusive(this, SCXMLinvokeToken::A_src, SCXMLinvokeToken::A_srcexpr)) {
         return ;
     }
 

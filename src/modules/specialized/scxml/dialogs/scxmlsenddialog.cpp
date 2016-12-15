@@ -100,19 +100,19 @@ void SCXMLSendDialog::accept()
             ||  !d->checkID(this, SCXMLstateToken::A_id)) {
         return;
     }
-    if(!d->checkExclusive(this, SCXMLsendToken::A_event, SCXMLsendToken::A_eventexpr ) ) {
+    if(!d->checkExclusive(this, SCXMLsendToken::A_event, SCXMLsendToken::A_eventexpr)) {
         return ;
     }
-    if(!d->checkExclusive(this, SCXMLsendToken::A_target, SCXMLsendToken::A_targetexpr ) ) {
+    if(!d->checkExclusive(this, SCXMLsendToken::A_target, SCXMLsendToken::A_targetexpr)) {
         return ;
     }
-    if(!d->checkExclusive(this, SCXMLsendToken::A_type, SCXMLsendToken::A_typeexpr ) ) {
+    if(!d->checkExclusive(this, SCXMLsendToken::A_type, SCXMLsendToken::A_typeexpr)) {
         return ;
     }
-    if(!d->checkExclusive(this, SCXMLsendToken::A_id, SCXMLsendToken::A_idlocation ) ) {
+    if(!d->checkExclusive(this, SCXMLsendToken::A_id, SCXMLsendToken::A_idlocation)) {
         return ;
     }
-    if(!d->checkExclusive(this, SCXMLsendToken::A_delay, SCXMLsendToken::A_delayexpr ) ) {
+    if(!d->checkExclusive(this, SCXMLsendToken::A_delay, SCXMLsendToken::A_delayexpr)) {
         return ;
     }
     QDialog::accept();

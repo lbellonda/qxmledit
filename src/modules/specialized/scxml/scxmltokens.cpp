@@ -504,7 +504,7 @@ SCXMLdonedataToken::~SCXMLdonedataToken()
 }
 
 bool SCXMLdonedataToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                 Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                                   Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     if(isInsertOrEdit) {
@@ -528,7 +528,7 @@ SCXMLcontentToken::~SCXMLcontentToken()
 }
 
 bool SCXMLcontentToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                 Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                                  Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     SCXMLContentDialog dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);
@@ -553,7 +553,7 @@ SCXMLparamToken::~SCXMLparamToken()
 }
 
 bool SCXMLparamToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                 Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                                Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     SCXMLParamDialog dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);
@@ -597,7 +597,7 @@ SCXMLcancelToken::~SCXMLcancelToken()
 }
 
 bool SCXMLcancelToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                    Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                                 Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     if(isInsertOrEdit) {
@@ -619,7 +619,7 @@ SCXMLfinalizeToken::~SCXMLfinalizeToken()
 }
 
 bool SCXMLfinalizeToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                    Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                                   Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     if(isInsertOrEdit) {
@@ -684,7 +684,7 @@ SCXMLsendToken::~SCXMLsendToken()
 }
 
 bool SCXMLsendToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
-                                 Element *toModifyElement, Element *selectedElement, Element *parentElement)
+                               Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
     SCXMLSendDialog dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);

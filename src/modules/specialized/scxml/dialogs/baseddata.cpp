@@ -159,7 +159,7 @@ bool BaseDData::checkNotNull(QWidget *window, const QString &attrName)
 bool BaseDData::checkExclusive(QWidget *window, const QString &a1, const QString &a2)
 {
     if(!attributeString(a1).trimmed().isEmpty()
-            && !attributeString(a2).trimmed().isEmpty() ) {
+            && !attributeString(a2).trimmed().isEmpty()) {
         Utils::error(window, QObject::tr("%1 and %2 are exclusive.").arg(a1).arg(a2));
         return false;
     }

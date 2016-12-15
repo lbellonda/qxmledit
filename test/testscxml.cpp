@@ -43,6 +43,7 @@
 #include "modules/specialized/scxml/dialogs/scxmlscriptdialog.h"
 #include "modules/specialized/scxml/dialogs/scxmlinvokedialog.h"
 #include "modules/specialized/scxml/dialogs/scxmlsenddialog.h"
+#include "modules/specialized/scxml/dialogs/scxmlcontentdialog.h"
 #include "modules/messages/sourceerror.h"
 #include "sourcemessagemanager.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
@@ -638,7 +639,7 @@ bool TestSCXML::testEditcontent()
     Regola regola;
     SCXMLInfo info;
     elementCompare.setTag(SCXMLToken::Tag_content) ;
-    SCXMLAssignDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
+    SCXMLContentDialog dialog(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
     if(!setEAE(&dialog, "expr", SCXMLcontentToken::A_expr, "aExpr", &elementCompare)){return false;}
     dialog.accept();
     if(!compare(&elementCompare, &elementEdit)) {
@@ -707,7 +708,7 @@ bool TestSCXML::testEditfinalize()
     Regola regola;
     SCXMLInfo info;
     elementCompare.setTag(SCXMLToken::Tag_finalize) ;
-    SCXMLelseToken token;
+    SCXMLfinalizeToken token;
     token.editToken(NULL, &info, &regola, true, true, &elementEdit, &elementEdit, NULL);
     if(!compare(&elementCompare, &elementEdit)) {
         return false;

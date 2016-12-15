@@ -25,7 +25,8 @@
 
 #include "modules/specialized/scxml/dialogs/basescxmleditdata.h"
 
-namespace Ui {
+namespace Ui
+{
 class SCXMLInvokeDialog;
 }
 
