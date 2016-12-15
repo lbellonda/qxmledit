@@ -155,6 +155,7 @@ void AnonProfileDialog::fillTree()
 
 void AnonProfileDialog::updateUISnipptes()
 {
+    ui->snippets->setSortingEnabled(false);
     int topLevelCount = ui->snippets->topLevelItemCount();
     for(int i = 0 ; i < topLevelCount ; i++) {
         QTreeWidgetItem* tagItem = ui->snippets->topLevelItem(i);
@@ -165,6 +166,8 @@ void AnonProfileDialog::updateUISnipptes()
     for(int i = 0 ; i < ui->snippets->columnCount() ; i ++) {
         ui->snippets->resizeColumnToContents(i);
     }
+    ui->snippets->sortByColumn(0, Qt::AscendingOrder);
+    ui->snippets->setSortingEnabled(true);
 }
 
 void AnonProfileDialog::deleteSnippet(GenericPersistentData* snippet)
