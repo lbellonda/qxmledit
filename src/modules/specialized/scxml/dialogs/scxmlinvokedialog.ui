@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>585</width>
-    <height>427</height>
+    <width>647</width>
+    <height>449</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -53,7 +53,7 @@
         </font>
        </property>
        <property name="text">
-        <string>URI: the type of the external service</string>
+        <string>URI for the type of the external service</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -184,7 +184,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Data model expression </string>
+        <string>Dynamic altrenative for Identifier</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -246,7 +246,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Space separed list of data model location to be passed as parameters.</string>
+        <string>Space separed list of data model location passed as parameters.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -321,7 +321,6 @@
   <tabstop>autoforward</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../risorse.qrc"/>
   <include location="../../../../risorse.qrc"/>
  </resources>
  <connections>

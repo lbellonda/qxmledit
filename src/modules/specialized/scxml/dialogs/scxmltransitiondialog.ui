@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>725</width>
+    <width>740</width>
     <height>245</height>
    </rect>
   </property>
@@ -56,7 +56,7 @@
         </font>
        </property>
        <property name="text">
-        <string>The event trigger for this transition, taken only when the event is generated.</string>
+        <string>Space separated list of events descriptors that trigger the transition.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -112,7 +112,7 @@
         </font>
        </property>
        <property name="text">
-        <string>The identifier(s) of the state or parallel region to transition to</string>
+        <string>Identifier of the state or parallel region to transition to.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -140,7 +140,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Determines whether the source state is exited in transitions whose target state is a descendant of the source state.</string>
+        <string>External if the source state is exited when the target is a descendant of the source.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

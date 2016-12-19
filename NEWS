@@ -1,4 +1,6 @@
 0.9.6
+    Engine to insert specialized elements depending on the current element.
+    SCXML edit dialogs.
     New template for SCXML.
     Infrastructure to edit specialized elements.
     Handling of XInclude and fallback elements.

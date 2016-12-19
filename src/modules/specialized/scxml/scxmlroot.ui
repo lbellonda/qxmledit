@@ -135,7 +135,7 @@
         </font>
        </property>
        <property name="text">
-        <string>1.0 is the only supported by this panel</string>
+        <string>1.0 is the only supported by this editor.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

@@ -73,7 +73,7 @@ void SpecificPropertiesDialog::setupData()
         item->setData(0, Qt::UserRole, qVariantFromValue((void*)handler));
         foreach(SingleHandlerForInsert* singleHanlder, handler->elements) {
             QTreeWidgetItem * subItem = new QTreeWidgetItem();
-            QString theName = QString("%1 %2").arg(singleHanlder->name).arg(singleHanlder->description);
+            QString theName = QString("<%1> %2").arg(singleHanlder->name).arg(singleHanlder->description);
             subItem->setText(0, theName);
             subItem->setFlags(subItem->flags() & (~Qt::ItemIsEditable));
             subItem->setData(0, Qt::UserRole, qVariantFromValue(singleHanlder->id));

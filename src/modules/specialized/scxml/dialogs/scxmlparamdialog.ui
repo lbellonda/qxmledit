@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>549</width>
+    <width>555</width>
     <height>187</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Param Properties</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -52,7 +56,7 @@
         </font>
        </property>
        <property name="text">
-        <string>location in the data model where to retrieve the value.</string>
+        <string>Location of the value in the data model.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -83,7 +87,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Value to be assigned.</string>
+        <string>Value to be assigned; alternative to 'location'.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -126,7 +130,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Name of the key</string>
+        <string>Name of the parameter; required.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -186,7 +190,14 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>location</tabstop>
+  <tabstop>expr</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../../../../risorse.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

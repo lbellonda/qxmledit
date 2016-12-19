@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>464</width>
-    <height>126</height>
+    <width>546</width>
+    <height>130</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Assign Properties</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -52,7 +56,7 @@
         </font>
        </property>
        <property name="text">
-        <string>location in the data model  where to insert the value.</string>
+        <string>Assign location in the data model.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -143,7 +147,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../risorse.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

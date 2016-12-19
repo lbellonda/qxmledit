@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>485</width>
-    <height>118</height>
+    <height>130</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Log Properties</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -143,7 +147,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../risorse.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

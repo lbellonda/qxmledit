@@ -121,9 +121,9 @@ QString SCXMLTokenChild::description() const
     return _description;
 }
 
-void SCXMLTokenChild::setDescription(const QString &description)
+void SCXMLTokenChild::setDescription(const QString &value)
 {
-    _description = description;
+    _description = value;
 }
 
 int SCXMLTokenChild::min() const

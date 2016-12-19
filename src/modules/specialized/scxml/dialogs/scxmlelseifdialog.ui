@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>390</width>
-    <height>80</height>
+    <height>93</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>ElseIF Property</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -52,7 +56,7 @@
         </font>
        </property>
        <property name="text">
-        <string>A boolean expression</string>
+        <string>A boolean expression.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -112,7 +116,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../risorse.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

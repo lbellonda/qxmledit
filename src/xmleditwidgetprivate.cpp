@@ -2484,6 +2484,7 @@ void XmlEditWidgetPrivate::showXSLNavigator()
 void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const bool useAlternate)
 {
     if(isActionMode() && (NULL != item)) {
+        //specialized mode
         if((editMode() == XmlEditWidgetEditMode::XSLT) && _xsltHelper.isXSLTElement(Element::fromItemData(item))) {
             if(useAlternate) {
                 editElement(item);
@@ -2491,14 +2492,19 @@ void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const 
                 editXSLTElement(item);
             }
         } else {
-            NamespaceManager *namespaceManager = _appData->namespaceManager();
-            if(NULL != namespaceManager) {
-                Element *element = Element::fromItemData(item);
-                if(namespaceManager->editElement(p->window(), getEditor(), regola, element)) {
-                    return ;
+            //common mode
+            if(useAlternate) {
+                NamespaceManager *namespaceManager = _appData->namespaceManager();
+                if(NULL != namespaceManager) {
+                    Element *element = Element::fromItemData(item);
+                    if(namespaceManager->editElement(p->window(), getEditor(), regola, element)) {
+                        return ;
+                    }
                 }
+                editElement(item);
+            } else {
+                editElement(item);
             }
-            editElement(item);
         }
     }
 }

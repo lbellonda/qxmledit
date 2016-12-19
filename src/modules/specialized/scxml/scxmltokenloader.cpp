@@ -137,9 +137,17 @@ bool SCXMLTokenLoader::startElement(const QString &/*namespaceURI*/, const QStri
             return oomError();
         }
         child->setName(childName);
-        child->setDescription(childDescr);
         child->setMax(decodeCardinality(childMax));
         child->setMin(decodeCardinality(childMin));
+        QString cardString ;
+        int cardMax = child->max();
+        if(SCXMLTokenChild::Unbounded == cardMax) {
+            cardString = QObject::tr("unbounded");
+        } else {
+            cardString = QString::number(cardMax);
+        }
+        QString cardinality = QString("[%1..%2]").arg(child->min()).arg(cardString);
+        child->setDescription(QString("%1 %2").arg(QObject::tr(childDescr.toLatin1().data())).arg(cardinality));
         if((ERROR_CODE == child->min()) || (ERROR_CODE == child->min())) {
             setErrorMessage(QObject::tr("Bad SCXML data for '%1'/'%2', code 4").arg(_currentToken->name()).arg(childName));
             return false;
@@ -247,31 +255,6 @@ int SCXMLTokenLoader::decodeCardinality(const QString &value)
 
 SCXMLToken *SCXMLTokenLoader::createSCXMLToken(const QString &tag)
 {
-    /*if(tag.isEmpty()) {
-        return new SCXMLRootToken();
-    } else if(tag == SCXMLToken::Tag_scxml) {
-        return new SCXMLscxmlToken();
-    } else if(tag == SCXMLToken::Tag_state) {
-        return new SCXMLstateToken();
-    } else if(tag == SCXMLToken::Tag_parallel) {
-        return new SCXMLparallelToken();
-    } else if(tag == SCXMLToken::Tag_transition) {
-        return new SCXMLtransitionToken();
-    } else if(tag == SCXMLToken::Tag_initial) {
-        return new SCXMLinitialToken();
-    } else if(tag == SCXMLToken::Tag_final) {
-        return new SCXMLfinalToken();
-    } else if(tag == SCXMLToken::Tag_onentry) {
-        return new SCXMLonentryToken();
-    } else if(tag == SCXMLToken::Tag_onexit) {
-        return new SCXMLonexitToken();
-    } else if(tag == SCXMLToken::Tag_history) {
-        return new SCXMLhistoryToken();
-    } else if(tag == SCXMLToken::Tag_raise) {
-        return new SCXMLraiseToken();
-    } else if(tag == SCXMLToken::Tag_if) {
-        return new SCXMLifToken();
-    }*/
     if(tag.isEmpty()) {
         return new SCXMLRootToken();
     }

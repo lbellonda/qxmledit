@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <scxml xmlns="http://www.w3.org/2005/07/scxml"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    name="sample"
     datamodel="ecmascript"
     initial="initial"
     version="1.0">

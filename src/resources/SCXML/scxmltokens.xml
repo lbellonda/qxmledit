@@ -1,52 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
     <group name="executableContent">
         <member name="raise" min="0" max="u" d="Raises an event."/>
-        <member name="if" min="0" max="u" d="Container for conditionally executed elements."/>
-        <member name="elseif" min="0" max="u" d="Else if clause."/>
+        <member name="if" min="0" max="u" d="If clause."/>
+        <member name="elseif" min="0" max="u" d="Else if clause. "/>
         <member name="else" min="0" max="1" d="Else clause."/>
-        <member name="foreach" min="0" max="u" d=""/>
-        <member name="log" min="0" max="u" d=""/>
-        <member name="assign" min="0" max="u" d=""/>
-        <member name="script" min="0" max="1" d=""/>
-        <member name="send" min="0" max="u" d=""/>
-        <member name="cancel" min="0" max="u" d=""/>
+        <member name="foreach" min="0" max="u" d="Loop."/>
+        <member name="log" min="0" max="u" d="Log instruction."/>
+        <member name="assign" min="0" max="u" d="Assign instruction."/>
+        <member name="script" min="0" max="1" d="A script."/>
+        <member name="send" min="0" max="u" d="Send a message action."/>
+        <member name="cancel" min="0" max="u" d="Cancel an action."/>
     </group>
     <token name="" ref="root">
         <children>
             <child name="scxml" min="1" max="1" d="Root element."/>
         </children>
     </token>
+    fare un progetto C++ e mettere le descriz come file, poi tradurre il progetto e generare automaticamente
+    ---------------------------fin qui--------------------------------
     <token name="scxml" ref="2">
         <children>
-            <child name="state" min="0" max="u" d="A compound or atomic state. Occurs zero or more times."/>
-            <child name="parallel" min="0" max="u" d="A parallel state. Occurs zero or more times."/>
-            <child name="final" min="0" max="u" d="A top-level final state in the state machine. Occurs zero or more times. The SCXML processor MUST terminate processing when the state machine reaches this state."/>
-            <child name="datamodel" min="0" max="1" d="Defines part or all of the data model. Occurs 0 or 1 times."/>
-            <child name="script" min="0" max="1" d="Provides scripting capability. Occurs 0 or 1 times."/>
+            <child name="state" min="0" max="u" d="A compound or atomic state."/>
+            <child name="parallel" min="0" max="u" d="A parallel state."/>
+            <child name="final" min="0" max="u" d="Top-level final state."/>
+            <child name="datamodel" min="0" max="1" d="Part or all of the data model."/>
+            <child name="script" min="0" max="1" d="A script."/>
          </children>
     </token>
     <token name="state">
         <children>
-            <child name="onentry" min="0" max="u" d="Optional element holding executable content to be run upon entering this state."/>
-            <child name="onexit" min="0" max="u" d="Optional element holding executable content to be run when exiting this state."/>
-            <child name="transition" min="0" max="u" d="Defines an outgoing transition from this state."/>
-            <child name="initial" min="0" max="1" d="In states that have substates, an optional child which identifies the default initial state. Any transition which takes the parent state as its target will result in the state machine also taking the transition contained inside the initial element."/>
-            <child name="state" min="0" max="u" d="Defines a sequential substate of the parent state."/>
-            <child name="parallel" min="0" max="u" d="Defines a parallel substate."/>
-            <child name="final" min="0" max="u" d="Defines a final substate."/>
-            <child name="history" min="0" max="u" d="A child pseudo-state which records the descendant state(s) that the parent state was in the last time the system transitioned from the parent."/>
-            <child name="datamodel" min="0" max="1" d="Defines part or all of the data model."/>
+            <child name="onentry" min="0" max="u" d="Executable content to be run upon entering this state."/>
+            <child name="onexit" min="0" max="u" d="Executable content to be run when exiting this state."/>
+            <child name="transition" min="0" max="u" d="Outgoing transition from this state."/>
+            <child name="initial" min="0" max="1" d="Initial state in states that have substates."/>
+            <child name="state" min="0" max="u" d="Sequential substate of the parent state."/>
+            <child name="parallel" min="0" max="u" d="Parallel substate."/>
+            <child name="final" min="0" max="u" d="Final substate."/>
+            <child name="history" min="0" max="u" d="A pseudo-state to record the last descendant state(s)."/>
+            <child name="datamodel" min="0" max="1" d="Part or all of the data model."/>
             <child name="invoke" min="0" max="u" d="Invokes an external service."/>
          </children>
     </token>
     <token name="parallel">
         <children>
-            <child name="onentry" min="0" max="u" d="Holds executable content to be run upon entering the parallel element."/>
-            <child name="onexit" min="0" max="u" d="Holds executable content to be run when exiting this element."/>
-            <child name="transition" min="0" max="u" d="Defines an outgoing transition from this state."/>
-            <child name="state" min="0" max="u" d="Defines a parallel substate region."/>
-            <child name="parallel" min="0" max="u" d="Defines a nested set of parallel regions."/>
-            <child name="history" min="0" max="u" d="A child which represents the state configuration that this state was in the last time the system transitioned from it."/>
+            <child name="onentry" min="0" max="u" d="Executable content to be run upon entering the parallel element."/>
+            <child name="onexit" min="0" max="u" d="Executable content to be run when exiting this element."/>
+            <child name="transition" min="0" max="u" d="Outgoing transition from this state."/>
+            <child name="state" min="0" max="u" d="Parallel substate region."/>
+            <child name="parallel" min="0" max="u" d="Nested set of parallel regions."/>
+            <child name="history" min="0" max="u" d="Records the state configuration the last time the system transitioned from it."/>
             <child name="datamodel" min="0" max="1" d="Defines part or all of the data model."/>
             <child name="invoke" min="0" max="u" d="Invokes an external service."/>
          </children>
@@ -58,14 +61,14 @@
     </token>
     <token name="initial">
         <children>
-            <child name="transition" min="1" max="1" d="Default initial state for a complex state element."/>
+            <child name="transition" min="1" max="1" d="Initial state for a complex state element."/>
          </children>
     </token>
     <token name="final">
         <children>
-            <child name="onentry" min="0" max="u" d="Optional element holding executable content to be run upon entering this state."/>
-            <child name="onexit" min="0" max="u" d="Optional element holding executable content to be run when exiting this state."/>
-            <child name="donedata" min="0" max="1" d="Optional element specifying data to be included in the done.state.id or done.invoke.id event."/>
+            <child name="onentry" min="0" max="u" d="Executable content to be run upon entering this state."/>
+            <child name="onexit" min="0" max="u" d="Executable content to be run when exiting this state."/>
+            <child name="donedata" min="0" max="1" d="Data to be included in the done.state.id or done.invoke.id event."/>
          </children>
     </token>
     <token name="onentry">
@@ -80,7 +83,7 @@
     </token>
     <token name="history">
         <children>
-            <child name="transition" min="1" max="1" d="A transition whose 'target' specifies the default history configuration."/>
+            <child name="transition" min="1" max="1" d="A transition whose 'target' is the default history configuration."/>
         </children>
     </token>
     <token name="raise">
@@ -165,7 +168,7 @@
         <children>
             <child name="content" min="0" max="1" d="Data to send."/>
             <child name="param" min="0" max="u" d="Data to send."/>
-            <child name="finalize" min="0" max="1" d="Executable content to massage the data returned from the invoked component."/>
+            <child name="finalize" min="0" max="1" d="Executable content to message the data returned from the invoked component."/>
         </children>
     </token>
 </root>

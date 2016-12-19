@@ -56,7 +56,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Identifier</string>
+        <string>Identifier.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -91,7 +91,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Records also children</string>
+        <string>Deep or shallow copy of the state.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

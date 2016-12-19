@@ -241,7 +241,8 @@ bool NamespaceManager::editElement(QWidget *parent, QTreeWidget *tree, Regola *r
         element->qName(&qname);
         NamespaceHandlerForEdit *handler = _editHandlers[qname.ns];
         if(NULL != handler) {
-            return handler->handleEdit(parent, tree, regola, element);
+            handler->handleEdit(parent, tree, regola, element);
+            return true;
         }
     }
     return false;

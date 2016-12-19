@@ -26,6 +26,7 @@
 #include "xmlutils.h"
 #include "modules/namespace/nscontext.h"
 #include "modules/specialized/scxml/scxmlinfo.h"
+#include <QMap>
 #include "utils.h"
 
 SCXMLEditorManager::SCXMLEditorManager()
@@ -123,7 +124,12 @@ HandlerForInsert *SCXMLEditorManager::handlerForInsert(Regola *, Element *elemen
     category->handler = this;
     category->nameSpace = NamespaceManager::XIncludeNamespace ;
     category->name = SCXML ;
+    QMap<QString, SCXMLTokenChild*> sortedNames ;
     foreach(SCXMLTokenChild *tokenChild, tokens) {
+        sortedNames.insert(tokenChild->name(), tokenChild);
+    }
+    foreach(const QString &tokenKey, sortedNames.keys()) {
+        SCXMLTokenChild *tokenChild = sortedNames[tokenKey];
         SingleHandlerForInsert *s = new SingleHandlerForInsert();
         s->name = tokenChild->name();
         s->id = tokenChild->name();

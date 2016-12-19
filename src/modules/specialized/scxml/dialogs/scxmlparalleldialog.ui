@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>425</width>
-    <height>87</height>
+    <height>97</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -56,7 +56,7 @@
         </font>
        </property>
        <property name="text">
-        <string>The identifier for this parallel state. </string>
+        <string>The identifier for this state.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

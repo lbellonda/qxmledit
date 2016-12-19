@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>823</width>
-    <height>596</height>
+    <height>653</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Send Properties</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -40,7 +44,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Name of the message</string>
+        <string>Name of the message.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -102,7 +106,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Identifier of the message target</string>
+        <string>Identifier of the message target.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -164,7 +168,7 @@
         </font>
        </property>
        <property name="text">
-        <string>URI that identifies the transport mechanism for the message.</string>
+        <string>URI of the transport mechanism for the message.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -214,7 +218,7 @@
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>id</cstring>
+        <cstring>idlocation</cstring>
        </property>
       </widget>
      </item>
@@ -226,7 +230,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Location expression evaluating to a data model location.</string>
+        <string>Expression evaluating to a data model location for identifier.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -245,7 +249,7 @@
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>id</cstring>
+        <cstring>delay</cstring>
        </property>
       </widget>
      </item>
@@ -257,7 +261,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Time as in CSS2 to wait for dispatch.</string>
+        <string>Time in CSS2 format to wait for dispatch.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -276,7 +280,7 @@
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>id</cstring>
+        <cstring>delayexpr</cstring>
        </property>
       </widget>
      </item>
@@ -307,7 +311,7 @@
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>id</cstring>
+        <cstring>namelist</cstring>
        </property>
       </widget>
      </item>
@@ -338,7 +342,7 @@
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
        <property name="buddy">
-        <cstring>type</cstring>
+        <cstring>typeexpr</cstring>
        </property>
       </widget>
      </item>
@@ -350,7 +354,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Dynamic alternative to type.</string>
+        <string>Dynamic alternative to 'type'.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -410,7 +414,22 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <tabstops>
+  <tabstop>event</tabstop>
+  <tabstop>eventexpr</tabstop>
+  <tabstop>target</tabstop>
+  <tabstop>targetexpr</tabstop>
+  <tabstop>type</tabstop>
+  <tabstop>typeexpr</tabstop>
+  <tabstop>id</tabstop>
+  <tabstop>idlocation</tabstop>
+  <tabstop>delay</tabstop>
+  <tabstop>delayexpr</tabstop>
+  <tabstop>namelist</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../../../../risorse.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

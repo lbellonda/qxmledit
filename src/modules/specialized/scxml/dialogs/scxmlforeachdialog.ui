@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>590</width>
-    <height>170</height>
+    <width>705</width>
+    <height>187</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Foreach Properties</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../../../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -83,7 +87,7 @@
         </font>
        </property>
        <property name="text">
-        <string>A variable that evaluate to the item of the collection in each iteration of the loop.</string>
+        <string>Variable that is the current item of the collection in each iteration.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -111,7 +115,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Current iteration index upon each iteration/</string>
+        <string>Current iteration index upon each iteration.</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -174,7 +178,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../risorse.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>
