@@ -46,17 +46,28 @@ public:
     QString id() const;
     void setId(const QString &id);
     void setParallel(bool parallel);
+
+    QList<SCXMLState *> children() const;
 };
+
+class Regola;
+class NSContext ;
 
 class SCXMLInfo
 {
-    QList<SCXMLState*> _children;
+    QList<SCXMLState *> _children;
 public:
     SCXMLInfo();
     virtual ~SCXMLInfo();
 
     QStringList allStates();
     void addChild(SCXMLState *state);
+    QList<SCXMLState *> children() const;
+    //---------------------------------------------------
+    static bool findInfoStates(Regola *regola, SCXMLInfo *info);
+    static SCXMLState *addStateForInfo(SCXMLInfo *info, SCXMLState *currentState, SCXMLState *state);
+    static bool findInfoStates(Element *element, SCXMLInfo *info, NSContext *parent, const bool rootFound, SCXMLState *currentState);
+
 };
 
 #endif // SCXMLINFO_H

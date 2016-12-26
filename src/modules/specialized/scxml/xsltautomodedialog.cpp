@@ -20,56 +20,17 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SCXMLNAVIGATORWIDGET_H
-#define SCXMLNAVIGATORWIDGET_H
+#include "xsltautomodedialog.h"
+#include "ui_xsltautomodedialog.h"
 
-#include "xmlEdit.h"
-
-class SCXMLInfo;
-class Element ;
-
-namespace Ui
+XSLTAutoModeDialog::XSLTAutoModeDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::XSLTAutoModeDialog)
 {
-class SCXMLNavigatorWidget;
+    ui->setupUi(this);
 }
 
-class SCXMLState;
-
-class SCXMLNavigatorWidget : public QWidget
+XSLTAutoModeDialog::~XSLTAutoModeDialog()
 {
-    Q_OBJECT
-    SCXMLInfo *_info;
-    bool _isInfoEnabled;
-    bool _visIsFlat;
-
-    void reset();
-    void loadState(SCXMLState *state, QTreeWidgetItem *parentItem, const bool isFlat);
-    bool compareIfSameAndUpdateSchemas(SCXMLInfo *oldOne, SCXMLInfo *newOne);
-    bool compareIfSameAndUpdateSchemas(QList<SCXMLState *> oldOne, QList<SCXMLState *> newOne);
-    void redisplay(const bool isFlat);
-    SCXMLState *getSelectedItem();
-public:
-    explicit SCXMLNavigatorWidget(QWidget *parent = 0);
-    virtual ~SCXMLNavigatorWidget();
-
-    void setEnabledInfo(const bool isEnabled);
-    bool isEnabledInfo();
-    void applyNewInfo(SCXMLInfo *info);
-
-signals:
-    void goToState(const QString &stateName, Element *element);
-    void editState(const QString &stateName, Element *element);
-
-private:
-    Ui::SCXMLNavigatorWidget *ui;
-
-private slots:
-    void on_showCmd_clicked();
-    void on_editCmd_clicked();
-    void on_flat_clicked();
-    void on_states_itemSelectionChanged();
-    void on_states_itemDoubleClicked(QTreeWidgetItem *item, int column);
-    void on_states_itemClicked(QTreeWidgetItem *item, int column);
-};
-
-#endif // SCXMLNAVIGATORWIDGET_H
+    delete ui;
+}

@@ -52,6 +52,7 @@ const char *APP_TITLE = QT_TR_NOOP("QXmlEdit");
 #define QXMLEDIT_TRANSLATIONS_PREFIX "QXmlEdit_"
 #define QXMLEDITWIDGET_TRANSLATIONS_PREFIX  "QXmlEditWidget_"
 #define QXMLEDITSESSION_TRANSLATIONS_PREFIX "QXmlEditSessions_"
+#define SCXML_TRANSLATIONS_PREFIX "SCXML_"
 
 void printHelp();
 
@@ -230,21 +231,28 @@ void qt_mac_set_dock_menu(QMenu *menu);
 
 void todo()
 {
-    Utils::error("This development version is still partly untested.")
-    Utils::TODO_THIS_RELEASE("menu special");
-    Utils::TODO_THIS_RELEASE("edit mode scxml");
-    Utils::TODO_THIS_RELEASE("ordine alfabetico profili anonimizzazione");
-    Utils::TODO_THIS_RELEASE("scxml controlla attributi opzionali e settali e rimuovili se vuoti");
-    Utils::TODO_THIS_RELEASE("controllare attributi non richiesti ed elimiare se mancanti scxml");
-    Utils::TODO_THIS_RELEASE("unico menu valida?");
-    Utils::TODO_THIS_RELEASE("scxml ordine tab tutti i dialog");
-    Utils::TODO_THIS_RELEASE("test per check scxml compila, test ok e test ko");
-    Utils::TODO_THIS_RELEASE("check scxml compila");
-    Utils::TODO_THIS_RELEASE("abilita check scxml compila sse qt5.7");
-    Utils::TODO_THIS_RELEASE("controlla non salva dopo anonimizza ma senza salvare profilo");
-    Utils::TODO_THIS_RELEASE("shift ins per append sibling");
-    Utils::TODO_THIS_RELEASE("alt ins per child specializ");
-    Utils::TODO_THIS_RELEASE("gli attributi sono attaccati nell'editor");
+    Utils::TODO_THIS_RELEASE("1 edit mode scxml");
+    Utils::TODO_THIS_RELEASE("2 lista errori scxml");
+    Utils::TODO_THIS_RELEASE("3 navigatore scxml con cambio stato");
+    Utils::TODO_THIS_RELEASE("4 sincronizza errori scxml con sorgente");
+    Utils::TODO_THIS_RELEASE("5 sincronizza stato con editor scxml");
+    Utils::error("This development version is still partly untested.");
+    Utils::TODO_THIS_RELEASE("6 menu edit special non fa nulla");
+    Utils::TODO_THIS_RELEASE("7 si pianta nel display errori SCXML");
+    Utils::TODO_THIS_RELEASE("8 dopo inserito con il menu special, selezionare il nuovo elemento?");
+    Utils::TODO_THIS_RELEASE("9 menu special");
+    Utils::TODO_THIS_RELEASE("10 edit mode scxml");
+    Utils::TODO_THIS_RELEASE("11 ordine alfabetico profili anonimizzazione");
+    Utils::TODO_THIS_RELEASE("12 scxml controlla attributi opzionali e settali e rimuovili se vuoti");
+    Utils::TODO_THIS_RELEASE("13 controllare attributi non richiesti ed elimiare se mancanti scxml");
+    Utils::TODO_THIS_RELEASE("14 unico menu valida?");
+    Utils::TODO_THIS_RELEASE("15 scxml ordine tab tutti i dialog");
+    Utils::TODO_THIS_RELEASE("16 test per check scxml compila, test ok e test ko");
+    Utils::TODO_THIS_RELEASE("17 abilita check scxml compila sse qt5.7");
+    Utils::TODO_THIS_RELEASE("18 controlla non salva dopo anonimizza ma senza salvare profilo");
+    Utils::TODO_THIS_RELEASE("19 shift ins per append sibling");
+    Utils::TODO_THIS_RELEASE("20 alt ins per child specializ");
+    Utils::TODO_THIS_RELEASE("21 gli attributi sono uniti nell'editor con visione compatta?");
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
@@ -264,6 +272,9 @@ static void startTanslator(QApplication *app)
     }
     if(qXmlEditSessionTranslator.load(QXMLEDITSESSION_TRANSLATIONS_PREFIX + QLocale::system().name(), ApplicationData::getResourceDir() + QString("/") + QString(STRINGIZE(TRANLASTION_DIR)))) {
         app->installTranslator(&qXmlEditSessionTranslator);
+    }
+    if(qXmlEditWidgetTranslator.load(SCXML_TRANSLATIONS_PREFIX + QLocale::system().name(), ApplicationData::getResourceDir() + QString("/") + QString(STRINGIZE(TRANLASTION_DIR)))) {
+        app->installTranslator(&qXmlEditWidgetTranslator);
     }
 }
 

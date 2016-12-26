@@ -34,6 +34,8 @@
 #include "xsdeditor/io/xschemaloader.h"
 #include "modules/xsd/xsdoperationparameters.h"
 #include "modules/xsd/xsdhelper.h"
+#include "modules/specialized/scxml/widgets/scxmlnavigatorwidget.h"
+#include "modules/xslt/xsltnavigatorwidget.h"
 
 class XElementContent;
 class LineEditWithCompleter;
@@ -79,6 +81,9 @@ class XmlEditWidgetPrivate : public QObject, XSDAnnotationEditProvider
     QAction *_copyPathAction;
     bool _readOnly;
     XSDAnnotationEditProvider *_XSDAnnotationEditProvider ;
+    SCXMLNavigatorWidget *_SCXMLNavigator;
+    XSLTNavigatorWidget *_XSLTNavigator;
+    QTimer _updateTimer;
 
 public:
     XmlEditWidgetPrivate(XmlEditWidget *theOwner);
@@ -134,6 +139,7 @@ public:
     void computeSelectionState();
 
     bool finishSetUpUi();
+    void setupSCXMLNavigator();
 
     PaintInfo *getPaintInfo(); //TODO
 
@@ -304,7 +310,7 @@ public:
     void editXSLTElement();
     XsltHelper *XSLTHelper();
     void scanXMLTagsAndNamesXSLTAutocompletion();
-    void showXSLNavigator();
+    void showXSLNavigator(const bool how);
 
     void specificPropertiesItem(QTreeWidgetItem * item, const bool useSpecific);
     void specificProperties();
@@ -355,6 +361,10 @@ public:
 
     void insertSpecial();
     void appendSpecial();
+
+    void showSCXMLNavigator(const bool how);
+    void applySCXML();
+    void applyXSLT();
 
 private:
     QHash<void *, QString> *anonDataForPreview();
@@ -413,6 +423,11 @@ private slots:
     void updateAttributeIndentationSettings();
     void setFacets(Element *selection, QList<XSDFacet*> facets);
     bool onEditEnum();
+    void updateTimeout();
+    void onSCXMLNavigatorEditState(const QString &stateName, Element *element);
+    void onSCXMLNavigatorGoToState(const QString &stateName, Element *element);
+    void onXSLTNavigatorGoTo(const QString & /*stateName*/, Element *element);
+    void onXSLTNavigatorEdit(const QString & /*stateName*/, Element *element);
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

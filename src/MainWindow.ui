@@ -52,6 +52,50 @@
       </item>
      </layout>
     </item>
+    <item>
+     <widget class="QTabWidget" name="messagePanel">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::South</enum>
+      </property>
+      <property name="documentMode">
+       <bool>true</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scxmlValidationErrors">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <attribute name="title">
+        <string>SCXML Validation Errors</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="leftMargin">
+         <number>1</number>
+        </property>
+        <property name="topMargin">
+         <number>1</number>
+        </property>
+        <property name="rightMargin">
+         <number>1</number>
+        </property>
+        <property name="bottomMargin">
+         <number>1</number>
+        </property>
+       </layout>
+      </widget>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -120,6 +164,10 @@
     <addaction name="actionPaste"/>
     <addaction name="actionPasteAsSibling"/>
     <addaction name="menuMore"/>
+    <addaction name="separator"/>
+    <addaction name="actionEdit"/>
+    <addaction name="actionSpecificProperties"/>
+    <addaction name="separator"/>
     <addaction name="actionReadOnly"/>
     <addaction name="menuExport"/>
     <addaction name="separator"/>
@@ -135,14 +183,13 @@
     <addaction name="actionEncoding"/>
     <addaction name="separator"/>
     <addaction name="actionInfo"/>
-    <addaction name="actionAnonymize"/>
     <addaction name="actionCopyPathToClipboard"/>
     <addaction name="actionShowContainingFolder"/>
     <addaction name="separator"/>
     <addaction name="actionConfigureSnippets"/>
     <addaction name="actionConfigure"/>
    </widget>
-   <widget class="QMenu" name="menuBoorkmarkes">
+   <widget class="QMenu" name="menuBoorkmarks">
     <property name="title">
      <string>&amp;Bookmarks</string>
     </property>
@@ -296,11 +343,11 @@
     <addaction name="actionAddComment"/>
     <addaction name="actionAppendComment"/>
     <addaction name="actionAddProcessingInstruction"/>
+    <addaction name="actionAppendProcessingInstruction"/>
     <addaction name="separator"/>
     <addaction name="actionAppendSpecial"/>
     <addaction name="actionInsertSpecial"/>
     <addaction name="separator"/>
-    <addaction name="actionAppendProcessingInstruction"/>
     <addaction name="menuHierarchy"/>
     <addaction name="menuSiblings"/>
     <addaction name="actionTransformInComment"/>
@@ -312,32 +359,21 @@
     <addaction name="actionInsertProlog"/>
     <addaction name="menuMetadata"/>
     <addaction name="separator"/>
-    <addaction name="actionEdit"/>
-    <addaction name="actionSpecificProperties"/>
     <addaction name="actionEditInnerXMLBase64"/>
     <addaction name="actionEditInnerXML"/>
     <addaction name="actionEditInnerBase64Text"/>
     <addaction name="actionPasteAndSubstituteText"/>
     <addaction name="menuSort_Attributes"/>
     <addaction name="actionTransforminSnippet"/>
-    <addaction name="actionValidateSCXML"/>
     <addaction name="separator"/>
     <addaction name="actionMoveUp"/>
     <addaction name="actionMoveDown"/>
     <addaction name="separator"/>
-    <addaction name="actionValidate"/>
-    <addaction name="actionValidateUsingDocumentReferences"/>
-    <addaction name="actionValidateNewFile"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
      <string>&amp;Tools</string>
     </property>
-    <addaction name="actionCompare"/>
-    <addaction name="actionCompareXSD"/>
-    <addaction name="actionFillSerie"/>
-    <addaction name="actionCloneElements"/>
-    <addaction name="separator"/>
     <addaction name="actionPlugins"/>
     <addaction name="actionAnonymizeFile"/>
     <addaction name="actionSearchInFiles"/>
@@ -439,11 +475,33 @@
     </property>
     <addaction name="actionTaskDisplayDetail"/>
    </widget>
+   <widget class="QMenu" name="menuSpecial">
+    <property name="title">
+     <string>Special</string>
+    </property>
+    <widget class="QMenu" name="menuValidation">
+     <property name="title">
+      <string>Validation</string>
+     </property>
+     <addaction name="actionValidate"/>
+     <addaction name="actionValidateUsingDocumentReferences"/>
+     <addaction name="actionValidateNewFile"/>
+     <addaction name="actionValidateSCXML"/>
+    </widget>
+    <addaction name="actionAnonymize"/>
+    <addaction name="actionCompare"/>
+    <addaction name="actionCompareXSD"/>
+    <addaction name="actionFillSerie"/>
+    <addaction name="actionCloneElements"/>
+    <addaction name="separator"/>
+    <addaction name="menuValidation"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuTasks"/>
-   <addaction name="menuBoorkmarkes"/>
+   <addaction name="menuBoorkmarks"/>
    <addaction name="menu_XML"/>
+   <addaction name="menuSpecial"/>
    <addaction name="menu_Navigation"/>
    <addaction name="menuView"/>
    <addaction name="menu_Sessions"/>
@@ -1604,6 +1662,9 @@
    </property>
   </action>
   <action name="actionShowXSLNavigator">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Show XSL Navigator</string>
    </property>

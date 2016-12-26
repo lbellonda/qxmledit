@@ -35,6 +35,7 @@
 
 Element *XSLTNavigatorDialog::go()
 {
+    Utils::TODO_THIS_RELEASE("dismettere e spostare i test");
     show();
     if(exec()) {
         return _elementChoosen;
@@ -46,6 +47,7 @@ XSLTNavigatorDialog::XSLTNavigatorDialog(XsltHelper *helper, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::XSLTNavigatorDialog)
 {
+    Utils::TODO_THIS_RELEASE("dismettere e spostare i test");
     _elementChoosen = NULL ;
     _topTemplateItem = NULL ;
     _topFunctionsItem = NULL ;

@@ -63,6 +63,7 @@ SOURCES += $$files(../src/modules/specialized/*.cpp)
 SOURCES += $$files(../src/modules/specialized/xinclude/*.cpp)
 SOURCES += $$files(../src/modules/specialized/scxml/*.cpp)
 SOURCES += $$files(../src/modules/specialized/scxml/dialogs/*.cpp)
+SOURCES += $$files(../src/modules/specialized/scxml/widgets/*.cpp)
 SOURCES += $$files(../src/modules/messages/*.cpp)
 
 HEADERS += $$files(../src/*.h)
@@ -110,6 +111,7 @@ HEADERS += $$files(../src/modules/specialized/*.h)
 HEADERS += $$files(../src/modules/specialized/xinclude/*.h)
 HEADERS += $$files(../src/modules/specialized/scxml/*.h)
 HEADERS += $$files(../src/modules/specialized/scxml/dialogs/*.h)
+HEADERS += $$files(../src/modules/specialized/scxml/widgets/*.h)
 HEADERS += $$files(../src/modules/messages/*.h)
 
 INCLUDEPATH += ../src
@@ -142,6 +144,7 @@ DEPENDPATH += ../src/modules/specialized
 DEPENDPATH += ../src/modules/specialized/xinclude
 DEPENDPATH += ../src/modules/specialized/scxml
 DEPENDPATH += ../src/modules/specialized/scxml/dialogs
+DEPENDPATH += ../src/modules/specialized/scxml/widgets
 DEPENDPATH += ../src/modules/messages
 DEPENDPATH += ../src
 DEPENDPATH += .
@@ -178,6 +181,7 @@ FORMS += $$files(../src/modules/specialized/*.ui)
 FORMS += $$files(../src/modules/specialized/xinclude/*.ui)
 FORMS += $$files(../src/modules/specialized/scxml/*.ui)
 FORMS += $$files(../src/modules/specialized/scxml/dialogs/*.ui)
+FORMS += $$files(../src/modules/specialized/scxml/widgets/*.ui)
 FORMS += $$files(../src/modules/messages/*.ui)
 
 RESOURCES += ../src/risorse.qrc

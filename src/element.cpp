@@ -3158,3 +3158,16 @@ bool Element::isChildOf(Element* other)
 
     return false;
 }
+
+bool Element::findElement(Element *toFind)
+{
+    foreach(Element * child, childItems) {
+        if(child == toFind) {
+            return true ;
+        }
+        if(child->findElement(toFind)) {
+            return true ;
+        }
+    }
+    return false;
+}

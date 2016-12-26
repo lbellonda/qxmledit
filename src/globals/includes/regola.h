@@ -440,6 +440,7 @@ public:
 
     Element *findChildElementByArray(Element *element, QList<int> &selection, const int listPos);
     Element *findElementByArray(QList<int> &selection);
+    bool findElement(Element *toFind);
 
     QString textOfCantEditMixedContentElementText();
     void hideLeafNodes();

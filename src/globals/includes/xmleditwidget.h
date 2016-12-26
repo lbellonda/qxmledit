@@ -68,7 +68,8 @@ private:
 public:
     enum EditMode {
         XML,// xml edit mode
-        XSLT// xslt edit mode
+        XSLT,// xslt edit mode
+        SCXML// scxml edit mode
     };
 };
 
@@ -310,7 +311,7 @@ public:
 
     XsltHelper *XSLTHelper();
     void scanXMLTagsAndNamesXSLTAutocompletion();
-    void showXSLNavigator();
+    void showXSLNavigator(const bool how);
     void specificProperties();
     void setCopyPathAction(QAction* action);
     void pasteAsSibling();
@@ -353,6 +354,8 @@ public:
 
     void insertSpecial();
     void appendSpecial();
+
+    void showSCXMLNavigator(const bool how);
 
 signals:
     void reevaluateSelectionState();

@@ -414,6 +414,8 @@ public:
     QString getRow();
     Regola *getParentRule();
 
+    bool findElement(Element *toFind);
+
     //--- hide / show
     void hideBrothers();
     void showBrothers();

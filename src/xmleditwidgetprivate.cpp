@@ -75,6 +75,7 @@
 #include "undo/namespacenormalizecommand.h"
 #include "undo/namespaceavoidclashcommand.h"
 #include "modules/xsd/namespacemanager.h"
+#include "modules/specialized/scxml/scxmlinfo.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -87,6 +88,8 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
     styleActionGroup(this), _xsltHelper(this)
 {
     p = theOwner ;
+    _SCXMLNavigator = NULL ;
+    _XSLTNavigator = NULL ;
     _readOnly = false ;
     _copyPathAction = NULL ;
     _xsltAction = NULL ;
@@ -97,6 +100,9 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
     internalStateOk = false;
     paintInfo.setColorManager(_appData->colorManager());
 
+    _updateTimer.setSingleShot(true);
+    _updateTimer.setInterval(1000);
+    connect(&_updateTimer, SIGNAL(timeout()), this, SLOT(updateTimeout()));
     _uiDelegate = NULL ;
     _schemaRoot = NULL ;
     attrDelegate = NULL ;
@@ -157,6 +163,7 @@ void XmlEditWidgetPrivate::secondStepConstructor()
 
 XmlEditWidgetPrivate::~XmlEditWidgetPrivate()
 {
+    _updateTimer.stop();
     resetStyleMenu();
     deleteRegola();
     deleteSchema();
@@ -211,7 +218,6 @@ void XmlEditWidgetPrivate::autoTest()
 }
 */
 
-
 void XmlEditWidgetPrivate::setData(QApplication *newApplication, QXmlEditData *newData, const bool newIsSlave, UIDelegate *newUiDelegate)
 {
     application = newApplication ;
@@ -262,7 +268,6 @@ void XmlEditWidgetPrivate::autoTest()
 }
 */
 
-
 void XmlEditWidgetPrivate::deleteRegola()
 {
     if(NULL != regola) {
@@ -274,6 +279,8 @@ void XmlEditWidgetPrivate::deleteRegola()
         delete regola;
         regola = NULL;
         p->ui->treeWidget->clear();
+        _SCXMLNavigator->setEnabledInfo(false);
+        _XSLTNavigator->setEnabledInfo(false);
     }
 }
 
@@ -288,9 +295,38 @@ qxmledit::EDisplayMode XmlEditWidgetPrivate::displayMode()
     return _displayMode ;
 }
 
+void XmlEditWidgetPrivate::setupSCXMLNavigator()
+{
+    Utils::TODO_THIS_RELEASE("fare invisibile allo start");
+    /*p->ui->toolBox->setVisible(true);
+    p->ui->toolBox->setItemText(0, "Sperimentale");
+    _SCXMLNavigator = new SCXMLNavigatorWidget(p->ui->toolBox->widget(0));
+    _SCXMLNavigator->setVisible(true);
+    _SCXMLNavigator->setEnabledInfo(true);
+    p->ui->toolBox->widget(0)->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    //p->ui->toolBox->widget(0)->layout()->addWidget(_SCXMLNavigator);*/
+    //p->ui->toolBox->setVisible(true);
+    //p->ui->toolBox->setItemText(0, "Sperimentale");
+    //CXMLNavigator = new SCXMLNavigatorWidget(p->ui->toolBox->widget(0));
+    _SCXMLNavigator = new SCXMLNavigatorWidget(NULL);
+    _SCXMLNavigator->setEnabledInfo(true);
+    //_SCXMLNavigator->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+    p->ui->verticalLayout->insertWidget(14, _SCXMLNavigator);
+    _SCXMLNavigator->setVisible(false);
+    connect(_SCXMLNavigator, SIGNAL(goToState(const QString &, Element *)), this, SLOT(onSCXMLNavigatorGoToState(const QString &, Element *)));
+    connect(_SCXMLNavigator, SIGNAL(editState(const QString &, Element *)), this, SLOT(onSCXMLNavigatorEditState(const QString &, Element *)));
+    //-----
+    _XSLTNavigator = new XSLTNavigatorWidget(NULL);
+    _XSLTNavigator->setEnabledInfo(true);
+    p->ui->verticalLayout->insertWidget(15, _XSLTNavigator);
+    _XSLTNavigator->setVisible(false);
+    connect(_XSLTNavigator, SIGNAL(goTo(const QString &, Element *)), this, SLOT(onXSLTNavigatorGoTo(const QString &, Element *)));
+    connect(_XSLTNavigator, SIGNAL(edit(const QString &, Element *)), this, SLOT(onXSLTNavigatorEdit(const QString &, Element *)));
+}
+
 bool XmlEditWidgetPrivate::finishSetUpUi()
 {
-    p->ui->toolBox->setVisible(false);
+    setupSCXMLNavigator();
     _helper.setTree(p->ui->treeWidget);
     p->ui->treeWidget->setExpandsOnDoubleClick(false);
     // connect to search widget. In the original code these actions were inseted into the UI
@@ -633,6 +669,12 @@ void XmlEditWidgetPrivate::regolaIsModified()
 {
     //TRACEQ(QString("XmlEditWidgetPrivate::regolaIsModified():%1").arg(regola->isModified()));
     p->emitDocumentIsModified(regola->isModified());
+    if(_SCXMLNavigator->isEnabledInfo()) {
+        if(_updateTimer.isActive()) {
+            _updateTimer.stop();
+        }
+        _updateTimer.start();
+    }
 }
 
 void XmlEditWidgetPrivate::on_treeWidget_itemSelectionChanged()
@@ -1879,6 +1921,8 @@ void XmlEditWidgetPrivate::assignRegola(Regola *newModel, const bool isSetState)
     }
     bindRegola(regola);
 
+    _SCXMLNavigator->setEnabledInfo(false);
+    _XSLTNavigator->setEnabledInfo(false);
     resetTree();
     display();
     startUIState();
@@ -2143,6 +2187,9 @@ void XmlEditWidgetPrivate::doNew()
     if(_appData->isAutoInsertProlog()) {
         regola->insertProlog(getMainTreeWidget(), _appData->autoInsertPrologEncoding(), false);
     }
+    Utils::TODO_THIS_RELEASE("fare refactor");
+    _SCXMLNavigator->setEnabledInfo(false);
+    _XSLTNavigator->setEnabledInfo(false);
     setReadOnly(false);
     regola->assignCollectSizeDataFlag(paintInfo.showElementSize());
     startUIState();
@@ -2469,16 +2516,18 @@ void XmlEditWidgetPrivate::scanXMLTagsAndNamesXSLTAutocompletion()
     }
 }
 
-void XmlEditWidgetPrivate::showXSLNavigator()
+void XmlEditWidgetPrivate::showXSLNavigator(const bool how)
 {
-    if(editMode() == XmlEditWidgetEditMode::XSLT) {
-        XSLTNavigatorDialog dlg(&_xsltHelper, p->window());
-        Element *choosenElement = dlg.go();
-        if((NULL != choosenElement) && (NULL != choosenElement->getUI())) {
-            getMainTreeWidget()->scrollToItem(choosenElement->getUI(), QAbstractItemView::PositionAtTop);
-            getMainTreeWidget()->setCurrentItem(choosenElement->getUI(), 0);
-        }
+    Utils::TODO_THIS_RELEASE("dismettere");
+    bool shouldApplyNewInfo = false ;
+    if(how && !_XSLTNavigator->isEnabledInfo()) {
+        shouldApplyNewInfo = true ;
     }
+    _SCXMLNavigator->setEnabledInfo(how);
+    if(shouldApplyNewInfo) {
+        applyXSLT();
+    }
+    _XSLTNavigator->setVisible(how);
 }
 
 void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const bool useAlternate)
@@ -2514,7 +2563,7 @@ void XmlEditWidgetPrivate::specificProperties()
     if(isActionMode()) {
         QTreeWidgetItem *item = getEditor()->currentItem();
         if(NULL != item) {
-            specificPropertiesItem(item, false);
+            specificPropertiesItem(item, true);
         }
     }
 }
@@ -3389,6 +3438,87 @@ void XmlEditWidgetPrivate::appendSpecial()
                 return ;
             }
             namespaceManager->insertElement(getEditor()->window(), getEditor(), getRegola(), element, false) ;
+        }
+    }
+}
+
+void XmlEditWidgetPrivate::showSCXMLNavigator(const bool how)
+{
+    bool shouldApplyNewInfo = false ;
+    if(how && !_SCXMLNavigator->isEnabledInfo()) {
+        shouldApplyNewInfo = true ;
+    }
+    _SCXMLNavigator->setEnabledInfo(how);
+    if(shouldApplyNewInfo) {
+        applySCXML();
+    }
+    _SCXMLNavigator->setVisible(how);
+}
+
+void XmlEditWidgetPrivate::updateTimeout()
+{
+    _updateTimer.stop();
+    if(_SCXMLNavigator->isEnabledInfo()) {
+        applySCXML();
+    }
+    if(_XSLTNavigator->isEnabledInfo()) {
+        applyXSLT();
+    }
+}
+
+void XmlEditWidgetPrivate::applySCXML()
+{
+    SCXMLInfo *newInfo = NULL ;
+    if(_SCXMLNavigator->isEnabledInfo()) {
+        newInfo = new SCXMLInfo();
+        SCXMLInfo::findInfoStates(regola, newInfo);
+        _SCXMLNavigator->applyNewInfo(newInfo);
+    }
+}
+
+void XmlEditWidgetPrivate::applyXSLT()
+{
+    if(_XSLTNavigator->isEnabledInfo()) {
+        Utils::TODO_THIS_RELEASE("fare");
+        _XSLTNavigator->applyNewInfo(&_xsltHelper);
+    }
+}
+
+
+void XmlEditWidgetPrivate::onSCXMLNavigatorGoToState(const QString & /*stateName*/, Element *element)
+{
+    if(getRegola()->findElement(element)) {
+        selectAndShowItem(element);
+    }
+}
+
+void XmlEditWidgetPrivate::onSCXMLNavigatorEditState(const QString & /*stateName*/, Element *element)
+{
+    if(isActionMode() && (NULL != getRegola()) && (NULL != element)) {
+        if(getRegola()->findElement(element)) {
+            selectAndShowItem(element);
+            // now, edit it
+            specificPropertiesItem(element->getUI(), true);
+        }
+    }
+}
+
+void XmlEditWidgetPrivate::onXSLTNavigatorGoTo(const QString & /*stateName*/, Element *element)
+{
+    Utils::TODO_THIS_RELEASE("attenzione, perche' non rielaborare?");
+    if(getRegola()->findElement(element)) {
+        selectAndShowItem(element);
+    }
+}
+
+void XmlEditWidgetPrivate::onXSLTNavigatorEdit(const QString & /*stateName*/, Element *element)
+{
+    Utils::TODO_THIS_RELEASE("attenzione, perche' non rielaborare?");
+    if(isActionMode() && (NULL != getRegola()) && (NULL != element)) {
+        if(getRegola()->findElement(element)) {
+            selectAndShowItem(element);
+            // now, edit it
+            specificPropertiesItem(element->getUI(), true);
         }
     }
 }

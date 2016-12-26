@@ -50,6 +50,22 @@ QSet<QString> XsltHelper::topLevelNames(const QString &nameToSearch)
     return result ;
 }
 
+QHash<QString, Element*> XsltHelper::topLevelNamesRef(const QString &nameToSearch)
+{
+    QHash<QString, Element*> result ;
+    Element *root = _owner->getRegola()->root();
+    QString tagTemplate = xsltQName(nameToSearch);
+    foreach(Element * child, *root->getChildItems()) {
+        if(child->isElement() && (child->tag() == tagTemplate)) {
+            QString name = getXslName(child);
+            if(!name.isEmpty()) {
+                result.insert(name, child);
+            }
+        }
+    }
+    return result ;
+}
+
 QSet<QString> XsltHelper::templateNames()
 {
     return topLevelNames("template");
@@ -58,6 +74,16 @@ QSet<QString> XsltHelper::templateNames()
 QSet<QString> XsltHelper::functionNames()
 {
     return topLevelNames("function");
+}
+
+QHash<QString, Element *> XsltHelper::templateNamesMap()
+{
+    return topLevelNamesRef("template");
+}
+
+QHash<QString, Element *> XsltHelper::functionNamesMap()
+{
+    return topLevelNamesRef("function");
 }
 
 Element *XsltHelper::findTemplate(const QString &nameToFind)

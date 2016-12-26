@@ -879,9 +879,9 @@ void XmlEditWidget::scanXMLTagsAndNamesXSLTAutocompletion()
     d->scanXMLTagsAndNamesXSLTAutocompletion();
 }
 
-void XmlEditWidget::showXSLNavigator()
+void XmlEditWidget::showXSLNavigator(const bool how)
 {
-    d->showXSLNavigator();
+    d->showXSLNavigator(how);
 }
 
 void XmlEditWidget::specificProperties()
@@ -1195,7 +1195,10 @@ void XmlEditWidget::appendSpecial()
     d->appendSpecial();
 }
 
-
+void XmlEditWidget::showSCXMLNavigator(const bool how)
+{
+    d->showSCXMLNavigator(how);
+}
 
 
 

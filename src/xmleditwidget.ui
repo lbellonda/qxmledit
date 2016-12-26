@@ -76,6 +76,12 @@
        </item>
        <item>
         <widget class="QPushButton" name="addChild">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="toolTip">
           <string>Insert an element as child.</string>
          </property>
@@ -93,6 +99,12 @@
        </item>
        <item>
         <widget class="QPushButton" name="addBrother">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="toolTip">
           <string>Add an element as sibling.</string>
          </property>
@@ -110,6 +122,12 @@
        </item>
        <item>
         <widget class="QPushButton" name="editItem">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="toolTip">
           <string>Edit the selected item.</string>
          </property>
@@ -241,32 +259,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item>
-        <widget class="QToolBox" name="toolBox">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <widget class="QWidget" name="page">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>103</width>
-            <height>127</height>
-           </rect>
-          </property>
-          <attribute name="label">
-           <string>SCXML Navigator</string>
-          </attribute>
-         </widget>
-        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLowLayout">

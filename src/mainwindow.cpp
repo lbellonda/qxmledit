@@ -63,6 +63,7 @@ extern const char *APP_TITLE ;
 #include "modules/services/anotifier.h"
 #include "modules/style/choosestyledialog.h"
 #include "widgets/warningswidget.h"
+#include "modules/messages/sourcerelatedmessages.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -85,6 +86,7 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent) : QMainWindow(parent), uiDelegate(this), _windowIcon(":/icon/images/icon.png")
 {
+    _scxmlValidationErrors = NULL ;
     _loadErrorHandler = NULL ;
     _slaveIsClosed = false ;
     _errorCount = 0 ;
@@ -260,6 +262,13 @@ bool MainWindow::finishSetUpUi()
         Utils::error(this, tr("The XML Editor component is not correct (%1)").arg(ui.editor->versionNumber()));
         return false;
     }
+    Utils::TODO_THIS_RELEASE("controlla visbile tab");
+    ui.messagePanel->setVisible(false);
+    _scxmlValidationErrors = new SourceRelatedMessages(NULL);
+    ui.messagePanel->widget(0)->layout()->addWidget(_scxmlValidationErrors);
+    connect(_scxmlValidationErrors, SIGNAL(navigateTo(QList<int> path)), this, SLOT(onSourceNavigateTo(QList<int> path)));
+    connect(ui.messagePanel, SIGNAL(tabCloseRequested(int)), this, SLOT(onMessagesTabCloseRequested(int)));
+    Utils::TODO_THIS_RELEASE("fare anche widget per chiudere nell'angolo");
     // setup function keys modifier for macos
 #if defined(ENVIRONMENT_MACOS)
     ui.actionGo_To_Parent->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F11));
@@ -677,6 +686,10 @@ void MainWindow::treeContextMenu(const QPoint& position)
         foreach(QAction * action, copyMenu->actions()) {
             advancedCopyMenu->addAction(action);
         }
+    }
+    if(isActionMode) {
+        contextMenu.addAction(ui.actionEdit);
+        contextMenu.addAction(ui.actionSpecificProperties);
     }
     //---
     contextMenu.addSeparator() ;
@@ -2725,7 +2738,15 @@ void MainWindow::updateEditMode()
     }
     ui.actionXMLEditMode->setChecked(!xsltMode);
     ui.actionScanXMLTagsAndNamesXSLTAutocompletion->setEnabled(xsltMode);
-    ui.actionShowXSLNavigator->setEnabled(xsltMode);
+    ui.actionShowXSLNavigator->setChecked(xsltMode);
+    on_actionShowXSLNavigator_triggered();
+    bool scxmlMode = false;
+    if(ui.editor->editMode() == XmlEditWidgetEditMode::SCXML) {
+        scxmlMode = true ;
+    }
+    Utils::TODO_THIS_RELEASE("ui.actionSCXMLEditMode->setChecked(!scxmlMode);");
+    ui.actionShowSCXMLNavigator->setChecked(scxmlMode);
+    on_actionShowSCXMLNavigator_triggered();
 }
 
 
@@ -2810,7 +2831,7 @@ void MainWindow::on_actionScanXMLTagsAndNamesXSLTAutocompletion_triggered()
 
 void MainWindow::on_actionShowXSLNavigator_triggered()
 {
-    ui.editor->showXSLNavigator();
+    ui.editor->showXSLNavigator(ui.actionShowXSLNavigator->isChecked());
 }
 
 void MainWindow::on_actionSpecificProperties_triggered()
@@ -3481,10 +3502,10 @@ void MainWindow::on_actionAppendSpecial_triggered()
     }
 }
 
-void MainWindow::on_showSCXMLNavigator_triggered()
+void MainWindow::on_actionShowSCXMLNavigator_triggered()
 {
     Utils::TODO_THIS_RELEASE("fare");
-    Utils::TODO_THIS_RELEASE("getEditor()->showSCXMLNavigator(ui.actionSCXMLNavigator.isChecked());");
+    getEditor()->showSCXMLNavigator(ui.actionShowSCXMLNavigator->isChecked());
 }
 
 void MainWindow::on_actionValidateSCXML_triggered()
@@ -3493,3 +3514,16 @@ void MainWindow::on_actionValidateSCXML_triggered()
     _controller.checkSCXML();
 }
 
+void MainWindow::onSourceNavigateTo(QList<int> path)
+{
+    Utils::TODO_THIS_RELEASE("ricevere");
+    if(NULL != getRegola()) {
+        Element *selection = getRegola()->findElementByArray(path);
+        getEditor()->selectAndShowItem(selection);
+    }
+}
+
+void MainWindow::onMessagesTabCloseRequested(int)
+{
+    ui.messagePanel->setVisible(false);
+}

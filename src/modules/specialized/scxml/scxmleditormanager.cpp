@@ -53,7 +53,7 @@ bool SCXMLEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Regola 
         element->copyTo(*newElement, false);
         Utils::TODO_THIS_RELEASE("fare info");
         SCXMLInfo info;
-        findInfoStates(regola, &info);
+        SCXMLInfo::findInfoStates(regola, &info);
         if(token->editToken(parent, &info, regola, false, false, newElement, element, element->parent())) {
             if(regola->editElementWrapper(tree, newElement, element)) {
                 return true ;
@@ -79,7 +79,7 @@ bool SCXMLEditorManager::handleInsert(QTreeWidget *tree, Regola *regola, Element
     Element *theParent = (NULL != element) ? element->parent() : NULL ;
     Utils::TODO_THIS_RELEASE("fare info");
     SCXMLInfo info;
-    findInfoStates(regola, &info);
+    SCXMLInfo::findInfoStates(regola, &info);
     if(token->editToken(tree->window(), &info, regola, true, isChild, newElement, element, theParent)) {
         goAhead = true ;
     }
@@ -146,9 +146,9 @@ void SCXMLEditorManager::init()
     }
     _inited = true;
     _tokenMakager.init();
-    Utils::TODO_THIS_RELEASE("fare");
+    Utils::TODO_THIS_RELEASE("fare, poi elimina sotto");
 }
-
+/*
 bool SCXMLEditorManager::findInfoStates(Regola *regola, SCXMLInfo *info)
 {
     if(NULL != regola->root()) {
@@ -212,3 +212,4 @@ bool SCXMLEditorManager::findInfoStates(Element *element, SCXMLInfo *info, NSCon
     }
     return true;
 }
+*/

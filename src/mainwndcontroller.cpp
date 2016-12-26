@@ -50,6 +50,7 @@
 #include "modules/messages/sourceerror.h"
 #include "modules/messages/sourcenavigatordialog.h"
 #include "sourcemessagemanager.h"
+#include "modules/messages/sourcerelatedmessages.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
 #include <QtScxml/QScxmlStateMachine>
 #endif
@@ -334,64 +335,6 @@ void MainWndController::normalizeNamespace()
         }
     }
 }
-/*
-bool MainWndController::checkSCXML()
-{
-#if QT_VERSION < QT_VERSION_CHECK(5,7,0)
-    Utils::error(_w, tr("SCXML test is supported only starting from Qt 5.7.0");
-                 return false;
-#else
-    QBuffer dataStream;
-    dataStream.open(QIODevice::ReadWrite);
-    if(!_w->getRegola()->writeStream(&dataStream, false)) {
-        Utils::error(_w, tr("Unable to test the data as SCXML."));
-        return false;
-    }
-    dataStream.seek(0);
-    dataStream.close();
-    dataStream.open(QIODevice::ReadOnly);
-    QScxmlStateMachine *testMachine = QScxmlStateMachine::fromData(&dataStream);
-    if(NULL == testMachine) {
-        Utils::error(_w, tr("Unable to check the data as SCXML."));
-        return false;
-    }
-    bool returnValue = false;
-    if(testMachine->parseErrors().isEmpty()) {
-        Utils::message(_w, tr("SCXML is valid."));
-        returnValue = true;
-    } else {
-        QString msg;
-        QList<SourceMessage*> errors;
-        foreach(const QScxmlError &error, testMachine->parseErrors()) {
-            SourceMessage *sourceError = new SourceMessage();
-            sourceError->setColumn(error.column());
-            sourceError->setLine(error.line());
-            sourceError->setDescription(error.description());
-            sourceError->setType(SourceMessage::Error);
-            sourceError->setSource("SCXML");
-            errors.append(sourceError);
-            Utils::TODO_THIS_RELEASE("fare elenco e tornare lista errori");
-            msg += error.toString();
-            msg += "\n";
-        }
-        Utils::TODO_THIS_RELEASE("fare elenco e messaggi");
-        Utils::error(_w, tr("Invalid SCXML, errors:\n%1.").arg(msg));
-        SourceMessageManager manager;
-        dataStream.seek(0);
-        manager.bindToSource(&dataStream, errors, regola);
-        SourceNavigatorDialog dlg(_w, &errors);
-        if(dlg.exec() == QDialog::Accepted) {
-            QList<int> pos = dlg.selection();
-            Element *selection = _w->getRegola()->findElementByArray(pos);
-            _w->getEditor()->selectAndShowItem(selection);
-        }
-    }
-    delete testMachine ;
-    return returnValue ;
-#endif
-}
-/----
-*/
 
 QBuffer* MainWndController::getDataForSourceDecode()
 {
@@ -417,7 +360,7 @@ bool MainWndController::checkSCXML()
                  return false;
 #else
     QBuffer *dataStream = getDataForSourceDecode();
-    if(NULL != dataStream) {
+    if(NULL == dataStream) {
         Utils::error(_w, tr("Unable to check the data as SCXML."));
         return false;
     }
@@ -428,6 +371,7 @@ bool MainWndController::checkSCXML()
         delete dataStream ;
         return false;
     }
+    Utils::TODO_THIS_RELEASE("si pianta nel display errori");
     bool returnValue = false;
     if(testMachine->parseErrors().isEmpty()) {
         Utils::message(_w, tr("SCXML is valid."));
@@ -435,7 +379,12 @@ bool MainWndController::checkSCXML()
     } else {
         QString msg;
         QList<SourceMessage*> errors;
+        int index = 1;
         foreach(const QScxmlError &error, testMachine->parseErrors()) {
+            if(index > 3) {
+                msg += "More errors exist...\n";
+                break;
+            }
             SourceMessage *sourceError = new SourceMessage();
             sourceError->setColumn(error.column());
             sourceError->setLine(error.line());
@@ -444,18 +393,21 @@ bool MainWndController::checkSCXML()
             sourceError->setSource("SCXML");
             errors.append(sourceError);
             Utils::TODO_THIS_RELEASE("fare elenco e tornare lista errori");
-            msg += error.toString();
-            msg += "\n";
+            msg += QString("%1 - %2\n").arg(index).arg(error.description());
+            index ++;
         }
         Utils::TODO_THIS_RELEASE("fare elenco e messaggi");
-        Utils::error(_w, tr("Invalid SCXML, errors:\n%1.").arg(msg));
+        Utils::error(_w, tr("Invalid SCXML, errors:\n%1").arg(msg));
         sourceDecode(dataStream, errors, _w->getRegola());
-        SourceNavigatorDialog dlg(_w, &errors);
+
+        _w->_scxmlValidationErrors->setMessages(errors);
+        _w->ui.messagePanel->setVisible(true);
+        /*SourceNavigatorDialog dlg(_w, &errors);
         if(dlg.exec() == QDialog::Accepted) {
             QList<int> pos = dlg.selection();
             Element *selection = _w->getRegola()->findElementByArray(pos);
             _w->getEditor()->selectAndShowItem(selection);
-        }
+        }*/
     }
     delete dataStream;
     delete testMachine ;

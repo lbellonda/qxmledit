@@ -43,6 +43,7 @@
 
 class SnippetManager;
 class QXmlEditApplication;
+class SourceRelatedMessages;
 
 class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 {
@@ -50,6 +51,8 @@ class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
     bool    started;
     bool    internalStateOk;
     MainWndController _controller;
+
+    SourceRelatedMessages *_scxmlValidationErrors;
 
     QApplication *application;
     ApplicationData *data;
@@ -363,7 +366,7 @@ private slots:
     void on_actionNormalizeNamespace_triggered();
     void on_actionInsertSpecial_triggered();
     void on_actionAppendSpecial_triggered();
-    void on_showSCXMLNavigator_triggered();
+    void on_actionShowSCXMLNavigator_triggered();
     void on_actionValidateSCXML_triggered();
 
     //----- other slots ------------------
@@ -374,6 +377,8 @@ private slots:
     void onHandleSessionState();
     void onReadOnlyStateChanged();
     void onReadOnlyGo();
+    void onSourceNavigateTo(QList<int> path);
+    void onMessagesTabCloseRequested(int);
 
     void treeContextMenu(const QPoint& position);
 

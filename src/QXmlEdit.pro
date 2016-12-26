@@ -291,7 +291,8 @@ HEADERS = precompiled_app.h \
     modules/messages/sourceerror.h \
     sourcemessagemanager.h \
     modules/utils/simpletree.h \
-    modules/messages/sourcenavigatordialog.h
+    modules/messages/sourcenavigatordialog.h \
+    modules/messages/sourcerelatedmessages.h
 
 SOURCES = \
     main.cpp \
@@ -375,7 +376,8 @@ SOURCES = \
     modules/messages/sourceerror.cpp \
     sourcemessagemanager.cpp \
     modules/utils/simpletree.cpp \
-    modules/messages/sourcenavigatordialog.cpp
+    modules/messages/sourcenavigatordialog.cpp \
+    modules/messages/sourcerelatedmessages.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -428,7 +430,8 @@ FORMS = MainWindow.ui \
     modules/namespace/replacenamespacedialog.ui \
     modules/xml/xmlerrormanagerdialog.ui \
     widgets/warningswidget.ui \
-    modules/messages/sourcenavigatordialog.ui
+    modules/messages/sourcenavigatordialog.ui \
+    modules/messages/sourcerelatedmessages.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

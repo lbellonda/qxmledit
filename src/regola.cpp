@@ -677,6 +677,8 @@ void Regola::setModified(const bool state)
         modified = state ;
         bookmarks.setModified();
         checkValidationReference();
+    }
+    if(state) {
         emit wasModified();
     }
 }
@@ -2123,6 +2125,9 @@ bool Regola::generateFromComment(QTreeWidget *tree, UIDelegate *uiDelegate, Elem
 
 Element *Regola::findElementByArray(QList<int> &selection)
 {
+    if(selection.isEmpty()) {
+        return NULL ;
+    }
     int pos = selection.at(0);
     if(pos >= childItems.size()) {
         return NULL ;
@@ -2149,6 +2154,18 @@ Element *Regola::findChildElementByArray(Element *element, QList<int> &selection
     return findChildElementByArray(thisElement, selection, listPos + 1);
 }
 
+bool Regola::findElement(Element *toFind)
+{
+    foreach(Element * ep, childItems) {
+        if(ep == toFind) {
+            return true ;
+        }
+        if(ep->findElement(toFind)) {
+            return true ;
+        }
+    }
+    return false;
+}
 
 QString Regola::textOfCantEditMixedContentElementText()
 {

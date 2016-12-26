@@ -66,6 +66,7 @@ class XsltHelper : public QObject
 
     bool loadNamesFromFile(const QString &fileName);
     QSet<QString> topLevelNames(const QString &nameToSearch);
+    QHash<QString, Element*> topLevelNamesRef(const QString &nameToSearch);
     QString xsltQName(const QString &name);
 public:
     explicit XsltHelper(XmlEditWidgetPrivate *owner, QObject *parent = 0);
@@ -79,6 +80,8 @@ public:
     QSet<QString> parameterNames(const QString &templateName);
     QSet<QString> templateNames();
     QSet<QString> functionNames();
+    QHash<QString, Element *> templateNamesMap();
+    QHash<QString, Element *> functionNamesMap();
     Element *getTemplateParent(Element *referenceElement);
     XsltElement *elementFromName(const QString tag);
     QString getXslName(Element *el);

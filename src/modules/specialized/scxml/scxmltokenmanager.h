@@ -27,6 +27,7 @@
 #include "modules/specialized/scxml/scxmltoken.h"
 
 class Element ;
+class NSContext;
 
 class SCXMLTokenManager
 {
