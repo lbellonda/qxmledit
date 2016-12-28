@@ -52,6 +52,8 @@ private:
 private slots:
     void on_cbShowXSLTPanel_clicked(bool clicked);
     void on_cbAutomaticallySwitchToXSLTMode_clicked(bool clicked);
+    void on_cbShowSCXMLPanel_clicked(bool /* */);
+    void on_cbAutomaticallySwitchToSCXMLMode_clicked(bool /* */);
 };
 
 #endif // CONFIGUREEDITMODESDIALOG_H

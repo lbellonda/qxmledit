@@ -75,6 +75,8 @@ public:
 protected:
     bool fireAction(QMainWindow *window, const QString &actionName);
     bool fireAction(QList<QMenu*> menus, const QString &actionName);
+    bool fireActionIfNotChecked(QList<QMenu*> menus, const QString &actionName);
+    bool fireActionIfNotChecked(QMainWindow *window, const QString &actionName);
     bool toggleAction(QMainWindow *window, const QString &actionName);
     bool toggleAction(QList<QMenu*> menus, const QString &actionName);
     void insertItems(QSet<QString> *items, ... );

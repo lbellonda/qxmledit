@@ -211,6 +211,13 @@ public:
     void setAutoXSLTMode(const bool value);
     //--- endregion(xslt)
 
+    //--- region(scxml)
+    bool isShowSCXMLPanel();
+    bool isAutoSCXMLMode();
+    void setShowSCXMLPanel(const bool value);
+    void setAutoSCXMLMode(const bool value);
+    //--- endregion(scxml)
+
     //--- region(metadata)
     static bool isUpdateMetadata();
     static void setUpdateMetadata(const bool value);

@@ -42,6 +42,8 @@ void ConfigureEditModesDialog::init(ApplicationData* data)
     _data = data ;
     ui->cbShowXSLTPanel->setChecked(data->isShowXSLTPanel());
     ui->cbAutomaticallySwitchToXSLTMode->setChecked(data->isAutoXSLTMode());
+    ui->cbShowSCXMLPanel->setChecked(data->isShowSCXMLPanel());
+    ui->cbAutomaticallySwitchToSCXMLMode->setChecked(data->isAutoSCXMLMode());
     doEnable();
     _started = true ;
 }
@@ -55,7 +57,13 @@ void ConfigureEditModesDialog::on_cbShowXSLTPanel_clicked(bool /* */)
 {
     if(_started) {
         _data->setShowXSLTPanel(ui->cbShowXSLTPanel->isChecked());
+    }
+}
 
+void ConfigureEditModesDialog::on_cbShowSCXMLPanel_clicked(bool /* */)
+{
+    if(_started) {
+        _data->setShowSCXMLPanel(ui->cbShowSCXMLPanel->isChecked());
     }
 }
 
@@ -67,7 +75,16 @@ void ConfigureEditModesDialog::on_cbAutomaticallySwitchToXSLTMode_clicked(bool /
     doEnable();
 }
 
+void ConfigureEditModesDialog::on_cbAutomaticallySwitchToSCXMLMode_clicked(bool /* */)
+{
+    if(_started) {
+        _data->setAutoSCXMLMode(ui->cbAutomaticallySwitchToSCXMLMode->isChecked());
+    }
+    doEnable();
+}
+
 void ConfigureEditModesDialog::doEnable()
 {
     ui->cbShowXSLTPanel->setEnabled(!ui->cbAutomaticallySwitchToXSLTMode->isChecked());
+    ui->cbShowSCXMLPanel->setEnabled(!ui->cbAutomaticallySwitchToSCXMLMode->isChecked());
 }

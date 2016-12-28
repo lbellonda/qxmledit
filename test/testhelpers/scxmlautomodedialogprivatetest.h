@@ -20,25 +20,54 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef XSLTAUTOMODEDIALOG_H
-#define XSLTAUTOMODEDIALOG_H
+#ifndef SCXMLAUTOMODEDIALOGPRIVATETEST_H
+#define SCXMLAUTOMODEDIALOGPRIVATETEST_H
 
-#include <QDialog>
+#include <QObject>
+#include "modules/specialized/scxml/scxmlautomodedialog.h"
 
-namespace Ui {
-class XSLTAutoModeDialog;
-}
-
-class XSLTAutoModeDialog : public QDialog
+class SCXMLAutoModeDialog::PrivateTest : public QObject
 {
     Q_OBJECT
+    SCXMLAutoModeDialog *_dlg;
 
 public:
-    explicit XSLTAutoModeDialog(QWidget *parent = 0);
-    ~XSLTAutoModeDialog();
 
-private:
-    Ui::XSLTAutoModeDialog *ui;
+    enum Tests {
+        TEST_SHOWPANEL_XML_FILE,
+        TEST_SHOWPANEL_SCXML_FILE,
+        //---
+        TEST_SHOW_NOHIDE_NOAUTO,
+        TEST_SHOW_HIDE_NOAUTO,
+        TEST_SHOW_NOHIDE_AUTO,
+        TEST_SHOW_HIDE_AUTO,
+        //
+        TEST_BEHAVIOUR
+    };
+
+    explicit PrivateTest(SCXMLAutoModeDialog *dlg);
+    ~PrivateTest();
+
+    //--------------------------------------------
+    static Tests testToExecute();
+    static void setTestToExecute(const Tests test);
+    static bool testPassed();
+    static void setTestPassed(const bool passed);
+    static QString testMessage();
+    static void setTestMessage(const QString &msg);
+    static bool panelOpen();
+    static void setPanelOpen(const bool open);
+    static bool answerShowSCXMLPanel();
+    static void setAnswerShowSCXMLPanel(const bool how);
+    static SCXMLAutoModeDialog::ERetCode answer();
+    static void setAnswer(const SCXMLAutoModeDialog::ERetCode how);
+
+    //--------------------------------------------
+
+signals:
+
+public slots:
+    void testStart();
 };
 
-#endif // XSLTAUTOMODEDIALOG_H
+#endif // SCXMLAUTOMODEDIALOGPRIVATETEST_H

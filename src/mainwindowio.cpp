@@ -174,9 +174,7 @@ bool MainWindow::loadFileInnerDom(const QString &filePath, const bool isRegularF
                 autoLoadValidation();
                 fileLoaded = true ;
                 if(activateModes) {
-                    if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-                        activateXSLTonNewFile();
-                    }
+                    activateModesOnNewFile();
                 }
             } else {
                 showLoadFileError(filePath, errorMsg, errorLine, errorColumn);
@@ -211,9 +209,7 @@ bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePat
         autoLoadValidation();
         fileLoaded = true ;
         if(activateModes) {
-            if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-                activateXSLTonNewFile();
-            }
+            activateModesOnNewFile();
         }
     }
     return fileLoaded;

@@ -44,7 +44,6 @@
 #include "modules/widgets/lineeditwithcompleter.h"
 #include "modules/search/searchresultsdialog.h"
 #include "xmlwidgetutilities.h"
-#include "modules/xslt/xsltnavigatordialog.h"
 #include "modules/metadata/metadatainfodialog.h"
 #include "modules/encoding/codepagedialog.h"
 #include "modules/delegates/elementitemsingledelegate.h"

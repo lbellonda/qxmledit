@@ -46,7 +46,6 @@
 #include "modules/widgets/lineeditwithcompleter.h"
 #include "modules/search/searchresultsdialog.h"
 #include "xmlwidgetutilities.h"
-#include "modules/xslt/xsltnavigatordialog.h"
 #include "modules/metadata/metadatainfodialog.h"
 #include "modules/encoding/codepagedialog.h"
 #include "modules/delegates/elementitemsingledelegate.h"
@@ -171,7 +170,6 @@ XmlEditWidgetPrivate::~XmlEditWidgetPrivate()
         _XSDAnnotationEditProvider->autoDelete();
     }
 }
-
 
 bool XmlEditWidgetPrivate::isReady()
 {
@@ -313,6 +311,7 @@ void XmlEditWidgetPrivate::setupSCXMLNavigator()
     //_SCXMLNavigator->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     p->ui->verticalLayout->insertWidget(14, _SCXMLNavigator);
     _SCXMLNavigator->setVisible(false);
+     _SCXMLNavigator->setObjectName("SCXMLNavigator");
     connect(_SCXMLNavigator, SIGNAL(goToState(const QString &, Element *)), this, SLOT(onSCXMLNavigatorGoToState(const QString &, Element *)));
     connect(_SCXMLNavigator, SIGNAL(editState(const QString &, Element *)), this, SLOT(onSCXMLNavigatorEditState(const QString &, Element *)));
     //-----
@@ -320,8 +319,9 @@ void XmlEditWidgetPrivate::setupSCXMLNavigator()
     _XSLTNavigator->setEnabledInfo(true);
     p->ui->verticalLayout->insertWidget(15, _XSLTNavigator);
     _XSLTNavigator->setVisible(false);
-    connect(_XSLTNavigator, SIGNAL(goTo(const QString &, Element *)), this, SLOT(onXSLTNavigatorGoTo(const QString &, Element *)));
-    connect(_XSLTNavigator, SIGNAL(edit(const QString &, Element *)), this, SLOT(onXSLTNavigatorEdit(const QString &, Element *)));
+    _XSLTNavigator->setObjectName("XSLTNavigator");
+    connect(_XSLTNavigator, SIGNAL(goTo(Element *)), this, SLOT(onXSLTNavigatorGoTo(Element *)));
+    connect(_XSLTNavigator, SIGNAL(edit(Element *)), this, SLOT(onXSLTNavigatorEdit(Element *)));
 }
 
 bool XmlEditWidgetPrivate::finishSetUpUi()
@@ -3503,7 +3503,7 @@ void XmlEditWidgetPrivate::onSCXMLNavigatorEditState(const QString & /*stateName
     }
 }
 
-void XmlEditWidgetPrivate::onXSLTNavigatorGoTo(const QString & /*stateName*/, Element *element)
+void XmlEditWidgetPrivate::onXSLTNavigatorGoTo(Element *element)
 {
     Utils::TODO_THIS_RELEASE("attenzione, perche' non rielaborare?");
     if(getRegola()->findElement(element)) {
@@ -3511,7 +3511,7 @@ void XmlEditWidgetPrivate::onXSLTNavigatorGoTo(const QString & /*stateName*/, El
     }
 }
 
-void XmlEditWidgetPrivate::onXSLTNavigatorEdit(const QString & /*stateName*/, Element *element)
+void XmlEditWidgetPrivate::onXSLTNavigatorEdit(Element *element)
 {
     Utils::TODO_THIS_RELEASE("attenzione, perche' non rielaborare?");
     if(isActionMode() && (NULL != getRegola()) && (NULL != element)) {

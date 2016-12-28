@@ -146,6 +146,29 @@ bool TestBase::fireAction(QList<QMenu*> menus, const QString &actionName)
     return false;
 }
 
+bool TestBase::fireActionIfNotChecked(QMainWindow *window, const QString &actionName)
+{
+    QList<QMenu*> menus = window->menuBar()->findChildren<QMenu*>();
+    return fireActionIfNotChecked(menus, actionName);
+}
+
+bool TestBase::fireActionIfNotChecked(QList<QMenu*> menus, const QString &actionName)
+{
+    foreach(QMenu* menu, menus ) {
+        QList<QAction*> actions = menu->actions();
+        foreach( QAction* action, actions ) {
+            QString aName = action->objectName();
+            if( aName == actionName ) {
+                if(!action->isChecked()) {
+                    action->trigger();
+                }
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 QAction *TestBase::findAction(QList<QMenu*> menus, const QString &actionName)
 {
     foreach(QMenu* menu, menus ) {
@@ -170,8 +193,6 @@ bool TestBase::checkActionEnabled(QMainWindow *window, const QString &actionName
     boolResult = action->isEnabled();
     return true ;
 }
-
-
 
 bool TestBase::toggleAction(QMainWindow *window, const QString &actionName)
 {

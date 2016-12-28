@@ -1432,6 +1432,11 @@ void TestQXmlEdit::testSCXML()
         result = test.testTemplates();
         QVERIFY2(result, (QString("test testSCXML: testTemplates() '%1'").arg(test.errorString())).toLatin1().data());
     }
+    {
+        TestSCXML test;
+        result = test.testPanel();
+        QVERIFY2(result, (QString("test testSCXML: testPanel() '%1'").arg(test.errorString())).toLatin1().data());
+    }
 }
 
 /*
@@ -1457,6 +1462,7 @@ void TestQXmlEdit::testNew()
     testSCXML();
     testSpecials();
     testLoadFile();
+    testXSLTMode();
 }
 
 QTEST_MAIN(TestQXmlEdit)

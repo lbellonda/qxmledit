@@ -64,6 +64,7 @@ extern const char *APP_TITLE ;
 #include "modules/style/choosestyledialog.h"
 #include "widgets/warningswidget.h"
 #include "modules/messages/sourcerelatedmessages.h"
+#include "modules/specialized/scxml/scxmlautomodedialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -266,7 +267,7 @@ bool MainWindow::finishSetUpUi()
     ui.messagePanel->setVisible(false);
     _scxmlValidationErrors = new SourceRelatedMessages(NULL);
     ui.messagePanel->widget(0)->layout()->addWidget(_scxmlValidationErrors);
-    connect(_scxmlValidationErrors, SIGNAL(navigateTo(QList<int> path)), this, SLOT(onSourceNavigateTo(QList<int> path)));
+    connect(_scxmlValidationErrors, SIGNAL(navigateTo(QList<int>)), this, SLOT(onSourceNavigateTo(QList<int>)));
     connect(ui.messagePanel, SIGNAL(tabCloseRequested(int)), this, SLOT(onMessagesTabCloseRequested(int)));
     Utils::TODO_THIS_RELEASE("fare anche widget per chiudere nell'angolo");
     // setup function keys modifier for macos
@@ -287,6 +288,7 @@ bool MainWindow::finishSetUpUi()
     QActionGroup* editModeActionGroup = new QActionGroup(this);   // autorelease
     ui.actionXMLEditMode->setActionGroup(editModeActionGroup);
     ui.actionXSLTEditMode->setActionGroup(editModeActionGroup);
+    ui.actionSCXMLEditMode->setActionGroup(editModeActionGroup);
     updateEditMode();
     connect(ui.editor, SIGNAL(documentIsModified(const bool)), this, SLOT(onDocumentIsModified(const bool)));
     connect(ui.editor, SIGNAL(reevaluateSelectionState()), this, SLOT(onComputeSelectionState()));
@@ -1028,9 +1030,7 @@ bool MainWindow::newFromClipboard()
         removeAttributesFilter();
         updateWindowFilePath();
         clearExportFilePath();
-        if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-            activateXSLTonNewFile();
-        }
+        activateModesOnNewFile();
         return true;
     }
     return false ;
@@ -1617,9 +1617,7 @@ bool MainWindow::reload()
     bool result = loadFile(filePath, false, OpenUsingSameWindow);
     // restore presets
     getRegola()->restoreSettings(settings);
-    if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-        activateXSLTonNewFile();
-    }
+    activateModesOnNewFile();
     delete settings ;
     return result;
 }
@@ -1918,7 +1916,7 @@ void MainWindow::loadFileXplore(const QString &filePath)
     }
 }
 
-void MainWindow::activateXSLTonNewFile()
+bool MainWindow::checkActivateModeXSL()
 {
     bool switchToXSLTMode = false;
     if(data->isAutoXSLTMode()) {
@@ -1934,6 +1932,36 @@ void MainWindow::activateXSLTonNewFile()
         ui.editor->setEditMode(XmlEditWidgetEditMode::XSLT);
         ui.actionXSLTEditMode->setChecked(true);
     }
+    return switchToXSLTMode ;
+}
+
+bool MainWindow::checkActivateModeSCXML()
+{
+    bool switchToSXCMLMode = false;
+    if(data->isAutoSCXMLMode()) {
+        switchToSXCMLMode = true ;
+    } else {
+        if(data->isShowSCXMLPanel()) {
+            if(SCXMLAutoModeDialog::showToUser(this, data)) {
+                switchToSXCMLMode = true ;
+            }
+        }
+    }
+    if(switchToSXCMLMode) {
+        ui.editor->setEditMode(XmlEditWidgetEditMode::SCXML);
+        ui.actionSCXMLEditMode->setChecked(true);
+    }
+    return switchToSXCMLMode ;
+}
+
+void MainWindow::activateModesOnNewFile()
+{
+    if(Utils::fileIsXSLT(getEditor()->getRegola())) {
+        if( checkActivateModeXSL() ) {
+            return ;
+        }
+    }
+    checkActivateModeSCXML();
 }
 
 
@@ -2732,21 +2760,25 @@ void MainWindow::on_actionAutoComplete_triggered()
 
 void MainWindow::updateEditMode()
 {
-    bool xsltMode = false;
-    if(ui.editor->editMode() == XmlEditWidgetEditMode::XSLT) {
-        xsltMode = true ;
+    {
+        bool xsltMode = false;
+        if(ui.editor->editMode() == XmlEditWidgetEditMode::XSLT) {
+            xsltMode = true ;
+        }
+        ui.actionXMLEditMode->setChecked(!xsltMode);
+        ui.actionScanXMLTagsAndNamesXSLTAutocompletion->setEnabled(xsltMode);
+        ui.actionShowXSLNavigator->setChecked(xsltMode);
+        on_actionShowXSLNavigator_triggered();
     }
-    ui.actionXMLEditMode->setChecked(!xsltMode);
-    ui.actionScanXMLTagsAndNamesXSLTAutocompletion->setEnabled(xsltMode);
-    ui.actionShowXSLNavigator->setChecked(xsltMode);
-    on_actionShowXSLNavigator_triggered();
-    bool scxmlMode = false;
-    if(ui.editor->editMode() == XmlEditWidgetEditMode::SCXML) {
-        scxmlMode = true ;
+    {
+        bool scxmlMode = false;
+        if(ui.editor->editMode() == XmlEditWidgetEditMode::SCXML) {
+            scxmlMode = true ;
+        }
+        ui.actionSCXMLEditMode->setChecked(!scxmlMode);
+        ui.actionShowSCXMLNavigator->setChecked(scxmlMode);
+        on_actionShowSCXMLNavigator_triggered();
     }
-    Utils::TODO_THIS_RELEASE("ui.actionSCXMLEditMode->setChecked(!scxmlMode);");
-    ui.actionShowSCXMLNavigator->setChecked(scxmlMode);
-    on_actionShowSCXMLNavigator_triggered();
 }
 
 
@@ -2759,6 +2791,11 @@ void MainWindow::on_actionXMLEditMode_triggered()
 void MainWindow::on_actionXSLTEditMode_triggered()
 {
     ui.editor->setEditMode(XmlEditWidgetEditMode::XSLT);
+}
+
+void MainWindow::on_actionSCXMLEditMode_triggered()
+{
+    ui.editor->setEditMode(XmlEditWidgetEditMode::SCXML);
 }
 
 void MainWindow::on_actionNewXSLTSheet_triggered()
@@ -2800,9 +2837,7 @@ void MainWindow::createDocumentFromSnippet(Regola* newRegola)
     ui.editor->assignRegola(newRegola);
     markAsAllEdited();
     removeAttributesFilter();
-    if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-        activateXSLTonNewFile();
-    }
+    activateModesOnNewFile();
 }
 
 void MainWindow::markAsAllEdited()

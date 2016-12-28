@@ -291,6 +291,7 @@ private slots:
     void on_actionAutoComplete_triggered();
     void on_actionXMLEditMode_triggered();
     void on_actionXSLTEditMode_triggered();
+    void on_actionSCXMLEditMode_triggered();
     void on_actionNewXSLTSheet_triggered();
     void on_actionNewXSDDocument_triggered();
     void on_actionNewXSLFODocument_triggered();
@@ -441,7 +442,9 @@ private:
     QAction *createAnAction(QMenu *menu, const QString &label, const QString &tag, const QString &tooltip);
 
     void deleteSchema();
-    void activateXSLTonNewFile();
+    void activateModesOnNewFile();
+    bool checkActivateModeSCXML();
+    bool checkActivateModeXSL();
 
     // repaint of current items
     void repaint();

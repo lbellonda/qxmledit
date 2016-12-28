@@ -19,7 +19,7 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
-
+#if 0
 #include "modules/xslt/xsltnavigatordialog.h"
 #include "ui_xsltnavigatordialog.h"
 
@@ -64,14 +64,14 @@ bool XSLTNavigatorDialog::testCheckItem(QTreeWidgetItem *parent, const QString &
     return testCheckChildItem(child, expected, index);
 }
 
-void XSLTNavigatorDialog::testCheckNamesOrder()
-{
+void XSLTNavigatorDialog::testCheckNamesOrder(QTreeWidget *tree)
+{mancano i codici
     testPassed = true;
     bool templateFound = false;
     bool functionFound = false;
     int topLevelItems = ui->treeNavigator->topLevelItemCount();
     for(int i = 0 ; i < topLevelItems ; i ++ ) {
-        QTreeWidgetItem * topLevel = ui->treeNavigator->topLevelItem(i);
+        QTreeWidgetItem * topLevel = tree->topLevelItem(i);
         if(topLevel->data(0, Qt::UserRole).toString() == "t" ) {
             templateFound = true;
             if(!testCheckItem(topLevel, "abcde", 0)) {return;}
@@ -135,3 +135,4 @@ void XSLTNavigatorDialog::testEnableNavigateToSelection()
         reject();
     }
 }
+#endif

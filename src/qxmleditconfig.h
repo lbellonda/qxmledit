@@ -179,6 +179,10 @@ public:
     static const QString KEY_XSL_SHOW_PANEL;
     static const QString KEY_XSL_AUTOMODE;
 
+    // SCXML
+    static const QString KEY_SCXML_SHOW_PANEL;
+    static const QString KEY_SCXML_AUTOMODE;
+
     // binary viewer
     static const QString KEY_BINARY_ENCODING;
 

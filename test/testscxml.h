@@ -24,6 +24,8 @@
 #define TESTSCXML_H
 
 #include "testbase.h"
+#include "modules/specialized/scxml/scxmlautomodedialog.h"
+#include "testhelpers/scxmlautomodedialogprivatetest.h"
 
 class TestSCXML : public TestBase
 {
@@ -61,6 +63,21 @@ class TestSCXML : public TestBase
     bool testEditsend();
     bool testEditstate();
     bool testEdittransition();
+    //----
+    bool testPanelShowOnOpenFile(const QString &fileName, const SCXMLAutoModeDialog::PrivateTest::Tests testToDo, const bool expected);
+    bool testPanelShowOnOpenFileXml();
+    bool testPanelShowOnOpenFileSCXML();
+    bool testPanelShowOnOpenFileUsingFlags(const SCXMLAutoModeDialog::PrivateTest::Tests testToDo, const bool isShow, const bool isAuto, const bool expected );
+    bool testPanelShowFlagsNoHideNoAuto();
+    bool testPanelShowFlagsNoHideAuto();
+    bool testPanelShowFlagsHideNoAuto();
+    bool testPanelShowFlagsHideAuto();
+    bool testPanelAnswers( const QString &fileName,
+                                        const SCXMLAutoModeDialog::PrivateTest::Tests testToDo, const bool isShow, const SCXMLAutoModeDialog::ERetCode answer,
+                                        const bool expectedFirstShot, const bool expectedOpenSecondShot,
+                                        const bool expectedSCXMLAfterFirstShot, const bool expectedSCXMLAfterSecondShot );
+    bool testPanelShowWithAnswers();
+
 public:
     TestSCXML();
     ~TestSCXML();
@@ -69,6 +86,7 @@ public:
     bool testLoadTokens();
     bool testEditTokens();
     bool testTemplates();
+    bool testPanel();
 };
 
 #endif // TESTSCXML_H

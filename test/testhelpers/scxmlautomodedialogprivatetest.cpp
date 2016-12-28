@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,84 +20,84 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "XSLTAutoModeDialogprivatetest.h"
-#include "ui_xsltautomodedialog.h"
+#include "scxmlautomodedialogprivatetest.h"
+#include "ui_scxmlautomodedialog.h"
 #include "qxmleditconfig.h"
 
-XSLTAutoModeDialog::PrivateTest::Tests XSLTAutoModeDialog::PrivateTest::testToExecute()
+SCXMLAutoModeDialog::PrivateTest::Tests SCXMLAutoModeDialog::PrivateTest::testToExecute()
 {
-    return (Tests)Config::getInt(Config::KEY_TEST+"/xslAutoPanel/testToExecute",-1);
+    return (Tests)Config::getInt(Config::KEY_TEST+"/scxmlAutoPanel/testToExecute",-1);
 }
 
-void XSLTAutoModeDialog::PrivateTest::setTestToExecute(const Tests test)
+void SCXMLAutoModeDialog::PrivateTest::setTestToExecute(const Tests test)
 {
-    Config::saveInt(Config::KEY_TEST+"/xslAutoPanel/testToExecute",test);
+    Config::saveInt(Config::KEY_TEST+"/scxmlAutoPanel/testToExecute",test);
 }
 
-bool XSLTAutoModeDialog::PrivateTest::testPassed()
+bool SCXMLAutoModeDialog::PrivateTest::testPassed()
 {
-    return Config::getBool(Config::KEY_TEST+"/xslAutoPanel/testPassed",false);
+    return Config::getBool(Config::KEY_TEST+"/scxmlAutoPanel/testPassed",false);
 }
 
-void XSLTAutoModeDialog::PrivateTest::setTestPassed(const bool passed)
+void SCXMLAutoModeDialog::PrivateTest::setTestPassed(const bool passed)
 {
-    Config::saveBool(Config::KEY_TEST+"/xslAutoPanel/testPassed",passed);
+    Config::saveBool(Config::KEY_TEST+"/scxmlAutoPanel/testPassed",passed);
 }
 
-QString XSLTAutoModeDialog::PrivateTest::testMessage()
+QString SCXMLAutoModeDialog::PrivateTest::testMessage()
 {
-    return Config::getString(Config::KEY_TEST+"/xslAutoPanel/testMessage","");
+    return Config::getString(Config::KEY_TEST+"/scxmlAutoPanel/testMessage","");
 }
 
-void XSLTAutoModeDialog::PrivateTest::setTestMessage(const QString &msg)
+void SCXMLAutoModeDialog::PrivateTest::setTestMessage(const QString &msg)
 {
-    Config::saveString(Config::KEY_TEST+"/xslAutoPanel/testMessage",msg);
+    Config::saveString(Config::KEY_TEST+"/scxmlAutoPanel/testMessage",msg);
 }
 
-bool XSLTAutoModeDialog::PrivateTest::panelOpen()
+bool SCXMLAutoModeDialog::PrivateTest::panelOpen()
 {
-    return Config::getBool(Config::KEY_TEST+"/xslAutoPanel/panelOpen",false);
+    return Config::getBool(Config::KEY_TEST+"/scxmlAutoPanel/panelOpen",false);
 }
 
-void XSLTAutoModeDialog::PrivateTest::setPanelOpen(const bool open)
+void SCXMLAutoModeDialog::PrivateTest::setPanelOpen(const bool open)
 {
-    Config::saveBool(Config::KEY_TEST+"/xslAutoPanel/panelOpen",open);
+    Config::saveBool(Config::KEY_TEST+"/scxmlAutoPanel/panelOpen",open);
 }
 
-bool XSLTAutoModeDialog::PrivateTest::answerShowXSLTPanel()
+bool SCXMLAutoModeDialog::PrivateTest::answerShowSCXMLPanel()
 {
-    return Config::getBool(Config::KEY_TEST+"/xslAutoPanel/answerShow",false);
+    return Config::getBool(Config::KEY_TEST+"/scxmlAutoPanel/answerShow",false);
 }
 
-void XSLTAutoModeDialog::PrivateTest::setAnswerShowXSLTPanel(const bool how)
+void SCXMLAutoModeDialog::PrivateTest::setAnswerShowSCXMLPanel(const bool how)
 {
-    Config::saveBool(Config::KEY_TEST+"/xslAutoPanel/answerShow",how);
+    Config::saveBool(Config::KEY_TEST+"/scxmlAutoPanel/answerShow",how);
 }
 
-XSLTAutoModeDialog::ERetCode XSLTAutoModeDialog::PrivateTest::answer()
+SCXMLAutoModeDialog::ERetCode SCXMLAutoModeDialog::PrivateTest::answer()
 {
-    return (XSLTAutoModeDialog::ERetCode)Config::getInt(Config::KEY_TEST+"/xslAutoPanel/answer",XSLTAutoModeDialog::ENTER_XSLMODE);
+    return (SCXMLAutoModeDialog::ERetCode)Config::getInt(Config::KEY_TEST+"/scxmlAutoPanel/answer",SCXMLAutoModeDialog::ENTER_SCXMLMODE);
 }
 
-void XSLTAutoModeDialog::PrivateTest::setAnswer(const XSLTAutoModeDialog::ERetCode how)
+void SCXMLAutoModeDialog::PrivateTest::setAnswer(const SCXMLAutoModeDialog::ERetCode how)
 {
-    Config::saveInt(Config::KEY_TEST+"/xslAutoPanel/answer",(int)how);
+    Config::saveInt(Config::KEY_TEST+"/scxmlAutoPanel/answer",(int)how);
 }
 
 
 //---------------------------------------------------------
 
-XSLTAutoModeDialog::PrivateTest::PrivateTest(XSLTAutoModeDialog *dlg) :
+SCXMLAutoModeDialog::PrivateTest::PrivateTest(SCXMLAutoModeDialog *dlg) :
     QObject(dlg)
 {
     _dlg = dlg;
 }
 
-XSLTAutoModeDialog::PrivateTest::~PrivateTest()
+SCXMLAutoModeDialog::PrivateTest::~PrivateTest()
 {
 }
 
-void XSLTAutoModeDialog::PrivateTest::testStart()
+void SCXMLAutoModeDialog::PrivateTest::testStart()
 {
     setPanelOpen(true);
     setTestPassed(false);
@@ -107,7 +107,7 @@ void XSLTAutoModeDialog::PrivateTest::testStart()
         setTestPassed(false);
         setTestMessage("panel open");
         break;
-    case TEST_SHOWPANEL_XSL_FILE: // show panel
+    case TEST_SHOWPANEL_SCXML_FILE: // show panel
         setTestPassed(true);
         setTestMessage("panel open");
         break;
@@ -121,22 +121,22 @@ void XSLTAutoModeDialog::PrivateTest::testStart()
         break;
     case TEST_BEHAVIOUR:
         // check show
-        _dlg->ui->cbDoNotShow->setChecked(!answerShowXSLTPanel());
+        _dlg->ui->cbDoNotShow->setChecked(!answerShowSCXMLPanel());
         // use the appropriate answer
         setTestPassed(true);
         switch(answer()) {
-        case ENTER_XSLMODE:
+        case ENTER_SCXMLMODE:
             _dlg->on_cmdYes_clicked();
             break;
-        case DONOTENTER_XSLMODE:
+        case DONOTENTER_SCXMLMODE:
             _dlg->on_cmdNo_clicked();
             break;
-        case ALWAYS_XSLMODE:
+        case ALWAYS_SCXMLMODE:
             _dlg->on_cmdAlways_clicked();
             break;
         default:
             setTestPassed(false);
-            setTestMessage(QString("unknown answer %1").arg(answerShowXSLTPanel()));
+            setTestMessage(QString("unknown answer %1").arg(answerShowSCXMLPanel()));
             break;
         }
         return ;

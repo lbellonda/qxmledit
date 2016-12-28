@@ -54,6 +54,9 @@
 #define BASE_PATH "../test/data/xml/special/scxml"
 #define FILE_STATES BASE_PATH "/states.xml"
 #define FILE_CHECKLOAD BASE_PATH "/checkload.txt"
+#define FILE_BASE_XML   BASE_PATH "/base.xml"
+#define FILE_BASE   BASE_PATH "/base.scxml"
+#define FILE_BASE_NOEXT BASE_PATH  "/base.aaa"
 
 static QStringList allTokens()
 {
@@ -99,7 +102,7 @@ TestSCXML::~TestSCXML()
 bool TestSCXML::testFast()
 {
     _testName = "testFast" ;
-    return testTemplates();
+    return testPanel();
 }
 
 bool TestSCXML::testLoadTokens()
@@ -260,7 +263,7 @@ bool TestSCXML::testTemplatesLoadStates()
         return error("null manager");
     }
     SCXMLInfo info;
-    mgr->findInfoStates(regola, &info);
+    SCXMLInfo::findInfoStates(regola, &info);
     QStringList expected ;
     expected << "initial" << "multi" << "one" << "two" << "multi2" << "TwoOne" << "TwoTwo";
     if( !compareStringList("allStates", expected, info.allStates())) {
@@ -883,3 +886,254 @@ bool TestSCXML::testLoadMessages()
     EMPTYPTRLIST(errors, SourceMessage);
     return true ;
 }
+
+//---------------------------------------------------------
+
+bool TestSCXML::testPanel()
+{
+    _testName = "testPanel" ;
+    //testa flag di pannello con xml e xslt: mostra, no mostra
+    if( !testPanelShowOnOpenFileXml()) {
+        return false;
+    }
+    if( !testPanelShowOnOpenFileSCXML()) {
+        return false;
+    }
+    //testa combinazioni flag mostra con flag auto, 4 combinazioni apertura pannello
+    if( !testPanelShowFlagsNoHideNoAuto() ) {
+        return false;
+    }
+    if( !testPanelShowFlagsNoHideAuto() ) {
+        return false;
+    }
+    if( !testPanelShowFlagsHideNoAuto() ) {
+        return false;
+    }
+    if( !testPanelShowFlagsHideAuto() ) {
+        return false;
+    }
+    if(!testPanelShowWithAnswers() ) {
+        return false;
+    }
+    //----------------------------------------------------------------
+    return true ;
+}
+
+bool TestSCXML::testPanelShowOnOpenFile(const QString &fileName, const SCXMLAutoModeDialog::PrivateTest::Tests testToDo, const bool expected)
+{
+    App app;
+    if(!app.initNoWindow() ) {
+        return error("init window");
+    }
+    MainWindow mainWindow(false, qApp, app.data());
+    SCXMLAutoModeDialog::PrivateTest::setTestToExecute(testToDo);
+    SCXMLAutoModeDialog::PrivateTest::setPanelOpen(false);
+    if( !mainWindow.loadFile(QString(fileName)) ) {
+        return error(QString("opening test file: '%1'").arg(fileName));
+    }
+    if( expected != SCXMLAutoModeDialog::PrivateTest::panelOpen() ) {
+        return error(QString("test failed panel shown:%1 with file '%2', expected:%3, found:%4")
+                     .arg(SCXMLAutoModeDialog::PrivateTest::testMessage()).arg(fileName).arg(expected).arg(SCXMLAutoModeDialog::PrivateTest::panelOpen()));
+    }
+
+    //----------------------------------------------------------------
+    return true ;
+}
+
+
+bool TestSCXML::testPanelShowOnOpenFileXml()
+{
+    _testName = "testPanel/testPanelShowOnOpenFileXml" ;
+    return testPanelShowOnOpenFile(FILE_BASE_XML, SCXMLAutoModeDialog::PrivateTest::TEST_SHOWPANEL_XML_FILE, false);
+}
+
+bool TestSCXML::testPanelShowOnOpenFileSCXML()
+{
+    _testName = "testPanel/testPanelShowOnOpenFileSCXML" ;
+    return testPanelShowOnOpenFile(FILE_BASE, SCXMLAutoModeDialog::PrivateTest::TEST_SHOWPANEL_SCXML_FILE, true);
+}
+
+bool TestSCXML::testPanelShowOnOpenFileUsingFlags(const SCXMLAutoModeDialog::PrivateTest::Tests testToDo, const bool isShow, const bool isAuto, const bool expected )
+{
+    App app;
+    if(!app.initNoWindow() ) {
+        return error("init window");
+    }
+    MainWindow mainWindow(false, qApp, app.data());
+    app.data()->setAutoXSLTMode(isAuto);
+    app.data()->setShowXSLTPanel(isShow);
+    SCXMLAutoModeDialog::PrivateTest::setPanelOpen(false);
+    SCXMLAutoModeDialog::PrivateTest::setTestToExecute(testToDo);
+    if( !mainWindow.loadFile(QString(FILE_BASE)) ) {
+        return error(QString("opening test file: '%1'").arg(FILE_BASE));
+    }
+    if( expected != SCXMLAutoModeDialog::PrivateTest::panelOpen() ) {
+        return error(QString("test failed panel shown:%1 with file '%2' flag was show:%3, auto:%4, expected:%5, found:%6")
+                     .arg(SCXMLAutoModeDialog::PrivateTest::testMessage()).arg(FILE_BASE)
+                     .arg(isShow).arg(isAuto).arg(expected).arg(SCXMLAutoModeDialog::PrivateTest::panelOpen()));
+    }
+
+    //----------------------------------------------------------------
+    return true ;
+}
+
+bool TestSCXML::testPanelShowFlagsNoHideNoAuto()
+{
+    _testName = "testPanel/testPanelShowFlagsNoHideNoAuto" ;
+    return testPanelShowOnOpenFileUsingFlags(SCXMLAutoModeDialog::PrivateTest::TEST_SHOW_NOHIDE_NOAUTO, true, false, true);
+}
+
+bool TestSCXML::testPanelShowFlagsNoHideAuto()
+{
+    _testName = "testPanel/testPanelShowFlagsNoHideAuto" ;
+    return testPanelShowOnOpenFileUsingFlags(SCXMLAutoModeDialog::PrivateTest::TEST_SHOW_NOHIDE_AUTO, true, true, false);
+}
+
+bool TestSCXML::testPanelShowFlagsHideNoAuto()
+{
+    _testName = "testPanel/testPanelShowFlagsHideNoAuto" ;
+    return testPanelShowOnOpenFileUsingFlags(SCXMLAutoModeDialog::PrivateTest::TEST_SHOW_HIDE_NOAUTO, false, false, false);
+}
+
+bool TestSCXML::testPanelShowFlagsHideAuto()
+{
+    _testName = "testPanel/testPanelShowFlagsHideAuto" ;
+    return testPanelShowOnOpenFileUsingFlags(SCXMLAutoModeDialog::PrivateTest::TEST_SHOW_HIDE_AUTO, false, false, false);
+}
+
+bool TestSCXML::testPanelAnswers( const QString &fileName,
+                                    const SCXMLAutoModeDialog::PrivateTest::Tests testToDo, const bool isShow, const SCXMLAutoModeDialog::ERetCode answer,
+                                    const bool expectedFirstShot, const bool expectedOpenSecondShot,
+                                    const bool expectedSCXMLAfterFirstShot, const bool expectedSCXMLAfterSecondShot )
+{
+    App app;
+    if(!app.initNoWindow() ) {
+        return error("init window");
+    }
+    MainWindow mainWindow(false, qApp, app.data());
+    SCXMLAutoModeDialog::PrivateTest::setTestToExecute(testToDo);
+    SCXMLAutoModeDialog::PrivateTest::setAnswerShowSCXMLPanel(isShow);
+    SCXMLAutoModeDialog::PrivateTest::setAnswer(answer);
+    if( !mainWindow.loadFile(QString(fileName)) ) {
+        return error(QString("1. opening test file: '%1'").arg(fileName));
+    }
+    if( expectedFirstShot != SCXMLAutoModeDialog::PrivateTest::panelOpen() ) {
+        return error(QString("test failed panel with file:'%1'' flag was show:%2, answer:%3, expected open:%4, found:%5")
+                     .arg(fileName)
+                     .arg(isShow).arg(answer).arg(expectedFirstShot).arg(SCXMLAutoModeDialog::PrivateTest::panelOpen()));
+    }
+
+    if( !SCXMLAutoModeDialog::PrivateTest::testPassed()) {
+        return error(QString("test failed with message panel with message '%6' file:'%1' flag was show:%2, answer:%3, expected open:%4, found:%5")
+                     .arg(fileName)
+                     .arg(isShow).arg(answer).arg(expectedFirstShot).arg(SCXMLAutoModeDialog::PrivateTest::panelOpen())
+                     .arg(SCXMLAutoModeDialog::PrivateTest::testMessage()));
+    }
+
+    if( expectedSCXMLAfterFirstShot != (mainWindow.getEditor()->editMode() == XmlEditWidgetEditMode::XSLT )) {
+        return error(QString(" xml edit mode after first shot was not expected file:'%1' flag was show:%2, answer:%3, edit mode exp shot:%4, edit mode found:%5, test:%6")
+                     .arg(fileName)
+                     .arg(isShow).arg(answer).arg(expectedFirstShot).arg(mainWindow.getEditor()->editMode())
+                     .arg(testToDo));
+
+    }
+
+    SCXMLAutoModeDialog::PrivateTest::setPanelOpen(false);
+    // second shot
+    if( !mainWindow.loadFile(QString(fileName)) ) {
+        return error(QString("2. opening test file: '%1'").arg(fileName));
+    }
+    if( expectedOpenSecondShot != SCXMLAutoModeDialog::PrivateTest::panelOpen() ) {
+        return error(QString("Second shot test failed shown: with file '%1' flag was show:%2, answer:%3, expected first shot:%4, found:%5")
+                     .arg(fileName)
+                     .arg(isShow).arg(answer).arg(expectedFirstShot).arg(SCXMLAutoModeDialog::PrivateTest::panelOpen()));
+    }
+    if( expectedSCXMLAfterSecondShot != (mainWindow.getEditor()->editMode() == XmlEditWidgetEditMode::XSLT )) {
+        return error(QString(" xml edit mode after second shot was not expected file:'%1' flag was show:%2, answer:%3, edit mode exp shot:%4, edit mode found:%5")
+                     .arg(fileName)
+                     .arg(isShow).arg(answer).arg(expectedSCXMLAfterSecondShot).arg(mainWindow.getEditor()->editMode()));
+
+    }
+
+    // loading a regular xml
+    SCXMLAutoModeDialog::PrivateTest::setPanelOpen(false);
+    if( !mainWindow.loadFile(QString(FILE_BASE_XML)) ) {
+        return error(QString("3. opening test file: '%1'").arg(FILE_BASE_XML));
+    }
+    if( SCXMLAutoModeDialog::PrivateTest::panelOpen() ) {
+        return error(QString("Loading regular XML with file '%1' flag was show:%2, answer:%3, expected first shot:%4, found:%5")
+                     .arg(FILE_BASE_XML)
+                     .arg(isShow).arg(answer).arg(expectedFirstShot).arg(SCXMLAutoModeDialog::PrivateTest::panelOpen()));
+    }
+    if( mainWindow.getEditor()->editMode() != XmlEditWidgetEditMode::XML) {
+        return error(QString(" regular xml did not trigger xml edit mode file:'%1' flag was show:%2, answer:%3, edit mode found:%4")
+                     .arg(FILE_BASE_XML)
+                     .arg(isShow).arg(answer).arg(mainWindow.getEditor()->editMode()));
+
+    }
+    //----------------------------------------------------------------
+    return true ;
+}
+
+struct TestInfoData {
+    QString testName;
+    SCXMLAutoModeDialog::PrivateTest::Tests testToDo;
+    bool isShow;
+    SCXMLAutoModeDialog::ERetCode answer;
+    bool expectedFirstShot;
+    bool expectedOpenSecondShot;
+    bool expectedXSLAfterFirstShot;
+    bool expectedXSLAfterSecondShot;
+};
+
+bool TestSCXML::testPanelShowWithAnswers()
+{
+    TestInfoData testData[] = {
+        { "Ys", SCXMLAutoModeDialog::PrivateTest::TEST_BEHAVIOUR, true, SCXMLAutoModeDialog::ENTER_SCXMLMODE, true, true, true, true },
+        { "Yn", SCXMLAutoModeDialog::PrivateTest::TEST_BEHAVIOUR, false, SCXMLAutoModeDialog::ENTER_SCXMLMODE, true, false, true, false },
+        { "Ns", SCXMLAutoModeDialog::PrivateTest::TEST_BEHAVIOUR, true, SCXMLAutoModeDialog::DONOTENTER_SCXMLMODE, true, true, false, false },
+        { "Nn", SCXMLAutoModeDialog::PrivateTest::TEST_BEHAVIOUR, false, SCXMLAutoModeDialog::DONOTENTER_SCXMLMODE, true, false, false, false },
+        { "As", SCXMLAutoModeDialog::PrivateTest::TEST_BEHAVIOUR, true, SCXMLAutoModeDialog::ALWAYS_SCXMLMODE, true, false, true, true },
+        { "An", SCXMLAutoModeDialog::PrivateTest::TEST_BEHAVIOUR, false, SCXMLAutoModeDialog::ALWAYS_SCXMLMODE, true, false, true, true },
+        // guard
+        { "", SCXMLAutoModeDialog::PrivateTest::TEST_BEHAVIOUR, false, SCXMLAutoModeDialog::ENTER_SCXMLMODE, false, false, true, true },
+    };
+    /*int size = sizeof(testData)/sizeof(testData[0]); // hoping for the best
+    for( int i = 0 ; i < size ; i ++ ) {
+        TestInfoData *test = testData[i];
+    }*/
+    TestInfoData *test = &testData[0];
+    while( !test->testName.isEmpty() ) {
+        _testName = QString("TestXSLTMode/infoTest/%1").arg(test->testName);
+        if( !testPanelAnswers(FILE_BASE, test->testToDo, test->isShow, test->answer, test->expectedFirstShot, test->expectedOpenSecondShot, test->expectedXSLAfterFirstShot, test->expectedXSLAfterSecondShot) ) {
+            return false;
+        }
+        test++;
+        //printf("test...\n");
+    }
+    test = &testData[0];
+    if( !testPanelAnswers(FILE_BASE_NOEXT, test->testToDo, test->isShow, test->answer, test->expectedFirstShot, test->expectedOpenSecondShot, test->expectedXSLAfterFirstShot, test->expectedXSLAfterSecondShot) ) {
+        return false;
+    }
+    return true;
+}
+
+
+
+/*
+testa flag always al caricamento con XML e xslt
+
+testa risposta 3 *sinosempre con flag mostra e no mostra
+caricamento successivo
+
+start | Y|N |A | <- answer
+first |sn|sn|sn| <- show/not show at the first start
+---------------
+xsl?  |yy|nn|yy|
+second|on|on|nn|
+xsl?  |yn|nn|yy|
+xml   |nn|nn|nn|
+
+with xml on the second run nothing will open
+
+*/

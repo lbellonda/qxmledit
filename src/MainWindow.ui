@@ -334,9 +334,6 @@
      <addaction name="actionRemoveNamespace"/>
      <addaction name="actionNormalizeNamespace"/>
     </widget>
-    <addaction name="actionXMLEditMode"/>
-    <addaction name="actionXSLTEditMode"/>
-    <addaction name="actionScanXMLTagsAndNamesXSLTAutocompletion"/>
     <addaction name="separator"/>
     <addaction name="actionAddChildElement"/>
     <addaction name="actionAppendChildElement"/>
@@ -488,6 +485,11 @@
      <addaction name="actionValidateNewFile"/>
      <addaction name="actionValidateSCXML"/>
     </widget>
+    <addaction name="actionXMLEditMode"/>
+    <addaction name="actionXSLTEditMode"/>
+    <addaction name="actionSCXMLEditMode"/>
+    <addaction name="separator"/>
+    <addaction name="actionScanXMLTagsAndNamesXSLTAutocompletion"/>
     <addaction name="actionAnonymize"/>
     <addaction name="actionCompare"/>
     <addaction name="actionCompareXSD"/>
@@ -2316,6 +2318,17 @@
    </property>
    <property name="toolTip">
     <string>Validate the SCXML machine.</string>
+   </property>
+  </action>
+  <action name="actionSCXMLEditMode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>SCXML Edit Mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Apply SCXML edit mode conventions.</string>
    </property>
   </action>
  </widget>

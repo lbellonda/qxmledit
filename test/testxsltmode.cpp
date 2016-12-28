@@ -26,12 +26,12 @@
 #include "modules/xslt/xsltmode.h"
 #include "modules/xslt/xslthelper.h"
 #include "modules/xslt/xsltelementdialog.h"
-#include "modules/xslt/xsltnavigatordialog.h"
 #include "modules/widgets/lineeditwithcompleter.h"
 #include "xmleditwidget.h"
 #include "comparexml.h"
 #include "helpers/comparetrees.h"
 #include "modules/copyattr/copiedattribute.h"
+#include "modules/xslt/xsltnavigatorwidget.h"
 
 #define INSERT_TRUE (true)
 #define EDIT_TRUE (false)
@@ -668,6 +668,13 @@ bool TestXSLTMode::checkEditTemplate()
 }
 
 //------------------------------------
+bool TestXSLTMode::activateNavigator(MainWindow *window)
+{
+    if( !fireActionIfNotChecked(window, "actionShowXSLNavigator") ) {
+        return error("firing actionShowXSLNavigator");
+    }
+    return true;
+}
 
 bool TestXSLTMode::testNavigation()
 {
@@ -682,6 +689,10 @@ bool TestXSLTMode::testNavigation()
     }
 
     mainWindow.getEditor()->setEditMode(XmlEditWidgetEditMode::XSLT);
+    if(!activateNavigator(&mainWindow)) {
+        return false;
+    }
+
     // ready
     if(!checkNavigationSort(&mainWindow)) {
         return false;
@@ -701,38 +712,132 @@ bool TestXSLTMode::testNavigation()
 
 //----------------------------------------------------------------
 
+QTreeWidget* TestXSLTMode::getNavigator(MainWindow *mainWindow) {
+    _testName = "testNavigation/checkNavigationSort" ;
+    XSLTNavigatorWidget *navigator = mainWindow->getEditor()->findChild<XSLTNavigatorWidget*>("XSLTNavigator");
+    if( NULL == navigator ) {
+        error("Unable to find navigator");
+        return NULL ;
+    }
+    QTreeWidget *tree = navigator->findChild<QTreeWidget*>("treeNavigator");
+    if( NULL == tree ) {
+        error("Unable to find tree");
+        return  NULL ;
+    }
+    return tree;
+}
+
+QPushButton* TestXSLTMode::getNavigateCmd(MainWindow *mainWindow) {
+    _testName = "testNavigation/checkNavigationSort" ;
+    XSLTNavigatorWidget *navigator = mainWindow->getEditor()->findChild<XSLTNavigatorWidget*>("XSLTNavigator");
+    if( NULL == navigator ) {
+        error("Unable to find navigator");
+        return NULL ;
+    }
+    QPushButton *tree = navigator->findChild<QPushButton*>("showCmd");
+    if( NULL == tree ) {
+        error("Unable to find showCmd");
+        return  NULL ;
+    }
+    return tree;
+}
+
 bool TestXSLTMode::checkNavigationSort(MainWindow *mainWindow) {
     _testName = "testNavigation/checkNavigationSort" ;
-    XSLTNavigatorDialog::testToExecute=0;
-    if( !fireAction(mainWindow, "actionShowXSLNavigator") ) {
-        return error("firing actionShowXSLNavigator");
+    QTreeWidget *tree = getNavigator(mainWindow);
+    if( NULL == tree ) {
+        return false;
     }
-    if( !XSLTNavigatorDialog::testPassed ) {
-        return error(XSLTNavigatorDialog::testMsg);
+    if(!testCheckNamesOrder(tree)) {
+        return false;
     }
     return true;
 }
 
+bool TestXSLTMode::testCheckNamesOrder(QTreeWidget *tree)
+{
+    bool templateFound = false;
+    bool functionFound = false;
+    int topLevelItems = tree->topLevelItemCount();
+    for(int i = 0 ; i < topLevelItems ; i ++ ) {
+        QTreeWidgetItem * topLevel = tree->topLevelItem(i);
+        if(topLevel->data(0, Qt::UserRole).toString() == "t" ) {
+            templateFound = true;
+            if(!testCheckItem(topLevel, "abcde", 0)) {return false;}
+            if(!testCheckItem(topLevel, "cdbfgfg", 1)) {return false;}
+            if(!testCheckItem(topLevel, "mgharf", 2)) {return false;}
+            if(!testCheckItem(topLevel, "one", 3)) {return false;}
+            if(!testCheckItem(topLevel, "zfkrjhf", 4)) {return false;}
+        } else if(topLevel->data(0, Qt::UserRole).toString() == "f" ) {
+            functionFound = true;
+            if(!testCheckItem(topLevel, "fabcde", 0)) {return false;}
+            if(!testCheckItem(topLevel, "fcdbfgfg", 1)) {return false;}
+            if(!testCheckItem(topLevel, "fmgharf", 2)) {return false;}
+            if(!testCheckItem(topLevel, "fzfkrjhf", 3)) {return false;}
+        }
+    }
+    if(!templateFound) {
+        return error(QString("No templates found"));
+    }
+    if(!functionFound) {
+        return error(QString("No functions found"));
+    }
+    return true ;
+}
+
+bool TestXSLTMode::testCheckChildItem(QTreeWidgetItem *item, const QString &expected, const int index)
+{
+    QString text = item->text(0);
+    if( text != expected ) {
+        return error(QString("Item %1, expected '%2', found '%3'").arg(index).arg(expected).arg(text));
+    }
+    return true;
+}
+
+bool TestXSLTMode::testCheckItem(QTreeWidgetItem *parent, const QString &expected, const int index)
+{
+    QTreeWidgetItem *child = parent->child(index);
+    return testCheckChildItem(child, expected, index);
+}
+
 bool TestXSLTMode::checkNavigationEnable(MainWindow *mainWindow) {
     _testName = "testNavigation/checkNavigationEnable" ;
-    XSLTNavigatorDialog::testToExecute=1;
-    if( !fireAction(mainWindow, "actionShowXSLNavigator") ) {
-        return error("firing actionShowXSLNavigator");
+    QTreeWidget *tree = getNavigator(mainWindow);
+    if( NULL == tree ) {
+        return false;
     }
-    if( !XSLTNavigatorDialog::testPassed ) {
-        return error(XSLTNavigatorDialog::testMsg);
+    QPushButton* cmdNavigate = getNavigateCmd(mainWindow);
+    if(NULL==cmdNavigate) {
+        return false;
+    }
+    tree->setCurrentItem(NULL);
+    if( cmdNavigate->isEnabled() ) {
+        return error(QString("Nav enabled without selection"));
+    }
+    QTreeWidgetItem * topLevel = tree->topLevelItem(0);
+    QTreeWidgetItem *child = topLevel->child(0);
+    tree->setCurrentItem(child);
+    if( !cmdNavigate->isEnabled() ) {
+        return error(QString("Nav not enabled with selection"));
     }
     return true;
 }
 
 bool TestXSLTMode::checkNavigationGoto(MainWindow *mainWindow) {
     _testName = "testNavigation/checkNavigationGoto" ;
-    XSLTNavigatorDialog::testToExecute=2;
-    if( !fireAction(mainWindow, "actionShowXSLNavigator") ) {
-        return error("firing actionShowXSLNavigator");
+    QTreeWidget *tree = getNavigator(mainWindow);
+    if( NULL == tree ) {
+        return false;
     }
-    if( !XSLTNavigatorDialog::testPassed ) {
-        return error(XSLTNavigatorDialog::testMsg);
+    QPushButton* cmdNavigate = getNavigateCmd(mainWindow);
+    if(NULL==cmdNavigate) {
+        return false;
+    }
+    QList<QTreeWidgetItem *>  items = tree->findItems("cdbfgfg", Qt::MatchFixedString|Qt::MatchRecursive, 0);
+    if( items.count() == 1 ) {
+        QTreeWidgetItem *item = items.at(0);
+        tree->setCurrentItem(item);
+        cmdNavigate->clicked();
     }
     // after the accept, the element should be selected
     Element *element = mainWindow->getEditor()->getSelectedItem();

@@ -79,6 +79,12 @@ class TestXSLTMode : public TestBase
     bool checkNavigationSort(MainWindow *mainWindow);
     bool checkNavigationEnable(MainWindow *mainWindow);
     bool checkNavigationGoto(MainWindow *mainWindow);
+    bool testCheckNamesOrder(QTreeWidget *tree);
+    bool testCheckItem(QTreeWidgetItem *parent, const QString &expected, const int index);
+    bool testCheckChildItem(QTreeWidgetItem *item, const QString &expected, const int index);
+    QTreeWidget* getNavigator(MainWindow *mainWindow);
+    QPushButton* getNavigateCmd(MainWindow *mainWindow);
+    bool activateNavigator(MainWindow *window);
 
     //------------------------------
     bool testPanelShowOnOpenFile(const QString &fileName, const XSLTAutoModeDialog::PrivateTest::Tests testToDo, const bool expected);

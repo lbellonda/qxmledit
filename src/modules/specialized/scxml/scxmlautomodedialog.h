@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,50 +20,52 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
-#ifndef XSLTNAVIGATORDIALOG_H
-#define XSLTNAVIGATORDIALOG_H
+#ifndef SCXMLAUTOMODEDIALOG_H
+#define SCXMLAUTOMODEDIALOG_H
 
 #include "xmlEdit.h"
+#include "libQXmlEdit_global.h"
+#include "qxmleditdata.h"
 
-class XsltHelper;
-class Element;
 
-namespace Ui
-{
-class XSLTNavigatorDialog;
+namespace Ui {
+class SCXMLAutoModeDialog;
 }
 
-class XSLTNavigatorDialog : public QDialog
+class LIBQXMLEDITSHARED_EXPORT SCXMLAutoModeDialog : public QDialog
 {
     Q_OBJECT
-
-    XsltHelper *_helper;
-    QTreeWidgetItem *_topTemplateItem;
-    QTreeWidgetItem *_topFunctionsItem;
-    Element *_elementChoosen;
-
-    //---
+public:
+    enum ERetCode {
+        ENTER_SCXMLMODE,
+        DONOTENTER_SCXMLMODE,
+        ALWAYS_SCXMLMODE
+    };
 #ifdef QXMLEDIT_TEST
-#include "../test/testhelpers/xslnavigator.h"
+    class PrivateTest;
+    PrivateTest *d;
+
 #endif
-    void finishSetup();
-    void loadTemplates(QTreeWidgetItem  *topItem);
-    void loadFunctions(QTreeWidgetItem  *topItem);
-    void loadChildrenItems(QTreeWidgetItem *topItem, QSet<QString> &data, const QString &typeString, const QString &dataType);
+    ERetCode _result;
+    bool _enterSCXML;
+    QXmlEditData *_data;
+
+    void setAnswer(const ERetCode retCode, const bool enterSCXML);
 
 public:
-    explicit XSLTNavigatorDialog(XsltHelper *helper, QWidget *parent = 0);
-    ~XSLTNavigatorDialog();
+    explicit SCXMLAutoModeDialog(QWidget *parent, QXmlEditData *data);
+    ~SCXMLAutoModeDialog();
 
-    Element *go();
+    bool resultSCXML();
+
+    static bool showToUser(QWidget *parent, QXmlEditData *data);
 
 private:
-    Ui::XSLTNavigatorDialog *ui;
+    Ui::SCXMLAutoModeDialog *ui;
 private slots:
-    void on_treeNavigator_itemDoubleClicked(QTreeWidgetItem * item, int column);
-    void on_treeNavigator_currentItemChanged(QTreeWidgetItem * current, QTreeWidgetItem * previous);
-    void on_cmdNavigate_clicked();
+    void on_cmdYes_clicked();
+    void on_cmdNo_clicked();
+    void on_cmdAlways_clicked();
 };
 
-#endif // XSLTNAVIGATORDIALOG_H
+#endif // SCXMLAUTOMODEDIALOG_H

@@ -426,8 +426,8 @@ private slots:
     void updateTimeout();
     void onSCXMLNavigatorEditState(const QString &stateName, Element *element);
     void onSCXMLNavigatorGoToState(const QString &stateName, Element *element);
-    void onXSLTNavigatorGoTo(const QString & /*stateName*/, Element *element);
-    void onXSLTNavigatorEdit(const QString & /*stateName*/, Element *element);
+    void onXSLTNavigatorGoTo(Element *element);
+    void onXSLTNavigatorEdit(Element *element);
 
 private:
     void bindRegola(Regola *newModel, const bool bind = true);

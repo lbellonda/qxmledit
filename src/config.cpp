@@ -176,6 +176,9 @@ const QString Config::KEY_COMPARE_OPTION_DENORMALIZEEOL("compare/optionDenormEOL
 // XSL
 const QString Config::KEY_XSL_SHOW_PANEL("xsl/showPanel");
 const QString Config::KEY_XSL_AUTOMODE("xsl/autoMode");
+// SCXML
+const QString Config::KEY_SCXML_SHOW_PANEL("scxml/showPanel");
+const QString Config::KEY_SCXML_AUTOMODE("scxml/autoMode");
 
 // binary viewer
 const QString Config::KEY_BINARY_ENCODING("binViewer/encoding");

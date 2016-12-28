@@ -447,6 +447,30 @@ void QXmlEditData::setAutoXSLTMode(const bool value)
 
 //--- endregion(xslt)
 
+//--- region(scxml)
+
+bool QXmlEditData::isShowSCXMLPanel()
+{
+    return Config::getBool(Config::KEY_SCXML_SHOW_PANEL, true);
+}
+
+bool QXmlEditData::isAutoSCXMLMode()
+{
+    return Config::getBool(Config::KEY_SCXML_AUTOMODE, false);
+}
+
+void QXmlEditData::setShowSCXMLPanel(const bool value)
+{
+    Config::saveBool(Config::KEY_SCXML_SHOW_PANEL, value);
+}
+
+void QXmlEditData::setAutoSCXMLMode(const bool value)
+{
+    Config::saveBool(Config::KEY_SCXML_AUTOMODE, value);
+}
+
+//--- endregion(scxml)
+
 //--- region(metadata)
 bool QXmlEditData::isUpdateMetadata()
 {

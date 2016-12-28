@@ -307,7 +307,6 @@ SOURCES += xmleditwidget.cpp \
     modules/xslt/XsltHelperItems.cpp \
     modules/xslt/xsltmanager.cpp \
     modules/xslt/saxnamesscan.cpp \
-    modules/xslt/xsltnavigatordialog.cpp \
     modules/search/searchmanager.cpp \
     modules/xslt/xsltautomodedialog.cpp \
     xsdeditor/XSchemaCollectionUtilities.cpp \
@@ -477,7 +476,7 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/dialogs/scxmlsenddialog.cpp \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.cpp \
     modules/xslt/xsltnavigatorwidget.cpp \
-    modules/specialized/scxml/xsltautomodedialog.cpp
+    modules/specialized/scxml/scxmlautomodedialog.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -599,7 +598,6 @@ HEADERS += precompiled_lib.h \
     globals/includes/qtincludes.h \
     modules/xslt/xsltmanager.h \
     modules/xslt/saxnamesscan.h \
-    modules/xslt/xsltnavigatordialog.h \
     modules/search/searchmanager.h \
     modules/xslt/xsltautomodedialog.h \
     modules/services/systemservices.h \
@@ -741,7 +739,7 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/dialogs/scxmlsenddialog.h \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.h \
     modules/xslt/xsltnavigatorwidget.h \
-    modules/specialized/scxml/xsltautomodedialog.h
+    modules/specialized/scxml/scxmlautomodedialog.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -774,7 +772,6 @@ FORMS += xmleditwidget.ui \
     modules/search/searchresultsdialog.ui \
     modules/search/searchwidget.ui \
     modules/xslt/xsltelementdialog.ui \
-    modules/xslt/xsltnavigatordialog.ui \
     modules/xslt/xsltautomodedialog.ui \
     modules/binaryviewer/binaryviewerdialog.ui \
     modules/search/searchletdialog.ui \
@@ -816,7 +813,7 @@ FORMS += xmleditwidget.ui \
     modules/specialized/scxml/dialogs/scxmlsenddialog.ui \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.ui \
     modules/xslt/xsltnavigatorwidget.ui \
-    modules/specialized/scxml/xsltautomodedialog.ui
+    modules/specialized/scxml/scxmlautomodedialog.ui
 
 
 symbian {

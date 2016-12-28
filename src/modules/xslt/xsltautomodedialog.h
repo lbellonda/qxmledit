@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,7 +24,7 @@
 #ifndef XSLTAUTOMODEDIALOG_H
 #define XSLTAUTOMODEDIALOG_H
 
-#include <QDialog>
+#include "xmlEdit.h"
 #include "libQXmlEdit_global.h"
 #include "qxmleditdata.h"
 
@@ -59,7 +59,6 @@ public:
     ~XSLTAutoModeDialog();
 
     bool resultXSL();
-
 
     static bool showToUser(QWidget *parent, QXmlEditData *data);
 
