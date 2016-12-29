@@ -93,7 +93,7 @@ void XSLTNavigatorWidget::loadChildrenItems(const bool isTemplate, QTreeWidgetIt
     Utils::TODO_THIS_RELEASE("se template forma alternativa con match e mode");
     foreach(QString sorted, sortedMap.keys()) {
         QList<Element*> elements = data.values(sorted);
-        foreach( Element *element, elements) {
+        foreach(Element *element, elements) {
             QTreeWidgetItem *item = new QTreeWidgetItem();
             QString name = sorted;
             if(isTemplate) {

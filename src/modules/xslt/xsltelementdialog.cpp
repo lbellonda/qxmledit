@@ -124,7 +124,7 @@ void XsltElementDialog::setTarget()
     bool nameEnabled = false;
     QString xName, xPrefix;
     XmlUtils::decodeQualifiedName(_element->tag(), xPrefix, xName);
-    if( "template" != xName ) {
+    if("template" != xName) {
         ui->modeAttr->setVisible(false);
         ui->modeLabel->setVisible(false);
     } else {
