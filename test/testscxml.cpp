@@ -102,7 +102,7 @@ TestSCXML::~TestSCXML()
 bool TestSCXML::testFast()
 {
     _testName = "testFast" ;
-    return testPanel();
+    return testPanelShowFlagsNoHideAuto();
 }
 
 bool TestSCXML::testLoadTokens()
@@ -960,8 +960,8 @@ bool TestSCXML::testPanelShowOnOpenFileUsingFlags(const SCXMLAutoModeDialog::Pri
         return error("init window");
     }
     MainWindow mainWindow(false, qApp, app.data());
-    app.data()->setAutoXSLTMode(isAuto);
-    app.data()->setShowXSLTPanel(isShow);
+    app.data()->setAutoSCXMLMode(isAuto);
+    app.data()->setShowSCXMLPanel(isShow);
     SCXMLAutoModeDialog::PrivateTest::setPanelOpen(false);
     SCXMLAutoModeDialog::PrivateTest::setTestToExecute(testToDo);
     if( !mainWindow.loadFile(QString(FILE_BASE)) ) {
@@ -1030,7 +1030,7 @@ bool TestSCXML::testPanelAnswers( const QString &fileName,
                      .arg(SCXMLAutoModeDialog::PrivateTest::testMessage()));
     }
 
-    if( expectedSCXMLAfterFirstShot != (mainWindow.getEditor()->editMode() == XmlEditWidgetEditMode::XSLT )) {
+    if( expectedSCXMLAfterFirstShot != (mainWindow.getEditor()->editMode() == XmlEditWidgetEditMode::SCXML )) {
         return error(QString(" xml edit mode after first shot was not expected file:'%1' flag was show:%2, answer:%3, edit mode exp shot:%4, edit mode found:%5, test:%6")
                      .arg(fileName)
                      .arg(isShow).arg(answer).arg(expectedFirstShot).arg(mainWindow.getEditor()->editMode())
@@ -1048,7 +1048,7 @@ bool TestSCXML::testPanelAnswers( const QString &fileName,
                      .arg(fileName)
                      .arg(isShow).arg(answer).arg(expectedFirstShot).arg(SCXMLAutoModeDialog::PrivateTest::panelOpen()));
     }
-    if( expectedSCXMLAfterSecondShot != (mainWindow.getEditor()->editMode() == XmlEditWidgetEditMode::XSLT )) {
+    if( expectedSCXMLAfterSecondShot != (mainWindow.getEditor()->editMode() == XmlEditWidgetEditMode::SCXML )) {
         return error(QString(" xml edit mode after second shot was not expected file:'%1' flag was show:%2, answer:%3, edit mode exp shot:%4, edit mode found:%5")
                      .arg(fileName)
                      .arg(isShow).arg(answer).arg(expectedSCXMLAfterSecondShot).arg(mainWindow.getEditor()->editMode()));
@@ -1082,8 +1082,8 @@ struct TestInfoData {
     SCXMLAutoModeDialog::ERetCode answer;
     bool expectedFirstShot;
     bool expectedOpenSecondShot;
-    bool expectedXSLAfterFirstShot;
-    bool expectedXSLAfterSecondShot;
+    bool expectedSCXMLAfterFirstShot;
+    bool expectedSCXMLAfterSecondShot;
 };
 
 bool TestSCXML::testPanelShowWithAnswers()
@@ -1104,15 +1104,16 @@ bool TestSCXML::testPanelShowWithAnswers()
     }*/
     TestInfoData *test = &testData[0];
     while( !test->testName.isEmpty() ) {
-        _testName = QString("TestXSLTMode/infoTest/%1").arg(test->testName);
-        if( !testPanelAnswers(FILE_BASE, test->testToDo, test->isShow, test->answer, test->expectedFirstShot, test->expectedOpenSecondShot, test->expectedXSLAfterFirstShot, test->expectedXSLAfterSecondShot) ) {
+        _testName = QString("TestSCXMLTMode/infoTest/%1").arg(test->testName);
+        if( !testPanelAnswers(FILE_BASE, test->testToDo, test->isShow, test->answer, test->expectedFirstShot, test->expectedOpenSecondShot, test->expectedSCXMLAfterFirstShot, test->expectedSCXMLAfterSecondShot) ) {
             return false;
         }
         test++;
         //printf("test...\n");
     }
     test = &testData[0];
-    if( !testPanelAnswers(FILE_BASE_NOEXT, test->testToDo, test->isShow, test->answer, test->expectedFirstShot, test->expectedOpenSecondShot, test->expectedXSLAfterFirstShot, test->expectedXSLAfterSecondShot) ) {
+    _testName = QString("TestSCXMLTMode/infoTest/%1").arg(test->testName);
+    if( !testPanelAnswers(FILE_BASE_NOEXT, test->testToDo, test->isShow, test->answer, test->expectedFirstShot, test->expectedOpenSecondShot, test->expectedSCXMLAfterFirstShot, test->expectedSCXMLAfterSecondShot) ) {
         return false;
     }
     return true;
@@ -1121,7 +1122,7 @@ bool TestSCXML::testPanelShowWithAnswers()
 
 
 /*
-testa flag always al caricamento con XML e xslt
+testa flag always al caricamento con XML e SCXML
 
 testa risposta 3 *sinosempre con flag mostra e no mostra
 caricamento successivo
@@ -1129,9 +1130,9 @@ caricamento successivo
 start | Y|N |A | <- answer
 first |sn|sn|sn| <- show/not show at the first start
 ---------------
-xsl?  |yy|nn|yy|
+scx?  |yy|nn|yy|
 second|on|on|nn|
-xsl?  |yn|nn|yy|
+scx?  |yn|nn|yy|
 xml   |nn|nn|nn|
 
 with xml on the second run nothing will open

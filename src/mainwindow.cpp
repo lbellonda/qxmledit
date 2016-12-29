@@ -1918,6 +1918,9 @@ void MainWindow::loadFileXplore(const QString &filePath)
 
 bool MainWindow::checkActivateModeXSL()
 {
+    if(!Utils::fileIsXSLT(getEditor()->getRegola())) {
+        return false;
+    }
     bool switchToXSLTMode = false;
     if(data->isAutoXSLTMode()) {
         switchToXSLTMode = true ;
@@ -1937,6 +1940,9 @@ bool MainWindow::checkActivateModeXSL()
 
 bool MainWindow::checkActivateModeSCXML()
 {
+    if(!Utils::fileIsSCXML(getEditor()->getRegola())) {
+        return false;
+    }
     bool switchToSXCMLMode = false;
     if(data->isAutoSCXMLMode()) {
         switchToSXCMLMode = true ;

@@ -25,6 +25,7 @@
 #include "undo/undosimpleeditcommand.h"
 #include "undo/undodtd.h"
 #include "xmlsavecontext.h"
+#include "modules/xsd/namespacemanager.h"
 #include "modules/xml/elmpath.h"
 
 //-----
@@ -2823,6 +2824,15 @@ bool Regola::hasXSLTNamespace()
     return false;
 }
 
+bool Regola::hasSCXMLNamespace()
+{
+    QSet<QString> uris = namespacesURI();
+    if(uris.contains(NamespaceManager::SCXMLNamespace)) {
+        return true;
+    }
+    return false;
+}
+
 QSet<QString> Regola::namespacesURI()
 {
     QSet<QString> result;
@@ -2830,7 +2840,10 @@ QSet<QString> Regola::namespacesURI()
         foreach(Attribute * attribute, rootItem->getAttributesList()) {
             if(attribute->name.startsWith("xmlns:")) {
                 result.insert(attribute->value);
+            } else if (attribute->name == "xmlns") {
+                result.insert(attribute->value);
             }
+
         }
     }
     return result;

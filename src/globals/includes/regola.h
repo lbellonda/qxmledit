@@ -481,6 +481,7 @@ public:
     QMap<QString, QString> namespaces();
     QString getCachedPrefixNS(const QString &nsURI);
     bool hasXSLTNamespace();
+    bool hasSCXMLNamespace();
     QSet<QString> namespacesURI();
     QString namespaceOfPrefix(const QString &prefix);
     bool removeNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);

@@ -141,6 +141,7 @@ public:
     static bool caseInsensitiveLessThanCompareFunction(const QString &s1, const QString &s2);
 
     static bool fileIsXSLT(Regola *regola);
+    static bool fileIsSCXML(Regola *regola);
 
     static QAction* findAction(QMainWindow *window, const QString &actionName);
     static QAction* findAction(QList<QMenu*> menus, const QString &actionName);

@@ -878,6 +878,19 @@ bool Utils::fileIsXSLT(Regola *regola)
     return false;
 }
 
+bool Utils::fileIsSCXML(Regola *regola)
+{
+    QString normFile = regola->fileName().toLower();
+    if(normFile.endsWith(".scxml") ) {
+        return true;
+    }
+    //check for xslt namespace presence
+    if(regola->hasSCXMLNamespace()) {
+        return true ;
+    }
+    return false;
+}
+
 QAction* Utils::findAction(QMainWindow *window, const QString &actionName)
 {
     QList<QMenu*> menus = window->menuBar()->findChildren<QMenu*>();
