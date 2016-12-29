@@ -881,7 +881,7 @@ bool Utils::fileIsXSLT(Regola *regola)
 bool Utils::fileIsSCXML(Regola *regola)
 {
     QString normFile = regola->fileName().toLower();
-    if(normFile.endsWith(".scxml") ) {
+    if(normFile.endsWith(".scxml")) {
         return true;
     }
     //check for xslt namespace presence

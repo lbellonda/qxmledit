@@ -83,20 +83,31 @@ void XSLTNavigatorWidget::applyNewInfo(XsltHelper *xsltHelper)
     ui->treeNavigator->setUpdatesEnabled(true);
 }
 
-void XSLTNavigatorWidget::loadChildrenItems(QTreeWidgetItem *topItem, QHash<QString, Element*> &data, const QString &typeString)
+void XSLTNavigatorWidget::loadChildrenItems(const bool isTemplate, QTreeWidgetItem *topItem, QHash<QString, Element*> &data, const QString &typeString)
 {
     // sort items
     QMap<QString, QString> sortedMap;
     foreach(QString tmp, data.keys()) {
         sortedMap.insert(tmp, tmp);
     }
+    Utils::TODO_THIS_RELEASE("se template forma alternativa con match e mode");
     foreach(QString sorted, sortedMap.keys()) {
-        Element *element = data[sorted];
-        QTreeWidgetItem *item = new QTreeWidgetItem();
-        item->setText(0, sorted);
-        item->setFlags((item->flags() & ~(Qt::ItemIsEditable | Qt::ItemIsUserCheckable)) | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-        item->setData(0, Qt::UserRole, qVariantFromValue((void*)element));
-        topItem->addChild(item);
+        QList<Element*> elements = data.values(sorted);
+        foreach( Element *element, elements) {
+            QTreeWidgetItem *item = new QTreeWidgetItem();
+            QString name = sorted;
+            if(isTemplate) {
+                QString match = element->getAttributeValue("match");
+                QString mode = element->getAttributeValue("mode");
+                if(name.isEmpty()) {
+                    name = tr("match='%1' mode='%2'").arg(match).arg(mode);
+                }
+            }
+            item->setText(0, name);
+            item->setFlags((item->flags() & ~(Qt::ItemIsEditable | Qt::ItemIsUserCheckable)) | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
+            item->setData(0, Qt::UserRole, qVariantFromValue((void*)element));
+            topItem->addChild(item);
+        }
     }
     if(data.count() == 0) {
         topItem->setText(0, tr("%1 (none)").arg(typeString));
@@ -108,13 +119,13 @@ void XSLTNavigatorWidget::loadChildrenItems(QTreeWidgetItem *topItem, QHash<QStr
 void XSLTNavigatorWidget::loadTemplates(XsltHelper *xsltHelper, QTreeWidgetItem  *topItem)
 {
     QHash<QString, Element *> allTemplates = xsltHelper->templateNamesMap();
-    loadChildrenItems(topItem, allTemplates, tr("Templates"));
+    loadChildrenItems(true, topItem, allTemplates, tr("Templates"));
 }
 
 void XSLTNavigatorWidget::loadFunctions(XsltHelper *xsltHelper, QTreeWidgetItem *topItem)
 {
     QHash<QString, Element *> allFunctions = xsltHelper->functionNamesMap();
-    loadChildrenItems(topItem, allFunctions, tr("Functions"));
+    loadChildrenItems(false, topItem, allFunctions, tr("Functions"));
 }
 
 Element *XSLTNavigatorWidget::getSelectedItem()

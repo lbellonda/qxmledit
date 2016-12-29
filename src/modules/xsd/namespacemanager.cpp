@@ -25,6 +25,7 @@
 #include "modules/specialized/xinclude/xincludeeditormanager.h"
 #include "modules/specialized/scxml/scxmleditormanager.h"
 #include "modules/specialized/specificpropertiesdialog.h"
+#include "modules/xslt/xsleditormanager.h"
 #include "undo/elinsertcommand.h"
 
 #include "utils.h"
@@ -168,7 +169,7 @@ void NamespaceManager::init()
     insertItem(XSD_NAMESPACE, Regola::XSDNameSpace, "http://www.w3.org/2009/XMLSchema.xsd" /*"http://www.w3.org/2012/04/XMLSchema.xsd"*/, QObject::tr("XML Schema (xsd or xs)"), "xsd");
     // there is no "official" xsl*-fo schema repository
     insertItem(XSLFO_NAMESPACE, XSLFONamespace, "", QObject::tr("XSL-FO 1.0 (fo)"), "fo");
-    insertItem(XSL1_NAMESPACE, XSL1Namespace, "http://www.w3.org/1999/11/xslt10.dtd", QObject::tr("XSL 1.0 (xsl)"), "xsl");
+    insertItem(XSL1_NAMESPACE, XSL1Namespace, "http://www.w3.org/1999/11/xslt10.dtd", QObject::tr("XSL 1.0 (xsl)"), "xsl", new XSLEditorManager());
     // predefined namespace
     insertItem(XQUERY_LOCALFUNC_NAMESPACE, XQueryLocalFuncNamespace, "", QObject::tr("xquery local functions (local)"), "local");
     insertItem(MAVEN_NAMESPACE, MavenPom4Namespace, "http://maven.apache.org/xsd/maven-4.0.0.xsd", QObject::tr("Maven POM 4 (local)"), "local");
@@ -234,21 +235,21 @@ void NamespaceManager::insertItem(const EWellKnownNs wellKnownNs, const QString 
     }
 }
 
-bool NamespaceManager::editElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element)
+bool NamespaceManager::editElement(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element)
 {
     if((NULL != element) && element->isElement()) {
         QXName qname ;
         element->qName(&qname);
         NamespaceHandlerForEdit *handler = _editHandlers[qname.ns];
         if(NULL != handler) {
-            handler->handleEdit(parent, tree, regola, element);
+            handler->handleEdit(parent, editor, tree, regola, element);
             return true;
         }
     }
     return false;
 }
 
-bool NamespaceManager::insertElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling)
+bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling)
 {
     Utils::TODO_THIS_RELEASE("riunire, gestire root");
     bool result = false ;
@@ -257,7 +258,7 @@ bool NamespaceManager::insertElement(QWidget *parent, QTreeWidget *tree, Regola 
     element->qName(&qname);*/
     QList<HandlerForInsert*> handlers ;
     foreach(NamespaceHandlerForEdit *handler, _editHandlers.values()) {
-        HandlerForInsert* hfi = handler->handlerForInsert(regola, element, isChildOrSibling) ;
+        HandlerForInsert* hfi = handler->handlerForInsert(editor, regola, element, isChildOrSibling) ;
         if(NULL != hfi) {
             if(!hfi->elements.isEmpty()) {
                 handlers.append(hfi);
@@ -269,7 +270,7 @@ bool NamespaceManager::insertElement(QWidget *parent, QTreeWidget *tree, Regola 
     Utils::TODO_THIS_RELEASE("se in modo speciale, riordinare");
     HandlerForInsert * handler = _insertEditorProvider->handleInsertElementForSpecialized(parent, &handlers);
     if(NULL != handler) {
-        result = handler->handler->handleInsert(tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
+        result = handler->handler->handleInsert(editor, tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
     }
     EMPTYPTRLIST(handlers, HandlerForInsert);
     //}

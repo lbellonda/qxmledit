@@ -20,26 +20,30 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "scxmleditormanager.h"
+#include "xsleditormanager.h"
 #include "regola.h"
-#include "undo/elinsertcommand.h"
-#include "xmlutils.h"
-#include "modules/namespace/nscontext.h"
-#include "modules/specialized/scxml/scxmlinfo.h"
-#include <QMap>
+#include "modules/xslt/xslthelper.h"
 #include "utils.h"
 
-SCXMLEditorManager::SCXMLEditorManager()
+XSLEditorManager::XSLEditorManager()
 {
-    _inited = false;
+
 }
 
-SCXMLEditorManager::~SCXMLEditorManager()
+XSLEditorManager::~XSLEditorManager()
 {
+
 }
 
-bool SCXMLEditorManager::handleEdit(QWidget *parent, XmlEditWidget *, QTreeWidget * tree, Regola *regola, Element *element)
+bool XSLEditorManager::handleEdit(QWidget * /*parent*/, XmlEditWidget *editor, QTreeWidget * /*tree*/, Regola * /*regola*/, Element *element)
 {
+    Utils::TODO_THIS_RELEASE("fare");
+    XsltHelper *xsltHelper = editor->XSLTHelper();
+    if(xsltHelper->isXSLTElement(element)) {
+        xsltHelper->editElement(element);
+        return true;
+    }
+    /*
     init();
     QXName qName ;
     element->qName(&qName);
@@ -62,14 +66,16 @@ bool SCXMLEditorManager::handleEdit(QWidget *parent, XmlEditWidget *, QTreeWidge
             }
         }
         delete newElement ;
-    }
+    }*/
     return false;
 }
 
-bool SCXMLEditorManager::handleInsert(XmlEditWidget *, QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString & itemCode)
+bool XSLEditorManager::handleInsert(XmlEditWidget *editor, QTreeWidget * /*tree*/, Regola * /*regola*/, Element *element, const bool isChild, const QString & itemCode)
 {
     Utils::TODO_THIS_RELEASE("fare");
-    init();
+    XsltHelper *xsltHelper = editor->XSLTHelper();
+    xsltHelper->execOperation(itemCode, isChild, element);
+    /*init();
     Element *newElement = new Element(NULL);
     bool goAhead = false;
     SCXMLToken *token = _tokenMakager.tokenForName(itemCode);
@@ -86,13 +92,23 @@ bool SCXMLEditorManager::handleInsert(XmlEditWidget *, QTreeWidget *tree, Regola
     if(goAhead) {
         return insertAction(tree, regola, element, newElement, isChild);
     }
-    delete newElement ;
+    delete newElement ;*/
     return false ;
 }
 
-HandlerForInsert *SCXMLEditorManager::handlerForInsert(XmlEditWidget *, Regola *, Element *element, const bool isChild)
+HandlerForInsert *XSLEditorManager::handlerForInsert(XmlEditWidget *editor, Regola *regola, Element *element, const bool isChild)
 {
-    init();
+    Utils::TODO_THIS_RELEASE("fare");
+    XsltHelper *xsltHelper = editor->XSLTHelper();
+    HandlerForInsert *category;
+    if(isChild) {
+        category = xsltHelper->findElementsForInsert(element, regola->namespacePrefixXslt());
+    } else {
+        category = xsltHelper->findElementsForAppend(element, regola->namespacePrefixXslt());
+    }
+    category->handler = this;
+    return category ;
+    /*init();
     Element *theParent = element ;
     if(!isChild && (NULL != element)) {
         theParent = element->parent();
@@ -122,7 +138,7 @@ HandlerForInsert *SCXMLEditorManager::handlerForInsert(XmlEditWidget *, Regola *
 
     HandlerForInsert *category = new HandlerForInsert();
     category->handler = this;
-    category->nameSpace = NamespaceManager::SCXMLNamespace ;
+    category->nameSpace = NamespaceManager::XIncludeNamespace ;
     category->name = SCXML ;
     QMap<QString, SCXMLTokenChild*> sortedNames ;
     foreach(SCXMLTokenChild *tokenChild, tokens) {
@@ -136,16 +152,5 @@ HandlerForInsert *SCXMLEditorManager::handlerForInsert(XmlEditWidget *, Regola *
         s->description = tokenChild->description();
         category->elements.append(s);
     }
-    return category ;
+    return category ;*/
 }
-
-void SCXMLEditorManager::init()
-{
-    if(_inited) {
-        return ;
-    }
-    _inited = true;
-    _tokenMakager.init();
-    Utils::TODO_THIS_RELEASE("fare, poi elimina sotto");
-}
-

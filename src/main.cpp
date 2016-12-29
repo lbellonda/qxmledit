@@ -253,6 +253,7 @@ void todo()
     Utils::TODO_THIS_RELEASE("19 shift ins per append sibling");
     Utils::TODO_THIS_RELEASE("20 alt ins per child specializ");
     Utils::TODO_THIS_RELEASE("21 gli attributi sono uniti nell'editor con visione compatta?");
+    Utils::TODO_THIS_RELEASE("22 xslt template accettare anche edit mode e match");
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif

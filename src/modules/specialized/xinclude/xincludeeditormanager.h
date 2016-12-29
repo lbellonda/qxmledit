@@ -46,9 +46,9 @@ public:
     XIncludeEditorManager();
     virtual ~XIncludeEditorManager();
 
-    virtual bool handleEdit(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element);
-    virtual HandlerForInsert *handlerForInsert(Regola *regola, Element *element, const bool isChild) ;
-    virtual bool handleInsert(QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) ;
+    virtual bool handleEdit(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element);
+    virtual HandlerForInsert *handlerForInsert(XmlEditWidget *editor, Regola *regola, Element *element, const bool isChild) ;
+    virtual bool handleInsert(XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) ;
     //--
     bool provideXIncludeEditor(QWidget *parent, Element *element);
     void setProviderXIncludeEditor(XIncludeEditorProvider *newProvider);

@@ -29,6 +29,7 @@
 #include "modules/xslt/saxnamesscan.h"
 #include "modules/xslt/xsltmanager.h"
 #include "modules/copyattr/copiedattribute.h"
+#include "modules/xsd/namespacemanager.h"
 
 //-------------------------------------------------------------
 
@@ -186,6 +187,85 @@ void XsltHelper::addMenuItems(Element *selectedElement, QMenu *contextMenu, cons
     delete context;
 }
 
+HandlerForInsert *XsltHelper::findElementsForInsert(Element *selectedElement, const QString &namespacePrefix)
+{
+    init();
+    XslContext *context = findContext(selectedElement, namespacePrefix);
+    if(NULL == context) {
+        Utils::errorOutOfMem(NULL);
+        return NULL ;
+    }
+    Utils::TODO_THIS_RELEASE("e il 2.0?");
+    const QString XSLT_NAME = QObject::tr("XSLT 1.0");
+    HandlerForInsert *category = new HandlerForInsert();
+    category->handler = NULL;
+    category->nameSpace = NamespaceManager::XSL1Namespace ;
+    category->name = XSLT_NAME ;
+    // a map is sorted
+    foreach(XsltElement * el, _elementsByTag.values()) {
+        if((NULL != el) && el->use) {
+            if(!el->isInsertAtTop() && el->isInsertableAsChild(context, _elementsByTag)) {
+                // insert(contesto padre)+append(alla selezione)
+                SingleHandlerForInsert *s = new SingleHandlerForInsert();
+                s->name = el->tagName();
+                s->id = QString("I%1").arg(el->tagName());
+                s->description = "";
+                category->elements.append(s);
+            }
+        }
+    }
+    foreach(XsltElement * el, _elementsByTag.values()) {
+        if((NULL != el) && el->use) {
+            if(el->isInsertAtTop()) {
+                // insert(contesto padre)+append(alla selezione)
+                SingleHandlerForInsert *s = new SingleHandlerForInsert();
+                s->name = el->tagName();
+                s->id = QString("I%1").arg(el->tagName());
+                s->description = "";
+                category->elements.append(s);
+            }
+        }
+    }
+    //-------
+    delete context;
+    return category ;
+}
+
+HandlerForInsert *XsltHelper::findElementsForAppend(Element *selectedElement, const QString &namespacePrefix)
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    init();
+    XslContext *context = findContext(selectedElement, namespacePrefix);
+    if(NULL == context) {
+        Utils::errorOutOfMem(NULL);
+        return NULL ;
+    }
+    Utils::TODO_THIS_RELEASE("e il 2.0?");
+    const QString XSLT_NAME = QObject::tr("XSLT 1.0");
+    HandlerForInsert *category = new HandlerForInsert();
+    category->handler = NULL;
+    category->nameSpace = NamespaceManager::XSL1Namespace ;
+    category->name = XSLT_NAME ;
+    // a map is sorted
+    foreach(XsltElement * el, _elementsByTag.values()) {
+        if((NULL != el) && el->use) {
+            if(!el->isInsertAtTop()) {
+                if(el->isAppendable(context, _elementsByTag)) {
+                    // insert(contesto padre)+append(alla selezione)
+                    SingleHandlerForInsert *s = new SingleHandlerForInsert();
+                    s->name = el->tagName();
+                    s->id = QString("A%1").arg(el->tagName());
+                    s->description = "";
+                    category->elements.append(s);
+                }
+            }
+        }
+    }
+    //-------
+    delete context;
+    return category ;
+}
+
 bool XsltHelper::isTemplate(const QString &tag)
 {
     return tag == TemplateTag ;
@@ -239,7 +319,7 @@ void XsltHelper::onActionInsert()
     if(NULL == el) {
         return ;
     }
-    doAction(true, el);
+    doAction(true, el, NULL);
 }
 
 void XsltHelper::onActionAppend()
@@ -248,10 +328,16 @@ void XsltHelper::onActionAppend()
     if(NULL == el) {
         return ;
     }
-    doAction(false, el);
+    doAction(false, el, NULL);
 }
 
-void XsltHelper::doAction(const bool isInsert, XsltElement *el)
+void XsltHelper::execOperation(const QString &id, const bool isInsert, Element *selElement)
+{
+    XsltElement *el = dataFromString(id);
+    doAction(isInsert, el, selElement);
+}
+
+void XsltHelper::doAction(const bool isInsert, XsltElement *el, Element *selElement)
 {
     if(NULL == el) {
         return ;
@@ -260,7 +346,7 @@ void XsltHelper::doAction(const bool isInsert, XsltElement *el)
     // open up dialog
     //QStringList pathList;
     XsltElementDialogParam params;
-    if(prepareInsertElement(&params, isInsert, el)) {
+    if(prepareInsertElement(&params, isInsert, el, selElement)) {
         cas = XsltElementDialog::dialogProperties(&params);
         if(NULL == cas) {
             if(NULL != params.element) {
@@ -412,7 +498,7 @@ void XsltHelper::insertElement(XsltElementDialogParam *params, CopyAttributesSes
     }
 }
 
-bool XsltHelper::prepareInsertElement(XsltElementDialogParam *params, const bool isInsert, XsltElement *el)
+bool XsltHelper::prepareInsertElement(XsltElementDialogParam *params, const bool isInsert, XsltElement *el, Element *selElement)
 {
     if(NULL == el) {
         return false ;
@@ -422,7 +508,10 @@ bool XsltHelper::prepareInsertElement(XsltElementDialogParam *params, const bool
         Utils::error(tr("Need a root element."));
         return false ;
     }
-    Element *selectedElement = _owner->getSelectedItem();
+    Element *selectedElement = selElement ;
+    if(NULL == selElement) {
+        selectedElement = _owner->getSelectedItem();
+    }
     if(!el->isInsertAtTop() && (NULL == selectedElement)) {
         Utils::error(tr("Select an item to insert the new data."));
         return false ;

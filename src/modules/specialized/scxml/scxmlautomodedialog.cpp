@@ -37,9 +37,9 @@ bool SCXMLAutoModeDialog::showToUser(QWidget *parent, QXmlEditData *data)
 
 SCXMLAutoModeDialog::SCXMLAutoModeDialog(QWidget *parent, QXmlEditData *data) :
     QDialog(parent),
-    #ifdef QXMLEDIT_TEST
-        d(new PrivateTest(this)),
-    #endif
+#ifdef QXMLEDIT_TEST
+    d(new PrivateTest(this)),
+#endif
     ui(new Ui::SCXMLAutoModeDialog)
 {
     _enterSCXML = false ;

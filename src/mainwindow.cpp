@@ -1963,7 +1963,7 @@ bool MainWindow::checkActivateModeSCXML()
 void MainWindow::activateModesOnNewFile()
 {
     if(Utils::fileIsXSLT(getEditor()->getRegola())) {
-        if( checkActivateModeXSL() ) {
+        if(checkActivateModeXSL()) {
             return ;
         }
     }
@@ -2178,6 +2178,9 @@ void MainWindow::setModeLabel()
         break;
     case XmlEditWidgetEditMode::XSLT:
         mode = tr("XSLT");
+        break;
+    case XmlEditWidgetEditMode::SCXML:
+        mode = tr("SCXML");
         break;
     default:
         mode = tr("unknown");

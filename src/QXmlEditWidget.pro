@@ -476,7 +476,8 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/dialogs/scxmlsenddialog.cpp \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.cpp \
     modules/xslt/xsltnavigatorwidget.cpp \
-    modules/specialized/scxml/scxmlautomodedialog.cpp
+    modules/specialized/scxml/scxmlautomodedialog.cpp \
+    modules/xslt/xsleditormanager.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -739,7 +740,8 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/dialogs/scxmlsenddialog.h \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.h \
     modules/xslt/xsltnavigatorwidget.h \
-    modules/specialized/scxml/scxmlautomodedialog.h
+    modules/specialized/scxml/scxmlautomodedialog.h \
+    modules/xslt/xsleditormanager.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

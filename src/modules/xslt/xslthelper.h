@@ -31,6 +31,7 @@
 
 class XmlEditWidgetPrivate;
 class XsltElementDialogParam;
+class HandlerForInsert;
 
 class XsltHelper : public QObject
 {
@@ -50,7 +51,7 @@ class XsltHelper : public QObject
     XslContext *findContext(Element *selectedElement, const QString &nsPrefix);
     //------------
     XsltElement *dataFromAction();
-    void doAction(const bool isInsert, XsltElement *el);
+    void doAction(const bool isInsert, XsltElement *el, Element *selElement);
     void loadAction(QMenu *contextMenu, QAction *action, XsltElement *el);
     bool isTemplate(const QString &tag);
     Element *findLastSibling(Element *parentElement, XsltElement *el, const bool useLast = false);
@@ -60,7 +61,7 @@ class XsltHelper : public QObject
     bool prepareEditElement(Element *selectedElement, XsltElementDialogParam *params);
     XsltElement *dataFromString(const QString &key);
     void insertElement(XsltElementDialogParam *params, CopyAttributesSession *cas, const bool isInsert);
-    bool prepareInsertElement(XsltElementDialogParam *params, const bool isInsert, XsltElement *el);
+    bool prepareInsertElement(XsltElementDialogParam *params, const bool isInsert, XsltElement *el, Element *selElement);
     void execEditElement(CopyAttributesSession *attributesCopied, Element *selectedElement, const bool isClear, const bool isUseParams);
     bool updateParamaters(Element *source, const bool isInsert, const QString &nameAttribute);
 
@@ -94,6 +95,10 @@ public:
     Element *findFunction(const QString &nameToFind);
 
     bool isXSLTElement(Element* el);
+    //--
+    HandlerForInsert *findElementsForInsert(Element *selectedElement, const QString &namespacePrefix);
+    HandlerForInsert *findElementsForAppend(Element *selectedElement, const QString &namespacePrefix);
+    void execOperation(const QString &id, const bool isInsert, Element *selElement);
 
 signals:
 

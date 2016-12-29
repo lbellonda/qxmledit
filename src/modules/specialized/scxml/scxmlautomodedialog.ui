@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>513</width>
+    <width>515</width>
     <height>297</height>
    </rect>
   </property>
@@ -85,7 +85,7 @@
      <item row="0" column="0">
       <widget class="QPushButton" name="cmdYes">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -117,7 +117,7 @@
      <item row="1" column="0">
       <widget class="QPushButton" name="cmdNo">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -148,6 +148,12 @@
      </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="cmdAlways">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>&amp;Always</string>
        </property>
@@ -205,7 +211,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../risorse.qrc"/>
   <include location="../../../risorse.qrc"/>
  </resources>
  <connections/>

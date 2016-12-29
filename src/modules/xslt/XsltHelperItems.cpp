@@ -58,9 +58,7 @@ QHash<QString, Element*> XsltHelper::topLevelNamesRef(const QString &nameToSearc
     foreach(Element * child, *root->getChildItems()) {
         if(child->isElement() && (child->tag() == tagTemplate)) {
             QString name = getXslName(child);
-            if(!name.isEmpty()) {
-                result.insert(name, child);
-            }
+            result.insertMulti(name, child);
         }
     }
     return result ;

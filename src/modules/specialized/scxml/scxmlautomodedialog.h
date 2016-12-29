@@ -28,7 +28,8 @@
 #include "qxmleditdata.h"
 
 
-namespace Ui {
+namespace Ui
+{
 class SCXMLAutoModeDialog;
 }
 

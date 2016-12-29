@@ -124,7 +124,6 @@ SOURCES += \
     testclipboard.cpp \
     testnewfromtemplate.cpp \
     testxsltmode.cpp \
-    testhelpers/xslnavigator.cpp \
     testhelpers/XSLTAutoModeDialogprivatetest.cpp \
     teststyle.cpp \
     testhelpers/XsltElementDialogprivatetest.cpp \

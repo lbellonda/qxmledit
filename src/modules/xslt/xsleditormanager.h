@@ -20,47 +20,21 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef XSLTNAVIGATORWIDGET_H
-#define XSLTNAVIGATORWIDGET_H
+#ifndef XSLEDITORMANAGER_H
+#define XSLEDITORMANAGER_H
 
-#include "xmlEdit.h"
+#include "modules/xsd/namespacemanager.h"
 
-namespace Ui
+class XSLEditorManager : public NamespaceHandlerForEdit
 {
-class XSLTNavigatorWidget;
-}
-
-class XsltHelper ;
-
-class XSLTNavigatorWidget : public QWidget
-{
-    Q_OBJECT
-    bool _isInfoEnabled;
-
-    void loadChildrenItems(const bool isTemplate, QTreeWidgetItem *topItem, QHash<QString, Element*> &data, const QString &typeString);
-    void loadTemplates(XsltHelper *xsltHelper, QTreeWidgetItem  *topItem);
-    void loadFunctions(XsltHelper *xsltHelper, QTreeWidgetItem *topItem);
-    Element *getSelectedItem();
 public:
-    explicit XSLTNavigatorWidget(QWidget *parent = 0);
-    ~XSLTNavigatorWidget();
+    XSLEditorManager();
+    virtual ~XSLEditorManager();
 
-    void applyNewInfo(XsltHelper *xsltHelper);
-    void setEnabledInfo(const bool isEnabled);
-    bool isEnabledInfo();
+    virtual bool handleEdit(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element);
+    virtual HandlerForInsert *handlerForInsert(XmlEditWidget *editor, Regola *regola, Element *element, const bool isChild) ;
+    virtual bool handleInsert(XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) ;
 
-signals:
-    void goTo(Element *element);
-    void edit(Element *element);
-
-private:
-    Ui::XSLTNavigatorWidget *ui;
-private slots:
-    void on_treeNavigator_currentItemChanged(QTreeWidgetItem * /*current*/, QTreeWidgetItem * /*previous*/);
-    void on_showCmd_clicked();
-    void on_treeNavigator_itemClicked(QTreeWidgetItem * /*item*/, int /*column*/);
-    void on_editCmd_clicked();
-    void on_treeNavigator_itemDoubleClicked(QTreeWidgetItem * /*item*/, int /*column*/);
 };
 
-#endif // XSLTNAVIGATORWIDGET_H
+#endif // XSLEDITORMANAGER_H

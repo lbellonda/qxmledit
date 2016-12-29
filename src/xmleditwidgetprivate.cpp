@@ -193,8 +193,6 @@ void XmlEditWidgetPrivate::setEditMode(const XmlEditWidgetEditMode::EditMode new
     emit p->editModeChanged();
 }
 
-
-
 void XmlEditWidgetPrivate::deleteSchema()
 {
     if(NULL != _schemaRoot) {
@@ -307,16 +305,16 @@ void XmlEditWidgetPrivate::setupSCXMLNavigator()
     //p->ui->toolBox->setItemText(0, "Sperimentale");
     //CXMLNavigator = new SCXMLNavigatorWidget(p->ui->toolBox->widget(0));
     _SCXMLNavigator = new SCXMLNavigatorWidget(NULL);
-    _SCXMLNavigator->setEnabledInfo(true);
+    _SCXMLNavigator->setEnabledInfo(false);
     //_SCXMLNavigator->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     p->ui->verticalLayout->insertWidget(14, _SCXMLNavigator);
     _SCXMLNavigator->setVisible(false);
-     _SCXMLNavigator->setObjectName("SCXMLNavigator");
+    _SCXMLNavigator->setObjectName("SCXMLNavigator");
     connect(_SCXMLNavigator, SIGNAL(goToState(const QString &, Element *)), this, SLOT(onSCXMLNavigatorGoToState(const QString &, Element *)));
     connect(_SCXMLNavigator, SIGNAL(editState(const QString &, Element *)), this, SLOT(onSCXMLNavigatorEditState(const QString &, Element *)));
     //-----
     _XSLTNavigator = new XSLTNavigatorWidget(NULL);
-    _XSLTNavigator->setEnabledInfo(true);
+    _XSLTNavigator->setEnabledInfo(false);
     p->ui->verticalLayout->insertWidget(15, _XSLTNavigator);
     _XSLTNavigator->setVisible(false);
     _XSLTNavigator->setObjectName("XSLTNavigator");
@@ -669,7 +667,7 @@ void XmlEditWidgetPrivate::regolaIsModified()
 {
     //TRACEQ(QString("XmlEditWidgetPrivate::regolaIsModified():%1").arg(regola->isModified()));
     p->emitDocumentIsModified(regola->isModified());
-    if(_SCXMLNavigator->isEnabledInfo()) {
+    if(_SCXMLNavigator->isEnabledInfo() || _XSLTNavigator->isEnabledInfo()) {
         if(_updateTimer.isActive()) {
             _updateTimer.stop();
         }
@@ -2523,7 +2521,7 @@ void XmlEditWidgetPrivate::showXSLNavigator(const bool how)
     if(how && !_XSLTNavigator->isEnabledInfo()) {
         shouldApplyNewInfo = true ;
     }
-    _SCXMLNavigator->setEnabledInfo(how);
+    _XSLTNavigator->setEnabledInfo(how);
     if(shouldApplyNewInfo) {
         applyXSLT();
     }
@@ -2532,6 +2530,7 @@ void XmlEditWidgetPrivate::showXSLNavigator(const bool how)
 
 void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const bool useAlternate)
 {
+    Utils::TODO_THIS_RELEASE("attenzione ai modi di edit");
     if(isActionMode() && (NULL != item)) {
         //specialized mode
         if((editMode() == XmlEditWidgetEditMode::XSLT) && _xsltHelper.isXSLTElement(Element::fromItemData(item))) {
@@ -2546,7 +2545,7 @@ void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const 
                 NamespaceManager *namespaceManager = _appData->namespaceManager();
                 if(NULL != namespaceManager) {
                     Element *element = Element::fromItemData(item);
-                    if(namespaceManager->editElement(p->window(), getEditor(), regola, element)) {
+                    if(namespaceManager->editElement(p->window(), p, getEditor(), regola, element)) {
                         return ;
                     }
                 }
@@ -3423,7 +3422,7 @@ void XmlEditWidgetPrivate::insertSpecial()
             if((NULL == element) && (NULL != getRegola()->root())) {
                 return ;
             }
-            namespaceManager->insertElement(getEditor()->window(), getEditor(), getRegola(), element, true) ;
+            namespaceManager->insertElement(getEditor()->window(), p, getEditor(), getRegola(), element, true) ;
         }
     }
 }
@@ -3437,7 +3436,7 @@ void XmlEditWidgetPrivate::appendSpecial()
             if((NULL == element) && (NULL != getRegola()->root())) {
                 return ;
             }
-            namespaceManager->insertElement(getEditor()->window(), getEditor(), getRegola(), element, false) ;
+            namespaceManager->insertElement(getEditor()->window(), p, getEditor(), getRegola(), element, false) ;
         }
     }
 }

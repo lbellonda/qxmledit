@@ -37,6 +37,7 @@ class Regola ;
 class NamespaceHandlerForEdit;
 class XIncludeEditorManager;
 class SCXMLEditorManager;
+class XmlEditWidget;
 
 class SingleHandlerForInsert
 {
@@ -65,9 +66,9 @@ class LIBQXMLEDITSHARED_EXPORT NamespaceHandlerForEdit
 public:
     NamespaceHandlerForEdit();
     virtual ~NamespaceHandlerForEdit();
-    virtual bool handleEdit(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element) = 0 ;
-    virtual HandlerForInsert *handlerForInsert(Regola *regola, Element *element, const bool isChild) = 0 ;
-    virtual bool handleInsert(QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) = 0 ;
+    virtual bool handleEdit(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element) = 0 ;
+    virtual HandlerForInsert *handlerForInsert(XmlEditWidget *editor, Regola *regola, Element *element, const bool isChild) = 0 ;
+    virtual bool handleInsert(XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) = 0 ;
     virtual bool insertAction(QTreeWidget *tree, Regola *regola, Element *element, Element *newElement, const bool isChild);
 };
 
@@ -122,8 +123,8 @@ public:
     DataInterface *dataInterface() const;
     void setDataInterface(DataInterface *dataInterface);
 
-    bool editElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element);
-    bool insertElement(QWidget *parent, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling);
+    bool editElement(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element);
+    bool insertElement(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling);
     void init();
 
     HandlerForInsert *handleInsertElementForSpecialized(QWidget *parent, QList<HandlerForInsert*> *handlers);

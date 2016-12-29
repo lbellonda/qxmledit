@@ -2840,7 +2840,7 @@ QSet<QString> Regola::namespacesURI()
         foreach(Attribute * attribute, rootItem->getAttributesList()) {
             if(attribute->name.startsWith("xmlns:")) {
                 result.insert(attribute->value);
-            } else if (attribute->name == "xmlns") {
+            } else if(attribute->name == "xmlns") {
                 result.insert(attribute->value);
             }
 

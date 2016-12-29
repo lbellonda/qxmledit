@@ -46,7 +46,7 @@ XIncludeEditorManager::~XIncludeEditorManager()
 {
 }
 
-bool XIncludeEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Regola *regola, Element *element)
+bool XIncludeEditorManager::handleEdit(QWidget *parent, XmlEditWidget * /*editor*/, QTreeWidget * tree, Regola *regola, Element *element)
 {
     QXName qName ;
     element->qName(&qName);
@@ -69,7 +69,7 @@ bool XIncludeEditorManager::handleEdit(QWidget *parent, QTreeWidget * tree, Rego
     return false;
 }
 
-HandlerForInsert *XIncludeEditorManager::handlerForInsert(Regola *, Element *element, const bool isChild)
+HandlerForInsert *XIncludeEditorManager::handlerForInsert(XmlEditWidget *, Regola *, Element *element, const bool isChild)
 {
     bool isFallback = false;
     if(NULL != element) {
@@ -107,7 +107,7 @@ HandlerForInsert *XIncludeEditorManager::handlerForInsert(Regola *, Element *ele
     return category ;
 }
 
-bool XIncludeEditorManager::handleInsert(QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString & itemCode)
+bool XIncludeEditorManager::handleInsert(XmlEditWidget *, QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString & itemCode)
 {
     Element *newElement = new Element(NULL);
     bool goAhead = false;
