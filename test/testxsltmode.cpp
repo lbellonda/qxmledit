@@ -601,7 +601,7 @@ bool TestXSLTMode::innerDEditOp( const QString &selectedElem, const QString &nam
     XsltHelper *helper = mainWindow.getEditor()->XSLTHelper();
     if(isInsertOrEdit) {
         XsltElement *xsltElement  = helper->elementFromName(nameElem);
-        if(!helper->prepareInsertElement(&params, isInsertOrAppendElement, xsltElement )) {
+        if(!helper->prepareInsertElement(&params, isInsertOrAppendElement, xsltElement, NULL )) {
             return error("params preparation for insert");
         }
     } else {
@@ -713,7 +713,6 @@ bool TestXSLTMode::testNavigation()
 //----------------------------------------------------------------
 
 QTreeWidget* TestXSLTMode::getNavigator(MainWindow *mainWindow) {
-    _testName = "testNavigation/checkNavigationSort" ;
     XSLTNavigatorWidget *navigator = mainWindow->getEditor()->findChild<XSLTNavigatorWidget*>("XSLTNavigator");
     if( NULL == navigator ) {
         error("Unable to find navigator");
@@ -728,7 +727,6 @@ QTreeWidget* TestXSLTMode::getNavigator(MainWindow *mainWindow) {
 }
 
 QPushButton* TestXSLTMode::getNavigateCmd(MainWindow *mainWindow) {
-    _testName = "testNavigation/checkNavigationSort" ;
     XSLTNavigatorWidget *navigator = mainWindow->getEditor()->findChild<XSLTNavigatorWidget*>("XSLTNavigator");
     if( NULL == navigator ) {
         error("Unable to find navigator");
@@ -767,7 +765,8 @@ bool TestXSLTMode::testCheckNamesOrder(QTreeWidget *tree)
             if(!testCheckItem(topLevel, "cdbfgfg", 1)) {return false;}
             if(!testCheckItem(topLevel, "mgharf", 2)) {return false;}
             if(!testCheckItem(topLevel, "one", 3)) {return false;}
-            if(!testCheckItem(topLevel, "zfkrjhf", 4)) {return false;}
+            if(!testCheckItem(topLevel, "y", 4)) {return false;}
+            if(!testCheckItem(topLevel, "zfkrjhf", 5)) {return false;}
         } else if(topLevel->data(0, Qt::UserRole).toString() == "f" ) {
             functionFound = true;
             if(!testCheckItem(topLevel, "fabcde", 0)) {return false;}
@@ -1157,7 +1156,7 @@ bool TestXSLTMode::intTestInsParameters(const bool isParameters, const QString &
     bool isInsertOrAppendElement = true;
     if(isInsertOrEdit) {
         XsltElement *xsltElement  = helper->elementFromName(nameElem);
-        if(!helper->prepareInsertElement(&params, isInsertOrAppendElement, xsltElement )) {
+        if(!helper->prepareInsertElement(&params, isInsertOrAppendElement, xsltElement, NULL )) {
             return error("params preparation for insert");
         }
     } else {

@@ -167,6 +167,13 @@ void XSLTNavigatorWidget::on_showCmd_clicked()
 
 void XSLTNavigatorWidget::on_treeNavigator_currentItemChanged(QTreeWidgetItem * /*current*/, QTreeWidgetItem * /*previous*/)
 {
+    bool enabled = false;
+    Element *element = getSelectedItem();
+    if(NULL != element) {
+        enabled = true;
+    }
+    ui->showCmd->setEnabled(enabled);
+    ui->editCmd->setEnabled(enabled);
     on_showCmd_clicked();
 }
 

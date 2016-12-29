@@ -21,7 +21,7 @@
       <style name="XSLT" description="XSLT mode" namespace="http://www.w3.org/1999/XSL/Transform"/>
     </xsl:template>
 
-    <xsl:template match="/">
+    <xsl:template name="y">
     
          <xsl:variable name="var3" select="'var3'"/>
 

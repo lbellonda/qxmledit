@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>815</width>
-    <height>158</height>
+    <height>210</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,7 +54,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="labelComboName">
        <property name="text">
-        <string>&amp;Name</string>
+        <string>&amp;Name:</string>
        </property>
        <property name="buddy">
         <cstring>comboName</cstring>
@@ -83,7 +83,7 @@
      <item row="3" column="0">
       <widget class="QLabel" name="labelSelect">
        <property name="text">
-        <string>&amp;Select</string>
+        <string>&amp;Select:</string>
        </property>
        <property name="buddy">
         <cstring>selectAttr</cstring>
@@ -110,14 +110,27 @@
        </item>
       </layout>
      </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="modeLabel">
+       <property name="text">
+        <string>M&amp;ode:</string>
+       </property>
+       <property name="buddy">
+        <cstring>modeAttr</cstring>
+       </property>
+      </widget>
+     </item>
      <item row="4" column="1">
+      <widget class="LineEditWithCompleter" name="modeAttr"/>
+     </item>
+     <item row="5" column="1">
       <widget class="QLabel" name="lblWarningNames">
        <property name="text">
         <string>Tip: add elements and attributes names for autocompletion using the main menu command.</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
+     <item row="6" column="1">
       <widget class="QCheckBox" name="cmdInsParam">
        <property name="text">
         <string>Insert parameters.</string>
@@ -173,7 +186,6 @@
  </customwidgets>
  <resources>
   <include location="../../risorse.qrc"/>
-  <include location="../../risorse.qrc"/>
  </resources>
  <connections>
   <connection>
@@ -183,12 +195,12 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
+     <x>802</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
      <x>157</x>
-     <y>274</y>
+     <y>177</y>
     </hint>
    </hints>
   </connection>
@@ -199,12 +211,12 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
+     <x>802</x>
+     <y>77</y>
     </hint>
     <hint type="destinationlabel">
      <x>286</x>
-     <y>274</y>
+     <y>177</y>
     </hint>
    </hints>
   </connection>

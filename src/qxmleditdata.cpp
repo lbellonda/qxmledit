@@ -179,6 +179,7 @@ void QXmlEditData::internalInit()
     _xsltStyle = new VStyle(XsltStyleName, XsltStyleDescription);
     _xsltStyle->setResFileName(":/xslt/xsltStyle");
     _predefinedStyles.append(_xsltStyle);
+    Utils::TODO_THIS_RELEASE("fare stile anche per scxml");
     _colorManager->readCfg();
     _experimentalFeaturesEnabled = Config::getBool(Config::KEY_MAIN_ENABLEEXPERIMENTS, false);
     connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(onClipboardDataChanged()));

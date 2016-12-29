@@ -26,6 +26,7 @@
 #include "modules/xslt/xsltmode.h"
 #include "modules/xslt/xslthelper.h"
 #include "modules/copyattr/copiedattribute.h"
+#include "xmlutils.h"
 #ifdef QXMLEDIT_TEST
 #include "../test/testhelpers/XsltElementDialogprivatetest.h"
 #endif
@@ -90,6 +91,7 @@ XsltElementDialog::XsltElementDialog(XsltElement *xsltElement, Element *element,
     _xsltElement = xsltElement ;
     _element = element ;
     _path = path;
+    _isTemplate = false ;
     setTarget();
 #ifdef QXMLEDIT_TEST
     QTimer::singleShot(50, d, SLOT(testStart()));
@@ -120,6 +122,16 @@ void XsltElementDialog::setTarget()
     ui->pathLabel->setText(path);
     ui->tagName->setText(_element->tag());
     bool nameEnabled = false;
+    QString xName, xPrefix;
+    XmlUtils::decodeQualifiedName(_element->tag(), xPrefix, xName);
+    if( "template" != xName ) {
+        ui->modeAttr->setVisible(false);
+        ui->modeLabel->setVisible(false);
+    } else {
+        _isTemplate = true ;
+        QString mode = _element->getAttributeValue("mode");
+        ui->modeAttr->setText(mode);
+    }
     if(!_xsltElement->nameAttributeName.isEmpty()) {
         if(XsltCompletionType::TemplateNames == _xsltElement->completionType) {
             ui->labelComboName->setText(_xsltElement->nameAttributeName);
@@ -214,6 +226,13 @@ void XsltElementDialog::fillAttributes()
             Attribute *attribute = new Attribute();
             attribute->name = _xsltElement->valueAttributeName;
             attribute->value = ui->selectAttr->text();
+            resList.append(attribute);
+        }
+        if(_isTemplate) {
+            QString mode = ui->modeAttr->text().trimmed();
+            Attribute *attribute = new Attribute();
+            attribute->name = "mode";
+            attribute->value = ui->modeAttr->text().trimmed();
             resList.append(attribute);
         }
         cas->setAttributes(resList);

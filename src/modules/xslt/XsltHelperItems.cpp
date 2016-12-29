@@ -55,10 +55,12 @@ QHash<QString, Element*> XsltHelper::topLevelNamesRef(const QString &nameToSearc
     QHash<QString, Element*> result ;
     Element *root = _owner->getRegola()->root();
     QString tagTemplate = xsltQName(nameToSearch);
-    foreach(Element * child, *root->getChildItems()) {
-        if(child->isElement() && (child->tag() == tagTemplate)) {
-            QString name = getXslName(child);
-            result.insertMulti(name, child);
+    if( NULL != root ) {
+        foreach(Element * child, *root->getChildItems()) {
+            if(child->isElement() && (child->tag() == tagTemplate)) {
+                QString name = getXslName(child);
+                result.insertMulti(name, child);
+            }
         }
     }
     return result ;

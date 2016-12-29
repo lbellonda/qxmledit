@@ -60,6 +60,7 @@ class XsltElementDialog : public QDialog
 protected:
     bool _endedWithOk;
     bool _isStarted;
+    bool _isTemplate;
 
     XsltElement *_xsltElement;
     Element *_element;

@@ -32,6 +32,7 @@
 class LIBQXMLEDITSHARED_EXPORT CopyAttributesSession
 {
     QList<Attribute*> _attributes;
+    // TODO: think about a list of attributes to remove
     QString _name;
 public:
     CopyAttributesSession();
