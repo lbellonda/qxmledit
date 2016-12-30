@@ -3571,3 +3571,8 @@ void MainWindow::onMessagesTabCloseRequested(int)
 {
     ui.messagePanel->setVisible(false);
 }
+
+SourceRelatedMessages *MainWindow::sourceRelatedMessages()
+{
+    return _scxmlValidationErrors;
+}

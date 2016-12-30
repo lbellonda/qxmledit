@@ -150,6 +150,7 @@ public:
     void updateAfterPreferences();
     void setupFirstAccess();
     void taskChooseDetail();
+    SourceRelatedMessages *sourceRelatedMessages();
 
 protected:
     //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.

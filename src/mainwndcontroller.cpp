@@ -371,6 +371,7 @@ bool MainWndController::checkSCXML()
         delete dataStream ;
         return false;
     }
+    Utils::error(_w, QString(dataStream->buffer()));
     Utils::TODO_THIS_RELEASE("si pianta nel display errori");
     bool returnValue = false;
     if(testMachine->parseErrors().isEmpty()) {
@@ -380,10 +381,11 @@ bool MainWndController::checkSCXML()
         QString msg;
         QList<SourceMessage*> errors;
         int index = 1;
+        bool visible = true ;
         foreach(const QScxmlError &error, testMachine->parseErrors()) {
             if(index > 3) {
                 msg += "More errors exist...\n";
-                break;
+                visible = false;
             }
             SourceMessage *sourceError = new SourceMessage();
             sourceError->setColumn(error.column());
@@ -393,11 +395,15 @@ bool MainWndController::checkSCXML()
             sourceError->setSource("SCXML");
             errors.append(sourceError);
             Utils::TODO_THIS_RELEASE("fare elenco e tornare lista errori");
-            msg += QString("%1 - %2\n").arg(index).arg(error.description());
+            if(visible) {
+                msg += QString("%1 - %2\n").arg(index).arg(error.description());
+            }
             index ++;
         }
         Utils::TODO_THIS_RELEASE("fare elenco e messaggi");
         Utils::error(_w, tr("Invalid SCXML, errors:\n%1").arg(msg));
+        dataStream->close();
+        dataStream->open(QBuffer::ReadOnly);
         sourceDecode(dataStream, errors, _w->getRegola());
 
         _w->_scxmlValidationErrors->setMessages(errors);
