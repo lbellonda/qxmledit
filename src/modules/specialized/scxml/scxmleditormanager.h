@@ -40,6 +40,8 @@ public:
     SCXMLEditorManager();
     virtual ~SCXMLEditorManager();
 
+    bool isElementSCXML(Element *element);
+
     virtual bool handleEdit(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element);
     virtual HandlerForInsert *handlerForInsert(XmlEditWidget *editor, Regola *regola, Element *element, const bool isChild) ;
     virtual bool handleInsert(XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString &itemCode) ;

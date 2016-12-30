@@ -75,6 +75,7 @@
 #include "undo/namespaceavoidclashcommand.h"
 #include "modules/xsd/namespacemanager.h"
 #include "modules/specialized/scxml/scxmlinfo.h"
+#include "modules/specialized/scxml/scxmleditormanager.h"
 
 void ShowTextInDialog(QWidget *parent, const QString &text);
 
@@ -92,6 +93,7 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
     _readOnly = false ;
     _copyPathAction = NULL ;
     _xsltAction = NULL ;
+    _SCXMLAction = NULL ;
     _editMode = XmlEditWidgetEditMode::XML;
     _appData = &_defaultData;
     _XSDAnnotationEditProvider = this ;
@@ -188,6 +190,11 @@ void XmlEditWidgetPrivate::setEditMode(const XmlEditWidgetEditMode::EditMode new
         if(NULL != _xsltAction) {
             _xsltAction->setChecked(true);
             _xsltAction->trigger();
+        }
+    } else if(XmlEditWidgetEditMode::SCXML == _editMode) {
+        if(NULL != _SCXMLAction) {
+            _SCXMLAction->setChecked(true);
+            _SCXMLAction->trigger();
         }
     }
     emit p->editModeChanged();
@@ -293,20 +300,8 @@ qxmledit::EDisplayMode XmlEditWidgetPrivate::displayMode()
 
 void XmlEditWidgetPrivate::setupSCXMLNavigator()
 {
-    Utils::TODO_THIS_RELEASE("fare invisibile allo start");
-    /*p->ui->toolBox->setVisible(true);
-    p->ui->toolBox->setItemText(0, "Sperimentale");
-    _SCXMLNavigator = new SCXMLNavigatorWidget(p->ui->toolBox->widget(0));
-    _SCXMLNavigator->setVisible(true);
-    _SCXMLNavigator->setEnabledInfo(true);
-    p->ui->toolBox->widget(0)->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    //p->ui->toolBox->widget(0)->layout()->addWidget(_SCXMLNavigator);*/
-    //p->ui->toolBox->setVisible(true);
-    //p->ui->toolBox->setItemText(0, "Sperimentale");
-    //CXMLNavigator = new SCXMLNavigatorWidget(p->ui->toolBox->widget(0));
     _SCXMLNavigator = new SCXMLNavigatorWidget(NULL);
     _SCXMLNavigator->setEnabledInfo(false);
-    //_SCXMLNavigator->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
     p->ui->verticalLayout->insertWidget(14, _SCXMLNavigator);
     _SCXMLNavigator->setVisible(false);
     _SCXMLNavigator->setObjectName("SCXMLNavigator");
@@ -536,6 +531,9 @@ VStyle* XmlEditWidgetPrivate::loadStyleMenu()
         }
         if(style->name() == "XSLT") {
             _xsltAction = xsltAction ;
+        }
+        if(style->name() == "SCXML") {
+            _SCXMLAction = xsltAction ;
         }
     }
 
@@ -2528,20 +2526,47 @@ void XmlEditWidgetPrivate::showXSLNavigator(const bool how)
     _XSLTNavigator->setVisible(how);
 }
 
-void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const bool useAlternate)
+void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const bool useAlternate, const bool forceEditUsingSpecialized)
 {
     Utils::TODO_THIS_RELEASE("attenzione ai modi di edit");
     if(isActionMode() && (NULL != item)) {
         //specialized mode
-        if((editMode() == XmlEditWidgetEditMode::XSLT) && _xsltHelper.isXSLTElement(Element::fromItemData(item))) {
-            if(useAlternate) {
-                editElement(item);
-            } else {
+        Element *element = Element::fromItemData(item);
+        const bool isXSLT = (editMode() == XmlEditWidgetEditMode::XSLT) ;
+        const bool isXSLTElement = _xsltHelper.isXSLTElement(element);
+        const bool isSCXML = (editMode() == XmlEditWidgetEditMode::SCXML);
+        SCXMLEditorManager *theSCXMLEditorManager = NULL ;
+        bool isSCXMLElement = false;
+        NamespaceManager *namespaceManager = getRegola()->namespaceManager();
+        if(NULL != namespaceManager) {
+            theSCXMLEditorManager = namespaceManager->scxmlEditorManager() ;
+            isSCXMLElement = theSCXMLEditorManager->isElementSCXML(element);
+        }
+        if(forceEditUsingSpecialized) {
+            if(isXSLTElement) {
                 editXSLTElement(item);
+                return ;
+            }
+            if(isSCXMLElement) {
+                theSCXMLEditorManager->handleEdit(p->window(), p, getEditor(), getRegola(), element);
+                return ;
+            }
+        }
+        if(!useAlternate) {
+            //common mode
+            if(isXSLT && isXSLTElement) {
+                editXSLTElement(item);
+            } else if(isSCXML && isSCXMLElement) {
+                theSCXMLEditorManager->handleEdit(p->window(), p, getEditor(), getRegola(), element);
+            } else {
+                editElement(item);
             }
         } else {
-            //common mode
-            if(useAlternate) {
+            //alternate
+            if(isXSLT || isSCXML) {
+                // always
+                editElement(item);
+            } else {
                 NamespaceManager *namespaceManager = _appData->namespaceManager();
                 if(NULL != namespaceManager) {
                     Element *element = Element::fromItemData(item);
@@ -2549,8 +2574,6 @@ void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const 
                         return ;
                     }
                 }
-                editElement(item);
-            } else {
                 editElement(item);
             }
         }
@@ -3497,7 +3520,7 @@ void XmlEditWidgetPrivate::onSCXMLNavigatorEditState(const QString & /*stateName
         if(getRegola()->findElement(element)) {
             selectAndShowItem(element);
             // now, edit it
-            specificPropertiesItem(element->getUI(), true);
+            specificPropertiesItem(element->getUI(), true, true);
         }
     }
 }
@@ -3517,7 +3540,7 @@ void XmlEditWidgetPrivate::onXSLTNavigatorEdit(Element *element)
         if(getRegola()->findElement(element)) {
             selectAndShowItem(element);
             // now, edit it
-            specificPropertiesItem(element->getUI(), true);
+            specificPropertiesItem(element->getUI(), true, true);
         }
     }
 }

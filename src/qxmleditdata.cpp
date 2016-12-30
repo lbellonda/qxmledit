@@ -42,7 +42,8 @@
 
 const QString QXmlEditData::XsltStyleName = "XSLT";
 const QString QXmlEditData::XsltStyleDescription = tr("Xslt predefined style");
-
+const QString QXmlEditData::SCXMLStyleName = "SCXML";
+const QString QXmlEditData::SCXMLStyleDescription = tr("SCXML predefined style");
 
 QXmlEditData::QXmlEditData()
 {
@@ -58,6 +59,7 @@ QXmlEditData::QXmlEditData()
     _clipBoardItem = NULL ;
     _defaultStyle = NULL;
     _xsltStyle = NULL ;
+    _SCXMLStyle = NULL ;
     _styleVersion = 0 ;
     _experimentalFeaturesEnabled = false;
     internalInit();
@@ -176,10 +178,15 @@ void QXmlEditData::internalInit()
     _searchManager = new SearchManager();
     _namespaceManager = new NamespaceManager();
     _xsdManager = new XSDManager();
+    //--
     _xsltStyle = new VStyle(XsltStyleName, XsltStyleDescription);
     _xsltStyle->setResFileName(":/xslt/xsltStyle");
     _predefinedStyles.append(_xsltStyle);
-    Utils::TODO_THIS_RELEASE("fare stile anche per scxml");
+    //--
+    _SCXMLStyle = new VStyle(SCXMLStyleName, SCXMLStyleDescription);
+    _SCXMLStyle->setResFileName(":/SCXML/scxmlStyle");
+    _predefinedStyles.append(_SCXMLStyle);
+    //--
     _colorManager->readCfg();
     _experimentalFeaturesEnabled = Config::getBool(Config::KEY_MAIN_ENABLEEXPERIMENTS, false);
     connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(onClipboardDataChanged()));

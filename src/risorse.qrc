@@ -250,5 +250,6 @@
     </qresource>
     <qresource prefix="/SCXML">
         <file alias="scxmltokens.xml">resources/SCXML/scxmltokens.xml</file>
+        <file alias="scxmlStyle">resources/SCXML/SCXMLStyle.xml</file>
     </qresource>
 </RCC>

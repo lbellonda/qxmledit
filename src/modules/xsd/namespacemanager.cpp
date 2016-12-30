@@ -27,6 +27,7 @@
 #include "modules/specialized/specificpropertiesdialog.h"
 #include "modules/xslt/xsleditormanager.h"
 #include "undo/elinsertcommand.h"
+#include "xmleditwidget.h"
 
 #include "utils.h"
 
@@ -256,6 +257,8 @@ bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTr
     //if((NULL != element) && element->isElement()) {
     /*QXName qname ;
     element->qName(&qname);*/
+    const bool isSXLT = editor->editMode() == XmlEditWidgetEditMode::XSLT ;
+    const bool isSCXML = editor->editMode() == XmlEditWidgetEditMode::SCXML ;
     QList<HandlerForInsert*> handlers ;
     foreach(NamespaceHandlerForEdit *handler, _editHandlers.values()) {
         HandlerForInsert* hfi = handler->handlerForInsert(editor, regola, element, isChildOrSibling) ;
@@ -268,6 +271,13 @@ bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTr
         }
     }
     Utils::TODO_THIS_RELEASE("se in modo speciale, riordinare");
+    if(isSCXML) {
+        sortListGivingPrecedenceTo(NamespaceManager::SCXMLNamespace, handlers);
+    }
+    if(isSXLT) {
+        sortListGivingPrecedenceTo(NamespaceManager::XSL1Namespace, handlers);
+        Utils::TODO_THIS_RELEASE("sortListGivingPrecedenceTo(NamespaceManager::XSL2Namespace, handlers);");
+    }
     HandlerForInsert * handler = _insertEditorProvider->handleInsertElementForSpecialized(parent, &handlers);
     if(NULL != handler) {
         result = handler->handler->handleInsert(editor, tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
@@ -275,6 +285,21 @@ bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTr
     EMPTYPTRLIST(handlers, HandlerForInsert);
     //}
     return result;
+}
+
+void NamespaceManager::sortListGivingPrecedenceTo(const QString &ns, QList<HandlerForInsert*> &handlers)
+{
+    HandlerForInsert *thisHandler = NULL ;
+    foreach(HandlerForInsert *handler, handlers) {
+        if(ns == handler->nameSpace) {
+            thisHandler = handler ;
+            handlers.removeOne(handler);
+            break;
+        }
+    }
+    if(NULL != thisHandler) {
+        handlers.insert(0, thisHandler);
+    }
 }
 
 HandlerForInsert *NamespaceManager::handleInsertElementForSpecialized(QWidget *parent, QList<HandlerForInsert*> *handlers)
@@ -286,7 +311,6 @@ HandlerForInsert *NamespaceManager::handleInsertElementForSpecialized(QWidget *p
     }
     return NULL ;
 }
-
 
 void NamespaceManager::setProviderForInsert(NamespaceEditorInsertChoiceProvider *newProvider)
 {

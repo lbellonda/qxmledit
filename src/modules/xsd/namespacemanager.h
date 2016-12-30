@@ -125,6 +125,7 @@ public:
 
     bool editElement(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element);
     bool insertElement(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling);
+    void sortListGivingPrecedenceTo(const QString &ns, QList<HandlerForInsert*> &handlers);
     void init();
 
     HandlerForInsert *handleInsertElementForSpecialized(QWidget *parent, QList<HandlerForInsert*> *handlers);

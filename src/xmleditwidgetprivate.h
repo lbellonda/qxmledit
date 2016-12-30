@@ -78,6 +78,7 @@ class XmlEditWidgetPrivate : public QObject, XSDAnnotationEditProvider
     XmlWidgetUtilities _helper;
     XsltHelper _xsltHelper;
     QAction *_xsltAction;
+    QAction *_SCXMLAction;
     QAction *_copyPathAction;
     bool _readOnly;
     XSDAnnotationEditProvider *_XSDAnnotationEditProvider ;
@@ -312,7 +313,7 @@ public:
     void scanXMLTagsAndNamesXSLTAutocompletion();
     void showXSLNavigator(const bool how);
 
-    void specificPropertiesItem(QTreeWidgetItem * item, const bool useSpecific);
+    void specificPropertiesItem(QTreeWidgetItem * item, const bool useSpecific, const bool forceEditUsingSpecialized = false);
     void specificProperties();
     void pasteAsSibling();
     void removeAllElements();

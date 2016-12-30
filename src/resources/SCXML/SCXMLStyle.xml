@@ -1,0 +1,39 @@
+<style name="SCXML" description="SCXML mode" namespace="http://www.w3.org/1999/XSL/Transform">
+    <!--this is a QXmlEdit style file-->
+    <keywords>
+        <keyword keyword="scxml" idStyle="1"/>
+        <keyword keyword="state" idStyle="1"/>
+        <keyword keyword="parallel" idStyle="1"/>
+        <keyword keyword="transition" idStyle="1"/>
+        <keyword keyword="initial" idStyle="1"/>
+        <keyword keyword="final" idStyle="1"/>
+        <keyword keyword="onentry" idStyle="1"/>
+        <keyword keyword="onexit" idStyle="1"/>
+        <keyword keyword="history" idStyle="1"/>
+        <keyword keyword="raise" idStyle="1"/>
+        <keyword keyword="if" idStyle="1"/>
+        <keyword keyword="elseif" idStyle="1"/>
+        <keyword keyword="else" idStyle="1"/>
+        <keyword keyword="foreach" idStyle="1"/>
+        <keyword keyword="log" idStyle="1"/>
+        <keyword keyword="datamodel" idStyle="1"/>
+        <keyword keyword="data" idStyle="1"/>
+        <keyword keyword="assign" idStyle="1"/>
+        <keyword keyword="donedata" idStyle="1"/>
+        <keyword keyword="content" idStyle="1"/>
+        <keyword keyword="param" idStyle="1"/>
+        <keyword keyword="script" idStyle="1"/>
+        <keyword keyword="cancel" idStyle="1"/>
+        <keyword keyword="finalize" idStyle="1"/>
+        <keyword keyword="send" idStyle="1"/>
+        <keyword keyword="invoke" idStyle="1"/>
+    </keywords>
+    <styles>
+        <style id="1" bold="true" />
+    </styles>
+    <ids>
+        <id id="id" alpha="true"/>
+        <id id="idLocation" alpha="true"/>
+        <id id="name" alpha="true"/>
+    </ids>
+</style>

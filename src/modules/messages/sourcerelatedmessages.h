@@ -55,6 +55,7 @@ private:
 private slots:
     void on_messages_itemDoubleClicked(QListWidgetItem *item);
     void on_go_clicked();
+    void on_messages_itemSelectionChanged();
 };
 
 #endif // SOURCERELATEDMESSAGES_H

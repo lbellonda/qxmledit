@@ -149,3 +149,14 @@ void SCXMLEditorManager::init()
     Utils::TODO_THIS_RELEASE("fare, poi elimina sotto");
 }
 
+bool SCXMLEditorManager::isElementSCXML(Element *element)
+{
+    init();
+    QXName qName ;
+    element->qName(&qName);
+    SCXMLToken *token = _tokenMakager.tokenForName(qName.name);
+    if(NULL == token) {
+        return false;
+    }
+    return true;
+}

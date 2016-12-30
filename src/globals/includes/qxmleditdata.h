@@ -78,11 +78,14 @@ protected:
     //--- region(styles)
     static const QString XsltStyleName;
     static const QString XsltStyleDescription;
+    static const QString SCXMLStyleName;
+    static const QString SCXMLStyleDescription;
 
     QVector<VStyle*>  _styles;
     QVector<VStyle*>  _predefinedStyles;
     VStyle*  _defaultStyle;
     VStyle*  _xsltStyle;
+    VStyle*  _SCXMLStyle;
     ColorManager *_colorManager;
     //--- endregion(styles)
 

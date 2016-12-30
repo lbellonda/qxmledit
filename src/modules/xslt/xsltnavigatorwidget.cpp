@@ -104,6 +104,7 @@ void XSLTNavigatorWidget::loadChildrenItems(const bool isTemplate, QTreeWidgetIt
                 }
             }
             item->setText(0, name);
+            item->setToolTip(0, name);
             item->setFlags((item->flags() & ~(Qt::ItemIsEditable | Qt::ItemIsUserCheckable)) | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
             item->setData(0, Qt::UserRole, qVariantFromValue((void*)element));
             topItem->addChild(item);
