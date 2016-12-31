@@ -38,7 +38,6 @@ SCXMLInvokeDialog::SCXMLInvokeDialog(QWidget *parent, SCXMLInfo *info, Regola *r
     d(&p._d),
     ui(new Ui::SCXMLInvokeDialog)
 {
-    Utils::TODO_THIS_RELEASE("icona");
     ui->setupUi(this);
     setupCommon();
     if(p._isInsertOrEdit) {
@@ -68,7 +67,6 @@ void SCXMLInvokeDialog::setupInsert()
 
 void SCXMLInvokeDialog::setupEdit()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     ui->type->setEditText(d->attributeString(SCXMLinvokeToken::A_type));
     ui->typeexpr->setText(d->attributeString(SCXMLinvokeToken::A_typeexpr));
     ui->src->setText(d->attributeString(SCXMLinvokeToken::A_src));
@@ -82,7 +80,6 @@ void SCXMLInvokeDialog::setupEdit()
 
 void SCXMLInvokeDialog::accept()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     READ_FROM_COMBO(type);
     READ_FROM_TEXT(typeexpr);
     READ_FROM_TEXT(src);

@@ -234,12 +234,12 @@ void todo()
     Utils::error("This development version is still partly untested.");
 
     Utils::TODO_THIS_RELEASE("***1 edit mode scxml");
-    Utils::TODO_THIS_RELEASE("2 lista errori scxml");
+    Utils::TODO_THIS_RELEASE("***2 lista errori scxml");
     Utils::TODO_THIS_RELEASE("3 navigatore scxml con cambio stato");
     Utils::TODO_THIS_RELEASE("4 sincronizza errori scxml con sorgente");
     Utils::TODO_THIS_RELEASE("5 sincronizza stato con editor scxml");
     Utils::TODO_THIS_RELEASE("6 menu edit special non fa nulla");
-    Utils::TODO_THIS_RELEASE("7 si pianta nel display errori SCXML");
+    Utils::TODO_THIS_RELEASE("***7 si pianta nel display errori SCXML");
     Utils::TODO_THIS_RELEASE("8 dopo inserito con il menu special, selezionare il nuovo elemento?");
     Utils::TODO_THIS_RELEASE("***9 menu special");
     Utils::TODO_THIS_RELEASE("***10 edit mode scxml");
@@ -262,9 +262,13 @@ void todo()
     Utils::TODO_THIS_RELEASE("27 problemi ad inserire un top level in xslt, template o funzione?");
     Utils::TODO_THIS_RELEASE("28 accettare xslt 2.0 oltre all'1");
     Utils::TODO_THIS_RELEASE("29 aggiorna manuale");
-    Utils::TODO_THIS_RELEASE("30 source errors panel non comunica con eventi");
-    Utils::TODO_THIS_RELEASE("31 source errors panel messaggio more errors exist con 3 ma non e' vero, sono solo 3");
-    Utils::TODO_THIS_RELEASE("32 elimina vecchio pannello errori scxml");
+    Utils::TODO_THIS_RELEASE("*****30 source errors panel non comunica con eventi");
+    Utils::TODO_THIS_RELEASE("****31 source errors panel messaggio more errors exist con 3 ma non e' vero, sono solo 3");
+    Utils::TODO_THIS_RELEASE("*****32 elimina vecchio pannello errori scxml");
+    Utils::TODO_THIS_RELEASE("33 quando menu modo edit resta check solo su scxml");
+    Utils::TODO_THIS_RELEASE("34 ctrl doubleclick su mac non va");
+    Utils::TODO_THIS_RELEASE("35 xslt mi permette di inserire una function come root del file");
+    Utils::TODO_THIS_RELEASE("36 xslt function ccon select al posto di name");
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif

@@ -2514,7 +2514,6 @@ void XmlEditWidgetPrivate::scanXMLTagsAndNamesXSLTAutocompletion()
 
 void XmlEditWidgetPrivate::showXSLNavigator(const bool how)
 {
-    Utils::TODO_THIS_RELEASE("dismettere");
     bool shouldApplyNewInfo = false ;
     if(how && !_XSLTNavigator->isEnabledInfo()) {
         shouldApplyNewInfo = true ;
@@ -2528,7 +2527,6 @@ void XmlEditWidgetPrivate::showXSLNavigator(const bool how)
 
 void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const bool useAlternate, const bool forceEditUsingSpecialized)
 {
-    Utils::TODO_THIS_RELEASE("attenzione ai modi di edit");
     if(isActionMode() && (NULL != item)) {
         //specialized mode
         Element *element = Element::fromItemData(item);
@@ -3527,7 +3525,6 @@ void XmlEditWidgetPrivate::onSCXMLNavigatorEditState(const QString & /*stateName
 
 void XmlEditWidgetPrivate::onXSLTNavigatorGoTo(Element *element)
 {
-    Utils::TODO_THIS_RELEASE("attenzione, perche' non rielaborare?");
     if(getRegola()->findElement(element)) {
         selectAndShowItem(element);
     }
@@ -3535,7 +3532,6 @@ void XmlEditWidgetPrivate::onXSLTNavigatorGoTo(Element *element)
 
 void XmlEditWidgetPrivate::onXSLTNavigatorEdit(Element *element)
 {
-    Utils::TODO_THIS_RELEASE("attenzione, perche' non rielaborare?");
     if(isActionMode() && (NULL != getRegola()) && (NULL != element)) {
         if(getRegola()->findElement(element)) {
             selectAndShowItem(element);

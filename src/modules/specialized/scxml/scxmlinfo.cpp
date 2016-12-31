@@ -110,15 +110,11 @@ void SCXMLInfo::addChild(SCXMLState *child)
 
 QStringList SCXMLInfo::allStates()
 {
-    Utils::TODO_THIS_RELEASE("fare SCXMLInfo::allStates");
     QStringList result ;
     foreach(SCXMLState *state, _children) {
         state->allStates(result);
     }
     return result;
-    /*QStringList x;
-    x << "a" << "b" << "c" ;
-    return x ;*/
 }
 
 //---------------------------------------------------------------

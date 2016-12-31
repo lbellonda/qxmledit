@@ -30,8 +30,6 @@ SourceRelatedMessages::SourceRelatedMessages(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->go->setEnabled(false);
-    Utils::TODO_THIS_RELEASE("portare da sourcenavigator");
-    Utils::TODO_THIS_RELEASE("abilitare go");
 }
 
 SourceRelatedMessages::~SourceRelatedMessages()

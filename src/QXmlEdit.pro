@@ -291,7 +291,6 @@ HEADERS = precompiled_app.h \
     modules/messages/sourceerror.h \
     sourcemessagemanager.h \
     modules/utils/simpletree.h \
-    modules/messages/sourcenavigatordialog.h \
     modules/messages/sourcerelatedmessages.h
 
 SOURCES = \

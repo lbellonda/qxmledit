@@ -40,7 +40,6 @@ SCXMLSendDialog::SCXMLSendDialog(QWidget *parent, SCXMLInfo *info, Regola *regol
     d(&p._d),
     ui(new Ui::SCXMLSendDialog)
 {
-    Utils::TODO_THIS_RELEASE("icona");
     ui->setupUi(this);
     setupCommon();
     if(p._isInsertOrEdit) {
@@ -67,7 +66,6 @@ void SCXMLSendDialog::setupInsert()
 
 void SCXMLSendDialog::setupEdit()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     SET_TEXT(event);
     SET_TEXT(eventexpr);
     SET_TEXT(target);
@@ -83,7 +81,6 @@ void SCXMLSendDialog::setupEdit()
 
 void SCXMLSendDialog::accept()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     READ_FROM_TEXT(event);
     READ_FROM_TEXT(eventexpr);
     READ_FROM_TEXT(target);

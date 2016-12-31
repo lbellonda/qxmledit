@@ -37,68 +37,23 @@ XSLEditorManager::~XSLEditorManager()
 
 bool XSLEditorManager::handleEdit(QWidget * /*parent*/, XmlEditWidget *editor, QTreeWidget * /*tree*/, Regola * /*regola*/, Element *element)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     XsltHelper *xsltHelper = editor->XSLTHelper();
     if(xsltHelper->isXSLTElement(element)) {
         xsltHelper->editElement(element);
         return true;
     }
-    /*
-    init();
-    QXName qName ;
-    element->qName(&qName);
-    Utils::TODO_THIS_RELEASE("fare");
-    SCXMLToken *token = _tokenMakager.tokenForName(qName.name);
-    if(NULL == token) {
-        return false;
-    }
-    Element *newElement = new Element(NULL);
-    if(NULL != newElement) {
-        element->copyTo(*newElement, false);
-        Utils::TODO_THIS_RELEASE("fare info");
-        SCXMLInfo info;
-        SCXMLInfo::findInfoStates(regola, &info);
-        if(token->editToken(parent, &info, regola, false, false, newElement, element, element->parent())) {
-            if(regola->editElementWrapper(tree, newElement, element)) {
-                return true ;
-            } else {
-                Utils::error(parent, QObject::tr("Error applying the editing."));
-            }
-        }
-        delete newElement ;
-    }*/
     return false;
 }
 
 bool XSLEditorManager::handleInsert(XmlEditWidget *editor, QTreeWidget * /*tree*/, Regola * /*regola*/, Element *element, const bool isChild, const QString & itemCode)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     XsltHelper *xsltHelper = editor->XSLTHelper();
     xsltHelper->execOperation(itemCode, isChild, element);
-    /*init();
-    Element *newElement = new Element(NULL);
-    bool goAhead = false;
-    SCXMLToken *token = _tokenMakager.tokenForName(itemCode);
-    if(NULL == token) {
-        return false;
-    }
-    Element *theParent = (NULL != element) ? element->parent() : NULL ;
-    Utils::TODO_THIS_RELEASE("fare info");
-    SCXMLInfo info;
-    SCXMLInfo::findInfoStates(regola, &info);
-    if(token->editToken(tree->window(), &info, regola, true, isChild, newElement, element, theParent)) {
-        goAhead = true ;
-    }
-    if(goAhead) {
-        return insertAction(tree, regola, element, newElement, isChild);
-    }
-    delete newElement ;*/
-    return false ;
+    return true ;
 }
 
 HandlerForInsert *XSLEditorManager::handlerForInsert(XmlEditWidget *editor, Regola *regola, Element *element, const bool isChild)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     XsltHelper *xsltHelper = editor->XSLTHelper();
     HandlerForInsert *category;
     if(isChild) {
@@ -108,49 +63,4 @@ HandlerForInsert *XSLEditorManager::handlerForInsert(XmlEditWidget *editor, Rego
     }
     category->handler = this;
     return category ;
-    /*init();
-    Element *theParent = element ;
-    if(!isChild && (NULL != element)) {
-        theParent = element->parent();
-    }
-    QList<SCXMLTokenChild*> tokens ;
-    bool parentIsSCXML = false;
-    QList<NSContext*> contexts;
-    NSContext *lastContext = NULL;
-
-    if((NULL != theParent) && (NULL != element)) {
-        lastContext = Regola::buildContextInfo(contexts, theParent);
-        QXName qName ;
-        element->qName(&qName);
-        if(qName.ns == NamespaceManager::SCXMLNamespace) {
-            tokens = _tokenMakager.tokensForParentAsList(qName.name, theParent->getChildItems(), lastContext);
-            parentIsSCXML = true;
-        }
-    }
-    // as root?
-    if(!parentIsSCXML && (NULL == element)) {
-        QVector<Element*> emptyList;
-        tokens = _tokenMakager.tokensForParentAsList("", &emptyList, NULL);
-    }
-    EMPTYPTRLIST(contexts, NSContext);
-
-    const QString SCXML = QObject::tr("SCXML 1.1 state machine");
-
-    HandlerForInsert *category = new HandlerForInsert();
-    category->handler = this;
-    category->nameSpace = NamespaceManager::XIncludeNamespace ;
-    category->name = SCXML ;
-    QMap<QString, SCXMLTokenChild*> sortedNames ;
-    foreach(SCXMLTokenChild *tokenChild, tokens) {
-        sortedNames.insert(tokenChild->name(), tokenChild);
-    }
-    foreach(const QString &tokenKey, sortedNames.keys()) {
-        SCXMLTokenChild *tokenChild = sortedNames[tokenKey];
-        SingleHandlerForInsert *s = new SingleHandlerForInsert();
-        s->name = tokenChild->name();
-        s->id = tokenChild->name();
-        s->description = tokenChild->description();
-        category->elements.append(s);
-    }
-    return category ;*/
 }

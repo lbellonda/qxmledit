@@ -31,12 +31,9 @@ SCXMLNavigatorWidget::SCXMLNavigatorWidget(QWidget *parent) :
 {
     _info = NULL ;
     _isInfoEnabled = false;
-    Utils::TODO_THIS_RELEASE("todo");
-    Utils::TODO_THIS_RELEASE("fare sort alpha");
     ui->setupUi(this);
     ui->states->setHeaderLabel(tr("States"));
     _visIsFlat = false ;
-    //ui->states->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding);
 }
 
 SCXMLNavigatorWidget::~SCXMLNavigatorWidget()

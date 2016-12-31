@@ -252,11 +252,7 @@ bool NamespaceManager::editElement(QWidget *parent, XmlEditWidget *editor, QTree
 
 bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling)
 {
-    Utils::TODO_THIS_RELEASE("riunire, gestire root");
     bool result = false ;
-    //if((NULL != element) && element->isElement()) {
-    /*QXName qname ;
-    element->qName(&qname);*/
     const bool isSXLT = editor->editMode() == XmlEditWidgetEditMode::XSLT ;
     const bool isSCXML = editor->editMode() == XmlEditWidgetEditMode::SCXML ;
     QList<HandlerForInsert*> handlers ;
@@ -270,7 +266,6 @@ bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTr
             }
         }
     }
-    Utils::TODO_THIS_RELEASE("se in modo speciale, riordinare");
     if(isSCXML) {
         sortListGivingPrecedenceTo(NamespaceManager::SCXMLNamespace, handlers);
     }
@@ -283,7 +278,6 @@ bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTr
         result = handler->handler->handleInsert(editor, tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
     }
     EMPTYPTRLIST(handlers, HandlerForInsert);
-    //}
     return result;
 }
 

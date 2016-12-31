@@ -39,7 +39,6 @@ SCXMLHistoryDialog::SCXMLHistoryDialog(QWidget *parent, SCXMLInfo *info, Regola 
     d(&p._d),
     ui(new Ui::SCXMLHistoryDialog)
 {
-    Utils::TODO_THIS_RELEASE("controlla se funziona dopo rename");
     ui->setupUi(this);
     setupCommon();
     if(p._isInsertOrEdit) {

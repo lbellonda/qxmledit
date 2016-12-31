@@ -43,7 +43,6 @@ bool SCXMLEditorManager::handleEdit(QWidget *parent, XmlEditWidget *, QTreeWidge
     init();
     QXName qName ;
     element->qName(&qName);
-    Utils::TODO_THIS_RELEASE("fare");
     SCXMLToken *token = _tokenMakager.tokenForName(qName.name);
     if(NULL == token) {
         return false;
@@ -51,7 +50,6 @@ bool SCXMLEditorManager::handleEdit(QWidget *parent, XmlEditWidget *, QTreeWidge
     Element *newElement = new Element(NULL);
     if(NULL != newElement) {
         element->copyTo(*newElement, false);
-        Utils::TODO_THIS_RELEASE("fare info");
         SCXMLInfo info;
         SCXMLInfo::findInfoStates(regola, &info);
         if(token->editToken(parent, &info, regola, false, false, newElement, element, element->parent())) {
@@ -68,7 +66,6 @@ bool SCXMLEditorManager::handleEdit(QWidget *parent, XmlEditWidget *, QTreeWidge
 
 bool SCXMLEditorManager::handleInsert(XmlEditWidget *, QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString & itemCode)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     init();
     Element *newElement = new Element(NULL);
     bool goAhead = false;
@@ -77,7 +74,6 @@ bool SCXMLEditorManager::handleInsert(XmlEditWidget *, QTreeWidget *tree, Regola
         return false;
     }
     Element *theParent = (NULL != element) ? element->parent() : NULL ;
-    Utils::TODO_THIS_RELEASE("fare info");
     SCXMLInfo info;
     SCXMLInfo::findInfoStates(regola, &info);
     if(token->editToken(tree->window(), &info, regola, true, isChild, newElement, element, theParent)) {
@@ -146,7 +142,6 @@ void SCXMLEditorManager::init()
     }
     _inited = true;
     _tokenMakager.init();
-    Utils::TODO_THIS_RELEASE("fare, poi elimina sotto");
 }
 
 bool SCXMLEditorManager::isElementSCXML(Element *element)

@@ -48,7 +48,6 @@
 #include "modules/namespace/replaceprefixdialog.h"
 #include "modules/namespace/normalizenamespacedialog.h"
 #include "modules/messages/sourceerror.h"
-#include "modules/messages/sourcenavigatordialog.h"
 #include "sourcemessagemanager.h"
 #include "modules/messages/sourcerelatedmessages.h"
 #if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
@@ -379,11 +378,15 @@ bool MainWndController::checkSCXML()
         QString msg;
         QList<SourceMessage*> errors;
         int index = 1;
+        bool doneMsg = false;
         bool visible = true ;
         foreach(const QScxmlError &error, testMachine->parseErrors()) {
             if(index > 3) {
-                msg += "More errors exist...\n";
-                visible = false;
+                if(!doneMsg) {
+                    msg += "More errors exist...\n";
+                    visible = false;
+                    doneMsg = true;
+                }
             }
             SourceMessage *sourceError = new SourceMessage();
             sourceError->setColumn(error.column());

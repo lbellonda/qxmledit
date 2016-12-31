@@ -35,7 +35,6 @@ SCXMLIfDialog::SCXMLIfDialog(QWidget *parent, SCXMLInfo *info, Regola *regola, c
     d(&p._d),
     ui(new Ui::SCXMLIfDialog)
 {
-    Utils::TODO_THIS_RELEASE("icona");
     ui->setupUi(this);
     setupCommon();
     if(p._isInsertOrEdit) {

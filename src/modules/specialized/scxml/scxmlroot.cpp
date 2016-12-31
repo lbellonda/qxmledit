@@ -41,7 +41,6 @@ SCXMLRoot::SCXMLRoot(QWidget *parent, SCXMLInfo *info, Regola *regola, const boo
         setupInsert();
     }
     setupEdit();
-    Utils::TODO_THIS_RELEASE("valutare se dichiarare xincludens");
 }
 
 SCXMLRoot::~SCXMLRoot()
@@ -59,10 +58,12 @@ void SCXMLRoot::setupInsert()
 {
     d->setAttributeString(SCXMLscxmlToken::A_binding, "early");
     d->setAttributeString(SCXMLscxmlToken::A_datamodel, "null");
-    d->setAttributeString(SCXMLscxmlToken::A_name, tr("New Machine"));
+    d->setAttributeString(SCXMLscxmlToken::A_name, tr("NewMachine", "this should be a valid SCXML identifier"));
     d->setAttributeString(SCXMLscxmlToken::A_version, "1.0");
     d->setAttributeString(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
+    d->setAttributeString("xmlns:xi", NamespaceManager::XIncludeNamespace);
     d->assignTag(SCXMLToken::Tag_scxml, p._regola, p._parentElement);
+    Utils::TODO_THIS_RELEASE("testa il xi include");
 }
 
 void SCXMLRoot::setupEdit()
@@ -77,11 +78,6 @@ void SCXMLRoot::setupEdit()
 
 void SCXMLRoot::accept()
 {
-    Utils::TODO_THIS_RELEASE("fare validazioni");
-    Utils::TODO_THIS_RELEASE("controlla obbligatori");
-    Utils::TODO_THIS_RELEASE("set dati in elemento");
-    Utils::TODO_THIS_RELEASE("aggiungi attributi obbligatori");
-
     d->setAttributeString(SCXMLscxmlToken::A_binding, ui->binding->isChecked() ? "early" : "late");
     d->setAttributeStringIfExisting(SCXMLscxmlToken::A_datamodel, ui->datamodel->currentText());
     d->setAttributeStringIfExisting(SCXMLscxmlToken::A_name, ui->name->text());

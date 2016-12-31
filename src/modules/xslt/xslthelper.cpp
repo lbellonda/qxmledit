@@ -208,21 +208,24 @@ HandlerForInsert *XsltHelper::findElementsForInsert(Element *selectedElement, co
                 // insert(contesto padre)+append(alla selezione)
                 SingleHandlerForInsert *s = new SingleHandlerForInsert();
                 s->name = el->tagName();
-                s->id = QString("I%1").arg(el->tagName());
+                s->id = el->tagName();
                 s->description = "";
                 category->elements.append(s);
             }
         }
     }
-    foreach(XsltElement * el, _elementsByTag.values()) {
-        if((NULL != el) && el->use) {
-            if(el->isInsertAtTop()) {
-                // insert(contesto padre)+append(alla selezione)
-                SingleHandlerForInsert *s = new SingleHandlerForInsert();
-                s->name = el->tagName();
-                s->id = QString("I%1").arg(el->tagName());
-                s->description = "";
-                category->elements.append(s);
+    if((NULL != selectedElement) && (NULL == selectedElement->parent())) {
+        foreach(XsltElement * el, _elementsByTag.values()) {
+            //sse il selected e' root.
+            if((NULL != el) && el->use) {
+                if(el->isInsertAtTop()) {
+                    // insert(contesto padre)+append(alla selezione)
+                    SingleHandlerForInsert *s = new SingleHandlerForInsert();
+                    s->name = el->tagName();
+                    s->id = el->tagName();
+                    s->description = "";
+                    category->elements.append(s);
+                }
             }
         }
     }
@@ -254,7 +257,23 @@ HandlerForInsert *XsltHelper::findElementsForAppend(Element *selectedElement, co
                     // insert(contesto padre)+append(alla selezione)
                     SingleHandlerForInsert *s = new SingleHandlerForInsert();
                     s->name = el->tagName();
-                    s->id = QString("A%1").arg(el->tagName());
+                    s->id = el->tagName();
+                    s->description = "";
+                    category->elements.append(s);
+                }
+            }
+        }
+    }
+    // Append a fratello se figlio di radice.
+    if((NULL != selectedElement) && (NULL != selectedElement->parent()) && (NULL == selectedElement->parent()->parent())) {
+        foreach(XsltElement * el, _elementsByTag.values()) {
+            //sse il selected e' root.
+            if((NULL != el) && el->use) {
+                if(el->isInsertAtTop()) {
+                    // insert(contesto padre)+append(alla selezione)
+                    SingleHandlerForInsert *s = new SingleHandlerForInsert();
+                    s->name = el->tagName();
+                    s->id = el->tagName();
                     s->description = "";
                     category->elements.append(s);
                 }

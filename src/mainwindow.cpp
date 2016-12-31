@@ -263,7 +263,6 @@ bool MainWindow::finishSetUpUi()
         Utils::error(this, tr("The XML Editor component is not correct (%1)").arg(ui.editor->versionNumber()));
         return false;
     }
-    Utils::TODO_THIS_RELEASE("controlla visbile tab");
     ui.messagePanel->setVisible(false);
     _scxmlValidationErrors = new SourceRelatedMessages(NULL);
     ui.messagePanel->widget(0)->layout()->addWidget(_scxmlValidationErrors);
@@ -2768,12 +2767,14 @@ void MainWindow::on_actionAutoComplete_triggered()
 
 void MainWindow::updateEditMode()
 {
+    bool isXMLMode = true;
     {
         bool xsltMode = false;
         if(ui.editor->editMode() == XmlEditWidgetEditMode::XSLT) {
             xsltMode = true ;
+            isXMLMode = false;
         }
-        ui.actionXMLEditMode->setChecked(!xsltMode);
+        ui.actionXSLTEditMode->setChecked(xsltMode);
         ui.actionScanXMLTagsAndNamesXSLTAutocompletion->setEnabled(xsltMode);
         ui.actionShowXSLNavigator->setChecked(xsltMode);
         on_actionShowXSLNavigator_triggered();
@@ -2782,19 +2783,19 @@ void MainWindow::updateEditMode()
         bool scxmlMode = false;
         if(ui.editor->editMode() == XmlEditWidgetEditMode::SCXML) {
             scxmlMode = true ;
+            isXMLMode = false;
         }
-        ui.actionSCXMLEditMode->setChecked(!scxmlMode);
+        ui.actionSCXMLEditMode->setChecked(scxmlMode);
         ui.actionShowSCXMLNavigator->setChecked(scxmlMode);
         on_actionShowSCXMLNavigator_triggered();
     }
+    ui.actionXMLEditMode->setChecked(isXMLMode);
 }
-
 
 void MainWindow::on_actionXMLEditMode_triggered()
 {
     ui.editor->setEditMode(XmlEditWidgetEditMode::XML);
 }
-
 
 void MainWindow::on_actionXSLTEditMode_triggered()
 {
@@ -3547,19 +3548,16 @@ void MainWindow::on_actionAppendSpecial_triggered()
 
 void MainWindow::on_actionShowSCXMLNavigator_triggered()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     getEditor()->showSCXMLNavigator(ui.actionShowSCXMLNavigator->isChecked());
 }
 
 void MainWindow::on_actionValidateSCXML_triggered()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     _controller.checkSCXML();
 }
 
 void MainWindow::onSourceNavigateTo(QList<int> path)
 {
-    Utils::TODO_THIS_RELEASE("ricevere");
     if(NULL != getRegola()) {
         Element *selection = getRegola()->findElementByArray(path);
         getEditor()->selectAndShowItem(selection);
