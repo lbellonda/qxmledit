@@ -46,6 +46,8 @@
 #include "modules/specialized/scxml/dialogs/scxmlcontentdialog.h"
 #include "modules/messages/sourceerror.h"
 #include "sourcemessagemanager.h"
+#include "modules/messages/sourcerelatedmessages.h"
+#include <QListWidget>
 #if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
 #include <QScxmlStateMachine>
 #include <QScxmlError>
@@ -833,6 +835,7 @@ static SourceMessage *newMsg(const int line, const int column, const QString &te
 bool TestSCXML::testLoadMessages()
 {
     _testName = "testLoadMessages" ;
+    bool freeMessages = true;
     App app;
     if(!app.init() ) {
         return error("init app failed");
@@ -883,8 +886,38 @@ bool TestSCXML::testLoadMessages()
             return false;
         }
     }
-    EMPTYPTRLIST(errors, SourceMessage);
-    return true ;
+    SourceRelatedMessages *panel = app.mainWindow()->sourceRelatedMessages();
+    if( NULL == panel ) {
+        error("Unable to find messages panel");
+    } else {
+        panel->setMessages(errors);
+        freeMessages = false ;
+        QListWidget *list = panel->findChild<QListWidget*>("messages");
+        if( NULL == list ) {
+            error("Unable to find messages list");
+        } else {
+            list->setCurrentRow(2, QItemSelectionModel::Select);
+            QPushButton *button = panel->findChild<QPushButton*>("go");
+            if( NULL == button ) {
+                error("Unable to find button");
+            } else {
+                button->click();
+                Element *selection = app.mainWindow()->getEditor()->getSelectedItem();
+                if(NULL == selection) {
+                    error("NULL selection after jump.");
+                } else {
+                    SourceMessage *m1 = errors.at(2);
+                    QList<int> pos = selection->indexPath();
+                    QList<int> path = m1->path() ;
+                    compareListInts("final compare", pos, path);
+                }
+            }
+        }
+    }
+    if(freeMessages) {
+        EMPTYPTRLIST(errors, SourceMessage);
+    }
+    return !isError() ;
 }
 
 //---------------------------------------------------------

@@ -5,9 +5,12 @@ Check issues:
 TODO:
 ----
 
-#new is:130.
+#new is:134.
 
-130 - Edit Extended
+>>133 - Copy file in clipboard options for error dialog.
+132 - New shortcut for appending siblings.
+131 - Gli attributi sono mostrati attaccati se non compact mode.
+130 - Edit Extended.
 129 - Editing XSD into viewer.
 128 - Content assist XSD with annotations as help.
 127 - Drag into other programs.
@@ -19,17 +22,15 @@ TODO:
 121 - Edit text field with shortcut.
 120 - Quick copy/paste attributes.
 119 - Edit elements in textual mode.
-118 - Load files with errors
+>>118 - Load files with errors
 117 - Show load errors in a panel
-116 - sistemare format source per astyle > 2.1
+>>116 - sistemare format source per astyle > 2.1
 115 - Show the first occurrence in select - all
 
 
 114 - Elenco prefissi utilizzati
 113 - Lista ns con prefisso (click seleziona nell'albero)
 112 - Albero con dipendenza (doppio click vai a elemento, click seleziona nella lista)
-
-111 - con grossi file aprendo edit xml inner cancel non funziona piu, verificare
 
 109 - caricamento file dati nella finestra: asincrono
 

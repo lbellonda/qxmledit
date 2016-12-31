@@ -28,6 +28,7 @@ SourceNavigatorDialog::SourceNavigatorDialog(QWidget *parent, QList<SourceMessag
     QDialog(parent),
     ui(new Ui::SourceNavigatorDialog)
 {
+    Utils::TODO_THIS_RELEASE("togliere");
     _messages = messages ;
     ui->setupUi(this);
     loadData();

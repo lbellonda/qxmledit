@@ -34,7 +34,6 @@ SourceMessageManager::~SourceMessageManager()
 
 bool SourceMessageManager::bindToSource(QIODevice *ioDevice, QList<SourceMessage*> &errors, Regola *regola)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     QXmlStreamReader reader(ioDevice);
     return bindToSource(&reader, errors, regola);
 }
@@ -115,7 +114,6 @@ bool SourceMessageManager::bindToSource(QXmlStreamReader *xmlReader, QList<Sourc
 
 QList<int> SourceMessageManager::findPath(SimpleTreeItem *current, Regola* regola)
 {
-    Utils::TODO_THIS_RELEASE("test");
     QList<int> path;
     SimpleTreeItem *elm = current ;
     SimpleTreeItem *parent = elm->parent();

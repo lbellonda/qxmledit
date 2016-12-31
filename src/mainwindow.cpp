@@ -269,7 +269,6 @@ bool MainWindow::finishSetUpUi()
     ui.messagePanel->widget(0)->layout()->addWidget(_scxmlValidationErrors);
     connect(_scxmlValidationErrors, SIGNAL(navigateTo(QList<int>)), this, SLOT(onSourceNavigateTo(QList<int>)));
     connect(ui.messagePanel, SIGNAL(tabCloseRequested(int)), this, SLOT(onMessagesTabCloseRequested(int)));
-    Utils::TODO_THIS_RELEASE("fare anche widget per chiudere nell'angolo");
     // setup function keys modifier for macos
 #if defined(ENVIRONMENT_MACOS)
     ui.actionGo_To_Parent->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F11));

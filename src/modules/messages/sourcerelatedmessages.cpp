@@ -31,9 +31,7 @@ SourceRelatedMessages::SourceRelatedMessages(QWidget *parent) :
     ui->setupUi(this);
     ui->go->setEnabled(false);
     Utils::TODO_THIS_RELEASE("portare da sourcenavigator");
-    Utils::TODO_THIS_RELEASE("per ora non fa nulla, implementare tutto");
     Utils::TODO_THIS_RELEASE("abilitare go");
-    Utils::TODO_THIS_RELEASE("testare");
 }
 
 SourceRelatedMessages::~SourceRelatedMessages()
@@ -49,7 +47,6 @@ void SourceRelatedMessages::on_messages_itemDoubleClicked(QListWidgetItem * /*it
 
 void SourceRelatedMessages::on_go_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare e fare anche la selezione enable");
     QListWidgetItem *item = ui->messages->currentItem();
     if(NULL != item) {
         QVariant data = item->data(Qt::UserRole);
@@ -118,7 +115,6 @@ void SourceRelatedMessages::loadData()
 
 QList<int> SourceRelatedMessages::selection()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     const int posiz = ui->messages->currentRow();
     if(posiz >= 0) {
         return _messages.at(posiz)->path();
