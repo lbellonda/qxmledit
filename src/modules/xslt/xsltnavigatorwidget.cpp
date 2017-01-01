@@ -23,6 +23,7 @@
 #include "xsltnavigatorwidget.h"
 #include "ui_xsltnavigatorwidget.h"
 #include "modules/xslt/xslthelper.h"
+#include "element.h"
 #include "utils.h"
 
 XSLTNavigatorWidget::XSLTNavigatorWidget(QWidget *parent) :

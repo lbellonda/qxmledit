@@ -355,8 +355,8 @@ void MainWndController::sourceDecode(QBuffer *dataStream, QList<SourceMessage*> 
 bool MainWndController::checkSCXML()
 {
 #if QT_VERSION < QT_VERSION_CHECK(5,7,0)
-    Utils::error(_w, tr("SCXML test is supported only starting from Qt 5.7.0");
-                 return false;
+    Utils::error(_w, tr("SCXML test is supported only starting from Qt 5.7.0"));
+    return false;
 #else
     QBuffer *dataStream = getDataForSourceDecode();
     if(NULL == dataStream) {

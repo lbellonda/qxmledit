@@ -23,6 +23,7 @@
 #include "xincludedialog.h"
 #include "ui_xincludedialog.h"
 #include "modules/specialized/xinclude/xincludeeditormanager.h"
+#include "element.h"
 #include "utils.h"
 
 static const QString XIncludeLNSDecl = "xmlns:xila" ;
@@ -113,7 +114,7 @@ void XIncludeDialog::setAttributesToUI()
     ui->href->setText(_attr.href);
     ui->xpointer->setText(_attr.xpointer);
     ui->fragid->setText(_attr.fragid);
-    ui->parse->setCurrentText(_attr.parse);
+    Utils::setComboCurrentText(ui->parse, _attr.parse);
     ui->setxmlid->setText(_attr.setxmlid) ;
     ui->useSetXMLId->setChecked(_attr.useSetXMLid);
     ui->declareLocalA->setChecked(_attr.declareLocalA);

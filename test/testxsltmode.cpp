@@ -701,11 +701,11 @@ bool TestXSLTMode::testNavigation()
     if(!checkNavigationEnable(&mainWindow)) {
         return false;
     }
-
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     if(!checkNavigationGoto(&mainWindow)) {
         return false;
     }
-
+#endif
     //----------------------------------------------------------------
     return true ;
 }
@@ -822,6 +822,7 @@ bool TestXSLTMode::checkNavigationEnable(MainWindow *mainWindow) {
     return true;
 }
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 bool TestXSLTMode::checkNavigationGoto(MainWindow *mainWindow) {
     _testName = "testNavigation/checkNavigationGoto" ;
     QTreeWidget *tree = getNavigator(mainWindow);
@@ -854,6 +855,7 @@ bool TestXSLTMode::checkNavigationGoto(MainWindow *mainWindow) {
     }
     return true;
 }
+#endif
 
 //----------
 

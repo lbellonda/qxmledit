@@ -31,6 +31,7 @@ class XSLTNavigatorWidget;
 }
 
 class XsltHelper ;
+class Element;
 
 class XSLTNavigatorWidget : public QWidget
 {

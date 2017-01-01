@@ -109,7 +109,7 @@ bool TestBase::setComboWidget(QWidget *widget, const QString &actionName, const 
 {
     QList<QComboBox*> texts = widget->findChildren<QComboBox*>(actionName);
     if(texts.size()>0) {
-        texts.at(0)->setCurrentText(text);
+        Utils::setComboCurrentText(texts.at(0), text);
         return true ;
     }
     return false;

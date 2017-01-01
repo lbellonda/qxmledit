@@ -87,6 +87,7 @@ public:
     static void selectComboText(QComboBox *combo, const QString &text);
     static void updateEditableCombo(QComboBox *combo, const QStringList &values);
     static void updateNonEditableCombo(QComboBox *combo, const QStringList &values);
+    static void setComboCurrentText(QComboBox *combo, const QString &text);
 
     static bool decodeBoolean(const QString &str);
     static int decodeInt(const QString &str, const int defaultVale);

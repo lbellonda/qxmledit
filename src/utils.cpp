@@ -175,7 +175,6 @@ void Utils::selectComboValue(QComboBox *combo, const int value)
     }
 }
 
-
 void Utils::selectComboText(QComboBox *combo, const QString &text)
 {
     int items = combo->count();
@@ -1124,4 +1123,14 @@ bool Utils::isRegNameRFC4288(const QString &name)
     QRegExp re;
     re.setPattern("[0-9,a-z,A-Z,\\!,\\#,\\$,\\&,\\.,\\+,\\-,\\^,\\_]*");
     return re.exactMatch(name);
+}
+
+void Utils::setComboCurrentText(QComboBox *combo, const QString &text)
+{
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+    combo->setCurrentText(text);
+#else
+    combo->setEditText(text);
+    selectComboText(combo, text);
+#endif
 }

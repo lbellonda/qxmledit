@@ -23,6 +23,7 @@
 #include "xsleditormanager.h"
 #include "regola.h"
 #include "modules/xslt/xslthelper.h"
+#include "xmleditwidget.h"
 #include "utils.h"
 
 XSLEditorManager::XSLEditorManager()

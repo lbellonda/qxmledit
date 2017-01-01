@@ -23,6 +23,7 @@
 #include "specificpropertiesdialog.h"
 #include "ui_specificpropertiesdialog.h"
 #include "modules/xsd/namespacemanager.h"
+#include "element.h"
 #include "utils.h"
 
 /**
