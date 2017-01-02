@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>177</width>
+    <width>186</width>
     <height>257</height>
    </rect>
   </property>
@@ -26,6 +26,15 @@
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
      <property name="alternatingRowColors">
+      <bool>true</bool>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectItems</enum>
+     </property>
+     <property name="uniformRowHeights">
+      <bool>true</bool>
+     </property>
+     <property name="allColumnsShowFocus">
       <bool>true</bool>
      </property>
      <property name="headerHidden">

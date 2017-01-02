@@ -25,10 +25,11 @@
 #define XMLLOADCONTEXT_H
 
 #include "xmlEdit.h"
+#include "libQXmlEdit_global.h"
 
 class Element ;
 
-class XMLLoadContext
+class LIBQXMLEDITSHARED_EXPORT XMLLoadContext
 {
     bool    _isError;
     QString _errorMessage;

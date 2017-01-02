@@ -32,6 +32,8 @@ SCXMLNavigatorWidget::SCXMLNavigatorWidget(QWidget *parent) :
     _info = NULL ;
     _isInfoEnabled = false;
     ui->setupUi(this);
+    ui->editCmd->setEnabled(false);
+    ui->showCmd->setEnabled(false);
     ui->states->setHeaderLabel(tr("States"));
     _visIsFlat = false ;
 }
@@ -205,10 +207,14 @@ SCXMLState *SCXMLNavigatorWidget::getSelectedItem()
 void SCXMLNavigatorWidget::on_states_itemSelectionChanged()
 {
     Utils::TODO_THIS_RELEASE("selezione abilita pulasnte");
+    bool isEnabled = false;
     SCXMLState *state = getSelectedItem();
     if(NULL != state) {
+        isEnabled = true ;
         emit goToState(state->id(), state->element());
     }
+    ui->editCmd->setEnabled(isEnabled);
+    ui->showCmd->setEnabled(isEnabled);
 }
 
 void SCXMLNavigatorWidget::on_states_itemDoubleClicked(QTreeWidgetItem */*item*/, int /*column*/)

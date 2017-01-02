@@ -269,6 +269,9 @@ void todo()
     Utils::TODO_THIS_RELEASE("34 ctrl doubleclick su mac non va");
     Utils::TODO_THIS_RELEASE("35 xslt mi permette di inserire una function come root del file");
     Utils::TODO_THIS_RELEASE("36 xslt function ccon select al posto di name");
+    Utils::TODO_THIS_RELEASE("37 debug xslt uno per uno/edit");
+    Utils::TODO_THIS_RELEASE("38 pulsanti anvigatore xslt");
+    Utils::TODO_THIS_RELEASE("39 pulsanti anvigatore scxml");
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif

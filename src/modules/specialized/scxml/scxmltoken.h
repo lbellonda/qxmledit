@@ -103,6 +103,7 @@ public:
      */
     virtual bool editToken(QWidget *window, SCXMLInfo *info, Regola *regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                            Element *toModifyElement, Element *selectedElement, Element *parentElement) = 0;
+    void warningNoEdit(QWidget *window);
 };
 
 class SCXMLRootToken : public SCXMLToken

@@ -167,7 +167,7 @@ void XSLTNavigatorWidget::on_showCmd_clicked()
     }
 }
 
-void XSLTNavigatorWidget::on_treeNavigator_currentItemChanged(QTreeWidgetItem * /*current*/, QTreeWidgetItem * /*previous*/)
+void XSLTNavigatorWidget::on_treeNavigator_itemSelectionChanged()
 {
     bool enabled = false;
     Element *element = getSelectedItem();

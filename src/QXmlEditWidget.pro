@@ -100,6 +100,10 @@ greaterThan(QT_MAJOR_VERSION, 4) {
   QT       += printsupport gui widgets core
 }
 
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT       += scxml
+}
+
 TARGET = QXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 os2:TARGET = QXmlEdtW
 TEMPLATE = lib

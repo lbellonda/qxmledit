@@ -57,7 +57,7 @@ signals:
 private:
     Ui::XSLTNavigatorWidget *ui;
 private slots:
-    void on_treeNavigator_currentItemChanged(QTreeWidgetItem * /*current*/, QTreeWidgetItem * /*previous*/);
+    void on_treeNavigator_itemSelectionChanged();
     void on_showCmd_clicked();
     void on_treeNavigator_itemClicked(QTreeWidgetItem * /*item*/, int /*column*/);
     void on_editCmd_clicked();

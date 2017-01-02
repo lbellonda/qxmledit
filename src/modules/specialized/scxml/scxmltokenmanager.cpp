@@ -75,7 +75,7 @@ QList<SCXMLTokenChild*> SCXMLTokenManager::tokensForParentAsList(const QString &
                         const QString &elementNamespace = context.uriFromPrefix(prefix);
                         if((NamespaceManager::SCXMLNamespace == elementNamespace) && (name == child->name())) {
                             count ++ ;
-                            if(count > child->max()) {
+                            if(count >= child->max()) {
                                 failed = true ;
                             }
                         } // if same ns and tag

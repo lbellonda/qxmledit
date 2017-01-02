@@ -144,6 +144,9 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     QT       += printsupport gui widgets core
 }
 
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT       += scxml
+}
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 win32 {

@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -2279,7 +2279,7 @@
   </action>
   <action name="actionInsertSpecial">
    <property name="text">
-    <string>Insert Special...</string>
+    <string>Insert Specialized Child...</string>
    </property>
    <property name="toolTip">
     <string>Insert a specialized element.</string>
@@ -2295,7 +2295,7 @@
   </action>
   <action name="actionAppendSpecial">
    <property name="text">
-    <string>Append Special...</string>
+    <string>Append Specialized Sibling...</string>
    </property>
    <property name="toolTip">
     <string>Append a specialized element.</string>

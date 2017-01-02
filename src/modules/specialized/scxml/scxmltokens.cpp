@@ -179,13 +179,15 @@ SCXMLinitialToken::~SCXMLinitialToken()
 {
 }
 
-bool SCXMLinitialToken::editToken(QWidget * /*window*/, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+bool SCXMLinitialToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                   Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     if(isInsertOrEdit) {
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
         editData.assignTag(SCXMLToken::Tag_initial);
+    } else {
+        warningNoEdit(window);
     }
     return true;
 }
@@ -223,13 +225,15 @@ SCXMLonentryToken::~SCXMLonentryToken()
 {
 }
 
-bool SCXMLonentryToken::editToken(QWidget * /*window*/, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+bool SCXMLonentryToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                   Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     if(isInsertOrEdit) {
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
         editData.assignTag(SCXMLToken::Tag_onentry);
+    } else {
+        warningNoEdit(window);
     }
     return true;
 }
@@ -244,13 +248,15 @@ SCXMLonexitToken::~SCXMLonexitToken()
 {
 }
 
-bool SCXMLonexitToken::editToken(QWidget * /*window*/, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+bool SCXMLonexitToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                  Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     if(isInsertOrEdit) {
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
         editData.assignTag(SCXMLToken::Tag_onexit);
+    } else {
+        warningNoEdit(window);
     }
     return true;
 }
@@ -357,13 +363,15 @@ SCXMLelseToken::~SCXMLelseToken()
 {
 }
 
-bool SCXMLelseToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+bool SCXMLelseToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     if(isInsertOrEdit) {
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
         editData.assignTag(SCXMLToken::Tag_else);
+    } else {
+        warningNoEdit(window);
     }
     return true;
 }
@@ -426,7 +434,7 @@ SCXMLdatamodelToken::~SCXMLdatamodelToken()
 {
 }
 
-bool SCXMLdatamodelToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+bool SCXMLdatamodelToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                     Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
@@ -434,6 +442,8 @@ bool SCXMLdatamodelToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola,
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
         editData.assignTag(SCXMLToken::Tag_datamodel);
+    } else {
+        warningNoEdit(window);
     }
     return true;
 }
@@ -498,7 +508,7 @@ SCXMLdonedataToken::~SCXMLdonedataToken()
 {
 }
 
-bool SCXMLdonedataToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+bool SCXMLdonedataToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                    Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
@@ -506,6 +516,8 @@ bool SCXMLdonedataToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, 
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
         editData.assignTag(SCXMLToken::Tag_donedata);
+    } else {
+        warningNoEdit(window);
     }
     return true;
 }
@@ -591,7 +603,7 @@ SCXMLcancelToken::~SCXMLcancelToken()
 {
 }
 
-bool SCXMLcancelToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+bool SCXMLcancelToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                  Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     Utils::TODO_THIS_RELEASE("fare");
@@ -599,6 +611,8 @@ bool SCXMLcancelToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, co
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
         editData.assignTag(SCXMLToken::Tag_cancel);
+    } else {
+        warningNoEdit(window);
     }
     return true;
 }
@@ -613,13 +627,15 @@ SCXMLfinalizeToken::~SCXMLfinalizeToken()
 {
 }
 
-bool SCXMLfinalizeToken::editToken(QWidget *, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
+bool SCXMLfinalizeToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                    Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
     if(isInsertOrEdit) {
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
         editData.assignTag(SCXMLToken::Tag_finalize);
+    } else {
+        warningNoEdit(window);
     }
     return true;
 }

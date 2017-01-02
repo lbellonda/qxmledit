@@ -5,7 +5,7 @@ Requirements
 ============
 
 QXmlEdit requires QT 4 or QT 5 (4.7.3 or higher) to be installed. Qt sqlite driver and QtSql module are
-required. OpenGL is required if QwtPlot3D library is used.
+required. OpenGL and GLUT are required if QwtPlot3D library is used.
 
 Quick Guide
 ===========

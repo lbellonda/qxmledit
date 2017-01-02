@@ -106,6 +106,11 @@ SCXMLToken::~SCXMLToken()
     EMPTYPTRLIST(_children, SCXMLTokenChild);
 }
 
+void SCXMLToken::warningNoEdit(QWidget *window)
+{
+    Utils::error(window, QObject::tr("This element has no properties to configure."));
+}
+
 QString SCXMLTokenChild::name() const
 {
     return _name;
