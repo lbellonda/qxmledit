@@ -154,13 +154,11 @@ void XMLErrorManagerDialog::on_buttonBox_rejected()
 
 void XMLErrorManagerDialog::on_showContainingFolder_clicked()
 {
-    Utils::TODO_THIS_RELEASE("test");
     QDesktopServices::openUrl(QUrl::fromLocalFile(_dirPath));
 }
 
 void XMLErrorManagerDialog::on_copyFilePath_clicked()
 {
-    Utils::TODO_THIS_RELEASE("test");
     QClipboard *clipboard = QApplication::clipboard();
     if(NULL != clipboard) {
         clipboard->setText(_filePath);

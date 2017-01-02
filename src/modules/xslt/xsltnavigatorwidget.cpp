@@ -30,7 +30,6 @@ XSLTNavigatorWidget::XSLTNavigatorWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::XSLTNavigatorWidget)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     _isInfoEnabled = false;
     ui->setupUi(this);
     ui->treeNavigator->setHeaderLabel(tr("Functions and templates"));
@@ -55,7 +54,6 @@ bool XSLTNavigatorWidget::isEnabledInfo()
 
 void XSLTNavigatorWidget::applyNewInfo(XsltHelper *xsltHelper)
 {
-    Utils::TODO_THIS_RELEASE("selezione abilita pulasnte");
     ui->showCmd->setEnabled(false);
     ui->editCmd->setEnabled(false);
     ui->treeNavigator->setUpdatesEnabled(false);
@@ -91,7 +89,6 @@ void XSLTNavigatorWidget::loadChildrenItems(const bool isTemplate, QTreeWidgetIt
     foreach(QString tmp, data.keys()) {
         sortedMap.insert(tmp, tmp);
     }
-    Utils::TODO_THIS_RELEASE("se template forma alternativa con match e mode");
     foreach(QString sorted, sortedMap.keys()) {
         QList<Element*> elements = data.values(sorted);
         foreach(Element *element, elements) {

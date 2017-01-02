@@ -236,7 +236,6 @@ HandlerForInsert *XsltHelper::findElementsForInsert(Element *selectedElement, co
 
 HandlerForInsert *XsltHelper::findElementsForAppend(Element *selectedElement, const QString &namespacePrefix)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     init();
     XslContext *context = findContext(selectedElement, namespacePrefix);
     if(NULL == context) {

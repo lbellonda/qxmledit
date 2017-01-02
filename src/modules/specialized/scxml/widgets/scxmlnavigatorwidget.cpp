@@ -56,9 +56,6 @@ void SCXMLNavigatorWidget::setEnabledInfo(const bool value)
 {
     if(_isInfoEnabled != value) {
         _isInfoEnabled = value ;
-        if(_isInfoEnabled) {
-            Utils::TODO_THIS_RELEASE("applyNewInfo(_)");
-        }
     }
 }
 
@@ -69,13 +66,6 @@ bool SCXMLNavigatorWidget::isEnabledInfo()
 
 void SCXMLNavigatorWidget::applyNewInfo(SCXMLInfo *info)
 {
-    Utils::TODO_THIS_RELEASE("todo evitare setting inutili");
-    /*if(!sameModel()) {
-        currentPath = xx;
-        currentName = "";
-        applyModel();
-        restoreSelection(currentPath, currentName);
-    }*/
     if(NULL == info) {
         reset();
         _info = info ;
@@ -83,16 +73,9 @@ void SCXMLNavigatorWidget::applyNewInfo(SCXMLInfo *info)
         if(!compareIfSameAndUpdateSchemas(_info, info)) {
             reset();
             _info = info ;
-            Utils::TODO_THIS_RELEASE("Applica");
             redisplay(ui->flat->isChecked());
-            /*foreach(SCXMLState *state, _info->children()) {
-                loadState(state, NULL);
-                / *QTreeWidgetItem *item = new QTreeWidgetItem();
-                item->setText(0, state->id());
-                ui->states->addTopLevelItem(item);
-                item->setExpanded(true);
-                loadChildren(state, item);* /
-            }*/
+        } else {
+            delete info;
         }
     }
 }
@@ -206,7 +189,6 @@ SCXMLState *SCXMLNavigatorWidget::getSelectedItem()
 
 void SCXMLNavigatorWidget::on_states_itemSelectionChanged()
 {
-    Utils::TODO_THIS_RELEASE("selezione abilita pulasnte");
     bool isEnabled = false;
     SCXMLState *state = getSelectedItem();
     if(NULL != state) {

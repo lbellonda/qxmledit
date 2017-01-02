@@ -32,12 +32,13 @@
 
 SCXMLTokenManager::SCXMLTokenManager()
 {
-    Utils::TODO_THIS_RELEASE("fare traduzioni delle descrizioni come ts esterni");
     _inited = false ;
 }
 
 SCXMLTokenManager::~SCXMLTokenManager()
 {
+    EMPTYPTRLIST(_tokens.values(), SCXMLToken);
+    _tokens.clear();
 }
 
 SCXMLToken *SCXMLTokenManager::tokenForName(const QString &itemCode)
@@ -100,5 +101,4 @@ void SCXMLTokenManager::init()
     if(!loader.load(RESOURCE_SCXML_TOKEN_DATA, &_tokens)) {
         Utils::error(QObject::tr("Error in SCXML engine initialization."));
     }
-    Utils::TODO_THIS_RELEASE("fare");
 }

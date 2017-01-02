@@ -3166,7 +3166,6 @@ bool Regola::isForceDOM() const
 void Regola::setForceDOM(bool newValue)
 {
     _forceDOM = newValue;
-    Utils::TODO_THIS_RELEASE("finire sotto");
 }
 
 bool Regola::editElementWrapper(QTreeWidget *treeWidget, Element *newElement, Element *selectedElement)
@@ -3204,7 +3203,6 @@ bool Regola::applyEditAndSwapElement(Element *newElement, Element *swapElement, 
 
 QList<int> Regola::elementPathForPath(QList<int> &inputPos)
 {
-    Utils::TODO_THIS_RELEASE("to test");
     QList<int> result;
     // Now find the pos into the real data
     QVector<Element*> *elements = getChildItems();

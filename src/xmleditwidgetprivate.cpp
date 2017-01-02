@@ -3499,7 +3499,6 @@ void XmlEditWidgetPrivate::applySCXML()
 void XmlEditWidgetPrivate::applyXSLT()
 {
     if(_XSLTNavigator->isEnabledInfo()) {
-        Utils::TODO_THIS_RELEASE("fare");
         _XSLTNavigator->applyNewInfo(&_xsltHelper);
     }
 }
