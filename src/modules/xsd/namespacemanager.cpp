@@ -276,6 +276,7 @@ bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTr
     HandlerForInsert * handler = _insertEditorProvider->handleInsertElementForSpecialized(parent, &handlers);
     if(NULL != handler) {
         result = handler->handler->handleInsert(editor, tree, regola, element, isChildOrSibling, handler->outputSelectedCode);
+        emit editor->reevaluateSelectionState();
     }
     EMPTYPTRLIST(handlers, HandlerForInsert);
     return result;

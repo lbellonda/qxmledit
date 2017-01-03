@@ -95,20 +95,24 @@ HandlerForInsert *SCXMLEditorManager::handlerForInsert(XmlEditWidget *, Regola *
     }
     QList<SCXMLTokenChild*> tokens ;
     bool parentIsSCXML = false;
+    bool isAtTop = false;
     QList<NSContext*> contexts;
     NSContext *lastContext = NULL;
 
     if((NULL != theParent) && (NULL != element)) {
         lastContext = Regola::buildContextInfo(contexts, theParent);
         QXName qName ;
-        element->qName(&qName);
+        theParent->qName(&qName);
         if(qName.ns == NamespaceManager::SCXMLNamespace) {
             tokens = _tokenMakager.tokensForParentAsList(qName.name, theParent->getChildItems(), lastContext);
             parentIsSCXML = true;
         }
+    } else if((NULL == theParent) && (NULL != element)) {
+        // at top
+        isAtTop = true ;
     }
     // as root?
-    if(!parentIsSCXML && (NULL == element)) {
+    if(!parentIsSCXML && ((NULL == element) || isAtTop)) {
         QVector<Element*> emptyList;
         tokens = _tokenMakager.tokensForParentAsList("", &emptyList, NULL);
     }

@@ -52,7 +52,7 @@ Requirements
 ------------
 QT libraries version 4.7.3 or higher are required.
 QT 5 is supported.
-OpenGL can be required depending on a compile time switch.
+OpenGL and GLUT can be required depending on a compile time switch.
 
 Limitations
 -----------
@@ -66,7 +66,7 @@ included for convenience when compiling.
 QwtPlot3D comes with its own license (ZLib like) as specified in its files.
 You are free to link or not with QwtPlot3D by enabling a compile time switch
 as defined in the INSTALL file or to replace it.
-QwtPlot3D requires OpenGL.
+QwtPlot3D requires OpenGL and GLUT.
 
 As a special exception, the copyright holders of QXmlEdit give you permission to combine
 QXmlEdit with free software programs or libraries that are released under the GNU LGPL

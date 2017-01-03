@@ -249,7 +249,6 @@ SCXMLonexitToken::~SCXMLonexitToken()
 bool SCXMLonexitToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                  Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
-    Utils::TODO_THIS_RELEASE("questo escluso");
     if(isInsertOrEdit) {
         BaseSCXMLEditData editData(info, regola, isInsertOrEdit, isInsertOrAppend,
                                    toModifyElement, selectedElement, parentElement);
@@ -528,6 +527,7 @@ SCXMLcontentToken::~SCXMLcontentToken()
 bool SCXMLcontentToken::editToken(QWidget *window, SCXMLInfo *info, Regola * regola, const bool isInsertOrEdit, const bool isInsertOrAppend,
                                   Element *toModifyElement, Element *selectedElement, Element *parentElement)
 {
+    Utils::TODO_THIS_RELEASE("escluso");
     SCXMLContentDialog dialog(window, info, regola, isInsertOrEdit, isInsertOrAppend, toModifyElement, selectedElement, parentElement);
     if(dialog.exec() == QDialog::Accepted) {
         return true;

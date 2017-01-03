@@ -778,6 +778,7 @@ void MainWindow::onComputeSelectionState()
     bool isElementRoot = false;
     bool isRegolaReadOnly = isReadOnly();
     bool hasRoot = (NULL != regola) ? (NULL != regola->root()) : false;
+    bool isAtTop = false;
 
     qxmledit::EDisplayMode displayMode = ui.editor->displayMode();
     bool isExplore = (displayMode != qxmledit::NORMAL) && (displayMode != qxmledit::SCAN) ;
@@ -797,6 +798,9 @@ void MainWindow::onComputeSelectionState()
         isNormalViewState = element->isNormalViewState();
         isSomeItemSelected = true ;
         isShownAsBase64 = element->isShownBase64();
+        if(NULL == element->parent()) {
+            isAtTop = true ;
+        }
         //if il primo item
         //disabilita accoda, mvup e down
         //altrimenti se il selected si trova al primo o ultimo posto della catena deselezmv up o down
@@ -948,7 +952,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionInsertSnippet->setEnabled(!getEditor()->isReadOnly());
 
     ui.actionInsertSpecial->setEnabled(!getEditor()->isReadOnly() && (isElementSelected || (!isSomeItemSelected && !hasRoot)));
-    ui.actionAppendSpecial->setEnabled(!getEditor()->isReadOnly() && isElementSelected);
+    ui.actionAppendSpecial->setEnabled(!getEditor()->isReadOnly() && ((isAtTop && !hasRoot) || (!isAtTop && isSomeItemSelected))) ;
 
     onComputeSelectionStateExperimentalFeatures();
 }
