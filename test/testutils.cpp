@@ -94,7 +94,8 @@ bool TestUtils::testRFC4288()
     if(!iTestRFC4288("", false)) {
         return false ;
     }
-    QString s128 = QString::fill('a', 128);
+    QString s128;
+    s128.fill('a', 128);
     if(!iTestRFC4288(s128, false)) {
         return false ;
     }
