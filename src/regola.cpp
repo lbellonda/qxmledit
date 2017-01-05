@@ -1129,7 +1129,7 @@ void Regola::addBrother(QWidget *window, QTreeWidget *tree, Element* aNewElement
     Element *theNewElement = NULL;
     if(NULL == aNewElement) {
         theNewElement = newElement();
-        if(editNodeElement(window, theNewElement, brotherElement->parent())) {
+        if(editNodeElement(window, theNewElement, (NULL == brotherElement) ? NULL : brotherElement->parent())) {
             canGo = true;
         }
     } else {
