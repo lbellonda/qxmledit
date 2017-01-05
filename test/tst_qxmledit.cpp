@@ -1296,12 +1296,23 @@ void TestQXmlEdit::testReplica()
 
 void TestQXmlEdit::testUtils()
 {
-    bool result ;
-
     {
+        bool result ;
+        TestUtils test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test TestUtils: testFast'%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        bool result ;
         TestUtils test1;
         result = test1.testUnit();
         QVERIFY2(result, (QString("test TestUtils: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        bool result ;
+        TestUtils test1;
+        result = test1.testRFC4288();
+        QVERIFY2(result, (QString("test TestUtils: testRFC4288 '%1'").arg(test1.errorString())).toLatin1().data());
     }
 }
 
@@ -1459,6 +1470,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testUtils();
     testSCXML();
     testSpecials();
     testLoadFile();

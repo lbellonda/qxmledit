@@ -380,7 +380,8 @@ signals:
     void requestInsert();
     void requestDelete();
     void requestAppend();
-
+    void requestInsertSpec();
+    void requestAppendSpec();
     //--------------- signals
 };
 

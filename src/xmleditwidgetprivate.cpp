@@ -142,19 +142,73 @@ void XmlEditWidgetPrivate::secondStepConstructor()
 
     connect(p->ui->treeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(elementDoubleClicked(QTreeWidgetItem *, int)));
     QTreeWidget *tree = getMainTreeWidget();
-    QShortcut *shortcutDelete = new QShortcut(tree);
-#ifdef  ENVIRONMENT_MACOS
-    shortcutDelete->setKey(Qt::Key_Backspace);
-#else
-    shortcutDelete->setKey(Qt::Key_Delete);
-#endif
-    QShortcut *shortcutInsert = new QShortcut(tree);
-    shortcutInsert->setKey(Qt::Key_Insert);
-    connect(shortcutDelete, SIGNAL(activated()), this, SLOT(onShortcutDelete()));
-    connect(shortcutInsert, SIGNAL(activated()), this, SLOT(onShortcutInsert()));
-    QShortcut *shortcutAppend = new QShortcut(tree);
-    shortcutAppend->setKey(Qt::Key_Insert + Qt::SHIFT);
-    connect(shortcutAppend, SIGNAL(activated()), this, SLOT(onShortcutAppend()));
+    //--------------- delete -----------
+    {
+        QShortcut *shortcutDelete = new QShortcut(tree);
+        shortcutDelete->setKey(Qt::Key_Delete);
+        connect(shortcutDelete, SIGNAL(activated()), this, SLOT(onShortcutDelete()));
+    }
+    {
+        QShortcut *shortcutDelete = new QShortcut(tree);
+        shortcutDelete->setKey(Qt::Key_Backspace);
+        connect(shortcutDelete, SIGNAL(activated()), this, SLOT(onShortcutDelete()));
+    }
+    //--------------- insert -----------
+    // INS
+    {
+        QShortcut *shortcutInsert = new QShortcut(tree);
+        shortcutInsert->setKey(Qt::Key_Insert);
+        connect(shortcutInsert, SIGNAL(activated()), this, SLOT(onShortcutInsert()));
+    }
+    // I
+    {
+        QShortcut *shortcutInsert1 = new QShortcut(tree);
+        shortcutInsert1->setKey(Qt::Key_I);
+        connect(shortcutInsert1, SIGNAL(activated()), this, SLOT(onShortcutInsert()));
+    }
+    //--------------- insert spec -----------
+    // SHIFT INS
+    {
+        QShortcut *shortcutAppend = new QShortcut(tree);
+        shortcutAppend->setKey(Qt::Key_Insert + Qt::SHIFT);
+        connect(shortcutAppend, SIGNAL(activated()), this, SLOT(onShortcutInsertSpec()));
+    }
+    // SHIFT I
+    {
+        QShortcut *shortcutAppend1 = new QShortcut(tree);
+        shortcutAppend1->setKey(Qt::Key_I + Qt::SHIFT);
+        connect(shortcutAppend1, SIGNAL(activated()), this, SLOT(onShortcutInsertSpec()));
+    }
+    //--------------- append -----------
+    // ALT INS
+    {
+        QShortcut *shortcutInsertSpec1 = new QShortcut(tree);
+        shortcutInsertSpec1->setKey(Qt::Key_Insert + Qt::ALT);
+        connect(shortcutInsertSpec1, SIGNAL(activated()), this, SLOT(onShortcutAppend()));
+    }
+    // A
+    {
+        QShortcut *shortcutAppend2 = new QShortcut(tree);
+        shortcutAppend2->setKey(Qt::Key_A);
+        connect(shortcutAppend2, SIGNAL(activated()), this, SLOT(onShortcutAppend()));
+    }
+    //--------------- append spec -----------
+    // SHIFT A
+    {
+        QShortcut *shortcutInsertSpec = new QShortcut(tree);
+        shortcutInsertSpec->setKey(Qt::Key_A + Qt::SHIFT);
+        connect(shortcutInsertSpec, SIGNAL(activated()), this, SLOT(onShortcutAppendSpec()));
+    }
+
+    // ALT SHIFT INS
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Insert + Qt::ALT + Qt::SHIFT);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutAppendSpec()));
+    }
+    //-------------------------------------
+
+    Utils::TODO_THIS_RELEASE("test");
     recalcRowHeightClass();
 
     started = true ;
@@ -829,9 +883,6 @@ void XmlEditWidgetPrivate::resizeTreeColumns()
 
 bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item)
 {
-    /*if(!isEditState()) { TODO
-        return false;
-    }*/
     if(!isActionMode()) {
         return false ;
     }
@@ -847,7 +898,7 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item)
 
 void XmlEditWidgetPrivate::elementDoubleClicked(QTreeWidgetItem * item, int /*column*/)
 {
-    bool isSpecific = (Qt::ControlModifier == (Qt::ControlModifier & QApplication::keyboardModifiers()));
+    bool isSpecific = 0 != ((Qt::ControlModifier | Qt::AltModifier) & QApplication::keyboardModifiers());
     specificPropertiesItem(item, isSpecific);
 }
 
@@ -928,9 +979,18 @@ void XmlEditWidgetPrivate::onActionAppendChildElement()
 {
     addBrother();
 }
+
 void XmlEditWidgetPrivate::onActionEdit()
 {
-    editItem();
+    if(!isActionMode()) {
+        return ;
+    }
+    QTreeWidgetItem *currItem = getSelItem();
+    if(NULL == currItem) {
+        Utils::errorNoSel(p);
+        return;
+    }
+    specificPropertiesItem(currItem, false, false);
 }
 
 void XmlEditWidgetPrivate::onActionDelete()
@@ -3121,6 +3181,16 @@ void XmlEditWidgetPrivate::onShortcutInsert()
 void XmlEditWidgetPrivate::onShortcutAppend()
 {
     emit p->requestAppend();
+}
+
+void XmlEditWidgetPrivate::onShortcutAppendSpec()
+{
+    emit p->requestAppendSpec();
+}
+
+void XmlEditWidgetPrivate::onShortcutInsertSpec()
+{
+    emit p->requestInsertSpec();
 }
 
 void XmlEditWidgetPrivate::removeNilAttribute()

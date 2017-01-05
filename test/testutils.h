@@ -31,11 +31,14 @@ class TestUtils : public TestBase
 
     bool testNormalizeFileName(const QString &src, const QString &expected);
     bool testNormalizeFileName();
+    bool iTestRFC4288(const QString &name, const bool expected);
 public:
     TestUtils();
     ~TestUtils();
 
     bool testUnit();
+    bool testFast();
+    bool testRFC4288();
 };
 
 #endif // TESTUTILS_H

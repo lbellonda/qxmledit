@@ -31,6 +31,16 @@ TestUtils::~TestUtils()
 {
 }
 
+bool TestUtils::testFast()
+{
+    _testName = "testFast" ;
+    if(!testRFC4288()) {
+        return false;
+    }
+    return true ;
+}
+
+
 bool TestUtils::testUnit()
 {
     _testName = "testUnit" ;
@@ -54,6 +64,39 @@ bool TestUtils::testNormalizeFileName()
     _testName = "testNormalizeFileName" ;
     if( !testNormalizeFileName("", "") ) {
         return false;
+    }
+    return true ;
+}
+
+bool TestUtils::iTestRFC4288(const QString &name, const bool expected)
+{
+    if(expected != Utils::isRegNameRFC4288(name) ) {
+        return error(QString("Test failed for name:'%1' result is:%2").arg(name).arg(!expected));
+    }
+    return true ;
+}
+
+bool TestUtils::testRFC4288()
+{
+    _testName = "testRFC4288" ;
+    if(!iTestRFC4288("abcd", true)) {
+        return false ;
+    }
+    if(!iTestRFC4288("abcd98271378AZAA", true)) {
+        return false ;
+    }
+    if(!iTestRFC4288("09azAZ!#$&.+-^_", true)) {
+        return false ;
+    }
+    if(!iTestRFC4288("09az[]AZ!#$&.+-^_", false)) {
+        return false ;
+    }
+    if(!iTestRFC4288("", false)) {
+        return false ;
+    }
+    QString s128 = QString::fill('a', 128);
+    if(!iTestRFC4288(s128, false)) {
+        return false ;
     }
     return true ;
 }

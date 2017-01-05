@@ -413,7 +413,9 @@ private slots:
     void onIndentationChanged(const bool indentationEnabled, const int newIndentation);
     void onShortcutDelete();
     void onShortcutInsert();
+    void onShortcutInsertSpec();
     void onShortcutAppend();
+    void onShortcutAppendSpec();
     void removeNilAttribute();
     void insertNilAttribute();
     void removeXSITypeAttribute();

@@ -14,7 +14,6 @@
                 <transition target="one"/>
             </initial>
             <state id="one">
-                <!-- state one -->
                 <transition target="two" event="event.two"/>
             </state>
             <state id="two">

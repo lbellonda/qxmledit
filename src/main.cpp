@@ -233,38 +233,26 @@ void todo()
 {
     Utils::error("This development version is still partly untested.");
 
-    Utils::TODO_THIS_RELEASE("***1 edit mode scxml");
-    Utils::TODO_THIS_RELEASE("***2 lista errori scxml");
     Utils::TODO_THIS_RELEASE("3 navigatore scxml con cambio stato");
     Utils::TODO_THIS_RELEASE("4 sincronizza errori scxml con sorgente");
     Utils::TODO_THIS_RELEASE("5 sincronizza stato con editor scxml");
     Utils::TODO_THIS_RELEASE("6 menu edit special non fa nulla");
-    Utils::TODO_THIS_RELEASE("***7 si pianta nel display errori SCXML");
     Utils::TODO_THIS_RELEASE("8 dopo inserito con il menu special, selezionare il nuovo elemento?");
-    Utils::TODO_THIS_RELEASE("***9 menu special");
-    Utils::TODO_THIS_RELEASE("***10 edit mode scxml");
     Utils::TODO_THIS_RELEASE("11 ordine alfabetico profili anonimizzazione");
     Utils::TODO_THIS_RELEASE("12 scxml controlla attributi opzionali e settali e rimuovili se vuoti");
     Utils::TODO_THIS_RELEASE("13 controllare attributi non richiesti ed elimiare se mancanti scxml");
-    Utils::TODO_THIS_RELEASE("***14 unico menu valida?");
     Utils::TODO_THIS_RELEASE("***15 scxml ordine tab tutti i dialog");
-    Utils::TODO_THIS_RELEASE("***16 test per check scxml compila, test ok e test ko");
-    Utils::TODO_THIS_RELEASE("17 abilita check scxml compila sse qt5.7");
     Utils::TODO_THIS_RELEASE("18 controlla non salva dopo anonimizza ma senza salvare profilo");
-    Utils::TODO_THIS_RELEASE("19 shift ins per append sibling, su mac?");
-    Utils::TODO_THIS_RELEASE("20 alt ins per child specializ, su mac?");
+    Utils::TODO_THIS_RELEASE("19 shift i per append sibling, su mac?");
+    Utils::TODO_THIS_RELEASE("20 alt i per child specializ, su mac?");
     Utils::TODO_THIS_RELEASE("21 gli attributi sono uniti nell'editor con visione compatta?");
     Utils::TODO_THIS_RELEASE("***22 xslt template accettare anche edit mode e match");
     Utils::TODO_THIS_RELEASE("***23 ordinare elenco edit special per rilevanza se edit mode e' attivo");
-    Utils::TODO_THIS_RELEASE("***24 fare stile per scxml");
     Utils::TODO_THIS_RELEASE("25 installer per windows per 5.7.1");
     Utils::TODO_THIS_RELEASE("26 versione 64 bit per windows, se possibile");
     Utils::TODO_THIS_RELEASE("27 problemi ad inserire un top level in xslt, template o funzione?");
     Utils::TODO_THIS_RELEASE("28 accettare xslt 2.0 oltre all'1");
     Utils::TODO_THIS_RELEASE("29 aggiorna manuale");
-    Utils::TODO_THIS_RELEASE("*****30 source errors panel non comunica con eventi");
-    Utils::TODO_THIS_RELEASE("****31 source errors panel messaggio more errors exist con 3 ma non e' vero, sono solo 3");
-    Utils::TODO_THIS_RELEASE("*****32 elimina vecchio pannello errori scxml");
     Utils::TODO_THIS_RELEASE("33 quando menu modo edit resta check solo su scxml");
     Utils::TODO_THIS_RELEASE("34 ctrl doubleclick su mac non va");
     Utils::TODO_THIS_RELEASE("35 xslt mi permette di inserire una function come root del file");
@@ -272,6 +260,8 @@ void todo()
     Utils::TODO_THIS_RELEASE("37 debug xslt uno per uno/edit");
     Utils::TODO_THIS_RELEASE("38 pulsanti anvigatore xslt");
     Utils::TODO_THIS_RELEASE("39 pulsanti anvigatore scxml");
+    Utils::TODO_THIS_RELEASE("40 ctrl-dblclick, alt click supported, ins not for macos, or i, alt enter");
+    Utils::TODO_THIS_RELEASE("41 context menu con editor attivo, apre pannello normale, anche specific properties apres pannello normale.");
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif

@@ -1116,7 +1116,6 @@ bool Utils::isRFC4288(const QString &name)
 
 bool Utils::isRegNameRFC4288(const QString &name)
 {
-    Utils::TODO_THIS_RELEASE("test, check");
     if((name.length() < 1) || (name.length() > 127)) {
         return false;
     }

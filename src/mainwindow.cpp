@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -307,7 +307,9 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(newXSDSchemaForValidation(const QString &)), this, SLOT(onNewXSDSchemaForValidation(const QString &)));
     connect(ui.editor, SIGNAL(requestInsert()), this, SLOT(on_actionAddChildElement_triggered()));
     connect(ui.editor, SIGNAL(requestAppend()), this, SLOT(on_actionAppendChildElement_triggered()));
-    connect(ui.editor, SIGNAL(requestDelete()), this, SLOT(on_actionDelete_triggered()));
+    connect(ui.editor, SIGNAL(requestDelete()), this, SLOT(on_actionCut_triggered()));
+    connect(ui.editor, SIGNAL(requestInsertSpec()), this, SLOT(on_actionInsertSpecial_triggered()));
+    connect(ui.editor, SIGNAL(requestAppendSpec()), this, SLOT(on_actionAppendSpecial_triggered()));
 
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(folderOpenRequest(const QString&)), this, SLOT(onSessionFolderOpenRequest(const QString&)));
@@ -1258,6 +1260,13 @@ void MainWindow::setFileTitle()
 
 void MainWindow::closeEvent(QCloseEvent * event)
 {
+#ifdef  ENVIRONMENT_MACOS
+    // workaround for Qt5 bug
+    if(!isVisible()) {
+        event->accept();
+        return ;
+    }
+#endif
     const bool slaveCondition = (isSlave && (0 == _returnCodeAsSlave));
     const bool notSlaveCondition = !isSlave ;
     if(slaveCondition || notSlaveCondition) {
@@ -1294,7 +1303,6 @@ void MainWindow::on_actionExpandSelectedItem_triggered()
     ui.editor->onActionExpandSelectedItem();
 }
 
-
 void MainWindow::on_actionShowAttrLine_triggered()
 {
     ui.editor->onActionShowAttrLine(ui.actionShowAttrLine->isChecked());
@@ -1304,7 +1312,6 @@ void MainWindow::on_actionAddComment_triggered()
 {
     ui.editor->onActionAddComment();
 }
-
 
 void MainWindow::on_actionAppendComment_triggered()
 {

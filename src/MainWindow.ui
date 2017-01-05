@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -1676,10 +1676,13 @@
   </action>
   <action name="actionSpecificProperties">
    <property name="text">
-    <string>Specific Properties... (Ctrl+DblCkick)</string>
+    <string>Specific Properties...</string>
    </property>
    <property name="toolTip">
     <string>Opens the specific properties panel.</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Shift+Return</string>
    </property>
   </action>
   <action name="actionPasteAsSibling">
@@ -2284,6 +2287,9 @@
    <property name="toolTip">
     <string>Insert a specialized element.</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+Shift+I</string>
+   </property>
   </action>
   <action name="actionNewSCXMLDocument">
    <property name="text">
@@ -2299,6 +2305,9 @@
    </property>
    <property name="toolTip">
     <string>Append a specialized element.</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Shift+A</string>
    </property>
   </action>
   <action name="actionShowSCXMLNavigator">

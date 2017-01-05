@@ -306,7 +306,6 @@ bool XmlEditWidget::editElement(QTreeWidgetItem *item)
     return d->editElement(item);
 }
 
-
 void XmlEditWidget::addChild()
 {
     d->addChild();

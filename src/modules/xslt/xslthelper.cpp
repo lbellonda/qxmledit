@@ -195,8 +195,7 @@ HandlerForInsert *XsltHelper::findElementsForInsert(Element *selectedElement, co
         Utils::errorOutOfMem(NULL);
         return NULL ;
     }
-    Utils::TODO_THIS_RELEASE("e il 2.0?");
-    const QString XSLT_NAME = QObject::tr("XSLT 1.0");
+    const QString XSLT_NAME = QObject::tr("XSLT 1.0/2.0");
     HandlerForInsert *category = new HandlerForInsert();
     category->handler = NULL;
     category->nameSpace = NamespaceManager::XSL1Namespace ;
@@ -242,8 +241,7 @@ HandlerForInsert *XsltHelper::findElementsForAppend(Element *selectedElement, co
         Utils::errorOutOfMem(NULL);
         return NULL ;
     }
-    Utils::TODO_THIS_RELEASE("e il 2.0?");
-    const QString XSLT_NAME = QObject::tr("XSLT 1.0");
+    const QString XSLT_NAME = QObject::tr("XSLT 1.0/2.0");
     HandlerForInsert *category = new HandlerForInsert();
     category->handler = NULL;
     category->nameSpace = NamespaceManager::XSL1Namespace ;
