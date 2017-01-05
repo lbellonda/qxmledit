@@ -1,4 +1,6 @@
 0.9.6
+    SCXML edit mode.
+    New shortcuts for insert and remove of elements.
     Engine to insert specialized elements depending on the current element.
     SCXML edit dialogs.
     New template for SCXML.

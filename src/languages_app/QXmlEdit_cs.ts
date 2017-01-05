@@ -5786,8 +5786,8 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1602"/>
-        <source>Specific Properties... (Ctrl+DblCkick)</source>
-        <translation>Zvláštní vlastnosti... (Ctrl+dvojité klepnutí)</translation>
+        <source>Specific Properties...</source>
+        <translation>Zvláštní vlastnosti...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1605"/>
