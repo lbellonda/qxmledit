@@ -358,6 +358,7 @@ bool MainWndController::checkSCXML()
     Utils::error(_w, tr("SCXML test is supported only starting from Qt 5.7.0"));
     return false;
 #else
+    Regola *regola = _w->getRegola();
     QBuffer *dataStream = getDataForSourceDecode();
     if(NULL == dataStream) {
         Utils::error(_w, tr("Unable to check the data as SCXML."));
@@ -375,6 +376,13 @@ bool MainWndController::checkSCXML()
         Utils::message(_w, tr("SCXML is valid."));
         returnValue = true;
     } else {
+        const QString DataModel("datamodel");
+        if((NULL != regola) && (NULL != regola->root())) {
+            const QString &value = regola->root()->getAttributeValue(DataModel);
+            if(!value.isEmpty() && ("null" != value) && ("ecmascript" != value) && !value.startsWith("cplusplus:")) {
+                Utils::error(_w, tr("Currently only null, ecmascript or cpp datamodels are supported by the validator."));
+            }
+        }
         QString msg;
         QList<SourceMessage*> errors;
         int index = 1;

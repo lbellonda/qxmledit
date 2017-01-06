@@ -356,7 +356,7 @@ void XmlEditWidgetPrivate::setupSCXMLNavigator()
 {
     _SCXMLNavigator = new SCXMLNavigatorWidget(NULL);
     _SCXMLNavigator->setEnabledInfo(false);
-    p->ui->verticalLayout->insertWidget(14, _SCXMLNavigator);
+    p->ui->verticalLayout->insertWidget(15, _SCXMLNavigator);
     _SCXMLNavigator->setVisible(false);
     _SCXMLNavigator->setObjectName("SCXMLNavigator");
     connect(_SCXMLNavigator, SIGNAL(goToState(const QString &, Element *)), this, SLOT(onSCXMLNavigatorGoToState(const QString &, Element *)));
@@ -364,7 +364,7 @@ void XmlEditWidgetPrivate::setupSCXMLNavigator()
     //-----
     _XSLTNavigator = new XSLTNavigatorWidget(NULL);
     _XSLTNavigator->setEnabledInfo(false);
-    p->ui->verticalLayout->insertWidget(15, _XSLTNavigator);
+    p->ui->verticalLayout->insertWidget(16, _XSLTNavigator);
     _XSLTNavigator->setVisible(false);
     _XSLTNavigator->setObjectName("XSLTNavigator");
     connect(_XSLTNavigator, SIGNAL(goTo(Element *)), this, SLOT(onXSLTNavigatorGoTo(Element *)));

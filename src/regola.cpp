@@ -3189,6 +3189,7 @@ bool Regola::applyEditAndSwapElement(Element *newElement, Element *swapElement, 
     selectedElement->copyTo(*swapElement, false);
     newElement->copyTo(*selectedElement, false);
     selectedElement->updateSizeInfo();
+    selectedElement->markEdited();
     selectedElement->display(selectedElement->getUI(), paintInfo);
     const int nowAttributesCount = selectedElement->getAttributesList().size();
     if(selectedElement->isElement() && (nowAttributesCount != beforeAttributesCount)) {
