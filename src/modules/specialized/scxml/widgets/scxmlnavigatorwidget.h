@@ -41,6 +41,8 @@ class SCXMLNavigatorWidget : public QWidget
     SCXMLInfo *_info;
     bool _isInfoEnabled;
     bool _visIsFlat;
+    QHash<Element*, QTreeWidgetItem*> _itemsByElement;
+    bool _updatesEnabled;
 
     void reset();
     void loadState(SCXMLState *state, QTreeWidgetItem *parentItem, const bool isFlat);
@@ -55,6 +57,7 @@ public:
     void setEnabledInfo(const bool isEnabled);
     bool isEnabledInfo();
     void applyNewInfo(SCXMLInfo *info);
+    void selectItem(Element *selection);
 
 signals:
     void goToState(const QString &stateName, Element *element);

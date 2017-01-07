@@ -29,6 +29,7 @@ SCXMLNavigatorWidget::SCXMLNavigatorWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SCXMLNavigatorWidget)
 {
+    _updatesEnabled = true ;
     _info = NULL ;
     _isInfoEnabled = false;
     ui->setupUi(this);
@@ -80,10 +81,24 @@ void SCXMLNavigatorWidget::applyNewInfo(SCXMLInfo *info)
     }
 }
 
+void SCXMLNavigatorWidget::selectItem(Element *selection)
+{
+    if(_isInfoEnabled) {
+        QTreeWidgetItem *item = _itemsByElement[selection];
+        if(NULL != item) {
+            _updatesEnabled = false;
+            ui->states->setCurrentItem(item);
+            ui->states->scrollToItem(item, QAbstractItemView::EnsureVisible);
+            _updatesEnabled = true;
+        }
+    }
+}
+
 void SCXMLNavigatorWidget::redisplay(const bool isFlat)
 {
     ui->states->setUpdatesEnabled(false);
     ui->states->clear();
+    _itemsByElement.clear();
     _visIsFlat = isFlat ;
     foreach(SCXMLState *state, _info->children()) {
         loadState(state, NULL, isFlat);
@@ -111,6 +126,7 @@ void SCXMLNavigatorWidget::loadState(SCXMLState *state, QTreeWidgetItem *parentI
     } else {
         parentItem->addChild(item);
     }
+    _itemsByElement[state->element()] = item ;
     item->setExpanded(true);
     foreach(SCXMLState *child, state->children()) {
         loadState(child, item, isFlat);
@@ -189,6 +205,9 @@ SCXMLState *SCXMLNavigatorWidget::getSelectedItem()
 
 void SCXMLNavigatorWidget::on_states_itemSelectionChanged()
 {
+    if(!_updatesEnabled) {
+        return ;
+    }
     bool isEnabled = false;
     SCXMLState *state = getSelectedItem();
     if(NULL != state) {

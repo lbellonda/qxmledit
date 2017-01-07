@@ -730,8 +730,10 @@ void XmlEditWidgetPrivate::regolaIsModified()
 void XmlEditWidgetPrivate::on_treeWidget_itemSelectionChanged()
 {
     if(NULL != regola) {
-        regola->handleSelection(getSelectedItem());
+        Element *selection = getSelectedItem();
+        regola->handleSelection(selection);
         computeSelectionState();
+        _SCXMLNavigator->selectItem(selection);
     }
 }
 
