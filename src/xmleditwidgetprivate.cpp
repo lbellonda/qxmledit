@@ -208,7 +208,6 @@ void XmlEditWidgetPrivate::secondStepConstructor()
     }
     //-------------------------------------
 
-    Utils::TODO_THIS_RELEASE("test");
     recalcRowHeightClass();
 
     started = true ;
@@ -2245,7 +2244,6 @@ void XmlEditWidgetPrivate::doNew()
     if(_appData->isAutoInsertProlog()) {
         regola->insertProlog(getMainTreeWidget(), _appData->autoInsertPrologEncoding(), false);
     }
-    Utils::TODO_THIS_RELEASE("fare refactor");
     _SCXMLNavigator->setEnabledInfo(false);
     _XSLTNavigator->setEnabledInfo(false);
     setReadOnly(false);

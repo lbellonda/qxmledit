@@ -80,7 +80,6 @@ void ElBaseCommand::insertElement()
         // insert the command at the parent index.
         QList<int> pathPos(path);
         int lastPos = -1;
-        Utils::TODO_THIS_RELEASE("puo andare bene come prima, testare");
         Element *parentElement = NULL ;
         // empty path as root
         if(!pathPos.isEmpty()) {

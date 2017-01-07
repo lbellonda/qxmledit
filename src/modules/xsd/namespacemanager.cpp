@@ -271,7 +271,6 @@ bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTr
     }
     if(isSXLT) {
         sortListGivingPrecedenceTo(NamespaceManager::XSL1Namespace, handlers);
-        Utils::TODO_THIS_RELEASE("sortListGivingPrecedenceTo(NamespaceManager::XSL2Namespace, handlers);");
     }
     HandlerForInsert * handler = _insertEditorProvider->handleInsertElementForSpecialized(parent, &handlers);
     if(NULL != handler) {

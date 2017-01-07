@@ -63,7 +63,6 @@ void SCXMLRoot::setupInsert()
     d->setAttributeString(SCXMLscxmlToken::A_xmlns, NamespaceManager::SCXMLNamespace);
     d->setAttributeString("xmlns:xi", NamespaceManager::XIncludeNamespace);
     d->assignTag(SCXMLToken::Tag_scxml, p._regola, p._parentElement);
-    Utils::TODO_THIS_RELEASE("testa il xi include");
 }
 
 void SCXMLRoot::setupEdit()
