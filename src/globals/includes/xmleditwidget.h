@@ -203,7 +203,6 @@ private:
     Ui::XmlEditWidget *ui;
 
     //-----------------------
-    void emitReevaluateSelectionState();
     void emitDocumentIsModified(const bool isModified);// TODO: emit this
     void emitTreeContextMenuRequested(const QPoint &);
     void emitSignalSetClipBoardActionsState(const bool isAction);
@@ -356,6 +355,7 @@ public:
     void appendSpecial();
 
     void showSCXMLNavigator(const bool how);
+    void emitReevaluateSelectionState();
 
 signals:
     void reevaluateSelectionState();

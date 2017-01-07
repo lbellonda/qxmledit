@@ -1198,6 +1198,3 @@ void XmlEditWidget::showSCXMLNavigator(const bool how)
 {
     d->showSCXMLNavigator(how);
 }
-
-
-
