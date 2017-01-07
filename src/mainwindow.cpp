@@ -3564,6 +3564,7 @@ void MainWindow::on_actionShowSCXMLNavigator_triggered()
 
 void MainWindow::on_actionValidateSCXML_triggered()
 {
+    ui.messagePanel->setVisible(false);
     _controller.checkSCXML();
 }
 
