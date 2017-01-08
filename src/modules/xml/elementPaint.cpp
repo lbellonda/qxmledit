@@ -306,6 +306,8 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
                                 attrList.append("<br/>\n");
                                 attrTextLen = 0;
                                 attrIndex = 1 ;
+                            } else {
+                                attrList.append(", ");
                             }
                         }
                     }
