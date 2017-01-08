@@ -1,6 +1,8 @@
 0.9.6
+    Fixes UI issues in attributes display.
     Fix #38 (https://github.com/lbellonda/qxmledit/issues/38).
     SCXML edit mode.
+    SCXML validation.
     New shortcuts for insert and remove of elements.
     Engine to insert specialized elements depending on the current element.
     SCXML edit dialogs.

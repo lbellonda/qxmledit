@@ -157,7 +157,7 @@ color: rgb(0, 0, 0);</string>
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Do you want to load the incomplete file?&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/special/warning&quot;/&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;WARNING&lt;/span&gt;: doing so can cause missing data or unexpected consequences. If unsure, just choose 'No'.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Do you want to load the incomplete file?&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/special/warning&quot;/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING&lt;/span&gt;: doing so can cause missing data or unexpected consequences. If unsure, just choose 'No'.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>

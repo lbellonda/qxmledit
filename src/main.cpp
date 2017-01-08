@@ -231,23 +231,6 @@ void qt_mac_set_dock_menu(QMenu *menu);
 
 void todo()
 {
-    Utils::error("This development version is still partly untested.");
-
-    Utils::TODO_THIS_RELEASE("8 dopo inserito con il menu special, selezionare il nuovo elemento?");
-    Utils::TODO_THIS_RELEASE("11 ordine alfabetico profili anonimizzazione");
-    Utils::TODO_THIS_RELEASE("18 controlla non salva dopo anonimizza ma senza salvare profilo");
-    Utils::TODO_THIS_RELEASE("21 gli attributi sono uniti nell'editor con visione compatta?");
-    Utils::TODO_THIS_RELEASE("***23 ordinare elenco edit special per rilevanza se edit mode e' attivo");
-    Utils::TODO_THIS_RELEASE("25 installer per windows per 5.7.1");
-    Utils::TODO_THIS_RELEASE("26 versione 64 bit per windows, se possibile");
-    Utils::TODO_THIS_RELEASE("***27 problemi ad inserire un top level in xslt, template o funzione?");
-    Utils::TODO_THIS_RELEASE("28 accettare xslt 2.0 oltre all'1");
-    Utils::TODO_THIS_RELEASE("29 aggiorna manuale");
-    Utils::TODO_THIS_RELEASE("35 xslt mi permette di inserire una function come root del file");
-    Utils::TODO_THIS_RELEASE("36 xslt function ccon select al posto di name");
-    Utils::TODO_THIS_RELEASE("37 debug xslt uno per uno/edit");
-    Utils::TODO_THIS_RELEASE("***41 context menu con editor attivo, apre pannello normale, anche specific properties apres pannello normale.");
-    Utils::TODO_THIS_RELEASE("42 elenco file sessione conteggio allineare a dx");
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
