@@ -320,7 +320,7 @@ void Utils::errorAccessingFile(QWidget *parent)
 
 QString Utils::getFileFilterForOpenFile()
 {
-    return tr("XML files (*.xml *.xsd *.xsl *.xslt *.fo);;XML Schema files (*.xsd);;Style sheets files (*.xsl *.xslt);;All files (*)");
+    return tr("XML files (*.xml *.xsd *.xsl *.xslt *.fo *.scxml);;XML Schema files (*.xsd);;Style sheets files (*.xsl *.xslt);;SCXML files (*.scxml);;All files (*)");
 }
 
 QString Utils::getFileFilterForJavaSourceOpenFile()

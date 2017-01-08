@@ -6834,8 +6834,8 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../utils.cpp" line="324"/>
-        <source>XML files (*.xml *.xsd *.xsl *.xslt *.fo);;XML Schema files (*.xsd);;Style sheets files (*.xsl *.xslt);;All files (*)</source>
-        <translation>Soubory XML (*.xml *.xsd *.xsl *.xslt *.fo);;Soubory XML Schema (*.xsd);;Soubory se stylovými listy (*.xsl *.xslt);;Všechny soubory (*)</translation>
+        <source>XML files (*.xml *.xsd *.xsl *.xslt *.fo *.scxml);;XML Schema files (*.xsd);;Style sheets files (*.xsl *.xslt);;SCXML files (*.scxml);;All files (*)</source>
+        <translation>Soubory XML (*.xml *.xsd *.xsl *.xslt *.fo *.scxml);;Soubory XML Schema (*.xsd);;Soubory se stylovými listy (*.xsl *.xslt);;Soubory SCXML (*.scxml);;Všechny soubory (*)</translation>
     </message>
     <message>
         <location filename="../utils.cpp" line="329"/>
