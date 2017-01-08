@@ -252,6 +252,9 @@ bool NamespaceManager::editElement(QWidget *parent, XmlEditWidget *editor, QTree
 
 bool NamespaceManager::insertElement(QWidget *parent, XmlEditWidget *editor, QTreeWidget *tree, Regola *regola, Element *element, const bool isChildOrSibling)
 {
+    if(isChildOrSibling && (NULL != element) && !element->isElement()) {
+        return false ;
+    }
     bool result = false ;
     const bool isSXLT = editor->editMode() == XmlEditWidgetEditMode::XSLT ;
     const bool isSCXML = editor->editMode() == XmlEditWidgetEditMode::SCXML ;
