@@ -1424,20 +1424,22 @@ bool TestEncoding::testFileMode()
     QStringList encodings;
     encodings << "UTF-16" << "UTF-16BE" << "UTF-16LE" << "UTF-8" << "UTF-32" << "ISO-8859-15" << "WINDOWS-1252" << "IBM-500" ;
     foreach( const QString &encoding, encodings ) {
-        QByteArray device;
-        XMLSaveContext context;
-        QXmlStreamWriter outputStream(&device);
-        outputStream.setCodec(encoding.toLatin1().data());
-        context.setCodec(outputStream.codec());
-        const bool isTextMode = context.canUseTextMode();
-        bool expectedTextMode = false ;
+        if(NULL != QTextCodec::codecForName(encoding.toLatin1().data())) {
+            QByteArray device;
+            XMLSaveContext context;
+            QXmlStreamWriter outputStream(&device);
+            outputStream.setCodec(encoding.toLatin1().data());
+            context.setCodec(outputStream.codec());
+            const bool isTextMode = context.canUseTextMode();
+            bool expectedTextMode = false ;
 #ifdef ENVIRONMENT_WINDOWS
-        if( (encoding== "UTF-8") || (encoding== "ISO-8859-15") || (encoding== "WINDOWS-1252") ) {
-            expectedTextMode = true ;
-        }
+            if( (encoding== "UTF-8") || (encoding== "ISO-8859-15") || (encoding== "WINDOWS-1252") ) {
+                expectedTextMode = true ;
+            }
 #endif
-        if( isTextMode != expectedTextMode ) {
-            return error(QString("For encoding:'%1' expected:%2").arg(encoding).arg(expectedTextMode));
+            if( isTextMode != expectedTextMode ) {
+                return error(QString("For encoding:'%1' expected:%2").arg(encoding).arg(expectedTextMode));
+            }
         }
     }
     return true;
