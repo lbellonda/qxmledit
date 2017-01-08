@@ -110,7 +110,8 @@ void SessionsManagementDialog::readSessionsData()
         QDateTime dtAccess = model->lastAccess;
         QString sAccess = dtAccess.toString(Qt::DefaultLocaleShortDate);
         addItem(row, 4, sAccess);
-        addItem(row, 5, QString("%1").arg(model->count));
+        QTableWidgetItem *countItem = addItem(row, 5, QString("%1").arg(model->count));
+        countItem->setTextAlignment(Qt::AlignRight | Qt::AlignCenter);
         item->setData(Qt::UserRole, qVariantFromValue((void*)model));
         row++;
     }
