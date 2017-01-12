@@ -48,11 +48,15 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 }
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-    greaterThan(QT_MINOR_VERSION, 6) {
+    equals(QT_MAJOR_VERSION, 5) {
+        greaterThan(QT_MINOR_VERSION, 6) {
+            QT       += scxml
+        }
+    }
+    greaterThan(QT_MAJOR_VERSION, 5) {
         QT       += scxml
     }
 }
-
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 win32 {
