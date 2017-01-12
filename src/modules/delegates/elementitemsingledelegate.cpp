@@ -160,13 +160,9 @@ void ElementItemSingleDelegate::calcTextColor(const QStyleOptionViewItem & optio
             _cyanBrush = QBrush(QColor(0x00, 0x40, 0x40));
         }
     }
-    QColor theText(0, 0x80, 0x00);
-    if(_paintInfo->colorManager()->attributeNames()->isSet()) {
-        _attrNamesColor = _paintInfo->colorManager()->attributeNames()->color();
-    } else {
-        if(diffColorOverThr(textColor, theText, 0x3 * 4)) {
-            _attrNamesColor = theText;
-        } else {
+    _attrNamesColor = _paintInfo->colorManager()->attributeNames()->color();
+    if(!_paintInfo->colorManager()->attributeNames()->isSet()) {
+        if(!diffColorOverThr(textColor, _attrNamesColor, 0x3 * 4)) {
             if(textColor.lightness() > 128) {
                 int hue = textColor.hslHue();
                 hue = (hue + 128) % 360;
@@ -180,12 +176,11 @@ void ElementItemSingleDelegate::calcTextColor(const QStyleOptionViewItem & optio
         }
     }
 
-    QColor theBlue(0, 0, 0xFF);
-    if(_paintInfo->colorManager()->attributeValues()->isSet()) {
-        _attrValuesColor = _paintInfo->colorManager()->attributeValues()->color();
-    } else {
-        if(diffColorOverThr(backgroundColor, theBlue, 3 * 40 * 40) && diffLightnessThr(backgroundColor, theBlue, 0x60))  {
-            _attrValuesColor = theBlue;
+    QColor attrCol = _paintInfo->colorManager()->attributeValues()->color();
+    _attrValuesColor = attrCol ;
+    if(!_paintInfo->colorManager()->attributeValues()->isSet()) {
+        if(diffColorOverThr(backgroundColor, attrCol, 3 * 40 * 40) && diffLightnessThr(backgroundColor, attrCol, 0x60))  {
+            _attrValuesColor = attrCol;
         } else {
             if(backgroundColor.lightness() > 128) {
                 _attrValuesColor = QColor(0x00, 0x00, 0x60);

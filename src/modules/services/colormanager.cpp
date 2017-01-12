@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2014-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,10 +24,10 @@
 #include "colormanager.h"
 #include "qxmleditconfig.h"
 
-#define TAGS_COLOR_DEFAULT  QColor(0xC0, 0x40, 0xC0)
+#define TAGS_COLOR_DEFAULT  QColor(0x20, 0x40, 0xC0)
 #define PROCINSTR_COLOR_DEFAULT QColor(0, 0xC0, 0xC0)
-#define ATTRNAMES_COLOR_DEFAULT QColor(0, 0x80, 0x00)
-#define ATTRVALUES_COLOR_DEFAULT QColor(0, 0, 0xFF)
+#define ATTRNAMES_COLOR_DEFAULT QColor(0xF0, 0x10, 0x40)
+#define ATTRVALUES_COLOR_DEFAULT QColor(0x10, 0x90, 0x40)
 #define COMMENTS_COLOR_DEFAULT QColor(0x80, 0x80, 0x80)
 #define INFO_COLOR_DEFAULT  QColor(0xB0, 0xB0, 0xB0)
 #define TEXTDECL_COLOR_DEFAULT  QColor(0x80, 0x80, 0x80)
