@@ -1,4 +1,6 @@
 0.9.6
+    Repositioned the selection after an element deletion.
+    Changed default colors.
     Fixes UI issues in attributes display.
     Fix #38 (https://github.com/lbellonda/qxmledit/issues/38).
     SCXML edit mode.

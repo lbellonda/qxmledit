@@ -1117,6 +1117,10 @@ void XmlEditWidgetPrivate::onActionCut()
     }
     setClipBoardItem(Element::fromItemData(currItem)->cutToClipboard());
     regola->setModified(true);
+    QTreeWidgetItem *newSel = getSelItem();
+    if(NULL != newSel) {
+        p->ui->treeWidget->scrollToItem(newSel, QAbstractItemView::EnsureVisible);
+    }
 }
 
 void XmlEditWidgetPrivate::onActionCopy()
