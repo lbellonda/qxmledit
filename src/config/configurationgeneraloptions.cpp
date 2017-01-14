@@ -84,6 +84,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
     ui->cbAttrLen->setChecked(Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, PaintInfo::NumColumnsPerAttributeDefault) > 0);
     ui->attrLenCols->setValue(Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, PaintInfo::NumColumnsPerAttributeDefault));
     ui->cbSHowElementsIcon->setChecked(Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false));
+    ui->cbShowTagComplex->setChecked(Config::getBool(Config::KEY_MAIN_SHOWLTONTAGS, Config::ShowLOOnTagsDefault));
 
     _started = true ;
 }
@@ -226,9 +227,6 @@ void ConfigurationGeneralOptions::on_changeElementsFont_clicked()
 
 void ConfigurationGeneralOptions::setElementFontInfo()
 {
-    if(!_started) {
-        return ;
-    }
     QString fontName ;
     if(_elementFontName .isEmpty()) {
         fontName  = tr("<Not set>");
@@ -263,5 +261,16 @@ void ConfigurationGeneralOptions::on_cbAttrLen_stateChanged(int /*state*/)
 
 void ConfigurationGeneralOptions::on_cbSHowElementsIcon_stateChanged(int /*state*/)
 {
+    if(!_started) {
+        return ;
+    }
     Config::saveBool(Config::KEY_MAIN_SHOWELEMNTSICON, ui->cbSHowElementsIcon->isChecked());
+}
+
+void ConfigurationGeneralOptions::on_cbShowTagComplex_stateChanged(int /*state*/)
+{
+    if(!_started) {
+        return ;
+    }
+    Config::saveBool(Config::KEY_MAIN_SHOWLTONTAGS, ui->cbShowTagComplex->isChecked());
 }

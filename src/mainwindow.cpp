@@ -1510,6 +1510,9 @@ void MainWindow::updateAfterPreferences()
     if(getEditor()->getPaintInfo()->updateShowElementIcon()) {
         isChanged = true ;
     }
+    if(getEditor()->getPaintInfo()->updateShowElementTag()) {
+        isChanged = true ;
+    }
     if(isChanged) {
         getEditor()->invalidatePaintData();
     }

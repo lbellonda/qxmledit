@@ -1,4 +1,6 @@
 0.9.6
+    New option to remove the decoration from elements display.
+    Fixed a bug in the configuration dialog setting display.
     Sorted alphabetically the attributes in "Copy Attributes" dialog.
     When copying attributes, the textual representation is copied to the clipboard.
     Added a menu for copying only the current element, without children.

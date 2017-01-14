@@ -272,6 +272,13 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="1">
+      <widget class="QCheckBox" name="cbShowTagComplex">
+       <property name="text">
+        <string>Show decorated element Tags</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

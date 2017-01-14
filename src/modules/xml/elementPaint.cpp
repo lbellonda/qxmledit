@@ -108,7 +108,9 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
 
     switch(type) {
     case ET_ELEMENT: {
-        firstColText += "<";
+        if(paintInfo->isShowLTOnTags()) {
+            firstColText += "<";
+        }
         firstColText += tag() ;
         if(paintInfo->isShowElementsIcon()) {
             if(!areChildrenLeavesHidden(getUI())) {

@@ -56,6 +56,7 @@ private:
     bool _sortAttributesAlpha;
     int _attributesColumnLimit;
     bool _showElementsIcon;
+    bool _showLTOnTags;
 
     void internalSetZoom(const int newValue);
     void recalcColumns();
@@ -88,6 +89,7 @@ public:
     bool hideView() const;
     StyleEntry *styleEntryById(const QString &id) const ;
     bool showFullComments();
+    bool isShowLTOnTags();
 
     bool showAttributesLength() const;
     void setShowAttributesLength(const bool newValue);
@@ -102,6 +104,7 @@ public:
     void setAttributesHTML(const bool value);
     void setHideView(const bool value);
     void setShowFullComments(const bool value);
+    void setShowLTOnTags(const bool value);
 
     bool zoomIn();
     bool zoomOut();
@@ -132,6 +135,7 @@ public:
     bool isShowElementsIcon() const;
     void setShowElementsIcon(bool showElementsIcon);
     bool updateShowElementIcon();
+    bool updateShowElementTag();
     //-------
     void applySettings(const bool parmIsOneAttrPerLine,
                        const bool parmIsIndexPerChild,

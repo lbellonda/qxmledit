@@ -49,6 +49,7 @@ PaintInfo::PaintInfo()
     _sortAttributesAlpha = false ;
     _attributesColumnLimit = NumColumnsPerAttributeDefault ;
     _showElementsIcon = true ;
+    _showLTOnTags = false ;
     recalcColumns();
 }
 
@@ -72,6 +73,7 @@ void PaintInfo::loadState()
     _sortAttributesAlpha = Config::getBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, false);
     _attributesColumnLimit = Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, NumColumnsPerAttributeDefault) ;
     _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false);
+    _showLTOnTags = Config::getBool(Config::KEY_MAIN_SHOWLTONTAGS, Config::ShowLOOnTagsDefault);
     recalcColumns();
     isChanged = false;
 }
@@ -130,9 +132,26 @@ bool PaintInfo::saveState()
     if(!Config::saveBool(Config::KEY_MAIN_SHOWELEMNTSICON, isShowElementsIcon())) {
         isOK = false;
     }
+    if(!Config::saveBool(Config::KEY_MAIN_SHOWLTONTAGS, isShowLTOnTags())) {
+        isOK = false;
+    }
     return isOK;
 }
 
+bool PaintInfo::isShowLTOnTags()
+{
+    return _showLTOnTags ;
+}
+
+void PaintInfo::setShowLTOnTags(const bool value)
+{
+    bool isDiff = _showLTOnTags != value ;
+    if(isDiff) {
+        _showLTOnTags = value ;
+        isChanged = true ;
+        saveState();
+    }
+}
 
 void PaintInfo::setOneAttrPerLine(const bool newValue)
 {
@@ -446,6 +465,13 @@ bool PaintInfo::updateShowElementIcon()
     int oldValue = _showElementsIcon ;
     _showElementsIcon = Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false);
     return oldValue != _showElementsIcon ;
+}
+
+bool PaintInfo::updateShowElementTag()
+{
+    int oldValue = _showLTOnTags ;
+    _showLTOnTags = Config::getBool(Config::KEY_MAIN_SHOWLTONTAGS, Config::ShowLOOnTagsDefault);
+    return oldValue != _showLTOnTags ;
 }
 
 void PaintInfo::applySettings(const bool parmIsOneAttrPerLine,

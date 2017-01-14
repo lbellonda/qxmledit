@@ -8,7 +8,7 @@ into fragments, and compare XML files. It is one of the few graphical Open Sourc
 
 The XML editor widget is based on a library that can be imported and used in other applications.
 
-It is relased under GNU LGPL V2 license and requires Open Source edition of the QT4 libraries.
+It is relased under GNU LGPL V2 license and requires Open Source edition of the Qt4 or Qt5 libraries.
 
   * Hierarchical customizable view of XML elements.
   * Fast XML hierarchy navigation.
@@ -27,6 +27,7 @@ It is relased under GNU LGPL V2 license and requires Open Source edition of the 
   * XML Snippets.
   * XSL specialized mode.
   * Element display via user customizable rules.
+  * SCXML edit mode.
 
 Some icon files are licensed by oxygen project and covered by LGPL V3 (see http://www.oxygen-icons.org)
 A copy of the license is included. Source for icons can be obtained from site above, but a copy is included in images/svg

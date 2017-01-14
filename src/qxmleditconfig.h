@@ -34,6 +34,8 @@ class LIBQXMLEDITSHARED_EXPORT Config
 
 public:
 
+    static const bool ShowLOOnTagsDefault = true ;
+
     //general
     static const QString KEY_GENERAL_AUTOSCROLL_ENABLED;
     static const QString KEY_GENERAL_NOTIFICATIONS_ENABLED;
@@ -71,6 +73,7 @@ public:
     static const QString  KEY_MAIN_SORTATTRIBUTESALPHA;
     static const QString  KEY_MAIN_ATTRCOLLLIMIT;
     static const QString  KEY_MAIN_SHOWELEMNTSICON;
+    static const QString  KEY_MAIN_SHOWLTONTAGS;
 
     // style
     static const QString KEY_VIEW_STYLE;
