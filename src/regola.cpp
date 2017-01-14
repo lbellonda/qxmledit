@@ -674,12 +674,14 @@ Element *Regola::newElement(const Element::ElType newType)
 
 void Regola::setModified(const bool state)
 {
+    bool stateChanged = false;
     if(state != modified) {
+        stateChanged = true ;
         modified = state ;
         bookmarks.setModified();
         checkValidationReference();
     }
-    if(state) {
+    if(state || stateChanged) {
         emit wasModified();
     }
 }

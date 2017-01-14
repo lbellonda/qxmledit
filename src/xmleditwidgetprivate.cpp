@@ -717,8 +717,9 @@ void XmlEditWidgetPrivate::treeContextMenu(const QPoint& position)
 void XmlEditWidgetPrivate::regolaIsModified()
 {
     //TRACEQ(QString("XmlEditWidgetPrivate::regolaIsModified():%1").arg(regola->isModified()));
-    p->emitDocumentIsModified(regola->isModified());
-    if(_SCXMLNavigator->isEnabledInfo() || _XSLTNavigator->isEnabledInfo()) {
+    const bool isModified = regola->isModified();
+    p->emitDocumentIsModified(isModified);
+    if(isModified && (_SCXMLNavigator->isEnabledInfo() || _XSLTNavigator->isEnabledInfo())) {
         if(_updateTimer.isActive()) {
             _updateTimer.stop();
         }
