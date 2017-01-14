@@ -36,6 +36,7 @@ PasteAttributesDialog::PasteAttributesDialog(Element *element, CopyAttributesMan
     _manager = manager ;
     _element = element ;
     loadStartData();
+    setupTable();
     loadData();
     on_cmdSelectAll_clicked();
     setupUI();
@@ -52,16 +53,25 @@ void PasteAttributesDialog::showDialog(Element *element, CopyAttributesManager *
     dialog.exec();
 }
 
-void PasteAttributesDialog::setupUI()
+void PasteAttributesDialog::setupTable()
 {
     ui->attributes->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->attributes->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->attributes->setColumnCount(3);
+    ui->attributes->horizontalHeader()->setStretchLastSection(true);
+    QStringList labels;
+    labels << tr("") << tr("Name") << tr("value");
+    ui->attributes->setHorizontalHeaderLabels(labels);
+}
 
+void PasteAttributesDialog::setupUI()
+{
     UITableCheckWidgetHelper *helper = new UITableCheckWidgetHelper(ui->attributes);
     helper->addSomeWidget(ui->buttonBox->button(QDialogButtonBox::Ok));
     helper->addSomeWidget(ui->cmdDeselectAll);
     _uiManager.addHelper(helper);
     _uiManager.fireEvent();
+    ui->attributes->sortByColumn(1);
 }
 
 void PasteAttributesDialog::on_cmdClearClipboard_clicked()
@@ -94,13 +104,9 @@ void PasteAttributesDialog::loadData()
 {
     _uiManager.pause();
     ui->attributes->setUpdatesEnabled(false);
-    ui->attributes->setColumnCount(3);
-    QStringList labels;
-    labels << tr("Selected") << tr("Name") << tr("value");
-    ui->attributes->setHorizontalHeaderLabels(labels);
     bool error = false;
 
-    ui->attributes->clear();
+    ui->attributes->clearContents();
 
     int rows = 0 ;
     if(NULL != _currentSession) {
@@ -113,7 +119,7 @@ void PasteAttributesDialog::loadData()
                 error = true ;
             } else {
                 item0->setFlags(((item0->flags() | Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable)) & (~Qt::ItemIsEditable));
-                item0->setCheckState(Qt::Unchecked);
+                item0->setCheckState(Qt::Checked);
                 ui->attributes->setItem(row, 0, item0);
             }
             QTableWidgetItem *item1 = new QTableWidgetItem();
@@ -139,7 +145,9 @@ void PasteAttributesDialog::loadData()
         Utils::error(this, tr("Fatal error"));
         close();
     }
+    ui->attributes->resizeColumnsToContents();
     ui->attributes->setUpdatesEnabled(true);
+    ui->attributes->horizontalHeader()->setStretchLastSection(true);
     _uiManager.fireEvent();
 }
 

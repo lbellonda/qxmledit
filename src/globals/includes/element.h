@@ -296,7 +296,7 @@ public:
     static Element *fromItemData(QTreeWidgetItem *item);
     static Element *fromModelIndex(const QModelIndex & index);
 
-    Element* copyToClipboard();
+    Element* copyToClipboard(const bool isElementOnly = false);
     Element *cutToClipboard();
     Element* copyTo(Element &newElement);
     Element *copyTo(Element &newElement, const bool isRecursive);

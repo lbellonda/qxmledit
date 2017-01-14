@@ -1517,11 +1517,11 @@ void Element::copyHeaderAndDirectNodes(Element &newElement)
 }
 
 
-Element* Element::copyToClipboard()
+Element* Element::copyToClipboard(const bool isElementOnly)
 {
     Element *newElement = new Element(NULL);
     if(NULL != newElement) {
-        copyTo(*newElement);
+        copyTo(*newElement, !isElementOnly);
     }
     return newElement;
 }

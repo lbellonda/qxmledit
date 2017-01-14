@@ -677,6 +677,8 @@ void MainWindow::treeContextMenu(const QPoint& position)
     //---
     QMenu *advancedCopyMenu = contextMenu.addMenu(tr("Advanced"));
     if((NULL != element) && element->isElement()) {
+        advancedCopyMenu->addAction(ui.actionCopyElementOnly);
+        advancedCopyMenu->addSeparator();
         advancedCopyMenu->addAction(ui.actionCopyAttributes);
         if(isActionMode) {
             advancedCopyMenu->addAction(ui.actionPasteLastAttributes);
@@ -847,6 +849,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionMoveDown->setEnabled(selectSpecialsDown && !isExplore);
     ui.actionCut->setEnabled(isSomeItemSelected);
     ui.actionCopy->setEnabled(isSomeItemSelected);
+    ui.actionCopyElementOnly->setEnabled(isSomeItemSelected);
     ui.actionGo_to_Next_Brother->setEnabled(enableNextBrother);
     ui.actionGo_to_Previous_Brother->setEnabled(enablePreviousBrother);
     ui.actionGo_To_Parent->setEnabled(enableGoToParent);
@@ -3584,4 +3587,9 @@ void MainWindow::onMessagesTabCloseRequested(int)
 SourceRelatedMessages *MainWindow::sourceRelatedMessages()
 {
     return _scxmlValidationErrors;
+}
+
+void MainWindow::on_actionCopyElementOnly_triggered()
+{
+    ui.editor->onActionCopyElementOnly();
 }

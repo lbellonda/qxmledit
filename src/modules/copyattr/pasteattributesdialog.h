@@ -56,7 +56,7 @@ class LIBQXMLEDITSHARED_EXPORT PasteAttributesDialog : public QDialog
     void loadStartData();
     void recalcUIState();
     void setupUI();
-
+    void setupTable();
 public:
     explicit PasteAttributesDialog(Element *element, CopyAttributesManager *manager, QWidget *parent = 0);
     ~PasteAttributesDialog();

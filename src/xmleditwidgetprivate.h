@@ -222,6 +222,7 @@ public:
     void onActionPasteLastAttributes();
     void actionCopyElementPathToClipboard();
     void onActionCopy();
+    void onActionCopyElementOnly();
     void onActionCut();
     void onActionExpandAll();
     void onActionExpandSelectedItem();

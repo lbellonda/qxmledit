@@ -1,7 +1,10 @@
 0.9.6
+    Sorted alphabetically the attributes in "Copy Attributes" dialog.
+    When copying attributes, the textual representation is copied to the clipboard.
+    Added a menu for copying only the current element, without children.
     Repositioned the selection after an element deletion.
     Changed default colors.
-    Fixes UI issues in attributes display.
+    Fixed UI issues in attributes display.
     Fix #38 (https://github.com/lbellonda/qxmledit/issues/38).
     SCXML edit mode.
     SCXML validation.

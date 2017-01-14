@@ -1139,6 +1139,21 @@ void XmlEditWidgetPrivate::onActionCopy()
     setClipBoardItem(element->copyToClipboard());
 }
 
+void XmlEditWidgetPrivate::onActionCopyElementOnly()
+{
+    if(NULL == regola) {
+        errorNoRule();
+        return ;
+    }
+    QTreeWidgetItem *currItem = getSelItem();
+    if(NULL == currItem) {
+        Utils::errorNoSel(p);
+        return;
+    }
+    Element *element = Element::fromItemData(currItem);
+    setClipBoardItem(element->copyToClipboard(true));
+}
+
 void XmlEditWidgetPrivate::onActionPaste()
 {
     if(isActionMode()) {

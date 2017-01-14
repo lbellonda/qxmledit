@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -148,6 +148,7 @@
      <property name="title">
       <string>Advanced</string>
      </property>
+     <addaction name="actionCopyElementOnly"/>
      <addaction name="actionCopyAttributes"/>
      <addaction name="actionPasteLastAttributes"/>
      <addaction name="actionPasteAttributes"/>
@@ -2338,6 +2339,14 @@
    </property>
    <property name="toolTip">
     <string>Apply SCXML edit mode conventions.</string>
+   </property>
+  </action>
+  <action name="actionCopyElementOnly">
+   <property name="text">
+    <string>Copy Element Without Children</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy in the clipboard the element but the children.</string>
    </property>
   </action>
  </widget>

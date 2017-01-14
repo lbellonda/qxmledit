@@ -51,6 +51,7 @@ CopyAttributesDialog::~CopyAttributesDialog()
 
 void CopyAttributesDialog::setupUi()
 {
+    ui->attributes->horizontalHeader()->setStretchLastSection(true);
     ui->attributes->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->attributes->setSelectionMode(QAbstractItemView::SingleSelection);
 
@@ -59,6 +60,7 @@ void CopyAttributesDialog::setupUi()
     helper->addSomeWidget(ui->cmdDeselectAll);
     _uiManager.addHelper(helper);
     _uiManager.fireEvent();
+    ui->attributes->sortItems(1);
 }
 
 void CopyAttributesDialog::loadData()
@@ -66,7 +68,7 @@ void CopyAttributesDialog::loadData()
     ui->attributes->setUpdatesEnabled(false);
     ui->attributes->setColumnCount(3);
     QStringList labels;
-    labels << tr("Selected") << tr("Name") << tr("value");
+    labels << "" << tr("Name") << tr("value");
     ui->attributes->setHorizontalHeaderLabels(labels);
     bool error = false;
 
@@ -80,6 +82,7 @@ void CopyAttributesDialog::loadData()
         } else {
             item0->setFlags(((item0->flags() | Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsUserCheckable)) & (~Qt::ItemIsEditable));
             item0->setCheckState(Qt::Unchecked);
+            item0->setTextAlignment(Qt::AlignCenter | Qt::AlignHCenter);
             ui->attributes->setItem(row, 0, item0);
         }
         QTableWidgetItem *item1 = new QTableWidgetItem();
@@ -140,14 +143,23 @@ bool CopyAttributesDialog::saveData()
     session->setAttributes(resList);
     QString title ;
     bool isFirst = true;
+    QString clipboardData;
     foreach(Attribute * attribute, resList) {
         if(isFirst) {
             isFirst = false;
         } else {
             title += ", ";
+            clipboardData += " ";
         }
         title += attribute->name;
+        clipboardData += QString("%1=\"%2\"").arg(attribute->name).arg(attribute->value);
     }
+    // set data to the clipboard
+    QClipboard *clipboard = QApplication::clipboard();
+    if(NULL != clipboard) {
+        clipboard->setText(clipboardData);
+    }
+
     session->setName(title);
     _manager->addSession(session);
     return true;

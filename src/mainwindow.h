@@ -370,6 +370,7 @@ private slots:
     void on_actionAppendSpecial_triggered();
     void on_actionShowSCXMLNavigator_triggered();
     void on_actionValidateSCXML_triggered();
+    void on_actionCopyElementOnly_triggered();
 
     //----- other slots ------------------
 

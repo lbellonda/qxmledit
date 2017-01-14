@@ -367,6 +367,11 @@ void XmlEditWidget::onActionCopy()
     d->onActionCopy();
 }
 
+void XmlEditWidget::onActionCopyElementOnly()
+{
+    d->onActionCopyElementOnly();
+}
+
 void XmlEditWidget::onActionPaste()
 {
     d->onActionPaste();
