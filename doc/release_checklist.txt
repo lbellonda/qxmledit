@@ -1,6 +1,8 @@
 Release Checklist
 -----------------
 
+- Create a release branch from develop.
+
 - Check no TODO_THIS_RELEASE are present in the code.
 
 - Check translations (do lupdate/lrelease).
@@ -33,11 +35,20 @@ Release Checklist
 
 - Update Windows setup using exe, manual, README.
 
+- Merge release branch on master.
+
 - Make a tag from the sources.
 
 - Build a source packages using the script making a svn export.
 
+- For each platform:
+  + Redo tests.
+  + Build installation.
+  + Test installation.
+
 - Release the package and upload it.
+
+- Update the HTML of the site.
 
 - Compile under Windows, build the package and try it.
 
@@ -48,6 +59,7 @@ Release Checklist
 After release
 -------------
 
+- Merge master on develop.
 - Update version number.
 - Set SNAPSHOT flag in xmlEdit.h
 - Set VERSION_ID to snapshot in XmlEdit.h.
