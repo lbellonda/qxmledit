@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -54,6 +54,21 @@ bool TestCopyAttrs::copyAttrs(App *app)
     dialog.show();
     dialog.on_cmdSelectAll_clicked();
     dialog.accept();
+    return true ;
+}
+
+bool TestCopyAttrs::testAttributesInClipboard()
+{
+    QString clipboardData ;
+    QClipboard *clipboard = QApplication::clipboard();
+    if(NULL != clipboard) {
+        clipboardData = clipboard->text();
+    }
+    const QString expected = "a1=\"aa1\" a2=\"aa2\" a3=\"aa3\"";
+    if(expected != clipboardData) {
+        return error(QString("Error checking clipboard after attributes copy, found:'%1', expected:'%2'")
+                     .arg(clipboardData).arg(expected));
+    }
     return true ;
 }
 
@@ -177,6 +192,9 @@ bool TestCopyAttrs::testCopyAttrs()
     if( !copyAttrs(&app) ) {
         return false;
     }
+    if(!testAttributesInClipboard()) {
+        return false;
+    }
     if(! pasteAttrs(&app) ) {
         return false;
     }
@@ -211,7 +229,7 @@ bool TestCopyAttrs::testCopyAttrsExcl()
     if(!app.mainWindow()->loadFile(QString(FILE_BASE))) {
         return error("load file");
     }
-    if(! pasteAttrsExcl(&app) ) {
+    if(!pasteAttrsExcl(&app) ) {
         return false;
     }
     if( !cfrStep1e(&app, "0") ) {

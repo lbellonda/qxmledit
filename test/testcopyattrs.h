@@ -41,6 +41,7 @@ class TestCopyAttrs : public TestBase
     bool cfr(App *app, const QString &step, const QString &file);
     bool pasteAttrs(App *app);
     bool pasteAttrsExcl(App *app);
+    bool testAttributesInClipboard();
 
 public:
     TestCopyAttrs();
