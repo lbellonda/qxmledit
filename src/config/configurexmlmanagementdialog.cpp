@@ -143,6 +143,9 @@ void ConfigureXMLManagementDialog::on_chkNoIndent_stateChanged(int /*state*/)
 void ConfigureXMLManagementDialog::on_cbSaveStream_stateChanged(int /*state*/)
 {
     if(_started) {
+        if(!ui->cbSaveStream->isChecked()) {
+            Utils::message(this->window(), tr("Use stream for saving data is the recommended saving option."));
+        }
         Config::saveBool(Config::KEY_XML_SAVE_STREAM, ui->cbSaveStream->isChecked());
     }
 }

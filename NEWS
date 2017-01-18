@@ -1,4 +1,5 @@
 0.9.6
+    New dialog to advise the user to use the streaming method for saving.
     New option to remove the decoration from elements display.
     Fixed a bug in the configuration dialog setting display.
     Sorted alphabetically the attributes in "Copy Attributes" dialog.
