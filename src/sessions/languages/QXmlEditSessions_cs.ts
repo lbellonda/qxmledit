@@ -407,27 +407,27 @@ Poslední složky</translation>
         <translation>Chyba při vyvolávání dat sezení</translation>
     </message>
     <message>
-        <location filename="../sessionsmanagementdialog.cpp" line="151"/>
+        <location filename="../sessionsmanagementdialog.cpp" line="152"/>
         <source>Error reading session data</source>
         <translation>Chyba při čtení dat sezení</translation>
     </message>
     <message>
-        <location filename="../sessionsmanagementdialog.cpp" line="186"/>
+        <location filename="../sessionsmanagementdialog.cpp" line="187"/>
         <source>Select a session.</source>
         <translation>Vybrat sezení.</translation>
     </message>
     <message>
-        <location filename="../sessionsmanagementdialog.cpp" line="204"/>
+        <location filename="../sessionsmanagementdialog.cpp" line="205"/>
         <source>Delete the selected session?</source>
         <translation>Smazat vybrané sezení?</translation>
     </message>
     <message>
-        <location filename="../sessionsmanagementdialog.cpp" line="207"/>
+        <location filename="../sessionsmanagementdialog.cpp" line="208"/>
         <source>An error occurred deleting the session data</source>
         <translation>Při mazání dat sezení se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../sessionsmanagementdialog.cpp" line="290"/>
+        <location filename="../sessionsmanagementdialog.cpp" line="291"/>
         <source>Data copied in the clipboard.</source>
         <translation>Data zkopírována do schránky.</translation>
     </message>

@@ -565,22 +565,22 @@ Jen první pole (XPath) je povinné.</translation>
         <translation>Vybrat vše</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonattrexcdialog.cpp" line="76"/>
+        <location filename="../modules/anonymize/anonattrexcdialog.cpp" line="81"/>
         <source>Selected</source>
         <translation>Vybráno</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonattrexcdialog.cpp" line="76"/>
+        <location filename="../modules/anonymize/anonattrexcdialog.cpp" line="81"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonattrexcdialog.cpp" line="76"/>
+        <location filename="../modules/anonymize/anonattrexcdialog.cpp" line="81"/>
         <source>value</source>
         <translation>hodnota</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonattrexcdialog.cpp" line="111"/>
+        <location filename="../modules/anonymize/anonattrexcdialog.cpp" line="116"/>
         <source>Fatal error</source>
         <translation>Vážná chyba</translation>
     </message>
@@ -672,41 +672,41 @@ Jen první pole (XPath) je povinné.</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonprofiledialog.cpp" line="152"/>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="187"/>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="270"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="190"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="273"/>
         <source>An error occurred</source>
         <translation>Vyskytla se nějaká chyba</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="173"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="176"/>
         <source>This profile can&apos;t be deleted</source>
         <translation>Tento profil nelze smazat</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="290"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="293"/>
         <source>This profile can&apos;t be modified.</source>
         <translation>Tento profil nelze upravit.</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="295"/>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="313"/>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="333"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="298"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="316"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="336"/>
         <source>Error saving profile. Data not saved.</source>
         <translation>Chyba při ukládání profilu. Data nebyla uložena.</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="305"/>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="324"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="308"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="327"/>
         <source>Unable to create new profile.</source>
         <translation>Nelze vytvořit nový profil.</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="350"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="353"/>
         <source>Error saving data.</source>
         <translation>Chyba při ukládání dat.</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="364"/>
+        <location filename="../modules/anonymize/anonprofiledialog.cpp" line="367"/>
         <source>Error deleting data.</source>
         <translation>Chyba při mazání dat.</translation>
     </message>
@@ -2585,6 +2585,11 @@ p, li { white-space: pre-wrap; }
         <translation>Ukázat ikonu prvku</translation>
     </message>
     <message>
+        <location filename="../config/configurationgeneraloptions.ui" line="278"/>
+        <source>Show decorated element Tags</source>
+        <translation>Ukázat značky dekorovaných prvků</translation>
+    </message>
+    <message>
         <location filename="../config/configurationgeneraloptions.ui" line="85"/>
         <source>Override the font for fixed spacing attributes </source>
         <translation>Potlačit písmo pro vlastnosti pevných mezer </translation>
@@ -2618,7 +2623,7 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">Automaticky rozbalit strom při nahrávání (NEPRACUJE)</translation>
     </message>
     <message>
-        <location filename="../config/configurationgeneraloptions.ui" line="289"/>
+        <location filename="../config/configurationgeneraloptions.ui" line="296"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -2657,27 +2662,27 @@ p, li { white-space: pre-wrap; }
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="../config/configurationgeneraloptions.cpp" line="210"/>
+        <location filename="../config/configurationgeneraloptions.cpp" line="211"/>
         <source>Select the font for elements text display</source>
         <translation>Vybrat písmo pro zobrazení textu prvků</translation>
     </message>
     <message>
-        <location filename="../config/configurationgeneraloptions.cpp" line="234"/>
+        <location filename="../config/configurationgeneraloptions.cpp" line="232"/>
         <source>&lt;Not set&gt;</source>
         <translation>&lt;Nenastaveno&gt;</translation>
     </message>
     <message>
-        <location filename="../config/configurationgeneraloptions.cpp" line="236"/>
+        <location filename="../config/configurationgeneraloptions.cpp" line="234"/>
         <source>%1%2%3, %4</source>
         <translation>%1%2%3, %4</translation>
     </message>
     <message>
-        <location filename="../config/configurationgeneraloptions.cpp" line="236"/>
+        <location filename="../config/configurationgeneraloptions.cpp" line="234"/>
         <source> bold</source>
         <translation> Tučné</translation>
     </message>
     <message>
-        <location filename="../config/configurationgeneraloptions.cpp" line="236"/>
+        <location filename="../config/configurationgeneraloptions.cpp" line="234"/>
         <source> italic</source>
         <translation> Kurzíva</translation>
     </message>
@@ -2703,6 +2708,21 @@ p, li { white-space: pre-wrap; }
         <location filename="../config/configureeditmodesdialog.ui" line="47"/>
         <source>Automatically switch to XSLT edit mode when opening an XSLT file.</source>
         <translation>Automaticky při otevírání souboru XSLT přepnout do režimu úprav XSLT.</translation>
+    </message>
+    <message>
+        <location filename="../config/configureeditmodesdialog.ui" line="67"/>
+        <source>SCXML mode</source>
+        <translation>Režim SCXML</translation>
+    </message>
+    <message>
+        <location filename="../config/configureeditmodesdialog.ui" line="74"/>
+        <source>Show the &quot;Switch to SCXML&quot; panel when opening files.</source>
+        <translation>Ukázat při otevírání souborů panel pro přepnutí do SCXML.</translation>
+    </message>
+    <message>
+        <location filename="../config/configureeditmodesdialog.ui" line="81"/>
+        <source>Automatically switch to SCXML edit mode when opening a SCXML file.</source>
+        <translation>Automaticky při otevírání souboru SCXML přepnout do režimu úprav XSLT.</translation>
     </message>
 </context>
 <context>
@@ -4606,7 +4626,7 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">S&amp;mazat</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="674"/>
+        <location filename="../MainWindow.ui" line="749"/>
         <source>Move &amp;Up</source>
         <translation>Posunout &amp;nahoru</translation>
     </message>
@@ -4627,23 +4647,23 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Vyzkoušet další</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="61"/>
+        <location filename="../MainWindow.ui" line="112"/>
         <source>&amp;Navigation</source>
         <translation>&amp;Pohyb</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="71"/>
+        <location filename="../MainWindow.ui" line="123"/>
         <source>&amp;Help</source>
         <translation>&amp;Nápověda</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="87"/>
+        <location filename="../MainWindow.ui" line="139"/>
         <source>&amp;Edit</source>
         <translation>&amp;Úpravy</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="91"/>
-        <location filename="../MainWindow.ui" line="163"/>
+        <location filename="../MainWindow.ui" line="143"/>
+        <location filename="../MainWindow.ui" line="220"/>
         <source>Export</source>
         <translation>Vyvést</translation>
     </message>
@@ -4652,97 +4672,97 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Více</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="139"/>
+        <location filename="../MainWindow.ui" line="195"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Záložky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="148"/>
+        <location filename="../MainWindow.ui" line="204"/>
         <source>&amp;File</source>
         <translation>&amp;Soubor</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="152"/>
+        <location filename="../MainWindow.ui" line="208"/>
         <source>New Speciali&amp;zed</source>
         <translation>Nový &amp;speciální</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="192"/>
+        <location filename="../MainWindow.ui" line="249"/>
         <source>&amp;XML</source>
         <translation>&amp;XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="199"/>
+        <location filename="../MainWindow.ui" line="256"/>
         <source>XML Schema</source>
         <translation>Schéma XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="320"/>
+        <location filename="../MainWindow.ui" line="373"/>
         <source>&amp;Tools</source>
         <translation>&amp;Nástroje</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="341"/>
+        <location filename="../MainWindow.ui" line="389"/>
         <source>&amp;View</source>
         <translation>&amp;Pohled</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="345"/>
+        <location filename="../MainWindow.ui" line="393"/>
         <source>Filter Attributes</source>
         <translation>Vlastnosti filtru</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="411"/>
+        <location filename="../MainWindow.ui" line="459"/>
         <source>&amp;Sessions</source>
         <translation>&amp;Sezení</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="442"/>
+        <location filename="../MainWindow.ui" line="517"/>
         <source>toolBar</source>
         <translation>Nástrojový panel</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="477"/>
+        <location filename="../MainWindow.ui" line="552"/>
         <source>&amp;New</source>
         <translation>&amp;Nový</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="480"/>
+        <location filename="../MainWindow.ui" line="555"/>
         <source>New</source>
         <translation>Nový</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="483"/>
+        <location filename="../MainWindow.ui" line="558"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="492"/>
+        <location filename="../MainWindow.ui" line="567"/>
         <source>&amp;Quit</source>
         <translation>&amp;Ukončit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="495"/>
+        <location filename="../MainWindow.ui" line="570"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="504"/>
+        <location filename="../MainWindow.ui" line="579"/>
         <source>&amp;Open...</source>
         <translation>&amp;Otevřít...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="507"/>
+        <location filename="../MainWindow.ui" line="582"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="516"/>
+        <location filename="../MainWindow.ui" line="591"/>
         <source>&amp;Save</source>
         <translation>&amp;Uložit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="519"/>
+        <location filename="../MainWindow.ui" line="594"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
@@ -4751,42 +4771,42 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Uložit &amp;jako...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="528"/>
+        <location filename="../MainWindow.ui" line="603"/>
         <source>Save &amp;As...</source>
         <translation>Uložit &amp;jako...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="531"/>
+        <location filename="../MainWindow.ui" line="606"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="540"/>
+        <location filename="../MainWindow.ui" line="615"/>
         <source>&amp;Cut</source>
         <translation>&amp;Vyjmout</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="543"/>
+        <location filename="../MainWindow.ui" line="618"/>
         <source>Ctrl+X</source>
         <translation>Ctrl+X</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="552"/>
+        <location filename="../MainWindow.ui" line="627"/>
         <source>Cop&amp;y</source>
         <translation>&amp;Kopírovat</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="555"/>
+        <location filename="../MainWindow.ui" line="630"/>
         <source>Ctrl+C</source>
         <translation>Ctrl+C</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="564"/>
+        <location filename="../MainWindow.ui" line="639"/>
         <source>&amp;Paste</source>
         <translation>V&amp;ložit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="567"/>
+        <location filename="../MainWindow.ui" line="642"/>
         <source>Ctrl+V</source>
         <translation>Ctrl+V</translation>
     </message>
@@ -4795,51 +4815,51 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">&amp;Rozbalit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1627"/>
+        <location filename="../MainWindow.ui" line="1708"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="586"/>
+        <location filename="../MainWindow.ui" line="661"/>
         <source>Show &amp;One Attribute per Line</source>
         <translation>Ukázat &amp;jednu vlastnost na řádek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="203"/>
+        <location filename="../MainWindow.ui" line="260"/>
         <source>Insert</source>
         <translation>Vložit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="211"/>
-        <location filename="../MainWindow.ui" line="1799"/>
+        <location filename="../MainWindow.ui" line="268"/>
+        <location filename="../MainWindow.ui" line="1880"/>
         <source>Append Sibling</source>
         <translation>Připojit sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="227"/>
+        <location filename="../MainWindow.ui" line="284"/>
         <source>Metadata</source>
         <translation>Popisná data</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="97"/>
-        <location filename="../MainWindow.ui" line="354"/>
-        <location filename="../MainWindow.ui" line="376"/>
-        <location filename="../mainwindow.cpp" line="654"/>
+        <location filename="../MainWindow.ui" line="149"/>
+        <location filename="../MainWindow.ui" line="402"/>
+        <location filename="../MainWindow.ui" line="424"/>
+        <location filename="../mainwindow.cpp" line="678"/>
         <source>Advanced</source>
         <translation>Pokročilé</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="572"/>
+        <location filename="../MainWindow.ui" line="647"/>
         <source>&amp;Expand All</source>
         <translation>&amp;Rozbalit vše</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="575"/>
+        <location filename="../MainWindow.ui" line="650"/>
         <source>Expand all the items.</source>
         <translation>Rozbalit všechny položky.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="578"/>
+        <location filename="../MainWindow.ui" line="653"/>
         <source>Ctrl+Shift+E</source>
         <translation>Ctrl+Shift+E</translation>
     </message>
@@ -4848,52 +4868,52 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">&amp;O QXmlEdit...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="595"/>
+        <location filename="../MainWindow.ui" line="670"/>
         <source>&amp;About QXmlEdit</source>
         <translation>&amp;O programu QXmlEdit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="598"/>
+        <location filename="../MainWindow.ui" line="673"/>
         <source>About QXmlEdit</source>
         <translation>O QXmlEdit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="603"/>
+        <location filename="../MainWindow.ui" line="678"/>
         <source>Add &amp;Comment as Child...</source>
         <translation>Přidat &amp;poznámku jako potomka...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1879"/>
+        <location filename="../MainWindow.ui" line="1960"/>
         <source>Edit XSD Annotation</source>
         <translation>Upravit vysvětlivku XSD</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1882"/>
+        <location filename="../MainWindow.ui" line="1963"/>
         <source>Edit annotations of XML Schema</source>
         <translation>Upravit vysvětlivky schématu XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1887"/>
+        <location filename="../MainWindow.ui" line="1968"/>
         <source>Replace...</source>
         <translation>Nahradit...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1890"/>
+        <location filename="../MainWindow.ui" line="1971"/>
         <source>Replace</source>
         <translation>Nahradit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1898"/>
+        <location filename="../MainWindow.ui" line="1979"/>
         <source>Find Next</source>
         <translation>Najít další</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1901"/>
+        <location filename="../MainWindow.ui" line="1982"/>
         <source>F3</source>
         <translation>F3</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="611"/>
+        <location filename="../MainWindow.ui" line="686"/>
         <source>Append C&amp;omment as Brother...</source>
         <translation>Připojit p&amp;oznámku jako bratra...</translation>
     </message>
@@ -4902,7 +4922,7 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">F4</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="619"/>
+        <location filename="../MainWindow.ui" line="694"/>
         <source>Add Processing Instruction as Child...</source>
         <translation>Přidat příkaz pro zpracování jako potomka...</translation>
     </message>
@@ -4911,7 +4931,7 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">F5</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="627"/>
+        <location filename="../MainWindow.ui" line="702"/>
         <source>Append Processing Instruction as Brother...</source>
         <translation>Připojit příkaz pro zpracování jako bratra...</translation>
     </message>
@@ -4928,389 +4948,404 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Automaticky změnit velikost sloupců</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1893"/>
+        <location filename="../MainWindow.ui" line="1974"/>
         <source>Ctrl+R</source>
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="635"/>
+        <location filename="../MainWindow.ui" line="710"/>
         <source>Add a Child Element...</source>
         <translation>Přidat prvek potomka...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="75"/>
+        <location filename="../MainWindow.ui" line="80"/>
+        <source>SCXML Validation Errors</source>
+        <translation>Chyby při schvalování SCXML</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="127"/>
         <source>How Do I...?</source>
         <translation>Jak udělám...?</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="234"/>
+        <location filename="../MainWindow.ui" line="291"/>
         <source>Schema Instance (XSI)</source>
         <translation>Instance schématu (XSI)</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="246"/>
+        <location filename="../MainWindow.ui" line="303"/>
         <source>Sort Attributes</source>
         <translation>Řadit vlastnosti</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="254"/>
-        <location filename="../MainWindow.ui" line="368"/>
+        <location filename="../MainWindow.ui" line="311"/>
+        <location filename="../MainWindow.ui" line="416"/>
         <source>Siblings</source>
         <translation>Sourozenci</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="270"/>
+        <location filename="../MainWindow.ui" line="327"/>
         <source>Namespaces</source>
         <translation>Jmenné prostory</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="360"/>
+        <location filename="../MainWindow.ui" line="408"/>
         <source>Panels</source>
         <translation>Panely</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="424"/>
+        <location filename="../MainWindow.ui" line="472"/>
         <source>Tasks</source>
         <translation>Úkoly</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="606"/>
+        <location filename="../MainWindow.ui" line="478"/>
+        <source>Special</source>
+        <translation>Zvláštní</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="482"/>
+        <source>Validation</source>
+        <translation>Schválení</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="681"/>
         <source>Ctrl+3</source>
         <translation>Ctrl+3</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="614"/>
+        <location filename="../MainWindow.ui" line="689"/>
         <source>Ctrl+4</source>
         <translation>Ctrl+4</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="622"/>
+        <location filename="../MainWindow.ui" line="697"/>
         <source>Ctrl+5</source>
         <translation>Ctrl+5</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="630"/>
+        <location filename="../MainWindow.ui" line="705"/>
         <source>Ctrl+6</source>
         <translation>Ctrl+6</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="638"/>
+        <location filename="../MainWindow.ui" line="713"/>
         <source>Add a new element</source>
         <translation>Přidat nový prvek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="641"/>
+        <location filename="../MainWindow.ui" line="716"/>
         <source>Ctrl+1</source>
         <translation>Ctrl+1</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="646"/>
+        <location filename="../MainWindow.ui" line="721"/>
         <source>Append a Brother Element...</source>
         <translation>Připojit prvek bratra...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="649"/>
+        <location filename="../MainWindow.ui" line="724"/>
         <source>Ctrl+2</source>
         <translation>Ctrl+2</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="654"/>
+        <location filename="../MainWindow.ui" line="729"/>
         <source>&amp;Properties...</source>
         <translation>&amp;Vlastnosti...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="657"/>
+        <location filename="../MainWindow.ui" line="732"/>
         <source>Alt+Return</source>
         <translation>ALT+Return</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="662"/>
+        <location filename="../MainWindow.ui" line="737"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="665"/>
+        <location filename="../MainWindow.ui" line="740"/>
         <source>Ctrl+D</source>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="677"/>
+        <location filename="../MainWindow.ui" line="752"/>
         <source>Ctrl+K</source>
         <translation>Ctrl+K</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="686"/>
+        <location filename="../MainWindow.ui" line="761"/>
         <source>Move Do&amp;wn</source>
         <translation>Přesunout &amp;dolů</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="689"/>
+        <location filename="../MainWindow.ui" line="764"/>
         <source>Ctrl+M</source>
         <translation>Ctrl+M</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="698"/>
+        <location filename="../MainWindow.ui" line="773"/>
         <source>&amp;Find...</source>
         <translation>&amp;Najít...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="701"/>
+        <location filename="../MainWindow.ui" line="776"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="710"/>
+        <location filename="../MainWindow.ui" line="785"/>
         <source>Go To Parent</source>
         <translation>Jít k rodiči</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="713"/>
+        <location filename="../MainWindow.ui" line="788"/>
         <source>Move to the parent</source>
         <translation>Přesunout k rodiči</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="716"/>
+        <location filename="../MainWindow.ui" line="791"/>
         <source>F11</source>
         <translation>F11</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="725"/>
-        <location filename="../MainWindow.ui" line="728"/>
+        <location filename="../MainWindow.ui" line="800"/>
+        <location filename="../MainWindow.ui" line="803"/>
         <source>Go to Previous Brother</source>
         <translation>Jít k předchozímu bratrovi</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="731"/>
+        <location filename="../MainWindow.ui" line="806"/>
         <source>F9</source>
         <translation>F9</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="740"/>
-        <location filename="../MainWindow.ui" line="743"/>
+        <location filename="../MainWindow.ui" line="815"/>
+        <location filename="../MainWindow.ui" line="818"/>
         <source>Go to Next Brother</source>
         <translation>Jít k dalšímu bratrovi</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="746"/>
+        <location filename="../MainWindow.ui" line="821"/>
         <source>F10</source>
         <translation>F10</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="755"/>
+        <location filename="../MainWindow.ui" line="830"/>
         <source>&amp;Toggle Bookmark</source>
         <translation>&amp;Přepnout záložku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="758"/>
+        <location filename="../MainWindow.ui" line="833"/>
         <source>Toggle Boorkmark at Current Location</source>
         <translation>Přepnout záložku v nynějším umístění</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="761"/>
+        <location filename="../MainWindow.ui" line="836"/>
         <source>Ctrl+F2</source>
         <translation>Ctrl+F2</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="766"/>
+        <location filename="../MainWindow.ui" line="841"/>
         <source>&amp;Remove All Bookmarks</source>
         <translation>&amp;Odstranit všechny záložky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="771"/>
+        <location filename="../MainWindow.ui" line="846"/>
         <source>Go To &amp;Next Bookmark</source>
         <translation>Jít na &amp;další záložku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="774"/>
+        <location filename="../MainWindow.ui" line="849"/>
         <source>F2</source>
         <translation>F2</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="779"/>
+        <location filename="../MainWindow.ui" line="854"/>
         <source>Go To &amp;Previous Bookmark</source>
         <translation>Jít na &amp;předchozí záložku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="782"/>
+        <location filename="../MainWindow.ui" line="857"/>
         <source>Shift+F2</source>
         <translation>Shift+F2</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="790"/>
+        <location filename="../MainWindow.ui" line="865"/>
         <source>List Bookmarks</source>
         <translation>Vypsat záložky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="798"/>
+        <location filename="../MainWindow.ui" line="873"/>
         <source>Show Child &amp;Index</source>
         <translation>Ukázat &amp;rejstřík potomků</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="801"/>
+        <location filename="../MainWindow.ui" line="876"/>
         <source>Show Child Index</source>
         <translation>Ukázat rejstřík potomků</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="806"/>
-        <location filename="../MainWindow.ui" line="809"/>
+        <location filename="../MainWindow.ui" line="881"/>
+        <location filename="../MainWindow.ui" line="884"/>
         <source>Close This and All Siblings</source>
         <translation>Zavřít toto a všechny sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="812"/>
+        <location filename="../MainWindow.ui" line="887"/>
         <source>F12</source>
         <translation>F12</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="817"/>
+        <location filename="../MainWindow.ui" line="892"/>
         <source>New From &amp;Clipboard</source>
         <translation>Nový ze &amp;schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="820"/>
+        <location filename="../MainWindow.ui" line="895"/>
         <source>import XML from clipboard</source>
         <translation>Zavést XML ze schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="825"/>
+        <location filename="../MainWindow.ui" line="900"/>
         <source>&amp;Compact View</source>
         <translation>&amp;Celistvý pohled</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="828"/>
+        <location filename="../MainWindow.ui" line="903"/>
         <source>Compact View</source>
         <translation>Celistvý pohled</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="836"/>
+        <location filename="../MainWindow.ui" line="911"/>
         <source>&amp;Hide Siblings</source>
         <translation>&amp;Skrýt sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="839"/>
+        <location filename="../MainWindow.ui" line="914"/>
         <source>Hide Siblings</source>
         <translation>Skrýt sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="847"/>
+        <location filename="../MainWindow.ui" line="922"/>
         <source>&amp;Fixed Size Attributes</source>
         <translation>&amp;Pevná velikost u vlastností</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="850"/>
+        <location filename="../MainWindow.ui" line="925"/>
         <source>Show Attributes with Fixed Size Font</source>
         <translation>Ukázat vlastnosti s písmem o pevné velikosti</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="858"/>
+        <location filename="../MainWindow.ui" line="933"/>
         <source>Show Attributes &amp;Length</source>
         <translation>Ukázat &amp;délku vlastností</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="861"/>
+        <location filename="../MainWindow.ui" line="936"/>
         <source>Show Attributes Length</source>
         <translation>Ukázat délku vlastností</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="869"/>
-        <location filename="../MainWindow.ui" line="872"/>
+        <location filename="../MainWindow.ui" line="944"/>
+        <location filename="../MainWindow.ui" line="947"/>
         <source>Show Text as Base 64 Coded</source>
         <translation>Ukázat text kódovaný jako Base 64</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="880"/>
-        <location filename="../MainWindow.ui" line="883"/>
+        <location filename="../MainWindow.ui" line="955"/>
+        <location filename="../MainWindow.ui" line="958"/>
         <source>Show Current Element Text Base 64</source>
         <translation>Ukázat text Base 64 nynějšího prvku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="888"/>
+        <location filename="../MainWindow.ui" line="963"/>
         <source>Confi&amp;gure...</source>
         <translation>&amp;Nastavit...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="891"/>
+        <location filename="../MainWindow.ui" line="966"/>
         <source>Configure</source>
         <translation>Nastavit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="899"/>
+        <location filename="../MainWindow.ui" line="974"/>
         <source>Edit Inner XML...</source>
         <translation>Upravit vnitřní XML...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="907"/>
+        <location filename="../MainWindow.ui" line="982"/>
         <source>Edit Inner XML Base 64 Coded...</source>
         <translation>Upravit vnitřní XML kódované Base 64...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="939"/>
+        <location filename="../MainWindow.ui" line="1014"/>
         <source>Compare with...</source>
         <translation>Porovnat s...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="942"/>
+        <location filename="../MainWindow.ui" line="1017"/>
         <source>Compare the current data with another XML file</source>
         <translation>Srovnat nynější data s jiným souborem XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="960"/>
+        <location filename="../MainWindow.ui" line="1035"/>
         <source>Copy File Path to Clipboard</source>
         <translation>Kopírovat cestu k souboru do schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="988"/>
+        <location filename="../MainWindow.ui" line="1063"/>
         <source>Validate</source>
         <translation>Potvrdit platnost</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="999"/>
+        <location filename="../MainWindow.ui" line="1074"/>
         <source>Validate using new XSD File.</source>
         <translation>Potvrdit platnost za použití nového souboru XSD.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1138"/>
-        <location filename="../MainWindow.ui" line="1141"/>
+        <location filename="../MainWindow.ui" line="1213"/>
+        <location filename="../MainWindow.ui" line="1216"/>
         <source>Allowed Schema Elements</source>
         <translation>Povolené prvky schématu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1146"/>
+        <location filename="../MainWindow.ui" line="1221"/>
         <source>Edit Inner Text as One Node...</source>
         <translation>Upravit vnitřní text jako jeden uzel...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1149"/>
+        <location filename="../MainWindow.ui" line="1224"/>
         <source>Paste and substitute element text</source>
         <translation>Vložit a nahradit text prvku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1154"/>
+        <location filename="../MainWindow.ui" line="1229"/>
         <source>New Using XML Schema...</source>
         <translation>Nový za použití XML Schema...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1157"/>
+        <location filename="../MainWindow.ui" line="1232"/>
         <source>Creates a new XML Document using a XML Schema</source>
         <translation>Vytvoří nový dokument XML za použití XML Schema</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1162"/>
+        <location filename="../MainWindow.ui" line="1237"/>
         <source>Transform in Comment</source>
         <translation>Proměnit v poznámku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1165"/>
+        <location filename="../MainWindow.ui" line="1240"/>
         <source>Transform in comment</source>
         <translation>Proměnit v poznámku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1170"/>
+        <location filename="../MainWindow.ui" line="1245"/>
         <source>Extract Elements from Comment</source>
         <translation>Vytáhnout prvky z poznámky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1173"/>
+        <location filename="../MainWindow.ui" line="1248"/>
         <source>Extract elements from comment.</source>
         <translation>Vytáhnout prvky z poznámky.</translation>
     </message>
@@ -5323,1128 +5358,1213 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Vložit vlastnosti odkazu schématu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1182"/>
+        <location filename="../MainWindow.ui" line="1257"/>
         <source>Extract Fragments From a File...</source>
         <translation>Vytáhnout kousky ze souboru...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1185"/>
+        <location filename="../MainWindow.ui" line="1260"/>
         <source>Extract XML fragments from a huge file...</source>
         <translation>Vytáhnout kousky XML z obrovského souboru...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1190"/>
+        <location filename="../MainWindow.ui" line="1265"/>
         <source>Welcome Dialog...</source>
         <translation>Uvítací dialog...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1193"/>
+        <location filename="../MainWindow.ui" line="1268"/>
         <source>Show the welcome dialog.</source>
         <translation>Ukázat uvítací dialog.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1202"/>
+        <location filename="../MainWindow.ui" line="1277"/>
         <source>Save a Copy As...</source>
         <translation>Uložit kopii jako...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1205"/>
+        <location filename="../MainWindow.ui" line="1280"/>
         <source>Saves a copy of the current file. Current file path will not be affected.</source>
         <translation>Uloží kopii nynějšího souboru. Nynější souborová cesta nebude ovlivněna.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1214"/>
+        <location filename="../MainWindow.ui" line="1289"/>
         <source>Hide All the Leaf Children</source>
         <translation>Skrýt všechny potomky listu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1217"/>
+        <location filename="../MainWindow.ui" line="1292"/>
         <source>Hide all the nodes that does not have children, revealing the structure.</source>
         <translation>Skrýt všechny uzly, jež nemají potomky, odhaluje stavbu.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1226"/>
+        <location filename="../MainWindow.ui" line="1301"/>
         <source>Show All the Leaf Children</source>
         <translation>Ukázat všechny potomky listu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1229"/>
+        <location filename="../MainWindow.ui" line="1304"/>
         <source>Show all the leaf nodes that was previously hidden.</source>
         <translation>Ukázat všechny uzly, jež byly předtím skryty.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1238"/>
+        <location filename="../MainWindow.ui" line="1313"/>
         <source>Hide Leaf Children</source>
         <translation>Skrýt potomky listu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1241"/>
+        <location filename="../MainWindow.ui" line="1316"/>
         <source>Hide the children of the current node that does not have children, revealing the structure.</source>
         <translation>Skrýt potomky nynějšího uzlu, jež nemají potomky, odhaluje stavbu.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1250"/>
+        <location filename="../MainWindow.ui" line="1325"/>
         <source>Show Leaf Children</source>
         <translation>Ukázat potomky listu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1253"/>
+        <location filename="../MainWindow.ui" line="1328"/>
         <source>Show the leaf nodes of the current node that was previously hidden.</source>
         <translation>Ukázat uzly listu  nynějšího uzlu, jež byly předtím skryty.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1258"/>
+        <location filename="../MainWindow.ui" line="1333"/>
         <source>View As Xsd</source>
         <translation>Prohlížet jako XSD</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1267"/>
+        <location filename="../MainWindow.ui" line="1342"/>
         <source>Columnar View...</source>
         <translation>Sloupcový pohled...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1270"/>
+        <location filename="../MainWindow.ui" line="1345"/>
         <source>View as columns.</source>
         <translation>Zobrazit jako sloupce.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1282"/>
+        <location filename="../MainWindow.ui" line="1357"/>
         <source>Show Current Session Panel</source>
         <translation>Ukázat panel nynějšího sezení</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1285"/>
+        <location filename="../MainWindow.ui" line="1360"/>
         <source>Opens the session panel.</source>
         <translation>Otevře panel sezení.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1290"/>
+        <location filename="../MainWindow.ui" line="1365"/>
         <source>New...</source>
         <translation>Nový...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1293"/>
+        <location filename="../MainWindow.ui" line="1368"/>
         <source>Creates a new session.</source>
         <translation>Vytvoří nové sezení.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1298"/>
+        <location filename="../MainWindow.ui" line="1373"/>
         <source>Pause</source>
         <translation>Pozastavit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1301"/>
+        <location filename="../MainWindow.ui" line="1376"/>
         <source>Pauses the current session.</source>
         <translation>Pozastaví nynější sezení.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1306"/>
+        <location filename="../MainWindow.ui" line="1381"/>
         <source>Resume</source>
         <translation>Pokračovat</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1309"/>
+        <location filename="../MainWindow.ui" line="1384"/>
         <source>Resume the current session.</source>
         <translation>Obnovit nynější sezení.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1314"/>
-        <location filename="../MainWindow.ui" line="2046"/>
+        <location filename="../MainWindow.ui" line="1389"/>
+        <location filename="../MainWindow.ui" line="2127"/>
         <source>Close</source>
         <translation>Zavřít</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1317"/>
+        <location filename="../MainWindow.ui" line="1392"/>
         <source>Closes the current session.</source>
         <translation>Zavře nynější sezení.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1322"/>
+        <location filename="../MainWindow.ui" line="1397"/>
         <source>Manage...</source>
         <translation>Spravovat...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1325"/>
+        <location filename="../MainWindow.ui" line="1400"/>
         <source>Manage the sessions.</source>
         <translation>Spravovat sezení.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1330"/>
+        <location filename="../MainWindow.ui" line="1405"/>
         <source>Details...</source>
         <translation>Podrobnosti...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1333"/>
+        <location filename="../MainWindow.ui" line="1408"/>
         <source>Details about the current session.</source>
         <translation>Podrobnosti o nynějším sezení.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1338"/>
+        <location filename="../MainWindow.ui" line="1413"/>
         <source>Undo</source>
         <translation>Zpět</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1341"/>
+        <location filename="../MainWindow.ui" line="1416"/>
         <source>Undo last action.</source>
         <translation>Zpět poslední krok.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1344"/>
+        <location filename="../MainWindow.ui" line="1419"/>
         <source>Ctrl+Z</source>
         <translation>Ctrl+Z</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1349"/>
+        <location filename="../MainWindow.ui" line="1424"/>
         <source>Redo</source>
         <translation>Znovu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1352"/>
+        <location filename="../MainWindow.ui" line="1427"/>
         <source>Redo last action.</source>
         <translation>Znovu poslední krok.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1355"/>
+        <location filename="../MainWindow.ui" line="1430"/>
         <source>Ctrl+Shift+Z</source>
         <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1360"/>
+        <location filename="../MainWindow.ui" line="1435"/>
         <source>New Window</source>
         <translation>Nové okno</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1363"/>
+        <location filename="../MainWindow.ui" line="1438"/>
         <source>Opens a new window.</source>
         <translation>Otevře nové okno.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1366"/>
+        <location filename="../MainWindow.ui" line="1441"/>
         <source>Ctrl+T</source>
         <translation>Ctrl+T</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1375"/>
+        <location filename="../MainWindow.ui" line="1450"/>
         <source>View data...</source>
         <translation>Prohlížet data...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1378"/>
+        <location filename="../MainWindow.ui" line="1453"/>
         <source>Navigates a data file.</source>
         <translation>Pohyb datovým souborem.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1383"/>
+        <location filename="../MainWindow.ui" line="1458"/>
         <source>Base 64 Tools...</source>
         <translation>Nástroje Base 64...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1386"/>
+        <location filename="../MainWindow.ui" line="1461"/>
         <source>Base 64 tools</source>
         <translation>Nástroje Base 64</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1391"/>
+        <location filename="../MainWindow.ui" line="1466"/>
         <source>Encoding Tools...</source>
         <translation>Nástroje pro kódování...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1394"/>
+        <location filename="../MainWindow.ui" line="1469"/>
         <source>Encoding Tools.</source>
         <translation>Nástroje pro kódování.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1399"/>
+        <location filename="../MainWindow.ui" line="1474"/>
         <source>Compare XS&amp;D...</source>
         <translation>Porovnat XS&amp;D...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1402"/>
+        <location filename="../MainWindow.ui" line="1477"/>
         <source>Compare two XSD in a graphical way</source>
         <translation>Porovnat graficky dvě XSD</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1407"/>
+        <location filename="../MainWindow.ui" line="1482"/>
         <source>Export Attributes of Siblings as CSV in the Clipboard</source>
         <translation>Vyvést vlastnosti sourozenců jako CSV do schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1410"/>
+        <location filename="../MainWindow.ui" line="1485"/>
         <source>Export attributes of siblings as CSV in the clipboard.</source>
         <translation>Vyvést vlastnosti sourozenců jako CSV do schránky.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1415"/>
+        <location filename="../MainWindow.ui" line="1490"/>
         <source>Apply a Temporary Profile</source>
         <translation>Použít dočasný profil</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1418"/>
+        <location filename="../MainWindow.ui" line="1493"/>
         <source>Apply a temporary profile.</source>
         <translation>Použít dočasný profil.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1423"/>
+        <location filename="../MainWindow.ui" line="1498"/>
         <source>Save the Current Profile...</source>
         <translation>Uložit nynější profil...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1426"/>
+        <location filename="../MainWindow.ui" line="1501"/>
         <source>Save the current profile.</source>
         <translation>Uložit nynější profil.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1431"/>
+        <location filename="../MainWindow.ui" line="1506"/>
         <source>Manage Profiles...</source>
         <translation>Spravovat profily...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1434"/>
+        <location filename="../MainWindow.ui" line="1509"/>
         <source>Manage profiles...</source>
         <translation>Spravovat profily...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1439"/>
+        <location filename="../MainWindow.ui" line="1514"/>
         <source>Remove the Current Profile</source>
         <translation>Odstranit nynější profil</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1442"/>
+        <location filename="../MainWindow.ui" line="1517"/>
         <source>Remove the current profile.</source>
         <translation>Odstranit nynější profil.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1451"/>
+        <location filename="../MainWindow.ui" line="1526"/>
         <source>Compare Files...</source>
         <translation>Porovnat soubory...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1454"/>
+        <location filename="../MainWindow.ui" line="1529"/>
         <source>Compare two files.</source>
         <translation>Porovnat dva soubory.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1463"/>
+        <location filename="../MainWindow.ui" line="1538"/>
         <source>Relations...</source>
         <translation>Vztahy...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1466"/>
+        <location filename="../MainWindow.ui" line="1541"/>
         <source>Under development</source>
         <translation>Ve vývoji</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1475"/>
+        <location filename="../MainWindow.ui" line="1550"/>
         <source>View Relations...</source>
         <translation>Zobrazit vztahy...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1480"/>
+        <location filename="../MainWindow.ui" line="1555"/>
         <source>Copy Attributes...</source>
         <translation>Kopírovat vlastnosti...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1483"/>
+        <location filename="../MainWindow.ui" line="1558"/>
         <source>Copy attributes.</source>
         <translation>Kopírovat vlastnosti.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1486"/>
+        <location filename="../MainWindow.ui" line="1561"/>
         <source>Ctrl+Shift+C</source>
         <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1491"/>
+        <location filename="../MainWindow.ui" line="1566"/>
         <source>Paste Attributes...</source>
         <translation>Vložit vlastnosti...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1494"/>
+        <location filename="../MainWindow.ui" line="1569"/>
         <source>Paste attributes.</source>
         <translation>Vložit vlastnosti.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1497"/>
+        <location filename="../MainWindow.ui" line="1572"/>
         <source>Ctrl+Alt+Shift+V</source>
         <translation>Ctrl+Alt+Shift+V</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1502"/>
-        <location filename="../MainWindow.ui" line="1505"/>
+        <location filename="../MainWindow.ui" line="1577"/>
+        <location filename="../MainWindow.ui" line="1580"/>
         <source>Paste Fast Attributes</source>
         <translation>Vložit rychlé vlastnosti</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1508"/>
+        <location filename="../MainWindow.ui" line="1583"/>
         <source>Ctrl+Shift+V</source>
         <translation>Ctrl+Shift+V</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1513"/>
+        <location filename="../MainWindow.ui" line="1588"/>
         <source>Copy Element Path in the Clipboard</source>
         <translation>Kopírovat cestu prvku do schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1516"/>
+        <location filename="../MainWindow.ui" line="1591"/>
         <source>Copy the element path to the clipboard.</source>
         <translation>Kopírovat cestu prvku do schránky.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1521"/>
+        <location filename="../MainWindow.ui" line="1596"/>
         <source>AutoComplete...</source>
         <translation>Automatické doplnění...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1524"/>
+        <location filename="../MainWindow.ui" line="1599"/>
         <source>Autocomplete the current word.</source>
         <translation>Automaticky doplnit nynější slovo.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1527"/>
+        <location filename="../MainWindow.ui" line="1602"/>
         <source>Ctrl+Space</source>
         <translation>Ctrl+Space</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1535"/>
+        <location filename="../MainWindow.ui" line="1610"/>
         <source>XML Edit Mode</source>
         <translation>Režim úprav XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1538"/>
+        <location filename="../MainWindow.ui" line="1613"/>
         <source>XML edit mode conventions.</source>
         <translation>Zvyklosti režimu úprav XML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1546"/>
+        <location filename="../MainWindow.ui" line="1621"/>
         <source>XSLT Edit Mode</source>
         <translation>Režim úprav XSLT</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1549"/>
+        <location filename="../MainWindow.ui" line="1624"/>
         <source>Apply XSLT edit mode conventions.</source>
         <translation>Použít zvyklosti režimu úprav XSLT.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1554"/>
+        <location filename="../MainWindow.ui" line="1629"/>
         <source>New XSLT sheet</source>
         <translation>Nový list XSLT</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1557"/>
+        <location filename="../MainWindow.ui" line="1632"/>
         <source>Creates a new empty XSLT sheet.</source>
         <translation>Vytvoří nový prázdný list XSLT.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1562"/>
+        <location filename="../MainWindow.ui" line="1637"/>
         <source>New XSD document (XML Schema)</source>
         <translation>Nový dokument XSD (schéma XML)</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1565"/>
+        <location filename="../MainWindow.ui" line="1640"/>
         <source>Creates a new empty XML Schema document.</source>
         <translation>Vytvoří nový prázdný dokument se schématem XML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1570"/>
+        <location filename="../MainWindow.ui" line="1645"/>
         <source>New XSL-FO document</source>
         <translation>Nový dokument XSL-FO</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1573"/>
+        <location filename="../MainWindow.ui" line="1648"/>
         <source>Creates a new empty XSL-FO document.</source>
         <translation>Vytvoří nový prázdný dokument XSL-FO.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1578"/>
+        <location filename="../MainWindow.ui" line="1653"/>
         <source>Edit XSLT item...</source>
         <translation>Upravit položku XSLT...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1581"/>
+        <location filename="../MainWindow.ui" line="1656"/>
         <source>Edit element using a XSLT specific dialog.</source>
         <translation>Upravit prvek pomocí zvláštního dialogu pro XSLT.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1586"/>
+        <location filename="../MainWindow.ui" line="1661"/>
         <source>Target XML for Tags and Names for XSLT Autocompletion...</source>
         <translation>Zacílit na XML kvůli značkám a názvům pro automatické doplnění XSLT...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1589"/>
+        <location filename="../MainWindow.ui" line="1664"/>
         <source>Scan an XML file and uses tags and attribute names for  XSLT autocompletion.</source>
         <translation>Prohledá soubor XML a použije značky a názvy vlastností pro automatické doplnění XSLT.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1594"/>
+        <location filename="../MainWindow.ui" line="1672"/>
         <source>Show XSL Navigator</source>
         <translation>Ukázat okno pro pohyb v XSL</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1597"/>
+        <location filename="../MainWindow.ui" line="1675"/>
         <source>Show the XSL navigator dialog</source>
         <translation>Ukázat dialog pro pohyb v XSL</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1602"/>
+        <location filename="../MainWindow.ui" line="1680"/>
         <source>Specific Properties...</source>
         <translation>Zvláštní vlastnosti...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1605"/>
+        <location filename="../MainWindow.ui" line="1683"/>
         <source>Opens the specific properties panel.</source>
         <translation>Otevře panel pro zvláštní vlastnosti.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1610"/>
+        <location filename="../MainWindow.ui" line="1686"/>
+        <source>Alt+Shift+Return</source>
+        <translation>Alt+Shift+Enter</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="1691"/>
         <source>Paste as Sibling</source>
         <translation>Vložit jako sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1613"/>
+        <location filename="../MainWindow.ui" line="1694"/>
         <source>Paste the clipboard content as sibling of the selected node</source>
         <translation>Vložit obsah schránky jako sourozence vybraného uzlu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1616"/>
+        <location filename="../MainWindow.ui" line="1697"/>
         <source>Ctrl+B</source>
         <translation>Ctrl+B</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1621"/>
+        <location filename="../MainWindow.ui" line="1702"/>
         <source>Expand the Selected Item</source>
         <translation>Rozbalit vybranou položku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1624"/>
+        <location filename="../MainWindow.ui" line="1705"/>
         <source>Expand the selected item and all its children.</source>
         <translation>Rozbalit vybranou položku a všechny její potomky.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1632"/>
+        <location filename="../MainWindow.ui" line="1713"/>
         <source>New Maven POM</source>
         <translation>Nový Maven POM</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1635"/>
+        <location filename="../MainWindow.ui" line="1716"/>
         <source>Creates a new file from Mavn POM template.</source>
         <translation>Vytvoří nový soubor z předlohy Maven POM.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1640"/>
+        <location filename="../MainWindow.ui" line="1721"/>
         <source>New from Snippet...</source>
         <translation>Nový z kousku...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1643"/>
+        <location filename="../MainWindow.ui" line="1724"/>
         <source>Creates a new file from an existing snippet.</source>
         <translation>Vytvoří nový soubor ze stávajícího kousku.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1648"/>
+        <location filename="../MainWindow.ui" line="1729"/>
         <source>Customizing Display Styles</source>
         <translation>Přizpůsobení stylů zobrazení</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1651"/>
+        <location filename="../MainWindow.ui" line="1732"/>
         <source>Some tips about how to change how the data are visualized.</source>
         <translation>Některé rady k tomu, jak změnit způsob, jakým jsou data znázorňována.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1656"/>
+        <location filename="../MainWindow.ui" line="1737"/>
         <source>Binary Viewer</source>
         <translation>Prohlížeč binárních souborů</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1659"/>
+        <location filename="../MainWindow.ui" line="1740"/>
         <source>Binary files viewer</source>
         <translation>Prohlížeč spustitelných souborů</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1671"/>
-        <location filename="../mainwindow.cpp" line="2806"/>
+        <location filename="../MainWindow.ui" line="1752"/>
+        <location filename="../mainwindow.cpp" line="2947"/>
         <source>Read Only</source>
         <translation>Pouze pro čtení</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1674"/>
+        <location filename="../MainWindow.ui" line="1755"/>
         <source>Does not allow modification to the document.</source>
         <translation>Nedovoluje změny v dokumentu.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1679"/>
+        <location filename="../MainWindow.ui" line="1760"/>
         <source>Insert Metadata</source>
         <translation>Vložit popisná data</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1682"/>
+        <location filename="../MainWindow.ui" line="1763"/>
         <source>Insert updatable metadata.</source>
         <translation>Vložit aktualizovatelná popisná data.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1687"/>
+        <location filename="../MainWindow.ui" line="1768"/>
         <source>Edit Metadata</source>
         <translation>Upravit popisná data</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1690"/>
+        <location filename="../MainWindow.ui" line="1771"/>
         <source>Edit the metadata</source>
         <translation>Upravit popisná data</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1695"/>
+        <location filename="../MainWindow.ui" line="1776"/>
         <source>Export as Java/JavaScript source...</source>
         <translation>Vyvést jako zdroj Java/JavaScript...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1698"/>
+        <location filename="../MainWindow.ui" line="1779"/>
         <source>Export as Java/JavaScript source</source>
         <translation>Vyvést jako zdroj Java/JavaScript</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1703"/>
+        <location filename="../MainWindow.ui" line="1784"/>
         <source>Insert Complete Metadata</source>
         <translation>Vložit úplná popisná data</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1706"/>
+        <location filename="../MainWindow.ui" line="1787"/>
         <source>Insert complete metadata (updatatable and manual).</source>
         <translation>Vložit úplná popisná data (aktualizovatelná a ruční).</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1711"/>
+        <location filename="../MainWindow.ui" line="1792"/>
         <source>Insert prolog</source>
         <translation>Vložit prolog</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1714"/>
+        <location filename="../MainWindow.ui" line="1795"/>
         <source>Insert the xml prolog</source>
         <translation>Vložit prolog XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1719"/>
+        <location filename="../MainWindow.ui" line="1800"/>
         <source>Encoding</source>
         <translation>Kódování</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1722"/>
+        <location filename="../MainWindow.ui" line="1803"/>
         <source>Select the encoding.</source>
         <translation>Vyberte kódování.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1727"/>
+        <location filename="../MainWindow.ui" line="1808"/>
         <source>Export as C/C++ source...</source>
         <translation>Vyvést jako zdroj C/C++...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1730"/>
+        <location filename="../MainWindow.ui" line="1811"/>
         <source>Export the XML as a Cpp Source</source>
         <translation>Vyvést XML jako zdroj Cpp</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1735"/>
+        <location filename="../MainWindow.ui" line="1816"/>
         <source>Copy all to Clipboard</source>
         <translation>Kopírovat vše do schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1738"/>
+        <location filename="../MainWindow.ui" line="1819"/>
         <source>Copy all the document to the clipoard</source>
         <translation>Kopírovat celý dokument do schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1743"/>
+        <location filename="../MainWindow.ui" line="1824"/>
         <source>Code Pages...</source>
         <translation>Kódové stránky...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1746"/>
+        <location filename="../MainWindow.ui" line="1827"/>
         <source>Show code pages.</source>
         <translation>Ukázat kódové stránky.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1751"/>
+        <location filename="../MainWindow.ui" line="1832"/>
         <source>Insert child container</source>
         <translation>Vložit kontejner potomka</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1754"/>
+        <location filename="../MainWindow.ui" line="1835"/>
         <source>Insert a tag that wraps all the existing children/</source>
         <translation>Vložit značku, která zabalí všechny existující potomky/</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1759"/>
+        <location filename="../MainWindow.ui" line="1840"/>
         <source>Insert parent</source>
         <translation>Vložit rodiče</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1762"/>
+        <location filename="../MainWindow.ui" line="1843"/>
         <source>Insert a parent for the current element.</source>
         <translation>Vložit rodiče pro nynější prvek.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1767"/>
+        <location filename="../MainWindow.ui" line="1848"/>
         <source>Remove parent</source>
         <translation>Odstranit rodiče</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1770"/>
+        <location filename="../MainWindow.ui" line="1851"/>
         <source>Removes the parent of the current item</source>
         <translation>Odstraní rodiče nynější položky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1778"/>
+        <location filename="../MainWindow.ui" line="1859"/>
         <source>Show always full text of comments</source>
         <translation>Ukázat vždy celý text poznámek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1781"/>
+        <location filename="../MainWindow.ui" line="1862"/>
         <source>Show the full comment text even in compact mode</source>
         <translation>Ukázat vždy celý text poznámky, dokonce i v celistvém režimu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1786"/>
+        <location filename="../MainWindow.ui" line="1867"/>
         <source>Insert &amp;Element...</source>
         <translation>Vložit &amp;prvek...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1791"/>
+        <location filename="../MainWindow.ui" line="1872"/>
         <source>Append &amp;Element...</source>
         <translation>Připojit &amp;prvek...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1794"/>
+        <location filename="../MainWindow.ui" line="1875"/>
         <source>Append element as sibling</source>
         <translation>Připojit prvek jako sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1802"/>
+        <location filename="../MainWindow.ui" line="1883"/>
         <source>Append sibling.</source>
         <translation>Připojit sourozence.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1807"/>
+        <location filename="../MainWindow.ui" line="1888"/>
         <source>Modify Type...</source>
         <translation>Změnit typ...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1810"/>
+        <location filename="../MainWindow.ui" line="1891"/>
         <source>Modify the XSD type.</source>
         <translation>Změnit typ XSD.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1815"/>
+        <location filename="../MainWindow.ui" line="1896"/>
         <source>Insert &amp;Type...</source>
         <translation>Vložit &amp;typ...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1818"/>
+        <location filename="../MainWindow.ui" line="1899"/>
         <source>Insert type</source>
         <translation>Vložit typ</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1823"/>
+        <location filename="../MainWindow.ui" line="1904"/>
         <source>Append &amp;Type...</source>
         <translation>Připojit &amp;typ...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1826"/>
+        <location filename="../MainWindow.ui" line="1907"/>
         <source>Append type as sibling</source>
         <translation>Připojit typ jako sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1831"/>
+        <location filename="../MainWindow.ui" line="1912"/>
         <source>Insert &amp;Attribute...</source>
         <translation>Vložit &amp;vlastnost...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1834"/>
+        <location filename="../MainWindow.ui" line="1915"/>
         <source>Insert attribute</source>
         <translation>Vložit vlastnost</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1839"/>
+        <location filename="../MainWindow.ui" line="1920"/>
         <source>Append &amp;Attribute...</source>
         <translation>Připojit vl&amp;astnost...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1842"/>
+        <location filename="../MainWindow.ui" line="1923"/>
         <source>Append an XSD attribute as sibling.</source>
         <translation>Připojit vlastnost XSD jako sourozence.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1851"/>
+        <location filename="../MainWindow.ui" line="1932"/>
         <source>Anonymize...</source>
         <translation>Anonymizovat...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1854"/>
+        <location filename="../MainWindow.ui" line="1935"/>
         <source>Anonymize the current file.</source>
         <translation>Anonymizovat nynější soubor.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1859"/>
+        <location filename="../MainWindow.ui" line="1940"/>
         <source>Quick Reference for Elements...</source>
         <translation>Rychlý odkaz na informace o prvku...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1862"/>
+        <location filename="../MainWindow.ui" line="1943"/>
         <source>Display a quick Reference for Elements...</source>
         <translation>Zobrazit rychlý odkaz na informace o prvcích...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1871"/>
+        <location filename="../MainWindow.ui" line="1952"/>
         <source>Anonymize File...</source>
         <translation>Anonymizovat soubor...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1874"/>
+        <location filename="../MainWindow.ui" line="1955"/>
         <source>Anonymize an external file.</source>
         <translation>Anonymizovat vnější soubor.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1906"/>
+        <location filename="../MainWindow.ui" line="1987"/>
         <source>Set Indentation...</source>
         <translation>Nastavit odsazení...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1909"/>
+        <location filename="../MainWindow.ui" line="1990"/>
         <source>Set the indentation for this document.</source>
         <translation>Nastavit odsazení pro tento dokument.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1914"/>
+        <location filename="../MainWindow.ui" line="1995"/>
         <source>Validate using document references</source>
         <translation>Potvrdit platnost za použití odkazů dokumentu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1917"/>
+        <location filename="../MainWindow.ui" line="1998"/>
         <source>Validate using internal document references.</source>
         <translation>Potvrdit platnost za použití vnitřních odkazů dokumentu.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1922"/>
+        <location filename="../MainWindow.ui" line="2003"/>
         <source>Find Previous</source>
         <translation>Najít předchozí</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1925"/>
+        <location filename="../MainWindow.ui" line="2006"/>
         <source>Find the previous occurrence.</source>
         <translation>Najít předchozí výskyt.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1928"/>
+        <location filename="../MainWindow.ui" line="2009"/>
         <source>Shift+F3</source>
         <translation>Shift+F3</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1937"/>
-        <location filename="../MainWindow.ui" line="1940"/>
+        <location filename="../MainWindow.ui" line="2018"/>
+        <location filename="../MainWindow.ui" line="2021"/>
         <source>Info</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1948"/>
+        <location filename="../MainWindow.ui" line="2029"/>
         <source>Show Buttons</source>
         <translation>Ukázat tlačítka</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1951"/>
+        <location filename="../MainWindow.ui" line="2032"/>
         <source>Show or hide the main windows buttons.</source>
         <translation>Ukázat nebo skrýt tlačítka v hlavním okně.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1959"/>
+        <location filename="../MainWindow.ui" line="2040"/>
         <source>Status Bar</source>
         <translation>Stavový řádek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1962"/>
+        <location filename="../MainWindow.ui" line="2043"/>
         <source>Show or hide the status bar.</source>
         <translation>Ukázat nebo skrýt stavový řádek.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1967"/>
+        <location filename="../MainWindow.ui" line="2048"/>
         <source>Remove XSI &quot;nil&quot; Attribute</source>
         <translation>Odstranit vlastnost &quot;nil&quot; XSI</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1970"/>
+        <location filename="../MainWindow.ui" line="2051"/>
         <source>Remove schema instance &quot;nil&quot; Attribute</source>
         <translation>Odstranit vlastnost &quot;nil&quot; instance schématu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1975"/>
+        <location filename="../MainWindow.ui" line="2056"/>
         <source>Insert XSI &quot;nil&quot; attribute</source>
         <translation>Vložit vlastnost &quot;nil&quot; XSI</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1978"/>
+        <location filename="../MainWindow.ui" line="2059"/>
         <source>Insert schema instance &quot;nil&quot; attribute.</source>
         <translation>Vložit vlastnost &quot;nil&quot; instance schématu.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1983"/>
+        <location filename="../MainWindow.ui" line="2064"/>
         <source>Remove XSI Type Attribute</source>
         <translation>Odstranit vlastnost typu XSI</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1986"/>
+        <location filename="../MainWindow.ui" line="2067"/>
         <source>Remove XSI type attribute.</source>
         <translation>Odstranit vlastnost typu XSI.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1991"/>
+        <location filename="../MainWindow.ui" line="2072"/>
         <source>Insert XSI Type Attribute...</source>
         <translation>Vložit vlastnost typu XSI...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1994"/>
+        <location filename="../MainWindow.ui" line="2075"/>
         <source>Insert XSI Type Attribute.</source>
         <translation>Vložit vlastnost typu XSI.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1999"/>
+        <location filename="../MainWindow.ui" line="2080"/>
         <source>Xml Schema References...</source>
         <translation>Odkazy na schémata XML...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2002"/>
+        <location filename="../MainWindow.ui" line="2083"/>
         <source>Insert XML Schema references.</source>
         <translation>Vložit odkazy na schémata XML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2011"/>
-        <location filename="../mainwindow.cpp" line="370"/>
+        <location filename="../MainWindow.ui" line="2092"/>
+        <location filename="../mainwindow.cpp" line="390"/>
         <source>&amp;Open in Same Window...</source>
         <translation>&amp;Otevřít ve stejném okně...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2014"/>
-        <location filename="../mainwindow.cpp" line="371"/>
+        <location filename="../MainWindow.ui" line="2095"/>
+        <location filename="../mainwindow.cpp" line="391"/>
         <source>Open in same window.</source>
         <translation>Otevřít ve stejném okně.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2017"/>
+        <location filename="../MainWindow.ui" line="2098"/>
         <source>Ctrl+Shift+O</source>
         <translation>Ctrl+Shift+O</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2022"/>
+        <location filename="../MainWindow.ui" line="2103"/>
         <source>Close Siblings</source>
         <translation>Zavřít sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2025"/>
+        <location filename="../MainWindow.ui" line="2106"/>
         <source>Close the siblings of the current element.</source>
         <translation>Zavřít sourozence nynějšího prvku.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2030"/>
+        <location filename="../MainWindow.ui" line="2111"/>
         <source>Fill serie...</source>
         <translation>Vyplnit řadu...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2033"/>
+        <location filename="../MainWindow.ui" line="2114"/>
         <source>Fill a set of elements with consecutive values.</source>
         <translation>Vyplnit řadu prvků po sobě jdoucími hodnotami.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2038"/>
+        <location filename="../MainWindow.ui" line="2119"/>
         <source>Clone Elements...</source>
         <translation>Klonovat prvky...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2041"/>
+        <location filename="../MainWindow.ui" line="2122"/>
         <source>Clone the selected element.</source>
         <translation>Klonovat vybraný prvek.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2049"/>
+        <location filename="../MainWindow.ui" line="2130"/>
         <source>Close the window.</source>
         <translation>Zavřít okno.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2052"/>
+        <location filename="../MainWindow.ui" line="2133"/>
         <source>Ctrl+W</source>
         <translation>Ctrl+W</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2057"/>
+        <location filename="../MainWindow.ui" line="2138"/>
         <source>Show Containing Folder</source>
         <translation>Ukázat obsahující složku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2060"/>
+        <location filename="../MainWindow.ui" line="2141"/>
         <source>Opens the containing folder in the system browser.</source>
         <translation>Otevře obsahující složku v systémovém prohlížeči.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2065"/>
+        <location filename="../MainWindow.ui" line="2146"/>
         <source>Export Element to File</source>
         <translation>Vyvést prvek do souboru</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2068"/>
+        <location filename="../MainWindow.ui" line="2149"/>
         <source>Export the selected element to a file.</source>
         <translation>Vyvést vybraný prvek do souboru.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2076"/>
+        <location filename="../MainWindow.ui" line="2157"/>
         <source>Show Attributes Sorted</source>
         <translation>Ukázat vlastnosti seřazeny</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2079"/>
+        <location filename="../MainWindow.ui" line="2160"/>
         <source>Show the attributes sorted alphabetically.</source>
         <translation>Ukázat vlastnosti seřazeny abecedně.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2084"/>
-        <location filename="../MainWindow.ui" line="2087"/>
+        <location filename="../MainWindow.ui" line="2165"/>
+        <location filename="../MainWindow.ui" line="2168"/>
         <source>Sort Attributes of the Selection</source>
         <translation>Řadit vlastnosti výběru</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2092"/>
+        <location filename="../MainWindow.ui" line="2173"/>
         <source>Sort Attributes of the Selection and Its Children</source>
         <translation>Řadit vlastnosti výběru a jeho potomky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2097"/>
+        <location filename="../MainWindow.ui" line="2178"/>
         <source>Sort Attributes in All the Elements</source>
         <translation>Třídit vlastnosti ve všech prvcích</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2102"/>
+        <location filename="../MainWindow.ui" line="2183"/>
         <source>Remove All Siblings Before</source>
         <translation>Odstranit všechny sourozence před</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2105"/>
+        <location filename="../MainWindow.ui" line="2186"/>
         <source>Remove all the siblings before the selected element.</source>
         <translation>Odstranit všechny sourozence před vybraným prvkem.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2110"/>
+        <location filename="../MainWindow.ui" line="2191"/>
         <source>Remove All Siblings After</source>
         <translation>Odstranit všechny sourozence po</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2113"/>
+        <location filename="../MainWindow.ui" line="2194"/>
         <source>Remove all the siblings after the selected element.</source>
         <translation>Odstranit všechny sourozence po vybraném prvku.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2118"/>
+        <location filename="../MainWindow.ui" line="2199"/>
         <source>Remove All Siblings</source>
         <translation>Odstranit všechny sourozence</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2121"/>
+        <location filename="../MainWindow.ui" line="2202"/>
         <source>Remove all the siblings of the selected element.</source>
         <translation>Odstranit všechny sourozence vybraného prvku.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2126"/>
+        <location filename="../MainWindow.ui" line="2207"/>
         <source>Set the Editor Detail</source>
         <translation>Nastavit podrobnost editoru</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2131"/>
+        <location filename="../MainWindow.ui" line="2212"/>
         <source>Adjust Display Detail</source>
         <translation>Přizpůsobit podrobnost zobrazení</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2136"/>
+        <location filename="../MainWindow.ui" line="2217"/>
         <source>TEST</source>
         <translation>ZKOUŠKA</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2141"/>
+        <location filename="../MainWindow.ui" line="2222"/>
         <source>Edit Enumeration or Facet</source>
         <translation>Upravit výčet nebo stránku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2144"/>
+        <location filename="../MainWindow.ui" line="2225"/>
         <source>Edit facets, enumerations in particular.</source>
         <translation>Upravit zejména stránky činnosti, výčty.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2149"/>
+        <location filename="../MainWindow.ui" line="2230"/>
         <source>Remove Prefix...</source>
         <translation>Odstranit předponu...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2152"/>
+        <location filename="../MainWindow.ui" line="2233"/>
         <source>Removes prefixes from elements and attributes.</source>
         <translation>Odstraní předpony z prvků a vlastností.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2157"/>
+        <location filename="../MainWindow.ui" line="2238"/>
         <source>Remove Namespace...</source>
         <translation>Odstranit jmenný prostor...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2160"/>
+        <location filename="../MainWindow.ui" line="2241"/>
         <source>Removes namespaces from elements and attributes.</source>
         <translation>Odstraní jmenné prostory z prvků a vlastností.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2165"/>
+        <location filename="../MainWindow.ui" line="2246"/>
         <source>Assign Prefix...</source>
         <translation>Přiřadit předponu...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2168"/>
+        <location filename="../MainWindow.ui" line="2249"/>
         <source>Assign a prefix.</source>
         <translation>Přiřadit předponu.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2173"/>
+        <location filename="../MainWindow.ui" line="2254"/>
         <source>Replace Prefix...</source>
         <translation>Nahradit předponu...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2176"/>
+        <location filename="../MainWindow.ui" line="2257"/>
         <source>Replace one or all the prefixes.</source>
         <translation>Nahradit jednu nebo všechny předpony.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2181"/>
+        <location filename="../MainWindow.ui" line="2262"/>
         <source>Assign Namespace...</source>
         <translation>Přiřadit jmenný prostor...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2184"/>
+        <location filename="../MainWindow.ui" line="2265"/>
         <source>Assign a namespace.</source>
         <translation>Přiřadit jmenný prostor.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2189"/>
+        <location filename="../MainWindow.ui" line="2270"/>
         <source>Replace Namespace...</source>
         <translation>Nahradit jmenný prostor...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2192"/>
+        <location filename="../MainWindow.ui" line="2273"/>
         <source>Replace one or more namespaces.</source>
         <translation>Nahradit jednu nebo všechny jmenný prostory.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2197"/>
+        <location filename="../MainWindow.ui" line="2278"/>
         <source>Normalize namespaces</source>
         <translation>Normalizovat jmenné prostory</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2200"/>
+        <location filename="../MainWindow.ui" line="2281"/>
         <source>Normalize namespace prefixes.</source>
         <translation>Normalizovat předpony jmenných prostorů.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2286"/>
+        <source>Insert Specialized Child...</source>
+        <translation>Vložit specializovaného potomka...</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2289"/>
+        <source>Insert a specialized element.</source>
+        <translation>Vložit specializovaný prvek.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2292"/>
+        <source>Alt+Shift+I</source>
+        <translation>Alt+Shift+I</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2297"/>
+        <source>New SCXML document</source>
+        <translation>Nový dokument SCXML</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2300"/>
+        <source>Creates a new empty SCXML document.</source>
+        <translation>Vytvoří nový prázdný dokument SCXML.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2305"/>
+        <source>Append Specialized Sibling...</source>
+        <translation>Připojit specializovaného sourozence...</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2308"/>
+        <source>Append a specialized element.</source>
+        <translation>Připojit specializovaný prvek.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2311"/>
+        <source>Alt+Shift+A</source>
+        <translation>Alt+Shift+A</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2319"/>
+        <source>Show SCXML Navigator</source>
+        <translation>Ukázat okno pro pohyb v SCXML</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2322"/>
+        <source>Shows or hides the SCXML navigator.</source>
+        <translation>Ukáže nebo skryje okno pro pohyb v SCXML.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2327"/>
+        <source>Validate SCXML</source>
+        <translation>Potvrdit platnost SCXML</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2330"/>
+        <source>Validate the SCXML machine.</source>
+        <translation>Potvrdit platnost stroje SCXML.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2338"/>
+        <source>SCXML Edit Mode</source>
+        <translation>Režim úprav SCXML</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2341"/>
+        <source>Apply SCXML edit mode conventions.</source>
+        <translation>Použít zvyklosti režimu úprav SCXML.</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2346"/>
+        <source>Copy Element Without Children</source>
+        <translation>Kopírovat prvek bez potomků</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2349"/>
+        <source>Copy in the clipboard the element but the children.</source>
+        <translation>Kopírovat do schránky prvek s výjimkou potomků.</translation>
     </message>
     <message>
         <source>Edit inner XML...</source>
         <translation type="obsolete">Upravit vnitřní XML...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="902"/>
+        <location filename="../MainWindow.ui" line="977"/>
         <source>Edit inner XML</source>
         <translation>Upravit vnitřní XML</translation>
     </message>
@@ -6453,29 +6573,29 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Upravit vnitřní XML kódované Base 64...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="910"/>
+        <location filename="../MainWindow.ui" line="985"/>
         <source>Edit inner XML Base 64 Coded</source>
         <translation>Upravit vnitřní XML kódované Base 64</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="915"/>
+        <location filename="../MainWindow.ui" line="990"/>
         <source>Edit inner Base 64 Text...</source>
         <translation>Upravit vnitřní text Base 64...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="918"/>
+        <location filename="../MainWindow.ui" line="993"/>
         <source>Edit inner Base 64 Text</source>
         <translation>Upravit vnitřní text Base 64</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="923"/>
-        <location filename="../MainWindow.ui" line="926"/>
+        <location filename="../MainWindow.ui" line="998"/>
+        <location filename="../MainWindow.ui" line="1001"/>
         <source>Zoom In</source>
         <translation>Přiblížit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="931"/>
-        <location filename="../MainWindow.ui" line="934"/>
+        <location filename="../MainWindow.ui" line="1006"/>
+        <location filename="../MainWindow.ui" line="1009"/>
         <source>Zoom Out</source>
         <translation>Oddálit</translation>
     </message>
@@ -6488,17 +6608,17 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Srovnat s jiným souborem XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="947"/>
+        <location filename="../MainWindow.ui" line="1022"/>
         <source>Reload</source>
         <translation>Nahrát znovu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="950"/>
+        <location filename="../MainWindow.ui" line="1025"/>
         <source>Reload the current file</source>
         <translation>Nahrát nynější soubor znovu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="955"/>
+        <location filename="../MainWindow.ui" line="1030"/>
         <source>Last Files</source>
         <translation>Poslední soubory</translation>
     </message>
@@ -6507,27 +6627,27 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Kopírovat cestu do schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="963"/>
+        <location filename="../MainWindow.ui" line="1038"/>
         <source>Copy path to clipboard</source>
         <translation>Kopírovat cestu do schránky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="968"/>
+        <location filename="../MainWindow.ui" line="1043"/>
         <source>Add Current Directory to Preferred Ones</source>
         <translation>Přidat nynější adresář do upřednostňovaných</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="971"/>
+        <location filename="../MainWindow.ui" line="1046"/>
         <source>Add the current directory to Preferred Ones</source>
         <translation>Přidat nynější adresář do upřednostňovaných</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="976"/>
+        <location filename="../MainWindow.ui" line="1051"/>
         <source>Edit Preferred Directories...</source>
         <translation>Upravit upřednostňované adresáře...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="979"/>
+        <location filename="../MainWindow.ui" line="1054"/>
         <source>Edit Preferred Directories</source>
         <translation>Upravit upřednostňované adresáře</translation>
     </message>
@@ -6536,7 +6656,7 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Potvrdit platnost za použití odkazů dokumentu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="991"/>
+        <location filename="../MainWindow.ui" line="1066"/>
         <source>Validate against a XSD</source>
         <translation>Potvrdit platnost proti XSD</translation>
     </message>
@@ -6549,7 +6669,7 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Potvrdit platnost za použití zadaného souboru</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="996"/>
+        <location filename="../MainWindow.ui" line="1071"/>
         <source>Validate Using New Schema File...</source>
         <translation>Potvrdit platnost za použití nového souboru se schématem (Schema)...</translation>
     </message>
@@ -6558,203 +6678,203 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Potvrdit platnost za použití nového souboru XSD...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1004"/>
+        <location filename="../MainWindow.ui" line="1079"/>
         <source>Insert Snippet...</source>
         <translation>Vložit kousek...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1007"/>
+        <location filename="../MainWindow.ui" line="1082"/>
         <source>Insert a XML fragment</source>
         <translation>Vložit kousek XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1012"/>
+        <location filename="../MainWindow.ui" line="1087"/>
         <source>Configure Snippets...</source>
         <translation>Nastavit kousky...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1015"/>
+        <location filename="../MainWindow.ui" line="1090"/>
         <source>Configure Snippets</source>
         <translation>Nastavit kousky</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1020"/>
-        <location filename="../MainWindow.ui" line="1023"/>
+        <location filename="../MainWindow.ui" line="1095"/>
+        <location filename="../MainWindow.ui" line="1098"/>
         <source>Execute Auto Test</source>
         <translation>Spustit automatickou zkoušku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1028"/>
+        <location filename="../MainWindow.ui" line="1103"/>
         <source>Plugins</source>
         <translation>Přídavné moduly</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1033"/>
+        <location filename="../MainWindow.ui" line="1108"/>
         <source>Transform in Snippet...</source>
         <translation>Proměnit v kousek...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1036"/>
+        <location filename="../MainWindow.ui" line="1111"/>
         <source>Transform in Snippet</source>
         <translation>Proměnit v kousek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1044"/>
-        <location filename="../MainWindow.ui" line="1047"/>
+        <location filename="../MainWindow.ui" line="1119"/>
+        <location filename="../MainWindow.ui" line="1122"/>
         <source>Show Element Text Length</source>
         <translation>Ukázat délku textu prvku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1055"/>
+        <location filename="../MainWindow.ui" line="1130"/>
         <source>Show Element Size</source>
         <translation>Ukázat velikost prvku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1058"/>
+        <location filename="../MainWindow.ui" line="1133"/>
         <source>Show element size</source>
         <translation>Ukázat velikost prvku</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1063"/>
+        <location filename="../MainWindow.ui" line="1138"/>
         <source>Delete Bookmarked Items</source>
         <translation>Smazat položky přidané do záložek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1066"/>
+        <location filename="../MainWindow.ui" line="1141"/>
         <source>Delete Bookmarked items</source>
         <translation>Smazat položky přidané do záložek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1071"/>
+        <location filename="../MainWindow.ui" line="1146"/>
         <source>Clean Bookmarked Items Content</source>
         <translation>Uklidit obsah položek přidaných do záložek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1074"/>
+        <location filename="../MainWindow.ui" line="1149"/>
         <source>Clean Bookmarked ItemsContent</source>
         <translation>Uklidit obsah položek přidaných do záložek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1079"/>
+        <location filename="../MainWindow.ui" line="1154"/>
         <source>Clean Bookmarked Items Attribute...</source>
         <translation>Uklidit vlastnost položek přidaných do záložek...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1082"/>
+        <location filename="../MainWindow.ui" line="1157"/>
         <source>Clean Bookmarked Items Attribute</source>
         <translation>Uklidit vlastnost položek přidaných do záložek</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1087"/>
+        <location filename="../MainWindow.ui" line="1162"/>
         <source>Explore Structure...</source>
         <translation>Prozkoumat stavbu...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1090"/>
+        <location filename="../MainWindow.ui" line="1165"/>
         <source>Explore structure loading only partial informations about a file.</source>
         <translation>Prozkoumat stavbu nahráním pouze dílčí informace o souboru.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1095"/>
+        <location filename="../MainWindow.ui" line="1170"/>
         <source>Blind Load File...</source>
         <translation>Slepé nahrání souboru...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1098"/>
+        <location filename="../MainWindow.ui" line="1173"/>
         <source>load a file in blind mode</source>
         <translation>Nahrát soubor ve slepém režimu</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1106"/>
+        <location filename="../MainWindow.ui" line="1181"/>
         <source>Hide View</source>
         <translation>Skrýt pohled</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1109"/>
+        <location filename="../MainWindow.ui" line="1184"/>
         <source>Hide graphics view</source>
         <translation>Skrýt obrazový pohled</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1118"/>
+        <location filename="../MainWindow.ui" line="1193"/>
         <source>Search in Files...</source>
         <translation>Hledat v souborech...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1121"/>
+        <location filename="../MainWindow.ui" line="1196"/>
         <source>Search in files</source>
         <translation>Hledat v souborech</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1130"/>
-        <location filename="../MainWindow.ui" line="1133"/>
+        <location filename="../MainWindow.ui" line="1205"/>
+        <location filename="../MainWindow.ui" line="1208"/>
         <source>Help on QXmlEdit</source>
         <translation>Nápověda k QXmlEdit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="112"/>
+        <location filename="../mainwindow.cpp" line="120"/>
         <source>Error preparing user interface.</source>
         <translation>Chyba při přípravě uživatelského rozhraní.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="115"/>
+        <location filename="../mainwindow.cpp" line="123"/>
         <source>Error preparing edit widget.</source>
         <translation>Chyba při přípravě prvku pro úpravy.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="252"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>The XML Editor component is not correct (%1)</source>
         <translation>Součást editoru XML není správná (%1)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="265"/>
+        <location filename="../mainwindow.cpp" line="281"/>
         <source>XML Editor initialization failed</source>
         <translation>Nepodařilo se spustit editor XML</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="323"/>
+        <location filename="../mainwindow.cpp" line="343"/>
         <source>Indicates the edit modality.</source>
         <translation>Naznačí modalitu úprav.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="373"/>
+        <location filename="../mainwindow.cpp" line="393"/>
         <source>&amp;Open in New Window...</source>
         <translation>&amp;Otevřít v novém okně...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="374"/>
+        <location filename="../mainwindow.cpp" line="394"/>
         <source>Open in new window.</source>
         <translation>Otevřít v novém okně.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="501"/>
+        <location filename="../mainwindow.cpp" line="521"/>
         <source>Error in encoding set up.</source>
         <translation>Chyba v nastavení kódování.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="262"/>
-        <location filename="../mainwindow.cpp" line="648"/>
+        <location filename="../MainWindow.ui" line="319"/>
+        <location filename="../mainwindow.cpp" line="672"/>
         <source>Hierarchy</source>
         <translation>Hierarchie</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="711"/>
-        <location filename="../mainwindow.cpp" line="2085"/>
+        <location filename="../mainwindow.cpp" line="743"/>
+        <location filename="../mainwindow.cpp" line="2195"/>
         <source>XSLT</source>
         <translation>XSLT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2016"/>
+        <location filename="../mainwindow.cpp" line="2126"/>
         <source>Abandon changes?</source>
         <translation>Opustit změny?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="303"/>
-        <location filename="../mainwindow.cpp" line="311"/>
-        <location filename="../mainwindow.cpp" line="319"/>
-        <location filename="../mainwindow.cpp" line="328"/>
-        <location filename="../mainwindow.cpp" line="336"/>
-        <location filename="../mainwindow.cpp" line="347"/>
+        <location filename="../mainwindow.cpp" line="323"/>
+        <location filename="../mainwindow.cpp" line="331"/>
+        <location filename="../mainwindow.cpp" line="339"/>
+        <location filename="../mainwindow.cpp" line="348"/>
         <location filename="../mainwindow.cpp" line="356"/>
+        <location filename="../mainwindow.cpp" line="367"/>
+        <location filename="../mainwindow.cpp" line="376"/>
         <source>Error creating user interface</source>
         <translation>Chyba při vytváření uživatelského rozhraní</translation>
     </message>
@@ -6779,12 +6899,12 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Text</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="466"/>
+        <location filename="../mainwindow.cpp" line="486"/>
         <source>Recent Files</source>
         <translation>Naposledy otevřené soubory</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="478"/>
+        <location filename="../mainwindow.cpp" line="498"/>
         <source>Preferred Directories</source>
         <translation>Upřednostňované adresáře</translation>
     </message>
@@ -6857,10 +6977,10 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Dekódovaný text</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="974"/>
-        <location filename="../mainwindow.cpp" line="1610"/>
-        <location filename="../mainwindow.cpp" line="1848"/>
-        <location filename="../mainwindow.cpp" line="3278"/>
+        <location filename="../mainwindow.cpp" line="1017"/>
+        <location filename="../mainwindow.cpp" line="1676"/>
+        <location filename="../mainwindow.cpp" line="1916"/>
+        <location filename="../mainwindow.cpp" line="3419"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
@@ -6869,119 +6989,129 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1009"/>
-        <location filename="../mainwindow.cpp" line="1044"/>
-        <location filename="../mainwindow.cpp" line="3186"/>
+        <location filename="../mainwindow.cpp" line="1050"/>
+        <location filename="../mainwindow.cpp" line="1086"/>
+        <location filename="../mainwindow.cpp" line="3327"/>
         <source>No data to save.</source>
         <translation>Žádná data k uložení.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1013"/>
-        <location filename="../mainwindow.cpp" line="1048"/>
+        <location filename="../mainwindow.cpp" line="1054"/>
+        <location filename="../mainwindow.cpp" line="1090"/>
         <source>Cannot write an empty file.</source>
         <translation>Nelze zapsat prázdný soubor.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1028"/>
-        <location filename="../mainwindow.cpp" line="1065"/>
-        <location filename="../mainwindow.cpp" line="1098"/>
+        <location filename="../mainwindow.cpp" line="1069"/>
+        <location filename="../mainwindow.cpp" line="1107"/>
+        <location filename="../mainwindow.cpp" line="1140"/>
         <source>Error saving data. Old file is still intact.</source>
         <translation>Chyba při ukládání dat. Starý soubor je stále netknut.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1037"/>
-        <location filename="../mainwindow.cpp" line="1070"/>
-        <location filename="../mainwindow.cpp" line="1119"/>
+        <location filename="../mainwindow.cpp" line="1078"/>
+        <location filename="../mainwindow.cpp" line="1112"/>
+        <location filename="../mainwindow.cpp" line="1161"/>
         <source>File saved</source>
         <translation>Soubor uložen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1679"/>
+        <location filename="../mainwindow.cpp" line="1745"/>
         <source>Error opening folder.</source>
         <translation>Chyba při otevírání složky.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1682"/>
+        <location filename="../mainwindow.cpp" line="1748"/>
         <source>The folder does not exists</source>
         <translation>Složka neexistuje</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1889"/>
+        <location filename="../mainwindow.cpp" line="1993"/>
         <source>Unable to parse XML, file =&apos;%1&apos;, at line:%3, column:%4, cause: &apos;%2&apos; </source>
         <translation>Nelze zpracovat XML, soubor =&apos;%1&apos;, na řádku:%3, sloupec:%4, příčina: &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1926"/>
+        <location filename="../mainwindow.cpp" line="2028"/>
+        <source>Data loaded with errors.</source>
+        <translation>Data nahrána s chybami.</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="2035"/>
         <source>Unable to get data.</source>
         <translation>Nelze získat data.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2082"/>
+        <location filename="../mainwindow.cpp" line="2192"/>
         <source>XML</source>
         <translation>XML</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2088"/>
+        <location filename="../mainwindow.cpp" line="2198"/>
+        <source>SCXML</source>
+        <translation>SCXML</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="2201"/>
         <source>unknown</source>
         <translation>Neznámý</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2091"/>
+        <location filename="../mainwindow.cpp" line="2204"/>
         <source>mode: %1</source>
         <translation>Režim: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2368"/>
+        <location filename="../mainwindow.cpp" line="2486"/>
         <source>Error activating sessions.</source>
         <translation>Chyba při zapínání sezení.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2474"/>
+        <location filename="../mainwindow.cpp" line="2592"/>
         <source>Error opening a new window.</source>
         <translation>Chyba při otevírání nového okna.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2548"/>
+        <location filename="../mainwindow.cpp" line="2666"/>
         <source>Save the Temporary Profile</source>
         <translation>Uložit dočasný profil</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2548"/>
+        <location filename="../mainwindow.cpp" line="2666"/>
         <source>Profile name:</source>
         <translation>Název profilu:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2566"/>
+        <location filename="../mainwindow.cpp" line="2684"/>
         <source>Filter saved.</source>
         <translation>Filtr uložen.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2568"/>
+        <location filename="../mainwindow.cpp" line="2686"/>
         <source>Error saving the filter.</source>
         <translation>Chyba při ukládání filtru.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2816"/>
+        <location filename="../mainwindow.cpp" line="2957"/>
         <source>Read Only. Reactivable using Edit menu or by double click.</source>
         <translation>Pouze pro čtení. Dá se znovu zapnout pomocí nabídky Upravit nebo dvojitým klepnutím.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2818"/>
+        <location filename="../mainwindow.cpp" line="2959"/>
         <source>Double click to change.</source>
         <translation>Dvakrát klepněte, chcete-li změnit.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3195"/>
+        <location filename="../mainwindow.cpp" line="3336"/>
         <source>Error exporting data.</source>
         <translation>Chyba při vyvádění dat.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3198"/>
+        <location filename="../mainwindow.cpp" line="3339"/>
         <source>Data exported</source>
         <translation>Data vyvedena</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3335"/>
+        <location filename="../mainwindow.cpp" line="3476"/>
         <source>QXmlEdit detected that current encoding can lead to a malformed file.
 Do you want to save it using DOM method?
 Warning: DOM does not support attribute alignment and DTD management.</source>
@@ -7000,8 +7130,8 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Název zdroje je prázdný. Nelze jej nahrát.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2808"/>
-        <location filename="../mainwindow.cpp" line="2818"/>
+        <location filename="../mainwindow.cpp" line="2949"/>
+        <location filename="../mainwindow.cpp" line="2959"/>
         <source>Modifiable</source>
         <translation>Upravitelný</translation>
     </message>
@@ -7010,43 +7140,43 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Pouze pro čtení. Dá se znovu zapnout pomocí nabídky Upravit.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2867"/>
-        <location filename="../mainwindow.cpp" line="2880"/>
+        <location filename="../mainwindow.cpp" line="3008"/>
+        <location filename="../mainwindow.cpp" line="3021"/>
         <source>Export Data as Java/Javascript</source>
         <translation>Vyvést data jako Java/JavaScript</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2941"/>
+        <location filename="../mainwindow.cpp" line="3082"/>
         <source>No codec for the required encoding</source>
         <translation>Žádný kodek pro vybrané kódování</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2951"/>
+        <location filename="../mainwindow.cpp" line="3092"/>
         <source>Validate using internal XML Schema references.</source>
         <translation>Potvrdit platnost za použití vnitřních odkazů schématu XML.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2953"/>
+        <location filename="../mainwindow.cpp" line="3094"/>
         <source>Validate using XML Schema:&apos;%1&apos;</source>
         <translation>Potvrdit platnost za použití schématu XML: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2966"/>
+        <location filename="../mainwindow.cpp" line="3107"/>
         <source>I-</source>
         <translation>I-</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2967"/>
+        <location filename="../mainwindow.cpp" line="3108"/>
         <source>No Indentation</source>
         <translation>Žádné odsazení</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2969"/>
+        <location filename="../mainwindow.cpp" line="3110"/>
         <source>I%1</source>
         <translation>I%1</translation>
     </message>
     <message numerus="yes">
-        <location filename="../mainwindow.cpp" line="2970"/>
+        <location filename="../mainwindow.cpp" line="3111"/>
         <source>Indentation: %n space(s)</source>
         <translation>
             <numerusform>Odsazení: %n mezera</numerusform>
@@ -7061,17 +7191,17 @@ Would you like to save it in a new file?</source>
 Chcete jej uložit v novém souboru?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1105"/>
+        <location filename="../mainwindow.cpp" line="1147"/>
         <source>Error saving data: cleaning backup file.</source>
         <translation>Chyba při ukládání dat. Uklízí se zálohovací soubor.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1110"/>
+        <location filename="../mainwindow.cpp" line="1152"/>
         <source>Error renaming old file. You can access written data at file &apos;%1&apos;. Old data are untouched</source>
         <translation>Chyba při přejmenovávání starého souboru. K zapsaným datům můžete přistupovat v souboru &apos;%1&apos;. Stará data jsou netknuta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1115"/>
+        <location filename="../mainwindow.cpp" line="1157"/>
         <source>Error renaming new file. You can access written data at file &apos;%1&apos;. You can find old data in the backup file</source>
         <translation>Chyba při přejmenovávání nového souboru. K zapsaným datům můžete přistupovat v souboru &apos;%1&apos;. Stará data naleznete v zálohovacím souboru</translation>
     </message>
@@ -7080,12 +7210,12 @@ Chcete jej uložit v novém souboru?</translation>
         <translation type="obsolete">Operace ukončena</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1130"/>
+        <location filename="../mainwindow.cpp" line="1172"/>
         <source>Save Data</source>
         <translation>Uložit data</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1141"/>
+        <location filename="../mainwindow.cpp" line="1183"/>
         <source>No main structure</source>
         <translation>Žádná hlavní stavba</translation>
     </message>
@@ -7124,7 +7254,7 @@ Chcete jej uložit v novém souboru?</translation>
         <translation type="obsolete">Chyba při nahrávání schématu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1091"/>
+        <location filename="../mainwindow.cpp" line="1133"/>
         <source>Cannot write empty file.</source>
         <translation>Nelze zapsat prázdný soubor.</translation>
     </message>
@@ -7149,12 +7279,12 @@ Chcete jej uložit v novém souboru?</translation>
         <translation type="obsolete">Odkaz na schéma je již přítomen.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2117"/>
+        <location filename="../mainwindow.cpp" line="2230"/>
         <source>No fragments found</source>
         <translation>Nenalezeny žádné kousky</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2153"/>
+        <location filename="../mainwindow.cpp" line="2266"/>
         <source>Error loading data.</source>
         <translation>Chyba při nahrávání dat.</translation>
     </message>
@@ -7183,7 +7313,7 @@ Sestaveno s verzí Qt: %2
 Běhová verze Qt: %3</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1215"/>
+        <location filename="../mainwindow.cpp" line="1257"/>
         <source>--No file--</source>
         <translation>--Žádný soubor--</translation>
     </message>
@@ -7212,12 +7342,12 @@ Běhová verze Qt: %3</translation>
         <translation type="obsolete">Vlastnosti/Text</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1632"/>
+        <location filename="../mainwindow.cpp" line="1698"/>
         <source>Error registering last open files.</source>
         <translation>Chyba při zaznamenání naposledy otevřených souborů.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1716"/>
+        <location filename="../mainwindow.cpp" line="1782"/>
         <source>Error registering preferred directories.</source>
         <translation>Chyba při zaznamenání upřednostňovaných adresářů.</translation>
     </message>
@@ -7260,7 +7390,7 @@ Chcete data prozkoumat jako text?</translation>
         <translation type="obsolete">Prázdná data. Nelze je nahrát.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1862"/>
+        <location filename="../mainwindow.cpp" line="1930"/>
         <source>File name empty. Unable to load it.</source>
         <translation>Název souboru je prázdný. Nelze jej nahrát.</translation>
     </message>
@@ -7275,28 +7405,25 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Nelze nahrát XML</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1900"/>
-        <location filename="../mainwindow.cpp" line="1913"/>
-        <location filename="../mainwindow.cpp" line="1922"/>
         <source>Data loaded.</source>
         <translation>Data nahrána.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1900"/>
-        <location filename="../mainwindow.cpp" line="1913"/>
-        <location filename="../mainwindow.cpp" line="1922"/>
+        <location filename="../mainwindow.cpp" line="2004"/>
+        <location filename="../mainwindow.cpp" line="2017"/>
+        <location filename="../mainwindow.cpp" line="2030"/>
         <source>Data loaded</source>
         <translation>Data nahrána</translation>
     </message>
     <message>
-        <location filename="../mainwindowio.cpp" line="238"/>
+        <location filename="../mainwindowio.cpp" line="237"/>
         <source>Unable to read data.
 Error code is &apos;%1&apos;</source>
         <translation>Nelze přečíst data.
 Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindowio.cpp" line="243"/>
+        <location filename="../mainwindowio.cpp" line="242"/>
         <source>File name empty.
 Unable to load.</source>
         <translation>Název souboru je prázdný.
@@ -7306,14 +7433,42 @@ Nelze jej nahrát.</translation>
 <context>
     <name>MainWndController</name>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="102"/>
+        <location filename="../mainwndcontroller.cpp" line="107"/>
         <source>This feature will modify your data.</source>
         <translation>Tato funkce změní vaše data.</translation>
     </message>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="236"/>
+        <location filename="../mainwndcontroller.cpp" line="241"/>
         <source>You will create a very big number of objects (%1). Do you want to continue?</source>
         <translation>Vytvoříte velice velký počet objektů (%1). Opravdu chcete pokračovat?</translation>
+    </message>
+    <message>
+        <location filename="../mainwndcontroller.cpp" line="358"/>
+        <source>SCXML test is supported only starting from Qt 5.7.0</source>
+        <translation>Zkouška SCXML je podporována až od verze Qt 5.7.0 včetně</translation>
+    </message>
+    <message>
+        <location filename="../mainwndcontroller.cpp" line="364"/>
+        <location filename="../mainwndcontroller.cpp" line="370"/>
+        <source>Unable to check the data as SCXML.</source>
+        <translation>Nelze ověřit data jako SCXML.</translation>
+    </message>
+    <message>
+        <location filename="../mainwndcontroller.cpp" line="376"/>
+        <source>SCXML is valid.</source>
+        <translation>SCXML je platné.</translation>
+    </message>
+    <message>
+        <location filename="../mainwndcontroller.cpp" line="383"/>
+        <source>Currently only null, ecmascript or cpp datamodels are supported by the validator.</source>
+        <translation>V současnosti jsou schvalovatelem podporovány pouze datové modely null, ecmascript nebo cpp.</translation>
+    </message>
+    <message>
+        <location filename="../mainwndcontroller.cpp" line="411"/>
+        <source>Invalid SCXML, errors:
+%1</source>
+        <translation>Neplatné SCXML, chyby:
+%1</translation>
     </message>
 </context>
 <context>
@@ -7489,19 +7644,19 @@ Nelze jej nahrát.</translation>
         <translation>Obecná chyba.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="197"/>
+        <location filename="../main.cpp" line="198"/>
         <source>Error: unable to complete the operation.</source>
         <translation>Chyba: Nelze dokončit operaci.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="289"/>
+        <location filename="../main.cpp" line="293"/>
         <source>Usage:
 </source>
         <translation>Použití:
 </translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="290"/>
+        <location filename="../main.cpp" line="294"/>
         <source> -vis &lt;file&gt;: opens the data visualization panel
 </source>
         <translation> -vis &lt;file&gt;: Otevře panel k znázornění dat</translation>
@@ -7512,41 +7667,41 @@ Nelze jej nahrát.</translation>
         <translation type="obsolete"> -anonymize &lt;inputfile&gt; &lt;profile&gt; &lt;ouputfile&gt;: Anonymizovat</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="291"/>
+        <location filename="../main.cpp" line="295"/>
         <source> -anonymize &lt;inputfile&gt; &lt;profile&gt; &lt;outputfile&gt;: anonymize
 </source>
         <translation> -anonymize &lt;inputfile&gt; &lt;profile&gt; &lt;outputfile&gt;: Anonymizovat</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="292"/>
+        <location filename="../main.cpp" line="296"/>
         <source> any other argument is used as a file to open.
 </source>
         <translation> všechny ostatní argumenty se používají jako soubory k otevření.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="307"/>
-        <location filename="../main.cpp" line="324"/>
-        <location filename="../main.cpp" line="350"/>
+        <location filename="../main.cpp" line="311"/>
+        <location filename="../main.cpp" line="328"/>
+        <location filename="../main.cpp" line="354"/>
         <source>The input file name is empty.</source>
         <translation>Název vstupního souboru je prázdný.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="312"/>
+        <location filename="../main.cpp" line="316"/>
         <source>Missing parameters for the data visualization option.</source>
         <translation>Chybí parametry pro volbu znázornění dat.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="329"/>
+        <location filename="../main.cpp" line="333"/>
         <source>The profile name is empty.</source>
         <translation>Název profilu je prázdný.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="334"/>
+        <location filename="../main.cpp" line="338"/>
         <source>The anonymized file name (output) is empty.</source>
         <translation>Anonymizovaný název souboru (výstup) je prázdný.</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="340"/>
+        <location filename="../main.cpp" line="344"/>
         <source>Missing parameters for the anonymize option.</source>
         <translation>Chybí parametry pro volbu anonymizace.</translation>
     </message>
@@ -8189,6 +8344,19 @@ Nelze jej nahrát.</translation>
     </message>
 </context>
 <context>
+    <name>SourceRelatedMessages</name>
+    <message>
+        <location filename="../modules/messages/sourcerelatedmessages.ui" line="20"/>
+        <source>Form</source>
+        <translation>Formulář</translation>
+    </message>
+    <message>
+        <location filename="../modules/messages/sourcerelatedmessages.ui" line="50"/>
+        <source>Go</source>
+        <translation>Jít</translation>
+    </message>
+</context>
+<context>
     <name>StylePersistence</name>
     <message>
         <source>Unable to parse XML</source>
@@ -8662,7 +8830,7 @@ p, li { white-space: pre-wrap; }
         <translation> celkem textu &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="552"/>
+        <location filename="../visualization/vismapdialog.cpp" line="553"/>
         <source>No data to show.</source>
         <translation>Žádná data k ukázání.</translation>
     </message>
@@ -8743,6 +8911,24 @@ p, li { white-space: pre-wrap; }
         <location filename="../visualization/vismapwidget.ui" line="16"/>
         <source>Form</source>
         <translation>Formulář</translation>
+    </message>
+</context>
+<context>
+    <name>WarningsWidget</name>
+    <message>
+        <location filename="../widgets/warningswidget.ui" line="20"/>
+        <source>Form</source>
+        <translation>Formulář</translation>
+    </message>
+    <message>
+        <location filename="../widgets/warningswidget.ui" line="84"/>
+        <source>Warnings: the data can be incomplete due to load errors.</source>
+        <translation>Varování: Data mohou být neúplná kvůli chybám při nahrávání.</translation>
+    </message>
+    <message>
+        <location filename="../widgets/warningswidget.ui" line="104"/>
+        <source>Close</source>
+        <translation>Zavřít</translation>
     </message>
 </context>
 <context>
@@ -8892,6 +9078,64 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Invalid boolean value:%1</source>
         <translation type="obsolete">Neplatná booleánská hodnota: %1</translation>
+    </message>
+</context>
+<context>
+    <name>XMLErrorManagerDialog</name>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="14"/>
+        <source>Error Manager</source>
+        <translation>Správce chyb</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="35"/>
+        <source>An error has occurred loading XML</source>
+        <translation>Při nahrávání XML se vyskytla chyba</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="57"/>
+        <source>xxxxxxx</source>
+        <translation>xxxxxxx</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="80"/>
+        <source>V</source>
+        <translation>V</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="103"/>
+        <source>yyyyyyyy</source>
+        <translation>yyyyyyyy</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="119"/>
+        <source>Error </source>
+        <translation>Chyba</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="135"/>
+        <source>^</source>
+        <translation>^</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="151"/>
+        <source> Here</source>
+        <translation> Zde</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="160"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Do you want to load the incomplete file?&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/special/warning&quot;/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING&lt;/span&gt;: doing so can cause missing data or unexpected consequences. If unsure, just choose &apos;No&apos;.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Chcete nahrát neúplný soubor?&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/special/warning&quot;/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;VAROVÁNÍ&lt;/span&gt;: Když se to udělá, můžou chybět data, nebo to povede k neočekávaným následkům. Nejste-li si jisti, jednoduše zvolte Ne.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="191"/>
+        <source>Copy File Path in Clipboard</source>
+        <translation>Kopírovat cestu k souboru do schránky</translation>
+    </message>
+    <message>
+        <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="204"/>
+        <source>Show Containing Folder</source>
+        <translation>Ukázat obsahující složku</translation>
     </message>
 </context>
 <context>
