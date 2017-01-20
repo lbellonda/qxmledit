@@ -543,10 +543,6 @@ bool MainWindow::finishSetUpUi()
     ui.actionShowStatusBar->setChecked(currentStatusBarState);
     onShowHideStatusBar();
 
-#if QT_VERSION < QT_VERSION_CHECK(5,7,0)
-    ui.actionValidateSCXML->setVisible(false);
-#endif
-
     //---- region(experimental)
     //---- endregion(experimental)
     onComputeSelectionState();
@@ -1267,7 +1263,14 @@ void MainWindow::closeEvent(QCloseEvent * event)
     // workaround for Qt5 bug
     if(!isVisible()) {
         event->accept();
-        return ;
+        if(!isSlave) {
+            deleteLater();
+        } else {
+            _slaveIsClosed = true ;
+            if(NULL != eventLoop) {
+                eventLoop->exit(_returnCodeAsSlave);
+            }
+        }
     }
 #endif
     const bool slaveCondition = (isSlave && (0 == _returnCodeAsSlave));
@@ -3570,8 +3573,12 @@ void MainWindow::on_actionShowSCXMLNavigator_triggered()
 
 void MainWindow::on_actionValidateSCXML_triggered()
 {
+#if QT_VERSION < QT_VERSION_CHECK(5,7,0)
+    Utils::error(this, tr("SCXML validation is available only with Qt starting from 5.7."));
+#else
     ui.messagePanel->setVisible(false);
     _controller.checkSCXML();
+#endif
 }
 
 void MainWindow::onSourceNavigateTo(QList<int> path)
