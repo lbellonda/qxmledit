@@ -86,6 +86,7 @@ class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
     int _errorCount;
     QString _exportPath ;
     XMLLoadErrorHandler *_loadErrorHandler;
+    bool _closing ;
 public:
     enum EWindowOpen {
         OpenUsingDefaultSettings,

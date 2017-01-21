@@ -85,7 +85,11 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 #define MAX_LAST_FILES  (20)
 
 
-MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent) : QMainWindow(parent), uiDelegate(this), _windowIcon(":/icon/images/icon.png")
+MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent)
+    : QMainWindow(parent),
+      uiDelegate(this),
+      _windowIcon(":/icon/images/icon.png"),
+      _closing(false)
 {
     _scxmlValidationErrors = NULL ;
     _loadErrorHandler = NULL ;
@@ -1260,17 +1264,10 @@ void MainWindow::setFileTitle()
 void MainWindow::closeEvent(QCloseEvent * event)
 {
 #ifdef  ENVIRONMENT_MACOS
-    // workaround for Qt5 bug
-    if(!isVisible()) {
+    // workaround for Qt5 bug, double close message
+    if(_closing) {
         event->accept();
-        if(!isSlave) {
-            deleteLater();
-        } else {
-            _slaveIsClosed = true ;
-            if(NULL != eventLoop) {
-                eventLoop->exit(_returnCodeAsSlave);
-            }
-        }
+        return ;
     }
 #endif
     const bool slaveCondition = (isSlave && (0 == _returnCodeAsSlave));
@@ -1282,6 +1279,7 @@ void MainWindow::closeEvent(QCloseEvent * event)
         }
     }
     event->accept();
+    _closing = true;
     if(!isSlave) {
         deleteLater();
     } else {
