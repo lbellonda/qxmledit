@@ -62,7 +62,6 @@ After release
 - Merge master on develop.
 - Update version number.
 - Set SNAPSHOT flag in xmlEdit.h
-- Set VERSION_ID to snapshot in XmlEdit.h.
 - Change TODO_NEXT_RELEASE in TODO_THIS_RELEASE.
 - Enable TODO_THIS_RELEASE in utils.h.
 - Change the version number in MacOS pList.

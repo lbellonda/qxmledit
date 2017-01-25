@@ -1470,12 +1470,6 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
-    testCopyAttrs();
-    testUtils();
-    testSCXML();
-    testSpecials();
-    testLoadFile();
-    testXSLTMode();
 }
 
 QTEST_MAIN(TestQXmlEdit)
