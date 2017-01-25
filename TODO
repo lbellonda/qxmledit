@@ -5,12 +5,23 @@ Check issues:
 TODO:
 ----
 
-#new is:137
+#new is:138
 
-136 - Inserire top level xslt
+149 - Split e naviga: usa caratteri.
+148 - Split default flag visualizza in app = no.
+147 - Colonne base 64.
+146 - Usa alyternativo come nome, mod. trad
+145 - Multithreading calcoli su vis dati.
+144 - Rimnuovi opzioni salvataggio DOM.
+143 - Non errore rimuovendo titolo in panello encoding.
+142 - Razionalizza pannello encoding.
+141 - Inserisci dopo aver trovato il carattere.
+140 - Inserisci con escape unicode.
+139 - Ricerca per nome caratteri.
+138 - Collega encoding ad input attributi/testo.
+
 135 - 64 bit version for Windows
 134 - Evaluate if selecting the new element inserted with the menu insert special
-130 - Edit Extended.
 129 - Editing XSD into viewer.
 128 - Content assist XSD with annotations as help.
 127 - Drag into other programs.
