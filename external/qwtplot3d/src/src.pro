@@ -53,4 +53,6 @@ win32 {
 
 linux-g++:QMAKE_CXXFLAGS += -fno-exceptions
 
+macx:QMAKE_CXXFLAGS += -Wno-deprecated-declarations
+
 #unix:VERSION = 0.3.1

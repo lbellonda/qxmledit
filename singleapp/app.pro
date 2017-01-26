@@ -127,6 +127,8 @@ lessThan(QT_MAJOR_VERSION, 5) {
     QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
 }
 
+macx:QMAKE_CXXFLAGS += -Wno-deprecated-declarations
+
 QMAKE_CXXFLAGS +=-Werror
 QMAKE_CXXFLAGS +=-Wall
 
