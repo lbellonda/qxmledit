@@ -212,7 +212,7 @@ const QString Config::KEY_COLOR_ANONTEXTPREVIEW("colors/anonTextPreview");
 const QString Config::KEY_COLOR_ANONATTRPREVIEW("colors/anonAttrPreview");
 
 // xml
-const QString Config::KEY_XML_SAVE_STREAM("xml/saveStream");
+const QString Config::KEY_XML_SAVE_STREAM("xml/saveStream"); // deprecated
 const QString Config::KEY_XML_SAVE_SORTATTRIBUTES("xml/sortAttributes");
 //deprecated: do not use
 const QString Config::KEY_XML_LOAD_STREAM("xml/loadStream");

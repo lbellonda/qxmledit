@@ -285,13 +285,6 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="cbSaveStream">
-     <property name="text">
-      <string>Save using stream instead of DOM</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QCheckBox" name="chkSortAttributes">
      <property name="text">
       <string>Sort alphabetically the attributes</string>
@@ -311,7 +304,6 @@
   <tabstop>attrNewLineAt</tabstop>
   <tabstop>attrCharacters</tabstop>
   <tabstop>cmdPredefinedAttributes</tabstop>
-  <tabstop>cbSaveStream</tabstop>
   <tabstop>chkSortAttributes</tabstop>
  </tabstops>
  <resources/>

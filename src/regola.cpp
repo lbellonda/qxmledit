@@ -307,7 +307,7 @@ bool Regola::isEncodingCompatibleWithStream()
 
 bool Regola::isUseStreamForSaving()
 {
-    if(isSaveUsingStream() && !isForceDOM()) {
+    if(!isForceDOM()) {
         return true ;
     }
     return false;
@@ -529,18 +529,7 @@ QString Regola::getAsText()
 
 QString Regola::getAsText(ElementLoadInfoMap *map)
 {
-    if(isSaveUsingStream()) {
-        return getAsTextStream(map);
-    }
-    QDomDocument    document = createNewDocument();
-    QVectorIterator<Element*> it(childItems);
-    while(it.hasNext()) {
-        if(!it.next()->generateDom(document, document, map)) {
-            return "";
-        }
-    }
-    QString result = document.toString(_indent);
-    return result ;
+    return getAsTextStream(map);
 }
 
 QString Regola::getAsTextStream(ElementLoadInfoMap *map)
@@ -3060,11 +3049,6 @@ bool Regola::isSavingSortingAttributes()
 bool Regola::isSaveSortAlphaAttribute()
 {
     return Config::getBool(Config::KEY_XML_SAVE_SORTATTRIBUTES, false);
-}
-
-bool Regola::isSaveUsingStream()
-{
-    return Config::getBool(Config::KEY_XML_SAVE_STREAM, true);
 }
 
 Regola::ESaveAttributes Regola::saveAttributesMethod() const

@@ -61,7 +61,6 @@ private slots:
     void on_xmlIndent_valueChanged(int newValue);
     void on_cmdIndentReset_clicked();
     void on_chkNoIndent_stateChanged(int /*state*/);
-    void on_cbSaveStream_stateChanged(int /*state*/);
     void on_chkSortAttributes_stateChanged(int /*state*/);
     void on_attrCharacters_valueChanged(int /*i*/);
     void on_attrNoIndendation_clicked(bool /*checked*/);
