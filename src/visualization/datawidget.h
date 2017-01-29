@@ -29,6 +29,7 @@
 #include <QPaintEvent>
 #include <QPointF>
 #include <QTextStream>
+#include <QFuture>
 
 #include "elementbase.h"
 #include "visdatamap.h"
@@ -73,6 +74,7 @@ private:
 
     QPoint _contextMenuPos;
     VisDataMap *_dataMap;
+    int _dataMapRows;
     ElementBase *_data;
     bool _newData ;
     QRect _dataWindow;
@@ -103,6 +105,10 @@ private:
     bool _is3d;
     bool _3dGrid;
     bool _3dPoints;
+    /*!
+     * \brief _mtEnabled: enables multi threading
+     */
+    bool _mtEnabled ;
 
     unsigned int _sizeOfPoints, _xPoints, _yPoints;
 
@@ -118,7 +124,6 @@ public:
     void setData(ElementBase *data);
     void setColorMap(ColorMap *newMap);
     void dumpData();
-    //int sliceOfElement(const int y);
     void assignRealColors(float *mapp, float maxVal, uint *cmap, bool *pMask, const int x, const int y);
     void setZoom(const int newZoom);
     int levels();
@@ -138,6 +143,10 @@ public:
     void setUseGrid(const bool use);
     void setUsePoints(const bool use);
 
+    bool isMtEnabled() const;
+    void setMtEnabled(bool mtEnabled);
+    void copyImageToClipboard();
+
 protected:
     virtual bool event(QEvent * event);
     virtual void contextMenuEvent(QContextMenuEvent * event);
@@ -146,14 +155,34 @@ protected:
 private:
     Ui::DataWidget *ui;
 
-    void generateImage();
+
+    typedef  quint64(DataWidget::*PtrToValue)(ElementBase *e);
+
+    void generateImage(const bool forceStandard = false);
     void computeImage();
-    ElementBase *getElement(const int x, const int y);
+    void computeImageStandard();
+    void computeImageThreaded();
+    void computeImageSlice(const int paramStartY, const int paramEndY);
+    void waitCalcImage(QList<QFuture<void> > &threads);
+    inline ElementBase *getElement(const int x, const int y);
+    inline ElementBase *getElementRow(VisDataRow *row, const int x);
+    inline VisDataRow *getRowAt(const int y);
     void drawImage();
     void filterImage();
     void losePoints();
     inline quint64 getValue(ElementBase *e);
     quint64 getMaxValue();
+    quint64 getValueAttributesCount(ElementBase *e);
+    quint64 getValueAttributesCountCumulative(ElementBase *e);
+    quint64 getValueSize(ElementBase *e);
+    quint64 getValueSizeCumulative(ElementBase *e);
+    quint64 getValueElements(ElementBase *e);
+    quint64 getValueElementsCumulative(ElementBase *e);
+    quint64 getValuePayload(ElementBase *e);
+    quint64 getValuePayloadCumulative(ElementBase *e);
+    PtrToValue getGetValueFunction();
+    QList<int> computeSlices(const int idealThreadCount, const int heightImage);
+    int computeWindowsHeight(const int idealThreadCount);
 #ifdef  QWT_PLOT3D
     void setupPlot();
     void draw3d();
@@ -165,9 +194,14 @@ private slots:
     void on_actionCopyDataToClipboard_triggered();
     void on_actionExtractThisFragment_triggered();
     void on_actionCopyPathToClipboard_triggered();
+    void on_actionCopyImageToClipboard_triggered();
 
 signals:
     void extractFragment(const int fragment, const int depth);
+
+#ifdef QXMLEDIT_TEST
+    friend class TestVis;
+#endif
 };
 
 #endif // DATAWIDGET_H

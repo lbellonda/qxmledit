@@ -34,6 +34,7 @@ const QString Config::KEY_GENERAL_LICENSE_AGREED("generalConfiguration/licenseAg
 const QString Config::KEY_GENERAL_OPEN_NEWWINDOW("generalConfiguration/openNewWindow");
 const QString Config::KEY_GENERAL_SINGLE_INSTANCE("generalConfiguration/singleInstance");
 const QString Config::KEY_GENERAL_VIEW_EDITOR_ADJUST("generalConfiguration/adjustEditor");
+const QString Config::KEY_MULTITHREADING_ENABLED("generalConfiguration/multiThreading");
 // element
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY("element/fontFidexWidthFamily");
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHSIZE("element/fontFidexWidthSize");

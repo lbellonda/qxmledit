@@ -29,14 +29,19 @@
 
 class TestVis : public TestBase
 {
+    ElementBase *buildElm(ElementBase *parent, const int level);
     void count(ElementBase *e, int &total );
     bool testBaseElement();
     bool testDialog();
+    bool testDataThreading(const bool useStandard);
+    bool testSliceElements();
 public:
     TestVis();
 
     bool test();
     bool testSummary();
+    bool testFast();
+    bool testVisData();
 };
 
 #endif // TESTVIS_H

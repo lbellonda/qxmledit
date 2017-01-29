@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -36,6 +36,7 @@
 
 //#define LOG_CONSOLE 1
 #include "xmlEdit.h"
+//#define ENABLE_TIMING_LOG
 
 #include "datawidget.h"
 #include "ui_datawidget.h"
@@ -71,6 +72,7 @@ DataWidget::DataWidget(QWidget *parent) :
     _dataOffset(0, 0),
     ui(new Ui::DataWidget)
 {
+    _mtEnabled = true ;
     _plot = NULL ;
     _bkpt = false ;
     _freeze = false;
@@ -79,6 +81,7 @@ DataWidget::DataWidget(QWidget *parent) :
     _yPoints = 0 ;
 
     _percentY = 0 ;
+    _dataMapRows = 0;
     _dataMap = NULL;
     _measType = Distribution;
     _debugMode = false ;
@@ -97,6 +100,11 @@ DataWidget::DataWidget(QWidget *parent) :
     ui->setupUi(this);
     _3dGrid = true ;
     _3dPoints = false ;
+    Utils::TODO_THIS_RELEASE("manca attribute size e mean size per attribute");
+    Utils::TODO_THIS_RELEASE("setta abilitazioni");
+    Utils::TODO_THIS_RELEASE("fare funzione testabile bordi");
+    Utils::TODO_THIS_RELEASE("se fare struttura, cucire gli slice alla fine con gli id dei vari slice");
+    Utils::TODO_THIS_RELEASE("casi di test: numero valori, calcolo in doppio tra metodo tradizionale e quello nuovo con dati casuali.");
 
 #ifdef  QWT_PLOT3D
     _plot = new Qwt3D::GridPlot(this);
@@ -280,8 +288,9 @@ void DataWidget::recalc()
     if(_freeze) {
         return ;
     }
-
+    _dataMapRows = 0;
     if(NULL != _dataMap) {
+        _dataMapRows = _dataMap->rows.count();
         // percent of slide,
         int x = (_dataOffset.x() * _dataMap->numColumns) / 100.0;
         int y = (_percentY * _dataMap->rows.size()) / 100.0;
@@ -316,6 +325,10 @@ void DataWidget::recalc()
 }
 void DataWidget::paintEvent(QPaintEvent * /*e*/)
 {
+    if(!_is3d) {
+        QPainter painter(this);
+        painter.drawStaticText(width() / 2, height() / 2, tr("Recalculating..."));
+    }
     generateImage();
     if(!_is3d) {
         QPainter painter(this);
@@ -341,7 +354,7 @@ void DataWidget::setColorMap(ColorMap *newMap)
     repaint();
 }
 
-void DataWidget::generateImage()
+void DataWidget::generateImage(const bool forceStandard)
 {
     if(NULL == _dataMap) {
         return ;
@@ -373,7 +386,26 @@ void DataWidget::generateImage()
                 Utils::errorOutOfMem(this);
                 return ;
             }
-            computeImage();
+#ifdef ENABLE_TIMING_LOG
+            Utils::TODO_THIS_RELEASE("togli");
+            printf("Start painting\n"); fflush(stdout);
+            QTime timer;
+            timer.start();
+            int secs = 0;
+#endif
+            if(forceStandard) {
+                computeImageStandard();
+            } else {
+                if(_mtEnabled && (Distribution != _measType)) {
+                    computeImageThreaded();
+                } else {
+                    computeImage();
+                }
+            }
+#ifdef ENABLE_TIMING_LOG
+            secs = timer.elapsed() / 1000;
+            printf("End threads %d secs\n", secs); fflush(stdout);
+#endif
             filterImage();
 #ifdef  QWT_PLOT3D
             if(_is3d) {
@@ -385,10 +417,24 @@ void DataWidget::generateImage()
             drawImage();
 #endif
             //dumpData();
+#ifdef ENABLE_TIMING_LOG
+            secs = timer.elapsed() / 1000;
+            printf("End paint %d secs\n", secs); fflush(stdout);
+#endif
         }
     }
 }
 
+
+bool DataWidget::isMtEnabled() const
+{
+    return _mtEnabled;
+}
+
+void DataWidget::setMtEnabled(bool mtEnabled)
+{
+    _mtEnabled = mtEnabled;
+}
 
 void DataWidget::debugImage()
 {
@@ -420,6 +466,16 @@ void DataWidget::computeImage()
     if(_bkpt) {
         _bkpt = false ;
     }
+    computeImageSlice(0, _yPoints);
+}
+
+void DataWidget::computeImageStandard()
+{
+    // Calculate how many points per px.
+    if(_bkpt) {
+        _bkpt = false ;
+    }
+    Utils::TODO_THIS_RELEASE("togliere");
     float dataHeight = _dataWindow.height();
     float imgHeight = _yPoints ;
     float ptiPerPxY = dataHeight / imgHeight ;
@@ -430,9 +486,6 @@ void DataWidget::computeImage()
     int heightImage = _yPoints;
     int widthImage = _xPoints ;
     int realDataHeight = _dataMap->rows.size();
-
-    //QVector<float> sliceValues;
-    //sliceValues.reserve(imgHeight);
 
     float *mapp = _dataPoints;
     bool *pMask = _dataPointsMask;
@@ -522,7 +575,215 @@ void DataWidget::computeImage()
     } // fory
 }
 
-quint64 DataWidget::getValue(ElementBase *e)
+QList<int> DataWidget::computeSlices(const int idealThreadCount, const int heightImage)
+{
+    const int windowsHeight = heightImage / idealThreadCount ;
+    const int lastWindowFraction = heightImage - (windowsHeight * idealThreadCount);
+    QList<int> items;
+    FORINT(i, idealThreadCount) {
+        items.append(windowsHeight);
+    }
+    const int lastItem = items.size() - 1;
+    items[lastItem] += lastWindowFraction ;
+    return items;
+}
+
+int DataWidget::computeWindowsHeight(const int idealThreadCount)
+{
+    Utils::TODO_THIS_RELEASE("test me");
+    const int heightImage = _yPoints;
+    const int windowsHeight = heightImage / idealThreadCount ;
+    return windowsHeight;
+}
+
+void DataWidget::computeImageThreaded()
+{
+    // Calculate how many points per px.
+    if(_bkpt) {
+        _bkpt = false ;
+    }
+
+    //const int heightImage = _yPoints;
+
+    int threads = QThread::idealThreadCount();
+    if(threads <= 0) {
+        threads = 1 ;
+    }
+    const int windowsHeight = computeWindowsHeight(threads) ;
+    //const int lastWindowFraction = heightImage - (windowsHeight*threads);
+    QList<int> items = computeSlices(threads, _yPoints);
+    //FORINT(i, threads) {
+    //    items.append(windowsHeight);
+    //}
+    //const int lastItem = items.size()-1;
+    //items[lastItem] += lastWindowFraction ;
+    int starty = 0 ;
+    QList<QFuture<void> > results;
+
+    foreach(int thisWindowHeight, items) {
+        int endy = starty + thisWindowHeight ;
+        results.append(QtConcurrent::run(this, &DataWidget::computeImageSlice, starty, endy));
+        starty += windowsHeight ;
+    }
+    waitCalcImage(results);
+}
+
+void DataWidget::waitCalcImage(QList<QFuture<void> > &threads)
+{
+    bool done = false;
+    while(!done) {
+        QThread::msleep(250);
+        done = true ;
+        foreach(QFuture<void> future, threads) {
+            if(!future.isFinished()) {
+                done = false;
+                break;
+            }
+        }
+    }
+}
+
+void DataWidget::computeImageSlice(const int paramStartY, const int paramEndY)
+{
+    // Calculate how many points per px.
+    float dataHeight = _dataWindow.height();
+    float imgHeight = _yPoints ;
+    float ptiPerPxY = dataHeight / imgHeight ;
+    float dataWidth = _dataWindow.width();
+    float imgWidth = _xPoints ;
+    float ptiPerPxX = dataWidth / imgWidth ;
+
+    /*PtrToValue getValueP = getGetValueFunction();
+    if(NULL == getValueP) {
+        return ;
+    }*/
+    //qint64 (DataWidget::*getValue1)(ElementBase*) = getGetValueFunction();
+
+    //int heightImage = _yPoints;
+    int widthImage = _xPoints ;
+    int realDataHeight = _dataMap->rows.size();
+
+    float *mapp = &_dataPoints[widthImage * paramStartY];
+    bool *pMask = &_dataPointsMask[widthImage * paramStartY];
+    //printf("Data Wnd: (%d,%d)\n", (int)dataWidth, (int)dataHeight);
+    int prevParent = -1 ;
+    bool docEven = false ;
+
+    int limy = ptiPerPxY / 2 ;
+    int limx = ptiPerPxX / 2 ;
+
+#ifdef ENABLE_TIMING_LOG
+    void *p = QThread::currentThreadId();
+    printf("Thread id:%p (%d,%d)\n", p, (int)paramStartY, (int)paramEndY);
+    fflush(stdout);
+#endif
+    for(int y = paramStartY ; y < paramEndY ; y ++) {
+        //printf("\nriga %d\n", y);
+        float sliceValueX = 0 ;
+        for(int x = 0 ; x < widthImage ; x ++) {
+            // punto centrale
+            int yyy = _dataWindow.top() + (y * dataHeight) / imgHeight;
+            int xxx = _dataWindow.left() + (x * dataWidth) / imgWidth;
+            //printf(" %d=(%d,%d)", x, xxx, yyy);
+            float value = 0;
+            bool found = false;
+            if(yyy < realDataHeight) {
+                VisDataRow *row = _dataMap->rows.at(yyy);
+                if(row->_numColumns > xxx) {
+                    ElementBase *e = row->_columns[xxx];
+                    int values = 1;
+                    found = true;
+
+                    if(_measType == Distribution) {
+                        if(xxx < _sliceLevel) {
+                            value = 0 ;
+                        } else {
+                            bool isSlice = false;
+                            if(xxx == _sliceLevel) {
+                                isSlice = true ;
+                            }
+                            // use 0 as a threshold
+                            // TODO: cache this
+                            if(isSlice) {
+                                int parentId = e->id;
+                                if(parentId != prevParent) {
+                                    docEven = !docEven ;
+                                }
+                                prevParent = parentId ;
+                                if(docEven) {
+                                    value = 1 ;
+                                } else {
+                                    value = -1 ;
+                                }
+                                sliceValueX = value;
+                            } else {
+                                value = sliceValueX ;//sliceValues.at(y);
+                            }
+                        }
+                    } else {
+                        if(_loudness == NoLoudness) {
+                            //value = ((this)->*getValueP)(e);
+                            value = getValue(e);
+                            for(int yi = 0; yi < ptiPerPxY ; yi++) {
+                                VisDataRow *row = getRowAt(yyy - limy + yi);
+                                if(NULL != row) {
+                                    //Utils::TODO_THIS_RELEASE("ottimizza con incremento, ma occhio a boundaries, per questo opera sugli indici (min, max)");
+                                    int startX = qMax(0, xxx - limx);
+                                    int endX = qMin((int)(xxx - limx + ptiPerPxX), row->_numColumns);
+                                    ElementBase *ex = getElementRow(row, startX);
+                                    if(NULL != ex) {
+                                        //for(int xi = 0; xi < ptiPerPxX ; xi++) {
+                                        for(int xi = startX; xi < endX ; xi++) {
+                                            ElementBase *e2 = ex ++ ;
+                                            //ElementBase *e2 = getElementRow(row, xxx - limx + xi);
+                                            if(NULL != e2) {
+                                                values ++ ;
+                                                value += getValue(e2);//((this)->*getValueP)(e2);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            value /= values ;
+                        } else {
+                            value = getValue(e);
+                            for(int yi = 0; yi < ptiPerPxY ; yi++) {
+                                VisDataRow *row = getRowAt(yyy - limy + yi);
+                                if(NULL != row) {
+                                    int startX = qMax(0, xxx - limx);
+                                    int endX = qMin((int)(xxx - limx + ptiPerPxX), row->_numColumns);
+                                    ElementBase *ex = getElementRow(row, startX);
+                                    if(NULL != ex) {
+                                        //for(int xi = 0; xi < ptiPerPxX ; xi++) {
+                                        for(int xi = startX; xi < endX ; xi++) {
+                                            ElementBase *e2 = ex ++ ;
+                                            //ElementBase *e2 = getElementRow( row, xxx - limx + xi);
+                                            if(NULL != e2) {
+                                                //float nowValue = ((this)->*getValueP)(e2);
+                                                float nowValue = getValue(e2);
+                                                if(nowValue > value) {
+                                                    value = nowValue ;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            *pMask++ = found ;
+            *mapp++ = value ;
+        } // forx
+    } // fory
+#ifdef ENABLE_TIMING_LOG
+    printf("End Thread id:%p (%d,%d)\n", p, (int)paramStartY, (int)paramEndY);
+    fflush(stdout);
+#endif
+}
+
+inline quint64 DataWidget::getValue(ElementBase *e)
 {
     qint64 value = 0 ;
     switch(_measType) {
@@ -559,6 +820,84 @@ quint64 DataWidget::getValue(ElementBase *e)
         break;
     }
     return value;
+}
+
+DataWidget::PtrToValue DataWidget::getGetValueFunction()
+{
+    switch(_measType) {
+    case Attributes:
+        if(_cumulative) {
+            return & DataWidget::getValueAttributesCountCumulative;
+        } else {
+            return & DataWidget::getValueAttributesCount;
+        }
+        break;
+    case Size:
+        if(_cumulative) {
+            return & DataWidget::getValueSizeCumulative;
+        } else {
+            return & DataWidget::getValueSize;
+        }
+        break;
+    case Elements:
+        if(_cumulative) {
+            return & DataWidget::getValueElementsCumulative;
+        } else {
+            return & DataWidget::getValueElements;
+        }
+        break;
+    case Payload:
+        if(_cumulative) {
+            return & DataWidget::getValuePayloadCumulative;
+        } else {
+            return & DataWidget::getValuePayload;
+        }
+        break;
+    default:
+        Utils::error(tr("DataWidget::getValue() type not valid: %d").arg(_measType));
+        break;
+    }
+    return NULL;
+}
+
+quint64 DataWidget::getValueAttributesCount(ElementBase *e)
+{
+    return e->attributesCount;
+}
+
+quint64 DataWidget::getValueAttributesCountCumulative(ElementBase *e)
+{
+    return e->totalAttributesCount;
+}
+
+quint64 DataWidget::getValueSize(ElementBase *e)
+{
+    return e->size;
+}
+
+quint64 DataWidget::getValueSizeCumulative(ElementBase *e)
+{
+    return e->totalSize;
+}
+
+quint64 DataWidget::getValueElements(ElementBase *e)
+{
+    return e->childrenCount;
+}
+
+quint64 DataWidget::getValueElementsCumulative(ElementBase *e)
+{
+    return e->totalChildrenCount;
+}
+
+quint64 DataWidget::getValuePayload(ElementBase *e)
+{
+    return e->payload;
+}
+
+quint64 DataWidget::getValuePayloadCumulative(ElementBase *e)
+{
+    return e->totalPayload;
 }
 
 quint64 DataWidget::getMaxValue()
@@ -643,13 +982,32 @@ int DataWidget::sliceOfElement(const int y)
 }
 */
 
-ElementBase *DataWidget::getElement(const int x, const int y)
+inline ElementBase *DataWidget::getElement(const int x, const int y)
 {
-    if((y >= 0) && (y < _dataMap->rows.count())) {
+    if((y >= 0) && (y < _dataMapRows)) {
         VisDataRow *row = _dataMap->rows.at(y);
         if((x >= 0) && (row->_numColumns > x)) {
             return row->_columns[x];
         }
+    }
+    return NULL ;
+}
+
+inline ElementBase *DataWidget::getElementRow(VisDataRow *row, const int x)
+{
+    if(NULL != row) {
+        if((x >= 0) && (row->_numColumns > x)) {
+            return row->_columns[x];
+        }
+    }
+    return NULL ;
+}
+
+inline VisDataRow *DataWidget::getRowAt(const int y)
+{
+    if((y >= 0) && (y < _dataMapRows)) {
+        VisDataRow *row = _dataMap->rows.at(y);
+        return row;
     }
     return NULL ;
 }
@@ -890,6 +1248,11 @@ void DataWidget::writeDetails(QTextStream &outStream)
     }
 }
 
+void DataWidget::on_actionCopyImageToClipboard_triggered()
+{
+    copyImageToClipboard();
+}
+
 void DataWidget::on_actionCopyDataToClipboard_triggered()
 {
     QString s;
@@ -972,6 +1335,8 @@ void DataWidget::contextMenuEvent(QContextMenuEvent * event)
     if(NULL != contextMenu) {
         if(NULL != _dataPoints) {
             contextMenu->addAction(ui->actionCopyDataToClipboard);
+            contextMenu->addAction(ui->actionCopyImageToClipboard);
+            Utils::TODO_THIS_RELEASE("copia immagine in clipboard e metodo esterno");
             isMenu = true ;
         }
         if((_dataWindow.height() > 0)  && (_dataWindow.width() > 0)) {
@@ -1031,4 +1396,9 @@ void DataWidget::setUsePoints(const bool value)
         setupPlot();
     }
 #endif
+}
+
+void DataWidget::copyImageToClipboard()
+{
+    QApplication::clipboard()->setImage(_cachedImage);
 }

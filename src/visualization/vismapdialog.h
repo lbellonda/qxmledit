@@ -47,7 +47,6 @@ class VisMapDialog : public QDialog
 {
     Q_OBJECT
 
-    friend class TestVis;
     VisDataMap _dataMap;
     ColorMap _colorMap;
     StdColorMap _stdColorMap;
@@ -61,7 +60,7 @@ class VisMapDialog : public QDialog
     QXmlEditData *_appData;
     bool _isAutoDelete;
 
-    void calcSize(ElementBase *e);
+    static void calcSize(ElementBase *e, VisDataMap &dataMap);
 public:
     explicit VisMapDialog(QXmlEditData *newData, QWidget *parent = 0, const QString &fileName = "");
     ~VisMapDialog();
@@ -103,6 +102,10 @@ private slots:
     void on_checkAnalyzeNodes_stateChanged(int newState);
     void on_cbGrid_stateChanged(int /*state*/);
     void on_cbPoints_stateChanged(int /*state*/);
+    void on_copyImageToClipboard_clicked();
+#ifdef QXMLEDIT_TEST
+    friend class TestVis;
+#endif
 
 };
 

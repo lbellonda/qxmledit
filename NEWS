@@ -1,4 +1,7 @@
 0.9.7 (devel)
+    The View Data panel can copy the resulting image in the clipboard.
+    Optionally calcluated the View Data panel data using threading.
+    New options to enable multithreading processing data.
 
 0.9.6
     New dialog to advise the user to use the streaming method for saving.

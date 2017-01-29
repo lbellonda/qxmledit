@@ -777,6 +777,18 @@ NamespaceManager *QXmlEditData::namespaceManager()
 }
 //--- endregion(NamespaceManager)
 
+//--- region(multi-threading)
+bool QXmlEditData::isMtEnabled()
+{
+    return Config::getBool(Config::KEY_MULTITHREADING_ENABLED, true);
+}
+
+void QXmlEditData::setMtEnabled(const bool value)
+{
+    Config::saveBool(Config::KEY_MULTITHREADING_ENABLED, value);
+}
+//--- endregion(multi-threading)
+
 //--- region(styleVersion)
 void QXmlEditData::updateStyleVersion()
 {

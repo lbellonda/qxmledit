@@ -85,6 +85,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
     ui->attrLenCols->setValue(Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, PaintInfo::NumColumnsPerAttributeDefault));
     ui->cbSHowElementsIcon->setChecked(Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false));
     ui->cbShowTagComplex->setChecked(Config::getBool(Config::KEY_MAIN_SHOWLTONTAGS, Config::ShowLOOnTagsDefault));
+    ui->cbEnableMultiThreading->setChecked(_data->isMtEnabled());
 
     _started = true ;
 }
@@ -273,4 +274,12 @@ void ConfigurationGeneralOptions::on_cbShowTagComplex_stateChanged(int /*state*/
         return ;
     }
     Config::saveBool(Config::KEY_MAIN_SHOWLTONTAGS, ui->cbShowTagComplex->isChecked());
+}
+
+void ConfigurationGeneralOptions::on_cbEnableMultiThreading_stateChanged(int /*state*/)
+{
+    if(!_started) {
+        return ;
+    }
+    _data->setMtEnabled(ui->cbEnableMultiThreading->isChecked());
 }
