@@ -1052,6 +1052,11 @@ void Regola::addChild(QWidget *window, QTreeWidget *tree, Element *preElement)
     if(NULL != currItem) {
         parentElement = Element::fromItemData(currItem);
         if(parentElement->getType() != Element::ET_ELEMENT) {
+            //special case: selection is at top and no root element exists
+            if(isEmptyE && (NULL == parentElement->parent())) {
+                addBrother(window, tree);
+                return ;
+            }
             return ;
         }
     } else {
