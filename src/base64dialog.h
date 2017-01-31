@@ -72,7 +72,7 @@ private slots:
     void on_cmdLoadFromTextFile_clicked();
     void on_cmdSaveBinaryData_clicked();
     void on_cbType_currentIndexChanged(int index);
-    void on_cbLimitColumns_stateChanged(int);
+    void on_cbLimitColumns_clicked();
     void on_colLimit_valueChanged(int);
     void updateTimeout();
 #ifdef  QXMLEDIT_TEST

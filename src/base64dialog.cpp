@@ -66,7 +66,7 @@ void Base64Dialog::setupOther()
     base64Values << Base64Utils::RFC4648Standard;
     base64Values << Base64Utils::RFC6920Url;
     Utils::loadComboCodedArrays(ui->cbType, _type, base64Labels, base64Values);
-    Utils::TODO_THIS_RELEASE("testme");
+    ui->colLimit->setMinimum(1);
     ui->colLimit->setValue(Config::getInt(Config::KEY_BASE64_COLUMNS, 80));
     ui->cbLimitColumns->setChecked(Config::getBool(Config::KEY_BASE64_ENABLECOLUMNS, false));
     _updateTimer.setSingleShot(true);
@@ -206,9 +206,8 @@ void Base64Dialog::on_cbType_currentIndexChanged(int index)
     }
 }
 
-void Base64Dialog::on_cbLimitColumns_stateChanged(int)
+void Base64Dialog::on_cbLimitColumns_clicked()
 {
-    Utils::TODO_THIS_RELEASE("controlla solo su azione utente");
     Config::saveBool(Config::KEY_BASE64_ENABLECOLUMNS, ui->cbLimitColumns->isChecked());
     restartUpdate();
 }
