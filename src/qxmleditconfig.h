@@ -226,6 +226,8 @@ public:
 
     // base64
     static const QString KEY_BASE64_TYPE;
+    static const QString KEY_BASE64_COLUMNS;
+    static const QString KEY_BASE64_ENABLECOLUMNS;
 
     // test
     static const QString KEY_TEST;

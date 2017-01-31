@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -66,6 +66,12 @@ void Base64Dialog::setupOther()
     base64Values << Base64Utils::RFC4648Standard;
     base64Values << Base64Utils::RFC6920Url;
     Utils::loadComboCodedArrays(ui->cbType, _type, base64Labels, base64Values);
+    Utils::TODO_THIS_RELEASE("testme");
+    ui->colLimit->setValue(Config::getInt(Config::KEY_BASE64_COLUMNS, 80));
+    ui->cbLimitColumns->setChecked(Config::getBool(Config::KEY_BASE64_ENABLECOLUMNS, false));
+    _updateTimer.setSingleShot(true);
+    _updateTimer.setInterval(1000);
+    connect(&_updateTimer, SIGNAL(timeout()), this, SLOT(updateTimeout()));
 }
 
 void Base64Dialog::base64textChanged()
@@ -96,7 +102,7 @@ void Base64Dialog::textChanged()
     QString text = ui->textEdit->toPlainText();
     Base64Utils base64;
     QByteArray bytes = _currentCodec->fromUnicode(text);
-    QString result = base64.toBase64(_type, bytes);
+    QString result = base64.toBase64(_type, bytes, ui->cbLimitColumns->isChecked(), ui->colLimit->value());
     ui->base64Edit->setPlainText(result);
     _isConverting = false ;
 }
@@ -198,4 +204,32 @@ void Base64Dialog::on_cbType_currentIndexChanged(int index)
         //reload data
         textChanged();
     }
+}
+
+void Base64Dialog::on_cbLimitColumns_stateChanged(int)
+{
+    Utils::TODO_THIS_RELEASE("controlla solo su azione utente");
+    Config::saveBool(Config::KEY_BASE64_ENABLECOLUMNS, ui->cbLimitColumns->isChecked());
+    restartUpdate();
+}
+
+
+void Base64Dialog::on_colLimit_valueChanged(int)
+{
+    Config::saveInt(Config::KEY_BASE64_COLUMNS, ui->colLimit->value());
+    restartUpdate();
+}
+
+void Base64Dialog::restartUpdate()
+{
+    if(_updateTimer.isActive()) {
+        _updateTimer.stop();
+    }
+    _updateTimer.start();
+}
+
+void Base64Dialog::updateTimeout()
+{
+    _updateTimer.stop();
+    textChanged();
 }

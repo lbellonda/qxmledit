@@ -230,6 +230,11 @@ void TestQXmlEdit::testBase64()
     bool result ;
     {
         TestBase64 testBase64;
+        result = testBase64.testFast();
+        QVERIFY2(result, (QString("TestBase64 testFast: %1").arg(testBase64.errorString())).toLatin1().data());
+    }
+    {
+        TestBase64 testBase64;
         result = testBase64.testUnits();
         QVERIFY2(result, (QString("TestBase64 testUnits: %1").arg(testBase64.errorString())).toLatin1().data());
     }
@@ -1481,6 +1486,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testBase64();
     testVis();
 }
 

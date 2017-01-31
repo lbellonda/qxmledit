@@ -220,6 +220,8 @@ const QString Config::KEY_XML_LOAD_STREAM("xml/loadStream");
 
 // base64
 const QString Config::KEY_BASE64_TYPE("base64/type");
+const QString Config::KEY_BASE64_COLUMNS("base64/columns");
+const QString Config::KEY_BASE64_ENABLECOLUMNS("base64/enableColumns");
 
 // test
 const QString Config::KEY_TEST("test");
