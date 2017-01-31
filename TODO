@@ -5,14 +5,16 @@ Check issues:
 TODO:
 ----
 
-#new is:138
+#new is:152
 
+151 - Snippet con codice update del timer
+Branch 150 - Miglioramenti su UI
 149 - Split e naviga: usa caratteri.
-148 - Split default flag visualizza in app = no.
-147 - Colonne base 64.
-146 - Usa alyternativo come nome, mod. trad
-145 - Multithreading calcoli su vis dati.
-144 - Rimnuovi opzioni salvataggio DOM.
+Branch 148 - Split default flag visualizza in app = no.
+Branch 150 147 - Colonne base 64.
+146 - Usa alternativo come nome, mod. trad
+Branch 145 - Multithreading calcoli su vis dati.
+Branch 144 - Rimuovi opzioni salvataggio DOM.
 143 - Non errore rimuovendo titolo in panello encoding.
 142 - Razionalizza pannello encoding.
 141 - Inserisci dopo aver trovato il carattere.

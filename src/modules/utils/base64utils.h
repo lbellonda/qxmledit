@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -41,14 +41,15 @@ public:
     Base64Utils();
     virtual ~Base64Utils();
 
-    QString loadFromBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, bool &isError, bool isAbort);
+    QString doLimitColumns(const QString &text, const bool limitColumns, const int columns);
+    QString loadFromBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, bool &isError, bool &isAbort, const bool limitColumns = false, const int columns = 80);
     bool saveBase64ToBinaryFile(const EBase64 type, QWidget *window, const QString &text, const QString &filePath);
 
     bool saveToBinaryDevice(const EBase64 type, QIODevice *device, const QString &text);
     bool saveToBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, const QString &text);
 
-    QString toBase64(const EBase64 type, const QString &text);
-    QString toBase64(const EBase64 type, const QByteArray &input);
+    QString toBase64(const EBase64 type, const QString &text, const bool limitColumns = false, const int columns = 80);
+    QString toBase64(const EBase64 type, const QByteArray &input, const bool limitColumns = false, const int columns = 80);
     QByteArray fromBase64(const EBase64 type, const QString &text);
 protected:
     static QString standardToSpecific(const EBase64 type, const QString &text);

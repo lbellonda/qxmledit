@@ -946,7 +946,7 @@ void XmlEditWidgetPrivate::addChild()
         errorNoRule();
         return ;
     }
-    regola->addChild(p, p->ui->treeWidget);
+    regola->addChild(p->window(), p->ui->treeWidget);
 }
 
 // Can't add a brother to the first child (XML)
@@ -959,7 +959,7 @@ void XmlEditWidgetPrivate::addBrother()
         errorNoRule();
         return ;
     }
-    regola->addBrother(p, p->ui->treeWidget);
+    regola->addBrother(p->window(), p->ui->treeWidget);
 }
 
 void XmlEditWidgetPrivate::on_addBrother_clicked()

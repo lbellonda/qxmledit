@@ -43,6 +43,7 @@ public:
     static const QString KEY_GENERAL_OPEN_NEWWINDOW;
     static const QString KEY_GENERAL_SINGLE_INSTANCE;
     static const QString KEY_GENERAL_VIEW_EDITOR_ADJUST;
+    static const QString KEY_MULTITHREADING_ENABLED;
     // element
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY;
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHSIZE;
@@ -225,6 +226,8 @@ public:
 
     // base64
     static const QString KEY_BASE64_TYPE;
+    static const QString KEY_BASE64_COLUMNS;
+    static const QString KEY_BASE64_ENABLECOLUMNS;
 
     // test
     static const QString KEY_TEST;

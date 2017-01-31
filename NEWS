@@ -1,4 +1,9 @@
 0.9.7 (devel)
+    New option to break base64 strings at the desired column in base64 panel.
+    Inserting a child element in a rootless tree, inserts the root.
+    The View Data panel can copy the resulting image in the clipboard.
+    Optionally calcluated the View Data panel data using threading.
+    New options to enable multithreading processing data.
 
 0.9.6
     New dialog to advise the user to use the streaming method for saving.

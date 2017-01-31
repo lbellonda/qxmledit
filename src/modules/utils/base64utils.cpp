@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2015-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -56,18 +56,50 @@ QString Base64Utils::specificToStandard(const EBase64 type, const QString &text)
     return text ;
 }
 
-QString Base64Utils::toBase64(const EBase64 type, const QString &text)
+QString Base64Utils::doLimitColumns(const QString &text, const bool limitColumns, const int columns)
 {
-    QString result = Utils::toBase64(text);
-    result = standardToSpecific(type, result);
+    QString result = text ;
+    if(limitColumns) {
+        if(columns > 0) {
+            int numInt = text.length() / columns ;
+            int lastInt = text.length() - (numInt * columns);
+            int base = 0;
+            QString work  ;
+            bool first = true;
+            FORINT(i, numInt) {
+                if(!first) {
+                    work += "\n";
+                }
+                work += text.mid(base, columns);
+                base += columns ;
+                first = false;
+            }
+            if(lastInt > 0) {
+                if(!first) {
+                    work += "\n";
+                }
+                work += text.mid(base, lastInt);
+            }
+            result = work;
+        }
+    }
     return result ;
 }
 
-QString Base64Utils::toBase64(const EBase64 type, const QByteArray &input)
+QString Base64Utils::toBase64(const EBase64 type, const QString &text, const bool limitColumns, const int columns)
+{
+    QString result = Utils::toBase64(text);
+    result = standardToSpecific(type, result);
+    result = doLimitColumns(result, limitColumns, columns);
+    return result ;
+}
+
+QString Base64Utils::toBase64(const EBase64 type, const QByteArray &input, const bool limitColumns, const int columns)
 {
     QByteArray resultBytes = input.toBase64();
     QString result(resultBytes);
     result = standardToSpecific(type, result);
+    result = doLimitColumns(result, limitColumns, columns);
     return result ;
 }
 
@@ -79,8 +111,7 @@ QByteArray Base64Utils::fromBase64(const EBase64 type, const QString &text)
     return array2;
 }
 
-
-QString Base64Utils::loadFromBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, bool &isError, bool isAbort)
+QString Base64Utils::loadFromBinaryFile(const EBase64 type, QWidget *window, const QString &filePath, bool &isError, bool &isAbort, const bool limitColumns, const int columns)
 {
     QString result;
     isError = true ;
@@ -105,10 +136,7 @@ QString Base64Utils::loadFromBinaryFile(const EBase64 type, QWidget *window, con
         if(isError) {
             Utils::error(window, QObject::tr("Error reading file."));
         } else {
-            QByteArray converted = data.toBase64();
-            // this is ASCII, always
-            result = converted.data();
-            result = standardToSpecific(type, result);
+            result = toBase64(type, data, limitColumns, columns);
         }
     } else {
         Utils::error(window, QString(QObject::tr("Unable to load file.\nError code is '%1'")).arg(file.error()));

@@ -230,6 +230,11 @@ void TestQXmlEdit::testBase64()
     bool result ;
     {
         TestBase64 testBase64;
+        result = testBase64.testFast();
+        QVERIFY2(result, (QString("TestBase64 testFast: %1").arg(testBase64.errorString())).toLatin1().data());
+    }
+    {
+        TestBase64 testBase64;
         result = testBase64.testUnits();
         QVERIFY2(result, (QString("TestBase64 testUnits: %1").arg(testBase64.errorString())).toLatin1().data());
     }
@@ -372,9 +377,14 @@ void TestQXmlEdit::testEditing()
     QVERIFY2(result, "TestEditElements test");
 }
 
-
 void TestQXmlEdit::testVis()
 {
+    {
+        TestVis tv;
+        bool result ;
+        result = tv.testFast();
+        QVERIFY2(result, (QString("test TestVis: testFast() '%1'").arg(tv.errorString())).toLatin1().data());
+    }
     {
         TestVis tv;
         bool result ;
@@ -386,6 +396,12 @@ void TestQXmlEdit::testVis()
         bool result ;
         result = tv.testSummary();
         QVERIFY2(result, (QString("test TestVis: testSummary() '%1'").arg(tv.errorString())).toLatin1().data());
+    }
+    {
+        TestVis tv;
+        bool result ;
+        result = tv.testVisData();
+        QVERIFY2(result, (QString("test TestVis: testVisData() '%1'").arg(tv.errorString())).toLatin1().data());
     }
 }
 
@@ -1470,6 +1486,8 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testBase64();
+    testVis();
 }
 
 QTEST_MAIN(TestQXmlEdit)

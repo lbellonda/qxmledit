@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -41,6 +41,12 @@
 TestBase64::TestBase64()
 {
     _showXML = false ;
+}
+
+
+bool TestBase64::testFast()
+{
+    return testUnitUtilsColumnLimit();
 }
 
 bool TestBase64::test_base64()
@@ -256,16 +262,26 @@ bool TestBase64::test_base64_utils_text()
 
 bool TestBase64::testUnits()
 {
+    _testName = "testUnits";
     if(!testUnitUtilsEncode()) {
         return false;
     }
     if(!testUnitUtilsDecode()) {
         return false;
     }
-    if(!testIO(Base64Utils::RFC4648Standard)) {
+    if(!testIO(Base64Utils::RFC4648Standard, false)) {
         return false;
     }
-    if(!testIO(Base64Utils::RFC6920Url)) {
+    if(!testIO(Base64Utils::RFC6920Url, false)) {
+        return false;
+    }
+    if(!testIO(Base64Utils::RFC4648Standard, true)) {
+        return false;
+    }
+    if(!testIO(Base64Utils::RFC6920Url, true)) {
+        return false;
+    }
+    if(!testUnitUtilsColumnLimit()) {
         return false;
     }
     return true;
@@ -318,6 +334,48 @@ bool TestBase64::testUnitUtilsEncode(const Base64Utils::EBase64 type )
     return true ;
 }
 
+bool TestBase64::lowLevelColumnLimit( const bool limit, const int columns, const QString &expected)
+{
+    Base64Utils base64;
+    // note that this is single byte in utf-8
+    const QString inputString("abcdefghilmnopqrstuABCDEF");
+    // Base64 is:YWJjZGVmZ2hpbG1ub3BxcnN0dUFCQ0RFRg==
+    QByteArray data = inputString.toUtf8();
+    QString result = base64.toBase64(Base64Utils::RFC4648Standard, data, limit, columns );
+    if(expected != result ) {
+        return error(QString("Error limit columns expected '%1', found '%2' flag:%3, columns:%4").arg(expected).arg(result).arg(limit).arg(columns));
+    }
+    return true ;
+}
+
+bool TestBase64::testUnitUtilsColumnLimit()
+{
+    _testName = "testUnitUtilsColumnLimit";
+    if(!lowLevelColumnLimit( false, 4, "YWJjZGVmZ2hpbG1ub3BxcnN0dUFCQ0RFRg==") ) {
+        return false;
+    }
+    if(!lowLevelColumnLimit( true, 4, "YWJj\nZGVm\nZ2hp\nbG1u\nb3Bx\ncnN0\ndUFC\nQ0RF\nRg==") ) {
+        return false;
+    }
+    if(!lowLevelColumnLimit( true, 2, "YW\nJj\nZG\nVm\nZ2\nhp\nbG\n1u\nb3\nBx\ncn\nN0\ndU\nFC\nQ0\nRF\nRg\n==") ) {
+        return false;
+    }
+    if(!lowLevelColumnLimit( true, 0, "YWJjZGVmZ2hpbG1ub3BxcnN0dUFCQ0RFRg==") ) {
+        return false;
+    }
+    if(!lowLevelColumnLimit( true, 15, "YWJjZGVmZ2hpbG1\nub3BxcnN0dUFCQ0\nRFRg==") ) {
+        return false;
+    }
+    if(!lowLevelColumnLimit( true, 35, "YWJjZGVmZ2hpbG1ub3BxcnN0dUFCQ0RFRg=\n=") ) {
+        return false;
+    }
+    if(!lowLevelColumnLimit( true, 80, "YWJjZGVmZ2hpbG1ub3BxcnN0dUFCQ0RFRg==") ) {
+        return false;
+    }
+    return true ;
+}
+
+
 bool TestBase64::testUnitUtilsDecode(const Base64Utils::EBase64 type )
 {
     QString source ;
@@ -351,7 +409,7 @@ bool TestBase64::testUnitUtilsDecode(const Base64Utils::EBase64 type )
     return true ;
 }
 
-bool TestBase64::testIO(const Base64Utils::EBase64 type)
+bool TestBase64::testIO(const Base64Utils::EBase64 type, const bool useLimit)
 {
     _testName = QString("testIO: %1").arg(type) ;
     bool isError = false;
@@ -378,7 +436,7 @@ bool TestBase64::testIO(const Base64Utils::EBase64 type)
     }
     QFileInfo info(tempFile);
     QString filePath = info.absoluteFilePath();
-    QString encoded = base64.loadFromBinaryFile( type, NULL, filePath, isError, isAbort);
+    QString encoded = base64.loadFromBinaryFile( type, NULL, filePath, isError, isAbort, useLimit, 2);
     if(isAbort) {
         return error("Loading is aborted.");
     }
@@ -386,12 +444,22 @@ bool TestBase64::testIO(const Base64Utils::EBase64 type)
         return error("Loading is error.");
     }
     QString expected;
-    if( type == Base64Utils::RFC4648Standard ) {
-        expected = "A/+u" ;
-    } else if ( type == Base64Utils::RFC6920Url ) {
-        expected = "A_-u" ;
+    if(useLimit) {
+        if( type == Base64Utils::RFC4648Standard ) {
+            expected = "A/\n+u" ;
+        } else if ( type == Base64Utils::RFC6920Url ) {
+            expected = "A_\n-u" ;
+        } else {
+            return error(QString("Invalid variant specified:%1").arg(type));
+        }
     } else {
-        return error(QString("Invalid variant specified:%1").arg(type));
+        if( type == Base64Utils::RFC4648Standard ) {
+            expected = "A/+u" ;
+        } else if ( type == Base64Utils::RFC6920Url ) {
+            expected = "A_-u" ;
+        } else {
+            return error(QString("Invalid variant specified:%1").arg(type));
+        }
     }
     if(encoded!=expected) {
         return error(QString("Load differs variant:%5 decoded (%1):'%2'\nExpected (%3):%4")

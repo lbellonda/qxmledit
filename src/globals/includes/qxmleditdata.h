@@ -294,6 +294,11 @@ public:
     NamespaceManager *namespaceManager();
     //--- endregion(NamespaceManager)
 
+    //--- region(multi-threading)
+    bool isMtEnabled();
+    void setMtEnabled(const bool value);
+    //--- endregion(multi-threading)
+
     UnicodeHelper *unicodeHelper();
     static bool isShowImagesInTooltip();
 

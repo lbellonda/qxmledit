@@ -252,6 +252,23 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="copyImageToClipboard">
+       <property name="toolTip">
+        <string>Copy image in clipboard</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../risorse.qrc">
+         <normaloff>:/copy/images/edit-copy.png</normaloff>:/copy/images/edit-copy.png</iconset>
+       </property>
+       <property name="flat">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="exportStatsCmd">
        <property name="enabled">
         <bool>false</bool>

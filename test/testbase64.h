@@ -38,10 +38,13 @@ class TestBase64 : public TestBase
     bool testUnitUtilsDecode(const Base64Utils::EBase64 type );
     bool testUnitUtilsSaveDecoded();
     bool testUnitLoadEncoded();
-    bool testIO(const Base64Utils::EBase64 type);
+    bool testIO(const Base64Utils::EBase64 type, const bool useLimit);
+    bool testUnitUtilsColumnLimit();
+    bool lowLevelColumnLimit( const bool limit, const int columns, const QString &expected);
 public:
     TestBase64();
 
+    bool testFast();
     bool testUnits();
     bool test_base64();
     bool test_base64_base();

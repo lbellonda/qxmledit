@@ -47,7 +47,7 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
     QDialog(parent),
     _colorMap(tr("Color Map")),
     _stdColorMap(tr("Standard Color Map")),
-    _grayColorMap("Gray level Color Map"),
+    _grayColorMap(tr("Gray level Color Map")),
     ui(new Ui::VisMapDialog)
 {
     _isAutoDelete = false ;
@@ -56,6 +56,7 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
     ui->setupUi(this);
     ui->fileName->setText(tr("--- No file ---"));
 
+    ui->dataWidget->setMtEnabled(newData->isMtEnabled());
     ui->cmapWidget->setColorMap(&_stdColorMap);
     ui->dataWidget->setColorMap(&_stdColorMap);
     _filePath = fileName ;
@@ -92,6 +93,7 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
         QTimer::singleShot(200, this, SLOT(onLoadFile()));
     }
     showMaximized();
+    Utils::TODO_THIS_RELEASE("opzione copi aimmagin in clipboard");
 }
 
 VisMapDialog::~VisMapDialog()
@@ -183,7 +185,7 @@ void VisMapDialog::loadFile(const QString &fileName)
         if(isOk) {
             newData(handler.root);
             _dataMap.calculate(handler.root);
-            calcSize(handler.root);
+            calcSize(handler.root, _dataMap);
             recalc();
             calcSlice(1);
             displayNumbers();
@@ -248,17 +250,17 @@ void VisMapDialog::on_loadFile_clicked()
     }
 }
 
-void VisMapDialog::calcSize(ElementBase *e)
+void VisMapDialog::calcSize(ElementBase *e, VisDataMap &dataMap)
 {
     e->totalSize += e->size;
     e->totalPayload += e->payload;
     e->totalAttributesCount += e->attributesCount;
     e->totalChildrenCount = e->childrenCount;
-    _dataMap.numElements ++;
+    dataMap.numElements ++;
     ElementBase * child = e->firstChild;
     while(child != NULL) {
 
-        calcSize(child);
+        calcSize(child, dataMap);
         e->totalAttributesCount += child->totalAttributesCount;
         e->totalChildrenCount += child->totalChildrenCount;
         e->totalSize += child->totalSize;
@@ -266,17 +268,17 @@ void VisMapDialog::calcSize(ElementBase *e)
         child = child->next;
     }
 
-    if(_dataMap.maxSize < e->size) {
-        _dataMap.maxSize = e->size ;
+    if(dataMap.maxSize < e->size) {
+        dataMap.maxSize = e->size ;
     }
-    if(_dataMap.maxChildrenCount < e->childrenCount) {
-        _dataMap.maxChildrenCount = e->childrenCount;
+    if(dataMap.maxChildrenCount < e->childrenCount) {
+        dataMap.maxChildrenCount = e->childrenCount;
     }
-    if(_dataMap.maxAttributesCount < e->attributesCount) {
-        _dataMap.maxAttributesCount = e->attributesCount ;
+    if(dataMap.maxAttributesCount < e->attributesCount) {
+        dataMap.maxAttributesCount = e->attributesCount ;
     }
-    if(_dataMap.maxPayload < e->payload) {
-        _dataMap.maxPayload = e->payload;
+    if(dataMap.maxPayload < e->payload) {
+        dataMap.maxPayload = e->payload;
     }
 }
 
@@ -566,4 +568,9 @@ void VisMapDialog::on_cbGrid_stateChanged(int /*state*/)
 void VisMapDialog::on_cbPoints_stateChanged(int /*state*/)
 {
     ui->dataWidget->setUsePoints(ui->cbPoints->isChecked());
+}
+
+void VisMapDialog::on_copyImageToClipboard_clicked()
+{
+    ui->dataWidget->copyImageToClipboard();
 }

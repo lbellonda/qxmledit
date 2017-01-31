@@ -24,6 +24,7 @@
 #include "app.h"
 #include "visualization/vismapdialog.h"
 #include "modules/graph/nodesrelationsdialog.h"
+#include "visualization/datawidget.h"
 
 #define DATA_FILE_1 "../test/data/vis/testvis.xml"
 #define DATA_FILE_2 "../test/data/vis/testvis2.xml"
@@ -31,6 +32,11 @@
 
 TestVis::TestVis()
 {
+}
+
+bool TestVis::testFast()
+{
+    return testVisData();
 }
 
 bool TestVis::test()
@@ -237,4 +243,158 @@ bool TestVis::testSummary()
     }
 
     return true ;
+}
+
+
+bool TestVis::testVisData()
+{
+    _testName = "testVisData" ;
+    if( ! testSliceElements() ) {
+        return false;
+    }
+
+    if( ! testDataThreading(true) ) {
+        return false;
+    }
+    if( ! testDataThreading(false) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestVis::testSliceElements()
+{
+    _testName = "testSliceElements" ;
+    {
+        QList<int> expected ;
+        expected << 10 << 10 << 10 << 12;
+        DataWidget dw;
+        QList<int> compare = dw.computeSlices(4, 42);
+        if(!compareListInts("one", expected, compare)) {
+            return false;
+        }
+    }
+    {
+        QList<int> expected ;
+        expected << 3 << 3 << 3;
+        DataWidget dw;
+        QList<int> compare = dw.computeSlices(3, 9);
+        if(!compareListInts("one", expected, compare)) {
+            return false;
+        }
+    }
+    {
+        QList<int> expected ;
+        expected << 9;
+        DataWidget dw;
+        QList<int> compare = dw.computeSlices(1, 9);
+        if(!compareListInts("one", expected, compare)) {
+            return false;
+        }
+    }
+    {
+        QList<int> expected ;
+        expected << 12 << 12 << 12 << 13;
+        DataWidget dw;
+        QList<int> compare = dw.computeSlices(4, 49);
+        if(!compareListInts("one", expected, compare)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+ElementBase *TestVis::buildElm(ElementBase *parent, const int level)
+{
+    if( level == 0 ) {
+        return NULL ;
+    }
+    ElementBase *elem = new ElementBase(parent, "name") ;
+    int attrCount = 5 ;
+    for(int index = 0 ; index < attrCount ; index ++) {
+        elem->size += 10 ;
+        elem->size += 10 ;
+    }
+    elem->attributesCount = attrCount;
+    FORINT(i, 4) {
+        buildElm(elem, level-1);
+    }
+    return elem ;
+}
+
+bool TestVis::testDataThreading(const bool useStandard)
+{
+    _testName = "testVisData" ;
+    if( useStandard) {
+        _testName += "/standard";
+    } else {
+        _testName += "/multithreading";
+    }
+    DataWidget dwReference;
+    {
+        StdColorMap colorMap("a map");
+        dwReference.setMtEnabled(false);
+        dwReference.setColorMap(&colorMap);
+        VisDataMap dataMap;
+        ElementBase *e = buildElm(NULL, 4);
+        VisMapDialog::calcSize(e, dataMap);
+        // build map
+        dataMap.calculate(e);
+        dwReference.setVisType(DataWidget::Elements);
+        dwReference.setGeometry(0,0,600,600);
+        dwReference.setData(e);
+        dwReference.setDataMap(&dataMap);
+        dwReference.setCumulative(true);
+        dwReference.recalc();
+        dwReference.generateImage();
+    }
+    DataWidget dwTest;
+    {
+        StdColorMap colorMap("a map");
+        dwTest.setMtEnabled(true);
+        dwTest.setColorMap(&colorMap);
+        VisDataMap dataMap;
+        ElementBase *e = buildElm(NULL, 4);
+        VisMapDialog::calcSize(e, dataMap);
+        // build map
+        dataMap.calculate(e);
+        dwTest.setVisType(DataWidget::Elements);
+        dwTest.setGeometry(0,0,600,600);
+        dwTest.setData(e);
+        dwTest.setDataMap(&dataMap);
+        dwTest.setCumulative(true);
+        dwTest.recalc();
+        dwTest.generateImage(useStandard);
+    }
+    QImage reference = dwReference._cachedImage;
+    QImage candidate = dwTest._cachedImage;
+
+    /* debug code
+    if(!reference.save("/tmp/reference.png", "PNG")) {
+        return error("could not save reference");
+    }
+    if(!candidate.save("/tmp/candidate.png", "PNG") ) {
+        return error("could not save candidate");
+    }*/
+
+    // compare the images
+
+    if( (reference.width() != candidate.width()) || (reference.height() != candidate.height()) ){
+        return error(QString("Dimensions: reference:(%1 x %2), candidate:(%3 x %4)")
+                     .arg(reference.width()).arg(reference.height())
+                     .arg(candidate.width()).arg(candidate.height()));
+    }
+    const int bytesPerLine = candidate.bytesPerLine();
+    FORINT(y,candidate.height()) {
+        const uchar *rb = reference.constScanLine(y);
+        const uchar *rc = candidate.constScanLine(y);
+        FORINT(b, bytesPerLine) {
+            if(*rb!=*rc) {
+                return error(QString("At line:%1 at byte:%2, ref:%3, candidate:%4").arg(y).arg(b).arg(*rb).arg(*rc));
+            }
+            rb++;
+            rc++;
+        }
+    }
+    return true;
 }

@@ -28,6 +28,14 @@
     <string>Copy Path to the Clipboard</string>
    </property>
   </action>
+  <action name="actionCopyImageToClipboard">
+   <property name="text">
+    <string>Copy Image  to Clipboard</string>
+   </property>
+   <property name="toolTip">
+    <string>Copy image to clipboard.</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

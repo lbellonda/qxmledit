@@ -34,6 +34,7 @@ const QString Config::KEY_GENERAL_LICENSE_AGREED("generalConfiguration/licenseAg
 const QString Config::KEY_GENERAL_OPEN_NEWWINDOW("generalConfiguration/openNewWindow");
 const QString Config::KEY_GENERAL_SINGLE_INSTANCE("generalConfiguration/singleInstance");
 const QString Config::KEY_GENERAL_VIEW_EDITOR_ADJUST("generalConfiguration/adjustEditor");
+const QString Config::KEY_MULTITHREADING_ENABLED("generalConfiguration/multiThreading");
 // element
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY("element/fontFidexWidthFamily");
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHSIZE("element/fontFidexWidthSize");
@@ -219,6 +220,8 @@ const QString Config::KEY_XML_LOAD_STREAM("xml/loadStream");
 
 // base64
 const QString Config::KEY_BASE64_TYPE("base64/type");
+const QString Config::KEY_BASE64_COLUMNS("base64/columns");
+const QString Config::KEY_BASE64_ENABLECOLUMNS("base64/enableColumns");
 
 // test
 const QString Config::KEY_TEST("test");
