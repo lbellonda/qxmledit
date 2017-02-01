@@ -328,17 +328,18 @@ void VisMapDialog::displayNumbers()
     newNumbersItem(tr("Size"), QString("%1").arg(_summary.totalSize));
     newNumbersItem(tr("Levels"), QString("%1").arg(_summary.levels));
     newNumbersItem(tr("Elements"), QString("%1").arg(_summary.totalElements));
-    newNumbersItem(tr("Attributes count"), QString("%1").arg(_summary.totalAttributes));
-    newNumbersItem(tr("Attributes size"), QString("%1").arg(_summary.totalAttributesSize));
+    newNumbersItem(tr("Attributes\ncount"), QString("%1").arg(_summary.totalAttributes));
+    newNumbersItem(tr("Attributes\nsize"), QString("%1").arg(_summary.totalAttributesSize));
     newNumbersItem(tr("Text"), QString("%1").arg(_summary.totalText));
-    newNumbersItem(tr("Mean attribute size"), QString::number(_summary.meanAttributesSize(), 'f', 1));
+    newNumbersItem(tr("Mean attribute\nsize"), QString::number(_summary.meanAttributesSize(), 'f', 1));
     newNumbersItem(tr("Max attributes"), QString("%1").arg(_summary.maxAttributes));
     newNumbersItem(tr("Max children"), QString("%1").arg(_summary.maxChildren));
     newNumbersItem(tr("Max size"), QString("%1").arg(_summary.maxSize));
-    newNumbersItem(tr("Max attribute size per element"), QString("%1").arg(_summary.maxAttributeSizePerElement));
+    newNumbersItem(tr("Max attribute\nsize per element"), QString("%1").arg(_summary.maxAttributeSizePerElement));
     newNumbersItem(tr("Max text"), QString("%1").arg(_summary.maxText));
 
-
+    ui->numbers->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->numbers->horizontalHeader()->setStretchLastSection(true);
     /*newNumbersItem(tr("Mean size per fr."), QString("%1").arg(_summary.sizePerFragmentMean));
     newNumbersItem(tr("Median size per fr."), QString("%1").arg(_summary.sizePerFragmentMedian));
     newNumbersItem(tr("Mean element # per fr."), QString("%1").arg(_summary.elementsPerFragmentMean));
@@ -464,7 +465,6 @@ void VisMapDialog::on_exportStatsCmd_clicked()
         outStream << tr(" max. attribute size per element '%1'\n").arg(_summary.maxAttributeSizePerElement) ;
         outStream << tr(" mean attribute size'%1'\n").arg(QString::number(_summary.meanAttributesSize(), 'f', 1));
 
-        Utils::TODO_THIS_RELEASE("testare visulamente");
         outStream << tr("\n------\n");
         {
             QList<TagNode*> nodesList ;
