@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -136,13 +136,21 @@ bool TestVis::testDialog()
     if( visMapDialog._summary.maxSize != 54) {
         return error("error");
     }
-    if( visMapDialog._summary.maxPayload != 50) {
+    if( visMapDialog._summary.maxText != 50) {
         return error("error");
     }
-    if( visMapDialog._summary.totalPayload != 50) {
+    if( visMapDialog._summary.totalText != 50) {
         return error("error");
     }
-
+    if( visMapDialog._summary.totalAttributesSize != 9) {
+        return error(QString("summary.totalAttributesSize, expected %1 found %2").arg(9).arg(visMapDialog._summary.totalAttributesSize));
+    }
+    if( visMapDialog._summary.maxAttributeSizePerElement != 6) {
+        return error(QString("summary.maxAttributeSizePerElement, expected %1 found %2").arg(6).arg(visMapDialog._summary.maxAttributeSizePerElement));
+    }
+    if( visMapDialog._summary.meanAttributesSize() != 3) {
+        return error(QString("summary.meanAttributesSize, expected %1 found %2").arg(3).arg(visMapDialog._summary.meanAttributesSize()));
+    }
     // change level and check the recalc
     visMapDialog.calcSlice(0);
     if( visMapDialog._summary.totalFragments != 1) {
@@ -156,11 +164,10 @@ bool TestVis::testDialog()
     if( visMapDialog._summary.totalFragments != 2) {
         return error("error");
     }
-
     // loads a smaller file and checks if data are changing
     visMapDialog.loadFile(DATA_FILE_2);
 
-    if( visMapDialog._summary.totalSize != 29 ) {
+    if( visMapDialog._summary.totalSize != 30 ) {
         return error("error");
     }
     if( visMapDialog._summary.levels != 3 ) {
@@ -181,11 +188,20 @@ bool TestVis::testDialog()
     if( visMapDialog._summary.maxSize != 14 ) {
         return error("error");
     }
-    if( visMapDialog._summary.maxPayload != 10) {
+    if( visMapDialog._summary.maxText != 10) {
         return error("error");
     }
-    if( visMapDialog._summary.totalPayload != 10) {
+    if( visMapDialog._summary.totalText != 10) {
         return error("error");
+    }
+    if( visMapDialog._summary.totalAttributesSize != 4) {
+        return error(QString("2 summary.totalAttributesSize, expected %1 found %2").arg(4).arg(visMapDialog._summary.totalAttributesSize));
+    }
+    if( visMapDialog._summary.maxAttributeSizePerElement != 4) {
+        return error(QString("2 summary.maxAttributeSizePerElement, expected %1 found %2").arg(4).arg(visMapDialog._summary.maxAttributeSizePerElement));
+    }
+    if( visMapDialog._summary.meanAttributesSize() != 4) {
+        return error(QString("2 summary.meanAttributesSize, expected %1 found %2").arg(4).arg(visMapDialog._summary.meanAttributesSize()));
     }
     return true;
 }

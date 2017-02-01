@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -44,7 +44,9 @@ void VisDataMap::reset()
     maxSize = 0 ;
     maxChildrenCount = 0 ;
     maxAttributesCount = 0;
-    maxPayload = 0;
+    maxText = 0;
+    totalAttributesSize = 0 ;
+    maxAttributesSizePerElement = 0 ;
     numElements = 0 ;
     workRow.clear();
     clearRows();

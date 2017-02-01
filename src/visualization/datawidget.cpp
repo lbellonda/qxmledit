@@ -100,11 +100,6 @@ DataWidget::DataWidget(QWidget *parent) :
     ui->setupUi(this);
     _3dGrid = true ;
     _3dPoints = false ;
-    Utils::TODO_THIS_RELEASE("manca attribute size e mean size per attribute");
-    Utils::TODO_THIS_RELEASE("setta abilitazioni");
-    Utils::TODO_THIS_RELEASE("fare funzione testabile bordi");
-    Utils::TODO_THIS_RELEASE("se fare struttura, cucire gli slice alla fine con gli id dei vari slice");
-    Utils::TODO_THIS_RELEASE("casi di test: numero valori, calcolo in doppio tra metodo tradizionale e quello nuovo con dati casuali.");
 
 #ifdef  QWT_PLOT3D
     _plot = new Qwt3D::GridPlot(this);
@@ -475,7 +470,6 @@ void DataWidget::computeImageStandard()
     if(_bkpt) {
         _bkpt = false ;
     }
-    Utils::TODO_THIS_RELEASE("togliere");
     float dataHeight = _dataWindow.height();
     float imgHeight = _yPoints ;
     float ptiPerPxY = dataHeight / imgHeight ;
@@ -590,7 +584,6 @@ QList<int> DataWidget::computeSlices(const int idealThreadCount, const int heigh
 
 int DataWidget::computeWindowsHeight(const int idealThreadCount)
 {
-    Utils::TODO_THIS_RELEASE("test me");
     const int heightImage = _yPoints;
     const int windowsHeight = heightImage / idealThreadCount ;
     return windowsHeight;
@@ -727,7 +720,6 @@ void DataWidget::computeImageSlice(const int paramStartY, const int paramEndY)
                             for(int yi = 0; yi < ptiPerPxY ; yi++) {
                                 VisDataRow *row = getRowAt(yyy - limy + yi);
                                 if(NULL != row) {
-                                    //Utils::TODO_THIS_RELEASE("ottimizza con incremento, ma occhio a boundaries, per questo opera sugli indici (min, max)");
                                     int startX = qMax(0, xxx - limx);
                                     int endX = qMin((int)(xxx - limx + ptiPerPxX), row->_numColumns);
                                     ElementBase *ex = getElementRow(row, startX);
@@ -810,9 +802,9 @@ inline quint64 DataWidget::getValue(ElementBase *e)
         break;
     case Payload:
         if(_cumulative) {
-            value = e->totalPayload;
+            value = e->totalText;
         } else {
-            value = e->payload;
+            value = e->text;
         }
         break;
     default:
@@ -892,12 +884,12 @@ quint64 DataWidget::getValueElementsCumulative(ElementBase *e)
 
 quint64 DataWidget::getValuePayload(ElementBase *e)
 {
-    return e->payload;
+    return e->text;
 }
 
 quint64 DataWidget::getValuePayloadCumulative(ElementBase *e)
 {
-    return e->totalPayload;
+    return e->totalText;
 }
 
 quint64 DataWidget::getMaxValue()
@@ -930,9 +922,9 @@ quint64 DataWidget::getMaxValue()
         break;
     case Payload:
         if(_cumulative) {
-            value = _data->totalPayload;
+            value = _data->totalText;
         } else {
-            value = _dataMap->maxPayload;
+            value = _dataMap->maxText;
         }
         break;
 

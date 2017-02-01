@@ -33,12 +33,14 @@ public:
     int totalAttributes;
     int totalElements;
     qint64 totalSize;
-    qint64 totalPayload; // the nodes text content.
+    qint64 totalText; // the nodes text content.
+    quint64 totalAttributesSize;
 
     int maxAttributes;
     int maxChildren;
     int maxSize;
-    int maxPayload;
+    int maxText;
+    int maxAttributeSizePerElement;
 
     /*
     float attributesPerFragmentMean;
@@ -54,6 +56,7 @@ public:
     ~SummaryData();
 
     void reset();
+    double meanAttributesSize();
 };
 
 #endif // SUMMARYDATA_H

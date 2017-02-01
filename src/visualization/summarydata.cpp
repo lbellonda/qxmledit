@@ -37,7 +37,15 @@ void SummaryData::reset()
     totalAttributes = 0 ;
     totalElements = 0 ;
     totalSize = 0 ;
-    totalPayload = 0 ;
+    totalText = 0 ;
+    totalAttributesSize = 0 ;
+
+    maxAttributes = 0 ;
+    maxChildren = 0 ;
+    maxSize = 0 ;
+    maxText = 0 ;
+    maxAttributeSizePerElement = 0 ;
+
     /*attributesPerFragmentMean = 0 ;
     attributesPerFragmentMedian = 0 ;
     sizePerFragmentMean = 0 ;
@@ -45,4 +53,12 @@ void SummaryData::reset()
     elementsPerFragmentMean = 0 ;
     elementsPerFragmentMedian = 0 ;*/
     levels = 0 ;
+}
+
+double SummaryData::meanAttributesSize()
+{
+    if(totalAttributes != 0) {
+        return totalAttributesSize / totalAttributes ;
+    }
+    return 0;
 }

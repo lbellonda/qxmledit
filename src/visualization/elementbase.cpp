@@ -33,9 +33,10 @@ ElementBase::ElementBase(ElementBase *newParent, const QString &newName)
     childrenCount = 0 ;
     totalChildrenCount = 0 ;
     attributesCount = 0;
+    totalAttributesSize = 0;
     totalAttributesCount = 0 ;
-    payload = 0 ;
-    totalPayload = 0 ;
+    text = 0 ;
+    totalText = 0 ;
     parent = newParent ;
     name = newName ;
     next = NULL ;

@@ -36,8 +36,9 @@ public:
     qint64 totalSize;
     qint64 childrenCount;
     qint64 totalChildrenCount;
-    qint64 totalPayload;
-    qint64 payload;
+    qint64 totalText;
+    qint64 text;
+    quint64 totalAttributesSize;
     int attributesCount;
     int totalAttributesCount ;
     ElementBase *parent;

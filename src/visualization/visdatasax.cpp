@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -111,11 +111,15 @@ bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /
         root = elem;
     }
     int attrCount = attributes.count();
+    quint64 attributesSize = 0;
     for(int index = 0 ; index < attrCount ; index ++) {
         elem->size += attributes.localName(index).length();
-        elem->size += attributes.value(index).length();
+        const int thisAttrSize = attributes.value(index).length();
+        attributesSize += (unsigned)thisAttrSize ;
+        elem->size += thisAttrSize;
     }
     elem->attributesCount = attrCount;
+    elem->totalAttributesSize = attributesSize ;
     currentElement = elem ;
     return true ;
 }
@@ -135,7 +139,7 @@ bool VisDataSax::characters(const QString &str)
         int len = str.length();
         currentElement->size += len;
         QString s2 = str.trimmed();
-        currentElement->payload += s2.length();
+        currentElement->text += s2.length();
     }
     return true ;
 }

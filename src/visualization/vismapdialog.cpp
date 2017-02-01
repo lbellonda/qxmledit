@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -93,7 +93,6 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
         QTimer::singleShot(200, this, SLOT(onLoadFile()));
     }
     showMaximized();
-    Utils::TODO_THIS_RELEASE("opzione copi aimmagin in clipboard");
 }
 
 VisMapDialog::~VisMapDialog()
@@ -253,9 +252,10 @@ void VisMapDialog::on_loadFile_clicked()
 void VisMapDialog::calcSize(ElementBase *e, VisDataMap &dataMap)
 {
     e->totalSize += e->size;
-    e->totalPayload += e->payload;
+    e->totalText += e->text;
     e->totalAttributesCount += e->attributesCount;
     e->totalChildrenCount = e->childrenCount;
+    dataMap.totalAttributesSize += e->totalAttributesSize ;
     dataMap.numElements ++;
     ElementBase * child = e->firstChild;
     while(child != NULL) {
@@ -264,7 +264,7 @@ void VisMapDialog::calcSize(ElementBase *e, VisDataMap &dataMap)
         e->totalAttributesCount += child->totalAttributesCount;
         e->totalChildrenCount += child->totalChildrenCount;
         e->totalSize += child->totalSize;
-        e->totalPayload += child->totalPayload;
+        e->totalText += child->totalText;
         child = child->next;
     }
 
@@ -277,8 +277,11 @@ void VisMapDialog::calcSize(ElementBase *e, VisDataMap &dataMap)
     if(dataMap.maxAttributesCount < e->attributesCount) {
         dataMap.maxAttributesCount = e->attributesCount ;
     }
-    if(dataMap.maxPayload < e->payload) {
-        dataMap.maxPayload = e->payload;
+    if(dataMap.maxText < e->text) {
+        dataMap.maxText = e->text;
+    }
+    if(dataMap.maxAttributesSizePerElement < e->totalAttributesSize) {
+        dataMap.maxAttributesSizePerElement = e->totalAttributesSize ;
     }
 }
 
@@ -306,14 +309,16 @@ void VisMapDialog::recalc()
     _summary.reset();
     _summary.totalElements = _dataMap.numElements;
     _summary.totalSize = _dataMap._root->totalSize;
+    _summary.totalAttributesSize = _dataMap.totalAttributesSize;
     _summary.levels = _dataMap.numColumns;
     _summary.totalAttributes = _dataMap._root->totalAttributesCount;
-    _summary.totalPayload = _dataMap._root->totalPayload;
+    _summary.totalText = _dataMap._root->totalText;
 
     _summary.maxAttributes = _dataMap.maxAttributesCount ;
     _summary.maxChildren = _dataMap.maxChildrenCount ;
     _summary.maxSize = _dataMap.maxSize ;
-    _summary.maxPayload = _dataMap.maxPayload ;
+    _summary.maxText = _dataMap.maxText ;
+    _summary.maxAttributeSizePerElement = _dataMap.maxAttributesSizePerElement ;
 }
 
 void VisMapDialog::displayNumbers()
@@ -323,13 +328,15 @@ void VisMapDialog::displayNumbers()
     newNumbersItem(tr("Size"), QString("%1").arg(_summary.totalSize));
     newNumbersItem(tr("Levels"), QString("%1").arg(_summary.levels));
     newNumbersItem(tr("Elements"), QString("%1").arg(_summary.totalElements));
-    newNumbersItem(tr("Attributes"), QString("%1").arg(_summary.totalAttributes));
-    newNumbersItem(tr("Payload"), QString("%1").arg(_summary.totalPayload));
-
+    newNumbersItem(tr("Attributes count"), QString("%1").arg(_summary.totalAttributes));
+    newNumbersItem(tr("Attributes size"), QString("%1").arg(_summary.totalAttributesSize));
+    newNumbersItem(tr("Text"), QString("%1").arg(_summary.totalText));
+    newNumbersItem(tr("Mean attribute size"), QString::number(_summary.meanAttributesSize(), 'f', 1));
     newNumbersItem(tr("Max attributes"), QString("%1").arg(_summary.maxAttributes));
     newNumbersItem(tr("Max children"), QString("%1").arg(_summary.maxChildren));
     newNumbersItem(tr("Max size"), QString("%1").arg(_summary.maxSize));
-    newNumbersItem(tr("Max Payload"), QString("%1").arg(_summary.maxPayload));
+    newNumbersItem(tr("Max attribute size per element"), QString("%1").arg(_summary.maxAttributeSizePerElement));
+    newNumbersItem(tr("Max text"), QString("%1").arg(_summary.maxText));
 
 
     /*newNumbersItem(tr("Mean size per fr."), QString("%1").arg(_summary.sizePerFragmentMean));
@@ -343,6 +350,7 @@ void VisMapDialog::displayNumbers()
 void VisMapDialog::newNumbersItem(const QString &label, const QString &data)
 {
     QTableWidgetItem *newLabel = new QTableWidgetItem(label);
+    newLabel->setToolTip(label);
     int row = ui->numbers->rowCount();
     ui->numbers->setRowCount(row + 1);
     ui->numbers->setItem(row, 0, newLabel);
@@ -449,8 +457,14 @@ void VisMapDialog::on_exportStatsCmd_clicked()
         outStream << tr(" total attributes '%1'\n").arg(_summary.totalAttributes) ;
         outStream << tr(" total elements '%1'\n").arg(_summary.totalElements) ;
         outStream << tr(" total size '%1'\n").arg(_summary.totalSize) ;
-        outStream << tr(" total text '%1'\n").arg(_summary.totalPayload) ;
+        outStream << tr(" total attributes size '%1'\n").arg(_summary.totalAttributesSize) ;
+        outStream << tr(" total text '%1'\n").arg(_summary.totalText) ;
         outStream << tr(" levels '%1'\n").arg(_summary.levels) ;
+
+        outStream << tr(" max. attribute size per element '%1'\n").arg(_summary.maxAttributeSizePerElement) ;
+        outStream << tr(" mean attribute size'%1'\n").arg(QString::number(_summary.meanAttributesSize(), 'f', 1));
+
+        Utils::TODO_THIS_RELEASE("testare visulamente");
         outStream << tr("\n------\n");
         {
             QList<TagNode*> nodesList ;
