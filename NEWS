@@ -1,4 +1,5 @@
 0.9.7 (devel)
+    Simplified char encoding display.
     Added attributes size statistics to data visualization.
     New option to break base64 strings at the desired column in base64 panel.
     Inserting a child element in a rootless tree, inserts the root.

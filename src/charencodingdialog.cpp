@@ -225,9 +225,8 @@ void CharEncodingDialog::insertText(const QString &text)
         if(_showNames) {
             QString name = _appData->unicodeHelper()->nameForChar(theChar);
             if(!name.isEmpty()) {
-                theTextOfItem += " (";
+                theTextOfItem += "\n";
                 theTextOfItem += name ;
-                theTextOfItem += " )";
             }
         }
 
@@ -252,6 +251,7 @@ void CharEncodingDialog::insertText(const QString &text)
         setTItemAttrib(itemUnicode, "");
         ui->encodedTextGrid->setItem(1, i, itemUnicode);
     }
+    ui->encodedTextGrid->resizeRowToContents(0);
 }
 
 void CharEncodingDialog::textChanged()
@@ -343,6 +343,9 @@ void CharEncodingDialog::on_removeEncodingCmd_clicked()
                         } //if
                     } // foreach
                 }
+            } else {
+                // this row is not really an encoding
+                isOk = true;
             }
         }
     }
