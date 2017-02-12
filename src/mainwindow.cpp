@@ -3472,7 +3472,7 @@ void MainWindow::on_actionHelpSetEditorDetail_triggered()
 void MainWindow::checkForSaveEncoding()
 {
     Regola *regola = getRegola();
-    if(Regola::isSaveUsingStream() && !regola->isForceDOM()) {
+    if(!regola->isForceDOM()) {
         if(!regola->isEncodingCompatibleWithStream()) {
             if(uiDelegate->askYN(tr("QXmlEdit detected that current encoding can lead to a malformed file.\nDo you want to save it using DOM method?\nWarning: DOM does not support attribute alignment and DTD management."))) {
                 regola->setForceDOM(true);

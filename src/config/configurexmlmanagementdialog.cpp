@@ -61,7 +61,6 @@ void ConfigureXMLManagementDialog::init(ApplicationData* data)
     ui->chkNoIndent->setChecked(checkNoIndent);
     calcEnableProlog();
     enableIndent();
-    ui->cbSaveStream->setChecked(Regola::isSaveUsingStream());
     ui->chkSortAttributes->setChecked(Regola::isSaveSortAlphaAttribute());
     _attributeHelper.setUp(data->xmlIndentAttributesType(), data->xmlIndentAttributes());
     _started = true ;
@@ -137,16 +136,6 @@ void ConfigureXMLManagementDialog::on_chkNoIndent_stateChanged(int /*state*/)
             ui->xmlIndent->setValue(ui->xmlIndent->value());
             _data->setXmlIndent(ui->xmlIndent->value());
         }
-    }
-}
-
-void ConfigureXMLManagementDialog::on_cbSaveStream_stateChanged(int /*state*/)
-{
-    if(_started) {
-        if(!ui->cbSaveStream->isChecked()) {
-            Utils::message(this->window(), tr("Use stream for saving data is the recommended saving option."));
-        }
-        Config::saveBool(Config::KEY_XML_SAVE_STREAM, ui->cbSaveStream->isChecked());
     }
 }
 
