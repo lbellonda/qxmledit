@@ -45,7 +45,9 @@
 #include <QClipboard>
 #include <QToolTip>
 #include <QMenu>
+#include <QElapsedTimer>
 #include "utils.h"
+#include "modules/services/uidservices.h"
 
 #ifdef  QWT_PLOT3D
 #include "../external/qwtplot3d/include/qwt3d_global.h"
@@ -54,7 +56,7 @@
 #include "../external/qwtplot3d/include/qwt3d_gridplot.h"
 #endif
 
-
+#define THRESHOLD_SECONDS   (2)
 #define MESH_NUMBER (100)
 
 //---------- colors
@@ -623,9 +625,16 @@ void DataWidget::computeImageThreaded()
 
 void DataWidget::waitCalcImage(QList<QFuture<void> > &threads)
 {
+    QElapsedTimer timer;
+    timer.start();
     bool done = false;
+    UIDesktopServices uiServices(window());
     while(!done) {
         QThread::msleep(250);
+        if(timer.elapsed() > (THRESHOLD_SECONDS * 1000)) {
+            uiServices.startIconProgressBar();
+            uiServices.setIconProgressBar(50);
+        }
         done = true ;
         foreach(QFuture<void> future, threads) {
             if(!future.isFinished()) {
@@ -634,6 +643,7 @@ void DataWidget::waitCalcImage(QList<QFuture<void> > &threads)
             }
         }
     }
+    uiServices.endIconProgressBar();
 }
 
 void DataWidget::computeImageSlice(const int paramStartY, const int paramEndY)

@@ -34,6 +34,7 @@
 #include "qxmleditconfig.h"
 #include "qxmleditdata.h"
 #include "modules/services/anotifier.h"
+#include "modules/services/uidservices.h"
 
 #include <QXmlSimpleReader>
 #include <QFileDialog>
@@ -182,6 +183,9 @@ void VisMapDialog::loadFile(const QString &fileName)
         ui->dataWidget->setData(NULL);
         _dataMap.resetData();
         if(isOk) {
+            UIDesktopServices uiServices(window());
+            uiServices.startIconProgressBar();
+            uiServices.setIconProgressBar(50);
             newData(handler.root);
             _dataMap.calculate(handler.root);
             calcSize(handler.root, _dataMap);
@@ -203,6 +207,7 @@ void VisMapDialog::loadFile(const QString &fileName)
             ui->exportStatsCmd->setEnabled(true);
             ui->cmdViewGraph->setEnabled(_tagNodes.count() > 0);
             _appData->notifier()->notify(NULL, tr("Data ready."));
+            uiServices.endIconProgressBar();
         }
         setEnabled(true);
         /*QDateTime tend = QDateTime::currentDateTime();

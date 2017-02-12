@@ -20,14 +20,32 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef UISERVICES_H
-#define UISERVICES_H
+#ifndef UIDSERVICES_H
+#define UIDSERVICES_H
 
+#include "xmlEdit.h"
+#include "libQXmlEdit_global.h"
+#include <QSystemTrayIcon>
 
-class UIServices
+class LIBQXMLEDITSHARED_EXPORT UIDesktopServices
 {
+    QWidget *_widget;
+    // todo: remove this
+    QSystemTrayIcon _trayIcon;
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+    QWinTaskbarButton _button;
+    QWinTaskbarProgress *_progress;
+#else
+#endif
 public:
-    UIServices();
+    void startIconProgressBar();
+    void setIconProgressBar(const int percent);
+    void endIconProgressBar();
+
+    UIDesktopServices(QWidget *widget);
+    ~UIDesktopServices();
+    QWidget *widget() const;
+    void setWidget(QWidget *widget);
 };
 
-#endif // UISERVICES_H
+#endif // UIDSERVICES_H

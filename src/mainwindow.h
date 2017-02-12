@@ -39,6 +39,7 @@
 #include "sessionstatewidget"
 #include "widgets/attrfilterstatus.h"
 #include "mainwndcontroller.h"
+#include "modules/services/uidservices.h"
 
 
 class SnippetManager;
@@ -54,6 +55,7 @@ class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 
     SourceRelatedMessages *_scxmlValidationErrors;
 
+    UIDesktopServices _uiServices;
     QApplication *application;
     ApplicationData *data;
     bool isSlave; // use and forward

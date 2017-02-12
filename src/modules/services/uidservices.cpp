@@ -20,9 +20,83 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "uiservices.h"
+#include "xmlEdit.h"
+#include "uidservices.h"
 
-UIServices::UIServices()
+UIDesktopServices::UIDesktopServices(QWidget *widget)
 {
+    _widget = widget;
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+    _button = NULL ;
+    _progress = NULL ;
+#else
+#endif
+}
 
+UIDesktopServices::~UIDesktopServices()
+{
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+    if(NULL != _progress) {
+        if(_progress->isVisible()) {
+            _progress->hide();
+        }
+        delete _progress;
+    }
+    if(NULL != _button) {
+        _button->deleteLater();
+    }
+
+    _progress = NULL ;
+#else
+#endif
+}
+
+QWidget *UIDesktopServices::widget() const
+{
+    return _widget;
+}
+
+void UIDesktopServices::setWidget(QWidget *widget)
+{
+    _widget = widget;
+}
+
+void UIDesktopServices::startIconProgressBar()
+{
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+    if(NULL == _button) {
+        _button = new QWinTaskbarButton(widget);
+        _button->setWindow(widget->windowHandle());
+    }
+#else
+    _trayIcon.setVisible(true);
+    _trayIcon.showMessage("QXmlEdit", "started", QSystemTrayIcon::Warning);
+#endif
+}
+
+void UIDesktopServices::setIconProgressBar(const int percent)
+{
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+    if(NULL == _button) {
+        startIconProgressBar();
+    }
+    if(NULL == _progress) {
+        _progress = button->progress();
+    }
+    _progress->setVisible(true);
+    _progress->setValue(percent);
+#else
+    _trayIcon.showMessage("QXmlEdit", QString("Progress %1").arg(percent), QSystemTrayIcon::Warning);
+#endif
+}
+
+void UIDesktopServices::endIconProgressBar()
+{
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+    if(NULLL != _progress) {
+        _progress->hide();
+    }
+#else
+    _trayIcon.showMessage("QXmlEdit", "end", QSystemTrayIcon::Warning);
+#endif
 }
