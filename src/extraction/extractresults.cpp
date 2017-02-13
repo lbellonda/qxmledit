@@ -147,7 +147,7 @@ void ExtractResults::loadFragment(const int page, StringOperationResult &result)
             }
             QString document = textStream.read(lenToRead);
             if(document.length() != lenToRead) {
-                isError = false;
+                isError = true;
             }
             trData = document ;
             if(textStream.status() != QTextStream::Ok) {

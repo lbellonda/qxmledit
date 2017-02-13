@@ -347,16 +347,13 @@ bool TestSplit::checkSplit(ExtractResults &results, const int id, const QString 
     StringOperationResult sresult;
     results.loadFragment(id + 1, sresult);
     if(sresult.isError()) {
-        fprintf(stderr, "%s\n", (QString("Split in loadFragment: %1").arg(id)).toLatin1().data());
-        return error();
+        return error(QString("Split in loadFragment: %1").arg(id));
     }
     if(_showXML) {
         Utils::message(sresult.result());
     }
     if(!compareData(sresult.result(), referenceFile)) {
-        fprintf(stderr, "%s\n", (QString("Split fragment not correct: %1").arg(id)).toLatin1().data());
-        //Utils::message(sresult.result());
-        return error();
+        return error(QString("Split fragment not correct: %1").arg(id));
     }
     return true ;
 }
@@ -909,7 +906,7 @@ bool TestSplit::testFilterTextAbsoluteFilterWrongPath()
 
 bool TestSplit::testFast()
 {
-    return testSplitGroup();
+    return testSplitByDepth0();
 }
 
 bool TestSplit::testSplitGroup()

@@ -186,6 +186,7 @@ void ExtractionOperation::execute(QFile *file)
         bool dontWrite = false;
         bool writeThis = false;
         bool isStillInFragment = false;
+        bool isStartDocument = false;
 
         /********************/
         if(debugIO) {
@@ -232,6 +233,7 @@ void ExtractionOperation::execute(QFile *file)
             break;
         case QXmlStreamReader::StartDocument:
             //inDocument = true ;
+            isStartDocument = true ;
             _documentEncoding = xmlReader.documentEncoding().toString();
             _results->_encoding = _documentEncoding ;
             _isDocumentStandalone = xmlReader.isStandaloneDocument();
@@ -257,12 +259,12 @@ void ExtractionOperation::execute(QFile *file)
             QString actualPath = path + "/" + xmlReader.name().toString();
             if(!insideAFragment) {
                 if((isDepth && (level == _splitDepth)) || (!isDepth && (actualPath == _splitPath))) {
-                    /*if(debugIO) {
+                    if(debugIO) {
                         printf("***Start fragment\n");
                         fflush(stdout);
-                    }*/
+                    }
                     isInterDocument = false;
-                    _results->incrementFragment(previousPos - 1); // was: previousPos (-1)
+                    _results->incrementFragment(previousPos - 1);
                     bool registerDocument = false ;
                     if(_isExtractDocuments) {
                         if(!isExtractAllDocuments()) {
@@ -367,7 +369,11 @@ void ExtractionOperation::execute(QFile *file)
         }
         } // switch
 
-        previousPos = xmlReader.characterOffset();
+        if(isStartDocument) {
+            previousPos = 1 ;
+        } else {
+            previousPos = xmlReader.characterOffset();
+        }
         /*****************************************************
         previousTokenLine = xmlReader.lineNumber();
         previousTokenColumn = xmlReader.columnNumber();

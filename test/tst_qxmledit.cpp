@@ -1486,6 +1486,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     //qInstallMessageHandler(msgHandler);
+    testSplit();
     testBase64();
     testVis();
 }
