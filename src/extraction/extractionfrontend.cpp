@@ -37,7 +37,9 @@ ExtractionFrontEnd::ExtractionFrontEnd(ExtractionOperation *operation, QWidget *
     _running = false ;
     ui->setupUi(this);
     _running = true ;
-    _future = QtConcurrent::run(this, &ExtractionFrontEnd::extractFragmentsWorkThread);
+    Utils::TODO_THIS_RELEASE("attenazione");
+    this->extractFragmentsWorkThread();
+    //_future = QtConcurrent::run(this, &ExtractionFrontEnd::extractFragmentsWorkThread);
     QTimer::singleShot(200, this, SLOT(checkIfDone()));
 
     // setup values

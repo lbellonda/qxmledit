@@ -24,9 +24,11 @@
 #ifndef EXTRACTRESULTS_H
 #define EXTRACTRESULTS_H
 
+#include "xmlEdit.h"
 #include <QHash>
 #include "operationresult.h"
 #include <QFile>
+#include <QTextStream>
 #include "libQXmlEdit_global.h"
 
 
@@ -37,30 +39,28 @@ public:
     volatile bool _isError ;
     volatile bool _isAborted ;
     QString _fileName;
+    QString _encoding;
     unsigned int _numFragments;
     unsigned int _numDocumentsCreated;
     unsigned int _numFoldersCreated;
     QString _currentSubFolder;
     // this is the map that permits us to read a single document from the file using a seek operation
-    QHash<int, qint64> _startDocumentLine;
-    QHash<int, qint64> _endDocumentLine;
     //------------------------------------
-    QHash<int, qint64> _linePos;
-    QHash<int, qint64> _startDocumentColumn;
-    QHash<int, qint64> _endDocumentColumn;
+    QHash<int, qint64> _startDocumentCharacterOffset;
+    QHash<int, qint64> _endDocumentCharacterOffset;
     //------------------------------------
     bool _optimizeSpeed;
 
 
     void init();
-    QString trackForTag(QFile &file, const int startLine, const bool isLookingForOpenTag, bool &isError);
+    bool readWaste(QTextStream &textStream, const int times, const int charsToSkip);
 
 public:
     explicit ExtractResults(QObject *parent = NULL);
     ~ExtractResults();
 
-    void incrementFragment(const qint64 line, const qint64 column);
-    void endFragment(const qint64 line, const qint64 column);
+    void incrementFragment(const quint64 characterOffset);
+    void endFragment(const qint64 characterOffset);
     // inline
     uint currentFragment()
     {
@@ -70,7 +70,7 @@ public:
     {
         return _numFoldersCreated;
     }
-    int numFragments();
+    uint numFragments();
 
     bool isError();
     bool isAborted();

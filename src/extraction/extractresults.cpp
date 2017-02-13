@@ -20,6 +20,7 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "xmlEdit.h"
 #include "extractresults.h"
 #include "utils.h"
 
@@ -40,30 +41,27 @@ void ExtractResults::init()
     _numDocumentsCreated = 0 ;
     _numFoldersCreated = 0;
     // this is the map that permits us to read a single document from the file using a seek operation
-    _startDocumentLine.clear();
-    _endDocumentLine.clear();
-    _linePos.clear();
-    _startDocumentColumn.clear();
-    _endDocumentColumn.clear();
+    _startDocumentCharacterOffset.clear();
+    _endDocumentCharacterOffset.clear();
+    _encoding = "utf-8" ;
+    Utils::TODO_THIS_RELEASE("decidere se si o no");
     _optimizeSpeed = false ;
 }
 
-int ExtractResults::numFragments()
+uint ExtractResults::numFragments()
 {
     return _numFragments ;
 }
 
-void ExtractResults::incrementFragment(const qint64 line, const qint64 column)
+void ExtractResults::incrementFragment(const quint64 characterOffset)
 {
     _numFragments ++ ;
-    _startDocumentLine.insert(_numFragments, line);
-    _startDocumentColumn.insert(_numFragments, column);
+    _startDocumentCharacterOffset.insert(_numFragments, characterOffset);
 }
 
-void ExtractResults::endFragment(const qint64 line, const qint64 column)
+void ExtractResults::endFragment(const qint64 characterOffset)
 {
-    _endDocumentLine.insert(_numFragments, line);
-    _endDocumentColumn.insert(_numFragments, column);
+    _endDocumentCharacterOffset.insert(_numFragments, characterOffset);
 }
 
 bool ExtractResults::isError()
@@ -88,96 +86,78 @@ void ExtractResults::setAborted(const bool value)
 
 //-----------------------------------------------------------------------------------------------
 
+bool ExtractResults::readWaste(QTextStream &textStream, const int times, const int charsToSkip)
+{
+    FORINT(i, times) {
+        QString waste = textStream.read(charsToSkip);
+        if(waste.length() != charsToSkip) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void ExtractResults::loadFragment(const int page, StringOperationResult &result)
 {
+    const qint64 C100_000 = 100000 ;
+    const qint64 C10_000 = 10000 ;
     bool isError = true ;
-    if(_startDocumentLine.keys().contains(page)) {
+    if(_startDocumentCharacterOffset.keys().contains(page)) {
         isError = false ;
         QFile file(_fileName);
         if(file.open(QIODevice::ReadOnly)) {
-
+            QTextStream textStream(&file);
+            textStream.setCodec(_encoding.toLatin1().data());
             // read the start lines of the elements
-            qint64 fileLineStart = _startDocumentLine.value(page);
-            qint64 fileLineEnd = _endDocumentLine.value(page);
-            qint64 fileLineStartPos = _linePos.value(fileLineStart);
-            qint64 fileLineEndPos = _linePos.value(fileLineEnd);
-            qint64 startCharColumn = _startDocumentColumn.value(page);
-            qint64 endCharColumn = _endDocumentColumn.value(page);
-
-            QString trData;
-            qint64 nextLinePos = _linePos.value(fileLineEnd + 1);
-
-            bool lookForStart = false;
-            bool lookForEnd = false;
-            if(fileLineStart == fileLineEnd) {   // same line
-                if(!file.seek(fileLineStartPos)) {
-                    isError = true ;
-                }
-                QByteArray data = file.readLine(nextLinePos - fileLineStartPos + 10);
-                trData = QString::fromUtf8(data);
-                int indexStart = trData.lastIndexOf('<', startCharColumn - 1);
-                int indexEnd = trData.indexOf('>', endCharColumn - 1);
-                if((indexStart >= 0) && (indexEnd >= 0)) {
-                    trData = trData.mid(indexStart, indexEnd - indexStart + 1);
-                } else {
-                    if(indexStart < 0) {
-                        lookForStart = true ;
-                        startCharColumn = 0;
-                    }
-                    if(indexEnd < 0) {
-                        lookForEnd = true ;
-                        endCharColumn = trData.length() - 1 ;
-                    }
-                    trData = trData.mid(startCharColumn, endCharColumn - startCharColumn + 1);
-                }
+            qint64 startCharacter = _startDocumentCharacterOffset.value(page);
+            qint64 endCharacter ;
+            if(_endDocumentCharacterOffset.contains(page)) {
+                endCharacter = _endDocumentCharacterOffset.value(page);
             } else {
-                if(!file.seek(fileLineStartPos)) {
-                    isError = true ;
-                }
-                // read up to last line excluded
-                QByteArray data = file.read(fileLineEndPos - fileLineStartPos);
-                trData = QString::fromUtf8(data);
-                int indexStart = trData.lastIndexOf('<', startCharColumn - 1);
-                if(indexStart < 0) {
-                    lookForStart = true ;
-                    trData = trData;
-                } else {
-                    trData = trData.mid(indexStart);
-                }
+                endCharacter = startCharacter ;
+            }
+            qint64 lenToRead = endCharacter - startCharacter + 1;
+            QString trData;
 
-                // read the last line
-                file.seek(fileLineEndPos);
-                qint64 charactersToRead = nextLinePos - fileLineEndPos ;
-                if(charactersToRead < 0) {
-                    // This condition happens when the tag to look for is the last one (root).
-                    // there is no such next line in this case.
-                    // Using a token.
-                    charactersToRead = 1024;
-                }
-                QByteArray dataLast = file.readLine(charactersToRead);
-                QString trDataEnd = QString::fromUtf8(dataLast);
-                int indexEnd = trDataEnd.indexOf('>', endCharColumn - 1);
-
-                if(indexEnd < 0) {
-                    lookForEnd = true ;
-                    // trData is the whole string
-                } else {
-                    QString endData = trDataEnd.mid(0, indexEnd + 1) ;
-                    trData.append(endData);
+            qint64 resto = 0 ;
+            qint64 hundredThousands = startCharacter / C100_000;
+            resto = startCharacter % C100_000;
+            qint64 tenThousands = resto / C10_000;
+            resto = resto % C10_000;
+            qint64 thousands = resto / 1000;
+            resto = resto % 1000;
+            qint64 hundreds = resto / 100;
+            resto = resto % 100;
+            if(!readWaste(textStream, hundredThousands, C100_000)) {
+                isError = true;
+            }
+            if(!readWaste(textStream, tenThousands, C10_000)) {
+                isError = true;
+            }
+            if(!readWaste(textStream, thousands, 1000)) {
+                isError = true;
+            }
+            if(!readWaste(textStream, hundreds, 100)) {
+                isError = true;
+            }
+            if(resto > 0) {
+                if(!readWaste(textStream, 1, resto)) {
+                    isError = true;
                 }
             }
-
-            // look for outliers.
-            if(lookForStart) {
-                trData.prepend(trackForTag(file, fileLineStart, true, isError));
+            QString document = textStream.read(lenToRead);
+            if(document.length() != lenToRead) {
+                isError = false;
             }
-            if(lookForEnd) {
-                trData.append(trackForTag(file, fileLineEnd, false, isError));
+            trData = document ;
+            if(textStream.status() != QTextStream::Ok) {
+                isError = true ;
             }
 
             if(file.error() != QFile::NoError) {
                 isError = true ;
-            } else {
+            }
+            if(!isError) {
                 trData = trData.trimmed();
                 result.setResult(trData);
                 // printf("xml is:'%s'\n", trData.toAscii().data());
@@ -188,57 +168,4 @@ void ExtractResults::loadFragment(const int page, StringOperationResult &result)
     if(isError) {
         result.setError(true);
     }
-}
-
-QString ExtractResults::trackForTag(QFile &file, const int startLine, const bool isLookingForOpenTag, bool &isError)
-{
-    QString finalString ;
-    int line = isLookingForOpenTag ? startLine - 1 : startLine + 1 ;
-    int iteration = 0;
-    QChar charToLookFor = isLookingForOpenTag ? '<' : '>' ;
-
-    do {
-        if(!(_linePos.contains(line) && _linePos.contains(line + 1))) {
-            // no way, let return whatever we have
-            break;
-        }
-
-        qint64 fileLineStartPos = _linePos.value(line);
-        qint64 nextLinePos = _linePos.value(line + 1);
-        if(!file.seek(fileLineStartPos)) {
-            isError = true ;
-        }
-        QByteArray data = file.readLine(nextLinePos - fileLineStartPos);
-        QString trData = QString::fromUtf8(data);
-        int index ;
-        if(isLookingForOpenTag) {
-            index = trData.lastIndexOf(charToLookFor);
-        } else {
-            index = trData.indexOf(charToLookFor);
-        }
-        if(index >= 0) {
-            if(isLookingForOpenTag) {
-                trData = trData.mid(index);
-                finalString.prepend(trData);
-            } else {
-                trData = trData.left(index + 1);
-                finalString.append(trData);
-            }
-            return finalString;
-        } else {
-            if(isLookingForOpenTag) {
-                finalString.prepend(trData);
-                line -- ;
-            } else {
-                finalString.append(trData);
-                line ++;
-            }
-        }
-        iteration++;
-    } while(iteration < Utils::ReasonableIterationCount);
-
-    if(file.error() != QFile::NoError) {
-        isError = true ;
-    }
-    return finalString;
 }

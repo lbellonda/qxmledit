@@ -247,7 +247,6 @@ void MainWindow::on_actionNew_triggered()
     //QTimer::singleShot(200, theWindow, SLOT(onRaiseWindow()));
 }
 
-
 void MainWindow::onRaiseWindow()
 {
     activateWindow();
@@ -2213,9 +2212,6 @@ void MainWindow::onChangeEditorMode()
 
 void MainWindow::on_actionExtractFragmentsFromFile_triggered()
 {
-    if(!verifyAbandonChanges()) {
-        return ;
-    }
     ExtractResults *results = new  ExtractResults();
     if(NULL == results) {
         Utils::errorOutOfMem(this);
@@ -2232,10 +2228,11 @@ void MainWindow::on_actionExtractFragmentsFromFile_triggered()
             delete results ;
             return ;
         }
-        cleanExtractResults();
-        _extractResult = results ;
-        ui.editor->setNavigationDataAndEnable(1, _extractResult->numFragments());
-        showNavigationBox();
+        MainWindow * newWindow = makeNewWindow();
+        newWindow->cleanExtractResults();
+        newWindow->_extractResult = results ;
+        newWindow->ui.editor->setNavigationDataAndEnable(1, results->numFragments());
+        newWindow->showNavigationBox();
     } else {
         delete results ;
     }

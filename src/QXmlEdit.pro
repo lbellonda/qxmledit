@@ -129,7 +129,6 @@ equals(QXMLEDIT_LIB_SUFFIX, "") {
     VERSION=""
 }
 
-
 TEMPLATE = app
 
 DESTDIR = ../build
@@ -185,6 +184,7 @@ equals(INST_USE_C11, "y") {
  QMAKE_CXXFLAGS +=-std=c++11
 }
 
+macx:QMAKE_CXXFLAGS += -Wno-deprecated-declarations
 
 # TODO data files not installed
 # DATADIR = $$PREFIX/share/qxmledit
