@@ -2219,10 +2219,6 @@ void MainWindow::on_actionExtractFragmentsFromFile_triggered()
     }
     extractFragments(results, this);
     if(!(results->isError() || results->isAborted())) {
-        if(results->_optimizeSpeed) {
-            delete results ;
-            return ;
-        }
         if(results->numFragments() == 0) {
             Utils::message(tr("No fragments found"));
             delete results ;

@@ -53,6 +53,8 @@
 #define SPLIT_FILE_9    "../test/data/split/splitter_res9.xml"
 #define INPUT_FILE_FOR_TESTSPLIT    "../test/data/test_split_cases.xml"
 #define INPUT_FILE_FOR_TESTSPLITBYDEPTH "../test/data/vis/testvis.xml"
+#define INPUT_FILE_FOR_TESTSPLITBYDEPTH1 "../test/data/vis/testvis_1.xml"
+#define INPUT_FILE_FOR_TESTSPLITBYDEPTH2 "../test/data/vis/testvis_2.xml"
 #define INPUT_FILTER_TEXT   "../test/data/split/split_filter_text_src.xml"
 #define RES_FILTER_TEXT_1   "../test/data/split/res_filter_text_1.xml"
 #define RES_FILTER_TEXT_2   "../test/data/split/res_filter_text_2.xml"
@@ -595,12 +597,54 @@ bool TestSplit::testSplitByDepth0()
     // do operation
     op.performExtraction();
     if(op.isError()) {
-        fprintf(stderr, "%s\n", (QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage())).toLatin1().data());
-        return error();
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
     }
     if(!checkSplit(results, 0, FILTER_RESULT_DEPTH0)) {
-        fprintf(stderr, "Split by depth 0 is not correct\n");
-        return error();
+        return error("Split by depth 0 is not correct");
+    }
+    return true ;
+}
+
+bool TestSplit::testSplitByDepth0_1()
+{
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    op.setInputFile(INPUT_FILE_FOR_TESTSPLITBYDEPTH1);
+    op.setSplitDepth(1);
+    op.setSplitType(ExtractionOperation::SplitUsingDepth);
+    op.setExtractDocuments(false);
+    op.setExtractRange();
+    op.setMaxDoc(1);
+    op.setMinDoc(1);
+    // do operation
+    op.performExtraction();
+    if(op.isError()) {
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
+    }
+    if(!checkSplit(results, 0, FILTER_RESULT_DEPTH0)) {
+        return error("Split by depth 0-1 is not correct");
+    }
+    return true ;
+}
+
+bool TestSplit::testSplitByDepth0_2()
+{
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    op.setInputFile(INPUT_FILE_FOR_TESTSPLITBYDEPTH2);
+    op.setSplitDepth(1);
+    op.setSplitType(ExtractionOperation::SplitUsingDepth);
+    op.setExtractDocuments(false);
+    op.setExtractRange();
+    op.setMaxDoc(1);
+    op.setMinDoc(1);
+    // do operation
+    op.performExtraction();
+    if(op.isError()) {
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
+    }
+    if(!checkSplit(results, 0, FILTER_RESULT_DEPTH0)) {
+        return error("Split by depth 0-2 is not correct");
     }
     return true ;
 }
@@ -619,12 +663,54 @@ bool TestSplit::testSplitByDepth1()
     // do operation
     op.performExtraction();
     if(op.isError()) {
-        fprintf(stderr, "%s\n", (QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage())).toLatin1().data());
-        return error();
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
     }
     if(!checkSplit(results, 0, FILTER_RESULT_DEPTH1)) {
-        fprintf(stderr, "Split by depth 1 is not correct\n");
-        return error();
+        return error("Split by depth 1 is not correct");
+    }
+    return true ;
+}
+
+bool TestSplit::testSplitByDepth1_1()
+{
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    op.setInputFile(INPUT_FILE_FOR_TESTSPLITBYDEPTH1);
+    op.setSplitDepth(2);
+    op.setSplitType(ExtractionOperation::SplitUsingDepth);
+    op.setExtractDocuments(false);
+    op.setExtractRange();
+    op.setMaxDoc(1);
+    op.setMinDoc(1);
+    // do operation
+    op.performExtraction();
+    if(op.isError()) {
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
+    }
+    if(!checkSplit(results, 0, FILTER_RESULT_DEPTH1)) {
+        return error("Split by depth 1-1 is not correct\n");
+    }
+    return true ;
+}
+
+bool TestSplit::testSplitByDepth1_2()
+{
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    op.setInputFile(INPUT_FILE_FOR_TESTSPLITBYDEPTH2);
+    op.setSplitDepth(2);
+    op.setSplitType(ExtractionOperation::SplitUsingDepth);
+    op.setExtractDocuments(false);
+    op.setExtractRange();
+    op.setMaxDoc(1);
+    op.setMinDoc(1);
+    // do operation
+    op.performExtraction();
+    if(op.isError()) {
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
+    }
+    if(!checkSplit(results, 0, FILTER_RESULT_DEPTH1)) {
+        return error("Split by depth 1-2 is not correct\n");
     }
     return true ;
 }
@@ -643,12 +729,54 @@ bool TestSplit::testSplitByDepth2()
     // do operation
     op.performExtraction();
     if(op.isError()) {
-        fprintf(stderr, "%s\n", (QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage())).toLatin1().data());
-        return error();
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
     }
     if(!checkSplit(results, 0, FILTER_RESULT_DEPTH2)) {
-        fprintf(stderr, "Split by depth 2 is not correct\n");
-        return error();
+        return error("Split by depth 2-1 is not correct\n");
+    }
+    return true ;
+}
+
+bool TestSplit::testSplitByDepth2_1()
+{
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    op.setInputFile(INPUT_FILE_FOR_TESTSPLITBYDEPTH1);
+    op.setSplitDepth(3);
+    op.setSplitType(ExtractionOperation::SplitUsingDepth);
+    op.setExtractDocuments(false);
+    op.setExtractRange();
+    op.setMaxDoc(1);
+    op.setMinDoc(1);
+    // do operation
+    op.performExtraction();
+    if(op.isError()) {
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
+    }
+    if(!checkSplit(results, 0, FILTER_RESULT_DEPTH2)) {
+        return error("Split by depth 2-1 is not correct\n");
+    }
+    return true ;
+}
+
+bool TestSplit::testSplitByDepth2_2()
+{
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    op.setInputFile(INPUT_FILE_FOR_TESTSPLITBYDEPTH2);
+    op.setSplitDepth(3);
+    op.setSplitType(ExtractionOperation::SplitUsingDepth);
+    op.setExtractDocuments(false);
+    op.setExtractRange();
+    op.setMaxDoc(1);
+    op.setMinDoc(1);
+    // do operation
+    op.performExtraction();
+    if(op.isError()) {
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
+    }
+    if(!checkSplit(results, 0, FILTER_RESULT_DEPTH2)) {
+        return error("Split by depth 2-1 is not correct\n");
     }
     return true ;
 }

@@ -49,8 +49,6 @@ public:
     QHash<int, qint64> _startDocumentCharacterOffset;
     QHash<int, qint64> _endDocumentCharacterOffset;
     //------------------------------------
-    bool _optimizeSpeed;
-
 
     void init();
     bool readWaste(QTextStream &textStream, const int times, const int charsToSkip);

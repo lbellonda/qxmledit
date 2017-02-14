@@ -51,6 +51,12 @@ class TestSplit : public TestBase
     bool testSplitByDepth0();
     bool testSplitByDepth1();
     bool testSplitByDepth2();
+    bool testSplitByDepth0_1();
+    bool testSplitByDepth1_1();
+    bool testSplitByDepth2_1();
+    bool testSplitByDepth0_2();
+    bool testSplitByDepth1_2();
+    bool testSplitByDepth2_2();
     bool checkResetParametersFilterText(ExtractionOperation &opresults);
     bool checkSetParametersFilterText(ExtractionOperation &opresults, const QString &path);
     bool testFilterTextRelative1Split();

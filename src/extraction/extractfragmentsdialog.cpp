@@ -161,7 +161,6 @@ void ExtractFragmentsDialog::initUIFromOperation()
     ui->makeSubfolders->setChecked(_operation.isMakeSubFolders());
     ui->eachNFiles->setValue(_operation.subFoldersEachNFiles());
     ui->sourceFile->setText(_operation.inputFile());
-    ui->optimizeSpeed->setChecked(_operation.results()->_optimizeSpeed);
     ui->reverseRange->setChecked(_operation.isReverseRange());
     Utils::selectComboValue(ui->cbOperationType, _operation.OperationType());
     ui->attrName->setText(_operation.attributeName());
@@ -224,7 +223,6 @@ void ExtractFragmentsDialog::fillOperationFromUI()
     _operation.setExtractFolder(ui->extractDir->text().trimmed());
     _operation.setIsMakeSubFolders(ui->makeSubfolders->isChecked());
     _operation.setSubFoldersEachNFiles(ui->eachNFiles->value());
-    _operation.results()->_optimizeSpeed = ui->optimizeSpeed->isChecked();
     _operation.setReverseRange(ui->reverseRange->isChecked());
     _operation.setOperationType(static_cast<ExtractionOperation::EOperationType>(Utils::comboSelectedCodeAsInt(ui->cbOperationType, -1)));
     _operation.setAttributeName(ui->attrName->text());
@@ -368,7 +366,6 @@ void ExtractFragmentsDialog::enableControls()
     bool isRange = ui->extractRange->isChecked();
     bool isCfr = ui->extractWithCfr->isChecked();
     bool isFilterTextUsingPath = ui->chkDeleteUsingPath->isChecked();
-    ui->optimizeSpeed->setEnabled(enableExtraction);
     ui->extractAll->setEnabled(enableExtraction);
     ui->extractRange->setEnabled(enableExtraction);
     ui->extractWithCfr->setEnabled(enableExtraction);

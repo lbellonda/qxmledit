@@ -44,8 +44,6 @@ void ExtractResults::init()
     _startDocumentCharacterOffset.clear();
     _endDocumentCharacterOffset.clear();
     _encoding = "utf-8" ;
-    Utils::TODO_THIS_RELEASE("decidere se si o no");
-    _optimizeSpeed = false ;
 }
 
 uint ExtractResults::numFragments()

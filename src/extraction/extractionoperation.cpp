@@ -156,9 +156,6 @@ void ExtractionOperation::execute(QFile *file)
     bool isCalcPathForFilterTextForElement = false;
     bool isCurrentElementFilterText = false;
     //------
-    if(!_isExtractDocuments) {
-        _results->_optimizeSpeed = false ;
-    }
 
     /***************************************************************
     qint64 previousTokenLine = 0 ;
