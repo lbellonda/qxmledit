@@ -8,10 +8,9 @@
 	<xsl:param name="p1" select="'this is p1'"/>
 	<xsl:param name="p2" select="'this is p2'"/>
 
-    <xsl:output method="xml" omit-xml-declaration="no" indent="yes" encoding="UTF-8"/>
+    <xsl:output method="xml" omit-xml-declaration="yes" indent="yes" encoding="UTF-8"/>
 
 	<xsl:template match="/">
-		<xsl:comment select="'this is a comment'" />
 		<out attr1="{$p1}" attr2="{$p2}">
         	<xsl:apply-templates select="*"/>
 		</out>

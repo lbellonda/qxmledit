@@ -57,7 +57,7 @@ bool TestBase64::test_base64()
         return false;
     }
 
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
 
     mainWindow.loadFile(BASE64_INPUTFILE);
 

@@ -109,8 +109,7 @@ void QXmlEditApplication::onNewWindow()
 
 MainWindow *QXmlEditApplication::makeNewWindow()
 {
-    MainWindow * newWindow = new MainWindow(false, this, _appData);
-    return newWindow;
+    return _appData->newWindow();
 }
 
 void QXmlEditApplication::onEncodingTools()
@@ -331,13 +330,6 @@ QByteArray QXmlEditApplication::paramsToByteArray(StartParams * startParams)
     dataStream.device()->seek(0);
     dataStream << (quint32)(result.size() - sizeof(quint32));
     return result;
-}
-
-void QXmlEditApplication::updateEditors()
-{
-    foreach(MainWindow * window, appData()->windows()) {
-        window->updateAfterPreferences();
-    }
 }
 
 OperationResult *QXmlEditApplication::anonymizeBatch(const QString &newFileInputPath, const QString &newProfileName, const QString &newFileOutputPath)

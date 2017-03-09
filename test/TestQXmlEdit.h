@@ -99,6 +99,7 @@
 #include "testnamespaces.h"
 #include "testspecials.h"
 #include "testscxml.h"
+#include "testexecxslt.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -197,6 +198,7 @@ private Q_SLOTS:
     void testNamespaces();
     void testSpecials();
     void testSCXML();
+    void testExecXSLT();
 };
 
 

@@ -52,7 +52,6 @@ public:
     void setAppData(ApplicationData *appData);
 
     bool handleSingleInstance(StartParams *startParams);
-    void updateEditors();
 
     FrwLogger *logger() const;
     void setLogger(FrwLogger *logger);

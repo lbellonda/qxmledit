@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,34 +20,57 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef COMBOUTILS_H
+#define COMBOUTILS_H
 
-#include "testmainwindow.h"
+#include "xmlEdit.h"
 
+class XmlEditWidget;
+class QXmlEditData;
 
-TestMainWindow::TestMainWindow(const bool isSlave, ApplicationData *data, QMainWindow *parent) :
-    MainWindow(isSlave, data, parent)
+class ComboUtils
 {
-    _fakeUIdelegate = NULL ;
-}
+public:
+    ComboUtils();
+    ~ComboUtils();
 
-TestMainWindow::~TestMainWindow()
-{
-}
+    enum eType {
+        TypeBrowse,
+        TypeEditor,
+        TypeFile,
+        TypeOutputEditor
+    };
 
-FakeUIDelegate *TestMainWindow::fakeUIdelegate() const
-{
-    return _fakeUIdelegate;
-}
+    class ComboItem
+    {
+    public:
+        QString text;
+        int code;
+        void *data;
+        QString dataString;
 
-void TestMainWindow::setFakeUIDelegate(FakeUIDelegate *fakeUIdelegate)
-{
-    _fakeUIdelegate = fakeUIdelegate;
-}
+        ComboItem()
+        {
+            code = 0 ;
+            data = NULL ;
+        }
+        ComboItem(const QString &name, const int newCode)
+        {
+            text = name ;
+            code = newCode ;
+            data = NULL ;
+        }
+        ~ComboItem() {}
+    };
+    void setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave);
+    void loadButtonMenu(QToolButton *button, QObject *target, const char *method);
+    static ComboUtils::ComboItem *actionData(QAction *action);
+    static QString titleForEditor(XmlEditWidget* editor);
+private:
+    QList<ComboUtils::ComboItem*> _items;
 
-bool TestMainWindow::loadFile(const QString &filePath, const bool activateModes, const EWindowOpen useWindow, const bool isRegularFile)
-{
-    if( NULL != _fakeUIdelegate ) {
-        _fakeUIdelegate->justBeforeLoad();
-    }
-    return MainWindow::loadFile(filePath, activateModes, useWindow, isRegularFile);
-}
+    void reset();
+
+};
+
+#endif // COMBOUTILS_H

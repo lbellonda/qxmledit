@@ -114,7 +114,6 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
     styleMenu = NULL ;
     copyMenu = NULL ;
 
-    application = NULL ;
     paintInfo.loadState();
     regola = newRegola(false);
     regola->assignCollectSizeDataFlag(paintInfo.showElementSize());
@@ -274,9 +273,8 @@ void XmlEditWidgetPrivate::autoTest()
 }
 */
 
-void XmlEditWidgetPrivate::setData(QApplication *newApplication, QXmlEditData *newData, const bool newIsSlave, UIDelegate *newUiDelegate)
+void XmlEditWidgetPrivate::setData(QXmlEditData *newData, const bool newIsSlave, UIDelegate *newUiDelegate)
 {
-    application = newApplication ;
     if(NULL != newData) {
         _appData = newData ;
         _appData->namespaceManager()->init();
@@ -809,7 +807,6 @@ void XmlEditWidgetPrivate::resetTree()
     _helper.resetTree(p->ui->treeWidget, &paintInfo);
 }
 
-
 bool XmlEditWidgetPrivate::onActionNewFromClipboard()
 {
     const QClipboard *clipBoard = QApplication::clipboard();
@@ -821,6 +818,17 @@ bool XmlEditWidgetPrivate::onActionNewFromClipboard()
             regola->setModified(true);
             return true ;
         }
+    }
+    return false;
+}
+
+bool XmlEditWidgetPrivate::newFromString(const QString &newData)
+{
+    if(loadText(newData)) {
+        setReadOnly(false);
+        regola->markEdited();
+        regola->setModified(true);
+        return true ;
     }
     return false;
 }

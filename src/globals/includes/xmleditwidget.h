@@ -100,7 +100,7 @@ public:
     bool editElement(QTreeWidgetItem *item);
 
     bool init();
-    void setData(QApplication *newApplication, QXmlEditData *newData, const bool newIsSlave, UIDelegate *newUiDelegate);
+    void setData(QXmlEditData *newData, const bool newIsSlave, UIDelegate *newUiDelegate);
     void setUIDelegate(UIDelegate *newUiDelegate);
 
     Element *getSelectedItem();
@@ -267,6 +267,7 @@ public:
     void onActionShowChildIndex(const bool isChecked);
     void onActionCloseThisAllBrothers();
     bool onActionNewFromClipboard();
+    bool newFromString(const QString &newData);
     void onActionCompactView(const bool isChecked);
     void onActionShowAttributesSorted(const bool isChecked);
     void onActionShowAlwaysFullTextComments(const bool isShow);

@@ -32,6 +32,7 @@
 #include <QtGlobal>
 #include "qxmleditapplication.h"
 #include "modules/services/anotifier.h"
+#include "modules/xslt/xsltexecutor.h"
 
 #include "licensedialog.h"
 
@@ -40,6 +41,9 @@
 #define MACOS_SPECIFIC
 #endif
 #endif
+
+int doXSL(ApplicationData *appData, StartParams *startParams);
+
 
 #if !defined(QXMLEDIT_NOMAIN)
 
@@ -104,7 +108,7 @@ int internalMain(int argc, char *argv[])
         return -1 ;
     }
 
-    decodeCommandLine(app.arguments(), &startParams);
+    bool decoded = startParams.decodeCommandLine(app.arguments());
     if(app.handleSingleInstance(&startParams)) {
         return 0;
     }
@@ -112,8 +116,15 @@ int internalMain(int argc, char *argv[])
         int returnCode = doAnonymize(&app, startParams);
         return returnCode;
     }
+    if(startParams.type == StartParams::XSLExec) {
+        int returnCode = doXSL(&appData, &startParams);
+        return returnCode;
+    }
+    if(!decoded) {
+        printHelp();
+    }
 
-    MainWindow *mainWindow = new MainWindow(false, &app, &appData);
+    MainWindow *mainWindow = new MainWindow(false, &appData);
 
     mainWindow->show();
     mainWindow->setupFirstAccess();
@@ -191,6 +202,7 @@ static int doAnonymize(QXmlEditApplication *app, StartParams &startParams)
     QTextStream stdErr(stderr);
     if(startParams.parametersError) {
         stdErr << startParams.errorMessage ;
+        printHelp();
         return -1;
     }
     OperationResult *result = app->anonymizeBatch(startParams.fileName, startParams.arg1, startParams.arg2);
@@ -206,7 +218,6 @@ static int doAnonymize(QXmlEditApplication *app, StartParams &startParams)
     delete result;
     return returnCode ;
 }
-
 
 static void initLogger()
 {
@@ -234,6 +245,7 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
+    Utils::TODO_THIS_RELEASE("impedire chiusura editor mentre si seleziona xslt");
 }
 
 static void startTanslator(QApplication *app)
@@ -293,69 +305,50 @@ void printHelp()
     stdOut << QObject::tr("Usage:\n");
     stdOut << QObject::tr(" -vis <file>: opens the data visualization panel\n");
     stdOut << QObject::tr(" -anonymize <inputfile> <profile> <outputfile>: anonymize\n");
+    stdOut << QObject::tr(" -xsl [-saxon] -xsl=<xslFile> -output=<outputfile>  {-p<name>=<value>}* <inputfile>: execute XSL transformation\n");
     stdOut << QObject::tr(" any other argument is used as a file to open.\n");
 #endif //QXMLEDIT_NOMAIN
 }
 
-bool decodeCommandLine(QStringList args, StartParams *params)
+int doXSL(ApplicationData *appData, StartParams *startParams)
 {
-    if(args.size() > 1) {
-        QString arg1 = args.at(1);
-
-        if(arg1 == QString("-vis")) {
-            params->type = StartParams::VisFile ;
-            if(args.size() > 2) {
-                params->fileName = args.at(2);
-                if(params->fileName.isEmpty()) {
-                    params->parametersError = true ;
-                    params->errorMessage = QObject::tr("The input file name is empty.");
-                    return false;
-                }
-            } else {
-                params->parametersError = true ;
-                params->errorMessage = QObject::tr("Missing parameters for the data visualization option.");
-                printHelp();
-                return false;
-            }
-        } else if(arg1 == QString("-anonymize")) {
-            params->type = StartParams::Anonymize ;
-            if(args.size() > 4) {
-                params->fileName = args.at(2);
-                params->arg1 = args.at(3);
-                params->arg2 = args.at(4);
-                if(params->fileName.isEmpty()) {
-                    params->parametersError = true ;
-                    params->errorMessage = QObject::tr("The input file name is empty.");
-                    return false;
-                }
-                if(params->arg1.isEmpty()) {
-                    params->parametersError = true ;
-                    params->errorMessage = QObject::tr("The profile name is empty.");
-                    return false;
-                }
-                if(params->arg2.isEmpty()) {
-                    params->parametersError = true ;
-                    params->errorMessage = QObject::tr("The anonymized file name (output) is empty.");
-                    return false;
-                }
-                params->type = StartParams::Anonymize ;
-            } else {
-                params->parametersError = true ;
-                params->errorMessage = QObject::tr("Missing parameters for the anonymize option.");
-                printHelp();
-                return false;
-            }
-        } else {
-            params->fileName = args.at(1);
-            if(!params->fileName.isEmpty()) {
-                params->type = StartParams::OpenFile ;
-            } else {
-                params->parametersError = true ;
-                params->errorMessage = QObject::tr("The input file name is empty.");
-                return false;
-            }
-        }
+    Utils::setBatch(true);
+    QTextStream stdErr(stderr);
+    QTextStream stdOut(stdout);
+    if(startParams->parametersError) {
+        stdErr << startParams->errorMessage ;
+        printHelp();
+        return -1;
     }
-    return true;
+    MessagesOperationResult result;
+    bool success = XSLTExecutor::execBatch(appData,
+                                           result,
+                                           startParams->fileName, startParams->xsl,
+                                           startParams->outputFile,
+                                           startParams->params,
+                                           startParams->forceSaxon);
+#if !defined(QXMLEDIT_NOMAIN)
+    foreach(SourceMessage* message, *result.messages()) {
+        if(message->type() == SourceMessage::Error) {
+            stdErr << QObject::tr("[ERROR]:");
+        } else {
+            stdErr << QObject::tr("[Output]:");
+        }
+        stdErr << message->description();
+        stdErr << "\n";
+    }
+    if(success) {
+        stdOut << QObject::tr("Success\n");
+        return 0;
+    } else {
+        stdOut << QObject::tr("Error\n");
+        return -1 ;
+    }
+#else
+    if(success) {
+        return 0;
+    } else {
+        return -1 ;
+    }
+#endif //QXMLEDIT_NOMAIN
 }
-

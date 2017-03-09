@@ -489,7 +489,7 @@ bool TestXSDValidation::loadAndTestValidation(const QString &inputFileName, cons
     if(!app.initNoWindow() ) {
         return error("init");
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if(!mainWindow.loadFile(inputFileName) ) {
         return error(QString("Unable to load input file:%1").arg(inputFileName));
     }

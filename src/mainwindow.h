@@ -42,7 +42,6 @@
 
 
 class SnippetManager;
-class QXmlEditApplication;
 class SourceRelatedMessages;
 
 class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
@@ -54,7 +53,6 @@ class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 
     SourceRelatedMessages *_scxmlValidationErrors;
 
-    QApplication *application;
     ApplicationData *data;
     bool isSlave; // use and forward
     QEventLoop *eventLoop;
@@ -94,7 +92,7 @@ public:
         OpenUsingNewWindow,
     };
 
-    MainWindow(const bool isSlave, QApplication *application, ApplicationData *data, QMainWindow *parent = 0);
+    MainWindow(const bool isSlave, ApplicationData *data, QMainWindow *parent = 0);
     virtual ~MainWindow();
 
     ApplicationData *appData();
@@ -103,6 +101,7 @@ public:
                                         const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
     MainWindow *createFromClipboard(const EWindowOpen useWindow = OpenUsingDefaultSettings);
     bool newFromClipboard();
+    bool newFromString(const QString &newData);
     void setEventLoop(QEventLoop *eventLoop);
     QString getContentAsText();
 
@@ -147,7 +146,6 @@ public:
     MainWndController *controller();
 
     bool reload();
-    QXmlEditApplication* qXmlEditApplication();
     void updateAfterPreferences();
     void setupFirstAccess();
     void taskChooseDetail();
@@ -372,6 +370,7 @@ private slots:
     void on_actionShowSCXMLNavigator_triggered();
     void on_actionValidateSCXML_triggered();
     void on_actionCopyElementOnly_triggered();
+    void on_actionXSLExecutor_triggered();
 
     //----- other slots ------------------
 

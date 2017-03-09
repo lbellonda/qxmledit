@@ -298,10 +298,14 @@ HEADERS = precompiled_app.h \
     modules/namespace/replacenamespacedialog.h \
     modules/xml/xmlerrormanagerdialog.h \
     widgets/warningswidget.h \
-    modules/messages/sourceerror.h \
     sourcemessagemanager.h \
     modules/utils/simpletree.h \
-    modules/messages/sourcerelatedmessages.h
+    modules/messages/sourcerelatedmessages.h \
+    modules/xslt/xsltexecutor.h \
+    modules/xslt/xsltexecdialog.h \
+    modules/xslt/xslparametermanager.h \
+    modules/utils/comboutils.h \
+    modules/xslt/showxslerrorsdialog.h
 
 SOURCES = \
     main.cpp \
@@ -382,10 +386,16 @@ SOURCES = \
     modules/namespace/replacenamespacedialog.cpp \
     modules/xml/xmlerrormanagerdialog.cpp \
     widgets/warningswidget.cpp \
-    modules/messages/sourceerror.cpp \
     sourcemessagemanager.cpp \
     modules/utils/simpletree.cpp \
-    modules/messages/sourcerelatedmessages.cpp
+    modules/messages/sourcerelatedmessages.cpp \
+    modules/xslt/xsltexecutor.cpp \
+    modules/xslt/xsltexecdialog.cpp \
+    modules/xslt/xsltxecutorprivate.cpp \
+    modules/xslt/xslparametermanager.cpp \
+    modules/utils/comboutils.cpp \
+    modules/xslt/showxslerrorsdialog.cpp \
+    startparams.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -438,7 +448,9 @@ FORMS = MainWindow.ui \
     modules/namespace/replacenamespacedialog.ui \
     modules/xml/xmlerrormanagerdialog.ui \
     widgets/warningswidget.ui \
-    modules/messages/sourcerelatedmessages.ui
+    modules/messages/sourcerelatedmessages.ui \
+    modules/xslt/xsltexecdialog.ui \
+    modules/xslt/showxslerrorsdialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

@@ -1,7 +1,6 @@
-<?xml version='1.0' encoding="UTF-8"?>
-<out attr="parametro1" attr="parametro2">
-    <a x="aaa"/>
-    <a x="aab"/>
-    <a x="aac"/>
+<out attr1="this is p1" attr2="this is p2">
+    <x x="aaa"/>
+    <x x="aab"/>
+    <x x="aac"/>
 </out>
 

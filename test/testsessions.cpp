@@ -56,7 +56,7 @@ bool TestSessions::testStartSessionDisabled()
         return errorInit();
     }
     Config::saveBool(Config::KEY_SESSIONS_ENABLED, false) ;
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->isEnabled() ) {
         return false;
     }
@@ -71,7 +71,7 @@ bool TestSessions::testStartWithoutSessions()
     }
     Config::saveBool(Config::KEY_SESSIONS_ENABLED, true) ;
     app.data()->setActiveSessionState(Session::Active);
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() != NULL ) {
         return errorT();
     }
@@ -100,7 +100,7 @@ bool TestSessions::testStartWithLastSessionIdStateActive()
     if(!app.init2()) {
         return errorInit();
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() == NULL ) {
         return errorT();
     }
@@ -132,7 +132,7 @@ bool TestSessions::testStartWithLastSessionIdStatePaused()
     if(!app.init2()) {
         return false;
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() == NULL ) {
         return errorT();
     }
@@ -164,7 +164,7 @@ bool TestSessions::testStartWithLastSessionIllegalState()
     if(!app.init2()) {
         return false;
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() == NULL ) {
         return errorT();
     }
@@ -197,7 +197,7 @@ bool TestSessions::testCmdPauseCheck()
     if(!app.init2()) {
         return errorT();
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() == NULL ) {
         return errorT();
     }
@@ -236,7 +236,7 @@ bool TestSessions::testCmdResume()
     if(!app.init2()) {
         return errorT();
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() == NULL ) {
         return errorT();
     }
@@ -275,7 +275,7 @@ bool TestSessions::testCmdClose()
     if(!app.init2()) {
         return errorT();
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() == NULL ) {
         return errorT();
     }
@@ -320,7 +320,7 @@ bool TestSessions::testRegisterAccess()
     if(!app.init2()) {
         return errorT();
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() == NULL ) {
         return errorT();
     }
@@ -374,7 +374,7 @@ bool TestSessions::testSummaryData()
     if(!app.init2()) {
         return error("2");
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( app.data()->sessionManager()->currentSession() == NULL ) {
         return error("3");
     }
@@ -441,7 +441,7 @@ bool TestSessions::testAccessFileWithSessionsDisabled()
     if(!app.init2()) {
         return errorT();
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     mainWindow.loadFile(FILE_1);
     SessionOperationStatus contextFiles;
     int cnt = access.access->countFiles(contextFiles);

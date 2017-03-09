@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,8 +24,9 @@
 #ifndef OPERATIONRESULT_H
 #define OPERATIONRESULT_H
 
-#include <QString>
+#include "xmlEdit.h"
 #include "libQXmlEdit_global.h"
+#include "modules/messages/sourceerror.h"
 
 class LIBQXMLEDITSHARED_EXPORT OperationResult
 {
@@ -34,7 +35,7 @@ class LIBQXMLEDITSHARED_EXPORT OperationResult
 
 public:
     OperationResult();
-    ~OperationResult();
+    virtual ~OperationResult();
 
     bool isOk();
     bool isError();
@@ -51,11 +52,22 @@ class LIBQXMLEDITSHARED_EXPORT StringOperationResult : public OperationResult
     QString _result;
 public:
     StringOperationResult();
-    ~StringOperationResult();
+    virtual ~StringOperationResult();
 
     QString result();
     void setResult(const QString& value);
 };
 
+class LIBQXMLEDITSHARED_EXPORT MessagesOperationResult : public OperationResult
+{
+    QList<SourceMessage*> _messages;
+public:
+    MessagesOperationResult();
+    virtual ~MessagesOperationResult();
+
+    QList<SourceMessage*> *messages();
+    void addMessage(SourceMessage* newMessage);
+
+};
 
 #endif // OPERATIONRESULT_H

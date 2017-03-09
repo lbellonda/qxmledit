@@ -24,6 +24,10 @@
 #ifndef STARTPARAMS_H
 #define STARTPARAMS_H
 
+#include <QString>
+#include <QList>
+#include <QPair>
+
 class StartParams
 {
 public:
@@ -31,7 +35,8 @@ public:
         Nothing,
         OpenFile,
         VisFile,
-        Anonymize
+        Anonymize,
+        XSLExec
     };
 
     ESPType type;
@@ -40,13 +45,15 @@ public:
     QString arg2;
     bool parametersError ;
     QString errorMessage;
+    QList<QPair<QString, QString>> params;
+    QString xsl;
+    QString outputFile;
+    bool forceSaxon;
 
-    StartParams()
-    {
-        fileName = "" ;
-        type = Nothing;
-        parametersError = false ;
-    }
+    StartParams();
+    ~StartParams();
+
+    bool decodeCommandLine(QStringList args);
 };
 
 #endif // STARTPARAMS_H

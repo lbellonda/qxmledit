@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,94 +20,36 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "operationresult.h"
+#ifndef SHOWXSLERRORSDIALOG_H
+#define SHOWXSLERRORSDIALOG_H
 
-OperationResult::OperationResult()
+#include "xmlEdit.h"
+#include "modules/messages/sourceerror.h"
+
+class MessagesOperationResult ;
+
+namespace Ui
 {
-    _isError = false ;
+class ShowXSLErrorsDialog;
 }
 
-OperationResult::~OperationResult()
+class ShowXSLErrorsDialog : public QDialog
 {
-}
+    Q_OBJECT
+    MessagesOperationResult *_messages;
 
-bool OperationResult::isError()
-{
-    return _isError ;
-}
+    void finishSetup();
+    QString decodeType(const SourceMessage::EType type);
+public:
+    explicit ShowXSLErrorsDialog(QWidget *parent, MessagesOperationResult *messages);
+    ~ShowXSLErrorsDialog();
 
-void OperationResult::setError(const bool value)
-{
-    _isError = value ;
-}
+    static void showErrors(QWidget *parent, MessagesOperationResult *messages);
 
-void OperationResult::setErrorWithText(const QString& value)
-{
-    setError(true);
-    _message = value ;
-}
+private:
+    Ui::ShowXSLErrorsDialog *ui;
+private slots:
+    void on_cmdCopy_clicked();
+};
 
-QString OperationResult::message()
-{
-    return _message ;
-}
-
-
-void OperationResult::setMessage(const QString& value)
-{
-    _message = value ;
-}
-
-bool OperationResult::isOk()
-{
-    return !_isError;
-}
-
-void OperationResult::setOk()
-{
-    _isError = false;
-}
-
-//------------------------------------------------------------------------------------
-
-StringOperationResult::StringOperationResult() : OperationResult()
-{
-    //;
-}
-
-StringOperationResult::~StringOperationResult()
-{
-    //;
-}
-
-QString StringOperationResult::result()
-{
-    return _result ;
-}
-
-
-void StringOperationResult::setResult(const QString& value)
-{
-    _result = value ;
-}
-
-//------------------------------------------------------------------------------------
-
-MessagesOperationResult::MessagesOperationResult()
-{
-}
-
-MessagesOperationResult::~MessagesOperationResult()
-{
-    EMPTYPTRLIST(_messages, SourceMessage);
-}
-
-void MessagesOperationResult::addMessage(SourceMessage* newMessage)
-{
-    _messages.append(newMessage);
-}
-
-QList<SourceMessage*> *MessagesOperationResult::messages()
-{
-    return &_messages ;
-}
+#endif // SHOWXSLERRORSDIALOG_H

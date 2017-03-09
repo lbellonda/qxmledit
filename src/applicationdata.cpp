@@ -150,6 +150,19 @@ int ApplicationData::windowsCount()
     return _windows.size();
 }
 
+MainWindow *ApplicationData::newWindow()
+{
+    MainWindow *mainWindow = new MainWindow(false, this);
+    return mainWindow ;
+}
+
+void ApplicationData::updateEditors()
+{
+    foreach(MainWindow * window, windows()) {
+        window->updateAfterPreferences();
+    }
+}
+
 void ApplicationData::setSessionDBPath(const QString &sessionDBPath)
 {
     _sessionDBPath = sessionDBPath ;
@@ -421,4 +434,27 @@ AttributeFilterManagement *ApplicationData::attributeFilterManagement()
 {
     return &_attributeFilterManagement;
 }
+
+//--- region(xsl)
+bool ApplicationData::isUseSaxonXSL()
+{
+    return Config::getBool(Config::KEY_XSL_USE_SAXON, false);
+}
+
+void ApplicationData::setUseSaxonXSL(const bool newValue)
+{
+    Config::saveBool(Config::KEY_XSL_USE_SAXON, newValue);
+}
+
+QString ApplicationData::saxonXSLPath()
+{
+    return Config::getString(Config::KEY_XSL_SAXON_PATH, "");
+}
+
+void ApplicationData::setSaxonXSLPath(const QString &newValue)
+{
+    Config::saveString(Config::KEY_XSL_SAXON_PATH, newValue);
+}
+
+//--- endregion(xsl)
 

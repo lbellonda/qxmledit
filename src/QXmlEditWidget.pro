@@ -490,6 +490,7 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.cpp \
     modules/xslt/xsltnavigatorwidget.cpp \
     modules/specialized/scxml/scxmlautomodedialog.cpp \
+    modules/messages/sourceerror.cpp \
     modules/xslt/xsleditormanager.cpp
 
 HEADERS += precompiled_lib.h \
@@ -754,7 +755,8 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.h \
     modules/xslt/xsltnavigatorwidget.h \
     modules/specialized/scxml/scxmlautomodedialog.h \
-    modules/xslt/xsleditormanager.h
+    modules/messages/sourceerror.h \
+    modules/xslt/xsleditormanager.h \
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

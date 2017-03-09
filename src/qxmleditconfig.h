@@ -182,6 +182,8 @@ public:
     // XSL
     static const QString KEY_XSL_SHOW_PANEL;
     static const QString KEY_XSL_AUTOMODE;
+    static const QString KEY_XSL_SAXON_PATH;
+    static const QString KEY_XSL_USE_SAXON;
 
     // SCXML
     static const QString KEY_SCXML_SHOW_PANEL;
@@ -219,10 +221,10 @@ public:
     static const QString KEY_COLOR_ANONATTRPREVIEW;
 
     // xml
-    static const QString KEY_XML_SAVE_STREAM;//deprecated
     static const QString KEY_XML_SAVE_SORTATTRIBUTES;
     //deprecated: do not use
-    static const QString KEY_XML_LOAD_STREAM;
+    static const QString deprecated_KEY_XML_LOAD_STREAM;//deprecated
+    static const QString deprecated_KEY_XML_SAVE_STREAM;//deprecated
 
     // base64
     static const QString KEY_BASE64_TYPE;

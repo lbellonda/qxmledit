@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,34 +20,24 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef XSLPARAMETERMANAGER_H
+#define XSLPARAMETERMANAGER_H
 
-#include "testmainwindow.h"
+#include "xmlEdit.h"
+#include <QSet>
+class Regola ;
 
-
-TestMainWindow::TestMainWindow(const bool isSlave, ApplicationData *data, QMainWindow *parent) :
-    MainWindow(isSlave, data, parent)
+class XSLParameterManager
 {
-    _fakeUIdelegate = NULL ;
-}
+    QSet<QString> _parameters;
+    void scanForParameters(Regola *regola);
+public:
+    XSLParameterManager();
+    ~XSLParameterManager();
 
-TestMainWindow::~TestMainWindow()
-{
-}
+    bool extractParametersFromFile(const QString &fileName);
+    bool extractParametersFromString(const QString &literal);
+    QSet<QString> parameters();
+};
 
-FakeUIDelegate *TestMainWindow::fakeUIdelegate() const
-{
-    return _fakeUIdelegate;
-}
-
-void TestMainWindow::setFakeUIDelegate(FakeUIDelegate *fakeUIdelegate)
-{
-    _fakeUIdelegate = fakeUIdelegate;
-}
-
-bool TestMainWindow::loadFile(const QString &filePath, const bool activateModes, const EWindowOpen useWindow, const bool isRegularFile)
-{
-    if( NULL != _fakeUIdelegate ) {
-        _fakeUIdelegate->justBeforeLoad();
-    }
-    return MainWindow::loadFile(filePath, activateModes, useWindow, isRegularFile);
-}
+#endif // XSLPARAMETERMANAGER_H

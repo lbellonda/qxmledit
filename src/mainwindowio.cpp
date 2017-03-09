@@ -120,6 +120,7 @@ bool MainWindow::loadFile(const QString &filePath, const bool activateModes, con
     if(NULL == result) {
         return false;
     }
+    result->setVisible(true);
     return true;
 }
 

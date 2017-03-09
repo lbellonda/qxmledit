@@ -21,6 +21,7 @@
  **************************************************************************/
 
 #include "sourceerror.h"
+#include "utils.h"
 
 qint64 SourceMessage::line() const
 {
@@ -112,6 +113,16 @@ void SourceMessage::setSource(const QString &source)
     _source = source;
 }
 
+int SourceMessage::code() const
+{
+    return _code;
+}
+
+void SourceMessage::setCode(int value)
+{
+    _code = value;
+}
+
 SourceMessage::SourceMessage()
 {
     _line = 0 ;
@@ -120,10 +131,10 @@ SourceMessage::SourceMessage()
     _foundLine = -1 ;
     _foundColumn = -1 ;
     _type = Info;
+    _code = 0 ;
 }
 
 SourceMessage::~SourceMessage()
 {
-
 }
 

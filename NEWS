@@ -1,4 +1,6 @@
 0.9.7 (devel)
+    Integrated a XSL executor.
+    Removed QApplication parameter from MainWindow creation. Only ApplicationData really needed.
     Fixed a compliation warning on Qt5.8.
     Optimized the split result structure.
     Open the split results in a new window.

@@ -46,7 +46,7 @@ bool TestComment::testMakeComment()
         return false;
     }
 
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
 
     mainWindow.loadFile(QString(TEST_FILE_COMMENT_INPUT));
 
@@ -90,7 +90,7 @@ bool TestComment::testUndoCommentInternal(const QString &fileInput, const QStrin
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
 
     mainWindow.loadFile(fileInput);
 
@@ -127,7 +127,7 @@ bool TestComment::testUndoUndoableComment()
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
 
     mainWindow.loadFile(QString(TEST_FILE_COMMENT_UNDOABLE));
 

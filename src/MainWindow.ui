@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -383,6 +383,8 @@
     <addaction name="actionSpring_and_Forces"/>
     <addaction name="actionBinaryViewer"/>
     <addaction name="actionCodePages"/>
+    <addaction name="separator"/>
+    <addaction name="actionXSLExecutor"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -2347,6 +2349,14 @@
    </property>
    <property name="toolTip">
     <string>Copy in the clipboard the element but the children.</string>
+   </property>
+  </action>
+  <action name="actionXSLExecutor">
+   <property name="text">
+    <string>XSL Executor</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute a XSL sheet on a XML file.</string>
    </property>
   </action>
  </widget>

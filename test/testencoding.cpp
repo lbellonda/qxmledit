@@ -1590,21 +1590,6 @@ bool TestEncoding::testWriteStreamQtBug()
     if(!app.init()) {
         return error("App init");
     }
-    Config::saveBool(Config::KEY_XML_SAVE_STREAM, true);
-    /*foreach( TestSMES* test, tests) { TODELETE TODO
-        QString encoding = test->encoding;
-        QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1());
-        if( NULL != codec ) {
-            Regola *regola = makeGetRegola(encoding);
-            bool result = regola->isEncodingCompatibleWithStream();
-            if(!result) {
-                EMPTYPTRLIST(tests, TestSMES);
-                delete regola;
-                return error(QString("Set stream off, no override, for encoding:'%1' expecting false").arg(encoding));
-            }
-            delete regola;
-        }
-    }*/
     foreach( TestSMES* test, tests) {
         QString encoding = test->encoding;
         QTextCodec *codec = QTextCodec::codecForName(encoding.toLatin1());
@@ -1661,7 +1646,6 @@ bool TestEncoding::testAskForWrite()
                 EMPTYPTRLIST(tests, TestSMES);
                 return error("App init");
             }
-            Config::saveBool(Config::KEY_XML_SAVE_STREAM, true);
             MainWindow *mainWindow = app.mainWindow();
             Regola *regola = mainWindow->getRegola();
             FakeUIDelegate *delegate = app.getCurrentUIDelegate();

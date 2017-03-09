@@ -46,7 +46,7 @@ bool TestCommandLine::checkArgs(const QString &id, QStringList args, const bool 
 {
     _testName = id;
     StartParams params;
-    const bool res = decodeCommandLine(args, &params);
+    const bool res = params.decodeCommandLine(args);
     if( res != expectedResult ) {
         return error(QString("Command line result, expected %1, found %2").arg(expectedResult).arg(res));
     }
@@ -111,6 +111,16 @@ bool TestCommandLine::testUnit()
             return false;
         }
     }
+
+    // arg xslt: nok, the full test is done in xslt
+    {
+        QStringList args;
+        args << "pgm" << "-xslt" ;
+        if(!checkArgs("xslt 0", args, false, StartParams::XSLExec )) {
+            return false;
+        }
+    }
+
 
     // anon: 1 arg error
     {
