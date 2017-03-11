@@ -56,7 +56,7 @@ class XSLTExecDialog : public QDialog
     QSet<QString> _parameters ;
 protected:
 
-    void finishSetup();
+    void finishSetup(XmlEditWidget *source, XmlEditWidget *xsl);
     void startOperation();
     void openFolder(const QString &outputFilePath);
     void openStringInEditor(const QString &output);
@@ -66,23 +66,26 @@ protected:
     void setXSLEditor(XmlEditWidget *editor);
     void setXSLFile(const QString &fileName);
     bool setInput(XSLTExecutor *xsltExecutor);
-    void setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method);
+    void setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method, const QString &file, XmlEditWidget *editor);
     QString fileForSelection(ComboUtils::ComboItem *item, const QString &message, const bool isOpen);
     bool existsEditor(XmlEditWidget *editor);
     void errorNotEditor(const QString &type);
     void errorEmptyFileString(const QString &type);
-    void loadSources();
+    void loadSources(XmlEditWidget *source, XmlEditWidget *xsl);
+    void selectDefaults();
     void mergeParameters();
     int addParamRow(const QString &text, const QString &value = "");
     void evaluateParamEnabling();
     QHash<QString, QString> getParameters();
     void resetParameters();
+    QString fromEditorToFile(const bool useFile, XmlEditWidget *source);
+    XmlEditWidget *fromEditorToEditor(const bool useFile, XmlEditWidget *source);
 
 public:
-    explicit XSLTExecDialog(QWidget *parent, ApplicationData *data);
+    explicit XSLTExecDialog(QWidget *parent, ApplicationData *data, XmlEditWidget *source = NULL, XmlEditWidget *xsl = NULL);
     virtual ~XSLTExecDialog();
 
-    static bool execDialog(QWidget *parent, ApplicationData *data);
+    static bool execDialog(QWidget *parent, ApplicationData *data, XmlEditWidget *source = NULL, XmlEditWidget *xsl = NULL);
 
 private:
     Ui::XSLTExecDialog *ui;

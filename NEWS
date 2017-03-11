@@ -1,4 +1,5 @@
 0.9.7 (devel)
+    Options to invoke an external jar to execute XSL transformations.
     Integrated a XSL executor.
     Removed QApplication parameter from MainWindow creation. Only ApplicationData really needed.
     Fixed a compliation warning on Qt5.8.

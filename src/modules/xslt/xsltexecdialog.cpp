@@ -29,19 +29,42 @@
 #include "ui_xsltexecdialog.h"
 #include "utils.h"
 
-bool XSLTExecDialog::execDialog(QWidget *parent, ApplicationData *data)
+bool XSLTExecDialog::execDialog(QWidget *parent, ApplicationData *data, XmlEditWidget *source, XmlEditWidget *xsl)
 {
     if(!data->isUseSaxonXSL()) {
         Utils::warning(parent, tr("WARNING: the support to XSL-T in Qt is currently experimental: the support to XSL is not complete.\nYou can use SAXON or another Java jar with same command line syntax (not part of QXmlEdit) if you configure it in preferences."));
+    } else {
+        const QString msgAdvice = tr("WARNING: external XSL engine supports only data persisted as files.");
+        const QString msgAsk = tr("WARNING: external XSL engine supports only data persisted as files. The editor contains modifications not saved. Do you want to continue anyway?");
+        if(NULL != source) {
+            if(source->getRegola()->fileName().isEmpty()) {
+                Utils::warning(parent, msgAdvice);
+                source = NULL ;
+            } else if(source->getRegola()->isModified()) {
+                if(!Utils::askYN(parent, msgAsk)) {
+                    return false;
+                }
+            }
+        }
+        if(NULL != xsl) {
+            if(xsl->getRegola()->fileName().isEmpty()) {
+                Utils::warning(parent, msgAdvice);
+                xsl = NULL ;
+            } else if(xsl->getRegola()->isModified()) {
+                if(!Utils::askYN(parent, msgAsk)) {
+                    return false;
+                }
+            }
+        }
     }
-    XSLTExecDialog dialog(parent, data);
+    XSLTExecDialog dialog(parent, data, source, xsl);
     if(dialog.exec() == QDialog::Accepted) {
         return true ;
     }
     return false ;
 }
 
-XSLTExecDialog::XSLTExecDialog(QWidget *parent, ApplicationData *data) :
+XSLTExecDialog::XSLTExecDialog(QWidget *parent, ApplicationData *data, XmlEditWidget *source, XmlEditWidget *xsl) :
     QDialog(parent),
     _data(data),
     ui(new Ui::XSLTExecDialog)
@@ -53,7 +76,7 @@ XSLTExecDialog::XSLTExecDialog(QWidget *parent, ApplicationData *data) :
     _outputAsFile = false;
     _running = false;
     ui->setupUi(this);
-    finishSetup();
+    finishSetup(source, xsl);
     connect(ui->buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(onBBOXlicked(QAbstractButton*)));
 }
 
@@ -62,7 +85,7 @@ XSLTExecDialog::~XSLTExecDialog()
     delete ui;
 }
 
-void XSLTExecDialog::finishSetup()
+void XSLTExecDialog::finishSetup(XmlEditWidget *source, XmlEditWidget *xsl)
 {
     Utils::TODO_THIS_RELEASE("quando scelgo file in input aggiungo la cartella ai dati in output");
     //--
@@ -78,24 +101,48 @@ void XSLTExecDialog::finishSetup()
     ui->params->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->params->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->params->setTextElideMode(Qt::ElideMiddle);
-    loadSources();
+    loadSources(source, xsl);
     evaluateParamEnabling();
+    selectDefaults();
 }
 
-void XSLTExecDialog::loadSources()
+void XSLTExecDialog::loadSources(XmlEditWidget *source, XmlEditWidget *xsl)
 {
-    setupRecentFolders(ui->cmdInputFile, &_utilsInput, false, SLOT(onChooseInput()));
-    setupRecentFolders(ui->cmdOutputFile, &_utilsOutput, true, SLOT(onChooseOutput()));
-    setupRecentFolders(ui->cmdChooseXSL, &_utilsXSL, false, SLOT(onChooseXSL()));
+    const bool useFile = _data->isUseSaxonXSL();
+    setupRecentFolders(ui->cmdInputFile, &_utilsInput, false, SLOT(onChooseInput()), fromEditorToFile(useFile, source), fromEditorToEditor(useFile, source));
+    setupRecentFolders(ui->cmdOutputFile, &_utilsOutput, true, SLOT(onChooseOutput()), NULL, NULL);
+    setupRecentFolders(ui->cmdChooseXSL, &_utilsXSL, false, SLOT(onChooseXSL()), fromEditorToFile(useFile, xsl), fromEditorToEditor(useFile, xsl));
 }
 
-void XSLTExecDialog::setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method)
+void XSLTExecDialog::selectDefaults()
+{
+    _utilsInput.fireSelection();
+    _utilsXSL.fireSelection();
+}
+
+QString XSLTExecDialog::fromEditorToFile(const bool /*useFile*/, XmlEditWidget *source)
+{
+    if(NULL == source) {
+        return "";
+    }
+    return source->getRegola()->fileName();
+}
+
+XmlEditWidget *XSLTExecDialog::fromEditorToEditor(const bool useFile, XmlEditWidget *source)
+{
+    if(useFile) {
+        return NULL ;
+    }
+    return source;
+}
+
+void XSLTExecDialog::setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method, const QString &file, XmlEditWidget *editor)
 {
     QList<XmlEditWidget *> widgets ;
     foreach(MainWindow *w, _data->windows()) {
         widgets.append(w->getEditor());
     }
-    util->setupItemsForFile(_data, widgets, !_data->isUseSaxonXSL(), isSave);
+    util->setupItemsForFile(_data, widgets, !_data->isUseSaxonXSL(), isSave, file, editor);
     util->loadButtonMenu(button, this, method);
 }
 
@@ -213,7 +260,7 @@ bool XSLTExecDialog::setInput(XSLTExecutor *xsltExecutor)
             xsltExecutor->setInputLiteral(regolaString);
         } else {
             errorNotEditor(tr("source"));
-            loadSources();
+            loadSources(NULL, NULL);
             return false;
         }
     }
@@ -229,7 +276,7 @@ bool XSLTExecDialog::setInput(XSLTExecutor *xsltExecutor)
             xsltExecutor->setXSLLiteral(regolaString);
         } else {
             errorNotEditor(tr("xsl"));
-            loadSources();
+            loadSources(NULL, NULL);
             return false;
         }
     }
@@ -290,7 +337,7 @@ void XSLTExecDialog::onChooseInput()
                     ui->inputFile->setText(newText);
                 } else {
                     errorNotEditor(tr("source"));
-                    loadSources();
+                    loadSources(NULL, NULL);
                 }
             } else {
                 QString filePath = fileForSelection(item, tr("Source File"), true);
@@ -319,7 +366,7 @@ void XSLTExecDialog::onChooseXSL()
                     isNewData = true ;
                 } else {
                     errorNotEditor(tr("xsl"));
-                    loadSources();
+                    loadSources(NULL, NULL);
                 }
             } else {
                 QString filePath = fileForSelection(item, tr("XSL File"), true);

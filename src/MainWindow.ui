@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -488,6 +488,13 @@
      <addaction name="actionValidateNewFile"/>
      <addaction name="actionValidateSCXML"/>
     </widget>
+    <widget class="QMenu" name="menuXSLT">
+     <property name="title">
+      <string>XSLT</string>
+     </property>
+     <addaction name="actionExecuteXSLTAsSource"/>
+     <addaction name="actionExecuteXSLTAsSheet"/>
+    </widget>
     <addaction name="actionXMLEditMode"/>
     <addaction name="actionXSLTEditMode"/>
     <addaction name="actionSCXMLEditMode"/>
@@ -500,6 +507,7 @@
     <addaction name="actionCloneElements"/>
     <addaction name="separator"/>
     <addaction name="menuValidation"/>
+    <addaction name="menuXSLT"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -2357,6 +2365,22 @@
    </property>
    <property name="toolTip">
     <string>Execute a XSL sheet on a XML file.</string>
+   </property>
+  </action>
+  <action name="actionExecuteXSLTAsSource">
+   <property name="text">
+    <string>Execute XSLT Using This as Source</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute XSLT using this as source.</string>
+   </property>
+  </action>
+  <action name="actionExecuteXSLTAsSheet">
+   <property name="text">
+    <string>Execute XSLT Using This as XSL</string>
+   </property>
+   <property name="toolTip">
+    <string>Execute XSLT using this as XSL sheet.</string>
    </property>
   </action>
  </widget>

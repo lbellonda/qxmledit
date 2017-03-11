@@ -3597,6 +3597,18 @@ void MainWindow::on_actionCopyElementOnly_triggered()
 
 void MainWindow::on_actionXSLExecutor_triggered()
 {
-    //WARNING: no editor must be harmed while this loop is running
     XSLTExecDialog::execDialog(this, data);
 }
+
+void MainWindow::on_actionExecuteXSLTAsSheet_triggered()
+{
+    XSLTExecDialog::execDialog(this, data, NULL, getEditor());
+}
+
+void MainWindow::on_actionExecuteXSLTAsSource_triggered()
+{
+    XSLTExecDialog::execDialog(this, data, getEditor(), NULL);
+}
+
+
+
