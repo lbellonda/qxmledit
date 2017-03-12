@@ -69,12 +69,15 @@ void UIDesktopServices::startIconProgressBar()
         _button->setWindow(widget->windowHandle());
     }
 #else
-    _trayIcon.setVisible(true);
-    _trayIcon.showMessage("QXmlEdit", "started", QSystemTrayIcon::Warning);
 #endif
 }
 
-void UIDesktopServices::setIconProgressBar(const int percent)
+void UIDesktopServices::setIconProgressBar(
+    const int
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+    percent
+#endif
+)
 {
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
     if(NULL == _button) {
@@ -86,7 +89,6 @@ void UIDesktopServices::setIconProgressBar(const int percent)
     _progress->setVisible(true);
     _progress->setValue(percent);
 #else
-    _trayIcon.showMessage("QXmlEdit", QString("Progress %1").arg(percent), QSystemTrayIcon::Warning);
 #endif
 }
 
@@ -97,6 +99,5 @@ void UIDesktopServices::endIconProgressBar()
         _progress->hide();
     }
 #else
-    _trayIcon.showMessage("QXmlEdit", "end", QSystemTrayIcon::Warning);
 #endif
 }

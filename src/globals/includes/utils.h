@@ -30,6 +30,7 @@
 #include <QTreeWidgetItem>
 #include <QToolButton>
 #include <QByteArray>
+#include <QIODevice>
 
 class Regola;
 class QMainWindow;
@@ -167,6 +168,7 @@ public:
     static bool isRFC4288(const QString &name);
     static bool isRegNameRFC4288(const QString &name);
     static void copyPairsToHash(QHash<QString, QString> &hash, QList<QPair<QString, QString> > &pairs);
+    static qint64 infoSizeAboutLocalDevice(QIODevice *device, const QString &fileName);
 };
 
 

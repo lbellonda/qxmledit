@@ -26,6 +26,7 @@
 
 #include "xmlEdit.h"
 #include "extractionoperation.h"
+#include "modules/services/uidservices.h"
 
 class ExtractionOperation;
 
@@ -40,10 +41,14 @@ class ExtractionFrontEnd : public QDialog
     ExtractionOperation *_operation;
     bool    _running ;
     QFuture<void> _future ;
+    UIDesktopServices _uiServices;
+    bool _pbDeterminate ;
 
     void searchInFileWorking();
     void extractFragmentsWorkThread();
     void endOfOperation();
+    void setPBIndeterminate();
+    void setPBDeterminate();
 
 public:
     explicit ExtractionFrontEnd(ExtractionOperation *operation, QWidget *parent = 0);

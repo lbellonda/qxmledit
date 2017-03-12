@@ -1141,3 +1141,24 @@ void Utils::copyPairsToHash(QHash<QString, QString> &hash, QList<QPair<QString, 
         hash.insert(pair.first, pair.second);
     }
 }
+
+qint64 Utils::infoSizeAboutLocalDevice(QIODevice *device, const QString &fileName)
+{
+    bool found = false;
+    quint64 size = -1 ;
+    if(NULL != device) {
+        if(device->isOpen()) {
+            if(!device->isSequential()) {
+                size = device->size();
+                found = true;
+            }
+        }
+    }
+    if(!found) {
+        QFileInfo info(fileName) ;
+        if(info.isFile()) {
+            size = info.size();
+        }
+    }
+    return size ;
+}

@@ -112,6 +112,7 @@ public:
     volatile int counterDocumentsFound;
     volatile int counterFoldersCreated;
     volatile int counterOperations;
+    volatile int percent;
 
 private:
     volatile bool _running ;
@@ -139,6 +140,7 @@ private:
     bool _filterTextForPath;
     QStringList _pathsForFilterText;
     EXTRTYPE _extrType;
+    qint64 _size;
     //-------------------
     bool _isError ;
     volatile bool _isAborted ;

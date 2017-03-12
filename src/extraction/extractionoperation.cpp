@@ -65,6 +65,8 @@ void ExtractionOperation::init()
     _splitDepth = 1;
     _splitType = SplitUsingPath;
     _filterTextForPath = false;
+    percent = 0 ;
+    _size = 0 ;
 
     //---------------------
     _isError = false ;
@@ -172,8 +174,7 @@ void ExtractionOperation::execute(QFile *file)
     }
     xmlReader.clear();
     xmlReader.setDevice(file);
-    Utils::TODO_THIS_RELEASE("questa var risulta non usata check nei commit isInterDocument");
-    Utils::TODO_THIS_RELEASE("//bool isInterDocument = false;");
+    _size = Utils::infoSizeAboutLocalDevice(NULL, file->fileName());
     bool isAFilteredExtraction =  _isExtractDocuments && !isExtractAllDocuments() && (OperationFilter == _operationType);
     bool isAnExportExtraction =  _isExtractDocuments && ((OperationExportAndGroupCSV == _operationType) || (OperationExportAndGroupXML == _operationType));
     qint64 previousPos = 0;
@@ -235,7 +236,6 @@ void ExtractionOperation::execute(QFile *file)
             _results->_encoding = _documentEncoding ;
             _isDocumentStandalone = xmlReader.isStandaloneDocument();
             _documentVersion = xmlReader.documentVersion().toString();
-            Utils::TODO_THIS_RELEASE("//isInterDocument = true;");
             // if it is a filter, open the file or fail
             if(isAFilteredExtraction || isAnExportExtraction) {
                 dontWrite = true ;
@@ -260,7 +260,6 @@ void ExtractionOperation::execute(QFile *file)
                         printf("***Start fragment\n");
                         fflush(stdout);
                     }
-                    Utils::TODO_THIS_RELEASE("//isInterDocument = false;");
                     _results->incrementFragment(previousPos - 1);
                     bool registerDocument = false ;
                     if(_isExtractDocuments) {
@@ -326,7 +325,6 @@ void ExtractionOperation::execute(QFile *file)
             if(insideAFragment) {
                 isStillInFragment = true ;
                 if((isDepth && (level == _splitDepth)) || (!isDepth && (path == _splitPath))) {
-                    Utils::TODO_THIS_RELEASE("//isInterDocument = true;");
                     _results->endFragment(xmlReader.characterOffset());
                     if(debugIO) {
                         printf("***Closing fragment\n");
@@ -414,6 +412,13 @@ void ExtractionOperation::execute(QFile *file)
             counterDocumentsFound = _results->currentFragment();
             counterFoldersCreated = _results->currentFolderCount();
             counterOperations = operationCount ;
+            if(0x400 == (operationCount & 0x0400)) {
+                if(_size > 0) {
+                    Utils::TODO_THIS_RELEASE("testme");
+                    const qint64  pos = xmlReader.device()->pos() ;
+                    percent = (pos * 100) / _size ;
+                }
+            }
             _mutex.unlock();
             if(!checkStatus()) {
                 return ;

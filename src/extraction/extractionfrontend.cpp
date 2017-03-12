@@ -31,12 +31,16 @@ const int POLL_TIMEOUT = 1500;
 
 ExtractionFrontEnd::ExtractionFrontEnd(ExtractionOperation *operation, QWidget *parent) :
     QDialog(parent),
+    _uiServices(this),
     ui(new Ui::ExtractionFrontEnd)
 {
     _operation = operation;
     _running = false ;
+    _pbDeterminate = false;
     ui->setupUi(this);
+    setPBIndeterminate();
     _running = true ;
+    _uiServices.startIconProgressBar();
     _future = QtConcurrent::run(this, &ExtractionFrontEnd::extractFragmentsWorkThread);
     QTimer::singleShot(200, this, SLOT(checkIfDone()));
 
@@ -60,6 +64,7 @@ void ExtractionFrontEnd::checkIfDone()
         int counterDocumentsFound ;
         int counterFoldersCreated ;
         int counterOperations  ;
+        int percent;
 
         QString fld ;
         _operation->_mutex.lock();
@@ -67,12 +72,21 @@ void ExtractionFrontEnd::checkIfDone()
         counterDocumentsFound = _operation->counterDocumentsFound ;
         counterFoldersCreated = _operation->counterFoldersCreated;
         counterOperations = _operation->counterOperations ;
+        percent = _operation->percent;
         _operation->_mutex.unlock();
         //----------------------------
         ui->currentSubfolder->setText(fld);
         ui->documentsNumber->setText(QString::number(counterDocumentsFound));
         ui->numFoldersCreated->setText(QString::number(counterFoldersCreated));
         ui->operationCount->setText(QString::number(counterOperations));
+        if(percent >= 0) {
+            _uiServices.setIconProgressBar(percent);
+            setPBDeterminate();
+            ui->progressBar->setValue(percent);
+        } else {
+            _uiServices.setIconProgressBar(50);
+            setPBIndeterminate();
+        }
 
         QTimer::singleShot(POLL_TIMEOUT, this, SLOT(checkIfDone()));
     } else {
@@ -80,9 +94,31 @@ void ExtractionFrontEnd::checkIfDone()
     }
 }
 
+void ExtractionFrontEnd::setPBDeterminate()
+{
+    if(!_pbDeterminate) {
+        ui->progressBar->setMinimum(0);
+        ui->progressBar->setMaximum(100);
+        ui->progressBar->setInvertedAppearance(false);
+        _pbDeterminate = true ;
+    }
+}
+
+void ExtractionFrontEnd::setPBIndeterminate()
+{
+    if(_pbDeterminate) {
+        ui->progressBar->setMinimum(0);
+        ui->progressBar->setMaximum(0);
+        ui->progressBar->setValue(0);
+        ui->progressBar->setInvertedAppearance(true);
+        _pbDeterminate = false ;
+    }
+}
+
 void ExtractionFrontEnd::endOfOperation()
 {
     _running = false;
+    _uiServices.endIconProgressBar();
     if(_operation->isAborted()) {
         Utils::message(this, tr("User abort requested"));
         reject();
