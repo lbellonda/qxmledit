@@ -372,7 +372,8 @@ private slots:
     void on_actionValidateSCXML_triggered();
     void on_actionCopyElementOnly_triggered();
     void on_actionXSLExecutor_triggered();
-
+    void on_actionExecuteXSLTAsSheet_triggered();
+    void on_actionExecuteXSLTAsSource_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);

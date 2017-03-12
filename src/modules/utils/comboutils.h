@@ -48,26 +48,31 @@ public:
         int code;
         void *data;
         QString dataString;
+        QAction *action;
 
         ComboItem()
         {
             code = 0 ;
             data = NULL ;
+            action = NULL ;
         }
         ComboItem(const QString &name, const int newCode)
         {
             text = name ;
             code = newCode ;
             data = NULL ;
+            action = NULL ;
         }
         ~ComboItem() {}
     };
-    void setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave);
+    void setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave, const QString &file, XmlEditWidget *editor);
     void loadButtonMenu(QToolButton *button, QObject *target, const char *method);
     static ComboUtils::ComboItem *actionData(QAction *action);
     static QString titleForEditor(XmlEditWidget* editor);
+    void fireSelection();
 private:
     QList<ComboUtils::ComboItem*> _items;
+    ComboItem *_selection;
 
     void reset();
 

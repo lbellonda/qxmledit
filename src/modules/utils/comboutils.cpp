@@ -32,7 +32,7 @@
 
 ComboUtils::ComboUtils()
 {
-
+    _selection = NULL ;
 }
 
 ComboUtils::~ComboUtils()
@@ -44,6 +44,7 @@ void ComboUtils::reset()
 {
     EMPTYPTRLIST(_items, ComboUtils::ComboItem);
     _items.clear();
+    _selection = NULL ;
 }
 
 QString ComboUtils::titleForEditor(XmlEditWidget* editor)
@@ -55,13 +56,13 @@ QString ComboUtils::titleForEditor(XmlEditWidget* editor)
     return QObject::tr("Editor: %1").arg(fileName);
 }
 
-void ComboUtils::setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave)
+void ComboUtils::setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave, const QString &selectedFile, XmlEditWidget *selectedEditor)
 {
     reset();
     QStringList preferredDirsNames;
     Config::loadStringArray(Config::KEY_MAIN_PREFDIRS, preferredDirsNames);
     preferredDirsNames.sort();
-
+    _selection = NULL ;
     if(useEditors) {
         if(isSave) {
             ComboItem *comboItem = new ComboItem(QObject::tr("<New Editor>"), TypeOutputEditor);
@@ -72,6 +73,9 @@ void ComboUtils::setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> edi
                 ComboItem *comboItem = new ComboItem(text, TypeEditor);
                 comboItem->data = editor ;
                 _items.append(comboItem);
+                if(editor == selectedEditor) {
+                    _selection = comboItem ;
+                }
             }
         }
     }
@@ -99,10 +103,19 @@ void ComboUtils::setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> edi
             comboItem->dataString = f ;
         }
     } else {
-        foreach(QString last, data->lastFiles()) {
+        foreach(const QString & last, data->lastFiles()) {
             ComboItem *comboItem = new ComboItem(last, TypeFile);
             comboItem->dataString = last;
             _items.append(comboItem);
+            if(last == selectedFile) {
+                _selection = comboItem ;
+            }
+        }
+        if((NULL == _selection) && !selectedFile.isEmpty()) {
+            ComboItem *comboItem = new ComboItem(selectedFile, TypeFile);
+            comboItem->dataString = selectedFile;
+            _items.append(comboItem);
+            _selection = comboItem ;
         }
     }
 }
@@ -115,6 +128,7 @@ void ComboUtils::loadButtonMenu(QToolButton *button, QObject *target, const char
     int index = 0;
     foreach(ComboUtils::ComboItem *item, _items) {
         QAction *action = new QAction(item->text, menu);
+        item->action = action ;
         menu->addAction(action);
         action->setData(qVariantFromValue((void*)item));
         if(NULL != target) {
@@ -123,6 +137,16 @@ void ComboUtils::loadButtonMenu(QToolButton *button, QObject *target, const char
         index ++;
     }
 }
+
+void ComboUtils::fireSelection()
+{
+    if(NULL != _selection) {
+        if(NULL != _selection->action) {
+            _selection->action->trigger();
+        }
+    }
+}
+
 
 ComboUtils::ComboItem *ComboUtils::actionData(QAction *action)
 {

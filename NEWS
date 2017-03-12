@@ -1,6 +1,7 @@
 0.9.7 (devel)
     Support for Windows 7 progress bar in task bar.
     Simplified char encoding display.
+    Options to invoke an external jar to execute XSL transformations.
     Integrated a XSL executor.
     Removed QApplication parameter from MainWindow creation. Only ApplicationData really needed.
     Fixed a compliation warning on Qt5.8.
