@@ -71,6 +71,9 @@ public:
     int windowsCount();
     QList<MainWindow*> windows() const ;
     MainWindow *findWindowByPath(const QString &filePath);
+    MainWindow *newWindow();
+
+    void updateEditors();
 
     void setLogger(FrwLogger *newLogger);
     void setSessionDBPath(const QString &sessionDBPath);
@@ -122,6 +125,13 @@ public:
     SessionDataInterface *sessionDataInterface(const QString &configuration) ;
     virtual DataInterface *storageManager();
     //--- endregion(SessionDataFactory)
+
+    //--- region(xsl)
+    bool isUseSaxonXSL() ;
+    void setUseSaxonXSL(const bool newValue) ;
+    QString saxonXSLPath() ;
+    void setSaxonXSLPath(const QString &newValue) ;
+    //--- endregion(xsl)
 
     AttributeFilterManagement *attributeFilterManagement();
 private slots:

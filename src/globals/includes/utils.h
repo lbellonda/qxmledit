@@ -166,6 +166,7 @@ public:
     static bool askYNRemapNamespaces(QWidget *parent);
     static bool isRFC4288(const QString &name);
     static bool isRegNameRFC4288(const QString &name);
+    static void copyPairsToHash(QHash<QString, QString> &hash, QList<QPair<QString, QString> > &pairs);
 };
 
 

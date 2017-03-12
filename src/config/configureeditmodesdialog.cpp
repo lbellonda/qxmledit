@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2013-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -23,6 +23,7 @@
 
 #include "configureeditmodesdialog.h"
 #include "ui_configureeditmodesdialog.h"
+#include "utils.h"
 
 ConfigureEditModesDialog::ConfigureEditModesDialog(QWidget *parent) :
     QDialog(parent),
@@ -44,6 +45,8 @@ void ConfigureEditModesDialog::init(ApplicationData* data)
     ui->cbAutomaticallySwitchToXSLTMode->setChecked(data->isAutoXSLTMode());
     ui->cbShowSCXMLPanel->setChecked(data->isShowSCXMLPanel());
     ui->cbAutomaticallySwitchToSCXMLMode->setChecked(data->isAutoSCXMLMode());
+    ui->cbSaxon->setChecked(data->isUseSaxonXSL());
+    ui->saxonPath->setText(data->saxonXSLPath());
     doEnable();
     _started = true ;
 }
@@ -83,8 +86,38 @@ void ConfigureEditModesDialog::on_cbAutomaticallySwitchToSCXMLMode_clicked(bool 
     doEnable();
 }
 
+void ConfigureEditModesDialog::on_cbSaxon_clicked(bool /* */)
+{
+    if(_started) {
+        _data->setUseSaxonXSL(ui->cbSaxon->isChecked());
+    }
+    doEnable();
+}
+
+void ConfigureEditModesDialog::on_saxonPath_textChanged(const QString &text)
+{
+    if(_started) {
+        _data->setSaxonXSLPath(text);
+    }
+    doEnable();
+}
+
 void ConfigureEditModesDialog::doEnable()
 {
     ui->cbShowXSLTPanel->setEnabled(!ui->cbAutomaticallySwitchToXSLTMode->isChecked());
     ui->cbShowSCXMLPanel->setEnabled(!ui->cbAutomaticallySwitchToSCXMLMode->isChecked());
+    ui->saxonPath->setEnabled(ui->cbSaxon->isChecked());
+    ui->cmdSaxonPath->setEnabled(ui->cbSaxon->isChecked());
+}
+
+void ConfigureEditModesDialog::on_cmdSaxonPath_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(
+                           this, tr("Choose the JAR"),
+                           QXmlEditData::sysFilePathForOperation(ui->saxonPath->text()),
+                           tr("Java JAR (*.jar);;All files (*)")
+                       );
+    if(!filePath.isEmpty()) {
+        ui->saxonPath->setText(filePath);
+    }
 }

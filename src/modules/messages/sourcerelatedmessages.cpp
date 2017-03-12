@@ -84,15 +84,21 @@ void SourceRelatedMessages::setMessages(QList<SourceMessage*> &messages)
 void SourceRelatedMessages::loadData()
 {
     foreach(SourceMessage *msg, _messages) {
-        QString text = QString("%1 %2 %3")
+        QString text = QString("%1 %2 %3 %4")
                        .arg(msg->type())
                        .arg(msg->source())
+                       .arg(msg->code())
                        .arg(msg->description());
         QListWidgetItem *item = new QListWidgetItem(text);
         QIcon icon;
         switch(msg->type()) {
         case SourceMessage::Error:
             icon.addPixmap(QPixmap(QString::fromUtf8(":/specials/error")), QIcon::Normal, QIcon::Off);
+            item->setIcon(icon);
+            break;
+        case SourceMessage::Debug:
+            Utils::TODO_THIS_RELEASE("fare icona");
+            icon.addPixmap(QPixmap(QString::fromUtf8(":/specials/debug")), QIcon::Normal, QIcon::Off);
             item->setIcon(icon);
             break;
         case SourceMessage::Info:

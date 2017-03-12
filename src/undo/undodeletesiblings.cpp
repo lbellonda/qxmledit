@@ -52,19 +52,23 @@ void DeleteSiblingsCommand::reset()
 
 void DeleteSiblingsCommand::redo()
 {
+    widget->setUpdatesEnabled(false);
     reset();
     //---
     deleteSiblings();
+    widget->setUpdatesEnabled(true);
 }
 
 
 void DeleteSiblingsCommand::undo()
 {
+    widget->setUpdatesEnabled(false);
     bool changed = (_beforeElements.size() > 0) || (_afterElements.size() > 0);
     restoreSiblingsBefore();
     restoreSiblingsAfter();
     reset() ;
     updateRegola(changed);
+    widget->setUpdatesEnabled(true);
 }
 
 //------

@@ -144,6 +144,8 @@ lessThan(QT_MAJOR_VERSION, 5) {
     QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
 }
 
+macx:QMAKE_CXXFLAGS += -Wno-deprecated-declarations
+
 #CONFIG += release
 
 INCLUDEPATH += .
@@ -489,7 +491,9 @@ SOURCES += xmleditwidget.cpp \
     modules/xslt/xsltnavigatorwidget.cpp \
     modules/specialized/scxml/scxmlautomodedialog.cpp \
     modules/xslt/xsleditormanager.cpp \
-    modules/services/uiservices.cpp
+    modules/services/uiservices.cpp \
+    modules/messages/sourceerror.cpp \
+    modules/xslt/xsleditormanager.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -754,7 +758,9 @@ HEADERS += precompiled_lib.h \
     modules/xslt/xsltnavigatorwidget.h \
     modules/specialized/scxml/scxmlautomodedialog.h \
     modules/xslt/xsleditormanager.h \
-    modules/services/uiservices.h
+    modules/services/uiservices.h \
+    modules/messages/sourceerror.h \
+    modules/xslt/xsleditormanager.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

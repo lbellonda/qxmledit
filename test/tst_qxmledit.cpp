@@ -1466,10 +1466,26 @@ void TestQXmlEdit::testSCXML()
     }
 }
 
-/*
+void TestQXmlEdit::testExecXSLT()
+{
+    bool result;
+    {
+        TestExecXSLT test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("test TestSpecials: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+    {
+        TestExecXSLT test;
+        result = test.testUnit();
+        QVERIFY2(result, (QString("test TestSpecials: testUnit() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+}
+
+
 
 // This function enabled for debug purposes. DO NOT REMOVE
-static void msgHandler(QtMsgType type, const char *msg)
+//static void msgHandler(QtMsgType type, const char *msg)
 static void msgHandler(QtMsgType, const QMessageLogContext &, const QString &msg)
 {
     QString s = msg;
@@ -1480,12 +1496,13 @@ static void msgHandler(QtMsgType, const QMessageLogContext &, const QString &msg
     //printf("%s\n", msg);
     printf("%s\n", msg.toLatin1().data());
 }
-*/
 
 void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
-    //qInstallMessageHandler(msgHandler);
+    qInstallMessageHandler(msgHandler);
+    testExecXSLT();
+    testSplit();
     testBase64();
     testVis();
 }

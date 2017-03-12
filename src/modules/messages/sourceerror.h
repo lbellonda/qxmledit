@@ -24,11 +24,13 @@
 #define SOURCEERROR_H
 
 #include "xmlEdit.h"
+#include "libQXmlEdit_global.h"
 
-class SourceMessage
+class LIBQXMLEDITSHARED_EXPORT SourceMessage
 {
 public:
     enum EType {
+        Debug,
         Info,
         Warning,
         Error
@@ -43,6 +45,7 @@ private:
     qint64 _foundColumn;
     EType _type;
     QString _source;
+    int _code;
 public:
     SourceMessage();
     ~SourceMessage();
@@ -64,6 +67,8 @@ public:
     void setType(const EType &type);
     QString source() const;
     void setSource(const QString &source);
+    int code() const;
+    void setCode(int code);
 };
 
 #endif // SOURCEERROR_H

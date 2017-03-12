@@ -536,7 +536,6 @@ public:
     ESaveAttributes saveAttributesMethod() const;
     void setSaveAttributesMethod(const ESaveAttributes saveAttributesMethod);
     static bool isSaveSortAlphaAttribute();
-    static bool isSaveUsingStream();
 
     bool readFromStream(XMLLoadContext *context, QXmlStreamReader *xmlReader);
 

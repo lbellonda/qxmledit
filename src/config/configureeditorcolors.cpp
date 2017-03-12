@@ -59,7 +59,7 @@ ConfigureEditorColors::~ConfigureEditorColors()
 void ConfigureEditorColors::init(ApplicationData* data)
 {
     _data = data ;
-    ui->editor->setData(qApp, data, false, NULL);
+    ui->editor->setData(data, false, NULL);
     loadList();
     enableButtons();
     _started = true ;

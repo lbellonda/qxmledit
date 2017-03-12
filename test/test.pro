@@ -186,7 +186,8 @@ SOURCES += \
     testnamespaces.cpp \
     testspecials.cpp \
     testscxml.cpp \
-    testhelpers/scxmlautomodedialogprivatetest.cpp
+    testhelpers/scxmlautomodedialogprivatetest.cpp \
+    testexecxslt.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -297,7 +298,8 @@ HEADERS += \
     testnamespaces.h \
     testspecials.h \
     testscxml.h \
-    testhelpers/scxmlautomodedialogprivatetest.h
+    testhelpers/scxmlautomodedialogprivatetest.h \
+    testexecxslt.h
 
 #OTHER_FILES += \
 

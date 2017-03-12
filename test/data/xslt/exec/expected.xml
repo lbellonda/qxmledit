@@ -1,0 +1,6 @@
+<out attr1="this is p1" attr2="this is p2">
+    <x x="aaa"/>
+    <x x="aab"/>
+    <x x="aac"/>
+</out>
+

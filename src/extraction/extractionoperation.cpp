@@ -146,12 +146,8 @@ void ExtractionOperation::execute(QFile *file)
     QXmlStreamReader xmlReader;
     QString path = "";
     ExtractInfo info;
-    QByteArray rawData;
-    qint64 line = 0 ;
-    qint64 linePos = 0;
     int level = 0;
     bool isDepth = (SplitUsingDepth  == _splitType) ? true : false ;
-    bool isOptimizeForSpeed = _results->_optimizeSpeed && _isExtractDocuments;
     //------
     bool isFilterText = _filterTextForPath;
     QString absolutePathForFilter = getPathArrayString();
@@ -161,10 +157,6 @@ void ExtractionOperation::execute(QFile *file)
     bool isCurrentElementFilterText = false;
     //------
 
-    if(!_isExtractDocuments) {
-        _results->_optimizeSpeed = false ;
-    }
-
     /***************************************************************
     qint64 previousTokenLine = 0 ;
     qint64 previousTokenColumn = 0;
@@ -172,288 +164,262 @@ void ExtractionOperation::execute(QFile *file)
     QXmlStreamReader::TokenType oldtk ;
     QString oldtks;
     ***************************************************************/
-    //rawData.reserve(InputFileBufferSize);
 
-    //file->seek(0);
+    file->seek(0);
     info._mapForCSVColumns.clear();
     if(!_isMakeSubFolders) {
         info.currentFolderPath = _extractFolder ;
     }
     xmlReader.clear();
-    if(isOptimizeForSpeed) {
-        xmlReader.setDevice(file);
-    }
-    bool registerNextLinePos = false ;
-    bool isInterDocument = false;
+    xmlReader.setDevice(file);
+    Utils::TODO_THIS_RELEASE("questa var risulta non usata check nei commit isInterDocument");
+    Utils::TODO_THIS_RELEASE("//bool isInterDocument = false;");
     bool isAFilteredExtraction =  _isExtractDocuments && !isExtractAllDocuments() && (OperationFilter == _operationType);
     bool isAnExportExtraction =  _isExtractDocuments && ((OperationExportAndGroupCSV == _operationType) || (OperationExportAndGroupXML == _operationType));
+    qint64 previousPos = 0;
+    while(!xmlReader.atEnd()) {
+        operationCount ++;
+        xmlReader.readNext();
+        bool dontWrite = false;
+        bool writeThis = false;
+        bool isStillInFragment = false;
+        bool isStartDocument = false;
 
-    while(true) {
+        /********************/
+        if(debugIO) {
+            QString msg = QString("Read Token: %1, [ %2, %3] line:%4 column:%5, offset:%6")
+                          .arg(xmlReader.name().toString())
+                          .arg(xmlReader.tokenType())
+                          .arg(xmlReader.tokenString())
+                          .arg(xmlReader.lineNumber())
+                          .arg(xmlReader.columnNumber())
+                          .arg(xmlReader.characterOffset());
+            printf("%s\n",  msg.toLatin1().data());
+            fflush(stdout);
+        }
+        /*******************************/
 
-        if(!isOptimizeForSpeed) {
-            if(file->atEnd()) {
-                break;
-            }
-            line ++ ;
-            linePos = file->pos();
 
-            /***********************************************
-            QString msg = QString("Line %1 pos= %2").arg(line).arg(file->pos());
-            printf( "%s\n",  msg.toAscii().data() );
-            ************************************************/
-
-            rawData = file->readLine(InputFileBufferSize);
-            if(file->error() != QFile::NoError) {
+        switch(xmlReader.tokenType()) {
+        default:
+            break;// no-op
+        case QXmlStreamReader::Invalid:
+            dontWrite = true;
+            if(!xmlReader.atEnd()) {
                 handleError(xmlReader);
                 return ;
             }
-            if(registerNextLinePos || isInterDocument) {
-                _results->_linePos.insert(line, linePos);
-                registerNextLinePos = false ;
-            }
-            xmlReader.addData(rawData);
-        }
-
-        while(!xmlReader.atEnd()) {
-            operationCount ++;
-            xmlReader.readNext();
-            bool dontWrite = false;
-            bool writeThis = false;
-            bool isStillInFragment = false;
-
-
-            /********************/
-            if(debugIO) {
-                QString msg = QString("Read Token: %1, [ %2, %3] line:%4 column:%5")
-                              .arg(xmlReader.name().toString())
-                              .arg(xmlReader.tokenType())
-                              .arg(xmlReader.tokenString())
-                              .arg(xmlReader.lineNumber())
-                              .arg(xmlReader.columnNumber());
-                printf("%s\n",  msg.toLatin1().data());
-                fflush(stdout);
-            }
-            /*******************************/
-
-
-            switch(xmlReader.tokenType()) {
-            default:
-                break;// no-op
-            case QXmlStreamReader::Invalid:
-                dontWrite = true;
-                if(!xmlReader.atEnd()) {
-                    handleError(xmlReader);
-                    return ;
-                }
-                break;
-            case QXmlStreamReader::Characters:
-                if(isFilterText) {
-                    if(!isCalcPathForFilterTextForElement) {
-                        isCalcPathForFilterTextForElement = true;
-                        if(isTheFilterTextPathAbsolute) {
-                            isCurrentElementFilterText = (path == absolutePathForFilter);
-                        } else {
-                            // relative path
-                            if(path.endsWith(relativePathForFilter)) {
-                                isCurrentElementFilterText = true ;
-                            }
+            break;
+        case QXmlStreamReader::Characters:
+            if(isFilterText) {
+                if(!isCalcPathForFilterTextForElement) {
+                    isCalcPathForFilterTextForElement = true;
+                    if(isTheFilterTextPathAbsolute) {
+                        isCurrentElementFilterText = (path == absolutePathForFilter);
+                    } else {
+                        // relative path
+                        if(path.endsWith(relativePathForFilter)) {
+                            isCurrentElementFilterText = true ;
                         }
                     }
-                    if(isCurrentElementFilterText) {
-                        dontWrite = true ;
-                    }
                 }
-                break;
-            case QXmlStreamReader::StartDocument:
-                //inDocument = true ;
-                _documentEncoding = xmlReader.documentEncoding().toString();
-                _isDocumentStandalone = xmlReader.isStandaloneDocument();
-                _documentVersion = xmlReader.documentVersion().toString();
-                isInterDocument = true;
-                // if it is a filter, open the file or fail
-                if(isAFilteredExtraction || isAnExportExtraction) {
+                if(isCurrentElementFilterText) {
                     dontWrite = true ;
-                    if(!handleNewFile(info)) {
-                        handleCloseOutputFile(info);
-                        return ;
-                    }
                 }
-                break;
-            case QXmlStreamReader::EndDocument:
-                //inDocument = false ;
-                break;
-            case QXmlStreamReader::StartElement: {  // The reader reports the start of an element with namespaceUri() and name(). Empty elements are also reported as StartElement, followed directly by EndElement. The convenience function readElementText() can be called to concatenate all content until the corresponding EndElement. Attributes are reported in attributes(), namespace declarations in namespaceDeclarations().
-                bool isError = false;
-                level++;
-                isCalcPathForFilterTextForElement = false;
-                isCurrentElementFilterText = false;
-                QString actualPath = path + "/" + xmlReader.name().toString();
-                if(!insideAFragment) {
-                    if((isDepth && (level == _splitDepth)) || (!isDepth && (actualPath == _splitPath))) {
-                        isInterDocument = false;
-                        quint64 col = xmlReader.columnNumber();
-                        _results->incrementFragment(line, col);   // was: previousPos (-1)
-                        if(!isOptimizeForSpeed) {
-                            _results->_linePos.insert(line, linePos);
-                            registerNextLinePos = true ;
-                        }
-                        bool registerDocument = false ;
-                        if(_isExtractDocuments) {
-                            if(!isExtractAllDocuments()) {
-                                if(isExtractCfr()) {
-                                    QXmlStreamAttributes streamAttributes = xmlReader.attributes();
-                                    QStringRef valueRef = streamAttributes.value(_attributeName);
-                                    QString attributeValue = valueRef.toString();
-                                    if(CFR_EQ == _comparisonType) {
-                                        if(attributeValue == _comparisonTerm) {
-                                            registerDocument = true ;
-                                        }
-                                    } else {
-                                        if(attributeValue != _comparisonTerm) {
-                                            registerDocument = true ;
-                                        }
-                                    }
-                                } else {
-                                    uint inputDocumentCount = _results->currentFragment();
-                                    if((_minDoc <= inputDocumentCount) && (_maxDoc >= inputDocumentCount)) {
-                                        registerDocument = true ;
-                                    }
-                                    if(_isReverseRange) {
-                                        registerDocument = !registerDocument ;
-                                    }
-                                }
-                            } else {
-                                registerDocument = true ;
-                            }
-                        }
-                        insideAFragment = true ;
-                        if(registerDocument) {
-                            if(isAnExportExtraction) {
-                                if(!handleExportedElement(info, xmlReader)) {
-                                    isError = true ;
-                                }
-                            } else {
-                                isWriting = true ;
-                                if(!isAFilteredExtraction) {
-                                    if(!handleNewFile(info)) {
-                                        isError = true ;
-                                    }
-                                } // check new file iff it is not a filtered op.
-                            }
-                        }
-                    }
-                }
-                if(isError) {
+            }
+            break;
+        case QXmlStreamReader::StartDocument:
+            //inDocument = true ;
+            isStartDocument = true ;
+            _documentEncoding = xmlReader.documentEncoding().toString();
+            _results->_encoding = _documentEncoding ;
+            _isDocumentStandalone = xmlReader.isStandaloneDocument();
+            _documentVersion = xmlReader.documentVersion().toString();
+            Utils::TODO_THIS_RELEASE("//isInterDocument = true;");
+            // if it is a filter, open the file or fail
+            if(isAFilteredExtraction || isAnExportExtraction) {
+                dontWrite = true ;
+                if(!handleNewFile(info)) {
                     handleCloseOutputFile(info);
                     return ;
                 }
-                path = actualPath ;
-                /********************
-                QString msg = QString("Start Element: %1, pos:%2 line:%3 column:%4 prev:%5").arg(xmlReader.name().toString())
-                        .arg(xmlReader.characterOffset()).arg(xmlReader.lineNumber()).arg(xmlReader.columnNumber()).arg(previousPos);
-                printf( "%s\n",  msg.toAscii().data() );
-                *******************************/
             }
             break;
-            case QXmlStreamReader::EndElement: {
-                isCalcPathForFilterTextForElement = false;
-                isCurrentElementFilterText = false;
-                if(insideAFragment) {
-                    isStillInFragment = true ;
-                    if((isDepth && (level == _splitDepth)) || (!isDepth && (path == _splitPath))) {
-                        isInterDocument = true;
-                        _results->endFragment(line, xmlReader.columnNumber()); //xmlReader.characterOffset());
-                        if(!isOptimizeForSpeed) {
-                            _results->_linePos.insert(line, linePos);
-                        }
-                        registerNextLinePos = true ;
-                        if(_isExtractDocuments) {
-                            // iif this is not a filter operation.
-                            if(isWriting) {
-                                if(isAFilteredExtraction) {
-                                    writeThis = true ;
-                                } else {
-                                    if(!writeAToken(false, true, info, xmlReader)) {
-                                        return ;
+        case QXmlStreamReader::EndDocument:
+            //inDocument = false ;
+            break;
+        case QXmlStreamReader::StartElement: {  // The reader reports the start of an element with namespaceUri() and name(). Empty elements are also reported as StartElement, followed directly by EndElement. The convenience function readElementText() can be called to concatenate all content until the corresponding EndElement. Attributes are reported in attributes(), namespace declarations in namespaceDeclarations().
+            bool isError = false;
+            level++;
+            isCalcPathForFilterTextForElement = false;
+            isCurrentElementFilterText = false;
+            QString actualPath = path + "/" + xmlReader.name().toString();
+            if(!insideAFragment) {
+                if((isDepth && (level == _splitDepth)) || (!isDepth && (actualPath == _splitPath))) {
+                    if(debugIO) {
+                        printf("***Start fragment\n");
+                        fflush(stdout);
+                    }
+                    Utils::TODO_THIS_RELEASE("//isInterDocument = false;");
+                    _results->incrementFragment(previousPos - 1);
+                    bool registerDocument = false ;
+                    if(_isExtractDocuments) {
+                        if(!isExtractAllDocuments()) {
+                            if(isExtractCfr()) {
+                                QXmlStreamAttributes streamAttributes = xmlReader.attributes();
+                                QStringRef valueRef = streamAttributes.value(_attributeName);
+                                QString attributeValue = valueRef.toString();
+                                if(CFR_EQ == _comparisonType) {
+                                    if(attributeValue == _comparisonTerm) {
+                                        registerDocument = true ;
                                     }
-                                    if(!handleCloseOutputFile(info)) {
-                                        return ;
+                                } else {
+                                    if(attributeValue != _comparisonTerm) {
+                                        registerDocument = true ;
                                     }
                                 }
-                                isWriting = false;
-                            } // if is writing
-                        } // if extract document
-                        insideAFragment = false;
-                    } // if path
-                }
-                int index = path.lastIndexOf('/');
-                if(-1 == index) {
-                    setError(EXML_Other, tr("Bad XML state at offset:%1").arg(xmlReader.characterOffset()));
-                    return ;
-                }
-                path = path.mid(0, index) ;
-
-                /*QString msg = QString("End Element %1, pos %2 ").arg(xmlReader.name().toString()).arg(xmlReader.characterOffset());
-                printf( "%s",  msg.toAscii().data() );*/
-
-                level--;
-                break;
-            }
-            } // switch
-            /*****************************************************
-            previousPos = xmlReader.characterOffset();
-            previousTokenLine = xmlReader.lineNumber();
-            previousTokenColumn = xmlReader.columnNumber();
-            previousTokenFileLinePos = linePos ;
-            oldtk = xmlReader.tokenType(); //TODO:delete
-            oldtks = xmlReader.text().toString() ; //TODO:delete
-            ******************************************************/
-            // check write conditions
-            if(isAFilteredExtraction) {
-                if((!insideAFragment && !isStillInFragment) || (insideAFragment && isWriting) || writeThis) {
-                    if(!dontWrite) {
-
-                        if(debugIO) {
-                            QString msg = QString(">>>Write Token: %1, [ %2, %3]")
-                                          .arg(xmlReader.name().toString())
-                                          .arg(xmlReader.tokenType())
-                                          .arg(xmlReader.tokenString());
-                            printf("%s\n",  msg.toLatin1().data());
-                            fflush(stdout);
+                            } else {
+                                uint inputDocumentCount = _results->currentFragment();
+                                if((_minDoc <= inputDocumentCount) && (_maxDoc >= inputDocumentCount)) {
+                                    registerDocument = true ;
+                                }
+                                if(_isReverseRange) {
+                                    registerDocument = !registerDocument ;
+                                }
+                            }
+                        } else {
+                            registerDocument = true ;
                         }
-
-                        if(!writeAToken(true, insideAFragment, info, xmlReader)) {
-                            return ;
+                    }
+                    insideAFragment = true ;
+                    if(registerDocument) {
+                        if(isAnExportExtraction) {
+                            if(!handleExportedElement(info, xmlReader)) {
+                                isError = true ;
+                            }
+                        } else {
+                            isWriting = true ;
+                            if(!isAFilteredExtraction) {
+                                if(!handleNewFile(info)) {
+                                    isError = true ;
+                                }
+                            } // check new file iff it is not a filtered op.
                         }
                     }
                 }
-            } else {
-                if(isWriting && !dontWrite) {
-                    if(!writeAToken(false, insideAFragment, info, xmlReader)) {
+            }
+            if(isError) {
+                handleCloseOutputFile(info);
+                return ;
+            }
+            path = actualPath ;
+            /********************
+            QString msg = QString("Start Element: %1, pos:%2 line:%3 column:%4 prev:%5").arg(xmlReader.name().toString())
+                    .arg(xmlReader.characterOffset()).arg(xmlReader.lineNumber()).arg(xmlReader.columnNumber()).arg(previousPos);
+            printf( "%s\n",  msg.toAscii().data() );
+            *******************************/
+        }
+        break;
+        case QXmlStreamReader::EndElement: {
+            isCalcPathForFilterTextForElement = false;
+            isCurrentElementFilterText = false;
+            if(insideAFragment) {
+                isStillInFragment = true ;
+                if((isDepth && (level == _splitDepth)) || (!isDepth && (path == _splitPath))) {
+                    Utils::TODO_THIS_RELEASE("//isInterDocument = true;");
+                    _results->endFragment(xmlReader.characterOffset());
+                    if(debugIO) {
+                        printf("***Closing fragment\n");
+                        fflush(stdout);
+                    }
+                    if(_isExtractDocuments) {
+                        // iif this is not a filter operation.
+                        if(isWriting) {
+                            if(isAFilteredExtraction) {
+                                writeThis = true ;
+                            } else {
+                                if(!writeAToken(false, true, info, xmlReader)) {
+                                    return ;
+                                }
+                                if(!handleCloseOutputFile(info)) {
+                                    return ;
+                                }
+                            }
+                            isWriting = false;
+                        } // if is writing
+                    } // if extract document
+                    insideAFragment = false;
+                } // if path
+            }
+            int index = path.lastIndexOf('/');
+            if(-1 == index) {
+                setError(EXML_Other, tr("Bad XML state at offset:%1").arg(xmlReader.characterOffset()));
+                return ;
+            }
+            path = path.mid(0, index) ;
+
+            /*QString msg = QString("End Element %1, pos %2 ").arg(xmlReader.name().toString()).arg(xmlReader.characterOffset());
+            printf( "%s",  msg.toAscii().data() );*/
+
+            level--;
+            break;
+        }
+        } // switch
+
+        if(isStartDocument) {
+            previousPos = 1 ;
+        } else {
+            previousPos = xmlReader.characterOffset();
+        }
+        /*****************************************************
+        previousTokenLine = xmlReader.lineNumber();
+        previousTokenColumn = xmlReader.columnNumber();
+        previousTokenFileLinePos = linePos ;
+        oldtk = xmlReader.tokenType(); //TODO:delete
+        oldtks = xmlReader.text().toString() ; //TODO:delete
+        ******************************************************/
+        // check write conditions
+        if(isAFilteredExtraction) {
+            if((!insideAFragment && !isStillInFragment) || (insideAFragment && isWriting) || writeThis) {
+                if(!dontWrite) {
+
+                    if(debugIO) {
+                        QString msg = QString(">>>Write Token: %1, [ %2, %3]")
+                                      .arg(xmlReader.name().toString())
+                                      .arg(xmlReader.tokenType())
+                                      .arg(xmlReader.tokenString());
+                        printf("%s\n",  msg.toLatin1().data());
+                        fflush(stdout);
+                    }
+
+                    if(!writeAToken(true, insideAFragment, info, xmlReader)) {
                         return ;
                     }
                 }
-            } // check for write
-            if(xmlReader.hasError() && (xmlReader.error() != QXmlStreamReader::PrematureEndOfDocumentError)) {
-                handleError(xmlReader);
-                return ;
             }
-            if(0x100 == (operationCount & 0x0100)) {
-                _mutex.lock();
-                currentSubFolder = info.currentFolderPath ;
-                counterDocumentsFound = _results->currentFragment();
-                counterFoldersCreated = _results->currentFolderCount();
-                counterOperations = operationCount ;
-                _mutex.unlock();
-                if(!checkStatus()) {
+        } else {
+            if(isWriting && !dontWrite) {
+                if(!writeAToken(false, insideAFragment, info, xmlReader)) {
                     return ;
                 }
             }
-        }// while at end
-        if(isOptimizeForSpeed) {
-            break;
+        } // check for write
+        if(xmlReader.hasError() && (xmlReader.error() != QXmlStreamReader::PrematureEndOfDocumentError)) {
+            handleError(xmlReader);
+            return ;
         }
-    }// data loaded
+        if(0x100 == (operationCount & 0x0100)) {
+            _mutex.lock();
+            currentSubFolder = info.currentFolderPath ;
+            counterDocumentsFound = _results->currentFragment();
+            counterFoldersCreated = _results->currentFolderCount();
+            counterOperations = operationCount ;
+            _mutex.unlock();
+            if(!checkStatus()) {
+                return ;
+            }
+        }
+    }// while at end
     handleCloseOutputFile(info);
 }
 

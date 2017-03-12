@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -19,7 +19,6 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
-
 
 #include "operationresult.h"
 
@@ -92,3 +91,23 @@ void StringOperationResult::setResult(const QString& value)
     _result = value ;
 }
 
+//------------------------------------------------------------------------------------
+
+MessagesOperationResult::MessagesOperationResult()
+{
+}
+
+MessagesOperationResult::~MessagesOperationResult()
+{
+    EMPTYPTRLIST(_messages, SourceMessage);
+}
+
+void MessagesOperationResult::addMessage(SourceMessage* newMessage)
+{
+    _messages.append(newMessage);
+}
+
+QList<SourceMessage*> *MessagesOperationResult::messages()
+{
+    return &_messages ;
+}

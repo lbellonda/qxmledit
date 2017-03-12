@@ -512,7 +512,7 @@ bool TestStyle::testFunctionalForRuleInner(const QString &testName, const QStrin
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
     if( !mainWindow.loadFile(QString(dataFileName)) ) {
         return error(QString("opening test file: '%1'").arg(dataFileName));
     }

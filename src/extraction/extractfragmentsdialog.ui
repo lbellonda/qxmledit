@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>832</width>
-    <height>752</height>
+    <height>774</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,36 +27,6 @@
       <string>Extract documents (or scan the file and browse the single documents)</string>
      </property>
     </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_10">
-     <item>
-      <spacer name="horizontalSpacer_6">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QCheckBox" name="optimizeSpeed">
-       <property name="toolTip">
-        <string>If you check this option the processing will be faster, but you will not browse the file in the user interface. This option does not damage the fragments extraction operation.</string>
-       </property>
-       <property name="text">
-        <string>Speed up the processing. No information will be shown in the user interface.</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item>
     <widget class="QLabel" name="label_6">
@@ -978,7 +948,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>sfn4</tabstop>
   <tabstop>sfn5</tabstop>
   <tabstop>chkExtractFiles</tabstop>
-  <tabstop>optimizeSpeed</tabstop>
  </tabstops>
  <resources>
   <include location="../risorse.qrc"/>

@@ -65,6 +65,7 @@ extern const char *APP_TITLE ;
 #include "widgets/warningswidget.h"
 #include "modules/messages/sourcerelatedmessages.h"
 #include "modules/specialized/scxml/scxmlautomodedialog.h"
+#include "modules/xslt/xsltexecdialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -85,7 +86,7 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 #define MAX_LAST_FILES  (20)
 
 
-MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, ApplicationData *newData, QMainWindow *parent)
+MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWindow *parent)
     : QMainWindow(parent),
       _uiServices(this),
       uiDelegate(this),
@@ -115,7 +116,6 @@ MainWindow::MainWindow(const bool setIsSlave, QApplication *newApplication, Appl
     isSlave = setIsSlave ;
     eventLoop = NULL ;
     _extractResult = NULL ;
-    application = newApplication ;
     data = newData ;
     ui.setupUi(this);
     ui.loadWarningWidget->setVisible(false);
@@ -176,7 +176,7 @@ ApplicationData *MainWindow::appData()
 QString MainWindow::editNodeElementAsXML(const bool isBase64Coded, Element *pElement, const QString & /*text*/, const bool /*isCData*/, bool &isCDataOut, bool &isOk)
 {
     QString result;
-    MainWindow *mainWindow = new MainWindow(true, application, data, this) ;
+    MainWindow *mainWindow = new MainWindow(true, data, this) ;
     mainWindow->setWindowModality(Qt::WindowModal);
     mainWindow->ui.editor->loadText(pElement->getAsSimpleText(isBase64Coded));
     mainWindow->ui.editor->setCDATA(pElement->isCDATA());
@@ -249,7 +249,6 @@ void MainWindow::on_actionNew_triggered()
     //QTimer::singleShot(200, theWindow, SLOT(onRaiseWindow()));
 }
 
-
 void MainWindow::onRaiseWindow()
 {
     activateWindow();
@@ -282,7 +281,7 @@ bool MainWindow::finishSetUpUi()
     ui.actionCloseThisAllBrothers->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_F12));
 #endif
 
-    ui.editor->setData(application, data, isSlave, this);
+    ui.editor->setData(data, isSlave, this);
     if(!ui.editor->init()) {
         Utils::error(this, tr("XML Editor initialization failed"));
         return false;
@@ -1045,6 +1044,18 @@ bool MainWindow::newFromClipboard()
     return false ;
 }
 
+bool MainWindow::newFromString(const QString &newData)
+{
+    if(ui.editor->newFromString(newData)) {
+        removeAttributesFilter();
+        updateWindowFilePath();
+        clearExportFilePath();
+        activateModesOnNewFile();
+        return true;
+    }
+    return false ;
+}
+
 void MainWindow::on_actionSaveAs_triggered()
 {
     Regola * regola = getRegola();
@@ -1295,7 +1306,7 @@ void MainWindow::closeEvent(QCloseEvent * event)
 void MainWindow::on_actionQuit_triggered()
 {
     if(checkAbandonChanges(OpenUsingSameWindow)) {
-        application->quit();
+        qApp->quit();
     }
 }
 
@@ -1491,16 +1502,7 @@ void MainWindow::on_actionConfigure_triggered()
     if(version != nowVersion) {
         ui.editor->invalidatePaintData();
     }
-    QXmlEditApplication *thisAppl = qXmlEditApplication();
-    if(0 != thisAppl) {
-        thisAppl->updateEditors();
-    }
-}
-
-QXmlEditApplication* MainWindow::qXmlEditApplication()
-{
-    QXmlEditApplication *thisAppl = qobject_cast<QXmlEditApplication *>(application);
-    return thisAppl ;
+    data->updateEditors();
 }
 
 void MainWindow::updateAfterPreferences()
@@ -2215,9 +2217,6 @@ void MainWindow::onChangeEditorMode()
 
 void MainWindow::on_actionExtractFragmentsFromFile_triggered()
 {
-    if(!verifyAbandonChanges()) {
-        return ;
-    }
     ExtractResults *results = new  ExtractResults();
     if(NULL == results) {
         Utils::errorOutOfMem(this);
@@ -2225,19 +2224,16 @@ void MainWindow::on_actionExtractFragmentsFromFile_triggered()
     }
     extractFragments(results, this);
     if(!(results->isError() || results->isAborted())) {
-        if(results->_optimizeSpeed) {
-            delete results ;
-            return ;
-        }
         if(results->numFragments() == 0) {
             Utils::message(tr("No fragments found"));
             delete results ;
             return ;
         }
-        cleanExtractResults();
-        _extractResult = results ;
-        ui.editor->setNavigationDataAndEnable(1, _extractResult->numFragments());
-        showNavigationBox();
+        MainWindow * newWindow = makeNewWindow();
+        newWindow->cleanExtractResults();
+        newWindow->_extractResult = results ;
+        newWindow->ui.editor->setNavigationDataAndEnable(1, results->numFragments());
+        newWindow->showNavigationBox();
     } else {
         delete results ;
     }
@@ -2586,7 +2582,7 @@ void MainWindow::on_actionNewWindow_triggered()
 
 MainWindow *MainWindow::makeNewWindow()
 {
-    MainWindow *newWindow = new MainWindow(false, application, data);
+    MainWindow *newWindow = new MainWindow(false, data);
     if(NULL != newWindow) {
 #ifndef QXMLEDIT_TEST
         newWindow->show();
@@ -3447,10 +3443,7 @@ void MainWindow::taskChooseDetail()
             mainPaintInfo->saveState();
             // apply to all the editors
             getEditor()->invalidatePaintData();
-            QXmlEditApplication *thisAppl = qXmlEditApplication();
-            if(0 != thisAppl) {
-                thisAppl->updateEditors();
-            }
+            data->updateEditors();
         }
     }
 }
@@ -3474,7 +3467,7 @@ void MainWindow::on_actionHelpSetEditorDetail_triggered()
 void MainWindow::checkForSaveEncoding()
 {
     Regola *regola = getRegola();
-    if(Regola::isSaveUsingStream() && !regola->isForceDOM()) {
+    if(!regola->isForceDOM()) {
         if(!regola->isEncodingCompatibleWithStream()) {
             if(uiDelegate->askYN(tr("QXmlEdit detected that current encoding can lead to a malformed file.\nDo you want to save it using DOM method?\nWarning: DOM does not support attribute alignment and DTD management."))) {
                 regola->setForceDOM(true);
@@ -3602,4 +3595,10 @@ SourceRelatedMessages *MainWindow::sourceRelatedMessages()
 void MainWindow::on_actionCopyElementOnly_triggered()
 {
     ui.editor->onActionCopyElementOnly();
+}
+
+void MainWindow::on_actionXSLExecutor_triggered()
+{
+    //WARNING: no editor must be harmed while this loop is running
+    XSLTExecDialog::execDialog(this, data);
 }

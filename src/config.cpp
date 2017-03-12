@@ -178,6 +178,9 @@ const QString Config::KEY_COMPARE_OPTION_DENORMALIZEEOL("compare/optionDenormEOL
 // XSL
 const QString Config::KEY_XSL_SHOW_PANEL("xsl/showPanel");
 const QString Config::KEY_XSL_AUTOMODE("xsl/autoMode");
+const QString Config::KEY_XSL_SAXON_PATH("xsl/saxonPath");
+const QString Config::KEY_XSL_USE_SAXON("xsl/useSaxon");
+
 // SCXML
 const QString Config::KEY_SCXML_SHOW_PANEL("scxml/showPanel");
 const QString Config::KEY_SCXML_AUTOMODE("scxml/autoMode");
@@ -213,10 +216,10 @@ const QString Config::KEY_COLOR_ANONTEXTPREVIEW("colors/anonTextPreview");
 const QString Config::KEY_COLOR_ANONATTRPREVIEW("colors/anonAttrPreview");
 
 // xml
-const QString Config::KEY_XML_SAVE_STREAM("xml/saveStream");
 const QString Config::KEY_XML_SAVE_SORTATTRIBUTES("xml/sortAttributes");
 //deprecated: do not use
-const QString Config::KEY_XML_LOAD_STREAM("xml/loadStream");
+const QString Config::deprecated_KEY_XML_LOAD_STREAM("xml/loadStream"); // deprecated
+const QString Config::deprecated_KEY_XML_SAVE_STREAM("xml/saveStream"); // deprecated
 
 // base64
 const QString Config::KEY_BASE64_TYPE("base64/type");

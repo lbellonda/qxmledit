@@ -138,9 +138,9 @@ bool XmlEditWidget::isReady()
     return d->isReady();
 }
 
-void XmlEditWidget::setData(QApplication *newApplication, QXmlEditData *newData, const bool newIsSlave, UIDelegate *newUiDelegate)
+void XmlEditWidget::setData(QXmlEditData *newData, const bool newIsSlave, UIDelegate *newUiDelegate)
 {
-    d->setData(newApplication, newData, newIsSlave, newUiDelegate);
+    d->setData(newData, newIsSlave, newUiDelegate);
 }
 
 void XmlEditWidget::setUIDelegate(UIDelegate *newUiDelegate)
@@ -244,6 +244,11 @@ void XmlEditWidget::showButtons(const bool how)
 bool XmlEditWidget::onActionNewFromClipboard()
 {
     return d->onActionNewFromClipboard();
+}
+
+bool XmlEditWidget::newFromString(const QString &newData)
+{
+    return d->newFromString(newData);
 }
 
 void XmlEditWidget::onActionResizeToContents()
@@ -724,7 +729,6 @@ Regola *XmlEditWidget::getRegola()
 {
     return d->getRegola();
 }
-
 
 void XmlEditWidget::onActionViewAsXsd()
 {

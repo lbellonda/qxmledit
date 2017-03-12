@@ -67,7 +67,7 @@ bool TestXsd::TestNonamespace()
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
 
     mainWindow.loadFile(QString(TEST_FILE_XSD_NONS));
 
@@ -103,7 +103,7 @@ bool TestXsd::TestNonamespaceFalse()
     if(!app.initNoWindow() ) {
         return false;
     }
-   MainWindow mainWindow(false, qApp, app.data());
+   MainWindow mainWindow(false, app.data());
 
     mainWindow.loadFile(QString(TEST_FILE_XSD_NONS_FALSE));
 
@@ -133,7 +133,7 @@ bool TestXsd::TestOneSchema()
     if(!app.initNoWindow() ) {
         return false;
     }
-   MainWindow mainWindow(false, qApp, app.data());
+   MainWindow mainWindow(false, app.data());
     mainWindow.loadFile(QString(TEST_FILE_XSD_ONESCHEMA));
 
     Regola *regola = mainWindow.getRegola();
@@ -177,7 +177,7 @@ bool TestXsd::TestMoreSchema()
     if(!app.initNoWindow() ) {
         return false;
     }
-   MainWindow mainWindow(false, qApp, app.data());
+   MainWindow mainWindow(false, app.data());
     mainWindow.loadFile(QString(TEST_FILE_XSD_MORESCHEMA));
 
     Regola *regola = mainWindow.getRegola();
@@ -251,7 +251,7 @@ bool TestXsd::testSameNamespace()
     if(!app.initNoWindow() ) {
         return error("init");
     }
-    MainWindow mainWindow(false, qApp, app.data());
+    MainWindow mainWindow(false, app.data());
 
     mainWindow.loadFile(QString(XSD_SAME_NAMESPACE));
 

@@ -5,8 +5,9 @@ Check issues:
 TODO:
 ----
 
-#new is:152
-
+#new is:153
+153 - Execute a XSLT ot a XQuery,
+152 - Anonimizza: scelto il file, aggiungi la cartella alla ricerca dell'output.
 151 - Snippet con codice update del timer
 Branch 150 - Miglioramenti su UI
 149 - Split e naviga: usa caratteri.
