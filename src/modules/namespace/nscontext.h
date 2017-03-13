@@ -27,8 +27,9 @@
 #include "xmlEdit.h"
 #include <QSet>
 #include <QHash>
+#include "libQXmlEdit_global.h"
 
-class NSContext
+class LIBQXMLEDITSHARED_EXPORT NSContext
 {
     const NSContext *_parent;
     QString _currentNs;

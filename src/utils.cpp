@@ -1134,7 +1134,7 @@ void Utils::setComboCurrentText(QComboBox *combo, const QString &text)
 #endif
 }
 
-void Utils::copyPairsToHash(QHash<QString, QString> &hash, QList<QPair<QString, QString>> &pairs)
+void Utils::copyPairsToHash(QHash<QString, QString> &hash, QList<QPair<QString, QString> > &pairs)
 {
     QPair<QString, QString> pair;
     foreach(pair, pairs) {

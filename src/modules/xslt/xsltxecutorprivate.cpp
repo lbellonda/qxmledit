@@ -60,9 +60,11 @@ void XSLTExecutor::MessageHandler::handleMessage(QtMsgType type,
     case QtFatalMsg:
         thisType = SourceMessage::Error;
         break;
+#if QT_VERSION >= QT_VERSION_CHECK(5,5,0)
     case QtInfoMsg:
         thisType = SourceMessage::Info;
         break;
+#endif
     default:
         thisType = SourceMessage::Error;
         break;

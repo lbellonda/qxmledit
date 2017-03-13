@@ -26,10 +26,11 @@
 
 #include <QString>
 #include <QHash>
+#include "libQXmlEdit_global.h"
 
 class AnonContext;
 
-class XmlUtils
+class LIBQXMLEDITSHARED_EXPORT XmlUtils
 {
 private:
     XmlUtils();

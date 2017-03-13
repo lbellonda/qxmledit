@@ -181,7 +181,7 @@ public:
     static bool execBatch(ApplicationData *appData, MessagesOperationResult &result,
                           const QString &inputFile, const QString &xslFile,
                           const QString &outputFile,
-                          QList<QPair<QString, QString>> params,
+                          QList<QPair<QString, QString> > params,
                           const bool forceSaxon);
 #ifdef QXMLEDIT_TEST
     static QStringList testSaxonArguments;

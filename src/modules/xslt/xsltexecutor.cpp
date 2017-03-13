@@ -375,7 +375,7 @@ bool XSLTExecutor::exec(MessagesOperationResult &result)
 bool XSLTExecutor::execBatch(ApplicationData *appData, MessagesOperationResult &result,
                              const QString &inputFile, const QString &xsltSheet,
                              const QString &outputFile,
-                             QList<QPair<QString, QString>> params,
+                             QList<QPair<QString, QString> > params,
                              const bool forceSaxon)
 {
     XSLTExecutor executor(appData);

@@ -65,8 +65,8 @@ void UIDesktopServices::startIconProgressBar()
 {
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
     if(NULL == _button) {
-        _button = new QWinTaskbarButton(widget);
-        _button->setWindow(widget->windowHandle());
+        _button = new QWinTaskbarButton(_widget);
+        _button->setWindow(_widget->windowHandle());
     }
 #else
 #endif
@@ -84,7 +84,7 @@ void UIDesktopServices::setIconProgressBar(
         startIconProgressBar();
     }
     if(NULL == _progress) {
-        _progress = button->progress();
+        _progress = _button->progress();
     }
     _progress->setVisible(true);
     _progress->setValue(percent);
@@ -95,7 +95,7 @@ void UIDesktopServices::setIconProgressBar(
 void UIDesktopServices::endIconProgressBar()
 {
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
-    if(NULLL != _progress) {
+    if(NULL != _progress) {
         _progress->hide();
     }
 #else

@@ -156,6 +156,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 win32 {
+    QT += winextras
     DEFINES += "_NO_W32_PSEUDO_MODIFIERS"
     DEFINES += "NOGDI"
 }

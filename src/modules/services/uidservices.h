@@ -25,15 +25,17 @@
 
 #include "xmlEdit.h"
 #include "libQXmlEdit_global.h"
-#include <QSystemTrayIcon>
+#include <QWidget>
+#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#include <QWinTaskbarButton>
+#include <QWinTaskbarProgress>
+#endif
 
 class LIBQXMLEDITSHARED_EXPORT UIDesktopServices
 {
     QWidget *_widget;
-    // todo: remove this
-    QSystemTrayIcon _trayIcon;
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
-    QWinTaskbarButton _button;
+    QWinTaskbarButton *_button;
     QWinTaskbarProgress *_progress;
 #else
 #endif

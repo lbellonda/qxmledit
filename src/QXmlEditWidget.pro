@@ -122,6 +122,7 @@ equals(INST_AVOID_PRECOMP_HEADERS, "") {
 
 greaterThan(QT_MAJOR_VERSION, 4) {
 win32 {
+	QT += winextras
     DEFINES += "_NO_W32_PSEUDO_MODIFIERS"
     DEFINES += "NOGDI"
 }
@@ -491,9 +492,8 @@ SOURCES += xmleditwidget.cpp \
     modules/xslt/xsltnavigatorwidget.cpp \
     modules/specialized/scxml/scxmlautomodedialog.cpp \
     modules/xslt/xsleditormanager.cpp \
-    modules/services/uiservices.cpp \
-    modules/messages/sourceerror.cpp \
-    modules/xslt/xsleditormanager.cpp
+    modules/services/uidservices.cpp \
+    modules/messages/sourceerror.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -758,9 +758,8 @@ HEADERS += precompiled_lib.h \
     modules/xslt/xsltnavigatorwidget.h \
     modules/specialized/scxml/scxmlautomodedialog.h \
     modules/xslt/xsleditormanager.h \
-    modules/services/uiservices.h \
-    modules/messages/sourceerror.h \
-    modules/xslt/xsleditormanager.h
+    modules/services/uidservices.h \
+    modules/messages/sourceerror.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

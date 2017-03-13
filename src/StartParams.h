@@ -45,7 +45,7 @@ public:
     QString arg2;
     bool parametersError ;
     QString errorMessage;
-    QList<QPair<QString, QString>> params;
+    QList<QPair<QString, QString> > params;
     QString xsl;
     QString outputFile;
     bool forceSaxon;
