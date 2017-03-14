@@ -330,9 +330,11 @@ void XmlEditWidgetPrivate::deleteRegola()
         disconnect(regola, SIGNAL(docTypeChanged(const QString &)), this, SLOT(docTypeChanged(const QString &)));
         disconnect(regola, SIGNAL(encodingChanged(const QString &)), this, SLOT(onEncodingChanged(const QString &)));
         disconnect(regola, SIGNAL(indentationChanged(const bool, const int)), this, SLOT(onIndentationChanged(const bool, const int)));
+        p->ui->treeWidget->setUpdatesEnabled(false);
+        p->ui->treeWidget->clear();
+        p->ui->treeWidget->setUpdatesEnabled(true);
         delete regola;
         regola = NULL;
-        p->ui->treeWidget->clear();
         _SCXMLNavigator->setEnabledInfo(false);
         _XSLTNavigator->setEnabledInfo(false);
     }

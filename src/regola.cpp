@@ -147,6 +147,7 @@ void Regola::clear()
     while(it.hasNext()) {
         delete it.next();
     }
+    childItems.clear();
     rootItem = NULL ;
     modified = false;
 }

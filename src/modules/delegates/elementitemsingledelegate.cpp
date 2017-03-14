@@ -556,6 +556,9 @@ QSize ElementItemSingleDelegate::sizeHint(const QStyleOptionViewItem & option, c
     bool isSelected = option.state & QStyle::State_Selected;
     Element *element = Element::fromModelIndex(index);
     if(NULL != element) {
+        if(NULL == element->getParentRule()) {
+            return QSize(0, 0);
+        }
         if(element->getUI()->isHidden() || element->isHidden()) {
             return QSize(0, 0);
         }

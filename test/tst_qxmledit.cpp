@@ -649,6 +649,9 @@ void TestQXmlEdit::testClipboard()
 {
     bool result ;
 
+    TestClipboard test0;
+    result = test0.testFast();
+    QVERIFY2(result, (QString("test testFast: '%1'").arg(test0.errorString())).toLatin1().data());
     TestClipboard test1;
     result = test1.testCopyElementPathToClipboard();
     QVERIFY2(result, (QString("test CopyElementPathToClipboard: '%1'").arg(test1.errorString())).toLatin1().data());

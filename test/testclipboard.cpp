@@ -34,6 +34,11 @@ TestClipboard::TestClipboard()
 {
 }
 
+bool TestClipboard::testFast()
+{
+    return testPasteAsSibling();
+}
+
 bool TestClipboard::verifyClipboard(const QString &value)
 {
     bool compareOk = false;

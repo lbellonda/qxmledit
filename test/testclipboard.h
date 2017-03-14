@@ -42,6 +42,7 @@ public:
     bool testCopyElementPathToClipboard();
     bool testPasteAsSibling();
     bool testCopyAllToClipboard();
+    bool testFast();
 };
 
 #endif // TESTCLIPBOARD_H
