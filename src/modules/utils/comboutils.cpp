@@ -27,6 +27,7 @@
 #include "applicationdata.h"
 #include "qxmleditconfig.h"
 #include "modules/services/systemservices.h"
+#include "xmleditwidget.h"
 #include <QString>
 #include <QSet>
 

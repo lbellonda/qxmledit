@@ -20,6 +20,7 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "xmlEdit.h"
 #include "StartParams.h"
 
 StartParams::StartParams()

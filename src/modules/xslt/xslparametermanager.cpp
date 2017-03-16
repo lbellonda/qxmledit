@@ -24,6 +24,7 @@
 #include "modules/namespace/nscontext.h"
 #include "modules/xsd/namespacemanager.h"
 #include "modules/xml/xmlloadcontext.h"
+#include "regola.h"
 #include "xmlutils.h"
 #include "utils.h"
 
