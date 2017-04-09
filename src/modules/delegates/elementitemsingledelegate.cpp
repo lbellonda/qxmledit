@@ -256,6 +256,7 @@ void ElementItemSingleDelegate::paint(QPainter * painter, const QStyleOptionView
     if(!_inited) {
         const_cast<ElementItemSingleDelegate*>(this)->calcTextColor(option);
     }
+    ElementDisplayInfo *elementDisplayInfo = Element::makeSureDisplayInfoFromModelIndex(index);
 
     bool isReverse = option4.widget->layoutDirection() == Qt::RightToLeft ? true : false ;
     bool isSelected = option.state & QStyle::State_Selected;
@@ -425,6 +426,10 @@ void ElementItemSingleDelegate::paint(QPainter * painter, const QStyleOptionView
         painter->setPen(oldPen);
         painter->setBackground(backBrush);
         painter->setBrush(fgBrush);
+
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_tagRect.setRect(rect.left(), rect.top(), rect.width(), rect.height());
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------------------
@@ -459,7 +464,14 @@ void ElementItemSingleDelegate::paint(QPainter * painter, const QStyleOptionView
             yOffset = 0 ;
         }
         dataInfo._attributesIcon.paint(painter, currentPosX, option.rect.y() + yOffset, size.width(), size.height());
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_iconShowRect.setRect(currentPosX, option.rect.y() + yOffset, size.width(), size.height());
+        }
         currentPosX += (size.width() + HGap) * sign ;
+    } else {
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_iconShowRect.setRect(0, 0, 0, 0);
+        }
     }
     //------------------------------------------------------------------------------------------------------------------------------------
     if(!dataInfo._attrTextInfo.isEmpty()) {
@@ -485,8 +497,18 @@ void ElementItemSingleDelegate::paint(QPainter * painter, const QStyleOptionView
             }
             _document.documentLayout()->draw(painter, paintContext);
         }
+        QSizeF docSize = _document.size();
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_attributesRect.setRect(currentPosX + offsetX, option.rect.y(), docSize.width(), docSize.height());
+        }
         painter->translate(-(currentPosX + offsetX), -option.rect.y());
-        currentPosX += (_document.size().width() + HGap) * sign;
+        currentPosX += (docSize.width() + HGap) * sign;
+
+        Utils::TODO_THIS_RELEASE("elementDisplayInfo->set attributes ect;");
+    } else {
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_attributesRect.setRect(0, 0, 0, 0);
+        }
     }
     //------------------------------------------------------------------------------------------------------------------------------------
     if(!dataInfo._inlineTextInfo.isEmpty()) {
@@ -517,6 +539,7 @@ void ElementItemSingleDelegate::paint(QPainter * painter, const QStyleOptionView
                 rect.setWidth(option.rect.right() - currentPosX - 1);
             }
             painter->drawText(rect, text, option.displayAlignment);
+            elementDisplayInfo->_textRect = rect ;
         } else {
             _document.setPlainText(text);
             int offsetX = 0 ;
@@ -536,6 +559,8 @@ void ElementItemSingleDelegate::paint(QPainter * painter, const QStyleOptionView
                 ctx.clip = rect;
             }*/
             _document.documentLayout()->draw(painter, paintContext);
+            QSizeF documentSize = _document.size();
+            elementDisplayInfo->_textRect.setRect(currentPosX + offsetX, option.rect.y(), documentSize.width(), documentSize.height());
         }
     }
     if(isSelected) {
@@ -548,6 +573,13 @@ QSize ElementItemSingleDelegate::sizeHint(const QStyleOptionViewItem & option, c
 {
     if(!_inited) {
         const_cast<ElementItemSingleDelegate*>(this)->calcTextColor(option);
+    }
+    Utils::TODO_THIS_RELEASE("Valido solo se non cambiano le opzioni E le opzioni di visualizzazione, importante");
+    ElementDisplayInfo *elementDisplayInfo = Element::displayInfoFromModelIndex(index);
+    if(NULL != elementDisplayInfo) {
+        if(elementDisplayInfo->_sizeValid) {
+            return elementDisplayInfo->_size;
+        }
     }
 
     ElementViewInfo dataInfo ;
@@ -605,6 +637,10 @@ QSize ElementItemSingleDelegate::sizeHint(const QStyleOptionViewItem & option, c
         QSizeF sizeF = _document.size();
         textHeight = sizeF.height();
         currentPosX += sizeF.width();
+    }
+    if(NULL != elementDisplayInfo) {
+        elementDisplayInfo->_size = QSize(currentPosX + 10, qMax(qMax(minHeight, attrTextHeight), textHeight));
+        elementDisplayInfo->_sizeValid = true ;
     }
     return QSize(currentPosX + 10, qMax(qMax(minHeight, attrTextHeight), textHeight));
 }

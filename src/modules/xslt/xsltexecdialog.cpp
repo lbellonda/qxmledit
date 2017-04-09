@@ -31,6 +31,7 @@
 
 bool XSLTExecDialog::execDialog(QWidget *parent, ApplicationData *data, XmlEditWidget *source, XmlEditWidget *xsl)
 {
+    Utils::TODO_THIS_RELEASE("salvare ed aggiungere l'ultimo usato.");
     if(!data->isUseSaxonXSL()) {
         Utils::warning(parent, tr("WARNING: the support to XSL-T in Qt is currently experimental: the support to XSL is not complete.\nYou can use SAXON or another Java jar with same command line syntax (not part of QXmlEdit) if you configure it in preferences."));
     } else {
@@ -293,12 +294,15 @@ bool XSLTExecDialog::setInput(XSLTExecutor *xsltExecutor)
     return true;
 }
 
-QString XSLTExecDialog::fileForSelection(ComboUtils::ComboItem *item, const QString &message, const bool isOpen)
+QString XSLTExecDialog::fileForSelection(ComboUtils::ComboItem *item, const QString &currentValue, const QString &message, const bool isOpen)
 {
     if((ComboUtils::TypeFile == item->code) && !item->dataString.isEmpty()) {
         return item->dataString ;
     }
     QString folder = SystemServices::userDocumentsDirectory();
+    if(!currentValue.isEmpty()) {
+        folder = currentValue ;
+    }
     if(!item->dataString.isEmpty()) {
         folder = item->dataString ;
     }
@@ -340,7 +344,8 @@ void XSLTExecDialog::onChooseInput()
                     loadSources(NULL, NULL);
                 }
             } else {
-                QString filePath = fileForSelection(item, tr("Source File"), true);
+                Utils::TODO_THIS_RELEASE("Provare se funziona");
+                QString filePath = fileForSelection(item, ui->inputFile->text(), tr("Source File"), true);
                 if(!filePath.isEmpty()) {
                     setInputDataFile(filePath);
                     ui->inputFile->setText(filePath);
@@ -369,7 +374,7 @@ void XSLTExecDialog::onChooseXSL()
                     loadSources(NULL, NULL);
                 }
             } else {
-                QString filePath = fileForSelection(item, tr("XSL File"), true);
+                QString filePath = fileForSelection(item, ui->xslName->text(), tr("XSL File"), true);
                 if(!filePath.isEmpty()) {
                     setXSLFile(filePath);
                     newText = filePath ;
@@ -394,7 +399,7 @@ void XSLTExecDialog::onChooseOutput()
                 _outputAsFile = false;
                 ui->outputName->setText(item->text);
             } else {
-                QString filePath = fileForSelection(item, tr("Output File"), false);
+                QString filePath = fileForSelection(item, ui->outputName->text(), tr("Output File"), false);
                 if(!filePath.isEmpty()) {
                     _outputAsFile = true;
                     _outputFile = filePath;

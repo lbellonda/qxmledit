@@ -493,7 +493,9 @@ SOURCES += xmleditwidget.cpp \
     modules/specialized/scxml/scxmlautomodedialog.cpp \
     modules/xslt/xsleditormanager.cpp \
     modules/services/uidservices.cpp \
-    modules/messages/sourceerror.cpp
+    modules/messages/sourceerror.cpp \
+    editelementwithtexteditor.cpp \
+    modules/xml/xmlsyntaxh.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -759,7 +761,9 @@ HEADERS += precompiled_lib.h \
     modules/specialized/scxml/scxmlautomodedialog.h \
     modules/xslt/xsleditormanager.h \
     modules/services/uidservices.h \
-    modules/messages/sourceerror.h
+    modules/messages/sourceerror.h \
+    editelementwithtexteditor.h \
+    modules/xml/xmlsyntaxh.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -833,7 +837,8 @@ FORMS += xmleditwidget.ui \
     modules/specialized/scxml/dialogs/scxmlsenddialog.ui \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.ui \
     modules/xslt/xsltnavigatorwidget.ui \
-    modules/specialized/scxml/scxmlautomodedialog.ui
+    modules/specialized/scxml/scxmlautomodedialog.ui \
+    editelementwithtexteditor.ui
 
 
 symbian {

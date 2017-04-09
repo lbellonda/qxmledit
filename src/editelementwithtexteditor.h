@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,46 +20,38 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
-#ifndef EXTRACTIONFRONTEND_H
-#define EXTRACTIONFRONTEND_H
+#ifndef EDITELEMENTWITHTEXTEDITOR_H
+#define EDITELEMENTWITHTEXTEDITOR_H
 
 #include "xmlEdit.h"
-#include "extractionoperation.h"
-#include "modules/services/uidservices.h"
-
-class ExtractionOperation;
+#include "element.h"
+#include "modules/xml/xmlsyntaxh.h"
 
 namespace Ui
 {
-class ExtractionFrontEnd;
+class EditElementWithTextEditor;
 }
 
-class ExtractionFrontEnd : public QDialog
+class EditElementWithTextEditor : public QDialog
 {
     Q_OBJECT
-    ExtractionOperation *_operation;
-    bool    _running ;
-    QFuture<void> _future ;
-    UIDesktopServices _uiServices;
-    bool _pbDeterminate ;
+    Element *_element;
+    XMLSyntaxH *_syntaxHiglighter;
 
-    void searchInFileWorking();
-    void extractFragmentsWorkThread();
-    void endOfOperation();
-    void setPBIndeterminate();
-    void setPBDeterminate();
-
+    void setData(Element *element, Regola *regola);
+    bool makeItAccectped();
 public:
-    explicit ExtractionFrontEnd(ExtractionOperation *operation, QWidget *parent, QWidget *mainWidget);
-    ~ExtractionFrontEnd();
+    explicit EditElementWithTextEditor(QWidget *parent, Element *element, Regola *regola);
+    ~EditElementWithTextEditor();
+
+    virtual void accept();
+#ifdef  QXMLEDIT_TEST
+    friend class TestEditElements;
+    friend class TestEditElements_EditHook ;
+#endif
 
 private:
-    Ui::ExtractionFrontEnd *ui;
-
-private slots:
-    void on_cmdCancel_clicked();
-    void checkIfDone();
+    Ui::EditElementWithTextEditor *ui;
 };
 
-#endif // EXTRACTIONFRONTEND_H
+#endif // EDITELEMENTWITHTEXTEDITOR_H

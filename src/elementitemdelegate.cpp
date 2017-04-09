@@ -22,6 +22,7 @@
 
 #include "elementitemdelegate.h"
 #include "element.h"
+#include "utils.h"
 
 static const int WIDTH_BAND = 4 ;
 
@@ -33,6 +34,7 @@ const QBrush ElementItemDelegate::savedBrush(QColor(0x40, 0xC0, 0x40));
 ElementItemDelegate::ElementItemDelegate(QAbstractItemDelegate *newBaseDelegate, QObject *parent) :
     QAbstractItemDelegate(parent)
 {
+    Utils::TODO_THIS_RELEASE("check se ancora necessario");
     baseDelegate = newBaseDelegate ;
     connect(baseDelegate, SIGNAL(closeEditor(QWidget*, QAbstractItemDelegate::EndEditHint)), this, SLOT(closeEditorBridge(QWidget*, QAbstractItemDelegate::EndEditHint)));
     connect(baseDelegate, SIGNAL(commitData(QWidget*)), this, SLOT(commitDataBridge(QWidget*)));

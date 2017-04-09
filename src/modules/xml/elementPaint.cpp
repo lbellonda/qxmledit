@@ -26,13 +26,17 @@
 #include <regola.h>
 #include "utils.h"
 
-/*
-const int EPFieldText = 0;
-const int EPFieldId = 1;
-const int EPFieldChildren = 2;
-const int EPFieldSize = 3;
-const int EPFieldDetail = 4;
-*/
+ElementDisplayInfo::ElementDisplayInfo()
+{
+    _sizeValid = false ;
+}
+
+ElementDisplayInfo::~ElementDisplayInfo()
+{
+    _sizeValid = false ;
+}
+
+//--------------------------------------------------------------
 
 const QString Element::findStyleElementTag(PaintInfo *paintInfo)
 {

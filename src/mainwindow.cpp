@@ -75,7 +75,7 @@ extern const char *APP_TITLE ;
 
 void doOptions(QWidget * const parentWindow, ApplicationData* data);
 void executeTests(QWidget *parent);
-void extractFragments(ExtractResults *extractResult, QWidget *parent);
+void extractFragments(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);
 void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 #define CS_ELEMENT_TEXT "E"
@@ -959,6 +959,7 @@ void MainWindow::onComputeSelectionState()
 
     ui.actionInsertSpecial->setEnabled(!getEditor()->isReadOnly() && (isElementSelected || (!isSomeItemSelected && !hasRoot)));
     ui.actionAppendSpecial->setEnabled(!getEditor()->isReadOnly() && ((isAtTop && !hasRoot) || (!isAtTop && isSomeItemSelected))) ;
+    ui.actionOpenSiblingsAtTheSameLevel->setEnabled(isElementSelected);
 
     onComputeSelectionStateExperimentalFeatures();
 }
@@ -2222,7 +2223,7 @@ void MainWindow::on_actionExtractFragmentsFromFile_triggered()
         Utils::errorOutOfMem(this);
         return ;
     }
-    extractFragments(results, this);
+    extractFragments(results, this, this);
     if(!(results->isError() || results->isAborted())) {
         if(results->numFragments() == 0) {
             Utils::message(tr("No fragments found"));
@@ -2596,12 +2597,12 @@ MainWindow *MainWindow::makeNewWindow()
 void MainWindow::on_actionViewData_triggered()
 {
     QString fileName = askFileNameToOpen(getRegola()->fileName());
-    DataVisualization::viewData(data, this, fileName);
+    DataVisualization::viewData(data, this, this, fileName);
 }
 
 void MainWindow::loadVisFile(const QString &fileName)
 {
-    DataVisualization::viewData(data, this, fileName);
+    DataVisualization::viewData(data, this, this, fileName);
 }
 
 QLabel *MainWindow::readOnlyStatusLabel()
@@ -3612,5 +3613,8 @@ void MainWindow::on_actionExecuteXSLTAsSource_triggered()
     XSLTExecDialog::execDialog(this, data, getEditor(), NULL);
 }
 
-
+void MainWindow::on_actionOpenSiblingsAtTheSameLevel_triggered()
+{
+    ui.editor->openSiblingsSameLevel();
+}
 

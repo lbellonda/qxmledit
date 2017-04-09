@@ -32,25 +32,26 @@
 
 #define UPDATE_TIMEOUT  1500
 
-void LIBQXMLEDITSHARED_EXPORT extractFragments(ExtractResults *extractResult, QWidget *parent)
+void LIBQXMLEDITSHARED_EXPORT extractFragments(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget)
 {
-    ExtractFragmentsDialog dialog(extractResult, parent);
+    ExtractFragmentsDialog dialog(extractResult, parent, mainWidget);
     dialog.exec();
 }
 
-void LIBQXMLEDITSHARED_EXPORT extractFragmentsWindow(ExtractResults *extractResult, QWidget *parent)
+void LIBQXMLEDITSHARED_EXPORT extractFragmentsWindow(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget)
 {
-    ExtractFragmentsDialog *dialog = new ExtractFragmentsDialog(extractResult, parent);
+    ExtractFragmentsDialog *dialog = new ExtractFragmentsDialog(extractResult, parent, mainWidget);
     dialog->setAutoDelete();
     dialog->setModal(false);
     dialog->show();
 }
 
-ExtractFragmentsDialog::ExtractFragmentsDialog(ExtractResults *extractResult, QWidget *parent) :
+ExtractFragmentsDialog::ExtractFragmentsDialog(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget) :
     QDialog(parent),
     _operation(extractResult),
     ui(new Ui::ExtractFragmentsDialog)
 {
+    _mainWidget = mainWidget ;
     _isAutoDelete = false ;
     delayTimer.setSingleShot(true);
     _extractResult = extractResult ;
@@ -328,7 +329,7 @@ void ExtractFragmentsDialog::accept()
         }
     }
     _operation.saveSettings();
-    ExtractionFrontEnd frontEnd(&_operation, this);
+    ExtractionFrontEnd frontEnd(&_operation, this, _mainWidget);
     frontEnd.exec();
     QDialog::accept();
 }

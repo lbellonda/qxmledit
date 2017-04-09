@@ -59,12 +59,16 @@ class VisMapDialog : public QDialog
     QHash<QString, TagNode*> _tagNodes ;
     QXmlEditData *_appData;
     bool _isAutoDelete;
+    QWidget *_mainWindow;
 
     static void calcSize(ElementBase *e, VisDataMap &dataMap);
 public:
-    explicit VisMapDialog(QXmlEditData *newData, QWidget *parent = 0, const QString &fileName = "");
+    explicit VisMapDialog(QXmlEditData *newData, QWidget *parent, QWidget *mainWindow, const QString &fileName = "");
     ~VisMapDialog();
     void setAutoDelete();
+    void setMainWindow(QWidget *newMainWindow);
+    QWidget *mainWindow();
+
 
 private:
     Ui::VisMapDialog *ui;

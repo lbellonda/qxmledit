@@ -501,3 +501,4 @@ bool TestBase64::testIO(const Base64Utils::EBase64 type, const bool useLimit)
     }
     return true;
 }
+

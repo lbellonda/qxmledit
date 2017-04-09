@@ -25,6 +25,7 @@
 #define TESTEDITELEMENTS_H
 
 #include "app.h"
+#include "regola.h"
 #include "testbase.h"
 
 class NamespaceCommands;
@@ -87,6 +88,11 @@ class TestEditElements : public TestBase
     bool doCheckElementNamespaceOp(Element *sourceElement, Element *resultElement, NamespaceCommands *cmd );
     //
     bool testLoadElm(const QString &fileStart, const QString& expected, QList<int> &sel, const bool isInsert );
+    bool testLoadElmText(const QString &fileStart, const QString& fileToCompare,
+                                           QList<int> &sel,
+                                           const QString& newValue,
+                                           const bool expectedResult,
+                                           const QString& expectedTag, const QString& expectedAttributes );
 
 public:
     TestEditElements();
@@ -94,6 +100,7 @@ public:
     static bool test();
     bool testFast();
     bool testInsertElement();
+    bool testEditText();
 };
 
 #endif // TESTEDITELEMENTS_H

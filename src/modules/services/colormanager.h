@@ -71,6 +71,10 @@ public:
     ColorEntry *anonTextPreview();
     ColorEntry *anonAttrPreview();
 
+
+    static QColor tagColorDefault();
+    static QColor attributeNameColorDefault();
+    static QColor attributeValueColorDefault();
 };
 
 #endif // COLORMANAGER_H

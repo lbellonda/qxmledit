@@ -48,9 +48,10 @@ class LIBQXMLEDITSHARED_EXPORT ExtractFragmentsDialog : public QDialog
     QString _errorMessage;
     QTimer delayTimer;
     bool _isAutoDelete;
+    QWidget *_mainWidget ;
 
 public:
-    explicit ExtractFragmentsDialog(ExtractResults *extractResult, QWidget *parent = 0);
+    explicit ExtractFragmentsDialog(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);
     ~ExtractFragmentsDialog();
     void setAutoDelete();
 
@@ -91,5 +92,8 @@ private slots:
     void on_splitByDepth_clicked();
     void on_splitByPath_clicked();
 };
+
+void LIBQXMLEDITSHARED_EXPORT extractFragments(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);
+void LIBQXMLEDITSHARED_EXPORT extractFragmentsWindow(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);
 
 #endif // EXTRACTFRAGMENTSDIALOG_H

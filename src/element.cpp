@@ -746,8 +746,10 @@ QString Element::getAsText()
 
 QString Element::getAsSimpleTextWithLimit(const int limit)
 {
-    QString textToShow;
     if(type == ET_TEXT) {
+        if(text.length() > limit) {
+            return text.left(limit);
+        }
         return text ;
     } else {
         QString result;
@@ -761,7 +763,6 @@ QString Element::getAsSimpleTextWithLimit(const int limit)
         }
         return result;
     }
-    return textToShow ;
 }
 
 QString Element::getAsSimpleText(const bool isBase64)
@@ -1380,12 +1381,21 @@ void Element::deleteUI()
     if(NULL != ui) {
         QTreeWidgetItem *parentWItem = ui->parent();
         int index;
+        QTreeWidgetItem *thisWidget = NULL ;
         if(NULL != parentWItem) {
             index = parentWItem->indexOfChild(ui);
-            delete parentWItem->takeChild(index);
+            thisWidget = parentWItem->takeChild(index);
         } else {
             index = ui->treeWidget()->indexOfTopLevelItem(ui);
-            delete ui->treeWidget()->takeTopLevelItem(index);
+            thisWidget = ui->treeWidget()->takeTopLevelItem(index);
+        }
+        if(NULL != thisWidget) {
+            Utils::TODO_THIS_RELEASE("fare");
+            /*ElementDisplayInfo *info = displayInfoFromWidget(thisWidget);
+            if(NULL != info ) {
+                delete info ;
+            }*/
+            delete thisWidget;
         }
         // elimina tutti i figli
         zeroUI();
@@ -3171,3 +3181,67 @@ bool Element::findElement(Element *toFind)
     }
     return false;
 }
+
+
+ElementDisplayInfo *Element::displayInfoFromItemData(QTreeWidgetItem *item)
+{
+    Utils::TODO_THIS_RELEASE("conferma");
+    if(NULL == item) {
+        return NULL ;
+    }
+    QVariant data = item->data(0, FakeRole);
+    ElementDisplayInfo *elementDisplayInfo = static_cast<ElementDisplayInfo *>(data.value<void*>());
+    return elementDisplayInfo ;
+}
+
+ElementDisplayInfo *Element::displayInfoFromModelIndex(const QModelIndex & index)
+{
+    Utils::TODO_THIS_RELEASE("conferma");
+    if(!index.isValid()) {
+        return NULL ;
+    }
+    QVariant data = index.data(FakeRole);
+    ElementDisplayInfo *elementDisplayInfo = static_cast<ElementDisplayInfo *>(data.value<void*>());
+    return elementDisplayInfo ;
+}
+
+ElementDisplayInfo *Element::makeSureDisplayInfoFromModelIndex(const QModelIndex & index)
+{
+    Utils::TODO_THIS_RELEASE("conferma");
+    if(!index.isValid()) {
+        return NULL ;
+    }
+    QVariant data = index.data(FakeRole);
+    ElementDisplayInfo *elementDisplayInfo = static_cast<ElementDisplayInfo *>(data.value<void*>());
+    if(NULL == elementDisplayInfo) {
+        elementDisplayInfo = new ElementDisplayInfo();
+        setElementDisplayInfo(index, elementDisplayInfo);
+    }
+    return elementDisplayInfo ;
+}
+
+
+void Element::setElementDisplayInfo(const QModelIndex & index, void* data)
+{
+    Utils::TODO_THIS_RELEASE("semplificare");
+    Element *element = Element::fromModelIndex(index);
+    if(NULL != element->getUI()) {
+        element->getUI()->setData(0, FakeRole, qVariantFromValue(data));
+    }
+}
+
+QString Element::getInTextualForm()
+{
+    Utils::TODO_THIS_RELEASE("decidere in che forma: se con escape e quot; oppure come valori stringa pura");
+    QString result;
+    QXmlStreamWriter writer(&result);
+    writer.setAutoFormatting(false);
+    writer.writeStartElement(tag());
+    foreach(Attribute * attribute, attributes) {
+        writer.writeAttribute(attribute->name, attribute->value);
+    }
+    writer.writeEndElement();
+    return result ;
+}
+
+

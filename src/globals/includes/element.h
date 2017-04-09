@@ -180,6 +180,19 @@ public:
     static bool isRecursive(const Type type) ;
 };
 
+struct ElementDisplayInfo {
+    bool _sizeValid ;
+    QSize _size ;
+    QRect _tagRect;
+    QRect _textRect;
+    QRect _attributesRect;
+    QRect _iconShowRect;
+
+    ElementDisplayInfo();
+    ~ElementDisplayInfo();
+};
+
+
 class LIBQXMLEDITSHARED_EXPORT Element
 {
 
@@ -496,6 +509,7 @@ public:
      */
     static const int HtmlTextRole = Qt::UserRole + 2;
     static const int StyleIdRole = Qt::UserRole + 3;
+    static const int FakeRole = Qt::UserRole + 4;
 private:
     static long   instances;
 
@@ -671,6 +685,13 @@ public:
                             ElementUndoObserver *observer, const NSContext *parentContext);
     void setNewTagWithUndo(const QString &newTag, ElementUndoInfo &info);
     void qName(QXName *pQName);
+
+    static ElementDisplayInfo *displayInfoFromItemData(QTreeWidgetItem *item);
+    static ElementDisplayInfo *displayInfoFromModelIndex(const QModelIndex & index);
+    static ElementDisplayInfo *makeSureDisplayInfoFromModelIndex(const QModelIndex & index);
+    static void setElementDisplayInfo(const QModelIndex & index, void* data);
+    QString getInTextualForm();
+
 
 #ifdef  QXMLEDIT_TEST
     friend class TestStyle;

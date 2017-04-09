@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -206,6 +206,32 @@ void XmlEditWidgetPrivate::secondStepConstructor()
         connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutAppendSpec()));
     }
     //-------------------------------------
+    // inspection
+    // SHIFT Enter
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Return + Qt::SHIFT);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutShiftEnter()));
+    }
+    // CTRL Enter
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Return + Qt::CTRL);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutCtrlEnter()));
+    }
+    // ALT Enter
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Return + Qt::ALT);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutAltEnter()));
+    }
+    // Enter
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Return);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutEnter()));
+    }
+    // end inspection
 
     recalcRowHeightClass();
 
@@ -893,7 +919,7 @@ void XmlEditWidgetPrivate::resizeTreeColumns()
     _helper.resizeTreeColumns(p->ui->treeWidget);
 }
 
-bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item)
+bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMouse, const bool forceTextual)
 {
     if(!isActionMode()) {
         return false ;
@@ -901,6 +927,41 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item)
     if(NULL == regola) {
         errorNoRule();
         return false ;
+    }
+    Utils::TODO_THIS_RELEASE("caso da fare sposta a monte");
+    QPoint pt = getEditor()->mapFromGlobal(QCursor::pos());
+    QRect itemRect = getEditor()->visualItemRect(item);
+    ElementDisplayInfo *elementDisplayInfo = Element::displayInfoFromItemData(item);
+    if(forceTextual) {
+        Utils::TODO_THIS_RELEASE("undo deve essere solo di livello piu alto");
+        regola->editElementWithTextEditor(p, getEditor(), item);
+        bool result = false;
+        computeSelectionState();
+        return result ;
+    } else {
+        if(isByMouse) {
+            if(NULL != elementDisplayInfo) {
+                if(itemRect.contains(pt, false)) {
+                    Utils::TODO_THIS_RELEASE("commento");
+                    //pt.setX(pt.x()-itemRect.left());
+                    //pt.setY(pt.y()-itemRect.top());
+                    if(elementDisplayInfo->_textRect.contains(pt, false)) {
+                        return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
+                    }
+                }
+                if((QApplication::keyboardModifiers() & Qt::ShiftModifier) == Qt::ShiftModifier) {
+                    regola->editElementWithTextEditor(p, getEditor(), item);
+                    bool result = false;
+                    computeSelectionState();
+                    return result ;
+                }
+                Utils::TODO_THIS_RELEASE("finire");
+                /*else if (attributi) {
+                    regola->editElement(p, item, _uiDelegate, XXXX );
+                    mah
+                }*/
+            }
+        }
     }
     regola->editElement(p, item, _uiDelegate);
     bool result = false;
@@ -910,8 +971,16 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item)
 
 void XmlEditWidgetPrivate::elementDoubleClicked(QTreeWidgetItem * item, int /*column*/)
 {
-    bool isSpecific = 0 != ((Qt::ControlModifier | Qt::AltModifier) & QApplication::keyboardModifiers());
-    specificPropertiesItem(item, isSpecific);
+    const bool isAlt = 0 != (Qt::AltModifier & QApplication::keyboardModifiers());
+    const bool isCtrl = 0 != (Qt::ControlModifier & QApplication::keyboardModifiers());
+    const bool isShift = 0 != (Qt::ShiftModifier & QApplication::keyboardModifiers());
+    EEditMode editMode = EEditMode::EditModeDetail ;
+    if(isShift) {
+        editMode = EditModeTextualDependingOnMouse ;
+    } else if(isCtrl || isAlt) {
+        editMode = EditModeSpecific ;
+    }
+    specificPropertiesItem(item, editMode);
 }
 
 QTreeWidgetItem *XmlEditWidgetPrivate::getSelItem()
@@ -938,7 +1007,7 @@ void XmlEditWidgetPrivate::editItem()
         Utils::errorNoSel(p);
         return;
     }
-    editElement(itemSel) ;
+    editElement(itemSel, false) ;
 }
 
 
@@ -994,6 +1063,11 @@ void XmlEditWidgetPrivate::onActionAppendChildElement()
 
 void XmlEditWidgetPrivate::onActionEdit()
 {
+    editSelection(EditModeDetail);
+}
+
+void XmlEditWidgetPrivate::editSelection(const EEditMode editMode)
+{
     if(!isActionMode()) {
         return ;
     }
@@ -1002,7 +1076,7 @@ void XmlEditWidgetPrivate::onActionEdit()
         Utils::errorNoSel(p);
         return;
     }
-    specificPropertiesItem(currItem, false, false);
+    specificPropertiesItem(currItem, editMode);
 }
 
 void XmlEditWidgetPrivate::onActionDelete()
@@ -2143,9 +2217,8 @@ void XmlEditWidgetPrivate::loadSchema(const QString &schemaURL)
             }
             QFile file(fileName);
             QString dirPath = QFileInfo(file).absolutePath();
-            XSDLoadContext loadContext;
 
-            loader->load(&loadContext, schemaURL, true, dirPath, _appData->xsdNetworkAccessManager());
+            loader->load(loader->loadContext(), schemaURL, true, dirPath, _appData->xsdNetworkAccessManager());
 
         } catch(XsdException *ex) {
             Utils::error(tr("Error loading schema.\n%1").arg(ex->cause()));
@@ -2615,7 +2688,7 @@ void XmlEditWidgetPrivate::showXSLNavigator(const bool how)
     _XSLTNavigator->setVisible(how);
 }
 
-void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const bool useAlternate, const bool forceEditUsingSpecialized)
+void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const EEditMode editModeParam)
 {
     if(isActionMode() && (NULL != item)) {
         //specialized mode
@@ -2630,7 +2703,19 @@ void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const 
             theSCXMLEditorManager = namespaceManager->scxmlEditorManager() ;
             isSCXMLElement = theSCXMLEditorManager->isElementSCXML(element);
         }
-        if(forceEditUsingSpecialized) {
+        if(editModeParam == EditModeTextualText) {
+            regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
+            return ;
+        }
+        if(editModeParam == EditModeTextual) {
+            editElement(item, false, true);
+            return ;
+        }
+        if(editModeParam == EditModeTextualDependingOnMouse) {
+            editElement(item, true, false);
+            return ;
+        }
+        if(editModeParam == EditModeForceSpecial) {
             if(isXSLTElement) {
                 editXSLTElement(item);
                 return ;
@@ -2640,20 +2725,20 @@ void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const 
                 return ;
             }
         }
-        if(!useAlternate) {
+        if(EditModeDetail == editModeParam) {
             //common mode
             if(isXSLT && isXSLTElement) {
                 editXSLTElement(item);
             } else if(isSCXML && isSCXMLElement) {
                 theSCXMLEditorManager->handleEdit(p->window(), p, getEditor(), getRegola(), element);
             } else {
-                editElement(item);
+                editElement(item, false);
             }
         } else {
-            //alternate
+            //alternate EditModeSpecific
             if(isXSLT || isSCXML) {
                 // always
-                editElement(item);
+                editElement(item, false);
             } else {
                 NamespaceManager *namespaceManager = _appData->namespaceManager();
                 if(NULL != namespaceManager) {
@@ -2662,7 +2747,7 @@ void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const 
                         return ;
                     }
                 }
-                editElement(item);
+                editElement(item, false);
             }
         }
     }
@@ -2673,7 +2758,7 @@ void XmlEditWidgetPrivate::specificProperties()
     if(isActionMode()) {
         QTreeWidgetItem *item = getEditor()->currentItem();
         if(NULL != item) {
-            specificPropertiesItem(item, true);
+            specificPropertiesItem(item, EditModeSpecific);
         }
     }
 }
@@ -3617,7 +3702,8 @@ void XmlEditWidgetPrivate::onSCXMLNavigatorEditState(const QString & /*stateName
         if(getRegola()->findElement(element)) {
             selectAndShowItem(element);
             // now, edit it
-            specificPropertiesItem(element->getUI(), true, true);
+            specificPropertiesItem(element->getUI(), EditModeForceSpecial);
+            Utils::TODO_THIS_RELEASE("check");
         }
     }
 }
@@ -3635,7 +3721,64 @@ void XmlEditWidgetPrivate::onXSLTNavigatorEdit(Element *element)
         if(getRegola()->findElement(element)) {
             selectAndShowItem(element);
             // now, edit it
-            specificPropertiesItem(element->getUI(), true, true);
+            specificPropertiesItem(element->getUI(), EditModeForceSpecial);
+            Utils::TODO_THIS_RELEASE("check");
         }
     }
+}
+
+
+void XmlEditWidgetPrivate::openSiblingsSameLevel()
+{
+    Element *selection = getSelectedItem();
+    if(NULL != selection) {
+        openSiblingsSameLevel(selection);
+    }
+}
+
+void XmlEditWidgetPrivate::openSiblingsSameLevel(Element *element)
+{
+    if(isActionMode() && (NULL != getRegola()) && (NULL != element)) {
+        getEditor()->setUpdatesEnabled(false);
+        Element *parent = element->parent();
+        if(NULL != parent) {
+            foreach(Element *child, parent->getChildItemsRef()) {
+                if(child != element) {
+                    QTreeWidgetItem *item = child->getUI();
+                    if(NULL != item) {
+                        int childMax = item->childCount();
+                        FORINT(childIndex, childMax) {
+                            QTreeWidgetItem *aChild = item->child(childIndex);
+                            if(aChild->isExpanded()) {
+                                aChild->setExpanded(false);
+                            }
+                        }
+                        item->setExpanded(true);
+                    }
+                }
+            }
+        }
+        getEditor()->setUpdatesEnabled(true);
+    }
+
+}
+
+void XmlEditWidgetPrivate::onShortcutShiftEnter()
+{
+    editSelection(EEditMode::EditModeTextualText);
+}
+
+void XmlEditWidgetPrivate::onShortcutCtrlEnter()
+{
+    editSelection(EEditMode::EditModeDetail);
+}
+
+void XmlEditWidgetPrivate::onShortcutAltEnter()
+{
+    editSelection(EEditMode::EditModeSpecific);
+}
+
+void XmlEditWidgetPrivate::onShortcutEnter()
+{
+    editSelection(EEditMode::EditModeTextual);
 }

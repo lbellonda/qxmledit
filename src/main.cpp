@@ -246,6 +246,9 @@ void todo()
     QtMac::setBadgeLabelText("Beta");
 #endif
     Utils::TODO_THIS_RELEASE("impedire chiusura editor mentre si seleziona xslt");
+    Utils::TODO_THIS_RELEASE("apri fratelli allo stesso livello e chiudi figli");
+    Utils::TODO_THIS_RELEASE("fai inserisci da xsd sperimentale, con abilitazione");
+    Utils::TODO_THIS_RELEASE("fattorizzare in element ->Element * TestBase::makeElement(const QString &tag, const QString &attr)");
 }
 
 static void startTanslator(QApplication *app)

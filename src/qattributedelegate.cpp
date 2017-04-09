@@ -25,13 +25,14 @@
 #include <QPixmapCache>
 #include <QPainter>
 #include <QApplication>
-
+#include "utils.h"
 
 //TODO: cache measures in the item, then clear them at the item variation
 
 QAttributeDelegate::QAttributeDelegate(QObject *parent) :
     QStyledItemDelegate(parent)
 {
+    Utils::TODO_THIS_RELEASE("rimuovi se non serve");
 }
 
 QAttributeDelegate::~QAttributeDelegate()

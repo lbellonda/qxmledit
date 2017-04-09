@@ -118,6 +118,17 @@ DataWidget::~DataWidget()
     losePoints();
 }
 
+void DataWidget::setMainWindow(QWidget *newMainWindow)
+{
+    _mainWindow = newMainWindow ;
+}
+
+QWidget *DataWidget::mainWindow()
+{
+    return _mainWindow;
+}
+
+
 #ifdef  QWT_PLOT3D
 void DataWidget::setupPlot()
 {
@@ -628,7 +639,7 @@ void DataWidget::waitCalcImage(QList<QFuture<void> > &threads)
     QElapsedTimer timer;
     timer.start();
     bool done = false;
-    UIDesktopServices uiServices(window());
+    UIDesktopServices uiServices(mainWindow());
     while(!done) {
         QThread::msleep(250);
         if(timer.elapsed() > (THRESHOLD_SECONDS * 1000)) {

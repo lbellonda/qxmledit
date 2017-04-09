@@ -44,7 +44,7 @@
 #include <QUrl>
 #include <QFutureWatcher>
 
-VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString &fileName) :
+VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, QWidget *theMainWindow, const QString &fileName) :
     QDialog(parent),
     _colorMap(tr("Color Map")),
     _stdColorMap(tr("Standard Color Map")),
@@ -54,12 +54,14 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, const QString
     _isAutoDelete = false ;
     _appData = newData ;
     _dataRoot = NULL ;
+    _mainWindow = theMainWindow;
     ui->setupUi(this);
     ui->fileName->setText(tr("--- No file ---"));
 
     ui->dataWidget->setMtEnabled(newData->isMtEnabled());
     ui->cmapWidget->setColorMap(&_stdColorMap);
     ui->dataWidget->setColorMap(&_stdColorMap);
+    ui->dataWidget->setMainWindow(mainWindow());
     _filePath = fileName ;
     ui->exportStatsCmd->setEnabled(false);
     ui->cmdViewGraph->setEnabled(false);
@@ -106,6 +108,17 @@ VisMapDialog::~VisMapDialog()
 void VisMapDialog::setAutoDelete()
 {
     _isAutoDelete = true ;
+}
+
+void VisMapDialog::setMainWindow(QWidget *newMainWindow)
+{
+    _mainWindow = newMainWindow ;
+    ui->dataWidget->setMainWindow(_mainWindow);
+}
+
+QWidget *VisMapDialog::mainWindow()
+{
+    return _mainWindow;
 }
 
 void VisMapDialog::closeEvent(QCloseEvent * event)
@@ -183,7 +196,7 @@ void VisMapDialog::loadFile(const QString &fileName)
         ui->dataWidget->setData(NULL);
         _dataMap.resetData();
         if(isOk) {
-            UIDesktopServices uiServices(window());
+            UIDesktopServices uiServices(mainWindow());
             uiServices.startIconProgressBar();
             uiServices.setIconProgressBar(50);
             newData(handler.root);
@@ -499,7 +512,7 @@ void VisMapDialog::on_dataWidget_extractFragment(const int fragment, const int d
     ExtractionOperation::saveSettingsForExtractionFragmentNumber(_filePath, fragment, depth);
 
     ExtractResults extractResult;
-    ExtractFragmentsDialog dialog(&extractResult, this);
+    ExtractFragmentsDialog dialog(&extractResult, this, mainWindow());
     dialog.exec();
 }
 

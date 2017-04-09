@@ -29,9 +29,9 @@
 
 const int POLL_TIMEOUT = 1500;
 
-ExtractionFrontEnd::ExtractionFrontEnd(ExtractionOperation *operation, QWidget *parent) :
+ExtractionFrontEnd::ExtractionFrontEnd(ExtractionOperation *operation, QWidget *parent, QWidget *mainWidget) :
     QDialog(parent),
-    _uiServices(this),
+    _uiServices(mainWidget),
     ui(new Ui::ExtractionFrontEnd)
 {
     _operation = operation;

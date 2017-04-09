@@ -20,88 +20,40 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef XMLSYNTAXH_H
+#define XMLSYNTAXH_H
+
 #include "xmlEdit.h"
-#include "uidservices.h"
+#include <QSyntaxHighlighter>
+#include "paintinfo.h"
+#include "modules/services/colormanager.h"
 
-UIDesktopServices::UIDesktopServices(QWidget *widget)
+class XMLSyntaxH : public QSyntaxHighlighter
 {
-    _widget = widget;
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
-    _button = NULL ;
-    _progress = NULL ;
-#else
-#endif
-}
+    static const int StateBefore = -1 ;
+    static const int StateHalfTag = 0 ;
+    static const int StateTag = 1 ;
+    static const int StateInStringApic = 2 ;
+    static const int StateInStringQuote = 3 ;
 
-UIDesktopServices::~UIDesktopServices()
-{
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
-    if(NULL != _progress) {
-        if(_progress->isVisible()) {
-            _progress->hide();
-        }
-        delete _progress;
-    }
-    if(NULL != _button) {
-        _button->deleteLater();
-    }
+    QTextCharFormat _attributeNameTextFormat;
+    QTextCharFormat _attributeValueTextFormat;
+    QTextCharFormat _tagTextFormat;
+public:
+    XMLSyntaxH(QTextDocument *parent, PaintInfo *paintInfo);
+    virtual ~XMLSyntaxH();
+protected:
+    virtual void highlightBlock(const QString &text);
+private:
+    int matchUpToString(const QString &text, const int index, const int maxIndex, bool &stringIsOpen, QChar &separator);
+    int scanToEndOfToString(const QString &text, const int index, const int maxIndex, bool &stringIsOpen, const QChar &separator);
+    int matchUpToEqual(const QString &text, const int index, const int maxIndex);
+    int findNextSpace(const QString &text, const int index, const int maxIndex);
+    int skipSpaces(const QString &text, const int index, const int maxIndex);
+    void setStateStringOpen(const QChar &separator);
+    void scanAttributes(const QString &text, const int startIndex, const int maxIndex);
+    void highlightBlockBase(const QString &text, const bool lookForTag, const bool lookForHalfTag);
+    void highlightEndString(const QString &text, const QChar &separator);
+};
 
-    _progress = NULL ;
-#else
-#endif
-}
-
-QWidget *UIDesktopServices::widget() const
-{
-    return _widget;
-}
-
-void UIDesktopServices::setWidget(QWidget *widget)
-{
-    _widget = widget;
-}
-
-void UIDesktopServices::startIconProgressBar()
-{
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
-    if(NULL == _button) {
-        if(NULL != _widget) {
-            _button = new QWinTaskbarButton(_widget);
-            _button->setWindow(_widget->windowHandle());
-        }
-    }
-#else
-#endif
-}
-
-void UIDesktopServices::setIconProgressBar(
-    const int
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
-    percent
-#endif
-)
-{
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
-    if(NULL == _button) {
-        startIconProgressBar();
-    }
-    if(NULL == _progress) {
-        _progress = _button->progress();
-    }
-    if(NULL != _progress) {
-        _progress->setVisible(true);
-        _progress->setValue(percent);
-    }
-#else
-#endif
-}
-
-void UIDesktopServices::endIconProgressBar()
-{
-#if defined(Q_WS_WIN) || defined(Q_OS_WIN)
-    if(NULL != _progress) {
-        _progress->hide();
-    }
-#else
-#endif
-}
+#endif // XMLSYNTAXH_H

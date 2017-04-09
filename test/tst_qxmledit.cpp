@@ -361,7 +361,6 @@ void TestQXmlEdit::testSql()
 void TestQXmlEdit::testEditing()
 {
     bool result ;
-
     {
         TestEditElements test;
         result = test.testFast();
@@ -372,9 +371,16 @@ void TestQXmlEdit::testEditing()
         result = test.testInsertElement();
         QVERIFY2(result, (QString("test TestEditElements: testInsertElement() '%1'").arg(test.errorString())).toLatin1().data());
     }
-    TestEditElements tee;
-    result = tee.test();
-    QVERIFY2(result, "TestEditElements test");
+    {
+        TestEditElements test;
+        result = test.testEditText();
+        QVERIFY2(result, (QString("test TestEditElements: testEditText() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestEditElements tee;
+        result = tee.test();
+        QVERIFY2(result, "TestEditElements test");
+    }
 }
 
 void TestQXmlEdit::testVis()
@@ -1504,6 +1510,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     qInstallMessageHandler(msgHandler);
+    testEditing();
     testExecXSLT();
     testSplit();
     testBase64();

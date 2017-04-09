@@ -5,8 +5,11 @@ Check issues:
 TODO:
 ----
 
-#new is:153
-153 - Execute a XSLT ot a XQuery,
+#new is:156
+
+155 - Aggiungere i metodi di testbase make element ad element?
+Branch 150 - 154 - Chiudi tutti i fratelli nello stesso modo.
+Branch ? - 153 - Execute a XSLT ot a XQuery,
 152 - Anonimizza: scelto il file, aggiungi la cartella alla ricerca dell'output.
 151 - Snippet con codice update del timer
 Branch 150 - Miglioramenti su UI

@@ -35,6 +35,21 @@
 #define ANONTEXTPREVIEW_COLOR_DEFAULT   QColor(0x9D, 0x9D, 0x80)
 #define ANONATTRPREVIEW_COLOR_DEFAULT    QColor(0xA0, 0xA0, 0xA0)
 
+QColor ColorManager::tagColorDefault()
+{
+    return TAGS_COLOR_DEFAULT;
+}
+
+QColor ColorManager::attributeNameColorDefault()
+{
+    return ATTRNAMES_COLOR_DEFAULT;
+}
+
+QColor ColorManager::attributeValueColorDefault()
+{
+    return ATTRVALUES_COLOR_DEFAULT;
+}
+
 ColorManager::ColorManager() :
     _tags(Config::KEY_COLOR_TAGS, TAGS_COLOR_DEFAULT),
     _procInstr(Config::KEY_COLOR_DECL_PROCINSTR, PROCINSTR_COLOR_DEFAULT),

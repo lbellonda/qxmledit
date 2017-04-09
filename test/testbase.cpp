@@ -531,7 +531,6 @@ QList<bool> &TestBase::boolArray()
     return _boolArray;
 }
 
-
 Element * TestBase::makeElement(const QString &tag, const QString &attr)
 {
     Element *el = new Element(tag, "", NULL, NULL);
@@ -785,4 +784,25 @@ bool TestBase::testSkeletonBaseNoOp( const QString &id, const QString &fileStart
     }
     _testName = oldName ;
     return true;
+}
+
+bool TestBase::compareXMLBase(Regola *regola, const QString &step, const QString &fileResult)
+{
+    QByteArray resultData = regola->writeMemory();
+    QDomDocument document1;
+    QDomDocument document2;
+    CompareXML compare;
+    if(!compare.loadFileIntoDocument(fileResult, document1)) {
+        return error(QString("step: %1, load file result %2").arg(step).arg(fileResult));
+    }
+    QBuffer outputData(&resultData);
+    if(!compare.loadFileIntoDocument(&outputData, document2)) {
+        return error(QString("step %1 load modified data").arg(step));
+    }
+    bool result = compare.compareDomDocuments(document1, document2);
+    if( !result ) {
+        compare.dumpErrorCause();
+        return error(QString("Step: %1 comparing file with doc: %2").arg(step).arg(compare.errorString()));
+    }
+    return true ;
 }

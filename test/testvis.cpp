@@ -110,7 +110,7 @@ bool TestVis::testDialog()
     if(!app.init() ) {
         return error("error");
     }
-    VisMapDialog visMapDialog(app.data(), app.mainWindow(), "");
+    VisMapDialog visMapDialog(app.data(), app.mainWindow(), app.mainWindow(), "");
     // ckeck data.
     visMapDialog.loadFile(DATA_FILE_1);
 

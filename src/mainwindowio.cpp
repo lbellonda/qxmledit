@@ -235,7 +235,7 @@ bool MainWindow::loadFileInnerStream(const QString &filePath, const bool isRegul
 
 void MainWindow::errorOnLoad(QFile &file)
 {
-    Utils::error(this, QString(tr("Unable to read data.\nError code is '%1'")).arg(file.error()));
+    Utils::error(this, QString(tr("Unable to read data.\nError code is '%1', %2.")).arg(file.error()).arg(file.errorString()));
 }
 
 void MainWindow::errorFileName()

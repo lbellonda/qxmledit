@@ -32,15 +32,15 @@ DataVisualization::~DataVisualization()
 }
 
 
-void DataVisualization::viewData(QXmlEditData *newData, QWidget *parent, const QString &fileName)
+void DataVisualization::viewData(QXmlEditData *newData, QWidget *parent, QWidget *mainWidget, const QString &fileName)
 {
-    VisMapDialog visMapDialog(newData, parent, fileName);
+    VisMapDialog visMapDialog(newData, parent, mainWidget, fileName);
     visMapDialog.exec();
 }
 
-void DataVisualization::viewDataWindow(QXmlEditData *newData, QWidget *parent, const QString &fileName)
+void DataVisualization::viewDataWindow(QXmlEditData *newData, QWidget *parent, QWidget *mainWidget, const QString &fileName)
 {
-    VisMapDialog *visMapDialog = new VisMapDialog(newData, parent, fileName);
+    VisMapDialog *visMapDialog = new VisMapDialog(newData, parent, mainWidget, fileName);
     if(NULL != visMapDialog) {
         visMapDialog->setAutoDelete();
         visMapDialog->setModal(false);

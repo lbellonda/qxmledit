@@ -149,8 +149,15 @@ public:
     virtual bool showErrorAndAskUserIfContinue(QWidget *parent, XMLLoadContext *context, QXmlStreamReader *xmlReader) = 0 ;
 };
 
+class LIBQXMLEDITSHARED_EXPORT TextEditorInterface
+{
+public:
+    TextEditorInterface();
+    virtual ~TextEditorInterface();
+    virtual bool editTextualForInterface(QWidget *const parentWindow, Element *element) = 0;
+};
 
-class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel
+class LIBQXMLEDITSHARED_EXPORT Regola : public QAbstractItemModel, TextEditorInterface
 {
     Q_OBJECT
     Q_PROPERTY(bool modified READ isModified WRITE setModified)
@@ -332,6 +339,7 @@ public:
     void markSaved();
     void markEdited();
     bool editElement(QWidget * const parentWindow, QTreeWidgetItem *item, UIDelegate *uiDelegate) ;
+    bool editElementWithTextEditor(QWidget *const parentWindow, QTreeWidget *treeWidget, QTreeWidgetItem *item, TextEditorInterface *editor = NULL);
     bool editInnerXMLBase64Element(QTreeWidgetItem *item, UIDelegate *uiDelegate);
     bool editInnerXMLElement(QTreeWidgetItem *item, UIDelegate *uiDelegate);
     bool editTextNodeElementBase64(QWidget *const parentWindow, QTreeWidgetItem *item, UIDelegate *uiDelegate);
@@ -644,6 +652,7 @@ private:
     QTreeWidgetItem *getSelItem(QTreeWidget *tree);
     bool editNodeElementAsXML(const bool isBase64Coded, Element *pElement, UIDelegate *uiDelegate);
     bool editNodeElement(QWidget *const parentWindow, Element *pElement, Element *pParentElement, const bool enableAllControls = true);
+    bool editNodeElementWithTextEditor(QWidget *const parentWindow, Element *pElement);
     bool editNodeComment(QWidget * const parentWindow, Element *pElement);
     bool editTextNodeElement(QWidget *const parentWindow, const bool isBase64Coded, Element *pElement);
     void recalcSize();
@@ -694,6 +703,7 @@ private:
     bool setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader *xmlReader, Element *parent, QVector<Element*> *collection, const bool isTopLevel);
     bool decodePreamble(QXmlStreamReader *xmlReader, const QString &encoding);
     bool filterCommentsAfterReading(XMLLoadContext *context);
+    virtual bool editTextualForInterface(QWidget *const parentWindow, Element *element);
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Regola::EExportOptions)

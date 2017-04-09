@@ -308,7 +308,7 @@ void XmlEditWidget::resizeTreeColumns()
 
 bool XmlEditWidget::editElement(QTreeWidgetItem *item)
 {
-    return d->editElement(item);
+    return d->editElement(item, false);
 }
 
 void XmlEditWidget::addChild()
@@ -1206,4 +1206,9 @@ void XmlEditWidget::appendSpecial()
 void XmlEditWidget::showSCXMLNavigator(const bool how)
 {
     d->showSCXMLNavigator(how);
+}
+
+void XmlEditWidget::openSiblingsSameLevel()
+{
+    d->openSiblingsSameLevel();
 }

@@ -32,8 +32,8 @@ class DataVisualization
     DataVisualization();
     virtual ~DataVisualization();
 public:
-    static void viewData(QXmlEditData *newData, QWidget *parent, const QString &fileName);
-    static void viewDataWindow(QXmlEditData *newData, QWidget *parent, const QString &fileName);
+    static void viewData(QXmlEditData *newData, QWidget *parent, QWidget *mainWidget, const QString &fileName);
+    static void viewDataWindow(QXmlEditData *newData, QWidget *parent, QWidget *mainWidget, const QString &fileName);
 };
 
 #endif // DATAVISUALIZATION_H

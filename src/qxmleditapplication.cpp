@@ -33,11 +33,9 @@
 #include <QLocalSocket>
 #include "qxmleditconfig.h"
 #include "modules/anonymize/anonymizebatch.h"
-
-void extractFragmentsWindow(ExtractResults *extractResult, QWidget *parent);
+#include "extraction/extractfragmentsdialog.h"
 
 const QString QXmlEditApplication::ServerName("__qxmledit__server__");
-
 
 QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
     QApplication(argc, argv)
@@ -134,12 +132,14 @@ void QXmlEditApplication::onManageSessions()
 void QXmlEditApplication::onSplitFile()
 {
     ExtractResults *results = new ExtractResults(this) ;
-    extractFragmentsWindow(results, NULL);
+    Utils::TODO_THIS_RELEASE("THEMAINWINDOW????");
+    extractFragmentsWindow(results, NULL, NULL);
 }
 
 void QXmlEditApplication::onViewData()
 {
-    DataVisualization::viewDataWindow(_appData, NULL, "");
+    Utils::TODO_THIS_RELEASE("THEMAINWINDOW????");
+    DataVisualization::viewDataWindow(_appData, NULL, NULL, "");
 }
 
 bool QXmlEditApplication::errorCloseConnection(QLocalSocket *client)

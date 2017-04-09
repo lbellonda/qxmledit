@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2014-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -33,6 +33,7 @@ class AttributeColumnItemDelegate : public QStyledItemDelegate
     mutable QWidget *_lastEditor;
     QAbstractItemDelegate *_originalDelegate;
     QSet<QString> _sourceData;
+
 public:
     explicit AttributeColumnItemDelegate(QTableWidget *table, const int column, QObject *parent = 0);
     virtual ~AttributeColumnItemDelegate();

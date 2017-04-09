@@ -20,11 +20,12 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "testeditelements.h"
+#include <QPlainTextEdit>
 #include "comparexml.h"
 #include "modules/namespace/namespacecommands.h"
 #include "testhelpers/editelementtest.h"
+#include "editelementwithtexteditor.h"
 
 
 #define EDIT_ELEMENTS_BASE  "../test/data/editelements/base.xml"
@@ -54,6 +55,8 @@
 
 #define RES_INSELEM_CHILD_ATTR  "../test/data/editelements/appElemChildAttr.xml"
 
+#define TEXTUAL_EDIT_START      "../test/data/editelements/textualStart.xml"
+#define TEXTUAL_EDIT_START_1    "../test/data/editelements/textual1.xml"
 
 TestEditElements::TestEditElements()
 {
@@ -1052,6 +1055,9 @@ bool TestEditElements::testInsertElement()
 
 bool TestEditElements::testFast()
 {
+    if(!testEditText()) {
+        return false;
+    }
     QList<int> sel;
     sel << 1 << 0 << 0 ;
     if(!testLoadElm(NS_FILE_INS1, "a:", sel, true )) {
@@ -1060,3 +1066,109 @@ bool TestEditElements::testFast()
     return testNamespaces();
 }
 
+class TestEditElements_EditHook : public TextEditorInterface
+{
+    public:
+    QString _textToEditIs ;
+    TestEditElements *parent;
+    Regola *regola;
+    TestEditElements_EditHook();
+    ~TestEditElements_EditHook();
+    bool editTextualForInterface(QWidget *const parentWindow, Element *element);
+    friend class TestEditElements;
+};
+
+TestEditElements_EditHook::TestEditElements_EditHook(){parent = NULL;}
+TestEditElements_EditHook::~TestEditElements_EditHook(){}
+
+bool TestEditElements_EditHook::editTextualForInterface(QWidget *const parentWindow, Element *element)
+{
+    EditElementWithTextEditor editor(parentWindow, element, regola);
+    QPlainTextEdit *editTag = editor.findChild<QPlainTextEdit*>("editor");
+    if(NULL == editTag) {
+        return parent->error("tag edit field not found");
+    }
+    editTag->setPlainText(_textToEditIs);
+    const bool result = editor.makeItAccectped();
+    return result ;
+}
+
+bool TestEditElements::testLoadElmText(const QString &fileStart, const QString& fileToCompare,
+                                       QList<int> &sel,
+                                       const QString& newValue,
+                                       const bool expectedResult,
+                                       const QString& expectedTag, const QString& expectedAttributes )
+{
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ) {
+        return error(QString("unable to load input file: '%1' ").arg(fileStart));
+    }
+    Element *selectedElement = app.mainWindow()->getRegola()->findElementByArray(sel);
+    if(NULL == selectedElement) {
+        return error("no selected element");
+    }
+
+    Regola *regola = app.mainWindow()->getRegola();
+    TestEditElements_EditHook hook;
+    hook.parent = this ;
+    Element *expectedElement = makeElement(expectedTag, expectedAttributes);
+    hook._textToEditIs = newValue ;
+    hook.regola = regola;
+    const bool result = regola->editElementWithTextEditor(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), selectedElement->getUI(), &hook);
+    if(isError()) {
+        return false;
+    }
+    //---------
+    QString msg;
+    if(!expectedElement->compareToElement(selectedElement, msg)) {
+        delete expectedElement;
+        return error(QString("Comparing elements: %1").arg(msg));
+    }
+    delete expectedElement;
+    //---------
+    if(result != expectedResult) {
+        return error(QString("Expected result:%1, but found: %2").arg(expectedResult).arg(result));
+    }
+    //---------
+    if(!compareXMLBase(regola, "operation", fileToCompare)){
+        return false;
+    }
+    regola->undo();
+    if(!compareXMLBase(regola, "undo", fileStart)){
+        return false;
+    }
+    regola->redo();
+    if(!compareXMLBase(regola, "redo", fileToCompare)){
+        return false;
+    }
+    return true;
+}
+
+bool TestEditElements::testEditText()
+{
+    _testName = "testEditText" ;
+    QList<int> sel;
+    sel << 1 << 1;
+
+    // 1- all ok
+    _testName = "testEditText/1";
+    if(!testLoadElmText( TEXTUAL_EDIT_START, TEXTUAL_EDIT_START_1, sel,
+                                           "abc c=\"aaa\"\nd='v vv' efed:dd=\"ddddd&amp;\"",
+                                           true,
+                                           "abc", "c=aaa,d=v vv,efed:dd=ddddd&" ) ) {
+        return false;
+    }
+    // 2- not editable
+    _testName = "testEditText/2";
+    if(!testLoadElmText( TEXTUAL_EDIT_START, TEXTUAL_EDIT_START, sel,
+                                           "abcaac=\"aaa\"\nd='v vv' efed:dd=\"ddddd&amp;\"",
+                                           false,
+                                           "bbb", "ddd=123,cpcd=xxx") ) {
+        return false;
+    }
+
+    return true;
+}

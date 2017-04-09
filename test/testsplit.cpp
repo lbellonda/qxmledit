@@ -1034,6 +1034,9 @@ bool TestSplit::testFilterTextAbsoluteFilterWrongPath()
 
 bool TestSplit::testFast()
 {
+    if(!splitAndNavigateFilterText(INPUT_FILTER_TEXT, false, RES_FILTER_TEXT_1_ORIG, "", "b/c", false)) {
+        return false;
+    }
     return testSplitByDepth0();
 }
 

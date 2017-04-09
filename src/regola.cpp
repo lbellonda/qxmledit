@@ -27,7 +27,11 @@
 #include "xmlsavecontext.h"
 #include "modules/xsd/namespacemanager.h"
 #include "modules/xml/elmpath.h"
+#include "editelementwithtexteditor.h"
 
+//-----
+TextEditorInterface::TextEditorInterface() {}
+TextEditorInterface::~TextEditorInterface() {}
 //-----
 
 bool RegolaSettings::isUseIndent() const
@@ -727,11 +731,21 @@ bool Regola::editNodeElement(QWidget *const parentWindow, Element *pElement, Ele
 {
     EditElement element(parentWindow);
     element.setWindowModality(Qt::WindowModal);
-    element.setWindowModality(Qt::WindowModal);
     element.setTarget(pElement, parentElement);
     element.setNamespaceManager(_namespaceManager);
     element.setEnableAllControls(enableAllControls);
     if(element.exec() == QDialog::Accepted) {
+        return true;
+    }
+    return false;
+}
+
+bool Regola::editNodeElementWithTextEditor(QWidget *const parentWindow, Element *pElement)
+{
+    Utils::TODO_THIS_RELEASE("finire nota che la versione precedente controllava i namespace a livello alto root.");
+    EditElementWithTextEditor editor(parentWindow, pElement, this);
+    editor.setWindowModality(Qt::WindowModal);
+    if(editor.exec() == QDialog::Accepted) {
         return true;
     }
     return false;
@@ -1016,6 +1030,63 @@ bool Regola::editElement(QWidget *const parentWindow, QTreeWidgetItem *item, UID
         Utils::error(parentWindow, tr("A fatal error occurred"));
     }
     return false ;
+}
+/*
+bool Regola::editElementWithTextEditor(QWidget *const parentWindow, QTreeWidget *treeWidget, QTreeWidgetItem *item)
+{
+    Utils::TODO_THIS_RELEASE("ORIGINALE:::accorpare con precedente");
+    bool result = false;
+    bool updateInfo = false;
+    Element *pElement = Element::fromItemData(item);
+    Element *editElement = new Element("", "", NULL, NULL);
+    pElement->copyTo(*editElement);
+    editElement->setRegola(pElement->getParentRule(), false);
+    QList<int> path = pElement->indexPath();
+    Utils::TODO_THIS_RELEASE("da remove");
+    result = editNodeElementWithTextEditor(parentWindow, editElement);
+    if(!result) {
+        editElement->setRegola(NULL, false);
+        delete editElement ;
+        return false;
+    }
+    UndoSimpleEditCommand *undoCommand = new UndoSimpleEditCommand(treeWidget, this, path, editElement);
+    updateInfo = true ;
+    Utils::TODO_THIS_RELEASE("non forza il redisplay");
+    _undoStack.push(undoCommand);
+    return result ;
+}
+*/
+
+bool Regola::editElementWithTextEditor(QWidget *const parentWindow, QTreeWidget *treeWidget, QTreeWidgetItem *item, TextEditorInterface *editor)
+{
+    Utils::TODO_THIS_RELEASE("rimuovi codice commentato sopra");
+    Utils::TODO_THIS_RELEASE("derivato:::accorpare con precedente,");
+    if(NULL == editor) {
+        editor = this ;
+    }
+    bool result = false;
+    Element *pElement = Element::fromItemData(item);
+    Element *editElement = new Element("", "", NULL, NULL);
+    pElement->copyTo(*editElement);
+    editElement->setRegola(pElement->getParentRule(), false);
+    QList<int> path = pElement->indexPath();
+    result = editor->editTextualForInterface(parentWindow, editElement);
+    if(!result) {
+        editElement->setRegola(NULL, false);
+        delete editElement ;
+        return false;
+    }
+    UndoSimpleEditCommand *undoCommand = new UndoSimpleEditCommand(treeWidget, this, path, editElement);
+    Utils::TODO_THIS_RELEASE("non forza il redisplay");
+    _undoStack.push(undoCommand);
+    return result ;
+}
+
+bool Regola::editTextualForInterface(QWidget *const parentWindow, Element *element)
+{
+    Utils::TODO_THIS_RELEASE("derivato:::accorpare con precedente");
+    const bool result = editNodeElementWithTextEditor(parentWindow, element);
+    return result ;
 }
 
 bool Regola::editEntry(QWidget * const parentWindow, const QString &title, const QString &label, const QString &actualText, QString &result)
@@ -1380,6 +1451,7 @@ Element *Regola::insertInternal(QTreeWidget *tree, Element *parentElement, Eleme
         theNewElement->caricaFigli(tree, parentElement->getUI(), paintInfo, true, position);
     }
     theNewElement->markEditedRecursive();
+    theNewElement->updateSizeInfo();
     setModified(true);
     return theNewElement ;
 }
@@ -3177,16 +3249,12 @@ bool Regola::applyEditAndSwapElement(Element *newElement, Element *swapElement, 
     if(NULL == selectedElement) {
         return false;
     }
-    const int beforeAttributesCount = selectedElement->getAttributesList().size();
     selectedElement->copyTo(*swapElement, false);
     newElement->copyTo(*selectedElement, false);
     selectedElement->updateSizeInfo();
     selectedElement->markEdited();
     selectedElement->display(selectedElement->getUI(), paintInfo);
-    const int nowAttributesCount = selectedElement->getAttributesList().size();
-    if(selectedElement->isElement() && (nowAttributesCount != beforeAttributesCount)) {
-        selectedElement->forceUpdateGui(true);
-    }
+    selectedElement->forceUpdateGui(true);
     setModified(true);
     if(NULL == selectedElement->parent()) {
         checkEncoding();
@@ -3222,3 +3290,4 @@ QList<int> Regola::elementPathForPath(QList<int> &inputPos)
     } // foreach pos
     return result;
 }
+

@@ -111,6 +111,7 @@ private:
     bool _mtEnabled ;
 
     unsigned int _sizeOfPoints, _xPoints, _yPoints;
+    QWidget *_mainWindow;
 
     void debugImage();
     void recalc();
@@ -146,6 +147,8 @@ public:
     bool isMtEnabled() const;
     void setMtEnabled(bool mtEnabled);
     void copyImageToClipboard();
+    void setMainWindow(QWidget *newMainWindow);
+    QWidget *mainWindow();
 
 protected:
     virtual bool event(QEvent * event);

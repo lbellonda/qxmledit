@@ -125,7 +125,7 @@ public:
     //--------------------------------------------------------------------------------------
     ulong versionNumber();
 
-    bool editElement(QTreeWidgetItem *item);
+    bool editElement(QTreeWidgetItem *item, const bool isByMouse, const bool forceTextual = false);
 
     bool init();
     void setData(QXmlEditData *newData, const bool newIsSlave, UIDelegate *newUiDelegate);
@@ -314,7 +314,16 @@ public:
     void scanXMLTagsAndNamesXSLTAutocompletion();
     void showXSLNavigator(const bool how);
 
-    void specificPropertiesItem(QTreeWidgetItem * item, const bool useSpecific, const bool forceEditUsingSpecialized = false);
+    enum EEditMode {
+        EditModeDetail,
+        EditModeSpecific,
+        EditModeTextual,
+        EditModeTextualText,
+        EditModeTextualDependingOnMouse,
+        EditModeForceSpecial
+    };
+
+    void specificPropertiesItem(QTreeWidgetItem * item, const EEditMode editModeParam);
     void specificProperties();
     void pasteAsSibling();
     void removeAllElements();
@@ -370,6 +379,7 @@ public:
 
 private:
     QHash<void *, QString> *anonDataForPreview();
+    void editSelection(const EEditMode editMode);
 
 private slots:
     void schemaLoadComplete(XSchemaLoader *loader, const XSchemaLoader::Code code);
@@ -432,7 +442,11 @@ private slots:
     void onSCXMLNavigatorGoToState(const QString &stateName, Element *element);
     void onXSLTNavigatorGoTo(Element *element);
     void onXSLTNavigatorEdit(Element *element);
-
+    void openSiblingsSameLevel();
+    void onShortcutShiftEnter();
+    void onShortcutCtrlEnter();
+    void onShortcutAltEnter();
+    void onShortcutEnter();
 private:
     void bindRegola(Regola *newModel, const bool bind = true);
     XSDOperationParameters *getXSDParams(const bool isInsert, XSDOperationParameters::EObjectType entityType, const QString &name, Element *selection);
@@ -444,6 +458,7 @@ private:
     bool showLoadError(const QString &errorMessage, XMLLoadErrorHandler *handler, XMLLoadContext *context, QXmlStreamReader *xmlReader);
     void houseworkRegola(Regola *regola);
     static QList<int> pathForElement(Element * element);
+    void openSiblingsSameLevel(Element *element);
 protected:
     bool eventFilter(QObject *obj, QEvent * event);
 

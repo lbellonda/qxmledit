@@ -122,6 +122,7 @@ protected:
     bool testSkeletonBase(const QString &id, const QString &fileStart, const QString &fileFinal, bool (*apply)(TestBase *, MainWindow *, Element *), QList<int> selPath, const TestSelSpec selSpec = SelOnlySelection);
     bool testSkeletonBaseNoOp( const QString &id, const QString &fileStart, bool (*apply)(TestBase *arg, MainWindow *, Element *, void* aptr), QList<int> selPath, const TestSelSpec selSpec, void* aptr );
 
+    bool compareXMLBase(Regola *regola, const QString &step, const QString &fileResult);
 };
 
 #endif // TESTBASE_H

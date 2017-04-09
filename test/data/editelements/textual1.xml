@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<root rr="ddd" xmlns:efed="sss">
+<a x="sdafsfdf"/>
+<abc c="aaa" d="v vv" efed:dd="ddddd&amp;">
+<e/>
+testo2
+</abc>
+<b a="bcbcbbc" b="dssddsf">
+<c/>
+testo
+</b>
+</root>
