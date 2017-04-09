@@ -49,7 +49,7 @@ void EditElementWithTextEditor::setData(Element *element, Regola *regola)
     QString value = element->getInTextualForm();
     int indexOfFirst = value.indexOf("<");
     if(indexOfFirst >= 0) {
-        value = value.left(indexOfFirst + 1);
+        value = value.mid(indexOfFirst + 1);
     }
     int indexOfLast = value.lastIndexOf("/>");
     if(indexOfLast >= 0) {

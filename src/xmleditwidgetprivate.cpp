@@ -974,7 +974,7 @@ void XmlEditWidgetPrivate::elementDoubleClicked(QTreeWidgetItem * item, int /*co
     const bool isAlt = 0 != (Qt::AltModifier & QApplication::keyboardModifiers());
     const bool isCtrl = 0 != (Qt::ControlModifier & QApplication::keyboardModifiers());
     const bool isShift = 0 != (Qt::ShiftModifier & QApplication::keyboardModifiers());
-    EEditMode editMode = EEditMode::EditModeDetail ;
+    EEditMode editMode = XmlEditWidgetPrivate::EditModeDetail ;
     if(isShift) {
         editMode = EditModeTextualDependingOnMouse ;
     } else if(isCtrl || isAlt) {
@@ -3765,20 +3765,20 @@ void XmlEditWidgetPrivate::openSiblingsSameLevel(Element *element)
 
 void XmlEditWidgetPrivate::onShortcutShiftEnter()
 {
-    editSelection(EEditMode::EditModeTextualText);
+    editSelection(XmlEditWidgetPrivate::EditModeTextualText);
 }
 
 void XmlEditWidgetPrivate::onShortcutCtrlEnter()
 {
-    editSelection(EEditMode::EditModeDetail);
+    editSelection(XmlEditWidgetPrivate::EditModeDetail);
 }
 
 void XmlEditWidgetPrivate::onShortcutAltEnter()
 {
-    editSelection(EEditMode::EditModeSpecific);
+    editSelection(XmlEditWidgetPrivate::EditModeSpecific);
 }
 
 void XmlEditWidgetPrivate::onShortcutEnter()
 {
-    editSelection(EEditMode::EditModeTextual);
+    editSelection(XmlEditWidgetPrivate::EditModeTextual);
 }

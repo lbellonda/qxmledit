@@ -1084,11 +1084,13 @@ TestEditElements_EditHook::~TestEditElements_EditHook(){}
 bool TestEditElements_EditHook::editTextualForInterface(QWidget *const parentWindow, Element *element)
 {
     EditElementWithTextEditor editor(parentWindow, element, regola);
-    QPlainTextEdit *editTag = editor.findChild<QPlainTextEdit*>("editor");
-    if(NULL == editTag) {
-        return parent->error("tag edit field not found");
+    if(!_textToEditIs.isEmpty()) {
+        QPlainTextEdit *editTag = editor.findChild<QPlainTextEdit*>("editor");
+        if(NULL == editTag) {
+            return parent->error("tag edit field not found");
+        }
+        editTag->setPlainText(_textToEditIs);
     }
-    editTag->setPlainText(_textToEditIs);
     const bool result = editor.makeItAccectped();
     return result ;
 }
@@ -1167,6 +1169,14 @@ bool TestEditElements::testEditText()
                                            "abcaac=\"aaa\"\nd='v vv' efed:dd=\"ddddd&amp;\"",
                                            false,
                                            "bbb", "ddd=123,cpcd=xxx") ) {
+        return false;
+    }
+    // 3- no change
+    _testName = "testEditText/3";
+    if(!testLoadElmText( TEXTUAL_EDIT_START, TEXTUAL_EDIT_START, sel,
+                                           "",
+                                           true,
+                                           "bbb", "ddd=123,cpcd=xxx" ) ) {
         return false;
     }
 
