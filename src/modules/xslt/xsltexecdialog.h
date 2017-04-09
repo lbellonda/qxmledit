@@ -66,7 +66,7 @@ protected:
     void setXSLEditor(XmlEditWidget *editor);
     void setXSLFile(const QString &fileName);
     bool setInput(XSLTExecutor *xsltExecutor);
-    void setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method, const QString &file, XmlEditWidget *editor);
+    void setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method, const QString &file, XmlEditWidget *editor, const QString &lastFile = "");
     QString fileForSelection(ComboUtils::ComboItem *item, const QString &currentValue, const QString &message, const bool isOpen);
     bool existsEditor(XmlEditWidget *editor);
     void errorNotEditor(const QString &type);

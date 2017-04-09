@@ -180,6 +180,7 @@ const QString Config::KEY_XSL_SHOW_PANEL("xsl/showPanel");
 const QString Config::KEY_XSL_AUTOMODE("xsl/autoMode");
 const QString Config::KEY_XSL_SAXON_PATH("xsl/saxonPath");
 const QString Config::KEY_XSL_USE_SAXON("xsl/useSaxon");
+const QString Config::KEY_XSL_LAST_OUTPUT_FILE("xsl/lastOutputFile");
 
 // SCXML
 const QString Config::KEY_SCXML_SHOW_PANEL("scxml/showPanel");

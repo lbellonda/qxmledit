@@ -65,7 +65,7 @@ public:
         }
         ~ComboItem() {}
     };
-    void setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave, const QString &file, XmlEditWidget *editor);
+    void setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave, const QString &file, XmlEditWidget *editor, const QString &lastFile = "");
     void loadButtonMenu(QToolButton *button, QObject *target, const char *method);
     static ComboUtils::ComboItem *actionData(QAction *action);
     static QString titleForEditor(XmlEditWidget* editor);

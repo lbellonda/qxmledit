@@ -111,7 +111,7 @@ void XSLTExecDialog::loadSources(XmlEditWidget *source, XmlEditWidget *xsl)
 {
     const bool useFile = _data->isUseSaxonXSL();
     setupRecentFolders(ui->cmdInputFile, &_utilsInput, false, SLOT(onChooseInput()), fromEditorToFile(useFile, source), fromEditorToEditor(useFile, source));
-    setupRecentFolders(ui->cmdOutputFile, &_utilsOutput, true, SLOT(onChooseOutput()), NULL, NULL);
+    setupRecentFolders(ui->cmdOutputFile, &_utilsOutput, true, SLOT(onChooseOutput()), NULL, NULL, Config::getString(Config::KEY_XSL_LAST_OUTPUT_FILE, ""));
     setupRecentFolders(ui->cmdChooseXSL, &_utilsXSL, false, SLOT(onChooseXSL()), fromEditorToFile(useFile, xsl), fromEditorToEditor(useFile, xsl));
 }
 
@@ -137,13 +137,13 @@ XmlEditWidget *XSLTExecDialog::fromEditorToEditor(const bool useFile, XmlEditWid
     return source;
 }
 
-void XSLTExecDialog::setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method, const QString &file, XmlEditWidget *editor)
+void XSLTExecDialog::setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method, const QString &file, XmlEditWidget *editor, const QString &lastFile)
 {
     QList<XmlEditWidget *> widgets ;
     foreach(MainWindow *w, _data->windows()) {
         widgets.append(w->getEditor());
     }
-    util->setupItemsForFile(_data, widgets, !_data->isUseSaxonXSL(), isSave, file, editor);
+    util->setupItemsForFile(_data, widgets, !_data->isUseSaxonXSL(), isSave, file, editor, lastFile);
     util->loadButtonMenu(button, this, method);
 }
 
@@ -166,7 +166,7 @@ void XSLTExecDialog::startOperation()
 {
     setEnabled(false);
     XSLTExecutor xsltExecutor(_data) ;
-
+    Utils::TODO_THIS_RELEASE("check parameters");
     if(!setInput(&xsltExecutor)) {
         setEnabled(true);
         return ;
@@ -404,6 +404,7 @@ void XSLTExecDialog::onChooseOutput()
                     _outputAsFile = true;
                     _outputFile = filePath;
                     ui->outputName->setText(filePath);
+                    Config::saveString(Config::KEY_XSL_LAST_OUTPUT_FILE, filePath);
                 }
             }
         }

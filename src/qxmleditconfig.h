@@ -184,6 +184,7 @@ public:
     static const QString KEY_XSL_AUTOMODE;
     static const QString KEY_XSL_SAXON_PATH;
     static const QString KEY_XSL_USE_SAXON;
+    static const QString KEY_XSL_LAST_OUTPUT_FILE;
 
     // SCXML
     static const QString KEY_SCXML_SHOW_PANEL;

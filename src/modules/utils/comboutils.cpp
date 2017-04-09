@@ -57,7 +57,7 @@ QString ComboUtils::titleForEditor(XmlEditWidget* editor)
     return QObject::tr("Editor: %1").arg(fileName);
 }
 
-void ComboUtils::setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave, const QString &selectedFile, XmlEditWidget *selectedEditor)
+void ComboUtils::setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> editors, const bool useEditors, const bool isSave, const QString &selectedFile, XmlEditWidget *selectedEditor, const QString &lastFile)
 {
     reset();
     QStringList preferredDirsNames;
@@ -82,6 +82,11 @@ void ComboUtils::setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> edi
     }
 
     _items.append(new ComboItem(QObject::tr("Browse..."), TypeBrowse));
+    if(!lastFile.isEmpty()) {
+        ComboItem *comboItem = new ComboItem(lastFile, TypeFile);
+        comboItem->dataString = lastFile;
+        _items.append(comboItem);
+    }
     foreach(QString s, preferredDirsNames) {
         ComboItem *comboItem = new ComboItem(s, TypeBrowse);
         _items.append(comboItem);
@@ -99,7 +104,7 @@ void ComboUtils::setupItemsForFile(QXmlEditData *data, QList<XmlEditWidget*> edi
             foldersSet.insert(dir.absolutePath());
         }
         foreach(QString f, foldersSet.values()) {
-            ComboItem *comboItem = new ComboItem(f, TypeFile);
+            ComboItem *comboItem = new ComboItem(f, TypeBrowse);
             _items.append(comboItem);
             comboItem->dataString = f ;
         }
