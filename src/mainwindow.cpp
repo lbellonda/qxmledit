@@ -735,8 +735,10 @@ void MainWindow::treeContextMenu(const QPoint& position)
                 menu->addAction( action );
             }
         }*/
-        contextMenu.addSeparator() ;
-        contextMenu.addAction(ui.actionAllowedSchemaElements);
+        if(data->areExperimentalFeaturesEnabled()) {
+            contextMenu.addSeparator() ;
+            contextMenu.addAction(ui.actionAllowedSchemaElements);
+        }
     }
 #endif
 
@@ -968,6 +970,11 @@ void MainWindow::onComputeSelectionStateExperimentalFeatures()
 {
     if(data->areExperimentalFeaturesEnabled()) {
         // insert here experimental features
+        ui.actionAllowedSchemaElements->setEnabled(true);
+        ui.actionAllowedSchemaElements->setVisible(true);
+    } else {
+        ui.actionAllowedSchemaElements->setEnabled(false);
+        ui.actionAllowedSchemaElements->setVisible(false);
     }
 }
 
