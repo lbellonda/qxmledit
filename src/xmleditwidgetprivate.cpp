@@ -3741,19 +3741,29 @@ void XmlEditWidgetPrivate::openSiblingsSameLevel(Element *element)
     if(isActionMode() && (NULL != getRegola()) && (NULL != element)) {
         getEditor()->setUpdatesEnabled(false);
         Element *parent = element->parent();
+        Element *grandParent = NULL ;
         if(NULL != parent) {
-            foreach(Element *child, parent->getChildItemsRef()) {
-                if(child != element) {
-                    QTreeWidgetItem *item = child->getUI();
-                    if(NULL != item) {
-                        int childMax = item->childCount();
-                        FORINT(childIndex, childMax) {
-                            QTreeWidgetItem *aChild = item->child(childIndex);
-                            if(aChild->isExpanded()) {
-                                aChild->setExpanded(false);
+            grandParent = parent->parent();
+            if(NULL != grandParent) {
+                QTreeWidgetItem *grandParentItem = grandParent->getUI();
+                if(NULL != grandParentItem) {
+                    if(!grandParentItem->isExpanded()) {
+                        grandParentItem->setExpanded(true);
+                    }
+                    //---
+                    int level2Max = grandParentItem->childCount();
+                    FORINT(child2Index, level2Max) {
+                        QTreeWidgetItem *child1 = grandParentItem->child(child2Index);
+                        if(!child1->isExpanded()) {
+                            child1->setExpanded(true);
+                        }
+                        int level1Max = child1->childCount();
+                        FORINT(child1Index, level1Max) {
+                            QTreeWidgetItem *child = child1->child(child1Index);
+                            if(child->isExpanded()) {
+                                child->setExpanded(false);
                             }
                         }
-                        item->setExpanded(true);
                     }
                 }
             }
