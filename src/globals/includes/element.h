@@ -303,7 +303,7 @@ public:
     static bool moveDown(QVector<Element*> &items, Element *element);
     static bool moveUp(QVector<Element*> &items, Element *element);
 
-    void autoDelete(const bool deleteMe);
+    void autoDelete(const bool deleteMe, const bool holdSignal = false, const bool dontRemoveUI = false);
     void autoDeleteRecursive();
 
     static Element *fromItemData(QTreeWidgetItem *item);

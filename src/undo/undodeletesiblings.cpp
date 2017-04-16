@@ -112,15 +112,20 @@ bool DeleteSiblingsCommand::deleteAllSiblingsAfter(Element *selected)
     bool removed = false;
     if(NULL != parent) {
         int count = parent->getChildItemsCount();
+        Utils::TODO_THIS_RELEASE("attenzione, provare e fare anche per gli altri comandi");
         _posAfter = pos + 1;
         int toDelete = count - (pos + 1);
+        QList<QTreeWidgetItem*> siblings = parent->getUI()->takeChildren();
         while(toDelete > 0) {
             toDelete -- ;
             Element *removedElement = parent->getChildAt(pos + 1);
-            removedElement->autoDelete(false);
+            removedElement->autoDelete(false, true, true);
             _afterElements.append(removedElement);
+            // why this? because the takeChild() is very slow.
+            removeItemInListAt(siblings, pos + 1);
             removed = true;
         }
+        parent->getUI()->addChildren(siblings);
         parent->updateSizeInfo(true);
     }
     return removed ;
@@ -136,18 +141,30 @@ bool DeleteSiblingsCommand::deleteAllSiblingsBefore(Element *selected)
     Element *parent = selected->parent();
     bool removed = false;
     if(NULL != parent) {
+        Utils::TODO_THIS_RELEASE("testare con valgrind");
+        Utils::TODO_THIS_RELEASE("attenzione, provare e fare anche per gli altri comandi");
         _posBefore = 0 ;
         int toDelete = pos;
+        QList<QTreeWidgetItem*> siblings = parent->getUI()->takeChildren();
         while(toDelete > 0) {
             toDelete -- ;
             Element *removedElement = parent->getChildAt(0);
-            removedElement->autoDelete(false);
+            removedElement->autoDelete(false, true, true);
             _beforeElements.append(removedElement);
+            removeItemInListAt(siblings, 0);
             removed = true;
         }
+        parent->getUI()->addChildren(siblings);
         parent->updateSizeInfo(true);
     }
     return removed ;
+}
+
+void DeleteSiblingsCommand::removeItemInListAt(QList<QTreeWidgetItem*> &siblings, const int position)
+{
+    QTreeWidgetItem * current = siblings.at(position);
+    delete current;
+    siblings.removeAt(position);
 }
 
 bool DeleteSiblingsCommand::deleteAllSiblings(Element *selected)

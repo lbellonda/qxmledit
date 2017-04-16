@@ -46,6 +46,7 @@ class DeleteSiblingsCommand : public UndoCommand
     bool deleteAllSiblingsAfter(Element *selected);
     bool deleteAllSiblingsBefore(Element *selected);
     bool deleteAllSiblings(Element *selected);
+    void removeItemInListAt(QList<QTreeWidgetItem*> &siblings, const int position);
 
 public:
     DeleteSiblingsCommand(const RegolaDeleteSiblings::DeleteOptions newOption, QTreeWidget *theWidget, Regola *newRegola, QList<int> newPath);
