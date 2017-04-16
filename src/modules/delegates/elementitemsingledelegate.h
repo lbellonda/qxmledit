@@ -28,6 +28,10 @@
 #include <QTextDocument>
 
 class PaintInfo;
+class QTreeWidget ;
+class QTreeWidgetItem ;
+class Element;
+struct ElementDisplayInfo;
 
 class ElementItemSingleDelegate : public QStyledItemDelegate
 {
@@ -75,6 +79,9 @@ public:
     void setIsAnonPreview(bool isAnonPreview);
     QHash<void *, QString> *origDataForAnonPreview() const;
     void setOrigDataForAnonPreview(QHash<void *, QString> *origDataForAnonPreview);
+
+    static void findRects(QTreeWidget * widget, QTreeWidgetItem *item, QRect &itemRect, Element *element, ElementDisplayInfo *elementDisplayInfo) ;
+
 };
 
 #endif // ELEMENTITEMSINGLEDELEGATE_H

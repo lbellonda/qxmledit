@@ -5,8 +5,9 @@ Check issues:
 TODO:
 ----
 
-#new is:156
+#new is:157
 
+158 - Rimuovi separatore exec in tools.
 155 - Aggiungere i metodi di testbase make element ad element?
 Branch 150 - 154 - Chiudi tutti i fratelli nello stesso modo.
 Branch ? - 153 - Execute a XSLT ot a XQuery,

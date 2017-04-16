@@ -66,6 +66,7 @@ extern const char *APP_TITLE ;
 #include "modules/messages/sourcerelatedmessages.h"
 #include "modules/specialized/scxml/scxmlautomodedialog.h"
 #include "modules/xslt/xsltexecdialog.h"
+#include "modules/help/shortcutsdialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -735,10 +736,8 @@ void MainWindow::treeContextMenu(const QPoint& position)
                 menu->addAction( action );
             }
         }*/
-        if(data->areExperimentalFeaturesEnabled()) {
-            contextMenu.addSeparator() ;
-            contextMenu.addAction(ui.actionAllowedSchemaElements);
-        }
+        contextMenu.addSeparator() ;
+        contextMenu.addAction(ui.actionAllowedSchemaElements);
     }
 #endif
 
@@ -970,11 +969,6 @@ void MainWindow::onComputeSelectionStateExperimentalFeatures()
 {
     if(data->areExperimentalFeaturesEnabled()) {
         // insert here experimental features
-        ui.actionAllowedSchemaElements->setEnabled(true);
-        ui.actionAllowedSchemaElements->setVisible(true);
-    } else {
-        ui.actionAllowedSchemaElements->setEnabled(false);
-        ui.actionAllowedSchemaElements->setVisible(false);
     }
 }
 
@@ -3625,3 +3619,8 @@ void MainWindow::on_actionOpenSiblingsAtTheSameLevel_triggered()
     ui.editor->openSiblingsSameLevel();
 }
 
+void MainWindow::on_actionShowPrincipalShortcuts_triggered()
+{
+    Utils::TODO_THIS_RELEASE("test");
+    ShortcutsDialog::display(this);
+}

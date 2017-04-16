@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -131,6 +131,7 @@
     <addaction name="actionExecuteAutoTest"/>
     <addaction name="actionHelpOnQXmlEdit"/>
     <addaction name="menuHow_Do_I"/>
+    <addaction name="actionShowPrincipalShortcuts"/>
     <addaction name="actionTipsOnVisualAppearance"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -2390,6 +2391,14 @@
    </property>
    <property name="toolTip">
     <string>Open siblings at the same level.</string>
+   </property>
+  </action>
+  <action name="actionShowPrincipalShortcuts">
+   <property name="text">
+    <string>Principal Shortcuts</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the main shortcuts.</string>
    </property>
   </action>
  </widget>

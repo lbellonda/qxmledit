@@ -1525,6 +1525,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     qInstallMessageHandler(msgHandler);
+    testDeleteSiblings();
     testSpecialView();
     testEditing();
     testExecXSLT();

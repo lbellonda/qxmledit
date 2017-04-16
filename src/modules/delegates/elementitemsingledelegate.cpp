@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2014-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -30,8 +30,7 @@
 #include <qglobal.h>
 #include "utils.h"
 #include "modules/services/colormanager.h"
-
-
+#include "regola.h"
 
 const int ElementItemSingleDelegate::EditStateBandWidth = 4 ;
 
@@ -644,3 +643,155 @@ QSize ElementItemSingleDelegate::sizeHint(const QStyleOptionViewItem & option, c
     }
     return QSize(currentPosX + 10, qMax(qMax(minHeight, attrTextHeight), textHeight));
 }
+
+void ElementItemSingleDelegate::findRects(QTreeWidget * widget, QTreeWidgetItem *item, QRect &itemRect, Element *element, ElementDisplayInfo *elementDisplayInfo)
+{
+    QTextDocument document;
+    Regola *regola = element->getParentRule() ;
+    if(NULL == regola) {
+        return ;
+    }
+    PaintInfo *paintInfo = regola->getPaintInfo();
+    QStyleOption option;
+    option.initFrom(widget);
+    option.rect = itemRect ;
+    QStyle *style = widget->style();
+    if(NULL == style) {
+        return ;
+    }
+    QRect decorationRect = style->subElementRect(QStyle::SE_ItemViewItemDecoration, &option, widget);
+    bool isReverse = widget->layoutDirection() == Qt::RightToLeft ? true : false ;
+    ElementViewInfo dataInfo ;
+    dataInfo._showAllComments = paintInfo->showFullComments();
+    QString styleEntryId = item->data(0, Element::StyleIdRole).toString();
+    if(NULL != element) {
+        if(element->getUI()->isHidden()) {
+            return ;
+        }
+        element->getVisInfo(paintInfo, &dataInfo, false, QColor(0, 0, 0));
+    }
+    StyleEntry *se = paintInfo->styleEntryById(styleEntryId);
+    int currentPosX = option.rect.x();
+    int sign = 1;
+    if(isReverse) {
+        currentPosX = option.rect.right() - decorationRect.width();
+        sign = -1 ;
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------
+    {
+        bool isFont = false ;
+        const QFontMetrics *metrics = &option.fontMetrics;
+        if(NULL != se) {
+            QFont *styleFont = se->font();
+            if(NULL != styleFont) {
+                if(NULL != se->fontMetrics()) {
+                    metrics = se->fontMetrics();
+                }
+                isFont = true ;
+            }
+        }
+        //usa il default se non assegnato
+        if(!isFont) {
+            metrics = &VStyle::defaultFontMetrics();
+        }
+        QRect rect(option.rect);
+        int textWidth = metrics->width(dataInfo._tagInfo);
+        if(isReverse) {
+            rect.setLeft(currentPosX - textWidth - textWidth / 10);
+            rect.setWidth(textWidth + textWidth / 10);
+        } else {
+            rect.setLeft(currentPosX);
+            rect.setWidth(textWidth + textWidth / 10);
+        }
+
+        currentPosX += (textWidth + HGap) * sign ;
+        currentPosX += (4 * metrics->width(" ")) * sign;
+
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_tagRect.setRect(rect.left(), rect.top(), rect.width(), rect.height());
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------------------
+    // background already painted in the default method.
+    if(!dataInfo._childrenSizeInfo.isEmpty()) {
+        QRect rect(option.rect);
+        int textWidth = option.fontMetrics.width(dataInfo._childrenSizeInfo);
+        if(isReverse) {
+            rect.setLeft(currentPosX - textWidth - 10);
+            rect.setWidth(textWidth + 10);
+        } else {
+            rect.setLeft(currentPosX);
+            rect.setWidth(textWidth + 10);
+        }
+        currentPosX += (textWidth + HGap) * sign ;
+    }
+    if(!dataInfo._attributesIcon.isNull()) {
+        QSize size(decorationRect.width(), decorationRect.height());
+        int yOffset = (option.rect.height() - size.height()) >> 1;
+        if(yOffset < 0) {
+            yOffset = 0 ;
+        }
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_iconShowRect.setRect(currentPosX, option.rect.y() + yOffset, size.width(), size.height());
+        }
+        currentPosX += (size.width() + HGap) * sign ;
+    } else {
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_iconShowRect.setRect(0, 0, 0, 0);
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------
+    if(!dataInfo._attrTextInfo.isEmpty()) {
+        if(dataInfo._attrTextInfoIsHtml) {
+            document.setHtml(dataInfo._attrTextInfo);
+        } else {
+            document.setPlainText(dataInfo._attrTextInfo);
+        }
+        int offsetX = 0 ;
+        if(isReverse) {
+            offsetX = - document.idealWidth();
+        }
+        QSizeF docSize = document.size();
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_attributesRect.setRect(currentPosX + offsetX, option.rect.y(), docSize.width(), docSize.height());
+        }
+        currentPosX += (docSize.width() + HGap) * sign;
+
+        Utils::TODO_THIS_RELEASE("elementDisplayInfo->set attributes ect;");
+    } else {
+        if(NULL != elementDisplayInfo) {
+            elementDisplayInfo->_attributesRect.setRect(0, 0, 0, 0);
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------
+    if(!dataInfo._inlineTextInfo.isEmpty()) {
+        QString text;
+        text.append(dataInfo._inlineTextInfo);
+
+        if(paintInfo->compactView()) {
+            QRect rect(option.rect);
+            Utils::TODO_NEXT_RELEASE("reverse text");
+
+            if(isReverse) {
+                int textWidth = option.fontMetrics.width(dataInfo._inlineTextInfo);
+                rect.setLeft(currentPosX - textWidth - 10);
+                rect.setWidth(textWidth + 10);
+            } else {
+                rect.setLeft(currentPosX);
+                rect.setWidth(option.rect.right() - currentPosX - 1);
+            }
+            elementDisplayInfo->_textRect = rect ;
+        } else {
+            document.setPlainText(text);
+            int offsetX = 0 ;
+            if(isReverse) {
+                offsetX = - document.idealWidth();
+            }
+            QSizeF documentSize = document.size();
+            elementDisplayInfo->_textRect.setRect(currentPosX + offsetX, option.rect.y(), documentSize.width(), documentSize.height());
+        }
+    }
+}
+
+
