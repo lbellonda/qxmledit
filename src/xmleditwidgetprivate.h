@@ -70,7 +70,6 @@ class XmlEditWidgetPrivate : public QObject, XSDAnnotationEditProvider
     int mainFontSize;
 
     qxmledit::EDisplayMode _displayMode;
-    QAttributeDelegate *attrDelegate ;
     XSDSchema *_schemaRoot;
 
     Regola *newRegola(const bool bind = true);

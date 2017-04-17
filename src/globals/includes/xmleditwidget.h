@@ -40,7 +40,6 @@ class QXmlEditData;
 class XSDSchema;
 class Element;
 class UIDelegate;
-class QAttributeDelegate;
 class PaintInfo;
 
 class XsltHelper;

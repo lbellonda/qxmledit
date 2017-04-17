@@ -219,7 +219,6 @@ SOURCES += xmleditwidget.cpp \
   test.cpp \
   texteditutils.cpp \
   operationresult.cpp \
-  qattributedelegate.cpp \
   style.cpp \
   stylepersistence.cpp \
   utils.cpp \
@@ -528,7 +527,6 @@ HEADERS += precompiled_lib.h \
     elementitemdelegate.h \
     navigationbox.h \
     operationresult.h \
-    qattributedelegate.h \
     stylepersistence.h \
     showtextdialog.h \
     widgets/navigationmode.h \

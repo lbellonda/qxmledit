@@ -106,7 +106,6 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
     connect(&_updateTimer, SIGNAL(timeout()), this, SLOT(updateTimeout()));
     _uiDelegate = NULL ;
     _schemaRoot = NULL ;
-    attrDelegate = NULL ;
     _displayMode = qxmledit::NORMAL;
     paintInfo.setExploreMode(false);
     isSlave = false ;
@@ -504,7 +503,7 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
 
 bool XmlEditWidgetPrivate::setUpDelegates()
 {
-    attrDelegate = _helper.setUpTreeXmlDelegates(p, p->ui->treeWidget, &paintInfo);
+    _helper.setUpTreeXmlDelegates(p, p->ui->treeWidget, &paintInfo);
     return true;
 }
 

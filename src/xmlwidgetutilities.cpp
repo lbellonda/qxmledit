@@ -51,12 +51,11 @@ ElementItemSingleDelegate *XmlWidgetUtilities::tagDelegate()
     return _tagDelegate ;
 }
 
-QAttributeDelegate *XmlWidgetUtilities::setUpTreeXmlDelegates(QWidget *parent, QTreeWidget *treeWidget, PaintInfo * paintInfo)
+void XmlWidgetUtilities::setUpTreeXmlDelegates(QWidget *parent, QTreeWidget *treeWidget, PaintInfo * paintInfo)
 {
     ElementItemSingleDelegate *newDelegate = new ElementItemSingleDelegate(paintInfo, parent);
     _tagDelegate = newDelegate ;
     treeWidget->setItemDelegateForColumn(0, newDelegate);
-    return NULL ;
 }
 
 void XmlWidgetUtilities::resetTree(QTreeWidget *treeWidget, PaintInfo *paintInfo)
