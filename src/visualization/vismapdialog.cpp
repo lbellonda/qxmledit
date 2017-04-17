@@ -54,6 +54,9 @@ VisMapDialog::VisMapDialog(QXmlEditData *newData, QWidget *parent, QWidget *theM
     _isAutoDelete = false ;
     _appData = newData ;
     _dataRoot = NULL ;
+    if(NULL == theMainWindow) {
+        theMainWindow = this ;
+    }
     _mainWindow = theMainWindow;
     ui->setupUi(this);
     ui->fileName->setText(tr("--- No file ---"));
