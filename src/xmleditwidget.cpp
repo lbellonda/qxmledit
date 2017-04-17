@@ -29,7 +29,6 @@
 #include "schemavalidator.h"
 #include "elementitemdelegate.h"
 #include "alloweditemsinsert.h"
-#include "qattributedelegate.h"
 #include "qxmleditconfig.h"
 #include "findtextparams.h"
 #include "regola.h"

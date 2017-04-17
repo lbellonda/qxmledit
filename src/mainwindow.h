@@ -29,7 +29,6 @@
 #include "navigation.h"
 #include "regola.h"
 #include "widgets/navigationmode.h"
-#include "qattributedelegate.h"
 #include "extraction/extractresults.h"
 #include "UIDelegate.h"
 #include "xsdeditor/io/xschemaloader.h"
