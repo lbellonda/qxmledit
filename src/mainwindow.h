@@ -375,6 +375,7 @@ private slots:
     void on_actionExecuteXSLTAsSheet_triggered();
     void on_actionExecuteXSLTAsSource_triggered();
     void on_actionOpenSiblingsAtTheSameLevel_triggered();
+    void on_actionShowPrincipalShortcuts_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);

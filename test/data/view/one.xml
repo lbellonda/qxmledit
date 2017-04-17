@@ -1,0 +1,83 @@
+<root o="open">
+    <one o="open">
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+    </one>
+    <one o="open">
+        <two o="open">
+            <three o="close">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="close">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="close">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="close">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="close">
+                <four o="open"/>
+            </three>
+        </two>
+    </one>
+    <one o="open">
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+        <two o="open">
+            <three o="open">
+                <four o="open"/>
+            </three>
+        </two>
+    </one>
+</root>

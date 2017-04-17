@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,41 +20,27 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef SHORTCUTSDIALOG_H
+#define SHORTCUTSDIALOG_H
 
-#ifndef UNDODELETESIBLINGS_H
-#define UNDODELETESIBLINGS_H
+#include <QDialog>
 
-#include "undocommand.h"
-
-#include "regola.h"
-
-class DeleteSiblingsCommand : public UndoCommand
+namespace Ui
 {
-    RegolaDeleteSiblings::DeleteOptions _option;
-    int _posBefore;
-    QList<Element*> _beforeElements;
-    int _posAfter;
-    QList<Element*> _afterElements;
+class ShortcutsDialog;
+}
 
-    //-----
-    void reset();
-    void restoreSiblingsBefore();
-    void restoreSiblingsAfter();
-    void updateRegola(const bool changed, Element *element);
-    void deleteSiblings();
-    void updateRegola(const bool changed);
-    bool deleteAllSiblingsAfter(Element *selected);
-    bool deleteAllSiblingsBefore(Element *selected);
-    bool deleteAllSiblings(Element *selected);
-    void removeItemInListAt(QList<QTreeWidgetItem*> &siblings, const int position);
+class ShortcutsDialog : public QDialog
+{
+    Q_OBJECT
+    static const QString Text;
 
 public:
-    DeleteSiblingsCommand(const RegolaDeleteSiblings::DeleteOptions newOption, QTreeWidget *theWidget, Regola *newRegola, QList<int> newPath);
-    ~DeleteSiblingsCommand();
-
-    virtual void undo() ;
-    virtual void redo() ;
-
+    explicit ShortcutsDialog(QWidget *parent = 0);
+    ~ShortcutsDialog();
+    static void display(QWidget *parent);
+private:
+    Ui::ShortcutsDialog *ui;
 };
 
-#endif // UNDODELETESIBLINGS_H
+#endif // SHORTCUTSDIALOG_H

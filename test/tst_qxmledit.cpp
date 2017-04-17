@@ -1491,6 +1491,21 @@ void TestQXmlEdit::testExecXSLT()
     }
 }
 
+void TestQXmlEdit::testSpecialView()
+{
+    bool result;
+    {
+        TestSpecialView test;
+        result = test.testFast();
+        QVERIFY2(result, (QString("test TestSpecialView: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+    {
+        TestSpecialView test;
+        result = test.testUnit();
+        QVERIFY2(result, (QString("test TestSpecialView: testUnit() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+}
 
 
 // This function enabled for debug purposes. DO NOT REMOVE
@@ -1510,6 +1525,8 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     qInstallMessageHandler(msgHandler);
+    testDeleteSiblings();
+    testSpecialView();
     testEditing();
     testExecXSLT();
     testSplit();

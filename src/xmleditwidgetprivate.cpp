@@ -213,10 +213,20 @@ void XmlEditWidgetPrivate::secondStepConstructor()
         shortcutAppendSpec->setKey(Qt::Key_Return + Qt::SHIFT);
         connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutShiftEnter()));
     }
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Enter + Qt::SHIFT);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutShiftEnter()));
+    }
     // CTRL Enter
     {
         QShortcut *shortcutAppendSpec = new QShortcut(tree);
         shortcutAppendSpec->setKey(Qt::Key_Return + Qt::CTRL);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutCtrlEnter()));
+    }
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Enter + Qt::CTRL);
         connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutCtrlEnter()));
     }
     // ALT Enter
@@ -225,11 +235,24 @@ void XmlEditWidgetPrivate::secondStepConstructor()
         shortcutAppendSpec->setKey(Qt::Key_Return + Qt::ALT);
         connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutAltEnter()));
     }
-    // Enter
+    // ALT Enter
     {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Enter + Qt::ALT);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutAltEnter()));
+    }
+    // Enter
+    Utils::TODO_THIS_RELEASE("cassato");
+    /*{
         QShortcut *shortcutAppendSpec = new QShortcut(tree);
         shortcutAppendSpec->setKey(Qt::Key_Return);
         connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutEnter()));
+    }*/
+    // T
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_T);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutT()));
     }
     // end inspection
 
@@ -940,13 +963,23 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
         return result ;
     } else {
         if(isByMouse) {
+            Utils::TODO_THIS_RELEASE("decidere, magari opzione trade memory for speed");
             if(NULL != elementDisplayInfo) {
                 if(itemRect.contains(pt, false)) {
-                    Utils::TODO_THIS_RELEASE("commento");
-                    //pt.setX(pt.x()-itemRect.left());
-                    //pt.setY(pt.y()-itemRect.top());
-                    if(elementDisplayInfo->_textRect.contains(pt, false)) {
-                        return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
+                    if(_appData->areExperimentalFeaturesEnabled()) {
+                        ElementDisplayInfo thisElementDisplayInfo;
+                        ElementItemSingleDelegate::findRects(getEditor(), item, itemRect, Element::fromItemData(item),
+                                                             &thisElementDisplayInfo);
+                        if(thisElementDisplayInfo._textRect.contains(pt, false)) {
+                            return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
+                        }
+                    } else {
+                        Utils::TODO_THIS_RELEASE("commento");
+                        //pt.setX(pt.x()-itemRect.left());
+                        //pt.setY(pt.y()-itemRect.top());
+                        if(elementDisplayInfo->_textRect.contains(pt, false)) {
+                            return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
+                        }
                     }
                 }
                 if((QApplication::keyboardModifiers() & Qt::ShiftModifier) == Qt::ShiftModifier) {
@@ -3741,19 +3774,29 @@ void XmlEditWidgetPrivate::openSiblingsSameLevel(Element *element)
     if(isActionMode() && (NULL != getRegola()) && (NULL != element)) {
         getEditor()->setUpdatesEnabled(false);
         Element *parent = element->parent();
+        Element *grandParent = NULL ;
         if(NULL != parent) {
-            foreach(Element *child, parent->getChildItemsRef()) {
-                if(child != element) {
-                    QTreeWidgetItem *item = child->getUI();
-                    if(NULL != item) {
-                        int childMax = item->childCount();
-                        FORINT(childIndex, childMax) {
-                            QTreeWidgetItem *aChild = item->child(childIndex);
-                            if(aChild->isExpanded()) {
-                                aChild->setExpanded(false);
+            grandParent = parent->parent();
+            if(NULL != grandParent) {
+                QTreeWidgetItem *grandParentItem = grandParent->getUI();
+                if(NULL != grandParentItem) {
+                    if(!grandParentItem->isExpanded()) {
+                        grandParentItem->setExpanded(true);
+                    }
+                    //---
+                    int level2Max = grandParentItem->childCount();
+                    FORINT(child2Index, level2Max) {
+                        QTreeWidgetItem *child1 = grandParentItem->child(child2Index);
+                        if(!child1->isExpanded()) {
+                            child1->setExpanded(true);
+                        }
+                        int level1Max = child1->childCount();
+                        FORINT(child1Index, level1Max) {
+                            QTreeWidgetItem *child = child1->child(child1Index);
+                            if(child->isExpanded()) {
+                                child->setExpanded(false);
                             }
                         }
-                        item->setExpanded(true);
                     }
                 }
             }
@@ -3763,7 +3806,7 @@ void XmlEditWidgetPrivate::openSiblingsSameLevel(Element *element)
 
 }
 
-void XmlEditWidgetPrivate::onShortcutShiftEnter()
+void XmlEditWidgetPrivate::onShortcutT()
 {
     editSelection(XmlEditWidgetPrivate::EditModeTextualText);
 }
@@ -3778,7 +3821,7 @@ void XmlEditWidgetPrivate::onShortcutAltEnter()
     editSelection(XmlEditWidgetPrivate::EditModeSpecific);
 }
 
-void XmlEditWidgetPrivate::onShortcutEnter()
+void XmlEditWidgetPrivate::onShortcutShiftEnter()
 {
     editSelection(XmlEditWidgetPrivate::EditModeTextual);
 }

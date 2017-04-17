@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -307,17 +307,6 @@ SchemaSearchContext::ESearchState XSingleElementContent::handleNOk(SchemaSearchC
     }*/
     return SchemaSearchContext::NOK;
 }
-
-
-//SchemaSearchContext::ESearchState XSingleElementContent::confirm(SchemaSearchContext * context) {
-//    if(isExploring) {
-//        isExploring = false ;
-//        occurrences ++ ;
-//        if(NULL != parent) {
-//            parent->confirm();
-//        }
-//    }
-//}
 
 // this is a element specialized test
 SchemaSearchContext::ESearchState XSingleElementContent::evaluateMatch(SchemaSearchContext * context, const bool isInAll)

@@ -1399,6 +1399,8 @@ void Element::deleteUI()
         }
         // elimina tutti i figli
         zeroUI();
+    } else {
+        Utils::TODO_THIS_RELEASE("zero");
     }
 }
 
@@ -1411,7 +1413,7 @@ void Element::deleteUnbindUI()
     }
 }
 
-void Element::autoDelete(const bool deleteMe)
+void Element::autoDelete(const bool deleteMe, const bool holdSignal, const bool dontRemoveUI)
 {
     // sgancia l'elemento dal parent
     if(NULL != parentElement) {
@@ -1423,8 +1425,12 @@ void Element::autoDelete(const bool deleteMe)
     }
     parentRule->takeOutElement(this) ;
     // this operation causes a notify message and must be done after processing.
-    deleteUI();
-    parentRule->setModified(true) ;
+    if(!dontRemoveUI) {
+        deleteUI();
+    }
+    if(!holdSignal) {
+        parentRule->setModified(true) ;
+    }
     parentRule = NULL;
     if(deleteMe) {
         delete this;

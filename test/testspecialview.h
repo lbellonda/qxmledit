@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2016 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,41 +20,24 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef TESTSPECIALVIEW_H
+#define TESTSPECIALVIEW_H
 
-#ifndef UNDODELETESIBLINGS_H
-#define UNDODELETESIBLINGS_H
+#include "app.h"
+#include "testbase.h"
 
-#include "undocommand.h"
-
-#include "regola.h"
-
-class DeleteSiblingsCommand : public UndoCommand
+class TestSpecialView : public TestBase
 {
-    RegolaDeleteSiblings::DeleteOptions _option;
-    int _posBefore;
-    QList<Element*> _beforeElements;
-    int _posAfter;
-    QList<Element*> _afterElements;
-
-    //-----
-    void reset();
-    void restoreSiblingsBefore();
-    void restoreSiblingsAfter();
-    void updateRegola(const bool changed, Element *element);
-    void deleteSiblings();
-    void updateRegola(const bool changed);
-    bool deleteAllSiblingsAfter(Element *selected);
-    bool deleteAllSiblingsBefore(Element *selected);
-    bool deleteAllSiblings(Element *selected);
-    void removeItemInListAt(QList<QTreeWidgetItem*> &siblings, const int position);
-
+    bool loadFile(App &app, const QString &inputFileName);
+    bool selectPath(App &app, QList<int> &sel);
+    bool checkOpenRecursive(QTreeWidget *tree);
+    bool checkOpenRecursive(QTreeWidgetItem *parent);
 public:
-    DeleteSiblingsCommand(const RegolaDeleteSiblings::DeleteOptions newOption, QTreeWidget *theWidget, Regola *newRegola, QList<int> newPath);
-    ~DeleteSiblingsCommand();
+    TestSpecialView();
+    ~TestSpecialView();
 
-    virtual void undo() ;
-    virtual void redo() ;
-
+    bool testUnit();
+    bool testFast();
 };
 
-#endif // UNDODELETESIBLINGS_H
+#endif // TESTSPECIALVIEW_H

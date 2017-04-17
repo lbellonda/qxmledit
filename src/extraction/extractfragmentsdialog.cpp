@@ -51,6 +51,9 @@ ExtractFragmentsDialog::ExtractFragmentsDialog(ExtractResults *extractResult, QW
     _operation(extractResult),
     ui(new Ui::ExtractFragmentsDialog)
 {
+    if(NULL == mainWidget) {
+        mainWidget = this;
+    }
     _mainWidget = mainWidget ;
     _isAutoDelete = false ;
     delayTimer.setSingleShot(true);

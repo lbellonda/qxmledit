@@ -100,6 +100,7 @@
 #include "testspecials.h"
 #include "testscxml.h"
 #include "testexecxslt.h"
+#include "testspecialview.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -199,6 +200,7 @@ private Q_SLOTS:
     void testSpecials();
     void testSCXML();
     void testExecXSLT();
+    void testSpecialView();
 };
 
 

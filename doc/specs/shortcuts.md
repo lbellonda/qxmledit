@@ -11,6 +11,7 @@ Shortcuts for element creation
         <tr><td>Delete</td><td>delete, backspace</td></tr>
 	<tr><td>Properties</td><td>ALT+ENTER, DOUBLE CLICK</td></tr>
         <tr><td>Spec Properties</td><td>?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK</td></tr>
+        <tr><td>Edit text</td><td>t</td></tr>
 </table>
 <br/>
 <br/>
@@ -34,8 +35,8 @@ Shortcuts for element creation
         <td>Specific</td>
         <td>Specific</td>
         <td>...</td>
+        <td>Not used</td>
         <td>Textual</td>
-        <td>Textual text</td>
         <td>Detail</td>
         <td>Specific</td>
     </tr>
@@ -46,8 +47,8 @@ Shortcuts for element creation
         <td>Detail</td>
         <td>Detail</td>
         <td>...</td>
+        <td>Not used</td>
         <td>Textual</td>
-        <td>Textual text</td>
         <td>Specific</td>
         <td>Detail</td>
     </tr>

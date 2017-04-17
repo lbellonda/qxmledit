@@ -306,7 +306,8 @@ HEADERS = precompiled_app.h \
     modules/xslt/xsltexecdialog.h \
     modules/xslt/xslparametermanager.h \
     modules/utils/comboutils.h \
-    modules/xslt/showxslerrorsdialog.h
+    modules/xslt/showxslerrorsdialog.h \
+    modules/help/shortcutsdialog.h
 
 SOURCES = \
     main.cpp \
@@ -396,7 +397,8 @@ SOURCES = \
     modules/xslt/xslparametermanager.cpp \
     modules/utils/comboutils.cpp \
     modules/xslt/showxslerrorsdialog.cpp \
-    startparams.cpp
+    startparams.cpp \
+    modules/help/shortcutsdialog.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -451,7 +453,8 @@ FORMS = MainWindow.ui \
     widgets/warningswidget.ui \
     modules/messages/sourcerelatedmessages.ui \
     modules/xslt/xsltexecdialog.ui \
-    modules/xslt/showxslerrorsdialog.ui
+    modules/xslt/showxslerrorsdialog.ui \
+    modules/help/shortcutsdialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include
