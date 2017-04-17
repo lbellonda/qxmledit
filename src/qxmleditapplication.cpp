@@ -132,13 +132,11 @@ void QXmlEditApplication::onManageSessions()
 void QXmlEditApplication::onSplitFile()
 {
     ExtractResults *results = new ExtractResults(this) ;
-    Utils::TODO_THIS_RELEASE("THEMAINWINDOW????");
     extractFragmentsWindow(results, NULL, NULL);
 }
 
 void QXmlEditApplication::onViewData()
 {
-    Utils::TODO_THIS_RELEASE("THEMAINWINDOW????");
     DataVisualization::viewDataWindow(_appData, NULL, NULL, "");
 }
 
