@@ -22,6 +22,7 @@
 
 #include "xsltexecdialog.h"
 #include "mainwindow.h"
+#include "qxmleditconfig.h"
 #include "modules/xslt/xsltexecutor.h"
 #include "modules/xslt/xslparametermanager.h"
 #include "modules/services/systemservices.h"
@@ -110,9 +111,9 @@ void XSLTExecDialog::finishSetup(XmlEditWidget *source, XmlEditWidget *xsl)
 void XSLTExecDialog::loadSources(XmlEditWidget *source, XmlEditWidget *xsl)
 {
     const bool useFile = _data->isUseSaxonXSL();
-    setupRecentFolders(ui->cmdInputFile, &_utilsInput, false, SLOT(onChooseInput()), fromEditorToFile(useFile, source), fromEditorToEditor(useFile, source));
+    setupRecentFolders(ui->cmdInputFile, &_utilsInput, false, SLOT(onChooseInput()), fromEditorToFile(useFile, source), fromEditorToEditor(false, source));
     setupRecentFolders(ui->cmdOutputFile, &_utilsOutput, true, SLOT(onChooseOutput()), NULL, NULL, Config::getString(Config::KEY_XSL_LAST_OUTPUT_FILE, ""));
-    setupRecentFolders(ui->cmdChooseXSL, &_utilsXSL, false, SLOT(onChooseXSL()), fromEditorToFile(useFile, xsl), fromEditorToEditor(useFile, xsl));
+    setupRecentFolders(ui->cmdChooseXSL, &_utilsXSL, false, SLOT(onChooseXSL()), fromEditorToFile(useFile, xsl), fromEditorToEditor(false, xsl));
 }
 
 void XSLTExecDialog::selectDefaults()
@@ -139,11 +140,12 @@ XmlEditWidget *XSLTExecDialog::fromEditorToEditor(const bool useFile, XmlEditWid
 
 void XSLTExecDialog::setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method, const QString &file, XmlEditWidget *editor, const QString &lastFile)
 {
+    Utils::TODO_THIS_RELEASE("abilita anche se external");
     QList<XmlEditWidget *> widgets ;
     foreach(MainWindow *w, _data->windows()) {
         widgets.append(w->getEditor());
     }
-    util->setupItemsForFile(_data, widgets, !_data->isUseSaxonXSL(), isSave, file, editor, lastFile);
+    util->setupItemsForFile(_data, widgets, true, isSave, file, editor, lastFile);
     util->loadButtonMenu(button, this, method);
 }
 
@@ -221,6 +223,7 @@ void XSLTExecDialog::openStringInEditor(const QString &output)
 {
     MainWindow *window = _data->newWindow();
     window->newFromString(output);
+    window->show();
 }
 
 void XSLTExecDialog::setInputEditor(XmlEditWidget *editor)

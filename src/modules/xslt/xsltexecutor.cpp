@@ -339,16 +339,29 @@ bool XSLTExecutor::execSaxon(MessagesOperationResult &result)
         // avoiding null pointers
         return false;
     }
+    Utils::TODO_THIS_RELEASE("testme");
     if(!_sourceHolder->isFile()) {
-        addError(result, ErrorConfigurationMissing, QObject::tr("Input not a file"), -1, -1);
+        if(!_sourceHolder->createTempFile()) {
+            addError(result, ErrorOpeningDeviceInput, QObject::tr("Unable to create temporary file for input data."), -1, -1);
+        }
     }
     if(!_xsltHolder->isFile()) {
-        addError(result, ErrorConfigurationMissing, QObject::tr("XSL not a file"), -1, -1);
+        if(!_xsltHolder->createTempFile()) {
+            addError(result, ErrorOpeningDeviceXSL, QObject::tr("Unable to create temporary file for xsl template."), -1, -1);
+        }
     }
     if(!_outputHolder->isFile()) {
-        addError(result, ErrorConfigurationMissing, QObject::tr("Output not a file"), -1, -1);
+        if(!_outputHolder->createTempFilePath()) {
+            addError(result, ErrorOpeningDeviceOutput, QObject::tr("Unable to create temporary file for input data."), -1, -1);
+        }
     }
-
+    Utils::TODO_THIS_RELEASE("da provare");
+    if(result.isError()) {
+        _sourceHolder->removeTempFile();
+        _xsltHolder->removeTempFile();
+        // avoiding null pointers
+        return false;
+    }
     if(!result.isOk()) {
         return false;
     }
@@ -356,6 +369,16 @@ bool XSLTExecutor::execSaxon(MessagesOperationResult &result)
     if(!result.isError()) {
         status = innerExecSaxon(result, _sourceHolder->fileName(), _xsltHolder->fileName(), _outputHolder->fileName(), _parameters);
     }
+
+    _sourceHolder->removeTempFile();
+    _xsltHolder->removeTempFile();
+    if(!_outputHolder->isFile()) {
+        if(!_outputHolder->readResult()) {
+            addError(result, ErrorClosingDeviceOutput, QObject::tr("Unable to get results."), -1, -1);
+        }
+    }
+    _outputHolder->removeTempFile();
+
     return status;
 }
 

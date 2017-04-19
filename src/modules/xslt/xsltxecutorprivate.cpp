@@ -98,6 +98,16 @@ QString XSLTExecutor::InputHolder::fileName()
     return "" ;
 }
 
+bool XSLTExecutor::InputHolder::createTempFile()
+{
+    return false;
+}
+
+bool XSLTExecutor::InputHolder::removeTempFile()
+{
+    return false ;
+}
+
 //-----------------------------------------------------------------
 
 XSLTExecutor::OutputHolder::OutputHolder()
@@ -116,6 +126,21 @@ bool XSLTExecutor::OutputHolder::isFile()
 QString XSLTExecutor::OutputHolder::fileName()
 {
     return "" ;
+}
+
+bool XSLTExecutor::OutputHolder::createTempFilePath()
+{
+    return false;
+}
+
+bool XSLTExecutor::OutputHolder::removeTempFile()
+{
+    return false ;
+}
+
+bool XSLTExecutor::OutputHolder::readResult()
+{
+    return false ;
 }
 
 //-----------------------------------------------------------------
@@ -154,6 +179,7 @@ XSLTExecutor::InputStringHolder::InputStringHolder(const QString &outString)
 
 XSLTExecutor::InputStringHolder::~InputStringHolder()
 {
+    removeTempFile();
 }
 
 QIODevice *XSLTExecutor::InputStringHolder::device()
@@ -162,6 +188,48 @@ QIODevice *XSLTExecutor::InputStringHolder::device()
     _data = _target.toUtf8();
     _device.setData(_data);
     return &_device ;
+}
+
+bool XSLTExecutor::InputStringHolder::createTempFile()
+{
+    if(!_tempFile.isOpen()) {
+        if(!_tempFile.open()) {
+            return false;
+        }
+        // only for the current Qt version
+        _data = _target.toUtf8();
+        const int len = _data.length();
+        const qint64 written = _tempFile.write(_data);
+        if(len != written) {
+            return false;
+        }
+        if(!_tempFile.flush()) {
+            return false;
+        }
+        if(!_tempFile.seek(0)) {
+            return false ;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool XSLTExecutor::InputStringHolder::removeTempFile()
+{
+    if(_tempFile.isOpen()) {
+        _tempFile.close();
+    }
+    if(!_tempFile.fileName().isEmpty()) {
+        _tempFile.remove();
+        _tempFile.setFileName("");
+        return true;
+    }
+    return false ;
+}
+
+QString XSLTExecutor::InputStringHolder::fileName()
+{
+    return _tempFile.fileName() ;
 }
 //-----------------------------------------------------------------
 
@@ -232,4 +300,50 @@ bool XSLTExecutor::OutputStringHolder::evaluateTo(QXmlQuery &query)
 {
     const bool success = query.evaluateTo(_target);
     return success ;
+}
+
+bool XSLTExecutor::OutputStringHolder::createTempFilePath()
+{
+    if(!_tempFile.isOpen()) {
+        if(!_tempFile.open()) {
+            return false;
+        }
+    }
+    return true ;
+}
+
+bool XSLTExecutor::OutputStringHolder::removeTempFile()
+{
+    if(_tempFile.isOpen()) {
+        _tempFile.close();
+    }
+    if(!_tempFile.fileName().isEmpty()) {
+        _tempFile.remove();
+        _tempFile.setFileName("");
+        return true ;
+    }
+    return false ;
+}
+
+bool XSLTExecutor::OutputStringHolder::readResult()
+{
+    if(!_tempFile.seek(0)) {
+        return false ;
+    }
+    _data = _tempFile.readAll();
+    if(_tempFile.error() != QFile::NoError) {
+        return false;
+    }
+    // What about the encoding? Please check <xsl:output omit-xml-declaration="yes" indent="yes" encoding="UTF-8" />
+    Utils::TODO_THIS_RELEASE("<xsl:output encoding='UTF-8' />");
+    *_target = QString(_data);
+    return true;
+}
+
+QString XSLTExecutor::OutputStringHolder::fileName()
+{
+    if(_tempFile.isOpen()) {
+        return _tempFile.fileName();
+    }
+    return "" ;
 }

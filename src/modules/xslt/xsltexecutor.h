@@ -28,6 +28,7 @@
 #include "operationresult.h"
 #include <QAbstractMessageHandler>
 #include <QBuffer>
+#include <QTemporaryFile>
 
 class XmlEditWidget;
 class QXmlQuery;
@@ -57,6 +58,8 @@ protected:
         virtual QIODevice *device() = 0;
         virtual bool isFile() ;
         virtual QString fileName() ;
+        virtual bool createTempFile();
+        virtual bool removeTempFile();
     };
 
     class InputFileHolder : public InputHolder
@@ -77,11 +80,15 @@ protected:
         QString _target;
         QByteArray _data ;
         QBuffer _device;
+        QTemporaryFile _tempFile;
     public:
         InputStringHolder(const QString &outString);
         ~InputStringHolder();
 
         virtual QIODevice *device();
+        virtual bool createTempFile();
+        virtual bool removeTempFile();
+        virtual QString fileName() ;
     };
 
     class OutputHolder
@@ -95,6 +102,9 @@ protected:
         virtual bool evaluateTo(QXmlQuery &query) = 0;
         virtual bool isFile() ;
         virtual QString fileName() ;
+        virtual bool createTempFilePath();
+        virtual bool removeTempFile();
+        virtual bool readResult();
     };
 
     class OutputFileHolder : public OutputHolder
@@ -117,6 +127,7 @@ protected:
         QString *_target;
         QByteArray _data ;
         QBuffer _device;
+        QTemporaryFile _tempFile;
     public:
         OutputStringHolder(QString *outString);
         ~OutputStringHolder();
@@ -124,6 +135,10 @@ protected:
         virtual bool openForWrite() ;
         virtual bool close() ;
         virtual bool evaluateTo(QXmlQuery &query);
+        virtual bool createTempFilePath();
+        virtual bool removeTempFile();
+        virtual bool readResult();
+        virtual QString fileName() ;
     };
 
     InputHolder *_sourceHolder;
