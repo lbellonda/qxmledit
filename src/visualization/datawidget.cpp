@@ -641,7 +641,9 @@ void DataWidget::waitCalcImage(QList<QFuture<void> > &threads)
     bool done = false;
     UIDesktopServices uiServices(mainWindow());
     while(!done) {
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
         QThread::msleep(250);
+#endif
         if(timer.elapsed() > (THRESHOLD_SECONDS * 1000)) {
             uiServices.startIconProgressBar();
             uiServices.setIconProgressBar(50);

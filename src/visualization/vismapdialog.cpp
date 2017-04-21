@@ -359,7 +359,9 @@ void VisMapDialog::displayNumbers()
     newNumbersItem(tr("Max attribute\nsize per element"), QString("%1").arg(_summary.maxAttributeSizePerElement));
     newNumbersItem(tr("Max text"), QString("%1").arg(_summary.maxText));
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     ui->numbers->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+#endif
     ui->numbers->horizontalHeader()->setStretchLastSection(true);
     /*newNumbersItem(tr("Mean size per fr."), QString("%1").arg(_summary.sizePerFragmentMean));
     newNumbersItem(tr("Median size per fr."), QString("%1").arg(_summary.sizePerFragmentMedian));
