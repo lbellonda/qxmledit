@@ -75,7 +75,6 @@ bool EditElementWithTextEditor::makeItAccectped()
     QString text = "<root><";
     text += ui->editor->toPlainText();
     text += "/></root>";
-    Utils::TODO_THIS_RELEASE("fai un controllo di un figlio esattamente");
     QList<Element*> result = Regola::decodeXMLFromString(text, false, true);
     if(result.isEmpty()) {
         Utils::error(this, tr("The text cannot be converted to a valid element (1)."));

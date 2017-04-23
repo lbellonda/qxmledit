@@ -36,6 +36,10 @@
 #define FILE_XSL_0  TEST_BASE  "xslt.xsl"
 #define FILE_OUTPUT_0   TEST_BASE  "expected.xml"
 
+#define FILE_INPUT_2    TEST_BASE  "input.xml"
+#define FILE_XSL_2  TEST_BASE  "xslt_encoding.xsl"
+#define FILE_OUTPUT_2   TEST_BASE  "expected_encoding.xml"
+
 extern int doXSL(ApplicationData *appData, StartParams *startParams);
 
 TestExecXSLT::TestExecXSLT()
@@ -280,6 +284,9 @@ bool TestExecXSLT::checkExecRunSources()
         return false;
     }
     if(!checkExecRunSources5()) {
+        return false;
+    }
+    if(!checkExecRunSourcesSaxon()) {
         return false;
     }
     return true;
@@ -914,6 +921,46 @@ bool TestExecXSLT::checkSaxonEngineCfg()
         if(!checkExecErrors("output cfg missing", result, errorsToCheck, errorsToAvoid)) {
             return false ;
         }
+    }
+    return true ;
+}
+
+bool TestExecXSLT::checkExecRunSourcesSaxon()
+{
+    _testName = "checkExecRunSourcesSaxon" ;
+    MessagesOperationResult result;
+    QString output;
+    App app;
+    if(!app.init() ) {
+        return error("init app");
+    }
+    QString saxonPath = "aaa" ;
+    app.data()->setSaxonXSLPath(saxonPath);
+    app.data()->setUseSaxonXSL(true);
+    XSLTExecutor executor(app.data());
+    if(!app.mainWindow()->loadFile(FILE_XSL_2, true, MainWindow::OpenUsingNewWindow) ) {
+        return error(QString("Loading file %1").arg(FILE_XSL_0));
+    }
+    QString xsl = app.mainWindow()->getRegola()->getAsText();
+
+    if(!app.mainWindow()->loadFile(FILE_INPUT_2, true, MainWindow::OpenUsingNewWindow) ) {
+        return error(QString("Loading file %1").arg(FILE_INPUT_0));
+    }
+    QString input = app.mainWindow()->getRegola()->getAsText();
+
+    executor.setXSLLiteral(xsl);
+    executor.setInputLiteral(input);
+    executor.setOutput(&output);
+
+    if(!executor.exec(result) ) {
+        return error("Failed exec");
+    }
+    if(result.isError()) {
+        return error("Failed exec result");
+    }
+    CompareXML xmlCompare ;
+    if(!xmlCompare.compareStringWithFile(output, FILE_OUTPUT_2)) {
+        return error(QString("Failed comparing %1").arg(xmlCompare.errorString()));
     }
     return true ;
 }

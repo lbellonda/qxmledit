@@ -205,6 +205,12 @@ void XmlEditWidgetPrivate::secondStepConstructor()
     }
     //-------------------------------------
     // inspection
+    // e
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_E);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutShiftEnter()));
+    }
     // SHIFT Enter
     {
         QShortcut *shortcutAppendSpec = new QShortcut(tree);
@@ -952,7 +958,6 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
     Utils::TODO_THIS_RELEASE("caso da fare sposta a monte");
     QPoint pt = getEditor()->mapFromGlobal(QCursor::pos());
     QRect itemRect = getEditor()->visualItemRect(item);
-    ElementDisplayInfo *elementDisplayInfo = Element::displayInfoFromItemData(item);
     if(forceTextual) {
         Utils::TODO_THIS_RELEASE("undo deve essere solo di livello piu alto");
         regola->editElementWithTextEditor(p, getEditor(), item);
@@ -962,36 +967,27 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
     } else {
         if(isByMouse) {
             Utils::TODO_THIS_RELEASE("decidere, magari opzione trade memory for speed");
-            if(NULL != elementDisplayInfo) {
-                if(itemRect.contains(pt, false)) {
-                    if(_appData->areExperimentalFeaturesEnabled()) {
-                        ElementDisplayInfo thisElementDisplayInfo;
-                        ElementItemSingleDelegate::findRects(getEditor(), item, itemRect, Element::fromItemData(item),
-                                                             &thisElementDisplayInfo);
-                        if(thisElementDisplayInfo._textRect.contains(pt, false)) {
-                            return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
-                        }
-                    } else {
-                        Utils::TODO_THIS_RELEASE("commento");
-                        //pt.setX(pt.x()-itemRect.left());
-                        //pt.setY(pt.y()-itemRect.top());
-                        if(elementDisplayInfo->_textRect.contains(pt, false)) {
-                            return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
-                        }
-                    }
+            if(itemRect.contains(pt, false)) {
+                ElementDisplayInfo thisElementDisplayInfo;
+                ElementItemSingleDelegate::findRects(getEditor(), item, itemRect, Element::fromItemData(item), &thisElementDisplayInfo);
+                Utils::TODO_THIS_RELEASE("commento");
+                //pt.setX(pt.x()-itemRect.left());
+                //pt.setY(pt.y()-itemRect.top());
+                if(thisElementDisplayInfo._textRect.contains(pt, false)) {
+                    return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
                 }
-                if((QApplication::keyboardModifiers() & Qt::ShiftModifier) == Qt::ShiftModifier) {
-                    regola->editElementWithTextEditor(p, getEditor(), item);
-                    bool result = false;
-                    computeSelectionState();
-                    return result ;
-                }
-                Utils::TODO_THIS_RELEASE("finire");
-                /*else if (attributi) {
-                    regola->editElement(p, item, _uiDelegate, XXXX );
-                    mah
-                }*/
             }
+            if((QApplication::keyboardModifiers() & Qt::ShiftModifier) == Qt::ShiftModifier) {
+                regola->editElementWithTextEditor(p, getEditor(), item);
+                bool result = false;
+                computeSelectionState();
+                return result ;
+            }
+            Utils::TODO_THIS_RELEASE("finire");
+            /*else if (attributi) {
+                regola->editElement(p, item, _uiDelegate, XXXX );
+                mah
+            }*/
         }
     }
     regola->editElement(p, item, _uiDelegate);
@@ -2724,6 +2720,11 @@ void XmlEditWidgetPrivate::specificPropertiesItem(QTreeWidgetItem * item, const 
     if(isActionMode() && (NULL != item)) {
         //specialized mode
         Element *element = Element::fromItemData(item);
+        if(!element->isElement()) {
+            editElement(item, false);
+            return ;
+        }
+
         const bool isXSLT = (editMode() == XmlEditWidgetEditMode::XSLT) ;
         const bool isXSLTElement = _xsltHelper.isXSLTElement(element);
         const bool isSCXML = (editMode() == XmlEditWidgetEditMode::SCXML);

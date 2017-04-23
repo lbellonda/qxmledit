@@ -384,7 +384,6 @@
     <addaction name="actionSpring_and_Forces"/>
     <addaction name="actionBinaryViewer"/>
     <addaction name="actionCodePages"/>
-    <addaction name="separator"/>
     <addaction name="actionXSLExecutor"/>
    </widget>
    <widget class="QMenu" name="menuView">

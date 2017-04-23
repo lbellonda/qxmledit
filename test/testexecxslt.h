@@ -50,7 +50,7 @@ class TestExecXSLT : public TestBase
     bool checkSaxonEngineCfg();
     bool checkChooseEngine1();
     bool checkChooseEngine();
-
+    bool checkExecRunSourcesSaxon();
 public:
     TestExecXSLT();
     ~TestExecXSLT();

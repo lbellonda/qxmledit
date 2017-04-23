@@ -274,7 +274,6 @@ public:
     void createUI(QTreeWidgetItem *parent, PaintInfo *paintInfo, const bool isGUI, const int pos = -1);
     void display(QTreeWidgetItem *me, PaintInfo *paintInfo, const bool setItem = true);
     void displayAlt(QTreeWidgetItem *me, PaintInfo *paintInfo);
-    void setAttributesText(QTreeWidgetItem *me, PaintInfo *paintInfo, const QString &newText);
     void displayRecursive(PaintInfo *paintInfo);
     void displayWithPaintInfo(PaintInfo *paintInfo);
     void refreshUI();
@@ -507,9 +506,7 @@ public:
     /**
      * @brief HtmlAttribRole text as HTML for item delegate
      */
-    static const int HtmlTextRole = Qt::UserRole + 2;
     static const int StyleIdRole = Qt::UserRole + 3;
-    static const int FakeRole = Qt::UserRole + 4;
 private:
     static long   instances;
 
@@ -686,10 +683,6 @@ public:
     void setNewTagWithUndo(const QString &newTag, ElementUndoInfo &info);
     void qName(QXName *pQName);
 
-    static ElementDisplayInfo *displayInfoFromItemData(QTreeWidgetItem *item);
-    static ElementDisplayInfo *displayInfoFromModelIndex(const QModelIndex & index);
-    static ElementDisplayInfo *makeSureDisplayInfoFromModelIndex(const QModelIndex & index);
-    static void setElementDisplayInfo(const QModelIndex & index, void* data);
     QString getInTextualForm();
 
 

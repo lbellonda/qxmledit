@@ -494,7 +494,8 @@ SOURCES += xmleditwidget.cpp \
     modules/services/uidservices.cpp \
     modules/messages/sourceerror.cpp \
     editelementwithtexteditor.cpp \
-    modules/xml/xmlsyntaxh.cpp
+    modules/xml/xmlsyntaxh.cpp \
+    modules/services/threadservices.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -761,7 +762,8 @@ HEADERS += precompiled_lib.h \
     modules/services/uidservices.h \
     modules/messages/sourceerror.h \
     editelementwithtexteditor.h \
-    modules/xml/xmlsyntaxh.h
+    modules/xml/xmlsyntaxh.h \
+    modules/services/threadservices.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

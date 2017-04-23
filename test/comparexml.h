@@ -55,12 +55,14 @@ public:
     bool compareDomDocuments(QDomDocument &doc1, QDomDocument &doc2);
     bool loadFileIntoDocument(QIODevice *ioDevice, QDomDocument &document);
     bool loadFileIntoDocument(const QString &filePath, QDomDocument &document);
+    bool loadStringIntoDocument(const QString &string, QDomDocument &document);
     bool compareFiles(const QString &file1, const QString &file2);
     bool compareFiles(const QString &file1, QIODevice *file2);
     bool compareAFileWithRegola(const QString &file, Regola *regola);
     bool compareFileWithRegola(Regola *regola, const QString &file);
     bool compareFileWithRegola(Regola *regola, QIODevice *file);
     bool compareBufferWithFile(QIODevice *regola, const QString &file);
+    bool compareStringWithFile(const QString &text, const QString &file);
     bool compareRegolaWithRegola(Regola *regola1, Regola *regola2);
     bool compareXMLAsStringAsUtf8(const QString &s1, const QString & s2);
 

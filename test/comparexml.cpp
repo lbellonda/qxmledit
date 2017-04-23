@@ -198,6 +198,21 @@ bool CompareXML::loadFileIntoDocument(QIODevice *ioDevice, QDomDocument &documen
     return isOk;
 }
 
+bool CompareXML::loadStringIntoDocument(const QString &string, QDomDocument &document)
+{
+    bool isOk = false;
+    QString errorMsg;
+    int errorLine=0;
+    int errorColumn=0;
+    if(document.setContent(string, &errorMsg, &errorLine, &errorColumn)) {
+        isOk = true;
+    } else {
+        QString str = string.left(100);
+        error(QString("error:'%1', line:%2, col:%3, data:'%4'").arg(errorMsg).arg(errorLine).arg(errorColumn).arg(str));
+    }
+    return isOk;
+}
+
 
 void CompareXML::reset()
 {
@@ -322,6 +337,22 @@ bool CompareXML::compareBufferWithFile(QIODevice *regola, const QString &file)
     return true ;
 }
 
+bool CompareXML::compareStringWithFile(const QString &text, const QString &file)
+{
+    QDomDocument document1;
+    QDomDocument document2;
+    if(!loadStringIntoDocument(text, document1)) {
+        return error(QString("load file step 1"));
+    }
+    if(!loadFileIntoDocument(file, document2)) {
+        return error("load file step 2");
+    }
+    bool result = compareDomDocuments(document1, document2);
+    if( !result ) {
+        return error(QString("comparing string and files, file is :'%1'").arg(file));
+    }
+    return true ;
+}
 
 bool CompareXML::compareFiles(const QString &file1, const QString &file2)
 {

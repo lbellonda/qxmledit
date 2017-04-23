@@ -213,48 +213,10 @@ bool XSLTExecutor::InputStringHolder::createTempFile()
         if(!_tempFile.seek(0)) {
             return false ;
         }
-        Utils::TODO_THIS_RELEASE("togli");
-        Utils::TODO_THIS_RELEASE("togli codice sotto");
-        //_encoding = readEncoding(_target);
         return true;
     }
     return false;
 }
-
-/*
-QString XSLTExecutor::InputStringHolder::readEncoding(const QString &source)
-{
-QString result = "utf - 8";
-Utils::TODO_THIS_RELEASE("togli");
-Regola *regola = NULL ;
-QDomDocument document;
-if(document.setContent(source)) {
-regola = new Regola(document, "", true);
-if(NULL != regola) {
-Element *root = regola->root();
-if( NULL != root ) {
-NSContext thisContext(NULL);
-root->handleNamespace(&thisContext);
-foreach (Element* child, root->getChildItemsRef()) {
-NSContext context(thisContext);
-QString name, prefix;
-XmlUtils::decodeQualifiedName(child->tag(), prefix, name);
-const QString &elementNamespace = context.uriFromPrefix(prefix);
-if((elementNamespace == NamespaceManager::XSL1Namespace) && (name == "output") ) {
-QString encoding = child->getAttributeValue("encoding");
-if(!encoding.isEmpty()) {
-result = encoding ;
-}
-break;
-}
-}
-}
-delete regola;
-}
-}
-return result ;
-}
-*/
 
 bool XSLTExecutor::InputStringHolder::removeTempFile()
 {

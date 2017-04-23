@@ -94,7 +94,6 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
       _windowIcon(":/icon/images/icon.png"),
       _closing(false)
 {
-    Utils::TODO_THIS_RELEASE("unificare con ui delegate?");
     _scxmlValidationErrors = NULL ;
     _loadErrorHandler = NULL ;
     _slaveIsClosed = false ;

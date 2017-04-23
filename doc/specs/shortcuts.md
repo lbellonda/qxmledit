@@ -3,7 +3,7 @@ Shortcuts for element creation
 ==============================
 #<body>
 <table border="1">
-    <tr><td>Operation</td><td>Shortcut</td></tr>
+    <tr><th>Operation</th><th>Shortcut</th></tr>
 	<tr><td>Insert</td><td>INS, i</td></tr>
         <tr><td>Append</td><td>ALT+INS, a</td></tr>
         <tr><td>Insert Spec</td><td>SHIFT INS, shift i</td></tr>
@@ -12,6 +12,7 @@ Shortcuts for element creation
 	<tr><td>Properties</td><td>ALT+ENTER, DOUBLE CLICK</td></tr>
         <tr><td>Spec Properties</td><td>?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK</td></tr>
         <tr><td>Edit text</td><td>t</td></tr>
+        <tr><td>Edit element</td><td> e</td></tr>
 </table>
 <br/>
 <br/>

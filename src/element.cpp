@@ -648,16 +648,6 @@ QVariant Element::columnViewDisplayData(PaintInfo *paintInfo, const int rowOrdin
     return QVariant("");
 }
 
-void Element::setAttributesText(QTreeWidgetItem *me, PaintInfo *paintInfo, const QString &newText)
-{
-    if(paintInfo->attributesHTML()) {
-        me->setData(paintInfo->columnForAttributes, HtmlTextRole, newText);
-        me->setText(paintInfo->columnForAttributes, "");
-    } else {
-        me->setText(paintInfo->columnForAttributes, newText);
-    }
-}
-
 void Element::display(QTreeWidgetItem *me, PaintInfo *paintInfo, const bool setItem)
 {
     if(setItem && (ui != me)) {
@@ -3186,54 +3176,6 @@ bool Element::findElement(Element *toFind)
         }
     }
     return false;
-}
-
-
-ElementDisplayInfo *Element::displayInfoFromItemData(QTreeWidgetItem *item)
-{
-    Utils::TODO_THIS_RELEASE("conferma");
-    if(NULL == item) {
-        return NULL ;
-    }
-    QVariant data = item->data(0, FakeRole);
-    ElementDisplayInfo *elementDisplayInfo = static_cast<ElementDisplayInfo *>(data.value<void*>());
-    return elementDisplayInfo ;
-}
-
-ElementDisplayInfo *Element::displayInfoFromModelIndex(const QModelIndex & index)
-{
-    Utils::TODO_THIS_RELEASE("conferma");
-    if(!index.isValid()) {
-        return NULL ;
-    }
-    QVariant data = index.data(FakeRole);
-    ElementDisplayInfo *elementDisplayInfo = static_cast<ElementDisplayInfo *>(data.value<void*>());
-    return elementDisplayInfo ;
-}
-
-ElementDisplayInfo *Element::makeSureDisplayInfoFromModelIndex(const QModelIndex & index)
-{
-    Utils::TODO_THIS_RELEASE("conferma");
-    if(!index.isValid()) {
-        return NULL ;
-    }
-    QVariant data = index.data(FakeRole);
-    ElementDisplayInfo *elementDisplayInfo = static_cast<ElementDisplayInfo *>(data.value<void*>());
-    if(NULL == elementDisplayInfo) {
-        elementDisplayInfo = new ElementDisplayInfo();
-        setElementDisplayInfo(index, elementDisplayInfo);
-    }
-    return elementDisplayInfo ;
-}
-
-
-void Element::setElementDisplayInfo(const QModelIndex & index, void* data)
-{
-    Utils::TODO_THIS_RELEASE("semplificare");
-    Element *element = Element::fromModelIndex(index);
-    if(NULL != element->getUI()) {
-        element->getUI()->setData(0, FakeRole, qVariantFromValue(data));
-    }
 }
 
 QString Element::getInTextualForm()
