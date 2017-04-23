@@ -27,6 +27,10 @@
 #include <QXmlSerializer>
 #include <QTextCodec>
 #include "utils.h"
+#include "regola.h"
+#include "modules/namespace/nscontext.h"
+#include "modules/xsd/namespacemanager.h"
+#include "xmlutils.h"
 
 XSLTExecutor::MessageHandler::MessageHandler(MessagesOperationResult &result) : _result(result)
 {
@@ -209,10 +213,48 @@ bool XSLTExecutor::InputStringHolder::createTempFile()
         if(!_tempFile.seek(0)) {
             return false ;
         }
+        Utils::TODO_THIS_RELEASE("togli");
+        Utils::TODO_THIS_RELEASE("togli codice sotto");
+        //_encoding = readEncoding(_target);
         return true;
     }
     return false;
 }
+
+/*
+QString XSLTExecutor::InputStringHolder::readEncoding(const QString &source)
+{
+QString result = "utf - 8";
+Utils::TODO_THIS_RELEASE("togli");
+Regola *regola = NULL ;
+QDomDocument document;
+if(document.setContent(source)) {
+regola = new Regola(document, "", true);
+if(NULL != regola) {
+Element *root = regola->root();
+if( NULL != root ) {
+NSContext thisContext(NULL);
+root->handleNamespace(&thisContext);
+foreach (Element* child, root->getChildItemsRef()) {
+NSContext context(thisContext);
+QString name, prefix;
+XmlUtils::decodeQualifiedName(child->tag(), prefix, name);
+const QString &elementNamespace = context.uriFromPrefix(prefix);
+if((elementNamespace == NamespaceManager::XSL1Namespace) && (name == "output") ) {
+QString encoding = child->getAttributeValue("encoding");
+if(!encoding.isEmpty()) {
+result = encoding ;
+}
+break;
+}
+}
+}
+delete regola;
+}
+}
+return result ;
+}
+*/
 
 bool XSLTExecutor::InputStringHolder::removeTempFile()
 {
@@ -334,10 +376,26 @@ bool XSLTExecutor::OutputStringHolder::readResult()
     if(_tempFile.error() != QFile::NoError) {
         return false;
     }
-    // What about the encoding? Please check <xsl:output omit-xml-declaration="yes" indent="yes" encoding="UTF-8" />
-    Utils::TODO_THIS_RELEASE("<xsl:output encoding='UTF-8' />");
-    *_target = QString(_data);
-    return true;
+    Utils::TODO_THIS_RELEASE("test me");
+    if(loadFromFile(&_tempFile, _target)) {
+        return true;
+    }
+    return false;
+}
+
+bool XSLTExecutor::OutputStringHolder::loadFromFile(QFile *ioDevice, QString *ptr)
+{
+    if(!_tempFile.seek(0)) {
+        return false ;
+    }
+    bool result = false;
+    Regola *newModel = Regola::loadFromOpenFile(ioDevice);
+    if(NULL != newModel) {
+        result = true ;
+        *ptr = newModel->getAsText();
+        delete newModel;
+    }
+    return result ;
 }
 
 QString XSLTExecutor::OutputStringHolder::fileName()

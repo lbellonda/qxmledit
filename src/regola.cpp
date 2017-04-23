@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -28,6 +28,7 @@
 #include "modules/xsd/namespacemanager.h"
 #include "modules/xml/elmpath.h"
 #include "editelementwithtexteditor.h"
+#include "modules/xml/xmlloadcontext.h"
 
 //-----
 TextEditorInterface::TextEditorInterface() {}
@@ -540,7 +541,8 @@ QString Regola::getAsText(ElementLoadInfoMap *map)
 QString Regola::getAsTextStream(ElementLoadInfoMap *map)
 {
     QBuffer buffer ;
-    bool result = writeStreamInternal(&buffer, true, map);
+    Utils::TODO_THIS_RELEASE("perche usare encoding, se leggo in utf8? Mi serve una stringa");
+    bool result = writeStreamInternal(&buffer, false, map);
     if(result) {
         return QString::fromUtf8(buffer.data());
     } else {
@@ -3291,3 +3293,17 @@ QList<int> Regola::elementPathForPath(QList<int> &inputPos)
     return result;
 }
 
+Regola *Regola::loadFromOpenFile(QFile *ioDevice)
+{
+    QXmlStreamReader reader ;
+    reader.setDevice(ioDevice);
+    XMLLoadContext context;
+    Regola *newModel = new Regola(ioDevice->fileName());
+    if(NULL != newModel) {
+        if(newModel->readFromStream(&context, &reader)) {
+            return newModel;
+        }
+        delete newModel;
+    }
+    return NULL ;
+}

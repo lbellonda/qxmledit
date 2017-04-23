@@ -646,6 +646,7 @@ public:
     bool applyEditAndSwapElement(Element *newElement, Element *swapElement, QList<int> path);
 
     QList<int> elementPathForPath(QList<int> &inputPos);
+    static Regola *loadFromOpenFile(QFile *ioDevice);
 
 private:
     void addUndoInsert(QTreeWidget * tree, Element * element);

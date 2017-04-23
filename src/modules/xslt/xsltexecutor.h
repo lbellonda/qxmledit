@@ -128,6 +128,7 @@ protected:
         QByteArray _data ;
         QBuffer _device;
         QTemporaryFile _tempFile;
+        bool loadFromFile(QFile *ioDevice, QString *ptr);
     public:
         OutputStringHolder(QString *outString);
         ~OutputStringHolder();

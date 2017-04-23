@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<root>
+ <a aa="aaa&#x105;">
+  <b b="b"/>
+  <b b="b"/>
+ </a>
+ <a aa="aab">
+  <b b="b"/>
+ </a>
+ <a aa="aac"/>
+</root>
