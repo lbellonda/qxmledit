@@ -48,10 +48,9 @@ const QString ShortcutsDialog::Text = tr(
 <h1>Shortcuts for element creation</h1>\
 <hr/>\
 <br/>\
-<body>\
-<table border='1'>\
-    <tr><th>Operation</td><td>Shortcut</th></tr>\
-    <tr><th>Insert</td><td> INS, i</th></tr>\
+<table border='1' cellspacing='0' cellpadding='8' >\
+    <tr><th>Operation</td><th>Shortcut</th></tr>\
+    <tr><td>Insert</td><td> INS, i</th></tr>\
         <tr><td>Append</td><td> ALT+INS, a</td></tr>\
         <tr><td>Insert Spec</td><td> SHIFT INS, shift i</td></tr>\
         <tr><td>Append Spec</td><td> ALT+SHIFT+INS, shift a</td></tr>\
@@ -59,10 +58,11 @@ const QString ShortcutsDialog::Text = tr(
     <tr><td>Properties</td><td> ALT+ENTER, DOUBLE CLICK</td></tr>\
         <tr><td>Spec Properties</td><td> ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK</td></tr>\
         <tr><td>Edit text</td><td> t</td></tr>\
+        <tr><td>Edit element</td><td> e</td></tr>\
 </table>\
 <br/>\
 <br/>\
-<table border='1'>\
+<table border='1' cellspacing='0' cellpadding='8'>\
     <tr>\
         <th>Edit Mode</th>\
         <th>DblClick</th>\
