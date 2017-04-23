@@ -48,6 +48,7 @@
 #include <QElapsedTimer>
 #include "utils.h"
 #include "modules/services/uidservices.h"
+#include "modules/services/threadservices.h"
 
 #ifdef  QWT_PLOT3D
 #include "../external/qwtplot3d/include/qwt3d_global.h"
@@ -641,9 +642,8 @@ void DataWidget::waitCalcImage(QList<QFuture<void> > &threads)
     bool done = false;
     UIDesktopServices uiServices(mainWindow());
     while(!done) {
-#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
-        QThread::msleep(250);
-#endif
+        Utils::TODO_THIS_RELEASE("test me");
+        ThreadServices::msleep(250);
         if(timer.elapsed() > (THRESHOLD_SECONDS * 1000)) {
             uiServices.startIconProgressBar();
             uiServices.setIconProgressBar(50);
