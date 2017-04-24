@@ -236,22 +236,9 @@ void XmlEditWidgetPrivate::secondStepConstructor()
     // ALT Enter
     {
         QShortcut *shortcutAppendSpec = new QShortcut(tree);
-        shortcutAppendSpec->setKey(Qt::Key_Return + Qt::ALT);
-        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutAltEnter()));
-    }
-    // ALT Enter
-    {
-        QShortcut *shortcutAppendSpec = new QShortcut(tree);
         shortcutAppendSpec->setKey(Qt::Key_Enter + Qt::ALT);
         connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutAltEnter()));
     }
-    // Enter
-    Utils::TODO_THIS_RELEASE("cassato");
-    /*{
-        QShortcut *shortcutAppendSpec = new QShortcut(tree);
-        shortcutAppendSpec->setKey(Qt::Key_Return);
-        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutEnter()));
-    }*/
     // T
     {
         QShortcut *shortcutAppendSpec = new QShortcut(tree);
@@ -983,11 +970,6 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
                 computeSelectionState();
                 return result ;
             }
-            Utils::TODO_THIS_RELEASE("finire");
-            /*else if (attributi) {
-                regola->editElement(p, item, _uiDelegate, XXXX );
-                mah
-            }*/
         }
     }
     regola->editElement(p, item, _uiDelegate);
