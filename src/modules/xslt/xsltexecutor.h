@@ -124,6 +124,7 @@ protected:
 
     class OutputStringHolder : public OutputHolder
     {
+    protected:
         QString *_target;
         QByteArray _data ;
         QBuffer _device;
@@ -141,7 +142,7 @@ protected:
         virtual bool readResult();
         virtual QString fileName() ;
     };
-
+protected:
     InputHolder *_sourceHolder;
     OutputHolder *_outputHolder;
     InputHolder *_xsltHolder;
@@ -188,8 +189,8 @@ public:
     void setParameters(QHash<QString, QString> parameters);
     void setInputLiteral(const QString &data);
     void setInputFile(const QString &fileName);
-    void setOutput(const QString &fileName);
-    void setOutput(QString *outputStringPtr);
+    virtual void setOutput(const QString &fileName);
+    virtual void setOutput(QString *outputStringPtr);
     void setXSLLiteral(const QString &xsl);
     void setXSLFile(const QString &fileName);
     virtual bool exec(MessagesOperationResult &result) ;

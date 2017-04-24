@@ -26,6 +26,7 @@
 #include <QXmlQuery>
 #include <QXmlSerializer>
 #include <QTextCodec>
+#include <QFile>
 #include "utils.h"
 #include "regola.h"
 #include "modules/namespace/nscontext.h"

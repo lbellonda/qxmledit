@@ -52,6 +52,12 @@ TestExecXSLT::~TestExecXSLT()
 
 bool TestExecXSLT::testFast()
 {
+    if(!checkSaxonEngineCfg() ) {
+        return false;
+    }
+    if(!checkExecRunSourcesSaxon()) {
+        return false ;
+    }
     return checkSaxonEngine();
 }
 
@@ -879,12 +885,12 @@ bool TestExecXSLT::checkSaxonEngineCfg()
         executor.setInputLiteral("<root/>");
         executor.setXSLFile(FILE_XSL_0);
         executor.setOutput("  :C::S:****::/tmp/xx");
-        if(executor.exec(result) ) {
-            return error("exec succeeded");
+        if(!executor.exec(result) ) {
+            return error("exec not succeeded 1");
         }
         QList<int> errorsToCheck;
-        errorsToCheck << XSLTExecutor::ErrorConfigurationMissing ;
         QList<int> errorsToAvoid;
+        errorsToAvoid << XSLTExecutor::ErrorConfigurationMissing ;
         if(!checkExecErrors("input cfg missing", result, errorsToCheck, errorsToAvoid)) {
             return false ;
         }
@@ -895,12 +901,12 @@ bool TestExecXSLT::checkSaxonEngineCfg()
         executor.setInputFile(FILE_INPUT_0);
         executor.setXSLLiteral("<root/>");
         executor.setOutput("  :C::S:****::/tmp/xx");
-        if(executor.exec(result) ) {
-            return error("exec succeeded");
+        if(!executor.exec(result) ) {
+            return error("exec not succeeded 2");
         }
         QList<int> errorsToCheck;
-        errorsToCheck << XSLTExecutor::ErrorConfigurationMissing ;
         QList<int> errorsToAvoid;
+        errorsToAvoid << XSLTExecutor::ErrorConfigurationMissing ;
         if(!checkExecErrors("xsl cfg missing", result, errorsToCheck, errorsToAvoid)) {
             return false ;
         }
@@ -912,17 +918,81 @@ bool TestExecXSLT::checkSaxonEngineCfg()
         executor.setXSLLiteral("<root/>");
         QString output;
         executor.setOutput(&output);
-        if(executor.exec(result) ) {
-            return error("exec succeeded");
+        if(!executor.exec(result) ) {
+            return error("exec not succeeded 3");
         }
         QList<int> errorsToCheck;
-        errorsToCheck << XSLTExecutor::ErrorConfigurationMissing ;
         QList<int> errorsToAvoid;
+        errorsToAvoid << XSLTExecutor::ErrorConfigurationMissing ;
         if(!checkExecErrors("output cfg missing", result, errorsToCheck, errorsToAvoid)) {
             return false ;
         }
     }
     return true ;
+}
+
+class FakeXSLTExecutor : public XSLTExecutor {
+
+    class TestOutputStringHolder : public XSLTExecutor::OutputStringHolder
+    {
+        QString _ref;
+    public:
+        TestOutputStringHolder(const QString &ref, QString *outString);
+        ~TestOutputStringHolder();
+
+        virtual bool readResult();
+    };
+public:
+    FakeXSLTExecutor(ApplicationData *data);
+    virtual ~FakeXSLTExecutor();
+    virtual void setOutput(QString *outputStringPtr);
+
+};
+
+FakeXSLTExecutor::FakeXSLTExecutor(ApplicationData *data) : XSLTExecutor(data)
+{
+}
+
+FakeXSLTExecutor::~FakeXSLTExecutor()
+{
+}
+
+void FakeXSLTExecutor::setOutput(QString *outputStringPtr)
+{
+    setOutputHolder(new TestOutputStringHolder(FILE_OUTPUT_2, outputStringPtr), &_outputHolder);
+}
+
+FakeXSLTExecutor::TestOutputStringHolder::TestOutputStringHolder(const QString &ref, QString *outString) : OutputStringHolder(outString)
+{
+    _ref = ref ;
+}
+
+FakeXSLTExecutor::TestOutputStringHolder::~TestOutputStringHolder()
+{
+}
+
+bool FakeXSLTExecutor::TestOutputStringHolder::readResult()
+{
+    QFile refFile(_ref);
+    if(!refFile.open(QFile::ReadOnly)) {
+        return false;
+    }
+    QByteArray origData = refFile.readAll();
+    refFile.close();
+    if(refFile.error() != QFile::NoError) {
+        return false;
+    }
+    if(!_tempFile.seek(0)) {
+        return false ;
+    }
+    _tempFile.write(origData);
+    if(!_tempFile.seek(0)) {
+        return false ;
+    }
+    if(_tempFile.error() != QFile::NoError) {
+        return false;
+    }
+    return XSLTExecutor::OutputStringHolder::readResult();
 }
 
 bool TestExecXSLT::checkExecRunSourcesSaxon()
@@ -937,7 +1007,7 @@ bool TestExecXSLT::checkExecRunSourcesSaxon()
     QString saxonPath = "aaa" ;
     app.data()->setSaxonXSLPath(saxonPath);
     app.data()->setUseSaxonXSL(true);
-    XSLTExecutor executor(app.data());
+    FakeXSLTExecutor executor(app.data());
     if(!app.mainWindow()->loadFile(FILE_XSL_2, true, MainWindow::OpenUsingNewWindow) ) {
         return error(QString("Loading file %1").arg(FILE_XSL_0));
     }
