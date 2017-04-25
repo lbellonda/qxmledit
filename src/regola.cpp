@@ -541,7 +541,7 @@ QString Regola::getAsText(ElementLoadInfoMap *map)
 QString Regola::getAsTextStream(ElementLoadInfoMap *map)
 {
     QBuffer buffer ;
-    Utils::TODO_THIS_RELEASE("perche usare encoding, se leggo in utf8? Mi serve una stringa");
+    Utils::TODO_THIS_RELEASE("test me per encoding");
     bool result = writeStreamInternal(&buffer, false, map);
     if(result) {
         return QString::fromUtf8(buffer.data());
@@ -1033,35 +1033,9 @@ bool Regola::editElement(QWidget *const parentWindow, QTreeWidgetItem *item, UID
     }
     return false ;
 }
-/*
-bool Regola::editElementWithTextEditor(QWidget *const parentWindow, QTreeWidget *treeWidget, QTreeWidgetItem *item)
-{
-    Utils::TODO_THIS_RELEASE("ORIGINALE:::accorpare con precedente");
-    bool result = false;
-    bool updateInfo = false;
-    Element *pElement = Element::fromItemData(item);
-    Element *editElement = new Element("", "", NULL, NULL);
-    pElement->copyTo(*editElement);
-    editElement->setRegola(pElement->getParentRule(), false);
-    QList<int> path = pElement->indexPath();
-    Utils::TODO_THIS_RELEASE("da remove");
-    result = editNodeElementWithTextEditor(parentWindow, editElement);
-    if(!result) {
-        editElement->setRegola(NULL, false);
-        delete editElement ;
-        return false;
-    }
-    UndoSimpleEditCommand *undoCommand = new UndoSimpleEditCommand(treeWidget, this, path, editElement);
-    updateInfo = true ;
-    Utils::TODO_THIS_RELEASE("non forza il redisplay");
-    _undoStack.push(undoCommand);
-    return result ;
-}
-*/
 
 bool Regola::editElementWithTextEditor(QWidget *const parentWindow, QTreeWidget *treeWidget, QTreeWidgetItem *item, TextEditorInterface *editor)
 {
-    Utils::TODO_THIS_RELEASE("rimuovi codice commentato sopra");
     Utils::TODO_THIS_RELEASE("derivato:::accorpare con precedente,");
     if(NULL == editor) {
         editor = this ;

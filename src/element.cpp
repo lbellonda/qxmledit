@@ -1380,17 +1380,12 @@ void Element::deleteUI()
             thisWidget = ui->treeWidget()->takeTopLevelItem(index);
         }
         if(NULL != thisWidget) {
-            Utils::TODO_THIS_RELEASE("fare");
-            /*ElementDisplayInfo *info = displayInfoFromWidget(thisWidget);
-            if(NULL != info ) {
-                delete info ;
-            }*/
             delete thisWidget;
         }
         // elimina tutti i figli
         zeroUI();
     } else {
-        Utils::TODO_THIS_RELEASE("zero");
+        // nothing to do
     }
 }
 

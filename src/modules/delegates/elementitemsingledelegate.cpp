@@ -548,13 +548,6 @@ QSize ElementItemSingleDelegate::sizeHint(const QStyleOptionViewItem & option, c
     if(!_inited) {
         const_cast<ElementItemSingleDelegate*>(this)->calcTextColor(option);
     }
-    Utils::TODO_THIS_RELEASE("Valido solo se non cambiano le opzioni E le opzioni di visualizzazione, importante");
-    /*ElementDisplayInfo *elementDisplayInfo = Element::displayInfoFromModelIndex(index);
-    if(NULL != elementDisplayInfo) {
-        if(elementDisplayInfo->_sizeValid) {
-            return elementDisplayInfo->_size;
-        }
-    }*/
 
     ElementViewInfo dataInfo ;
     dataInfo._showAllComments = _paintInfo->showFullComments();

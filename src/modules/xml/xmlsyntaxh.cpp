@@ -26,9 +26,6 @@
 
 XMLSyntaxH::XMLSyntaxH(QTextDocument *parent, PaintInfo *paintInfo) : QSyntaxHighlighter(parent)
 {
-    Utils::TODO_THIS_RELEASE("probl 1 stato tag visto si/no");
-    Utils::TODO_THIS_RELEASE("probl 1 stato in stringa");
-    Utils::TODO_THIS_RELEASE("per gestire le andate a capo");
     QColor tagColor = ColorManager::tagColorDefault();
     QColor attributeNameColor = ColorManager::attributeNameColorDefault();
     QColor attributeValueColor = ColorManager::attributeValueColorDefault();
@@ -40,7 +37,6 @@ XMLSyntaxH::XMLSyntaxH(QTextDocument *parent, PaintInfo *paintInfo) : QSyntaxHig
             attributeValueColor = colorManager->attributeValues()->color();
         }
     }
-    Utils::TODO_THIS_RELEASE("fare completamente e usare colori di sistema, poss anche bold");
     _attributeNameTextFormat.setForeground(attributeNameColor);
     _attributeValueTextFormat.setForeground(attributeValueColor);
     _tagTextFormat.setForeground(tagColor);

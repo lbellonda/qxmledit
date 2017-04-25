@@ -525,7 +525,6 @@ HEADERS += precompiled_lib.h \
     edittextnode.h \
     editcomment.h \
     editprocessinginstruction.h \
-    elementitemdelegate.h \
     navigationbox.h \
     operationresult.h \
     stylepersistence.h \
