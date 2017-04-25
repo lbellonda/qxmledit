@@ -1,4 +1,4 @@
-.TH QXmlEdit 1 "2016-02-26" "qxmledit"
+.TH QXmlEdit 1 "2017-04-25" "qxmledit"
 .SH NAME
 qxmledit \- simple XML editor and XSD viewer
 .SH SYNOPSIS
@@ -21,7 +21,12 @@ The parameters are:
 .IP \fB-vis\fP\ <file>
 opens the data visualization panel
 .IP \fB-anonymize\fP\ <inputfile>\ <profile>\ <outputfile>
-anonymize the file \<inputfile\> using the profile <profile> writing the result into <outputfile>.
+anonymizes the file \<inputfile\> using the profile <profile> writing the result into <outputfile>.
+.br
+With this option \fBQXmlEdit\fP exits after the operation.
+.IP \fB-xsl\fP\ [-saxon]\ -xsl=<xslFile>\ -output=<outputfile>\ {-p<name>=<value>}*\ <inputfile>
+executes a XSL transformation on the given files. The "saxon" option allows to use an external engine, if configured.
+The "-p" options are for setting parameters in the XSL template.
 .br
 With this option \fBQXmlEdit\fP exits after the operation.
 .PP
@@ -33,7 +38,7 @@ qxmledit file_input.xml
 Luca Bellonda and contributors.
 
 .SH COPYRIGHT
-Copyright (c) Luca Bellonda Luca Bellonda and contributors 2008-2016. License LGPL V2
+Copyright (c) Luca Bellonda Luca Bellonda and contributors 2008-2017. License LGPL V2
 
 .PP
 This manual page was originally written by Luca Bellonda <lbellonda@gmail.com>
