@@ -642,7 +642,7 @@ void DataWidget::waitCalcImage(QList<QFuture<void> > &threads)
     bool done = false;
     UIDesktopServices uiServices(mainWindow());
     while(!done) {
-        Utils::TODO_THIS_RELEASE("test me");
+        Utils::TODO_THIS_RELEASE("test me with unit tests");
         ThreadServices::msleep(250);
         if(timer.elapsed() > (THRESHOLD_SECONDS * 1000)) {
             uiServices.startIconProgressBar();
@@ -1351,7 +1351,6 @@ void DataWidget::contextMenuEvent(QContextMenuEvent * event)
         if(NULL != _dataPoints) {
             contextMenu->addAction(ui->actionCopyDataToClipboard);
             contextMenu->addAction(ui->actionCopyImageToClipboard);
-            Utils::TODO_THIS_RELEASE("copia immagine in clipboard e metodo esterno");
             isMenu = true ;
         }
         if((_dataWindow.height() > 0)  && (_dataWindow.width() > 0)) {

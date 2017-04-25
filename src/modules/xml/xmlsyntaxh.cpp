@@ -128,24 +128,6 @@ void XMLSyntaxH::highlightBlockBase(const QString &text, const bool lookForTag, 
     }
     // match pairs of attributes, this can be tricky and give wrong results using regex
     scanAttributes(text, index, maxIndex);
-    Utils::TODO_THIS_RELEASE("remove comments");
-    /*while(index < maxIndex) {
-        int lastIndex = index ;
-        index = matchUpToEqual(text, index, maxIndex);
-        setFormat(lastIndex, index - lastIndex, _attributeNameTextFormat);
-        lastIndex = index ;
-        QChar separator ;
-        bool isInString = false;
-        index = matchUpToString(text, index, maxIndex, isInString, separator);
-        setFormat(lastIndex, index - lastIndex, _attributeValueTextFormat);
-        if( index == maxIndex ) {
-            if(!isInString) {
-                setCurrentBlockState(StateTag);
-            } else {
-                setStateStringOpen(separator);
-            }
-        }
-    }*/
 }
 
 void XMLSyntaxH::highlightEndString(const QString &text, const QChar &separator)
@@ -155,7 +137,6 @@ void XMLSyntaxH::highlightEndString(const QString &text, const QChar &separator)
     // match pairs of attributes, this can be tricky and give wrong results using regex
     bool stringIsOpen = true ;
     index = scanToEndOfToString(text, index, maxIndex, stringIsOpen, separator);
-    Utils::TODO_THIS_RELEASE("+-1");
     setFormat(0, index, _attributeValueTextFormat);
     if(stringIsOpen) {
         setStateStringOpen(separator);
@@ -164,25 +145,6 @@ void XMLSyntaxH::highlightEndString(const QString &text, const QChar &separator)
 
     // match pairs of attributes, this can be tricky and give wrong results using regex
     scanAttributes(text, index, maxIndex);
-    Utils::TODO_THIS_RELEASE("remove comments");
-    /*while(index < maxIndex) {
-        Utils::TODO_THIS_RELEASE("refactor");
-        int lastIndex = index ;
-        index = matchUpToEqual(text, index, maxIndex);
-        setFormat(lastIndex, index - lastIndex, _attributeNameTextFormat);
-        lastIndex = index ;
-        QChar separator ;
-        bool isInString = false;
-        index = matchUpToString(text, index, maxIndex, isInString, separator);
-        setFormat(lastIndex, index - lastIndex, _attributeValueTextFormat);
-        if( index == maxIndex ) {
-            if(!isInString) {
-                setCurrentBlockState(StateTag);
-            } else {
-                setStateStringOpen(separator);
-            }
-        }
-    }*/
 }
 
 int XMLSyntaxH::skipSpaces(const QString &text, const int index, const int maxIndex)

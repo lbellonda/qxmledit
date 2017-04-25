@@ -32,7 +32,6 @@
 
 bool XSLTExecDialog::execDialog(QWidget *parent, ApplicationData *data, XmlEditWidget *source, XmlEditWidget *xsl)
 {
-    Utils::TODO_THIS_RELEASE("salvare ed aggiungere l'ultimo usato.");
     if(!data->isUseSaxonXSL()) {
         Utils::warning(parent, tr("WARNING: the support to XSL-T in Qt is currently experimental: the support to XSL is not complete.\nYou can use SAXON or another Java jar with same command line syntax (not part of QXmlEdit) if you configure it in preferences."));
     } else {
@@ -89,7 +88,6 @@ XSLTExecDialog::~XSLTExecDialog()
 
 void XSLTExecDialog::finishSetup(XmlEditWidget *source, XmlEditWidget *xsl)
 {
-    Utils::TODO_THIS_RELEASE("quando scelgo file in input aggiungo la cartella ai dati in output");
     //--
     ui->outputName->setText("");
     ui->inputFile->setText("");
@@ -140,7 +138,6 @@ XmlEditWidget *XSLTExecDialog::fromEditorToEditor(const bool useFile, XmlEditWid
 
 void XSLTExecDialog::setupRecentFolders(QToolButton *button, ComboUtils *util, const bool isSave, const char *method, const QString &file, XmlEditWidget *editor, const QString &lastFile)
 {
-    Utils::TODO_THIS_RELEASE("abilita anche se external");
     QList<XmlEditWidget *> widgets ;
     foreach(MainWindow *w, _data->windows()) {
         widgets.append(w->getEditor());
@@ -168,7 +165,6 @@ void XSLTExecDialog::startOperation()
 {
     setEnabled(false);
     XSLTExecutor xsltExecutor(_data) ;
-    Utils::TODO_THIS_RELEASE("check parameters");
     if(!setInput(&xsltExecutor)) {
         setEnabled(true);
         return ;

@@ -414,7 +414,6 @@ void ExtractionOperation::execute(QFile *file)
             counterOperations = operationCount ;
             if(0x400 == (operationCount & 0x0400)) {
                 if(_size > 0) {
-                    Utils::TODO_THIS_RELEASE("testme");
                     const qint64  pos = xmlReader.device()->pos() ;
                     percent = (pos * 100) / _size ;
                 }
