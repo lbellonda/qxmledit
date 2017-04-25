@@ -36,7 +36,6 @@ extern const char *APP_TITLE ;
 #include "qxmledit.h"
 #include "validatormessagehandler.h"
 #include "snippet_interface.h"
-#include "elementitemdelegate.h"
 #include "aboutdialog.h"
 #include "schemavalidator.h"
 #include "alloweditemsinsert.h"
@@ -3620,6 +3619,5 @@ void MainWindow::on_actionOpenSiblingsAtTheSameLevel_triggered()
 
 void MainWindow::on_actionShowPrincipalShortcuts_triggered()
 {
-    Utils::TODO_THIS_RELEASE("test");
     ShortcutsDialog::display(this);
 }

@@ -27,7 +27,6 @@
 #include "xsdeditor/io/xschemaloader.h"
 #include "validatormessagehandler.h"
 #include "schemavalidator.h"
-#include "elementitemdelegate.h"
 #include "alloweditemsinsert.h"
 #include "qxmleditconfig.h"
 #include "findtextparams.h"

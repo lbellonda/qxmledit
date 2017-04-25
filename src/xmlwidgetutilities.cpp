@@ -23,7 +23,6 @@
 
 #include "xmlwidgetutilities.h"
 
-#include "elementitemdelegate.h"
 #include "paintinfo.h"
 #include "utils.h"
 #include "qxmleditconfig.h"
