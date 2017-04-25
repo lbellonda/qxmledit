@@ -42,8 +42,12 @@ class XsltHelper : public QObject
     XmlEditWidgetPrivate *_owner;
     QSet<QString> _namesForAutocompletion;
 
-
+public:
     static const QString TemplateTag ;
+    static const QString ParameterTag ;
+    static const QString NameTag ;
+
+private:
 
     void init();
     void addElement(XsltElement *el);

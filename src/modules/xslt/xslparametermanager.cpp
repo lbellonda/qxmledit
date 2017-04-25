@@ -23,6 +23,7 @@
 #include "xslparametermanager.h"
 #include "modules/namespace/nscontext.h"
 #include "modules/xsd/namespacemanager.h"
+#include "modules/xslt/xslthelper.h"
 #include "modules/xml/xmlloadcontext.h"
 #include "regola.h"
 #include "xmlutils.h"
@@ -93,9 +94,8 @@ void XSLParameterManager::scanForParameters(Regola *regola)
                 XmlUtils::decodeQualifiedName(element->tag(), prefix, name);
                 const QString &elementNamespace = thisContext.uriFromPrefix(prefix);
                 if((elementNamespace == NamespaceManager::XSL1Namespace)
-                        && (name == "param")) {
-                    Utils::TODO_THIS_RELEASE("fare costante");
-                    QString name = element->getAttributeValue("name");
+                        && (name == XsltHelper::ParameterTag)) {
+                    QString name = element->getAttributeValue(XsltHelper::NameTag);
                     if(!name.isEmpty()) {
                         _parameters.insert(name);
                     }

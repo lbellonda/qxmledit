@@ -56,6 +56,8 @@ XslContext::~XslContext()
 //-------------------------------------------------------------
 
 const QString XsltHelper::TemplateTag = "template";
+const QString XsltHelper::ParameterTag("param") ;
+const QString XsltHelper::NameTag("name") ;
 
 XsltHelper::XsltHelper(XmlEditWidgetPrivate *owner, QObject *parent) :
     QObject(parent)
