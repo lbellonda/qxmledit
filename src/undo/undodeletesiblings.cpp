@@ -112,7 +112,7 @@ bool DeleteSiblingsCommand::deleteAllSiblingsAfter(Element *selected)
     bool removed = false;
     if(NULL != parent) {
         int count = parent->getChildItemsCount();
-        Utils::TODO_THIS_RELEASE("attenzione, provare e fare anche per gli altri comandi");
+        Utils::TODO_THIS_RELEASE("attenzione, manca la selezione. provare e fare anche per gli altri comandi");
         _posAfter = pos + 1;
         int toDelete = count - (pos + 1);
         QList<QTreeWidgetItem*> siblings = parent->getUI()->takeChildren();
@@ -126,6 +126,7 @@ bool DeleteSiblingsCommand::deleteAllSiblingsAfter(Element *selected)
             removed = true;
         }
         parent->getUI()->addChildren(siblings);
+        selected->getUI()->treeWidget()->setCurrentItem(selected->getUI());
         parent->updateSizeInfo(true);
     }
     return removed ;
@@ -141,7 +142,7 @@ bool DeleteSiblingsCommand::deleteAllSiblingsBefore(Element *selected)
     Element *parent = selected->parent();
     bool removed = false;
     if(NULL != parent) {
-        Utils::TODO_THIS_RELEASE("testare con valgrind");
+        Utils::TODO_THIS_RELEASE("seleziona il padre, dopo");
         Utils::TODO_THIS_RELEASE("attenzione, provare e fare anche per gli altri comandi");
         _posBefore = 0 ;
         int toDelete = pos;
@@ -155,6 +156,7 @@ bool DeleteSiblingsCommand::deleteAllSiblingsBefore(Element *selected)
             removed = true;
         }
         parent->getUI()->addChildren(siblings);
+        selected->getUI()->treeWidget()->setCurrentItem(selected->getUI());
         parent->updateSizeInfo(true);
     }
     return removed ;
