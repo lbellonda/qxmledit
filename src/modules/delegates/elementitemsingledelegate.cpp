@@ -725,8 +725,6 @@ void ElementItemSingleDelegate::findRects(QTreeWidget * widget, QTreeWidgetItem 
             elementDisplayInfo->_attributesRect.setRect(currentPosX + offsetX, option.rect.y(), docSize.width(), docSize.height());
         }
         currentPosX += (docSize.width() + HGap) * sign;
-
-        Utils::TODO_THIS_RELEASE("elementDisplayInfo->set attributes ect;");
     } else {
         if(NULL != elementDisplayInfo) {
             elementDisplayInfo->_attributesRect.setRect(0, 0, 0, 0);

@@ -33,7 +33,7 @@
 bool XSLTExecDialog::execDialog(QWidget *parent, ApplicationData *data, XmlEditWidget *source, XmlEditWidget *xsl)
 {
     if(!data->isUseSaxonXSL()) {
-        Utils::warning(parent, tr("WARNING: the support to XSL-T in Qt is currently experimental: the support to XSL is not complete.\nYou can use SAXON or another Java jar with same command line syntax (not part of QXmlEdit) if you configure it in preferences."));
+        Utils::warning(parent, tr("WARNING: the support to XSL-T 2.0 in Qt is currently not complete.\nYou can use SAXON or another Java jar with same command line syntax (not part of QXmlEdit) if you configure it in preferences."));
     } else {
         const QString msgAdvice = tr("WARNING: external XSL engine supports only data persisted as files.");
         const QString msgAsk = tr("WARNING: external XSL engine supports only data persisted as files. The editor contains modifications not saved. Do you want to continue anyway?");
@@ -343,7 +343,6 @@ void XSLTExecDialog::onChooseInput()
                     loadSources(NULL, NULL);
                 }
             } else {
-                Utils::TODO_THIS_RELEASE("Provare se funziona");
                 QString filePath = fileForSelection(item, ui->inputFile->text(), tr("Source File"), true);
                 if(!filePath.isEmpty()) {
                     setInputDataFile(filePath);

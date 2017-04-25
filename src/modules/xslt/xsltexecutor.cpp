@@ -339,7 +339,6 @@ bool XSLTExecutor::execSaxon(MessagesOperationResult &result)
         // avoiding null pointers
         return false;
     }
-    Utils::TODO_THIS_RELEASE("testme");
     if(!_sourceHolder->isFile()) {
         if(!_sourceHolder->createTempFile()) {
             addError(result, ErrorOpeningDeviceInput, QObject::tr("Unable to create temporary file for input data."), -1, -1);
@@ -355,7 +354,6 @@ bool XSLTExecutor::execSaxon(MessagesOperationResult &result)
             addError(result, ErrorOpeningDeviceOutput, QObject::tr("Unable to create temporary file for input data."), -1, -1);
         }
     }
-    Utils::TODO_THIS_RELEASE("da provare");
     if(result.isError()) {
         _sourceHolder->removeTempFile();
         _xsltHolder->removeTempFile();

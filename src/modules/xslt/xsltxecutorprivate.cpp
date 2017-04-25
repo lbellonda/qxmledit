@@ -47,7 +47,6 @@ void XSLTExecutor::MessageHandler::handleMessage(QtMsgType type,
         const QSourceLocation &sourceLocation)
 {
     _mutex.lock();
-    Utils::TODO_THIS_RELEASE("testme");
     SourceMessage *message = new SourceMessage();
     message->setCode(XSLTExecutor::ErrorRuntime);
     message->setDescription(description);
@@ -339,7 +338,6 @@ bool XSLTExecutor::OutputStringHolder::readResult()
     if(_tempFile.error() != QFile::NoError) {
         return false;
     }
-    Utils::TODO_THIS_RELEASE("test me");
     if(loadFromFile(&_tempFile, _target)) {
         return true;
     }
