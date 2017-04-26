@@ -156,7 +156,7 @@ void Base64Dialog::loadFromBinaryFile(const QString &filePath)
     bool isError = true ;
     bool isAbort = false ;
     Base64Utils base64Utils;
-    QString strBase64 = base64Utils.loadFromBinaryFile(_type, this, filePath, isError, isAbort);
+    QString strBase64 = base64Utils.loadFromBinaryFile(_type, this, filePath, isError, isAbort, ui->cbLimitColumns->isChecked(), ui->colLimit->value());
     if(!(isError || isAbort)) {
         ui->base64Edit->setPlainText(strBase64);
     }
