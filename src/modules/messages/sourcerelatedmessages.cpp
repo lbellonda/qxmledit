@@ -93,21 +93,21 @@ void SourceRelatedMessages::loadData()
         QIcon icon;
         switch(msg->type()) {
         case SourceMessage::Error:
-            icon.addPixmap(QPixmap(QString::fromUtf8(":/specials/error")), QIcon::Normal, QIcon::Off);
+            icon.addPixmap(QPixmap(QString::fromUtf8(":/special/error")), QIcon::Normal, QIcon::Off);
             item->setIcon(icon);
             break;
         case SourceMessage::Debug:
             Utils::TODO_THIS_RELEASE("fare icona");
-            icon.addPixmap(QPixmap(QString::fromUtf8(":/specials/debug")), QIcon::Normal, QIcon::Off);
+            icon.addPixmap(QPixmap(QString::fromUtf8(":/special/debug")), QIcon::Normal, QIcon::Off);
             item->setIcon(icon);
             break;
         case SourceMessage::Info:
-            icon.addPixmap(QPixmap(QString::fromUtf8(":/specials/info")), QIcon::Normal, QIcon::Off);
+            icon.addPixmap(QPixmap(QString::fromUtf8(":/special/info")), QIcon::Normal, QIcon::Off);
             item->setIcon(icon);
             break;
         default:
         case SourceMessage::Warning:
-            icon.addPixmap(QPixmap(QString::fromUtf8(":/specials/warning")), QIcon::Normal, QIcon::Off);
+            icon.addPixmap(QPixmap(QString::fromUtf8(":/special/warning")), QIcon::Normal, QIcon::Off);
             item->setIcon(icon);
             break;
         }
