@@ -941,24 +941,19 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
         errorNoRule();
         return false ;
     }
-    Utils::TODO_THIS_RELEASE("caso da fare sposta a monte");
     QPoint pt = getEditor()->mapFromGlobal(QCursor::pos());
     QRect itemRect = getEditor()->visualItemRect(item);
     if(forceTextual) {
-        Utils::TODO_THIS_RELEASE("undo deve essere solo di livello piu alto");
         regola->editElementWithTextEditor(p, getEditor(), item);
         bool result = false;
         computeSelectionState();
         return result ;
     } else {
         if(isByMouse) {
-            Utils::TODO_THIS_RELEASE("decidere, magari opzione trade memory for speed");
             if(itemRect.contains(pt, false)) {
                 ElementDisplayInfo thisElementDisplayInfo;
                 ElementItemSingleDelegate::findRects(getEditor(), item, itemRect, Element::fromItemData(item), &thisElementDisplayInfo);
-                Utils::TODO_THIS_RELEASE("commento");
-                //pt.setX(pt.x()-itemRect.left());
-                //pt.setY(pt.y()-itemRect.top());
+                //note the offset pt.setX(pt.x()-itemRect.left());
                 if(thisElementDisplayInfo._textRect.contains(pt, false)) {
                     return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
                 }
@@ -3716,7 +3711,6 @@ void XmlEditWidgetPrivate::onSCXMLNavigatorEditState(const QString & /*stateName
             selectAndShowItem(element);
             // now, edit it
             specificPropertiesItem(element->getUI(), EditModeForceSpecial);
-            Utils::TODO_THIS_RELEASE("check");
         }
     }
 }
@@ -3735,7 +3729,6 @@ void XmlEditWidgetPrivate::onXSLTNavigatorEdit(Element *element)
             selectAndShowItem(element);
             // now, edit it
             specificPropertiesItem(element->getUI(), EditModeForceSpecial);
-            Utils::TODO_THIS_RELEASE("check");
         }
     }
 }

@@ -29,8 +29,6 @@ EditElementWithTextEditor::EditElementWithTextEditor(QWidget *parent, Element *e
     QDialog(parent),
     ui(new Ui::EditElementWithTextEditor)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-    Utils::TODO_THIS_RELEASE("serve un flag per gestire le entita' e i caratteri raw o meno amp quote");
     _syntaxHiglighter = NULL ;
     _element = element;
     ui->setupUi(this);

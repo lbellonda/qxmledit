@@ -3175,7 +3175,6 @@ bool Element::findElement(Element *toFind)
 
 QString Element::getInTextualForm()
 {
-    Utils::TODO_THIS_RELEASE("decidere in che forma: se con escape e quot; oppure come valori stringa pura");
     QString result;
     QXmlStreamWriter writer(&result);
     writer.setAutoFormatting(false);

@@ -97,9 +97,7 @@ void SourceRelatedMessages::loadData()
             item->setIcon(icon);
             break;
         case SourceMessage::Debug:
-            Utils::TODO_THIS_RELEASE("fare icona");
-            icon.addPixmap(QPixmap(QString::fromUtf8(":/special/debug")), QIcon::Normal, QIcon::Off);
-            item->setIcon(icon);
+            // this icon is useless
             break;
         case SourceMessage::Info:
             icon.addPixmap(QPixmap(QString::fromUtf8(":/special/info")), QIcon::Normal, QIcon::Off);

@@ -541,7 +541,6 @@ QString Regola::getAsText(ElementLoadInfoMap *map)
 QString Regola::getAsTextStream(ElementLoadInfoMap *map)
 {
     QBuffer buffer ;
-    Utils::TODO_THIS_RELEASE("test me per encoding");
     bool result = writeStreamInternal(&buffer, false, map);
     if(result) {
         return QString::fromUtf8(buffer.data());
@@ -744,7 +743,6 @@ bool Regola::editNodeElement(QWidget *const parentWindow, Element *pElement, Ele
 
 bool Regola::editNodeElementWithTextEditor(QWidget *const parentWindow, Element *pElement)
 {
-    Utils::TODO_THIS_RELEASE("finire nota che la versione precedente controllava i namespace a livello alto root.");
     EditElementWithTextEditor editor(parentWindow, pElement, this);
     editor.setWindowModality(Qt::WindowModal);
     if(editor.exec() == QDialog::Accepted) {
@@ -1036,7 +1034,6 @@ bool Regola::editElement(QWidget *const parentWindow, QTreeWidgetItem *item, UID
 
 bool Regola::editElementWithTextEditor(QWidget *const parentWindow, QTreeWidget *treeWidget, QTreeWidgetItem *item, TextEditorInterface *editor)
 {
-    Utils::TODO_THIS_RELEASE("derivato:::accorpare con precedente,");
     if(NULL == editor) {
         editor = this ;
     }
@@ -1053,14 +1050,13 @@ bool Regola::editElementWithTextEditor(QWidget *const parentWindow, QTreeWidget 
         return false;
     }
     UndoSimpleEditCommand *undoCommand = new UndoSimpleEditCommand(treeWidget, this, path, editElement);
-    Utils::TODO_THIS_RELEASE("non forza il redisplay");
     _undoStack.push(undoCommand);
     return result ;
 }
 
+// Virtual function for testing.
 bool Regola::editTextualForInterface(QWidget *const parentWindow, Element *element)
 {
-    Utils::TODO_THIS_RELEASE("derivato:::accorpare con precedente");
     const bool result = editNodeElementWithTextEditor(parentWindow, element);
     return result ;
 }
