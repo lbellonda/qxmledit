@@ -5,8 +5,9 @@ Check issues:
 TODO:
 ----
 
-#new is:159
+#new is:160
 
+Branch 159 - formatting options to avoid file reformatting.
 158 - Rimuovi separatore exec in tools.
 Branch 156 - 156 - Completare suggerimenti xsd.
 155 - Aggiungere i metodi di testbase make element ad element?
