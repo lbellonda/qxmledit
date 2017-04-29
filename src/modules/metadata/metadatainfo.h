@@ -66,15 +66,15 @@ public:
     void update(const bool insertOnlyIfsNotExisting);
     void markNewRecord();
 
-    static QString CreationUserName;
-    static QString CreationDateName;
-    static QString UpdateUserName;
-    static QString UpdateDateName;
-    static QString RevisionName;
-    static QString MetaVersionName;
+    static const QString CreationUserName;
+    static const QString CreationDateName;
+    static const QString UpdateUserName;
+    static const QString UpdateDateName;
+    static const QString RevisionName;
+    static const QString MetaVersionName;
     //
-    static QString MetaDataModelVersion;
-    static QString MetaDataStartVersion;
+    static const QString MetaDataModelVersion;
+    static const QString MetaDataStartVersion;
     //--
     MetadataUserProvider *userProvider() const;
     void setUserProvider(MetadataUserProvider *userProvider);
@@ -107,6 +107,7 @@ private:
 
     void setupVariable(PseudoAttribute *attr, const QString &name);
     bool lookForOneAttribute(MetadataParsedResult *attributes, PseudoAttribute *inAttr, PseudoAttribute *targetAttr, const QString &name);
+    void decodeFormatSettings(MetadataParsedResult *input, XMLIndentationSettings *settings);
 
 public:
     MetadataInfo();
@@ -117,12 +118,21 @@ public:
     static const QString UPDATABLE_ATTR;
     static const QString TYPE_ATTR;
     static const QString VALUE_ATTR;
+    //
+    static const QString FORMATTING_TYPE;
     //------
     static const QString ProjectMetaType;
     static const QString CopyrightMetaType;
     static const QString VersionMetaType;
     static const QString DomainMetaType;
     static const QString NameMetaType;
+    //------
+    static const QString FormattingAttrIndentEnabled;
+    static const QString FormattingAttrIndentValue;
+    static const QString FormattingAttrSortAlphaAttr;
+    static const QString FormattingAttrAttrLineLen;
+    static const QString FormattingON;
+    static const QString FormattingOFF;
     //------
 
     MetadataUserProvider *userProvider() const;
@@ -134,6 +144,7 @@ public:
     bool parseOtherMetadata(const QString &inputData, const int row);
     QList<PseudoAttribute*> manualAttributeListByCondition(const bool readOnes, const bool writeOnes);
     PseudoAttribute *attribute(const QString &name);
+    bool parseFormattingInfo(const QString &inputData, const int row, XMLIndentationSettings *settings);
     //--
     virtual QString user();
     virtual QString date();

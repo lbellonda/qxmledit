@@ -226,6 +226,11 @@ public:
     static void setUpdateMetadata(const bool value);
     //--- endregion(metadata)
 
+    //--- region(formattingInfo)
+    static bool isFormattingInfoEnabled();
+    static void setFormattingInfoEnabled(const bool value);
+    //--- endregion(formattingInfo)
+
     //--- region(prolog)
     bool isAutoInsertProlog();
     void setAutoInsertProlog(const bool value);

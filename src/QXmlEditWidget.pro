@@ -495,7 +495,8 @@ SOURCES += xmleditwidget.cpp \
     modules/messages/sourceerror.cpp \
     editelementwithtexteditor.cpp \
     modules/xml/xmlsyntaxh.cpp \
-    modules/services/threadservices.cpp
+    modules/services/threadservices.cpp \
+    modules/metadata/formattinginfo.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \

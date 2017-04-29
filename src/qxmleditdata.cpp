@@ -497,7 +497,18 @@ QString QXmlEditData::defaultEncoding()
 
 //--- endregion(metadata)
 
+//--- region(formattingInfo)
+bool QXmlEditData::isFormattingInfoEnabled()
+{
+    return Config::getBool(Config::KEY_FORMATTING_INFO_ENABLED, true);
+}
 
+void QXmlEditData::setFormattingInfoEnabled(const bool value)
+{
+    Config::saveBool(Config::KEY_FORMATTING_INFO_ENABLED, value);
+}
+
+//--- endregion(formattingInfo)
 
 //--- region(prolog)
 bool QXmlEditData::isAutoInsertProlog()

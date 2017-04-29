@@ -76,16 +76,17 @@ void MetadataInfoFactory::_initInstance(MetadataInfo* newInstance)
 }
 
 //-------------------------------------------
-QString UpdatableMetadata::CreationUserName("creationUser");
-QString UpdatableMetadata::CreationDateName("creationDate");
-QString UpdatableMetadata::UpdateUserName("updateUser");
-QString UpdatableMetadata::UpdateDateName("updateDate");
-QString UpdatableMetadata::RevisionName("revision");
-QString UpdatableMetadata::MetaVersionName("metainfo");
+const QString UpdatableMetadata::CreationUserName("creationUser");
+const QString UpdatableMetadata::CreationDateName("creationDate");
+const QString UpdatableMetadata::UpdateUserName("updateUser");
+const QString UpdatableMetadata::UpdateDateName("updateDate");
+const QString UpdatableMetadata::RevisionName("revision");
+const QString UpdatableMetadata::MetaVersionName("metainfo");
 //--
-QString UpdatableMetadata::MetaDataModelVersion("1.0");
-QString UpdatableMetadata::MetaDataStartVersion("0");
+const QString UpdatableMetadata::MetaDataModelVersion("1.0");
+const QString UpdatableMetadata::MetaDataStartVersion("0");
 
+//
 UpdatableMetadata::UpdatableMetadata()
 {
     _creationUser.setName(CreationUserName);
@@ -286,12 +287,20 @@ const QString MetadataInfo::QXMLEDIT_TARGET_PI = "qxmledit";
 const QString MetadataInfo::UPDATABLE_ATTR = "info";
 const QString MetadataInfo::TYPE_ATTR = "type";
 const QString MetadataInfo::VALUE_ATTR = "value";
+const QString MetadataInfo::FORMATTING_TYPE("formatting");
 
 const QString MetadataInfo::ProjectMetaType("project");
 const QString MetadataInfo::CopyrightMetaType("copyright");
 const QString MetadataInfo::VersionMetaType("version");
 const QString MetadataInfo::DomainMetaType("domain");
 const QString MetadataInfo::NameMetaType("name");
+//--
+const QString MetadataInfo::FormattingAttrIndentEnabled("indent");
+const QString MetadataInfo::FormattingAttrIndentValue("indentValue");
+const QString MetadataInfo::FormattingAttrSortAlphaAttr("sortAlphaAttr");
+const QString MetadataInfo::FormattingAttrAttrLineLen("attrLineLen");
+const QString MetadataInfo::FormattingON("on");
+const QString MetadataInfo::FormattingOFF("off");
 
 //---------
 
@@ -382,6 +391,56 @@ bool MetadataInfo::parseUpdatable(const QString &inputData, const int row)
         }
     }
     return false;
+}
+
+bool MetadataInfo::parseFormattingInfo(const QString &inputData, const int row, XMLIndentationSettings *settings)
+{
+    if(inputData.isEmpty()) {
+        return false;
+    }
+    MetadataParser parser;
+    MetadataParsedResult attributes;
+    if(parser.parseMetadata(inputData, &attributes, row)) {
+        PseudoAttribute *attribute = attributes.find(TYPE_ATTR);
+        if(NULL != attribute) {
+            if(attribute->value() == FORMATTING_TYPE) {
+                decodeFormatSettings(&attributes, settings);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+void MetadataInfo::decodeFormatSettings(MetadataParsedResult *input, XMLIndentationSettings *settings)
+{
+    settings->useFormatting = true ;
+    foreach(PseudoAttribute *attr, input->attributes()) {
+        if(attr->name() == FormattingAttrIndentEnabled) {
+            settings->useIndent = FormattingON == attr->value() ;
+        } else if(attr->name() == FormattingAttrIndentValue) {
+            bool isOk = false ;
+            const int value = attr->value().toInt(&isOk);
+            if(isOk) {
+                settings->indent = value ;
+            }
+        } else if(attr->name() == FormattingAttrSortAlphaAttr) {
+            settings->saveAttrMethod = (attr->value() == FormattingON) ? Regola::SaveAttributesSortingAlphabetically : Regola::SaveAttributesNoSort ;
+        } else if(attr->name() == FormattingAttrAttrLineLen) {
+            if(attr->value() == FormattingOFF) {
+                settings->indentAttributesSetting = QXmlEditData::AttributesIndentationNone;
+                settings->indentAttributesColumns = 0 ;
+            } else {
+                settings->indentAttributesSetting = QXmlEditData::AttributesIndentationMaxCols;
+                bool isOk = false ;
+                const int value = attr->value().toInt(&isOk);
+                if(isOk) {
+                    settings->indentAttributesColumns = value ;
+                }
+            }
+        }
+    }
+    input->clean();
 }
 
 bool MetadataInfo::lookForOneAttribute(MetadataParsedResult *attributes, PseudoAttribute *inAttr, PseudoAttribute *targetAttr, const QString &name)

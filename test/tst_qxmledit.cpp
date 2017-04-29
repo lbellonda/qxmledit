@@ -1507,6 +1507,21 @@ void TestQXmlEdit::testSpecialView()
     }
 }
 
+void TestQXmlEdit::testFormattingInfo()
+{
+    {
+        TestFormattingInfo test;
+        const bool result = test.testFast();
+        QVERIFY2(result, (QString("test TestFormattingInfo: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
+    {
+        TestFormattingInfo test;
+        const bool result = test.testUnit();
+        QVERIFY2(result, (QString("test TestFormattingInfo: testUnit() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+}
+
 
 // This function enabled for debug purposes. DO NOT REMOVE
 //static void msgHandler(QtMsgType type, const char *msg)
@@ -1525,6 +1540,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     qInstallMessageHandler(msgHandler);
+    testFormattingInfo();
     testDeleteSiblings();
     testSpecialView();
     testEditing();

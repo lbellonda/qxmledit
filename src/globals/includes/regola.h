@@ -50,6 +50,7 @@ class QXmlEditData;
 class NamespaceReferenceEntry;
 class XMLLoadContext;
 class XSDOperationParameters;
+class XMLIndentationSettings;
 
 class LIBQXMLEDITSHARED_EXPORT DocumentDeviceProvider
 {
@@ -178,6 +179,7 @@ private:
         UndoLimitCount = 10
     };
 
+    bool _formattingInfo; // formatting info from data
     bool _attributesIndentSettings;
     QXmlEditData::EIndentAttributes _indentAttributes;
     int _indentAttributesColumns;
@@ -226,6 +228,11 @@ public:
     ~Regola();
 
     Regola *lightClone();
+
+    void setFormattingInfo(const bool value);
+    bool hasFormattingInfo();
+    bool readFormattingInfo();
+    void applyFormatting(XMLIndentationSettings *settings);
 
     //----
     static Regola *loadFromDevice(QIODevice *ioDevice, const QString &fileName, QString *errorMessage);
@@ -705,6 +712,23 @@ private:
     bool decodePreamble(QXmlStreamReader *xmlReader, const QString &encoding);
     bool filterCommentsAfterReading(XMLLoadContext *context);
     virtual bool editTextualForInterface(QWidget *const parentWindow, Element *element);
+
+    bool decodeFormattingInfo();
+};
+
+class LIBQXMLEDITSHARED_EXPORT XMLIndentationSettings
+{
+
+public:
+    bool useFormatting;
+    bool useIndent;
+    int indent;
+    Regola::ESaveAttributes saveAttrMethod;
+    QXmlEditData::EIndentAttributes indentAttributesSetting;
+    int indentAttributesColumns;
+
+    XMLIndentationSettings();
+    virtual ~XMLIndentationSettings();
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Regola::EExportOptions)

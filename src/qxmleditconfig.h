@@ -195,6 +195,7 @@ public:
 
     // metadata
     static const QString KEY_METADATA_UPDATE;
+    static const QString KEY_FORMATTING_INFO_ENABLED;
 
     // xml management
     static const QString KEY_XML_AUTOINSERT_PROLOG;

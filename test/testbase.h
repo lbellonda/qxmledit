@@ -44,6 +44,7 @@ protected:
     bool _isError ;
     QString _errorString;
     QString _testName;
+    QString _subTestName;
     QString _origName;
 
     bool error(const QString &testName, const QString &msg);

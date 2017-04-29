@@ -120,6 +120,7 @@ Regola::~Regola()
 
 void Regola::housework()
 {
+    _formattingInfo = false;
     paintInfo = new PaintInfo() ;
     _ownPaintInfo = true ;
     _forceDOM = false;
@@ -2996,6 +2997,16 @@ Regola *Regola::lightClone()
         newInstance->pasteNoUI(e, NULL);
     }
     return newInstance ;
+}
+
+void Regola::setFormattingInfo(const bool value)
+{
+    _formattingInfo = value ;
+}
+
+bool Regola::hasFormattingInfo()
+{
+    return _formattingInfo ;
 }
 
 

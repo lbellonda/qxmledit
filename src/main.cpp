@@ -245,10 +245,13 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("impedire chiusura editor mentre si seleziona xslt");
-    Utils::TODO_THIS_RELEASE("apri fratelli allo stesso livello e chiudi figli");
+    Utils::TODO_THIS_RELEASE("fai help con command line");
+    Utils::TODO_THIS_RELEASE("controlla lt invio o alt return");
+    Utils::TODO_THIS_RELEASE("fai e o t sse elemento");
     Utils::TODO_THIS_RELEASE("fai inserisci da xsd sperimentale, con abilitazione");
     Utils::TODO_THIS_RELEASE("fattorizzare in element ->Element * TestBase::makeElement(const QString &tag, const QString &attr)");
+    Utils::TODO_THIS_RELEASE("eliminare memoria extra per elemento, se non in uso in display");
+    Utils::TODO_THIS_RELEASE("xslt con attribute e var se ci sono figli, spec values of non inserire un select");
 }
 
 static void startTanslator(QApplication *app)

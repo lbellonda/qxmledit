@@ -1982,6 +1982,9 @@ bool MainWindow::checkActivateModeSCXML()
 
 void MainWindow::activateModesOnNewFile()
 {
+    if(data->isFormattingInfoEnabled()) {
+        getEditor()->getRegola()->readFormattingInfo();
+    }
     if(Utils::fileIsXSLT(getEditor()->getRegola())) {
         if(checkActivateModeXSL()) {
             return ;

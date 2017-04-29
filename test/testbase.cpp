@@ -42,7 +42,12 @@ TestBase::~TestBase()
 
 bool TestBase::error(const QString &testName, const QString &msg)
 {
-    _errorString = QString("%1: %2").arg(testName).arg(msg);
+    QString theTest = testName;
+    if(!_subTestName.isEmpty()) {
+        theTest += "/";
+        theTest += _subTestName;
+    }
+    _errorString = QString("%1: %2").arg(theTest).arg(msg);
     _isError = true ;
     return false ;
 }
