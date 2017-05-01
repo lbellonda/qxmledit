@@ -322,9 +322,6 @@ bool Regola::isUseStreamForSaving()
 
 bool Regola::write(QIODevice *device, const bool isMarkSaved)
 {
-    if(Config::getBool(Config::KEY_FORMATTING_INFO_ENABLED, true)) {
-        updateMetaInfoFormatting();
-    }
     if(isUseStreamForSaving()) {
         return writeStream(device, isMarkSaved);
     }
@@ -370,6 +367,9 @@ bool Regola::writeStreamInternal(QIODevice *device, const bool useEncoding, Elem
             Utils::error(tr("Error writing data: %1").arg(device->errorString()));
             return false;
         }
+    }
+    if(Config::getBool(Config::KEY_FORMATTING_INFO_ENABLED, true)) {
+        updateMetaInfoFormatting();
     }
 
     QXmlStreamWriter outputStream(device);

@@ -477,7 +477,7 @@ QString MetadataInfo::toFormatInfo(XMLIndentationSettings *settings)
 
     info += toStringAttribute(TYPE_ATTR, FORMATTING_TYPE);
     info += toStringAttribute(FormattingAttrIndentEnabled, settings->useIndent ? FormattingON : FormattingOFF);
-    info += toStringAttribute(FormattingAttrIndentValue, QString::number(settings->indent));
+    info += toStringAttribute(FormattingAttrIndentValue, settings->useIndent ? QString::number(settings->indent) : "0");
     if(settings->saveAttrMethod == Regola::SaveAttributesSortingAlphabetically) {
         info += toStringAttribute(FormattingAttrSortAlphaAttr, FormattingON);
     } else {
@@ -489,7 +489,7 @@ QString MetadataInfo::toFormatInfo(XMLIndentationSettings *settings)
         info += toStringAttribute(FormattingAttrAttrLineLen, QString::number(settings->indentAttributesColumns));
     }
 
-    return info ;
+    return info.trimmed() ;
 }
 
 bool MetadataInfo::lookForOneAttribute(MetadataParsedResult *attributes, PseudoAttribute *inAttr, PseudoAttribute *targetAttr, const QString &name)

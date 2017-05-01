@@ -62,7 +62,7 @@ TestFormattingInfo::~TestFormattingInfo()
 
 bool TestFormattingInfo::testFast()
 {
-    return testWrite();
+    return execRegolaWrite("4", WRITE_REAL_4, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationMaxCols, 44 );
 }
 
 bool TestFormattingInfo::testUnit()
@@ -399,7 +399,7 @@ bool TestFormattingInfo::testWriteReal()
     if(!execRegolaWrite("3", WRITE_REAL_3, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationNone, 0 )) {
         return false;
     }
-    if(!execRegolaWrite("4", WRITE_REAL_4, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationMaxCols, 44 )) {
+    if(!execRegolaWrite("4", WRITE_REAL_4, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationMaxCols, 1 )) {
         return false;
     }
     return true ;
