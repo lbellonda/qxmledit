@@ -498,6 +498,7 @@ QString QXmlEditData::defaultEncoding()
 //--- endregion(metadata)
 
 //--- region(formattingInfo)
+
 bool QXmlEditData::isFormattingInfoEnabled()
 {
     return Config::getBool(Config::KEY_FORMATTING_INFO_ENABLED, true);
@@ -506,6 +507,16 @@ bool QXmlEditData::isFormattingInfoEnabled()
 void QXmlEditData::setFormattingInfoEnabled(const bool value)
 {
     Config::saveBool(Config::KEY_FORMATTING_INFO_ENABLED, value);
+}
+
+bool QXmlEditData::isFormattingInfoInsertOnNew()
+{
+    return Config::getBool(Config::KEY_FORMATTING_INFO_INSERT_ON_NEW, true);
+}
+
+void QXmlEditData::setFormattingInfoInsertOnNew(const bool value)
+{
+    Config::saveBool(Config::KEY_FORMATTING_INFO_INSERT_ON_NEW, value);
 }
 
 //--- endregion(formattingInfo)

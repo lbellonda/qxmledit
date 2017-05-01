@@ -39,6 +39,20 @@ XMLIndentationSettings::~XMLIndentationSettings()
 {
 }
 
+void XMLIndentationSettings::setup(
+    const bool puseIndent, const int pindent,
+    const Regola::ESaveAttributes psaveAttributesMethod,
+    const QXmlEditData::EIndentAttributes pindentAttributesSetting, const int pindentAttributesColumns)
+{
+    //--
+    useIndent = puseIndent ;
+    indent = pindent ;
+    saveAttrMethod = psaveAttributesMethod ;
+    indentAttributesSetting = pindentAttributesSetting;
+    indentAttributesColumns = pindentAttributesColumns ;
+    //--
+}
+
 //----------------------
 
 bool Regola::readFormattingInfo()
@@ -84,4 +98,39 @@ void Regola::applyFormatting(XMLIndentationSettings *settings)
     _indentAttributes = settings->indentAttributesSetting;
     _attributesIndentSettings = (settings->indentAttributesSetting == QXmlEditData::AttributesIndentationMaxCols);
     _indentAttributesColumns = settings->indentAttributesColumns;
+}
+
+void Regola::formattingInfoToSettings(XMLIndentationSettings *settings)
+{
+    settings->useFormatting = _formattingInfo ;
+    settings->useIndent = _useIndent ;
+    settings->indent = _indent ;
+    settings->saveAttrMethod = _saveAttributesMethod ;
+    settings->indentAttributesSetting = _indentAttributes ;
+    if(_attributesIndentSettings) {
+        settings->indentAttributesSetting = QXmlEditData::AttributesIndentationMaxCols;
+    } else {
+        settings->indentAttributesSetting = QXmlEditData::AttributesIndentationNone;
+    }
+    settings->indentAttributesColumns = _indentAttributesColumns ;
+}
+
+void Regola::updateMetaInfoFormatting()
+{
+    if(!hasFormattingInfo()) {
+        return ;
+    }
+    foreach(Element * topLevel, childItems) {
+        if(topLevel->getType() == Element::ET_PROCESSING_INSTRUCTION) {
+            if(topLevel->getPITarget() == MetadataInfo::QXMLEDIT_TARGET_PI) {
+                MetadataInfo info;
+                if(info.isFormattingInfo(topLevel->getPIData())) {
+                    XMLIndentationSettings settings;
+                    formattingInfoToSettings(&settings);
+                    const QString newSettings = info.toFormatInfo(&settings);
+                    topLevel->setPIData(newSettings);
+                }
+            }
+        }
+    }
 }

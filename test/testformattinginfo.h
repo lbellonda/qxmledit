@@ -27,6 +27,7 @@
 #include "regola.h"
 
 class App;
+class ApplicationData;
 
 class TestFormattingInfo : public TestBase
 {
@@ -36,16 +37,38 @@ class TestFormattingInfo : public TestBase
     bool testWrite();
 
     bool testBaseLoad(const QString &fileName, const bool expected,
-                          bool useIndent, const int indent,
-                          const Regola::ESaveAttributes saveAttrMethod,
-                          const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns);
+                      bool useIndent, const int indent,
+                      const Regola::ESaveAttributes saveAttrMethod,
+                      const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns);
 
     bool loadNoData();
     bool loadOnlyFormatting();
     bool loadOnlyFormattingAndMetadata();
     bool loadOnlyMetadata();
     bool loadAllConfigurations();
+    bool testWriteUnit();
 
+    bool testUnitWrite(const QString &id, const QString &expected,
+                       const bool useIndent, const int indent,
+                       const Regola::ESaveAttributes saveAttributesMethod,
+                       const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns);
+    void setupIndentSettings(ApplicationData *data, const bool useIndent);
+    bool execRegolaWrite(const QString &id,
+                         const QString &fileReference,
+                         bool useIndent, const int indent,
+                         const Regola::ESaveAttributes saveAttributesMethod,
+                         const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns);
+    void setupRegola( Regola *regola,
+                      const bool useIndent, const int indent,
+                      const Regola::ESaveAttributes saveAttributesMethod,
+                      const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns);
+    bool testWriteReal();
+    bool testEnd2EndInner(const QString &id,
+                          const bool isEnabled,
+                          const QString &fileInput,
+                          const QString &fileReference);
+
+    bool testEnd2End();
 public:
     TestFormattingInfo();
     ~TestFormattingInfo();

@@ -233,6 +233,8 @@ public:
     bool hasFormattingInfo();
     bool readFormattingInfo();
     void applyFormatting(XMLIndentationSettings *settings);
+    void formattingInfoToSettings(XMLIndentationSettings *settings);
+    void updateMetaInfoFormatting();
 
     //----
     static Regola *loadFromDevice(QIODevice *ioDevice, const QString &fileName, QString *errorMessage);
@@ -729,6 +731,11 @@ public:
 
     XMLIndentationSettings();
     virtual ~XMLIndentationSettings();
+
+    void setup(const bool useIndent, const int indent,
+               const Regola::ESaveAttributes saveAttributesMethod,
+               const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns);
+
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(Regola::EExportOptions)

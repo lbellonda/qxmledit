@@ -229,6 +229,8 @@ public:
     //--- region(formattingInfo)
     static bool isFormattingInfoEnabled();
     static void setFormattingInfoEnabled(const bool value);
+    static bool isFormattingInfoInsertOnNew();
+    static void setFormattingInfoInsertOnNew(const bool value);
     //--- endregion(formattingInfo)
 
     //--- region(prolog)

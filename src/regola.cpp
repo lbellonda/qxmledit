@@ -322,6 +322,9 @@ bool Regola::isUseStreamForSaving()
 
 bool Regola::write(QIODevice *device, const bool isMarkSaved)
 {
+    if(Config::getBool(Config::KEY_FORMATTING_INFO_ENABLED, true)) {
+        updateMetaInfoFormatting();
+    }
     if(isUseStreamForSaving()) {
         return writeStream(device, isMarkSaved);
     }

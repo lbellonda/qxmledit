@@ -22,6 +22,8 @@
 
 #include "testformattinginfo.h"
 #include "app.h"
+#include "applicationdata.h"
+#include "modules/metadata/metadatainfo.h"
 
 #define BASE_TEST  TEST_BASE_DATA   "formatting/"
 
@@ -36,6 +38,18 @@
 #define FILE_READ_CFG3 BASE_TEST "read3.xml"
 #define FILE_READ_CFG4 BASE_TEST "read4.xml"
 
+#define FILE_WRITE_SOURCE_0 BASE_TEST "write_source_0.xml"
+#define WRITE_REAL_0 BASE_TEST "write_real_0.xml"
+#define WRITE_REAL_1 BASE_TEST "write_real_1.xml"
+#define WRITE_REAL_2 BASE_TEST "write_real_2.xml"
+#define WRITE_REAL_3 BASE_TEST "write_real_3.xml"
+#define WRITE_REAL_4 BASE_TEST "write_real_4.xml"
+#define END_2_END_IN_NO BASE_TEST "end2end_in_no.xml"
+#define END_2_END_OUT_NO BASE_TEST "end2end_out_no.xml"
+#define END_2_END_IN_YES BASE_TEST "end2end_in_yes.xml"
+#define END_2_END_OUT_YES BASE_TEST "end2end_out_yes.xml"
+
+
 TestFormattingInfo::TestFormattingInfo()
 {
 
@@ -48,7 +62,7 @@ TestFormattingInfo::~TestFormattingInfo()
 
 bool TestFormattingInfo::testFast()
 {
-    return  loadOnlyFormatting();
+    return testWrite();
 }
 
 bool TestFormattingInfo::testUnit()
@@ -132,7 +146,16 @@ bool TestFormattingInfo::testSetReset()
 bool TestFormattingInfo::testWrite()
 {
     _testName = "testWrite";
-    return error("nyi");
+    if(!testWriteUnit()) {
+        return false;
+    }
+    if(!testWriteReal()) {
+        return false;
+    }
+    if(!testEnd2End()) {
+        return false;
+    }
+    return true;
 }
 
 //-----------------------------------------------------------------------
@@ -234,3 +257,209 @@ bool TestFormattingInfo::loadAllConfigurations()
     }
     return true;
 }
+
+
+bool TestFormattingInfo::testUnitWrite(const QString &id, const QString &expected,
+                                       const bool useIndent, const int indent,
+                                       const Regola::ESaveAttributes saveAttributesMethod,
+                                       const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns)
+
+{
+    QString calculated;
+    MetadataInfo info;
+    XMLIndentationSettings settings;
+    //--
+    settings.setup( useIndent, indent, saveAttributesMethod, indentAttributesSetting, indentAttributesColumns);
+    //--
+    calculated = info.toFormatInfo(&settings);
+    if(calculated.trimmed() != expected.trimmed()) {
+        return error(QString("Write test id:%1 found:'%2' expected:'%3'").arg(id).arg(calculated).arg(expected));
+    }
+    return true;
+}
+
+bool TestFormattingInfo::testWriteUnit()
+{
+    _testName = "testWriteUnit";
+
+    {
+        const QString expected = "type=\"formatting\" indent=\"off\" indentValue=\"0\" sortAlphaAttr=\"off\" attrLineLen=\"off\"";
+        if(!testUnitWrite("0", expected, false, 0, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
+            return false;
+        }
+    }
+    {
+        const QString expected = "type=\"formatting\" indent=\"on\" indentValue=\"0\" sortAlphaAttr=\"off\" attrLineLen=\"off\"";
+        if(!testUnitWrite("1", expected, true, 0, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
+            return false;
+        }
+    }
+    {
+        const QString expected = "type=\"formatting\" indent=\"on\" indentValue=\"2\" sortAlphaAttr=\"off\" attrLineLen=\"off\"";
+        if(!testUnitWrite("2", expected, true, 2, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
+            return false;
+        }
+    }
+    {
+        const QString expected = "type=\"formatting\" indent=\"on\" indentValue=\"2\" sortAlphaAttr=\"on\" attrLineLen=\"off\"";
+        if(!testUnitWrite("3", expected, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationNone, 0 )) {
+            return false;
+        }
+    }
+    {
+        const QString expected = "type=\"formatting\" indent=\"on\" indentValue=\"2\" sortAlphaAttr=\"on\" attrLineLen=\"44\"";
+        if(!testUnitWrite("4", expected, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationMaxCols, 44 )) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/*
+2 test: uno per set in regola -> in output.
+        due per verificare il comportamento con i valori.
+*/
+
+void TestFormattingInfo::setupRegola( Regola *regola,
+                                      const bool useIndent, const int indent,
+                                      const Regola::ESaveAttributes saveAttributesMethod,
+                                      const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns)
+{
+    QString calculated;
+    MetadataInfo info;
+    XMLIndentationSettings settings;
+    //--
+    settings.setup(useIndent, indent, saveAttributesMethod, indentAttributesSetting, indentAttributesColumns );
+    //--
+    calculated = info.toFormatInfo(&settings);
+    regola->applyFormatting(&settings);
+}
+
+
+void TestFormattingInfo::setupIndentSettings(ApplicationData *data, const bool useIndent)
+{
+    data->setXmlIndent(useIndent?1:-1);
+    data->setXmlIndentAttributes(1000);
+    data->setXmlIndentAttributesType(QXmlEditData::AttributesIndentationNone);
+}
+
+bool TestFormattingInfo::execRegolaWrite(const QString &id,
+                                         const QString &fileReference,
+                                         bool useIndent, const int indent,
+                                         const Regola::ESaveAttributes saveAttributesMethod,
+                                         const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns)
+{
+    const QString fileStart = FILE_WRITE_SOURCE_0;
+    App app;
+    if(!app.init() ) {
+        return error(QString("case %1 init window").arg(id));
+    }
+    setupIndentSettings(app.data(), !useIndent);
+    app.data()->setFormattingInfoEnabled(true);
+    MainWindow *window = app.mainWindow()->loadFileAndReturnWindow(fileStart);
+    if( NULL == window ) {
+        return error(QString("Case %1 opening test file: '%2'").arg(id).arg(fileStart));
+    }
+    Regola *regola = window->getRegola();
+    setupRegola(regola, useIndent, indent, saveAttributesMethod, indentAttributesSetting, indentAttributesColumns);
+    QString result = regola->getAsText();
+    // Compare results.
+    QString reference ;
+    if(!readFromFile(fileReference, reference) ) {
+        return error(QString("case %2 unable to load reference file: '%1' ").arg(fileReference).arg(id));
+    }
+    // normalize cr
+    reference = reference.replace("\r\n", "\n");
+    result = result.replace("\r\n", "\n");
+
+    ///-----
+
+    if( reference != result ) {
+        return error(QString("Case %5 String not expected.\nExpected:%1\n%2\nString:%3\n%4\n")
+                     .arg(reference.length())
+                     .arg(reference)
+                     .arg(result.length())
+                     .arg(result)
+                     .arg(id));
+    }
+    return true;
+}
+
+bool TestFormattingInfo::testWriteReal()
+{
+    _testName = "testWriteReal";
+    if(!execRegolaWrite("0", WRITE_REAL_0, false, 0, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
+        return false;
+    }
+    if(!execRegolaWrite("1", WRITE_REAL_1, true, 0, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
+        return false;
+    }
+    if(!execRegolaWrite("2", WRITE_REAL_2, true, 2, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
+        return false;
+    }
+    if(!execRegolaWrite("3", WRITE_REAL_3, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationNone, 0 )) {
+        return false;
+    }
+    if(!execRegolaWrite("4", WRITE_REAL_4, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationMaxCols, 44 )) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestFormattingInfo::testEnd2EndInner(const QString &id,
+                                          const bool isEnabled,
+                                          const QString &fileInput,
+                                          const QString &fileReference)
+{
+    App app;
+    if(!app.init() ) {
+        return error(QString("case %1 init window").arg(id));
+    }
+    setupIndentSettings(app.data(), false);
+    app.data()->setFormattingInfoEnabled(isEnabled);
+    MainWindow *window = app.mainWindow()->loadFileAndReturnWindow(fileInput);
+    if( NULL == window ) {
+        return error(QString("Case %1 opening test file: '%2'").arg(id).arg(fileInput));
+    }
+    QString result = window->getRegola()->getAsText();
+    // Compare results.
+    QString reference ;
+    if(!readFromFile(fileReference, reference) ) {
+        return error(QString("case %2 unable to load reference file: '%1' ").arg(fileReference).arg(id));
+    }
+    // normalize cr
+    reference = reference.replace("\r\n", "\n");
+    result = result.replace("\r\n", "\n");
+
+    ///-----
+
+    if( reference != result ) {
+        return error(QString("Case %5 String not expected.\nExpected:%1\n%2\nString:%3\n%4\n")
+                     .arg(reference.length())
+                     .arg(reference)
+                     .arg(result.length())
+                     .arg(result)
+                     .arg(id));
+    }
+    return true;
+}
+
+bool TestFormattingInfo::testEnd2End()
+{
+    _testName = "testEnd2End";
+    if(!testEnd2EndInner("0", false, END_2_END_IN_NO, END_2_END_OUT_NO)) {
+        return false;
+    }
+    if(!testEnd2EndInner("1", true, END_2_END_IN_NO, END_2_END_OUT_NO)) {
+        return false;
+    }
+    if(!testEnd2EndInner("2", false, END_2_END_IN_YES, END_2_END_OUT_NO)) {
+        return false;
+    }
+    if(!testEnd2EndInner("3", true, END_2_END_IN_YES, END_2_END_OUT_YES)) {
+        return false;
+    }
+    return true ;
+}
+

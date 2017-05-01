@@ -192,6 +192,7 @@ const QString Config::KEY_BINARY_ENCODING("binViewer/encoding");
 // metadata
 const QString Config::KEY_METADATA_UPDATE("metadata/update");
 const QString Config::KEY_FORMATTING_INFO_ENABLED("formattingInfo/enabled");
+const QString Config::KEY_FORMATTING_INFO_INSERT_ON_NEW("formattingInfo/insertOnNew");
 
 // xml management
 const QString Config::KEY_XML_AUTOINSERT_PROLOG("xmlManagement/autoInsertProlog");

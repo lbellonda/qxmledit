@@ -412,6 +412,24 @@ bool MetadataInfo::parseFormattingInfo(const QString &inputData, const int row, 
     return false;
 }
 
+bool MetadataInfo::isFormattingInfo(const QString &inputData)
+{
+    if(inputData.isEmpty()) {
+        return false;
+    }
+    MetadataParser parser;
+    MetadataParsedResult attributes;
+    if(parser.parseMetadata(inputData, &attributes, -1)) {
+        PseudoAttribute *attribute = attributes.find(TYPE_ATTR);
+        if(NULL != attribute) {
+            if(attribute->value() == FORMATTING_TYPE) {
+                return true ;
+            }
+        }
+    }
+    return false;
+}
+
 void MetadataInfo::decodeFormatSettings(MetadataParsedResult *input, XMLIndentationSettings *settings)
 {
     settings->useFormatting = true ;
@@ -441,6 +459,37 @@ void MetadataInfo::decodeFormatSettings(MetadataParsedResult *input, XMLIndentat
         }
     }
     input->clean();
+}
+
+QString MetadataInfo::toStringAttribute(const QString &name, const QString &value)
+{
+    QString result = " ";
+    result += name ;
+    result += "=\"" ;
+    result += MetadataParserInfo::escape(value) ;
+    result += "\"" ;
+    return result;
+}
+
+QString MetadataInfo::toFormatInfo(XMLIndentationSettings *settings)
+{
+    QString info ;
+
+    info += toStringAttribute(TYPE_ATTR, FORMATTING_TYPE);
+    info += toStringAttribute(FormattingAttrIndentEnabled, settings->useIndent ? FormattingON : FormattingOFF);
+    info += toStringAttribute(FormattingAttrIndentValue, QString::number(settings->indent));
+    if(settings->saveAttrMethod == Regola::SaveAttributesSortingAlphabetically) {
+        info += toStringAttribute(FormattingAttrSortAlphaAttr, FormattingON);
+    } else {
+        info += toStringAttribute(FormattingAttrSortAlphaAttr, FormattingOFF);
+    }
+    if(settings->indentAttributesSetting == QXmlEditData::AttributesIndentationNone) {
+        info += toStringAttribute(FormattingAttrAttrLineLen, FormattingOFF);
+    } else {
+        info += toStringAttribute(FormattingAttrAttrLineLen, QString::number(settings->indentAttributesColumns));
+    }
+
+    return info ;
 }
 
 bool MetadataInfo::lookForOneAttribute(MetadataParsedResult *attributes, PseudoAttribute *inAttr, PseudoAttribute *targetAttr, const QString &name)
