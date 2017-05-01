@@ -93,7 +93,11 @@ void Regola::applyFormatting(XMLIndentationSettings *settings)
 {
     _formattingInfo = settings->useFormatting ;
     _useIndent = settings->useIndent;
-    _indent = settings->indent;
+    if(!_useIndent) {
+        _indent = -1 ;
+    } else {
+        _indent = settings->indent;
+    }
     _saveAttributesMethod = settings->saveAttrMethod;
     _indentAttributes = settings->indentAttributesSetting;
     _attributesIndentSettings = (settings->indentAttributesSetting == QXmlEditData::AttributesIndentationMaxCols);

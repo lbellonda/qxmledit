@@ -326,13 +326,11 @@ void TestFormattingInfo::setupRegola( Regola *regola,
                                       const Regola::ESaveAttributes saveAttributesMethod,
                                       const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns)
 {
-    QString calculated;
-    MetadataInfo info;
     XMLIndentationSettings settings;
     //--
     settings.setup(useIndent, indent, saveAttributesMethod, indentAttributesSetting, indentAttributesColumns );
+    settings.useFormatting = true ;
     //--
-    calculated = info.toFormatInfo(&settings);
     regola->applyFormatting(&settings);
 }
 
@@ -375,12 +373,12 @@ bool TestFormattingInfo::execRegolaWrite(const QString &id,
 
     ///-----
 
-    if( reference != result ) {
-        return error(QString("Case %5 String not expected.\nExpected:%1\n%2\nString:%3\n%4\n")
+    if( reference.trimmed() != result.trimmed() ) {
+        return error(QString("Case %5 String not expected.\nExpected:'%1'\n%2\nString:%3\n'%4'\n")
                      .arg(reference.length())
-                     .arg(reference)
+                     .arg(reference.replace("\n", "*LF*"))
                      .arg(result.length())
-                     .arg(result)
+                     .arg(result.replace("\n", "*LF*"))
                      .arg(id));
     }
     return true;
