@@ -46,6 +46,7 @@
 #define WRITE_REAL_4 BASE_TEST "write_real_4.xml"
 #define END_2_END_IN_NO BASE_TEST "end2end_in_no.xml"
 #define END_2_END_OUT_NO BASE_TEST "end2end_out_no.xml"
+#define END_2_END_OUT_NO_NO BASE_TEST "end2end_out_no_no.xml"
 #define END_2_END_IN_YES BASE_TEST "end2end_in_yes.xml"
 #define END_2_END_OUT_YES BASE_TEST "end2end_out_yes.xml"
 
@@ -62,7 +63,7 @@ TestFormattingInfo::~TestFormattingInfo()
 
 bool TestFormattingInfo::testFast()
 {
-    return execRegolaWrite("4", WRITE_REAL_4, true, 2, Regola::SaveAttributesSortingAlphabetically, QXmlEditData::AttributesIndentationMaxCols, 44 );
+    return testEnd2End();
 }
 
 bool TestFormattingInfo::testUnit()
@@ -432,12 +433,12 @@ bool TestFormattingInfo::testEnd2EndInner(const QString &id,
 
     ///-----
 
-    if( reference != result ) {
+    if( reference.trimmed() != result.trimmed() ) {
         return error(QString("Case %5 String not expected.\nExpected:%1\n%2\nString:%3\n%4\n")
                      .arg(reference.length())
-                     .arg(reference)
+                     .arg(reference.replace("\n", "*LF*"))
                      .arg(result.length())
-                     .arg(result)
+                     .arg(result.replace("\n", "*LF*"))
                      .arg(id));
     }
     return true;
@@ -446,10 +447,10 @@ bool TestFormattingInfo::testEnd2EndInner(const QString &id,
 bool TestFormattingInfo::testEnd2End()
 {
     _testName = "testEnd2End";
-    if(!testEnd2EndInner("0", false, END_2_END_IN_NO, END_2_END_OUT_NO)) {
+    if(!testEnd2EndInner("0", false, END_2_END_IN_NO, END_2_END_OUT_NO_NO)) {
         return false;
     }
-    if(!testEnd2EndInner("1", true, END_2_END_IN_NO, END_2_END_OUT_NO)) {
+    if(!testEnd2EndInner("1", true, END_2_END_IN_NO, END_2_END_OUT_NO_NO)) {
         return false;
     }
     if(!testEnd2EndInner("2", false, END_2_END_IN_YES, END_2_END_OUT_NO)) {
