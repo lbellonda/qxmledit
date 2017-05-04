@@ -24,7 +24,7 @@
 #include "utils.h"
 
 CommandAddFormattingInfo::CommandAddFormattingInfo(QTreeWidget *theWidget, Regola *newRegola, Element *newElement, QList<int> path, QUndoCommand *parentCommand)
-    : ElInsertCommand( theWidget, newRegola, newElement, path, parentCommand)
+    : ElInsertCommand(theWidget, newRegola, newElement, path, parentCommand)
 {
     _previousFormattingInfo = regola->hasFormattingInfo();
     regola->formattingInfoToSettings(&_settings);

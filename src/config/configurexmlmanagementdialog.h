@@ -66,6 +66,8 @@ private slots:
     void on_attrNoIndendation_clicked(bool /*checked*/);
     void on_attrNewLineAt_clicked(bool /*checked*/);
     void on_cmdPredefinedAttributes_clicked();
+    void on_cbProcessFormattingMetadata_stateChanged(int /*state*/);
+    void on_cbInsertFormattingMetadata_stateChanged(int /*state*/);
 };
 
 #endif // CONFIGUREXMLMANAGEMENTDIALOG_H

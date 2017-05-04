@@ -63,6 +63,8 @@ void ConfigureXMLManagementDialog::init(ApplicationData* data)
     enableIndent();
     ui->chkSortAttributes->setChecked(Regola::isSaveSortAlphaAttribute());
     _attributeHelper.setUp(data->xmlIndentAttributesType(), data->xmlIndentAttributes());
+    ui->cbProcessFormattingMetadata->setChecked(data->isFormattingInfoEnabled());
+    ui->cbInsertFormattingMetadata->setChecked(data->isFormattingInfoInsertOnNew());
     _started = true ;
 }
 
@@ -164,4 +166,18 @@ void ConfigureXMLManagementDialog::on_attrNoIndendation_clicked(bool /*checked*/
 void ConfigureXMLManagementDialog::on_attrNewLineAt_clicked(bool /*checked*/)
 {
     _attributeHelper.onSelection();
+}
+
+void ConfigureXMLManagementDialog::on_cbProcessFormattingMetadata_stateChanged(int /*state*/)
+{
+    if(_started) {
+        _data->setFormattingInfoEnabled(ui->cbProcessFormattingMetadata->isChecked());
+    }
+}
+
+void ConfigureXMLManagementDialog::on_cbInsertFormattingMetadata_stateChanged(int /*state*/)
+{
+    if(_started) {
+        _data->setFormattingInfoInsertOnNew(ui->cbInsertFormattingMetadata->isChecked());
+    }
 }
