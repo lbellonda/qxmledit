@@ -198,7 +198,7 @@ bool Regola::insertFormattingInfo(QTreeWidget *tree, const bool undoableOperatio
     }
     int position = topPositionForFormattingInfo() ;
     Element *newInfo = insertFormattingInfoWithPosition(position);
-    newInfo->caricaFigli(tree, NULL, paintInfo, true, 0);
+    newInfo->caricaFigli(tree, NULL, paintInfo, true, position);
     afterInsertHousekeeping(newInfo, tree, undoableOperation);
     return true;
 }

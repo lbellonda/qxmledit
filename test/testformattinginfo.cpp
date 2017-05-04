@@ -65,7 +65,7 @@ TestFormattingInfo::~TestFormattingInfo()
 
 bool TestFormattingInfo::testFast()
 {
-    return testInsertDirective();
+    return innerTestNew("1", true, FILE_NEW_1);
 }
 
 bool TestFormattingInfo::testUnit()
