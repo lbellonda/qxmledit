@@ -358,6 +358,8 @@ public:
     void showSCXMLNavigator(const bool how);
     void emitReevaluateSelectionState();
     void openSiblingsSameLevel();
+    void addFormattingInfo();
+    void removeFormattingInfo();
 
 signals:
     void reevaluateSelectionState();

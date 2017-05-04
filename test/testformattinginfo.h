@@ -53,6 +53,7 @@ class TestFormattingInfo : public TestBase
                        const Regola::ESaveAttributes saveAttributesMethod,
                        const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns);
     void setupIndentSettings(ApplicationData *data, const bool useIndent);
+    void setupIndentSettingsDefault(ApplicationData *data);
     bool execRegolaWrite(const QString &id,
                          const QString &fileReference,
                          bool useIndent, const int indent,
@@ -69,6 +70,19 @@ class TestFormattingInfo : public TestBase
                           const QString &fileReference);
 
     bool testEnd2End();
+    bool testNew();
+    bool innerTestNew(const QString &id,
+                      const bool isNewOption,
+                      const QString &fileReference);
+    bool testRemoveDirective();
+    bool testInsertDirective();
+    bool testPropertiesDirective();
+    bool actOnDirective(const QString &id,
+                        const bool isInsertOrRemove,
+                        const bool expectedAfterUndo,
+                        const QString &fileInput,
+                        const QString &fileReference);
+    bool testOption(const bool setBefore, const bool expected);
 public:
     TestFormattingInfo();
     ~TestFormattingInfo();

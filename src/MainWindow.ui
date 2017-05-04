@@ -158,6 +158,13 @@
      <addaction name="actionEditXSLTitem"/>
      <addaction name="actionSetIndent"/>
     </widget>
+    <widget class="QMenu" name="menuFormatting">
+     <property name="title">
+      <string>Formatting</string>
+     </property>
+     <addaction name="actionAddFormattingInfo"/>
+     <addaction name="actionRemoveFormattingInfo"/>
+    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
     <addaction name="actionCut"/>
@@ -182,6 +189,7 @@
     <addaction name="actionCleanBookmarkedContent"/>
     <addaction name="separator"/>
     <addaction name="actionEditMetadata"/>
+    <addaction name="menuFormatting"/>
     <addaction name="actionEncoding"/>
     <addaction name="separator"/>
     <addaction name="actionInfo"/>
@@ -2398,6 +2406,22 @@
    </property>
    <property name="toolTip">
     <string>Show the main shortcuts.</string>
+   </property>
+  </action>
+  <action name="actionAddFormattingInfo">
+   <property name="text">
+    <string>Add Formatting Info</string>
+   </property>
+   <property name="toolTip">
+    <string>Add formatting info metadata.</string>
+   </property>
+  </action>
+  <action name="actionRemoveFormattingInfo">
+   <property name="text">
+    <string>Remove Formatting Info</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove formatting info metadata.</string>
    </property>
   </action>
  </widget>

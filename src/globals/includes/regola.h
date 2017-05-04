@@ -235,6 +235,10 @@ public:
     void applyFormatting(XMLIndentationSettings *settings);
     void formattingInfoToSettings(XMLIndentationSettings *settings);
     void updateMetaInfoFormatting();
+    bool insertFormattingInfo(QTreeWidget *tree, const bool undoableOperation);
+    bool addFormattingInfo(QTreeWidget *tree);
+    bool removeFormattingInfo(QTreeWidget *tree);
+    Element *findFormattingInfo();
 
     //----
     static Regola *loadFromDevice(QIODevice *ioDevice, const QString &fileName, QString *errorMessage);
@@ -716,6 +720,10 @@ private:
     virtual bool editTextualForInterface(QWidget *const parentWindow, Element *element);
 
     bool decodeFormattingInfo();
+    Element *insertFormattingInfoWithPosition(const int position);
+    QString makeFormattingInfo();
+    int topPositionForFormattingInfo();
+    Element *newFormattingInfoElement();
 };
 
 class LIBQXMLEDITSHARED_EXPORT XMLIndentationSettings

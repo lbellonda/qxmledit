@@ -24,6 +24,8 @@
 #include "regola.h"
 #include "utils.h"
 #include "modules/metadata/metadatainfo.h"
+#include "undo/commandaddformattinginfo.h"
+#include "undo/commandremoveformattinginfo.h"
 
 XMLIndentationSettings::XMLIndentationSettings()
 {
@@ -89,6 +91,23 @@ bool Regola::decodeFormattingInfo()
     return false ;
 }
 
+Element *Regola::findFormattingInfo()
+{
+    //---
+    foreach(Element * topLevel, childItems) {
+        if(topLevel->getType() == Element::ET_PROCESSING_INSTRUCTION) {
+            if(topLevel->getPITarget() == MetadataInfo::QXMLEDIT_TARGET_PI) {
+                MetadataInfo info;
+                XMLIndentationSettings settings;
+                if(info.parseFormattingInfo(topLevel->getPIData(), -1, &settings)) {
+                    return topLevel;
+                }
+            }
+        }
+    }
+    return NULL ;
+}
+
 void Regola::applyFormatting(XMLIndentationSettings *settings)
 {
     _formattingInfo = settings->useFormatting ;
@@ -124,17 +143,99 @@ void Regola::updateMetaInfoFormatting()
     if(!hasFormattingInfo()) {
         return ;
     }
+    Element *fmtInfoElement = findFormattingInfo();
+    if(NULL != fmtInfoElement) {
+        const QString newSettings = makeFormattingInfo();
+        fmtInfoElement->setPIData(newSettings);
+    }
+    Utils::TODO_THIS_RELEASE("versione alternative? Togliere");
     foreach(Element * topLevel, childItems) {
         if(topLevel->getType() == Element::ET_PROCESSING_INSTRUCTION) {
             if(topLevel->getPITarget() == MetadataInfo::QXMLEDIT_TARGET_PI) {
                 MetadataInfo info;
                 if(info.isFormattingInfo(topLevel->getPIData())) {
-                    XMLIndentationSettings settings;
+                    Utils::TODO_THIS_RELEASE("commento");
+                    /*XMLIndentationSettings settings;
                     formattingInfoToSettings(&settings);
-                    const QString newSettings = info.toFormatInfo(&settings);
+                    const QString newSettings = info.toFormatInfo(&settings);*/
+                    const QString newSettings = makeFormattingInfo();
                     topLevel->setPIData(newSettings);
                 }
             }
         }
     }
+}
+
+QString Regola::makeFormattingInfo()
+{
+    XMLIndentationSettings settings;
+    formattingInfoToSettings(&settings);
+    const QString newSettings = MetadataInfo::toFormatInfo(&settings);
+    return newSettings;
+}
+
+Element *Regola::newFormattingInfoElement()
+{
+    QString newData = makeFormattingInfo();
+    Element *newInfo = new Element(this, Element::ET_PROCESSING_INSTRUCTION, NULL);
+    newInfo->setPITarget(MetadataInfo::QXMLEDIT_TARGET_PI);
+    newInfo->setPIData(newData);
+    return newInfo;
+}
+
+Element *Regola::insertFormattingInfoWithPosition(const int position)
+{
+    Element *newInfo = newFormattingInfoElement();
+    childItems.insert(position, newInfo);
+    newInfo->markEdited();
+    return newInfo;
+}
+
+bool Regola::insertFormattingInfo(QTreeWidget *tree, const bool undoableOperation)
+{
+    if(NULL != findFormattingInfo()) {
+        return false;
+    }
+    int position = topPositionForFormattingInfo() ;
+    Element *newInfo = insertFormattingInfoWithPosition(position);
+    newInfo->caricaFigli(tree, NULL, paintInfo, true, 0);
+    afterInsertHousekeeping(newInfo, tree, undoableOperation);
+    return true;
+}
+
+int Regola::topPositionForFormattingInfo()
+{
+    int position = 0 ;
+    if(hasProlog()) {
+        position = 1 ;
+    }
+    return position;
+}
+
+bool Regola::addFormattingInfo(QTreeWidget *tree)
+{
+    if(NULL != findFormattingInfo()) {
+        return false;
+    }
+    int position = topPositionForFormattingInfo() ;
+    Element *newInfo = newFormattingInfoElement();
+    QList<int> path;
+    path << position ;
+
+    CommandAddFormattingInfo *command = new CommandAddFormattingInfo(tree, this, newInfo, path);
+    addUndo(command);
+    return true;
+}
+
+bool Regola::removeFormattingInfo(QTreeWidget *tree)
+{
+    Element *formattingInfo = findFormattingInfo();
+    if(NULL == formattingInfo) {
+        return false;
+    }
+    QList<int> path = formattingInfo->indexPath();
+
+    CommandRemoveFormattingInfo *command = new CommandRemoveFormattingInfo(tree, this, path);
+    addUndo(command);
+    return true;
 }

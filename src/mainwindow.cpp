@@ -231,8 +231,13 @@ void MainWindow::changeEvent(QEvent *e)
 
 void MainWindow::on_actionNew_triggered()
 {
+    execNew();
+}
+
+MainWindow *MainWindow::execNew()
+{
     if(!checkAbandonChanges()) {
-        return ;
+        return NULL ;
     }
     MainWindow *theWindow ;
     if(_controller.isOpenInNewWindow()) {
@@ -245,7 +250,7 @@ void MainWindow::on_actionNew_triggered()
     theWindow->removeAttributesFilter();
     theWindow->updateWindowFilePath();
     theWindow->clearExportFilePath();
-    //QTimer::singleShot(200, theWindow, SLOT(onRaiseWindow()));
+    return theWindow;
 }
 
 void MainWindow::onRaiseWindow()
@@ -913,6 +918,8 @@ void MainWindow::onComputeSelectionState()
     ui.actionExportAsJavaJavascriptSource->setEnabled(!getRegola()->isEmpty(false));
     ui.actionExportAsCSource->setEnabled(!getRegola()->isEmpty(false));
     ui.actionInsertProlog->setEnabled(!getEditor()->isReadOnly());
+    ui.actionAddFormattingInfo->setEnabled(!getEditor()->isReadOnly());
+    ui.actionRemoveFormattingInfo->setEnabled(!getEditor()->isReadOnly());
     ui.actionEncoding->setEnabled(!getEditor()->isReadOnly());
     ui.actionInsertChildContainer->setEnabled(isElementSelected);
     ui.actionRemoveParent->setEnabled((NULL != element) && element->canRemoveParent());
@@ -3623,4 +3630,14 @@ void MainWindow::on_actionOpenSiblingsAtTheSameLevel_triggered()
 void MainWindow::on_actionShowPrincipalShortcuts_triggered()
 {
     ShortcutsDialog::display(this);
+}
+
+void MainWindow::on_actionAddFormattingInfo_triggered()
+{
+    ui.editor->addFormattingInfo();
+}
+
+void MainWindow::on_actionRemoveFormattingInfo_triggered()
+{
+    ui.editor->removeFormattingInfo();
 }

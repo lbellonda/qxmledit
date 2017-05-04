@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>638</width>
-    <height>477</height>
+    <height>484</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -79,6 +79,13 @@
       </spacer>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbInsertFormattingMetadata">
+     <property name="text">
+      <string>Automatically insert formatting metadata processing instruction</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_4">
@@ -288,6 +295,13 @@
     <widget class="QCheckBox" name="chkSortAttributes">
      <property name="text">
       <string>Sort alphabetically the attributes</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbProcessFormattingMetadata">
+     <property name="text">
+      <string>Process formatting metadata</string>
      </property>
     </widget>
    </item>

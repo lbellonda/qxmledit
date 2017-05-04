@@ -2350,6 +2350,9 @@ void XmlEditWidgetPrivate::doNew()
     if(_appData->isAutoInsertProlog()) {
         regola->insertProlog(getMainTreeWidget(), _appData->autoInsertPrologEncoding(), false);
     }
+    if(_appData->isFormattingInfoInsertOnNew()) {
+        regola->insertFormattingInfo(getMainTreeWidget(), false);
+    }
     _SCXMLNavigator->setEnabledInfo(false);
     _XSLTNavigator->setEnabledInfo(false);
     setReadOnly(false);
@@ -3797,4 +3800,26 @@ void XmlEditWidgetPrivate::onShortcutAltEnter()
 void XmlEditWidgetPrivate::onShortcutShiftEnter()
 {
     editSelection(XmlEditWidgetPrivate::EditModeTextual);
+}
+
+void XmlEditWidgetPrivate::addFormattingInfo()
+{
+    if(!isActionMode()) {
+        return ;
+    }
+    Element *info = regola->findFormattingInfo();
+    if(NULL == info) {
+        regola->addFormattingInfo(getEditor());
+    }
+}
+
+void XmlEditWidgetPrivate::removeFormattingInfo()
+{
+    if(!isActionMode()) {
+        return ;
+    }
+    Element *info = regola->findFormattingInfo();
+    if(NULL != info) {
+        regola->removeFormattingInfo(getEditor());
+    }
 }

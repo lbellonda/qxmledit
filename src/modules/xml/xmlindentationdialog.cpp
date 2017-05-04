@@ -59,6 +59,7 @@ void XmlIndentationDialog::init()
     }
     ui->chkNoIndent->setChecked(checkNoIndent);
     _attributeHelper.setUp(_regola->xmlIndentAttributesType(), _regola->xmlIndentAttributesColumns());
+    ui->cbFormattingInfo->setChecked(_regola->hasFormattingInfo());
 
     _started = true ;
 }
@@ -91,6 +92,7 @@ void XmlIndentationDialog::accept()
         _regola->setIndentAttributesSettings(true, _appData->xmlIndentAttributesType(), _appData->xmlIndentAttributes());
         _regola->setUseXmlIndentAttributesSettings(false);
     }
+    _regola->setFormattingInfo(ui->cbFormattingInfo->isChecked());
     QDialog::accept();
 }
 

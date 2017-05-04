@@ -24,6 +24,8 @@
 #include "app.h"
 #include "applicationdata.h"
 #include "modules/metadata/metadatainfo.h"
+#include "comparexml.h"
+#include "modules/xml/xmlindentationdialog.h"
 
 #define BASE_TEST  TEST_BASE_DATA   "formatting/"
 
@@ -50,20 +52,20 @@
 #define END_2_END_IN_YES BASE_TEST "end2end_in_yes.xml"
 #define END_2_END_OUT_YES BASE_TEST "end2end_out_yes.xml"
 
+#define FILE_NEW_0  BASE_TEST "new0.xml"
+#define FILE_NEW_1  BASE_TEST "new1.xml"
 
 TestFormattingInfo::TestFormattingInfo()
 {
-
 }
 
 TestFormattingInfo::~TestFormattingInfo()
 {
-
 }
 
 bool TestFormattingInfo::testFast()
 {
-    return testEnd2End();
+    return testInsertDirective();
 }
 
 bool TestFormattingInfo::testUnit()
@@ -135,13 +137,27 @@ bool TestFormattingInfo::testRead()
     if(!loadAllConfigurations()) {
         return false;
     }
+    _subTestName = "" ;
     return true;
 }
 
 bool TestFormattingInfo::testSetReset()
 {
     _testName = "testSetReset";
-    return error("nyi");
+    if(!testNew()) {
+        return false;
+    }
+    if(!testInsertDirective()) {
+        return false;
+    }
+    if(!testRemoveDirective()) {
+        return false;
+    }
+    if(!testPropertiesDirective()) {
+        return false;
+    }
+    _subTestName = "" ;
+    return true;
 }
 
 bool TestFormattingInfo::testWrite()
@@ -156,6 +172,7 @@ bool TestFormattingInfo::testWrite()
     if(!testEnd2End()) {
         return false;
     }
+    _subTestName = "" ;
     return true;
 }
 
@@ -239,9 +256,9 @@ bool TestFormattingInfo::loadOnlyMetadata()
 
 bool TestFormattingInfo::loadAllConfigurations()
 {
-    _subTestName = "loadAllConfigurations";
+    _testName = "loadAllConfigurations";
 
-    if(!testBaseLoad(FILE_READ_CFG0, true, false, 0, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
+    if(!testBaseLoad(FILE_READ_CFG0, true, false, -1, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
         return false;
     }
     if(!testBaseLoad(FILE_READ_CFG1, true, true, 0, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0 )) {
@@ -340,6 +357,13 @@ void TestFormattingInfo::setupIndentSettings(ApplicationData *data, const bool u
 {
     data->setXmlIndent(useIndent?1:-1);
     data->setXmlIndentAttributes(1000);
+    data->setXmlIndentAttributesType(QXmlEditData::AttributesIndentationNone);
+}
+
+void TestFormattingInfo::setupIndentSettingsDefault(ApplicationData *data)
+{
+    data->setXmlIndent(-1);
+    data->setXmlIndentAttributes(0);
     data->setXmlIndentAttributesType(QXmlEditData::AttributesIndentationNone);
 }
 
@@ -462,3 +486,160 @@ bool TestFormattingInfo::testEnd2End()
     return true ;
 }
 
+bool TestFormattingInfo::innerTestNew(const QString &id,
+                                      const bool isNewOption,
+                                      const QString &fileReference)
+{
+    App app;
+    if(!app.init() ) {
+        return error(QString("case %1 init window").arg(id));
+    }
+    app.data()->setAutoInsertProlog(true);
+    app.data()->setFormattingInfoInsertOnNew(isNewOption);
+    setupIndentSettingsDefault(app.data());
+    MainWindow *window = app.mainWindow()->execNew();
+    if( NULL == window ) {
+        return error(QString("Case %1 opening creating new.").arg(id));
+    }
+    Regola *regola = window->getRegola();
+    Element * element = new Element("root", "", regola, NULL);
+    regola->insertElementComplete(element, NULL, window->getEditor()->getMainTreeWidget());
+    CompareXML compare;
+    if(!compare.compareFileWithRegola(regola, fileReference)) {
+        return error(QString("Case %1 compare failed:\n%2\n")
+                     .arg(id)
+                     .arg(compare.errorString()));
+    }
+    return true;
+}
+
+bool TestFormattingInfo::testNew()
+{
+    _testName = "testNew";
+
+    if(!innerTestNew("0", false, FILE_NEW_0)) {
+        return false;
+    }
+    if(!innerTestNew("1", true, FILE_NEW_1)) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestFormattingInfo::actOnDirective(const QString &id,
+                                        const bool isInsertOrRemove,
+                                        const bool expectedAfterUndo,
+                                        const QString &fileInput,
+                                        const QString &fileReference)
+{
+    bool expectedRedo = isInsertOrRemove;
+
+    App app;
+    if(!app.init() ) {
+        return error(QString("case %1 init window").arg(id));
+    }
+    setupIndentSettings(app.data(), false);
+    MainWindow *window = app.mainWindow()->loadFileAndReturnWindow(fileInput);
+    if( NULL == window ) {
+        return error(QString("Case %1 opening test file: '%2'").arg(id).arg(fileInput));
+    }
+    CompareXML compare;
+    if(isInsertOrRemove) {
+        app.mainWindow()->getEditor()->addFormattingInfo();
+    } else {
+        app.mainWindow()->getEditor()->removeFormattingInfo();
+    }
+    if(!compare.compareAFileWithRegola(fileReference, app.mainWindow()->getRegola())) {
+        return error(QString("Redo 1: id:%1 %2").arg(id).arg(compare.errorString()));
+    }
+    if(expectedRedo != app.mainWindow()->getRegola()->hasFormattingInfo()) {
+        return error(QString("Redo 1: NO INFO id:%1").arg(id));
+    }
+    app.mainWindow()->getRegola()->undo();
+    if(!compare.compareAFileWithRegola(fileInput, app.mainWindow()->getRegola())) {
+        return error(QString("Redo 1: id:%1 %2").arg(id).arg(compare.errorString()));
+    }
+    if(expectedAfterUndo != app.mainWindow()->getRegola()->hasFormattingInfo()) {
+        return error(QString("Undo 1: INFO id:%1").arg(id));
+    }
+    app.mainWindow()->getRegola()->redo();
+    if(!compare.compareAFileWithRegola(fileReference, app.mainWindow()->getRegola())) {
+        return error(QString("Redo 2: id:%1 %2").arg(id).arg(compare.errorString()));
+    }
+    if(expectedRedo != app.mainWindow()->getRegola()->hasFormattingInfo()) {
+        return error(QString("Redo 2: NO INFO id:%1").arg(id));
+    }
+    app.mainWindow()->getRegola()->undo();
+    if(!compare.compareAFileWithRegola(fileInput, app.mainWindow()->getRegola())) {
+        return error(QString("Redo 2: id:%1 %2").arg(id).arg(compare.errorString()));
+    }
+    if(expectedAfterUndo != app.mainWindow()->getRegola()->hasFormattingInfo()) {
+        return error(QString("Undo 2: INFO id:%1").arg(id));
+    }
+    return true ;
+}
+
+bool TestFormattingInfo::testInsertDirective()
+{
+    _testName = "testInsertDirective";
+    if(!actOnDirective("0", true, false, FILE_NEW_0, FILE_NEW_1 ) ) {
+        return false;
+    }
+    if(!actOnDirective("1", true, true, FILE_NEW_1, FILE_NEW_1 ) ) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestFormattingInfo::testRemoveDirective()
+{
+    _testName = "testRemoveDirective";
+    if(!actOnDirective("0", false, false, FILE_NEW_0, FILE_NEW_0 ) ) {
+        return false;
+    }
+    if(!actOnDirective("1", false, true, FILE_NEW_1, FILE_NEW_0 ) ) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestFormattingInfo::testPropertiesDirective()
+{
+    _testName = "testPropertiesDirective" ;
+    if(!testOption(false, false)) {
+        return false;
+    }
+    if(!testOption(true, true)) {
+        return false;
+    }
+    if(!testOption(true, false)) {
+        return false;
+    }
+    if(!testOption(false, true)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestFormattingInfo::testOption(const bool setBefore, const bool expected)
+{
+    _subTestName = "testOption" ;
+    // set from dialog
+    App app;
+    if(!app.init()) {
+        return error("app init");
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    regola->setFormattingInfo(setBefore);
+    XmlIndentationDialog dialog(app.mainWindow(), app.mainWindow()->getRegola(), app.data());
+    QCheckBox *cb = dialog.findChild<QCheckBox*>("cbFormattingInfo");
+    if( NULL == cb ) {
+        return error("Check 1 null");
+    }
+    cb->setChecked(expected);
+    dialog.doAccept();
+    if( regola->hasFormattingInfo() != expected ) {
+        return error(QString("For %1 option, expecting %2, but found:%3").arg(setBefore).arg(expected).arg(regola->hasFormattingInfo()));
+    }
+    return true ;
+}

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -375,6 +375,8 @@ private slots:
     void on_actionExecuteXSLTAsSource_triggered();
     void on_actionOpenSiblingsAtTheSameLevel_triggered();
     void on_actionShowPrincipalShortcuts_triggered();
+    void on_actionAddFormattingInfo_triggered();
+    void on_actionRemoveFormattingInfo_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);
@@ -506,6 +508,7 @@ private:
     void errorOnLoad(QFile &file);
     void errorFileName();
     void markAsAllEdited();
+    MainWindow *execNew();
 
     //-- interface(XMLLoadErrorHandler)
     bool showErrorAndAskUserIfContinue(QWidget *parent, XMLLoadContext *context, QXmlStreamReader *xmlReader) ;
@@ -531,6 +534,7 @@ protected:
     friend class TestEncoding;
     friend class TestXSIType;
     friend class TestLoadFile;
+    friend class TestFormattingInfo;
     void setLoadErrorHandler(XMLLoadErrorHandler *newHandler);
 #endif
 };

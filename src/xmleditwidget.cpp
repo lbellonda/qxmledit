@@ -1210,3 +1210,13 @@ void XmlEditWidget::openSiblingsSameLevel()
 {
     d->openSiblingsSameLevel();
 }
+
+void XmlEditWidget::addFormattingInfo()
+{
+    d->addFormattingInfo();
+}
+
+void XmlEditWidget::removeFormattingInfo()
+{
+    d->removeFormattingInfo();
+}

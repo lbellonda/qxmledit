@@ -146,8 +146,8 @@ public:
     PseudoAttribute *attribute(const QString &name);
     bool parseFormattingInfo(const QString &inputData, const int row, XMLIndentationSettings *settings);
     bool isFormattingInfo(const QString &inputData);
-    QString toFormatInfo(XMLIndentationSettings *settings);
-    QString toStringAttribute(const QString &name, const QString &value);
+    static QString toFormatInfo(XMLIndentationSettings *settings);
+    static QString toStringAttribute(const QString &name, const QString &value);
     //--
     virtual QString user();
     virtual QString date();
