@@ -28,6 +28,8 @@
 #include <QList>
 #include <QMap>
 
+class XMLIndentationSettings ;
+
 class MetadataUserProvider
 {
 public:

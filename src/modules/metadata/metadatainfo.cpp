@@ -24,6 +24,7 @@
 #include "metadatainfo.h"
 #include "modules/metadata/metadataparser.h"
 #include "modules/services/systemservices.h"
+#include "regola.h"
 #include <QDateTime>
 #include "utils.h"
 

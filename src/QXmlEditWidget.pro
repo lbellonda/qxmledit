@@ -211,7 +211,6 @@ SOURCES += xmleditwidget.cpp \
   editprocessinginstruction.cpp \
   paintinfo.cpp \
   element.cpp \
-  elementitemdelegate.cpp \
   edittextnode.cpp \
   findtextparams.cpp \
   navigationbox.cpp \
