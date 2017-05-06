@@ -1411,7 +1411,7 @@ Element *Regola::insertInternal(QTreeWidget *tree, Element *parentElement, Eleme
     if(NULL == parentElement) {
         theNewElement = pasteElement->copyTo(*new Element(this), isRecursive);
         addTopElement(theNewElement, position);
-        theNewElement->caricaFigli(tree, NULL, paintInfo, true, -1);
+        theNewElement->caricaFigli(tree, NULL, paintInfo, true, position);
     } else {
         theNewElement = pasteElement->copyTo(*new Element(this), isRecursive);
         // serve???

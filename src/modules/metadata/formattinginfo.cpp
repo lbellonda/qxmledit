@@ -148,16 +148,11 @@ void Regola::updateMetaInfoFormatting()
         const QString newSettings = makeFormattingInfo();
         fmtInfoElement->setPIData(newSettings);
     }
-    Utils::TODO_THIS_RELEASE("versione alternative? Togliere");
     foreach(Element * topLevel, childItems) {
         if(topLevel->getType() == Element::ET_PROCESSING_INSTRUCTION) {
             if(topLevel->getPITarget() == MetadataInfo::QXMLEDIT_TARGET_PI) {
                 MetadataInfo info;
                 if(info.isFormattingInfo(topLevel->getPIData())) {
-                    Utils::TODO_THIS_RELEASE("commento");
-                    /*XMLIndentationSettings settings;
-                    formattingInfoToSettings(&settings);
-                    const QString newSettings = info.toFormatInfo(&settings);*/
                     const QString newSettings = makeFormattingInfo();
                     topLevel->setPIData(newSettings);
                 }

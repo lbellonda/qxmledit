@@ -642,7 +642,6 @@ void DataWidget::waitCalcImage(QList<QFuture<void> > &threads)
     bool done = false;
     UIDesktopServices uiServices(mainWindow());
     while(!done) {
-        Utils::TODO_THIS_RELEASE("test me with unit tests");
         ThreadServices::msleep(250);
         if(timer.elapsed() > (THRESHOLD_SECONDS * 1000)) {
             uiServices.startIconProgressBar();

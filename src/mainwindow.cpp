@@ -668,8 +668,10 @@ void MainWindow::treeContextMenu(const QPoint& position)
     }
     contextMenu.addAction(ui.actionCopy);
     Element *element = getSelectedItem();
+    bool isElement = false;
     if((NULL != element) && element->isElement()) {
         contextMenu.addAction(ui.actionCopyElementPathClipboard);
+        isElement = true ;
     }
     if(isActionMode) {
         contextMenu.addAction(ui.actionPaste);
@@ -703,12 +705,16 @@ void MainWindow::treeContextMenu(const QPoint& position)
     //---
     contextMenu.addSeparator() ;
     if(isActionMode) {
-        contextMenu.addAction(ui.actionPasteAndSubstituteText);
-        contextMenu.addAction(ui.actionEditInnerBase64Text);
+        if(isElement) {
+            contextMenu.addAction(ui.actionPasteAndSubstituteText);
+            contextMenu.addAction(ui.actionEditInnerBase64Text);
+        }
     }
     if(isActionMode) {
-        contextMenu.addAction(ui.actionEditInnerXML);
-        contextMenu.addAction(ui.actionEditInnerXMLBase64);
+        if(isElement) {
+            contextMenu.addAction(ui.actionEditInnerXML);
+            contextMenu.addAction(ui.actionEditInnerXMLBase64);
+        }
         contextMenu.addAction(ui.actionTransforminSnippet);
         contextMenu.addSeparator() ;
         contextMenu.addAction(ui.actionMoveUp);
