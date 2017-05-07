@@ -90,6 +90,7 @@ public:
 
     static void setupIndentSettings(ApplicationData *data, const bool useIndent);
     static void setupIndentSettingsDefault(ApplicationData *data);
+    static void setupIndentSettingsDefault100(ApplicationData *data);
 
 };
 

@@ -131,7 +131,7 @@ void Regola::housework()
     _useNoNamespaceXSD = false;
     _useNamespaceXSD = false ;
     _namespaceManager = NULL ;
-    _useIndent = false;
+    _overrideGlobalIndentation = false;
     _indent = QXmlEditData::XmlIndentDefault ;
     _deviceProvider = NULL ;
     _isCrapCacheNSActivated = false;
@@ -211,25 +211,30 @@ int Regola::indentation() const
     return _indent;
 }
 
+bool Regola::hasIndentation() const
+{
+    return _indent >= 0 ;
+}
+
 void Regola::setIndentationForce(const int indent)
 {
     _indent = indent;
     emitIndentationChange();
 }
 
-bool Regola::useIndentation() const
+bool Regola::overrideGlobalIndentation() const
 {
-    return _useIndent;
+    return _overrideGlobalIndentation;
 }
 
-void Regola::setUseIndentation(const bool value)
+void Regola::setOverrideGlobalIndentation(const bool value)
 {
-    _useIndent = value;
+    _overrideGlobalIndentation = value;
 }
 
 void Regola::setIndentation(const int value)
 {
-    if(!_useIndent) {
+    if(!_overrideGlobalIndentation) {
         _indent = value;
         emitIndentationChange();
     }
@@ -3078,7 +3083,7 @@ RegolaSettings *Regola::getSettings()
     RegolaSettings *newSettings = new RegolaSettings();
     if(NULL != newSettings) {
         newSettings->setIndentation(_indent);
-        newSettings->setUseIndent(_useIndent);
+        newSettings->setUseIndent(_overrideGlobalIndentation);
     }
     return newSettings ;
 }
@@ -3087,7 +3092,7 @@ void Regola::restoreSettings(RegolaSettings *settings)
 {
     if(NULL != settings) {
         _indent = settings->getIndentation();
-        _useIndent = settings->isUseIndent();
+        _overrideGlobalIndentation = settings->isUseIndent();
         emitIndentationChange();
     }
 }

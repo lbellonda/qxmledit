@@ -130,8 +130,8 @@ Element *Regola::findFormattingInfo()
 void Regola::applyFormatting(XMLIndentationSettings *settings)
 {
     _formattingInfo = settings->useFormatting ;
-    _useIndent = settings->useIndent;
-    if(!_useIndent) {
+    _overrideGlobalIndentation = true ;
+    if(!settings->useIndent) {
         _indent = -1 ;
     } else {
         _indent = settings->indent;
@@ -140,12 +140,13 @@ void Regola::applyFormatting(XMLIndentationSettings *settings)
     _indentAttributes = settings->indentAttributesSetting;
     _attributesIndentSettings = (settings->indentAttributesSetting == QXmlEditData::AttributesIndentationMaxCols);
     _indentAttributesColumns = settings->indentAttributesColumns;
+    emitIndentationChange();
 }
 
 void Regola::formattingInfoToSettings(XMLIndentationSettings *settings)
 {
     settings->useFormatting = _formattingInfo ;
-    settings->useIndent = _useIndent ;
+    settings->useIndent = _indent != -1 ;
     settings->indent = _indent ;
     settings->saveAttrMethod = _saveAttributesMethod ;
     settings->indentAttributesSetting = _indentAttributes ;

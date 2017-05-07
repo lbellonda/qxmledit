@@ -132,7 +132,7 @@ bool TestIndent::writeSettings(App *app, QBuffer *outData)
 {
     Regola *regola = app->mainWindow()->getRegola();
     if(_useDocIndent) {
-        regola->setUseIndentation(true);
+        regola->setOverrideGlobalIndentation(true);
         regola->setIndentationForce(_indentationDoc);
     }
     regola->setIndentation(app->data()->xmlIndent());
@@ -780,7 +780,7 @@ bool TestIndent::testOnePreset(const bool isNotEmpty, const QString &fileReferen
     id += fileReference;
     const QString fileIn = isNotEmpty?PRESET_IN_YES:PRESET_IN_NO;
     app.data()->setFormattingInfoEnabled(true);
-    TestFormattingInfo::setupIndentSettings(app.data(), false);
+    TestFormattingInfo::setupIndentSettings(app.data(), true);
     MainWindow *window = app.mainWindow()->loadFileAndReturnWindow(fileIn);
     if( NULL == window ) {
         return error(QString("Case %1 opening test file: '%2'").arg(id).arg(fileIn));

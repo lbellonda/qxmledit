@@ -183,7 +183,7 @@ private:
     bool _attributesIndentSettings;
     QXmlEditData::EIndentAttributes _indentAttributes;
     int _indentAttributesColumns;
-    bool _useIndent;
+    bool _overrideGlobalIndentation;
     int _indent;
     bool _useMixedContent;
     bool _isCrapCacheNSActivated;
@@ -516,8 +516,9 @@ public:
     int indentation() const;
     void setIndentation(const int indent);
     void setIndentationForce(const int indent);
-    bool useIndentation() const ;
-    void setUseIndentation(const bool value);
+    bool hasIndentation() const;
+    bool overrideGlobalIndentation() const ;
+    void setOverrideGlobalIndentation(const bool value);
     void emitIndentationChange();
 
     //------------region(containers)

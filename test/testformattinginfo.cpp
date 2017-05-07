@@ -201,8 +201,8 @@ bool TestFormattingInfo::testBaseLoad(const QString &fileName, const bool expect
             }
             if(expected) {
                 // check values
-                if(useIndent!=regola->useIndentation()) {
-                    return error(QString("Config: %1, file '%2' found use indentation: %3").arg(value).arg(fileName).arg(regola->useIndentation()));
+                if(useIndent!=regola->hasIndentation()) {
+                    return error(QString("Config: %1, file '%2' found use indentation: %3").arg(value).arg(fileName).arg(regola->overrideGlobalIndentation()));
                 }
                 if(indent!=regola->indentation()) {
                     return error(QString("Config: %1, file '%2' found indentation: %3").arg(value).arg(fileName).arg(regola->indentation()));
@@ -355,7 +355,7 @@ void TestFormattingInfo::setupRegola( Regola *regola,
 
 void TestFormattingInfo::setupIndentSettings(ApplicationData *data, const bool useIndent)
 {
-    data->setXmlIndent(useIndent?1:-1);
+    data->setXmlIndent(useIndent?100:-1);
     data->setXmlIndentAttributes(1000);
     data->setXmlIndentAttributesType(QXmlEditData::AttributesIndentationNone);
 }

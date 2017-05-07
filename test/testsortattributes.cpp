@@ -99,7 +99,7 @@ bool TestSortAttributes::baseSetup(const QString &fileIn, const QString &fileCom
         regola->setSaveAttributesMethod(setSortLocal?Regola::SaveAttributesSortingAlphabetically:Regola::SaveAttributesNoSort);
     }
     regola->setIndentationForce(0);
-    regola->setUseIndentation(true);
+    regola->setOverrideGlobalIndentation(true);
     QByteArray resultData = regola->writeMemory();
     QString regolaFromByteArray = QString::fromUtf8(resultData.data());
     QString regolaAsString = regola->getAsText();

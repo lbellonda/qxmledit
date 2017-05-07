@@ -49,7 +49,7 @@ void XmlIndentationDialog::init()
     bool checkNoIndent = false;
     _attributeHelper.init(ui->attrNoIndendation, ui->attrNewLineAt, ui->attrCharacters);
 
-    ui->indentSettings->setChecked(_regola->useIndentation());
+    ui->indentSettings->setChecked(_regola->overrideGlobalIndentation());
     int indentValue = _regola->indentation();
     if(indentValue >= 0) {
         ui->xmlIndent->setValue(indentValue);
@@ -76,7 +76,7 @@ void XmlIndentationDialog::doAccept()
 
 void XmlIndentationDialog::accept()
 {
-    _regola->setUseIndentation(ui->indentSettings->isChecked());
+    _regola->setOverrideGlobalIndentation(ui->indentSettings->isChecked());
     if(ui->indentSettings->isChecked()) {
         if(ui->chkNoIndent->isChecked()) {
             _regola->setIndentationForce(-1);
