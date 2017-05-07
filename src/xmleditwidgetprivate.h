@@ -448,6 +448,7 @@ private slots:
     void onShortcutT();
     void addFormattingInfo();
     void removeFormattingInfo();
+    bool presetFormatting(const XMLIndentationSettings::ESettings preset);
 private:
     void bindRegola(Regola *newModel, const bool bind = true);
     XSDOperationParameters *getXSDParams(const bool isInsert, XSDOperationParameters::EObjectType entityType, const QString &name, Element *selection);

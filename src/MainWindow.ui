@@ -156,14 +156,19 @@
      <addaction name="actionCopyElementPathClipboard"/>
      <addaction name="actionAutoComplete"/>
      <addaction name="actionEditXSLTitem"/>
-     <addaction name="actionSetIndent"/>
     </widget>
     <widget class="QMenu" name="menuFormatting">
      <property name="title">
       <string>Formatting</string>
      </property>
+     <addaction name="actionSetIndent"/>
+     <addaction name="separator"/>
      <addaction name="actionAddFormattingInfo"/>
      <addaction name="actionRemoveFormattingInfo"/>
+     <addaction name="separator"/>
+     <addaction name="actionPresetApacheFOP"/>
+     <addaction name="actionPresetNoIndentation"/>
+     <addaction name="actionPresetIndentOneAttributePerLine"/>
     </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionRedo"/>
@@ -2003,7 +2008,7 @@
   </action>
   <action name="actionSetIndent">
    <property name="text">
-    <string>Set Indentation...</string>
+    <string>Formatting,,,</string>
    </property>
    <property name="toolTip">
     <string>Set the indentation for this document.</string>
@@ -2422,6 +2427,30 @@
    </property>
    <property name="toolTip">
     <string>Remove formatting info metadata.</string>
+   </property>
+  </action>
+  <action name="actionPresetApacheFOP">
+   <property name="text">
+    <string>Preset Apache FOP</string>
+   </property>
+   <property name="toolTip">
+    <string>Preset for Apache FOP formatting (2 spaces).</string>
+   </property>
+  </action>
+  <action name="actionPresetNoIndentation">
+   <property name="text">
+    <string>Preset No Indentation</string>
+   </property>
+   <property name="toolTip">
+    <string>Do not indent at all.</string>
+   </property>
+  </action>
+  <action name="actionPresetIndentOneAttributePerLine">
+   <property name="text">
+    <string>Preset Indent One Attribute per Line</string>
+   </property>
+   <property name="toolTip">
+    <string>Indent with two spaces and one attribute per line.</string>
    </property>
   </action>
  </widget>

@@ -730,6 +730,12 @@ class LIBQXMLEDITSHARED_EXPORT XMLIndentationSettings
 {
 
 public:
+    enum ESettings {
+        PresetApacheFOP,
+        PresetNoIndent,
+        Preset2SpacesOneAttributePerLine
+    };
+
     bool useFormatting;
     bool useIndent;
     int indent;
@@ -739,6 +745,8 @@ public:
 
     XMLIndentationSettings();
     virtual ~XMLIndentationSettings();
+
+    bool applyPreset(const ESettings preset);
 
     void setup(const bool useIndent, const int indent,
                const Regola::ESaveAttributes saveAttributesMethod,

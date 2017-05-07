@@ -1220,3 +1220,8 @@ void XmlEditWidget::removeFormattingInfo()
 {
     d->removeFormattingInfo();
 }
+
+bool XmlEditWidget::presetFormatting(const XMLIndentationSettings::ESettings preset)
+{
+    return d->presetFormatting(preset);
+}
