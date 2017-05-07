@@ -1523,6 +1523,7 @@ void TestQXmlEdit::testFormattingInfo()
 }
 
 
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 // This function enabled for debug purposes. DO NOT REMOVE
 //static void msgHandler(QtMsgType type, const char *msg)
 static void msgHandler(QtMsgType, const QMessageLogContext &, const QString &msg)
@@ -1532,14 +1533,15 @@ static void msgHandler(QtMsgType, const QMessageLogContext &, const QString &msg
         int k = 0;
         k++;
     }
-    //printf("%s\n", msg);
     printf("%s\n", msg.toLatin1().data());
 }
+#endif
 
 void TestQXmlEdit::testNew()
 {
-    //qInstallMsgHandler(msgHandler);
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
+#endif
     testFormattingInfo();
     testDeleteSiblings();
     testSpecialView();
