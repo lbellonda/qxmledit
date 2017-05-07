@@ -55,6 +55,25 @@ void XMLIndentationSettings::setup(
     //--
 }
 
+bool XMLIndentationSettings::applyPreset(const XMLIndentationSettings::ESettings preset)
+{
+    switch(preset) {
+    default:
+        return false;
+    case PresetApacheFOP:
+        setup(true, 2, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0);
+        break;
+    case PresetNoIndent:
+        setup(false, 0, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationNone, 0);
+        break;
+    case Preset2SpacesOneAttributePerLine:
+        setup(true, 2, Regola::SaveAttributesNoSort, QXmlEditData::AttributesIndentationMaxCols, 0);
+        break;
+    }
+    useFormatting = true ;
+    return true ;
+}
+
 //----------------------
 
 bool Regola::readFormattingInfo()

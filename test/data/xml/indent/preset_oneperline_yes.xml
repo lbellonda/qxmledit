@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?qxmledit type="formatting" indent="on" indentValue="2" sortAlphaAttr="off" attrLineLen="0"?>
+<root bb="aa"
+      aa="bb">
+  <ccc bb="aa"
+       aa="bb">
+    <ddd/>
+  </ccc>
+</root>

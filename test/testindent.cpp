@@ -26,6 +26,7 @@
 #include "modules/xml/xmlindentationdialog.h"
 #include "configurationdialog.h"
 #include "xmlsavecontext.h"
+#include "testformattinginfo.h"
 
 #include <QTextCodec>
 #include <QBuffer>
@@ -68,7 +69,7 @@ TestIndent::~TestIndent()
 
 bool TestIndent::testFast()
 {
-    if( !testIndentAttributesWithDefaultValuesInner(0)) {
+    if(!testPreset()) {
         return false;
     }
     return testSettingsFromPreferences();
@@ -278,6 +279,9 @@ bool TestIndent::testIndentAttributes()
         return false;
     }
     if(!testSettingsFromPreferences()) {
+        return false;
+    }
+    if(!testPreset()) {
         return false;
     }
     return true;
@@ -699,6 +703,92 @@ bool TestIndent::testSettingsFromPreferences()
         if( regola->xmlIndentAttributesType() != expectedType ) {
             return error(QString("Default 2 type is:%1, found :%2").arg(expectedType).arg(regola->xmlIndentAttributesType()));
         }
+    }
+    return true ;
+}
+
+#define PRESET_IN_NO            FILE_TEST_BASE   "/preset_in_no.xml"
+#define PRESET_IN_YES           FILE_TEST_BASE   "/preset_in_yes.xml"
+#define FILE_PRESET_APACHE_YES  FILE_TEST_BASE   "/preset_fop_yes.xml"
+#define FILE_PRESET_APACHE_NO   FILE_TEST_BASE   "/preset_fop_no.xml"
+#define FILE_PRESET_NOINDENT_YES    FILE_TEST_BASE   "/preset_no_yes.xml"
+#define FILE_PRESET_NOINDENT_NO     FILE_TEST_BASE   "/preset_no_no.xml"
+#define FILE_PRESET_ONEPERLINE_YES      FILE_TEST_BASE   "/preset_oneperline_yes.xml"
+#define FILE_PRESET_ONEPERLINE_NO       FILE_TEST_BASE   "/preset_oneperline_no.xml"
+
+bool TestIndent::testPreset()
+{
+    _testName = "testPreset" ;
+    if(!testOnePreset( true, FILE_PRESET_APACHE_YES, XMLIndentationSettings::PresetApacheFOP)) {
+        return false;
+    }
+    if(!testOnePreset( false, FILE_PRESET_APACHE_NO, XMLIndentationSettings::PresetApacheFOP)) {
+        return false;
+    }
+    if(!testOnePreset(true, FILE_PRESET_NOINDENT_YES, XMLIndentationSettings::PresetNoIndent)) {
+        return false;
+    }
+    if(!testOnePreset(false, FILE_PRESET_NOINDENT_NO, XMLIndentationSettings::PresetNoIndent)) {
+        return false;
+    }
+    if(!testOnePreset(true, FILE_PRESET_ONEPERLINE_YES, XMLIndentationSettings::Preset2SpacesOneAttributePerLine)) {
+        return false;
+    }
+    if(!testOnePreset(false, FILE_PRESET_ONEPERLINE_NO, XMLIndentationSettings::Preset2SpacesOneAttributePerLine)) {
+        return false;
+    }
+    _subTestName = "" ;
+    return true ;
+}
+
+bool TestIndent::checkFileWithRegola(const QString &id, Regola* regola, const QString &fileReference)
+{
+    QString result = regola->getAsText();
+    // Compare results.
+    QString reference ;
+    if(!readFromFile(fileReference, reference) ) {
+        return error(QString("case %2 unable to load reference file: '%1' ").arg(fileReference).arg(id));
+    }
+    // normalize cr
+    reference = reference.replace("\r\n", "\n");
+    result = result.replace("\r\n", "\n");
+
+    ///-----
+
+    if( reference.trimmed() != result.trimmed() ) {
+        return error(QString("Case %5 String not expected.\nExpected:%1\n%2\nString:%3\n%4\n")
+                     .arg(reference.length())
+                     .arg(reference.replace("\n", "*LF*"))
+                     .arg(result.length())
+                     .arg(result.replace("\n", "*LF*"))
+                     .arg(id));
+    }
+    return true;
+
+}
+
+bool TestIndent::testOnePreset(const bool isNotEmpty, const QString &fileReference, const XMLIndentationSettings::ESettings preset)
+{
+    _subTestName = "testOnePreset" ;
+    // set from dialog
+    App app;
+    if(!app.init()) {
+        return error("app init");
+    }
+    QString id = isNotEmpty? "yes" : "no";
+    id += "-";
+    id += fileReference;
+    const QString fileIn = isNotEmpty?PRESET_IN_YES:PRESET_IN_NO;
+    app.data()->setFormattingInfoEnabled(true);
+    TestFormattingInfo::setupIndentSettings(app.data(), false);
+    MainWindow *window = app.mainWindow()->loadFileAndReturnWindow(fileIn);
+    if( NULL == window ) {
+        return error(QString("Case %1 opening test file: '%2'").arg(id).arg(fileIn));
+    }
+    window->getEditor()->presetFormatting(preset);
+    Regola *regola = app.mainWindow()->getRegola();
+    if(!checkFileWithRegola(id, regola, fileReference)) {
+        return false;
     }
     return true ;
 }

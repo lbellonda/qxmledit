@@ -3823,3 +3823,13 @@ void XmlEditWidgetPrivate::removeFormattingInfo()
         regola->removeFormattingInfo(getEditor());
     }
 }
+
+bool XmlEditWidgetPrivate::presetFormatting(const XMLIndentationSettings::ESettings preset)
+{
+    XMLIndentationSettings settings;
+    if(settings.applyPreset(preset)) {
+        regola->applyFormatting(&settings);
+        return true ;
+    }
+    return false ;
+}

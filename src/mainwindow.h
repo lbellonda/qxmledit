@@ -377,6 +377,10 @@ private slots:
     void on_actionShowPrincipalShortcuts_triggered();
     void on_actionAddFormattingInfo_triggered();
     void on_actionRemoveFormattingInfo_triggered();
+    void on_actionPresetApacheFOP_triggered();
+    void on_actionPresetNoIndentation_triggered();
+    void on_actionPresetIndentOneAttributePerLine_triggered();
+
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);

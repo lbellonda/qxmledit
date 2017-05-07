@@ -1540,6 +1540,7 @@ void TestQXmlEdit::testNew()
 {
     //qInstallMsgHandler(msgHandler);
     qInstallMessageHandler(msgHandler);
+    testIndent();
     testFormattingInfo();
     testDeleteSiblings();
     testSpecialView();

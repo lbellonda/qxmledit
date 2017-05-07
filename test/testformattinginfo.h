@@ -52,8 +52,6 @@ class TestFormattingInfo : public TestBase
                        const bool useIndent, const int indent,
                        const Regola::ESaveAttributes saveAttributesMethod,
                        const QXmlEditData::EIndentAttributes indentAttributesSetting, const int indentAttributesColumns);
-    void setupIndentSettings(ApplicationData *data, const bool useIndent);
-    void setupIndentSettingsDefault(ApplicationData *data);
     bool execRegolaWrite(const QString &id,
                          const QString &fileReference,
                          bool useIndent, const int indent,
@@ -89,6 +87,10 @@ public:
 
     bool testFast();
     bool testUnit();
+
+    static void setupIndentSettings(ApplicationData *data, const bool useIndent);
+    static void setupIndentSettingsDefault(ApplicationData *data);
+
 };
 
 #endif // TESTFORMATTINGINFO_H

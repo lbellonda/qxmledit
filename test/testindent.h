@@ -65,7 +65,9 @@ class TestIndent : public TestBase
                                              const int attributeIndentationSpecificValue,
                                              // --
                                              const QString &fileReference );
-
+    bool testOnePreset(const bool isEmpty, const QString &fileReference, const XMLIndentationSettings::ESettings preset);
+    bool checkFileWithRegola(const QString &id, Regola* regola, const QString &fileReference);
+    bool testPreset();
 public:
     TestIndent();
     ~TestIndent();

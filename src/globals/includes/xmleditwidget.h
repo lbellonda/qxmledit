@@ -360,7 +360,7 @@ public:
     void openSiblingsSameLevel();
     void addFormattingInfo();
     void removeFormattingInfo();
-
+    bool presetFormatting(const XMLIndentationSettings::ESettings preset);
 signals:
     void reevaluateSelectionState();
     void documentIsModified(const bool isModified);// TODO: emit this
