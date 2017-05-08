@@ -28,12 +28,13 @@
 
 #include "modules/xslt/xsltmode.h"
 #include "regola.h"
+#include "libQXmlEdit_global.h"
 
 class XmlEditWidgetPrivate;
 class XsltElementDialogParam;
 class HandlerForInsert;
 
-class XsltHelper : public QObject
+class LIBQXMLEDITSHARED_EXPORT XsltHelper : public QObject
 {
     Q_OBJECT
 
