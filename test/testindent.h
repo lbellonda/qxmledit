@@ -26,7 +26,7 @@
 
 #include <QBuffer>
 #include "testbase.h"
-
+#include "regola.h"
 class App;
 
 class TestIndent : public TestBase
