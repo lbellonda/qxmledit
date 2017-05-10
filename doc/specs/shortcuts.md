@@ -1,7 +1,8 @@
+this is not really html nor markdown
 <html>
 Shortcuts for element creation
 ==============================
-#<body>
+<body>
 <table border="1">
     <tr><th>Operation</th><th>Shortcut</th></tr>
 	<tr><td>Insert</td><td>INS, i</td></tr>
@@ -56,6 +57,5 @@ Shortcuts for element creation
 
 </table>
 
-Note that these shortcuts are not yet fully implemented.
-#</body>
-#</html>
+</body>
+</html>

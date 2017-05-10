@@ -63,4 +63,4 @@ Managment:
 Meta format:
 ?qxmledit type="formatting" indent="on/off" indentValue="n" sortAlphaAttr="on/off" attrLineLen="off/n"
 Sample:
-<?qxmledit type="formatting" indent="off" indentValue="0" sortAlphaAttr="off" attrLineLen="off"?>
+\<?qxmledit type="formatting" indent="off" indentValue="0" sortAlphaAttr="off" attrLineLen="off"?\>
