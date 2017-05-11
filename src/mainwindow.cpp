@@ -3232,7 +3232,6 @@ void MainWindow::on_actionFindPrevious_triggered()
 void MainWindow::on_actionSetIndent_triggered()
 {
     ui.editor->onSetIndent();
-    Utils::TODO_THIS_RELEASE("testare");
 }
 
 void MainWindow::on_actionInfo_triggered()
@@ -3652,17 +3651,14 @@ void MainWindow::on_actionRemoveFormattingInfo_triggered()
 void MainWindow::on_actionPresetApacheFOP_triggered()
 {
     ui.editor->presetFormatting(XMLIndentationSettings::PresetApacheFOP);
-    Utils::TODO_THIS_RELEASE("testare");
 }
 
 void MainWindow::on_actionPresetNoIndentation_triggered()
 {
     ui.editor->presetFormatting(XMLIndentationSettings::PresetNoIndent);
-    Utils::TODO_THIS_RELEASE("testare");
 }
 
 void MainWindow::on_actionPresetIndentOneAttributePerLine_triggered()
 {
     ui.editor->presetFormatting(XMLIndentationSettings::Preset2SpacesOneAttributePerLine);
-    Utils::TODO_THIS_RELEASE("testare");
 }

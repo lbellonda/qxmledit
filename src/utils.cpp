@@ -560,14 +560,14 @@ void Utils::todo(const QString &inputMessage)
 }
 */
 
-void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
+/*void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
 {
     if(isUnitTest) {
         fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
     } else {
         //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
     }
-}
+}*/
 
 void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
 {
