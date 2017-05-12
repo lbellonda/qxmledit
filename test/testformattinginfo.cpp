@@ -26,6 +26,7 @@
 #include "modules/metadata/metadatainfo.h"
 #include "comparexml.h"
 #include "modules/xml/xmlindentationdialog.h"
+#include "regola.h"
 
 #define BASE_TEST  TEST_BASE_DATA   "formatting/"
 
@@ -293,6 +294,22 @@ bool TestFormattingInfo::testUnitWrite(const QString &id, const QString &expecte
     if(calculated.trimmed() != expected.trimmed()) {
         return error(QString("Write test id:%1 found:'%2' expected:'%3'").arg(id).arg(calculated).arg(expected));
     }
+    Regola regola;
+    if(!useIndent) {
+        regola.setIndentationForce(-1);
+    } else {
+        regola.setIndentationForce(indent);
+    }
+    regola.setSaveAttributesMethod(saveAttributesMethod);
+    regola.setIndentAttributesSettings(true, indentAttributesSetting, indentAttributesColumns);
+    regola.setUseXmlIndentAttributesSettings(true);
+    XMLIndentationSettings settings2;
+    regola.formattingInfoToSettings(&settings2);
+    calculated = info.toFormatInfo(&settings2);
+    if(calculated.trimmed() != expected.trimmed()) {
+        return error(QString("Write Regola test id:%1 found:'%2' expected:'%3'").arg(id).arg(calculated).arg(expected));
+    }
+
     return true;
 }
 

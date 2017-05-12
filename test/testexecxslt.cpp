@@ -863,7 +863,6 @@ bool TestExecXSLT::checkChooseEngine1()
             return error("5 Expected error for not configured engine.");
         }
     }
-    Utils::TODO_THIS_RELEASE("testare errori con saxon di file di input");
     return true;
 }
 

@@ -138,7 +138,7 @@ void Regola::applyFormatting(XMLIndentationSettings *settings)
     }
     _saveAttributesMethod = settings->saveAttrMethod;
     _indentAttributes = settings->indentAttributesSetting;
-    _attributesIndentSettings = (settings->indentAttributesSetting == QXmlEditData::AttributesIndentationMaxCols);
+    _attributesIndentSettings = true ;
     _indentAttributesColumns = settings->indentAttributesColumns;
     emitIndentationChange();
 }
@@ -150,11 +150,6 @@ void Regola::formattingInfoToSettings(XMLIndentationSettings *settings)
     settings->indent = _indent ;
     settings->saveAttrMethod = _saveAttributesMethod ;
     settings->indentAttributesSetting = _indentAttributes ;
-    if(_attributesIndentSettings) {
-        settings->indentAttributesSetting = QXmlEditData::AttributesIndentationMaxCols;
-    } else {
-        settings->indentAttributesSetting = QXmlEditData::AttributesIndentationNone;
-    }
     settings->indentAttributesColumns = _indentAttributesColumns ;
 }
 
