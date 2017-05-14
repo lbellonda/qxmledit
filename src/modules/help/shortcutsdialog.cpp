@@ -59,6 +59,8 @@ const QString ShortcutsDialog::Text = tr(
         <tr><td>Spec Properties</td><td> ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK</td></tr>\
         <tr><td>Edit text</td><td> t</td></tr>\
         <tr><td>Edit element</td><td> e</td></tr>\
+        <tr><td>Edit inner XML</td><td> x</td></tr>\
+        <tr><td>Edit inner XML base64</td><td> y</td></tr>\
 </table>\
 <br/>\
 <br/>\

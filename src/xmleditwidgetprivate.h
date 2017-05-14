@@ -446,6 +446,8 @@ private slots:
     void onShortcutCtrlEnter();
     void onShortcutAltEnter();
     void onShortcutT();
+    void onShortcutX();
+    void onShortcutY();
     void addFormattingInfo();
     void removeFormattingInfo();
     bool presetFormatting(const XMLIndentationSettings::ESettings preset);

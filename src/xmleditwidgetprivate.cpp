@@ -244,7 +244,21 @@ void XmlEditWidgetPrivate::secondStepConstructor()
         shortcutAppendSpec->setKey(Qt::Key_T);
         connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutT()));
     }
-    // end inspection
+
+    // X edit inner xml
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_X);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutX()));
+    }
+
+    // Y edit inner xml b64 coded
+    {
+        QShortcut *shortcutAppendSpec = new QShortcut(tree);
+        shortcutAppendSpec->setKey(Qt::Key_Y);
+        connect(shortcutAppendSpec, SIGNAL(activated()), this, SLOT(onShortcutY()));
+    }
+    // end
 
     recalcRowHeightClass();
 
@@ -3800,6 +3814,16 @@ void XmlEditWidgetPrivate::onShortcutAltEnter()
 void XmlEditWidgetPrivate::onShortcutShiftEnter()
 {
     editSelection(XmlEditWidgetPrivate::EditModeTextual);
+}
+
+void XmlEditWidgetPrivate::onShortcutX()
+{
+    onActionEditInnerXML();
+}
+
+void XmlEditWidgetPrivate::onShortcutY()
+{
+    onActionEditInnerXMLBase64();
 }
 
 void XmlEditWidgetPrivate::addFormattingInfo()
