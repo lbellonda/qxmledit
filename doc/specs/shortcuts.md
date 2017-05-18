@@ -1,6 +1,6 @@
 this is not really html nor markdown
 <html>
-Shortcuts for element creation
+Shortcuts for element editing
 ==============================
 <body>
 <table border="1">

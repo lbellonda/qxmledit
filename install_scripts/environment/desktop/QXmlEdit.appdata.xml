@@ -20,7 +20,7 @@
     <url type="homepage">http://qxmledit.org</url>
     <url type="bugtracker">https://github.com/lbellonda/qxmledit/issues</url>
     <releases>
-      <release version="0.9.7" />
+      <release version="0.9.8" />
     </releases>
     <project_group>Qt</project_group>
 </component>
