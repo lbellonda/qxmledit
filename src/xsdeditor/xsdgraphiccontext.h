@@ -48,7 +48,9 @@ public:
         // used for normal graphics
         CONTEXT_GRAPHICS,
         // used for compare results
-        CONTEXT_DIFF
+        CONTEXT_DIFF,
+        // outline view
+        CONTEXT_OUTLINE
     };
 
 private:
@@ -66,6 +68,7 @@ private:
     XSchemaInquiryContext _globalSearchContext;
     bool _showAllSchema;
     bool _isDebug;
+    bool _hideAttributes;
     // TODO QStack<XSDItem*> _navigation;
 
 public:
@@ -119,6 +122,11 @@ public:
 
     bool isShowAllSchema() const;
     void setShowAllSchema(bool showAllSchema);
+
+    bool isHideAttributes() const;
+    void setHideAttributes(bool hideAttributes);
+
+    bool isOutline();
 
 signals:
 

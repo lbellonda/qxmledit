@@ -27,6 +27,7 @@
 #include <xmlEdit.h>
 
 #include "xsdeditor/xschema.h"
+#include "xsdeditor/xschemaoutlineelement.h"
 #include "xsdeditor/items/xgraphicsitems.h"
 #include "xsdeditor/xsdgraphiccontext.h"
 #include "xsdeditor/xsdgraphicsconfiguration.h"
@@ -285,9 +286,11 @@ class RootItem : public XSDItem
     XSDSchema *_item;
 
     void init(XsdGraphicContext *context);
+    QList<XSchemaOutlineElement*> _outlineItems ;
 
 protected:
     QString preTooltipString();
+    void outlineModeChildren();
 
 public:
     //IS_TYPE(TypeSchema)
@@ -454,8 +457,6 @@ public:
     {
         return _item ;
     }
-
-    virtual AttributeItem *addAttribute(XSchemaAttribute *attribute, QPointF pos);
 
     void changeGraphics();
     virtual QString itemClassName()
@@ -998,6 +999,59 @@ public:
         return "DerivationItem";
     }
 };
+
+
+class OutlineElementItem : public XSDItem
+{
+    Q_OBJECT
+
+    QPolygonF _contour;
+    XSchemaOutlineElement *_item;
+    GraphicsRoundRectItem *_graphicsItem;
+    QGraphicsTextItem *_textItem ;
+    QGraphicsTextItem *_typeItem ;
+    QGraphicsTextItem *_propertiesItem ;
+    QList<AttributeItem*> _attributes;
+    QGraphicsPixmapItem *_iconLink;
+    QGraphicsPixmapItem *_iconType;
+    QGraphicsLineItem *_separator;
+
+    void init(XsdGraphicContext *newContext);
+    void reset();
+
+private slots:
+    void textChanged();
+    void elmNameChanged(const QString &newName);
+    void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
+    virtual void childAdded(XSchemaObject *newChild);
+
+protected:
+    void setIconType();
+
+public:
+
+    OutlineElementItem(XsdGraphicContext *newContext, XSchemaOutlineElement *newItem, QGraphicsItem * parent = 0);
+    virtual ~OutlineElementItem();
+
+    XSchemaOutlineElement *element() const ;
+    void setItem(XSchemaOutlineElement *newItem)  ;
+
+    virtual QGraphicsItem *graphicItem()
+    {
+        return _graphicsItem ;
+    }
+    virtual XSchemaObject *item()
+    {
+        return _item ;
+    }
+
+    void changeGraphics();
+    virtual QString itemClassName()
+    {
+        return "OutlineElementItem";
+    }
+};
+
 
 class XSDWindow;
 

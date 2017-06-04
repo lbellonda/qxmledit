@@ -449,6 +449,8 @@ XSDItem *XSDItem::createItem(XsdGraphicContext *context, XSchemaObject *newChild
         newItem = new AllItem(context, (XSchemaAll*)newChild, parent);
     } else if(SchemaTypeSchema == type) {
         newItem = new RootItem(context, (XSDSchema*)newChild, parent);
+    } else if(SchemaTypeOutlineElement == type) {
+        newItem = new OutlineElementItem(context, (XSchemaOutlineElement*)newChild, parent);
     } else {
         newItem = new GenericItem(context, newChild, parent);
     }
@@ -778,7 +780,25 @@ void XSDItem::remove(XSchemaObject *child)
 
 void XSDItem::preAddChildren(XSchemaObject *object)
 {
-    if(_context->isShowBaseObjects()) {
+    if(_context->isOutline() ) {
+        QList<XSchemaObject*> baseAttributes;
+        QList<XSchemaObject*> baseElements;
+        bool isOk = object->findBaseObjects(_context->searchContext(), baseElements, baseAttributes);
+        if(!isOk) {
+            Utils::error(tr("Error collecting information on base types for:").append(_context->searchContext().typeErrors().join(",")));
+            _context->searchContext().resetErrors();
+        } else {
+            Utils::TODO_THIS_RELEASE("gestire il caso delle estensioni e restrizioni");
+            foreach(XSchemaObject * child, baseElements) {
+                if( child->getType() == SchemaTypeElement) {
+                    XSchemaElement *element = (XSchemaElement *)child ;
+                    if(!element->isTypeOrElement() ) {
+                        childAdded(child);
+                    }
+                }
+            }
+        }
+    } else if(_context->isShowBaseObjects()) {
         QList<XSchemaObject*> baseAttributes;
         QList<XSchemaObject*> baseElements;
         bool isOk = object->findBaseObjects(_context->searchContext(), baseElements, baseAttributes);
@@ -927,9 +947,14 @@ void RootItem::setItem(XSDSchema *newItem)
             connect(_item, SIGNAL(childAdded(XSchemaObject*)), this, SLOT(childAdded(XSchemaObject*)));
             connect(_item, SIGNAL(childRemoved(XSchemaObject*)), this, SLOT(childRemoved(XSchemaObject*)));
             connect(_item, SIGNAL(deleted(XSchemaObject*)), this, SLOT(objectDeleted(XSchemaObject*)));
+
             // follow the elements childrens
-            foreach(XSchemaObject * child, _item->getChildren()) {
-                childAdded(child);
+            if(_context->isOutline()) {
+                outlineModeChildren();
+            } else {
+                foreach(XSchemaObject * child, _item->getChildren()) {
+                    childAdded(child);
+                }
             }
             {
                 /*XSchemaRoot *root = static_cast<XSchemaRoot *>(_item);
@@ -978,6 +1003,20 @@ void RootItem::objectDeleted(XSchemaObject* /*self*/)
 void RootItem::childRemoved(XSchemaObject* child)
 {
     remove(child);
+}
+
+void RootItem::outlineModeChildren()
+{
+    EMPTYPTRLIST(_outlineItems, XSchemaOutlineElement);
+    if( NULL != schema() ) {
+        QList<XSchemaElement *> items = schema()->collectCandidateRootElement();
+        foreach(XSchemaElement * child, items) {
+            XSchemaOutlineElement *element = new XSchemaOutlineElement(child->xsdParent(), child->root());
+            element->setElement(child);
+            _outlineItems.append(element);
+            childAdded(element);
+        }
+    }
 }
 
 //--------------------------------------------------------------------------------------
@@ -1263,12 +1302,8 @@ void ElementItem::init(XsdGraphicContext *newContext)
     path.lineTo(0, 60);
 
     _contour = path.toFillPolygon();
-    //_graphicsItem->setPolygon(_contour);
-    //QGraphicsDropShadowEffect *effect = new QGraphicsDropShadowEffect(_graphicsItem);
-    //_graphicsItem->setGraphicsEffect(effect);
 
     _propertiesItem = new QGraphicsTextItem(_graphicsItem);
-    //setStdFontToItem(_propertiesItem, false, false, false);
     _propertiesItem->setFont(newContext->normalFont());
     _propertiesItem->setPlainText(tr("Element"));
     _propertiesItem->setPos(25, 30);
@@ -1334,8 +1369,10 @@ void ElementItem::setItem(XSchemaElement *newItem)
             foreach(XSchemaObject * child, _item->getChildren()) {
                 childAdded(child);
             }
-            foreach(XSchemaObject * attr, _item->attributes()) {
-                childAdded(attr);
+            if(!_context->isHideAttributes()|| !context()->isOutline()) {
+                foreach(XSchemaObject * attr, _item->attributes()) {
+                    childAdded(attr);
+                }
             }
             newName = _item->name();
             newDescription = _item->description();
@@ -1547,20 +1584,6 @@ void ElementItem::childAdded(XSchemaObject *newChild)
     if(NULL == child) {
         Utils::error(tr("An error occurred inserting the graphic item corresponding to the object."));
     }
-}
-
-AttributeItem *ElementItem::addAttribute(XSchemaAttribute *attribute, QPointF /*pos*/)
-{
-    AttributeItem *attributeItem = new AttributeItem(_context, attribute, graphicItem());
-    if(NULL != attributeItem) {
-        _attributes.append(attributeItem);
-
-        //graphicItem()->scene()->addItem(attributeItem->graphicItem());
-        attributeItem->graphicItem()->setPos(10, 22 * _attributes.size());
-        //TODO _contour.setHeight(_contour.height()+22);
-        //TODO _graphicsItem->setRect(_contour);
-    }
-    return attributeItem ;
 }
 
 

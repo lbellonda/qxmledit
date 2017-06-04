@@ -23,17 +23,23 @@
 #include "xsdeditor/xsdgraphiccontext.h"
 #include "xsdeditor/xsdwindow.h"
 #include "qxmleditconfig.h"
+#include "utils.h"
 
 XsdGraphicContext::XsdGraphicContext(QObject *parent) :
     QObject(parent)
 {
     _isDebug = false ;
+    Utils::TODO_THIS_RELEASE("commento");
+    _hideAttributes = true ;
     _rootItem = NULL ;
     _schema = NULL ;
     _scene = NULL ;
-    _contextType = CONTEXT_GRAPHICS;
+    //_contextType = CONTEXT_GRAPHICS;
+    Utils::TODO_THIS_RELEASE("commento");
+    _contextType = CONTEXT_OUTLINE;
     _showAllSchema = false ;
-    _showBaseObjects = false ;
+    Utils::TODO_THIS_RELEASE("commento");
+    _showBaseObjects = true ;
     QString fontFamily = Config::getString(Config::KEY_XSD_FONTFAMILY, "") ;
     if(!fontFamily.isEmpty()) {
         _normalFont.setFamily(fontFamily);
@@ -177,9 +183,12 @@ XsdGraphicContext::EContextType XsdGraphicContext::contextType()
 }
 
 
-void XsdGraphicContext::setContextType(const XsdGraphicContext::EContextType value)
+void XsdGraphicContext::setContextType(const XsdGraphicContext::EContextType )
+//void XsdGraphicContext::setContextType(const XsdGraphicContext::EContextType value)
 {
-    _contextType = value ;
+    Utils::TODO_THIS_RELEASE("");
+    _contextType = CONTEXT_OUTLINE ;
+    //_contextType = value ;
 }
 
 QGraphicsScene *XsdGraphicContext::scene() const
@@ -200,4 +209,19 @@ bool XsdGraphicContext::isShowBaseObjects() const
 void XsdGraphicContext::setShowBaseObjects(bool showBaseObjects)
 {
     _showBaseObjects = showBaseObjects;
+}
+
+bool XsdGraphicContext::isHideAttributes() const
+{
+    return _hideAttributes;
+}
+
+void XsdGraphicContext::setHideAttributes(bool hideAttributes)
+{
+    _hideAttributes = hideAttributes;
+}
+
+bool XsdGraphicContext::isOutline()
+{
+    return CONTEXT_OUTLINE == _contextType ;
 }

@@ -329,7 +329,9 @@ enum ESchemaType {
     //--- as a generic specifier
     SchemaGenericType,
     SchemaGenericElement,
-    SchemaOtherElement
+    SchemaOtherElement,
+    // Outline
+    SchemaTypeOutlineElement
 };
 
 
@@ -1705,6 +1707,7 @@ protected:
     void regenerateInternalLists();
     void registerData();
     void scanForInnerElements(XSchemaObject *parent, QList<XSchemaObject *> &lst);
+    void scanForInnerElementReference(XSchemaObject *parent, QSet<QString> &references);
 
 public:
     XSDSchema(XSDSchema *_mainSchema);
@@ -1792,7 +1795,7 @@ public:
 
     XSDSchema *mainSchema() const;
     void setMainSchema(XSDSchema *mainSchema);
-
+    QList<XSchemaElement *> collectCandidateRootElement();
 
 signals:
     //void loadComplete(XSDSchema *schema, const bool isError);

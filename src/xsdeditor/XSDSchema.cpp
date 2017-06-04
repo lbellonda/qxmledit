@@ -335,6 +335,23 @@ XSDSchema* XSDSchema::schema()
     return this ;
 }
 
+QList<XSchemaElement *> XSDSchema::collectCandidateRootElement()
+{
+    Utils::TODO_THIS_RELEASE("check namespaces");
+    QList<XSchemaElement *> items;
+    QSet<QString> references;
+    scanForInnerElementReference(this, references);
+    foreach(XSchemaObject * child, _children) {
+        if( child->getType() == ESchemaType::SchemaTypeElement ) {
+            XSchemaElement* element = static_cast<XSchemaElement*>(child);
+            if( !element->isTypeOrElement() && !references.contains(element->name()) ) {
+                items.append(element);
+            }
+        }
+    }
+    return items;
+}
+
 //------------------------ I/O handling ------------------------------------------------------------------------------
 
 bool XSDSchema::scanSchema(XSDLoadContext *loadContext, const QDomElement &schema)
@@ -560,6 +577,21 @@ void XSDSchema::scanForInnerElements(XSchemaObject *parent, QList<XSchemaObject*
             }
         }
         scanForInnerElements(child, lst);
+    }
+}
+
+void XSDSchema::scanForInnerElementReference(XSchemaObject *parent, QSet<QString> &references)
+{
+    foreach(XSchemaObject * child, parent->getChildren()) {
+        if(child->getType() == SchemaTypeElement) {
+            if(!static_cast<XSchemaElement*>(child)->isTypeOrElement()) {
+                XSchemaElement* element = static_cast<XSchemaElement*>(child);
+                if(element->referencedObjectType() == XRT_ELEMENT ) {
+                    references.insert(element->referencedObjectName());
+                }
+            }
+        }
+        scanForInnerElementReference(child, references);
     }
 }
 

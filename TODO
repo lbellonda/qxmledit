@@ -7,6 +7,11 @@ TODO:
 
 Branches:
 163-xsdprint: stampa xsd
+- menu contest. goto reference for elements and attributes
+- outline mode (seq choice, all)
+- no attributes mode
+- report on print
+
 
 #new is:160
 
