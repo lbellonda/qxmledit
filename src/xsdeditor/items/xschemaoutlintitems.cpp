@@ -147,11 +147,6 @@ void OutlineElementItem::setItem(XSchemaOutlineElement *newItem)
             foreach(XSchemaObject * child, _item->getChildren()) {
                 childAdded(child);
             }
-            if(!_context->isHideAttributes()|| !context()->isOutline()) {
-                foreach(XSchemaObject * attr, _item->attributes()) {
-                    childAdded(attr);
-                }
-            }
             newName = _item->name();
             newDescription = _item->description();
             if(NULL != _item->annotation()) {
@@ -168,10 +163,11 @@ void OutlineElementItem::setItem(XSchemaOutlineElement *newItem)
     if(NULL != newItem) {
 
         // TODO: move the icons as appropriated
-        _textItem->setPlainText(_item->nameDescr());
-        QString occurences = _item->occurrencesDescr();
-        QString type = _item->xsdType();
-        QString simpleComplex = _item->simpleComplexDescr();
+        Utils::TODO_THIS_RELEASE("fare");
+        _textItem->setPlainText("_item->nameDescr()");
+        QString occurences = "_item->occurrencesDescr()";
+        QString type = "_item->xsdType()";
+        QString simpleComplex = "_item->simpleComplexDescr()";
 
         bool hasProperties = false;
         if(!occurences.isEmpty()) {
@@ -187,10 +183,11 @@ void OutlineElementItem::setItem(XSchemaOutlineElement *newItem)
         }
         _typeItem->setPlainText(type);
 
+        Utils::TODO_THIS_RELEASE("fare");
         // simple type?
-        bool isSimpleTypeInElements = (newItem-> isTypeOrElement()
+        bool isSimpleTypeInElements = true ; /*(newItem-> isTypeOrElement()
                                        && (newItem->category() == XSchemaElement::EES_SIMPLETYPE_ONLY)
-                                       && (newItem->xsdParent()->getType() != SchemaTypeSchema));
+                                       && (newItem->xsdParent()->getType() != SchemaTypeSchema));*/
         QRectF sizeUpper, sizeLower ;
         QList<QGraphicsItem*> upperItems;
         QList<QGraphicsItem*> lowerItems;
@@ -208,14 +205,15 @@ void OutlineElementItem::setItem(XSchemaOutlineElement *newItem)
 
         upperItems.append(_textItem);
         upperItems.append(_typeItem);
-        if(! _item->ref().isEmpty()) {
+        Utils::TODO_THIS_RELEASE("fare");
+        /*if(! _item->ref().isEmpty()) {
             if(NULL == _iconLink) {
                 _iconLink = new QGraphicsPixmapItem(_graphicsItem);
                 QPixmap pixmap ;
                 pixmap.load(PIXMAP_XSD_LINK);
                 _iconLink->setPixmap(pixmap);
             }
-        }
+        }*/
         upperItems.append(_iconLink) ;
 
         sizeUpper = disposeHorizontallyAndAlignLower(upperItems, 25, 4);
@@ -269,11 +267,12 @@ void OutlineElementItem::setIconType()
     if(NULL == _item) {
         _iconType->hide();
     }
-    if(_item->isTypeOrElement()) {
+    Utils::TODO_THIS_RELEASE("fare");
+    /*if(_item->isTypeOrElement()) {
         pixmap.load(PIXMAP_XSD_TYPE);
     } else {
         pixmap.load(PIXMAP_XSD_ELEMENT);
-    }
+    }*/
     _iconType->setPixmap(pixmap);
 }
 
@@ -299,18 +298,19 @@ void OutlineElementItem::changeGraphics()
         setToolTipState(_graphicsItem, _item->compareState());
         setGradientColor(_graphicsItem, _item->compareState());
     } else {
-
-        if(_item->isTypeOrElement()) {
+        Utils::TODO_THIS_RELEASE("fare");
+        /*if(_item->isTypeOrElement()) {
             _graphicsItem->setColorStart(QColor(237, 254, 250));
             _graphicsItem->setColorMiddle(QColor(205, 254, 241));
             _graphicsItem->setColorEnd(QColor(237, 254, 250));
-        } else {
+        } else*/ {
             _graphicsItem->setColorStart(QColor(237, 250, 254));
             _graphicsItem->setColorMiddle(QColor(205, 241, 254));
             _graphicsItem->setColorEnd(QColor(237, 250, 254));
         }
     }
-    if(! _item->ref().isEmpty()) {
+    Utils::TODO_THIS_RELEASE("fare");
+    /*if(! _item->ref().isEmpty()) {
         if(NULL == _iconLink) {
             _iconLink = new QGraphicsPixmapItem(_graphicsItem);
             QPixmap pixmap ;
@@ -324,7 +324,7 @@ void OutlineElementItem::changeGraphics()
             _iconLink->setPos(24, 6);
             _textItem->setPos(45, 10);
         }
-    } else {
+    } else*/ {
         if(NULL != _iconLink) {
             _iconLink->hide();
             _textItem->setPos(25, 10);

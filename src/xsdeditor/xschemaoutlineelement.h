@@ -28,7 +28,7 @@
 class XSchemaOutlineElement : public XSchemaObject
 {
     Q_OBJECT
-    Q_ENUMS(ElementCategory)
+    /*Q_ENUMS(ElementCategory)
     Q_PROPERTY(XEnums::XBool abstract READ abstract WRITE setAbstract NOTIFY abstractChanged)
     Q_PROPERTY(XEnums::XBool nillable READ nillable WRITE setNillable NOTIFY nillableChanged)
     Q_PROPERTY(XEnums::XBool mixed READ mixed WRITE setMixed NOTIFY mixedChanged)
@@ -36,25 +36,25 @@ class XSchemaOutlineElement : public XSchemaObject
     Q_PROPERTY(QString defaultValue READ defaultValue WRITE setDefaultValue NOTIFY defaultValueChanged)
     Q_PROPERTY(QString xsdType READ xsdType WRITE setXsdType NOTIFY xsdTypeChanged)
     Q_PROPERTY(XSchemaElement::ElementCategory category READ category WRITE setCategory NOTIFY categoryChanged)
-    Q_PROPERTY(QString ref READ ref WRITE setRef NOTIFY refChanged)
+    Q_PROPERTY(QString ref READ ref WRITE setRef NOTIFY refChanged)*/
 
 
 public:
 
-    enum ElementCategory {
+    /*enum ElementCategory {
         EES_EMPTY = 1,      // tag only
         EES_REFERENCE = 2,      // true elements only can be references
         EES_SIMPLETYPE_ONLY = 3, //child text simpletype
         EES_SIMPLETYPE_WITHATTRIBUTES = 4, // child text complexType simpleContent
         EES_COMPLEX_DERIVED = 5, // complexType -  complexContent
         EES_COMPLEX_DEFINITION = 6 // Complex Type sequence/choice/group/all
-    };
+    };*/
 
     friend class TestXSDDiff;
 private:
 
     // working mode
-    bool _isTypeOrElement;
+    /*bool _isTypeOrElement;
     ElementCategory _elementCategory;
 
     DECL_XSD_ATTR(XEnums::XBool, _abstract);
@@ -68,44 +68,44 @@ private:
     DECL_XSD_ATTR(XEnums::XBool, _nillable);
     DECL_XSD_ATTR(QString, _ref);
     DECL_XSD_ATTR(QString, _xsdType);
-    XSchemaAnnotation *_innerAnnotation;
+    XSchemaAnnotation *_innerAnnotation;*/
     /**
      * @brief _isPredefinite: xsd predefined type
      */
-    bool _isPredefined;
+    /*bool _isPredefined;
 
     //----- types specific
     XEnums::XBool   _mixed;
     QString _containedId;
     QMap<QString, QString> _innerTypeAttributes;
 
-    QList<XSchemaObject*> _attributes;
+    QList<XSchemaObject*> _attributes;*/
     XSchemaElement *_element;
 protected:
     virtual void reset();
-    virtual void resetAttributes();
+    /*virtual void resetAttributes();*/
     virtual bool generateDom(QDomDocument &document, QDomNode &parent) ;
-    virtual bool findSchemaChildComponents(XValidationContext *context, XElementContent *content);
+    /*virtual bool findSchemaChildComponents(XValidationContext *context, XElementContent *content);
     bool elabTypeForCollect(XValidationContext * context, XElementContent * content);
     void copyAttributesListInGeneric(QList<XSchemaObject*> &list);
-    void restoreAttributesListInGeneric(QList<XSchemaObject*> &list);
+    void restoreAttributesListInGeneric(QList<XSchemaObject*> &list);*/
     virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject *target, XSDCompareOptions &options);
-    void validateAfterReadType(XSDLoadContext *loadContext, QDomElement &node, void *context);
-    void validateAfterReadElement(XSDLoadContext *loadContext, QDomElement &node, void *context);
+    /*void validateAfterReadType(XSDLoadContext *loadContext, QDomElement &node, void *context);
+    void validateAfterReadElement(XSDLoadContext *loadContext, QDomElement &node, void *context);*/
 
 public:
 
-    XSchemaOutlineElement(XSchemaObject *newParent, XSchemaRoot *newRoot, const ElementCategory category = EES_EMPTY);
+    XSchemaOutlineElement(XSchemaObject *newParent, XSchemaRoot *newRoot);
     ~XSchemaOutlineElement();
 
     virtual QString tagName();
-    virtual QString nameOrReference();
-    //TODO: a seconda della categoria?
+    /*virtual QString nameOrReference();
+    //TODO: a seconda della categoria?*/
     virtual ESchemaType getType()
     {
         return SchemaTypeOutlineElement ;
     }
-    virtual void reparent(XSchemaObject *newParent);
+    /*virtual void reparent(XSchemaObject *newParent);
 
     virtual void loadFromDom(XSDLoadContext *loadContext, QDomElement &element);
     virtual QString description();
@@ -174,11 +174,11 @@ signals:
     void minOccursChanged(const int);
     void xsdTypeChanged(const QString & xsd);
     void refChanged(const QString & xsd);
-    void categoryChanged(const XSchemaElement::ElementCategory);
+    void categoryChanged(const XSchemaElement::ElementCategory);*/
 
 protected:
     // IO handling
-    void writeAppendElementAttributes(QDomDocument &document, QDomElement &node);
+    /*void writeAppendElementAttributes(QDomDocument &document, QDomElement &node);
     void writeHandleSimpleType(QDomDocument &document, QDomElement &typeSpecifier);
     void writeHandleComplexType(QDomDocument &document, QDomElement &typeSpecifier);
     void writeAppendAttributes(QDomDocument &document, QDomElement &node);
@@ -197,10 +197,10 @@ protected:
     bool collectAllElementsOfBaseTypes(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
     //---
     virtual void validateAfterRead(XSDLoadContext *loadContext, QDomElement &node, void * context);
-    void raiseErrorTypesME(XSDLoadContext *loadContext, QDomElement &node);
+    void raiseErrorTypesME(XSDLoadContext *loadContext, QDomElement &node);*/
 
 public:
-    virtual void markCompareStateRecursive(const XSDCompareState::EXSDCompareState newState);
+    /*virtual void markCompareStateRecursive(const XSDCompareState::EXSDCompareState newState);
     void getModifiedObjects(QList<XSchemaObject*> &added, QList<XSchemaObject*> &modified, QList<XSchemaObject*> &deleted);
     QString xmlRepresentation();
     XSchemaAttributesCollection *attributesRepresentation();
@@ -222,7 +222,7 @@ public:
     XSchemaSimpleContentRestriction *getSimpleContentRestriction();
     XSchemaSimpleTypeRestriction *getSimpleTypeRestriction();
     bool isPredefined() const;
-    void setIsPredefined(bool value);
+    void setIsPredefined(bool value);*/
     XSchemaElement *getElement() const;
     void setElement(XSchemaElement *element);
 };
