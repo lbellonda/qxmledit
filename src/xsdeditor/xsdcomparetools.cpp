@@ -34,7 +34,7 @@ XSDCompareTools::XSDCompareTools(QWidget *parent) :
 {
     ui->setupUi(this);
     bool state = isCompareAnnotationsPersistentOption();
-    ui->compareAnnotationOption->setChecked(state ? Qt::Checked : Qt::Unchecked);
+    ui->compareAnnotationOption->setChecked(state);
     Utils::setBkColorAndBorderToWidget(ui->colorAdded, XSDItem::colorAddStart);
     Utils::setBkColorAndBorderToWidget(ui->colorModified, XSDItem::colorModStart);
     Utils::setBkColorAndBorderToWidget(ui->colorDeleted, XSDItem::colorDelStart);
