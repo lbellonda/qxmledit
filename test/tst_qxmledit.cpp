@@ -943,6 +943,10 @@ void TestQXmlEdit::testXsdView()
 {
     bool result ;
 
+    TestXSDView testFast;
+    result = testFast.testFast();
+    QVERIFY2(result, (QString("test TestXSDView: testFast() '%1'").arg(testFast.errorString())).toLatin1().data());
+
     TestXSDView test0;
     result = test0.testBase();
     QVERIFY2(result, (QString("test TestXSDView: testBase() '%1'").arg(test0.errorString())).toLatin1().data());
@@ -966,6 +970,10 @@ void TestQXmlEdit::testXsdView()
     TestXSDView test5;
     result = test5.testRestriction();
     QVERIFY2(result, (QString("test TestXSDView: testRestriction() '%1'").arg(test5.errorString())).toLatin1().data());
+
+    TestXSDView test6;
+    result = test6.testOutline();
+    QVERIFY2(result, (QString("test TestXSDView: testOutline() '%1'").arg(test6.errorString())).toLatin1().data());
 
     /*TestXSDView test6;
     result = test6.testAttributeAndGroups();
@@ -1542,15 +1550,7 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
-    testIndent();
-    testFormattingInfo();
-    testDeleteSiblings();
-    testSpecialView();
-    testEditing();
-    testExecXSLT();
-    testSplit();
-    testBase64();
-    testVis();
+    testXsdView();
 }
 
 QTEST_MAIN(TestQXmlEdit)

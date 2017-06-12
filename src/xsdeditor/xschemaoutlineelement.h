@@ -92,6 +92,7 @@ protected:
     virtual XSDCompareObject::EXSDCompareObject innerCompareTo(XSchemaObject *target, XSDCompareOptions &options);
     /*void validateAfterReadType(XSDLoadContext *loadContext, QDomElement &node, void *context);
     void validateAfterReadElement(XSDLoadContext *loadContext, QDomElement &node, void *context);*/
+    void calculateElement();
 
 public:
 

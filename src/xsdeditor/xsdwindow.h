@@ -255,6 +255,7 @@ public:
     virtual QGraphicsItem *graphicItem() = 0;
     virtual XSchemaObject *item() = 0;
     RChild *chain();
+    QList<XSchemaObject*> childrenSource();
     void setChain(RChild* newChain);
     void setRootContext(XsdGraphicContext *value) ;
     void totalSize(QRectF &totalSize);

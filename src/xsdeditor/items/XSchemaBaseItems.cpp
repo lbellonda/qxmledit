@@ -165,6 +165,13 @@ void XSDItem::setChain(RChild* newChain)
     _chain = newChain;
 }
 
+QList<XSchemaObject*> childrenSource()
+{
+    QList<XSchemaObject*> result ;
+
+    return result;
+}
+
 void XSDItem::setRootContext(XsdGraphicContext *value)
 {
     _context = value ;

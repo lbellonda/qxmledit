@@ -931,7 +931,7 @@ void XSDWindow::on_copyElementAction_triggered()
 
 void XSDWindow::informationError()
 {
-    Utils::error(this, "Could not retrieve the information.");
+    Utils::error(this, tr("Could not retrieve the information."));
 }
 
 bool XSDWindow::copyFacetsActionExecute(XSchemaObject *object)

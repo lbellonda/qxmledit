@@ -1339,3 +1339,54 @@ bool XSchemaObject::hasUnique()
 {
     return (NULL != hasChildTypeOf(SchemaTypeUnique));
 }
+
+#define TYPESTR(xtype) if(aType==xtype) { return # xtype ; }
+
+QString XSchemaObject::typeString()
+{
+    const ESchemaType aType = getType();
+    TYPESTR(SchemaTypeSchema)
+    TYPESTR(SchemaTypeElement)
+    TYPESTR(SchemaTypeAttribute)
+    TYPESTR(SchemaTypeChoice)
+    TYPESTR(SchemaTypeSequence)
+    TYPESTR(SchemaTypeSimpleContent)
+    TYPESTR(SchemaTypeSimpleContentRestriction)
+    TYPESTR(SchemaTypeSimpleContentExtension)
+    TYPESTR(SchemaTypeComplexContent)
+    TYPESTR(SchemaTypeComplexContentRestriction)
+    TYPESTR(SchemaTypeComplexContentExtension)
+    TYPESTR(SchemaTypeSimpleType)
+    TYPESTR(SchemaTypeSimpleTypeRestriction)
+    TYPESTR(SchemaTypeSimpleTypeUnion)
+    TYPESTR(SchemaTypeSimpleTypeList)
+
+    TYPESTR(SchemaTypeAnnotation)
+    TYPESTR(SchemaTypeBaseDocumentation)
+    TYPESTR(SchemaTypeDocumentation)
+    TYPESTR(SchemaTypeAppInfo)
+    TYPESTR(SchemaTypeAll)
+    TYPESTR(SchemaTypeAny)
+    TYPESTR(SchemaTypeAnyAttribute)
+    TYPESTR(SchemaTypeAttributeGroup)
+    TYPESTR(SchemaTypeField)
+    TYPESTR(SchemaTypeGroup)
+    TYPESTR(SchemaTypeImport)
+    TYPESTR(SchemaTypeInclude)
+    TYPESTR(SchemaTypeKey)
+    TYPESTR(SchemaTypeKeyRef)
+    TYPESTR(SchemaTypeNotation)
+    TYPESTR(SchemaTypeRedefine)
+    TYPESTR(SchemaTypeSelector)
+    TYPESTR(SchemaTypeUnique)
+
+    //-------
+    TYPESTR(SchemaContainer)
+    //--- as a generic specifier
+    TYPESTR(SchemaGenericType)
+    TYPESTR(SchemaGenericElement)
+    TYPESTR(SchemaOtherElement)
+    // Outline
+    TYPESTR(SchemaTypeOutlineElement)
+    return "";
+}

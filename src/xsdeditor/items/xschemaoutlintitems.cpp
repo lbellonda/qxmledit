@@ -164,7 +164,7 @@ void OutlineElementItem::setItem(XSchemaOutlineElement *newItem)
 
         // TODO: move the icons as appropriated
         Utils::TODO_THIS_RELEASE("fare");
-        _textItem->setPlainText("_item->nameDescr()");
+        _textItem->setPlainText(_item->name());
         QString occurences = "_item->occurrencesDescr()";
         QString type = "_item->xsdType()";
         QString simpleComplex = "_item->simpleComplexDescr()";

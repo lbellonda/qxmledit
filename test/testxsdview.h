@@ -32,6 +32,7 @@ class TestXSDView : public TestBase
 {
     bool doTest(const QString &inputFilePath, const QString &resultFilePath, const QList<int> &selectionPath);
     bool openXsdViewer(MainWindow *window, TestXSDWindow *xsdEditor);
+    bool openXsdViewerOutlineMode(MainWindow *window, TestXSDWindow *xsdEditor);
 
     bool testBaseElement();
     bool testRefElement();
@@ -48,6 +49,8 @@ class TestXSDView : public TestBase
     bool testReferenceGroups();
     bool testComplexExtension();
     bool testComplexRestriction();
+    bool loadAndCompareOutline(const QString &id, const QString &inputFilePath, const QString &fileReference);
+    bool compareOutlineStructure(XSDItem *item, Element *xml, const QString &path);
 
 public:
     TestXSDView();
@@ -59,6 +62,8 @@ public:
     bool testReference();
     bool testExtension();
     bool testRestriction();
+    bool testFast();
+    bool testOutline();
 };
 
 #endif // TESTXSDVIEW_H

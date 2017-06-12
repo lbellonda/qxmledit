@@ -437,6 +437,7 @@ public:
      * @return  the tag literal of the class
      */
     virtual QString tagName() = 0 ;
+    QString typeString();
 
     //virtual bool operator< ( const XSchemaObject & other ) const ;
 

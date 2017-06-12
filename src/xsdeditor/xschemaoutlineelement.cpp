@@ -68,7 +68,11 @@ XSchemaElement *XSchemaOutlineElement::getElement() const
 
 void XSchemaOutlineElement::setElement(XSchemaElement *value)
 {
+    const bool calculate = (_element != value);
     _element = value;
+    if(calculate) {
+        calculateElement();
+    }
 }
 
 QString XSchemaOutlineElement::tagName()
@@ -86,3 +90,39 @@ bool XSchemaOutlineElement::generateDom(QDomDocument &, QDomNode &)
 {
     return false;
 }
+
+void XSchemaOutlineElement::calculateElement()
+{
+    reset();
+    Utils::TODO_THIS_RELEASE("attenzione alla ricorsione");
+    if( NULL == _element ) {
+        Utils::TODO_THIS_RELEASE("fare");
+        return ;
+    }
+    if( _element->isTypeOrElement()) {
+        Utils::TODO_THIS_RELEASE("fare");
+        _name = _element->name();
+    } else {
+        if(XRT_ELEMENT == _element->referencedObjectType()) {
+            XSchemaElement *referencedElement = _element->getReferencedElement();
+            _name = referencedElement->name();
+        } else {
+            _name = _element->name();
+        }
+    }
+}
+/*
+Remember:
+element: (simpleType|complexType)?
+complexType:
+    simpleContent|complexContent|((group|all|choice|sequence)
+complex:
+    - group (all, choice, seq)
+    - all (elements)
+    - seq (elm, group, choice, seq, any)
+    - choice (==seq)
+extension: group|all|choice|sequence
+  restriction:(group|all|choice|sequence)
+
+
+*/
