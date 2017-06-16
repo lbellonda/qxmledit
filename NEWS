@@ -1,5 +1,8 @@
 0.9.8
 
+0.9.7.1
+    Fixed issue #41, statement may fall through (https://github.com/lbellonda/qxmledit/issues/41)
+
 0.9.7
     Inserted common formatting presets.
     Support for formatting processing instructions.

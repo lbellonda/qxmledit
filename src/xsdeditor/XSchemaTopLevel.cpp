@@ -662,6 +662,7 @@ bool XSchemaGroup::generateDom(QDomDocument &document, QDomNode &parentNode)
     case SchemaTypeSchema:
     case SchemaTypeRedefine:
         isTopLevelNode = true;
+        break;
     default:
         isTopLevelNode = false;
     }

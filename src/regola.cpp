@@ -777,7 +777,7 @@ bool Regola::editInnerXMLElement(QTreeWidgetItem *item, UIDelegate *uiDelegate)
             }
             return false;
         }
-    // pass through
+    // fallthrough
     case Element::ET_TEXT: {
         UndoEditCommand *undoCommand = new UndoEditCommand(item->treeWidget(), this, pElement->indexPath());
         if(NULL == undoCommand) {
@@ -826,7 +826,7 @@ bool Regola::editInnerXMLBase64Element(QTreeWidgetItem *item, UIDelegate *uiDele
             }
             return false;
         }
-    // pass through
+    // fallthrough
     case Element::ET_TEXT: {
         UndoEditCommand *undoCommand = new UndoEditCommand(item->treeWidget(), this, pElement->indexPath());
         if(NULL == undoCommand) {
@@ -874,7 +874,7 @@ bool Regola::editTextNodeElementBase64(QWidget *const parentWindow, QTreeWidgetI
             }
             return false;
         }
-    // pass through
+    // fallthrough
     case Element::ET_TEXT: {
         UndoEditCommand *undoCommand = new UndoEditCommand(item->treeWidget(), this, pElement->indexPath());
         if(NULL == undoCommand) {
@@ -947,7 +947,7 @@ bool Regola::editAndSubstituteTextInNodeElementInternal(QWidget *const parentWin
             }
             return false;
         }
-    // pass through
+    // fallthrough
     case Element::ET_TEXT:
         if(editTextNodeElement(parentWindow, false, pElement)) {
             pElement->updateSizeInfo();

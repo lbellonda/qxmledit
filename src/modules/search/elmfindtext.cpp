@@ -155,7 +155,7 @@ bool Element::matchText(FindTextParams &findArgs)
                             isFound = true ;
                         }
                     }
-                } else if(FindTextParams::FIND_TEXT_BASE64) {
+                } else if(FindTextParams::FIND_TEXT_BASE64 == findTarget) {
                     foreach(TextChunk * chunk, textNodes) {
                         if(findArgs.isTextBase64Matched(chunk->text)) {
                             isFound = true ;
@@ -190,7 +190,7 @@ bool Element::matchText(FindTextParams &findArgs)
                                     isFound = true ;
                                 }
                             }
-                        } else if(FindTextParams::FIND_TEXT_BASE64) {
+                        } else if(FindTextParams::FIND_TEXT_BASE64 == findTarget) {
                             if(findArgs.isTextBase64Matched(a->value)) {
                                 isFound = true ;
                             }
@@ -207,7 +207,7 @@ bool Element::matchText(FindTextParams &findArgs)
                 findArgs.handleTextElement();
                 isFound = true ;
             }
-        } else if(FindTextParams::FIND_TEXT_BASE64) {
+        } else if(FindTextParams::FIND_TEXT_BASE64 == findTarget) {
             if(findArgs.isTextBase64Matched(text)) {
                 isFound = true ;
             }

@@ -239,6 +239,7 @@ Element *TestCompareXmlUnitHelper::newElement(Element::ElType type, QList<Elemen
         break;
     case Element::ET_COMMENT:
         element->setComment(text);
+        break;
     case Element::ET_TEXT:
         element->setTextOfTextNode(text, isCData );
         break;

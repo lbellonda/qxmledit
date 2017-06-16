@@ -36,10 +36,10 @@ XSchemaObject* XSchemaObject::addNewChild(const ESchemaType newType)
     case SchemaTypeAttribute: return new XSchemaAttribute(this, _root);
     case SchemaTypeChoice: return new XSchemaChoice(this, _root);
     case SchemaTypeSequence: return new XSchemaSequence(this, _root);
-    case SchemaTypeSimpleContent: Utils::error(tr("pure virtual function called")); //("return new XSchemaSimpleContent(this, _root);"); return NULL;
+    case SchemaTypeSimpleContent: Utils::error(tr("pure virtual function called")); return NULL ;//("return new XSchemaSimpleContent(this, _root);"); return NULL;
     case SchemaTypeSimpleContentRestriction: return new XSchemaSimpleContentRestriction(this, _root);
     case SchemaTypeSimpleContentExtension: return new XSchemaSimpleContentExtension(this, _root);
-    case SchemaTypeComplexContent: Utils::error(tr("pure virtual function called")); //("return new XSchemaComplexContent(this, _root);"); return NULL;
+    case SchemaTypeComplexContent: Utils::error(tr("pure virtual function called")); return NULL; //("return new XSchemaComplexContent(this, _root);"); return NULL;
     case SchemaTypeComplexContentRestriction: return new XSchemaComplexContentRestriction(this, _root);
     case SchemaTypeComplexContentExtension: return new XSchemaComplexContentExtension(this, _root);
     //case SchemaTypeSimpleType:abstract

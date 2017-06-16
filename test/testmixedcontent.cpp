@@ -488,6 +488,7 @@ bool M6Case1Test::postDialog(Element *element, const int operationType)
     switch(operationType) {
     case 2:
         updateElement(element, 0, "newTag");
+        // fallthrough
     default:
         return true;
     }

@@ -167,6 +167,8 @@ void XSchemaElement::setCategory(const XSchemaElement::ElementCategory newCatego
     switch(_elementCategory) {
     default:
         XsdError("TODO bad type (3)");
+        reset();
+        break;
     case EES_REFERENCE:
         reset();
         break;
@@ -228,6 +230,7 @@ QString XSchemaElement::nameDescr()
     switch(_elementCategory) {
     default:
         XsdError("TODO bad type (3)");
+        break;
     case EES_EMPTY:
         result = name();
         break;
@@ -259,7 +262,7 @@ QString XSchemaElement::simpleComplexDescr()
     switch(_elementCategory) {
     default:
         XsdError("TODO bad type (3)");
-
+        break;
     case EES_EMPTY:
     case EES_REFERENCE:
         break;
@@ -296,6 +299,7 @@ QString XSchemaElement::description()
     switch(_elementCategory) {
     default:
         XsdError("TODO bad type (3)");
+        break;
     case EES_EMPTY :
         if(!ownName.isEmpty()) {
             result = QString(tr("'%1' simple")).arg(name());
