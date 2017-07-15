@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<!-- valid -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="xxxx" xmlns:abc="xxxx" >
+  <xs:group name="theGroup">
+    <xs:sequence>
+        <xs:element ref="abc:a"/>
+        <xs:element name="b"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="project" type="abc:PROJECT"/>
+  <xs:complexType name="PROJECT">
+    <xs:group ref="abc:theGroup"/>
+  </xs:complexType>
+  <xs:element name="a">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="aa"/>
+        </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+</xs:schema>

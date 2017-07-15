@@ -1,0 +1,20 @@
+<SchemaTypeSchema name="">
+ <SchemaTypeOutlineElement name="project">
+   <SchemaTypeOutlineGroup name="theGroup">
+    <SchemaTypeOutlineChoice>
+        <SchemaTypeOutlineElement name="inline"/>
+        <SchemaTypeOutlineElement name="a">
+            <SchemaTypeOutlineSequence>
+                <SchemaTypeOutlineElement name="aa"/>
+            </SchemaTypeOutlineSequence>
+        </SchemaTypeOutlineElement>
+        <SchemaTypeOutlineElement name="si"/>
+        <SchemaTypeOutlineElement name="co">
+            <SchemaTypeOutlineSequence>
+                <SchemaTypeOutlineElement name="coaa"/>
+            </SchemaTypeOutlineSequence>
+        </SchemaTypeOutlineElement>
+      </SchemaTypeOutlineChoice>
+   </SchemaTypeOutlineGroup>
+ </SchemaTypeOutlineElement>
+</SchemaTypeSchema>

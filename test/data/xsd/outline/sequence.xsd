@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="test" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="test">
+    <xs:element name="project">
+      <xs:complexType>
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="one" type="xs:string"/>
+          <xs:element name="two" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+</xs:schema>
