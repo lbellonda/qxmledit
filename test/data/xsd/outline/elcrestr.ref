@@ -1,0 +1,32 @@
+<SchemaTypeSchema name="">
+ <SchemaTypeOutlineElement name="project">
+  <SchemaTypeOutlineChoice>
+
+    <SchemaTypeOutlineElement name="inlineel_c_t_ex">
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="tre"/>
+            <SchemaTypeOutlineElement name="quattro"/>
+            <SchemaTypeOutlineElement name="cinque"/>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+
+    <SchemaTypeOutlineElement name="el_c_t_ex"/>
+    <SchemaTypeOutlineElement name="el_c_t_ex2">
+    <SchemaTypeOutlineSequence>
+        <SchemaTypeOutlineElement name="tre2"/>
+        <SchemaTypeOutlineElement name="quattro2"/>
+        <SchemaTypeOutlineElement name="cinque2"/>
+    </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+
+    <SchemaTypeOutlineElement name="eect_extend_ct">
+         <SchemaTypeOutlineSequence>
+             <SchemaTypeOutlineElement name="tre"/>
+             <SchemaTypeOutlineElement name="quattro"/>
+             <SchemaTypeOutlineElement name="cinque"/>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+
+  </SchemaTypeOutlineChoice>
+ </SchemaTypeOutlineElement>
+</SchemaTypeSchema>
