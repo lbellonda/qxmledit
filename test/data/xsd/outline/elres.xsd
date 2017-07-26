@@ -1,0 +1,71 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="testtest" xmlns:test="testtest" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="project" >
+        <xs:complexType>
+          <xs:choice>
+            <xs:element name="inlineel_c_t_ex" type="test:c_t_ex" />
+            <xs:element ref="test:el_c_t_ex" />
+            <xs:element ref="test:el_c_t_ex2" />
+            <xs:element name="eect_extend_ct">
+                <xs:complexType>
+                 <xs:complexContent>
+                   <xs:extension base="test:complex_base_type">
+                     <xs:sequence>
+                       <xs:element name="sei" type="xs:string"/>
+                       <xs:element name="sette" type="xs:string"/>
+                       <xs:element name="otto" type="xs:string"/>
+                     </xs:sequence>
+                   </xs:extension>
+                 </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+
+          </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+<!-- -->
+    <xs:element name="el_c_t_ex" type="test:c_t_ex"/>
+    <xs:element name="el_c_t_ex2" type="test:c_t_ex2"/>
+
+    <xs:complexType name="complex_base_type">
+     <xs:sequence>
+       <xs:element name="uno" type="xs:string"/>
+       <xs:element name="due" type="xs:string"/>
+     </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="complex_base_type2">
+     <xs:sequence>
+       <xs:element name="uno2" type="xs:string"/>
+       <xs:element name="due2" type="xs:string"/>
+     </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="c_t_ex">
+     <xs:complexContent>
+       <xs:extension base="test:complex_base_type">
+         <xs:sequence>
+           <xs:element name="tre" type="xs:string"/>
+           <xs:element name="quattro" type="xs:string"/>
+           <xs:element name="cinque" type="xs:string"/>
+         </xs:sequence>
+       </xs:extension>
+     </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="c_t_ex2">
+     <xs:complexContent>
+       <xs:extension base="test:complex_base_type2">
+         <xs:sequence>
+           <xs:element name="tre2" type="xs:string"/>
+           <xs:element name="quattro2" type="xs:string"/>
+           <xs:element name="cinque2" type="xs:string"/>
+         </xs:sequence>
+       </xs:extension>
+     </xs:complexContent>
+    </xs:complexType>
+
+
+</xs:schema>
