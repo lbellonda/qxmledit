@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- valid -->
+<xsd:schema targetNamespace="test" elementFormDefault="qualified" xmlns="test" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="one">
+        <xsd:annotation>
+            <xsd:documentation source="test">one</xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:complexType>
+            <xsd:sequence maxOccurs="unbounded">
+                <xsd:element name="two">
+                    <xsd:annotation>
+                        <xsd:documentation source="test">test</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="one" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation source="test">test</xsd:documentation>
+                         </xsd:annotation>
+                    </xsd:element>
+                    <xsd:group ref="g1" minOccurs="0">
+                    </xsd:group>
+                </xsd:choice>
+                <xsd:element name="x" >
+                    <xsd:annotation>
+                        <xsd:documentation source="test">test</xsd:documentation>
+                     </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:all minOccurs="0">
+                            <xsd:element name="a" minOccurs="0"/>
+                            <xsd:element name="b" minOccurs="0"/>
+                            <xsd:element name="c" minOccurs="0"/>
+                        </xsd:all>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="y" >
+                    <xsd:annotation>
+                        <xsd:documentation source="test">y</xsd:documentation>
+                     </xsd:annotation>
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:any minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:group name="g1">
+        <xsd:sequence>
+            <xsd:element name="two1" />
+            <xsd:element name="two2" />
+        </xsd:sequence>
+    </xsd:group>
+
+
+<!-- zero -->
+    <xsd:element name="seq0V">
+        <xsd:complexType>
+            <xsd:sequence minOccurs="0">
+                <xsd:element name="a" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="seq00">
+        <xsd:complexType>
+            <xsd:sequence minOccurs="0" maxOccurs="0">
+                <xsd:element name="a"  minOccurs="0" maxOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="seq01">
+        <xsd:complexType>
+            <xsd:sequence minOccurs="0" maxOccurs="1">
+                <xsd:element name="a" minOccurs="0" maxOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="seq0n">
+        <xsd:complexType>
+            <xsd:sequence minOccurs="0" maxOccurs="3">
+                <xsd:element name="a" minOccurs="0" maxOccurs="3"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+
+
+
+<!-- one -->
+
+<xsd:element name="seqVV">
+    <xsd:complexType>
+        <xsd:sequence >
+            <xsd:element name="a" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seqV1">
+    <xsd:complexType>
+        <xsd:sequence  maxOccurs="1">
+            <xsd:element name="a" maxOccurs="1" />
+          </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq1V">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="1" >
+            <xsd:element name="a" minOccurs="1" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq11">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="1" maxOccurs="1" >
+            <xsd:element name="a" minOccurs="1" maxOccurs="1" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- n -->
+<xsd:element name="seqVn">
+    <xsd:complexType>
+        <xsd:sequence maxOccurs="3">
+            <xsd:element name="a" maxOccurs="3"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq1n">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="1" maxOccurs="3">
+            <xsd:element name="a" minOccurs="1" maxOccurs="3"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+
+<xsd:element name="seqnn">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="3" maxOccurs="3">
+            <xsd:element name="a"  minOccurs="3" maxOccurs="3"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- -->
+
+<!--
+<xsd:element name="seq11">
+    <xsd:complexType>
+        <xsd:sequence >
+            <xsd:element name="a" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq12">
+    <xsd:complexType>
+        <xsd:sequence  maxOccurs="1">
+            <xsd:element name="a" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq13">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="1" >
+            <xsd:element name="a" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq13">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="1" maxOccurs="1" >
+            <xsd:element name="a" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seqn1">
+    <xsd:complexType>
+        <xsd:sequence maxOccurs="3">
+            <xsd:element name="a" minOccurs="1" maxOccurs="3"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seqn2">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="1" maxOccurs="3">
+            <xsd:element name="a" maxOccurs="3"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+
+<xsd:element name="seqn2">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="3" maxOccurs="3">
+            <xsd:element name="a" maxOccurs="3"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+ -->
+
+<xsd:element name="seqVu">
+    <xsd:complexType>
+        <xsd:sequence maxOccurs="unbounded">
+            <xsd:element name="a" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+<xsd:element name="seq0u">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="a" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+<xsd:element name="seq1u">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+            <xsd:element name="a" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+<!--xsd:element name="sequu">
+    <xsd:complexType>
+        <xsd:sequence minOccurs="unbounded" maxOccurs="unbounded">
+            <xsd:element name="a" minOccurs="unbounded" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element-->
+
+
+
+</xsd:schema>
