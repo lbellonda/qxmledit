@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- valid -->
+<xsd:schema targetNamespace="test" elementFormDefault="qualified" xmlns="test" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="one">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="two" />
+                <xsd:element ref="one" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="two" >
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="two1" />
+                <xsd:element ref="three" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="three" >
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="two" />
+                <xsd:element ref="four" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="four">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="two" />
+                <xsd:element ref="one" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

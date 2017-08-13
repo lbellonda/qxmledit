@@ -1,0 +1,23 @@
+<SchemaTypeSchema name="">
+    <SchemaTypeOutlineElement name='two' >
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name='two1' />
+            <SchemaTypeOutlineElement name='three' >
+                <SchemaTypeOutlineSequence>
+                    <SchemaTypeOutlineElement name='two' />
+                    <SchemaTypeOutlineElement name='four' >
+                        <SchemaTypeOutlineSequence>
+                            <SchemaTypeOutlineElement name='two' />
+                            <SchemaTypeOutlineElement name='one'>
+                               <SchemaTypeOutlineSequence>
+                                   <SchemaTypeOutlineElement name='two' />
+                                   <SchemaTypeOutlineElement name='one' />
+                                </SchemaTypeOutlineSequence>
+                            </SchemaTypeOutlineElement>
+                        </SchemaTypeOutlineSequence>
+                    </SchemaTypeOutlineElement>
+                </SchemaTypeOutlineSequence>
+            </SchemaTypeOutlineElement>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+</SchemaTypeSchema>
