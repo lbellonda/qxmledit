@@ -34,9 +34,9 @@ XsdGraphicContext::XsdGraphicContext(QObject *parent) :
     _rootItem = NULL ;
     _schema = NULL ;
     _scene = NULL ;
-    //_contextType = CONTEXT_GRAPHICS;
+    _contextType = CONTEXT_GRAPHICS;
     Utils::TODO_THIS_RELEASE("commento");
-    _contextType = CONTEXT_OUTLINE;
+    //_contextType = CONTEXT_OUTLINE;
     _showAllSchema = false ;
     Utils::TODO_THIS_RELEASE("commento");
     _showBaseObjects = true ;
@@ -123,6 +123,12 @@ void XsdGraphicContext::clear()
         delete _schema ;
         _schema = NULL;
     }
+    _mapObjectsToItems.clear();
+}
+
+void XsdGraphicContext::clearCache()
+{
+    _mapObjectsToItems.clear();
 }
 
 void XsdGraphicContext::addObject(XSchemaObject* object, XSDItem* item)
@@ -183,12 +189,9 @@ XsdGraphicContext::EContextType XsdGraphicContext::contextType()
 }
 
 
-void XsdGraphicContext::setContextType(const XsdGraphicContext::EContextType )
-//void XsdGraphicContext::setContextType(const XsdGraphicContext::EContextType value)
+void XsdGraphicContext::setContextType(const XsdGraphicContext::EContextType value)
 {
-    Utils::TODO_THIS_RELEASE("");
-    _contextType = CONTEXT_OUTLINE ;
-    //_contextType = value ;
+    _contextType = value ;
 }
 
 QGraphicsScene *XsdGraphicContext::scene() const

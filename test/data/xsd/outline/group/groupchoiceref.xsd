@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<!-- valid -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="rrr" xmlns:si="rrr" >
+  <xs:group name="theGroup">
+    <xs:choice>
+        <xs:element name="inline"/>
+        <xs:element ref="si:a"/>
+        <xs:element name="si" type="si:simple"/>
+        <xs:element name="co" type="si:complex"/>
+    </xs:choice>
+  </xs:group>
+
+  <xs:element name="project" type="si:PROJECT"/>
+  <xs:complexType name="PROJECT">
+    <xs:sequence>
+        <xs:group ref="si:theGroup"/>
+    </xs:sequence>
+  </xs:complexType>
+
+    <xs:complexType name="complex" >
+      <xs:sequence>
+          <xs:element name="coaa"/>
+      </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="simple">
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="100"/>
+      </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="a">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="aa"/>
+        </xs:sequence>
+    </xs:complexType>
+   </xs:element>
+</xs:schema>

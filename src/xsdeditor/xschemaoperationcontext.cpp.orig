@@ -43,7 +43,6 @@ XSchemaInquiryContext::XSchemaInquiryContext(QObject *parent) :
 {
     _enrollFlag = NULL ;
     _honorRestrictions = false ;
-    _isFullCollection = false;
 }
 
 XSchemaInquiryContext::~XSchemaInquiryContext()
@@ -73,7 +72,7 @@ void XSchemaInquiryContext::enroll(XSchemaObject* object)
 bool XSchemaInquiryContext::isEnrolled(XSchemaObject* object)
 {
     if(_enrolled.contains(object)) {
-        if(NULL != _enrollFlag) {
+        if( NULL != _enrollFlag ) {
             *_enrollFlag = true ;
         }
         return true;
@@ -118,7 +117,7 @@ bool XSchemaInquiryContext::testAndResetEnrollFlag()
 void XSchemaInquiryContext::setEnrollFlag(bool *value)
 {
     _enrollFlag = value ;
-    if(NULL != _enrollFlag) {
+    if( NULL != _enrollFlag ) {
         *_enrollFlag = false ;
     }
 }
@@ -133,15 +132,6 @@ void XSchemaInquiryContext::setHonorRestrictions(bool value)
     _honorRestrictions = value;
 }
 
-bool XSchemaInquiryContext::isFullCollection() const
-{
-    return _isFullCollection;
-}
-
-void XSchemaInquiryContext::setFullCollection(const bool value)
-{
-    _isFullCollection = value;
-}
 
 //------------------------------------------------------------------------
 

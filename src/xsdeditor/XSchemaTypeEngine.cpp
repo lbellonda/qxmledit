@@ -38,7 +38,6 @@ bool XSchemaElement::findBaseObjects(XSchemaInquiryContext &context, QList<XSche
     return isOk ;
 }
 
-
 bool XSchemaGroup::findBaseObjects(XSchemaInquiryContext &context, QList<XSchemaObject*> &baseElements, QList<XSchemaObject*> &/*baseAttributes*/)
 {
     bool isOk = true ;
@@ -47,7 +46,6 @@ bool XSchemaGroup::findBaseObjects(XSchemaInquiryContext &context, QList<XSchema
     }
     return isOk ;
 }
-
 
 bool XSchemaAttributeGroup::findBaseObjects(XSchemaInquiryContext &context, QList<XSchemaObject*> & /*baseElements*/, QList<XSchemaObject*> &baseAttributes)
 {
@@ -169,7 +167,7 @@ bool XSchemaAttributeGroup::handleReference(XSchemaInquiryContext &context, QLis
   if already collected, do not recurse into
  */
 
-bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, QList<XSchemaObject*> &result, QList<XSchemaObject*> & /*attributes*/)
+bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, QList<XSchemaObject*> &result, QList<XSchemaObject*> & attributes)
 {
     bool ok = false ;
     XSchemaFindReferenceContext typeContext;
@@ -200,13 +198,6 @@ bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, 
                 }
             }
         }
-        if(NULL != elm) {
-            XSchemaContainer *container = new XSchemaContainer(NULL, _root);
-            container->setFromElement(elm);
-            container->collectChildrenOfObject(context, elm);
-            result.append(container);
-        }
-        return true ;
     }
     break;
     case EES_SIMPLETYPE_ONLY:
@@ -216,6 +207,8 @@ bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, 
         break;
     case EES_COMPLEX_DERIVED: {
         collectElementsOfComplexDerived(context, result);
+        Utils::TODO_THIS_RELEASE("fare attributi");
+        collectAttributesOfComplexDerived(context, attributes);
         return true ;
     }
     break;
@@ -225,7 +218,8 @@ bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, 
         break;
     }
     // if no base or reference, nothing to do
-    if(typeContext.isPredefinedType() || (elm == this)) {
+    if(typeContext.isPredefinedType() || ((elm == this) && !context.isFullCollection())) {
+        Utils::TODO_THIS_RELEASE("pensa children are already collected if type is this");
         ok = true ;
     } else {
         if(NULL != elm) {
@@ -235,6 +229,12 @@ bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, 
                 context.addError(this);
                 ok = false ;
             }
+            if(context.isFullCollection()) {
+                if(!elm->collectAllAttributesOfBaseTypes(context, attributes)) {
+                    context.addError(this);
+                    ok = false ;
+                }
+            }
         } else {
             context.addError(this);
             ok = false;
@@ -242,7 +242,6 @@ bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, 
     }
     return ok;
 }
-
 
 bool XSchemaElement::collectAllElementsOfBaseTypes(XSchemaInquiryContext &context, QList<XSchemaObject*> &result)
 {
@@ -276,6 +275,30 @@ bool XSchemaElement::collectAllElementsOfBaseTypes(XSchemaInquiryContext &contex
     return true;
 }
 
+bool XSchemaElement::collectAllAttributesOfBaseTypes(XSchemaInquiryContext &context, QList<XSchemaObject*> &result)
+{
+    switch(category()) {
+    case EES_EMPTY:
+    case EES_SIMPLETYPE_ONLY:
+        break;
+    case EES_REFERENCE:
+        // we should never go here
+        return false;
+    case EES_SIMPLETYPE_WITHATTRIBUTES:
+    case EES_COMPLEX_DEFINITION: {
+        foreach(XSchemaObject* child, _attributes) {
+            result.append(child);
+        }
+    }
+    break;
+    case EES_COMPLEX_DERIVED:
+        collectAttributesOfComplexDerived(context, result);
+        break;
+    default:
+        return false ;
+    }
+    return true;
+}
 
 void XSchemaElement::collectElementsOfComplexDerived(XSchemaInquiryContext &context, QList<XSchemaObject*> &result)
 {
@@ -290,14 +313,19 @@ void XSchemaElement::collectElementsOfComplexDerived(XSchemaInquiryContext &cont
         }
     }
     XSchemaContainer * container = NULL ;
+    XSchemaContainer *directContainer = NULL ;
     XSchemaComplexContentRestriction *restriction = baseTypeOrElement->getRestriction();
     if(NULL != restriction) {
         container = new XSchemaContainer(NULL, _root);
         container->setName(restriction->referencedObjectName());
         XSchemaElement *typeRestricted = restriction->getReferencedType(restriction->referencedObjectName());
         container->setLabel(tr("Restriction: %1").arg(restriction->referencedObjectName()));
-        if(NULL != typeRestricted) {
-            container->collectChildrenOfObject(context, typeRestricted);
+        if(!context.isHonorRestrictions()) {
+            if(NULL != typeRestricted) {
+                container->collectChildrenOfObject(context, typeRestricted);
+            }
+        } else {
+            container->collectChildrenOfObject(context, restriction);
         }
     } else {
         XSchemaComplexContentExtension *extension = baseTypeOrElement->getExtension();
@@ -311,10 +339,61 @@ void XSchemaElement::collectElementsOfComplexDerived(XSchemaInquiryContext &cont
                     container->collectChildrenOfObject(context, extType);
                 }
             }
+            if(context.isFullCollection()) {
+                // append standard children
+                directContainer = new XSchemaContainer(NULL, _root);
+                directContainer->setFromElement(this);
+                directContainer->collectChildrenOfObject(context, extension);
+            }
         }
     }
     if(NULL != container) {
         result.append(container);
+    }
+    if(NULL != directContainer) {
+        result.append(directContainer);
+    }
+}
+
+void XSchemaElement::collectAttributesOfComplexDerived(XSchemaInquiryContext & /*context*/, QList<XSchemaObject*> &result)
+{
+    XSchemaElement *baseTypeOrElement ;
+    if(!hasAReference()) {
+        baseTypeOrElement = this ;
+    } else {
+        if(isTypeOrElement()) {
+            baseTypeOrElement = getReferencedElement();
+        } else {
+            baseTypeOrElement = getReferencedType();
+        }
+    }
+    XSchemaComplexContentRestriction *restriction = baseTypeOrElement->getRestriction();
+    if(NULL != restriction) {
+        Utils::TODO_THIS_RELEASE("fare");
+        foreach(XSchemaObject* child, restriction->getChildren()) {
+            switch(child->getType()) {
+            case SchemaTypeAttribute:
+            case SchemaTypeAttributeGroup:
+                result.append(child);
+                break;
+            default:
+                break;
+            }
+        }
+    } else {
+        foreach(XSchemaObject* child, baseTypeOrElement->_attributes) {
+            result.append(child);
+        }
+        XSchemaComplexContentExtension *extension = baseTypeOrElement->getExtension();
+        if(NULL != extension) {
+            XSchemaElement *extType = extension->getBaseType();
+            Utils::TODO_THIS_RELEASE("fare");
+            if((NULL != extType) && !extType->isPredefined()) {
+                foreach(XSchemaObject* child, extType->_attributes) {
+                    result.append(child);
+                }
+            }
+        }
     }
 }
 

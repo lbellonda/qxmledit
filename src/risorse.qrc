@@ -151,6 +151,7 @@
         <file>images/zoom-in-xsd.png</file>
         <file>images/show-base-xsd.png</file>
         <file>images/deps.png</file>
+        <file>images/xsdOutline.png</file>
     </qresource>
     <qresource prefix="/status">
         <file alias="explore-mode">images/exploremode.png</file>

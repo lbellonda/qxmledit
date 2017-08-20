@@ -56,16 +56,13 @@ class XSchemaInquiryContext : public XSchemaOperationContext
     QSet<XSchemaObject*> _enrolled;
     QSet<QString> _typeErrors;
     //--- group reference: for each group: count of children
-    class GroupWeight
-    {
+    class GroupWeight {
         int _occurrences ;
         int _childrenCount;
-        int size()
-        {
+        int size() {
             return _occurrences * _childrenCount ;
         }
-        GroupWeight()
-        {
+        GroupWeight() {
             _occurrences = 0;
             _childrenCount = 0 ;
         }
@@ -74,7 +71,6 @@ class XSchemaInquiryContext : public XSchemaOperationContext
     QHash<XSchemaGroup*, GroupWeight*> _groups ;
     bool *_enrollFlag;
     bool _honorRestrictions;
-    bool _isFullCollection;
 
 public:
     explicit XSchemaInquiryContext(QObject *parent = 0);
@@ -97,9 +93,6 @@ public:
 
     bool isHonorRestrictions() const;
     void setHonorRestrictions(bool honorRestrictions);
-
-    bool isFullCollection() const;
-    void setFullCollection(bool isFullCollection);
 
 signals:
 

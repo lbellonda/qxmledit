@@ -1,0 +1,50 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+
+    <xs:element name="r0">
+        <xs:simpleType>
+            <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+    </xs:element>
+
+    <xs:element name="project">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="r1">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element ref="r3"/>
+                <xs:element name="r4" type="t5"/>
+                <xs:element name="e1">
+                    <xs:simpleType>
+                        <xs:list itemType="xs:integer"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="e2">
+                    <xs:simpleType>
+                        <xs:union memberTypes="xs:int xs:long" />
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="e7" type="t6"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="r3">
+        <xs:simpleType>
+            <xs:restriction base="xs:string"/>
+        </xs:simpleType>
+    </xs:element>
+
+    <xs:simpleType name="t5">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:simpleType name="t6">
+        <xs:union memberTypes="xs:int xs:long" />
+    </xs:simpleType>
+
+</xs:schema>

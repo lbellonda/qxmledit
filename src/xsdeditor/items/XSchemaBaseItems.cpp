@@ -67,7 +67,9 @@ XSDItemContext::XSDItemContext(QXmlEditData *appData)
 {
     _isDebug = false;
     _strategy = COMPACT;
-    _renderingStrategy = appData->isXsdDisplayHoriz() ? DISPLAYSTR_HOR_PYRAMID : DISPLAYSTR_UNDER;
+    Utils::TODO_THIS_RELEASE("fare");
+    _renderingStrategy = appData->isXsdDisplayHoriz() ? DISPLAYSTR_NEW0 : DISPLAYSTR_NEW0; //DISPLAYSTR_HOR_PYRAMID : DISPLAYSTR_UNDER;
+    //_renderingStrategy = DISPLAYSTR_HOR_PYRAMID ;
     _gapBetweenChildren = 10 ;
     _stemLength = 50 ;
 }
@@ -207,8 +209,8 @@ void XSDItem::removeObject(XSchemaObject *object)
 void XSDItem::doShowInfo(const bool showInfo, const QString &tipText, QList<QGraphicsItem*> &items)
 {
     if(showInfo && !tipText.isEmpty()) {
-        _iconInfo->show();
         _iconInfo->setToolTip(tipText);
+        _iconInfo->show();
         items.append(_iconInfo);
     } else {
         _iconInfo->hide();
@@ -400,6 +402,33 @@ RChildren *XSDItem::rChildren()
     return &_children;
 }
 
+QString XSDItem::dumpAsString(const int indent)
+{
+    QString append = QString().fill(' ', indent) ;
+    if(NULL != item()) {
+        if(!item()->name().isEmpty()) {
+            append += QString("%1 '%2'").arg(item()->typeString()).arg(item()->name()) ;
+        } else {
+            append += QString("%1").arg(item()->typeString()) ;
+        }
+    } else {
+        append += "null";
+    }
+    append += "\n";
+
+    RChildren *itemChildren = rChildren();
+    if(NULL != itemChildren) {
+        foreach(RChild* child, itemChildren->children()) {
+            if(NULL != child->item()) {
+                append += child->item()->dumpAsString(indent + 1);
+            } else {
+                append += "null\n";
+            }
+        }
+    }
+    return append ;
+}
+
 //--------------------------------------------------------------------------------------
 
 
@@ -418,6 +447,7 @@ XSDItem *XSDItem::createItem(XsdGraphicContext *context, XSchemaObject *newChild
     }
     ESchemaType type = newChild->getType()  ;
     XSDItem* newItem ;
+    Utils::TODO_THIS_RELEASE(QString("type is %1 %2").arg(type).arg(newChild->typeString()));
     if(SchemaTypeAttribute == type) {
         newItem = new AttributeItem(context, (XSchemaAttribute *)newChild, parent);
     } else if(SchemaTypeChoice  == type) {
@@ -458,6 +488,16 @@ XSDItem *XSDItem::createItem(XsdGraphicContext *context, XSchemaObject *newChild
         newItem = new RootItem(context, (XSDSchema*)newChild, parent);
     } else if(SchemaTypeOutlineElement == type) {
         newItem = new OutlineElementItem(context, (XSchemaOutlineElement*)newChild, parent);
+    } else if(SchemaTypeOutlineSequence == type) {
+        newItem = new OutlineSequenceItem(context, (XSchemaOutlineSequence*)newChild, parent);
+    } else if(SchemaTypeOutlineChoice == type) {
+        newItem = new OutlineChoiceItem(context, (XSchemaOutlineChoice*)newChild, parent);
+    } else if(SchemaTypeOutlineAll == type) {
+        newItem = new OutlineAllItem(context, (XSchemaOutlineAll*)newChild, parent);
+    } else if(SchemaTypeOutlineGroup == type) {
+        newItem = new OutlineGroupItem(context, (XSchemaOutlineGroup*)newChild, parent);
+    } else if(SchemaTypeOutlineAny == type) {
+        newItem = new OutlineAnyItem(context, (XSchemaOutlineAny*)newChild, parent);
     } else {
         newItem = new GenericItem(context, newChild, parent);
     }
@@ -563,13 +603,21 @@ qreal XSDItem::recalcChildrenPos(XSDItemContext *context)
     default:
     case XSDItemContext::DISPLAYSTR_UNDER:
         return recalcChildrenPosStrategyUnder(context);
-        break;
     case XSDItemContext::DISPLAYSTR_HOR_PYRAMID:
         return calcChildrenHeightAndDisposeStrategyHorPyramid(context);
-        break;
+    case XSDItemContext::DISPLAYSTR_NEW0:
+        Utils::TODO_THIS_RELEASE("fare");
+        return calcChildrenHeightAndDisposeStrategyHorPyramidNew0(context);
     }
 }
 
+
+qreal XSDItem::calcChildrenHeightAndDisposeStrategyHorPyramidNew0(XSDItemContext *context)
+{
+    qreal value = placeAllStrategyHorPyramidNew0(context);
+    Utils::TODO_THIS_RELEASE("togli codice commentato sotto");
+    return value ;
+}
 
 qreal XSDItem::calcChildrenHeightAndDisposeStrategyHorPyramid(XSDItemContext *context)
 {
@@ -577,6 +625,38 @@ qreal XSDItem::calcChildrenHeightAndDisposeStrategyHorPyramid(XSDItemContext *co
     reDisposeAllStrategyHorPyramid(context);
     return value ;
 }
+/*
+qreal XSDItem::calcChildrenHeightStrategyHorPyramidNew0(XSDItemContext *context)
+{
+    if(true || _childrenSizeInvalid) {
+        _childrenHeight = 0 ;
+        qreal lastChildBounds = 0 ;
+        bool isFirst = true;
+        foreach(RChild * rchild, _children.children()) {
+            XSDItem *xsdItem = rchild->item();
+
+            if(isFirst) {
+                isFirst = false;
+            } else {
+                _childrenHeight += context->gapBetweenChildren() ;
+            }
+            lastChildBounds = xsdItem->graphicItem()->boundingRect().height();
+            _childrenHeight += lastChildBounds;
+        }
+        _childrenSizeInvalid = false;
+    }
+    // now center the children in the bounding rect
+    qreal thisHeight = graphicItem()->boundingRect().height();
+    _realChildrenHeight = _childrenHeight ;
+    if(_childrenHeight < thisHeight) {
+        _childrenHeight = thisHeight ;
+    }
+    _childrenHeight += offsetHeight();
+    _childrenHeight += marginBottom();
+    //QString str = QString("DEBUG CODE: %3\nChildren count:%1, height:%2").arg(_children.children().size()).arg(_childrenHeight).arg(graphicItem()->toolTip());
+    //graphicItem()->setToolTip(str);
+    return _childrenHeight ;
+}*/
 
 qreal XSDItem::calcChildrenHeightStrategyHorPyramid(XSDItemContext *context)
 {
@@ -787,24 +867,25 @@ void XSDItem::remove(XSchemaObject *child)
 
 void XSDItem::preAddChildren(XSchemaObject *object)
 {
-    if(_context->isOutline() ) {
-        QList<XSchemaObject*> baseAttributes;
-        QList<XSchemaObject*> baseElements;
-        bool isOk = object->findBaseObjects(_context->searchContext(), baseElements, baseAttributes);
+    if(_context->isOutline()) {
+        /*QList<XSchemaObject*> baseAttributes;
+        QList<XSchemaObject*> baseElements;*/
+        Utils::TODO_THIS_RELEASE("ci siamo gia");
+        /*bool isOk = object->findBaseObjects(_context->searchContext(), baseElements, baseAttributes);
         if(!isOk) {
             Utils::error(tr("Error collecting information on base types for:").append(_context->searchContext().typeErrors().join(",")));
             _context->searchContext().resetErrors();
         } else {
             Utils::TODO_THIS_RELEASE("gestire il caso delle estensioni e restrizioni");
             foreach(XSchemaObject * child, baseElements) {
-                if( child->getType() == SchemaTypeElement) {
+                if(child->getType() == SchemaTypeElement) {
                     XSchemaElement *element = (XSchemaElement *)child ;
-                    if(!element->isTypeOrElement() ) {
+                    if(!element->isTypeOrElement()) {
                         childAdded(child);
                     }
                 }
             }
-        }
+        }*/
     } else if(_context->isShowBaseObjects()) {
         QList<XSchemaObject*> baseAttributes;
         QList<XSchemaObject*> baseElements;
@@ -875,6 +956,10 @@ void RChild::updatePosition()
     }
 }
 
+LineItem *RChild::line()
+{
+    return _line ;
+}
 
 int RChildren::findObject(XSchemaObject *object)
 {
@@ -956,12 +1041,8 @@ void RootItem::setItem(XSDSchema *newItem)
             connect(_item, SIGNAL(deleted(XSchemaObject*)), this, SLOT(objectDeleted(XSchemaObject*)));
 
             // follow the elements childrens
-            if(_context->isOutline()) {
-                outlineModeChildren();
-            } else {
-                foreach(XSchemaObject * child, _item->getChildren()) {
-                    childAdded(child);
-                }
+            foreach(XSchemaObject * child, _item->getChildren()) {
+                childAdded(child);
             }
             {
                 /*XSchemaRoot *root = static_cast<XSchemaRoot *>(_item);
@@ -1012,18 +1093,127 @@ void RootItem::childRemoved(XSchemaObject* child)
     remove(child);
 }
 
-void RootItem::outlineModeChildren()
+
+//--------------------------------------------------------------------------------------
+
+RootOutlineItem::RootOutlineItem(XsdGraphicContext *newContext, XSDSchema *newSchema, QGraphicsItem *parent) : RootItem(newContext, newSchema, parent)
 {
-    EMPTYPTRLIST(_outlineItems, XSchemaOutlineElement);
-    if( NULL != schema() ) {
-        QList<XSchemaElement *> items = schema()->collectCandidateRootElement();
-        foreach(XSchemaElement * child, items) {
-            XSchemaOutlineElement *element = new XSchemaOutlineElement(child->xsdParent(), child->root());
-            element->setElement(child);
-            _outlineItems.append(element);
-            childAdded(element);
+}
+
+RootOutlineItem::~RootOutlineItem()
+{
+    removeModel();
+}
+
+void RootOutlineItem::init(XsdGraphicContext *context)
+{
+    QPainterPath path;
+    path.addRoundedRect(0, 0, 80, 50, 16, 16);
+    _contour = path.toFillPolygon();
+    _graphicsItem->setPolygon(_contour);
+    _graphicsItem->setFlag(QGraphicsItem::ItemIsMovable, false);
+    _graphicsItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    _graphicsItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    _graphicsItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
+    _graphicsItem->setPos(0, 0);
+    _graphicsItem->setBrush(QBrush(QColor(0xFF, 0xFF, 0xFF)));
+    QGraphicsTextItem *textItem = new QGraphicsTextItem(_graphicsItem);
+    if(NULL != textItem) {
+        textItem->setPlainText(tr("Root"));
+        textItem->setPos(10, 4);
+        _graphicsItem->childItems().append(textItem);
+        textItem->setDefaultTextColor(QColor::fromRgb(0, 0, 0));
+        //setStdFontToItem(textItem, false, false, false);
+        textItem->setFont(context->normalFont());
+    }
+}
+
+void RootOutlineItem::setItem(XSDSchema *newItem)
+{
+    if(_item != newItem) {
+        if(NULL != _item) {
+            disconnect(_item, SIGNAL(childAdded(XSchemaObject*)), this, SLOT(childAdded(XSchemaObject*)));
+            disconnect(_item, SIGNAL(deleted(XSchemaObject*)), this, SLOT(deleted(XSchemaObject*)));
+            removeModel();
+        }
+        _item = newItem ;
+        if(NULL != newItem) {
+            connect(_item, SIGNAL(childAdded(XSchemaObject*)), this, SLOT(childAdded(XSchemaObject*)));
+            connect(_item, SIGNAL(childRemoved(XSchemaObject*)), this, SLOT(childRemoved(XSchemaObject*)));
+            connect(_item, SIGNAL(deleted(XSchemaObject*)), this, SLOT(objectDeleted(XSchemaObject*)));
+
+            // follow the elements childrens
+            outlineModeChildren();
+            {
+                XSDSchema *schema = newItem;
+                QString tooltip = QString("targetNamespace=\"%4\"\nnamespacePrefix=\"%1\"\nElements=%2\nAttributes=%3")
+                                  .arg(schema->root()->namespacePrefix())
+                                  .arg(schema->elementsQualifiedString())
+                                  .arg(schema->attributesQualifiedString())
+                                  .arg(schema->targetNamespace());
+                foreach(QString ns, schema->allNamespaces()) {
+                    tooltip += QString("\nnamespace: " + ns);
+                }
+
+                _graphicsItem->setToolTip(tooltip);
+            }
         }
     }
+    buildTooltip();
+}
+
+void RootOutlineItem::outlineModeChildren()
+{
+    removeModel();
+    if(NULL != schema()) {
+        XSchemaInquiryContext context;
+        context.setHonorRestrictions(true);
+        context.setFullCollection(true);
+        if(_chosenRoot.isEmpty()) {
+            QList<XSchemaElement *> items = schema()->collectCandidateRootElement();
+            foreach(XSchemaElement * child, items) {
+                XSchemaOutlineElement *element = new XSchemaOutlineElement(child->xsdParent(), child->root());
+                element->setElement(context, child);
+                _outlineItems.append(element);
+                childAdded(element);
+            }
+        } else {
+            XSchemaElement *newRoot = schema()->topLevelElement(_chosenRoot);
+            if(NULL != newRoot) {
+                XSchemaOutlineElement *element = new XSchemaOutlineElement(newRoot->xsdParent(), newRoot->root());
+                element->setElement(context, newRoot);
+                _outlineItems.append(element);
+                childAdded(element);
+            }
+        }
+    }
+}
+
+void RootOutlineItem::removeModel()
+{
+    EMPTYPTRLIST(_outlineItems, XSchemaOutlineContainer);
+}
+
+void RootOutlineItem::objectDeleted(XSchemaObject* /*self*/)
+{
+    //TODO _graphicsItem->childItems().clear(); // NO, DEVO FARE UN REMOVE!
+    _graphicsItem->scene()->removeItem(_graphicsItem);
+    delete this;
+}
+
+void RootOutlineItem::childRemoved(XSchemaObject* child)
+{
+    remove(child);
+}
+
+QString RootOutlineItem::chosenRoot() const
+{
+    return _chosenRoot;
+}
+
+void RootOutlineItem::setChosenRoot(const QString &chosenRoot)
+{
+    _chosenRoot = chosenRoot;
 }
 
 //--------------------------------------------------------------------------------------
@@ -1376,7 +1566,7 @@ void ElementItem::setItem(XSchemaElement *newItem)
             foreach(XSchemaObject * child, _item->getChildren()) {
                 childAdded(child);
             }
-            if(!_context->isHideAttributes()|| !context()->isOutline()) {
+            if(!_context->isHideAttributes() || !context()->isOutline()) {
                 foreach(XSchemaObject * attr, _item->attributes()) {
                     childAdded(attr);
                 }
@@ -2267,6 +2457,7 @@ void XSDItem::reDisposeAllStrategyHorPyramid(XSDItemContext *context)
     disposeObjectHorPyramid(context, 0, 0, rootYPosition);
 }
 
+
 void XSDItem::disposeObjectHorPyramid(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos)
 {
     /*if(!strcmp(this->metaObject()->className(), "ContainerItem")) {
@@ -2350,3 +2541,4 @@ void XSDItem::disposeObjectHorPyramid(XSDItemContext *context, const int level, 
     }
     afterDisposeAllChildren();
 }
+

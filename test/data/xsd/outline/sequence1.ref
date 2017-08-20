@@ -1,8 +1,9 @@
 <SchemaTypeSchema name="">
  <SchemaTypeOutlineElement name="project">
     <SchemaTypeOutlineSequence name="">
-        <SchemaTypeOutlineElement name="one"/>
-        <SchemaTypeOutlineElement name="two"/>
+        <SchemaTypeOutlineSequence name="">
+            <SchemaTypeOutlineSequence name=""/>
+        </SchemaTypeOutlineSequence>
     </SchemaTypeOutlineSequence>
  </SchemaTypeOutlineElement>
 </SchemaTypeSchema>

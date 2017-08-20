@@ -289,7 +289,6 @@ XSchemaAnnotation *XSchemaObject::annotation()
     return _annotation ;
 }
 
-
 void XSchemaObject::deleteObject()
 {
     if(NULL != _parent) {
@@ -1388,5 +1387,25 @@ QString XSchemaObject::typeString()
     TYPESTR(SchemaOtherElement)
     // Outline
     TYPESTR(SchemaTypeOutlineElement)
+    TYPESTR(SchemaTypeOutlineContainer)
+    TYPESTR(SchemaTypeOutlineGroup)
+    TYPESTR(SchemaTypeOutlineSequence)
+    TYPESTR(SchemaTypeOutlineChoice)
+    TYPESTR(SchemaTypeOutlineAll)
     return "";
+}
+
+QString XSchemaObject::occurrencesDescrString(XOccurrence &minOccurs, XOccurrence &maxOccurs)
+{
+    QString occurrences ;
+    if((minOccurs.isSet) && (maxOccurs.isSet)) {
+        if((1 != minOccurs.occurrences) || (1 != maxOccurs.occurrences)) {
+            occurrences = QString("%1 .. %2").arg(minOccurs.toString()).arg(maxOccurs.toString());
+        }
+    } else if(minOccurs.isSet) {
+        occurrences = QString("%1 .. 1").arg(minOccurs.toString());
+    } else if(maxOccurs.isSet) {
+        occurrences = QString("1 .. %1").arg(maxOccurs.toString());
+    }
+    return occurrences;
 }

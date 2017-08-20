@@ -34,6 +34,7 @@
 #include "xsdeditor/xschema.h"
 #include "xsdeditor/xsddefinitions.h"
 #include "xsdeditor/XSchemaIOContants.h"
+#include "xmlutils.h"
 #include "utils.h"
 
 
@@ -169,6 +170,9 @@ void XSchemaElement::setCategory(const XSchemaElement::ElementCategory newCatego
         XsdError("TODO bad type (3)");
         reset();
         break;
+    case EES_EMPTY:
+        reset();
+        break;
     case EES_REFERENCE:
         reset();
         break;
@@ -208,15 +212,7 @@ QString XSchemaElement::referencedObjectName()
 
 QString XSchemaElement::occurrencesDescr()
 {
-    QString occurrences ;
-    if((_minOccurs.isSet) && (_maxOccurs.isSet)) {
-        occurrences = QString("%1 .. %2").arg(_minOccurs.toString()).arg(_maxOccurs.toString());
-    } else if(_minOccurs.isSet) {
-        occurrences = QString("%1 .. ").arg(_minOccurs.toString());
-    } else if(_maxOccurs.isSet) {
-        occurrences = QString(" .. %1").arg(_maxOccurs.toString());
-    }
-    return occurrences;
+    return occurrencesDescrString(_minOccurs, _maxOccurs);
 }
 
 QString XSchemaElement::nameDescr()
@@ -1265,8 +1261,8 @@ XSchemaElement *XSchemaElement::resolveReference(XSchemaFindReferenceContext &co
 {
     XSchemaElement *result = base;
     if((result->category() == EES_REFERENCE)) {
-
         result = _root->schema()->topLevelElement(context, base->ref());
+        Utils::TODO_THIS_RELEASE("con i namespace");
         context.setResolved(result);
     }
 
@@ -1288,7 +1284,7 @@ XSchemaElement *XSchemaElement::resolveType(XSchemaFindReferenceContext &context
     } else if(base->xsdType().isEmpty()) {
         context.setResolved(base);
     } else {
-        Utils::TODO_NEXT_RELEASE("take namespace into account");
+        Utils::TODO_THIS_RELEASE("take namespace into account");
         context.setResolved(_root->schema()->topLevelType(context, base->xsdType()));
     }
     return context.resolved();
@@ -1465,10 +1461,40 @@ void XSchemaElement::collectAttributesCollection(XSchemaAttributesCollection & a
     }
 }
 
+
+bool XSchemaElement::isReferencingItself()
+{
+    if(referencedObjectType() != XRT_ELEMENT) {
+        return false;
+    }
+    const QString &refName = ref();
+    if((NULL == _root) || refName.isEmpty()) {
+        return false;
+    }
+    XSchemaElement *topLevelElement = _root->schema()->topLevelElement(refName);
+    if(NULL == topLevelElement) {
+        return false;
+    }
+    // look for parent in the schema
+    XSchemaObject *theParent = xsdParent();
+    while(theParent != NULL) {
+        if(theParent == topLevelElement) {
+            return true;
+        }
+        theParent = theParent->xsdParent();
+    }
+    return false;
+}
+
+
 void XSchemaElement::raiseErrorTypesME(XSDLoadContext *loadContext, QDomElement &node)
 {
     raiseError(loadContext, XSD_LOAD_ERROR_ELEMENT_SIMPLE_AND_COMPLEX_TYPE, this, node, tr("Element: type and either <simpleType> or <complexType> are mutually exclusive."));
 }
+
+
+
+
 /*
  refer to: 3.3.3 Constraints on XML Representations of Element Declarations XML Schema Part 1: Structures Second Edition.html#cvc-elt
  */

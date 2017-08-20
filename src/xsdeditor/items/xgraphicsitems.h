@@ -60,6 +60,8 @@ class GraphicsRoundRectItem : public QObject, public QGraphicsRectItem
     QColor _colorMiddle;
     QColor _colorEnd;
     bool _isOptional;
+    bool _isSingleColor ;
+    bool _useDimShadow;
 
     enum {
         OffsetRectX = 5,
@@ -91,6 +93,12 @@ public:
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     bool isOptional() const;
     void setOptional(bool isOptional);
+
+    bool isSingleColor() const;
+    void setSingleColor(bool value);
+
+    bool isUseDimShadow() const;
+    void setUseDimShadow(bool useDimShadow);
 
 signals:
     void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);

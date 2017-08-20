@@ -121,6 +121,7 @@ public:
         return _item ;
     }
     void updatePosition() ;
+    LineItem *line();
 };
 
 class RChildren
@@ -165,6 +166,7 @@ public:
         DISPLAYSTR_UNDER,
         // children as horizontal pyramid
         DISPLAYSTR_HOR_PYRAMID,
+        DISPLAYSTR_NEW0,
     };
 
 
@@ -226,11 +228,22 @@ protected:
     QGraphicsTextItem *createTypeItem(QGraphicsItem *parent, XsdGraphicContext *context);
     qreal calcChildrenHeightAndDisposeStrategyHorPyramid(XSDItemContext *context);
     qreal calcChildrenHeightStrategyHorPyramid(XSDItemContext *context);
+    qreal calcChildrenHeightAndDisposeStrategyHorPyramidNew0(XSDItemContext *context);
     virtual qreal offsetHeight();
     qreal calcYPosHalf(qreal yPosExt, qreal offsetY);
     qreal calcYPosTop(qreal yPosExt, qreal offsetY);
     void reDisposeAllStrategyHorPyramid(XSDItemContext *context);
     void disposeObjectHorPyramid(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos);
+    //-- region(New0)
+    qreal placeAllStrategyHorPyramidNew0(XSDItemContext *context);
+    qreal calcChildrenHeightStrategyNew0(XSDItemContext *context, const bool isRecursive);
+    void placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos);
+    bool updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain);
+    void updateSummaryLineBounds(const qreal gap, const bool isEnlarging);
+    void moveDownBy(const qreal gap, const bool isRecursive, const bool isEnlarging);
+    void updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal gap);
+    qreal calcOverallHeight(QList<QGraphicsItem*> &rendered);
+    //-- endregion(New0)
     qreal recalcChildrenPosStrategyUnder(XSDItemContext *context);
     void preAddChildren(XSchemaObject *object);
     virtual void afterDispose(const int yPos, const int height);
@@ -272,6 +285,7 @@ public:
     XsdGraphicContext *context();
     RChildren *rChildren();
     virtual QString itemClassName() = 0 ;
+    QString dumpAsString(const int indent);
 
 public slots:
     virtual void childAdded(XSchemaObject *newChild);
@@ -282,16 +296,14 @@ class RootItem : public XSDItem
 {
     Q_OBJECT
 
+protected:
     PolygonItem *_graphicsItem;
     QPolygonF _contour;
     XSDSchema *_item;
 
-    void init(XsdGraphicContext *context);
-    QList<XSchemaOutlineElement*> _outlineItems ;
+    virtual void init(XsdGraphicContext *context);
 
-protected:
     QString preTooltipString();
-    void outlineModeChildren();
 
 public:
     //IS_TYPE(TypeSchema)
@@ -300,7 +312,7 @@ public:
     virtual ~RootItem();
 
     XSDSchema *schema() const;
-    void setItem(XSDSchema *newItem)  ;
+    virtual void setItem(XSDSchema *newItem)  ;
     virtual QGraphicsItem *graphicItem()
     {
         return _graphicsItem ;
@@ -314,6 +326,48 @@ public:
     {
         return "RootItem";
     }
+
+private slots:
+    void objectDeleted(XSchemaObject* child);
+    void childRemoved(XSchemaObject* child);
+};
+
+class RootOutlineItem : public RootItem
+{
+    Q_OBJECT
+    QString _chosenRoot;
+
+protected:
+    QList<XSchemaOutlineContainer*> _outlineItems ;
+
+    virtual void init(XsdGraphicContext *context);
+    void outlineModeChildren();
+    void removeModel();
+
+public:
+    //IS_TYPE(TypeSchema)
+
+    RootOutlineItem(XsdGraphicContext *newContext, XSDSchema *newSchema = NULL, QGraphicsItem * parent = 0);
+    virtual ~RootOutlineItem();
+
+    virtual void setItem(XSDSchema *newItem)  ;
+    virtual QGraphicsItem *graphicItem()
+    {
+        return _graphicsItem ;
+    }
+
+    virtual XSchemaObject *item()
+    {
+        return _item ;
+    }
+
+    virtual QString itemClassName()
+    {
+        return "RootOutlineItem";
+    }
+
+    QString chosenRoot() const;
+    void setChosenRoot(const QString &chosenRoot);
 
 private slots:
     void objectDeleted(XSchemaObject* child);
@@ -1010,12 +1064,7 @@ class OutlineElementItem : public XSDItem
     XSchemaOutlineElement *_item;
     GraphicsRoundRectItem *_graphicsItem;
     QGraphicsTextItem *_textItem ;
-    QGraphicsTextItem *_typeItem ;
-    QGraphicsTextItem *_propertiesItem ;
-    QList<AttributeItem*> _attributes;
-    QGraphicsPixmapItem *_iconLink;
-    QGraphicsPixmapItem *_iconType;
-    QGraphicsLineItem *_separator;
+    QGraphicsPixmapItem *_iconAttrs;
 
     void init(XsdGraphicContext *newContext);
     void reset();
@@ -1024,8 +1073,7 @@ private slots:
     void textChanged();
     void elmNameChanged(const QString &newName);
     void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
-    virtual void childAdded(XSchemaObject *newChild);
-
+    void childAdded(XSchemaObject *newChild);
 protected:
     void setIconType();
 
@@ -1053,6 +1101,229 @@ public:
     }
 };
 
+class OutlineSequenceItem : public XSDItem
+{
+    Q_OBJECT
+protected:
+    XSchemaOutlineSequence *_item;
+    QRectF _contour;
+    GraphicsRectItem *_graphicsItem;
+    QGraphicsTextItem *_labelItem;
+    QGraphicsPixmapItem *_icon;
+    qreal _extraSpace;
+
+    void init(XsdGraphicContext *newContext);
+    virtual void reset();
+
+private slots:
+    void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
+
+protected:
+    virtual qreal extraSpace();
+    virtual QString preTooltipString();
+
+public:
+
+    OutlineSequenceItem(XsdGraphicContext *newContext, XSchemaOutlineSequence *newItem, QGraphicsItem * parent = 0);
+    virtual ~OutlineSequenceItem();
+
+    virtual QGraphicsItem *graphicItem()
+    {
+        return _graphicsItem ;
+    }
+    virtual XSchemaObject *item()
+    {
+        return _item ;
+    }
+
+    XSchemaOutlineSequence *sequence() const ;
+    void setItem(XSchemaOutlineSequence *newItem)  ;
+    virtual QString iconName();
+    virtual QString labelText();
+
+    virtual QString itemClassName()
+    {
+        return "OutlineSequenceItem";
+    }
+};
+
+class OutlineChoiceItem : public XSDItem
+{
+    Q_OBJECT
+protected:
+    XSchemaOutlineChoice *_item;
+    QRectF _contour;
+    GraphicsRectItem *_graphicsItem;
+    QGraphicsTextItem *_labelItem;
+    QGraphicsPixmapItem *_icon;
+    qreal _extraSpace;
+
+    void init(XsdGraphicContext *newContext);
+    virtual void reset();
+
+private slots:
+    void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
+
+protected:
+    virtual qreal extraSpace();
+    virtual QString preTooltipString();
+
+public:
+
+    OutlineChoiceItem(XsdGraphicContext *newContext, XSchemaOutlineChoice *newItem, QGraphicsItem * parent = 0);
+    virtual ~OutlineChoiceItem();
+
+    virtual QGraphicsItem *graphicItem()
+    {
+        return _graphicsItem ;
+    }
+    virtual XSchemaObject *item()
+    {
+        return _item ;
+    }
+
+    XSchemaOutlineChoice *choice() const ;
+    void setItem(XSchemaOutlineChoice *newItem)  ;
+    virtual QString iconName();
+    virtual QString labelText();
+
+    virtual QString itemClassName()
+    {
+        return "OutlineChoiceItem";
+    }
+};
+
+class OutlineAllItem : public XSDItem
+{
+    Q_OBJECT
+protected:
+    XSchemaOutlineAll *_item;
+    QRectF _contour;
+    GraphicsRectItem *_graphicsItem;
+    QGraphicsTextItem *_labelItem;
+    qreal _extraSpace;
+
+    void init(XsdGraphicContext *newContext);
+    virtual void reset();
+
+private slots:
+    void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
+
+protected:
+    virtual qreal extraSpace();
+    virtual QString preTooltipString();
+
+public:
+
+    OutlineAllItem(XsdGraphicContext *newContext, XSchemaOutlineAll *newItem, QGraphicsItem * parent = 0);
+    virtual ~OutlineAllItem();
+
+    virtual QGraphicsItem *graphicItem()
+    {
+        return _graphicsItem ;
+    }
+    virtual XSchemaObject *item()
+    {
+        return _item ;
+    }
+
+    XSchemaOutlineAll *all() const ;
+    void setItem(XSchemaOutlineAll *newItem)  ;
+    virtual QString labelText();
+
+    virtual QString itemClassName()
+    {
+        return "OutlineAllItem";
+    }
+};
+
+class OutlineGroupItem : public XSDItem
+{
+    Q_OBJECT
+protected:
+    XSchemaOutlineGroup *_item;
+    QRectF _contour;
+    GraphicsRectItem *_graphicsItem;
+    QGraphicsTextItem *_labelItem;
+    qreal _extraSpace;
+
+    void init(XsdGraphicContext *newContext);
+    virtual void reset();
+
+private slots:
+    void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
+
+protected:
+    virtual qreal extraSpace();
+    virtual QString preTooltipString();
+
+public:
+
+    OutlineGroupItem(XsdGraphicContext *newContext, XSchemaOutlineGroup *newItem, QGraphicsItem * parent = 0);
+    virtual ~OutlineGroupItem();
+
+    virtual QGraphicsItem *graphicItem()
+    {
+        return _graphicsItem ;
+    }
+    virtual XSchemaObject *item()
+    {
+        return _item ;
+    }
+
+    XSchemaOutlineGroup *group() const ;
+    void setItem(XSchemaOutlineGroup *newItem)  ;
+    virtual QString labelText();
+
+    virtual QString itemClassName()
+    {
+        return "OutlineGroupItem";
+    }
+};
+
+class OutlineAnyItem : public XSDItem
+{
+    Q_OBJECT
+protected:
+    XSchemaOutlineAny *_item;
+    QRectF _contour;
+    GraphicsRectItem *_graphicsItem;
+    QGraphicsTextItem *_labelItem;
+    qreal _extraSpace;
+
+    void init(XsdGraphicContext *newContext);
+    virtual void reset();
+
+private slots:
+    void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
+
+protected:
+    virtual qreal extraSpace();
+    virtual QString preTooltipString();
+
+public:
+
+    OutlineAnyItem(XsdGraphicContext *newContext, XSchemaOutlineAny *newItem, QGraphicsItem * parent = 0);
+    virtual ~OutlineAnyItem();
+
+    virtual QGraphicsItem *graphicItem()
+    {
+        return _graphicsItem ;
+    }
+    virtual XSchemaObject *item()
+    {
+        return _item ;
+    }
+
+    XSchemaOutlineAny *any() const ;
+    void setItem(XSchemaOutlineAny *newItem)  ;
+    virtual QString labelText();
+
+    virtual QString itemClassName()
+    {
+        return "OutlineAnyItem";
+    }
+};
 
 class XSDWindow;
 
@@ -1072,7 +1343,16 @@ public:
 
 #include "xsdeditor/xsdcontroller.h"
 
-class XSDWindow : public QMainWindow
+class XSDRootChooseProvider
+{
+public:
+    XSDRootChooseProvider();
+    virtual ~XSDRootChooseProvider();
+
+    virtual QString chooseRoot(QWidget *parent, QList<XSchemaElement*> elements) = 0 ;
+};
+
+class XSDWindow : public QMainWindow, private XSDRootChooseProvider
 {
     Q_OBJECT
 protected:
@@ -1122,6 +1402,8 @@ protected:
     QXmlEditData *_appData;
     QString _selectedElementKey;
     QString _returnKey;
+    XSDRootChooseProvider *_xsdRootChooseProvider;
+    bool _chooseProviderSet;
 
 public:
     explicit XSDWindow(QXmlEditData *appData, QWidget *parent = 0);
@@ -1156,6 +1438,8 @@ public:
     void setSelectedExitKey(const QString &key);
     QString selectedExitKey();
     XSDItem *root();
+    void setChooseProvider(XSDRootChooseProvider *newValue);
+    void setOutlineMode(const bool isOutline);
 
 protected:
     void changeEvent(QEvent *e);
@@ -1165,7 +1449,7 @@ protected:
     XSchemaObject *fromItemData(QTreeWidgetItem *item);
     void setupNavigationBaseItems();
     void setNavigationTargetSelection(XSchemaObject *newSelection);
-    void setNavSplitterWidgetSizes(const int width0 , const int width1);
+    void setNavSplitterWidgetSizes(const int width0, const int width1);
     void paintScene(QPainter *painter, const QRectF &sourceArea, const QRectF &destArea, const int pageNumber, const int totalPages);
     void calculatePageRect(QPainter *painter, QRectF &destArea);
     void restoreSelection(QList<QGraphicsItem*> &itemsToSelect);
@@ -1175,6 +1459,7 @@ protected:
     void evalObjZoom();
     void setupSplitter();
     void selectLastObject();
+    virtual QString chooseRoot(QWidget *parent, QList<XSchemaElement*> elements);
 
 protected:
     Ui::XSDWindow *ui;
@@ -1264,6 +1549,7 @@ protected slots:
     void on_cmdObjZoomOut_clicked();
     void on_cmdObjZoomReset_clicked();
     void on_cmdShowBase_clicked();
+    void on_cmdOutline_clicked();
 
     void onCompareAnnotationAction(bool newState);
     void on_xsdCompareTools_swapReference();

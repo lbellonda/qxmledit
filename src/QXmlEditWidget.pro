@@ -499,7 +499,10 @@ SOURCES += xmleditwidget.cpp \
     undo/commandaddformattinginfo.cpp \
     undo/commandremoveformattinginfo.cpp \
     xsdeditor/items/xschemaoutlintitems.cpp \
-    xsdeditor/xschemaoutlineelement.cpp
+    xsdeditor/xschemaoutlineelement.cpp \
+    xsdeditor/xschemaoutlinecontainer.cpp \
+    xsdeditor/choosexsdviewrootitemdialog.cpp \
+    xsdeditor/items/xschemabaseitemlayout.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -769,7 +772,8 @@ HEADERS += precompiled_lib.h \
     modules/services/threadservices.h \
     undo/commandaddformattinginfo.h \
     undo/commandremoveformattinginfo.h \
-    xsdeditor/xschemaoutlineelement.h
+    xsdeditor/xschemaoutlineelement.h \
+    xsdeditor/choosexsdviewrootitemdialog.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \
@@ -844,7 +848,8 @@ FORMS += xmleditwidget.ui \
     modules/specialized/scxml/dialogs/scxmlinvokedialog.ui \
     modules/xslt/xsltnavigatorwidget.ui \
     modules/specialized/scxml/scxmlautomodedialog.ui \
-    editelementwithtexteditor.ui
+    editelementwithtexteditor.ui \
+    xsdeditor/choosexsdviewrootitemdialog.ui
 
 
 symbian {

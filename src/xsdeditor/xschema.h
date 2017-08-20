@@ -30,6 +30,7 @@
 #include "xsdeditor/xsdcompare.h"
 #include "xsdeditor/xschemaoperationcontext.h"
 #include <QMap>
+#include <QMultiHash>
 #include <QStringList>
 #include <QPixmap>
 #include <QNetworkAccessManager>
@@ -331,7 +332,13 @@ enum ESchemaType {
     SchemaGenericElement,
     SchemaOtherElement,
     // Outline
-    SchemaTypeOutlineElement
+    SchemaTypeOutlineElement,
+    SchemaTypeOutlineContainer,
+    SchemaTypeOutlineGroup,
+    SchemaTypeOutlineSequence,
+    SchemaTypeOutlineChoice,
+    SchemaTypeOutlineAll,
+    SchemaTypeOutlineAny
 };
 
 
@@ -466,6 +473,8 @@ public:
     XSDCompareState::EXSDCompareState compareState();
     virtual void markCompareStateRecursive(const XSDCompareState::EXSDCompareState newState);
     virtual void getModifiedObjects(QList<XSchemaObject*> &added, QList<XSchemaObject*> &modified, QList<XSchemaObject*> &deleted);
+    QString occurrencesDescrString(XOccurrence &minOccurs, XOccurrence &maxOccurs);
+
 protected:
     void setCompareState(const XSDCompareState::EXSDCompareState newState);
 
@@ -789,6 +798,7 @@ public:
 
     virtual bool findBaseObjects(XSchemaInquiryContext &context, QList<XSchemaObject*> &baseElements, QList<XSchemaObject*> & baseAttributes);
 
+    bool isReferencingItself();
     /*
 
     Alla fine
@@ -873,9 +883,11 @@ protected:
 
     void validateComplexType(QDomElement &element, const bool isInner);
     void collectElementsOfComplexDerived(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
+    void collectAttributesOfComplexDerived(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
     bool collectElements(QList<XSchemaObject*> &result);
     bool collectAllBaseTypeElements(XSchemaInquiryContext &context, QList<XSchemaObject*> &result, QList<XSchemaObject*> &attributes);
     bool collectAllElementsOfBaseTypes(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
+    bool collectAllAttributesOfBaseTypes(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
     //---
     virtual void validateAfterRead(XSDLoadContext *loadContext, QDomElement &node, void * context);
     void raiseErrorTypesME(XSDLoadContext *loadContext, QDomElement &node);
@@ -932,7 +944,8 @@ public:
         return SchemaTypeChoice ;
     }
     TAG("choice")
-
+    XOccurrence & maxOccurs();
+    XOccurrence & minOccurs();
     virtual XSchemaElement* addElement();
     virtual XSchemaChoice* addChoice();
     virtual XSchemaSequence* addSequence();
@@ -979,6 +992,9 @@ public:
         return SchemaTypeSequence ;
     }
     TAG("sequence")
+
+    XOccurrence & maxOccurs();
+    XOccurrence & minOccurs();
 
     virtual XSchemaElement* addElement();
     virtual XSchemaChoice* addChoice();
@@ -1060,6 +1076,8 @@ public:
     }
     TAG("all")
 
+    XOccurrence & maxOccurs();
+    XOccurrence & minOccurs();
     virtual bool collect(XValidationContext * context, XSingleElementContent *parent);
     ADD_E(true)
 
@@ -1092,6 +1110,10 @@ public:
     }
     TAG("any")
 
+
+    virtual QString description();
+    XOccurrence & maxOccurs();
+    XOccurrence & minOccurs();
     virtual void scanForAttributes(XSDLoadContext *loadContext, QDomAttr &attribute, void * context);
     virtual void scanForElements(XSDLoadContext *loadContext, QDomElement &element, void *context);
     virtual void validateAfterRead(XSDLoadContext *loadContext, QDomElement &node, void * context);
@@ -1222,6 +1244,8 @@ public:
     bool hasAReference();
     XSchemaGroup *resolveReference(XSchemaGroup *base);
 
+    XOccurrence & maxOccurs();
+    XOccurrence & minOccurs();
     virtual void scanForAttributes(XSDLoadContext *loadContext, QDomAttr &attribute, void * context);
     virtual void scanForElements(XSDLoadContext *loadContext, QDomElement &element, void *context);
     virtual void validateAfterRead(XSDLoadContext *loadContext, QDomElement &node, void * context);
@@ -1621,6 +1645,7 @@ private:
     QString _namespaceURI;
     QSet<QString> _namespaces;
     QMap<QString, QString> _namespacesByPrefix; // 1:1
+    QMultiHash<QString, QString> _prefixesByNamespace; // 1:1
     QString _defaultNamespace ;
     QString _targetNamespace ;
 

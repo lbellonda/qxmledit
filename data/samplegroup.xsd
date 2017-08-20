@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- valid -->
+<xsd:schema targetNamespace="test" elementFormDefault="qualified" xmlns="test" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+<xsd:group name="g1">
+    <xsd:sequence>
+        <xsd:element name="two1" />
+        <xsd:element name="two2" />
+    </xsd:sequence>
+</xsd:group>
+
+<!-- zero -->
+    <xsd:element name="seq0V">
+        <xsd:complexType>
+            <xsd:group ref="g1"  minOccurs="0">
+            </xsd:group>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="seq00">
+        <xsd:complexType>
+            <xsd:group ref="g1" minOccurs="0" maxOccurs="0">
+
+            </xsd:group>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="seq01">
+        <xsd:complexType>
+            <xsd:group ref="g1" minOccurs="0" maxOccurs="1">
+
+            </xsd:group>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="seq0n">
+        <xsd:complexType>
+            <xsd:group ref="g1" minOccurs="0" maxOccurs="3">
+
+            </xsd:group>
+        </xsd:complexType>
+    </xsd:element>
+
+
+
+
+<!-- one -->
+
+<xsd:element name="seqVV">
+    <xsd:complexType>
+        <xsd:group ref="g1" >
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seqV1">
+    <xsd:complexType>
+        <xsd:group ref="g1"  maxOccurs="1">
+
+          </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq1V">
+    <xsd:complexType>
+        <xsd:group ref="g1" minOccurs="1" >
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq11">
+    <xsd:complexType>
+        <xsd:group ref="g1" minOccurs="1" maxOccurs="1" >
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- n -->
+<xsd:element name="seqVn">
+    <xsd:complexType>
+        <xsd:group ref="g1" maxOccurs="3">
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq1n">
+    <xsd:complexType>
+        <xsd:group ref="g1" minOccurs="1" maxOccurs="3">
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+
+
+<xsd:element name="seqnn">
+    <xsd:complexType>
+        <xsd:group ref="g1" minOccurs="3" maxOccurs="3">
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+
+<!-- -->
+
+<xsd:element name="seqVu">
+    <xsd:complexType>
+        <xsd:group ref="g1" maxOccurs="unbounded">
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+<xsd:element name="seq0u">
+    <xsd:complexType>
+        <xsd:group ref="g1" minOccurs="0" maxOccurs="unbounded">
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+<xsd:element name="seq1u">
+    <xsd:complexType>
+        <xsd:group ref="g1" minOccurs="1" maxOccurs="unbounded">
+
+        </xsd:group>
+    </xsd:complexType>
+</xsd:element>
+
+
+</xsd:schema>

@@ -424,6 +424,23 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="cmdOutline">
+        <property name="toolTip">
+         <string>Outline view</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../risorse.qrc">
+          <normaloff>:/xsdimages/images/xsdOutline.png</normaloff>:/xsdimages/images/xsdOutline.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="cmdShowDepend">
         <property name="toolTip">
          <string>Show the definitions of included schema</string>
@@ -790,7 +807,7 @@
      <x>0</x>
      <y>0</y>
      <width>1393</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
@@ -853,7 +870,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../risorse.qrc"/>
   <include location="../risorse.qrc"/>
  </resources>
  <connections/>

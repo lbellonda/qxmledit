@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- valid -->
+<xsd:schema targetNamespace="test" elementFormDefault="qualified" xmlns="test" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+
+<!-- zero -->
+    <xsd:element name="seq0V">
+        <xsd:complexType>
+            <xsd:all minOccurs="0">
+                <xsd:element name="a" minOccurs="0"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!--xsd:element name="seq00">
+        <xsd:complexType>
+            <xsd:all minOccurs="0" maxOccurs="0">
+                <xsd:element name="a"  minOccurs="0" maxOccurs="0"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element-->
+
+    <xsd:element name="seq01">
+        <xsd:complexType>
+            <xsd:all minOccurs="0" maxOccurs="1">
+                <xsd:element name="a" minOccurs="0" maxOccurs="1"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+
+<!-- one -->
+
+<xsd:element name="seqVV">
+    <xsd:complexType>
+        <xsd:all >
+            <xsd:element name="a" />
+        </xsd:all>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seqV1">
+    <xsd:complexType>
+        <xsd:all  maxOccurs="1">
+            <xsd:element name="a" maxOccurs="1" />
+          </xsd:all>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq1V">
+    <xsd:complexType>
+        <xsd:all minOccurs="1" >
+            <xsd:element name="a" minOccurs="1" />
+        </xsd:all>
+    </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="seq11">
+    <xsd:complexType>
+        <xsd:all minOccurs="1" maxOccurs="1" >
+            <xsd:element name="a" minOccurs="1" maxOccurs="1" />
+        </xsd:all>
+    </xsd:complexType>
+</xsd:element>
+
+
+
+
+</xsd:schema>

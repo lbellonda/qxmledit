@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<xs:schema elementFormDefault="qualified" targetNamespace="testtest" xmlns:test="testtest" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="project">
+        <xs:annotation>
+            <xs:documentation source="version">1.0</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="tipo1_tre">
+                <xs:complexType>
+                  <xs:choice>
+                    <xs:element name="tipo1_choice1" />
+                    <xs:element name="tipo1_choice2" />
+                  </xs:choice>
+                </xs:complexType>
+             </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

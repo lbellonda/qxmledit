@@ -183,7 +183,7 @@ bool XSchemaImport::generateDom(QDomDocument &document, QDomNode &parent)
 {
     QDomElement node = createElement(document, IO_XSD_TAGIMPORT);
     addAttrNotEmpty(node, IO_GENERIC_ID, _id);
-    addAttrNotEmpty(node, IO_GENERIC_ATTR_SCHEMALOCATION , _schemaLocation);
+    addAttrNotEmpty(node, IO_GENERIC_ATTR_SCHEMALOCATION, _schemaLocation);
     addAttrNotEmpty(node, IO_GENERIC_NAMESPACE, _namespace);
     addOtherAttributesToDom(node);
     if(NULL != _annotation) {
@@ -625,7 +625,6 @@ void XSchemaGroup::reset()
 
 XSchemaGroup::XSchemaGroup(XSchemaObject *newParent, XSchemaRoot *newRoot): XSchemaObject(newParent, newRoot)
 {
-    _maxOccurs.isUnbounded = true ;
 }
 
 XSchemaGroup::~XSchemaGroup()
@@ -763,6 +762,16 @@ void XSchemaGroup::validateAfterRead(XSDLoadContext */*loadContext*/, QDomElemen
     }*/
 }
 
+XOccurrence & XSchemaGroup::maxOccurs()
+{
+    return _maxOccurs;
+}
+
+XOccurrence & XSchemaGroup::minOccurs()
+{
+    return _minOccurs;
+}
+
 //------------ Redefine ----------------------------------------------------------------------------
 
 void XSchemaRedefine::reset()
@@ -853,7 +862,6 @@ void XSchemaAny::reset()
 XSchemaAny::XSchemaAny(XSchemaObject *newParent, XSchemaRoot *newRoot): XSchemaObject(newParent, newRoot)
 {
     _processContent = missing ;
-    _maxOccurs.isUnbounded = true ;
 }
 
 XSchemaAny::~XSchemaAny()
@@ -916,6 +924,20 @@ void XSchemaAny::validateAfterRead(XSDLoadContext */*loadContext*/, QDomElement 
     }*/
 }
 
+XOccurrence & XSchemaAny::maxOccurs()
+{
+    return _maxOccurs;
+}
+
+XOccurrence & XSchemaAny::minOccurs()
+{
+    return _minOccurs;
+}
+
+QString XSchemaAny::description()
+{
+    return occurrencesDescrString(minOccurs(), maxOccurs());
+}
 
 // parking zone -------------------------------------------------------------
 
@@ -981,6 +1003,15 @@ void XSchemaAll::scanForElements(XSDLoadContext *loadContext, QDomElement &eleme
     raiseError(loadContext, this, element, true);
 }
 
+XOccurrence & XSchemaAll::maxOccurs()
+{
+    return _maxOccursOne;
+}
+
+XOccurrence & XSchemaAll::minOccurs()
+{
+    return _minOccurs;
+}
 
 //--------------------- class XSchemaAnyAttribute -------------------------------
 
@@ -1042,7 +1073,6 @@ bool XSchemaAnyAttribute::generateDom(QDomDocument &document, QDomNode &parentNo
 
 XSchemaAttributeGroup::XSchemaAttributeGroup(XSchemaObject *newParent, XSchemaRoot *newRoot): XSchemaObject(newParent, newRoot)
 {
-
 }
 
 XSchemaAttributeGroup::~XSchemaAttributeGroup()
@@ -1201,7 +1231,7 @@ QString XOccurrence::toString()
         }
         return QString().setNum(occurrences) ;
     }
-    return QString("");
+    return QString("1");
 }
 
 XSDCompareObject::EXSDCompareObject XOccurrence::compareTo(XOccurrence *other)

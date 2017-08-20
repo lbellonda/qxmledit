@@ -1,8 +1,10 @@
 <SchemaTypeSchema name="">
  <SchemaTypeOutlineElement name="project">
    <SchemaTypeOutlineGroup name="theGroup">
-    <SchemaTypeOutlineElement name="a"/>
-    <SchemaTypeOutlineElement name="b"/>
+    <SchemaTypeOutlineSequence>
+        <SchemaTypeOutlineElement name="a"/>
+        <SchemaTypeOutlineElement name="b"/>
+      </SchemaTypeOutlineSequence>
    </SchemaTypeOutlineGroup>
  </SchemaTypeOutlineElement>
 </SchemaTypeSchema>

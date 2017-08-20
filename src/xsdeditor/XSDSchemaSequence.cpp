@@ -25,7 +25,6 @@
 
 XSchemaSequence::XSchemaSequence(XSchemaObject *newParent, XSchemaRoot *newRoot) : XSchemaObject(newParent, newRoot)
 {
-    _maxOccurs.isUnbounded = true ;
 }
 
 XSchemaSequence::~XSchemaSequence()
@@ -59,12 +58,22 @@ XSchemaSequence* XSchemaSequence::addSequence()
     return realAddSequence();
 }
 
+XOccurrence & XSchemaSequence::maxOccurs()
+{
+    return _maxOccurs;
+}
+
+XOccurrence & XSchemaSequence::minOccurs()
+{
+    return _minOccurs;
+}
+
 bool XSchemaSequence::generateDom(QDomDocument &document, QDomNode &parent)
 {
     QDomElement element = createElement(document, IO_XSD_SEQUENCE);
     addAttrNotEmpty(element, IO_GENERIC_ID, _id);
     _minOccurs.addAttrToNode(element, IO_GENERIC_MINOCCURS);
-    _minOccurs.addAttrToNode(element, IO_GENERIC_MAXOCCURS);
+    _maxOccurs.addAttrToNode(element, IO_GENERIC_MAXOCCURS);
     addOtherAttributesToDom(element);
     if(NULL != _annotation) {
         _annotation->generateDom(document, element);
@@ -76,15 +85,7 @@ bool XSchemaSequence::generateDom(QDomDocument &document, QDomNode &parent)
 
 QString XSchemaSequence::description()
 {
-    QString occurrences ;
-    if((_minOccurs.isSet) && (_maxOccurs.isSet)) {
-        occurrences = QString("%1 .. %2").arg(_minOccurs.toString()).arg(_maxOccurs.toString());
-    } else if(_minOccurs.isSet) {
-        occurrences = QString("%1 .. ").arg(_minOccurs.toString());
-    } else if(_maxOccurs.isSet) {
-        occurrences = QString(" .. %1").arg(_maxOccurs.toString());
-    }
-    return occurrences ;
+    return occurrencesDescrString(minOccurs(), maxOccurs());
 }
 
 // ---------- load

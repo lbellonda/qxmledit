@@ -1,4 +1,68 @@
 <SchemaTypeSchema name="">
  <SchemaTypeOutlineElement name="project">
+  <SchemaTypeOutlineSequence>
+    <SchemaTypeOutlineElement name="inline"/>
+    <SchemaTypeOutlineElement name="ref1">
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="ref1_uno"/>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+    <SchemaTypeOutlineElement name="i1">
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="tipo1_uno"/>
+            <SchemaTypeOutlineElement name="tipo1_due">
+                <SchemaTypeOutlineChoice>
+                    <SchemaTypeOutlineElement name="TYPE_CHOICE_uno"/>
+                    <SchemaTypeOutlineElement name="TYPE_CHOICE_due"/>
+                </SchemaTypeOutlineChoice>
+            </SchemaTypeOutlineElement>
+            <SchemaTypeOutlineElement name="tipo1_tre">
+                <SchemaTypeOutlineChoice>
+                    <SchemaTypeOutlineElement name="tipo1_choice1"/>
+                    <SchemaTypeOutlineElement name="tipo1_choice2"/>
+                </SchemaTypeOutlineChoice>
+             </SchemaTypeOutlineElement>
+        </SchemaTypeOutlineSequence>
+     </SchemaTypeOutlineElement>
+     <SchemaTypeOutlineElement name="complexInner">
+         <SchemaTypeOutlineSequence>
+             <SchemaTypeOutlineElement name="inline2"/>
+         </SchemaTypeOutlineSequence>
+     </SchemaTypeOutlineElement>
+     <SchemaTypeOutlineElement name="e_simple_r"/>
+     <SchemaTypeOutlineElement name="et_simple_r"/>
+     <SchemaTypeOutlineElement name="ee_simple_r"/>
+
+    <SchemaTypeOutlineElement name="ie_ct_extend_st"/>
+    <SchemaTypeOutlineElement name="e_ct_extend_st"/>
+    <SchemaTypeOutlineElement name="eect_extend_st"/>
+
+    <SchemaTypeOutlineElement name="inlineel_c_t_ex">
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="uno"/>
+            <SchemaTypeOutlineElement name="due"/>
+        </SchemaTypeOutlineSequence>
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="tre"/>
+            <SchemaTypeOutlineElement name="quattro"/>
+            <SchemaTypeOutlineElement name="cinque"/>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+
+    <SchemaTypeOutlineElement name="el_c_t_ex">
+    </SchemaTypeOutlineElement>
+    <SchemaTypeOutlineElement name="eect_extend_ct">
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="uno"/>
+            <SchemaTypeOutlineElement name="due"/>
+        </SchemaTypeOutlineSequence>
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="sei"/>
+            <SchemaTypeOutlineElement name="sette"/>
+            <SchemaTypeOutlineElement name="otto"/>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+
+  </SchemaTypeOutlineSequence>
  </SchemaTypeOutlineElement>
 </SchemaTypeSchema>

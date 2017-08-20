@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- validation: valid -->
+<xsd:schema targetNamespace="test" elementFormDefault="qualified" xmlns="test" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:complexType name="tone">
+        <xsd:sequence>
+            <xsd:element name="two" />
+            <xsd:element type="tone" name="one" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="tone1" >
+        <xsd:sequence>
+            <xsd:element name="two" />
+            <xsd:element name="xxx" type="tone" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="one2" >
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="two" />
+                <xsd:element name="one1" type="tone1" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="tone3">
+        <xsd:sequence>
+            <xsd:element name="two" />
+            <xsd:element name="one1" type="tone1" minOccurs="0"/>
+            <xsd:element ref="one2" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>

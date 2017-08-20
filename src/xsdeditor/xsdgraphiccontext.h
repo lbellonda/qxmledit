@@ -96,6 +96,7 @@ public:
     void setContextType(const EContextType value);
 
     void clear();
+    void clearCache();
 
     QFont mainFont()
     {

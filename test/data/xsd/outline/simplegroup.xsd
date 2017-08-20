@@ -1,14 +1,14 @@
 <?xml version='1.0'?>
 <!-- valid -->
-<xs:schema>
-  <xsd:group name="theGroup">
-    <xsd:sequence>
-        <xsd:element name="a"/>
-        <xsd:element name="b"/>
-    <xsd:sequence>
-  </xsd:group>
-  <xs:element name="project" type="test:PROJECT"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:group name="theGroup">
+    <xs:sequence>
+        <xs:element name="a"/>
+        <xs:element name="b"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="project" type="PROJECT"/>
   <xs:complexType name="PROJECT">
-    <xs:group name="theGroup"/>
+    <xs:group ref="theGroup"/>
   </xs:complexType>
 </xs:schema>

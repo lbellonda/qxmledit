@@ -25,32 +25,17 @@
 #include "xsdeditor/XSchemaIOContants.h"
 #include "utils.h"
 
-XSchemaOutlineElement::XSchemaOutlineElement(XSchemaObject *newParent, XSchemaRoot *newRoot) : XSchemaObject(newParent, newRoot)
+XSchemaOutlineElement::XSchemaOutlineElement(XSchemaObject *newParent, XSchemaRoot *newRoot) : XSchemaOutlineContainer(newParent, newRoot)
 {
-    /*INIT_XSD_ATTRD(_defaultValue);
-    INIT_XSD_ATTRD(_fixed);
-    INIT_XSD_ATTRD(_ref);
-    INIT_XSD_ATTR(_nillable, XEnums::XBOOL_TRUE) ;
-    INIT_XSD_ATTR(_abstract, XEnums::XBOOL_FALSE) ;
-    INIT_XSD_ATTR(_form, EQ_MISSING) ;
-    INIT_XSD_ATTRD(_xsdType);
-    INIT_XSD_ATTRD(_block);
-    _isPredefined = false ;
-    _elementCategory = category ;
-    _maxOccurs.defaultValue = 1 ;
-    _minOccurs.defaultValue = 1 ;
-    _mixed = XEnums::XBOOL_FALSE;
-    _isTypeOrElement = false ;
-    _annotation = NULL ;
-    _innerAnnotation = NULL ;*/
+    Utils::TODO_THIS_RELEASE("fare flag di ricorsione stampando i ...");
+
+    _element = NULL ;
+    _realElement = NULL ;
+    _isAlreadyProcessed = false ;
 }
 
 XSchemaOutlineElement::~XSchemaOutlineElement()
 {
-    /*if(_innerAnnotation) {
-        delete _innerAnnotation ;
-        _innerAnnotation = NULL ;
-    }*/
     reset();
 }
 
@@ -66,12 +51,13 @@ XSchemaElement *XSchemaOutlineElement::getElement() const
     return _element;
 }
 
-void XSchemaOutlineElement::setElement(XSchemaElement *value)
+void XSchemaOutlineElement::setElement(XSchemaInquiryContext &context, XSchemaElement *value)
 {
     const bool calculate = (_element != value);
     _element = value;
+    _realElement = NULL ;
     if(calculate) {
-        calculateElement();
+        calculateElement(context);
     }
 }
 
@@ -81,36 +67,113 @@ QString XSchemaOutlineElement::tagName()
     return "boh";
 }
 
-XSDCompareObject::EXSDCompareObject XSchemaOutlineElement::innerCompareTo(XSchemaObject *, XSDCompareOptions &)
-{
-    return  XSDCompareObject::XSDOBJECT_UNCHANGED;
-}
-
-bool XSchemaOutlineElement::generateDom(QDomDocument &, QDomNode &)
-{
-    return false;
-}
-
-void XSchemaOutlineElement::calculateElement()
+void XSchemaOutlineElement::calculateElement(XSchemaInquiryContext &context)
 {
     reset();
-    Utils::TODO_THIS_RELEASE("attenzione alla ricorsione");
-    if( NULL == _element ) {
+    if(NULL == _element) {
         Utils::TODO_THIS_RELEASE("fare");
         return ;
     }
-    if( _element->isTypeOrElement()) {
-        Utils::TODO_THIS_RELEASE("fare");
+    _realElement = NULL ;
+    if(_element->isTypeOrElement()) {
+        Utils::TODO_THIS_RELEASE("fare, tipo");
         _name = _element->name();
+        _realElement = _element ;
     } else {
         if(XRT_ELEMENT == _element->referencedObjectType()) {
             XSchemaElement *referencedElement = _element->getReferencedElement();
+            if(NULL == referencedElement) {
+                // no way
+                Utils::TODO_THIS_RELEASE("fare");
+                //raiseError(context, _element, QDomNode(), true);
+                return ;
+            }
             _name = referencedElement->name();
+            _realElement = referencedElement ;
         } else {
             _name = _element->name();
+            const QString type = _element->typeString();
+            if(!type.isEmpty()) {
+                _realElement = _element->resolveType(_element);
+                Utils::TODO_THIS_RELEASE("fare");
+            }
+            if(NULL == _realElement) {
+                _realElement = _element ;
+            }
         }
     }
+
+    //check if a parent is enrolled
+    /*debug code if(NULL == _realElement) {
+        printf("Real elm is null\n");
+    } else {
+        printf("EL: %s\n", _realElement->name().toLatin1().data());
+    }*/
+    if(isEnrolled()) {
+        Utils::TODO_THIS_RELEASE("disegna stop forzato");
+        _isAlreadyProcessed = true;
+        return ;
+    }
+    Utils::TODO_THIS_RELEASE("fine");
+
+    QList<XSchemaObject*> baseElements;
+    Utils::TODO_THIS_RELEASE("fare enrolled in context");
+    bool isEnrolledSub = false;
+    context.setEnrollFlag(&isEnrolledSub);
+    bool isOk = _element->findBaseObjects(context, baseElements, _attributes);
+    if(isOk) {
+        if(isEnrolledSub) {
+            _isAlreadyProcessed = true;
+        }
+        collectOutlineChildrenOfObject(context, baseElements);
+    }
 }
+
+bool XSchemaOutlineElement::isEnrolled()
+{
+    XSchemaObject *theParent = xsdParent();
+    while(theParent != NULL) {
+        if(theParent->getType() == SchemaTypeOutlineElement) {
+            XSchemaOutlineElement* outlineElement = static_cast<XSchemaOutlineElement*>(theParent);
+            if(outlineElement->_realElement == _realElement) {
+                return true;
+            }
+        }
+        theParent = theParent->xsdParent();
+    }
+    return false;
+}
+
+bool XSchemaOutlineElement::hasAttributes()
+{
+    return !_attributes.isEmpty();
+}
+
+QString XSchemaOutlineElement::occurrencesDescr()
+{
+    if(NULL != _element) {
+        return _element->occurrencesDescr();
+    }
+    return "";
+}
+
+int XSchemaOutlineElement::minOccurrences()
+{
+    if(NULL != _element) {
+        return _element->minOccurrences();
+    }
+    return 1;
+}
+
+int XSchemaOutlineElement::maxOccurrences()
+{
+    if(NULL != _element) {
+        return _element->maxOccurrences();
+    }
+    return 1;
+}
+
+
 /*
 Remember:
 element: (simpleType|complexType)?
@@ -124,5 +187,103 @@ complex:
 extension: group|all|choice|sequence
   restriction:(group|all|choice|sequence)
 
-
 */
+
+void XSchemaOutlineContainer::collectOutlineChildrenOfObject(XSchemaInquiryContext &context, QList<XSchemaObject*> &baseElements)
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    foreach(XSchemaObject * child, baseElements) {
+        switch(child->getType()) {
+        default:
+            //Debug message(">>>>found type:" + child->typeString());
+            break;
+        // take children
+        case SchemaContainer:
+            collectOutlineChildrenOfObject(context, static_cast<XSchemaContainer*>(child)->existingChildren());
+            Utils::TODO_THIS_RELEASE("fare pulizia");
+            delete child;
+            // remove the (unused)container object
+            break;
+
+        case SchemaTypeElement: {
+            XSchemaElement *element = static_cast<XSchemaElement*>(child);
+            XSchemaOutlineElement *outlineElement = new XSchemaOutlineElement(this, _root);
+            addChild(outlineElement);
+            // Delve deep into children.
+            outlineElement->setSchemaObject(child);
+            outlineElement->setElement(context, element);
+        }
+        break;
+        case SchemaTypeGroup:
+            collectOutlineContainerChildrenGroupRef(context, static_cast<XSchemaGroup*>(child));
+            break;
+        case SchemaTypeAll:
+            collectOutlineContainerChildren(context, new XSchemaOutlineAll(this, _root), child);
+            break;
+        case SchemaTypeSequence:
+            collectOutlineContainerChildren(context, new XSchemaOutlineSequence(this, _root), child);
+            break;
+        case SchemaTypeChoice:
+            collectOutlineContainerChildren(context, new XSchemaOutlineChoice(this, _root), child);
+            break;
+        case SchemaTypeAny:
+            collectOutlineContainerChildren(context, new XSchemaOutlineAny(this, _root), child);
+            break;
+        }
+    }
+}
+
+void XSchemaOutlineContainer::collectOutlineContainerChildren(XSchemaInquiryContext &context, XSchemaOutlineContainer *container, XSchemaObject *theSchemaObject)
+{
+    addChild(container);
+    // Delve deep into children.
+    container->setSchemaObject(theSchemaObject);
+    container->collectOutlineChildrenOfObject(context, theSchemaObject->getChildren());
+}
+
+void XSchemaOutlineContainer::collectOutlineContainerChildrenGroupRef(XSchemaInquiryContext &context, XSchemaGroup *theSchemaGroup)
+{
+    XSchemaOutlineGroup *group = new XSchemaOutlineGroup(this, _root);
+    addChild(group);
+    XSchemaGroup *refGroup = NULL ;
+    const QString &groupName = theSchemaGroup->referencedObjectName();
+    if(!groupName.isEmpty()) {
+        refGroup = _root->schema()->topLevelGroup(groupName);
+    }
+    if(NULL == refGroup) {
+        return ;
+    }
+    // Delve deep into children.
+    group->setName(refGroup->name());
+    group->setSchemaObject(refGroup);
+    /*if(context.isGroupEnrolled(refGroup)) {
+        _al = tru el
+        return ;
+    }*/
+    if(context.isEnrolled(refGroup)) {
+        group->setAlreadyProcessed(true);
+        return ;
+    }
+    group->collectOutlineChildrenOfObject(context, refGroup->getChildren());
+    //context.enrollGroup(refGroup, group->childrenCount());
+    context.enroll(refGroup);
+}
+
+bool XSchemaOutlineGroup::isAlreadyProcessed() const
+{
+    return _isAlreadyProcessed;
+}
+
+void XSchemaOutlineGroup::setAlreadyProcessed(bool value)
+{
+    _isAlreadyProcessed = value;
+}
+
+QString XSchemaOutlineGroup::name()
+{
+    if(NULL != _group) {
+        return _group->name();
+    }
+    return "" ;
+}
+

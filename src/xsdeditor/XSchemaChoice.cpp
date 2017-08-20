@@ -22,10 +22,10 @@
 
 #include "xsdeditor/xschema.h"
 #include "xsdeditor/XSchemaIOContants.h"
+#include "utils.h"
 
 XSchemaChoice::XSchemaChoice(XSchemaObject *newParent, XSchemaRoot *newRoot) : XSchemaObject(newParent, newRoot)
 {
-    _maxOccurs.isUnbounded = true ;
 }
 
 XSchemaChoice::~XSchemaChoice()
@@ -120,13 +120,16 @@ void XSchemaChoice::scanForElements(XSDLoadContext *loadContext, QDomElement &el
 
 QString XSchemaChoice::description()
 {
-    QString occurrences ;
-    if((_minOccurs.isSet) && (_maxOccurs.isSet)) {
-        occurrences = QString("%1 .. %2").arg(_minOccurs.toString()).arg(_maxOccurs.toString());
-    } else if(_minOccurs.isSet) {
-        occurrences = QString("%1 .. ").arg(_minOccurs.toString());
-    } else if(_maxOccurs.isSet) {
-        occurrences = QString(" .. %1").arg(_maxOccurs.toString());
-    }
-    return QString("choice %1").arg(occurrences);
+    Utils::TODO_THIS_RELEASE("manca la scritta choice? aNChe in sequence");
+    return occurrencesDescrString(minOccurs(), maxOccurs());
+}
+
+XOccurrence & XSchemaChoice::maxOccurs()
+{
+    return _maxOccurs;
+}
+
+XOccurrence & XSchemaChoice::minOccurs()
+{
+    return _minOccurs;
 }

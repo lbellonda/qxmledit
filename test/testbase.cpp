@@ -673,6 +673,23 @@ bool TestBase::readFromFile(const QString &file, QString &result)
     return ok;
 }
 
+bool TestBase::writeToFile(const QString &file, QString &dataString)
+{
+    bool ok = false ;
+    QFile data(file);
+    if (data.open(QFile::WriteOnly | QFile::Text)) {
+        ok = true ;
+        QTextStream streamOut(&data);
+        streamOut << dataString ;
+        streamOut.flush();
+        if(data.error() != QFile::NoError) {
+            ok = false;
+        }
+        data.close();
+    }
+    return ok;
+}
+
 void TestBase::dumpTree(QTreeWidget *tree)
 {
     printf("Dump tree begin\n");

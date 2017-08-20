@@ -24,7 +24,9 @@
 #include <QClipboard>
 #include <QApplication>
 #include <QFile>
+#include <QHash>
 #include "utils.h"
+#include "xmlutils.h"
 #include "xsdeditor/XSchemaIOContants.h"
 #include "xsdeditor/io/xschemaloader.h"
 
@@ -310,6 +312,7 @@ void XSDSchema::addNamespace(QDomAttr &attr)
     QString nsPrefix = name.mid(index + 1);
     _namespaces.insert(attr.value());
     _namespacesByPrefix.insert(nsPrefix, attr.value());
+    _prefixesByNamespace.insert(attr.value(), nsPrefix);
 }
 
 void XSDSchema::addDefaultNamespace(const QString &ns)
@@ -337,15 +340,43 @@ XSDSchema* XSDSchema::schema()
 
 QList<XSchemaElement *> XSDSchema::collectCandidateRootElement()
 {
-    Utils::TODO_THIS_RELEASE("check namespaces");
+    Utils::TODO_THIS_RELEASE("check namespaces (in corso)");
     QList<XSchemaElement *> items;
     QSet<QString> references;
     scanForInnerElementReference(this, references);
+    QStringList prefixesToUse;
+    if(!_targetNamespace.isEmpty() && _prefixesByNamespace.contains(_targetNamespace)) {
+        QList<QString> values = _prefixesByNamespace.values(_targetNamespace);
+        foreach(const QString &prefix, values) {
+            prefixesToUse.append(prefix);
+        }
+    }
     foreach(XSchemaObject * child, _children) {
-        if( child->getType() == ESchemaType::SchemaTypeElement ) {
+        Utils::TODO_THIS_RELEASE("if(child->getType() == ESchemaType::SchemaTypeElement) {");
+        if(child->getType() == SchemaTypeElement) {
             XSchemaElement* element = static_cast<XSchemaElement*>(child);
-            if( !element->isTypeOrElement() && !references.contains(element->name()) ) {
-                items.append(element);
+            if(!element->isTypeOrElement()) {
+                if(!references.contains(element->name())) {
+                    // build namespace alias
+                    if(!_targetNamespace.isEmpty()) {
+                        bool found = false;
+                        foreach(const QString &nsPrefix, prefixesToUse) {
+                            if(!nsPrefix.isEmpty()) {
+                                const QString &nameToTest = XmlUtils::makeQualifiedName(nsPrefix, element->name());
+                                if(references.contains(nameToTest)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                        // foreach
+                        if(!found) {
+                            items.append(element);
+                        }
+                    } else {
+                        items.append(element);
+                    }
+                } // if contains
             }
         }
     }
@@ -580,21 +611,29 @@ void XSDSchema::scanForInnerElements(XSchemaObject *parent, QList<XSchemaObject*
     }
 }
 
+/**
+ * @brief XSDSchema::scanForInnerElementReference
+ * @param parent
+ * @param references
+ * @warning: a reference to itself is valid
+ */
 void XSDSchema::scanForInnerElementReference(XSchemaObject *parent, QSet<QString> &references)
 {
     foreach(XSchemaObject * child, parent->getChildren()) {
         if(child->getType() == SchemaTypeElement) {
             if(!static_cast<XSchemaElement*>(child)->isTypeOrElement()) {
                 XSchemaElement* element = static_cast<XSchemaElement*>(child);
-                if(element->referencedObjectType() == XRT_ELEMENT ) {
-                    references.insert(element->referencedObjectName());
+                if(element->referencedObjectType() == XRT_ELEMENT) {
+                    // Check for itself
+                    if(!element->isReferencingItself())  {
+                        references.insert(element->referencedObjectName());
+                    }
                 }
             }
         }
         scanForInnerElementReference(child, references);
     }
 }
-
 
 XSchemaElement *XSDSchema::findSimpleType(const QString &nameToSearch)
 {

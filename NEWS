@@ -1,4 +1,5 @@
 0.9.8
+    Outline mode for XSD view.
 
 0.9.7.1
     Fixed issue #41, statement may fall through (https://github.com/lbellonda/qxmledit/issues/41)

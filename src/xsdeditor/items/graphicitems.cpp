@@ -61,12 +61,35 @@ GraphicsRoundRectItem::GraphicsRoundRectItem(ItemServiceExecutor *service, QGrap
     _colorMiddle = QColor(205, 241, 254);
     _colorEnd = QColor(237, 250, 254);
     _isOptional = false;
+    _isSingleColor = false;
+    _useDimShadow = false ;
 
     setService(service);
 }
 
 GraphicsRoundRectItem::~GraphicsRoundRectItem()
 {
+}
+
+bool GraphicsRoundRectItem::isUseDimShadow() const
+{
+    return _useDimShadow;
+}
+
+void GraphicsRoundRectItem::setUseDimShadow(bool value)
+{
+    _useDimShadow = value;
+}
+
+bool GraphicsRoundRectItem::isSingleColor() const
+{
+    return _isSingleColor;
+}
+
+void GraphicsRoundRectItem::setSingleColor(bool value)
+{
+    _isSingleColor = value;
+    update();
 }
 
 bool GraphicsRoundRectItem::isOptional() const
@@ -148,6 +171,10 @@ void GraphicsRoundRectItem::drawShadow(QPainter *painter, QRectF &bounds)
     QPen pen(Qt::NoPen);
     painter->setPen(pen);
 
+    if(_useDimShadow) {
+        bounds.setHeight(bounds.height() - 2);
+        bounds.setWidth(bounds.width() - 2);
+    }
     painter->drawRoundRect(bounds, 25, 25);
 }
 
@@ -162,15 +189,20 @@ void GraphicsRoundRectItem::paint(QPainter *painter, const QStyleOptionGraphicsI
     drawShadow(painter, shadowRect);
 
 
-    QLinearGradient gradient;
-    gradient.setStart(0, 0);
-    gradient.setFinalStop(0, bounds.height());
-    gradient.setColorAt(0, _colorStart);
-    gradient.setColorAt(0.3, _colorMiddle);
-    gradient.setColorAt(1, _colorEnd);
+    if(!_isSingleColor) {
+        QLinearGradient gradient;
+        gradient.setStart(0, 0);
+        gradient.setFinalStop(0, bounds.height());
+        gradient.setColorAt(0, _colorStart);
+        gradient.setColorAt(0.3, _colorMiddle);
+        gradient.setColorAt(1, _colorEnd);
 
-    QBrush brush(gradient);
-    painter->setBrush(brush);
+        QBrush brush(gradient);
+        painter->setBrush(brush);
+    } else {
+        QBrush brush(_colorStart);
+        painter->setBrush(brush);
+    }
 
     if(isOptional()) {
         QPen pen(Qt::DashLine);
@@ -204,6 +236,11 @@ void LineItem::updatePosition(XSDItemContext *context)
         QRectF r1 = _one->boundingRect();
         QRectF r2 = _other->boundingRect();
         if((NULL != context) && (XSDItemContext::DISPLAYSTR_HOR_PYRAMID == context->renderingStrategy())) {
+            QPointF pos1 = mapFromItem(_one, r1.left() + r1.width(), r1.top() + (r1.height() / 2)) ;
+            QPointF pos2 = mapFromItem(_other, r2.left(), r2.top() + (r2.height() / 2)) ;
+            QLineF line(pos1.x() + (pos2.x() - pos1.x()) / 2, pos2.y(), pos2.x(), pos2.y());
+            setLine(line);
+        } else if((NULL != context) && (XSDItemContext::DISPLAYSTR_NEW0 == context->renderingStrategy())) {
             QPointF pos1 = mapFromItem(_one, r1.left() + r1.width(), r1.top() + (r1.height() / 2)) ;
             QPointF pos2 = mapFromItem(_other, r2.left(), r2.top() + (r2.height() / 2)) ;
             QLineF line(pos1.x() + (pos2.x() - pos1.x()) / 2, pos2.y(), pos2.x(), pos2.y());

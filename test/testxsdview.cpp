@@ -51,6 +51,7 @@ bool TestXSDView::openXsdViewerOutlineMode(MainWindow *window, TestXSDWindow *xs
     xsdEditor->show();
     xsdEditor->setFileName("test");
     xsdEditor->setTitle("test");
+    xsdEditor->setOutlineMode(true);
     xsdEditor->loadStringImmediate(xmlAsString);
     if( xsdEditor->isInError() ) {
         return error("data not loaded in xsd viwever");
@@ -363,15 +364,15 @@ bool TestXSDView::compareOutlineStructure(XSDItem *item, Element *xml, const QSt
         return error(QString("items name differ: path:%1 left:'%2', expected:'%3'").arg(object->name()).arg(objectType).arg(xml->getAttributeValue("name")));
     }
     RChildren *itemChildren = item->rChildren();
+    const int xmlChildrenCount = xml->getChildItems()->size();
     if( xml->getChildItems()->size() != itemChildren->childrenSize() ) {
         return error( QString("element size differ, expected:%1 found:%2  path: %3").arg(xml->getChildItems()->size()).arg(itemChildren->childrenSize()).arg(path));
     }
-    int itemsGraphCount = object->getChildren().size();
     int itemsXMLCount = xml->getChildItemsCount();
-    if( itemsXMLCount != itemsGraphCount ) {
-        return error(QString("children items differs: path:%1 left:%2, expected:%3").arg(path).arg(itemsXMLCount).arg(itemsGraphCount));
+    if( itemsXMLCount != xmlChildrenCount ) {
+        return error(QString("children items differs: path:%1 left:%2, expected:%3").arg(path).arg(itemsXMLCount).arg(xmlChildrenCount));
     }
-    for( int i = 0 ; i < itemsGraphCount ; i ++ ) {
+    for( int i = 0 ; i < xmlChildrenCount ; i ++ ) {
         QString itemPath = QString("%1/%2").arg(path).arg(i);
         if(!compareOutlineStructure(itemChildren->childAt(i)->item(), xml->getChildAt(i), itemPath)) {
             return false;
@@ -379,6 +380,14 @@ bool TestXSDView::compareOutlineStructure(XSDItem *item, Element *xml, const QSt
     }
     return true;
 }
+
+class TestCP: public XSDRootChooseProvider {
+    public:
+    QString chooseRoot(QWidget *, QList<XSchemaElement*> )
+    {
+        return "theRoot";
+    }
+};
 
 bool TestXSDView::loadAndCompareOutline(const QString &id, const QString &inputFilePath, const QString &fileReference)
 {
@@ -395,6 +404,7 @@ bool TestXSDView::loadAndCompareOutline(const QString &id, const QString &inputF
     if(!openXsdViewerOutlineMode(app.mainWindow(), &xsdEditor)) {
         return false;
     }
+    xsdEditor.setChooseProvider(new TestCP());
     // finds the selection
     XSDItem *item = xsdEditor.root();
     if( NULL == item ) {
@@ -408,44 +418,104 @@ bool TestXSDView::loadAndCompareOutline(const QString &id, const QString &inputF
     Regola *regola = windowReference->getRegola();
 
     if(!compareOutlineStructure(item, regola->root(), "0")) {
+        QString regolaOutline = regola->getAsText();
+        QString msg = this->errorString();
+        msg += "\n\n";
+        msg += QString("Elab is:\n")+ item->dumpAsString(0);
+        msg += "\n\n";
+        msg += QString("Reference regola is:\n")+regolaOutline;
+        msg += "\n\n";
+        this->error(msg);
+        //writeToFile("/tmp/1", msg);
         return false;
     }
     return true;
 }
 
-#define FILE_BASE_PATH "../test/data/xsd/outline/"
-//--
-#define FILE_OUTLINE_ELEMENT_XSD FILE_BASE_PATH "element.xsd"
-#define FILE_OUTLINE_ELEMENT_REF FILE_BASE_PATH "element.ref"
-//--
-#define FILE_OUTLINE_ELEMENTREF_XSD FILE_BASE_PATH "elementref.xsd"
-#define FILE_OUTLINE_ELEMENTREF_REF FILE_BASE_PATH "elementref.ref"
+#define FILE_OUTLINE_BASE_PATH "../test/data/xsd/outline/"
+
+struct TestXSDViewOutline {
+    const char *id;
+    const char *fileIn;
+    const char *fileOut;
+};
+
+/* test to do:
+ * elem con gerarchia ns/nons
+ * elem ref con gerarchia ns/no inner/top
+ * elm type sempl inner/top
+ * elm type sempl restriz inner/top
+ * elm type sempl estens inner/top
+ * elm complex
+ *   seq-elm
+ *   choice
+ *   all
+ *   group
+ *   any
+ *  estensione
+ * restrizione
+ *
+ * tutto, con ricorsione
+ *
+ */
+
+static TestXSDViewOutline testDataOutlines []  = {
+
+    //--------------------------------
+    { "element", "element.xsd", "element.ref"},
+    // simple type
+    {"elementSimpleType", "elementst.xsd", "elementst.ref"},
+    {"elementSimpleTypeNoPrefix", "elementstnop.xsd", "elementstnop.ref"},
+    // complex element:
+    // sequence elements
+    {"elementSequence1", "sequence1.xsd", "sequence1.ref"},
+    {"elementSequence", "sequence.xsd", "sequence.ref"},
+    {"elementSequenceRef", "sequenceref.xsd", "sequenceref.ref"},
+    {"elementSequenceRefType", "sequencereftype.xsd", "sequencereftype.ref"},
+    {"elementInner", "elementinner.xsd", "elementinner.ref"},
+    {"elementCExt", "elres.xsd", "elres.ref"},
+    {"elementCRestr", "elrcrestr.xsd", "elcrestr.ref"},
+    {"recursiveElements", "recursiveelements.xsd", "recursiveelements.ref"},
+    {"recursiveElements1", "recursiveelements1.xsd", "recursiveelements1.ref"},
+    {"recursiveTypes", "recursivetypes.xsd", "recursivetypes.ref"},
+    // choice elements
+    // group elements
+    {"simpleGroup", "simplegroup.xsd", "simplegroup.ref"},
+    {"simpleGroupRef", "group/simplegroupref.xsd", "group/simplegroupref.ref"},
+    {"simpleGroupRefns", "group/simplegrouprefns.xsd", "group/simplegrouprefns.ref"},
+    {"groupAll", "group/groupall.xsd", "group/groupall.ref"},
+    {"groupchoice", "group/groupchoice.xsd", "group/groupchoice.ref"},
+    {"groupchoiceRef", "group/groupchoiceref.xsd", "group/groupchoiceref.ref"},
+    // all elements
+    {"allElements", "allelements.xsd", "allelements.ref"},
+    // restriction
+    // extension
+
+    // type ref complex
+    {NULL, NULL, NULL}
+};
 
 bool TestXSDView::testOutline()
 {
     _testName = "testOutline" ;
-    if(!loadAndCompareOutline("element", FILE_OUTLINE_ELEMENT_XSD, FILE_OUTLINE_ELEMENT_REF)) {
-        return false;
+
+    TestXSDViewOutline *ptr = &testDataOutlines[0] ;
+    while(ptr->id != NULL) {
+        const QString fileIn = QString(FILE_OUTLINE_BASE_PATH)+QString(ptr->fileIn);
+        const QString fileOut = QString(FILE_OUTLINE_BASE_PATH)+QString(ptr->fileOut);
+        if(!loadAndCompareOutline(ptr->id, fileIn, fileOut)) {
+            return false;
+        }
+        ptr++;
     }
-    if(!loadAndCompareOutline("elementRef", FILE_OUTLINE_ELEMENTREF_XSD, FILE_OUTLINE_ELEMENTREF_REF)) {
-        return false;
-    }
-    // simple type
-    // simple type extension
-    // simple type restriction
-    // complex element:
-    // sequence elements
-    // choice elements
-    // group elements
-    // all elements
-    // restriction
-    // extension
-    // type ref complex
-    return "nyi" ;
+    return true ;
 }
+
 
 bool TestXSDView::testFast()
 {
     _testName = "testFast";
-    return loadAndCompareOutline("elementRef", FILE_OUTLINE_ELEMENTREF_XSD, FILE_OUTLINE_ELEMENTREF_REF);
+    //return testBaseElement();
+    return testOutline();
+    //return testExtension();
 }

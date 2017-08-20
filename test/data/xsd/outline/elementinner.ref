@@ -1,0 +1,12 @@
+<SchemaTypeSchema name="">
+ <SchemaTypeOutlineElement name="project">
+  <SchemaTypeOutlineSequence>
+    <SchemaTypeOutlineElement name="tipo1_tre">
+        <SchemaTypeOutlineChoice>
+            <SchemaTypeOutlineElement name="tipo1_choice1"/>
+            <SchemaTypeOutlineElement name="tipo1_choice2"/>
+        </SchemaTypeOutlineChoice>
+     </SchemaTypeOutlineElement>
+  </SchemaTypeOutlineSequence>
+ </SchemaTypeOutlineElement>
+</SchemaTypeSchema>
