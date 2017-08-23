@@ -95,6 +95,12 @@ void VisDataSax::addTagNode(const QString &name)
     }
 }
 
+bool VisDataSax::startDocument()
+{
+    _currentElementPath = "";
+    return true ;
+}
+
 bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /*localName*/,
                               const QString &qName, const QXmlAttributes &attributes)
 {
@@ -103,7 +109,6 @@ bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /
     if(_userAborted) {
         return false;
     }
-    path.push(qName);
     QSet<QString>::const_iterator iter = names->insert(qName);
     QString name = *iter;
     if(NULL != tagNodes) {
@@ -113,9 +118,7 @@ bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /
     if(NULL == currentElement) {
         root = elem;
     }
-    Utils::TODO_THIS_RELEASE("fare piu efficiente");
-    Utils::TODO_THIS_RELEASE("attributes can be null");
-    QString currentPath = pathAsString();
+    _currentElementPath = Utils::pushCurrentElementPath(_currentElementPath, name);
 
     const int attrCount = attributes.count();
     quint64 attributesSize = 0;
@@ -127,7 +130,7 @@ bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /
         attributesSize += (unsigned)thisAttrSize ;
         elem->size += thisAttrSize;
         elem->size += 4; // blank, equals, 2 quotes
-        QString attributePath = currentPath + "/@" + attributeLocalName;
+        QString attributePath = _currentElementPath + "/@" + attributeLocalName;
         AttributeSummaryData * attributeSummaryData = attributesSummaryData->attributeSummaryData(attributePath, attributeLocalName);
         attributeSummaryData->count ++ ;
         attributeSummaryData->dataSize += thisAttrSize ;
@@ -147,7 +150,7 @@ bool VisDataSax::endElement(const QString &/*namespaceURI*/, const QString &/*lo
     if(NULL != currentElement) {
         currentElement = currentElement->parent;
     }
-    path.pop();
+    _currentElementPath = Utils::popCurrentElementPath(_currentElementPath);
     return true;
 }
 
@@ -185,14 +188,4 @@ bool VisDataSax::error(const QXmlParseException &exception)
 QString VisDataSax::errorString() const
 {
     return QObject::tr("Generic error.");
-}
-
-QString VisDataSax::pathAsString() const
-{
-    QString thePath ;
-    foreach(const QString &val, path) {
-        thePath += "/";
-        thePath += val;
-    }
-    return thePath;
 }

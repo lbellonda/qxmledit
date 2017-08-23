@@ -39,19 +39,19 @@ public:
     QSet<QString> *names;
     QHash<QString, TagNode*> *tagNodes;
     int _elementsCount;
-    QStack<QString> path;
     AttributesSummaryData *attributesSummaryData;
 private :
     bool _hasError;
     QString _errorMessage;
     volatile bool _userAborted;
+    QString _currentElementPath;
 private:
     void addTagNode(const QString &name);
-    QString pathAsString() const;
 public:
     VisDataSax(QSet<QString> *newNames, QHash<QString, TagNode*> *newTagNodes, AttributesSummaryData *newAttributesSummaryData);
     ~VisDataSax();
 
+    bool startDocument();
     bool startElement(const QString &namespaceURI, const QString &localName,
                       const QString &qName, const QXmlAttributes &attributes);
     bool endElement(const QString &namespaceURI, const QString &localName,

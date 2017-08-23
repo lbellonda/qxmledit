@@ -172,6 +172,9 @@ public:
     static bool isRegNameRFC4288(const QString &name);
     static void copyPairsToHash(QHash<QString, QString> &hash, QList<QPair<QString, QString> > &pairs);
     static qint64 infoSizeAboutLocalDevice(QIODevice *device, const QString &fileName);
+    //
+    static QString pushCurrentElementPath(const QString &current, const QString &name);
+    static QString popCurrentElementPath(const QString &current);
 };
 
 

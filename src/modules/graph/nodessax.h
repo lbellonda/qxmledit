@@ -37,13 +37,14 @@ public:
     QHash<QString, TagNode*> *tagNodes;
     AttributesSummaryData *attributesSummaryData;
 private:
+    QString _currentElementPath;
     void addTagNode(const QString &name);
-    QString pathAsString() const;
     void handleAttributes(const QXmlAttributes & attributes);
 public:
     NodesSax(QHash<QString, TagNode*> *newTagNodes, AttributesSummaryData *attributesSummaryData);
     ~NodesSax();
 
+    bool startDocument();
     bool startElement(const QString &namespaceURI, const QString &localName,
                       const QString &qName, const QXmlAttributes &attributes);
     bool endElement(const QString &namespaceURI, const QString &localName,

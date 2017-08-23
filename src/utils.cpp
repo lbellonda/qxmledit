@@ -1182,3 +1182,17 @@ qint64 Utils::infoSizeAboutLocalDevice(QIODevice *device, const QString &fileNam
     }
     return size ;
 }
+
+QString Utils::pushCurrentElementPath(const QString &current, const QString &name)
+{
+    return current + "/" + name ;
+}
+
+QString Utils::popCurrentElementPath(const QString &current)
+{
+    int index = current.lastIndexOf("/");
+    if(index >= 0) {
+        return current.left(index);
+    }
+    return current ;
+}
