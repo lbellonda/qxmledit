@@ -416,63 +416,11 @@ bool NodesRelationsDialog::innerLoadAttributesList(const QString &filePath, cons
 
 void NodesRelationsDialog::loadAttributesList(const bool isWhitelist)
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    /*if(!canLoadData) {
-        return;
-    }*/
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
                        QXmlEditData::sysFilePathForOperation(inputFileName), Utils::getFileFilterForCSVOrText());
     innerLoadAttributesList(filePath, isWhitelist);
-    Utils::TODO_THIS_RELEASE("rimuovi ");
-    /*if(!filePath.isEmpty()) {
-        if(_attributesSummaryData->loadFileAttributeList(this, filePath, isWhitelist)) {
-            controller.loadAttributesData(ui->textAttributes, _attributesSummaryData);
-        }
-    }*/
-    Utils::TODO_THIS_RELEASE("rimuovi sotto");
 }
 
-/*
-bool NodesRelationsDialog::loadFileAttributeList(const QString &filePath, const bool isWhitelist, AttributesSummaryData *attributesSummaryData)
-{
-    if(filePath.isEmpty()) {
-        Utils::errorFilePathInvalid(this);
-        return false ;
-    }
-    //--- set data
-    QFile file(filePath);
-    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        Utils::error(tr("An error occurred opening the file."));
-        return false ;
-    }
-    attributesSummaryData->resetLists();
-    QTextStream inputStream(&file);
-    QString line ;
-    do {
-        line = inputStream.readLine();
-        QString data = line.trimmed();
-        if(!data.isEmpty()) {
-            if(isWhitelist) {
-                attributesSummaryData->whiteList.insert(data);
-            } else  {
-                attributesSummaryData->blackList.insert(data);
-            }
-        }
-    } while(!line.isNull());
-
-    if(file.error() != QFile::NoError) {
-        Utils::error(tr("An error occurred reading data."));
-        return false;
-    }
-
-    file.close();
-
-    controller.loadAttributesData(ui->textAttributes, attributesSummaryData);
-    Utils::TODO_THIS_RELEASE("finire");
-
-    return true ;
-}
-*/
 void NodesRelationsDialog::on_cmdResetLists_clicked()
 {
     resetAttributeLists();
@@ -480,13 +428,8 @@ void NodesRelationsDialog::on_cmdResetLists_clicked()
 
 bool NodesRelationsDialog::resetAttributeLists()
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    /*if(!canLoadData) {
-        return;
-    }*/
     _attributesSummaryData->resetLists();
     controller.loadAttributesData(ui->textAttributes, _attributesSummaryData);
-    Utils::TODO_THIS_RELEASE("finire");
 
     return true ;
 }
@@ -496,7 +439,6 @@ bool NodesRelationsDialog::resetAttributeLists()
 
 void NodesRelationsDialog::exportAttributesCSV()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     QString filePath = QFileDialog::getSaveFileName(this, tr("Export CSV"),
                        QXmlEditData::sysFilePathForOperation(_exportCSVAttrs), Utils::getFileFilterForCSV());
 
@@ -509,17 +451,6 @@ void NodesRelationsDialog::exportAttributesCSV()
     if(exportAttributesCSVOnDevice(data)) {
         isOK = true ;
     }
-    /*if(data.open(QFile::WriteOnly | QFile::Truncate)) {
-        QTextStream outStream(&data);
-        controller.exportAttributesInCSVToStream(outStream, _attributesSummaryData);
-        outStream.flush();
-        data.flush();
-        data.close();
-        if(data.error() == QFile::NoError) {
-            isOK = true;
-        }
-        data.close();
-    }*/
     if(!isOK) {
         Utils::error(this, tr("Error writing data."));
     }
@@ -528,20 +459,25 @@ void NodesRelationsDialog::exportAttributesCSV()
 bool NodesRelationsDialog::exportAttributesCSVOnDevice(QIODevice &ioDevice)
 {
     bool isOK = false ;
+    QString className ;
+    const char * cName = ioDevice.metaObject()->className() ;
+    if(NULL != cName) {
+        className = cName ;
+    }
+    bool isFile = className == "QFile";
     if(ioDevice.open(QFile::WriteOnly | QFile::Truncate)) {
         QTextStream outStream(&ioDevice);
         outStream.setCodec("utf-8");
         controller.exportAttributesInCSVToStream(outStream, _attributesSummaryData);
         outStream.flush();
-        Utils::TODO_THIS_RELEASE("ioDevice.flush();");
         ioDevice.close();
-        Utils::TODO_THIS_RELEASE("if(ioDevice.error() == QFile::NoError) {");
-        isOK = true;
-        Utils::TODO_THIS_RELEASE("}");
-        ioDevice.close();
-    }
-    if(!isOK) {
-        Utils::error(this, tr("Error writing data."));
+        if(isFile) {
+            if(((QFile&)ioDevice).error() == QFile::NoError) {
+                isOK = true;
+            }
+        } else {
+            isOK = true;
+        }
     }
     return isOK;
 }

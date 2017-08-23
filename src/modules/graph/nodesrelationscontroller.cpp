@@ -825,8 +825,6 @@ QString NodesRelationsController::formatSingleValue(const QString &inputText, co
 
 void NodesRelationsController::calculateSingleAttributeLine(QString &text, AttributeSummaryData *attributeSummaryData, const long fileSize, const bool isHTML)
 {
-    Utils::TODO_THIS_RELEASE("attenzione al multibyte");
-    Utils::TODO_THIS_RELEASE("fare html o csv con flag");
     text += formatSingleValue(QString::number(attributeSummaryData->count), true, isHTML);
     text += formatSingleValue(QString::number(attributeSummaryData->countEmpty), true, isHTML);
     long dataSize = attributeSummaryData->sizeCharacters();
@@ -850,7 +848,6 @@ void NodesRelationsController::calculateSingleAttributeLine(QString &text, Attri
 
 void NodesRelationsController::exportAttributesInCSVToStream(QTextStream &stream, AttributesSummaryData* attributesSummaryData)
 {
-    Utils::TODO_THIS_RELEASE("finire ed ordinare");
     if(NULL == attributesSummaryData) {
         return ;
     }
@@ -867,7 +864,7 @@ void NodesRelationsController::exportAttributesInCSVToStream(QTextStream &stream
     stream << Utils::valueStringCSV(tr("% Size"), false);
     stream << Utils::valueStringCSV(tr("Used"), false);
     stream << "\n";
-    Utils::TODO_THIS_RELEASE("vedi sortattributes.cpp");
+
     QMap<QString, QString> sortedMap;
     long sizeFile = 0 ;
     foreach(const QString & key, attributesSummaryData->data.keys()) {

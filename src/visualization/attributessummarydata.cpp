@@ -27,7 +27,6 @@
 
 AttributeSummaryData::AttributeSummaryData()
 {
-    Utils::TODO_THIS_RELEASE("percentuale come decimali???");
     count = 0;
     dataSize = 0;
     countEmpty = 0 ;
@@ -89,7 +88,6 @@ AttributeSummaryData * AttributesSummaryData::attributeSummaryData(const QString
     AttributeSummaryData * attributeSummaryData = data[path];
     if(NULL == attributeSummaryData) {
         attributeSummaryData = new AttributeSummaryData();
-        Utils::TODO_THIS_RELEASE("capire");
         attributeSummaryData->name = name ;
         data.insert(path, attributeSummaryData);
     }
@@ -342,7 +340,6 @@ void AttributesSummarySummary::calculateBlock(QMap<QString, QString> attrsKeys, 
 
 bool AttributesSummarySummary::calculate(AttributesSummaryData* attributesSummaryData)
 {
-    Utils::TODO_THIS_RELEASE("finire ed ordinare");
     if(NULL == attributesSummaryData) {
         return false;
     }
