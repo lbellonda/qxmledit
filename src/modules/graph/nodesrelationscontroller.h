@@ -27,11 +27,15 @@
 #include <QList>
 #include <QHash>
 #include <QTableWidget>
+#include <QTextBrowser>
 
 class NodesRelationsDialog;
 class TagNode;
 class TagSpring;
 class TagMarker;
+class AttributesSummaryData;
+class AttributeSummaryData;
+class AttributesSummaryTotal;
 
 class NodesRelationsController : public QObject
 {
@@ -77,7 +81,14 @@ protected:
     void hideOtherMarkers(TagMarker *selMarker);
     void hideOtherSprings();
     bool timedHide();
-
+    void calculateSingleAttributeLine(QString &text, AttributeSummaryData *attributeSummaryData, const long fileSize, const bool isHTML);
+    void tableAttributeData(QString & text, QMap<QString, QString> attrsKeys, AttributesSummaryData* attributesSummaryData, const QString &msg, const long sizeFile);
+    QString formatSingleValue(const QString &inputText, const bool isNumber, const bool isHTML);
+    void printAttributesTable(QString & text, QMap<QString, QString> attrsKeys,
+                              AttributesSummaryData* attributesSummaryData,
+                              AttributesSummaryTotal &total,
+                              const QString &msg, const QString &msgTotal,
+                              const long sizeFile);
 public:
     NodesRelationsController(NodesRelationsDialog *newDialog);
     ~NodesRelationsController();
@@ -108,6 +119,8 @@ public:
 
     void onMarkerClicked(TagMarker *marker);
     void saveDataToStream(QTextStream &outStream);
+    void loadAttributesData(QTextBrowser *textBrowser, AttributesSummaryData* attributesSummaryData);
+    void exportAttributesInCSVToStream(QTextStream &stream, AttributesSummaryData* attributesSummaryData);
 
 signals:
     void recalc();

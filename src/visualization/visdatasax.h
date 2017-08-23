@@ -29,6 +29,7 @@
 #include "xmlEdit.h"
 #include "elementbase.h"
 #include "modules/graph/tagnodes.h"
+#include "attributessummarydata.h"
 
 class VisDataSax : public QXmlDefaultHandler
 {
@@ -38,14 +39,17 @@ public:
     QSet<QString> *names;
     QHash<QString, TagNode*> *tagNodes;
     int _elementsCount;
+    QStack<QString> path;
+    AttributesSummaryData *attributesSummaryData;
 private :
     bool _hasError;
     QString _errorMessage;
     volatile bool _userAborted;
 private:
     void addTagNode(const QString &name);
+    QString pathAsString() const;
 public:
-    VisDataSax(QSet<QString> *newNames, QHash<QString, TagNode*> *newTagNodes);
+    VisDataSax(QSet<QString> *newNames, QHash<QString, TagNode*> *newTagNodes, AttributesSummaryData *newAttributesSummaryData);
     ~VisDataSax();
 
     bool startElement(const QString &namespaceURI, const QString &localName,

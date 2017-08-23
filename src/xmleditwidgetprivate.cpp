@@ -568,11 +568,11 @@ void XmlEditWidgetPrivate::buildCopyMenu()
                 text += "...";
             }
             QAction *elementTextAction = createAnAction(copyMenu, QString(tr("Copy Text '%1'")).arg(text), CS_ELEMENT_TEXT, tr("Copy Element Text"));
-            connect(elementTextAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
+            connect(elementTextAction, SIGNAL(triggered()), this, SLOT(onCopySpecial()));
             copyMenu->addAction(elementTextAction);
         }
         QAction *elementTagAction = createAnAction(copyMenu, QString(tr("Copy Tag <%1>")).arg(element->tag()), CS_ELEMENT_TAG, tr("Copy Element Tag"));
-        connect(elementTagAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
+        connect(elementTagAction, SIGNAL(triggered()), this, SLOT(onCopySpecial()));
         copyMenu->addAction(elementTagAction);
     }
     QList<Attribute*>attributes = element->getAttributesList();
@@ -583,7 +583,7 @@ void XmlEditWidgetPrivate::buildCopyMenu()
     foreach(QString attributeName, attributesMap.keys()) {
         QString attributeValue = attributesMap[attributeName];
         QAction *attributeNameAction = createAnAction(copyMenu, QString(tr("Copy '%1'")).arg(attributeName), CS_ATTRIBUTE_NAME + attributeName, tr("Copy Attribute Name"));
-        connect(attributeNameAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
+        connect(attributeNameAction, SIGNAL(triggered()), this, SLOT(onCopySpecial()));
         copyMenu->addAction(attributeNameAction);
         QString value = attributeValue;
         if(value.length() > 10) {
@@ -591,7 +591,7 @@ void XmlEditWidgetPrivate::buildCopyMenu()
             value += "...";
         }
         QAction *attributeValueAction = createAnAction(copyMenu, QString(tr("Copy value %1='%2'")).arg(attributeName).arg(value), CS_ATTRIBUTE_VALUE + attributeName, tr("Copy Attribute Value"));
-        connect(attributeValueAction , SIGNAL(triggered()), this, SLOT(onCopySpecial()));
+        connect(attributeValueAction, SIGNAL(triggered()), this, SLOT(onCopySpecial()));
         copyMenu->addAction(attributeValueAction);
 
     }
@@ -2615,7 +2615,8 @@ void XmlEditWidgetPrivate::viewNodes()
         QByteArray regolaData = regola->writeMemory();
         QBuffer regolaBuffer(&regolaData);
         QList<TagNode*> nodesList ;
-        NodesRelationsDialog dialog(false, nodesList);
+        Utils::TODO_THIS_RELEASE("calcolare?");
+        NodesRelationsDialog dialog(false, nodesList, NULL);
         dialog.loadNodesFromFile(&regolaBuffer, regola->fileName());
         dialog.exec();
     }

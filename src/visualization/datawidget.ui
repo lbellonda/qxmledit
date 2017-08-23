@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
+  </property>
   <action name="actionCopyDataToClipboard">
    <property name="text">
     <string>Copy Data to Clipboard</string>
@@ -37,6 +41,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../risorse.qrc"/>
+ </resources>
  <connections/>
 </ui>

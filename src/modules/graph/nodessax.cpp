@@ -22,11 +22,13 @@
 
 
 #include "nodessax.h"
+#include "visualization/attributessummarydata.h"
 #include "utils.h"
 
-NodesSax::NodesSax(QHash<QString, TagNode*> *newTagNodes)
+NodesSax::NodesSax(QHash<QString, TagNode*> *newTagNodes, AttributesSummaryData *newAttributesSummaryData)
 {
     tagNodes = newTagNodes;
+    attributesSummaryData = newAttributesSummaryData;
 }
 
 NodesSax::~NodesSax()
@@ -53,14 +55,58 @@ void NodesSax::addTagNode(const QString &name)
             parentNode->targets[name] = tnt ;
         }
         tnt->count ++ ;
+        /*if( NULL != attributesSummaryData ) {
+            Utils::TODO_THIS_RELEASE("fare piu efficiente");
+            Utils::TODO_THIS_RELEASE("attributes can be null");
+            QString currentPath = pathAsString();
+
+            const int attrCount = attributes.count();
+            for(int index = 0 ; index < attrCount ; index ++) {
+                const QString &attributeLocalName = attributes.qName(index);
+                const QString &attrValue = attributes.value(index);
+                const int thisAttrSize = attrValue.length();
+                QString attributePath = currentPath+ "/@" + attributeLocalName;
+                AttributeSummaryData * attributeSummaryData = attributesSummaryData->attributeSummaryData(attributePath, attributeLocalName);
+                attributeSummaryData->count ++ ;
+                attributeSummaryData->dataSize = thisAttrSize ;
+                if(0 == thisAttrSize) {
+                    attributeSummaryData->countEmpty ++ ;
+                }
+            }
+        }*/
+        Utils::TODO_THIS_RELEASE("togliere");
+    }
+}
+
+void NodesSax::handleAttributes(const QXmlAttributes & attributes)
+{
+    if(NULL != attributesSummaryData) {
+        Utils::TODO_THIS_RELEASE("fare piu efficiente");
+        Utils::TODO_THIS_RELEASE("attributes can be null");
+        QString currentPath = pathAsString();
+
+        const int attrCount = attributes.count();
+        for(int index = 0 ; index < attrCount ; index ++) {
+            const QString &attributeLocalName = attributes.qName(index);
+            const QString &attrValue = attributes.value(index);
+            const int thisAttrSize = attrValue.length();
+            QString attributePath = currentPath + "/@" + attributeLocalName;
+            AttributeSummaryData * attributeSummaryData = attributesSummaryData->attributeSummaryData(attributePath, attributeLocalName);
+            attributeSummaryData->count ++ ;
+            attributeSummaryData->dataSize += thisAttrSize ;
+            if(0 == thisAttrSize) {
+                attributeSummaryData->countEmpty ++ ;
+            }
+        }
     }
 }
 
 bool NodesSax::startElement(const QString &/*namespaceURI*/, const QString & /*localName*/,
-                            const QString &qName, const QXmlAttributes & /*attributes*/)
+                            const QString &qName, const QXmlAttributes & attributes)
 {
     addTagNode(qName);
     elements.push(qName);
+    handleAttributes(attributes);
     return true ;
 }
 
@@ -94,4 +140,14 @@ bool NodesSax::error(const QXmlParseException &exception)
 QString NodesSax::errorString() const
 {
     return QObject::tr("Generic error.");
+}
+
+QString NodesSax::pathAsString() const
+{
+    QString thePath ;
+    foreach(const QString &val, elements) {
+        thePath += "/";
+        thePath += val;
+    }
+    return thePath;
 }

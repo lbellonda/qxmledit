@@ -125,6 +125,8 @@ public:
 
     static QString decodeXMLError(const QString &error);
     static QString escapeHTML(const QString &msg);
+    static QString tableCellHeader(const QString &text);
+    static QString tableCell(const QString &text, const bool alignRight = false);
 
     static void setBkColorToWidget(QWidget *widget, const QColor &color);
     static void setBkColorAndBorderToWidget(QWidget *widget, const QColor &color);
@@ -135,6 +137,7 @@ public:
     static QString getFileFilterForOpenFile();
     static QString getFileFilterForJavaSourceOpenFile();
     static QString getFileFilterForCSV();
+    static QString getFileFilterForCSVOrText();
 
     static void dumpStr(const QString &i1, const QString &i2);
 

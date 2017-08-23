@@ -2738,7 +2738,7 @@ void MainWindow::on_actionCompareFiles_triggered()
 void MainWindow::on_actionSpring_and_Forces_triggered()
 {
     QList<TagNode*> dataList;
-    NodesRelationsDialog dialog(true, dataList);
+    NodesRelationsDialog dialog(true, dataList, NULL);
     dialog.exec();
 }
 

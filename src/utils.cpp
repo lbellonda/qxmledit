@@ -332,6 +332,12 @@ QString Utils::getFileFilterForCSV()
 {
     return tr("CSV files (*.csv);;All files (*)");
 }
+
+QString Utils::getFileFilterForCSVOrText()
+{
+    return tr("CSV/TXT files (*.csv *.txt);;All files (*)");
+}
+
 //-------------------------------------------------------
 
 void Utils::appendTextNode(QDomDocument &document, QDomElement &parent, const QString &tag, const QString &text)
@@ -798,6 +804,20 @@ QString Utils::escapeHTML(const QString &msgInput)
     return msg;
 }
 
+QString Utils::tableCellHeader(const QString &text)
+{
+    QString result = QString("<TH>%1</TH>").arg(Utils::escapeHTML(text));
+    return result;
+}
+
+QString Utils::tableCell(const QString &text, const bool alignRight)
+{
+    if(alignRight) {
+        return QString("<TD align='right'>%1</TD>").arg(Utils::escapeHTML(text));
+    } else {
+        return QString("<TD>%1</TD>").arg(Utils::escapeHTML(text));
+    }
+}
 
 void Utils::setBkColorToWidget(QWidget *widget, const QColor &color)
 {

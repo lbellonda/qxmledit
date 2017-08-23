@@ -1,0 +1,4 @@
+"XPath","Count","Empty Count","Size","Memory Size (estimated)","Size empty data","Memory empty data (estimated)","% Size","Used"
+"/root/a/@a",1,0,6,20,0,0,33.3,1
+"/root/a/@b",1,1,5,18,5,8,27.7,1
+"/root/b/@b",1,0,7,22,0,0,38.8,1

@@ -28,16 +28,20 @@
 #include <QStack>
 #include "modules/graph/tagnodes.h"
 
+class AttributesSummaryData;
 
 class NodesSax : public QXmlDefaultHandler
 {
 public:
     QStack<QString> elements;
     QHash<QString, TagNode*> *tagNodes;
+    AttributesSummaryData *attributesSummaryData;
 private:
     void addTagNode(const QString &name);
+    QString pathAsString() const;
+    void handleAttributes(const QXmlAttributes & attributes);
 public:
-    NodesSax(QHash<QString, TagNode*> *newTagNodes);
+    NodesSax(QHash<QString, TagNode*> *newTagNodes, AttributesSummaryData *attributesSummaryData);
     ~NodesSax();
 
     bool startElement(const QString &namespaceURI, const QString &localName,

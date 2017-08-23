@@ -99,7 +99,7 @@ bool TestSpringAndForces::testUnitForces1()
 {
     _testName = "testUnitForces1";
     QList<TagNode*> dataList;
-    NodesRelationsDialog newDialog(false, dataList);
+    NodesRelationsDialog newDialog(false, dataList, NULL);
     NRC ctl(&newDialog);
     ctl.setup();
 
@@ -140,7 +140,7 @@ bool TestSpringAndForces::testUnitForces2()
 {
     _testName = "testUnitForces2";
     QList<TagNode*> dataList;
-    NodesRelationsDialog newDialog(false, dataList);
+    NodesRelationsDialog newDialog(false, dataList, NULL);
     NRC ctl(&newDialog);
     ctl.setup();
 
@@ -185,7 +185,7 @@ bool TestSpringAndForces::testLoadSampleData()
 {
     _testName = "testLoadSampleData";
     QList<TagNode*> dataList;
-    NodesRelationsDialog newDialog(true, dataList);
+    NodesRelationsDialog newDialog(true, dataList, NULL);
     if( !newDialog.loadFile(FILE_TEST_1) ) {
         return error("loading file");
     }

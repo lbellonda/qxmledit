@@ -34,6 +34,7 @@
 #include "visdatamap.h"
 #include "summarydata.h"
 #include "modules/graph/tagnodes.h"
+#include "attributessummarydata.h"
 #include "qxmleditdata.h"
 
 class VisDataSax;
@@ -55,6 +56,7 @@ class VisMapDialog : public QDialog
     SummaryData _summary;
     QSet<QString> names;
     QString _saveStatsPath;
+    AttributesSummaryData _attributesSummaryData;
     ElementBase *_dataRoot;
     QHash<QString, TagNode*> _tagNodes ;
     QXmlEditData *_appData;
@@ -68,7 +70,9 @@ public:
     void setAutoDelete();
     void setMainWindow(QWidget *newMainWindow);
     QWidget *mainWindow();
-
+    AttributesSummaryData *attributesSummaryData();
+    bool loadAttributeWhiteList(const QString &whiteListFile);
+    bool loadAttributeBlackList(const QString &blackListFile);
 
 private:
     Ui::VisMapDialog *ui;
