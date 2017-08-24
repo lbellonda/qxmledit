@@ -2591,7 +2591,7 @@ void XmlEditWidgetPrivate::onActionCompareXSD(const QString &folderPath)
         }
     }
     if(!isAllowed) {
-        Utils::error(tr("No XSD is present in the editor."));
+        Utils::error(p->window(), tr("No XSD is present in the editor."));
     }
 }
 
@@ -2606,7 +2606,7 @@ void XmlEditWidgetPrivate::onActionExportSiblingsAttributesAsCSVClipboard()
     QClipboard *clipboard = QApplication::clipboard();
     QString text = element->makeCSVFromSiblings();
     clipboard->setText(text);
-    Utils::message(tr("Attributes copied"));
+    Utils::message(p->window(), tr("Attributes copied"));
 }
 
 void XmlEditWidgetPrivate::viewNodes()
@@ -2615,7 +2615,6 @@ void XmlEditWidgetPrivate::viewNodes()
         QByteArray regolaData = regola->writeMemory();
         QBuffer regolaBuffer(&regolaData);
         QList<TagNode*> nodesList ;
-        Utils::TODO_THIS_RELEASE("calcolare?");
         NodesRelationsDialog dialog(false, nodesList, NULL);
         dialog.loadNodesFromFile(&regolaBuffer, regola->fileName());
         dialog.exec();
