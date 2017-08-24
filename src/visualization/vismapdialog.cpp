@@ -124,6 +124,21 @@ QWidget *VisMapDialog::mainWindow()
     return _mainWindow;
 }
 
+AttributesSummaryData *VisMapDialog::attributesSummaryData()
+{
+    return &_attributesSummaryData;
+}
+
+bool VisMapDialog::loadAttributeWhiteList(const QString &whiteListFile)
+{
+    return _attributesSummaryData.loadFileAttributeList(this, whiteListFile, true);
+}
+
+bool VisMapDialog::loadAttributeBlackList(const QString &blackListFile)
+{
+    return _attributesSummaryData.loadFileAttributeList(this, blackListFile, false);
+}
+
 void VisMapDialog::closeEvent(QCloseEvent * event)
 {
     event->accept();
@@ -166,13 +181,15 @@ void VisMapDialog::loadFile(const QString &fileName)
         progressDialogLoad.setEnabled(true);
         clearTagNodes();
         QHash<QString, TagNode*> *nodes = NULL ;
+        AttributesSummaryData *attributesSummaryData = NULL;
         if(ui->checkAnalyzeNodes->isChecked()) {
             nodes = &_tagNodes;
+            attributesSummaryData = &_attributesSummaryData;
         }
 
         _filePath = fileName ;
-
-        VisDataSax handler(&names, nodes);
+        attributesSummaryData->reset();
+        VisDataSax handler(&names, nodes, attributesSummaryData);
         QFutureWatcher<void> loadWatcher;
         connect(&progressDialogLoad, SIGNAL(canceled()), &loadWatcher, SLOT(cancel()));
         connect(&loadWatcher, SIGNAL(finished()), &progressDialogLoad, SLOT(reset()));
@@ -492,7 +509,7 @@ void VisMapDialog::on_exportStatsCmd_clicked()
         {
             QList<TagNode*> nodesList ;
             nodesList.append(_tagNodes.values());
-            NodesRelationsDialog dialog(false, nodesList);
+            NodesRelationsDialog dialog(false, nodesList, NULL);
             dialog.saveStatisticsToStream(outStream);
         }
         outStream << tr("\n------\n");
@@ -586,7 +603,7 @@ void VisMapDialog::on_cmdViewGraph_clicked()
     if(_tagNodes.count() > 0) {
         QList<TagNode*> nodesList ;
         nodesList.append(_tagNodes.values());
-        NodesRelationsDialog dialog(false, nodesList, this);
+        NodesRelationsDialog dialog(false, nodesList, &_attributesSummaryData, this);
         dialog.exec();
     } else {
         Utils::error(this, tr("No data to show."));

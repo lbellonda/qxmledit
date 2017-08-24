@@ -22,11 +22,13 @@
 
 
 #include "nodessax.h"
+#include "visualization/attributessummarydata.h"
 #include "utils.h"
 
-NodesSax::NodesSax(QHash<QString, TagNode*> *newTagNodes)
+NodesSax::NodesSax(QHash<QString, TagNode*> *newTagNodes, AttributesSummaryData *newAttributesSummaryData)
 {
     tagNodes = newTagNodes;
+    attributesSummaryData = newAttributesSummaryData;
 }
 
 NodesSax::~NodesSax()
@@ -56,11 +58,32 @@ void NodesSax::addTagNode(const QString &name)
     }
 }
 
+void NodesSax::handleAttributes(const QXmlAttributes & attributes)
+{
+    if(NULL != attributesSummaryData) {
+        const int attrCount = attributes.count();
+        for(int index = 0 ; index < attrCount ; index ++) {
+            const QString &attributeLocalName = attributes.qName(index);
+            const QString &attrValue = attributes.value(index);
+            const int thisAttrSize = attrValue.length();
+            QString attributePath = _currentElementPath + "/@" + attributeLocalName;
+            AttributeSummaryData * attributeSummaryData = attributesSummaryData->attributeSummaryData(attributePath, attributeLocalName);
+            attributeSummaryData->count ++ ;
+            attributeSummaryData->dataSize += thisAttrSize ;
+            if(0 == thisAttrSize) {
+                attributeSummaryData->countEmpty ++ ;
+            }
+        }
+    }
+}
+
 bool NodesSax::startElement(const QString &/*namespaceURI*/, const QString & /*localName*/,
-                            const QString &qName, const QXmlAttributes & /*attributes*/)
+                            const QString &qName, const QXmlAttributes & attributes)
 {
     addTagNode(qName);
     elements.push(qName);
+    _currentElementPath = Utils::pushCurrentElementPath(_currentElementPath, qName);
+    handleAttributes(attributes);
     return true ;
 }
 
@@ -69,6 +92,7 @@ bool NodesSax::endElement(const QString &/*namespaceURI*/, const QString &/*loca
                           const QString &/*qName*/)
 {
     elements.pop();
+    _currentElementPath = Utils::popCurrentElementPath(_currentElementPath);
     return true;
 }
 
@@ -94,4 +118,10 @@ bool NodesSax::error(const QXmlParseException &exception)
 QString NodesSax::errorString() const
 {
     return QObject::tr("Generic error.");
+}
+
+bool NodesSax::startDocument()
+{
+    _currentElementPath = "";
+    return true ;
 }

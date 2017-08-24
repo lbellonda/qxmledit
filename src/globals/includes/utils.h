@@ -125,6 +125,8 @@ public:
 
     static QString decodeXMLError(const QString &error);
     static QString escapeHTML(const QString &msg);
+    static QString tableCellHeader(const QString &text);
+    static QString tableCell(const QString &text, const bool alignRight = false);
 
     static void setBkColorToWidget(QWidget *widget, const QColor &color);
     static void setBkColorAndBorderToWidget(QWidget *widget, const QColor &color);
@@ -135,6 +137,7 @@ public:
     static QString getFileFilterForOpenFile();
     static QString getFileFilterForJavaSourceOpenFile();
     static QString getFileFilterForCSV();
+    static QString getFileFilterForCSVOrText();
 
     static void dumpStr(const QString &i1, const QString &i2);
 
@@ -169,6 +172,9 @@ public:
     static bool isRegNameRFC4288(const QString &name);
     static void copyPairsToHash(QHash<QString, QString> &hash, QList<QPair<QString, QString> > &pairs);
     static qint64 infoSizeAboutLocalDevice(QIODevice *device, const QString &fileName);
+    //
+    static QString pushCurrentElementPath(const QString &current, const QString &name);
+    static QString popCurrentElementPath(const QString &current);
 };
 
 

@@ -35,11 +35,16 @@
 
 //----------------------------------------------------------------------------------------------------------------
 
-NodesRelationsDialog::NodesRelationsDialog(const bool newCanLoadData, QList<TagNode*> &dataList, QWidget *parent) :
+NodesRelationsDialog::NodesRelationsDialog(const bool newCanLoadData, QList<TagNode*> &dataList, AttributesSummaryData *attributesSummaryData, QWidget *parent) :
     QDialog(parent),
     controller(this),
     ui(new Ui::NodesRelationsDialog)
 {
+    _attributesSummaryData = &_localAttributesSummaryData ;
+    if(NULL != attributesSummaryData) {
+        _attributesSummaryData = attributesSummaryData ;
+    }
+
     timerInterval = TimerInterval ;
     started = false;
     isTest = false;
@@ -87,7 +92,7 @@ NodesRelationsDialog::NodesRelationsDialog(const bool newCanLoadData, QList<TagN
     ui->springLengthSlider->setMaximum(200);
     ui->springLengthSlider->setValue(controller.springsLength());
 
-    feedNewData(dataList);
+    feedNewData(dataList, attributesSummaryData);
     started = true;
 
     if(newCanLoadData) {
@@ -118,10 +123,11 @@ void NodesRelationsDialog::resetData()
     nodes.clear();
 }
 
-void NodesRelationsDialog::feedNewData(QList<TagNode*> &dataList)
+void NodesRelationsDialog::feedNewData(QList<TagNode*> &dataList, AttributesSummaryData* attributesSummaryData)
 {
     controller.start(dataList);
     controller.loadDataList(ui->dataTable);
+    controller.loadAttributesData(ui->textAttributes, attributesSummaryData);
     if(!shotTimer.isActive()) {
         timerActive = true ;
         shotTimer.start(timerInterval);
@@ -154,7 +160,8 @@ bool NodesRelationsDialog::loadNodesFromFile(QIODevice *inputDevice, const QStri
 {
     resetData();
     QHash<QString, TagNode*> newNodes;
-    NodesSax handler(&newNodes);
+    _attributesSummaryData->reset();
+    NodesSax handler(&newNodes, _attributesSummaryData);
     QXmlSimpleReader reader;
     reader.setFeature("http://xml.org/sax/features/namespaces", false);
     reader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
@@ -179,7 +186,7 @@ bool NodesRelationsDialog::loadNodesFromFile(QIODevice *inputDevice, const QStri
     if(nodes.isEmpty()) {
         Utils::error(tr("No data found in the file."));
     }
-    feedNewData(nodes);
+    feedNewData(nodes, _attributesSummaryData);
     return true ;
 }
 
@@ -299,7 +306,6 @@ void NodesRelationsDialog::on_cmdBrowseFile_clicked()
     }
 }
 
-
 bool NodesRelationsDialog::loadFile(const QString &filePath)
 {
     if(filePath.isEmpty()) {
@@ -343,6 +349,11 @@ void NodesRelationsDialog::saveStatisticsToStream(QTextStream &outStream)
     controller.saveDataToStream(outStream);
 }
 
+AttributesSummaryData *NodesRelationsDialog::attributesSummaryData()
+{
+    return _attributesSummaryData;
+}
+
 void NodesRelationsDialog::onExportCmd()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Export Statistics"),
@@ -375,4 +386,98 @@ void NodesRelationsDialog::onExportCmd()
     if(!isOK) {
         Utils::error(this, tr("Error writing data."));
     }
+}
+
+void NodesRelationsDialog::on_exportCSV_clicked()
+{
+    exportAttributesCSV();
+}
+
+void NodesRelationsDialog::on_cmdLoadWhitelist_clicked()
+{
+    loadAttributesList(true);
+}
+
+void NodesRelationsDialog::on_cmdLoadBlack_clicked()
+{
+    loadAttributesList(false);
+}
+
+bool NodesRelationsDialog::innerLoadAttributesList(const QString &filePath, const bool isWhitelist)
+{
+    if(!filePath.isEmpty()) {
+        if(_attributesSummaryData->loadFileAttributeList(this, filePath, isWhitelist)) {
+            controller.loadAttributesData(ui->textAttributes, _attributesSummaryData);
+            return true ;
+        }
+    }
+    return false ;
+}
+
+void NodesRelationsDialog::loadAttributesList(const bool isWhitelist)
+{
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
+                       QXmlEditData::sysFilePathForOperation(inputFileName), Utils::getFileFilterForCSVOrText());
+    innerLoadAttributesList(filePath, isWhitelist);
+}
+
+void NodesRelationsDialog::on_cmdResetLists_clicked()
+{
+    resetAttributeLists();
+}
+
+bool NodesRelationsDialog::resetAttributeLists()
+{
+    _attributesSummaryData->resetLists();
+    controller.loadAttributesData(ui->textAttributes, _attributesSummaryData);
+
+    return true ;
+}
+
+
+//--------------------------------- CSV
+
+void NodesRelationsDialog::exportAttributesCSV()
+{
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Export CSV"),
+                       QXmlEditData::sysFilePathForOperation(_exportCSVAttrs), Utils::getFileFilterForCSV());
+
+    if(filePath.isEmpty()) {
+        return ;
+    }
+    _exportCSVAttrs = filePath ;
+    bool isOK = false ;
+    QFile data(_exportCSVAttrs);
+    if(exportAttributesCSVOnDevice(data)) {
+        isOK = true ;
+    }
+    if(!isOK) {
+        Utils::error(this, tr("Error writing data."));
+    }
+}
+
+bool NodesRelationsDialog::exportAttributesCSVOnDevice(QIODevice &ioDevice)
+{
+    bool isOK = false ;
+    QString className ;
+    const char * cName = ioDevice.metaObject()->className() ;
+    if(NULL != cName) {
+        className = cName ;
+    }
+    bool isFile = className == "QFile";
+    if(ioDevice.open(QFile::WriteOnly | QFile::Truncate)) {
+        QTextStream outStream(&ioDevice);
+        outStream.setCodec("utf-8");
+        controller.exportAttributesInCSVToStream(outStream, _attributesSummaryData);
+        outStream.flush();
+        ioDevice.close();
+        if(isFile) {
+            if(((QFile&)ioDevice).error() == QFile::NoError) {
+                isOK = true;
+            }
+        } else {
+            isOK = true;
+        }
+    }
+    return isOK;
 }

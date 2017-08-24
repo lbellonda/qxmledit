@@ -409,6 +409,12 @@ void TestQXmlEdit::testVis()
         result = tv.testVisData();
         QVERIFY2(result, (QString("test TestVis: testVisData() '%1'").arg(tv.errorString())).toLatin1().data());
     }
+    {
+        TestVis tv;
+        bool result ;
+        result = tv.testAttributeCount();
+        QVERIFY2(result, (QString("test TestVis: testAttributeCount() '%1'").arg(tv.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testUndoRedo()
@@ -1542,15 +1548,8 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
-    testIndent();
-    testFormattingInfo();
-    testDeleteSiblings();
-    testSpecialView();
-    testEditing();
-    testExecXSLT();
-    testSplit();
-    testBase64();
     testVis();
+    testSpringAndForces();
 }
 
 QTEST_MAIN(TestQXmlEdit)

@@ -41,10 +41,11 @@
 #include "tagmarker.h"
 #include "tagspring.h"
 #include "nodesrelationscontroller.h"
+#include "visualization/attributessummarydata.h"
 
 //----------------------------------------------------------------------------------------------------------------
 
-
+class AttributeSummaryData;
 
 namespace Ui
 {
@@ -69,11 +70,20 @@ class LIBQXMLEDITSHARED_EXPORT NodesRelationsDialog : public QDialog
     NodesRelationsController  controller;
     QString inputFileName;
     QString _saveStatsPath;
+    QString _exportCSVAttrs ;
+    AttributesSummaryData _localAttributesSummaryData;
+    AttributesSummaryData *_attributesSummaryData;
     //--
     void resetData();
-    void feedNewData(QList<TagNode*> &dataList);
+    void feedNewData(QList<TagNode*> &dataList, AttributesSummaryData *attributeSummaryData);
+    void loadAttributesList(const bool isWhitelist);
+    bool innerLoadAttributesList(const QString &filePath, const bool isWhitelist);
+    bool loadFileAttributeList(const QString &filePath, const bool isWhitelist, AttributesSummaryData *attributeSummaryData);
+    bool resetAttributeLists();
+    void exportAttributesCSV();
+    bool exportAttributesCSVOnDevice(QIODevice &ioDevice);
 public:
-    explicit NodesRelationsDialog(const bool canLoadData, QList<TagNode*> &dataList, QWidget *parent = 0);
+    explicit NodesRelationsDialog(const bool canLoadData, QList<TagNode*> &dataList, AttributesSummaryData *attributesSummaryData, QWidget *parent = 0);
     ~NodesRelationsDialog();
 
     QGraphicsScene *scene();
@@ -82,6 +92,7 @@ public:
     NodesRelationsController *getController();
     QTableWidget *getTableWidget();
     void saveStatisticsToStream(QTextStream &outStream);
+    AttributesSummaryData *attributesSummaryData();
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event);
@@ -105,6 +116,14 @@ private slots:
     void on_cmdBrowseFile_clicked();
     void on_chkViewOnlySelected_clicked();
     void onExportCmd();
+    void on_cmdLoadBlack_clicked();
+    void on_cmdLoadWhitelist_clicked();
+    void on_exportCSV_clicked();
+    void on_cmdResetLists_clicked();
+
+#ifdef QXMLEDIT_TEST
+    friend class TestVis;
+#endif
 };
 
 

@@ -26,6 +26,8 @@
 #include "modules/graph/nodesrelationsdialog.h"
 #include "visualization/datawidget.h"
 
+#define BASE_PATH_ATTR "../test/data/vis/attributes/"
+
 #define DATA_FILE_1 "../test/data/vis/testvis.xml"
 #define DATA_FILE_2 "../test/data/vis/testvis2.xml"
 #define DATA_FILE_COUNT "../test/data/vis/testvis_count.xml"
@@ -36,7 +38,7 @@ TestVis::TestVis()
 
 bool TestVis::testFast()
 {
-    return testVisData();
+    return testAttributeCountSaveCSV();
 }
 
 bool TestVis::test()
@@ -115,7 +117,7 @@ bool TestVis::testDialog()
     visMapDialog.loadFile(DATA_FILE_1);
 
     // check data
-    if( visMapDialog._summary.totalSize != 87 ) {
+    if( visMapDialog._summary.totalSize != (87+15+4*3) ) {
         return error("error");
     }
     if( visMapDialog._summary.levels != 3 ) {
@@ -167,7 +169,7 @@ bool TestVis::testDialog()
     // loads a smaller file and checks if data are changing
     visMapDialog.loadFile(DATA_FILE_2);
 
-    if( visMapDialog._summary.totalSize != 30 ) {
+    if( visMapDialog._summary.totalSize != (30+5+4) ) {
         return error("error");
     }
     if( visMapDialog._summary.levels != 3 ) {
@@ -185,7 +187,7 @@ bool TestVis::testDialog()
     if( visMapDialog._summary.maxChildren != 2) {
         return error("error");
     }
-    if( visMapDialog._summary.maxSize != 14 ) {
+    if( visMapDialog._summary.maxSize != (15) ) {
         return error("error");
     }
     if( visMapDialog._summary.maxText != 10) {
@@ -222,7 +224,7 @@ bool TestVis::testSummary()
     QByteArray regolaData = regola->writeMemory();
     QBuffer regolaBuffer(&regolaData);
     QList<TagNode*> nodesList ;
-    NodesRelationsDialog dialog(false, nodesList);
+    NodesRelationsDialog dialog(false, nodesList, NULL);
     dialog.loadNodesFromFile(&regolaBuffer, regola->fileName());
     QBuffer data;
     if(data.open(QFile::WriteOnly | QFile::Truncate)) {
@@ -414,3 +416,262 @@ bool TestVis::testDataThreading(const bool useStandard)
     }
     return true;
 }
+
+#define FILE_DATA_ATTRIB BASE_PATH_ATTR "data_base.xml"
+#define FILE_ATTRIB_BLACKLIST BASE_PATH_ATTR "blacklist.csv"
+#define FILE_ATTRIB_WHITELIST BASE_PATH_ATTR "whitelist.csv"
+#define FILE_DATA_ATTRIB_CSV BASE_PATH_ATTR "attrcsv.xml"
+#define FILE_CSV_REFERENCE BASE_PATH_ATTR "reference.csv"
+
+bool TestVis::testAttributeCount()
+{
+    _testName = "testAttributeCount" ;
+    if( !testAttributeCountUnit()) {
+        return false;
+    }
+    if( !testAttributeCountLoadingFile()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestVis::testAttributeCountUnit()
+{
+    if(!testAttributeCountNoNo(false)) {
+        return false;
+    }
+    if(!testAttributeCountYesNo(false)) {
+        return false;
+    }
+    if(!testAttributeCountNoYes(false)) {
+        return false;
+    }
+    if(!testAttributeCountYesYes(false)) {
+        return false;
+    }
+    if(!testAttributeCountSaveCSV()) {
+        return false;
+    }
+    return true;
+}
+
+bool TestVis::testAttributeCountLoadingFile()
+{
+    _testName = "testAttributeCountLoadingFile";
+    if(!testAttributeCountNoNo(true)) {
+        return false;
+    }
+    if(!testAttributeCountYesNo(true)) {
+        return false;
+    }
+    if(!testAttributeCountNoYes(true)) {
+        return false;
+    }
+    if(!testAttributeCountYesYes(true)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestVis::testAttributeCountNoNo(const bool isLoad)
+{
+    _testName = "testAttributeCountNoNo";
+    if(!testAttributeBase( isLoad, false, false ) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestVis::testAttributeCountYesNo(const bool isLoad)
+{
+    _testName = "testAttributeCountYesNo";
+    if(!testAttributeBase( isLoad, true, false ) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestVis::testAttributeCountNoYes(const bool isLoad)
+{
+    _testName = "testAttributeCountNoYes";
+    if(!testAttributeBase( isLoad, false, true ) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestVis::testAttributeCountYesYes(const bool isLoad)
+{
+    _testName = "testAttributeCountYesYes";
+    if(!testAttributeBase( isLoad, true, true ) ) {
+        return false;
+    }
+    return true;
+}
+
+static qreal perc(const long num, const long den)
+{
+    const long l = (num*1000)/den;
+    return (qreal)l / 10.0;
+}
+
+/*
+<a a="aa" e="" >
+    <b bbb="bbbb"/>
+    <c cccc="cccccc" z="z"/>
+
+    WL:/root/a/c/@z  z
+    BL:/root/a/c/@cccc  c
+*/
+
+AttributesSummaryData* TestVis::buildReferenceAttributesSummaryData( AttributesSummaryData* a, AttributesSummaryTotal &totalTotal, AttributesSummaryTotal &totalUsed, AttributesSummaryTotal &totalNotUsed, const bool isWhitelist, const bool isBlackList)
+{
+    const int Attributes = 5;
+    const int Times = 2;
+    AttributeSummaryData *ad = NULL;
+    ad = a->attributeSummaryData("/root/a/@a", "a");
+    ad->setData(2, 2*2, 0);
+    ad = a->attributeSummaryData("/root/a/@e", "e");
+    ad->setData(2, 0, 2);
+    ad = a->attributeSummaryData("/root/a/b/@bbb", "bbb");
+    ad->setData(2, 4*2, 0);
+    ad = a->attributeSummaryData("/root/a/c/@cccc", "cccc");
+    ad->setData(2, 6*2, 0);
+    ad = a->attributeSummaryData("/root/a/c/@z", "z");
+    ad->setData(2, 1*2, 0);
+
+    const long SizeA = (Times * (1 + 4) ) + Times*2;
+    const long SizeE = (Times * (1 + 4) ) + Times*0;
+    const long SizeB = (Times * (3 + 4) ) + Times*4;
+    const long SizeC = (Times * (4 + 4) ) + Times*6;
+    const long SizeZ = (Times * (1 + 4) ) + Times*1;
+
+    const long SizeAMem = (2 * 1) + (Times * 16) + (Times*2 * 2);
+    const long SizeEMem = (2 * 1) + (Times * 16) + (0);
+    const long SizeBMem = (2 * 3) + (Times * 16) + (Times*4 * 2);
+    const long SizeCMem = (2 * 4) + (Times * 16) + (Times*6 * 2);
+    const long SizeZMem = (2 * 1) + (Times * 16) + (Times*1* 2);
+
+    const long SizeAll = SizeA+SizeE+SizeB+SizeC+SizeZ;
+    const long SizeMemAll = SizeAMem+SizeEMem+SizeBMem+SizeCMem+SizeZMem;
+
+    const long SizeEEmpty = Times * (1+4);
+    const long SizeEMemEmpty = Times * 8;
+
+    if(isWhitelist && isBlackList) {
+        totalTotal.setData(Attributes,  Times*Attributes,     SizeMemAll,          SizeAll,          SizeAll/(Times*Attributes),            Times*1,  SizeEEmpty, SizeEMemEmpty, 100 );
+        totalNotUsed.setData( 1,        Times,                SizeCMem,            SizeC,            SizeC/Times,                            0,       0,          0,             perc(SizeC,SizeAll) );
+        totalUsed.setData(Attributes-1, Times*(Attributes-1), SizeMemAll-SizeCMem, SizeAll-SizeC,    (SizeAll-SizeC)/(Times*(Attributes-1)), Times*1, SizeEEmpty, SizeEMemEmpty, perc(SizeAll-SizeC,SizeAll) );
+    } else if(!isWhitelist && isBlackList) {
+        totalTotal.setData(Attributes,  Times*Attributes,     SizeMemAll,          SizeAll,          SizeAll/(Times*Attributes),            Times*1,  SizeEEmpty, SizeEMemEmpty, 100 );
+        totalNotUsed.setData( 1,        Times,                SizeCMem,            SizeC,            SizeC/Times,                            0,       0,          0,             perc(SizeC,SizeAll) );
+        totalUsed.setData(Attributes-1, Times*(Attributes-1), SizeMemAll-SizeCMem, SizeAll-SizeC,    (SizeAll-SizeC)/(Times*(Attributes-1)), Times*1, SizeEEmpty, SizeEMemEmpty, perc(SizeAll-SizeC,SizeAll) );
+    } else if(isWhitelist && !isBlackList) {
+        totalTotal.setData(Attributes,     Times*Attributes,     SizeMemAll,          SizeAll,          SizeAll/(Times*Attributes),            Times*1,  SizeEEmpty, SizeEMemEmpty, 100 );
+        totalUsed.setData( 1,              Times,                SizeZMem,            SizeZ,            SizeZ/Times,                            0,       0,          0,             perc(SizeZ,SizeAll) );
+        totalNotUsed.setData(Attributes-1, Times*(Attributes-1), SizeMemAll-SizeZMem, SizeAll-SizeZ,    (SizeAll-SizeZ)/(Times*(Attributes-1)), Times*1, SizeEEmpty, SizeEMemEmpty, perc(SizeAll-SizeZ,SizeAll) );
+    } else { // if(!isWhitelist && !isBlackList) {
+        totalTotal.setData(Attributes, Times*Attributes, SizeMemAll, SizeAll, SizeAll/(Times*Attributes), Times*1, SizeEEmpty, SizeEMemEmpty, 100 );
+        totalUsed.setData(Attributes, Times*Attributes, SizeMemAll, SizeAll, SizeAll/(Times*Attributes), Times*1, SizeEEmpty, SizeEMemEmpty, 100 );
+    }
+    return a;
+}
+
+bool TestVis::testAttributeBase( const bool isLoad, const bool isWhiteList, const bool isBlackList )
+{
+    App app;
+    if(!app.init() ) {
+        return error("error");
+    }
+    AttributesSummaryData *attributesSummaryData = NULL ;
+    if(isLoad) {
+        QList<TagNode*> dataList;
+        NodesRelationsDialog dialog(true, dataList, NULL, NULL );
+        // ckeck data.
+        dialog.loadFile(FILE_DATA_ATTRIB);
+        if(isWhiteList) {
+            if(!dialog.innerLoadAttributesList(FILE_ATTRIB_WHITELIST, true)) {
+                return error("Opening whitelist");
+            }
+        }
+        if(isBlackList) {
+            if(!dialog.innerLoadAttributesList(FILE_ATTRIB_BLACKLIST, false)) {
+                return error("Opening black list");
+            }
+        }
+        attributesSummaryData = dialog.attributesSummaryData();
+        return testAttributeBaseInner(attributesSummaryData, isWhiteList, isBlackList);
+    } else {
+        VisMapDialog visMapDialog(app.data(), app.mainWindow(), app.mainWindow(), "");
+        // ckeck data.
+        visMapDialog.loadFile(FILE_DATA_ATTRIB);
+        if(isWhiteList) {
+            if(!visMapDialog.loadAttributeWhiteList(FILE_ATTRIB_WHITELIST)) {
+                return error("Opening whitelist");
+            }
+        }
+        if(isBlackList) {
+            if(!visMapDialog.loadAttributeBlackList(FILE_ATTRIB_BLACKLIST)) {
+                return error("Opening black list");
+            }
+        }
+        attributesSummaryData = visMapDialog.attributesSummaryData();
+        return testAttributeBaseInner(attributesSummaryData, isWhiteList, isBlackList);
+    }
+    return error("logic error");
+}
+
+bool TestVis::testAttributeBaseInner(AttributesSummaryData *attributesSummaryData, const bool isWhiteList, const bool isBlackList)
+{
+    // compare data
+    AttributesSummaryData referenceAttributesSummaryData ;
+    AttributesSummaryTotal totalTotal, totalUsed, totalNotUsed;
+    buildReferenceAttributesSummaryData(&referenceAttributesSummaryData, totalTotal, totalUsed, totalNotUsed, isWhiteList, isBlackList );
+    QString reason;
+    if(!referenceAttributesSummaryData.compareTo(attributesSummaryData, reason)) {
+        return error(QString("Data differ: %1").arg(reason));
+    }
+    AttributesSummarySummary ast;
+    ast.calculate(attributesSummaryData);
+    if(!ast.totalTotal.compareTo(&totalTotal, reason)) {
+        return error(QString("totalTotal differs: %1").arg(reason));
+    }
+    if(!ast.totalUsed.compareTo(&totalUsed, reason)) {
+        return error(QString("totalUsed differs: %1").arg(reason));
+    }
+    if(!ast.totalNotUsed.compareTo(&totalNotUsed, reason)) {
+        return error(QString("totalNotUsed differs: %1").arg(reason));
+    }
+    return true;
+}
+
+//-------------------------------------------------------------------------------------
+
+bool TestVis::testAttributeCountSaveCSV()
+{
+    _testName = "testAttributeCountSaveCSV";
+    App app;
+    if(!app.init() ) {
+        return error("error");
+    }
+    QList<TagNode*> dataList;
+    NodesRelationsDialog dialog(true, dataList, NULL, NULL );
+    // ckeck data.
+    dialog.loadFile(FILE_DATA_ATTRIB_CSV);
+    QBuffer buffer;
+    if( !dialog.exportAttributesCSVOnDevice(buffer)) {
+        return error("Unable to write data");
+    }
+    buffer.close();
+    QByteArray data = buffer.data();
+    QString csv = QString::fromUtf8(data);
+    QString reference ;
+    if(!loadFileAsString(FILE_CSV_REFERENCE, "utf-8", &reference) ) {
+        return error("loading reference");
+    }
+    if(csv != reference) {
+        return error(QString("CSV differ: calc\n%1").arg(csv));
+    }
+    return true;
+}
+

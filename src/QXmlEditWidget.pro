@@ -497,7 +497,8 @@ SOURCES += xmleditwidget.cpp \
     modules/services/threadservices.cpp \
     modules/metadata/formattinginfo.cpp \
     undo/commandaddformattinginfo.cpp \
-    undo/commandremoveformattinginfo.cpp
+    undo/commandremoveformattinginfo.cpp \
+    visualization/attributessummarydata.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -766,7 +767,8 @@ HEADERS += precompiled_lib.h \
     modules/xml/xmlsyntaxh.h \
     modules/services/threadservices.h \
     undo/commandaddformattinginfo.h \
-    undo/commandremoveformattinginfo.h
+    undo/commandremoveformattinginfo.h \
+    visualization/attributessummarydata.h
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

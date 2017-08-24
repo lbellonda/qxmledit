@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1012</width>
-    <height>645</height>
+    <height>725</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -357,6 +357,73 @@
           <bool>true</bool>
          </property>
         </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="attributes">
+      <attribute name="title">
+       <string>AttributesView</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="vertLayout_11">
+       <item>
+        <widget class="QTextBrowser" name="textAttributes"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="QPushButton" name="cmdLoadBlack">
+           <property name="toolTip">
+            <string>Load a list of attributes that will be marked as NOT used</string>
+           </property>
+           <property name="text">
+            <string>Load Blacklist</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdLoadWhitelist">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load a list of attributes that will be marked as used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>Load Whitelist</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdResetLists">
+           <property name="toolTip">
+            <string>Clear whitelist and blacklist</string>
+           </property>
+           <property name="text">
+            <string>Reset Lists</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="exportCSV">
+           <property name="toolTip">
+            <string>Export attributes data as CSV.</string>
+           </property>
+           <property name="text">
+            <string>Export CSV</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>
