@@ -183,7 +183,7 @@ bool XSchemaImport::generateDom(QDomDocument &document, QDomNode &parent)
 {
     QDomElement node = createElement(document, IO_XSD_TAGIMPORT);
     addAttrNotEmpty(node, IO_GENERIC_ID, _id);
-    addAttrNotEmpty(node, IO_GENERIC_ATTR_SCHEMALOCATION , _schemaLocation);
+    addAttrNotEmpty(node, IO_GENERIC_ATTR_SCHEMALOCATION, _schemaLocation);
     addAttrNotEmpty(node, IO_GENERIC_NAMESPACE, _namespace);
     addOtherAttributesToDom(node);
     if(NULL != _annotation) {

@@ -5,11 +5,9 @@ Check issues:
 TODO:
 ----
 
-Branches:
-163-xsdprint: stampa xsd
+#new is:165
 
-#new is:160
-
+164 - calculation of size of attributes, including filters
 163 - migliora stampa xsd
 162 - xslt con attribute e var se ci sono figli, spec values of non inserire un select
 160 - fattorizzare in element ->Element * TestBase::makeElement(const QString &tag, const QString &attr)

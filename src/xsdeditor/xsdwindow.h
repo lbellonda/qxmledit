@@ -1110,7 +1110,7 @@ protected:
     XSchemaObject *fromItemData(QTreeWidgetItem *item);
     void setupNavigationBaseItems();
     void setNavigationTargetSelection(XSchemaObject *newSelection);
-    void setNavSplitterWidgetSizes(const int width0 , const int width1);
+    void setNavSplitterWidgetSizes(const int width0, const int width1);
     void paintScene(QPainter *painter, const QRectF &sourceArea, const QRectF &destArea, const int pageNumber, const int totalPages);
     void calculatePageRect(QPainter *painter, QRectF &destArea);
     void restoreSelection(QList<QGraphicsItem*> &itemsToSelect);

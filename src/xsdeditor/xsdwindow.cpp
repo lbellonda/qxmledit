@@ -515,7 +515,7 @@ void XSDWindow::setupSplitter()
     }
     ui->splitter->setStretchFactor(0, 0);
     ui->splitter->setStretchFactor(1, 1);
-    setNavSplitterWidgetSizes(width0 , width1);
+    setNavSplitterWidgetSizes(width0, width1);
 }
 
 void XSDWindow::on_navigationCmd_clicked()
@@ -529,13 +529,13 @@ void XSDWindow::on_navigationCmd_clicked()
         int width = ui->splitter->width();
         int width0 = 0 ;
         int width1 = width ;
-        setNavSplitterWidgetSizes(width0 , width1);
+        setNavSplitterWidgetSizes(width0, width1);
     } else {
         setupSplitter();
     }
 }
 
-void XSDWindow::setNavSplitterWidgetSizes(const int width0 , const int width1)
+void XSDWindow::setNavSplitterWidgetSizes(const int width0, const int width1)
 {
     QList<int> sizes;
     sizes.append(width0);
