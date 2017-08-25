@@ -22,10 +22,12 @@
 
 
 #include "visdatasax.h"
+#include "summarydata.h"
 #include "utils.h"
 
-VisDataSax::VisDataSax(QSet<QString> *newNames, QHash<QString, TagNode*> *newTagNodes)
+VisDataSax::VisDataSax(QSet<QString> *newNames, QHash<QString, TagNode*> *newTagNodes, AttributesSummaryData *newAttributesSummaryData)
 {
+    attributesSummaryData = newAttributesSummaryData;
     root = NULL ;
     currentElement = NULL ;
     names = newNames;
@@ -93,6 +95,12 @@ void VisDataSax::addTagNode(const QString &name)
     }
 }
 
+bool VisDataSax::startDocument()
+{
+    _currentElementPath = "";
+    return true ;
+}
+
 bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /*localName*/,
                               const QString &qName, const QXmlAttributes &attributes)
 {
@@ -110,13 +118,25 @@ bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /
     if(NULL == currentElement) {
         root = elem;
     }
-    int attrCount = attributes.count();
+    _currentElementPath = Utils::pushCurrentElementPath(_currentElementPath, name);
+
+    const int attrCount = attributes.count();
     quint64 attributesSize = 0;
     for(int index = 0 ; index < attrCount ; index ++) {
-        elem->size += attributes.localName(index).length();
-        const int thisAttrSize = attributes.value(index).length();
+        const QString &attributeLocalName = attributes.qName(index);
+        elem->size += attributeLocalName.length();
+        const QString &attrValue = attributes.value(index);
+        const int thisAttrSize = attrValue.length();
         attributesSize += (unsigned)thisAttrSize ;
         elem->size += thisAttrSize;
+        elem->size += 4; // blank, equals, 2 quotes
+        QString attributePath = _currentElementPath + "/@" + attributeLocalName;
+        AttributeSummaryData * attributeSummaryData = attributesSummaryData->attributeSummaryData(attributePath, attributeLocalName);
+        attributeSummaryData->count ++ ;
+        attributeSummaryData->dataSize += thisAttrSize ;
+        if(0 == thisAttrSize) {
+            attributeSummaryData->countEmpty ++ ;
+        }
     }
     elem->attributesCount = attrCount;
     elem->totalAttributesSize = attributesSize ;
@@ -130,6 +150,7 @@ bool VisDataSax::endElement(const QString &/*namespaceURI*/, const QString &/*lo
     if(NULL != currentElement) {
         currentElement = currentElement->parent;
     }
+    _currentElementPath = Utils::popCurrentElementPath(_currentElementPath);
     return true;
 }
 

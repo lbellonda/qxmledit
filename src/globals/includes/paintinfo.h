@@ -139,7 +139,7 @@ public:
     //-------
     void applySettings(const bool parmIsOneAttrPerLine,
                        const bool parmIsIndexPerChild,
-                       const bool parmIsCompactView ,
+                       const bool parmIsCompactView,
                        const bool parmIsShowUnBase64,
                        const bool parmIsShowElementTextLength,
                        const bool parmIsShowElementSize,

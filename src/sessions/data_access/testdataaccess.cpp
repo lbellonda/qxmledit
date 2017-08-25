@@ -201,7 +201,7 @@ OperationStatus* TestDataAccess::deleteGenericData(GenericPersistentData * /*ses
 {
     return NULL;
 }
-OperationStatus* TestDataAccess::readAllGenericData(const QString & /*type*/ , QList<GenericPersistentData*> & /*resultList*/)
+OperationStatus* TestDataAccess::readAllGenericData(const QString & /*type*/, QList<GenericPersistentData*> & /*resultList*/)
 {
     return NULL;
 }

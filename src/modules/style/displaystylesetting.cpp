@@ -115,7 +115,7 @@ void DisplayStyleSetting::applyToPaintInfo(PaintInfo *paintInfo)
 {
     paintInfo->applySettings(isOneAttrPerLine,
                              isIndexPerChild,
-                             isCompactView ,
+                             isCompactView,
                              isShowUnBase64,
                              isShowElementTextLength,
                              isShowElementSize,

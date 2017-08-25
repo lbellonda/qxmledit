@@ -74,7 +74,7 @@ public:
     static const int SearchBufferSize = 100 * 1024;
 
     enum ErrCodes {
-        EC_NOERROR = 0 ,
+        EC_NOERROR = 0,
         EC_FILEALREADYOPENED,
         EC_OTHERERROR,
         EC_FILEEMPTY

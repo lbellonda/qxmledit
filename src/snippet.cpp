@@ -144,7 +144,7 @@ bool Snippet::save(const QString &filePath)
     //name
     Utils::appendTextNode(document, rootNode, TAG_NAME, name());
     Utils::appendTextNode(document, rootNode, TAG_DESCRIPTION, description());
-    Utils::appendTextNode(document, rootNode, TAG_ID , id());
+    Utils::appendTextNode(document, rootNode, TAG_ID, id());
     Utils::appendTextNode(document, rootNode, TAG_CREATIONDATE, creationDate().toString(Qt::ISODate));
     Utils::appendTextNode(document, rootNode, TAG_UPDATEDATE, updateDate().toString(Qt::ISODate));
 

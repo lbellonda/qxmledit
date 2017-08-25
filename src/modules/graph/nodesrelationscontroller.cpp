@@ -32,6 +32,8 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QTextStream>
+#include <QTextBrowser>
+#include "visualization/attributessummarydata.h"
 
 #define BACK_COLOR  QColor::fromRgb(0x10,0x80,0xC0)
 #define BACK_COLOR_2  QColor::fromRgb(0x0,0x00,0x80)
@@ -731,5 +733,152 @@ bool NodesRelationsController::timedHide()
             }
         }
         return true;
+    }
+}
+
+
+void NodesRelationsController::tableAttributeData(QString & text, QMap<QString, QString> attrsKeys, AttributesSummaryData* attributesSummaryData,
+        const QString &msg, const long sizeFile)
+{
+    text += QString("%1<BR/><TABLE cellspacing='0' border='1'><TR>").arg(msg);
+    text += Utils::tableCellHeader(tr("Count"));
+    text += Utils::tableCellHeader(tr("Empty Count"));
+    text += Utils::tableCellHeader(tr("Size"));
+    text += Utils::tableCellHeader(tr("Memory Size (estimated)"));
+
+    text += Utils::tableCellHeader(tr("Size empty data"));
+    text += Utils::tableCellHeader(tr("Memory empty data (estimated)"));
+
+    text += Utils::tableCellHeader(tr("% Size"));
+    text += Utils::tableCellHeader(tr("XPath"));
+    text += "</TR>";
+    foreach(const QString & key, attrsKeys.keys()) {
+        text += "<TR>";
+        AttributeSummaryData* attributeSummaryData = attributesSummaryData->data[key] ;
+        calculateSingleAttributeLine(text, attributeSummaryData, sizeFile, true);
+        text += Utils::tableCell(key);
+        text += "</TR>";
+    }
+    text += "</TABLE>";
+}
+
+void NodesRelationsController::printAttributesTable(QString & text, QMap<QString, QString> attrsKeys,
+        AttributesSummaryData* attributesSummaryData,
+        AttributesSummaryTotal &total,
+        const QString &msg, const QString &msgTotal,
+        const long sizeFile)
+{
+    if(!attrsKeys.isEmpty()) {
+        tableAttributeData(text, attrsKeys, attributesSummaryData, msg, sizeFile);
+        text += QString("<BR/>%1<BR/>").arg(Utils::escapeHTML(msgTotal));
+        text += tr("attributes:%1, count:%2, empty:%3, size:%4, size memory:%5 mean size:%6, size empty data:%7, memory size empty data:%8")
+                .arg(total.attributesCount).arg(total.hitCount).arg(total.emptyCount)
+                .arg(total.sizeCharacters).arg(total.sizeInMemory).arg(total.meanSize)
+                .arg(total.sizeEmptyData).arg(total.sizeMemoryEmptyData);
+        text += "<BR/><BR/>";
+    }
+}
+
+
+void NodesRelationsController::loadAttributesData(QTextBrowser *textBrowser, AttributesSummaryData* attributesSummaryData)
+{
+    if(NULL == attributesSummaryData) {
+        textBrowser->setPlainText(tr("No data available."));
+        return ;
+    }
+    AttributesSummarySummary  ast;
+    ast.calculate(attributesSummaryData);
+    AttributesSummaryTotal &totalTotal(ast.totalTotal), &totalUsed(ast.totalUsed), &totalNotUsed(ast.totalNotUsed);
+    const long sizeFile = ast.sizeFile ; ;
+    QString text = "<HTML><BODY><BR/><H1>";
+    text += Utils::escapeHTML(tr("Attribute Statistics"));
+    text += "</H1><BR/>";
+    if(!ast.attrsUsedKeys.isEmpty()) {
+        printAttributesTable(text, ast.attrsUsedKeys, attributesSummaryData, totalUsed, tr("Attributes used"), tr("Total values for whitelisted attributes"), sizeFile);
+    }
+    if(!ast.attrsNotUsedKeys.isEmpty()) {
+        printAttributesTable(text, ast.attrsNotUsedKeys, attributesSummaryData, totalNotUsed, tr("Attributes not used"), tr("Total values for blacklisted attributes"), sizeFile);
+    }
+    if(!ast.attrsNotUsedKeys.isEmpty() && !ast.attrsUsedKeys.isEmpty()) {
+        text += QString("<BR/>%1<BR/>").arg(tr("Grand Total"));
+        text += tr("attributes:%1, count:%2, empty:%3, size:%4, size memory:%5 mean size:%6, size empty data:%7, memory size empty data:%8")
+                .arg(totalTotal.attributesCount).arg(totalTotal.hitCount).arg(totalTotal.emptyCount)
+                .arg(totalTotal.sizeCharacters).arg(totalTotal.sizeInMemory).arg(totalTotal.meanSize)
+                .arg(totalTotal.sizeEmptyData).arg(totalTotal.sizeMemoryEmptyData);
+        text += "<BR/><BR/>";
+    }
+    text += "</BODY></HTML>";
+    textBrowser->setHtml(text);
+}
+
+QString NodesRelationsController::formatSingleValue(const QString &inputText, const bool isNumber, const bool isHTML)
+{
+    QString text ;
+    if(isHTML) {
+        text += Utils::tableCell(inputText, isNumber);
+    } else {
+        text += ",";
+        text += inputText ;
+    }
+    return text ;
+}
+
+void NodesRelationsController::calculateSingleAttributeLine(QString &text, AttributeSummaryData *attributeSummaryData, const long fileSize, const bool isHTML)
+{
+    text += formatSingleValue(QString::number(attributeSummaryData->count), true, isHTML);
+    text += formatSingleValue(QString::number(attributeSummaryData->countEmpty), true, isHTML);
+    long dataSize = attributeSummaryData->sizeCharacters();
+    text += formatSingleValue(QString::number(dataSize), true, isHTML);
+    text += formatSingleValue(QString::number(attributeSummaryData->sizeInMemory()), true, isHTML);
+    text += formatSingleValue(QString::number(attributeSummaryData->sizeEmpty()), true, isHTML);
+    text += formatSingleValue(QString::number(attributeSummaryData->sizeEmptyInMemory()), true, isHTML);
+    QString data;
+    if(fileSize != 0) {
+        qreal value = AttributesSummaryData::calcPerc(dataSize, fileSize);
+        if(isHTML) {
+            data = QString::number(value) + " %";
+        } else {
+            data = QString::number(value);
+        }
+    } else {
+        data = "---";
+    }
+    text += formatSingleValue(data, true, isHTML);
+}
+
+void NodesRelationsController::exportAttributesInCSVToStream(QTextStream &stream, AttributesSummaryData* attributesSummaryData)
+{
+    if(NULL == attributesSummaryData) {
+        return ;
+    }
+    QString text;
+    stream << Utils::valueStringCSV(tr("XPath"), true);
+    stream << Utils::valueStringCSV(tr("Count"), false);
+    stream << Utils::valueStringCSV(tr("Empty Count"), false);
+    stream << Utils::valueStringCSV(tr("Size"), false);
+    stream << Utils::valueStringCSV(tr("Memory Size (estimated)"), false);
+
+    stream << Utils::valueStringCSV(tr("Size empty data"), false);
+    stream << Utils::valueStringCSV(tr("Memory empty data (estimated)"), false);
+
+    stream << Utils::valueStringCSV(tr("% Size"), false);
+    stream << Utils::valueStringCSV(tr("Used"), false);
+    stream << "\n";
+
+    QMap<QString, QString> sortedMap;
+    long sizeFile = 0 ;
+    foreach(const QString & key, attributesSummaryData->data.keys()) {
+        sizeFile += attributesSummaryData->data[key]->sizeCharacters();
+        sortedMap.insert(key, key);
+    }
+    foreach(const QString & key, sortedMap.keys()) {
+        stream << Utils::valueStringCSV(key, true);
+        text = "";
+        AttributeSummaryData* attributeSummaryData = attributesSummaryData->data[key] ;
+        calculateSingleAttributeLine(text, attributeSummaryData, sizeFile, false);
+        stream << text;
+        stream << ",";
+        stream << attributesSummaryData->isUsed(key);
+        stream << "\n";
     }
 }

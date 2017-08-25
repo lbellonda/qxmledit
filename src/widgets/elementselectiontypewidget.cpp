@@ -52,7 +52,7 @@ bool ElementSelectionTypeWidget::setSelectionTypeInner(const TargetSelection::Ty
     switch(_selectionType) {
     default: {
         QList<QAbstractButton*> buttons = ui->group->buttons();
-        foreach(QAbstractButton * button , buttons) {
+        foreach(QAbstractButton * button, buttons) {
             button->setChecked(false);
         }
     }

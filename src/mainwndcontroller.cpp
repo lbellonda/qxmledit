@@ -233,7 +233,7 @@ ReplicaInfoProvider *MainWndController::setReplicaInfoProvider(ReplicaInfoProvid
 ReplicaCloneInfo * MainWndController::getCloneInfo(QWidget *parent, Element *element)
 {
     ReplicaCloneInfo *command = NULL ;
-    ReplicaCloneDialog dlg(parent , element);
+    ReplicaCloneDialog dlg(parent, element);
     if(dlg.exec() == QDialog::Accepted) {
         command = dlg.results();
         if(NULL != command) {

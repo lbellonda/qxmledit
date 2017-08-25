@@ -39,7 +39,7 @@
 
 enum EStylesDir {
     ESTYLE_DIR_USESTD,
-    ESTYLE_DIR_USEDIR ,
+    ESTYLE_DIR_USEDIR,
     ESTYLE_DIR_USEAPPL
 };
 

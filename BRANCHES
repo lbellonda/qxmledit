@@ -1,0 +1,20 @@
+master
+devel
+
+
+Branches:
+---------
+
+Attivo 163-xsdprint: stampa xsd
+Attivo 164-attrsize: size attributi in analisi
+
+
+Old branches:
+-------------
+
+
+M Branch 153 - XSLT
+M Branch 150 - Miglioramenti su UI
+M Branch 145 - Multithreading calcoli su vis dati.
+M Branch 144 - Rimuovi opzioni salvataggio DOM.
+M Branch 148 - Split default flag visualizza in app = no.

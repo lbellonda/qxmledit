@@ -564,3 +564,6 @@ equals(USE_QWTPLOT, "Y") {
     }
   }
 }
+
+DISTFILES += \
+    ../BRANCHES

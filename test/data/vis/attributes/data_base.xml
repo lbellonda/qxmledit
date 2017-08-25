@@ -1,0 +1,10 @@
+<root>
+    <a a="aa" e="" >
+        <b bbb="bbbb"/>
+        <c cccc="cccccc" z="z"/>
+    </a>
+    <a a="aa" e="" >
+        <b bbb="bbbb"/>
+        <c cccc="cccccc" z="z" />
+    </a>
+</root>

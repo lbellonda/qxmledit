@@ -1,7 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>VisMapWidget</class>
  <widget class="QWidget" name="VisMapWidget">
   <property name="geometry">
@@ -15,7 +13,13 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
+  </property>
  </widget>
- <pixmapfunction/>
+ <resources>
+  <include location="../risorse.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -24,7 +24,7 @@
 #ifndef SUMMARYDATA_H
 #define SUMMARYDATA_H
 
-#include <QObject>
+#include "xmlEdit.h"
 
 class SummaryData
 {

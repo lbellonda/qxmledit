@@ -49,7 +49,7 @@ SCXMLGenericToken::~SCXMLGenericToken()
 {
 }
 
-bool SCXMLGenericToken::editToken(QWidget *, SCXMLInfo *, Regola *, const bool , const bool ,
+bool SCXMLGenericToken::editToken(QWidget *, SCXMLInfo *, Regola *, const bool, const bool,
                                   Element *, Element *, Element *)
 {
     return false ;
@@ -65,7 +65,7 @@ SCXMLRootToken::~SCXMLRootToken()
 {
 }
 
-bool SCXMLRootToken::editToken(QWidget *, SCXMLInfo *, Regola *, const bool , const bool ,
+bool SCXMLRootToken::editToken(QWidget *, SCXMLInfo *, Regola *, const bool, const bool,
                                Element *, Element *, Element *)
 {
     return false ;
