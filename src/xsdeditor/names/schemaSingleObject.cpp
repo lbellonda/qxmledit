@@ -23,6 +23,7 @@
 #include "xsdeditor/xsddefinitions.h"
 #include "xsdeditor/xschema.h"
 #include "utils.h"
+#include "xmlutils.h"
 
 /*
  * namespace resolution rules
@@ -106,7 +107,33 @@ XSchemaElement *XSDSchema::topLevelType(const QString &referenceName)
 
 XSchemaElement *XSDSchema::topLevelElement(const QString &referenceName)
 {
-    return (XSchemaElement*) infoPool()->getObject(referenceName, SchemaGenericElement);
+    Utils::TODO_THIS_RELEASE("se prefisso, trova prefisso ->ns, poi controlla se uguale a targetns, se si, serca non qualificato o qualificato con ns originale");
+    XSchemaElement* element = (XSchemaElement*) infoPool()->getObject(referenceName, SchemaGenericElement);
+    if(NULL == element) {
+        QString prefix, name;
+        XmlUtils::decodeQualifiedName(referenceName, prefix, name);
+        Utils::TODO_THIS_RELEASE("check se appropriato");
+        // look for target ns and prefixes for target ns, if appropriate, look for element name
+        const QString &ns = _namespacesByPrefix[prefix] ;
+        if(ns == _targetNamespace) {
+            element = (XSchemaElement*) infoPool()->getObject(name, SchemaGenericElement);
+        }
+        if(NULL == element) {
+            // look in imported under namespace
+            Utils::TODO_THIS_RELEASE("seguire le specifiche");
+            /*if( _importedSchemasByNamespace.contains(ns) ) {
+                foreach( XSDSchema* importedSchema, _root->_importedSchemasByNamespace[ns] ) {
+                    foreach( XSchemaObject* aChild, importedSchema->topLevelElements(true)) {
+                        if( aChild.name() == name ) {
+                            return static_cast<XSchemaElement*>(aChild);
+                        }
+                    }
+                }
+            }*/
+        }
+
+    }
+    return element;
 }
 
 XSchemaAttribute *XSDSchema::topLevelAttribute(const QString &referenceName)

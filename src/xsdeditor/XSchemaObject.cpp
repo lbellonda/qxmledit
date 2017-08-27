@@ -1409,3 +1409,21 @@ QString XSchemaObject::occurrencesDescrString(XOccurrence &minOccurs, XOccurrenc
     }
     return occurrences;
 }
+
+QList<XSchemaObject*> XSchemaObject::sortObjectsByName(const QList<XSchemaObject*> &objects)
+{
+    QList<XSchemaObject*> result ;
+    QMultiMap<QString, XSchemaObject*> map;
+    QList<QString> keys;
+    foreach(XSchemaObject * object, objects) {
+        QString nameLowerCase = object->name().toLower();
+        map.insert(nameLowerCase, object);
+        keys.append(nameLowerCase);
+    }
+    qSort(keys);
+    foreach(QString key, keys) {
+        QList<XSchemaObject*> values = map.values(key);
+        result.append(values);
+    }
+    return result;
+}

@@ -68,8 +68,7 @@ XSDItemContext::XSDItemContext(QXmlEditData *appData)
     _isDebug = false;
     _strategy = COMPACT;
     Utils::TODO_THIS_RELEASE("fare");
-    _renderingStrategy = appData->isXsdDisplayHoriz() ? DISPLAYSTR_NEW0 : DISPLAYSTR_NEW0; //DISPLAYSTR_HOR_PYRAMID : DISPLAYSTR_UNDER;
-    //_renderingStrategy = DISPLAYSTR_HOR_PYRAMID ;
+    _renderingStrategy = appData->isXsdDisplayHoriz() ? DISPLAYSTR_NEW0 : DISPLAYSTR_UNDER; //DISPLAYSTR_HOR_PYRAMID : DISPLAYSTR_UNDER;
     _gapBetweenChildren = 10 ;
     _stemLength = 50 ;
 }
@@ -447,7 +446,7 @@ XSDItem *XSDItem::createItem(XsdGraphicContext *context, XSchemaObject *newChild
     }
     ESchemaType type = newChild->getType()  ;
     XSDItem* newItem ;
-    Utils::TODO_THIS_RELEASE(QString("type is %1 %2").arg(type).arg(newChild->typeString()));
+    // debug code qDebug(QString("type is %1 %2").arg(type).arg(newChild->typeString()).toLatin().data());
     if(SchemaTypeAttribute == type) {
         newItem = new AttributeItem(context, (XSchemaAttribute *)newChild, parent);
     } else if(SchemaTypeChoice  == type) {
@@ -606,7 +605,6 @@ qreal XSDItem::recalcChildrenPos(XSDItemContext *context)
     case XSDItemContext::DISPLAYSTR_HOR_PYRAMID:
         return calcChildrenHeightAndDisposeStrategyHorPyramid(context);
     case XSDItemContext::DISPLAYSTR_NEW0:
-        Utils::TODO_THIS_RELEASE("fare");
         return calcChildrenHeightAndDisposeStrategyHorPyramidNew0(context);
     }
 }
@@ -615,7 +613,6 @@ qreal XSDItem::recalcChildrenPos(XSDItemContext *context)
 qreal XSDItem::calcChildrenHeightAndDisposeStrategyHorPyramidNew0(XSDItemContext *context)
 {
     qreal value = placeAllStrategyHorPyramidNew0(context);
-    Utils::TODO_THIS_RELEASE("togli codice commentato sotto");
     return value ;
 }
 
@@ -625,38 +622,6 @@ qreal XSDItem::calcChildrenHeightAndDisposeStrategyHorPyramid(XSDItemContext *co
     reDisposeAllStrategyHorPyramid(context);
     return value ;
 }
-/*
-qreal XSDItem::calcChildrenHeightStrategyHorPyramidNew0(XSDItemContext *context)
-{
-    if(true || _childrenSizeInvalid) {
-        _childrenHeight = 0 ;
-        qreal lastChildBounds = 0 ;
-        bool isFirst = true;
-        foreach(RChild * rchild, _children.children()) {
-            XSDItem *xsdItem = rchild->item();
-
-            if(isFirst) {
-                isFirst = false;
-            } else {
-                _childrenHeight += context->gapBetweenChildren() ;
-            }
-            lastChildBounds = xsdItem->graphicItem()->boundingRect().height();
-            _childrenHeight += lastChildBounds;
-        }
-        _childrenSizeInvalid = false;
-    }
-    // now center the children in the bounding rect
-    qreal thisHeight = graphicItem()->boundingRect().height();
-    _realChildrenHeight = _childrenHeight ;
-    if(_childrenHeight < thisHeight) {
-        _childrenHeight = thisHeight ;
-    }
-    _childrenHeight += offsetHeight();
-    _childrenHeight += marginBottom();
-    //QString str = QString("DEBUG CODE: %3\nChildren count:%1, height:%2").arg(_children.children().size()).arg(_childrenHeight).arg(graphicItem()->toolTip());
-    //graphicItem()->setToolTip(str);
-    return _childrenHeight ;
-}*/
 
 qreal XSDItem::calcChildrenHeightStrategyHorPyramid(XSDItemContext *context)
 {
@@ -868,24 +833,7 @@ void XSDItem::remove(XSchemaObject *child)
 void XSDItem::preAddChildren(XSchemaObject *object)
 {
     if(_context->isOutline()) {
-        /*QList<XSchemaObject*> baseAttributes;
-        QList<XSchemaObject*> baseElements;*/
-        Utils::TODO_THIS_RELEASE("ci siamo gia");
-        /*bool isOk = object->findBaseObjects(_context->searchContext(), baseElements, baseAttributes);
-        if(!isOk) {
-            Utils::error(tr("Error collecting information on base types for:").append(_context->searchContext().typeErrors().join(",")));
-            _context->searchContext().resetErrors();
-        } else {
-            Utils::TODO_THIS_RELEASE("gestire il caso delle estensioni e restrizioni");
-            foreach(XSchemaObject * child, baseElements) {
-                if(child->getType() == SchemaTypeElement) {
-                    XSchemaElement *element = (XSchemaElement *)child ;
-                    if(!element->isTypeOrElement()) {
-                        childAdded(child);
-                    }
-                }
-            }
-        }*/
+        ; //nothing
     } else if(_context->isShowBaseObjects()) {
         QList<XSchemaObject*> baseAttributes;
         QList<XSchemaObject*> baseElements;

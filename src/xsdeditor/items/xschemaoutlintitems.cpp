@@ -45,7 +45,6 @@ OutlineElementItem::OutlineElementItem(XsdGraphicContext *newContext, XSchemaOut
 
 OutlineElementItem::~OutlineElementItem()
 {
-    Utils::TODO_THIS_RELEASE("assicurarsi sia eliminato");
     reset();
 }
 

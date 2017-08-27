@@ -1262,7 +1262,6 @@ XSchemaElement *XSchemaElement::resolveReference(XSchemaFindReferenceContext &co
     XSchemaElement *result = base;
     if((result->category() == EES_REFERENCE)) {
         result = _root->schema()->topLevelElement(context, base->ref());
-        Utils::TODO_THIS_RELEASE("con i namespace");
         context.setResolved(result);
     }
 
@@ -1284,7 +1283,6 @@ XSchemaElement *XSchemaElement::resolveType(XSchemaFindReferenceContext &context
     } else if(base->xsdType().isEmpty()) {
         context.setResolved(base);
     } else {
-        Utils::TODO_THIS_RELEASE("take namespace into account");
         context.setResolved(_root->schema()->topLevelType(context, base->xsdType()));
     }
     return context.resolved();

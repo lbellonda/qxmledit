@@ -207,8 +207,9 @@ bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, 
         break;
     case EES_COMPLEX_DERIVED: {
         collectElementsOfComplexDerived(context, result);
-        Utils::TODO_THIS_RELEASE("fare attributi");
-        collectAttributesOfComplexDerived(context, attributes);
+        if(context.isFullCollection()) {
+            collectAttributesOfComplexDerived(context, attributes);
+        }
         return true ;
     }
     break;
@@ -219,7 +220,6 @@ bool XSchemaElement::collectAllBaseTypeElements(XSchemaInquiryContext &context, 
     }
     // if no base or reference, nothing to do
     if(typeContext.isPredefinedType() || ((elm == this) && !context.isFullCollection())) {
-        Utils::TODO_THIS_RELEASE("pensa children are already collected if type is this");
         ok = true ;
     } else {
         if(NULL != elm) {

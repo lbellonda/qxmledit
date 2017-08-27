@@ -149,7 +149,8 @@ void XSDWindow::printPDF()
     // take out page position
     pageRectInDevicePoints.setHeight(pageRectInDevicePoints.height() - pageNumberArea.height());
     double resYPrinter = printer.logicalDpiY();
-    if(0 == resYPrinter) {
+    double resXPrinter = printer.logicalDpiX();
+    if((0 == resYPrinter) ||((0 == resXPrinter))) {
         Utils::error(this, tr("Error in calculating printer resolution."));
         return ;
     }
@@ -159,24 +160,15 @@ void XSDWindow::printPDF()
     Utils::TODO_THIS_RELEASE("incapsulare");
     XSDPrintInfo xsdPrintInfo ;
     xsdPrintInfo.setPrinter(&printer, &painter, pageRectInDevicePoints);
-    /*xsdPrintInfo.printer = &printer;
-    xsdPrintInfo.pageBounds = pageRectInDevicePoints ;
-    xsdPrintInfo.printingBounds = pageRectInDevicePoints ;
-    xsdPrintInfo.currentY = pageRectInDevicePoints.top();
-    QFontMetrics fm = painter.fontMetrics();
-    xsdPrintInfo.em = fm.averageCharWidth();*/
-
-    Utils::TODO_THIS_RELEASE("setta i margini?");
 
     // scene resolution
-    double resXVideo = logicalDpiX();
-    double resYVideo = logicalDpiY();
+    double resXVideo = physicalDpiX();
+    double resYVideo = physicalDpiY();
     // find the dimensions of a printer page on scene
     // abs width value * device resolution -> device points
-    // 10pt size video -> 8pt size printer
-    Utils::TODO_THIS_RELEASE("non mi torna");
-    double pageWidthScene = pageRect.width() * resXVideo * 3;
-    double pageHeightScene = pageRect.height() * resYVideo * 3 ;
+    // la stampa deve contenere il doppio di quello che vedo a video.
+    double pageWidthScene = pageRect.width() * resXVideo * 2;
+    double pageHeightScene = pageRect.height() * resYVideo * 2 ;
 
     // maps
     if((0 == pageWidthScene) || (0 == pageHeightScene)) {
@@ -237,7 +229,6 @@ void XSDWindow::printPDF()
     }
     painter.restore();
     xsdPrintInfo.pages = currentPage ;
-    Utils::TODO_THIS_RELEASE("aggiorna il nuemro di pagine");
     printSchemaData(&painter, xsdPrintInfo, false);
     painter.end();
 
@@ -258,7 +249,6 @@ void XSDWindow::paintScene(XSDPrintInfo *xsdPrintInfo, QPainter *painter, const 
     _scene->render(painter, destArea, sourceArea);
     if((totalPages != 0) && (NULL != xsdPrintInfo) ){
         xsdPrintInfo->printPageNumber(pageNumber, totalPages);
-        Utils::TODO_THIS_RELEASE("SOstituire");
 
         QFontMetrics fm = painter->fontMetrics();
         QString text = QString(tr("Row: %1 Col: %2")).arg((row+1)).arg((column+1));
@@ -275,50 +265,25 @@ void XSDWindow::paintScene(XSDPrintInfo *xsdPrintInfo, QPainter *painter, const 
 
 void XSDWindow::printSchemaData(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const bool isCalculating)
 {
-    Utils::TODO_THIS_RELEASE("finire");
     xsdPrintInfo.isCalculating = isCalculating ;
     printSchemaIntroduction(painter, xsdPrintInfo);
     printSchemaElements(painter, xsdPrintInfo);
     printSchemaTypes(painter, xsdPrintInfo);
+    printSchemaInnerElements(painter, xsdPrintInfo);
     printSchemaGroups(painter, xsdPrintInfo);
     printSchemaAttributes(painter, xsdPrintInfo);
     printSchemaAttributeGroups(painter, xsdPrintInfo);
     printSchemaEnd(painter, xsdPrintInfo);
 }
 
-/*
-TODO: in utils
-QList<XSchemaObject*> NavigationTree::sortObjectsByName(const QList<XSchemaObject*> &objects)
-{
-    QList<XSchemaObject*> result ;
-    QMultiMap<QString, XSchemaObject*> map;
-    QList<QString> keys;
-    foreach(XSchemaObject * object, objects) {
-        QString nameLowerCase = object->name().toLower();
-        map.insert(nameLowerCase, object);
-        keys.append(nameLowerCase);
-    }
-    qSort(keys);
-    foreach(QString key, keys) {
-        QList<XSchemaObject*> values = map.values(key);
-        result.append(values);
-    }
-    return result;
-}
-*/
-
 void XSDWindow::printSchemaIntroduction(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-    Utils::TODO_THIS_RELEASE(" elimina dichiarazioni senza corpo QList<XSchemaObject*>objects = schema()->topLevelListByName(SchemaTypeElement, true);");
-
     QList<XSchemaObject*>objects = schema()->root()->schema()->topLevelReferences();
     if(objects.isEmpty()) {
         return ;
     }
     printHeader(painter, xsdPrintInfo, tr("Schema includes and references"));
 
-    Utils::TODO_THIS_RELEASE("objects = sortObjectsByName(schema->topLevelTypes(useOnlyThisSchemaOrAll));");
     QList<XSchemaImport*> imps;
     QList<XSchemaInclude*> incls;
     QList<XSchemaRedefine*> redefs;
@@ -359,10 +324,22 @@ void XSDWindow::printSchemaElements(QPainter *painter, XSDPrintInfo &xsdPrintInf
     Utils::TODO_THIS_RELEASE("objects = sortObjectsByName(schema->topLevelTypes(useOnlyThisSchemaOrAll));");
     foreach(XSchemaObject * object, objects) {
         XSchemaElement* schemaObject = static_cast<XSchemaElement*>(object);
-        /*QIcon icon = typeComplexIcon ;
-        if(schemaObject->isSimpleType()) {
-            icon = typeSimpleIcon;
-        }*/
+        printSingleElement(painter, xsdPrintInfo, schemaObject);
+    }
+}
+
+void XSDWindow::printSchemaInnerElements(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
+{
+    Utils::TODO_THIS_RELEASE("finire");
+    Utils::TODO_THIS_RELEASE(" elimina dichiarazioni senza corpo QList<XSchemaObject*>objects = schema()->topLevelListByName(SchemaTypeElement, true);");
+    QList<XSchemaObject*>objects = schema()->root()->schema()->allInnerElements(true);
+    if(objects.isEmpty()) {
+        return ;
+    }
+    printHeader(painter, xsdPrintInfo, tr("Inner Elements"));
+    objects = XSchemaObject::sortObjectsByName(objects);
+    foreach(XSchemaObject * object, objects) {
+        XSchemaElement* schemaObject = static_cast<XSchemaElement*>(object);
         printSingleElement(painter, xsdPrintInfo, schemaObject);
     }
 }
@@ -377,10 +354,6 @@ void XSDWindow::printSchemaTypes(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
     Utils::TODO_THIS_RELEASE("objects = sortObjectsByName(schema->topLevelTypes(useOnlyThisSchemaOrAll));");
     foreach(XSchemaObject * object, objects) {
         XSchemaElement* schemaObject = static_cast<XSchemaElement*>(object);
-        /*QIcon icon = typeComplexIcon ;
-        if(schemaObject->isSimpleType()) {
-            icon = typeSimpleIcon;
-        }*/
         printSingleType(painter, xsdPrintInfo, schemaObject);
     }
 }
@@ -440,18 +413,6 @@ int XSDWindow::printSingleElement(QPainter *painter, XSDPrintInfo &xsdPrintInfo,
     text = QString("<div>&nbsp;</div><div style=''>%1</div>").arg(elementText);
 
     text += printAnnotationString(xsdPrintInfo, element);
-    /*QString annotationInfo;
-    if(NULL != element->annotation()) {
-        annotationInfo = element->annotation()->text();
-        if(!annotationInfo.isEmpty()) {
-            int em3 = xsdPrintInfo.em * 10;
-            int em = xsdPrintInfo.em ;
-            QString annotationHtml = QString("<div style='margin-left:%2px;margin-right:%3px;font-size:small;font-style:italic;color:#0000C0;'>%1</div>")
-                    .arg(Utils::escapeHTML(annotationInfo))
-                    .arg(em3).arg(em);
-            text += printAnnotationString(xsdPrintInfo, element);
-        }
-    }*/
     text += "<div><HR/>&nbsp;</div>";
     QString htmlText = "<html><body>"+text+"</body></html>";
     printBox(painter, xsdPrintInfo, htmlText );
@@ -462,7 +423,9 @@ int XSDWindow::printSingleElement(QPainter *painter, XSDPrintInfo &xsdPrintInfo,
 int XSDWindow::printSingleType(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element)
 {
     Utils::TODO_THIS_RELEASE("finire");
-
+if(element->name()=="space_Type") {
+    Utils::TODO_THIS_RELEASE("finire");
+}
     QString text ;
     QString elementText = QString("<span style=''>%1</span>").arg(Utils::escapeHTML(element->name()));
     if(!element->isSimpleType()) {
@@ -483,8 +446,6 @@ int XSDWindow::printSingleType(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XS
 
 int XSDWindow::printInclude(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaInclude *object)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QString text ;
     QString elementText = QString("<span style=''>include %1</span>").arg(Utils::escapeHTML(object->schemaLocation()));
     text = QString("<div style=''>%1</div>").arg(elementText);
@@ -499,7 +460,6 @@ int XSDWindow::printInclude(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSche
 
 int XSDWindow::printImport(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaImport *object)
 {
-    Utils::TODO_THIS_RELEASE("finire");
 
     QString text ;
     QString elementText = QString("<span style=''>import %1</span>").arg(Utils::escapeHTML(object->schemaLocation()));
@@ -518,8 +478,6 @@ int XSDWindow::printImport(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchem
 
 int XSDWindow::printRedefine(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaRedefine *object)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QString text ;
     QString elementText = QString("<span style=''>redefine %1</span>").arg(Utils::escapeHTML(object->schemaLocation()));
     text = QString("<div style=''>%1</div>").arg(elementText);
@@ -532,43 +490,6 @@ int XSDWindow::printRedefine(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSch
     return 0;
 }
 
-int XSDWindow::printSingleElementOld(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element)
-{
-    Utils::TODO_THIS_RELEASE("eliminare?");
-
-    QString elementText = QString("<span style=''>%1</span>").arg(Utils::escapeHTML(element->name()));
-    if(!element->xsdType().isEmpty()) {
-        elementText += QString("&nbsp;&nbsp;<span style='color:#00C000:font-style:italic'>%1 \"%2\"</span>").arg(tr("type")).arg(Utils::escapeHTML(element->xsdType()));
-    } else if(!element->ref().isEmpty()) {
-        elementText += QString("&nbsp;&nbsp;<span style='color:#00C0C0;font-style:italic'>%1 \"%2\"</span>").arg(tr("reference to")).arg(Utils::escapeHTML(element->ref()));
-    }
-
-    QString text = QString("<div style=''>%1</div>").arg(elementText);
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
-
-    QString annotationInfo;
-    if(NULL != element->annotation()) {
-        annotationInfo = element->annotation()->text();
-        if(!annotationInfo.isEmpty()) {
-            int em3 = xsdPrintInfo.em * 3;
-            int em = xsdPrintInfo.em ;
-            QString annotationHtml = QString("<p style='margin-left:%2px;margin-right:%3px;font-size:small;font-style:italic;color:#0000C0;'>%1</p>")
-                    .arg(Utils::escapeHTML(annotationInfo)
-                    .arg(em3).arg(em));
-            Utils::TODO_THIS_RELEASE("gestire i margini con la scala");
-            annotationHtml = QString("<div style='margin-left:3000px;margin-right:10px;font-size:small;font-style:italic;color:#0000C0;'>%1</div>")
-                    .arg(Utils::escapeHTML(annotationInfo)
-                    .arg(em3).arg(em));
-            QString htmlAnnotationText = "<html><body>"+annotationHtml+"</body></html>";
-            printBox(painter, xsdPrintInfo, htmlAnnotationText );
-        }
-    }
-    QString endText = "<html><body style='font-size:2pt'><HR/></body></html>";
-    printBox(painter, xsdPrintInfo, endText );
-    return 0;
-}
-
 // returns the height of the box
 int XSDWindow::printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &htmlText)
 {
@@ -576,7 +497,8 @@ int XSDWindow::printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QSt
 
     QTextDocument document;
     document.documentLayout()->setPaintDevice(painter->device());
-    //document.setTextWidth(printWidth);
+    ////document.setTextWidth(printWidth);
+    document.setPageSize(xsdPrintInfo.printer->pageRect().size());
     document.setHtml(htmlText);
     QSizeF documentSize = document.size();
     const qreal heightUsed = documentSize.height() ;
@@ -584,9 +506,9 @@ int XSDWindow::printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QSt
     xsdPrintInfo.newPageIfNeeded(heightUsed);
     painter->save();
     painter->translate(0, xsdPrintInfo.currentY);
-    document.setPageSize(xsdPrintInfo.printer->pageRect().size());
     if(!xsdPrintInfo.isCalculating) {
         document.drawContents(painter);
+        //document.print(xsdPrintInfo.printer);
     }
 
     painter->restore();
@@ -604,7 +526,7 @@ void XSDWindow::printSchemaGroups(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
         return ;
     }
     printHeader(painter, xsdPrintInfo, tr("Groups"));
-    Utils::TODO_THIS_RELEASE("objects = sortObjectsByName(schema->topLevelTypes(useOnlyThisSchemaOrAll));");
+    objects = XSchemaObject::sortObjectsByName(objects);
     foreach(XSchemaObject * object, objects) {
         XSchemaGroup* schemaGroup = static_cast<XSchemaGroup*>(object);
         printSingleGroup(painter, xsdPrintInfo, schemaGroup);
@@ -630,13 +552,12 @@ int XSDWindow::printSingleGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, X
 
 void XSDWindow::printSchemaAttributes(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 {
-    Utils::TODO_THIS_RELEASE("finire");
     QList<XSchemaObject*>objects = schema()->root()->schema()->topLevelAttributes(true);
     if(objects.isEmpty()) {
         return ;
     }
     printHeader(painter, xsdPrintInfo, tr("Attributes"));
-    Utils::TODO_THIS_RELEASE("objects = sortObjectsByName(schema->topLevelTypes(useOnlyThisSchemaOrAll));");
+    objects = XSchemaObject::sortObjectsByName(objects);
     foreach(XSchemaObject * object, objects) {
         XSchemaAttribute* schemaAttribute = static_cast<XSchemaAttribute*>(object);
         printSingleAttribute(painter, xsdPrintInfo, schemaAttribute);

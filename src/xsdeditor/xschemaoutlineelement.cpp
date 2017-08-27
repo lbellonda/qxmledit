@@ -200,7 +200,6 @@ void XSchemaOutlineContainer::collectOutlineChildrenOfObject(XSchemaInquiryConte
         // take children
         case SchemaContainer:
             collectOutlineChildrenOfObject(context, static_cast<XSchemaContainer*>(child)->existingChildren());
-            Utils::TODO_THIS_RELEASE("fare pulizia");
             delete child;
             // remove the (unused)container object
             break;

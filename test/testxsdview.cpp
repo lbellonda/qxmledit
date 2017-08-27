@@ -516,6 +516,7 @@ bool TestXSDView::testFast()
 {
     _testName = "testFast";
     //return testBaseElement();
-    return testOutline();
+    return testComplexExtension();
+    //return testOutline();
     //return testExtension();
 }

@@ -1494,6 +1494,7 @@ protected:
     virtual QString chooseRoot(QWidget *parent, QList<XSchemaElement*> elements);
     void printSchemaData(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const bool isCalculating);
     void printSchemaElements(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
+    void printSchemaInnerElements(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
     void printSchemaTypes(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
 
     void printSchemaIntroduction(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
@@ -1512,7 +1513,6 @@ protected:
     int printSingleGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaGroup *group);
     int printSingleAttribute(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaAttribute *attribute);
     int printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaAttributeGroup *attributeGroup);
-    int printSingleElementOld(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
     int printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &htmlText);
     QString printAnnotationString(XSDPrintInfo &xsdPrintInfo, XSchemaObject *object);
 

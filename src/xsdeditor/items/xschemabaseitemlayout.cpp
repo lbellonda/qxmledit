@@ -35,12 +35,10 @@ qreal XSDItem::placeAllStrategyHorPyramidNew0(XSDItemContext *context)
     int rootYPosition = (overallHeight - bounds.height()) / 2;
     placeObjectNew0(context, 0, 0, rootYPosition);
     afterPositionChange();
-    Utils::TODO_THIS_RELEASE("manca il check collisione sulle linee");
     QStack<XSDItem*> chain ;
     QList<QGraphicsItem*> rendered;
     QList<XSDItem *> itemsRendered;
     updateObjectPlacementNew0(context, rendered, itemsRendered, chain);
-    Utils::TODO_THIS_RELEASE("manca il check collisione sulle linee");
     afterPositionChange();
     const qreal overallFinalHeight = calcOverallHeight(rendered);
     Utils::TODO_THIS_RELEASE("fare centra su root, ma a livello piu alto");
@@ -244,7 +242,6 @@ bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphics
     chain.push(this);
     QGraphicsItem *thisItem = graphicItem() ;
     qreal maxGap = 0;
-    Utils::TODO_THIS_RELEASE("cambiare algoritmo: esamina colonne (xmin e xmax) no recursive, vai dopo il max di quelli trovati. ANche le linee degli rchild");
     bool existsCollision = false ;
     qreal extens = 0;
     if(NULL != _chain) {

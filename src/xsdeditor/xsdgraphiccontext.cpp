@@ -35,8 +35,6 @@ XsdGraphicContext::XsdGraphicContext(QObject *parent) :
     _schema = NULL ;
     _scene = NULL ;
     _contextType = CONTEXT_GRAPHICS;
-    Utils::TODO_THIS_RELEASE("commento");
-    //_contextType = CONTEXT_OUTLINE;
     _showAllSchema = false ;
     Utils::TODO_THIS_RELEASE("commento");
     _showBaseObjects = true ;

@@ -474,6 +474,7 @@ public:
     virtual void markCompareStateRecursive(const XSDCompareState::EXSDCompareState newState);
     virtual void getModifiedObjects(QList<XSchemaObject*> &added, QList<XSchemaObject*> &modified, QList<XSchemaObject*> &deleted);
     QString occurrencesDescrString(XOccurrence &minOccurs, XOccurrence &maxOccurs);
+    static QList<XSchemaObject*> sortObjectsByName(const QList<XSchemaObject*> &objects);
 
 protected:
     void setCompareState(const XSDCompareState::EXSDCompareState newState);
