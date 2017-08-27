@@ -503,7 +503,8 @@ SOURCES += xmleditwidget.cpp \
     xsdeditor/xschemaoutlinecontainer.cpp \
     xsdeditor/choosexsdviewrootitemdialog.cpp \
     xsdeditor/items/xschemabaseitemlayout.cpp \
-    visualization/attributessummarydata.cpp
+    visualization/attributessummarydata.cpp \
+    xsdeditor/xsdprint.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \

@@ -107,6 +107,11 @@ void XSDSchema::setLocation(const QString &newLocation)
     _location = newLocation;
 }
 
+QString XSDSchema::location()
+{
+    return _location ;
+}
+
 QList<XSDSchema*> XSDSchema::schemasByNamespace(const QString &theNamespace)
 {
     if(infoPool()->targetNamespace() == theNamespace) {

@@ -1689,6 +1689,7 @@ public:
     QString defaultNamespace() ;
 
     void setLocation(const QString &newLocation);
+    QString location();
 
 protected:
 

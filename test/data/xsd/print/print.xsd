@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://targetns">
+
+<xs:include schemaLocation="https://include1.xsd"/>
+<xs:include schemaLocation="https://include2.xsd"/>
+<xs:import namespace="http://test.import" />
+
+<xs:redefine schemaLocation="redefine1.xsd">
+	<xs:simpleType name="testST"/>
+</xs:redefine>
+
+<xs:element name="a" />
+
+<xs:attributeGroup name="group1">
+	<xs:annotation>
+          <xs:appinfo>appinfo appinfo appinfo appinfo appinfo</xs:appinfo>
+	  <xs:documentation xml:lang="en">
+          documentation documentation documentation documentation documentation
+           documentation documentation documentation documentation documentation
+	  </xs:documentation>
+	</xs:annotation>
+  <xs:attribute name="attr1" type="string"/>
+  <xs:attribute name="attr2" type="string"/>
+  <xs:attribute name="attr3" type="string"/>
+  <xs:attribute name="attr4" type="string"/>
+</xs:attributeGroup>
+
+</xs:schema> 

@@ -1252,105 +1252,7 @@ void XSDWindow::jumpToObject(XSchemaObject *target)
 //TODO: error checking
 void XSDWindow::on_printCmd_clicked()
 {
-    QString filePath = QFileDialog::getSaveFileName(this, tr("Export as PDF"),
-                       Utils::changeFileType(fileName, ".pdf"),
-                       tr("PDF documents (*.pdf);;All files (*)"));
-    if(filePath.isEmpty()) {
-        return ;
-    }
-    QPrinter printer(QPrinter::HighResolution);
-    printer.setOutputFileName(filePath);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-
-    /**
-      what I impose is: 100 points on video (since 100pts is a width of a badge) are 2cm on paper
-      */
-    QPainter painter(&printer);
-    QRectF pageNumberArea;
-    calculatePageRect(&painter, pageNumberArea);
-    // width of a printer page in mm
-    QRectF pageRect = printer.pageRect(QPrinter::Inch);
-    QRectF pageRectInDevicePoints = printer.pageRect();
-
-    // take out page position
-    pageRectInDevicePoints.setHeight(pageRectInDevicePoints.height() - pageNumberArea.height());
-    double resYPrinter = printer.logicalDpiY();
-    if(0 == resYPrinter) {
-        Utils::error(tr("Error in calculating printer resolution."));
-        return ;
-    }
-    double pageHeightPrinter = pageNumberArea.height() / resYPrinter ;
-    pageRect.setHeight(pageRect.height() - pageHeightPrinter);
-
-    // scene resolution
-    double resXVideo = logicalDpiX();
-    double resYVideo = logicalDpiY();
-    // find the dimensions of a printer page on scene
-    // abs width value * device resolution -> device points
-    double pageWidthScene = pageRect.width() * resXVideo ;
-    double pageHeightScene = pageRect.height() * resYVideo ;
-
-    // maps
-    if((0 == pageWidthScene) || (0 == pageHeightScene)) {
-        Utils::error(tr("Error in calculating scene dimensions."));
-        return ;
-    }
-
-    // calculate the number of pages: how many times the scene can be divided by the page dimensions
-    // find the number of pages
-    double dnumberOfPagesInARow = _scene->sceneRect().width() / pageWidthScene  ;
-    double dnumberOfPagesInAColumn = _scene->sceneRect().height() / pageHeightScene  ;
-
-    // round fractional values to integer
-    int numberOfPagesInARow = int(dnumberOfPagesInARow);
-    int numberOfPagesInAColumn = int(dnumberOfPagesInAColumn);
-
-    // check for factional pages
-    if((dnumberOfPagesInARow - numberOfPagesInARow) > 0) {
-        numberOfPagesInARow++;
-    }
-    if(dnumberOfPagesInAColumn - dnumberOfPagesInAColumn > 0) {
-        numberOfPagesInAColumn++;
-    }
-    // last check
-    if(numberOfPagesInAColumn == 0) {
-        numberOfPagesInAColumn = 1;
-    }
-    if(numberOfPagesInARow == 0) {
-        numberOfPagesInARow = 1;
-    }
-
-    QBrush solidBrush(Qt::NoBrush);
-    QBrush oldBrush = _scene->backgroundBrush();
-    setUpdatesEnabled(false);
-    _scene->setBackgroundBrush(solidBrush);
-
-    // for all the pages
-    int numPages = numberOfPagesInARow * numberOfPagesInAColumn ;
-    int currentPage = 0;
-    QRectF sourceArea;
-    for(int pageRow = 0 ; pageRow < numberOfPagesInARow ; pageRow ++) {
-        for(int pageColumn = 0 ; pageColumn < numberOfPagesInAColumn ; pageColumn ++) {
-            currentPage++;
-            sourceArea.setRect(pageRow * pageWidthScene, pageColumn * pageHeightScene, pageWidthScene, pageHeightScene);
-            //printf("x %g y %g w %g h %g\n", pageRow * pageWidthScene, pageColumn * pageHeightScene, pageWidthScene, pageHeightScene);
-            // is next instruction useful?
-            painter.fillRect(painter.window(), QColor(255, 255, 255, 0));
-            paintScene(&painter, sourceArea, pageRectInDevicePoints, currentPage, numPages);
-
-            if(currentPage < numPages) {
-                printer.newPage();
-            }
-        }
-    }
-    painter.end();
-
-    _scene->setBackgroundBrush(oldBrush);
-    setUpdatesEnabled(true);
-
-    // end print
-    setWindowTitle(_title);
-    Utils::message(tr("Diagram exported in PDF format."));
+    printPDF();
 }
 
 //TODO: error checking
@@ -1377,12 +1279,13 @@ void XSDWindow::on_svgCmd_clicked()
         QBrush oldBrush = _scene->backgroundBrush();
         setUpdatesEnabled(false);
         _scene->setBackgroundBrush(solidBrush);
-        paintScene(&painter, QRectF(), QRectF(), 0, 0);
+        paintScene(NULL, &painter, QRectF(), QRectF(), 0, 0, 0, 0);
         _scene->setBackgroundBrush(oldBrush);
         setUpdatesEnabled(true);
     }
     setWindowTitle(_title);
-    Utils::message(tr("Diagram exported in SVG format."));
+    Utils::message(this, tr("Diagram exported in SVG format."));
+
 }
 
 void XSDWindow::evalObjZoom()
@@ -1459,28 +1362,6 @@ void XSDWindow::on_cmdObjZoomReset_clicked()
     }
 }
 
-//TODO: error checking
-void XSDWindow::paintScene(QPainter *painter, const QRectF &sourceArea, const QRectF &destArea, const int pageNumber, const int totalPages)
-{
-    QList<QGraphicsItem*> items = _scene->selectedItems();
-    _scene->clearSelection();
-
-    _scene->render(painter, destArea, sourceArea);
-    if(totalPages != 0) {
-        QFontMetrics fm = painter->fontMetrics();
-        QString text = QString(tr("Page %1/%2")).arg(pageNumber).arg(totalPages);
-        QRectF measRect = fm.boundingRect(text);
-        float intervalx = (destArea.width() - measRect.width()) / 2;
-        float x = destArea.left() + intervalx;
-        float y = destArea.bottom() ;
-        QRectF drawRect(x, y, measRect.width() + intervalx, measRect.height());
-        painter->drawLine(QPointF(destArea.left() + 10., y), QPointF(destArea.right() - 10., y));
-        painter->drawText(drawRect, text);
-        //printf("page number: x %g y %g w %g h %g\n", drawRect.left(), drawRect.top(), drawRect.width(), drawRect.height());
-        //printf("  dest area : x %g y %g w %g h %g\n", destArea.left(), destArea.top(), destArea.width(), destArea.height());
-    }
-    restoreSelection(items);
-}
 
 void XSDWindow::restoreSelection(QList<QGraphicsItem*> &itemsToSelect)
 {
@@ -1491,6 +1372,7 @@ void XSDWindow::restoreSelection(QList<QGraphicsItem*> &itemsToSelect)
 
 void XSDWindow::calculatePageRect(QPainter *painter, QRectF &destArea)
 {
+    Utils::TODO_THIS_RELEASE("inutile?");
     QFontMetrics fm = painter->fontMetrics();
     QString text = QString(tr("Page %1/%1")).arg(999).arg(999);
     QRectF measRect = fm.boundingRect(text);

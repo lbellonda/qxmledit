@@ -1352,6 +1352,37 @@ public:
     virtual QString chooseRoot(QWidget *parent, QList<XSchemaElement*> elements) = 0 ;
 };
 
+class XSDPrintInfo {
+public:
+    QPrinter *printer;
+    QPainter *painter;
+    QRectF pageBounds;
+    QRectF printingBounds;
+    qreal em;
+    qreal availableHeight;
+    qreal currentY;
+    bool isCalculating;
+    int pages;
+    int pageBottomMargin;
+    int totalPages;
+    XSDPrintInfo();
+   ~XSDPrintInfo();
+    void newPage();
+    void newPageIfNeeded(const qreal requestedSpace);
+    void setPrinter(QPrinter *thePrinter, QPainter *painter, const QRectF &printRect );
+    void printPageNumber(const int pageNumber, const int totalPages);
+    void reset();
+};
+
+class XSDPrintInfoStyle {
+public:
+    QColor backgroundColor, color;
+    qreal marginLeft, marginRight;
+
+    XSDPrintInfoStyle();
+    ~XSDPrintInfoStyle();
+};
+
 class XSDWindow : public QMainWindow, private XSDRootChooseProvider
 {
     Q_OBJECT
@@ -1440,6 +1471,7 @@ public:
     XSDItem *root();
     void setChooseProvider(XSDRootChooseProvider *newValue);
     void setOutlineMode(const bool isOutline);
+    void printPDF();
 
 protected:
     void changeEvent(QEvent *e);
@@ -1450,7 +1482,7 @@ protected:
     void setupNavigationBaseItems();
     void setNavigationTargetSelection(XSchemaObject *newSelection);
     void setNavSplitterWidgetSizes(const int width0, const int width1);
-    void paintScene(QPainter *painter, const QRectF &sourceArea, const QRectF &destArea, const int pageNumber, const int totalPages);
+    void paintScene(XSDPrintInfo *xsdPrintInfo, QPainter *painter, const QRectF &sourceArea, const QRectF &destArea, const int pageNumber, const int totalPages, const int row, const int column);
     void calculatePageRect(QPainter *painter, QRectF &destArea);
     void restoreSelection(QList<QGraphicsItem*> &itemsToSelect);
     bool copyElementActionExecute(XSchemaObject *object);
@@ -1460,6 +1492,29 @@ protected:
     void setupSplitter();
     void selectLastObject();
     virtual QString chooseRoot(QWidget *parent, QList<XSchemaElement*> elements);
+    void printSchemaData(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const bool isCalculating);
+    void printSchemaElements(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
+    void printSchemaTypes(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
+
+    void printSchemaIntroduction(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
+    void printSchemaGroups(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
+    void printSchemaAttributes(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
+    void printSchemaAttributeGroups(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
+    void printSchemaEnd(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
+    int printSchemaInfo(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSDSchema *schema);
+
+    void printHeader(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &headerText);
+    int printSingleElement(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
+    int printSingleType(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
+    int printRedefine(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaRedefine *object);
+    int printImport(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaImport *object);
+    int printInclude(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaInclude *object);
+    int printSingleGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaGroup *group);
+    int printSingleAttribute(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaAttribute *attribute);
+    int printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaAttributeGroup *attributeGroup);
+    int printSingleElementOld(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
+    int printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &htmlText);
+    QString printAnnotationString(XSDPrintInfo &xsdPrintInfo, XSchemaObject *object);
 
 protected:
     Ui::XSDWindow *ui;
