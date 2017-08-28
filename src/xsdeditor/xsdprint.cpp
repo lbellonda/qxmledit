@@ -134,6 +134,8 @@ void XSDWindow::printPDF()
     printer.setOutputFileName(filePath);
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setColorMode(QPrinter::Color);
+    printer.setCreator(QString("%1 %2").arg(APPLICATION_NAME).arg(VERSION));
+    printer.setDocName(tr("Schema %1").arg(fileName));
 
     /**
       what I impose is: 100 points on video (since 100pts is a width of a badge) are 2cm on paper
@@ -156,7 +158,6 @@ void XSDWindow::printPDF()
     }
     pageRectWithoutFooter.setHeight(pageRectWithoutFooter.height() - footerHeight);
 
-    Utils::TODO_THIS_RELEASE("incapsulare");
     XSDPrintInfo xsdPrintInfo ;
     xsdPrintInfo.setPrinter(&printer, &painter, pageRectInDevicePoints);
 
@@ -166,9 +167,6 @@ void XSDWindow::printPDF()
     // find the dimensions of a printer page on scene
     // abs width value * device resolution -> device points
     // la stampa deve contenere il doppio di quello che vedo a video.
-    /*double pageWidthScene = pageRect.width() * resXVideo * 2;
-    double pageHeightScene = pageRect.height() * resYVideo * 2 ;*/
-    Utils::TODO_THIS_RELEASE("non funziona con fop in outline");
     double pageWidthScene = pageRectWithoutFooter.width() * (resXVideo / resXPrinter) * 2.5;
     double pageHeightScene = pageRectWithoutFooter.height() * (resYVideo / resYPrinter) * 2.5;
 
@@ -674,22 +672,20 @@ void XSDWindow::printSchemaEnd(QPainter *, XSDPrintInfo &)
 
 int XSDWindow::printSchemaInfo(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSDSchema *schema)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QDateTime now = QDateTime::currentDateTime();
     QString nowString = now.toString("yyyy-MM-dd HH:mm");
     QString text ;
-    QString name = QString("<span style=''>%1: %3</span><br/><span>%2 %4</span><br/><span>%5: %6</span><br/>")
-                   .arg(tr("Schema")).arg(tr("Printed on"))
-                   .arg(Utils::escapeHTML(schema->location()))
-                   .arg(nowString)
-                   .arg(tr("Filename")).arg(fileName);
-    name += QString("<span style=''>%1: %3</span><br/><span>%2: %4</span><br/>")
+    QString name = QString("<br/><br/><span style=''>%1: %2</span><br/><br/><span>%3 %4</span><br/><br/>")
+                   .arg(tr("Filename")).arg(fileName)
+                   .arg(tr("Printed on"))
+                   .arg(nowString);
+    name += QString("<span style=''>%1: %3</span><br/><br/><span>%2: %4</span><br/><br/><br/>")
             .arg(tr("TargetNamespace"))
             .arg(tr("Default namespace"))
             .arg(Utils::escapeHTML(schema->targetNamespace()))
             .arg(schema->defaultNamespace());
-    text = QString("<div>&nbsp;</div><div style=''>%1</div>").arg(name);
+    text = QString("<div>&nbsp;</div><div style='background-color: blue;font-height:%3px'>&nbsp;</div><div style='margin-left:%2px'>%1</div><div style='background-color: blue;font-height:%4px'>&nbsp;</div>")
+           .arg(name).arg(int(4 * xsdPrintInfo.em)).arg(int(xsdPrintInfo.em / 2)).arg(int(xsdPrintInfo.em / 6));
 
     QString htmlText = "<html><body>" + text + "</body></html>";
     printBox(painter, xsdPrintInfo, htmlText);
