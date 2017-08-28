@@ -1352,7 +1352,8 @@ public:
     virtual QString chooseRoot(QWidget *parent, QList<XSchemaElement*> elements) = 0 ;
 };
 
-class XSDPrintInfo {
+class XSDPrintInfo
+{
 public:
     QPrinter *printer;
     QPainter *painter;
@@ -1366,15 +1367,16 @@ public:
     int pageBottomMargin;
     int totalPages;
     XSDPrintInfo();
-   ~XSDPrintInfo();
+    ~XSDPrintInfo();
     void newPage();
     void newPageIfNeeded(const qreal requestedSpace);
-    void setPrinter(QPrinter *thePrinter, QPainter *painter, const QRectF &printRect );
+    void setPrinter(QPrinter *thePrinter, QPainter *painter, const QRectF &printRect);
     void printPageNumber(const int pageNumber, const int totalPages);
     void reset();
 };
 
-class XSDPrintInfoStyle {
+class XSDPrintInfoStyle
+{
 public:
     QColor backgroundColor, color;
     qreal marginLeft, marginRight;

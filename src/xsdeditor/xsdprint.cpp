@@ -56,7 +56,7 @@ void XSDPrintInfo::newPage()
 
 void XSDPrintInfo::newPageIfNeeded(const qreal requestedSpace)
 {
-    if(requestedSpace>availableHeight ) {
+    if(requestedSpace > availableHeight) {
         newPage();
     }
 }
@@ -69,7 +69,7 @@ void XSDPrintInfo::reset()
     isCalculating = false;
 }
 
-void XSDPrintInfo::setPrinter(QPrinter *thePrinter, QPainter *thePainter, const QRectF &printRect )
+void XSDPrintInfo::setPrinter(QPrinter *thePrinter, QPainter *thePainter, const QRectF &printRect)
 {
     printer = thePrinter ;
     painter = thePainter ;
@@ -109,8 +109,8 @@ void XSDPrintInfo::printPageNumber(const int pageNumber, const int totalPages)
 XSDPrintInfoStyle::XSDPrintInfoStyle()
 {
     Utils::TODO_THIS_RELEASE("forse non serve");
-    backgroundColor = QColor::fromRgb(255,255,255);
-    color = QColor::fromRgb(0,0,0);
+    backgroundColor = QColor::fromRgb(255, 255, 255);
+    color = QColor::fromRgb(0, 0, 0);
     marginLeft = 0;
     marginRight = 0 ;
 }
@@ -133,7 +133,7 @@ void XSDWindow::printPDF()
     QPrinter printer(QPrinter::HighResolution);
     printer.setOutputFileName(filePath);
     printer.setOutputFormat(QPrinter::PdfFormat);
-    printer.setColorMode(QPrinter::Color    );
+    printer.setColorMode(QPrinter::Color);
 
     /**
       what I impose is: 100 points on video (since 100pts is a width of a badge) are 2cm on paper
@@ -143,19 +143,18 @@ void XSDWindow::printPDF()
     QRectF pageNumberArea;
     calculatePageRect(&painter, pageNumberArea);
     // width of a printer page in mm
-    QRectF pageRect = printer.pageRect(QPrinter::Inch);
+    QRectF pageRectWithoutFooter = printer.pageRect();
     QRectF pageRectInDevicePoints = printer.pageRect();
+    const double footerHeight = pageNumberArea.height();
 
     // take out page position
-    pageRectInDevicePoints.setHeight(pageRectInDevicePoints.height() - pageNumberArea.height());
     double resYPrinter = printer.logicalDpiY();
     double resXPrinter = printer.logicalDpiX();
-    if((0 == resYPrinter) ||((0 == resXPrinter))) {
+    if((0 == resYPrinter) || ((0 == resXPrinter))) {
         Utils::error(this, tr("Error in calculating printer resolution."));
         return ;
     }
-    double pageHeightPrinter = pageNumberArea.height() / resYPrinter ;
-    pageRect.setHeight(pageRect.height() - pageHeightPrinter);
+    pageRectWithoutFooter.setHeight(pageRectWithoutFooter.height() - footerHeight);
 
     Utils::TODO_THIS_RELEASE("incapsulare");
     XSDPrintInfo xsdPrintInfo ;
@@ -167,12 +166,15 @@ void XSDWindow::printPDF()
     // find the dimensions of a printer page on scene
     // abs width value * device resolution -> device points
     // la stampa deve contenere il doppio di quello che vedo a video.
-    double pageWidthScene = pageRect.width() * resXVideo * 2;
-    double pageHeightScene = pageRect.height() * resYVideo * 2 ;
+    /*double pageWidthScene = pageRect.width() * resXVideo * 2;
+    double pageHeightScene = pageRect.height() * resYVideo * 2 ;*/
+    Utils::TODO_THIS_RELEASE("non funziona con fop in outline");
+    double pageWidthScene = pageRectWithoutFooter.width() * (resXVideo / resXPrinter) * 2.5;
+    double pageHeightScene = pageRectWithoutFooter.height() * (resYVideo / resYPrinter) * 2.5;
 
     // maps
     if((0 == pageWidthScene) || (0 == pageHeightScene)) {
-        Utils::error( this, tr("Error in calculating scene dimensions."));
+        Utils::error(this, tr("Error in calculating scene dimensions."));
         return ;
     }
 
@@ -189,12 +191,12 @@ void XSDWindow::printPDF()
     if((dnumberOfPagesInARow - numberOfPagesInARow) > 0) {
         numberOfPagesInARow++;
     }
-    if(dnumberOfPagesInAColumn - dnumberOfPagesInAColumn > 0) {
+    if(dnumberOfPagesInAColumn - numberOfPagesInAColumn > 0) {
         numberOfPagesInAColumn++;
     }
     // last check
     if(numberOfPagesInAColumn == 0) {
-        numberOfPagesInAColumn = 1;
+        numberOfPagesInARow = 1;
     }
     if(numberOfPagesInARow == 0) {
         numberOfPagesInARow = 1;
@@ -224,7 +226,7 @@ void XSDWindow::printPDF()
             //printf("x %g y %g w %g h %g\n", pageRow * pageWidthScene, pageColumn * pageHeightScene, pageWidthScene, pageHeightScene);
             // is next instruction useful?
             painter.fillRect(painter.window(), QColor(255, 255, 255, 0));
-            paintScene( &xsdPrintInfo, &painter, sourceArea, pageRectInDevicePoints, currentPage, xsdPrintInfo.totalPages, pageRow, pageColumn);
+            paintScene(&xsdPrintInfo, &painter, sourceArea, pageRectWithoutFooter, currentPage, xsdPrintInfo.totalPages, pageRow, pageColumn);
         }
     }
     painter.restore();
@@ -237,7 +239,7 @@ void XSDWindow::printPDF()
 
     // end print
     setWindowTitle(_title);
-    Utils::message( this, tr("Diagram exported in PDF format."));
+    Utils::message(this, tr("Diagram exported in PDF format."));
 }
 
 //TODO: error checking
@@ -247,15 +249,15 @@ void XSDWindow::paintScene(XSDPrintInfo *xsdPrintInfo, QPainter *painter, const 
     _scene->clearSelection();
 
     _scene->render(painter, destArea, sourceArea);
-    if((totalPages != 0) && (NULL != xsdPrintInfo) ){
+    if((totalPages != 0) && (NULL != xsdPrintInfo)) {
         xsdPrintInfo->printPageNumber(pageNumber, totalPages);
 
         QFontMetrics fm = painter->fontMetrics();
-        QString text = QString(tr("Row: %1 Col: %2")).arg((row+1)).arg((column+1));
+        QString text = QString(tr("Row: %1 Col: %2")).arg((row + 1)).arg((column + 1));
         QRectF measRect = fm.boundingRect(text);
         float x = destArea.left() ;
         float y = destArea.bottom() ;
-        QRectF drawRect(x, y, measRect.width()*2, measRect.height());
+        QRectF drawRect(x, y, measRect.width() * 2, measRect.height());
         painter->drawText(drawRect, text);
         //printf("page number: x %g y %g w %g h %g\n", drawRect.left(), drawRect.top(), drawRect.width(), drawRect.height());
         //printf("  dest area : x %g y %g w %g h %g\n", destArea.left(), destArea.top(), destArea.width(), destArea.height());*/
@@ -296,7 +298,7 @@ void XSDWindow::printSchemaIntroduction(QPainter *painter, XSDPrintInfo &xsdPrin
         case SchemaTypeRedefine:
             redefs.append(static_cast<XSchemaRedefine*>(object));
             break;
-                case SchemaTypeImport:
+        case SchemaTypeImport:
             imps.append(static_cast<XSchemaImport*>(object));
             break;
         default:
@@ -330,16 +332,21 @@ void XSDWindow::printSchemaElements(QPainter *painter, XSDPrintInfo &xsdPrintInf
 
 void XSDWindow::printSchemaInnerElements(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-    Utils::TODO_THIS_RELEASE(" elimina dichiarazioni senza corpo QList<XSchemaObject*>objects = schema()->topLevelListByName(SchemaTypeElement, true);");
     QList<XSchemaObject*>objects = schema()->root()->schema()->allInnerElements(true);
     if(objects.isEmpty()) {
         return ;
     }
     printHeader(painter, xsdPrintInfo, tr("Inner Elements"));
     objects = XSchemaObject::sortObjectsByName(objects);
+    QSet<QString> refs;
     foreach(XSchemaObject * object, objects) {
         XSchemaElement* schemaObject = static_cast<XSchemaElement*>(object);
+        if(!schemaObject->ref().isEmpty()) {
+            if(refs.contains(schemaObject->ref())) {
+                continue;
+            }
+            refs.insert(schemaObject->ref());
+        }
         printSingleElement(painter, xsdPrintInfo, schemaObject);
     }
 }
@@ -360,12 +367,12 @@ void XSDWindow::printSchemaTypes(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 
 void XSDWindow::printHeader(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &headerText)
 {
-    Utils::TODO_THIS_RELEASE("finire");
+    Utils::TODO_THIS_RELEASE("finire elimina riferimenti ad elementi doppioni");
     xsdPrintInfo.newPage();
     QString text ;
     text = QString("<H1 style='background-color:#000000;color:#FFFFFF'>%1</H1><div><br/></div>").arg(headerText);
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 }
 
 QString XSDWindow::printAnnotationString(XSDPrintInfo &xsdPrintInfo, XSchemaObject *object)
@@ -381,8 +388,8 @@ QString XSDWindow::printAnnotationString(XSDPrintInfo &xsdPrintInfo, XSchemaObje
             int em3 = xsdPrintInfo.em * 10;
             int em = xsdPrintInfo.em ;
             annotationHtml = QString("<div style='margin-left:%2px;margin-right:%3px;font-size:small;font-style:italic;color:#0000C0;'>%1</div>")
-                    .arg(Utils::escapeHTML(annotationInfo))
-                    .arg(em3).arg(em);
+                             .arg(Utils::escapeHTML(annotationInfo))
+                             .arg(em3).arg(em);
         }
     }
     return annotationHtml;
@@ -414,8 +421,8 @@ int XSDWindow::printSingleElement(QPainter *painter, XSDPrintInfo &xsdPrintInfo,
 
     text += printAnnotationString(xsdPrintInfo, element);
     text += "<div><HR/>&nbsp;</div>";
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
@@ -423,9 +430,9 @@ int XSDWindow::printSingleElement(QPainter *painter, XSDPrintInfo &xsdPrintInfo,
 int XSDWindow::printSingleType(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element)
 {
     Utils::TODO_THIS_RELEASE("finire");
-if(element->name()=="space_Type") {
-    Utils::TODO_THIS_RELEASE("finire");
-}
+    if(element->name() == "space_Type") {
+        Utils::TODO_THIS_RELEASE("finire");
+    }
     QString text ;
     QString elementText = QString("<span style=''>%1</span>").arg(Utils::escapeHTML(element->name()));
     if(!element->isSimpleType()) {
@@ -438,8 +445,8 @@ if(element->name()=="space_Type") {
 
     text += printAnnotationString(xsdPrintInfo, element);
     text += "<div><HR/>&nbsp;</div>";
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
@@ -452,8 +459,8 @@ int XSDWindow::printInclude(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSche
 
     text += printAnnotationString(xsdPrintInfo, object);
     text += "<div><HR/>&nbsp;</div>";
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
@@ -470,8 +477,8 @@ int XSDWindow::printImport(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchem
 
     text += printAnnotationString(xsdPrintInfo, object);
     text += "<div><HR/>&nbsp;</div>";
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
@@ -484,8 +491,8 @@ int XSDWindow::printRedefine(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSch
 
     text += printAnnotationString(xsdPrintInfo, object);
     text += "<div><HR/>&nbsp;</div>";
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
@@ -544,8 +551,8 @@ int XSDWindow::printSingleGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, X
 
     text += printAnnotationString(xsdPrintInfo, group);
     text += "<div><HR/>&nbsp;</div>";
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
@@ -576,8 +583,8 @@ int XSDWindow::printSingleAttribute(QPainter *painter, XSDPrintInfo &xsdPrintInf
 
     text += printAnnotationString(xsdPrintInfo, attribute);
     text += "<div><HR/>&nbsp;</div>";
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
@@ -611,7 +618,7 @@ int XSDWindow::printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPri
         bool firstAttribute = true;
         QString attrNames;
         foreach(XSchemaObject * object, attributeGroup->getChildren()) {
-            if( object->getType() == SchemaTypeAttribute ) {
+            if(object->getType() == SchemaTypeAttribute) {
                 if(!firstAttribute) {
                     attrNames += ", ";
                 } else {
@@ -633,7 +640,7 @@ int XSDWindow::printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPri
         bool firstAttributeGroup = true;
         QString attrGroupNames;
         foreach(XSchemaObject * object, attributeGroup->getChildren()) {
-            if( object->getType() == SchemaTypeAttributeGroup ) {
+            if(object->getType() == SchemaTypeAttributeGroup) {
                 if(!firstAttributeGroup) {
                     attrGroupNames += ", ";
                 } else {
@@ -652,14 +659,14 @@ int XSDWindow::printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPri
         }
     }
     text += "<div><HR/>&nbsp;</div>";
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
 
 //void XSDWindow::printSchemaEnd(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
-    void XSDWindow::printSchemaEnd(QPainter *, XSDPrintInfo &)
+void XSDWindow::printSchemaEnd(QPainter *, XSDPrintInfo &)
 {
     Utils::TODO_THIS_RELEASE("finire");
 }
@@ -673,19 +680,19 @@ int XSDWindow::printSchemaInfo(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XS
     QString nowString = now.toString("yyyy-MM-dd HH:mm");
     QString text ;
     QString name = QString("<span style=''>%1: %3</span><br/><span>%2 %4</span><br/><span>%5: %6</span><br/>")
-            .arg(tr("Schema")).arg(tr("Printed on"))
-            .arg(Utils::escapeHTML(schema->location()))
-                 .arg(nowString)
-            .arg(tr("Filename")).arg(fileName);
+                   .arg(tr("Schema")).arg(tr("Printed on"))
+                   .arg(Utils::escapeHTML(schema->location()))
+                   .arg(nowString)
+                   .arg(tr("Filename")).arg(fileName);
     name += QString("<span style=''>%1: %3</span><br/><span>%2: %4</span><br/>")
             .arg(tr("TargetNamespace"))
             .arg(tr("Default namespace"))
             .arg(Utils::escapeHTML(schema->targetNamespace()))
-                 .arg(schema->defaultNamespace());
+            .arg(schema->defaultNamespace());
     text = QString("<div>&nbsp;</div><div style=''>%1</div>").arg(name);
 
-    QString htmlText = "<html><body>"+text+"</body></html>";
-    printBox(painter, xsdPrintInfo, htmlText );
+    QString htmlText = "<html><body>" + text + "</body></html>";
+    printBox(painter, xsdPrintInfo, htmlText);
 
     return 0;
 }
