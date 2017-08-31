@@ -40,9 +40,54 @@ qreal XSDItem::placeAllStrategyHorPyramidNew0(XSDItemContext *context)
     QList<XSDItem *> itemsRendered;
     updateObjectPlacementNew0(context, rendered, itemsRendered, chain);
     afterPositionChange();
+    finalOffset();
+    afterPositionChange();
     const qreal overallFinalHeight = calcOverallHeight(rendered);
     Utils::TODO_THIS_RELEASE("fare centra su root, ma a livello piu alto");
     return overallFinalHeight ;
+}
+
+void XSDItem::finalOffset()
+{
+    QRectF bounds(0, 0, 0, 0);
+    bool first = false;
+    QRectF itemsRect = graphicItem()->scene()->itemsBoundingRect();
+    Utils::TODO_THIS_RELEASE(QString("%1").arg(itemsRect.isValid() ? "1" : "0"));
+    foreach(QGraphicsItem * item, graphicItem()->scene()->items()) {
+        QRectF itemBounds = item->boundingRect();
+        if(NULL != item->parentItem()) {
+            continue;
+        }
+        Utils::TODO_THIS_RELEASE("itemBounds.setTopLeft(item->pos());");
+        if(!itemBounds.isEmpty() && item->isVisible() && (itemBounds.top() > 0)) {
+            if(first) {
+                bounds = itemBounds;
+                first = false;
+            } else {
+                bounds = bounds.united(itemBounds);
+            }
+            if(itemBounds.top() <= 0) {
+                printf("zero\n");
+                /*QGraphicsTextItem *i = (QGraphicsTextItem*)item;
+                QString text = i->toPlainText();
+                Utils::TODO_THIS_RELEASE(text);*/
+            }
+        }
+    }
+
+    const int topElementPos = bounds.top();
+    if(topElementPos > 20) {
+        const int delta = topElementPos - 20;
+        foreach(QGraphicsItem * item, graphicItem()->scene()->items()) {
+            if(NULL != item->parentItem()) {
+                continue;
+            }
+            QRectF itemBounds = item->boundingRect();
+            if(!itemBounds.isEmpty() && item->isVisible() /*&& (itemBounds.top() > 0)*/) {
+                item->setY(item->y() - delta);
+            }
+        }
+    }
 }
 
 qreal XSDItem::calcChildrenHeightStrategyNew0(XSDItemContext *context, const bool isRecursive)
@@ -194,17 +239,17 @@ void XSDItem::updateSummaryLineBounds(const qreal gap, const bool isEnlarging)
     }
 }
 
-void XSDItem::moveDownBy(const qreal gap, const bool isRecursive, const bool isEnlarging)
+void XSDItem::moveDownBy(const qreal gapThis, const qreal gap, const bool isRecursive, const bool isEnlarging)
 {
     QGraphicsItem *thisItem = graphicItem() ;
-    thisItem->setY(thisItem->y() + gap);
+    thisItem->setY(thisItem->y() + gapThis);
     if(isRecursive) {
         foreach(RChild * rchild, _children.children()) {
             XSDItem *xsdItem = rchild->item();
-            xsdItem->moveDownBy(gap, true, isEnlarging);
+            xsdItem->moveDownBy(gap, gap, true, isEnlarging);
         }
     }
-    updateSummaryLineBounds(gap, isEnlarging);
+    updateSummaryLineBounds(gapThis, isEnlarging);
     if(NULL != chain()) {
         chain()->updatePosition();
     }
@@ -227,13 +272,14 @@ void XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem 
                     existsBefore = true ;
                 }
             } else {
-                xsdItem->moveDownBy(gap, true, false);
+                xsdItem->moveDownBy(gap, gap, true, false);
             }
         } else {
-            xsdItem->moveDownBy(gap, true, false);
+            xsdItem->moveDownBy(gap, gap, true, false);
         }
     }
-    moveDownBy(gap, false, existsBefore);
+    Utils::TODO_THIS_RELEASE("spostare al centro");
+    moveDownBy(gap, gap, false, existsBefore);
 }
 
 bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem*> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain)
@@ -287,6 +333,7 @@ bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphics
         /*
         * per ogni padre, segna da quale figlio spostare ( da qui in basso).
         * poi partendo dal padre, aggiungi l'offset ad ogni figlio e da qui in poi, in modo ricorsivo:
+        * sposta il padre al centro
         */
         const int size = chain.size();
         for(int index = size - 1 ; index >= 0 ; index --) {
@@ -295,6 +342,7 @@ bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphics
             if((index + 1) < size) {
                 target = chain.at(index + 1);
             }
+            Utils::TODO_THIS_RELEASE("move the parent at the center of the new items");
             item->updateAnObjectPlacementNew0(context, target, maxGap);
         }
     }

@@ -106,21 +106,6 @@ void XSDPrintInfo::printPageNumber(const int pageNumber, const int totalPages)
 
 //-----------------
 
-XSDPrintInfoStyle::XSDPrintInfoStyle()
-{
-    Utils::TODO_THIS_RELEASE("forse non serve");
-    backgroundColor = QColor::fromRgb(255, 255, 255);
-    color = QColor::fromRgb(0, 0, 0);
-    marginLeft = 0;
-    marginRight = 0 ;
-}
-
-XSDPrintInfoStyle::~XSDPrintInfoStyle()
-{
-}
-
-//-----------------
-
 void XSDWindow::printPDF()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Export as PDF"),
@@ -129,7 +114,7 @@ void XSDWindow::printPDF()
     if(filePath.isEmpty()) {
         return ;
     }
-
+    Utils::TODO_THIS_RELEASE("scenerect puo' essere anche legg. negativo' ");
     QPrinter printer(QPrinter::HighResolution);
     printer.setOutputFileName(filePath);
     printer.setOutputFormat(QPrinter::PdfFormat);
@@ -137,11 +122,7 @@ void XSDWindow::printPDF()
     printer.setCreator(QString("%1 %2").arg(APPLICATION_NAME).arg(VERSION));
     printer.setDocName(tr("Schema %1").arg(fileName));
 
-    /**
-      what I impose is: 100 points on video (since 100pts is a width of a badge) are 2cm on paper
-      */
     QPainter painter(&printer);
-    //painter.begin(&printer);
     QRectF pageNumberArea;
     calculatePageRect(&painter, pageNumberArea);
     // width of a printer page in mm
@@ -178,8 +159,9 @@ void XSDWindow::printPDF()
 
     // calculate the number of pages: how many times the scene can be divided by the page dimensions
     // find the number of pages
-    double dnumberOfPagesInARow = _scene->sceneRect().width() / pageWidthScene  ;
-    double dnumberOfPagesInAColumn = _scene->sceneRect().height() / pageHeightScene  ;
+    QPointF offset = _scene->sceneRect().topLeft();
+    const double dnumberOfPagesInARow = _scene->sceneRect().width() / pageWidthScene  ;
+    const double dnumberOfPagesInAColumn = _scene->sceneRect().height() / pageHeightScene  ;
 
     // round fractional values to integer
     int numberOfPagesInARow = int(dnumberOfPagesInARow);
@@ -194,10 +176,31 @@ void XSDWindow::printPDF()
     }
     // last check
     if(numberOfPagesInAColumn == 0) {
-        numberOfPagesInARow = 1;
+        numberOfPagesInAColumn = 1;
     }
     if(numberOfPagesInARow == 0) {
         numberOfPagesInARow = 1;
+    }
+    qreal offsetX = 0 ;
+    qreal offsetY = 0 ;
+    if((1 == numberOfPagesInARow) && (1 == numberOfPagesInAColumn)) {
+        // scale up to 100%
+        const double maxVal = qMax(dnumberOfPagesInARow, dnumberOfPagesInAColumn);
+        const bool isHorizTheMinVal = dnumberOfPagesInARow > dnumberOfPagesInAColumn;
+        const double k = 1 / maxVal ;
+        pageWidthScene /= k ;
+        pageHeightScene /= k;
+        if(isHorizTheMinVal) {
+            qreal spaceLeft = pageRectWithoutFooter.width() * (1 - dnumberOfPagesInAColumn) ;
+            if(spaceLeft > 0) {
+                offsetX = spaceLeft;
+            }
+        } else {
+            qreal spaceLeft = pageRectWithoutFooter.height() * (1 - dnumberOfPagesInARow) ;
+            if(spaceLeft > 0) {
+                offsetY = spaceLeft;
+            }
+        }
     }
 
     QBrush solidBrush(Qt::NoBrush);
@@ -220,11 +223,18 @@ void XSDWindow::printPDF()
         for(int pageColumn = 0 ; pageColumn < numberOfPagesInAColumn ; pageColumn ++) {
             currentPage++;
             printer.newPage();
-            sourceArea.setRect(pageRow * pageWidthScene, pageColumn * pageHeightScene, pageWidthScene, pageHeightScene);
+            sourceArea.setRect(offset.x() + pageRow * pageWidthScene, offset.y() + pageColumn * pageHeightScene, pageWidthScene, pageHeightScene);
             //printf("x %g y %g w %g h %g\n", pageRow * pageWidthScene, pageColumn * pageHeightScene, pageWidthScene, pageHeightScene);
             // is next instruction useful?
             painter.fillRect(painter.window(), QColor(255, 255, 255, 0));
-            paintScene(&xsdPrintInfo, &painter, sourceArea, pageRectWithoutFooter, currentPage, xsdPrintInfo.totalPages, pageRow, pageColumn);
+            QRectF dest = pageRectWithoutFooter ;
+            if(offsetX > 0) {
+                dest.moveTop(offsetX / 2);
+            }
+            if(offsetY > 0) {
+                dest.moveLeft(offsetY / 2);
+            }
+            paintScene(&xsdPrintInfo, &painter, sourceArea, dest, currentPage, xsdPrintInfo.totalPages, pageColumn, pageRow);
         }
     }
     painter.restore();

@@ -497,7 +497,6 @@ bool XSDWindow::showRoot()
         return false ;
     }
     _context.rootItem()->recalcChildrenPos(&_itemContext);
-    Utils::TODO_THIS_RELEASE("_context.rootItem()->afterPositionChange();");
     _scene->updateBounds();
     ui->navigation->emptyNavigationBox();
     ui->navigation->loadNavigationBox(_context.schema());
@@ -513,7 +512,8 @@ bool XSDWindow::showRoot()
         }
     }
     ui->targetNamespaceInfo->setText(targetNS);
-
+    _scene->gotoItem(_mainItem->graphicItem());
+    Utils::TODO_THIS_RELEASE("quando si abbassa il padre, l'elemento che deve essere centrato viene sbilanciato in basso");
 
     evalObjZoom();
     //TODO connect(_rootItem, SIGNAL(deleted(XSchemaObject*)), this, SLOT(rootDeleted(XSchemaObject*)));

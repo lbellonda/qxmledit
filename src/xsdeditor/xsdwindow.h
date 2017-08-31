@@ -240,9 +240,10 @@ protected:
     void placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos);
     bool updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain);
     void updateSummaryLineBounds(const qreal gap, const bool isEnlarging);
-    void moveDownBy(const qreal gap, const bool isRecursive, const bool isEnlarging);
+    void moveDownBy(const qreal gapThis, const qreal gap, const bool isRecursive, const bool isEnlarging);
     void updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal gap);
     qreal calcOverallHeight(QList<QGraphicsItem*> &rendered);
+    void finalOffset();
     //-- endregion(New0)
     qreal recalcChildrenPosStrategyUnder(XSDItemContext *context);
     void preAddChildren(XSchemaObject *object);
@@ -1373,16 +1374,6 @@ public:
     void setPrinter(QPrinter *thePrinter, QPainter *painter, const QRectF &printRect);
     void printPageNumber(const int pageNumber, const int totalPages);
     void reset();
-};
-
-class XSDPrintInfoStyle
-{
-public:
-    QColor backgroundColor, color;
-    qreal marginLeft, marginRight;
-
-    XSDPrintInfoStyle();
-    ~XSDPrintInfoStyle();
 };
 
 class XSDWindow : public QMainWindow, private XSDRootChooseProvider
