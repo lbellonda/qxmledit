@@ -120,7 +120,6 @@ void XSchemaChoice::scanForElements(XSDLoadContext *loadContext, QDomElement &el
 
 QString XSchemaChoice::description()
 {
-    Utils::TODO_THIS_RELEASE("manca la scritta choice? aNChe in sequence");
     return occurrencesDescrString(minOccurs(), maxOccurs());
 }
 

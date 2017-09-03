@@ -96,7 +96,7 @@ void XSDPrintInfo::printPageNumber(const int pageNumber, const int totalPages)
         QRectF measRect = fm.boundingRect(text);
         float intervalx = (printingBounds.width() - measRect.width()) / 2;
         float x = printingBounds.left() + intervalx;
-        float y = printingBounds.bottom() ;
+        float y = printingBounds.bottom() - pageBottomMargin;
         QRectF drawRect(x, y, measRect.width() + intervalx, measRect.height());
         painter->drawLine(QPointF(printingBounds.left() + 10., y), QPointF(printingBounds.right() - 10., y));
         painter->drawText(drawRect, text);
@@ -115,7 +115,6 @@ void XSDWindow::printPDF()
     if(filePath.isEmpty()) {
         return ;
     }
-    Utils::TODO_THIS_RELEASE("scenerect puo' essere anche legg. negativo' ");
     QPrinter printer(QPrinter::HighResolution);
     printer.setOutputFileName(filePath);
     printer.setOutputFormat(QPrinter::PdfFormat);
@@ -660,7 +659,7 @@ int XSDWindow::printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPri
 
 void XSDWindow::printSchemaEnd(QPainter * /*painter*/, XSDPrintInfo & /*xsdPrintInfo*/)
 {
-    Utils::TODO_THIS_RELEASE("finire");
+    // nothing
 }
 
 

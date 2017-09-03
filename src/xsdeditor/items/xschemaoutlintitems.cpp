@@ -117,7 +117,6 @@ void OutlineElementItem::setItem(XSchemaOutlineElement *newItem)
             // TODO connect(_item, SIGNAL(childRemoved(XSchemaObject*)), this, SLOT(childRemoved(XSchemaObject*)));
             //connect( _item, SIGNAL(itemChanged(QGraphicsItem::GraphicsItemChange,QVariant&)), this, SLOT(itemChanged(QGraphicsItem::GraphicsItemChange,QVariant&)));
             preAddChildren(_item);
-            Utils::TODO_THIS_RELEASE("Il calcolo e' da spostare nel model");
 
             foreach(XSchemaObject * child, _item->getChildren()) {
                 childAdded(child);

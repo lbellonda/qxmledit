@@ -345,7 +345,6 @@ XSDSchema* XSDSchema::schema()
 
 QList<XSchemaElement *> XSDSchema::collectCandidateRootElement()
 {
-    Utils::TODO_THIS_RELEASE("check namespaces (in corso)");
     QList<XSchemaElement *> items;
     QSet<QString> references;
     scanForInnerElementReference(this, references);

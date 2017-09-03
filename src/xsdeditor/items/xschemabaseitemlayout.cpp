@@ -31,7 +31,6 @@
 
 qreal XSDItem::placeAllStrategyHorPyramidNew0(XSDItemContext *context)
 {
-    Utils::TODO_THIS_RELEASE("Rotella mouse -> zoom, click R mouse 1:1");
     const qreal overallHeight = calcChildrenHeightStrategyNew0(context, true);
     QGraphicsItem *thisItem = graphicItem() ;
     QRectF bounds = thisItem->boundingRect();
@@ -262,9 +261,8 @@ void XSDItem::moveDownBy(const qreal gapThis, const qreal gap, const bool isRecu
     }
 }
 
-qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem *target, const qreal thisGap, const qreal gap, const bool isFirst, const int /*index*/)
+qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem *target, const qreal thisGap, const bool isFirst, const int /*index*/)
 {
-    Utils::TODO_THIS_RELEASE(QString("gap %1").arg(gap));
     bool targetEngaged = false;
     bool existsBefore = false;
     QXMLEDIT_LAYOUT_DEBUG(if(index == 4) {
@@ -397,7 +395,7 @@ bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphics
             if((index + 1) < size) {
                 target = chain.at(index + 1);
             }
-            thisGap = item->updateAnObjectPlacementNew0(context, target, thisGap, maxGap, first, counter);
+            thisGap = item->updateAnObjectPlacementNew0(context, target, thisGap, first, counter);
             first = false;
             counter ++ ;
         }

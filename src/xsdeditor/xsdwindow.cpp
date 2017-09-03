@@ -473,7 +473,6 @@ bool XSDWindow::showRoot()
                     if(topLevelElements.isEmpty()) {
                         Utils::error(this, tr("QXmlEdit is unable to find a candidate for the root element."));
                     }
-                    Utils::TODO_THIS_RELEASE("gestire il caso in cui non c'e' un root");
                     chosenRoot = _xsdRootChooseProvider->chooseRoot(this, topLevelElements);
                 }
             }
@@ -515,15 +514,9 @@ bool XSDWindow::showRoot()
     }
     ui->targetNamespaceInfo->setText(targetNS);
     _scene->gotoItem(_mainItem->graphicItem());
-    Utils::TODO_THIS_RELEASE("quando si abbassa il padre, l'elemento che deve essere centrato viene sbilanciato in basso");
 
     evalObjZoom();
     //TODO connect(_rootItem, SIGNAL(deleted(XSchemaObject*)), this, SLOT(rootDeleted(XSchemaObject*)));
-    // set boundaries TODO
-    /*QRectF totalSizeRect(0,0,0,0);
-    _rootItem->totalSize( totalSizeRect );
-    _scene->setSceneRect(QRectF(0, 0, totalSizeRect.width(), totalSizeRect.height() ) );*/
-
     return true ;
 }
 
@@ -934,7 +927,7 @@ void XSDWindow::on_gotoAction_triggered()
     QString referenceName = object->referencedObjectName();
     XReferenceType referenceType = object->referencedObjectType();
     XSchemaObject *target = NULL;
-    Utils::TODO_NEXT_RELEASE("handle namespaces in a less bovine mode");
+    Utils::TODO_NEXT_RELEASE("handle namespaces in a better way");
     int indexOfColon = referenceName.indexOf(":");
     if(indexOfColon >= 0) {
         referenceName = referenceName.mid(indexOfColon + 1);
@@ -1374,7 +1367,6 @@ void XSDWindow::restoreSelection(QList<QGraphicsItem*> &itemsToSelect)
 
 void XSDWindow::calculatePageRect(QPainter *painter, QRectF &destArea)
 {
-    Utils::TODO_THIS_RELEASE("inutile?");
     QFontMetrics fm = painter->fontMetrics();
     QString text = QString(tr("Page %1/%1")).arg(999).arg(999);
     QRectF measRect = fm.boundingRect(text);
@@ -1462,6 +1454,7 @@ void XSDWindow::setController(IXSDController *value)
     ui->actionSwapReferenceAndTarget->setVisible(contextType() == XsdGraphicContext::CONTEXT_DIFF);
     ui->cmdShowDepend->setVisible(contextType() != XsdGraphicContext::CONTEXT_DIFF);
     ui->targetNamespaceInfo->setVisible(contextType() != XsdGraphicContext::CONTEXT_DIFF);
+    ui->cmdOutline->setVisible(contextType() != XsdGraphicContext::CONTEXT_DIFF);
 }
 
 XsdGraphicContext::EContextType XSDWindow::contextType()
@@ -1528,15 +1521,16 @@ QString XSDWindow::selectedExitKey()
 
 void XSDWindow::on_cmdOutline_clicked()
 {
-    Utils::TODO_THIS_RELEASE("abilitare a seconda degli stati");
-    const bool isOutline = ui->cmdOutline->isChecked();
-    if(isOutline && ! _context.isOutline()) {
-        _context.setContextType(XsdGraphicContext::CONTEXT_OUTLINE) ;
-    } else if(!isOutline && _context.isOutline()) {
-        _context.setContextType(XsdGraphicContext::CONTEXT_GRAPHICS);
+    if(contextType() != XsdGraphicContext::CONTEXT_DIFF) {
+        const bool isOutline = ui->cmdOutline->isChecked();
+        if(isOutline && ! _context.isOutline()) {
+            _context.setContextType(XsdGraphicContext::CONTEXT_OUTLINE) ;
+        } else if(!isOutline && _context.isOutline()) {
+            _context.setContextType(XsdGraphicContext::CONTEXT_GRAPHICS);
+        }
+        deleteAllItems();
+        showRoot();
     }
-    deleteAllItems();
-    showRoot();
 }
 
 void XSDWindow::setOutlineMode(const bool isOutline)
@@ -1573,7 +1567,6 @@ QString XSDWindow::chooseRoot(QWidget *parent, QList<XSchemaElement*> elements)
 
 void XSDWindow::wheelEvent(QWheelEvent *event)
 {
-    Utils::TODO_THIS_RELEASE("check margini");
     const int delta = event->delta() ;
     const Qt::KeyboardModifiers modifier = event->modifiers();
     const bool isCtrl = (modifier & Qt::ControlModifier) == Qt::ControlModifier ;

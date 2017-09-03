@@ -74,7 +74,6 @@ void XSchemaOutlineElement::calculateElement(XSchemaInquiryContext &context)
     }
     _realElement = NULL ;
     if(_element->isTypeOrElement()) {
-        Utils::TODO_THIS_RELEASE("fare, tipo");
         _name = _element->name();
         _realElement = _element ;
     } else {
@@ -93,7 +92,6 @@ void XSchemaOutlineElement::calculateElement(XSchemaInquiryContext &context)
             const QString type = _element->typeString();
             if(!type.isEmpty()) {
                 _realElement = _element->resolveType(_element);
-                Utils::TODO_THIS_RELEASE("fare");
             }
             if(NULL == _realElement) {
                 _realElement = _element ;
@@ -186,7 +184,6 @@ extension: group|all|choice|sequence
 
 void XSchemaOutlineContainer::collectOutlineChildrenOfObject(XSchemaInquiryContext &context, QList<XSchemaObject*> &baseElements)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     foreach(XSchemaObject * child, baseElements) {
         switch(child->getType()) {
         default:

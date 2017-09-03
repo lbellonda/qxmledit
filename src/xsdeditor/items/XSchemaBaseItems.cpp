@@ -67,8 +67,7 @@ XSDItemContext::XSDItemContext(QXmlEditData *appData)
 {
     _isDebug = false;
     _strategy = COMPACT;
-    Utils::TODO_THIS_RELEASE("fare");
-    _renderingStrategy = appData->isXsdDisplayHoriz() ? DISPLAYSTR_NEW0 : DISPLAYSTR_UNDER; //DISPLAYSTR_HOR_PYRAMID : DISPLAYSTR_UNDER;
+    _renderingStrategy = appData->isXsdDisplayHoriz() ? DISPLAYSTR_NEW0 : DISPLAYSTR_UNDER;
     _gapBetweenChildren = 10 ;
     _stemLength = 50 ;
 }

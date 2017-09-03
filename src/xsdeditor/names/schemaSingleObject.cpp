@@ -107,9 +107,10 @@ XSchemaElement *XSDSchema::topLevelType(const QString &referenceName)
 
 XSchemaElement *XSDSchema::topLevelElement(const QString &referenceName)
 {
-    Utils::TODO_THIS_RELEASE("se prefisso, trova prefisso ->ns, poi controlla se uguale a targetns, se si, serca non qualificato o qualificato con ns originale");
     XSchemaElement* element = (XSchemaElement*) infoPool()->getObject(referenceName, SchemaGenericElement);
-    if(NULL == element) {
+    Utils::TODO_THIS_RELEASE("commento sotto");
+
+    /*if(NULL == element) {
         QString prefix, name;
         XmlUtils::decodeQualifiedName(referenceName, prefix, name);
         Utils::TODO_THIS_RELEASE("check se appropriato");
@@ -121,18 +122,9 @@ XSchemaElement *XSDSchema::topLevelElement(const QString &referenceName)
         if(NULL == element) {
             // look in imported under namespace
             Utils::TODO_THIS_RELEASE("seguire le specifiche");
-            /*if( _importedSchemasByNamespace.contains(ns) ) {
-                foreach( XSDSchema* importedSchema, _root->_importedSchemasByNamespace[ns] ) {
-                    foreach( XSchemaObject* aChild, importedSchema->topLevelElements(true)) {
-                        if( aChild.name() == name ) {
-                            return static_cast<XSchemaElement*>(aChild);
-                        }
-                    }
-                }
-            }*/
         }
 
-    }
+    }*/
     return element;
 }
 

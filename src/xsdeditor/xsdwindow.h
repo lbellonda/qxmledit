@@ -241,7 +241,7 @@ protected:
     bool updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain);
     void updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging);
     void moveDownBy(const qreal gapThis, const qreal gap, const bool isRecursive, const bool isEnlarging);
-    qreal updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal thisGap, const qreal gap, const bool isFirst, const int index);
+    qreal updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal thisGap, const bool isFirst, const int index);
     qreal calcOverallHeight(QList<QGraphicsItem*> &rendered);
     void finalOffset();
     //-- endregion(New0)

@@ -369,7 +369,6 @@ void XSchemaElement::collectAttributesOfComplexDerived(XSchemaInquiryContext & /
     }
     XSchemaComplexContentRestriction *restriction = baseTypeOrElement->getRestriction();
     if(NULL != restriction) {
-        Utils::TODO_THIS_RELEASE("fare");
         foreach(XSchemaObject* child, restriction->getChildren()) {
             switch(child->getType()) {
             case SchemaTypeAttribute:
@@ -387,7 +386,6 @@ void XSchemaElement::collectAttributesOfComplexDerived(XSchemaInquiryContext & /
         XSchemaComplexContentExtension *extension = baseTypeOrElement->getExtension();
         if(NULL != extension) {
             XSchemaElement *extType = extension->getBaseType();
-            Utils::TODO_THIS_RELEASE("fare");
             if((NULL != extType) && !extType->isPredefined()) {
                 foreach(XSchemaObject* child, extType->_attributes) {
                     result.append(child);
