@@ -27,8 +27,11 @@
 #include <QGraphicsColorizeEffect>
 #include "xsdeditor/items/xitemsdefinitions.h"
 
+#define QXMLEDIT_LAYOUT_DEBUG(x)
+
 qreal XSDItem::placeAllStrategyHorPyramidNew0(XSDItemContext *context)
 {
+    Utils::TODO_THIS_RELEASE("Rotella mouse -> zoom, click R mouse 1:1");
     const qreal overallHeight = calcChildrenHeightStrategyNew0(context, true);
     QGraphicsItem *thisItem = graphicItem() ;
     QRectF bounds = thisItem->boundingRect();
@@ -43,7 +46,6 @@ qreal XSDItem::placeAllStrategyHorPyramidNew0(XSDItemContext *context)
     finalOffset();
     afterPositionChange();
     const qreal overallFinalHeight = calcOverallHeight(rendered);
-    Utils::TODO_THIS_RELEASE("fare centra su root, ma a livello piu alto");
     return overallFinalHeight ;
 }
 
@@ -51,14 +53,11 @@ void XSDItem::finalOffset()
 {
     QRectF bounds(0, 0, 0, 0);
     bool first = false;
-    QRectF itemsRect = graphicItem()->scene()->itemsBoundingRect();
-    Utils::TODO_THIS_RELEASE(QString("%1").arg(itemsRect.isValid() ? "1" : "0"));
     foreach(QGraphicsItem * item, graphicItem()->scene()->items()) {
         QRectF itemBounds = item->boundingRect();
         if(NULL != item->parentItem()) {
             continue;
         }
-        Utils::TODO_THIS_RELEASE("itemBounds.setTopLeft(item->pos());");
         if(!itemBounds.isEmpty() && item->isVisible() && (itemBounds.top() > 0)) {
             if(first) {
                 bounds = itemBounds;
@@ -66,12 +65,9 @@ void XSDItem::finalOffset()
             } else {
                 bounds = bounds.united(itemBounds);
             }
-            if(itemBounds.top() <= 0) {
-                printf("zero\n");
-                /*QGraphicsTextItem *i = (QGraphicsTextItem*)item;
-                QString text = i->toPlainText();
-                Utils::TODO_THIS_RELEASE(text);*/
-            }
+            QXMLEDIT_LAYOUT_DEBUG(if(itemBounds.top() <= 0) {
+            printf("zero\n");
+            })
         }
     }
 
@@ -83,7 +79,7 @@ void XSDItem::finalOffset()
                 continue;
             }
             QRectF itemBounds = item->boundingRect();
-            if(!itemBounds.isEmpty() && item->isVisible() /*&& (itemBounds.top() > 0)*/) {
+            if(!itemBounds.isEmpty() && item->isVisible()) {
                 item->setY(item->y() - delta);
             }
         }
@@ -126,7 +122,6 @@ qreal XSDItem::calcChildrenHeightStrategyNew0(XSDItemContext *context, const boo
 
 void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos)
 {
-    Utils::TODO_THIS_RELEASE("manca da centrare la linea esattamente in mezzo, c'e' un piccolo offset superiore.");
     /*if(!strcmp(this->metaObject()->className(), "ContainerItem")) {
         int debug = 1;
         debug++;
@@ -209,7 +204,7 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
     afterDisposeAllChildren();
 }
 
-void XSDItem::updateSummaryLineBounds(const qreal gap, const bool isEnlarging)
+void XSDItem::updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging)
 {
     QGraphicsLineItem *line = _children.secondLine(this);
     if((NULL != line) && line->isVisible()) {
@@ -223,19 +218,19 @@ void XSDItem::updateSummaryLineBounds(const qreal gap, const bool isEnlarging)
             qline.setP1(p1);
         }
         line->setLine(qline);
-        //line->setPen(QPen(QColor::fromRgb(255, 0, 0)));
+        QXMLEDIT_LAYOUT_DEBUG(line->setPen(QPen(QColor::fromRgb(255, 0, 0))));
     }
     QGraphicsLineItem *secondLine = _children._line;
     if((NULL != secondLine) && secondLine->isVisible()) {
         QLineF qline = secondLine->line();
         QPointF p1 = qline.p1();
         QPointF p2 = qline.p2();
-        p1.setY(p1.y() + gap);
-        p2.setY(p2.y() + gap);
+        p1.setY(p1.y() + gapThis);
+        p2.setY(p2.y() + gapThis);
         qline.setP1(p1);
         qline.setP2(p2);
         secondLine->setLine(qline);
-        //secondLine->setPen(QPen(QColor::fromRgb(0,0xC0, 0)));
+        QXMLEDIT_LAYOUT_DEBUG(secondLine->setPen(QPen(QColor::fromRgb(0, 0xC0, 0))));
     }
 }
 
@@ -243,13 +238,22 @@ void XSDItem::moveDownBy(const qreal gapThis, const qreal gap, const bool isRecu
 {
     QGraphicsItem *thisItem = graphicItem() ;
     thisItem->setY(thisItem->y() + gapThis);
+    QXMLEDIT_LAYOUT_DEBUG(do {
+        printf("%s\n", QString("      ** moved name %1 by %2 enlarging %3")
+               .arg(item()->name())
+               .arg(gapThis)
+               .arg(isEnlarging)
+               .toLatin1().data());
+        fflush(0)
+    } while(false));
+
     if(isRecursive) {
         foreach(RChild * rchild, _children.children()) {
             XSDItem *xsdItem = rchild->item();
             xsdItem->moveDownBy(gap, gap, true, isEnlarging);
         }
     }
-    updateSummaryLineBounds(gapThis, isEnlarging);
+    updateSummaryLineBounds(gapThis, gap, isEnlarging);
     if(NULL != chain()) {
         chain()->updatePosition();
     }
@@ -258,10 +262,46 @@ void XSDItem::moveDownBy(const qreal gapThis, const qreal gap, const bool isRecu
     }
 }
 
-void XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem *target, const qreal gap)
+qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem *target, const qreal thisGap, const qreal gap, const bool isFirst, const int /*index*/)
 {
+    Utils::TODO_THIS_RELEASE(QString("gap %1").arg(gap));
     bool targetEngaged = false;
     bool existsBefore = false;
+    QXMLEDIT_LAYOUT_DEBUG(if(index == 4) {
+    int x = 0;
+    x++;
+});
+    bool firstChildIsTarget = false;
+    int childIndex = 0;
+    foreach(RChild * rchild, _children.children()) {
+        XSDItem *xsdItem = rchild->item();
+        if(NULL != target) {
+            if(!targetEngaged) {
+                if(xsdItem == target) {
+                    if(0 == childIndex) {
+                        firstChildIsTarget = true ;
+                    }
+                    targetEngaged = true ;
+                } else {
+                    existsBefore = true ;
+                }
+            }
+        }
+        childIndex ++ ;
+    }
+    targetEngaged = false;
+    existsBefore = false;
+    const bool isOnlyOne = (_children.children().size() == 1);
+    const qreal realThisGap = firstChildIsTarget || isFirst || isOnlyOne ? thisGap : thisGap / 2;
+    QXMLEDIT_LAYOUT_DEBUG(do {
+        printf("%s\n", QString("index %1 name %6 real this gap: %3  gap %2 exists %4 children %5 inputgapthis: %7")
+               .arg(index).arg(gap).arg(realThisGap)
+               .arg(existsBefore).arg(_children.children().size())
+               .arg(item()->name()).arg(thisGap)
+               .toLatin1().data());
+        fflush(0);
+    } while(false););
+
     foreach(RChild * rchild, _children.children()) {
         XSDItem *xsdItem = rchild->item();
         if(NULL != target) {
@@ -272,16 +312,24 @@ void XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem 
                     existsBefore = true ;
                 }
             } else {
-                xsdItem->moveDownBy(gap, gap, true, false);
+                xsdItem->moveDownBy(thisGap, thisGap, true, false);
             }
         } else {
-            xsdItem->moveDownBy(gap, gap, true, false);
+            xsdItem->moveDownBy(thisGap, thisGap, true, false);
         }
     }
-    Utils::TODO_THIS_RELEASE("spostare al centro");
-    moveDownBy(gap, gap, false, existsBefore);
+    moveDownBy(realThisGap, thisGap, false, !isFirst && !isOnlyOne && existsBefore && !firstChildIsTarget);
+    return realThisGap ;
 }
+/*
+se esiste precedente allarga:true;
+gap se 1! gap else gap/2
 
+se gap da livello precedente, se 1! figli usa gap precedente
+se >1 figli e' gap prec/2
+*/
+
+QXMLEDIT_LAYOUT_DEBUG(static int nogo = 0 ;)
 bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem*> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain)
 {
     bool collisionFound = false;
@@ -328,22 +376,30 @@ bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphics
             }
         }
     }
+    QXMLEDIT_LAYOUT_DEBUG(if(existsCollision) {
+    nogo++;
+});
     if(existsCollision) {
-        //thisItem->setGraphicsEffect(new QGraphicsColorizeEffect());
+        //if(existsCollision && (nogo==1)) {
+        QXMLEDIT_LAYOUT_DEBUG(thisItem->setGraphicsEffect(new QGraphicsColorizeEffect());)
         /*
         * per ogni padre, segna da quale figlio spostare ( da qui in basso).
         * poi partendo dal padre, aggiungi l'offset ad ogni figlio e da qui in poi, in modo ricorsivo:
         * sposta il padre al centro
         */
+        qreal thisGap = maxGap ;
         const int size = chain.size();
+        bool first = true ;
+        int counter = 0 ;
         for(int index = size - 1 ; index >= 0 ; index --) {
             XSDItem *item = chain.at(index);
             XSDItem *target = NULL ;
             if((index + 1) < size) {
                 target = chain.at(index + 1);
             }
-            Utils::TODO_THIS_RELEASE("move the parent at the center of the new items");
-            item->updateAnObjectPlacementNew0(context, target, maxGap);
+            thisGap = item->updateAnObjectPlacementNew0(context, target, thisGap, maxGap, first, counter);
+            first = false;
+            counter ++ ;
         }
     }
     rendered.append(thisItem);

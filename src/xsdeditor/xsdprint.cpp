@@ -26,6 +26,7 @@
 #include "xsdeditor/widgets/xsdgenericeditor.h"
 #include "xsdeditor/choosexsdviewrootitemdialog.h"
 #include <QSvgGenerator>
+#include <QDesktopServices>
 
 XSDPrintInfo::XSDPrintInfo()
 {
@@ -247,7 +248,11 @@ void XSDWindow::printPDF()
 
     // end print
     setWindowTitle(_title);
-    Utils::message(this, tr("Diagram exported in PDF format."));
+    if(!QDesktopServices::openUrl(QUrl::fromLocalFile(filePath))) {
+        Utils::message(this, tr("The diagram was exported in PDF format, but QmlEdit is unable to start the associated application."));
+    } else {
+        Utils::message(this, tr("Diagram exported in PDF format."));
+    }
 }
 
 //TODO: error checking
@@ -326,12 +331,13 @@ void XSDWindow::printSchemaIntroduction(QPainter *painter, XSDPrintInfo &xsdPrin
 
 void XSDWindow::printSchemaElements(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 {
-    printHeader(painter, xsdPrintInfo, tr("Elements"));
-    Utils::TODO_THIS_RELEASE("finire");
-    Utils::TODO_THIS_RELEASE(" elimina dichiarazioni senza corpo QList<XSchemaObject*>objects = schema()->topLevelListByName(SchemaTypeElement, true);");
     QList<XSchemaObject*>objects = schema()->root()->schema()->topLevelElements(true);
+    if(objects.isEmpty()) {
+        return ;
+    }
+    printHeader(painter, xsdPrintInfo, tr("Elements"));
 
-    Utils::TODO_THIS_RELEASE("objects = sortObjectsByName(schema->topLevelTypes(useOnlyThisSchemaOrAll));");
+    objects = XSchemaObject::sortObjectsByName(objects);
     foreach(XSchemaObject * object, objects) {
         XSchemaElement* schemaObject = static_cast<XSchemaElement*>(object);
         printSingleElement(painter, xsdPrintInfo, schemaObject);
@@ -361,12 +367,13 @@ void XSDWindow::printSchemaInnerElements(QPainter *painter, XSDPrintInfo &xsdPri
 
 void XSDWindow::printSchemaTypes(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 {
-    printHeader(painter, xsdPrintInfo, tr("Types"));
-    Utils::TODO_THIS_RELEASE("finire");
-    Utils::TODO_THIS_RELEASE(" elimina dichiarazioni senza corpo QList<XSchemaObject*>objects = schema()->topLevelListByName(SchemaTypeElement, true);");
     QList<XSchemaObject*>objects = schema()->root()->schema()->topLevelTypes(true);
+    if(objects.isEmpty()) {
+        return ;
+    }
+    printHeader(painter, xsdPrintInfo, tr("Types"));
 
-    Utils::TODO_THIS_RELEASE("objects = sortObjectsByName(schema->topLevelTypes(useOnlyThisSchemaOrAll));");
+    objects = XSchemaObject::sortObjectsByName(objects);
     foreach(XSchemaObject * object, objects) {
         XSchemaElement* schemaObject = static_cast<XSchemaElement*>(object);
         printSingleType(painter, xsdPrintInfo, schemaObject);
@@ -375,7 +382,6 @@ void XSDWindow::printSchemaTypes(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 
 void XSDWindow::printHeader(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &headerText)
 {
-    Utils::TODO_THIS_RELEASE("finire elimina riferimenti ad elementi doppioni");
     xsdPrintInfo.newPage();
     QString text ;
     text = QString("<H1 style='background-color:#000000;color:#FFFFFF'>%1</H1><div><br/></div>").arg(headerText);
@@ -385,8 +391,6 @@ void XSDWindow::printHeader(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const
 
 QString XSDWindow::printAnnotationString(XSDPrintInfo &xsdPrintInfo, XSchemaObject *object)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QString annotationHtml ;
 
     QString annotationInfo;
@@ -415,8 +419,6 @@ QString XSDWindow::printAnnotationString(XSDPrintInfo &xsdPrintInfo, XSchemaObje
  */
 int XSDWindow::printSingleElement(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QString text ;
     QString elementText = QString("<span style=''>%1</span>").arg(Utils::escapeHTML(element->name()));
     if(!element->xsdType().isEmpty()) {
@@ -437,10 +439,6 @@ int XSDWindow::printSingleElement(QPainter *painter, XSDPrintInfo &xsdPrintInfo,
 
 int XSDWindow::printSingleType(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-    if(element->name() == "space_Type") {
-        Utils::TODO_THIS_RELEASE("finire");
-    }
     QString text ;
     QString elementText = QString("<span style=''>%1</span>").arg(Utils::escapeHTML(element->name()));
     if(!element->isSimpleType()) {
@@ -475,7 +473,6 @@ int XSDWindow::printInclude(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSche
 
 int XSDWindow::printImport(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaImport *object)
 {
-
     QString text ;
     QString elementText = QString("<span style=''>import %1</span>").arg(Utils::escapeHTML(object->schemaLocation()));
     if(!object->targetNamespace().isEmpty()) {
@@ -508,11 +505,8 @@ int XSDWindow::printRedefine(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSch
 // returns the height of the box
 int XSDWindow::printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &htmlText)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QTextDocument document;
     document.documentLayout()->setPaintDevice(painter->device());
-    ////document.setTextWidth(printWidth);
     document.setPageSize(xsdPrintInfo.printer->pageRect().size());
     document.setHtml(htmlText);
     QSizeF documentSize = document.size();
@@ -523,7 +517,6 @@ int XSDWindow::printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QSt
     painter->translate(0, xsdPrintInfo.currentY);
     if(!xsdPrintInfo.isCalculating) {
         document.drawContents(painter);
-        //document.print(xsdPrintInfo.printer);
     }
 
     painter->restore();
@@ -535,7 +528,6 @@ int XSDWindow::printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QSt
 
 void XSDWindow::printSchemaGroups(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 {
-    Utils::TODO_THIS_RELEASE("finire");
     QList<XSchemaObject*>objects = schema()->root()->schema()->topLevelGroups(true);
     if(objects.isEmpty()) {
         return ;
@@ -550,8 +542,6 @@ void XSDWindow::printSchemaGroups(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 
 int XSDWindow::printSingleGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaGroup *group)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QString text ;
     QString name = QString("<span style=''>%1</span>").arg(Utils::escapeHTML(group->name()));
 
@@ -582,8 +572,6 @@ void XSDWindow::printSchemaAttributes(QPainter *painter, XSDPrintInfo &xsdPrintI
 
 int XSDWindow::printSingleAttribute(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaAttribute *attribute)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QString text ;
     QString name = QString("<span style=''>%1</span>").arg(Utils::escapeHTML(attribute->name()));
 
@@ -599,13 +587,12 @@ int XSDWindow::printSingleAttribute(QPainter *painter, XSDPrintInfo &xsdPrintInf
 
 void XSDWindow::printSchemaAttributeGroups(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
 {
-    Utils::TODO_THIS_RELEASE("finire");
     QList<XSchemaObject*>objects = schema()->root()->schema()->topLevelAttributeGroups(true);
     if(objects.isEmpty()) {
         return ;
     }
     printHeader(painter, xsdPrintInfo, tr("Attribute Groups"));
-    Utils::TODO_THIS_RELEASE("objects = sortObjectsByName(schema->topLevelTypes(useOnlyThisSchemaOrAll));");
+    objects = XSchemaObject::sortObjectsByName(objects);
     foreach(XSchemaObject * object, objects) {
         XSchemaAttributeGroup* schemaAttributeGroup = static_cast<XSchemaAttributeGroup*>(object);
         printSingleAttributeGroup(painter, xsdPrintInfo, schemaAttributeGroup);
@@ -614,8 +601,6 @@ void XSDWindow::printSchemaAttributeGroups(QPainter *painter, XSDPrintInfo &xsdP
 
 int XSDWindow::printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaAttributeGroup *attributeGroup)
 {
-    Utils::TODO_THIS_RELEASE("finire");
-
     QString text ;
     QString name = QString("<span style=''>%1</span>").arg(Utils::escapeHTML(attributeGroup->name()));
 
@@ -673,8 +658,7 @@ int XSDWindow::printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPri
     return 0;
 }
 
-//void XSDWindow::printSchemaEnd(QPainter *painter, XSDPrintInfo &xsdPrintInfo)
-void XSDWindow::printSchemaEnd(QPainter *, XSDPrintInfo &)
+void XSDWindow::printSchemaEnd(QPainter * /*painter*/, XSDPrintInfo & /*xsdPrintInfo*/)
 {
     Utils::TODO_THIS_RELEASE("finire");
 }

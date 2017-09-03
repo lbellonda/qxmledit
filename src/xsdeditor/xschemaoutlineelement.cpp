@@ -42,7 +42,6 @@ XSchemaOutlineElement::~XSchemaOutlineElement()
 
 void XSchemaOutlineElement::reset()
 {
-    Utils::TODO_THIS_RELEASE("reset figli");
     XSchemaObject::reset();
 }
 
@@ -71,7 +70,6 @@ void XSchemaOutlineElement::calculateElement(XSchemaInquiryContext &context)
 {
     reset();
     if(NULL == _element) {
-        Utils::TODO_THIS_RELEASE("fare");
         return ;
     }
     _realElement = NULL ;
@@ -114,10 +112,7 @@ void XSchemaOutlineElement::calculateElement(XSchemaInquiryContext &context)
         _isAlreadyProcessed = true;
         return ;
     }
-    Utils::TODO_THIS_RELEASE("fine");
-
     QList<XSchemaObject*> baseElements;
-    Utils::TODO_THIS_RELEASE("fare enrolled in context");
     bool isEnrolledSub = false;
     context.setEnrollFlag(&isEnrolledSub);
     bool isOk = _element->findBaseObjects(context, baseElements, _attributes);

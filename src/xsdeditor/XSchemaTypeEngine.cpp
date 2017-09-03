@@ -393,6 +393,12 @@ void XSchemaElement::collectAttributesOfComplexDerived(XSchemaInquiryContext & /
                     result.append(child);
                 }
             }
+            foreach(XSchemaObject* child, extension->getChildren()) {
+                const ESchemaType type = child->getType();
+                if((SchemaTypeAttribute == type) || (SchemaTypeAttributeGroup == type)) {
+                    result.append(child);
+                }
+            }
         }
     }
 }

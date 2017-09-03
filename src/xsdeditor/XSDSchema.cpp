@@ -357,7 +357,6 @@ QList<XSchemaElement *> XSDSchema::collectCandidateRootElement()
         }
     }
     foreach(XSchemaObject * child, _children) {
-        Utils::TODO_THIS_RELEASE("if(child->getType() == ESchemaType::SchemaTypeElement) {");
         if(child->getType() == SchemaTypeElement) {
             XSchemaElement* element = static_cast<XSchemaElement*>(child);
             if(!element->isTypeOrElement()) {

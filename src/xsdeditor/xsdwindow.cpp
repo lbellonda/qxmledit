@@ -26,6 +26,8 @@
 #include "xsdeditor/widgets/xsdgenericeditor.h"
 #include "xsdeditor/choosexsdviewrootitemdialog.h"
 #include <QSvgGenerator>
+#include <QApplication>
+#include <QWheelEvent>
 
 
 #ifdef  QML
@@ -1418,7 +1420,6 @@ void XSDWindow::deleteAllItems()
     if(NULL != _scene) {
         _scene->clear();
     }
-    Utils::TODO_THIS_RELEASE("rebuild cache on repaint when switchng from a mode to another one.");
     _context.clearCache();
 }
 
@@ -1568,4 +1569,28 @@ QString XSDWindow::chooseRoot(QWidget *parent, QList<XSchemaElement*> elements)
         return nameResult ;
     }
     return "";
+}
+
+void XSDWindow::wheelEvent(QWheelEvent *event)
+{
+    Utils::TODO_THIS_RELEASE("check margini");
+    const int delta = event->delta() ;
+    const Qt::KeyboardModifiers modifier = event->modifiers();
+    const bool isCtrl = (modifier & Qt::ControlModifier) == Qt::ControlModifier ;
+    if(delta > 0) {
+        if(isCtrl) {
+            on_cmdZoomIn_clicked();
+        }
+    } else if(delta < 0) {
+        if(isCtrl) {
+            on_cmdZoomOut_clicked();
+        }
+    }
+}
+
+void XSDWindow::mousePressEvent(QMouseEvent * event)
+{
+    if(event->button() == Qt::MiddleButton) {
+        on_cmdZoom1_clicked();
+    }
 }

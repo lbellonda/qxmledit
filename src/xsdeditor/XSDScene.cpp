@@ -44,46 +44,10 @@ void XSDScene::updateBounds()
 {
     QRectF nullRect;
     setSceneRect(nullRect);
-    Utils::TODO_THIS_RELEASE("commento");
-    /*QRectF bounds(0, 0, 0, 0);
-    bool first = false;
-    foreach(QGraphicsItem * item, items()) {
-        QRectF itemBounds = item->boundingRect();
-        if( NULL != item->parentItem() ) {
-            continue;
-        }
-        Utils::TODO_THIS_RELEASE("itemBounds.setTopLeft(item->pos());");
-        if(!itemBounds.isEmpty() && item->isVisible() && (itemBounds.top() > 0) ) {
-            if(first) {
-                bounds = itemBounds;
-                first = false;
-            } else {
-                bounds = bounds.united(itemBounds);
-            }
-            if(itemBounds.top() <= 0) {
-                printf("zero\n");
-            }
-        }
-    }*/
-    /*const int topElementPos = bounds.top();
-    if( topElementPos > 20 ) {
-        const int delta = topElementPos - 20;
-        foreach(QGraphicsItem * item, items()) {
-            if( NULL != item->parentItem() ) {
-                continue;
-            }
-            QRectF itemBounds = item->boundingRect();
-            if(!itemBounds.isEmpty() && item->isVisible() && (itemBounds.top() > 0) ) {
-                item->setY(item->y()-delta);
-            }
-        }
-        bounds.setHeight(bounds.height()-delta);
-    }*/
     QRectF itemsRect = itemsBoundingRect();
     itemsRect.setWidth(itemsRect.width() + 5);
     itemsRect.setHeight(itemsRect.height() + 5);
     setSceneRect(itemsRect);
-    //etSceneRect(bounds);
     applyBackground(&_bkConfig);
     /**************************************** TODO
         //QLinearGradient gradient(QPoint(0,0), QPoint(bounds.width()/4,0));

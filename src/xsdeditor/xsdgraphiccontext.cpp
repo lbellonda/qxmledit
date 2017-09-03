@@ -29,15 +29,13 @@ XsdGraphicContext::XsdGraphicContext(QObject *parent) :
     QObject(parent)
 {
     _isDebug = false ;
-    Utils::TODO_THIS_RELEASE("commento");
-    _hideAttributes = true ;
+    _hideAttributes = false ;
     _rootItem = NULL ;
     _schema = NULL ;
     _scene = NULL ;
     _contextType = CONTEXT_GRAPHICS;
     _showAllSchema = false ;
-    Utils::TODO_THIS_RELEASE("commento");
-    _showBaseObjects = true ;
+    _showBaseObjects = false ;
     QString fontFamily = Config::getString(Config::KEY_XSD_FONTFAMILY, "") ;
     if(!fontFamily.isEmpty()) {
         _normalFont.setFamily(fontFamily);
@@ -66,12 +64,10 @@ XsdGraphicContext::XsdGraphicContext(QObject *parent) :
     _typeFont.setItalic(fontItalic);
 }
 
-
 XsdGraphicContext::~XsdGraphicContext()
 {
     clear();
 }
-
 
 void XsdGraphicContext::resetRoot()
 {

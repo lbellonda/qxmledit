@@ -239,9 +239,9 @@ protected:
     qreal calcChildrenHeightStrategyNew0(XSDItemContext *context, const bool isRecursive);
     void placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos);
     bool updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain);
-    void updateSummaryLineBounds(const qreal gap, const bool isEnlarging);
+    void updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging);
     void moveDownBy(const qreal gapThis, const qreal gap, const bool isRecursive, const bool isEnlarging);
-    void updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal gap);
+    qreal updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal thisGap, const qreal gap, const bool isFirst, const int index);
     qreal calcOverallHeight(QList<QGraphicsItem*> &rendered);
     void finalOffset();
     //-- endregion(New0)
@@ -1546,6 +1546,8 @@ protected:
     bool checkNullObject(XSchemaObject *object);
     void informationError();
     void deleteAllItems();
+    void wheelEvent(QWheelEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 protected slots:
 #ifdef  XSD_EVENTS_HANDLED
