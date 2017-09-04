@@ -236,7 +236,6 @@ void OutlineElementItem::changeGraphics()
         _graphicsItem->setSingleColor(true);
         _graphicsItem->setColorStart(QColor(255, 255, 255));
     }
-    Utils::TODO_THIS_RELEASE("fare IS ENROLLED");
 }
 
 

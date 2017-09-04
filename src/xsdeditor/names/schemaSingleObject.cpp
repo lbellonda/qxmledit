@@ -108,23 +108,6 @@ XSchemaElement *XSDSchema::topLevelType(const QString &referenceName)
 XSchemaElement *XSDSchema::topLevelElement(const QString &referenceName)
 {
     XSchemaElement* element = (XSchemaElement*) infoPool()->getObject(referenceName, SchemaGenericElement);
-    Utils::TODO_THIS_RELEASE("commento sotto");
-
-    /*if(NULL == element) {
-        QString prefix, name;
-        XmlUtils::decodeQualifiedName(referenceName, prefix, name);
-        Utils::TODO_THIS_RELEASE("check se appropriato");
-        // look for target ns and prefixes for target ns, if appropriate, look for element name
-        const QString &ns = _namespacesByPrefix[prefix] ;
-        if(ns == _targetNamespace) {
-            element = (XSchemaElement*) infoPool()->getObject(name, SchemaGenericElement);
-        }
-        if(NULL == element) {
-            // look in imported under namespace
-            Utils::TODO_THIS_RELEASE("seguire le specifiche");
-        }
-
-    }*/
     return element;
 }
 

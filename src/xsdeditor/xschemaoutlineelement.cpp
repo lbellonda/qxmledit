@@ -27,8 +27,6 @@
 
 XSchemaOutlineElement::XSchemaOutlineElement(XSchemaObject *newParent, XSchemaRoot *newRoot) : XSchemaOutlineContainer(newParent, newRoot)
 {
-    Utils::TODO_THIS_RELEASE("fare flag di ricorsione stampando i ...");
-
     _element = NULL ;
     _realElement = NULL ;
     _isAlreadyProcessed = false ;
@@ -62,8 +60,7 @@ void XSchemaOutlineElement::setElement(XSchemaInquiryContext &context, XSchemaEl
 
 QString XSchemaOutlineElement::tagName()
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    return "boh";
+    return "XSchemaOutlineElement";
 }
 
 void XSchemaOutlineElement::calculateElement(XSchemaInquiryContext &context)
@@ -106,7 +103,6 @@ void XSchemaOutlineElement::calculateElement(XSchemaInquiryContext &context)
         printf("EL: %s\n", _realElement->name().toLatin1().data());
     }*/
     if(isEnrolled()) {
-        Utils::TODO_THIS_RELEASE("disegna stop forzato");
         _isAlreadyProcessed = true;
         return ;
     }
