@@ -119,7 +119,7 @@ void XSDWindow::printPDF()
     printer.setOutputFileName(filePath);
     printer.setOutputFormat(QPrinter::PdfFormat);
     printer.setColorMode(QPrinter::Color);
-    printer.setCreator(QString("%1 %2").arg(APPLICATION_NAME).arg(VERSION));
+    printer.setCreator(QString("%1").arg(VERSION_STRING));
     printer.setDocName(tr("Schema %1").arg(fileName));
 
     QPainter painter(&printer);
