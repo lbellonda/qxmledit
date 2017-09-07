@@ -77,9 +77,7 @@ void XSchemaOutlineElement::calculateElement(XSchemaInquiryContext &context)
         if(XRT_ELEMENT == _element->referencedObjectType()) {
             XSchemaElement *referencedElement = _element->getReferencedElement();
             if(NULL == referencedElement) {
-                // no way
-                Utils::TODO_THIS_RELEASE("fare");
-                //raiseError(context, _element, QDomNode(), true);
+                // no way, unable to reference something.
                 return ;
             }
             _name = referencedElement->name();
