@@ -62,7 +62,21 @@
             <SchemaTypeOutlineElement name="otto"/>
         </SchemaTypeOutlineSequence>
     </SchemaTypeOutlineElement>
-
+    <SchemaTypeOutlineElement name="el_c_t_re">
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="uno"/>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+    <SchemaTypeOutlineElement name="re">
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="uno"/>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
+    <SchemaTypeOutlineElement name="v">
+        <SchemaTypeOutlineSequence>
+            <SchemaTypeOutlineElement name="uno"/>
+        </SchemaTypeOutlineSequence>
+    </SchemaTypeOutlineElement>
   </SchemaTypeOutlineSequence>
  </SchemaTypeOutlineElement>
 </SchemaTypeSchema>

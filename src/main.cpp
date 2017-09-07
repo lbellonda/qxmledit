@@ -245,8 +245,6 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("controllare di avere fatto tutti i casi di estensione di elemento per xsd");
-    Utils::TODO_THIS_RELEASE("ATTENZIONE:xsd/types/ext_complex.xsd manca attributo della classe di base!!!!");
 }
 
 static void startTanslator(QApplication *app)

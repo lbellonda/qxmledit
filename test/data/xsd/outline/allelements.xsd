@@ -67,6 +67,19 @@
              </xs:complexContent>
             </xs:complexType>
         </xs:element>
+        <xs:element ref="test:el_c_t_re" />
+        <xs:element name="re" type="test:c_t_re1" />
+        <xs:element name="v" >
+            <xs:complexType>
+                <xs:complexContent>
+                  <xs:restriction base="test:complex_base_type_r1">
+                    <xs:sequence>
+                      <xs:element name="uno" type="xs:string"/>
+                    </xs:sequence>
+                  </xs:restriction>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:element>
 
       </xs:sequence>
     </xs:complexType>
@@ -161,5 +174,41 @@
      </xs:complexContent>
     </xs:complexType>
 
+    <!-- -->
+    <xs:element name="el_c_t_re" type="test:c_t_re"/>
+
+    <xs:complexType name="complex_base_type_r">
+     <xs:sequence>
+       <xs:element name="uno" type="xs:string"/>
+       <xs:element name="due" type="xs:string" minOccurs="0"/>
+     </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="complex_base_type_r1">
+     <xs:sequence>
+       <xs:element name="uno" type="xs:string"/>
+       <xs:element name="due" type="xs:string" minOccurs="0"/>
+     </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="c_t_re">
+     <xs:complexContent>
+       <xs:restriction base="test:complex_base_type_r">
+         <xs:sequence>
+           <xs:element name="uno" type="xs:string"/>
+         </xs:sequence>
+       </xs:restriction>
+     </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="c_t_re1">
+     <xs:complexContent>
+       <xs:restriction base="test:complex_base_type_r">
+         <xs:sequence>
+           <xs:element name="uno" type="xs:string"/>
+         </xs:sequence>
+       </xs:restriction>
+     </xs:complexContent>
+    </xs:complexType>
 
 </xs:schema>
