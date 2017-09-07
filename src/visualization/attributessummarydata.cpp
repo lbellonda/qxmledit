@@ -101,6 +101,11 @@ void AttributesSummaryData::resetLists()
     whiteList.clear();
 }
 
+bool AttributesSummaryData::hasLists() const
+{
+    return !blackList.isEmpty() || !whiteList.isEmpty();
+}
+
 bool AttributesSummaryData::isUsed(const QString &key)
 {
     bool isUsedResult = false;

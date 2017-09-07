@@ -62,6 +62,7 @@ public:
     void resetLists();
     bool compareTo(AttributesSummaryData *other, QString &reason);
     bool loadFileAttributeList(QWidget *window, const QString &filePath, const bool isWhitelist);
+    bool hasLists() const ;
 
     static qreal calcPerc(const long value, const long total);
 };
@@ -96,7 +97,6 @@ public:
         const long sizeMemoryEmptyData,
         const qreal percTotalSize);
     bool compareTo(AttributesSummaryTotal *other, QString &reason);
-
 };
 
 

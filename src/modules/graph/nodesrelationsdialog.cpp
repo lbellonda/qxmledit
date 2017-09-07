@@ -105,6 +105,7 @@ NodesRelationsDialog::NodesRelationsDialog(const bool newCanLoadData, QList<TagN
     button->setToolTip(tr("Export data to file."));
     ui->tabWidget->setCornerWidget(button);
     connect(button, SIGNAL(clicked()), this, SLOT(onExportCmd()));
+    updateEnableAttributeLists();
 }
 
 NodesRelationsDialog::~NodesRelationsDialog()
@@ -419,6 +420,7 @@ void NodesRelationsDialog::loadAttributesList(const bool isWhitelist)
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
                        QXmlEditData::sysFilePathForOperation(inputFileName), Utils::getFileFilterForCSVOrText());
     innerLoadAttributesList(filePath, isWhitelist);
+    updateEnableAttributeLists();
 }
 
 void NodesRelationsDialog::on_cmdResetLists_clicked()
@@ -430,6 +432,7 @@ bool NodesRelationsDialog::resetAttributeLists()
 {
     _attributesSummaryData->resetLists();
     controller.loadAttributesData(ui->textAttributes, _attributesSummaryData);
+    updateEnableAttributeLists();
 
     return true ;
 }
@@ -480,4 +483,10 @@ bool NodesRelationsDialog::exportAttributesCSVOnDevice(QIODevice &ioDevice)
         }
     }
     return isOK;
+}
+
+void NodesRelationsDialog::updateEnableAttributeLists()
+{
+    bool areListsPresent = _attributesSummaryData->hasLists();
+    ui->cmdResetLists->setEnabled(areListsPresent);
 }

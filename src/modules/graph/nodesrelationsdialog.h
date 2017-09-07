@@ -82,6 +82,7 @@ class LIBQXMLEDITSHARED_EXPORT NodesRelationsDialog : public QDialog
     bool resetAttributeLists();
     void exportAttributesCSV();
     bool exportAttributesCSVOnDevice(QIODevice &ioDevice);
+    void updateEnableAttributeLists();
 public:
     explicit NodesRelationsDialog(const bool canLoadData, QList<TagNode*> &dataList, AttributesSummaryData *attributesSummaryData, QWidget *parent = 0);
     ~NodesRelationsDialog();
