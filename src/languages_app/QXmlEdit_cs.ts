@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="cs_CZ">
+<TS version="2.0" language="cs_CZ">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -100,9 +100,8 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QXmlEdit &lt;span style=&quot; font-size:18pt;&quot;&gt;xxx&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="38"/>
         <source>If you like or find useful this program, help others, even when you know they can’t help you back.</source>
-        <translation>Pokud se vám tento program líbí, nebo jej považujete za užitečný, pomožte jiným, i když víte, že vám nemohou pomoci nazpět.</translation>
+        <translation type="obsolete">Pokud se vám tento program líbí, nebo jej považujete za užitečný, pomožte jiným, i když víte, že vám nemohou pomoci nazpět.</translation>
     </message>
     <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -128,6 +127,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../aboutdialog.ui" line="289"/>
         <source>environment</source>
         <translation>prostředí</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="38"/>
+        <source>If you like or find useful this program, help others, even when you know they canât help you back.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="44"/>
@@ -3149,7 +3153,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Save using stream instead of DOM</source>
-        <translation type="vanished">Uložit za použití proudu namísto DOM</translation>
+        <translation type="obsolete">Uložit za použití proudu namísto DOM</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="297"/>
@@ -3189,27 +3193,27 @@ p, li { white-space: pre-wrap; }
         <translation>Formulář</translation>
     </message>
     <message>
-        <location filename="../visualization/datawidget.ui" line="18"/>
+        <location filename="../visualization/datawidget.ui" line="22"/>
         <source>Copy Data to Clipboard</source>
         <translation>Kopírovat data do schránky</translation>
     </message>
     <message>
-        <location filename="../visualization/datawidget.ui" line="23"/>
+        <location filename="../visualization/datawidget.ui" line="27"/>
         <source>Extract This Fragment...</source>
         <translation>Vytáhnout tento kousek...</translation>
     </message>
     <message>
-        <location filename="../visualization/datawidget.ui" line="28"/>
+        <location filename="../visualization/datawidget.ui" line="32"/>
         <source>Copy Path to the Clipboard</source>
         <translation>Kopírovat cestu do schránky</translation>
     </message>
     <message>
-        <location filename="../visualization/datawidget.ui" line="33"/>
+        <location filename="../visualization/datawidget.ui" line="37"/>
         <source>Copy Image  to Clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../visualization/datawidget.ui" line="36"/>
+        <location filename="../visualization/datawidget.ui" line="40"/>
         <source>Copy image to clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6006,7 +6010,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Alt+Shift+Return</source>
-        <translation type="vanished">Alt+Shift+Enter</translation>
+        <translation type="obsolete">Alt+Shift+Enter</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1715"/>
@@ -6316,7 +6320,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Set Indentation...</source>
-        <translation type="vanished">Nastavit odsazení...</translation>
+        <translation type="obsolete">Nastavit odsazení...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2014"/>
@@ -7585,7 +7589,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <source>Data loaded.</source>
-        <translation type="vanished">Data nahrána.</translation>
+        <translation type="obsolete">Data nahrána.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2025"/>
@@ -7597,7 +7601,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <source>Unable to read data.
 Error code is &apos;%1&apos;</source>
-        <translation type="vanished">Nelze přečíst data.
+        <translation type="obsolete">Nelze přečíst data.
 Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
@@ -7807,7 +7811,7 @@ Nelze jej nahrát.</translation>
     <name>QObject</name>
     <message>
         <location filename="../scansax.cpp" line="206"/>
-        <location filename="../visualization/visdatasax.cpp" line="150"/>
+        <location filename="../visualization/visdatasax.cpp" line="171"/>
         <source>Parse error (2) at line %1, column %2:
 %3</source>
         <translation>Chyba při zpracovávání (2) na řádku: %1, ve sloupci %2:
@@ -7815,7 +7819,7 @@ Nelze jej nahrát.</translation>
     </message>
     <message>
         <location filename="../scansax.cpp" line="219"/>
-        <location filename="../visualization/visdatasax.cpp" line="160"/>
+        <location filename="../visualization/visdatasax.cpp" line="181"/>
         <source>Parse error (1) at line %1, column %2:
 %3</source>
         <translation>Chyba při zpracovávání (1) na řádku: %1, ve sloupci %2:
@@ -7823,7 +7827,7 @@ Nelze jej nahrát.</translation>
     </message>
     <message>
         <location filename="../scansax.cpp" line="228"/>
-        <location filename="../visualization/visdatasax.cpp" line="169"/>
+        <location filename="../visualization/visdatasax.cpp" line="190"/>
         <source>Generic error.</source>
         <translation>Obecná chyba.</translation>
     </message>
@@ -8561,11 +8565,6 @@ Nelze jej nahrát.</translation>
         <source>Common Shortcuts for Editing</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../modules/help/shortcutsdialog.cpp" line="45"/>
-        <source>&lt;html&gt;&lt;body&gt;&lt;h1&gt;Shortcuts for element creation&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Operation&lt;/td&gt;&lt;th&gt;Shortcut&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Insert&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Append&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Insert Spec&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Append Spec&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Delete&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Properties&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Spec Properties&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit text&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit element&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit inner XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit inner XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Edit Mode&lt;/th&gt;        &lt;th&gt;DblClick&lt;/th&gt;        &lt;th&gt;dc+Shift&lt;/th&gt;        &lt;th&gt;dc+Ctrl&lt;/th&gt;        &lt;th&gt;dc+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Normal&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Not used&lt;/td&gt;        &lt;td&gt;Textual&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Special&lt;/td&gt;        &lt;td&gt;Special&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Not used&lt;/td&gt;        &lt;td&gt;Textual&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ShowTextDialog</name>
@@ -9104,66 +9103,66 @@ p, li { white-space: pre-wrap; }
         <translation>--- Žádný soubor ---</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="161"/>
+        <location filename="../visualization/vismapdialog.cpp" line="176"/>
         <source>Loading file %1</source>
         <translation>Nahrává se soubor %1</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="161"/>
+        <location filename="../visualization/vismapdialog.cpp" line="176"/>
         <source>Abort</source>
         <translation>Přerušit</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="163"/>
+        <location filename="../visualization/vismapdialog.cpp" line="178"/>
         <source>Loading Data</source>
         <translation>Nahrávají se data</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="193"/>
+        <location filename="../visualization/vismapdialog.cpp" line="210"/>
         <source>User aborted.</source>
         <translation>Přerušeno uživatelem.</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="195"/>
+        <location filename="../visualization/vismapdialog.cpp" line="212"/>
         <source>An error occurred loading data: %1</source>
         <translation>Při nahrávání dat se vyskytla chyba:%1</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="249"/>
+        <location filename="../visualization/vismapdialog.cpp" line="266"/>
         <source>An error occurred opening the file.</source>
         <translation>Při otevírání souboru se vyskytla chyba.</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="352"/>
+        <location filename="../visualization/vismapdialog.cpp" line="369"/>
         <source>Attributes
 count</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="353"/>
+        <location filename="../visualization/vismapdialog.cpp" line="370"/>
         <source>Attributes
 size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="354"/>
+        <location filename="../visualization/vismapdialog.cpp" line="371"/>
         <source>Text</source>
         <translation type="unfinished">Text</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="355"/>
+        <location filename="../visualization/vismapdialog.cpp" line="372"/>
         <source>Mean attribute
 size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="359"/>
+        <location filename="../visualization/vismapdialog.cpp" line="376"/>
         <source>Max attribute
 size per element</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="360"/>
+        <location filename="../visualization/vismapdialog.cpp" line="377"/>
         <source>Max text</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9172,12 +9171,12 @@ size per element</source>
         <translation type="obsolete">Při nahrávání dat se vyskytla chyba.</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="225"/>
+        <location filename="../visualization/vismapdialog.cpp" line="242"/>
         <source>Data ready.</source>
         <translation>Data připravena.</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="264"/>
+        <location filename="../visualization/vismapdialog.cpp" line="281"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
@@ -9186,94 +9185,94 @@ size per element</source>
         <translation type="obsolete">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="348"/>
+        <location filename="../visualization/vismapdialog.cpp" line="365"/>
         <source>Fragments</source>
         <translation>Kousky</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="349"/>
+        <location filename="../visualization/vismapdialog.cpp" line="366"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="350"/>
+        <location filename="../visualization/vismapdialog.cpp" line="367"/>
         <source>Levels</source>
         <translation>Úrovně</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="351"/>
+        <location filename="../visualization/vismapdialog.cpp" line="368"/>
         <source>Elements</source>
         <translation>Prvky</translation>
     </message>
     <message>
         <source>Attributes</source>
-        <translation type="vanished">Vlastnosti</translation>
+        <translation type="obsolete">Vlastnosti</translation>
     </message>
     <message>
         <source>Payload</source>
-        <translation type="vanished">Užitečné zatížení</translation>
+        <translation type="obsolete">Užitečné zatížení</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="356"/>
+        <location filename="../visualization/vismapdialog.cpp" line="373"/>
         <source>Max attributes</source>
         <translation>Nejvíce vlastností</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="357"/>
+        <location filename="../visualization/vismapdialog.cpp" line="374"/>
         <source>Max children</source>
         <translation>Nejvíce potomků</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="358"/>
+        <location filename="../visualization/vismapdialog.cpp" line="375"/>
         <source>Max size</source>
         <translation>Největší velikost</translation>
     </message>
     <message>
         <source>Max Payload</source>
-        <translation type="vanished">Největší užitečné zatížení</translation>
+        <translation type="obsolete">Největší užitečné zatížení</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="466"/>
+        <location filename="../visualization/vismapdialog.cpp" line="483"/>
         <source>Export Statistics</source>
         <translation>Vyvést statistiky</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="467"/>
+        <location filename="../visualization/vismapdialog.cpp" line="484"/>
         <source>DAT files (*.dat);;All files (*)</source>
         <translation>Soubory DAT (*.dat);;Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="478"/>
+        <location filename="../visualization/vismapdialog.cpp" line="495"/>
         <source>Statistics on %1 (ISO %2)
 </source>
         <translation>Statistiky na %1 (ISO %2)</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="484"/>
+        <location filename="../visualization/vismapdialog.cpp" line="501"/>
         <source> total attributes size &apos;%1&apos;
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="485"/>
+        <location filename="../visualization/vismapdialog.cpp" line="502"/>
         <source> total text &apos;%1&apos;
 </source>
         <translation> celkem textu &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="488"/>
+        <location filename="../visualization/vismapdialog.cpp" line="505"/>
         <source> max. attribute size per element &apos;%1&apos;
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="489"/>
+        <location filename="../visualization/vismapdialog.cpp" line="506"/>
         <source> mean attribute size&apos;%1&apos;
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="592"/>
+        <location filename="../visualization/vismapdialog.cpp" line="609"/>
         <source>No data to show.</source>
         <translation>Žádná data k ukázání.</translation>
     </message>
@@ -9287,31 +9286,31 @@ size per element</source>
         <translation type="obsolete">Statistiky na %1 (ISO %2)</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="479"/>
+        <location filename="../visualization/vismapdialog.cpp" line="496"/>
         <source> for file &apos;%1&apos;
 </source>
         <translation> pro soubor &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="480"/>
+        <location filename="../visualization/vismapdialog.cpp" line="497"/>
         <source> total fragments &apos;%1&apos;
 </source>
         <translation> celkem kousků &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="481"/>
+        <location filename="../visualization/vismapdialog.cpp" line="498"/>
         <source> total attributes &apos;%1&apos;
 </source>
         <translation> celkem vlastností &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="482"/>
+        <location filename="../visualization/vismapdialog.cpp" line="499"/>
         <source> total elements &apos;%1&apos;
 </source>
         <translation> celkem prvků &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="483"/>
+        <location filename="../visualization/vismapdialog.cpp" line="500"/>
         <source> total size &apos;%1&apos;
 </source>
         <translation> celková velikost &apos;%1&apos;</translation>
@@ -9322,14 +9321,14 @@ size per element</source>
         <translation type="obsolete"> celkové užitečné zatížení &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="486"/>
+        <location filename="../visualization/vismapdialog.cpp" line="503"/>
         <source> levels &apos;%1&apos;
 </source>
         <translation> úrovní &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="491"/>
-        <location filename="../visualization/vismapdialog.cpp" line="498"/>
+        <location filename="../visualization/vismapdialog.cpp" line="508"/>
+        <location filename="../visualization/vismapdialog.cpp" line="515"/>
         <source>
 ------
 </source>
@@ -9338,12 +9337,12 @@ size per element</source>
 </translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="509"/>
+        <location filename="../visualization/vismapdialog.cpp" line="526"/>
         <source>Error writing data.</source>
         <translation>Chyba při zapisování dat.</translation>
     </message>
     <message>
-        <location filename="../visualization/vismapdialog.cpp" line="527"/>
+        <location filename="../visualization/vismapdialog.cpp" line="544"/>
         <source>To extract a fragment, move the nouse over the data in the image and use the contextual menu.</source>
         <translation>Pro vytažení kousku přesuňte ukazovátko myši nad data v obrázku a použijte související nabídku, která se objeví po stisknutí pravého tlačítka myši.</translation>
     </message>
@@ -9351,7 +9350,7 @@ size per element</source>
 <context>
     <name>VisMapWidget</name>
     <message>
-        <location filename="../visualization/vismapwidget.ui" line="16"/>
+        <location filename="../visualization/vismapwidget.ui" line="14"/>
         <source>Form</source>
         <translation>Formulář</translation>
     </message>
