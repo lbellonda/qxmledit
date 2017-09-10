@@ -556,7 +556,7 @@ equals(USE_QWTPLOT, "Y") {
     LIBS += -L../build/ -lqwtplot3d
 
     unix:!macx{
-        LIBS += -lGL -lGLU -lglut
+        LIBS += -lGL -lGLU
     }
 
     win32:{
