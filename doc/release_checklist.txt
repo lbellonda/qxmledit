@@ -5,7 +5,7 @@ Release Checklist
 
 - Check no TODO_THIS_RELEASE are present in the code.
 
-- Check translations (do lupdate/lrelease).
+- Check translations (do lupdate).
 
 - Test with valgrind.
 
