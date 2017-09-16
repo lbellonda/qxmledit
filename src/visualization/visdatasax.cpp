@@ -132,11 +132,7 @@ bool VisDataSax::startElement(const QString &/*namespaceURI*/, const QString & /
         elem->size += 4; // blank, equals, 2 quotes
         QString attributePath = _currentElementPath + "/@" + attributeLocalName;
         AttributeSummaryData * attributeSummaryData = attributesSummaryData->attributeSummaryData(attributePath, attributeLocalName);
-        attributeSummaryData->count ++ ;
-        attributeSummaryData->dataSize += thisAttrSize ;
-        if(0 == thisAttrSize) {
-            attributeSummaryData->countEmpty ++ ;
-        }
+        attributeSummaryData->addHit(thisAttrSize);
     }
     elem->attributesCount = attrCount;
     elem->totalAttributesSize = attributesSize ;

@@ -30,18 +30,19 @@ class LIBQXMLEDITSHARED_EXPORT AttributeSummaryData
 {
 public:
     QString name;
-    long count;
-    long dataSize;
-    long countEmpty;
+    quint64 count;
+    quint64 dataSize;
+    quint64 countEmpty;
     AttributeSummaryData();
     ~AttributeSummaryData();
 
-    void setData(const long newCount, const long newDataSize, const long newCountEmpty);
+    void setData(const quint64 newCount, const quint64 newDataSize, const quint64 newCountEmpty);
+    void addHit(const int newSize);
 
-    long sizeInMemory();
-    long sizeCharacters();
-    long sizeEmpty();
-    long sizeEmptyInMemory();
+    quint64 sizeInMemory();
+    quint64 sizeCharacters();
+    quint64 sizeEmpty();
+    quint64 sizeEmptyInMemory();
 };
 
 
@@ -63,38 +64,40 @@ public:
     bool compareTo(AttributesSummaryData *other, QString &reason);
     bool loadFileAttributeList(QWidget *window, const QString &filePath, const bool isWhitelist);
     bool hasLists() const ;
+    void insertInBlackList(const QString &data);
+    void insertInWhiteList(const QString &data);
 
-    static qreal calcPerc(const long value, const long total);
+    static qreal calcPerc(const quint64 value, const quint64 total);
 };
 
 class LIBQXMLEDITSHARED_EXPORT AttributesSummaryTotal
 {
 public:
-    long attributesCount;
-    long hitCount;
-    long sizeInMemory;
-    long sizeCharacters;
-    long meanSize;
-    long emptyCount;
-    long sizeEmptyData;
-    long sizeMemoryEmptyData;
+    quint64 attributesCount;
+    quint64 hitCount;
+    quint64 sizeInMemory;
+    quint64 sizeCharacters;
+    quint64 meanSize;
+    quint64 emptyCount;
+    quint64 sizeEmptyData;
+    quint64 sizeMemoryEmptyData;
     qreal percTotalSize;
 
     void includeAttribute(AttributeSummaryData *attributeSummaryData);
-    void calcEnd(const long sizeFile);
+    void calcEnd(const quint64 sizeFile);
 
     AttributesSummaryTotal();
     ~AttributesSummaryTotal();
 
     void setData(
-        const long attributesCount,
-        const long hitCount,
-        const long sizeInMemory,
-        const long sizeCharacters,
-        const long meanSize,
-        const long emptyCount,
-        const long sizeEmptyData,
-        const long sizeMemoryEmptyData,
+        const quint64 attributesCount,
+        const quint64 hitCount,
+        const quint64 sizeInMemory,
+        const quint64 sizeCharacters,
+        const quint64 meanSize,
+        const quint64 emptyCount,
+        const quint64 sizeEmptyData,
+        const quint64 sizeMemoryEmptyData,
         const qreal percTotalSize);
     bool compareTo(AttributesSummaryTotal *other, QString &reason);
 };
@@ -103,12 +106,12 @@ public:
 class LIBQXMLEDITSHARED_EXPORT AttributesSummarySummary
 {
 private:
-    void calculateBlock(QMap<QString, QString> attrsKeys, AttributesSummaryData* attributesSummaryData, AttributesSummaryTotal &total, const long sizeFile);
+    void calculateBlock(QMap<QString, QString> attrsKeys, AttributesSummaryData* attributesSummaryData, AttributesSummaryTotal &total, const quint64 sizeFile);
 public:
     AttributesSummarySummary();
     ~AttributesSummarySummary();
 
-    long sizeFile ;
+    quint64 sizeFile ;
     AttributesSummaryTotal totalTotal, totalUsed, totalNotUsed;
     QMap<QString, QString> attrsUsedKeys ;
     QMap<QString, QString> attrsNotUsedKeys ;

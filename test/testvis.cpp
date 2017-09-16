@@ -38,7 +38,7 @@ TestVis::TestVis()
 
 bool TestVis::testFast()
 {
-    return testAttributeCountSaveCSV();
+    return testAttributeBaseBigData();
 }
 
 bool TestVis::test()
@@ -432,6 +432,9 @@ bool TestVis::testAttributeCount()
     if( !testAttributeCountLoadingFile()) {
         return false;
     }
+    if(!testAttributeBaseBigData()) {
+        return false ;
+    }
     return true ;
 }
 
@@ -643,6 +646,132 @@ bool TestVis::testAttributeBaseInner(AttributesSummaryData *attributesSummaryDat
         return error(QString("totalNotUsed differs: %1").arg(reason));
     }
     return true;
+}
+
+bool TestVis::buildReferenceAttributesBigData( AttributesSummaryData* attributesSummaryData, AttributesSummarySummary *ast)
+{
+    AttributeSummaryData *ad = NULL;
+    ad = attributesSummaryData->attributeSummaryData("/root/yes/@a", "a");
+    ad->setData(2, 5000000000ull, 1);
+    ad = attributesSummaryData->attributeSummaryData("/root/yes/@b", "b");
+    ad->addHit(1234567800ull);
+    ad = attributesSummaryData->attributeSummaryData("/root/yes/@b", "b");
+    ad->addHit(1111111111ull);
+    //
+    ad = attributesSummaryData->attributeSummaryData("/root/no/@a", "a");
+    ad->setData(30, 5000000000ull, 3);
+    ad = attributesSummaryData->attributeSummaryData("/root/no/@b", "b");
+    ad->addHit(1234567800ull);
+    ad = attributesSummaryData->attributeSummaryData("/root/no/@b", "b");
+    ad->addHit(1111111111ull);
+    //
+    attributesSummaryData->insertInBlackList("/root/no/@a");
+    attributesSummaryData->insertInBlackList("/root/no/@b");
+    attributesSummaryData->insertInWhiteList("/root/yes/@a");
+    attributesSummaryData->insertInWhiteList("/root/yes/@b");
+    //
+    if(!ast->calculate(attributesSummaryData)) {
+        return error("calculating");
+    }
+    return true;
+}
+
+bool TestVis::testAttributeBaseBigData()
+{
+    _testName = "testAttributeCountBigData";
+
+    // compare data
+    AttributesSummarySummary  ast;
+    AttributesSummaryData attributesSummaryData ;
+    if(!buildReferenceAttributesBigData(&attributesSummaryData, &ast)) {
+        return false ;
+    }
+    quint64 expected = 0 ;
+    AttributesSummaryTotal *total = &ast.totalNotUsed ;
+    {
+        expected = 14691358338ull ;
+        if(total->sizeInMemory != expected ) {
+            return error(QString("TNU sizeMem exp.:%1 found:%2").arg(expected).arg(total->sizeInMemory));
+        }
+        expected = 7345679071ull ;
+        if(total->sizeCharacters != expected ) {
+            return error(QString("TNU sizeCharacters exp.:%1 found:%2").arg(expected).arg(total->sizeCharacters));
+        }
+        expected = 229552470ull;
+        if(total->meanSize != expected ) {
+            return error(QString("TNU meanSize exp.:%1 found:%2").arg(expected).arg(total->meanSize));
+        }
+        expected = 15 ;
+        if(total->sizeEmptyData != expected ) {
+            return error(QString("TNU sizeEmptyData exp.:%1 found:%2").arg(expected).arg(total->sizeEmptyData));
+        }
+        expected = 24 ;
+        if(total->sizeMemoryEmptyData != expected ) {
+            return error(QString("TNU sizeMemoryEmptyData exp.:%1 found:%2").arg(expected).arg(total->sizeMemoryEmptyData));
+        }
+        qreal expectedReal = 50 ;
+        if(total->percTotalSize != expectedReal ) {
+            return error(QString("TNU percTotalSize exp.:%1 found:%2").arg(expectedReal).arg(total->percTotalSize));
+        }
+    }
+    //
+    total = &ast.totalUsed ;
+    {
+        expected = 14691357890ull ;
+        if(total->sizeInMemory != expected ) {
+            return error(QString("TU sizeMem exp.:%1 found:%2").arg(expected).arg(total->sizeInMemory));
+        }
+        expected = 7345678931ull ;
+        if(total->sizeCharacters != expected ) {
+            return error(QString("TU sizeCharacters exp.:%1 found:%2").arg(expected).arg(total->sizeCharacters));
+        }
+        expected = 1836419732ull ;
+        if(total->meanSize != expected ) {
+            return error(QString("TU meanSize exp.:%1 found:%2").arg(expected).arg(total->meanSize));
+        }
+        expected = 5 ;
+        if(total->sizeEmptyData != expected ) {
+            return error(QString("TU sizeEmptyData exp.:%1 found:%2").arg(expected).arg(total->sizeEmptyData));
+        }
+        expected = 8 ;
+        if(total->sizeMemoryEmptyData != expected ) {
+            return error(QString("TU sizeMemoryEmptyData exp.:%1 found:%2").arg(expected).arg(total->sizeMemoryEmptyData));
+        }
+        qreal expectedReal = 49.9 ;
+        if(total->percTotalSize != expectedReal ) {
+            return error(QString("TU percTotalSize exp.:%1 found:%2").arg(expectedReal).arg(total->percTotalSize));
+        }
+    }
+    //
+    total = &ast.totalTotal ;
+    {
+        expected = 29382716228ull ;
+        if(total->sizeInMemory != expected ) {
+            return error(QString("TT sizeMem exp.:%1 found:%2").arg(expected).arg(total->sizeInMemory));
+        }
+        expected = 14691358002ull;
+        if(total->sizeCharacters != expected ) {
+            return error(QString("TT sizeCharacters exp.:%1 found:%2").arg(expected).arg(total->sizeCharacters));
+        }
+        expected = 408093277ull;
+        if(total->meanSize != expected ) {
+            return error(QString("TT meanSize exp.:%1 found:%2").arg(expected).arg(total->meanSize));
+        }
+        expected = 20 ;
+        if(total->sizeEmptyData != expected ) {
+            return error(QString("TT sizeEmptyData exp.:%1 found:%2").arg(expected).arg(total->sizeEmptyData));
+        }
+        expected = 32 ;
+        if(total->sizeMemoryEmptyData != expected ) {
+            return error(QString("TT sizeMemoryEmptyData exp.:%1 found:%2").arg(expected).arg(total->sizeMemoryEmptyData));
+        }
+        qreal expectedReal = 100 ;
+        if(total->percTotalSize != expectedReal ) {
+            return error(QString("TT percTotalSize exp.:%1 found:%2").arg(expectedReal).arg(total->percTotalSize));
+        }
+    }
+
+    return true ;
 }
 
 //-------------------------------------------------------------------------------------

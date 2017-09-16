@@ -794,10 +794,10 @@ void NodesRelationsController::loadAttributesData(QTextBrowser *textBrowser, Att
     text += Utils::escapeHTML(tr("Attribute Statistics"));
     text += "</H1><BR/>";
     if(!ast.attrsUsedKeys.isEmpty()) {
-        printAttributesTable(text, ast.attrsUsedKeys, attributesSummaryData, totalUsed, tr("Attributes used"), tr("Total values for whitelisted attributes"), sizeFile);
+        printAttributesTable(text, ast.attrsUsedKeys, attributesSummaryData, totalUsed, tr("Used Attributes"), tr("Total values for whitelisted attributes"), sizeFile);
     }
     if(!ast.attrsNotUsedKeys.isEmpty()) {
-        printAttributesTable(text, ast.attrsNotUsedKeys, attributesSummaryData, totalNotUsed, tr("Attributes not used"), tr("Total values for blacklisted attributes"), sizeFile);
+        printAttributesTable(text, ast.attrsNotUsedKeys, attributesSummaryData, totalNotUsed, tr("Unused Attributes"), tr("Total values for blacklisted attributes"), sizeFile);
     }
     if(!ast.attrsNotUsedKeys.isEmpty() && !ast.attrsUsedKeys.isEmpty()) {
         text += QString("<BR/>%1<BR/>").arg(tr("Grand Total"));
