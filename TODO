@@ -5,16 +5,16 @@ Check issues:
 TODO:
 ----
 
-#new is:167
+#new is:168
 - menu contest. goto reference for elements and attributes
 - outline mode (seq choice, all)
 - no attributes mode
 - report on print
 
+167 - better XSD documentation
 166 - check GLUT support
 165 - support size of GB in attributes size calculation
 164 - calculation of size of attributes, including filters
-163 - migliora stampa xsd
 162 - xslt con attribute e var se ci sono figli, spec values of non inserire un select
 160 - fattorizzare in element ->Element * TestBase::makeElement(const QString &tag, const QString &attr)
 Branch 159 - formatting options to avoid file reformatting.

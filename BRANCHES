@@ -5,6 +5,7 @@ devel
 Branches:
 ---------
 
+167-betterxsddoc - better XSD documentation
 166-glut - check GLUT support
 165-attrsizegb - support size of GB in attributes size calculation
 
