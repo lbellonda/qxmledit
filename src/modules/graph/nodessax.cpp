@@ -68,11 +68,7 @@ void NodesSax::handleAttributes(const QXmlAttributes & attributes)
             const int thisAttrSize = attrValue.length();
             QString attributePath = _currentElementPath + "/@" + attributeLocalName;
             AttributeSummaryData * attributeSummaryData = attributesSummaryData->attributeSummaryData(attributePath, attributeLocalName);
-            attributeSummaryData->count ++ ;
-            attributeSummaryData->dataSize += thisAttrSize ;
-            if(0 == thisAttrSize) {
-                attributeSummaryData->countEmpty ++ ;
-            }
+            attributeSummaryData->addHit(thisAttrSize);
         }
     }
 }

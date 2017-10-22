@@ -29,6 +29,7 @@
 
 class AttributesSummaryData;
 class AttributesSummaryTotal;
+class AttributesSummarySummary;
 
 class TestVis : public TestBase
 {
@@ -49,6 +50,8 @@ class TestVis : public TestBase
     AttributesSummaryData* buildReferenceAttributesSummaryData( AttributesSummaryData* a, AttributesSummaryTotal &totalTotal, AttributesSummaryTotal &totalUsed, AttributesSummaryTotal &totalNotUsed, const bool isWhitelist, const bool isBlackList);
     bool testAttributeBase( const bool isLoad, const bool isWhitelist, const bool isBlackList );
     bool testAttributeBaseInner(AttributesSummaryData *attributesSummaryData, const bool isWhiteList, const bool isBlackList);
+    bool testAttributeBaseBigData();
+    bool buildReferenceAttributesBigData( AttributesSummaryData* attributesSummaryData, AttributesSummarySummary *ast);
     //----
 public:
     TestVis();

@@ -36,32 +36,41 @@ AttributeSummaryData::~AttributeSummaryData()
 {
 }
 
-void AttributeSummaryData::setData(const long newCount, const long newDataSize, const long newCountEmpty)
+void AttributeSummaryData::setData(const quint64 newCount, const quint64 newDataSize, const quint64 newCountEmpty)
 {
     count = newCount ;
     dataSize = newDataSize ;
     countEmpty = newCountEmpty;
 }
 
-long AttributeSummaryData::sizeInMemory()
+void AttributeSummaryData::addHit(const int thisAttrSize)
+{
+    count ++ ;
+    dataSize += thisAttrSize ;
+    if(0 == thisAttrSize) {
+        countEmpty ++ ;
+    }
+}
+
+quint64 AttributeSummaryData::sizeInMemory()
 {
     // name+ptr to data and storage into element
     return (2 * name.length()) + (count * 16) + (dataSize * 2);
 }
 
-long AttributeSummaryData::sizeCharacters()
+quint64 AttributeSummaryData::sizeCharacters()
 {
     // on file a="XX"
     return (count * (name.length() + 4)) + dataSize;
 }
 
-long AttributeSummaryData::sizeEmpty()
+quint64 AttributeSummaryData::sizeEmpty()
 {
     // on file?
     return (countEmpty * (name.length() + 4));
 }
 
-long AttributeSummaryData::sizeEmptyInMemory()
+quint64 AttributeSummaryData::sizeEmptyInMemory()
 {
     // empty reference
     return (countEmpty * 8) ;
@@ -135,11 +144,11 @@ bool AttributesSummaryData::isUsed(const QString &key)
     return isUsedResult ;
 }
 
-qreal AttributesSummaryData::calcPerc(const long value, const long total)
+qreal AttributesSummaryData::calcPerc(const quint64 value, const quint64 total)
 {
     qreal result = 0 ;
     if(total != 0) {
-        const long longPercTotalSize = (1000 * value) / total ;
+        const quint64 longPercTotalSize = (1000 * value) / total ;
         result = (qreal)longPercTotalSize / 10.0 ;
     }
     return result ;
@@ -220,6 +229,15 @@ bool AttributesSummaryData::loadFileAttributeList(QWidget *window, const QString
     return true ;
 }
 
+void AttributesSummaryData::insertInBlackList(const QString &data)
+{
+    blackList.insert(data);
+}
+
+void AttributesSummaryData::insertInWhiteList(const QString &data)
+{
+    whiteList.insert(data);
+}
 
 //----------------------------------------------------------
 
@@ -241,14 +259,14 @@ AttributesSummaryTotal::~AttributesSummaryTotal()
 }
 
 void AttributesSummaryTotal::setData(
-    const long newattributesCount,
-    const long newhitCount,
-    const long newsizeInMemory,
-    const long newsizeCharacters,
-    const long newmeanSize,
-    const long newemptyCount,
-    const long newsizeEmptyData,
-    const long newsizeMemoryEmptyData,
+    const quint64 newattributesCount,
+    const quint64 newhitCount,
+    const quint64 newsizeInMemory,
+    const quint64 newsizeCharacters,
+    const quint64 newmeanSize,
+    const quint64 newemptyCount,
+    const quint64 newsizeEmptyData,
+    const quint64 newsizeMemoryEmptyData,
     const qreal newpercTotalSize)
 {
     attributesCount = newattributesCount;
@@ -314,7 +332,7 @@ void AttributesSummaryTotal::includeAttribute(AttributeSummaryData *attributeSum
     sizeMemoryEmptyData += attributeSummaryData->sizeEmptyInMemory();
 }
 
-void AttributesSummaryTotal::calcEnd(const long sizeFile)
+void AttributesSummaryTotal::calcEnd(const quint64 sizeFile)
 {
     if(sizeCharacters != 0) {
         meanSize = sizeCharacters / hitCount ;
@@ -334,7 +352,7 @@ AttributesSummarySummary::~AttributesSummarySummary()
 {
 }
 
-void AttributesSummarySummary::calculateBlock(QMap<QString, QString> attrsKeys, AttributesSummaryData* attributesSummaryData, AttributesSummaryTotal &total, const long sizeFile)
+void AttributesSummarySummary::calculateBlock(QMap<QString, QString> attrsKeys, AttributesSummaryData* attributesSummaryData, AttributesSummaryTotal &total, const quint64 sizeFile)
 {
     foreach(const QString & key, attrsKeys.keys()) {
         AttributeSummaryData* attributeSummaryData = attributesSummaryData->data[key] ;
