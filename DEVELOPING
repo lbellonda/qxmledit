@@ -1,0 +1,18 @@
+
+DEVELOPING QXmlEdit
+-------------------
+
+QXmlEdit vaguely follow gitflow (http://nvie.com/posts/a-successful-git-branching-model/) developing model.
+The develop branch is called devel. Not all the feature branches are always pushed to remote.
+
+Each branch is registered in BRANCHES file that is updated only on devel.
+
+In the commit the feature branches are referred by the pattern:
+b-<branch number>: description
+example:
+b-167: tests
+
+Github issues are referred by #<issue id> as in #26 as well as pull requests.
+
+
+
