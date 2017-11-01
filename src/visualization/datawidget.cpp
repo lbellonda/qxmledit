@@ -612,7 +612,7 @@ void DataWidget::computeImageThreaded()
 
     //const int heightImage = _yPoints;
 
-    int threads = QThread::idealThreadCount();
+    int threads = QThread::idealThreadCount() - 1;
     if(threads <= 0) {
         threads = 1 ;
     }
