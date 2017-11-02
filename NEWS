@@ -1,4 +1,5 @@
 0.9.9
+    Removed GLUT dependency on Linux.
     Attribute statistics now handle size greater than 2GB.
 
 0.9.8
