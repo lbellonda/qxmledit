@@ -212,6 +212,7 @@ private slots:
     void on_actionShowAlwaysFullTextComments_triggered();
     void on_actionHideBrothers_triggered();
     void on_actionCloseSiblings_triggered();
+    void on_actionCloseItemAndChildren_triggered();
     void on_actionFixedSizeAttributes_triggered();
     void on_actionShowAttributesLength_triggered();
     void on_actionShowCurrentElementTextBase64_triggered();

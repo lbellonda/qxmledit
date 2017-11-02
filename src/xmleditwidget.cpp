@@ -524,6 +524,11 @@ void XmlEditWidget::closeSiblings()
     d->closeSiblings();
 }
 
+void XmlEditWidget::closeItemAndChildren()
+{
+    d->closeItemAndChildren();
+}
+
 void XmlEditWidget::onActionHideBrothers()
 {
     d->onActionHideBrothers();

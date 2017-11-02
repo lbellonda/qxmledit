@@ -254,6 +254,7 @@ public:
     void onActionShowAlwaysFullTextComments(const bool isShow);
     void onActionHideBrothers();
     void closeSiblings();
+    void closeItemAndChildren();
     void onActionFixedSizeAttributes(const bool isChecked);
     void onActionShowAttributesLength(const bool isChecked);
     void onActionShowCurrentElementTextBase64(const bool isChecked);
@@ -463,6 +464,7 @@ private:
     void houseworkRegola(Regola *regola);
     static QList<int> pathForElement(Element * element);
     void openSiblingsSameLevel(Element *element);
+    void closeItemRecursive(QTreeWidgetItem *item);
 protected:
     bool eventFilter(QObject *obj, QEvent * event);
 
