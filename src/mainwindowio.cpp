@@ -235,12 +235,12 @@ bool MainWindow::loadFileInnerStream(const QString &filePath, const bool isRegul
 
 void MainWindow::errorOnLoad(QFile &file)
 {
-    Utils::error(this, QString(tr("Unable to read data.\nError code is '%1', %2.")).arg(file.error()).arg(file.errorString()));
+    uiDelegate->error(this, QString(tr("Unable to read data.\nError code is '%1', %2.")).arg(file.error()).arg(file.errorString()));
 }
 
 void MainWindow::errorFileName()
 {
-    Utils::error(this, tr("File name empty.\nUnable to load."));
+    uiDelegate->error(this, tr("File name empty.\nUnable to load."));
 }
 
 #ifdef QXMLEDIT_TEST
