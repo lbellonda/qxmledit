@@ -34,6 +34,7 @@ class Element;
 class Regola;
 class QAction;
 class MainWindow;
+class App;
 
 class TestBase
 {
@@ -125,6 +126,7 @@ protected:
     bool testSkeletonBaseNoOp( const QString &id, const QString &fileStart, bool (*apply)(TestBase *arg, MainWindow *, Element *, void* aptr), QList<int> selPath, const TestSelSpec selSpec, void* aptr );
 
     bool compareXMLBase(Regola *regola, const QString &step, const QString &fileResult);
+    Element *selectAnItem(App &app, QList<int> selectionPath);
 };
 
 #endif // TESTBASE_H

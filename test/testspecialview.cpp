@@ -25,6 +25,7 @@
 #define BASE_DATA  TEST_BASE_DATA "view/"
 
 #define FILE_1  BASE_DATA "one.xml"
+#define FILE_2  BASE_DATA "two.xml"
 
 TestSpecialView::TestSpecialView()
 {
@@ -38,7 +39,7 @@ TestSpecialView::~TestSpecialView()
 
 bool TestSpecialView::testFast()
 {
-    return testUnit();
+    return testOpenClose();
 }
 
 bool TestSpecialView::loadFile(App &app, const QString &inputFileName)
@@ -129,4 +130,98 @@ bool TestSpecialView::checkOpenRecursive(QTreeWidgetItem *parent)
         }
     }
     return true ;
+}
+
+bool TestSpecialView::checkSameOpeningState(QTreeWidgetItem *parent, const bool expectedExpanding)
+{
+    int count = parent->childCount();
+    FORINT(index, count) {
+        QTreeWidgetItem *item = parent->child(index);
+        Element *element = Element::fromItemData(item);
+        if(element->isElement()) {
+            if(expectedExpanding != item->isExpanded() ) {
+                return error(QString("Element %1 expected expansion %2, but not verified").arg(element->pathString()).arg(expectedExpanding));
+            }
+            if(!checkSameOpeningState(item, expectedExpanding)) {
+                return false;
+            }
+        }
+    }
+    return true ;
+}
+
+bool TestSpecialView::testOpenClose()
+{
+    _testName = "testOpenClose" ;
+    if(!testCloseAll()) {
+        return false;
+    }
+    if(!testCloseAllBranch()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestSpecialView::loadFileAndSelectItem(App &app, const QString &fileName, QList<int> selectionPath)
+{
+    if(!loadFile(app, fileName)) {
+        return false;
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    regola->expand(app.mainWindow()->getEditor()->getMainTreeWidget());
+    if(NULL == selectAnItem(app, selectionPath)) {
+        return error("NULL selection");
+    }
+    return true;
+}
+
+bool TestSpecialView::testCloseAll()
+{
+    _testName = "testCloseAll";
+    App app;
+    QList<int> selectionPath;
+    selectionPath << 0 ;
+    if(!loadFileAndSelectItem(app, FILE_2, selectionPath) ) {
+        return false;
+    }
+    app.mainWindow()->getEditor()->closeItemAndChildren();
+    Element *root = app.mainWindow()->getRegola()->findElementByArray(selectionPath);
+    if( NULL == root ) {
+        return error("Unable to find element 0");
+    }
+    // verify brute force approach ;
+    if(!checkSameOpeningState(root->getUI(), false)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestSpecialView::testCloseAllBranch()
+{
+    _testName = "testCloseAllBranch";
+    App app;
+    QList<int> selectionPath0;
+    selectionPath0 << 0 << 0 ;
+    if(!loadFileAndSelectItem(app, FILE_2, selectionPath0) ) {
+        return false;
+    }
+    app.mainWindow()->getEditor()->closeItemAndChildren();
+    // verify brute force approach ;
+    Element *expectedClose = app.mainWindow()->getRegola()->findElementByArray(selectionPath0);
+    if(NULL == expectedClose) {
+        return error("Unable to find first element");
+    }
+    if(!checkSameOpeningState(expectedClose->getUI(), false)) {
+        return false;
+    }
+    QList<int> selectionPath1 ;
+    selectionPath1 << 0 << 1;
+    Element *expectedOpen = app.mainWindow()->getRegola()->findElementByArray(selectionPath1);
+    if(NULL == expectedOpen) {
+        return error("Unable to find second element");
+    }
+    if(!checkSameOpeningState(expectedOpen->getUI(), true)) {
+        return false;
+    }
+    return true;
 }

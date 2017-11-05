@@ -1519,6 +1519,12 @@ void TestQXmlEdit::testSpecialView()
         result = test.testUnit();
         QVERIFY2(result, (QString("test TestSpecialView: testUnit() '%1'").arg(test.errorString())).toLatin1().data());
     }
+    {
+        TestSpecialView test;
+        const bool result = test.testOpenClose();
+        QVERIFY2(result, (QString("test TestSpecialView: testOpenClose() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+
 }
 
 void TestQXmlEdit::testFormattingInfo()
@@ -1556,6 +1562,7 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
+    testSpecialView();
     testVis();
 }
 
