@@ -875,6 +875,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionHideBrothers->setEnabled(isSomeItemSelected);
     ui.actionHideBrothers->setChecked(!isNormalViewState);
     ui.actionCloseSiblings->setEnabled(isSomeItemSelected);
+    ui.actionCloseItemAndChildren->setEnabled(isSomeItemSelected);
     ui.actionShowCurrentElementTextBase64->setEnabled(isSomeItemSelected && !isExplore);
     ui.actionShowCurrentElementTextBase64->setChecked(isShownAsBase64);
     ui.actionReload->setEnabled((NULL != regola) && !regola->fileName().isEmpty());
@@ -1490,6 +1491,11 @@ void MainWindow::on_actionHideBrothers_triggered()
 void MainWindow::on_actionCloseSiblings_triggered()
 {
     ui.editor->closeSiblings();
+}
+
+void MainWindow::on_actionCloseItemAndChildren_triggered()
+{
+    ui.editor->closeItemAndChildren();
 }
 
 void MainWindow::on_actionShowCurrentElementTextBase64_triggered()

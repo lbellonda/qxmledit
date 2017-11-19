@@ -32,12 +32,17 @@ class TestSpecialView : public TestBase
     bool selectPath(App &app, QList<int> &sel);
     bool checkOpenRecursive(QTreeWidget *tree);
     bool checkOpenRecursive(QTreeWidgetItem *parent);
+    bool testCloseAll();
+    bool testCloseAllBranch();
+    bool loadFileAndSelectItem(App &app, const QString &fileName, QList<int> selectionPath);
+    bool checkSameOpeningState(QTreeWidgetItem *parent, const bool expectedExpanding);
 public:
     TestSpecialView();
     ~TestSpecialView();
 
     bool testUnit();
     bool testFast();
+    bool testOpenClose();
 };
 
 #endif // TESTSPECIALVIEW_H

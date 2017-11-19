@@ -272,6 +272,7 @@ public:
     void onActionShowAlwaysFullTextComments(const bool isShow);
     void onActionHideBrothers();
     void closeSiblings();
+    void closeItemAndChildren();
     void onActionFixedSizeAttributes(const bool isChecked);
     void onActionShowAttributesLength(const bool isChecked);
     void onActionShowCurrentElementTextBase64(const bool isChecked);

@@ -416,7 +416,6 @@
      <property name="title">
       <string>Advanced</string>
      </property>
-     <addaction name="actionHideView"/>
     </widget>
     <widget class="QMenu" name="menuPanels">
      <property name="title">
@@ -453,6 +452,7 @@
     <addaction name="menuAdvanced"/>
     <addaction name="actionExpandAll"/>
     <addaction name="actionExpandSelectedItem"/>
+    <addaction name="actionCloseItemAndChildren"/>
     <addaction name="viewSiblings"/>
     <addaction name="actionHideAllLeafChildren"/>
     <addaction name="actionShowAllLeafChildren"/>
@@ -2451,6 +2451,14 @@
    </property>
    <property name="toolTip">
     <string>Indent with two spaces and one attribute per line.</string>
+   </property>
+  </action>
+  <action name="actionCloseItemAndChildren">
+   <property name="text">
+    <string>Close Item and Children</string>
+   </property>
+   <property name="toolTip">
+    <string>Close the selected item and its children.</string>
    </property>
   </action>
  </widget>

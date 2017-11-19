@@ -1792,6 +1792,32 @@ void XmlEditWidgetPrivate::closeSiblings()
     }
 }
 
+void XmlEditWidgetPrivate::closeItemRecursive(QTreeWidgetItem *item)
+{
+    if(item->isExpanded()) {
+        item->setExpanded(false);
+    }
+    const int childCount = item->childCount() ;
+    FORINT(childIndex, childCount) {
+        QTreeWidgetItem *childItem = item->child(childIndex);
+        closeItemRecursive(childItem);
+    }
+}
+
+void XmlEditWidgetPrivate::closeItemAndChildren()
+{
+    QTreeWidgetItem *current = getSelItem();
+    if(NULL != current) {
+        Element *element = Element::fromItemData(current);
+        if((NULL != element) && (NULL != element->getUI())) {
+            getEditor()->setUpdatesEnabled(false);
+            closeItemRecursive(element->getUI());
+            getEditor()->setUpdatesEnabled(true);
+            getEditor()->scrollToItem(element->getUI());
+        }
+    }
+}
+
 void XmlEditWidgetPrivate::onActionShowCurrentElementTextBase64(const bool isChecked)
 {
     QTreeWidgetItem *currItem = getSelItem();

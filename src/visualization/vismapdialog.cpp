@@ -263,7 +263,8 @@ void VisMapDialog::loadFileWorkerMethod(VisDataSax *handler, const QString &file
 
     QFile file(fileName);
     if(!file.open(QFile::ReadOnly | QFile::Text)) {
-        Utils::error(tr("An error occurred opening the file."));
+        Utils::error(tr("An error occurred opening the file: %1.").arg(file.errorString()));
+        handler->setHasError(true);
         return ;
     }
     _filePath = fileName ;

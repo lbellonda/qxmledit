@@ -828,3 +828,15 @@ bool TestBase::compareXMLBase(Regola *regola, const QString &step, const QString
     }
     return true ;
 }
+
+Element *TestBase::selectAnItem(App &app, QList<int> selectionPath)
+{
+    Element *selection = app.mainWindow()->getRegola()->findElementByArray(selectionPath);
+    if( NULL != selection ) {
+        app.mainWindow()->getEditor()->getMainTreeWidget()->setCurrentItem(selection->getUI());
+        return selection ;
+    } else {
+        return NULL;
+    }
+}
+
