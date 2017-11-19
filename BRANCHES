@@ -7,10 +7,11 @@ Branches:
 
 169-UI-improvements - increasing user-friendliness
 167-betterxsddoc - better XSD documentation
-166-glut - check GLUT support #42 Remove references to unused GLUT.
+
 
 Old branches:
 -------------
+M Branch 166-glut: check GLUT support #42 Remove references to unused GLUT.
 M Branch 168-UI-view-improvements - improvements for XML view #43 (Feature Request: 'View' > 'Close All' function)
 M Branch 165-attrsizegb - support size of GB in attributes size calculation
 M Branch 164-attrsize: size attributi in analisi
