@@ -5,6 +5,7 @@ devel
 Branches:
 ---------
 
+170-split-check - check internal errors splitting files
 169-UI-improvements - increasing user-friendliness
 167-betterxsddoc - better XSD documentation
 
