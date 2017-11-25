@@ -1,7 +1,7 @@
 0.9.9
     Removed GLUT dependency on Linux.
     Not all the available cpu are used in data view.
-    New command for close all items recursively.
+    New command for close all items recursively with new shortcut.
     Attribute statistics now handle size greater than 2GB.
 
 0.9.8
