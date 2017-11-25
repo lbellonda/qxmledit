@@ -143,6 +143,7 @@ private:
     qint64 _size;
     //-------------------
     bool _isError ;
+    bool _isEnded ; // if the operation ended
     volatile bool _isAborted ;
     QString _errorMessage;
     ExtractionOperation::EXMLErrors _errorCode ;
@@ -223,6 +224,7 @@ public:
     void setExtractDocuments(const bool value);
     bool isExtractDocuments();
     bool isError();
+    bool isEnded();
     EXMLErrors error();
     QString errorMessage();
     bool isAborted();

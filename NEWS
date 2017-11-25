@@ -3,6 +3,7 @@
     Not all the available cpu are used in data view.
     New command for close all items recursively with new shortcut.
     Attribute statistics now handle size greater than 2GB.
+    Handled run time errors in the fragments split thread.
 
 0.9.8
     Outline mode for XSD view.

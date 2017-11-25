@@ -127,14 +127,19 @@ void ExtractionFrontEnd::endOfOperation()
             Utils::error(this, tr("Error: %1, '%2'").arg(_operation->error()).arg(_operation->errorMessage()));
             reject();
         } else {
-            if(_operation->isExtractDocuments()) {
-                if(Utils::askYN(tr("Operation terminated.\nDo you want to show the extraction folder in the browser?"))) {
-                    QDesktopServices::openUrl(QUrl::fromLocalFile(_operation->extractFolder()));
-                }
+            if(!_operation->isEnded()) {
+                Utils::error(this, tr("Internal error"));
+                reject();
             } else {
-                Utils::message(this, tr("Operation terminated."));
+                if(_operation->isExtractDocuments()) {
+                    if(Utils::askYN(tr("Operation terminated.\nDo you want to show the extraction folder in the browser?"))) {
+                        QDesktopServices::openUrl(QUrl::fromLocalFile(_operation->extractFolder()));
+                    }
+                } else {
+                    Utils::message(this, tr("Operation terminated."));
+                }
+                accept();
             }
-            accept();
         }
     }
 }

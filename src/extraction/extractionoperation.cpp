@@ -71,6 +71,7 @@ void ExtractionOperation::init()
     //---------------------
     _isError = false ;
     _isAborted = false;
+    _isEnded = false ;
     _errorCode = EXML_NoError;
 }
 
@@ -84,6 +85,7 @@ void ExtractionOperation::setError(const EXMLErrors code, const QString message)
 void ExtractionOperation::performExtraction()
 {
     _running = true;
+    _isEnded = false ;
     QFile inputFile(_inputFile);
     if(!QFile::exists(_inputFile)) {
         setError(EXML_NoFile, tr("File \"%1\" is not accessible").arg(_inputFile));
@@ -98,6 +100,7 @@ void ExtractionOperation::performExtraction()
     }
     _results->setError(isError());
     _running = false;
+    _isEnded = true ;
 }
 
 QString ExtractionOperation::getPathArrayString()
@@ -425,6 +428,7 @@ void ExtractionOperation::execute(QFile *file)
         }
     }// while at end
     handleCloseOutputFile(info);
+    _isEnded = true ;
 }
 
 bool ExtractionOperation::writeAToken(const bool isAFilteredExtraction, const bool insideAFragment, ExtractInfo &info, QXmlStreamReader &reader)
@@ -1106,6 +1110,11 @@ bool ExtractionOperation::isExtractDocuments()
 bool ExtractionOperation::isError()
 {
     return _isError ;
+}
+
+bool ExtractionOperation::isEnded()
+{
+    return _isEnded ;
 }
 
 ExtractionOperation::EXMLErrors ExtractionOperation::error()
