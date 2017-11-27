@@ -196,7 +196,9 @@ void XSchemaOutlineContainer::collectOutlineChildrenOfObject(XSchemaInquiryConte
             addChild(outlineElement);
             // Delve deep into children.
             outlineElement->setSchemaObject(child);
-            outlineElement->setElement(context, element);
+            if(context.isRecursive()) {
+                outlineElement->setElement(context, element);
+            }
         }
         break;
         case SchemaTypeGroup:
@@ -252,6 +254,20 @@ void XSchemaOutlineContainer::collectOutlineContainerChildrenGroupRef(XSchemaInq
     group->collectOutlineChildrenOfObject(context, refGroup->getChildren());
     //context.enrollGroup(refGroup, group->childrenCount());
     context.enroll(refGroup);
+}
+
+void XSchemaOutlineGroup::collectOutlineContainerChildrenGroup(XSchemaInquiryContext &context)
+{
+    if(NULL == _group) {
+        return ;
+    }
+    // Delve deep into children.
+    if(context.isEnrolled(_group)) {
+        setAlreadyProcessed(true);
+        return ;
+    }
+    collectOutlineChildrenOfObject(context, _group->getChildren());
+    context.enroll(_group);
 }
 
 bool XSchemaOutlineGroup::isAlreadyProcessed() const

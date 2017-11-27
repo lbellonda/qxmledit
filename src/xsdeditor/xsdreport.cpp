@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,40 +20,24 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#include "xsdreport.h"
+#include "ui_xsdreport.h"
+#include "utils.h"
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
-
-namespace Ui
+XSDReport::XSDReport(QWidget *parent, const QString &newReport) :
+    QDialog(parent),
+    ui(new Ui::XSDReport)
 {
-class ConfigValidation;
+    ui->setupUi(this);
+    if(newReport.isEmpty()) {
+        ui->textBrowser->setPlainText(tr("No data."));
+    } else {
+        ui->textBrowser->setHtml(newReport);
+    }
+    showMaximized();
 }
 
-class ConfigValidation : public QWidget
+XSDReport::~XSDReport()
 {
-    Q_OBJECT
-
-    ApplicationData* _data;
-
-public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
-
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
-private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-};
-
-#endif // CONFIGVALIDATION_H
+    delete ui;
+}

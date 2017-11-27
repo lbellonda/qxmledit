@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,40 +20,26 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#ifndef XSDREPORT_H
+#define XSDREPORT_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
+#include <QDialog>
 
 namespace Ui
 {
-class ConfigValidation;
+class XSDReport;
 }
 
-class ConfigValidation : public QWidget
+class XSDReport : public QDialog
 {
     Q_OBJECT
 
-    ApplicationData* _data;
-
 public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
-
-    void init(ApplicationData* data);
-    void saveIfChanged();
+    explicit XSDReport(QWidget *parent, const QString &newReport);
+    ~XSDReport();
 
 private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
+    Ui::XSDReport *ui;
 };
 
-#endif // CONFIGVALIDATION_H
+#endif // XSDREPORT_H

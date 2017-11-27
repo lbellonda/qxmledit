@@ -44,6 +44,7 @@ XSchemaInquiryContext::XSchemaInquiryContext(QObject *parent) :
     _enrollFlag = NULL ;
     _honorRestrictions = false ;
     _isFullCollection = false;
+    _isRecursive = true ;
 }
 
 XSchemaInquiryContext::~XSchemaInquiryContext()
@@ -141,6 +142,16 @@ bool XSchemaInquiryContext::isFullCollection() const
 void XSchemaInquiryContext::setFullCollection(const bool value)
 {
     _isFullCollection = value;
+}
+
+bool XSchemaInquiryContext::isRecursive() const
+{
+    return _isRecursive;
+}
+
+void XSchemaInquiryContext::setIsRecursive(bool isRecursive)
+{
+    _isRecursive = isRecursive;
 }
 
 //------------------------------------------------------------------------

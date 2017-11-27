@@ -1196,3 +1196,60 @@ QString Utils::popCurrentElementPath(const QString &current)
     }
     return current ;
 }
+
+bool Utils::writeStringToFile(const QString &file, const QString &dataString, const QString &encoding)
+{
+    QFile dataFile(file);
+    return writeStringToFile(&dataFile, dataString, encoding);
+}
+
+bool Utils::writeStringToFile(QFile *dataFile, const QString &dataString, const QString &encoding)
+{
+    bool ok = false ;
+    if(dataFile->open(QFile::WriteOnly)) {
+        ok = true ;
+        QTextStream streamOut(dataFile);
+        streamOut.setCodec(QTextCodec::codecForName(encoding.toLatin1().data()));
+        streamOut << dataString ;
+        streamOut.flush();
+        if(dataFile->error() != QFile::NoError) {
+            ok = false;
+        }
+        dataFile->close();
+    }
+    return ok;
+}
+
+bool Utils::writeDataToFile(const QString &file, const QByteArray &dataIn)
+{
+    bool ok = false ;
+    QFile data(file);
+    if(data.open(QFile::WriteOnly)) {
+        ok = true ;
+        qint64 written = data.write(dataIn);
+        data.flush();
+        if(data.error() != QFile::NoError) {
+            ok = false;
+        }
+        data.close();
+        if(written != dataIn.length()) {
+            ok = false;
+        }
+    }
+    return ok;
+}
+
+QByteArray Utils::readBytesFromFile(const QString &file)
+{
+    QFile data(file);
+    if(data.open(QFile::ReadOnly)) {
+        QByteArray result = data.readAll();
+        if(data.error() == QFile::NoError) {
+            return result ;
+        } else {
+            Utils::error(QObject::tr("Error reading file: (%1) %2").arg(data.error()).arg(data.errorString()));
+        }
+        data.close();
+    }
+    return QByteArray() ;
+}

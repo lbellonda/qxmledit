@@ -673,21 +673,9 @@ bool TestBase::readFromFile(const QString &file, QString &result)
     return ok;
 }
 
-bool TestBase::writeToFile(const QString &file, QString &dataString)
+bool TestBase::writeToFile(const QString &file, const QString &dataString)
 {
-    bool ok = false ;
-    QFile data(file);
-    if (data.open(QFile::WriteOnly | QFile::Text)) {
-        ok = true ;
-        QTextStream streamOut(&data);
-        streamOut << dataString ;
-        streamOut.flush();
-        if(data.error() != QFile::NoError) {
-            ok = false;
-        }
-        data.close();
-    }
-    return ok;
+    return Utils::writeStringToFile(file, dataString);
 }
 
 void TestBase::dumpTree(QTreeWidget *tree)
@@ -840,3 +828,10 @@ Element *TestBase::selectAnItem(App &app, QList<int> selectionPath)
     }
 }
 
+bool TestBase::assertEquals(const QString &msg, const QString &expected, const QString &current)
+{
+    if(current != expected) {
+        return error(QString("%1: found:'%2', expected:'%3'").arg(msg).arg(current).arg(expected));
+    }
+    return true ;
+}

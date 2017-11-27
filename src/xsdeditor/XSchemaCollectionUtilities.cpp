@@ -29,7 +29,15 @@
 
 AttrCollectInfo::AttrCollectInfo()
 {
+    isReference = false ;
     attribute = NULL ;
+    attributeGroup = NULL ;
+    originalAttributeGroup = NULL ;
+    isTypeRestriction = false ;
+    isTypeExtension = false ;
+    originalAttribute = NULL ;
+    isSimpleUnion = false ;
+    isSimpleList = false ;
 }
 
 
@@ -37,10 +45,16 @@ AttrCollectInfo::~AttrCollectInfo()
 {
 }
 
+bool AttrCollectInfo::isGroup()
+{
+    return attributeGroup != NULL ;
+}
+
 //------------------------------------
 
 XSchemaAttributesCollection::XSchemaAttributesCollection()
 {
+    collectGroups = false;
 }
 
 XSchemaAttributesCollection::~XSchemaAttributesCollection()
@@ -49,15 +63,25 @@ XSchemaAttributesCollection::~XSchemaAttributesCollection()
         AttrCollectInfo* attr = attributes[name];
         delete attr;
     }
+    attributes.clear();
 }
 
-void XSchemaAttributesCollection::insert(const QString &name, XSchemaAttribute* finalAttribute, const QString &parTypeName, QStringList parEnums, const QString &defaultValue)
+void XSchemaAttributesCollection::insert(const QString &name, XSchemaAttribute* finalAttribute, const QString &parTypeName, QStringList parEnums, const QString &defaultValue, XSchemaAttribute* originalAttribute)
 {
     AttrCollectInfo *info = new AttrCollectInfo();
     info->attribute = finalAttribute ;
     info->type = parTypeName ;
     info->enums = parEnums;
     info->defaultValue = defaultValue ;
+    info->originalAttribute = originalAttribute ;
+    attributes.insert(name, info);
+}
+
+void XSchemaAttributesCollection::insertGroup(const QString &name, XSchemaAttributeGroup* originalGroup, XSchemaAttributeGroup* finalGroup)
+{
+    AttrCollectInfo *info = new AttrCollectInfo();
+    info->attributeGroup = finalGroup ;
+    info->originalAttributeGroup = originalGroup ;
     attributes.insert(name, info);
 }
 

@@ -774,6 +774,21 @@ void XSDItem::totalSize(QRectF &totalSize)
     }
 }
 
+QString XSDItem::itemLabelForChart()
+{
+    return "?";
+}
+
+QColor XSDItem::itemColorForChart()
+{
+    return QColor::fromRgb(0xE0, 0xE0, 0xE0);
+}
+
+QColor XSDItem::itemColorForGroupsForChart()
+{
+    return QColor::fromRgb(0xFF, 0x80, 0x40);
+}
+
 void XSDItem::newChildPosition(QGraphicsItem *newChild)
 {
     QGraphicsItem *parentItem = graphicItem() ;
@@ -1009,6 +1024,12 @@ void RootItem::setItem(XSDSchema *newItem)
     }
     buildTooltip();
 }
+
+QString RootItem::itemLabelForChart()
+{
+    return "Schema";
+}
+
 
 QString RootItem::preTooltipString()
 {
@@ -1298,6 +1319,20 @@ void ContainerItem::afterDisposeAllChildren()
     }
 }
 
+QString ContainerItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->name();
+    }
+    return name ;
+}
+
+QColor ContainerItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
+
 //--------------------------------------------------------------------------------------
 
 RChildren::RChildren()
@@ -1317,6 +1352,26 @@ void RChildren::reset()
         delete child;
     }
     _children.clear();
+}
+
+void RChildren::showChildLine()
+{
+    if(!_children.isEmpty()) {
+        RChild *first = _children.first();
+        if((NULL != first->line()) && !first->line()->isVisible()) {
+            first->line()->show();
+        }
+    }
+}
+
+void RChildren::suppressChildLine()
+{
+    if(!_children.isEmpty()) {
+        RChild *first = _children.first();
+        if((NULL != first->line()) && first->line()->isVisible()) {
+            first->line()->hide();
+        }
+    }
 }
 
 bool RChildren::init(XSDItem * parent)
@@ -1730,6 +1785,29 @@ void ElementItem::childAdded(XSchemaObject *newChild)
     }
 }
 
+QString ElementItem::itemLabelForChart()
+{
+    if(NULL == _item) {
+        return "";
+    }
+    if(_item->isTypeOrElement()) {
+        return QString("element: %1 %2").arg(_item->nameOrReference()).arg(_item->occurrencesDescr());
+    } else {
+        return QString("type: %1").arg(_item->nameOrReference());
+    }
+}
+
+QColor ElementItem::itemColorForChart()
+{
+    if(NULL == _item) {
+        return "";
+    }
+    if(_item->isTypeOrElement()) {
+        return QColor::fromRgb(0x00, 0xC0, 0xFF);
+    } else {
+        return QColor::fromRgb(0x00, 0xFF, 0x00);
+    }
+}
 
 //--------------------------------------------------------------------------
 
@@ -1879,6 +1957,15 @@ void AttributeItem::textChanged()
     }
 }
 
+QString AttributeItem::itemLabelForChart()
+{
+    return tr("attribute: %1").arg(_textItem->toPlainText());
+}
+
+QColor AttributeItem::itemColorForChart()
+{
+    return QColor::fromRgb(0xFF, 0xFF, 0xC0);
+}
 
 //--------------------------------------------------------------------------------------
 
@@ -2049,6 +2136,23 @@ void GenericItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QV
         }
     }
 }
+
+QString GenericItem::itemLabelForChart()
+{
+    QString name ;
+    QString tag ;
+    if(NULL != _item) {
+        name = _item->name();
+        tag = _item->tagName();
+    }
+    return QString("%1 %2").arg(tag).arg(name) ;
+}
+
+QColor GenericItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
+
 //--------------------------------------------------------------------------------------
 
 AllItem::AllItem(XsdGraphicContext *newContext, XSchemaAll *newItem, QGraphicsItem * /*parent*/)
@@ -2191,6 +2295,19 @@ void AllItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVaria
     }
 }
 
+QString AllItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->description();
+    }
+    return QString("all %1").arg(name) ;
+}
+
+QColor AllItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
 
 //----------------------------------------------------------------------------------------------------------
 
@@ -2352,6 +2469,19 @@ void DerivationItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const
     }
 }
 
+QString DerivationItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->description();
+    }
+    return QString("derivation %1").arg(name) ;
+}
+
+QColor DerivationItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
 
 //----------------------------------------------------------------------------------------------------------
 

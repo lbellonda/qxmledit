@@ -75,6 +75,7 @@ class XSchemaInquiryContext : public XSchemaOperationContext
     bool *_enrollFlag;
     bool _honorRestrictions;
     bool _isFullCollection;
+    bool _isRecursive;
 
 public:
     explicit XSchemaInquiryContext(QObject *parent = 0);
@@ -100,6 +101,9 @@ public:
 
     bool isFullCollection() const;
     void setFullCollection(bool isFullCollection);
+
+    bool isRecursive() const;
+    void setIsRecursive(bool isRecursive);
 
 signals:
 

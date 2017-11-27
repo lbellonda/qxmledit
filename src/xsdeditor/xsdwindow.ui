@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1393</width>
-    <height>647</height>
+    <width>1599</width>
+    <height>696</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -754,6 +754,37 @@
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="cmdReport">
+        <property name="toolTip">
+         <string>Show a report.</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../risorse.qrc">
+          <normaloff>:/special/report</normaloff>:/special/report</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="htmlCmd">
+        <property name="toolTip">
+         <string>Export in HTML format.</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../risorse.qrc">
+          <normaloff>:/devices/html</normaloff>:/devices/html</iconset>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="printCmd">
         <property name="enabled">
          <bool>true</bool>
@@ -806,7 +837,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1393</width>
+     <width>1599</width>
      <height>22</height>
     </rect>
    </property>
@@ -870,6 +901,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="../risorse.qrc"/>
   <include location="../risorse.qrc"/>
  </resources>
  <connections/>

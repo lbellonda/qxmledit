@@ -121,9 +121,20 @@ class AttrCollectInfo
 {
 public:
     XSchemaAttribute* attribute;
+    XSchemaAttributeGroup* attributeGroup;
+    XSchemaAttributeGroup* originalAttributeGroup;
+    XSchemaAttribute* originalAttribute;
     QStringList enums;
     QString type;
+    bool isReference;
+    bool isTypeRestriction;
+    bool isTypeExtension;
+    bool isSimpleUnion;
+    bool isSimpleList;
+    QString listValue;
+    QString unionValue;
     QString defaultValue;
+    bool isGroup();
     AttrCollectInfo();
     ~AttrCollectInfo();
 };
@@ -132,8 +143,10 @@ public:
 class XSchemaAttributesCollection
 {
 public:
+    bool collectGroups;
     QMap<QString, AttrCollectInfo*> attributes;
-    void insert(const QString &name, XSchemaAttribute* finalAttribute, const QString &parTypeName, QStringList parEnums, const QString &defaultValue);
+    void insert(const QString &name, XSchemaAttribute* finalAttribute, const QString &parTypeName, QStringList parEnums, const QString &defaultValue, XSchemaAttribute *originalAttribute);
+    void insertGroup(const QString &name, XSchemaAttributeGroup* originalAttribute, XSchemaAttributeGroup* finalAttribute);
     XSchemaAttributesCollection();
     ~XSchemaAttributesCollection();
 };
@@ -559,6 +572,7 @@ public: //TODO: protected?
     virtual int maxOccurrences() ;
 
     bool addAttributeToCollection(const QString & name, XSchemaAttributesCollection & attributesCollection, XSchemaAttribute * inputAttribute);
+    bool addAttributeToCollection(const QString & name, XSchemaAttributesCollection & attributesCollection, XSchemaAttribute * inputAttribute, XSchemaAttribute * originalAttribute);
     bool addAttributeGroupToCollection(XSchemaAttributesCollection & attributesCollection, XSchemaAttributeGroup * inputAttributeGroup);
     XSchemaElement *getReferencedType(const QString &typeName);
     bool hasOtherAttributeHavingValue(const QString &attrName, const QString &attrValue);
@@ -671,7 +685,11 @@ public:
 
     DECL_QPROPS(xsdType, setXsdType)
     DECL_QPROPS(defaultValue, setDefaultValue)
+    DECL_QPROPS(fixed, setFixed)
     DECL_QPROP(XSchemaAttribute::EUse, use, setUse)
+
+    bool hasDefaultValue();
+    bool isFixed();
 
     XSchemaSimpleTypeRestriction *getSimpleTypeRestriction();
     virtual bool findBaseObjects(XSchemaInquiryContext &context, QList<XSchemaObject*> &baseChildren, QList<XSchemaObject*> & baseAttributes);
@@ -683,7 +701,50 @@ public:
 
 };
 
-//ricordarsi, per una gestione corretta: simpleContent gestisce solo contenuto a caratteri, complexContext ammette figli
+class XTypeQueryInfo
+{
+    enum ETypeInfo {
+        Pure,
+        Restriction,
+        Extension
+    };
+
+    ETypeInfo _typeInfo;
+    QString _typeName;
+    QString _qualifiedTypeName;
+    QStringList _enums;
+    bool _isComplex ;
+    bool _isSimpleTypeUnion;
+    bool _isSimpleTypeList;
+    QString _listValue;
+    QString _unionValue;
+    //---
+public:
+    bool isRestriction();
+    bool isExtension();
+    bool hasEnum();
+    void setEnums(const QStringList &newEnums);
+    QStringList enums();
+    void setComplexRestriction(const QString &newType);
+    void setComplexExtension(const QString &newType);
+    void setSimpleRestriction(const QString &newType);
+    void setSimpleExtension(const QString &newType);
+    QString name();
+    void setName(const QString &newName);
+    XTypeQueryInfo();
+    ~XTypeQueryInfo();
+    QString qualifiedTypeName() const;
+    void setQualifiedTypeName(const QString &qualifiedTypeName);
+    bool isSimpleTypeUnion() const;
+    void setIsSimpleTypeUnion(bool isSimpleTypeUnion);
+    bool isSimpleTypeList() const;
+    void setIsSimpleTypeList(bool isSimpleTypeList);
+    QString listValue() const;
+    void setListValue(const QString &listValue);
+    QString unionValue() const;
+    void setUnionValue(const QString &unionValue);
+};
+
 // Limitations:
 // annotations are handled only for main type
 class XSchemaElement : public XSchemaObject
@@ -844,6 +905,7 @@ public:
     virtual bool hasAReference();
     virtual bool examineType(XValidationContext *context, XSingleElementContent *parent);
     virtual bool collect(XValidationContext *context, XSingleElementContent *content);
+    void collectAllAttributes(XSchemaInquiryContext &context, QList<XSchemaObject*> & baseAttributes);
 
     /*
     TODO
@@ -885,10 +947,16 @@ protected:
     void validateComplexType(QDomElement &element, const bool isInner);
     void collectElementsOfComplexDerived(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
     void collectAttributesOfComplexDerived(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
+    void collectAttributesOfSimpleDerived(XSchemaInquiryContext & /*context*/, QList<XSchemaObject*> &result);
     bool collectElements(QList<XSchemaObject*> &result);
     bool collectAllBaseTypeElements(XSchemaInquiryContext &context, QList<XSchemaObject*> &result, QList<XSchemaObject*> &attributes);
     bool collectAllElementsOfBaseTypes(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
     bool collectAllAttributesOfBaseTypes(XSchemaInquiryContext &context, QList<XSchemaObject*> &result);
+    void collectTypeInfoOfSimpleDerived(XTypeQueryInfo &typeInfo);
+    void collectTypeInfoOfSimpleType(XTypeQueryInfo &typeInfo);
+    void collectTypeInfoOfComplexDerived(XTypeQueryInfo &typeInfo);
+    XSchemaElement *finalTypeOrElement();
+    void qualifiedTypeOrElementName(XTypeQueryInfo &typeInfo);
     //---
     virtual void validateAfterRead(XSDLoadContext *loadContext, QDomElement &node, void * context);
     void raiseErrorTypesME(XSDLoadContext *loadContext, QDomElement &node);
@@ -907,6 +975,7 @@ public:
     void collectAttributeOfComplexDerived(XSchemaAttributesCollection & attributesCollection);
     void collectAttributeOfSimpleDerived(XSchemaAttributesCollection & attributesCollection);
     bool collectAllElements(QList<XSchemaObject*> &result);
+    bool getTypeInfoAndRestrictions(XTypeQueryInfo &typeInfo);
 
     XSchemaElement *getReferencedElement();
     XSchemaElement *getReferencedType();
@@ -915,6 +984,8 @@ public:
     XSchemaSimpleContentExtension *getSimpleContentExtension();
     XSchemaSimpleContentRestriction *getSimpleContentRestriction();
     XSchemaSimpleTypeRestriction *getSimpleTypeRestriction();
+    XSchemaSimpleTypeList *getSimpleTypeList();
+    XSchemaSimpleTypeUnion *getSimpleTypeUnion();
     bool isPredefined() const;
     void setIsPredefined(bool value);
 };
@@ -1610,6 +1681,7 @@ public:
 
     // invoked from any schema of the pool
     XSchemaObject* getObject(const QString &name, const ESchemaType type);
+    bool isBaseType(const QString &name, const ESchemaType type);
 
     QString targetNamespace() const;
 
@@ -1780,12 +1852,14 @@ public:
     XSchemaAttribute *topLevelAttribute(const QString &referenceName);
     XSchemaAttributeGroup *topLevelAttributeGroup(const QString &referenceName);
     XSchemaElement *topLevelType(const QString &referenceName);
+    bool isBaseType(const QString &referenceName);
 
     XSchemaElement *topLevelType(XSchemaFindReferenceContext &context, const QString &referenceName);
     XSchemaElement *topLevelElement(XSchemaFindReferenceContext &context, const QString &referenceName);
 
     XSchemaObject* findTopObject(const QString &name, const ESchemaType type);
     XSchemaObject* findReferencedObjectWithNamespace(const QString &findNamespace, const QString &name, const ESchemaType type);
+    bool isBaseType(const QString &name, const ESchemaType type);
     //-------------- endregion(single name)-----------------------------
 
     //-------------- region(lists)-----------------------------

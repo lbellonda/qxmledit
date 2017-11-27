@@ -158,6 +158,20 @@ qreal ChoiceItem::extraSpace()
     return _extraSpace ;
 }
 
+QString ChoiceItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->description();
+    }
+    return QString("< (choice %1)").arg(name);
+}
+
+QColor ChoiceItem::itemColorForChart()
+{
+    return itemColorForGroupsForChart();
+}
+
 //--------------------------------------------------------------------------------------
 
 
@@ -285,6 +299,18 @@ void SequenceItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const Q
     }
 }
 
+QString SequenceItem::itemLabelForChart()
+{
+    if(NULL != _item) {
+        return QString("E (sequence %1)").arg(_item->description());
+    }
+    return "sequence";
+}
+
+QColor SequenceItem::itemColorForChart()
+{
+    return itemColorForGroupsForChart();
+}
 
 //-------------------------------------------------------------------------------
 
@@ -432,6 +458,20 @@ void GroupItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVar
     }
 }
 
+QString GroupItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->description();
+    }
+    return QString("group %1").arg(name) ;
+}
+
+QColor GroupItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
+
 //------------------------------
 //--------------------------------------------------------------------------------------
 
@@ -575,6 +615,20 @@ void AttributeGroupItem::itemChanged(QGraphicsItem::GraphicsItemChange change, c
             child->updatePosition();
         }
     }
+}
+
+QString AttributeGroupItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->description();
+    }
+    return QString("AttributeGroup %1").arg(name) ;
+}
+
+QColor AttributeGroupItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
 }
 
 //------------------------------

@@ -93,6 +93,12 @@ XSDItem *TestXSDWindow::selectItemByIndexInternal( XSDItem *parent, QList<int> &
     return NULL;
 }
 
+QString TestXSDWindow::getAsHTML(const bool isSimple)
+{
+    QString htmlText = _printManager.getAsHTML(false, true, isSimple, false);
+    return htmlText;
+}
+
 //---------------------------
 
 

@@ -31,7 +31,6 @@ void ConfigurationDialog::doOptions(QWidget * const parentWindow, ApplicationDat
     options.exec();
 }
 
-
 ConfigurationDialog::ConfigurationDialog(ApplicationData* data, QWidget *parent) :
     QDialog(parent),
     _data(data),

@@ -210,7 +210,11 @@ void GraphicsRoundRectItem::paint(QPainter *painter, const QStyleOptionGraphicsI
         painter->setPen(pen);
     } else {
         QPen pen(Qt::SolidLine);
-        pen.setColor(QColor(40, 120, 40));
+        if(_isSingleColor) {
+            pen.setColor(QColor(0, 0, 0));
+        } else {
+            pen.setColor(QColor(40, 120, 40));
+        }
         painter->setPen(pen);
     }
 

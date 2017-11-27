@@ -53,7 +53,7 @@ class ConfigurationDialog : public QDialog
         TAB_VALIDATION,
         TAB_SESSIONS,
         TAB_EDITMODES,
-        TAB_XMLMETADATA,
+        TAB_XMLMETADATA
     };
 
     ApplicationData* _data;

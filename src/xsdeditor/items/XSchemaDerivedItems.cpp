@@ -156,6 +156,19 @@ void RestrictionItem::itemChanged(QGraphicsItem::GraphicsItemChange change, cons
     }
 }
 
+QString RestrictionItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->name();
+    }
+    return QString("restriction %1").arg(name) ;
+}
+
+QColor RestrictionItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
 
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------
@@ -279,6 +292,19 @@ void UnionItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVar
     }
 }
 
+QString UnionItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->memberTypes();
+    }
+    return QString("union %1").arg(name) ;
+}
+
+QColor UnionItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
 //-------------------------------------------------------------------------------
 
 
@@ -368,11 +394,11 @@ void ListItem::setItem(XSchemaObject *newItem)
     }
     QGraphicsItem * items []  = { _nameWidget } ;
     QRectF size = measureOptimumDimensions(1, items) ;
-    qreal width = size.x() + size.width();
-    qreal height = size.y() + size.height();
+    const qreal width = size.width();
+    const qreal height = size.height();
 
-    qreal stepY = (height <= 30) ? height : 30 ;
-    qreal stepX = (width <= 30) ? width : 30 ;
+    const qreal stepY = (height <= 30) ? 30 : height ;
+    const qreal stepX = (width <= 30) ? 30 : width;
 
     QPainterPath path;
     path.moveTo(0, stepY);
@@ -383,6 +409,15 @@ void ListItem::setItem(XSchemaObject *newItem)
     path.lineTo(stepX / 2, 2 * stepY);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+
+    if(NULL != _nameWidget) {
+        const int nh = _nameWidget->boundingRect().height();
+        const int nw = _nameWidget->boundingRect().width();
+        const int h = _graphicsItem->boundingRect().height();
+        const int w = _graphicsItem->boundingRect().width();
+        _nameWidget->setPos((w - nw) / 2, (h - nh) / 2);
+    }
+
     if(_isDiff) {
         QLinearGradient gradient(0, 0, 0, 100);
         setGradientColor(gradient, _item->compareState());
@@ -405,3 +440,16 @@ void ListItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVari
     }
 }
 
+QString ListItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->itemType();
+    }
+    return QString("list %1").arg(name) ;
+}
+
+QColor ListItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}

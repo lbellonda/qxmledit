@@ -46,6 +46,7 @@ public:
     NavigationTree *navigation();
     bool testCopyElementActionExecute(XSchemaObject *object);
     XSDItem *selectItemByIndexAndZoom(const QList<int> &selectionPath);
+    QString getAsHTML(const bool isSimple);
 };
 
 class TestXSDNavigation : public TestBase

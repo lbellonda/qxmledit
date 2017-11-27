@@ -51,7 +51,21 @@ class TestXSDView : public TestBase
     bool testComplexRestriction();
     bool loadAndCompareOutline(const QString &id, const QString &inputFilePath, const QString &fileReference);
     bool compareOutlineStructure(XSDItem *item, Element *xml, const QString &path);
-
+    bool testPrintPagination();
+    bool testPrintCheckHTML();
+    bool testPrintHTML();
+    bool loadAndComparePrint(const QString &id, const QString &inputFilePath, const QString &fileReference);
+    bool testUnitPrint();
+    bool testUnitHTML();
+    bool cleanHTML(const QString &html, QString &result);
+    QString cleanComment(const QString &text, const QString& commentStart, const QString& commentEnd);
+    QString cleanAttribute(const QString &html, const QString& searchTerm, bool &isChanged);
+    bool testArgsDotViz();
+    bool testPathDotViz();
+    bool checkSettingsAndExpected(App &app, const QString &msg, const bool useDefault, const QString &path, const QString &expectedPath);
+    bool testForImage(const QString &id, App &app, const bool isEmbedded, const bool isDotViz);
+    bool testImagesExtInt();
+    //void debugFile(const QString &data);
 public:
     TestXSDView();
     ~TestXSDView();
@@ -64,6 +78,7 @@ public:
     bool testRestriction();
     bool testFast();
     bool testOutline();
+    bool testPrint();
 };
 
 #endif // TESTXSDVIEW_H

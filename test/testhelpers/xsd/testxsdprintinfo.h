@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,40 +20,38 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#ifndef TESTXSDPRINTINFO_H
+#define TESTXSDPRINTINFO_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
+#include "xsdeditor/xsdwindow.h"
 
-namespace Ui
+class TestXSDPrintInfo : public XSDPrintInfo
 {
-class ConfigValidation;
-}
-
-class ConfigValidation : public QWidget
-{
-    Q_OBJECT
-
-    ApplicationData* _data;
-
 public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
+    QList<int> pages;
+    QList<int> expected;
+    QList<QRectF> blocks;
+    int docSize;
+    QString errorMessage;
+    QString stepName;
 
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
-private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
+    bool checkResults();
+    TestXSDPrintInfo();
+    ~TestXSDPrintInfo();
+    bool testAll();
+    bool test1();
+    bool test2();
+    bool test3();
+    bool test4();
+    bool test5();
+    bool test6();
+    virtual void newPage();
+    virtual void updatePageHeight(const int heightInPage);
+    bool blockIsValid(QTextBlock block, const int blockIndex);
+    QRectF blockBoundingBox(QAbstractTextDocumentLayout *layout, QTextBlock block, const int blockIndex);
+    void resetForTest(const QString step);
+    virtual void setupDocument(QTextDocument &document);
+    virtual QSizeF documentSize(QTextDocument &document);
 };
 
-#endif // CONFIGVALIDATION_H
+#endif // TESTXSDPRINTINFO_H

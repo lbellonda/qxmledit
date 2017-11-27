@@ -57,7 +57,7 @@ private:
 
 private slots:
     void textPropertyChanged(const char*propertyName);
-    void on_field_editTextChanged(const QString & text);
+    void fieldEditTextChanged(const QString & text);
 };
 
 #endif // XSDGENERICEDITOR_H

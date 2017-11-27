@@ -175,6 +175,11 @@ public:
     //
     static QString pushCurrentElementPath(const QString &current, const QString &name);
     static QString popCurrentElementPath(const QString &current);
+    //
+    static bool writeDataToFile(const QString &file, const QByteArray &dataIn);
+    static bool writeStringToFile(QFile *dataFile, const QString &dataString, const QString &encoding = "UTF-8");
+    static bool writeStringToFile(const QString &file, const QString &dataString, const QString &encoding = "UTF-8");
+    static QByteArray readBytesFromFile(const QString &file);
 };
 
 

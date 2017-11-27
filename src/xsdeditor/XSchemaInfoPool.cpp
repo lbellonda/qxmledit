@@ -86,24 +86,56 @@ void XSchemaInfoPool::addRedefinedTypes(XSchemaRedefine * redefine)
  */
 XSchemaObject* XSchemaInfoPool::getObject(const QString &name, const ESchemaType type)
 {
-    return _mainSchema->findTopObject(name, type);
+    XSchemaObject *target = _mainSchema->findTopObject(name, type);
+#ifdef  QT_DEBUG
+    if(NULL == target) {
+        Utils::error(QString("DEBUG: Unknown: object: %1 type: %2").arg(name).arg(type));
+    }
+#endif
+    return target;
+}
+
+bool XSchemaInfoPool::isBaseType(const QString &name, const ESchemaType type)
+{
+    return _mainSchema->isBaseType(name, type);
 }
 
 XSchemaObject* XSchemaInfoPool::findObject(const QString &name, const ESchemaType type)
 {
     if((SchemaGenericType == type) || (SchemaGenericElement ==  type)) {
-        return findElementOrType(name, (SchemaGenericType == type) ? true : false);
-    }
-    foreach(XSchemaObject * child, _redefinitions) {
-        if((type == child->getType()) && (name == child->name())) {
-            return child;
+        XSchemaObject *result = findElementOrType(name, (SchemaGenericType == type) ? true : false);
+        if(NULL != result) {
+            return result ;
         }
-    }
+        const bool isType = (SchemaGenericType == type) ;
+        foreach(XSchemaObject * child, _redefinitions) {
+            if((SchemaTypeElement == child->getType()) && (name == child->name())) {
+                if(static_cast<XSchemaElement*>(child)->isTypeOrElement() == isType) {
+                    return child;
+                }
+            }
+        }
 
-    foreach(XSchemaObject * schema, _includesAndRedefines.values()) {
-        foreach(XSchemaObject * child, schema->getChildren()) {
+        foreach(XSchemaObject * schema, _includesAndRedefines.values()) {
+            foreach(XSchemaObject * child, schema->getChildren()) {
+                if((SchemaTypeElement == child->getType()) && (name == child->name())) {
+                    if(static_cast<XSchemaElement*>(child)->isTypeOrElement() == isType) {
+                        return child;
+                    }
+                }
+            }
+        }
+    } else {
+        foreach(XSchemaObject * child, _redefinitions) {
             if((type == child->getType()) && (name == child->name())) {
                 return child;
+            }
+        }
+        foreach(XSchemaObject * schema, _includesAndRedefines.values()) {
+            foreach(XSchemaObject * child, schema->getChildren()) {
+                if((type == child->getType()) && (name == child->name())) {
+                    return child;
+                }
             }
         }
     }

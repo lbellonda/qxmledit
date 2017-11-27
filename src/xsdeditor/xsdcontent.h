@@ -83,7 +83,7 @@ public:
         return SchemaTypeSimpleContentRestriction ;
     }
     TAG("restriction")
-
+    void addEnumsToListIfAny(QStringList &enums);
 };
 
 

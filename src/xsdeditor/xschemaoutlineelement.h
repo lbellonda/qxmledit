@@ -68,7 +68,6 @@ private:
     bool _isAlreadyProcessed;
 protected:
     virtual void reset();
-    //void calculateElement();
 
 public:
 
@@ -126,6 +125,7 @@ public:
     virtual QString name();
     bool isAlreadyProcessed() const;
     void setAlreadyProcessed(bool isAlreadyProcessed);
+    void collectOutlineContainerChildrenGroup(XSchemaInquiryContext &context);
 };
 
 class XSchemaOutlineSequence : public XSchemaOutlineContainer

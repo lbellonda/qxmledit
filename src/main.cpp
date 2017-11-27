@@ -245,6 +245,8 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
+    Utils::TODO_THIS_RELEASE("link ai gruppi attributi");
+    Utils::TODO_THIS_RELEASE("viewdata: usa ncpu-1");
 }
 
 static void startTanslator(QApplication *app)

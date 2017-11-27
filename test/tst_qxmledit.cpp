@@ -981,6 +981,10 @@ void TestQXmlEdit::testXsdView()
     result = test6.testOutline();
     QVERIFY2(result, (QString("test TestXSDView: testOutline() '%1'").arg(test6.errorString())).toLatin1().data());
 
+    TestXSDView test7;
+    result = test7.testPrint();
+    QVERIFY2(result, (QString("test TestXSDView: testPrint() '%1'").arg(test7.errorString())).toLatin1().data());
+
     /*TestXSDView test6;
     result = test6.testAttributeAndGroups();
     QVERIFY2(result, (QString("test TestXSDView: testAttributeAndGroups() '%1'").arg(test6.errorString())).toLatin1().data());*/
@@ -1546,14 +1550,20 @@ void TestQXmlEdit::testFormattingInfo()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 // This function enabled for debug purposes. DO NOT REMOVE
 //static void msgHandler(QtMsgType type, const char *msg)
-static void msgHandler(QtMsgType, const QMessageLogContext &, const QString &msg)
+static void msgHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
 {
     QString s = msg;
-    if( !s.startsWith("Application asked to ")){
+    if(s.startsWith("QMetaObject:")){
         int k = 0;
         k++;
     }
-    printf("%s\n", msg.toLatin1().data());
+    if(!s.startsWith("Application asked to ")){
+        int k = 0;
+        k++;
+    }
+    if( QtDebugMsg != type ) {
+        printf("%d %s\n", (int)type, msg.toLatin1().data());
+    }
 }
 #endif
 
@@ -1562,6 +1572,8 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
+    testXsdView();
+    testXsdLoad();
     testSpecialView();
     testVis();
 }

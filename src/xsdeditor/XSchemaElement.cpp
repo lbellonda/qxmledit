@@ -40,6 +40,140 @@
 
 //------------------------------------
 
+XTypeQueryInfo::XTypeQueryInfo()
+{
+    _typeInfo = Pure ;
+    _isComplex = false;
+    _isSimpleTypeUnion = false;
+    _isSimpleTypeList = false;
+}
+
+XTypeQueryInfo::~XTypeQueryInfo()
+{
+
+}
+
+bool XTypeQueryInfo::isRestriction()
+{
+    bool result = _typeInfo == Restriction ;
+    return result ;
+}
+
+bool XTypeQueryInfo::isExtension()
+{
+    bool result = _typeInfo == Extension ;
+    return result ;
+}
+
+bool XTypeQueryInfo::hasEnum()
+{
+    bool result = !_enums.isEmpty();
+    return result ;
+}
+
+void XTypeQueryInfo::setEnums(const QStringList &newEnums)
+{
+    _enums = newEnums ;
+}
+
+QStringList XTypeQueryInfo::enums()
+{
+    return _enums;
+}
+
+void XTypeQueryInfo::setComplexRestriction(const QString &newType)
+{
+    _typeName = newType ;
+    _isComplex = true;
+    _typeInfo = Restriction ;
+}
+
+void XTypeQueryInfo::setComplexExtension(const QString &newType)
+{
+    _typeName = newType ;
+    _isComplex = true;
+    _typeInfo = Extension ;
+}
+
+void XTypeQueryInfo::setSimpleRestriction(const QString &newType)
+{
+    _typeName = newType ;
+    _isComplex = false;
+    _typeInfo = Restriction ;
+}
+
+void XTypeQueryInfo::setSimpleExtension(const QString &newType)
+{
+    _typeName = newType ;
+    _isComplex = false;
+    _typeInfo = Extension ;
+}
+
+QString XTypeQueryInfo::name()
+{
+    return _typeName;
+}
+
+void XTypeQueryInfo::setName(const QString &newName)
+{
+    _typeName = newName ;
+}
+
+
+QString XTypeQueryInfo::qualifiedTypeName() const
+{
+    return _qualifiedTypeName;
+}
+
+void XTypeQueryInfo::setQualifiedTypeName(const QString &value)
+{
+    _qualifiedTypeName = value;
+}
+
+bool XTypeQueryInfo::isSimpleTypeUnion() const
+{
+    return _isSimpleTypeUnion;
+}
+
+void XTypeQueryInfo::setIsSimpleTypeUnion(bool value)
+{
+    _isSimpleTypeUnion = value;
+}
+
+bool XTypeQueryInfo::isSimpleTypeList() const
+{
+    return _isSimpleTypeList;
+}
+
+void XTypeQueryInfo::setIsSimpleTypeList(bool value)
+{
+    _isSimpleTypeList = value;
+}
+
+
+
+QString XTypeQueryInfo::unionValue() const
+{
+    return _unionValue;
+}
+
+void XTypeQueryInfo::setUnionValue(const QString &value)
+{
+    _unionValue = value;
+}
+
+QString XTypeQueryInfo::listValue() const
+{
+    return _listValue;
+}
+
+void XTypeQueryInfo::setListValue(const QString &value)
+{
+    _listValue = value;
+}
+
+//------------------------------------
+
 XSchemaElement::XSchemaElement(XSchemaObject *newParent, XSchemaRoot *newRoot, const ElementCategory category) : XSchemaObject(newParent, newRoot)
 {
     INIT_XSD_ATTRD(_defaultValue);
@@ -1372,10 +1506,29 @@ XSchemaSimpleTypeRestriction *XSchemaElement::getSimpleTypeRestriction()
     return NULL ;
 }
 
+XSchemaSimpleTypeList *XSchemaElement::getSimpleTypeList()
+{
+    foreach(XSchemaObject * child, _children) {
+        if(child->getType() == SchemaTypeSimpleTypeList) {
+            return static_cast<XSchemaSimpleTypeList*>(child);
+        }
+    }
+    return NULL ;
+}
+
+XSchemaSimpleTypeUnion *XSchemaElement::getSimpleTypeUnion()
+{
+    foreach(XSchemaObject * child, _children) {
+        if(child->getType() == SchemaTypeSimpleTypeUnion) {
+            return static_cast<XSchemaSimpleTypeUnion*>(child);
+        }
+    }
+    return NULL ;
+}
+
 XSchemaElement *XSchemaElement::getReferencedType()
 {
-    Utils::TODO_NEXT_RELEASE("da fare con ricorsione");
-    XSchemaElement *baseTypeOrElement = _root->schema()->topLevelType(referencedObjectName());
+    XSchemaElement *baseTypeOrElement = _root->schema()->topLevelType(xsdType());
     return baseTypeOrElement ;
 }
 
@@ -1574,3 +1727,164 @@ void XSchemaElement::validateAfterReadElement(XSDLoadContext *loadContext, QDomE
         */
     }
 }
+
+void XSchemaElement::collectAllAttributes(XSchemaInquiryContext &context, QList<XSchemaObject*> & baseAttributes)
+{
+    XSchemaElement *realElement = NULL ;
+    if(isTypeOrElement()) {
+        realElement = this ;
+    } else {
+        if(XRT_ELEMENT == referencedObjectType()) {
+            XSchemaElement *referencedElement = getReferencedElement();
+            if(NULL == referencedElement) {
+                // no way, unable to reference something.
+                return ;
+            }
+            realElement = referencedElement ;
+        } else {
+            const QString type = typeString();
+            if(!type.isEmpty()) {
+                realElement = resolveType(this);
+            }
+            if(NULL == realElement) {
+                realElement = this ;
+            }
+        }
+    }
+    QList<XSchemaObject*> baseElements;
+    bool isEnrolledSub = false;
+    context.setEnrollFlag(&isEnrolledSub);
+    findBaseObjects(context, baseElements, baseAttributes);
+}
+
+bool XSchemaElement::getTypeInfoAndRestrictions(XTypeQueryInfo &typeInfo)
+{
+    qualifiedTypeOrElementName(typeInfo) ;
+    switch(category()) {
+    case EES_EMPTY: {
+        XSchemaElement *baseTypeOrElement = finalTypeOrElement() ;
+        if(NULL != baseTypeOrElement) {
+            if(baseTypeOrElement->isComplexType()) {
+                collectTypeInfoOfComplexDerived(typeInfo);
+                return true;
+            }
+        }
+    }
+    collectTypeInfoOfSimpleType(typeInfo);
+    return true;
+    break;
+    case EES_SIMPLETYPE_ONLY:
+        collectTypeInfoOfSimpleType(typeInfo);
+        return true ;
+        break;
+    case EES_REFERENCE:
+        // we should never go here
+        return false;
+    case EES_SIMPLETYPE_WITHATTRIBUTES:
+    case EES_COMPLEX_DEFINITION:
+        collectTypeInfoOfComplexDerived(typeInfo);
+        return true ;
+        break;
+    case EES_COMPLEX_DERIVED:
+        collectTypeInfoOfComplexDerived(typeInfo);
+        return true ;
+        break;
+    default:
+        return false ;
+    }
+    return true;
+}
+
+XSchemaElement *XSchemaElement::finalTypeOrElement()
+{
+    XSchemaElement *baseTypeOrElement = this ;
+    if(!isTypeOrElement()) {
+        if(hasAReference()) {
+            baseTypeOrElement = getReferencedElement();
+        }
+        if(!baseTypeOrElement->xsdType().isEmpty()) {
+            baseTypeOrElement = baseTypeOrElement->getReferencedType();
+        }
+    }
+    return baseTypeOrElement ;
+}
+
+void XSchemaElement::qualifiedTypeOrElementName(XTypeQueryInfo &typeInfo)
+{
+    XSchemaElement *baseTypeOrElement = this ;
+    if(!isTypeOrElement()) {
+        if(hasAReference()) {
+            typeInfo.setQualifiedTypeName(ref());
+        }
+        if(!baseTypeOrElement->xsdType().isEmpty()) {
+            typeInfo.setQualifiedTypeName(baseTypeOrElement->xsdType());
+        }
+    }
+}
+
+void XSchemaElement::collectTypeInfoOfSimpleType(XTypeQueryInfo &typeInfo)
+{
+    XSchemaElement *baseTypeOrElement = finalTypeOrElement() ;
+    if(NULL != baseTypeOrElement) {
+        XSchemaSimpleTypeRestriction *restriction = baseTypeOrElement->getSimpleTypeRestriction();
+        if(NULL != restriction) {
+            typeInfo.setSimpleRestriction(restriction->base());
+            QStringList enums ;
+            restriction->addEnumsToListIfAny(enums);
+            if(!enums.isEmpty()) {
+                typeInfo.setEnums(enums);
+            }
+        } else {
+            XSchemaSimpleTypeList *aList = baseTypeOrElement->getSimpleTypeList();
+            if(NULL != aList) {
+                typeInfo.setIsSimpleTypeList(true);
+                typeInfo.setListValue(aList->itemType());
+            } else {
+                XSchemaSimpleTypeUnion *aUnion = baseTypeOrElement->getSimpleTypeUnion();
+                if(NULL != aUnion) {
+                    typeInfo.setIsSimpleTypeUnion(true);
+                    typeInfo.setUnionValue(aUnion->memberTypes());
+                }
+            }
+        }
+    }
+}
+
+void XSchemaElement::collectTypeInfoOfSimpleDerived(XTypeQueryInfo &typeInfo)
+{
+    XSchemaElement *baseTypeOrElement = finalTypeOrElement() ;
+    if(NULL != baseTypeOrElement) {
+        XSchemaSimpleContentRestriction *restriction = baseTypeOrElement->getSimpleContentRestriction();
+        if(NULL != restriction) {
+            typeInfo.setSimpleRestriction(restriction->getBaseType()->name());
+            QStringList enums ;
+            restriction->addEnumsToListIfAny(enums);
+            if(!enums.isEmpty()) {
+                typeInfo.setEnums(enums);
+            }
+        } else {
+            XSchemaSimpleContentExtension *extension = baseTypeOrElement->getSimpleContentExtension();
+            if(NULL != extension) {
+                typeInfo.setSimpleExtension(extension->getBaseType()->name());
+            }
+        }
+    }
+}
+
+void XSchemaElement::collectTypeInfoOfComplexDerived(XTypeQueryInfo &typeInfo)
+{
+    XSchemaElement *baseTypeOrElement = finalTypeOrElement();
+    if(NULL != baseTypeOrElement) {
+        typeInfo.setName(baseTypeOrElement->name());
+        XSchemaComplexContentRestriction *restriction = baseTypeOrElement->getRestriction();
+        if(NULL != restriction) {
+            typeInfo.setComplexRestriction(restriction->getBaseType()->name());
+        } else {
+            XSchemaComplexContentExtension *extension = baseTypeOrElement->getExtension();
+            if(NULL != extension) {
+                typeInfo.setComplexExtension(extension->getBaseType()->name());
+            }
+        }
+    }
+}
+

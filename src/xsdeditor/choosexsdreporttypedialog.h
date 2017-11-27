@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,40 +20,31 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
+#ifndef CHOOSEXSDREPORTTYPEDIALOG_H
+#define CHOOSEXSDREPORTTYPEDIALOG_H
+
+#include <QDialog>
 
 namespace Ui
 {
-class ConfigValidation;
+class ChooseXSDReportTypeDialog;
 }
 
-class ConfigValidation : public QWidget
+class ChooseXSDReportTypeDialog : public QDialog
 {
     Q_OBJECT
 
-    ApplicationData* _data;
-
+    bool _selectionAsSimple;
+protected:
+    virtual void accept();
 public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
+    explicit ChooseXSDReportTypeDialog(QWidget *parent, const bool isSimpleDefault);
+    ~ChooseXSDReportTypeDialog();
 
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
+    bool isSimple();
 private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
+    Ui::ChooseXSDReportTypeDialog *ui;
 };
 
-#endif // CONFIGVALIDATION_H
+#endif // CHOOSEXSDREPORTTYPEDIALOG_H

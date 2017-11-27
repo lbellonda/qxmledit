@@ -191,6 +191,11 @@ void XSchemaSimpleContentRestriction::reset()
     XSchemaSimpleContent::reset();
 }
 
+void XSchemaSimpleContentRestriction::addEnumsToListIfAny(QStringList &enums)
+{
+    _facets.addEnumsToList(enums);
+}
+
 bool XSchemaSimpleContentRestriction::generateDom(QDomDocument &document, QDomNode &parent)
 {
     QDomElement element = parent.toElement();

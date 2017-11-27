@@ -33,6 +33,7 @@
 #include "xsdeditor/xsdgraphicsconfiguration.h"
 #include "xsdeditor/xsdbackgroundconfig.h"
 #include "qxmleditdata.h"
+#include <QAbstractTextDocumentLayout>
 
 namespace Ui
 {
@@ -135,6 +136,8 @@ public:
     ~RChildren();
 
     void reset();
+    void showChildLine();
+    void suppressChildLine();
 
     int childrenSize();
     RChild* childAt(const int index);
@@ -268,6 +271,9 @@ public:
     void newChildPosition(QGraphicsItem *newChild);
     virtual QGraphicsItem *graphicItem() = 0;
     virtual XSchemaObject *item() = 0;
+    virtual QString itemLabelForChart() = 0 ;
+    virtual QColor itemColorForChart();
+    QColor itemColorForGroupsForChart();
     RChild *chain();
     QList<XSchemaObject*> childrenSource();
     void setChain(RChild* newChain);
@@ -327,6 +333,8 @@ public:
     {
         return "RootItem";
     }
+
+    virtual QString itemLabelForChart();
 
 private slots:
     void objectDeleted(XSchemaObject* child);
@@ -417,6 +425,8 @@ public:
     }
     virtual qreal offsetHeight();
     virtual qreal marginBottom();
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 
 private slots:
     void objectDeleted(XSchemaObject* child);
@@ -464,6 +474,8 @@ public:
     {
         return "AttributeItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 
 };
 
@@ -519,6 +531,9 @@ public:
     {
         return "ElementItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
+
 };
 
 class ChoiceItem : public XSDItem
@@ -562,6 +577,9 @@ public:
     {
         return "ChoiceItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
+
 };
 
 class SequenceItem : public XSDItem
@@ -605,6 +623,9 @@ public:
     {
         return "SequenceItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
+
 
 };
 
@@ -646,7 +667,8 @@ public:
     {
         return "RestrictionItem";
     }
-
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class UnionItem : public XSDItem
@@ -684,7 +706,8 @@ public:
     {
         return "UnionItem";
     }
-
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class ListItem : public XSDItem
@@ -722,6 +745,8 @@ public:
     {
         return "ListItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class GenericItem : public XSDItem
@@ -748,7 +773,6 @@ public:
     GenericItem(XsdGraphicContext *newContext, XSchemaObject *newItem, QGraphicsItem * parent = 0);
     virtual ~GenericItem();
 
-    //XSchemaObject *all() const ;
     void setItem(XSchemaObject *newItem) ;
 
     virtual QGraphicsItem *graphicItem()
@@ -763,7 +787,8 @@ public:
     {
         return "GenericItem";
     }
-
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 
@@ -806,7 +831,8 @@ public:
     {
         return "GroupItem";
     }
-
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class AttributeGroupItem : public XSDItem
@@ -848,7 +874,8 @@ public:
     {
         return "AttributeGroupItem";
     }
-
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class IncludeItem : public XSDItem
@@ -889,7 +916,8 @@ public:
     {
         return "IncludeItem";
     }
-
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class RedefineItem : public XSDItem
@@ -930,6 +958,8 @@ public:
     {
         return "RedefineItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class ImportItem : public XSDItem
@@ -970,7 +1000,8 @@ public:
     {
         return "ImportItem";
     }
-
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class AllItem : public XSDItem
@@ -1011,7 +1042,8 @@ public:
     {
         return "AllItem";
     }
-
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class DerivationItem : public XSDItem
@@ -1039,7 +1071,6 @@ public:
     DerivationItem(XsdGraphicContext *newContext, XSchemaObject *newItem, QGraphicsItem * parent = 0);
     virtual ~DerivationItem();
 
-    //XSchemaObject *all() const ;
     void setItem(XSchemaObject *newItem) ;
 
     virtual QGraphicsItem *graphicItem()
@@ -1054,6 +1085,8 @@ public:
     {
         return "DerivationItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 
@@ -1096,6 +1129,8 @@ public:
     }
 
     void changeGraphics();
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
     virtual QString itemClassName()
     {
         return "OutlineElementItem";
@@ -1128,6 +1163,8 @@ public:
     OutlineSequenceItem(XsdGraphicContext *newContext, XSchemaOutlineSequence *newItem, QGraphicsItem * parent = 0);
     virtual ~OutlineSequenceItem();
 
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
     virtual QGraphicsItem *graphicItem()
     {
         return _graphicsItem ;
@@ -1187,6 +1224,8 @@ public:
     void setItem(XSchemaOutlineChoice *newItem)  ;
     virtual QString iconName();
     virtual QString labelText();
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 
     virtual QString itemClassName()
     {
@@ -1236,6 +1275,8 @@ public:
     {
         return "OutlineAllItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class OutlineGroupItem : public XSDItem
@@ -1280,6 +1321,8 @@ public:
     {
         return "OutlineGroupItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class OutlineAnyItem : public XSDItem
@@ -1324,6 +1367,8 @@ public:
     {
         return "OutlineAnyItem";
     }
+    virtual QString itemLabelForChart();
+    virtual QColor itemColorForChart();
 };
 
 class XSDWindow;
@@ -1353,9 +1398,16 @@ public:
     virtual QString chooseRoot(QWidget *parent, QList<XSchemaElement*> elements) = 0 ;
 };
 
+
 class XSDPrintInfo
 {
 public:
+    static const QString EndSeparator;
+    //---
+    bool debugging;
+    bool singleBoxDebugging;
+    bool error ;
+    bool useLinks;
     QPrinter *printer;
     QPainter *painter;
     QRectF pageBounds;
@@ -1367,13 +1419,181 @@ public:
     int pages;
     int pageBottomMargin;
     int totalPages;
+    bool simple;
+    QString fileName;
+    QString cssTemplate;
+    QHash<QString, QString> mapForTypesLink;
+    bool qtSyntax ;
     XSDPrintInfo();
-    ~XSDPrintInfo();
-    void newPage();
-    void newPageIfNeeded(const qreal requestedSpace);
-    void setPrinter(QPrinter *thePrinter, QPainter *painter, const QRectF &printRect);
+    virtual ~XSDPrintInfo();
+    virtual bool init();
+    virtual void newPage();
+    virtual void newPageIfNeeded(const qreal requestedSpace);
+    void setPrinter(QPrinter *thePrinter, QPainter *painter, const QRectF &printRect, const double baseResolution);
     void printPageNumber(const int pageNumber, const int totalPages);
-    void reset();
+    virtual void reset();
+    virtual void printBox(const QString &htmlText);
+    /**
+     * @brief setSimple simple or complete report
+     * @param value if true the types and elements detail are unrolled into referencing elements, if complete the types are referenced
+     */
+    void setSimple(const bool value);
+    bool isSimple();
+    virtual QString cssFinal();
+    virtual QString tableRowClassForIndex(const int index);
+    virtual QString tableAttributeRowClassForIndex(const int index);
+    virtual QStringList translateCSS(QStringList inputData);
+    QString decode(const QString &inputData);
+    virtual void updatePageHeight(const int heightInPage);
+    virtual bool blockIsValid(QTextBlock block, const int blockIndex);
+    virtual QRectF blockBoundingBox(QAbstractTextDocumentLayout *layout, QTextBlock block, const int blockIndex);
+    virtual void setupDocument(QTextDocument &document);
+    virtual QSizeF documentSize(QTextDocument &document);
+    qreal maxAvailablePageHeight();
+    void debugString(const QString &text);
+    bool checkHeader(const QString &theHtmlText);
+};
+
+class XSDPrintInfoHTML : public XSDPrintInfo
+{
+    QString _text ;
+public:
+    XSDPrintInfoHTML();
+    virtual ~XSDPrintInfoHTML();
+    virtual void printBox(const QString &htmlText);
+    virtual void reset();
+    virtual void newPage();
+    virtual void newPageIfNeeded(const qreal requestedSpace);
+    QString text();
+    void initForHTML(QWidget *aPainter);
+};
+
+class XSDWindow ;
+
+class XSDPrintConfig
+{
+public:
+    enum EImageType {
+        ImageRaster,
+        ImageDotViz
+    };
+    bool diagramImageExternal;
+    EImageType imageType;
+    QString dotVizPath;
+    //--
+    XSDPrintConfig();
+    ~XSDPrintConfig();
+    void init();
+};
+
+class XSDPrint
+{
+    XSDPrintConfig _config;
+    XSDWindow *_window;
+    QXmlEditData *_appData;
+
+    static const int TimeoutDotViz = 40000;
+    static const QString ElementAnchor;
+    static const QString TypeAnchor;
+    static const QString AttributeGroupAnchor;
+    static const QString AttributeAnchor;
+    static const QString GroupAnchor;
+    //--
+    static const QString InnerElementsAnchor;
+    static const QString ReferencesAnchor;
+
+    void calculatePageRect(QPainter *painter, QRectF &destArea);
+    void printIndexStart(QString &text);
+    void printIndexEnd(XSDPrintInfo &xsdPrintInfo, QString &text);
+    bool printSchemaIndexList(XSDPrintInfo &xsdPrintInfo, QString &text, QList<XSchemaObject*> data, const QString &type, const QString &label);
+    void printIndexSchemaAttributeGroups(XSDPrintInfo &xsdPrintInfo, QString &text);
+    void printIndexSchemaAttributes(XSDPrintInfo &xsdPrintInfo, QString &text);
+    void printIndexSchemaGroups(XSDPrintInfo &xsdPrintInfo, QString &text);
+    void printIndexSchemaInnerElements(XSDPrintInfo &xsdPrintInfo, QString &text);
+    void printIndexSchemaTypes(XSDPrintInfo &xsdPrintInfo, QString &text);
+    void printIndexSchemaElements(XSDPrintInfo &xsdPrintInfo, QString &text);
+    void printIndexSchemaIntroduction(XSDPrintInfo &xsdPrintInfo, QString &text);
+    QString nameAttributeGroups();
+    QString nameAttributes();
+    QString nameGroups();
+    QString nameInnerElements();
+    QString nameTypes();
+    QString nameElements();
+    QString nameReferences();
+
+    void printSchemaData(XSDPrintInfo &xsdPrintInfo, const bool isCalculating);
+    void printSchemaElements(XSDPrintInfo &xsdPrintInfo);
+    void printSchemaInnerElements(XSDPrintInfo &xsdPrintInfo);
+    void printSchemaTypes(XSDPrintInfo &xsdPrintInfo);
+    void printSchemaIntroduction(XSDPrintInfo &xsdPrintInfo);
+    void printSchemaIndex(XSDPrintInfo &xsdPrintInfo);
+    void printSchemaGroups(XSDPrintInfo &xsdPrintInfo);
+    void printSchemaAttributes(XSDPrintInfo &xsdPrintInfo);
+    void printSchemaAttributeGroups(XSDPrintInfo &xsdPrintInfo);
+    void printSchemaEnd(XSDPrintInfo &xsdPrintInfo);
+    int printSchemaInfo(XSDPrintInfo &xsdPrintInfo, XSDSchema *schema);
+    void printHeader(XSDPrintInfo &xsdPrintInfo, const QString &headerText, const QString &key);
+    int printSingleElement(XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
+    void addChildrenElements(XSDPrintInfo &xsdPrintInfo, XSchemaOutlineContainer *xElement, QString &elementText);
+    bool addSingleChildrenElements(XSDPrintInfo &xsdPrintInfo, XSchemaOutlineContainer *xElement, QString &text);
+    bool isContainerRecursive(XSchemaOutlineContainer *container);
+    void paintChildContainer(XSDPrintInfo &xsdPrintInfo, XSchemaOutlineContainer *childContainer, QString &text);
+    void printElementChildrenInfo(XSDPrintInfo &xsdPrintInfo, QString &elementText, XSchemaElement *element);
+    int printSingleType(XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
+    int printRedefine(XSDPrintInfo &xsdPrintInfo, XSchemaRedefine *object);
+    int printImport(XSDPrintInfo &xsdPrintInfo, XSchemaImport *object);
+    int printInclude(XSDPrintInfo &xsdPrintInfo, XSchemaInclude *object);
+    int printSingleGroup(XSDPrintInfo &xsdPrintInfo, XSchemaGroup *group);
+    int printSingleAttribute(XSDPrintInfo &xsdPrintInfo, XSchemaAttribute *attribute);
+    int printSingleAttributeGroup(XSDPrintInfo &xsdPrintInfo, XSchemaAttributeGroup *attributeGroup);
+    void printGroupChildrenInfo(XSDPrintInfo &xsdPrintInfo, QString &text, XSchemaGroup *group);
+    QString printAnnotationString(XSchemaObject *object, const QString className = "");
+    QString getAttributesOfElement(XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
+    XSchemaObject *schema() const;
+    XSDScene *scene();
+    QString getSingleTypeInner(XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
+    QString htmlANameForObject(const QString &theType, XSchemaObject *element);
+    QString headerNameForLink(const QString &theType);
+    //-------------------
+    QString followItem(XSDItem *item, const int level);
+    QString indentLine(const int level);
+    QString escapeStringForDot(const QString &input);
+    //-------------------
+    bool createExternalRasterImageForHTML(const QString &fileName);
+    QString imageFileFromHTMLFile(const QString &fileName);
+    QString relativeImageFileFromHTMLFile(const QString &fileName);
+    QString createDotVizCommands();
+    QByteArray createRasterImageForHTML();
+    void initPrintInfoForHTML(XSDPrintInfoHTML &xsdPrintInfo, const bool qtSyntax, const bool isSimple);
+    QString innerGetAsHTML(XSDPrintInfoHTML &xsdPrintInfo, const bool insertImages, const QString &fileName, const bool forceImagesInline);
+    QByteArray createInternalImageForHTML();
+    bool createExternalImageForHTML(const QString &fileName);
+    bool createExternalDotVizImageForHTML(const QString &fileName);
+    QByteArray createInternalDotVizImageForHTML();
+    bool innerCreateExternalDotVizImageForHTML(const QString &fileName);
+    QStringList createDotVizCommandLine(const QString &commandFileName, const QString &imageFileName);
+    QString dotVizPath();
+    QString getAsHTML(const bool qtSyntax, const bool insertImages, const bool isSimple, const bool forceInlineImages);
+    void enterPrintMethod();
+    void exitPrintMethod();
+    void printPDFToFileInternal(const QString &filePath, const bool isSimple);
+public:
+
+#ifdef QXMLEDIT_TEST
+    friend class TestXSDView;
+    friend class TestXSDWindow;
+    XSDPrint();
+#endif
+
+    XSDPrint(XSDWindow *window, QXmlEditData *appData);
+    ~XSDPrint();
+
+    void printPDFToFile(const QString &filePath, const bool isSimple);
+    QString getAsHTML(const bool qtSyntax, const bool insertImages, const bool isSimple);
+    bool saveHTMLToFile(const QString &fileName, const bool isSimple);
+    QXmlEditData *getAppData() const;
+    void setAppData(QXmlEditData *appData);
+    void paintScene(XSDPrintInfo *xsdPrintInfo, QPainter *painter, const QRectF &sourceArea, const QRectF &destArea, const int pageNumber, const int totalPages, const int row, const int column);
 };
 
 class XSDWindow : public QMainWindow, private XSDRootChooseProvider
@@ -1464,7 +1684,10 @@ public:
     XSDItem *root();
     void setChooseProvider(XSDRootChooseProvider *newValue);
     void setOutlineMode(const bool isOutline);
-    void printPDF();
+    void printPDF(const bool isSimple);
+    QString fileName();
+    XSDScene *scene();
+    void restoreSelection(QList<QGraphicsItem*> &itemsToSelect);
 
 protected:
     void changeEvent(QEvent *e);
@@ -1475,9 +1698,6 @@ protected:
     void setupNavigationBaseItems();
     void setNavigationTargetSelection(XSchemaObject *newSelection);
     void setNavSplitterWidgetSizes(const int width0, const int width1);
-    void paintScene(XSDPrintInfo *xsdPrintInfo, QPainter *painter, const QRectF &sourceArea, const QRectF &destArea, const int pageNumber, const int totalPages, const int row, const int column);
-    void calculatePageRect(QPainter *painter, QRectF &destArea);
-    void restoreSelection(QList<QGraphicsItem*> &itemsToSelect);
     bool copyElementActionExecute(XSchemaObject *object);
     bool copyFacetsActionExecute(XSchemaObject *object);
     XSDItem * setZoomObject(XSchemaObject *subject);
@@ -1485,29 +1705,8 @@ protected:
     void setupSplitter();
     void selectLastObject();
     virtual QString chooseRoot(QWidget *parent, QList<XSchemaElement*> elements);
-    void printSchemaData(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const bool isCalculating);
-    void printSchemaElements(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
-    void printSchemaInnerElements(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
-    void printSchemaTypes(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
-
-    void printSchemaIntroduction(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
-    void printSchemaGroups(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
-    void printSchemaAttributes(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
-    void printSchemaAttributeGroups(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
-    void printSchemaEnd(QPainter *painter, XSDPrintInfo &xsdPrintInfo);
-    int printSchemaInfo(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSDSchema *schema);
-
-    void printHeader(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &headerText);
-    int printSingleElement(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
-    int printSingleType(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaElement *element);
-    int printRedefine(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaRedefine *object);
-    int printImport(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaImport *object);
-    int printInclude(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaInclude *object);
-    int printSingleGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaGroup *group);
-    int printSingleAttribute(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaAttribute *attribute);
-    int printSingleAttributeGroup(QPainter *painter, XSDPrintInfo &xsdPrintInfo, XSchemaAttributeGroup *attributeGroup);
-    int printBox(QPainter *painter, XSDPrintInfo &xsdPrintInfo, const QString &htmlText);
-    QString printAnnotationString(XSDPrintInfo &xsdPrintInfo, XSchemaObject *object);
+    bool askIfSimpleReport();
+    XSchemaObject * resolveName(const XReferenceType referenceType, const QString &name);
 
 protected:
     Ui::XSDWindow *ui;
@@ -1517,9 +1716,11 @@ protected:
     QString _stringToLoad;
     XsdGraphicContext _context;
     IXSDController *_controller;
-    QString fileName;
+    QString _fileName;
     XSDBackgroundConfig _backgroundConfig;
     XSDItemContext _itemContext;
+    int currentHistoryPosition;
+    XSDPrint _printManager;
     //-----------------------
 
     bool completeUi();
@@ -1529,7 +1730,6 @@ protected:
     bool setNewSchema(XSDSchema *schema);
     bool showRoot();
     QStack<XSchemaObject*> history;
-    int currentHistoryPosition;
 
     XSDItem *itemData(QGraphicsItem *item);
     XSDItem *getSelectedItem();
@@ -1548,6 +1748,7 @@ protected:
     void deleteAllItems();
     void wheelEvent(QWheelEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    bool exportAsHtml(const QString &fileName, const bool isSimple);
 
 protected slots:
 #ifdef  XSD_EVENTS_HANDLED
@@ -1573,13 +1774,13 @@ protected slots:
 
     void onAddChildAction();
 #endif
-    void on_gotoAction_triggered();
-    void on_copyNameAction_triggered();
-    void on_copyElementAction_triggered();
-    void on_copyFacetsAction_triggered();
+    void xon_gotoAction_triggered();
+    void xon_copyNameAction_triggered();
+    void xon_copyElementAction_triggered();
+    void xon_copyFacetsAction_triggered();
 
     void selectionChanged();
-    void on_loadFromString_triggered();
+    void xon_loadFromString_triggered();
 
     void on_cmdZoomIn_clicked();
     void on_cmdZoomOut_clicked();
@@ -1608,6 +1809,8 @@ protected slots:
     void on_actionConfigureAspect_triggered();
     void onBackgroundConfigurationChanged(XSDGraphicsBackgroundConfiguration * configuration);
     void on_cmdShowDepend_clicked();
+    void on_htmlCmd_clicked();
+    void on_cmdReport_clicked();
 
 protected:
     virtual bool close();

@@ -117,7 +117,7 @@ protected:
     bool compare(Regola *regola, const QString &id, const QString &fileResult);
     bool compare(Element *e1, Element *e2);
     bool readFromFile(const QString &file, QString &result);
-    bool writeToFile(const QString &file, QString &dataString);
+    bool writeToFile(const QString &file, const QString &dataString);
 
     static void dumpTree(QTreeWidget *tree);
     static void dumpItem(const int index, const int level, QTreeWidgetItem *item);
@@ -127,6 +127,7 @@ protected:
 
     bool compareXMLBase(Regola *regola, const QString &step, const QString &fileResult);
     Element *selectAnItem(App &app, QList<int> selectionPath);
+    bool assertEquals(const QString &msg, const QString &expected, const QString &current);
 };
 
 #endif // TESTBASE_H

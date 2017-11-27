@@ -224,6 +224,19 @@ void OutlineElementItem::textChanged()
     }
 }
 
+QString OutlineElementItem::itemLabelForChart()
+{
+    if(NULL != _item) {
+        return QString("%1 %2").arg(_item->name()).arg(_item->occurrencesDescr());
+    }
+    return "element";
+}
+
+QColor OutlineElementItem::itemColorForChart()
+{
+    return QColor::fromRgb(0xE0, 0xE0, 0xE0);
+}
+
 void OutlineElementItem::changeGraphics()
 {
     if(NULL == _item) {
@@ -237,7 +250,6 @@ void OutlineElementItem::changeGraphics()
         _graphicsItem->setColorStart(QColor(255, 255, 255));
     }
 }
-
 
 void OutlineElementItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
 {
@@ -311,6 +323,19 @@ void OutlineSequenceItem::init(XsdGraphicContext * /*newContext*/)
 
     _graphicsItem->setBrush(QBrush(QColor::fromRgb(255, 255, 255)));
     connect(_graphicsItem, SIGNAL(itemChanged(QGraphicsItem::GraphicsItemChange, const QVariant&)), this, SLOT(itemChanged(QGraphicsItem::GraphicsItemChange, const QVariant&)));
+}
+
+QString OutlineSequenceItem::itemLabelForChart()
+{
+    if(NULL != _item) {
+        return QString("E (sequence %1)").arg(_item->description());
+    }
+    return "sequence";
+}
+
+QColor OutlineSequenceItem::itemColorForChart()
+{
+    return itemColorForGroupsForChart();
 }
 
 qreal OutlineSequenceItem::extraSpace()
@@ -454,6 +479,20 @@ QString OutlineChoiceItem::preTooltipString()
     return "Choice";
 }
 
+QString OutlineChoiceItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->description();
+    }
+    return QString("< (choice %1)").arg(name);
+}
+
+QColor OutlineChoiceItem::itemColorForChart()
+{
+    return itemColorForGroupsForChart();
+}
+
 void OutlineChoiceItem::setItem(XSchemaOutlineChoice *newItem)
 {
     bool showInfo = false;
@@ -577,6 +616,16 @@ qreal OutlineAllItem::extraSpace()
 QString OutlineAllItem::preTooltipString()
 {
     return "All";
+}
+
+QString OutlineAllItem::itemLabelForChart()
+{
+    return QString("(all)");
+}
+
+QColor OutlineAllItem::itemColorForChart()
+{
+    return itemColorForGroupsForChart();
 }
 
 void OutlineAllItem::setItem(XSchemaOutlineAll *newItem)
@@ -704,6 +753,20 @@ qreal OutlineGroupItem::extraSpace()
 QString OutlineGroupItem::preTooltipString()
 {
     return "Group";
+}
+
+QString OutlineGroupItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->nameOrReference();
+    }
+    return QString("(group %1)").arg(name);
+}
+
+QColor OutlineGroupItem::itemColorForChart()
+{
+    return itemColorForGroupsForChart();
 }
 
 void OutlineGroupItem::setItem(XSchemaOutlineGroup *newItem)
@@ -835,6 +898,16 @@ QString OutlineAnyItem::preTooltipString()
     return "Any";
 }
 
+QString OutlineAnyItem::itemLabelForChart()
+{
+    return QString("(any)");
+}
+
+QColor OutlineAnyItem::itemColorForChart()
+{
+    return itemColorForGroupsForChart();
+}
+
 void OutlineAnyItem::setItem(XSchemaOutlineAny *newItem)
 {
     bool showInfo = false;
@@ -909,4 +982,3 @@ XSchemaOutlineAny *OutlineAnyItem::any() const
 {
     return _item ;
 }
-

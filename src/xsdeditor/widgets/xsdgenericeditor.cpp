@@ -23,6 +23,7 @@
 #include "ui_xsdgenericeditor.h"
 #include <QFormLayout>
 #include <QLineEdit>
+#include "utils.h"
 
 // This code is experimental TODO
 
@@ -97,7 +98,7 @@ void XSDGenericEditor::setTarget(QObject *newTarget, XDescriptor1 &descriptor)
             //TODO newEdit.setTag(mi);
             if(mi->isstring) {
                 // bidirectional link
-                connect(newEdit, SIGNAL(editTextChanged(const QString &)), this, SLOT(on_field_editTextChanged(const QString &)));
+                connect(newEdit, SIGNAL(editTextChanged(const QString &)), this, SLOT(fieldEditTextChanged(const QString &)));
                 connect(_target, mi->signalName, this, SLOT(textPropertyChanged(const char*)));
             }
             formLayout->addRow(mi->propertyName, newEdit);
@@ -113,7 +114,7 @@ void XSDGenericEditor::setValue( const QString &newValue )
 }
 */
 
-void XSDGenericEditor::on_field_editTextChanged(const QString & text)
+void XSDGenericEditor::fieldEditTextChanged(const QString & text)
 {
     if(_target != NULL) {
         QWidget *widget = qobject_cast<QWidget*>(sender());

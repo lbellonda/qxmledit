@@ -157,6 +157,11 @@ const QString Config::KEY_XSD_TYPEFONTSIZE("xsd/typeFontSize");
 const QString Config::KEY_XSD_TYPEFONTITALIC("xsd/typeFontItalic");
 const QString Config::KEY_XSD_COMPARE_ANNOTATIONS("xsd/compareAnnotations");
 const QString Config::KEY_XSD_DISPLAY_LAYOUT("xsd/display/layout");
+const QString Config::KEY_XSD_REPORT_PDF_EMBEDFONTS("xsd/report/pdf/embedfonts"); // font embedding in pdf report
+const QString Config::KEY_XSD_REPORT_EMBEDIMAGES("xsd/report/html/embedimages");
+const QString Config::KEY_XSD_REPORT_USEGRAPHVIZ("xsd/report/html/usegraphviz");
+const QString Config::KEY_XSD_REPORT_OVERRIDEGRAPHVIZ("xsd/report/html/overridegvpath");
+const QString Config::KEY_XSD_REPORT_PATHGRAPHVIZ("xsd/report/html/pathgraphviz");
 
 // xsd gradients
 const QString Config::KEY_XSD_DIAGRAM_BK_GRADIENTMAINCOLOR("xsd/gradient/mainColor");

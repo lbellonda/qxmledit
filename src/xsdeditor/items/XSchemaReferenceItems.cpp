@@ -185,6 +185,21 @@ void IncludeItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QV
     }
 }
 
+QString IncludeItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        XSchemaInclude* incl = static_cast<XSchemaInclude*>(_item);
+        name = incl->schemaLocation();
+    }
+    return QString("include %1").arg(name) ;
+}
+
+QColor IncludeItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
+
 //------------------------------
 
 
@@ -344,6 +359,21 @@ void RedefineItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const Q
     }
 }
 
+QString RedefineItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        name = _item->description();
+    }
+    return QString("redefine %1").arg(name) ;
+}
+
+QColor RedefineItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
+}
+
+
 //--------------------------------------------------------------------------------------
 
 ImportItem::ImportItem(XsdGraphicContext *newContext, XSchemaObject *newItem, QGraphicsItem * /*parent*/)
@@ -500,6 +530,21 @@ void ImportItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVa
             child->updatePosition();
         }
     }
+}
+
+QString ImportItem::itemLabelForChart()
+{
+    QString name ;
+    if(NULL != _item) {
+        XSchemaImport* incl = static_cast<XSchemaImport*>(_item);
+        name = incl->schemaLocation();
+    }
+    return QString("import %1").arg(name) ;
+}
+
+QColor ImportItem::itemColorForChart()
+{
+    return XSDItem::itemColorForChart();
 }
 
 //------------------------------

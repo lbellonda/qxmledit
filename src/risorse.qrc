@@ -12,6 +12,7 @@
         <file alias="warning">images/dialog-warning.png</file>
         <file alias="error">images/dialog-error.png</file>
         <file alias="info">images/dialog-information.png</file>
+        <file alias="report">images/view-pim-news.png</file>
     </qresource>
     <qresource prefix="/arrows">
         <file>images/go-down.png</file>
@@ -162,6 +163,7 @@
         <file alias="printer">images/printer.png</file>
         <file alias="svg">images/image-svg+xml.png</file>
         <file alias="pdf">images/application-pdf.png</file>
+        <file alias="html">images/text-html.png</file>
     </qresource>
     <qresource prefix="/configuration">
         <file alias="style">images/applications-graphics.png</file>
@@ -252,5 +254,8 @@
     <qresource prefix="/SCXML">
         <file alias="scxmltokens.xml">resources/SCXML/scxmltokens.xml</file>
         <file alias="scxmlStyle">resources/SCXML/SCXMLStyle.xml</file>
+    </qresource>
+    <qresource prefix="/xsd">
+        <file alias="exportcss.css">resources/xsd/exportxss.css</file>
     </qresource>
 </RCC>

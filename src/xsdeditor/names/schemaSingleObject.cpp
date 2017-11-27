@@ -86,6 +86,42 @@ XSchemaObject* XSDSchema::findTopObject(const QString &name, const ESchemaType t
     }
 }
 
+bool XSDSchema::isBaseType(const QString &name, const ESchemaType type)
+{
+    QString objectNamespace;
+    QString prefix;
+    QString localName = name;
+    int colonIndex = name.indexOf(":");
+    if(colonIndex >= 0) {
+        localName = name.mid(colonIndex + 1);
+        prefix = name.left(colonIndex);
+    }
+
+    //--- default namespace handling
+    if(prefix.isEmpty()) {
+        // own schema default namespace, if any
+        objectNamespace = defaultNamespace();
+    } else {
+        // find the real namespace from prefix
+        objectNamespace = infoPool()->mainSchema()->_namespacesByPrefix[prefix];
+        if(objectNamespace.isEmpty()) {
+            return false ;
+        }
+    }
+    /**
+      * note: no namespace equals target namespace empty
+      */
+    if(objectNamespace == _xsdURI) {
+        // look for a predefined type
+        if(SchemaGenericType == type) {
+            if(NULL != baseType(localName)) {
+                return true ;
+            }
+        }
+    }
+    return false;
+}
+
 XSchemaObject* XSDSchema::findReferencedObjectWithNamespace(const QString &findNamespace, const QString &name, const ESchemaType type)
 {
     QList<XSDSchema*> schemas = schemasByNamespace(findNamespace);
@@ -103,6 +139,11 @@ XSchemaObject* XSDSchema::findReferencedObjectWithNamespace(const QString &findN
 XSchemaElement *XSDSchema::topLevelType(const QString &referenceName)
 {
     return (XSchemaElement*) infoPool()->getObject(referenceName, SchemaGenericType);
+}
+
+bool XSDSchema::isBaseType(const QString &referenceName)
+{
+    return infoPool()->isBaseType(referenceName, SchemaGenericType);
 }
 
 XSchemaElement *XSDSchema::topLevelElement(const QString &referenceName)

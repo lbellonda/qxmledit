@@ -3,7 +3,11 @@
     Not all the available cpu are used in data view.
     New command for close all items recursively with new shortcut.
     Attribute statistics now handle size greater than 2GB.
+    New report in HTML and new PDF structure for XSD documentation.
     Handled run time errors in the fragments split thread.
+    Fixed some alignment in XSD diagram layout.
+    Improved reports for XSD.
+    Option to generate XSD diagrams using GraphViz if available.
 
 0.9.8
     Outline mode for XSD view.

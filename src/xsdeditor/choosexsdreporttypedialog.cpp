@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2017 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,40 +20,35 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
+#include "choosexsdreporttypedialog.h"
+#include "ui_choosexsdreporttypedialog.h"
 
-namespace Ui
+ChooseXSDReportTypeDialog::ChooseXSDReportTypeDialog(QWidget *parent, const bool isSimpleDefault) :
+    QDialog(parent),
+    ui(new Ui::ChooseXSDReportTypeDialog)
 {
-class ConfigValidation;
+    _selectionAsSimple = isSimpleDefault ? true : false;
+    ui->setupUi(this);
+    if(isSimpleDefault) {
+        ui->optSimple->setChecked(true);
+    } else {
+        ui->optComplete->setChecked(true);
+    }
 }
 
-class ConfigValidation : public QWidget
+ChooseXSDReportTypeDialog::~ChooseXSDReportTypeDialog()
 {
-    Q_OBJECT
+    delete ui;
+}
 
-    ApplicationData* _data;
+bool ChooseXSDReportTypeDialog::isSimple()
+{
+    return _selectionAsSimple;
+}
 
-public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
-
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
-private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-};
-
-#endif // CONFIGVALIDATION_H
+void ChooseXSDReportTypeDialog::accept()
+{
+    _selectionAsSimple = ui->optSimple->isChecked();
+    QDialog::accept();
+}

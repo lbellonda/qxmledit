@@ -23,6 +23,9 @@
 
 #include "testxsdview.h"
 #include "helpers/comparexsdwithxml.h"
+#include "testhelpers/xsd/testxsdprintinfo.h"
+#include "xsdeditor/xsdwindow.h"
+#include "modules/services/systemservices.h"
 
 TestXSDView::TestXSDView()
 {
@@ -490,7 +493,6 @@ static TestXSDViewOutline testDataOutlines []  = {
     {"allElements", "allelements.xsd", "allelements.ref"},
     // restriction
     // extension
-
     // type ref complex
     {NULL, NULL, NULL}
 };
@@ -515,8 +517,382 @@ bool TestXSDView::testOutline()
 bool TestXSDView::testFast()
 {
     _testName = "testFast";
-    //return testBaseElement();
-    return testComplexExtension();
-    //return testOutline();
-    //return testExtension();
+    return testImagesExtInt();
 }
+
+bool TestXSDView::testPrintPagination()
+{
+    _testName = "testPrintPagination";
+    TestXSDPrintInfo info;
+    if(!info.testAll()) {
+        return error(QString("step:%1 cause:%2").arg(info.stepName).arg(info.errorMessage));
+    }
+    return true;
+}
+
+bool TestXSDView::testPrintCheckHTML()
+{
+    _testName = "testPrintCheckHTML";
+    {
+        XSDPrintInfo info;
+        QString strHeader("<html>");
+        if(info.checkHeader(strHeader)) {
+            return error(QString("1: expected false"));
+        }
+    }
+    {
+        XSDPrintInfo info;
+        QString strHeader("<body>");
+        if(info.checkHeader(strHeader)) {
+            return error(QString("2: expected false"));
+        }
+    }
+    {
+        XSDPrintInfo info;
+        QString strHeader("</body>");
+        if(info.checkHeader(strHeader)) {
+            return error(QString("3: expected false"));
+        }
+    }
+    {
+        XSDPrintInfo info;
+        QString strHeader("</html>");
+        if(info.checkHeader(strHeader)) {
+            return error(QString("4: expected false"));
+        }
+    }
+    {
+        XSDPrintInfo info;
+        QString strHeader("<html><body></body></html>");
+        if(info.checkHeader(strHeader)) {
+            return error(QString("5: expected false"));
+        }
+    }
+    {
+        XSDPrintInfo info;
+        QString strHeader("<httml><btody></bgody></hthml>");
+        if(!info.checkHeader(strHeader)) {
+            return error(QString("6: expected true"));
+        }
+    }
+    return true;
+}
+
+#define FILE_REPORT_INPUT    "../test/data/xsd/view/report.xsd"
+#define FILE_REPORT_HTML    "../test/data/xsd/view/report.html"
+
+QString TestXSDView::cleanAttribute(const QString &html, const QString& searchTerm, bool &isChanged)
+{
+    const int indexStart = html.indexOf(searchTerm);
+    if(indexStart <= 0 ) {
+        return html ;
+    }
+    const int firstCommaIndex = html.indexOf("'", indexStart+searchTerm.length() );
+    if(firstCommaIndex <= 0 ) {
+        return html ;
+    }
+    const int lastCommaIndex = html.indexOf("'", firstCommaIndex+1 );
+    if(lastCommaIndex <= 0 ) {
+        return html;
+    }
+    isChanged = true ;
+    QString result = html.left(indexStart);
+    result += html.mid(lastCommaIndex+1);
+    return result ;
+}
+
+QString TestXSDView::cleanComment(const QString &text, const QString& commentStart, const QString& commentEnd)
+{
+    const int posRemStart = text.indexOf(commentStart);
+    const int posRemEnd = text.indexOf(commentEnd, posRemStart+1);
+    if( ( posRemStart < 0 ) || (posRemEnd < 0 ) || (posRemStart >= posRemEnd) ) {
+        QString msg = QString("Unable to find rem: %3 %4 %1 %2")
+                     .arg(posRemStart).arg(posRemEnd)
+                     .arg(commentStart).arg(commentEnd);
+        error(msg);
+        return "";
+    }
+    QString result = text.left(posRemStart);
+    result += text.right(text.length()-posRemEnd-QString(commentEnd).length());
+    return result;
+}
+
+bool TestXSDView::cleanHTML(const QString &html, QString &result)
+{
+    const int firstBody = html.indexOf("<body>");
+    const int lastBody = html.indexOf("</body>");
+    if( ( firstBody < 0 ) || (lastBody < 0 ) || (firstBody >= lastBody) ) {
+        return error(QString("Unable to find body: %1 %2").arg(firstBody).arg(lastBody));
+    }
+    const QString strBody = html.mid(firstBody, lastBody-firstBody+7);
+    const QString ImgIntro = "<img class='diagramImage' src='data:image/png;base64,";
+    const int imageIndex = strBody.indexOf(ImgIntro);
+    if(imageIndex <= 0 ) {
+        return error(QString("Unable to find image index"));
+    }
+    const int lastImageIndex = strBody.indexOf("'", imageIndex+ImgIntro.length() );
+    if(lastImageIndex <= 0 ) {
+        return error(QString("Unable to find final image index"));
+    }
+    QString cdt = strBody.left(imageIndex);
+    cdt += strBody.mid(lastImageIndex, strBody.length()-lastImageIndex);
+    //
+    cdt = cleanComment(cdt, "<!--PS0-->", "<!--PE0-->");
+    if(isError()) {
+        return false;
+    }
+    cdt = cleanComment(cdt, "<!--PS1-->", "<!--PE1-->");
+    if(isError()) {
+        return false;
+    }
+    // normalize
+    result = result.replace("\r\n", "\n");
+    bool isChanged = false;
+    int index = 0 ;
+    do {
+        index ++ ;
+        isChanged = false ;
+        result = cleanAttribute(result, "<a name=", isChanged);
+        result = cleanAttribute(result, "<a href=", isChanged);
+        //printf("loop:%d %d\n", index, isChanged);
+    } while(isChanged && (index < 10000));
+    return true;
+}
+
+bool TestXSDView::loadAndComparePrint(const QString &id, const QString &inputFilePath, const QString &fileReference)
+{
+    _subTestName = id ;
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(inputFilePath) ) {
+        return error(QString("unable to load input file: '%1' ").arg(inputFilePath));
+    }
+    TestXSDWindow xsdEditor(app.data(), app.mainWindow()) ;
+    if(!openXsdViewerOutlineMode(app.mainWindow(), &xsdEditor)) {
+        return false;
+    }
+    Config::saveBool(Config::KEY_XSD_REPORT_USEGRAPHVIZ, false);
+    Config::saveBool(Config::KEY_XSD_REPORT_EMBEDIMAGES, true);
+    xsdEditor.setChooseProvider(new TestCP());
+    // finds the selection
+    QString html = xsdEditor.getAsHTML(false);
+    QString candidate ;
+    if(!cleanHTML(html, candidate)) {
+        return false;
+    }
+
+    // compare candidate and reference
+    QString referenceOrig ;
+    if(!readFromFile(fileReference, referenceOrig)) {
+        return error(QString("Unable to read reference: %1").arg(fileReference));
+    }
+    QString reference ;
+    if(!cleanHTML(referenceOrig, reference)) {
+        return false;
+    }
+    // normalize cr
+    reference = reference.replace("\r\n", "\n");
+    if( candidate != reference ) {
+        QString msg = "Candidate differs:  ";
+        msg += "\n\n";
+        msg += QString("Candidate is:\n")+ candidate;
+        msg += "\n\n";
+        msg += QString("Reference is:\n")+reference;
+        msg += "\n\n";
+        //writeToFile("/tmp/1", msg);
+        return error(msg);
+    }
+    return true;
+}
+
+bool TestXSDView::testUnitHTML()
+{
+    _subTestName = "testUnitHTML";
+    XSDPrint xsdPrint;
+    const QString expected = QString(" ")+QString(" ")+QString(" ")+QString(" ") ;
+    const QString result = xsdPrint.indentLine(4);
+    if(!assertEquals("indent", expected, result)) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestXSDView::testUnitPrint()
+{
+    _subTestName = "testUnitPrint";
+    bool isChanged = false ;
+    QString found = cleanAttribute("aaa", "<a href=", isChanged);
+    if(isChanged) {
+        return error(QString("Error found on:%1").arg(found));
+    }
+    found = cleanAttribute("xxx<a href='cccc'>d</a><a href='ddd'>bb</a>", "<a href=", isChanged);
+    if(!isChanged) {
+        return error(QString("Error not found on:%1").arg(found));
+    }
+    if( found != "xxx>d</a><a href='ddd'>bb</a>") {
+        return error(QString("Error not equal on:%1").arg(found));
+    }
+    found = cleanAttribute(found, "<a href=", isChanged);
+    if(!isChanged) {
+        return error(QString("Error not found 2 on:%1").arg(found));
+    }
+    if( found != "xxx>d</a>>bb</a>") {
+        return error(QString("Error not equal 2 on:%1").arg(found));
+    }
+    return true;
+}
+
+bool TestXSDView::testPrintHTML()
+{
+    _testName = "testPrintHTML";
+    if(!testUnitPrint()) {
+        return false;
+    }
+    if(!testUnitHTML()) {
+        return false;
+    }
+    if(!loadAndComparePrint("html1", FILE_REPORT_INPUT, FILE_REPORT_HTML)) {
+        return false;
+    }
+    if(!testArgsDotViz()) {
+        return false;
+    }
+    if(!testPathDotViz()) {
+        return false;
+    }
+    if(!testImagesExtInt()) {
+        return false;
+    }
+
+    return true ;
+}
+
+bool TestXSDView::testPrint()
+{
+    _testName = "testPrint";
+    if(!testPrintPagination()) {
+        return false;
+    }
+    if(!testPrintCheckHTML()) {
+        return false;
+    }
+    if(!testPrintHTML()) {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDView::testArgsDotViz()
+{
+    _testName = "testArgsDotViz";
+    App app;
+    if(!app.init()) {
+        return error("init app");
+    }
+    XSDWindow wnd(app.data());
+    XSDPrint print(&wnd, app.data());
+    QStringList expectedArgs;
+    expectedArgs << "-Tpng" << "f1" << "-o" << "f2";
+    QStringList args = print.createDotVizCommandLine("f1", "f2");
+    if(!compareStringList("dotviz command line failed", expectedArgs, args)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDView::checkSettingsAndExpected(App &app, const QString &msg, const bool useDefault, const QString &path, const QString &expectedPath)
+{
+    Config::saveBool(Config::KEY_XSD_REPORT_OVERRIDEGRAPHVIZ, useDefault);
+    Config::saveString(Config::KEY_XSD_REPORT_PATHGRAPHVIZ, path);
+    XSDWindow wnd(app.data());
+    XSDPrint print(&wnd, app.data());
+    const QString result = print.dotVizPath();
+    return assertEquals(msg, expectedPath, result);
+}
+
+bool TestXSDView::testPathDotViz()
+{
+    _testName = "testPathDotViz";
+    QString defaultPath("dot");
+    if(SystemServices::isWindows()) {
+        defaultPath ="dot.exe";
+    }
+    // this one needed for config
+    App app;
+    if(!app.init()) {
+        return error("init app");
+    }
+    if(!checkSettingsAndExpected(app, "1", true, "", defaultPath)) {
+        return false;
+    }
+    if(!checkSettingsAndExpected(app, "2", true, "ZZZZ", "ZZZZ")) {
+        return false;
+    }
+    if(!checkSettingsAndExpected(app, "3", false, "ppp", defaultPath)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDView::testImagesExtInt()
+{
+    _testName = "testImagesExtInt" ;
+    const QString inputFilePath(FILE_REPORT_INPUT);
+    App app;
+    if(!app.init() ) {
+        return error("init app failed");
+    }
+    if( !app.mainWindow()->loadFile(inputFilePath) ) {
+        return error(QString("unable to load input file: '%1' ").arg(inputFilePath));
+    }
+    if(!testForImage("E0", app, false, false)) {
+        return false;
+    }
+    if(!testForImage("E1", app, false, true)) {
+        return false;
+    }
+    if(!testForImage("I0", app, true, false)) {
+        return false;
+    }
+    if(!testForImage("I1", app, true, true)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDView::testForImage(const QString &id, App &app, const bool isEmbedded, const bool isDotViz)
+{
+    _subTestName = "testImagesExtInt" ;
+    Config::saveBool(Config::KEY_XSD_REPORT_USEGRAPHVIZ, isDotViz);
+    Config::saveBool(Config::KEY_XSD_REPORT_EMBEDIMAGES, isEmbedded);
+    TestXSDWindow xsdEditor(app.data(), app.mainWindow()) ;
+    if(!openXsdViewerOutlineMode(app.mainWindow(), &xsdEditor)) {
+        return false;
+    }
+    xsdEditor.setChooseProvider(new TestCP());
+    QString html = xsdEditor.getAsHTML(false);
+    const QString toSearch("<img class='diagramImage' src='data:image/png;base64,");
+    if(isEmbedded) {
+        if(html.indexOf(toSearch)<=0) {
+            return error(QString("%1 not found embedded image").arg(id));
+        }
+    } else {
+        if(html.indexOf(toSearch)>=0) {
+            return error(QString("%1 found embedded image").arg(id));
+        }
+        const QString toSearch2("<img class='diagramImage' src='");
+        if(html.indexOf(toSearch2)<0) {
+            return error(QString("%1 not found image").arg(id));
+        }
+    }
+    return true ;
+}
+
+/*
+void TestXSDView::debugFile(const QString &data)
+{
+    writeToFile("/tmp/1", data);
+}
+*/

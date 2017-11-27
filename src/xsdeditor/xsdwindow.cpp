@@ -25,9 +25,13 @@
 #include "qxmleditconfig.h"
 #include "xsdeditor/widgets/xsdgenericeditor.h"
 #include "xsdeditor/choosexsdviewrootitemdialog.h"
+#include "modules/services/anotifier.h"
 #include <QSvgGenerator>
 #include <QApplication>
 #include <QWheelEvent>
+#include "xsdreport.h"
+#include "choosexsdreporttypedialog.h"
+#include "xmlutils.h"
 
 
 #ifdef  QML
@@ -141,7 +145,8 @@ XSDWindow::XSDWindow(QXmlEditData *appData, QWidget *parent) :
     _controller(NULL),
     _backgroundConfig(this),
     _itemContext(appData),
-    currentHistoryPosition(-1)
+    currentHistoryPosition(-1),
+    _printManager(this, appData)
 {
     _xsdRootChooseProvider = this ;
     _chooseProviderSet = false ;
@@ -158,7 +163,7 @@ XSDWindow::XSDWindow(QXmlEditData *appData, QWidget *parent) :
 
     ui->setupUi(this);
     if(!completeUi()) {
-        Utils::error(tr("Error opening XSD viewer."));
+        Utils::error(parent, tr("Error opening XSD viewer."));
         this->close();
         return ;
     }
@@ -224,13 +229,13 @@ QAction *XSDWindow::getCopyFacetsAction()
 void XSDWindow::loadString(const QString &inputData)
 {
     _stringToLoad = inputData ;
-    QTimer::singleShot(1, this, SLOT(on_loadFromString_triggered()));
+    QTimer::singleShot(1, this, SLOT(xon_loadFromString_triggered()));
 }
 
 void XSDWindow::loadStringImmediate(const QString &inputData)
 {
     _stringToLoad = inputData ;
-    on_loadFromString_triggered();
+    xon_loadFromString_triggered();
 }
 
 void XSDWindow::setTitle(const QString &newTitle)
@@ -246,7 +251,7 @@ void XSDWindow::setSelectedObjectKey(const QString &theSelectedElementKey)
 
 void XSDWindow::setFileName(const QString &newFileName)
 {
-    fileName = newFileName;
+    _fileName = newFileName;
 }
 
 void XSDWindow::addEditors()
@@ -391,10 +396,10 @@ bool XSDWindow::completeUi()
     connect(deleteAction, SIGNAL(triggered()), this, SLOT(on_deleteAction_triggered()));*/
 
 #endif
-    connect(_gotoAction, SIGNAL(triggered()), this, SLOT(on_gotoAction_triggered()));
-    connect(_copyNameAction, SIGNAL(triggered()), this, SLOT(on_copyNameAction_triggered()));
-    connect(_copyElementAction, SIGNAL(triggered()), this, SLOT(on_copyElementAction_triggered()));
-    connect(_copyFacetsAction, SIGNAL(triggered()), this, SLOT(on_copyFacetsAction_triggered()));
+    connect(_gotoAction, SIGNAL(triggered()), this, SLOT(xon_gotoAction_triggered()));
+    connect(_copyNameAction, SIGNAL(triggered()), this, SLOT(xon_copyNameAction_triggered()));
+    connect(_copyElementAction, SIGNAL(triggered()), this, SLOT(xon_copyElementAction_triggered()));
+    connect(_copyFacetsAction, SIGNAL(triggered()), this, SLOT(xon_copyFacetsAction_triggered()));
     //-------- editors ----
     addEditors();
 
@@ -465,13 +470,13 @@ bool XSDWindow::showRoot()
                 if(elements.size() == 1) {
                     chosenRoot = elements.first()->name();
                 } else if(elements.isEmpty()) {
-                    Utils::error(this, tr("QXmlEdit is unable to find a candidate for the root element."));
+                    Utils::error(this, tr("%1 is unable to find a candidate for the root element.").arg(APPLICATION_NAME));
                 } else {
                     foreach(XSchemaObject *obj, elements) {
                         topLevelElements.append((XSchemaElement*)obj);
                     }
                     if(topLevelElements.isEmpty()) {
-                        Utils::error(this, tr("QXmlEdit is unable to find a candidate for the root element."));
+                        Utils::error(this, tr("%1 is unable to find a candidate for the root element.").arg(APPLICATION_NAME));
                     }
                     chosenRoot = _xsdRootChooseProvider->chooseRoot(this, topLevelElements);
                 }
@@ -918,7 +923,7 @@ bool XSDWindow::checkNullObject(XSchemaObject *object)
 }
 
 
-void XSDWindow::on_gotoAction_triggered()
+void XSDWindow::xon_gotoAction_triggered()
 {
     XSchemaObject *object = getSelectedSchemaObject();
     if(!checkNullObject(object)) {
@@ -926,26 +931,13 @@ void XSDWindow::on_gotoAction_triggered()
     }
     QString referenceName = object->referencedObjectName();
     XReferenceType referenceType = object->referencedObjectType();
-    XSchemaObject *target = NULL;
-    Utils::TODO_NEXT_RELEASE("handle namespaces in a better way");
-    int indexOfColon = referenceName.indexOf(":");
-    if(indexOfColon >= 0) {
-        referenceName = referenceName.mid(indexOfColon + 1);
-    }
-
-    switch(referenceType) {
-    default:
-        // do nothing here
-        break;
-    case XRT_ELEMENT:
-        target = _context.rootItem()->schema()->topLevelElement(referenceName);
-        break;
-    case XRT_TYPE:
-        target = _context.rootItem()->schema()->topLevelType(referenceName);
-        break;
-    case XRT_ATTRIBUTE:
-        target = _context.rootItem()->schema()->topLevelAttribute(referenceName);
-        break;
+    XSchemaObject *target = resolveName(referenceType, referenceName);
+    if(NULL == target) {
+        // emergency test
+        QString name;
+        QString prefix;
+        XmlUtils::decodeQualifiedName(referenceName, prefix, name);
+        target = resolveName(referenceType, name);
     }
     if(NULL == target) {
         Utils::error(this, tr("Error finding the referenced element."));
@@ -954,7 +946,27 @@ void XSDWindow::on_gotoAction_triggered()
     jumpToObject(target);
 }
 
-void XSDWindow::on_copyNameAction_triggered()
+XSchemaObject * XSDWindow::resolveName(const XReferenceType referenceType, const QString &name)
+{
+    XSchemaObject *target = NULL ;
+    switch(referenceType) {
+    default:
+        // do nothing here
+        break;
+    case XRT_ELEMENT:
+        target = _context.rootItem()->schema()->topLevelElement(name);
+        break;
+    case XRT_TYPE:
+        target = _context.rootItem()->schema()->topLevelType(name);
+        break;
+    case XRT_ATTRIBUTE:
+        target = _context.rootItem()->schema()->topLevelAttribute(name);
+        break;
+    }
+    return target ;
+}
+
+void XSDWindow::xon_copyNameAction_triggered()
 {
     XSchemaObject *object = getSelectedSchemaObject();
     if(!checkNullObject(object)) {
@@ -970,7 +982,7 @@ void XSDWindow::on_copyNameAction_triggered()
     clipBoard->setText(objectName);
 }
 
-void XSDWindow::on_copyElementAction_triggered()
+void XSDWindow::xon_copyElementAction_triggered()
 {
     XSchemaObject *object = getSelectedSchemaObject();
     copyElementActionExecute(object);
@@ -1001,7 +1013,7 @@ bool XSDWindow::copyFacetsActionExecute(XSchemaObject *object)
     }
     return false;
 }
-void XSDWindow::on_copyFacetsAction_triggered()
+void XSDWindow::xon_copyFacetsAction_triggered()
 {
     XSchemaObject *object = getSelectedSchemaObject();
     copyFacetsActionExecute(object);
@@ -1038,14 +1050,14 @@ void XSDWindow::closeEvent(QCloseEvent *event)
     QMainWindow::closeEvent(event);
 }
 
-void XSDWindow::on_loadFromString_triggered()
+void XSDWindow::xon_loadFromString_triggered()
 {
     try {
         _isInError = true;
         if(newSchema()) {
-            QString folder = fileName;
-            if(!fileName.isEmpty()) {
-                QFileInfo info(fileName);
+            QString folder = _fileName;
+            if(!_fileName.isEmpty()) {
+                QFileInfo info(_fileName);
                 if(!info.isDir()) {
                     folder = info.absoluteDir().absolutePath();
                 }
@@ -1063,12 +1075,12 @@ void XSDWindow::on_loadFromString_triggered()
             }
             _isInError = false;
         } else {
-            Utils::error(tr("No root item"));
+            Utils::error(this, tr("No root item"));
         }
     } catch(XsdException *ex) {
-        Utils::error(tr("Error loading schema.\n%1").arg(ex->cause()));
+        Utils::error(this, tr("Error loading schema.\n%1").arg(ex->cause()));
     } catch(...) {
-        Utils::error(tr("Unknown exception."));
+        Utils::error(this, tr("Unknown exception."));
     }
 }
 
@@ -1247,14 +1259,14 @@ void XSDWindow::jumpToObject(XSchemaObject *target)
 //TODO: error checking
 void XSDWindow::on_printCmd_clicked()
 {
-    printPDF();
+    printPDF(askIfSimpleReport());
 }
 
 //TODO: error checking
 void XSDWindow::on_svgCmd_clicked()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Export as SVG"),
-                       Utils::changeFileType(fileName, ".svg"),
+                       Utils::changeFileType(_fileName, ".svg"),
                        tr("SVG images (*.svg);;All files (*)"));
 
     if(filePath.isEmpty()) {
@@ -1274,13 +1286,34 @@ void XSDWindow::on_svgCmd_clicked()
         QBrush oldBrush = _scene->backgroundBrush();
         setUpdatesEnabled(false);
         _scene->setBackgroundBrush(solidBrush);
-        paintScene(NULL, &painter, QRectF(), QRectF(), 0, 0, 0, 0);
+        _printManager.paintScene(NULL, &painter, QRectF(), QRectF(), 0, 0, 0, 0);
         _scene->setBackgroundBrush(oldBrush);
         setUpdatesEnabled(true);
     }
     setWindowTitle(_title);
     Utils::message(this, tr("Diagram exported in SVG format."));
 
+}
+
+//TODO: error checking
+void XSDWindow::on_htmlCmd_clicked()
+{
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Export as HTML"),
+                       Utils::changeFileType(_fileName, ".html"),
+                       tr("HTML documents (*.html *.htm);;All files (*)"));
+
+    if(filePath.isEmpty()) {
+        return ;
+    }
+    if(exportAsHtml(filePath, askIfSimpleReport())) {
+        if(QDesktopServices::openUrl(QUrl::fromLocalFile(filePath))) {
+            _appData->notifier()->notify(NULL, tr("Diagram exported."));
+        } else {
+            Utils::message(this, tr("The diagram was exported in HTML format, but %1 is unable to start the associated application.").arg(APPLICATION_NAME));
+        }
+    } else {
+        Utils::error(this, tr("Unable to export diagram."));
+    }
 }
 
 void XSDWindow::evalObjZoom()
@@ -1363,16 +1396,6 @@ void XSDWindow::restoreSelection(QList<QGraphicsItem*> &itemsToSelect)
     foreach(QGraphicsItem * item, itemsToSelect) {
         item->setSelected(true);
     }
-}
-
-void XSDWindow::calculatePageRect(QPainter *painter, QRectF &destArea)
-{
-    QFontMetrics fm = painter->fontMetrics();
-    QString text = QString(tr("Page %1/%1")).arg(999).arg(999);
-    QRectF measRect = fm.boundingRect(text);
-    int x = destArea.left() + (destArea.width() - measRect.width()) / 2;
-    int y = destArea.bottom() - measRect.height();
-    destArea.setRect(x, y, measRect.width() + measRect.width() / 10, measRect.height());
 }
 
 void XSDWindow::callController()
@@ -1586,4 +1609,50 @@ void XSDWindow::mousePressEvent(QMouseEvent * event)
     if(event->button() == Qt::MiddleButton) {
         on_cmdZoom1_clicked();
     }
+}
+
+void XSDWindow::on_cmdReport_clicked()
+{
+    const QString &report = _printManager.getAsHTML(true, false, askIfSimpleReport());
+    XSDReport reportDialog(this, report);
+    reportDialog.exec();
+}
+
+bool XSDWindow::askIfSimpleReport()
+{
+    ChooseXSDReportTypeDialog dlg(this, false);
+    dlg.exec();
+    return dlg.isSimple();
+}
+
+void XSDWindow::printPDF(const bool isSimple)
+{
+    QString filePath = QFileDialog::getSaveFileName(this, tr("Export as PDF"),
+                       Utils::changeFileType(_fileName, ".pdf"),
+                       tr("PDF documents (*.pdf);;All files (*)"));
+    if(filePath.isEmpty()) {
+        return ;
+    }
+    _printManager.printPDFToFile(filePath, isSimple);
+}
+
+bool XSDWindow::exportAsHtml(const QString &fileName, const bool isSimple)
+{
+    Utils::TODO_THIS_RELEASE("att l'export abilita le updates della finestra nei vari metodi");
+    setEnabled(false);
+    Utils::showWaitCursor();
+    const bool isOK = _printManager.saveHTMLToFile(fileName, isSimple);
+    setEnabled(true);
+    Utils::restoreCursor();
+    return isOK;
+}
+
+QString XSDWindow::fileName()
+{
+    return _fileName ;
+}
+
+XSDScene *XSDWindow::scene()
+{
+    return _scene ;
 }

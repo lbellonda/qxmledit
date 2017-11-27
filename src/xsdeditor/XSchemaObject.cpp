@@ -1149,6 +1149,11 @@ bool XSchemaObject::isAnnotationElement()
 
 bool XSchemaObject::addAttributeToCollection(const QString & name, XSchemaAttributesCollection & attributesCollection, XSchemaAttribute * inputAttribute)
 {
+    return addAttributeToCollection(name, attributesCollection, inputAttribute, inputAttribute);
+}
+
+bool XSchemaObject::addAttributeToCollection(const QString & name, XSchemaAttributesCollection & attributesCollection, XSchemaAttribute * inputAttribute, XSchemaAttribute * originalAttribute)
+{
     if(NULL == inputAttribute) {
         return false;
     }
@@ -1157,7 +1162,7 @@ bool XSchemaObject::addAttributeToCollection(const QString & name, XSchemaAttrib
     if(inputAttribute->hasAReference()) {
         XSchemaAttribute *finalAttribute = _root->schema()->topLevelAttribute(inputAttribute->referencedObjectName());
         if(NULL != finalAttribute) {
-            addAttributeToCollection(finalAttribute->name(), attributesCollection, finalAttribute);
+            addAttributeToCollection(finalAttribute->name(), attributesCollection, finalAttribute, inputAttribute);
         }
         return true ;
     }
@@ -1197,7 +1202,8 @@ bool XSchemaObject::addAttributeToCollection(const QString & name, XSchemaAttrib
         }
     }
     if(NULL != inputAttribute) {
-        attributesCollection.insert(name, inputAttribute, typeName, enums, defaultValue);
+        attributesCollection.insert(name, inputAttribute, typeName, enums, defaultValue,
+                                    (NULL != originalAttribute) ? originalAttribute : inputAttribute);
         return true;
     }
     return false;
@@ -1208,12 +1214,22 @@ bool XSchemaObject::addAttributeGroupToCollection(XSchemaAttributesCollection & 
     if(NULL == inputAttributeGroup) {
         return false;
     }
+
     XSchemaAttributeGroup *finalAttributeGroup = inputAttributeGroup;
     if(inputAttributeGroup->hasAReference()) {
         finalAttributeGroup = _root->schema()->topLevelAttributeGroup(inputAttributeGroup->referencedObjectName());
+        if(attributesCollection.collectGroups) {
+            attributesCollection.insertGroup(finalAttributeGroup->name(), inputAttributeGroup, finalAttributeGroup);
+            return true ;
+        }
         return addAttributeGroupToCollection(attributesCollection, finalAttributeGroup);
     }
     if(NULL != finalAttributeGroup) {
+        if(attributesCollection.collectGroups) {
+            attributesCollection.insertGroup(finalAttributeGroup->name(), inputAttributeGroup, finalAttributeGroup);
+            return true ;
+        }
+
         foreach(XSchemaObject * child, finalAttributeGroup->getChildren()) {
             if(child->getType() == SchemaTypeAttribute) {
                 XSchemaAttribute *aChild = static_cast<XSchemaAttribute*>(child);

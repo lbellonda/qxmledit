@@ -285,6 +285,12 @@ bool XSchemaElement::collectAllAttributesOfBaseTypes(XSchemaInquiryContext &cont
         // we should never go here
         return false;
     case EES_SIMPLETYPE_WITHATTRIBUTES:
+        foreach(XSchemaObject* child, _attributes) {
+            result.append(child);
+        }
+        // collect attributes of the extensions
+        collectAttributesOfSimpleDerived(context, result);
+        break;
     case EES_COMPLEX_DEFINITION: {
         foreach(XSchemaObject* child, _attributes) {
             result.append(child);
@@ -396,6 +402,32 @@ void XSchemaElement::collectAttributesOfComplexDerived(XSchemaInquiryContext & /
                 if((SchemaTypeAttribute == type) || (SchemaTypeAttributeGroup == type)) {
                     result.append(child);
                 }
+            }
+        }
+    }
+}
+
+void XSchemaElement::collectAttributesOfSimpleDerived(XSchemaInquiryContext & /*context*/, QList<XSchemaObject*> &result)
+{
+    XSchemaElement *baseTypeOrElement ;
+    if(!hasAReference()) {
+        baseTypeOrElement = this ;
+    } else {
+        if(isTypeOrElement()) {
+            baseTypeOrElement = getReferencedElement();
+        } else {
+            baseTypeOrElement = getReferencedType();
+        }
+    }
+    foreach(XSchemaObject* child, baseTypeOrElement->_attributes) {
+        result.append(child);
+    }
+    XSchemaSimpleContentExtension *extension = baseTypeOrElement->getSimpleContentExtension();
+    if(NULL != extension) {
+        foreach(XSchemaObject* child, extension->getChildren()) {
+            const ESchemaType type = child->getType();
+            if((SchemaTypeAttribute == type) || (SchemaTypeAttributeGroup == type)) {
+                result.append(child);
             }
         }
     }

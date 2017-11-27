@@ -28,6 +28,7 @@
 #include "xsdeditor/items/xitemsdefinitions.h"
 
 #define QXMLEDIT_LAYOUT_DEBUG(x)
+#define QXMLEDIT_LAYOUT_DEBUG1(x)
 
 qreal XSDItem::placeAllStrategyHorPyramidNew0(XSDItemContext *context)
 {
@@ -172,6 +173,7 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
     }
     QGraphicsLineItem *line = _children.secondLine(this);
     if(NULL != line) {
+        QXMLEDIT_LAYOUT_DEBUG1(line->setPen(QPen(QColor::fromRgb(0, 255, 255))));
         if(_children.children().size() > 1) {
             line->show();
             qreal lastXParent = xPos + bounds.width() ;
@@ -186,7 +188,8 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
     }
     QGraphicsLineItem *secondLine = _children._line;
     if(NULL != secondLine) {
-        if(_children.children().size() > 0) {
+        QXMLEDIT_LAYOUT_DEBUG1(secondLine->setPen(QPen(QColor::fromRgb(0, 128, 0))));
+        if(_children.children().size() > 1) {
             secondLine->show();
             qreal lastXParent = xPos + bounds.width() ;
             qreal posX = lastXParent + (xOffset - lastXParent) / 2 ;
@@ -195,6 +198,18 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
                 yPosLine = yFirstPos ;
             }
             secondLine->setLine(lastXParent, yPosLine, posX, yPosLine);
+            _children.showChildLine();
+            //secondLine->setPen(QPen(QColor::fromRgb(255,255,255)));
+        } else if(_children.children().size() == 1) {
+            secondLine->show();
+            qreal lastXParent = xPos + bounds.width() ;
+            qreal posX = lastXParent + (xOffset - lastXParent) ;
+            qreal yPosLine = yPosThis + bounds.height() / 2 + offsetHeight();
+            if(_children.children().size() == 1) {
+                yPosLine = yFirstPos ;
+            }
+            secondLine->setLine(lastXParent, yPosLine, posX, yPosLine);
+            _children.suppressChildLine();
             //secondLine->setPen(QPen(QColor::fromRgb(255,255,255)));
         } else {
             secondLine->hide();

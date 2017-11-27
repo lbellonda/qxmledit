@@ -27,6 +27,7 @@
 IMPL_QPROPS(XSchemaAttribute, xsdType, setXsdType, PROPERTY_ELEMENT_TYPE)
 IMPL_QPROPS(XSchemaAttribute, defaultValue, setDefaultValue, PROPERTY_ELEMENT_TYPE)
 IMPL_QPROP(XSchemaAttribute::EUse, XSchemaAttribute, use, setUse, PROPERTY_ATTRIBUTE_USE)
+IMPL_QPROPS(XSchemaAttribute, fixed, setFixed, PROPERTY_ELEMENT_TYPE)
 
 XSchemaAttribute::XSchemaAttribute(XSchemaObject *newParent, XSchemaRoot *newRoot)
     : XSchemaObject(newParent, newRoot)
@@ -66,6 +67,16 @@ bool XSchemaAttribute::hasType()
 QString XSchemaAttribute::referencedObjectName()
 {
     return _ref ;
+}
+
+bool XSchemaAttribute::hasDefaultValue()
+{
+    return _defaultValue_used ;
+}
+
+bool XSchemaAttribute::isFixed()
+{
+    return _fixed_used;
 }
 
 XSchemaSimpleTypeRestriction *XSchemaAttribute::getSimpleTypeRestriction()

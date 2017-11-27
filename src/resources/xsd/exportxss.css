@@ -1,0 +1,250 @@
+
+body {
+    background-color: white;
+    font-family:Sans Serif,Helvetica,Arial;
+    font-size: 8pt;
+}
+
+table {
+    font-size: 10pt;
+--HT        border-bottom:1px solid #C0C0C0;
+}
+
+.rowodd {
+    background-color:#d2e3eA;
+}
+
+.roweven {
+    background-color:#F1F2F3;
+}
+
+.rowAttrOdd {
+    background-color:#E0FFE0;
+}
+
+.rowAttrEven {
+    background-color:#F0FFF0;
+}
+
+.singleTypeHeader {
+}
+
+.singleElementHeader {
+}
+
+.nameType {
+    font-size:16pt;
+    font-weight:bold;
+}
+
+.nameElement {
+    font-size:16pt;
+    font-weight:bold;
+}
+
+.typeTypeSimpleLabel {
+    color:#008000;
+    font-style:italic
+}
+
+.typeTypeComplexLabel {
+    color:#800000;
+    font-style:italic
+}
+
+.referenceElement {
+    color:#008080;
+    font-style:italic;
+}
+
+.referenceType {
+    color:#008000;
+    font-style:italic;
+}
+
+.annotationString {
+--HT    margin-left:10em;
+--HQ    margin-left:***em10*px;
+    font-size:small;
+    font-style:italic;
+    color:#0000A0;
+--HT    width:80em;
+--HQ    width:***em80*px;
+}
+
+.annotationStringAttributes {
+    font-size:small;
+    font-style:italic;
+    color:#0000A0;
+}
+
+.ulEnumElement {
+--HT    margin-left:6em;
+--HQ    margin-left:***em6*px;
+}
+
+.ulEnumType {
+--HT    margin-left:6em;
+--HQ    margin-left:***em6*px;
+}
+
+.references {
+}
+
+.group {
+}
+
+.header {
+    background-color:#000000;
+    color:#FFFFFF;
+--HT    padding-left:1em;
+--HT    padding-top:0.1em;
+--HT    padding-bottom:0.1em;
+--HQ    padding:***em1*px;
+}
+
+.headerText {
+    color:#FFFFFF;
+}
+
+.tableContainer {
+--HT    margin-left:10em;
+--HQ    margin-left:***em10*px;
+}
+
+.tableHeader {
+    background-color:#DDD;
+    padding:4px;
+    border:1px solid #D0D0D0;
+}
+
+.divReference {
+}
+
+.attributeName {
+}
+
+.attributeNameDiv {
+}
+
+.attributeGroupName {
+}
+
+.attributeGroupNameDiv {
+}
+
+.attrOfAGDiv {
+--HT    margin-left:3em;
+--HQ    margin-left:***em3*px;
+--HT    margin-right:1em;
+--HQ    margin-right:***em1*px;
+    font-size:small;
+    font-style:italic;
+    color:#000000;
+}
+
+.attrOfAGNames {
+    font-weight:bold;
+}
+
+.agOfAGDiv {
+--HT    margin-left:3em;
+--HQ    margin-left:***em3*px;
+--HT    margin-right:1em;
+--HQ    margin-right:***em1*px;
+    font-size:small;
+    font-style:italic;
+    color:#000000;
+}
+
+.agOfAGNames {
+    font-weight:bold;
+}
+
+.siFile {
+}
+
+.siNS{
+}
+
+.siSep {
+    background-color: blue;
+--HT    font-size:0.5em;
+--HQ    font-size:***em.5*px;
+}
+
+.siCenterBlock {
+--HT    margin-left:4em;
+--HQ    margin-left:***em4*px;
+}
+
+.cellBorder {
+    border-right:1px solid #F0F0F0;
+    border-bottom:1px solid #F0F0F0;
+}
+
+.cellText {
+--HT    padding:.4em;
+--HQ    padding:***em0.4*px;
+}
+
+.cellContainer {
+--HT    padding-left:4em;
+--HQ    padding-left:***em4*px;
+        background-color: white;
+}
+
+.cellAlignTop {
+    vertical-align:top;
+}
+.attrEnumList {
+}
+
+.tableAGroupName {
+    text-align:center;
+}
+
+.tableAGC1 {
+    text-align:center;
+}
+
+.childOccurrences {
+    color: red;
+    font-style:italic;
+    font-size:small;
+}
+
+.entityName {
+    font-weight: bold;
+}
+
+.attrNote {
+    font-style:italic;
+}
+
+.attrData {
+    font-weight:bold;
+}
+
+
+.elementChildIntro {
+    font-style:italic;
+--HT    padding-top: 1em;
+--HQ    padding-top:***em1*px;
+--HT    padding-bottom:0.8em;
+--HQ    padding-bottom:***em0.8*px;
+}
+
+.childContainer {
+font-weight:bold;
+}
+
+.groupName {
+    font-size:16pt;
+    font-weight:bold;
+}
+
+.indexDiv {
+--HT    margin-bottom:4em;
+--HQ    margin-bottom:***em4*px;
+}

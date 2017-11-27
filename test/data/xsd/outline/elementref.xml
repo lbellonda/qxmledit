@@ -1,13 +1,1 @@
-<?xml version='1.0'?>
-<xs:schema elementFormDefault="qualified" targetNamespace="test" xmlns="testtest" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element ref="project">
-        <xs:annotation>
-            <xs:documentation source="version">1.0</xs:documentation>
-        </xs:annotation>
-    </xs:element>
-    <xs:element name="project">
-        <xs:annotation>
-            <xs:documentation source="version">1.0</xs:documentation>
-        </xs:annotation>
-    </xs:element>
-</xs:schema>
+<?xml version='1.0'?><xs:schema elementFormDefault="qualified" targetNamespace="test" xmlns="test" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element ref="project"><xs:annotation><xs:documentation source="version">1.0</xs:documentation></xs:annotation></xs:element><xs:element name="project"><xs:annotation><xs:documentation source="version">1.0</xs:documentation></xs:annotation></xs:element></xs:schema>

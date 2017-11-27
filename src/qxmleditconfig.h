@@ -161,6 +161,11 @@ public:
     static const QString KEY_XSD_TYPEFONTITALIC;
     static const QString KEY_XSD_COMPARE_ANNOTATIONS;
     static const QString KEY_XSD_DISPLAY_LAYOUT;
+    static const QString KEY_XSD_REPORT_PDF_EMBEDFONTS; // font embedding in pdf report
+    static const QString KEY_XSD_REPORT_EMBEDIMAGES;
+    static const QString KEY_XSD_REPORT_USEGRAPHVIZ;
+    static const QString KEY_XSD_REPORT_OVERRIDEGRAPHVIZ;
+    static const QString KEY_XSD_REPORT_PATHGRAPHVIZ;
 
     // xsd gradients
     static const QString KEY_XSD_DIAGRAM_BK_GRADIENTMAINCOLOR;
