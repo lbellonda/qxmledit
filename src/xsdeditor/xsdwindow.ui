@@ -458,9 +458,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="backButton">
+       <widget class="QToolButton" name="backButton">
         <property name="toolTip">
-         <string>back</string>
+         <string>Go Back</string>
         </property>
         <property name="text">
          <string/>
@@ -469,15 +469,12 @@
          <iconset resource="../risorse.qrc">
           <normaloff>:/arrows/images/go-previous.png</normaloff>:/arrows/images/go-previous.png</iconset>
         </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="forwardButton">
+       <widget class="QToolButton" name="forwardButton">
         <property name="toolTip">
-         <string>forward</string>
+         <string>Go Forward</string>
         </property>
         <property name="text">
          <string/>
@@ -486,13 +483,10 @@
          <iconset resource="../risorse.qrc">
           <normaloff>:/arrows/images/go-next.png</normaloff>:/arrows/images/go-next.png</iconset>
         </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cmdZoomIn">
+       <widget class="QToolButton" name="cmdZoomIn">
         <property name="toolTip">
          <string>Zoom in</string>
         </property>
@@ -506,7 +500,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cmdZoomOut">
+       <widget class="QToolButton" name="cmdZoomOut">
         <property name="toolTip">
          <string>Zoom out</string>
         </property>
@@ -520,7 +514,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cmdZoom1">
+       <widget class="QToolButton" name="cmdZoom1">
         <property name="toolTip">
          <string>Normal view</string>
         </property>
@@ -534,7 +528,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cmdObjZoomIn">
+       <widget class="QToolButton" name="cmdObjZoomIn">
         <property name="toolTip">
          <string>Zoom into selected object</string>
         </property>
@@ -548,9 +542,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cmdObjZoomReset">
+       <widget class="QToolButton" name="cmdObjZoomReset">
         <property name="toolTip">
          <string>Reset the object view</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
         <property name="icon">
          <iconset resource="../risorse.qrc">
@@ -559,9 +556,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="cmdObjZoomOut">
+       <widget class="QToolButton" name="cmdObjZoomOut">
         <property name="toolTip">
          <string>Zoom out from  the selected object</string>
+        </property>
+        <property name="text">
+         <string/>
         </property>
         <property name="icon">
          <iconset resource="../risorse.qrc">
@@ -603,9 +603,6 @@
        </spacer>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3"/>
-      </item>
-      <item>
        <widget class="QLabel" name="label_2">
         <property name="font">
          <font>
@@ -619,89 +616,124 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../risorse.qrc">:/xsdimages/choice</pixmap>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="vert1">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../risorse.qrc">:/xsdimages/choice</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Choice</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Choice</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="vert2">
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../risorse.qrc">:/xsdimages/sequence</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Sequence</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../risorse.qrc">:/xsdimages/sequence</pixmap>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="vert3">
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../risorse.qrc">:/xsdimages/attrType</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Type</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Sequence</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="vert4">
+        <item>
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../risorse.qrc">:/xsdimages/attrElement</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Element</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../risorse.qrc">:/xsdimages/attrType</pixmap>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>Type</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_11">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../risorse.qrc">:/xsdimages/attrElement</pixmap>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>Element</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_12">
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap resource="../risorse.qrc">:/xsdimages/attrIcon</pixmap>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>Attribute</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="vert5">
+        <item>
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="../risorse.qrc">:/xsdimages/attrIcon</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Attribute</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <spacer name="horizontalSpacer_2">
@@ -754,12 +786,12 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="cmdReport">
+       <widget class="QToolButton" name="cmdReport">
         <property name="toolTip">
-         <string>Show a report.</string>
+         <string>Show a HTML report.</string>
         </property>
         <property name="text">
-         <string/>
+         <string>Show Report</string>
         </property>
         <property name="icon">
          <iconset resource="../risorse.qrc">
@@ -768,7 +800,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="htmlCmd">
+       <widget class="QToolButton" name="htmlCmd">
         <property name="toolTip">
          <string>Export in HTML format.</string>
         </property>
@@ -779,16 +811,10 @@
          <iconset resource="../risorse.qrc">
           <normaloff>:/devices/html</normaloff>:/devices/html</iconset>
         </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="printCmd">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
+       <widget class="QToolButton" name="printCmd">
         <property name="toolTip">
          <string>Export the diagram in PDF format</string>
         </property>
@@ -802,9 +828,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="svgCmd">
+       <widget class="QToolButton" name="svgCmd">
         <property name="toolTip">
-         <string>Export the diagram as SVG</string>
+         <string>Export the diagram as SVG.</string>
         </property>
         <property name="text">
          <string/>
@@ -814,6 +840,19 @@
           <normaloff>:/devices/svg</normaloff>:/devices/svg</iconset>
         </property>
        </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
       <item>
        <widget class="QPushButton" name="closeButton">
