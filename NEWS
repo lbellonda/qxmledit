@@ -1,4 +1,5 @@
 0.9.9
+    Fixed a problem with namespaces in XPath search.
     Removed GLUT dependency on Linux.
     Not all the available cpu are used in data view.
     New command for close all items recursively with new shortcut.

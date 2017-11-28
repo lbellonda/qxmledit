@@ -50,12 +50,23 @@ void SearchXQuery::search(Regola *regola, Element *element, FindTextParams &sear
     QXmlItem rootItem = model.root(QXmlNodeModelIndex());
     _query.bindVariable("root", rootItem);
 
-
     QMap<QString, QString> nss = regola->namespaces();
-    QString queryString = QString("declare variable $root external;$root%1").arg(searchInfo.getTextToFind());
+    QString queryString ;
+
     foreach(QString ns, nss.keys()) {
-        queryString = QString("declare namespace %1 = \"%2\";%3").arg(ns).arg(nss[ns]).arg(queryString);
+        if(ns.isEmpty()) {
+            queryString += QString("declare default element namespace \"%1\";\n").arg(nss[ns]);
+        }
     }
+
+    foreach(QString ns, nss.keys()) {
+        if(!ns.isEmpty()) {
+            queryString += QString("declare namespace %1 = \"%2\";\n").arg(ns).arg(nss[ns]);
+        }
+    }
+
+    queryString += QString("declare variable $root external;\n$root%1").arg(searchInfo.getTextToFind());
+    //Utils::message(queryString);
     _query.setQuery(queryString);
     if(!_query.isValid()) {
         Utils::error(tr("The syntax of the XPath expression is not valid."));

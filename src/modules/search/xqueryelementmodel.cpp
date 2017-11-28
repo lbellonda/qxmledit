@@ -20,10 +20,9 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "xqueryelementmodel.h"
 #include "utils.h"
-
+#include "xmlutils.h"
 
 #define ZERO_DATA   (0)
 
@@ -36,6 +35,9 @@ XQueryElementModel::XQueryElementModel(Regola *regola, Element *rootElement, QXm
     } else {
         _rootElement = regola->root();
         _hasExplicitRoot = false ;
+    }
+    if(NULL != _regola) {
+        _namespacesbyPrefix = _regola->namespaces();
     }
 }
 
@@ -107,11 +109,19 @@ QXmlName XQueryElementModel::name(const QXmlNodeModelIndex &index) const
         if(element->getType() == Element::ET_ELEMENT) {
             QString tag = element->tag();
             //if( !_names.contains(tag)) {
-            QXmlName name = QXmlName(namePool(), tag);
+            QString prefix, localName;
+
+            XmlUtils::decodeQualifiedName(tag, prefix, localName);
+            if(_namespacesbyPrefix.contains(prefix)) {
+                QXmlName name = QXmlName(namePool(), localName, _namespacesbyPrefix[prefix], prefix);
+                return name;
+            } else {
+                QXmlName name = QXmlName(namePool(), tag);
+                return name ;
+            }
             //    _names.insert(tag, name);
             //}
             //QXmlName name = _names[tag];
-            return name;
         }
     }
     return QXmlName();

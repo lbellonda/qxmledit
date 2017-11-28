@@ -35,6 +35,7 @@ class XQueryElementModel : public QSimpleXmlNodeModel
     bool _hasExplicitRoot;
     Regola          *_regola;
     Element     *_rootElement;
+    QMap<QString, QString> _namespacesbyPrefix ;
 
     QXmlNodeModelIndex getSibling(Element *element, const bool isNext) const ;
     bool indexIsAttribute(const QXmlNodeModelIndex &index)const;
