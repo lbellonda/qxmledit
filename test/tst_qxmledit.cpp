@@ -605,13 +605,21 @@ void TestQXmlEdit::testSearch()
 {
     bool result ;
 
-    TestSearch test1;
-    result = test1.testLiteralSearch();
-    QVERIFY2(result, (QString("test testLiteralSearch: '%1'").arg(test1.errorString())).toLatin1().data());
-
-    TestSearch test2;
-    result = test2.testXQuerySearch();
-    QVERIFY2(result, (QString("test testXQuerySearch: '%1'").arg(test2.errorString())).toLatin1().data());
+    {
+        TestSearch test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test testFast: '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestSearch test1;
+        result = test1.testLiteralSearch();
+        QVERIFY2(result, (QString("test testLiteralSearch: '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestSearch test2;
+        result = test2.testXQuerySearch();
+        QVERIFY2(result, (QString("test testXQuerySearch: '%1'").arg(test2.errorString())).toLatin1().data());
+    }
 }
 
 
@@ -1572,6 +1580,7 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
+    testSearch();
     testXsdView();
     testXsdLoad();
     testSpecialView();

@@ -1,0 +1,23 @@
+<x:a xmlns:x="nsx">
+    <x:b bb="xbb1">
+        <x:c cc="xcc1">
+            <x:d dd="xdd1">
+            1
+            </x:d>
+        </x:c>
+    </x:b>
+    <x:b bb="xbb2">
+        <x:c cc="xcc2">
+            <x:dd dd="xdd2">
+                2
+            </x:dd>
+        </x:c>
+    </x:b>
+    <x:b bb="xbb3">
+        <x:c cc="xcc3">
+            <x:d dd="xdd3">
+                3
+            </x:d>
+        </x:c>
+    </x:b>
+</x:a>

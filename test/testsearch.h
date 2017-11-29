@@ -59,6 +59,14 @@ class TestSearch : public TestBase
     bool xquerySearchTextOnlyCount();
     bool xquerySearchNamespaces();
     //--
+    bool xquerySearchNamespacesTemplate(const QString &testName, const QString &fileName, const QString &searchPattern, const QString &expected);
+    bool testxquerySearchNamespacesNoNS();
+    bool testxquerySearchDefaultNamespace();
+    bool testxquerySearchOneNamespace();
+    bool testxquerySearchDefaultAndOtherNamespace();
+    bool testxquerySearchMultiplesNamespace();
+    bool testxquerySearchDefaultAndMultiplesNamespace();
+    //--
     bool xquerySearchAttributesExactInChildren();
     bool xquerySearchAttributesNotExactInChildren();
     bool xquerySearchElementsExactInChildren();
@@ -95,6 +103,7 @@ public:
     TestSearch();
     ~TestSearch();
 
+    bool testFast();
     bool testXQuerySearch();
     bool testLiteralSearch();
 };

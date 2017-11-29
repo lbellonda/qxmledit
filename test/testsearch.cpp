@@ -32,6 +32,14 @@
 #define FILE_NEXT_INNER  "../test/data/search/next_inner.xml"
 #define FILE_NEXT_COMPLEX  "../test/data/search/next_complex.xml"
 
+#define FILE_SEARCH_BASE "../test/data/search/"
+#define FILE_SEARCH_NONS FILE_SEARCH_BASE "nsno.xml"
+#define FILE_SEARCH_ONENS FILE_SEARCH_BASE "nsone.xml"
+#define FILE_SEARCH_DEFAULTNS FILE_SEARCH_BASE "nsdefault.xml"
+#define FILE_SEARCH_ONEANDDEFAULTNS FILE_SEARCH_BASE "nsoneanddefault.xml"
+#define FILE_SEARCH_MULTIPLE FILE_SEARCH_BASE "nsmultiple.xml"
+#define FILE_SEARCH_MULTIPLE_AND_DEFAULT FILE_SEARCH_BASE "nsmultipleanddefault.xml"
+
 
 TestSearch::TestSearch()
 {
@@ -39,6 +47,11 @@ TestSearch::TestSearch()
 
 TestSearch::~TestSearch()
 {
+}
+
+bool TestSearch::testFast()
+{
+    return xquerySearchNamespaces();
 }
 
 //---------------------------------------------- UTILITIES
@@ -65,6 +78,7 @@ public:
     void search();
     void searchLastPos();
     void setFileToLoad(const QString &newFile);
+    bool selectAnElement(QList<int> &sel);
 };
 
 TestSearchHelper::TestSearchHelper(const bool newIsXQuery)
@@ -115,6 +129,17 @@ void TestSearchHelper::selectPath(QList<int> &sel)
             tree->setCurrentItem(foundElm->getUI());
         }
     }
+}
+
+bool TestSearchHelper::selectAnElement(QList<int> &selList)
+{
+    selectedItem = NULL ;
+    Element *element = app.mainWindow()->getRegola()->findElementByArray(selList);
+    selectedItem = element ;
+    if( NULL == element ) {
+        return false ;
+    }
+    return true ;
 }
 
 void TestSearchHelper::initSearch(const QString &textToSearch)
@@ -744,7 +769,94 @@ bool TestSearch::xquerySearchTextInChildren()
     return checkResults(helper, 1, 1, &expected);
 }
 
-bool TestSearch::xquerySearchNamespaces(){return true;}
+
+bool TestSearch::xquerySearchNamespacesTemplate(const QString &testName, const QString &fileName, const QString &searchPattern, const QString &expectedValue)
+{
+    TestSearchHelper helper(true);
+    helper.fileToLoad = fileName ;
+    if(!testAStdSearchWithParamsInit(testName, helper)) {
+        return error("init failed");
+    }
+    helper.initFind(searchPattern);
+    QList<int> selList;
+    selList << 0 << 1 << 0 << 0 ;
+    if(!helper.selectAnElement(selList) ) {
+       return error("No element");
+    }
+    helper.findArgs.setOnlyChildren(false);
+    helper.search();
+    QStringList expected;
+    expected << expectedValue ;
+    return checkResults(helper, 1, 1, &expected);
+}
+
+bool TestSearch::testxquerySearchNamespacesNoNS()
+{
+    return xquerySearchNamespacesTemplate("xquerySearchNamespaces", FILE_SEARCH_NONS, "//dd[ @dd eq 'xdd2' ]", "dd");
+    /*
+    TestSearchHelper helper(true);
+    helper.fileToLoad = FILE_SEARCH_NONS ;
+    testAStdSearchWithParamsInit("xquerySearchNamespaces", helper);
+    helper.initFind("//dd[ @dd eq 'xdd2' ]");
+    QList<int> selList;
+    selList << 0 << 1 << 0 << 0 ;
+    if(!helper.selectAnElement(selList) ) {
+       return error("No element");
+    }
+    helper.findArgs.setOnlyChildren(false);
+    helper.search();
+    QStringList expected;
+    expected << "dd" ;
+    return checkResults(helper, 1, 1, &expected);*/
+}
+
+bool TestSearch::testxquerySearchDefaultNamespace()
+{
+    return xquerySearchNamespacesTemplate("testxquerySearchDefaultNamespace", FILE_SEARCH_DEFAULTNS, "//dd[ @dd eq 'xdd2' ]", "dd");
+}
+
+bool TestSearch::testxquerySearchOneNamespace()
+{
+    return xquerySearchNamespacesTemplate("testxquerySearchOneNamespace", FILE_SEARCH_ONENS, "//x:dd[ @dd eq 'xdd2' ]", "x:dd");
+}
+
+bool TestSearch::testxquerySearchDefaultAndOtherNamespace()
+{
+    return xquerySearchNamespacesTemplate("testxquerySearchDefaultAndOtherNamespace", FILE_SEARCH_ONEANDDEFAULTNS, "//x:dd[ @dd eq 'xdd2' ]", "x:dd");
+}
+
+bool TestSearch::testxquerySearchMultiplesNamespace()
+{
+    return xquerySearchNamespacesTemplate("testxquerySearchMultiplesNamespace", FILE_SEARCH_MULTIPLE, "//y:dd[ @dd eq 'xdd2' ]", "y:dd");
+}
+
+bool TestSearch::testxquerySearchDefaultAndMultiplesNamespace()
+{
+    return xquerySearchNamespacesTemplate("testxquerySearchDefaultAndMultiplesNamespace", FILE_SEARCH_MULTIPLE_AND_DEFAULT, "//y:dd[ @dd eq 'xdd2' ]", "y:dd");
+}
+
+bool TestSearch::xquerySearchNamespaces()
+{
+    if(!testxquerySearchNamespacesNoNS()) {
+        return false;
+    }
+    if(!testxquerySearchDefaultNamespace()) {
+        return false;
+    }
+    if(!testxquerySearchOneNamespace()) {
+        return false;
+    }
+    if(!testxquerySearchDefaultAndOtherNamespace()) {
+        return false;
+    }
+    if(!testxquerySearchMultiplesNamespace()) {
+        return false;
+    }
+    if(!testxquerySearchDefaultAndMultiplesNamespace()) {
+        return false;
+    }
+    return true ;
+}
 
 //----------------------------------------------
 
