@@ -67,6 +67,15 @@ class TestSearch : public TestBase
     bool testxquerySearchMultiplesNamespace();
     bool testxquerySearchDefaultAndMultiplesNamespace();
     //--
+    bool xquerySearchNamespacesTemplateString(const QString &testName, const QString &fileName, const QString &searchPattern, const QString &expectedValue);
+    bool xquerySearchNamespacesString();
+    bool testxquerySearchNamespacesNoNSString();
+    bool testxquerySearchDefaultNamespaceString();
+    bool testxquerySearchOneNamespaceString();
+    bool testxquerySearchDefaultAndOtherNamespaceString();
+    bool testxquerySearchMultiplesNamespaceString();
+    bool testxquerySearchDefaultAndMultiplesNamespaceString();
+    //--
     bool xquerySearchAttributesExactInChildren();
     bool xquerySearchAttributesNotExactInChildren();
     bool xquerySearchElementsExactInChildren();

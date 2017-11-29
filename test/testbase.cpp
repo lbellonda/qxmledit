@@ -831,7 +831,7 @@ Element *TestBase::selectAnItem(App &app, QList<int> selectionPath)
 bool TestBase::assertEquals(const QString &msg, const QString &expected, const QString &current)
 {
     if(current != expected) {
-        return error(QString("%1: found:'%2', expected:'%3'").arg(msg).arg(current).arg(expected));
+        return error(QString("%1: found:\n'%2'\nexpected:\n'%3'\n").arg(msg).arg(current).arg(expected));
     }
     return true ;
 }

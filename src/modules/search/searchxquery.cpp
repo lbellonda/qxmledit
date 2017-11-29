@@ -39,17 +39,8 @@ SearchXQuery::~SearchXQuery()
 {
 }
 
-void SearchXQuery::search(Regola *regola, Element *element, FindTextParams &searchInfo)
+QString SearchXQuery::composeQueryString(Regola *regola, FindTextParams &searchInfo)
 {
-    QXmlResultItems result;
-    Element *rootElement = element;
-    if(!searchInfo.isLookOnlyChildren()) {
-        rootElement = NULL ;
-    }
-    XQueryElementModel model(regola, rootElement, _namePool);
-    QXmlItem rootItem = model.root(QXmlNodeModelIndex());
-    _query.bindVariable("root", rootItem);
-
     QMap<QString, QString> nss = regola->namespaces();
     QString queryString ;
 
@@ -66,6 +57,23 @@ void SearchXQuery::search(Regola *regola, Element *element, FindTextParams &sear
     }
 
     queryString += QString("declare variable $root external;\n$root%1").arg(searchInfo.getTextToFind());
+
+    return queryString ;
+}
+
+void SearchXQuery::search(Regola *regola, Element *element, FindTextParams &searchInfo)
+{
+    QXmlResultItems result;
+    Element *rootElement = element;
+    if(!searchInfo.isLookOnlyChildren()) {
+        rootElement = NULL ;
+    }
+    XQueryElementModel model(regola, rootElement, _namePool);
+    QXmlItem rootItem = model.root(QXmlNodeModelIndex());
+    _query.bindVariable("root", rootItem);
+
+    QString queryString = composeQueryString(regola, searchInfo);
+
     //Utils::message(queryString);
     _query.setQuery(queryString);
     if(!_query.isValid()) {

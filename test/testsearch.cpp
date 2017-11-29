@@ -24,6 +24,7 @@
 #include "testsearch.h"
 #include "app.h"
 #include "findtextparams.h"
+#include "modules/search/searchxquery.h"
 
 #define FILE_SEARCH "../test/data/search/base.xml"
 #define FILE_SEARCH_XQUERY "../test/data/search/base_xquery.xml"
@@ -793,21 +794,6 @@ bool TestSearch::xquerySearchNamespacesTemplate(const QString &testName, const Q
 bool TestSearch::testxquerySearchNamespacesNoNS()
 {
     return xquerySearchNamespacesTemplate("xquerySearchNamespaces", FILE_SEARCH_NONS, "//dd[ @dd eq 'xdd2' ]", "dd");
-    /*
-    TestSearchHelper helper(true);
-    helper.fileToLoad = FILE_SEARCH_NONS ;
-    testAStdSearchWithParamsInit("xquerySearchNamespaces", helper);
-    helper.initFind("//dd[ @dd eq 'xdd2' ]");
-    QList<int> selList;
-    selList << 0 << 1 << 0 << 0 ;
-    if(!helper.selectAnElement(selList) ) {
-       return error("No element");
-    }
-    helper.findArgs.setOnlyChildren(false);
-    helper.search();
-    QStringList expected;
-    expected << "dd" ;
-    return checkResults(helper, 1, 1, &expected);*/
 }
 
 bool TestSearch::testxquerySearchDefaultNamespace()
@@ -837,6 +823,9 @@ bool TestSearch::testxquerySearchDefaultAndMultiplesNamespace()
 
 bool TestSearch::xquerySearchNamespaces()
 {
+    if(!xquerySearchNamespacesString()) {
+        return false;
+    }
     if(!testxquerySearchNamespacesNoNS()) {
         return false;
     }
@@ -853,6 +842,78 @@ bool TestSearch::xquerySearchNamespaces()
         return false;
     }
     if(!testxquerySearchDefaultAndMultiplesNamespace()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestSearch::xquerySearchNamespacesTemplateString(const QString &testName, const QString &fileName, const QString &searchPattern, const QString &expected)
+{
+    TestSearchHelper helper(true);
+    helper.fileToLoad = fileName ;
+    if(!testAStdSearchWithParamsInit(testName, helper)) {
+        return error("init failed");
+    }
+    helper.initFind(searchPattern);
+    SearchXQuery searchXQuery;
+    QString candidate = searchXQuery.composeQueryString(helper.app.mainWindow()->getRegola(), helper.findArgs);
+    return assertEquals(testName, expected, candidate);
+}
+
+bool TestSearch::testxquerySearchNamespacesNoNSString()
+{
+    const QString expected = "declare variable $root external;\n$root//*";
+    return xquerySearchNamespacesTemplateString("xquerySearchNamespacesString", FILE_SEARCH_NONS, "//*", expected);
+}
+
+bool TestSearch::testxquerySearchDefaultNamespaceString()
+{
+    const QString expected = "declare default element namespace \"nsx\";\ndeclare variable $root external;\n$root//*";
+    return xquerySearchNamespacesTemplateString("testxquerySearchDefaultNamespaceString", FILE_SEARCH_DEFAULTNS, "//*", expected);
+}
+
+bool TestSearch::testxquerySearchOneNamespaceString()
+{
+    const QString expected = "declare namespace x = \"nsx\";\ndeclare variable $root external;\n$root//*";
+    return xquerySearchNamespacesTemplateString("testxquerySearchOneNamespaceString", FILE_SEARCH_ONENS, "//*", expected);
+}
+
+bool TestSearch::testxquerySearchDefaultAndOtherNamespaceString()
+{
+    const QString expected = "declare default element namespace \"xyz\";\ndeclare namespace x = \"nsx\";\ndeclare variable $root external;\n$root//*";
+    return xquerySearchNamespacesTemplateString("testxquerySearchDefaultAndOtherNamespaceString", FILE_SEARCH_ONEANDDEFAULTNS, "//*", expected);
+}
+
+bool TestSearch::testxquerySearchMultiplesNamespaceString()
+{
+    const QString expected = "declare namespace x = \"nsx\";\ndeclare namespace y = \"xyz\";\ndeclare variable $root external;\n$root//*";
+    return xquerySearchNamespacesTemplateString("testxquerySearchMultiplesNamespaceString", FILE_SEARCH_MULTIPLE, "//*", expected);
+}
+
+bool TestSearch::testxquerySearchDefaultAndMultiplesNamespaceString()
+{
+    const QString expected = "declare default element namespace \"rtu\";\ndeclare namespace x = \"nsx\";\ndeclare namespace y = \"xyz\";\ndeclare variable $root external;\n$root//*";
+    return xquerySearchNamespacesTemplateString("testxquerySearchDefaultAndMultiplesNamespaceString", FILE_SEARCH_MULTIPLE_AND_DEFAULT, "//*", expected);
+}
+
+bool TestSearch::xquerySearchNamespacesString()
+{
+    if(!testxquerySearchNamespacesNoNSString()) {
+        return false;
+    }
+    if(!testxquerySearchDefaultNamespaceString()) {
+        return false;
+    }
+    if(!testxquerySearchOneNamespaceString()) {
+        return false;
+    }
+    if(!testxquerySearchDefaultAndOtherNamespaceString()) {
+        return false;
+    }
+    if(!testxquerySearchMultiplesNamespaceString()) {
+        return false;
+    }
+    if(!testxquerySearchDefaultAndMultiplesNamespaceString()) {
         return false;
     }
     return true ;

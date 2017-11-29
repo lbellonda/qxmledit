@@ -40,6 +40,7 @@ class LIBQXMLEDITSHARED_EXPORT SearchXQuery : public QAbstractMessageHandler
     QXmlQuery   _query;
 
     void searchAndDisplay(Regola *regola, const QString expression);
+    QString composeQueryString(Regola *regola, FindTextParams &searchInfo);
 public:
     explicit SearchXQuery(QObject *parent = 0);
     virtual ~SearchXQuery();
@@ -47,6 +48,10 @@ public:
     void search(Regola *regola, Element *element, FindTextParams &search);
 
     virtual void handleMessage(QtMsgType type, const QString & description, const QUrl & identifier, const QSourceLocation & sourceLocation);
+
+#ifdef QXMLEDIT_TEST
+    friend class TestSearch;
+#endif
 
 signals:
 
