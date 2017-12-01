@@ -36,6 +36,8 @@
 
 #include "licensedialog.h"
 
+extern const char *APP_TITLE ;
+
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,3)
 #if defined(ENVIRONMENT_MACOS)
 #define MACOS_SPECIFIC
@@ -44,14 +46,13 @@
 
 int doXSL(ApplicationData *appData, StartParams *startParams);
 
-
-#if !defined(QXMLEDIT_NOMAIN)
-
 #if defined(MACOS_SPECIFIC)
 #include <QtMac>
 #endif
 
+#if !defined(QXMLEDIT_NOMAIN)
 const char *APP_TITLE = QT_TR_NOOP("QXmlEdit");
+#endif //QXMLEDIT_NOMAIN
 
 #define QXMLEDIT_TRANSLATIONS_PREFIX "QXmlEdit_"
 #define QXMLEDITWIDGET_TRANSLATIONS_PREFIX  "QXmlEditWidget_"
@@ -245,8 +246,6 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("link ai gruppi attributi");
-    Utils::TODO_THIS_RELEASE("viewdata: usa ncpu-1");
 }
 
 static void startTanslator(QApplication *app)
@@ -290,6 +289,8 @@ static bool licenseAgreement()
     }
     return true;
 }
+
+#if !defined(QXMLEDIT_NOMAIN)
 
 int main(int argc, char *argv[])
 {
