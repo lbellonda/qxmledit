@@ -74,7 +74,9 @@ public:
     static QString errorNoSelString();
 
     static void todo(const QString &message);
+#if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     static void TODO_THIS_RELEASE(const QString &message);
+#endif
 #define UNTESTED(msg) TODO_THIS_RELEASE( QString("UNTESTED:%1 %2").arg(__FILE__).arg(_LINE__))
     static void TODO_CHECK_FIX(const QString &message);
     static void TODO_NEXT_RELEASE(const QString &inputMessage);

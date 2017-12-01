@@ -566,6 +566,7 @@ void Utils::todo(const QString &inputMessage)
 }
 */
 
+#if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
 void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
 {
     if(isUnitTest) {
@@ -574,6 +575,7 @@ void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
         //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
     }
 }
+#endif
 
 void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
 {

@@ -24,7 +24,7 @@
     Direct edit of text or elements.
     Textual edit of elements.
     More details on file errors.
-    New option to open all the siblings of the selected element closing chidlren.
+    New option to open all the siblings of the selected element closing children.
     Issue 39 Hard crash when trying to open XML file with weird schema and auto schema loading (https://github.com/lbellonda/qxmledit/issues/39).
     Support for Windows 7 progress bar in task bar.
     Simplified char encoding display.

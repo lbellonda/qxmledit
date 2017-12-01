@@ -3,7 +3,9 @@ Release Checklist
 
 - Create a release branch from develop.
 
-- Check no TODO_THIS_RELEASE are present in the code.
+- Set QXMLEDIT_RELEASE_VERSION in xmlEdit.h to 1.
+
+- Check no TODO_THIS_RELEASE are present in the code (this should follow from the previous step).
 
 - Check translations (do lupdate).
 
@@ -15,7 +17,7 @@ Release Checklist
 
 - Generate the PDF copy of the manual.
 
-- Remove SNAPSHOT flag in xmlEdit.h.
+- Set QXMLEDIT_RELEASE_VERSION to 2 in xmlEdit.h.
 
 - Check the version number in xmlEdit.h file as number and string.
 
@@ -61,9 +63,9 @@ After release
 
 - Merge master on develop.
 - Update version number.
-- Set SNAPSHOT flag in xmlEdit.h
+- Set QXMLEDIT_RELEASE_VERSION to 0 in xmlEdit.h
 - Change TODO_NEXT_RELEASE in TODO_THIS_RELEASE.
-- Enable TODO_THIS_RELEASE in utils.h.
+- Enable TODO_THIS_RELEASE in utils.h (this should follow from the previous steps).
 - Change the version number in MacOS pList.
 - Change the version number in version.pri.
 - Change the version number in environment/appdata.xml.

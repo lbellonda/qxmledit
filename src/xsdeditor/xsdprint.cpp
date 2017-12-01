@@ -1574,5 +1574,4 @@ void XSDPrint::exitPrintMethod()
         _window->setUpdatesEnabled(true);
     }
     Utils::restoreCursor();
-
 }

@@ -1295,7 +1295,6 @@ void XSDWindow::on_svgCmd_clicked()
 
 }
 
-//TODO: error checking
 void XSDWindow::on_htmlCmd_clicked()
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Export as HTML"),
@@ -1638,7 +1637,6 @@ void XSDWindow::printPDF(const bool isSimple)
 
 bool XSDWindow::exportAsHtml(const QString &fileName, const bool isSimple)
 {
-    Utils::TODO_THIS_RELEASE("att l'export abilita le updates della finestra nei vari metodi");
     setEnabled(false);
     Utils::showWaitCursor();
     const bool isOK = _printManager.saveHTMLToFile(fileName, isSimple);
