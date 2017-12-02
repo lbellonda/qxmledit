@@ -41,3 +41,14 @@ XSDReport::~XSDReport()
 {
     delete ui;
 }
+
+void XSDReport::on_copyCmd_clicked()
+{
+    QClipboard *clipboard = QApplication::clipboard();
+    if(NULL != clipboard) {
+        QMimeData *data = new QMimeData();
+        data->setHtml(ui->textBrowser->toHtml());
+        clipboard->setMimeData(data);
+        clipboard->setText(ui->textBrowser->toHtml());
+    }
+}

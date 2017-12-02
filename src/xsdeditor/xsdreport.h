@@ -40,6 +40,8 @@ public:
 
 private:
     Ui::XSDReport *ui;
+private slots:
+    void on_copyCmd_clicked();
 };
 
 #endif // XSDREPORT_H
