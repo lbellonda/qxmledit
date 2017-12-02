@@ -674,7 +674,7 @@ void XSDItem::afterDisposeAllChildren()
 }
 
 
-void XSDItem::afterDispose(const int /*yPos*/, const int /*height*/)
+void XSDItem::afterDispose()
 {
     // nothing
 }
@@ -1225,9 +1225,7 @@ void ContainerItem::init(XsdGraphicContext *context)
     _boundsItem->setBrush(QBrush(QColor(0xC0, 0xC0, 0xC0)));
     _label = new TextItem(_boundsItem);
     if(NULL != _label) {
-        //_label->setPlainText(tr(""));
         _label->setPos(10, 4);
-        //_graphicsItem->childItems().append(_label);
         _label->setDefaultTextColor(QColor::fromRgb(0, 0, 0));
         _label->setFont(context->normalFont());
     }
@@ -1275,7 +1273,6 @@ void ContainerItem::setItem(XSchemaContainer *newItem)
 
 void ContainerItem::objectDeleted(XSchemaObject* /*self*/)
 {
-    //TODO _graphicsItem->childItems().clear(); // NO, DEVO FARE UN REMOVE!
     _graphicsItem->scene()->removeItem(_graphicsItem);
     delete this;
 }
@@ -1285,20 +1282,16 @@ void ContainerItem::childRemoved(XSchemaObject* child)
     remove(child);
 }
 
-void ContainerItem::afterDispose(const int yPos, const int height)
+void ContainerItem::afterDispose()
 {
     QRectF dependentBounds = calcDependentBounds();
     if(dependentBounds.isValid()) {
         // add self
-        QRectF childBounds = graphicItem()->boundingRect();
-        childBounds.moveTo(graphicItem()->pos());
-        dependentBounds = dependentBounds.united(childBounds);
-
         QPainterPath path;
-        path.addRoundedRect(0, 0, dependentBounds.width(), height, 16, 16);
+        path.addRoundedRect(0, 0, dependentBounds.width() + ContainerLabelPad, dependentBounds.height() + 2 * ContainerLabelPad, 16, 16);
         _contour = path.toFillPolygon();
         _boundsItem->setPolygon(_contour);
-        _boundsItem->setPos(graphicItem()->x(), yPos);
+        _boundsItem->setPos(graphicItem()->x(), dependentBounds.top() - 2 * ContainerLabelPad);
         if(_context->isDebug()) {
             if(NULL == _debugLine) {
                 _debugLine = new QGraphicsLineItem(graphicItem());
@@ -2487,26 +2480,6 @@ QColor DerivationItem::itemColorForChart()
 
 void updateScenePosition(QGraphicsItem * /*item*/)
 {
-    /* TODO QGraphicsScene *scene = item->scene();
-    if( NULL != scene ) {
-        QRectF rectItem = item->boundingRect () ;
-        QRectF rectItemToScene = item->mapRectToScene(rectItem);
-        QRectF sceneRect = scene->sceneRect();
-        bool isChanged = false ;
-        int itemX = rectItemToScene.left()+rectItemToScene.width() ;
-        if( itemX > scene->width() ) {
-            sceneRect.setWidth(itemX);
-            isChanged = true ;
-        }
-        int itemY = rectItemToScene.top()+ rectItemToScene.height();
-        if( itemY > scene->height() ) {
-           sceneRect.setHeight(itemY);
-           isChanged = true ;
-        }
-        if( isChanged ) {
-            scene->setSceneRect(sceneRect);
-        }
-    }*/
 }
 
 
@@ -2569,7 +2542,6 @@ void XSDItem::disposeObjectHorPyramid(XSDItemContext *context, const int level, 
     }*/
     foreach(RChild * rchild, _children.children()) {
         XSDItem *xsdItem = rchild->item();
-        int origYPos = itemYPos ;
         int childHeight  = xsdItem->calcChildrenHeightStrategyHorPyramid(context);
         QRectF childBounds = xsdItem->graphicItem()->boundingRect();
 
@@ -2584,7 +2556,7 @@ void XSDItem::disposeObjectHorPyramid(XSDItemContext *context, const int level, 
         } else {
             itemYPos += context->gapBetweenChildren();
         }
-        xsdItem->afterDispose(origYPos, childHeight);
+        xsdItem->afterDispose();
         itemYPos += childHeight ;
     }
     QGraphicsLineItem *line = _children.secondLine(this);

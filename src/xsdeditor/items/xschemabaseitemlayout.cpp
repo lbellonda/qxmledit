@@ -27,6 +27,9 @@
 #include <QGraphicsColorizeEffect>
 #include "xsdeditor/items/xitemsdefinitions.h"
 
+//#define QXMLEDIT_LAYOUT_DEBUG(x)    do { x } while(false)
+//#define QXMLEDIT_LAYOUT_DEBUG1(x)   x
+
 #define QXMLEDIT_LAYOUT_DEBUG(x)
 #define QXMLEDIT_LAYOUT_DEBUG1(x)
 
@@ -45,6 +48,7 @@ qreal XSDItem::placeAllStrategyHorPyramidNew0(XSDItemContext *context)
     afterPositionChange();
     finalOffset();
     afterPositionChange();
+    recalcDispose(context);
     const qreal overallFinalHeight = calcOverallHeight(rendered);
     return overallFinalHeight ;
 }
@@ -67,7 +71,7 @@ void XSDItem::finalOffset()
             }
             QXMLEDIT_LAYOUT_DEBUG(if(itemBounds.top() <= 0) {
             printf("zero\n");
-            })
+            });
         }
     }
 
@@ -168,7 +172,7 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
         } else {
             itemYPos += context->gapBetweenChildren();
         }
-        xsdItem->afterDispose(origYPos, childHeight);
+        //xsdItem->afterDispose(origYPos, childHeight);
         itemYPos += childHeight ;
     }
     QGraphicsLineItem *line = _children.secondLine(this);
@@ -215,7 +219,7 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
             secondLine->hide();
         }
     }
-    afterDisposeAllChildren();
+    //afterDisposeAllChildren();
 }
 
 void XSDItem::updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging)
@@ -232,7 +236,7 @@ void XSDItem::updateSummaryLineBounds(const qreal gapThis, const qreal gap, cons
             qline.setP1(p1);
         }
         line->setLine(qline);
-        QXMLEDIT_LAYOUT_DEBUG(line->setPen(QPen(QColor::fromRgb(255, 0, 0))));
+        QXMLEDIT_LAYOUT_DEBUG(line->setPen(QPen(QColor::fromRgb(255, 0, 0))););
     }
     QGraphicsLineItem *secondLine = _children._line;
     if((NULL != secondLine) && secondLine->isVisible()) {
@@ -244,7 +248,7 @@ void XSDItem::updateSummaryLineBounds(const qreal gapThis, const qreal gap, cons
         qline.setP1(p1);
         qline.setP2(p2);
         secondLine->setLine(qline);
-        QXMLEDIT_LAYOUT_DEBUG(secondLine->setPen(QPen(QColor::fromRgb(0, 0xC0, 0))));
+        QXMLEDIT_LAYOUT_DEBUG(secondLine->setPen(QPen(QColor::fromRgb(0, 0xC0, 0))););
     }
 }
 
@@ -252,14 +256,14 @@ void XSDItem::moveDownBy(const qreal gapThis, const qreal gap, const bool isRecu
 {
     QGraphicsItem *thisItem = graphicItem() ;
     thisItem->setY(thisItem->y() + gapThis);
-    QXMLEDIT_LAYOUT_DEBUG(do {
+    QXMLEDIT_LAYOUT_DEBUG(
         printf("%s\n", QString("      ** moved name %1 by %2 enlarging %3")
                .arg(item()->name())
                .arg(gapThis)
                .arg(isEnlarging)
                .toLatin1().data());
-        fflush(0)
-    } while(false));
+        fflush(0);
+    );
 
     if(isRecursive) {
         foreach(RChild * rchild, _children.children()) {
@@ -276,8 +280,9 @@ void XSDItem::moveDownBy(const qreal gapThis, const qreal gap, const bool isRecu
     }
 }
 
-qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem *target, const qreal thisGap, const bool isFirst, const int /*index*/)
+qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem *target, const qreal thisGap, const bool isFirst, const int index)
 {
+    Q_UNUSED(index);
     bool targetEngaged = false;
     bool existsBefore = false;
     QXMLEDIT_LAYOUT_DEBUG(if(index == 4) {
@@ -307,8 +312,8 @@ qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem
     const bool isOnlyOne = (_children.children().size() == 1);
     const qreal realThisGap = firstChildIsTarget || isFirst || isOnlyOne ? thisGap : thisGap / 2;
     QXMLEDIT_LAYOUT_DEBUG(do {
-        printf("%s\n", QString("index %1 name %6 real this gap: %3  gap %2 exists %4 children %5 inputgapthis: %7")
-               .arg(index).arg(gap).arg(realThisGap)
+        printf("%s\n", QString("index %1 name %6 real this gap: %3 exists %4 children %5 inputgapthis: %7")
+               .arg(index).arg(0).arg(realThisGap)
                .arg(existsBefore).arg(_children.children().size())
                .arg(item()->name()).arg(thisGap)
                .toLatin1().data());
@@ -342,7 +347,7 @@ se gap da livello precedente, se 1! figli usa gap precedente
 se >1 figli e' gap prec/2
 */
 
-QXMLEDIT_LAYOUT_DEBUG(static int nogo = 0 ;)
+QXMLEDIT_LAYOUT_DEBUG1(static int nogo = 0 ;)
 bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem*> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain)
 {
     bool collisionFound = false;
@@ -394,7 +399,7 @@ bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphics
 });
     if(existsCollision) {
         //if(existsCollision && (nogo==1)) {
-        QXMLEDIT_LAYOUT_DEBUG(thisItem->setGraphicsEffect(new QGraphicsColorizeEffect());)
+        QXMLEDIT_LAYOUT_DEBUG(thisItem->setGraphicsEffect(new QGraphicsColorizeEffect()););
         /*
         * per ogni padre, segna da quale figlio spostare ( da qui in basso).
         * poi partendo dal padre, aggiungi l'offset ad ogni figlio e da qui in poi, in modo ricorsivo:
@@ -427,6 +432,17 @@ bool XSDItem::updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphics
     chain.pop();
     return existsCollision || collisionFound ;
 }
+
+void XSDItem::recalcDispose(XSDItemContext *context)
+{
+    foreach(RChild * rchild, _children.children()) {
+        XSDItem *xsdItem = rchild->item();
+        xsdItem->recalcDispose(context);
+    }
+    afterDispose();
+    afterDisposeAllChildren();
+}
+
 
 qreal XSDItem::calcOverallHeight(QList<QGraphicsItem*> &rendered)
 {

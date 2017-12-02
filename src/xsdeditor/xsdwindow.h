@@ -242,6 +242,7 @@ protected:
     qreal calcChildrenHeightStrategyNew0(XSDItemContext *context, const bool isRecursive);
     void placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos);
     bool updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain);
+    void recalcDispose(XSDItemContext *context);
     void updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging);
     void moveDownBy(const qreal gapThis, const qreal gap, const bool isRecursive, const bool isEnlarging);
     qreal updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal thisGap, const bool isFirst, const int index);
@@ -250,7 +251,7 @@ protected:
     //-- endregion(New0)
     qreal recalcChildrenPosStrategyUnder(XSDItemContext *context);
     void preAddChildren(XSchemaObject *object);
-    virtual void afterDispose(const int yPos, const int height);
+    virtual void afterDispose();
     virtual void afterDisposeAllChildren();
     QRectF calcDependentBounds();
     virtual qreal marginBottom();
@@ -401,7 +402,7 @@ class ContainerItem : public XSDItem
 
     void init(XsdGraphicContext *context);
 protected:
-    virtual void afterDispose(const int yPos, const int height);
+    virtual void afterDispose();
     virtual void afterDisposeAllChildren();
 
 public:
