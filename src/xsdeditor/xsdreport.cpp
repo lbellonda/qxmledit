@@ -23,6 +23,8 @@
 #include "xsdreport.h"
 #include "ui_xsdreport.h"
 #include "utils.h"
+#include <QClipboard>
+#include <QMimeData>
 
 XSDReport::XSDReport(QWidget *parent, const QString &newReport) :
     QDialog(parent),

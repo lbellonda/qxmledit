@@ -27,8 +27,10 @@ UIDesktopServices::UIDesktopServices(QWidget *widget)
 {
     _widget = widget;
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     _button = NULL ;
     _progress = NULL ;
+#endif
 #else
 #endif
 }
@@ -36,6 +38,7 @@ UIDesktopServices::UIDesktopServices(QWidget *widget)
 UIDesktopServices::~UIDesktopServices()
 {
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     if(NULL != _progress) {
         if(_progress->isVisible()) {
             _progress->hide();
@@ -47,6 +50,7 @@ UIDesktopServices::~UIDesktopServices()
     }
 
     _progress = NULL ;
+#endif
 #else
 #endif
 }
@@ -64,12 +68,14 @@ void UIDesktopServices::setWidget(QWidget *widget)
 void UIDesktopServices::startIconProgressBar()
 {
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     if(NULL == _button) {
         if(NULL != _widget) {
             _button = new QWinTaskbarButton(_widget);
             _button->setWindow(_widget->windowHandle());
         }
     }
+#endif
 #else
 #endif
 }
@@ -82,6 +88,7 @@ void UIDesktopServices::setIconProgressBar(
 )
 {
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     if(NULL == _button) {
         startIconProgressBar();
     }
@@ -92,6 +99,7 @@ void UIDesktopServices::setIconProgressBar(
         _progress->setVisible(true);
         _progress->setValue(percent);
     }
+#endif
 #else
 #endif
 }
@@ -99,9 +107,11 @@ void UIDesktopServices::setIconProgressBar(
 void UIDesktopServices::endIconProgressBar()
 {
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     if(NULL != _progress) {
         _progress->hide();
     }
+#endif
 #else
 #endif
 }

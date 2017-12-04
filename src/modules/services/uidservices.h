@@ -27,16 +27,20 @@
 #include "libQXmlEdit_global.h"
 #include <QWidget>
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
 #include <QWinTaskbarButton>
 #include <QWinTaskbarProgress>
+#endif
 #endif
 
 class LIBQXMLEDITSHARED_EXPORT UIDesktopServices
 {
     QWidget *_widget;
 #if defined(Q_WS_WIN) || defined(Q_OS_WIN)
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 3, 0))
     QWinTaskbarButton *_button;
     QWinTaskbarProgress *_progress;
+#endif
 #else
 #endif
 public:

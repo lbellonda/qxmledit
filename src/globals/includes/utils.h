@@ -31,6 +31,7 @@
 #include <QToolButton>
 #include <QByteArray>
 #include <QIODevice>
+#include <QFile>
 
 class Regola;
 class QMainWindow;
