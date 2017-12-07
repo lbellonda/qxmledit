@@ -91,7 +91,7 @@ void GridPlot::CVertexProcessor::run()
 	m_draw_colors.clear();
 	m_drawList.clear();
 
-	if (m_drawFill && m_dataLength*m_dataWidth)
+    if (m_drawFill && m_dataLength && m_dataWidth)
 	{
 		// reserve() gives up to 10% speedup
 		m_draw_normals.reserve(m_dataLength*m_dataWidth*2);
@@ -124,7 +124,7 @@ void GridPlot::CVertexProcessor::run()
 	m_mesh_colors.clear();
 	m_drawMeshList.clear();
 	
-	if (m_drawMesh && m_dataLength*m_dataWidth)
+    if (m_drawMesh && m_dataLength && m_dataWidth)
 	{
 		int index = 0;
 		int size = 0;
