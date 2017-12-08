@@ -43,6 +43,10 @@ DEFINES += QXMLEDIT_TEST
 
 QT       += gui xml xmlpatterns svg testlib network sql
 
+macx: {
+    QT       += macextras
+}
+
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT       += printsupport widgets core
 }
