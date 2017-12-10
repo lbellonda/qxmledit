@@ -51,8 +51,8 @@ https://sourceforge.net/projects/qxmledit/files
 
 Requirements
 ------------
-QT libraries version 4.7.3 or higher are required.
-QT 5 is supported.
+Qt libraries version 4.7.3 or higher are required.
+Qt 5 is supported.
 OpenGL can be required depending on a compile time switch.
 
 Limitations

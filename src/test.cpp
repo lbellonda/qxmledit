@@ -69,7 +69,7 @@ void Test::doTest()
             }
 
 
-            Utils::message(tr("Tests completed succesfully."));
+            Utils::message(tr("Tests completed successfully."));
         } else {
             Utils::error(tr("Unable to parse XML"));
         }
