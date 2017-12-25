@@ -1578,6 +1578,7 @@ class XSDPrint
     void enterPrintMethod();
     void exitPrintMethod();
     void printPDFToFileInternal(const QString &filePath, const bool isSimple);
+    int pointerSize();
 public:
 
 #ifdef QXMLEDIT_TEST

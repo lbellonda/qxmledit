@@ -1380,7 +1380,7 @@ int XSDPrint::printSchemaInfo(XSDPrintInfo &xsdPrintInfo, XSDSchema *schema)
 
 QString XSDPrint::htmlANameForObject(const QString &theType, XSchemaObject *element)
 {
-    QString address = QString::number((quintptr)element, QT_POINTER_SIZE * 2);
+    QString address = QString::number((quintptr)element, pointerSize() * 2);
     QString result = QString("%1%2").arg(theType).arg(address);
     return result ;
 }
@@ -1533,7 +1533,7 @@ QString XSDPrint::followItem(XSDItem *item, const int level)
 {
     const QString indent = indentLine(level);
     QString result ;
-    QString address = QString::number((quintptr)item, QT_POINTER_SIZE * 2);
+    QString address = QString::number((quintptr)item, pointerSize() * 2);
     QString label ;
     QString labelName ;
     labelName = item->itemLabelForChart();
@@ -1548,7 +1548,7 @@ QString XSDPrint::followItem(XSDItem *item, const int level)
     }
     if(hasChildren) {
         foreach(RChild * child, item->rChildren()->children()) {
-            QString addressChild = QString::number((quintptr)child->item(), QT_POINTER_SIZE * 2);
+            QString addressChild = QString::number((quintptr)child->item(), pointerSize() * 2);
             result += QString("%1\"%2\"->\"%3\"\n").arg(indent).arg(address).arg(addressChild);
             result += followItem(child->item(), level + 1);
         }
@@ -1574,4 +1574,13 @@ void XSDPrint::exitPrintMethod()
         _window->setUpdatesEnabled(true);
     }
     Utils::restoreCursor();
+}
+
+int XSDPrint::pointerSize()
+{
+#ifdef  QT_POINTER_SIZE
+    return QT_POINTER_SIZE ;
+#else
+    return sizeof(void*);
+#endif
 }
