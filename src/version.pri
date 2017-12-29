@@ -22,5 +22,5 @@
 #
 
 #define the version of the program
-VERSION = 0.9.9
+VERSION = 0.9.10
 QXMLEDIT_VERSION=$$VERSION

@@ -32,7 +32,7 @@
 	<key>CFBundleGetInfoString</key>
         <string>QXmlEdit</string>
         <key>CFBundleShortVersionString</key>
-        <string>0.9.9</string>
+        <string>0.9.10</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleExecutable</key>
