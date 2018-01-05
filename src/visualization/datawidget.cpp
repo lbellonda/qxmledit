@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2017 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -336,7 +336,8 @@ void DataWidget::paintEvent(QPaintEvent * /*e*/)
 {
     if(!_is3d) {
         QPainter painter(this);
-        painter.drawStaticText(width() / 2, height() / 2, tr("Recalculating..."));
+        QStaticText message(tr("Recalculating..."));
+        painter.drawStaticText(width() / 2, height() / 2, message);
     }
     generateImage();
     if(!_is3d) {
