@@ -1,3 +1,6 @@
+0.9.10
+    Fixed Fixed issue #46, source compatibility problem with Qt 5.10.
+
 0.9.9.1
     Fixed a source compatibility problem with Qt 4.7.3 on OS/2.
 

@@ -9,6 +9,7 @@ Branches:
 
 Merged branches:
 -------------
+issue-46 - issue #46, source compatibility with Qt5.10
 167-betterxsddoc - better XSD documentation
 170-split-check - check internal errors splitting files
 166-glut - check GLUT support #42 Remove references to unused GLUT.
