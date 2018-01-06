@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -48,7 +48,7 @@ void deleteAuthorsInfo(QList<AuthorInfo*> &authors)
 
 const QString AuthorInfo::appName(APPLICATION_NAME) ;
 const QString AuthorInfo::version(VERSION_IDENTIFIER) ;
-const QString AuthorInfo::copyright = QString::fromUtf8("\u00A9 2008-2017 Luca Bellonda");
+const QString AuthorInfo::copyright = QString::fromUtf8("\u00A9 2008-2018 Luca Bellonda");
 const QString AuthorInfo::license("GNU Library Public License Version 2");
 const QString AuthorInfo::other("Icons by Oxygen (www.oxygen-icons.org), covered by LGPLv3 license (see README document)."
 #ifdef  QWT_PLOT3D
