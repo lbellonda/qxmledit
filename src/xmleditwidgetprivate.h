@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -323,6 +323,7 @@ public:
         EditModeForceSpecial
     };
 
+    EEditMode baseEditModeForDoubleClick(const bool isNormalMode);
     void specificPropertiesItem(QTreeWidgetItem * item, const EEditMode editModeParam);
     void specificProperties();
     void pasteAsSibling();

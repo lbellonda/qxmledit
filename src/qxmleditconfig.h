@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -44,6 +44,9 @@ public:
     static const QString KEY_GENERAL_SINGLE_INSTANCE;
     static const QString KEY_GENERAL_VIEW_EDITOR_ADJUST;
     static const QString KEY_MULTITHREADING_ENABLED;
+    // edit
+    static const QString KEY_ELEMENT_EDIT_MODEFORM;
+    static const QString KEY_ELEMENT_EDIT_MODEFORM_MODIFIED;
     // element
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY;
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHSIZE;

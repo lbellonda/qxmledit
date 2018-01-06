@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2017 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -57,6 +57,7 @@ private slots:
     void on_cmdSaxonPath_clicked();
     void on_cbSaxon_clicked(bool /* */);
     void on_saxonPath_textChanged(const QString &text);
+    void on_cbPreferEditAsForm_clicked(bool /* */);
 };
 
 #endif // CONFIGUREEDITMODESDIALOG_H

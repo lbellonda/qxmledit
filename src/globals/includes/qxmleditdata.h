@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -250,6 +250,11 @@ public:
     static const bool DefaultStyleFontBold = false ;
     static const bool DefaultOpenInNewWindow = true ;
     //--- endregion(styleVersion)
+
+    //--- region(baseEditMode)
+    bool isBaseEditModeForm();
+    void setBaseEditModeForm(const bool value);
+    //--- endregion(baseEditMode)
 
     SearchManager *searchManager();
 

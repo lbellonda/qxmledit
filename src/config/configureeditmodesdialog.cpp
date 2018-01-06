@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2017 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -47,6 +47,7 @@ void ConfigureEditModesDialog::init(ApplicationData* data)
     ui->cbAutomaticallySwitchToSCXMLMode->setChecked(data->isAutoSCXMLMode());
     ui->cbSaxon->setChecked(data->isUseSaxonXSL());
     ui->saxonPath->setText(data->saxonXSLPath());
+    ui->cbPreferEditAsForm->setChecked(data->isBaseEditModeForm());
     doEnable();
     _started = true ;
 }
@@ -119,5 +120,12 @@ void ConfigureEditModesDialog::on_cmdSaxonPath_clicked()
                        );
     if(!filePath.isEmpty()) {
         ui->saxonPath->setText(filePath);
+    }
+}
+
+void ConfigureEditModesDialog::on_cbPreferEditAsForm_clicked(bool /* */)
+{
+    if(_started) {
+        _data->setBaseEditModeForm(ui->cbPreferEditAsForm->isChecked());
     }
 }

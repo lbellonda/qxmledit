@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -986,14 +986,25 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
     return result ;
 }
 
+XmlEditWidgetPrivate::EEditMode XmlEditWidgetPrivate::baseEditModeForDoubleClick(const bool isNormalMode)
+{
+    Utils::TODO_THIS_RELEASE("refactor");
+    const bool isBaseEditForm = _appData->isBaseEditModeForm();
+    if(isNormalMode) {
+        return isBaseEditForm ? EditModeDetail : EditModeTextual ;
+    } else {
+        return isBaseEditForm ? EditModeTextualDependingOnMouse : EditModeDetail ;
+    }
+}
+
 void XmlEditWidgetPrivate::elementDoubleClicked(QTreeWidgetItem * item, int /*column*/)
 {
     const bool isAlt = 0 != (Qt::AltModifier & QApplication::keyboardModifiers());
     const bool isCtrl = 0 != (Qt::ControlModifier & QApplication::keyboardModifiers());
     const bool isShift = 0 != (Qt::ShiftModifier & QApplication::keyboardModifiers());
-    EEditMode editMode = XmlEditWidgetPrivate::EditModeDetail ;
+    EEditMode editMode = baseEditModeForDoubleClick(true);
     if(isShift) {
-        editMode = EditModeTextualDependingOnMouse ;
+        editMode = baseEditModeForDoubleClick(false);
     } else if(isCtrl || isAlt) {
         editMode = EditModeSpecific ;
     }

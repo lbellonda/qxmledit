@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2016 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -35,6 +35,9 @@ const QString Config::KEY_GENERAL_OPEN_NEWWINDOW("generalConfiguration/openNewWi
 const QString Config::KEY_GENERAL_SINGLE_INSTANCE("generalConfiguration/singleInstance");
 const QString Config::KEY_GENERAL_VIEW_EDITOR_ADJUST("generalConfiguration/adjustEditor");
 const QString Config::KEY_MULTITHREADING_ENABLED("generalConfiguration/multiThreading");
+// edit
+const QString Config::KEY_ELEMENT_EDIT_MODEFORM("edit/modeForm");
+const QString Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED("edit/modeFormModified");
 // element
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY("element/fontFidexWidthFamily");
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHSIZE("element/fontFidexWidthSize");
