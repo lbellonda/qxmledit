@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2017 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -365,6 +365,11 @@ void TestQXmlEdit::testEditing()
         TestEditElements test;
         result = test.testFast();
         QVERIFY2(result, (QString("test TestEditElements: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestEditElements test;
+        result = test.testUnit();
+        QVERIFY2(result, (QString("test TestEditElements: testUnit() '%1'").arg(test.errorString())).toLatin1().data());
     }
     {
         TestEditElements test;
@@ -1580,6 +1585,7 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
+    testEditing();
 }
 
 QTEST_MAIN(TestQXmlEdit)

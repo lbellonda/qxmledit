@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2012-2018 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -26,7 +26,6 @@
 #include "modules/namespace/namespacecommands.h"
 #include "testhelpers/editelementtest.h"
 #include "editelementwithtexteditor.h"
-
 
 #define EDIT_ELEMENTS_BASE  "../test/data/editelements/base.xml"
 #define RES_INSERTCOMMENTEMPTY "../test/data/editelements/insCommEmpty.xml"
@@ -1180,5 +1179,50 @@ bool TestEditElements::testEditText()
         return false;
     }
 
+    return true;
+}
+
+bool TestEditElements::testUnit()
+{
+    _testName = "testUnit";
+    if(!testActivationEdit()) {
+        return false;
+    }
+    return true;
+}
+
+bool TestEditElements::verifyTestActivationEdit(XmlEditWidgetPrivate *target, App &app, const bool baseEditModeForm, const bool isNormalMode, const XmlEditWidgetPrivate::EEditMode expected )
+{
+    //----
+    app.data()->setBaseEditModeForm(baseEditModeForm);
+    XmlEditWidgetPrivate::EEditMode editMode = target->baseEditModeForDoubleClick(isNormalMode);
+    if(editMode != expected) {
+        return error (QString("Error: mode: %1, baseForm is: %2, expected: %3, found: %4").arg(isNormalMode).arg(baseEditModeForm).arg(expected).arg(editMode));
+    }
+    return true ;
+}
+
+bool TestEditElements::testActivationEdit()
+{
+    _subTestName = "testActivationEdit";
+    App app;
+    if(!app.init()) {
+        return error("init");
+    }
+    XmlEditWidget *editor = app.mainWindow()->getEditor();
+    XmlEditWidgetPrivate *target = editor->getPrivate();
+    //----
+    if(!verifyTestActivationEdit(target, app, true, true, XmlEditWidgetPrivate::EditModeDetail)) {
+        return false;
+    }
+    if(!verifyTestActivationEdit(target, app, false, false, XmlEditWidgetPrivate::EditModeDetail)) {
+        return false;
+    }
+    if(!verifyTestActivationEdit(target, app, true, false, XmlEditWidgetPrivate::EditModeTextualDependingOnMouse)) {
+        return false;
+    }
+    if(!verifyTestActivationEdit(target, app, false, true, XmlEditWidgetPrivate::EditModeTextualDependingOnMouse)) {
+        return false;
+    }
     return true;
 }

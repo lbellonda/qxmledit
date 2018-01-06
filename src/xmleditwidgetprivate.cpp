@@ -972,12 +972,10 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
                     return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
                 }
             }
-            if((QApplication::keyboardModifiers() & Qt::ShiftModifier) == Qt::ShiftModifier) {
-                regola->editElementWithTextEditor(p, getEditor(), item);
-                bool result = false;
-                computeSelectionState();
-                return result ;
-            }
+            regola->editElementWithTextEditor(p, getEditor(), item);
+            bool result = false;
+            computeSelectionState();
+            return result ;
         }
     }
     regola->editElement(p, item, _uiDelegate);
@@ -988,12 +986,11 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
 
 XmlEditWidgetPrivate::EEditMode XmlEditWidgetPrivate::baseEditModeForDoubleClick(const bool isNormalMode)
 {
-    Utils::TODO_THIS_RELEASE("refactor");
     const bool isBaseEditForm = _appData->isBaseEditModeForm();
-    if(isNormalMode) {
-        return isBaseEditForm ? EditModeDetail : EditModeTextual ;
+    if((isNormalMode && isBaseEditForm) || (!isNormalMode && !isBaseEditForm)) {
+        return EditModeDetail;
     } else {
-        return isBaseEditForm ? EditModeTextualDependingOnMouse : EditModeDetail ;
+        return EditModeTextualDependingOnMouse ;
     }
 }
 
