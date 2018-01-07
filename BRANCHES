@@ -4,11 +4,11 @@ devel
 
 Branches:
 ---------
-
 169-UI-improvements - increasing user-friendliness
 
 Merged branches:
 -------------
+170 - update year on all headers
 issue-46 - issue #46, source compatibility with Qt5.10
 167-betterxsddoc - better XSD documentation
 170-split-check - check internal errors splitting files

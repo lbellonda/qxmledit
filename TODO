@@ -5,13 +5,10 @@ Check issues:
 TODO:
 ----
 
-#new is:168
+#new is:171
 - menu contest. goto reference for elements and attributes
 - no attributes mode
 
-167 - better XSD documentation
-166 - check GLUT support
-165 - support size of GB in attributes size calculation
 164 - calculation of size of attributes, including filters
 162 - xslt con attribute e var se ci sono figli, spec values of non inserire un select
 160 - fattorizzare in element ->Element * TestBase::makeElement(const QString &tag, const QString &attr)
