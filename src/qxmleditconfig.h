@@ -47,6 +47,8 @@ public:
     // edit
     static const QString KEY_ELEMENT_EDIT_MODEFORM;
     static const QString KEY_ELEMENT_EDIT_MODEFORM_MODIFIED;
+    static const QString KEY_ELEMENT_EDIT_SHORTCUT_USED;
+    static const QString KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN;
     // element
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY;
     static const QString KEY_ELEMENT_FONTFIXEXDWIDTHSIZE;

@@ -129,6 +129,10 @@ protected:
     NamespaceManager *_namespaceManager;
     //--- endregion(NamespaceManager)
 
+    //--- region(baseEditMode)
+    uint _elementDoubleClickedInSession;
+    //--- endregion(baseEditMode)
+
     VStyle *createDefaultStyle();
     bool loadStyles();
 
@@ -254,6 +258,12 @@ public:
     //--- region(baseEditMode)
     bool isBaseEditModeForm();
     void setBaseEditModeForm(const bool value);
+    uint getElementDoubleClickedInSession() const;
+    void setElementDoubleClickedInSession(const int value);
+    void incrementElementAltDoubleClicked();
+    bool areEditShortcutsUsed();
+    void setEditShortcutsUsed();
+    uint incrementElementDoubleClicked();
     //--- endregion(baseEditMode)
 
     SearchManager *searchManager();
@@ -313,6 +323,7 @@ public:
 
     UnicodeHelper *unicodeHelper();
     static bool isShowImagesInTooltip();
+
 
 private:
     //--- region(clipboard)

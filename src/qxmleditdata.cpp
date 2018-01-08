@@ -62,6 +62,7 @@ QXmlEditData::QXmlEditData()
     _SCXMLStyle = NULL ;
     _styleVersion = 0 ;
     _experimentalFeaturesEnabled = false;
+    _elementDoubleClickedInSession = 0 ;
     internalInit();
 }
 
@@ -844,4 +845,41 @@ void QXmlEditData::setBaseEditModeForm(const bool value)
 {
     Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM, value);
 }
+
+uint QXmlEditData::incrementElementDoubleClicked()
+{
+    _elementDoubleClickedInSession++;
+    if(0 == _elementDoubleClickedInSession) {
+        _elementDoubleClickedInSession = 1000 ;
+    }
+    return _elementDoubleClickedInSession;
+}
+
+uint QXmlEditData::getElementDoubleClickedInSession() const
+{
+    return _elementDoubleClickedInSession;
+}
+
+void QXmlEditData::setElementDoubleClickedInSession(const int value)
+{
+    _elementDoubleClickedInSession = value;
+}
+
+void QXmlEditData::incrementElementAltDoubleClicked()
+{
+    setEditShortcutsUsed();
+}
+
+void QXmlEditData::setEditShortcutsUsed()
+{
+    if(!Config::getBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, false)) {
+        Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, true);
+    }
+}
+
+bool QXmlEditData::areEditShortcutsUsed()
+{
+    return Config::getBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, false);
+}
+
 //--- endregion(baseEditMode)

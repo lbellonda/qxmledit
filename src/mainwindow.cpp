@@ -66,6 +66,7 @@ extern const char *APP_TITLE ;
 #include "modules/specialized/scxml/scxmlautomodedialog.h"
 #include "modules/xslt/xsltexecdialog.h"
 #include "modules/help/shortcutsdialog.h"
+#include "modules/style/infoonkeyboardshortcutsdialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -319,6 +320,7 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(requestDelete()), this, SLOT(on_actionCut_triggered()));
     connect(ui.editor, SIGNAL(requestInsertSpec()), this, SLOT(on_actionInsertSpecial_triggered()));
     connect(ui.editor, SIGNAL(requestAppendSpec()), this, SLOT(on_actionAppendSpecial_triggered()));
+    connect(ui.editor, SIGNAL(elementDoubleClicked(const uint)), this, SLOT(onEditorElementDoubleClicked(const uint)));
 
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(folderOpenRequest(const QString&)), this, SLOT(onSessionFolderOpenRequest(const QString&)));
@@ -3667,4 +3669,15 @@ void MainWindow::on_actionPresetNoIndentation_triggered()
 void MainWindow::on_actionPresetIndentOneAttributePerLine_triggered()
 {
     ui.editor->presetFormatting(XMLIndentationSettings::Preset2SpacesOneAttributePerLine);
+}
+
+void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
+{
+    if(data->evaluateConditionForShowShortcuts()) {
+        InfoOnKeyboardShortcutsDialog infoDialog(this);
+        infoDialog.exec();
+        if(infoDialog.isOpenShortcutDialog()) {
+            ShortcutsDialog::display(this);
+        }
+    }
 }

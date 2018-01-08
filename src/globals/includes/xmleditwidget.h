@@ -387,6 +387,7 @@ signals:
     void requestAppend();
     void requestInsertSpec();
     void requestAppendSpec();
+    void elementDoubleClicked(const uint times);
     //--------------- signals
 };
 

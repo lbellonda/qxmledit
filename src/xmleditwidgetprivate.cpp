@@ -97,6 +97,7 @@ XmlEditWidgetPrivate::XmlEditWidgetPrivate(XmlEditWidget *theOwner):
     _XSDAnnotationEditProvider = this ;
     started = false ;
     internalStateOk = false;
+    _elementDoubleClickCount = 0 ;
     paintInfo.setColorManager(_appData->colorManager());
 
     _updateTimer.setSingleShot(true);
@@ -994,17 +995,30 @@ XmlEditWidgetPrivate::EEditMode XmlEditWidgetPrivate::baseEditModeForDoubleClick
     }
 }
 
+void XmlEditWidgetPrivate::incrementDoubleClickedCount()
+{
+    _elementDoubleClickCount++;
+    if(0 == _elementDoubleClickCount) {
+        _elementDoubleClickCount = 1000 ;
+    }
+}
+
 void XmlEditWidgetPrivate::elementDoubleClicked(QTreeWidgetItem * item, int /*column*/)
 {
     const bool isAlt = 0 != (Qt::AltModifier & QApplication::keyboardModifiers());
     const bool isCtrl = 0 != (Qt::ControlModifier & QApplication::keyboardModifiers());
     const bool isShift = 0 != (Qt::ShiftModifier & QApplication::keyboardModifiers());
     EEditMode editMode = baseEditModeForDoubleClick(true);
+    incrementDoubleClickedCount();
+    _appData->incrementElementDoubleClicked();
     if(isShift) {
         editMode = baseEditModeForDoubleClick(false);
+        _appData->incrementElementAltDoubleClicked();
     } else if(isCtrl || isAlt) {
         editMode = EditModeSpecific ;
+        _appData->incrementElementAltDoubleClicked();
     }
+    emit p->elementDoubleClicked(_elementDoubleClickCount);
     specificPropertiesItem(item, editMode);
 }
 
@@ -3832,21 +3846,25 @@ void XmlEditWidgetPrivate::openSiblingsSameLevel(Element *element)
 
 void XmlEditWidgetPrivate::onShortcutT()
 {
+    _appData->setEditShortcutsUsed();
     editSelection(XmlEditWidgetPrivate::EditModeTextualText);
 }
 
 void XmlEditWidgetPrivate::onShortcutCtrlEnter()
 {
+    _appData->setEditShortcutsUsed();
     editSelection(XmlEditWidgetPrivate::EditModeDetail);
 }
 
 void XmlEditWidgetPrivate::onShortcutAltEnter()
 {
+    _appData->setEditShortcutsUsed();
     editSelection(XmlEditWidgetPrivate::EditModeSpecific);
 }
 
 void XmlEditWidgetPrivate::onShortcutShiftEnter()
 {
+    _appData->setEditShortcutsUsed();
     editSelection(XmlEditWidgetPrivate::EditModeTextual);
 }
 

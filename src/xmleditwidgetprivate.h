@@ -83,6 +83,7 @@ class XmlEditWidgetPrivate : public QObject, XSDAnnotationEditProvider
     SCXMLNavigatorWidget *_SCXMLNavigator;
     XSLTNavigatorWidget *_XSLTNavigator;
     QTimer _updateTimer;
+    uint _elementDoubleClickCount ;
 
 public:
     XmlEditWidgetPrivate(XmlEditWidget *theOwner);
@@ -381,6 +382,7 @@ public:
 private:
     QHash<void *, QString> *anonDataForPreview();
     void editSelection(const EEditMode editMode);
+    void incrementDoubleClickedCount();
 
 private slots:
     void schemaLoadComplete(XSchemaLoader *loader, const XSchemaLoader::Code code);

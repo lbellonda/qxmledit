@@ -37,7 +37,9 @@ const QString Config::KEY_GENERAL_VIEW_EDITOR_ADJUST("generalConfiguration/adjus
 const QString Config::KEY_MULTITHREADING_ENABLED("generalConfiguration/multiThreading");
 // edit
 const QString Config::KEY_ELEMENT_EDIT_MODEFORM("edit/modeForm");
-const QString Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED("edit/modeFormModified");
+const QString Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED("edit/modeFormModified"); // config has been set
+const QString Config::KEY_ELEMENT_EDIT_SHORTCUT_USED("edit/editShortcutUsed");
+const QString Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN("edit/shortcutDialogShown");
 // element
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY("element/fontFidexWidthFamily");
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHSIZE("element/fontFidexWidthSize");

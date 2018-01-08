@@ -133,6 +133,13 @@ public:
     void setSaxonXSLPath(const QString &newValue) ;
     //--- endregion(xsl)
 
+    //--- region(baseEditMode)
+    static const int LimitForShowShortcutsDialog = 4 ;
+    bool evaluateConditionForShowShortcuts();
+    bool isShortcutUsedDialogShown();
+    void setShortcutUsedDialogShown();
+    //--- endregion(baseEditMode)
+
     AttributeFilterManagement *attributeFilterManagement();
 private slots:
     void onSessionActivated(const int idSession);

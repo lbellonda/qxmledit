@@ -414,6 +414,7 @@ private slots:
     void onUndoStateUpdated(const bool isUndo, const bool isRedo);
     void onChangeEditorMode();
     void onEditorEncodingChanged(const QString &newEncoding);
+    void onEditorElementDoubleClicked(const uint times);
 
     //------------------- slots
 
