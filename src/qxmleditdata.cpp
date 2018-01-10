@@ -860,7 +860,7 @@ uint QXmlEditData::getElementDoubleClickedInSession() const
     return _elementDoubleClickedInSession;
 }
 
-void QXmlEditData::setElementDoubleClickedInSession(const int value)
+void QXmlEditData::setElementDoubleClickedInSession(const uint value)
 {
     _elementDoubleClickedInSession = value;
 }

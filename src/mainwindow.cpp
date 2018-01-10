@@ -3679,5 +3679,6 @@ void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
         if(infoDialog.isOpenShortcutDialog()) {
             ShortcutsDialog::display(this);
         }
+        data->setShortcutUsedDialogShown();
     }
 }

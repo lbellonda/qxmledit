@@ -259,7 +259,7 @@ public:
     bool isBaseEditModeForm();
     void setBaseEditModeForm(const bool value);
     uint getElementDoubleClickedInSession() const;
-    void setElementDoubleClickedInSession(const int value);
+    void setElementDoubleClickedInSession(const uint value);
     void incrementElementAltDoubleClicked();
     bool areEditShortcutsUsed();
     void setEditShortcutsUsed();

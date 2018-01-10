@@ -1,11 +1,11 @@
 <RCC>
-    <qresource prefix="/actions">
+    <qresource prefix="/">
         <file>images/document-new.png</file>
         <file>images/view-refresh.png</file>
         <file alias="xsd-edit">images/document-edit-xsd.png</file>
         <file alias="info">images/info.png</file>
     </qresource>
-    <qresource prefix="/special">
+    <qresource prefix="/help">
         <file>images/bookmark.png</file>
         <file alias="style">images/view-media-visualization.png</file>
         <file alias="empty">images/empty.png</file>
@@ -13,6 +13,8 @@
         <file alias="error">images/dialog-error.png</file>
         <file alias="info">images/dialog-information.png</file>
         <file alias="report">images/view-pim-news.png</file>
+        <file>images/sample.editor.png</file>
+        <file>images/editor.form.png</file>
     </qresource>
     <qresource prefix="/arrows">
         <file>images/go-down.png</file>

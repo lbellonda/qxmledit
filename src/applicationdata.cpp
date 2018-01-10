@@ -466,7 +466,7 @@ bool ApplicationData::evaluateConditionForShowShortcuts()
     if(areEditShortcutsUsed() || isShortcutUsedDialogShown()) {
         return false;
     }
-    const int times = getElementDoubleClickedInSession() ;
+    const uint times = getElementDoubleClickedInSession() ;
     if(times > LimitForShowShortcutsDialog) {
         return true;
     }

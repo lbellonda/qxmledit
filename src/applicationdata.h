@@ -134,7 +134,7 @@ public:
     //--- endregion(xsl)
 
     //--- region(baseEditMode)
-    static const int LimitForShowShortcutsDialog = 4 ;
+    static const uint LimitForShowShortcutsDialog = 4 ;
     bool evaluateConditionForShowShortcuts();
     bool isShortcutUsedDialogShown();
     void setShortcutUsedDialogShown();
