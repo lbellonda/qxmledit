@@ -38,6 +38,8 @@ WelcomeDialog::WelcomeDialog(QStringList &recentFiles, QWidget *parent) :
         ui->recentFiles->setEnabled(false);
         ui->chooseRecent->setEnabled(false);
         ui->buttonBox->setFocus();
+        ui->recentFiles->hide();
+        ui->labelRecentFiles->hide();
     } else {
         ui->recentFiles->setCurrentIndex(_recentModel.index(0));
         ui->chooseRecent->setFocus();

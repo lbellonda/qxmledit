@@ -130,11 +130,15 @@ protected:
     //--- endregion(NamespaceManager)
 
     //--- region(baseEditMode)
-    uint _elementDoubleClickedInSession;
+    uint _elementDoubleClickedInSessionCount;
+    uint _elementEditedAsTextCount;
+    uint _elementEditedAsFormCount;
     //--- endregion(baseEditMode)
 
     VStyle *createDefaultStyle();
     bool loadStyles();
+
+    void incrementAndClipCounter(uint &value);
 
 public:
     QXmlEditData();
@@ -258,12 +262,25 @@ public:
     //--- region(baseEditMode)
     bool isBaseEditModeForm();
     void setBaseEditModeForm(const bool value);
-    uint getElementDoubleClickedInSession() const;
-    void setElementDoubleClickedInSession(const uint value);
-    void incrementElementAltDoubleClicked();
+    bool isBaseEditModeFormModified();
+#ifdef  QXMLEDIT_TEST
+    void setBaseEditModeFormModified(const bool value);
+#endif
+    uint getElementDoubleClickedInSessionCount() const;
+    void setElementDoubleClickedInSessionCount(const uint value);
+    void incrementElementAltDoubleClickedCount();
     bool areEditShortcutsUsed();
     void setEditShortcutsUsed();
-    uint incrementElementDoubleClicked();
+    uint incrementElementDoubleClickedCount();
+    uint getElementEditedAsTextCount() const;
+    void setElementEditedAsTextCount(const uint value);
+    uint getElementEditedAsFormCount() const;
+    void setElementEditedAsFormCount(const uint value);
+    bool isEditTypeDialogShown();
+    void setEditTypeDialogShown();
+    void resetEditTypeDialogShown();
+    void incrementEditAsFormUsageCount();
+    void incrementEditAsTextUsageCount();
     //--- endregion(baseEditMode)
 
     SearchManager *searchManager();
@@ -323,7 +340,6 @@ public:
 
     UnicodeHelper *unicodeHelper();
     static bool isShowImagesInTooltip();
-
 
 private:
     //--- region(clipboard)

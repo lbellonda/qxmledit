@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -488,6 +488,7 @@
      <string>Tasks</string>
     </property>
     <addaction name="actionTaskDisplayDetail"/>
+    <addaction name="actionChooseEditType"/>
    </widget>
    <widget class="QMenu" name="menuSpecial">
     <property name="title">
@@ -2462,6 +2463,14 @@
    </property>
    <property name="shortcut">
     <string>Shift+F12</string>
+   </property>
+  </action>
+  <action name="actionChooseEditType">
+   <property name="text">
+    <string>Choose Edit Type</string>
+   </property>
+   <property name="toolTip">
+    <string>Choose if edit elements in text mode or using a form.</string>
    </property>
   </action>
  </widget>

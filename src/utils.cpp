@@ -575,11 +575,14 @@ void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
         //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
     }
 }
-#endif
 
-void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
+void Utils::TEST_ME(const QString & inputMessage)
 {
-    // This body intentionally blank.
+    if(isUnitTest) {
+        fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
+    } else {
+        //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
+    }
 }
 
 /**
@@ -590,6 +593,13 @@ void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
 void Utils::TODO_CHECK_FIX(const QString & fix)
 {
     printf("CHECK FIX:%s\n", fix.toLatin1().data());
+}
+
+#endif
+
+void Utils::TODO_NEXT_RELEASE(const QString &/*inputMessage*/)
+{
+    // This body intentionally blank.
 }
 
 bool Utils::askYNRemapNamespaces(QWidget *parent)

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2016-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2018 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,31 +20,25 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef TESTCONFIG_H
-#define TESTCONFIG_H
+#ifndef GUIDEDVALIDATIONDIALOG_H
+#define GUIDEDVALIDATIONDIALOG_H
 
-#include "testbase.h"
-#include "app.h"
+#include <QDialog>
 
-class TestConfig : public TestBase
+namespace Ui {
+class GuidedValidationDialog;
+}
+
+class GuidedValidationDialog : public QDialog
 {
-    bool testSaveAndReadWithoutLimit();
-    bool testSaveAndReadWithLimit();
-    bool testSaveWithLimitAndReadWithoutLimit();
-    bool testSaveWithoutLimitAndReadWithLimit();
-    bool testVerifySaveAndRead();
-    bool testResetData();
-    bool testResetBeahviorData();
-    bool testOpenChooseEditTypeDialog();
-    bool testShortcutDialog();
-    bool evalC(const int iBaseEdit);
-    bool setupSingleChooseEditTypeDialogSetup(App &app, const bool expected, const bool baseEditModeFormModified, const bool editTypeDialogShown, const uint iPar3, const uint iPar4);
+    Q_OBJECT
 
 public:
-    TestConfig();
-    ~TestConfig();
+    explicit GuidedValidationDialog(QWidget *parent = 0);
+    ~GuidedValidationDialog();
 
-    bool testUnit();
+private:
+    Ui::GuidedValidationDialog *ui;
 };
 
-#endif // TESTCONFIG_H
+#endif // GUIDEDVALIDATIONDIALOG_H

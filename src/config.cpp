@@ -40,6 +40,7 @@ const QString Config::KEY_ELEMENT_EDIT_MODEFORM("edit/modeForm");
 const QString Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED("edit/modeFormModified"); // config has been set
 const QString Config::KEY_ELEMENT_EDIT_SHORTCUT_USED("edit/editShortcutUsed");
 const QString Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN("edit/shortcutDialogShown");
+const QString Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN("edit/editTypeDialogShown");
 // element
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHFAMILY("element/fontFidexWidthFamily");
 const QString Config::KEY_ELEMENT_FONTFIXEXDWIDTHSIZE("element/fontFidexWidthSize");

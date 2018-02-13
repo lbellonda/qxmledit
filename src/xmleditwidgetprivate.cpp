@@ -959,6 +959,7 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
     QPoint pt = getEditor()->mapFromGlobal(QCursor::pos());
     QRect itemRect = getEditor()->visualItemRect(item);
     if(forceTextual) {
+        incrementEditAsTextUsage();
         regola->editElementWithTextEditor(p, getEditor(), item);
         bool result = false;
         computeSelectionState();
@@ -973,16 +974,35 @@ bool XmlEditWidgetPrivate::editElement(QTreeWidgetItem *item, const bool isByMou
                     return regola->editAndSubstituteTextInNodeElement(p, Element::fromItemData(item), _uiDelegate);
                 }
             }
+            incrementEditAsTextUsage();
             regola->editElementWithTextEditor(p, getEditor(), item);
             bool result = false;
             computeSelectionState();
             return result ;
         }
     }
+    incrementEditAsFormUsage();
     regola->editElement(p, item, _uiDelegate);
     bool result = false;
     computeSelectionState();
     return result ;
+}
+
+void XmlEditWidgetPrivate::incrementEditAsTextUsage()
+{
+    _appData->incrementEditAsTextUsageCount();
+    emitEditorUsage();
+}
+
+void XmlEditWidgetPrivate::incrementEditAsFormUsage()
+{
+    _appData->incrementEditAsFormUsageCount();
+    emitEditorUsage();
+}
+
+void XmlEditWidgetPrivate::emitEditorUsage()
+{
+    emit p->editElementEvent(_appData->getElementEditedAsFormCount(), _appData->getElementEditedAsTextCount());
 }
 
 XmlEditWidgetPrivate::EEditMode XmlEditWidgetPrivate::baseEditModeForDoubleClick(const bool isNormalMode)
@@ -1010,13 +1030,13 @@ void XmlEditWidgetPrivate::elementDoubleClicked(QTreeWidgetItem * item, int /*co
     const bool isShift = 0 != (Qt::ShiftModifier & QApplication::keyboardModifiers());
     EEditMode editMode = baseEditModeForDoubleClick(true);
     incrementDoubleClickedCount();
-    _appData->incrementElementDoubleClicked();
+    _appData->incrementElementDoubleClickedCount();
     if(isShift) {
         editMode = baseEditModeForDoubleClick(false);
-        _appData->incrementElementAltDoubleClicked();
+        _appData->incrementElementAltDoubleClickedCount();
     } else if(isCtrl || isAlt) {
         editMode = EditModeSpecific ;
-        _appData->incrementElementAltDoubleClicked();
+        _appData->incrementElementAltDoubleClickedCount();
     }
     emit p->elementDoubleClicked(_elementDoubleClickCount);
     specificPropertiesItem(item, editMode);

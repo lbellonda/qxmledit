@@ -835,3 +835,11 @@ bool TestBase::assertEquals(const QString &msg, const QString &expected, const Q
     }
     return true ;
 }
+
+bool TestBase::checkBoolSetting(const QString &setting, const bool expected)
+{
+    if(Config::getBool(setting, !expected) != expected ) {
+        return error(QString("For setting:%1 expecting bool %2").arg(setting).arg(expected));
+    }
+    return true;
+}

@@ -383,6 +383,9 @@ private:
     QHash<void *, QString> *anonDataForPreview();
     void editSelection(const EEditMode editMode);
     void incrementDoubleClickedCount();
+    void emitEditorUsage();
+    void incrementEditAsTextUsage();
+    void incrementEditAsFormUsage();
 
 private slots:
     void schemaLoadComplete(XSchemaLoader *loader, const XSchemaLoader::Code code);

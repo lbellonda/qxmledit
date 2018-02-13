@@ -283,3 +283,10 @@ void ConfigurationGeneralOptions::on_cbEnableMultiThreading_stateChanged(int /*s
     }
     _data->setMtEnabled(ui->cbEnableMultiThreading->isChecked());
 }
+
+void ConfigurationGeneralOptions::on_cmdResetBehavior_clicked()
+{
+    if(Utils::askYN(this, tr("Really reset behavior data?"))) {
+        _data->resetBehaviorData();
+    }
+}

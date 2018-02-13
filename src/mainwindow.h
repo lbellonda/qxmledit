@@ -47,6 +47,9 @@ class SourceRelatedMessages;
 class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 {
     Q_OBJECT
+
+    static const uint MaxTimesElementEditedWithoutText = 10 ;
+
     bool    started;
     bool    internalStateOk;
     MainWndController _controller;
@@ -381,6 +384,7 @@ private slots:
     void on_actionPresetApacheFOP_triggered();
     void on_actionPresetNoIndentation_triggered();
     void on_actionPresetIndentOneAttributePerLine_triggered();
+    void on_actionChooseEditType_triggered();
 
     //----- other slots ------------------
 
@@ -415,6 +419,7 @@ private slots:
     void onChangeEditorMode();
     void onEditorEncodingChanged(const QString &newEncoding);
     void onEditorElementDoubleClicked(const uint times);
+    void onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
 
     //------------------- slots
 
@@ -518,6 +523,9 @@ private:
 
     //-- interface(XMLLoadErrorHandler)
     bool showErrorAndAskUserIfContinue(QWidget *parent, XMLLoadContext *context, QXmlStreamReader *xmlReader) ;
+    void showEditingTypeDialog();
+    bool evaluateIfShowEditingTypeDialog(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
+    bool baseEvaluateIfShowEditingTypeDialog(const bool configurationModified, const bool configurationDialogShown, const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
 
 protected:
     virtual void changeEvent(QEvent *e);
@@ -541,6 +549,7 @@ protected:
     friend class TestXSIType;
     friend class TestLoadFile;
     friend class TestFormattingInfo;
+    friend class TestConfig;
     void setLoadErrorHandler(XMLLoadErrorHandler *newHandler);
 #endif
 };

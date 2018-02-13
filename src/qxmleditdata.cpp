@@ -62,7 +62,10 @@ QXmlEditData::QXmlEditData()
     _SCXMLStyle = NULL ;
     _styleVersion = 0 ;
     _experimentalFeaturesEnabled = false;
-    _elementDoubleClickedInSession = 0 ;
+    _elementDoubleClickedInSessionCount = 0 ;
+    _elementEditedAsTextCount = 0 ;
+    _elementEditedAsFormCount = 0 ;
+
     internalInit();
 }
 
@@ -841,39 +844,55 @@ bool QXmlEditData::isBaseEditModeForm()
     return Config::getBool(Config::KEY_ELEMENT_EDIT_MODEFORM, true);
 }
 
+bool QXmlEditData::isBaseEditModeFormModified()
+{
+    Utils::TEST_ME("");
+    return Config::getBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, false);
+}
+
+#ifdef  QXMLEDIT_TEST
+void QXmlEditData::setBaseEditModeFormModified(const bool value)
+{
+    Utils::TEST_ME("");
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, value);
+}
+#endif
+
 void QXmlEditData::setBaseEditModeForm(const bool value)
 {
+    Utils::TEST_ME("");
     Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM, value);
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, true);
 }
 
-uint QXmlEditData::incrementElementDoubleClicked()
+uint QXmlEditData::incrementElementDoubleClickedCount()
 {
-    _elementDoubleClickedInSession++;
-    if(0 == _elementDoubleClickedInSession) {
-        _elementDoubleClickedInSession = 1000 ;
-    }
-    return _elementDoubleClickedInSession;
+    Utils::TEST_ME("");
+    incrementAndClipCounter(_elementDoubleClickedInSessionCount);
+    return _elementDoubleClickedInSessionCount;
 }
 
-uint QXmlEditData::getElementDoubleClickedInSession() const
+uint QXmlEditData::getElementDoubleClickedInSessionCount() const
 {
-    return _elementDoubleClickedInSession;
+    return _elementDoubleClickedInSessionCount;
 }
 
-void QXmlEditData::setElementDoubleClickedInSession(const uint value)
+void QXmlEditData::setElementDoubleClickedInSessionCount(const uint value)
 {
-    _elementDoubleClickedInSession = value;
+    _elementDoubleClickedInSessionCount = value;
 }
 
-void QXmlEditData::incrementElementAltDoubleClicked()
+void QXmlEditData::incrementElementAltDoubleClickedCount()
 {
     setEditShortcutsUsed();
 }
 
 void QXmlEditData::setEditShortcutsUsed()
 {
-    if(!Config::getBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, false)) {
-        Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, true);
+    Utils::TEST_ME("");
+    const QString &key = Config::KEY_ELEMENT_EDIT_SHORTCUT_USED;
+    if(!Config::getBool(key, false)) {
+        Config::saveBool(key, true);
     }
 }
 
@@ -882,4 +901,64 @@ bool QXmlEditData::areEditShortcutsUsed()
     return Config::getBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, false);
 }
 
+uint QXmlEditData::getElementEditedAsTextCount() const
+{
+    return _elementEditedAsTextCount;
+}
+
+void QXmlEditData::setElementEditedAsTextCount(const uint value)
+{
+    _elementEditedAsTextCount = value;
+}
+
+uint QXmlEditData::getElementEditedAsFormCount() const
+{
+    return _elementEditedAsFormCount;
+}
+
+void QXmlEditData::setElementEditedAsFormCount(const uint value)
+{
+    _elementEditedAsFormCount = value;
+}
+
+void QXmlEditData::incrementEditAsFormUsageCount()
+{
+    incrementAndClipCounter(_elementEditedAsFormCount) ;
+}
+
+void QXmlEditData::incrementEditAsTextUsageCount()
+{
+    incrementAndClipCounter(_elementEditedAsTextCount) ;
+}
+
+void QXmlEditData::resetEditTypeDialogShown()
+{
+    const QString &key = Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN;
+    Config::saveBool(key, false);
+}
+
+void QXmlEditData::setEditTypeDialogShown()
+{
+    Utils::TEST_ME("");
+    const QString &key = Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN;
+    if(!Config::getBool(key, false)) {
+        Config::saveBool(key, true);
+    }
+}
+
+bool QXmlEditData::isEditTypeDialogShown()
+{
+    Utils::TEST_ME("");
+    return Config::getBool(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, false);
+}
+
 //--- endregion(baseEditMode)
+
+void QXmlEditData::incrementAndClipCounter(uint &value)
+{
+    value++;
+    if(0 == value) {
+        value = 1000 ;
+    }
+}
+

@@ -128,6 +128,7 @@ protected:
     bool compareXMLBase(Regola *regola, const QString &step, const QString &fileResult);
     Element *selectAnItem(App &app, QList<int> selectionPath);
     bool assertEquals(const QString &msg, const QString &expected, const QString &current);
+    bool checkBoolSetting(const QString &setting, const bool expected);
 };
 
 #endif // TESTBASE_H

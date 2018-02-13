@@ -67,6 +67,7 @@ extern const char *APP_TITLE ;
 #include "modules/xslt/xsltexecdialog.h"
 #include "modules/help/shortcutsdialog.h"
 #include "modules/style/infoonkeyboardshortcutsdialog.h"
+#include "modules/style/editingtypesdialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -321,6 +322,7 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(requestInsertSpec()), this, SLOT(on_actionInsertSpecial_triggered()));
     connect(ui.editor, SIGNAL(requestAppendSpec()), this, SLOT(on_actionAppendSpecial_triggered()));
     connect(ui.editor, SIGNAL(elementDoubleClicked(const uint)), this, SLOT(onEditorElementDoubleClicked(const uint)));
+    connect(ui.editor, SIGNAL(editElementEvent(const uint, const uint)), this, SLOT(onEditorEditElementEvent(const uint, const uint)));
 
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(folderOpenRequest(const QString&)), this, SLOT(onSessionFolderOpenRequest(const QString&)));
@@ -3681,4 +3683,50 @@ void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
         }
         data->setShortcutUsedDialogShown();
     }
+}
+
+/**
+ * @brief MainWindow::onEditorEditElementEvent
+ * activation when (and):
+ * 1- the configuration has not been modified
+ * 2- the dialog has not been displayed (even as task)
+ * 3- The form panel has been used for 10 times without using the text panel
+ * @param editElementAsFormUsageCount
+ * @param editElementAsTextUsageCount
+ */
+bool MainWindow::baseEvaluateIfShowEditingTypeDialog(const bool configurationModified, const bool configurationDialogShown, const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
+{
+    Utils::TEST_ME("");
+    const bool accessValues = (editElementAsFormUsageCount >= MaxTimesElementEditedWithoutText) && (0 == editElementAsTextUsageCount);
+    const bool result = !configurationModified && !configurationDialogShown && accessValues;
+    return result;
+}
+
+bool MainWindow::evaluateIfShowEditingTypeDialog(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
+{
+    Utils::TEST_ME("");
+    const bool configurationModified = data->isBaseEditModeFormModified();
+    const bool configurationDialogShown = data->isEditTypeDialogShown();
+    const bool result = baseEvaluateIfShowEditingTypeDialog(configurationModified, configurationDialogShown, editElementAsFormUsageCount, editElementAsTextUsageCount);
+    return result;
+}
+
+void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
+{
+    Utils::TEST_ME("");
+    if(evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
+        showEditingTypeDialog();
+    }
+}
+
+void MainWindow::on_actionChooseEditType_triggered()
+{
+    showEditingTypeDialog();
+}
+
+void MainWindow::showEditingTypeDialog()
+{
+    EditingTypesDialog editingTypesDialog(this);
+    editingTypesDialog.exec();
+    data->setEditTypeDialogShown();
 }

@@ -49,6 +49,9 @@ bool TestConfig::testUnit()
     if(!testVerifySaveAndRead()) {
         return false;
     }
+    if(!testResetData()) {
+        return false;
+    }
     return true ;
 }
 
@@ -57,7 +60,7 @@ bool TestConfig::testSaveAndReadWithoutLimit()
     _testName = "testSaveAndReadWithoutLimit" ;
     App app;
     if(!app.init()) {
-        return "init app";
+        return error("init app");
     }
     QStringList referenceList ;
     referenceList << "1" << "2" << "3" << "4" << "5";
@@ -77,7 +80,7 @@ bool TestConfig::testSaveAndReadWithLimit()
     _testName = "testSaveAndReadWithLimit" ;
     App app;
     if(!app.init()) {
-        return "init app";
+        return error("init app");
     }
     QStringList saveList ;
     saveList << "1" << "2" << "3" << "4" << "5";
@@ -99,7 +102,7 @@ bool TestConfig::testSaveWithLimitAndReadWithoutLimit()
     _testName = "testSaveWithLimitAndReadWithoutLimit" ;
     App app;
     if(!app.init()) {
-        return "init app";
+        return error("init app");
     }
     QStringList saveList ;
     saveList << "1" << "2" << "3" << "4" << "5";
@@ -121,7 +124,7 @@ bool TestConfig::testSaveWithoutLimitAndReadWithLimit()
     _testName = "testSaveWithoutLimitAndReadWithLimit" ;
     App app;
     if(!app.init()) {
-        return "init app";
+        return error("init app");
     }
     QStringList saveList ;
     saveList << "1" << "2" << "3" << "4" << "5";
@@ -143,7 +146,7 @@ bool TestConfig::testVerifySaveAndRead()
     _testName = "testVerifySaveAndRead" ;
     App app;
     if(!app.init()) {
-        return "init app";
+        return error("init app");
     }
     QStringList saveList ;
     saveList << "1" << "2" << "3" << "4" << "5";
@@ -159,3 +162,156 @@ bool TestConfig::testVerifySaveAndRead()
     }
     return true;
 }
+
+bool TestConfig::testResetBeahviorData()
+{
+    _subTestName = "testResetBeahviorData" ;
+    App app;
+    if(!app.init()) {
+        return error("init app");
+    }
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, true);
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, true);
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, true);
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, true);
+
+    app.data()->resetBehaviorData();
+    if(!checkBoolSetting(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, false) ) {
+        return false;
+    }
+    if(!checkBoolSetting(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, false) ) {
+        return false;
+    }
+    if(!checkBoolSetting(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, false) ) {
+        return false;
+    }
+    if(!checkBoolSetting(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, false) ) {
+        return false;
+    }
+    return true;
+}
+
+bool TestConfig::testShortcutDialog()
+{
+    _subTestName = "testShortcutDialog" ;
+    App app;
+    if(!app.init()) {
+        return error("init app");
+    }
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, false);
+    app.data()->setShortcutUsedDialogShown();
+    if(!checkBoolSetting(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, true) ) {
+        return false;
+    }
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, true);
+    app.data()->setShortcutUsedDialogShown();
+    if(!checkBoolSetting(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, true) ) {
+        return false;
+    }
+    return true;
+}
+
+
+bool TestConfig::evalC(const int iBaseEdit)
+{
+    return iBaseEdit != 0 ;
+}
+
+bool TestConfig::setupSingleChooseEditTypeDialogSetup(App &app, const bool expected, const bool baseEditModeFormModified, const bool editTypeDialogShown, const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
+{
+    app.data()->setBaseEditModeFormModified(baseEditModeFormModified);
+    if(editTypeDialogShown) {
+        app.data()->setEditTypeDialogShown();
+    } else {
+        app.data()->resetEditTypeDialogShown();
+    }
+    const bool result = app.mainWindow()->evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount);
+    if(result != expected) {
+        return error(QString("1 Expected %1 for %2,%3,%4,%5").arg(expected).arg(baseEditModeFormModified).arg(editTypeDialogShown).arg(editElementAsFormUsageCount).arg(editElementAsTextUsageCount));
+    }
+    const bool result2 = app.mainWindow()->baseEvaluateIfShowEditingTypeDialog(baseEditModeFormModified, editTypeDialogShown, editElementAsFormUsageCount, editElementAsTextUsageCount);
+    if(result2 != expected) {
+        return error(QString("2 Expected %1 for %2,%3,%4,%5").arg(expected).arg(baseEditModeFormModified).arg(editTypeDialogShown).arg(editElementAsFormUsageCount).arg(editElementAsTextUsageCount));
+    }
+    return true;
+}
+
+
+bool TestConfig::testOpenChooseEditTypeDialog()
+{
+    _subTestName = "testOpenChooseEditTypeDialog" ;
+    App app;
+    if(!app.init()) {
+        return error("init app");
+    }
+    const int values[][5]  = {
+
+//expected, baseEditModeFormModified, editTypeDialogShown editElementAsFormUsageCount, editElementAsTextUsageCount)
+        { 0, 0, 0, 0, 0 },
+        { 0, 1, 0, 0, 0 },
+        { 0, 0, 1, 0, 0 },
+        { 0, 1, 1, 0, 0 },
+
+        { 0, 0, 0, MainWindow::MaxTimesElementEditedWithoutText, 0 },
+        { 0, 1, 0, MainWindow::MaxTimesElementEditedWithoutText, 0 },
+        { 0, 0, 1, MainWindow::MaxTimesElementEditedWithoutText, 0 },
+        { 0, 1, 1, MainWindow::MaxTimesElementEditedWithoutText, 0 },
+
+        { 0, 0, 0, MainWindow::MaxTimesElementEditedWithoutText, 1 },
+        { 0, 1, 0, MainWindow::MaxTimesElementEditedWithoutText, 1 },
+        { 0, 0, 1, MainWindow::MaxTimesElementEditedWithoutText, 1 },
+        { 0, 1, 1, MainWindow::MaxTimesElementEditedWithoutText, 1 },
+
+        { 0, 0, 0, MainWindow::MaxTimesElementEditedWithoutText-1, 0 },
+        { 0, 1, 0, MainWindow::MaxTimesElementEditedWithoutText-1, 0 },
+        { 0, 0, 1, MainWindow::MaxTimesElementEditedWithoutText-1, 0 },
+        { 0, 1, 1, MainWindow::MaxTimesElementEditedWithoutText-1, 0 },
+
+        { 0, 0, 0, MainWindow::MaxTimesElementEditedWithoutText-1, 1 },
+        { 0, 1, 0, MainWindow::MaxTimesElementEditedWithoutText-1, 1 },
+        { 0, 0, 1, MainWindow::MaxTimesElementEditedWithoutText-1, 1 },
+        { 0, 1, 1, MainWindow::MaxTimesElementEditedWithoutText-1, 1 },
+
+        { 1, 0, 0, MainWindow::MaxTimesElementEditedWithoutText+1, 0 },
+        { 0, 1, 0, MainWindow::MaxTimesElementEditedWithoutText+1, 0 },
+        { 0, 0, 1, MainWindow::MaxTimesElementEditedWithoutText+1, 0 },
+        { 0, 1, 1, MainWindow::MaxTimesElementEditedWithoutText+1, 0 },
+
+        { 0, 0, 0, MainWindow::MaxTimesElementEditedWithoutText+1, 1 },
+        { 0, 1, 0, MainWindow::MaxTimesElementEditedWithoutText+1, 1 },
+        { 0, 0, 1, MainWindow::MaxTimesElementEditedWithoutText+1, 1 },
+        { 0, 1, 1, MainWindow::MaxTimesElementEditedWithoutText+1, 1 },
+
+
+        { 1, 0, 0, MainWindow::MaxTimesElementEditedWithoutText+100, 0 },
+        { 0, 0, 0, MainWindow::MaxTimesElementEditedWithoutText+100, 1 },
+        { -1, 0, 0, 0, 0 },
+
+    };
+
+
+    const int *p = values[0];
+    while(p[0] > 0) {
+        if(!setupSingleChooseEditTypeDialogSetup(app, evalC(p[0]), evalC(p[1]), evalC(p[2]), p[3], p[4])) {
+            return false;
+        }
+        p++;
+    }
+    return true;
+}
+
+bool TestConfig::testResetData()
+{
+    _testName = "testResetData" ;
+    if( !testResetBeahviorData()) {
+        return false;
+    }
+    if( !testShortcutDialog()) {
+        return false;
+    }
+    if(!testOpenChooseEditTypeDialog()) {
+        return false;
+    }
+    return error("nyi");
+}
+

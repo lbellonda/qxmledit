@@ -138,6 +138,7 @@ public:
     bool evaluateConditionForShowShortcuts();
     bool isShortcutUsedDialogShown();
     void setShortcutUsedDialogShown();
+    void resetBehaviorData();
     //--- endregion(baseEditMode)
 
     AttributeFilterManagement *attributeFilterManagement();

@@ -308,7 +308,13 @@ HEADERS = precompiled_app.h \
     modules/utils/comboutils.h \
     modules/xslt/showxslerrorsdialog.h \
     modules/help/shortcutsdialog.h \
-    modules/style/infoonkeyboardshortcutsdialog.h
+    modules/style/infoonkeyboardshortcutsdialog.h \
+    modules/style/editingtypesdialog.h \
+    modules/help/firstaccessdialog.h \
+    modules/help/editingpreferencesdialog.h \
+    modules/help/userguideddialog.h \
+    modules/help/guidedoperationsdialog.h \
+    modules/help/guidedvalidationdialog.h
 
 SOURCES = \
     main.cpp \
@@ -400,7 +406,13 @@ SOURCES = \
     modules/xslt/showxslerrorsdialog.cpp \
     startparams.cpp \
     modules/help/shortcutsdialog.cpp \
-    modules/style/infoonkeyboardshortcutsdialog.cpp
+    modules/style/infoonkeyboardshortcutsdialog.cpp \
+    modules/style/editingtypesdialog.cpp \
+    modules/help/firstaccessdialog.cpp \
+    modules/help/editingpreferencesdialog.cpp \
+    modules/help/userguideddialog.cpp \
+    modules/help/guidedoperationsdialog.cpp \
+    modules/help/guidedvalidationdialog.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -457,7 +469,13 @@ FORMS = MainWindow.ui \
     modules/xslt/xsltexecdialog.ui \
     modules/xslt/showxslerrorsdialog.ui \
     modules/help/shortcutsdialog.ui \
-    modules/style/infoonkeyboardshortcutsdialog.ui
+    modules/style/infoonkeyboardshortcutsdialog.ui \
+    modules/style/editingtypesdialog.ui \
+    modules/help/firstaccessdialog.ui \
+    modules/help/editingpreferencesdialog.ui \
+    modules/help/userguideddialog.ui \
+    modules/help/guidedoperationsdialog.ui \
+    modules/help/guidedvalidationdialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

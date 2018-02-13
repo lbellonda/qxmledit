@@ -388,6 +388,7 @@ signals:
     void requestInsertSpec();
     void requestAppendSpec();
     void elementDoubleClicked(const uint times);
+    void editElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
     //--------------- signals
 };
 

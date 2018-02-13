@@ -1586,6 +1586,7 @@ void TestQXmlEdit::testNew()
     qInstallMessageHandler(msgHandler);
 #endif
     testEditing();
+    testConfig();
 }
 
 QTEST_MAIN(TestQXmlEdit)

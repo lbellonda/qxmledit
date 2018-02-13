@@ -73,6 +73,7 @@ private slots:
     void on_cbSHowElementsIcon_stateChanged(int /*state*/);
     void on_cbShowTagComplex_stateChanged(int /*state*/);
     void on_cbEnableMultiThreading_stateChanged(int /*state*/);
+    void on_cmdResetBehavior_clicked();
 };
 
 #endif // CONFIGURATIONGENERALOPTIONS_H

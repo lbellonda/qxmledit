@@ -462,11 +462,11 @@ void ApplicationData::setSaxonXSLPath(const QString &newValue)
 //--- region(baseEditMode)
 bool ApplicationData::evaluateConditionForShowShortcuts()
 {
-    Utils::TODO_THIS_RELEASE("test me");
+    Utils::TEST_ME("test me");
     if(areEditShortcutsUsed() || isShortcutUsedDialogShown()) {
         return false;
     }
-    const uint times = getElementDoubleClickedInSession() ;
+    const uint times = getElementDoubleClickedInSessionCount() ;
     if(times > LimitForShowShortcutsDialog) {
         return true;
     }
@@ -486,3 +486,11 @@ void ApplicationData::setShortcutUsedDialogShown()
 }
 
 //--- endregion(baseEditMode)
+
+void ApplicationData::resetBehaviorData()
+{
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, false);
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, false);
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, false);
+    Config::saveBool(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, false);
+}
