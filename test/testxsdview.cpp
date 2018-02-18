@@ -517,7 +517,7 @@ bool TestXSDView::testOutline()
 bool TestXSDView::testFast()
 {
     _testName = "testFast";
-    return testImagesExtInt();
+    return testUnit();
 }
 
 bool TestXSDView::testPrintPagination()
@@ -896,3 +896,112 @@ void TestXSDView::debugFile(const QString &data)
     writeToFile("/tmp/1", data);
 }
 */
+
+bool TestXSDView::testItemsSingleIntersectLine( const QString &key, const XSDItem::EIntersectType expected, const QRectF &candidate, const QRectF &source )
+{
+    XSDItem::EIntersectType result = XSDItem::intersectionType( candidate, source );
+    if(result != expected) {
+        return error(QString("Key: %1 expected: %2, result: %3").arg(key).arg(expected).arg(result));
+    }
+    return true;
+}
+
+bool TestXSDView::testItemsIntersectLine()
+{
+    _subTestName = "testItemsIntersectLine" ;
+
+    //IntersectNoneBefore,
+    {
+        QRectF candidate(0, -1, 10, 1);
+        QRectF source(20, -1, 10, 1);
+        if(!testItemsSingleIntersectLine( "1", XSDItem::IntersectNoneBefore, candidate, source )){
+            return false;
+        }
+    }
+    {
+        QRectF candidate(0, -1, 1, 1);
+        QRectF source(10, -1, 10, 1);
+        if(!testItemsSingleIntersectLine( "2", XSDItem::IntersectNoneBefore, candidate, source )){
+            return false;
+        }
+    }
+    //IntersectBefore,
+    {
+        QRectF candidate(0, -1, 10, 1);
+        QRectF source(9, -1, 10, 1);
+        if(!testItemsSingleIntersectLine( "3", XSDItem::IntersectBefore, candidate, source )){
+            return false;
+        }
+    }
+    {
+        QRectF candidate(0, -1, 10, 1);
+        QRectF source(1, -1, 9, 1);
+        if(!testItemsSingleIntersectLine( "4", XSDItem::IntersectBefore, candidate, source )){
+            return false;
+        }
+    }
+    //IntersectIncluded,
+    {
+        QRectF candidate(1, -1, 10, 1);
+        QRectF source(1, -1, 10, 1);
+        if(!testItemsSingleIntersectLine( "5", XSDItem::IntersectIncluded, candidate, source )){
+            return false;
+        }
+    }
+    {
+        QRectF candidate(2, -1, 3, 1);
+        QRectF source(1, -1, 10, 1);
+        if(!testItemsSingleIntersectLine( "6", XSDItem::IntersectIncluded, candidate, source )){
+            return false;
+        }
+    }
+    //IntersectAfter,
+    {
+        QRectF candidate(1, -1, 12, 1);
+        QRectF source(1, -1, 10, 1);
+        if(!testItemsSingleIntersectLine( "7", XSDItem::IntersectAfter, candidate, source )){
+            return false;
+        }
+    }
+    {
+        QRectF candidate(5, -1, 10, 1);
+        QRectF source(1, -1, 10, 1);
+        if(!testItemsSingleIntersectLine( "8", XSDItem::IntersectAfter, candidate, source )){
+            return false;
+        }
+    }
+    //IntersectBeforeAndAfter,
+    {
+        QRectF candidate(1, -1, 10, 1);
+        QRectF source(2, -1, 8, 1);
+        if(!testItemsSingleIntersectLine( "9", XSDItem::IntersectBeforeAndAfter, candidate, source )){
+            return false;
+        }
+    }
+    //IntersectNoneAfter,
+    {
+        QRectF candidate(10, -1, 6, 1);
+        QRectF source(1, -1, 6, 1);
+        if(!testItemsSingleIntersectLine( "10", XSDItem::IntersectNoneAfter, candidate, source )){
+            return false;
+        }
+    }
+    {
+        QRectF candidate(6, -1, 6, 1);
+        QRectF source(0, -1, 6, 1);
+        if(!testItemsSingleIntersectLine( "11", XSDItem::IntersectNoneAfter, candidate, source )){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool TestXSDView::testUnit()
+{
+    _testName = "testUnit" ;
+    if(!testItemsIntersectLine()) {
+        return  false;
+    }
+    return error("nyi");
+}
