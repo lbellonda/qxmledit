@@ -212,6 +212,7 @@ protected:
     bool _isDiff ;
     QRectF _bounds;
     qreal _yToAdd;
+    int _id ;
     static int _instances;
 
     enum EIntersectType {
@@ -258,8 +259,8 @@ protected:
     bool updateObjectPlacementNew0(XSDItemContext *context, QVector<QRectF> &currBounds, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain, const qreal extraGapValue);
     void recalcDispose(XSDItemContext *context);
     void updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging);
-    void moveDownBy(const qreal gapThis, const qreal gap, const bool isRecursive, const bool isEnlarging);
-    qreal updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal thisGap, const bool isFirst, const int index);
+    void moveDownBy(const qreal gap, const bool isRecursive, const bool isEnlarging);
+    qreal updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, QVector<QRectF> &currBounds, const qreal thisGap, const qreal gapValue, const bool isFirst, const int index);
     qreal calcOverallHeight(QList<QGraphicsItem*> &rendered);
     void finalOffset(const QRectF &bounds);
     void finalPos(QRectF &bounds, const bool isFirst);
@@ -284,7 +285,7 @@ protected:
     static void dump_layout_notice(const QString &notice, XSDItem *target, const QRectF &thisBounds, const qreal extraGap);
     static QString dump_rect_string(const QRectF &thisBounds);
     static void dump_layout_info(const QString &msg);
-    void dump_layout_intersect(const int index, const EIntersectType type);
+    static void dump_layout_intersect(const int index, const EIntersectType type);
     static void dump_layout_situation(const QString &msgPassed, const QVector<QRectF> &currBounds);
     static void dump_layout_indexes(const int insertAtPosition, const int lastItemLessThan,
                                     const int itemToBeSplitBefore, const int firstItemToBeSuppressed, const int lastItemToBeSuppressed,

@@ -142,6 +142,7 @@ int XSDItem::_instances = 0 ;
 XSDItem::XSDItem(XsdGraphicContext *newContext) : _menuBuilder(this), _iconInfo(NULL), _bounds(0, 0, 0, 0)
 {
     _instances++;
+    _id = _instances ;
     _childrenSizeInvalid = true ;
     _childrenHeight = 0 ;
     _realChildrenHeight = 0 ;
