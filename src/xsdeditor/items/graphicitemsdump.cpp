@@ -28,7 +28,6 @@
 #include "xsdeditor/items/xitemsdefinitions.h"
 #include "timelapse.h"
 #include <stdio.h>
-#include <cstdint>
 
 void XSDItem::dump_layout_item(XSDItem *target)
 {

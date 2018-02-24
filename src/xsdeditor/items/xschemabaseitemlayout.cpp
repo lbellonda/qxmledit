@@ -28,7 +28,6 @@
 #include "xsdeditor/items/xitemsdefinitions.h"
 #include "timelapse.h"
 #include <stdio.h>
-#include <cstdint>
 
 //#define QXMLEDIT_LAYOUT_DEBUG(x)    x
 //#define QXMLEDIT_LAYOUT_DEBUG(x)    do { x; } while(false)
