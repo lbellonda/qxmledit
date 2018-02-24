@@ -460,6 +460,7 @@ bool XSDWindow::setNewSchema(XSDSchema *schema)
 bool XSDWindow::showRoot()
 {
     _viewStack.clear();
+    XSDItem::resetId();
     RootItem *newRootItem = NULL ;
     if(_context.isOutline()) {
         QString chosenRoot;
@@ -502,6 +503,9 @@ bool XSDWindow::showRoot()
     if(NULL == _context.rootItem()) {
         return false ;
     }
+    setEnabled(false);
+    Utils::showWaitCursor();
+    setUpdatesEnabled(false);
     _context.rootItem()->recalcChildrenPos(&_itemContext);
     _scene->updateBounds();
     ui->navigation->emptyNavigationBox();
@@ -519,6 +523,9 @@ bool XSDWindow::showRoot()
     }
     ui->targetNamespaceInfo->setText(targetNS);
     _scene->gotoItem(_mainItem->graphicItem());
+    setUpdatesEnabled(true);
+    setEnabled(true);
+    Utils::restoreCursor();
 
     evalObjZoom();
     //TODO connect(_rootItem, SIGNAL(deleted(XSchemaObject*)), this, SLOT(rootDeleted(XSchemaObject*)));

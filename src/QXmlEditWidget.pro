@@ -509,7 +509,8 @@ SOURCES += xmleditwidget.cpp \
     xsdeditor/choosexsdreporttypedialog.cpp \
     xsdeditor/report/xsdprintinfo.cpp \
     xsdeditor/report/xsdprintinfohtml.cpp \
-    timelapse.cpp
+    timelapse.cpp \
+    xsdeditor/items/graphicitemsdump.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \

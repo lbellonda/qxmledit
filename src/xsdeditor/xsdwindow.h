@@ -256,7 +256,7 @@ protected:
     qreal calcChildrenHeight(XSDItemContext *context, const bool isRecursive);
     qreal calcChildrenHeightStrategyNew0(XSDItemContext *context, const bool isRecursive);
     void placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos, QRectF &overallBounds);
-    bool updateObjectPlacementNew0(XSDItemContext *context, QVector<QRectF> &currBounds, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain, const qreal extraGapValue);
+    bool updateObjectPlacementNew0(XSDItem *root, XSDItemContext *context, QVector<QRectF> &currBounds, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain, const qreal extraGapValue);
     void recalcDispose(XSDItemContext *context);
     void updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging);
     void moveDownBy(const qreal gap, const bool isRecursive, const bool isEnlarging);
@@ -291,8 +291,11 @@ protected:
                                     const int itemToBeSplitBefore, const int firstItemToBeSuppressed, const int lastItemToBeSuppressed,
                                     const int itemToBeSplitAfter, const int firstItemGreaterThan);
     void dump_layout_check_congruence(const QVector<QRectF> &currBounds);
+    static void dump_layout_item(XSDItem *target);
+    void dump_layout_items();
     static QRectF splitRectBefore(const QRectF &current, const QRectF &source);
     static QRectF splitRectAfter(const QRectF &current, const QRectF &source);
+    void drawChildrenPort(XSDItemContext *context);
 
 public:
     XSDItem(XsdGraphicContext *newContext);
@@ -327,6 +330,7 @@ public:
     RChildren *rChildren();
     virtual QString itemClassName() = 0 ;
     QString dumpAsString(const int indent);
+    static void resetId();
 
 public slots:
     virtual void childAdded(XSchemaObject *newChild);

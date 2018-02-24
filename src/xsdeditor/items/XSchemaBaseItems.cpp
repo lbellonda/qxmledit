@@ -2595,3 +2595,7 @@ void XSDItem::disposeObjectHorPyramid(XSDItemContext *context, const int level, 
     afterDisposeAllChildren();
 }
 
+void XSDItem::resetId()
+{
+    _instances = 0 ;
+}
