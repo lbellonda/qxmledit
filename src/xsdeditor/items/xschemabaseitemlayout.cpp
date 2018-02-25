@@ -39,6 +39,7 @@
 #define QXMLEDIT_LAYOUT_DEBUG3(x)
 
 static const int FinalOffsetFromTop = 20;
+static const int DefaultExtension = 20 ;
 
 qreal XSDItem::placeAllStrategyHorPyramidNew0(XSDItemContext *context)
 {
@@ -112,7 +113,6 @@ void XSDItem::finalOffset(const QRectF &bounds)
 
 qreal XSDItem::calcChildrenHeight(XSDItemContext *context, const bool isRecursive)
 {
-    Utils::TODO_THIS_RELEASE("delete forse non serve");
     qreal directChildrenHeight = 0 ;
     qreal lastChildBounds = 0 ;
     bool isFirst = true;
@@ -147,10 +147,6 @@ qreal XSDItem::calcChildrenHeight(XSDItemContext *context, const bool isRecursiv
 
 void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos, QRectF &overallBounds)
 {
-    /*if(!strcmp(this->metaObject()->className(), "ContainerItem")) {
-        int debug = 1;
-        debug++;
-    }*/
     qreal allChildrenHeight = calcChildrenHeight(context, false) ;
     const qreal yPosThis = yPos;
     _bounds.moveTopLeft(QPointF(xPos, yPosThis));
@@ -158,14 +154,10 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
     QXMLEDIT_LAYOUT_DEBUG3(printf(" r: %d, %d\n", (int)_bounds.left(), (int)_bounds.top()); fflush(stdout););
     QRectF bounds(_bounds);
     qreal xOffset = xPos + 2 * bounds.width() + context->stemLength() / 4 + extraSpace();
-    Utils::TODO_THIS_RELEASE("qreal yFirstPos = 0;");
     // finds the total height
     qreal minYPosChildren = yPos + (bounds.height() / 2) - (allChildrenHeight / 2) + offsetHeight() ;
     qreal maxYPosChildren = minYPosChildren ;
     bool isFirst = true;
-    /*QString log = QString("level:%1, name=%2, posY=%3, height=%4, minPos=%5, overall=%6").arg(level).arg(item()->name()).arg(yPos).arg(bounds.height()).arg(minYPosChildren).arg(_childrenHeight);
-    printf( "%s\n", log.toLatin1().data());
-    fflush(stdout);*/
 
     qreal itemYPos = minYPosChildren;
     /*if(context->isDebug() && (level < 3)) {
@@ -190,7 +182,6 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
         if(isFirst) {
             isFirst = false ;
             minYPosChildren = maxYPosChildren;
-            Utils::TODO_THIS_RELEASE("yFirstPos = origYPos + childBounds.height() / 2;");
         } else {
             itemYPos += context->gapBetweenChildren();
         }
@@ -202,54 +193,6 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
     } else {
         overallBounds = overallBounds.united(_bounds) ;
     }
-    Utils::TODO_THIS_RELEASE("fare poi le linee");
-#if 0
-    QGraphicsLineItem *line = _children.secondLine(this);
-    if(NULL != line) {
-        QXMLEDIT_LAYOUT_DEBUG1(line->setPen(QPen(QColor::fromRgb(0, 255, 255))));
-        if(_children.children().size() > 1) {
-            line->show();
-            qreal lastXParent = xPos + bounds.width() ;
-            qreal posX = lastXParent + (xOffset - lastXParent) / 2 ;
-            //QPointF thisPos = thisItem->scenePos();
-            //fprintf(stdout, " this is %d %d, min child:%d - %d", (int)thisPos.x(), (int)thisPos.y(), (int)minYPosChildren, (int)maxYPosChildren );
-            //fflush(stdout);
-            line->setLine(posX, minYPosChildren, posX, maxYPosChildren);
-        } else {
-            line->hide();
-        }
-    }
-    QGraphicsLineItem *secondLine = _children._line;
-    if(NULL != secondLine) {
-        QXMLEDIT_LAYOUT_DEBUG1(secondLine->setPen(QPen(QColor::fromRgb(0, 128, 0))));
-        if(_children.children().size() > 1) {
-            secondLine->show();
-            qreal lastXParent = xPos + bounds.width() ;
-            qreal posX = lastXParent + (xOffset - lastXParent) / 2 ;
-            qreal yPosLine = yPosThis + bounds.height() / 2 + offsetHeight();
-            if(_children.children().size() == 1) {
-                yPosLine = yFirstPos ;
-            }
-            secondLine->setLine(lastXParent, yPosLine, posX, yPosLine);
-            _children.showChildLine();
-            //secondLine->setPen(QPen(QColor::fromRgb(255,255,255)));
-        } else if(_children.children().size() == 1) {
-            secondLine->show();
-            qreal lastXParent = xPos + bounds.width() ;
-            qreal posX = lastXParent + (xOffset - lastXParent) ;
-            qreal yPosLine = yPosThis + bounds.height() / 2 + offsetHeight();
-            if(_children.children().size() == 1) {
-                yPosLine = yFirstPos ;
-            }
-            secondLine->setLine(lastXParent, yPosLine, posX, yPosLine);
-            _children.suppressChildLine();
-            //secondLine->setPen(QPen(QColor::fromRgb(255,255,255)));
-        } else {
-            secondLine->hide();
-        }
-    }
-    //afterDisposeAllChildren();
-#endif
 }
 
 void XSDItem::updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging)
@@ -282,30 +225,23 @@ void XSDItem::updateSummaryLineBounds(const qreal gapThis, const qreal gap, cons
     }
 }
 
-void XSDItem::moveDownBy(const qreal gap, const bool isRecursive, const bool isEnlarging)
+void XSDItem::moveDownBy(const qreal gap)
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    Q_UNUSED(isRecursive);
-    Q_UNUSED(isEnlarging);
     _bounds.moveTop(_bounds.top() + gap);
     QXMLEDIT_LAYOUT_DEBUG(
-        printf("%s\n", QString("      ** moved name %1 by %2 enlarging %3")
+        printf("%s\n", QString("      ** moved name %1 by %2")
                .arg(item()->name())
                .arg(gap)
-               .arg(isEnlarging)
                .toLatin1().data());
         fflush(0);
     );
 
     _yToAdd += gap ;
-    Utils::TODO_THIS_RELEASE("fare");
 }
 
-qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem *target, QVector<QRectF> &currBounds, const qreal thisGap, const qreal gapValue, const bool isFirst, const int index)
+qreal XSDItem::updateAnObjectPlacementNew0(XSDItem *target, QVector<QRectF> &currBounds, const qreal thisGap, const qreal gapValue, const int index)
 {
-    Utils::TODO_THIS_RELEASE("eliminare");
     Q_UNUSED(index);
-    Q_UNUSED(isFirst);
     bool targetEngaged = false;
     QXMLEDIT_LAYOUT_DEBUG(bool existsBefore = false);
     bool firstChildIsTarget = false;
@@ -323,8 +259,7 @@ qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem
             }
             // target and before: already taken care of
         } else {
-            // all after to the target is to move
-            Utils::TODO_THIS_RELEASE("xsdItem->moveDownBy(gapValue, true, false);");
+            // nothing
         }
         childIndex ++ ;
     }
@@ -339,13 +274,13 @@ qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem
         fflush(0);
     } while(false););
 
-    Utils::TODO_THIS_RELEASE("Se target e' primo, il solo, move down di tutto o mezzo, poi");
-
     QXMLEDIT_LAYOUT_DEBUG(dump_layout_notice("Adding offset", this, _bounds, realThisGap));
     _yToAdd += gapValue ;
     _bounds.moveTop(_bounds.top() + realThisGap);
     Utils::TODO_THIS_RELEASE("Questo rettangolo non e' estatto e non tiene conto dello stem");
-    QRectF testRect(QPointF(_bounds.left() - 50, -1), QPointF(_bounds.right() + 50, _bounds.bottom()));
+    //QRectF testRect(QPointF(_bounds.left() - 50, -1), QPointF(_bounds.right() + 50, _bounds.bottom()));
+    QRectF testRect(QPointF(_bounds.left(), -1), QPointF(_bounds.right(), _bounds.bottom()));
+    updateRectIncludingAll(testRect);
     int size = currBounds.size();
     for(int i = 0 ; i < size ; i ++) {
         QRectF outerRect = currBounds.at(i);
@@ -355,7 +290,8 @@ qreal XSDItem::updateAnObjectPlacementNew0(XSDItemContext * /*context*/, XSDItem
                 newRect.setBottom(_bounds.bottom() + 1);
                 currBounds.replace(i, newRect);
             } else {
-                Utils::TODO_THIS_RELEASE("alert");
+                // noting
+                QXMLEDIT_LAYOUT_DEBUG(Utils::TODO_THIS_RELEASE("alert"));
             }
         }
     }
@@ -378,24 +314,26 @@ bool XSDItem::updateObjectPlacementNew0(XSDItem* root, XSDItemContext *context, 
     Utils::TODO_THIS_RELEASE("scrivi algoritmo");
     bool collisionFound = false;
     bool existsCollision = false ;
-    qreal extens = 0;
+    Utils::TODO_THIS_RELEASE("controlla variabili");
+    /*qreal extens = 0;
     if(NULL != _chain) {
         extens = _chain->line()->boundingRect().width();
-    }
+    }*/
     QXMLEDIT_LAYOUT_DEBUG(if(6 == _id) {
     dump_layout_notice("enter", this, _bounds, extraGapValue);
     });
     QXMLEDIT_LAYOUT_DEBUG(dump_layout_notice("pre enter", this, _bounds, 0));
     _bounds.moveTop(_bounds.top() + extraGapValue);
     Utils::TODO_THIS_RELEASE("valore extra");
-    Q_UNUSED(extens);
-    qreal beforeExtens = extens ;
-    Q_UNUSED(beforeExtens);
+    /*qreal beforeExtens = extens ;
     if((_bounds.x() - extens) < 0) {
         beforeExtens = _bounds.x();
-    }
+    }*/
+    Utils::TODO_THIS_RELEASE("check");
+    QRectF thisBounds(_bounds.x(), _bounds.y(), _bounds.width(), _bounds.height());
+    updateRectIncludingAll(thisBounds);
     //QRectF thisBounds(_bounds.x() - beforeExtens, _bounds.y(), _bounds.width() + beforeExtens + extens, _bounds.height());
-    QRectF thisBounds(_bounds.x() - 10, _bounds.y(), _bounds.width() + 10, _bounds.height());
+    //QRectF thisBounds(_bounds.x() - 10, _bounds.y(), _bounds.width() + 10, _bounds.height());
     QXMLEDIT_LAYOUT_DEBUG(dump_layout_notice("enter", this, thisBounds, extraGapValue));
     QXMLEDIT_LAYOUT_DEBUG(dump_layout_situation("Before work", currBounds));
 
@@ -527,7 +465,6 @@ escape_from_loop:
     QXMLEDIT_LAYOUT_DEBUG(dump_layout_check_congruence(currBounds));
     Utils::TODO_THIS_RELEASE("modifica questo rettangolo se collisione");
     if(existsCollision) {
-        //if(existsCollision && (nogo==1)) {
         QXMLEDIT_LAYOUT_DEBUG(QGraphicsItem *thisItem = graphicItem());
         QXMLEDIT_LAYOUT_DEBUG(thisItem->setGraphicsEffect(new QGraphicsColorizeEffect()));
         QXMLEDIT_LAYOUT_DEBUG(dump_layout_info("starting moving down"));
@@ -537,15 +474,13 @@ escape_from_loop:
         * sposta il padre al centro
         */
         const int size = chain.size();
-        bool first = true ;
         int counter = 0 ;
         qreal thisGap = gapValue ;
         XSDItem *target = this ;
         for(int index = size - 1 ; index >= 0 ; index --) {
             XSDItem *item = chain.at(index);
             QXMLEDIT_LAYOUT_DEBUG(dump_layout_notice(" Before moving down chain ", item, item->_bounds, thisGap));
-            thisGap = item->updateAnObjectPlacementNew0(context, target, currBounds, thisGap, gapValue, first, counter);
-            first = false;
+            thisGap = item->updateAnObjectPlacementNew0(target, currBounds, thisGap, gapValue, counter);
             target = item ;
             counter ++ ;
         }
@@ -563,6 +498,12 @@ escape_from_loop:
     return existsCollision || collisionFound ;
 }
 
+void XSDItem::updateRectIncludingAll(QRectF &target)
+{
+    const qreal extens = DefaultExtension ;
+    target.moveLeft(_bounds.x() - extens);
+    target.setWidth(_bounds.width() + extens + extens);
+}
 
 qreal XSDItem::checkVerticalCollision(const QRectF &candidate, const QRectF &source, const qreal originalGapValue)
 {
@@ -654,7 +595,7 @@ void XSDItem::resetLayoutData()
 
 QRectF XSDItem::splitRectBefore(const QRectF &current, const QRectF &source)
 {
-    Utils::TODO_THIS_RELEASE("");
+    Utils::TODO_THIS_RELEASE("test");
     QRectF opRect(current);
     opRect.setRight(source.left());
     return opRect;
@@ -662,7 +603,7 @@ QRectF XSDItem::splitRectBefore(const QRectF &current, const QRectF &source)
 
 QRectF XSDItem::splitRectAfter(const QRectF &current, const QRectF &source)
 {
-    Utils::TODO_THIS_RELEASE("");
+    Utils::TODO_THIS_RELEASE("test");
     QRectF opRect(current);
     opRect.setLeft(source.right());
     return opRect;

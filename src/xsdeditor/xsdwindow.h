@@ -259,8 +259,8 @@ protected:
     bool updateObjectPlacementNew0(XSDItem *root, XSDItemContext *context, QVector<QRectF> &currBounds, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain, const qreal extraGapValue);
     void recalcDispose(XSDItemContext *context);
     void updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging);
-    void moveDownBy(const qreal gap, const bool isRecursive, const bool isEnlarging);
-    qreal updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, QVector<QRectF> &currBounds, const qreal thisGap, const qreal gapValue, const bool isFirst, const int index);
+    void moveDownBy(const qreal gap);
+    qreal updateAnObjectPlacementNew0(XSDItem *target, QVector<QRectF> &currBounds, const qreal thisGap, const qreal gapValue, const int index);
     qreal calcOverallHeight(QList<QGraphicsItem*> &rendered);
     void finalOffset(const QRectF &bounds);
     void finalPos(QRectF &bounds, const bool isFirst);
@@ -296,6 +296,7 @@ protected:
     static QRectF splitRectBefore(const QRectF &current, const QRectF &source);
     static QRectF splitRectAfter(const QRectF &current, const QRectF &source);
     void drawChildrenPort(XSDItemContext *context);
+    void updateRectIncludingAll(QRectF &target);
 
 public:
     XSDItem(XsdGraphicContext *newContext);
