@@ -4,11 +4,12 @@ devel
 
 Branches:
 ---------
-issue-48 improve xsd diaplay performance
+
 169-UI-improvements - increasing user-friendliness
 
 Merged branches:
 -------------
+issue-48 improve xsd display performance
 170 - update year on all headers
 issue-46 - issue #46, source compatibility with Qt5.10
 167-betterxsddoc - better XSD documentation

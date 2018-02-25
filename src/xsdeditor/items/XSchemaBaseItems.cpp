@@ -137,9 +137,12 @@ QColor XSDItem::colorInvalidStart = QColor::fromRgbF(1, 0, 1, 1) ;
 QColor XSDItem::colorInvalidEnd = QColor::fromRgbF(1, .7, 1, 1) ;
 //--------------------------------------------------------------------------------------
 
+int XSDItem::_instances = 0 ;
 
-XSDItem::XSDItem(XsdGraphicContext *newContext) : _menuBuilder(this), _iconInfo(NULL)
+XSDItem::XSDItem(XsdGraphicContext *newContext) : _menuBuilder(this), _iconInfo(NULL), _bounds(0, 0, 0, 0)
 {
+    _instances++;
+    _id = _instances ;
     _childrenSizeInvalid = true ;
     _childrenHeight = 0 ;
     _realChildrenHeight = 0 ;
@@ -148,6 +151,7 @@ XSDItem::XSDItem(XsdGraphicContext *newContext) : _menuBuilder(this), _iconInfo(
     _chain = NULL ;
     _isBase = false;
     _isDiff = (NULL != newContext) ? newContext->contextType() == XsdGraphicContext::CONTEXT_DIFF : false ;
+    _yToAdd = 0;
 }
 
 XSDItem::~XSDItem()
@@ -2591,3 +2595,7 @@ void XSDItem::disposeObjectHorPyramid(XSDItemContext *context, const int level, 
     afterDisposeAllChildren();
 }
 
+void XSDItem::resetId()
+{
+    _instances = 0 ;
+}

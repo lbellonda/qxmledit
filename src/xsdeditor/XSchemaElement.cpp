@@ -904,7 +904,7 @@ bool XSchemaElement::readHandleSimpleType(XSDLoadContext *loadContext, QDomEleme
                     SET_XSD_ATTR(_name, attr.value());
                 }
             } else if(name == IO_SIMPLETYPE_ATTR_FINAL) {
-                Utils::error("_final = readFinalAttribute(attr.value());");
+                _final = decodeFinalListToString(attr.value());
             } else if(name == IO_ATTRIBUTE_ATTR_REF) {
                 raiseError(loadContext, XSD_LOAD_ERROR_TYPE_TOP_REF_SET, this, element, tr("Type definition: reference not allowed."));
             } else {
@@ -995,7 +995,7 @@ bool XSchemaElement::readHandleComplexType(XSDLoadContext *loadContext, QDomElem
             } else if(name == IO_COMPLEXTYPE_ATTR_BLOCK) {
                 SET_XSD_ATTR(_block, decodeFinalListToString(attr.value()));
             } else if(name == IO_COMPLEXTYPE_ATTR_FINAL) {
-                Utils::error("_final = readFinalAttribute(attr.value());");
+                _final = decodeFinalListToString(attr.value());
             } else if(name == IO_COMPLEXTYPE_ATTR_ID) {
                 _id = attr.value();
             } else if(name == IO_GENERIC_MIXED) {

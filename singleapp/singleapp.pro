@@ -53,4 +53,4 @@ equals(USE_QWTPLOT, "Y") {
     }
 }
 
-    SUBDIRS += app.pro
+SUBDIRS += app.pro

@@ -65,6 +65,9 @@ class TestXSDView : public TestBase
     bool checkSettingsAndExpected(App &app, const QString &msg, const bool useDefault, const QString &path, const QString &expectedPath);
     bool testForImage(const QString &id, App &app, const bool isEmbedded, const bool isDotViz);
     bool testImagesExtInt();
+    bool testItemsIntersectLine();
+    bool testItemsSingleIntersectLine( const QString &key, const XSDItem::EIntersectType expected, const QRectF &candidate, const QRectF &source );
+    bool testItemsSplit();
     //void debugFile(const QString &data);
 public:
     TestXSDView();
@@ -79,6 +82,7 @@ public:
     bool testFast();
     bool testOutline();
     bool testPrint();
+    bool testUnit();
 };
 
 #endif // TESTXSDVIEW_H
