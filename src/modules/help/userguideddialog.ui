@@ -81,6 +81,19 @@
     <string>Configure View</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="pushButton_5">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>100</y>
+     <width>80</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>DA ELIMINARE</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>

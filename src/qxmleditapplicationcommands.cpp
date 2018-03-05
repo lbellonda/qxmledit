@@ -20,26 +20,53 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef USERGUIDEDDIALOG_H
-#define USERGUIDEDDIALOG_H
+#include "qxmleditapplication.h"
+#include "mainwindow.h"
+#include "modules/encoding/codepagedialog.h"
+#include "uiservices.h"
+#include "visualization/datavisualization.h"
+#include "modules/services/anotifier.h"
+#include "StartParams.h"
+#include "utils.h"
+#include "qxmleditconfig.h"
+#include "modules/anonymize/anonymizebatch.h"
+#include "extraction/extractfragmentsdialog.h"
+#include "modules/help/firstaccessdialog.h"
+#include "modules/help/guidedoperationsdialog.h"
 
-#include <QDialog>
-
-namespace Ui
+void QXmlEditApplication::onCommandNew()
 {
-class UserGuidedDialog;
+    Utils::TODO_THIS_RELEASE("fare");
+    MainWindow *mainWindow = new MainWindow(false, _appData);
+    mainWindow->show();
+    mainWindow->raise();
+    mainWindow->activateWindow();
 }
 
-class UserGuidedDialog : public QDialog
+
+void QXmlEditApplication::onCommandQuit()
 {
-    Q_OBJECT
+    Utils::TODO_THIS_RELEASE("fare");
+    this->quit();
+}
 
-public:
-    explicit UserGuidedDialog(QWidget *parent = 0);
-    ~UserGuidedDialog();
+void QXmlEditApplication::onCommandOpen()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    MainWindow *mainWindow = new MainWindow(false, _appData);
+    Utils::TODO_THIS_RELEASE("fare ultimo path usato");
+    if(mainWindow->openFileUsingDialog("XXXXXXX TODO", MainWindow::OpenUsingSameWindow)) {
+        mainWindow->show();
+        mainWindow->raise();
+        mainWindow->activateWindow();
+    } else {
+        delete mainWindow;
+    }
+}
 
-private:
-    Ui::UserGuidedDialog *ui;
-};
+void QXmlEditApplication::onCommandValidate()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    showValidationOperationsPanel();
+}
 
-#endif // USERGUIDEDDIALOG_H

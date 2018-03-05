@@ -314,7 +314,8 @@ HEADERS = precompiled_app.h \
     modules/help/editingpreferencesdialog.h \
     modules/help/userguideddialog.h \
     modules/help/guidedoperationsdialog.h \
-    modules/help/guidedvalidationdialog.h
+    modules/help/guidedvalidationdialog.h \
+    modules/services/startactionsengine.h
 
 SOURCES = \
     main.cpp \
@@ -412,7 +413,10 @@ SOURCES = \
     modules/help/editingpreferencesdialog.cpp \
     modules/help/userguideddialog.cpp \
     modules/help/guidedoperationsdialog.cpp \
-    modules/help/guidedvalidationdialog.cpp
+    modules/help/guidedvalidationdialog.cpp \
+    qxmleditapplicationcommands.cpp \
+    modules/services/startactionsengine.cpp \
+    startactionsapplication.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \

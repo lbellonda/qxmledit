@@ -147,9 +147,12 @@ public:
     static const QString  KEY_FRAGMENTS_FILTERTEXT_PATH;
     static const QString  KEY_FRAGMENTS_OPERATION_TYPE;
 
-    // welcome dialog
+    // welcome dialog and user profiling
     static const QString  KEY_WELCOMEDIALOG_ENABLED;
     static const QString  KEY_WELCOMEDIALOG_VERSION;
+    static const QString  KEY_USERPROFILING_FIRSTUSE;
+    static const QString  KEY_USERPROFILING_GUIDED;
+    static const QString  KEY_USERPROFILING_USERTYPE;
 
     // sessions
     static const QString KEY_SESSIONS_ENABLED;

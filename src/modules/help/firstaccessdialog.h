@@ -23,18 +23,26 @@
 #ifndef FIRSTACCESSDIALOG_H
 #define FIRSTACCESSDIALOG_H
 
-#include <QDialog>
+#include <xmlEdit.h>
+#include "applicationdata.h"
 
-namespace Ui {
+namespace Ui
+{
 class FirstAccessDialog;
 }
 
 class FirstAccessDialog : public QDialog
 {
     Q_OBJECT
+    ApplicationData *_applicationData;
+
+
+protected:
+    virtual void accept();
+    virtual void reject();
 
 public:
-    explicit FirstAccessDialog(QWidget *parent = 0);
+    explicit FirstAccessDialog(ApplicationData *applicationData, QWidget *parent = 0);
     ~FirstAccessDialog();
 
 private:

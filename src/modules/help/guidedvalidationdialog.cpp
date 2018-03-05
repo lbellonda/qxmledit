@@ -22,15 +22,23 @@
 
 #include "guidedvalidationdialog.h"
 #include "ui_guidedvalidationdialog.h"
+#include "applicationdata.h"
+#include "utils.h"
 
-GuidedValidationDialog::GuidedValidationDialog(QWidget *parent) :
+GuidedValidationDialog::GuidedValidationDialog(QWidget *parent, ApplicationData *appData) :
     QDialog(parent),
     ui(new Ui::GuidedValidationDialog)
 {
+    _appData = appData ;
     ui->setupUi(this);
 }
 
 GuidedValidationDialog::~GuidedValidationDialog()
 {
     delete ui;
+}
+
+void GuidedValidationDialog::resetData()
+{
+    Utils::TODO_THIS_RELEASE("fare");
 }

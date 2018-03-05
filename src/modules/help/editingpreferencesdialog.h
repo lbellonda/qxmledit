@@ -25,7 +25,8 @@
 
 #include <QDialog>
 
-namespace Ui {
+namespace Ui
+{
 class EditingPreferencesDialog;
 }
 

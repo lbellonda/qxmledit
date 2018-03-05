@@ -23,22 +23,39 @@
 #ifndef GUIDEDOPERATIONSDIALOG_H
 #define GUIDEDOPERATIONSDIALOG_H
 
-#include <QDialog>
+#include "xmlEdit.h"
 
-namespace Ui {
+class QXmlEditApplication ;
+class ApplicationData ;
+
+namespace Ui
+{
 class GuidedOperationsDialog;
 }
 
 class GuidedOperationsDialog : public QDialog
 {
     Q_OBJECT
-
+    QXmlEditApplication *_application;
+    ApplicationData *_appData ;
 public:
-    explicit GuidedOperationsDialog(QWidget *parent = 0);
+    explicit GuidedOperationsDialog(QXmlEditApplication *application, ApplicationData *appData, QWidget *parent = 0);
     ~GuidedOperationsDialog();
 
 private:
     Ui::GuidedOperationsDialog *ui;
+
+signals:
+    void triggerNew();
+    void triggerQuit();
+    void triggerOpen();
+    void triggerValidate();
+
+private slots:
+    void on_testNEW_clicked();
+    void on_testQUIT_clicked();
+    void on_testOPEN_clicked();
+
 };
 
 #endif // GUIDEDOPERATIONSDIALOG_H

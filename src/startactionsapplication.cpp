@@ -20,26 +20,52 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef USERGUIDEDDIALOG_H
-#define USERGUIDEDDIALOG_H
+#include "qxmleditapplication.h"
+#include "mainwindow.h"
+#include "modules/encoding/codepagedialog.h"
+#include "uiservices.h"
+#include "visualization/datavisualization.h"
+#include "modules/services/anotifier.h"
+#include "StartParams.h"
+#include "utils.h"
+#include "qxmleditconfig.h"
+#include "modules/help/firstaccessdialog.h"
+#include "modules/help/guidedoperationsdialog.h"
+#include "modules/help/guidedvalidationdialog.h"
 
-#include <QDialog>
-
-namespace Ui
+void QXmlEditApplication::startActionShowUserTypePanel()
 {
-class UserGuidedDialog;
+    Utils::TEST_ME("");
+    showUserTypePanel() ;
 }
 
-class UserGuidedDialog : public QDialog
+bool QXmlEditApplication::startActionShowGuidedOperationsPanel()
 {
-    Q_OBJECT
+    Utils::TEST_ME("fare");
+    return showGuidedOperationsPanel();
+}
 
-public:
-    explicit UserGuidedDialog(QWidget *parent = 0);
-    ~UserGuidedDialog();
+void QXmlEditApplication::startActionSetupFirstAccessForPreferences()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    setupFirstAccessForPreferences();
+}
 
-private:
-    Ui::UserGuidedDialog *ui;
-};
+void QXmlEditApplication::startActionTriggersWelcomeDialog()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    MainWindow *mainWindow = getOrCreateMainWindow();
+    mainWindow->show();
+    mainWindow->triggersWelcomeDialog();
+}
 
-#endif // USERGUIDEDDIALOG_H
+void QXmlEditApplication::startActionLoadFile(const QString &fileName)
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    MainWindow *mainWindow = getOrCreateMainWindow();
+    mainWindow->show();
+    mainWindow->loadFile(fileName);
+}
+
+//-------------------- accessories
+

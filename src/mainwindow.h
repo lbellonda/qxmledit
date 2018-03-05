@@ -150,9 +150,10 @@ public:
 
     bool reload();
     void updateAfterPreferences();
-    void setupFirstAccess();
+    void setupFirstAccessForPreferences();
     void taskChooseDetail();
     SourceRelatedMessages *sourceRelatedMessages();
+    bool openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow = OpenUsingDefaultSettings);
 
 protected:
     //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.
@@ -449,7 +450,6 @@ private:
     void dropEvent(QDropEvent *event);
 
     void computeSelectionState();
-    void openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow = OpenUsingDefaultSettings);
 
     Element *getSelectedItem();
 

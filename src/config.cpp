@@ -142,9 +142,12 @@ const QString Config::KEY_FRAGMENTS_FILTERTEXT_PATH("extractFragments/pathForFil
 const QString Config::KEY_FRAGMENTS_OPERATION_TYPE("extractFragments/operationType");
 
 
-// welcome dialog
+// welcome dialog and user profiling
 const QString Config::KEY_WELCOMEDIALOG_ENABLED("welcomeDialog/enabled");
 const QString Config::KEY_WELCOMEDIALOG_VERSION("welcomeDialog/version");
+const QString Config::KEY_USERPROFILING_FIRSTUSE("userProfiling/firstUse");
+const QString Config::KEY_USERPROFILING_GUIDED("userProfiling/guided");
+const QString Config::KEY_USERPROFILING_USERTYPE("userProfiling/type");
 
 // sessions
 const QString Config::KEY_SESSIONS_ENABLED("sessions/sessionsEnabled");

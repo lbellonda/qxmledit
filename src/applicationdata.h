@@ -141,6 +141,21 @@ public:
     void resetBehaviorData();
     //--- endregion(baseEditMode)
 
+    //--- region(access)
+    bool isUserFirstAccess();
+    void resetUserFirstAccess();
+    void fireUserFirstAccess();
+    bool isUserGuidedOperation();
+    void setUserGuidedOperation(const bool value);
+    void resetUserGuidedOperation();
+
+    enum EUserType {
+        UserTypeExpert = 0,
+        UserTypeGuided = 1
+    } ;
+    void setUserType(const EUserType userType);
+    //--- endregion(access)
+
     AttributeFilterManagement *attributeFilterManagement();
 private slots:
     void onSessionActivated(const int idSession);

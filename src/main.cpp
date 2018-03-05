@@ -33,6 +33,7 @@
 #include "qxmleditapplication.h"
 #include "modules/services/anotifier.h"
 #include "modules/xslt/xsltexecutor.h"
+#include "modules/services/startactionsengine.h"
 
 #include "licensedialog.h"
 
@@ -70,6 +71,7 @@ static void addMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock)
 static void removeMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock);
 static bool licenseAgreement();
 static int doAnonymize(QXmlEditApplication *app, StartParams &startParams);
+static bool handleCommandLineArguments(QXmlEditApplication &app, StartParams &startParams);
 
 static QTranslator qtLibTranslator;
 static QTranslator qXmlEditTranslator;
@@ -77,10 +79,10 @@ static QTranslator qXmlEditWidgetTranslator;
 static QTranslator qXmlEditSessionTranslator;
 
 static LogHandler logHandler;
-static StartParams startParams ;
 
 int internalMain(int argc, char *argv[])
 {
+    StartParams startParams ;
     QXmlEditApplication app(argc, argv);
     Q_INIT_RESOURCE(risorse);
 
@@ -121,25 +123,35 @@ int internalMain(int argc, char *argv[])
         int returnCode = doXSL(&appData, &startParams);
         return returnCode;
     }
+
     if(!decoded) {
         printHelp();
     }
-
-    MainWindow *mainWindow = new MainWindow(false, &appData);
-
-    mainWindow->show();
-    mainWindow->setupFirstAccess();
-    switch(startParams.type) {
-    default:
-    case StartParams::Nothing:
-        mainWindow->triggersWelcomeDialog();
-        break;
-    case StartParams::OpenFile:
-        mainWindow->loadFile(startParams.fileName);
-        break;
-    case StartParams::VisFile:
-        mainWindow->loadVisFile(startParams.fileName);
-        break;
+    Utils::TODO_THIS_RELEASE("spostare in classe apposita");
+    if(!handleCommandLineArguments(app, startParams)) {
+        Utils::TODO_THIS_RELEASE("controlla e rimuovi");
+        StartActionsEngine startActionsEngine(&app, &appData);
+        startActionsEngine.execute(startParams);
+        /*
+        MainWindow *mainWindow = new MainWindow(false, &appData);
+        app.handleFirstAccess();
+        mainWindow->show();
+        if(!app.appData()->isUserGuidedOperation()) {
+            // editor view detail level
+            mainWindow->setupFirstAccessForPreferences();
+        }
+        switch(startParams.type) {
+        default:
+        case StartParams::Nothing:
+            if(!app.appData()->isUserGuidedOperation()) {
+                mainWindow->triggersWelcomeDialog();
+            }
+            break;
+        case StartParams::OpenFile:
+            mainWindow->loadFile(startParams.fileName);
+            break;
+        }
+        */
     }
     app.connect(appData.notifier(), SIGNAL(newWindowRequested()), &app, SLOT(onNewWindow()));
     app.connect(appData.notifier(), SIGNAL(encodingToolsRequested()), &app, SLOT(onEncodingTools()));
@@ -164,6 +176,34 @@ int internalMain(int argc, char *argv[])
         Utils::errorSavingUserSettings();
     }
     return result;
+}
+
+bool handleCommandLineArguments(QXmlEditApplication &app, StartParams &startParams)
+{
+    bool handled = false;
+    switch(startParams.type) {
+    default:
+        break;
+    case StartParams::OpenFile: {
+        Utils::TODO_THIS_RELEASE("Dubbioso se gestire qui o nel caso generale");
+        MainWindow *mainWindow = new MainWindow(false, app.appData());
+        mainWindow->show();
+        // editor view detail level
+        mainWindow->setupFirstAccessForPreferences();
+        mainWindow->loadFile(startParams.fileName);
+        handled = true ;
+    }
+    break;
+    case StartParams::VisFile: {
+        Utils::TODO_THIS_RELEASE("e' il caso di aprire una finestra solo per il vis?");
+        MainWindow *mainWindow = new MainWindow(false, app.appData());
+        mainWindow->show();
+        mainWindow->loadVisFile(startParams.fileName);
+        handled = true ;
+    }
+    break;
+    }
+    return handled;
 }
 
 static void addMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock)

@@ -22,15 +22,32 @@
 
 #include "firstaccessdialog.h"
 #include "ui_firstaccessdialog.h"
+#include "utils.h"
 
-FirstAccessDialog::FirstAccessDialog(QWidget *parent) :
+FirstAccessDialog::FirstAccessDialog(ApplicationData *applicationData, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FirstAccessDialog)
 {
+    _applicationData = applicationData ;
     ui->setupUi(this);
+    // default values
+    _applicationData->setUserType(ApplicationData::UserTypeExpert);
 }
 
 FirstAccessDialog::~FirstAccessDialog()
 {
     delete ui;
+}
+
+void FirstAccessDialog::accept()
+{
+    Utils::TODO_THIS_RELEASE("finire");
+    _applicationData->setUserType(ApplicationData::UserTypeGuided);
+    QDialog::accept();
+}
+
+void FirstAccessDialog::reject()
+{
+    _applicationData->setUserType(ApplicationData::UserTypeExpert);
+    QDialog::reject();
 }

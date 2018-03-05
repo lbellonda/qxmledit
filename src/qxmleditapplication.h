@@ -28,12 +28,15 @@
 #include <QLocalServer>
 #include "log.h"
 #include "operationresult.h"
+#include "modules/services/startactionsengine.h"
 
 class ApplicationData;
 class StartParams;
 class MainWindow;
+class GuidedOperationsDialog;
+class GuidedValidationDialog;
 
-class QXmlEditApplication : public QApplication
+class QXmlEditApplication : public QApplication, StartActionsExecutor
 {
     Q_OBJECT
 private:
@@ -44,6 +47,8 @@ private:
     ApplicationData *_appData;
     QLocalServer *_server;
     FrwLogger *_logger;
+    GuidedOperationsDialog *_guidedOperationsDialog;
+    GuidedValidationDialog *_guidedValidationDialog;
 public:
     explicit QXmlEditApplication(int &argc, char **argv);
     virtual ~QXmlEditApplication();
@@ -57,6 +62,17 @@ public:
     void setLogger(FrwLogger *logger);
 
     OperationResult *anonymizeBatch(const QString &newFileInputPath, const QString &newProfileName, const QString &newFileOutputPath);
+    bool handleFirstAccess();
+    void setupFirstAccessForPreferences();
+    MainWindow *getOrCreateMainWindow();
+
+    // region(StartAtcionsExecutor)
+    virtual void startActionShowUserTypePanel();
+    virtual bool startActionShowGuidedOperationsPanel();
+    virtual void startActionSetupFirstAccessForPreferences();
+    virtual void startActionTriggersWelcomeDialog();
+    virtual void startActionLoadFile(const QString &fileName);
+    // endregion(StartAtcionsExecutor)
 
 protected:
     bool event(QEvent *event);
@@ -65,8 +81,12 @@ protected:
     QByteArray paramsToByteArray(StartParams *startParams);
     MainWindow *makeNewWindow();
     bool errorCloseConnection(QLocalSocket *client);
-
-signals:
+    bool showUserTypePanel();
+    bool showGuidedOperationsPanel();
+    bool showValidationOperationsPanel();
+    void connectToCommandsPanel(const bool isConnect, GuidedOperationsDialog *target);
+    void bindCommandOperation(const bool isConnect, const QObject *sender, const char *signal, const char *method);
+    void taskChooseDetail();
 
 public slots:
     void onNewWindow();
@@ -78,6 +98,10 @@ public slots:
     void onRaiseWindows();
 private slots:
     void newServerConnection();
+    void onCommandNew();
+    void onCommandQuit();
+    void onCommandOpen();
+    void onCommandValidate();
 
 };
 

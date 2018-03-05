@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>First Access</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../risorse.qrc">
+    <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -75,24 +79,11 @@
     <string>How do you prefer using it?</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>90</x>
-     <y>230</y>
-     <width>80</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Intermediate</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_2">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>160</y>
+     <x>80</x>
+     <y>170</y>
      <width>80</width>
      <height>26</height>
     </rect>
@@ -104,8 +95,8 @@
   <widget class="QPushButton" name="pushButton_3">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>330</y>
+     <x>80</x>
+     <y>290</y>
      <width>80</width>
      <height>26</height>
     </rect>
@@ -117,15 +108,15 @@
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>340</y>
-     <width>271</width>
-     <height>71</height>
+     <x>220</x>
+     <y>280</y>
+     <width>381</width>
+     <height>101</height>
     </rect>
    </property>
    <property name="text">
     <string>Broiwse though the commands without  help.Full access to any command.
-After some usage you will prefer it. This is the fastest mode to use the progam</string>
+After some usage you will prefer it. This is the fastest mode to use the progam, but requires some experience.</string>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
@@ -134,7 +125,7 @@ After some usage you will prefer it. This is the fastest mode to use the progam<
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>250</x>
+     <x>230</x>
      <y>160</y>
      <width>241</width>
      <height>61</height>
@@ -147,21 +138,10 @@ After some usage you will prefer it. This is the fastest mode to use the progam<
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>250</x>
-     <y>240</y>
-     <width>271</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Choose the features using a panel</string>
-   </property>
-  </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../risorse.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

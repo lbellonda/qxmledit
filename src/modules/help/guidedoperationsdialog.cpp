@@ -22,15 +22,36 @@
 
 #include "guidedoperationsdialog.h"
 #include "ui_guidedoperationsdialog.h"
+#include "utils.h"
 
-GuidedOperationsDialog::GuidedOperationsDialog(QWidget *parent) :
+GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application, ApplicationData *appData, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::GuidedOperationsDialog)
 {
+    _application = application;
+    _appData = appData;
     ui->setupUi(this);
 }
 
 GuidedOperationsDialog::~GuidedOperationsDialog()
 {
     delete ui;
+}
+
+void GuidedOperationsDialog::on_testNEW_clicked()
+{
+    Utils::TODO_NEXT_RELEASE("");
+    emit triggerNew();
+}
+
+void GuidedOperationsDialog::on_testQUIT_clicked()
+{
+    Utils::TODO_NEXT_RELEASE("");
+    emit triggerQuit();
+}
+
+void GuidedOperationsDialog::on_testOPEN_clicked()
+{
+    Utils::TODO_NEXT_RELEASE("");
+    emit triggerOpen();
 }

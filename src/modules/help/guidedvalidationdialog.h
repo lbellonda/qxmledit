@@ -23,9 +23,12 @@
 #ifndef GUIDEDVALIDATIONDIALOG_H
 #define GUIDEDVALIDATIONDIALOG_H
 
-#include <QDialog>
+#include "xmlEdit.h"
 
-namespace Ui {
+class ApplicationData;
+
+namespace Ui
+{
 class GuidedValidationDialog;
 }
 
@@ -33,10 +36,13 @@ class GuidedValidationDialog : public QDialog
 {
     Q_OBJECT
 
+    ApplicationData *_appData;
+
 public:
-    explicit GuidedValidationDialog(QWidget *parent = 0);
+    explicit GuidedValidationDialog(QWidget *parent, ApplicationData *appData);
     ~GuidedValidationDialog();
 
+    void resetData();
 private:
     Ui::GuidedValidationDialog *ui;
 };

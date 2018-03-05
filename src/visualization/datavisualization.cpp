@@ -31,7 +31,6 @@ DataVisualization::~DataVisualization()
 {
 }
 
-
 void DataVisualization::viewData(QXmlEditData *newData, QWidget *parent, QWidget *mainWidget, const QString &fileName)
 {
     VisMapDialog visMapDialog(newData, parent, mainWidget, fileName);

@@ -485,12 +485,55 @@ void ApplicationData::setShortcutUsedDialogShown()
     }
 }
 
-//--- endregion(baseEditMode)
-
 void ApplicationData::resetBehaviorData()
 {
     Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, false);
     Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, false);
     Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, false);
     Config::saveBool(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, false);
+    Utils::TEST_ME("");
+    resetUserGuidedOperation();
+    resetUserFirstAccess();
 }
+
+//--- endregion(baseEditMode)
+
+//--- region(access)
+
+bool ApplicationData::isUserFirstAccess()
+{
+    return Config::getBool(Config::KEY_USERPROFILING_FIRSTUSE, true);
+}
+
+void ApplicationData::resetUserFirstAccess()
+{
+    Config::saveBool(Config::KEY_USERPROFILING_FIRSTUSE, true);
+}
+
+void ApplicationData::fireUserFirstAccess()
+{
+    Config::saveBool(Config::KEY_USERPROFILING_FIRSTUSE, false);
+}
+
+bool ApplicationData::isUserGuidedOperation()
+{
+    return Config::getBool(Config::KEY_USERPROFILING_GUIDED, false);
+}
+
+void ApplicationData::setUserGuidedOperation(const bool value)
+{
+    Config::saveBool(Config::KEY_USERPROFILING_GUIDED, value);
+}
+
+void ApplicationData::resetUserGuidedOperation()
+{
+    Config::saveBool(Config::KEY_USERPROFILING_GUIDED, false);
+}
+
+void ApplicationData::setUserType(const EUserType userType)
+{
+    Config::saveBool(Config::KEY_USERPROFILING_GUIDED, UserTypeGuided == userType);
+    Config::saveInt(Config::KEY_USERPROFILING_USERTYPE, userType);
+}
+
+//--- endregion(access)

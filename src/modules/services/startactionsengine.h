@@ -20,26 +20,42 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef USERGUIDEDDIALOG_H
-#define USERGUIDEDDIALOG_H
+#ifndef STARTACTIONSENGINE_H
+#define STARTACTIONSENGINE_H
 
-#include <QDialog>
+#include "xmlEdit.h"
 
-namespace Ui
-{
-class UserGuidedDialog;
-}
+class ApplicationData;
+class StartParams;
 
-class UserGuidedDialog : public QDialog
-{
-    Q_OBJECT
+class StartActionsExecutor {
 
 public:
-    explicit UserGuidedDialog(QWidget *parent = 0);
-    ~UserGuidedDialog();
+    StartActionsExecutor();
+    virtual ~StartActionsExecutor();
 
-private:
-    Ui::UserGuidedDialog *ui;
+    virtual void startActionShowUserTypePanel() = 0 ;
+    virtual bool startActionShowGuidedOperationsPanel() = 0 ;
+    virtual void startActionSetupFirstAccessForPreferences() =0 ;
+    virtual void startActionTriggersWelcomeDialog() = 0 ;
+    virtual void startActionLoadFile(const QString &fileName) = 0 ;
 };
 
-#endif // USERGUIDEDDIALOG_H
+
+class StartActionsEngine : public QObject
+{
+    ApplicationData *_data;
+    StartActionsExecutor *_executor;
+    Q_OBJECT
+public:
+    explicit StartActionsEngine(ApplicationData *data, StartActionsExecutor *executor);
+    virtual ~StartActionsEngine();
+
+    bool execute(StartParams &startParams);
+
+signals:
+
+public slots:
+};
+
+#endif // STARTACTIONSENGINE_H

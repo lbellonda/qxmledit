@@ -1027,10 +1027,10 @@ void MainWindow::on_actionOpen_triggered()
     openFileUsingDialog(getRegola()->fileName());
 }
 
-void MainWindow::openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow)
+bool MainWindow::openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow)
 {
     if(!checkAbandonChanges(useWindow)) {
-        return ;
+        return false;
     }
     QString filePath = QFileDialog::getOpenFileName(
                            this, tr("Open File"),
@@ -1038,8 +1038,9 @@ void MainWindow::openFileUsingDialog(const QString folderPath, const EWindowOpen
                            Utils::getFileFilterForOpenFile()
                        );
     if(!filePath.isEmpty()) {
-        loadFile(filePath, true, useWindow);
+        return loadFile(filePath, true, useWindow);
     }
+    return false ;
 }
 
 void MainWindow::on_actionNewFromClipboard_triggered()
@@ -3447,8 +3448,9 @@ QString MainWindow::askFileNameToOpen(const QString &startFolder)
     return filePath ;
 }
 
-void MainWindow::setupFirstAccess()
+void MainWindow::setupFirstAccessForPreferences()
 {
+    Utils::TODO_THIS_RELEASE("spostare in application");
     if(!Config::getBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, false)) {
         Config::saveBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, true);
         taskChooseDetail();
@@ -3457,8 +3459,12 @@ void MainWindow::setupFirstAccess()
 
 void MainWindow::taskChooseDetail()
 {
-    ChooseStyleDialog dlg(this);
+    Utils::TODO_THIS_RELEASE("controlla equivalenza");
+    Utils::TODO_THIS_RELEASE("spostare in application");
+    QXmlEditApplication::taskChooseDetail();
+    /*ChooseStyleDialog dlg(this);
     dlg.setModal(true);
+    dlg.setWindowModality(Qt::ApplicationModal);
     if(dlg.exec() == QDialog::Accepted) {
         DisplayStyleSetting *theStyle = dlg.selectedStyle();
         if(NULL != theStyle) {
@@ -3471,7 +3477,7 @@ void MainWindow::taskChooseDetail()
             getEditor()->invalidatePaintData();
             data->updateEditors();
         }
-    }
+    }*/
 }
 
 void MainWindow::on_actionTaskDisplayDetail_triggered()

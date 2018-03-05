@@ -20,7 +20,6 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "qxmleditapplication.h"
 #include "mainwindow.h"
 #include "modules/encoding/codepagedialog.h"
@@ -34,6 +33,9 @@
 #include "qxmleditconfig.h"
 #include "modules/anonymize/anonymizebatch.h"
 #include "extraction/extractfragmentsdialog.h"
+#include "modules/help/firstaccessdialog.h"
+#include "modules/help/guidedoperationsdialog.h"
+#include "modules/help/guidedvalidationdialog.h"
 
 const QString QXmlEditApplication::ServerName("__qxmledit__server__");
 
@@ -42,10 +44,24 @@ QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
 {
     _server = NULL ;
     _logger = NULL ;
+    _guidedOperationsDialog = NULL ;
+    _guidedValidationDialog = NULL ;
 }
 
 QXmlEditApplication::~QXmlEditApplication()
 {
+    if(NULL != _guidedOperationsDialog) {
+        connectToCommandsPanel(false, _guidedOperationsDialog);
+        _guidedOperationsDialog->close();
+        delete _guidedOperationsDialog ;
+        _guidedOperationsDialog = NULL ;
+    }
+    if(NULL != _guidedValidationDialog) {
+        _guidedValidationDialog->close();
+        delete _guidedValidationDialog ;
+        _guidedValidationDialog = NULL ;
+    }
+
     if(NULL != _server) {
         disconnect(_server, SIGNAL(newConnection()), this, SLOT(newServerConnection()));
         if(_server->isListening()) {
@@ -341,3 +357,111 @@ OperationResult *QXmlEditApplication::anonymizeBatch(const QString &newFileInput
     return result;
 }
 
+bool QXmlEditApplication::handleFirstAccess()
+{
+    Utils::TODO_THIS_RELEASE("spostata");
+    Utils::TEST_ME("");
+    if(_appData->isUserFirstAccess()) {
+        showUserTypePanel();
+        _appData->fireUserFirstAccess();
+    }
+    if(_appData->isUserGuidedOperation()) {
+        // modeless
+        showGuidedOperationsPanel();
+        return true;
+    }
+    return false;
+}
+
+bool QXmlEditApplication::showUserTypePanel()
+{
+    Utils::TODO_THIS_RELEASE("spostata, eliminare o redirect");
+    Utils::TEST_ME("");
+    FirstAccessDialog firstAccessDialog(_appData);
+    firstAccessDialog.exec();
+    return true ;
+}
+
+bool QXmlEditApplication::showGuidedOperationsPanel()
+{
+    Utils::TEST_ME("");
+    Utils::TODO_THIS_RELEASE("fare");
+    _guidedOperationsDialog = new GuidedOperationsDialog(this, _appData);
+    connectToCommandsPanel(true, _guidedOperationsDialog);
+    _guidedOperationsDialog->setModal(false);
+    _guidedOperationsDialog->show();
+    _guidedOperationsDialog->raise();
+    _guidedOperationsDialog->activateWindow();
+    return true;
+}
+
+bool QXmlEditApplication::showValidationOperationsPanel()
+{
+    Utils::TEST_ME("");
+    Utils::TODO_THIS_RELEASE("fare");
+    if(NULL == _guidedValidationDialog) {
+        _guidedValidationDialog = new GuidedValidationDialog(NULL, _appData);
+        _guidedValidationDialog->setModal(false);
+    }
+    _guidedValidationDialog->resetData();
+    _guidedValidationDialog->show();
+    _guidedValidationDialog->raise();
+    _guidedValidationDialog->activateWindow();
+    return true;
+}
+
+void QXmlEditApplication::bindCommandOperation(const bool isConnect, const QObject *sender, const char *signal, const char *method)
+{
+    if(isConnect) {
+        connect(sender, signal, this, method);
+    } else {
+        disconnect(sender, signal, this, method);
+    }
+}
+
+void QXmlEditApplication::connectToCommandsPanel(const bool isConnect, GuidedOperationsDialog *target)
+{
+    bindCommandOperation(isConnect, target, SIGNAL(triggerNew()), SLOT(onCommandNew()));
+    Utils::TODO_THIS_RELEASE("fare");
+    bindCommandOperation(isConnect, target, SIGNAL(triggerQuit()), SLOT(onCommandQuit()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerOpen()), SLOT(onCommandOpen()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerValidate()), SLOT(onCommandValidate()));
+}
+
+
+void QXmlEditApplication::setupFirstAccessForPreferences()
+{
+    if(!Config::getBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, false)) {
+        Config::saveBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, true);
+        taskChooseDetail();
+    }
+}
+
+void QXmlEditApplication::taskChooseDetail()
+{
+    ChooseStyleDialog dlg(NULL);
+    dlg.setModal(true);
+    dlg.setWindowModality(Qt::ApplicationModal);
+    if(dlg.exec() == QDialog::Accepted) {
+        DisplayStyleSetting *theStyle = dlg.selectedStyle();
+        if(NULL != theStyle) {
+            // save the selection to the configuration
+            PaintInfo paintInfo;
+            paintInfo.loadState();
+            theStyle->applyToPaintInfo(&paintInfo);
+            paintInfo.setChanged();
+            paintInfo.saveState();
+            // apply to all the editors
+            _appData->updateEditors();
+        }
+    }
+}
+
+MainWindow *QXmlEditApplication::getOrCreateMainWindow()
+{
+    if(appData()->windows().isEmpty()) {
+        MainWindow *mainWindow = new MainWindow(false, _appData);
+        return mainWindow ;
+    }
+    return appData()->windows().at(0);
+}

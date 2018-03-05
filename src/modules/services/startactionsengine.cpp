@@ -20,26 +20,70 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef USERGUIDEDDIALOG_H
-#define USERGUIDEDDIALOG_H
+#include "startactionsengine.h"
+#include "applicationdata.h"
+#include "StartParams.h"
+#include "utils.h"
 
-#include <QDialog>
-
-namespace Ui
+//------------------------------------------------------------------------
+StartAtcionsExecutor::StartAtcionsExecutor()
 {
-class UserGuidedDialog;
+    //
 }
 
-class UserGuidedDialog : public QDialog
+StartAtcionsExecutor::~StartAtcionsExecutor()
 {
-    Q_OBJECT
+    //
+}
+//------------------------------------------------------------------------
 
-public:
-    explicit UserGuidedDialog(QWidget *parent = 0);
-    ~UserGuidedDialog();
+StartActionsEngine::StartActionsEngine(ApplicationData *data, StartActionsExecutor *executor) : QObject(NULL)
+{
+    _data = data ;
+    _executor = executor ;
+}
 
-private:
-    Ui::UserGuidedDialog *ui;
-};
+StartActionsEngine::~StartActionsEngine()
+{
+    //
+}
 
-#endif // USERGUIDEDDIALOG_H
+/**
+ * @brief StartActionsEngine::execute executes the logic of first access
+ */
+bool StartActionsEngine::execute(StartParams &startParams)
+{
+    if( (NULL == _executor) || ( NULL == _data ) ) {
+        Utils::error( NULL, tr(""));
+        return false;
+    }
+    if(_data->isUserFirstAccess()) {
+        _executor->startActionShowUserTypePanel();
+        _data->fireUserFirstAccess();
+    }
+    if(_data->isUserGuidedOperation()) {
+        // modeless
+        _executor->startActionShowGuidedOperationsPanel();
+    } else {
+        // editor view detail level
+        _executor->startActionSetupFirstAccessForPreferences();
+    }
+
+    switch(startParams.type) {
+    default:
+    case StartParams::Nothing:
+        if(!_data->isUserGuidedOperation()) {
+            _executor->startActionTriggersWelcomeDialog();
+        }
+        break;
+    case StartParams::OpenFile:
+        _executor->startActionLoadFile(startParams.fileName);
+        break;
+    }
+    return true ;
+
+}
+
+
+
+

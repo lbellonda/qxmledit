@@ -20,26 +20,19 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef USERGUIDEDDIALOG_H
-#define USERGUIDEDDIALOG_H
+#ifndef TESTSTARTUPANDBEHAVIOR_H
+#define TESTSTARTUPANDBEHAVIOR_H
 
-#include <QDialog>
+#include "testbase.h"
 
-namespace Ui
+class TestStartupAndBehavior : public TestBase
 {
-class UserGuidedDialog;
-}
-
-class UserGuidedDialog : public QDialog
-{
-    Q_OBJECT
-
 public:
-    explicit UserGuidedDialog(QWidget *parent = 0);
-    ~UserGuidedDialog();
+    TestStartupAndBehavior();
+    ~TestStartupAndBehavior();
 
-private:
-    Ui::UserGuidedDialog *ui;
+    bool testUnit();
+    bool testFast();
 };
 
-#endif // USERGUIDEDDIALOG_H
+#endif // TESTSTARTUPANDBEHAVIOR_H
