@@ -36,7 +36,7 @@ class MainWindow;
 class GuidedOperationsDialog;
 class GuidedValidationDialog;
 
-class QXmlEditApplication : public QApplication, StartActionsExecutor
+class QXmlEditApplication : public QApplication, public StartActionsExecutor
 {
     Q_OBJECT
 private:

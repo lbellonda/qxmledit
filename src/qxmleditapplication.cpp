@@ -36,6 +36,7 @@
 #include "modules/help/firstaccessdialog.h"
 #include "modules/help/guidedoperationsdialog.h"
 #include "modules/help/guidedvalidationdialog.h"
+#include "modules/style/choosestyledialog.h"
 
 const QString QXmlEditApplication::ServerName("__qxmledit__server__");
 

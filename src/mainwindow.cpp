@@ -3461,7 +3461,8 @@ void MainWindow::taskChooseDetail()
 {
     Utils::TODO_THIS_RELEASE("controlla equivalenza");
     Utils::TODO_THIS_RELEASE("spostare in application");
-    QXmlEditApplication::taskChooseDetail();
+    Utils::TODO_THIS_RELEASE("fare il routing dei comandi");
+    //QXmlEditApplication::taskChooseDetail();
     /*ChooseStyleDialog dlg(this);
     dlg.setModal(true);
     dlg.setWindowModality(Qt::ApplicationModal);

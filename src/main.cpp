@@ -130,7 +130,7 @@ int internalMain(int argc, char *argv[])
     Utils::TODO_THIS_RELEASE("spostare in classe apposita");
     if(!handleCommandLineArguments(app, startParams)) {
         Utils::TODO_THIS_RELEASE("controlla e rimuovi");
-        StartActionsEngine startActionsEngine(&app, &appData);
+        StartActionsEngine startActionsEngine(&appData, &app);
         startActionsEngine.execute(startParams);
         /*
         MainWindow *mainWindow = new MainWindow(false, &appData);

@@ -28,7 +28,8 @@
 class ApplicationData;
 class StartParams;
 
-class StartActionsExecutor {
+class StartActionsExecutor
+{
 
 public:
     StartActionsExecutor();
@@ -36,7 +37,7 @@ public:
 
     virtual void startActionShowUserTypePanel() = 0 ;
     virtual bool startActionShowGuidedOperationsPanel() = 0 ;
-    virtual void startActionSetupFirstAccessForPreferences() =0 ;
+    virtual void startActionSetupFirstAccessForPreferences() = 0 ;
     virtual void startActionTriggersWelcomeDialog() = 0 ;
     virtual void startActionLoadFile(const QString &fileName) = 0 ;
 };

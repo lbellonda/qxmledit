@@ -24,9 +24,24 @@
 #define TESTSTARTUPANDBEHAVIOR_H
 
 #include "testbase.h"
+#include "applicationdata.h"
+
+struct TestStartInvocationData;
 
 class TestStartupAndBehavior : public TestBase
 {
+    bool checkStartupAction(
+            const QString &id,
+            // set values
+            const bool setFirstAccess, const bool setOpenFile, const ApplicationData::EUserType setUserType,
+            // -- expected
+            const bool expectedAskUserTypePanel, const bool expectedOpenGuidedPanel,
+            const bool expectedAskVisDetailsTypePanel, const bool expectedShowWelcome,
+            const bool expectedOpenFile, const ApplicationData::EUserType panelUserType,
+            // final values
+            const ApplicationData::EUserType checkFinalUserType );
+    bool checkExpectedStartupResults(TestStartInvocationData *obj, TestStartInvocationData *expected);
+
 public:
     TestStartupAndBehavior();
     ~TestStartupAndBehavior();

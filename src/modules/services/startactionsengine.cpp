@@ -26,12 +26,12 @@
 #include "utils.h"
 
 //------------------------------------------------------------------------
-StartAtcionsExecutor::StartAtcionsExecutor()
+StartActionsExecutor::StartActionsExecutor()
 {
     //
 }
 
-StartAtcionsExecutor::~StartAtcionsExecutor()
+StartActionsExecutor::~StartActionsExecutor()
 {
     //
 }
@@ -53,8 +53,8 @@ StartActionsEngine::~StartActionsEngine()
  */
 bool StartActionsEngine::execute(StartParams &startParams)
 {
-    if( (NULL == _executor) || ( NULL == _data ) ) {
-        Utils::error( NULL, tr(""));
+    if((NULL == _executor) || (NULL == _data)) {
+        Utils::error(NULL, tr(""));
         return false;
     }
     if(_data->isUserFirstAccess()) {
