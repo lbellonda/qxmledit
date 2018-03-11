@@ -32,16 +32,9 @@ GuidedValidationDialog::GuidedValidationDialog(QWidget *parent, ApplicationData 
 {
     Utils::TODO_THIS_RELEASE("NOTA: il drop dovrebbe gestire anche solo il testo?");
 
-
-    Utils::TODO_THIS_RELEASE("drop file xml fai xml, xsd fai xsd");
-    Utils::TODO_THIS_RELEASE("drop single xml /xsd");
-
     Utils::TODO_THIS_RELEASE("Sposta da help in XSD");
     Utils::TODO_THIS_RELEASE("fare 3 stati");
     Utils::TODO_THIS_RELEASE("mod e fai partire");
-    Utils::TODO_THIS_RELEASE("annulla precedente");
-    Utils::TODO_THIS_RELEASE("prima di uscire wait close");
-    Utils::TODO_THIS_RELEASE("mostra risultato");
 
     _calculating = false ;
     _appData = appData ;
@@ -57,10 +50,15 @@ GuidedValidationDialog::GuidedValidationDialog(QWidget *parent, ApplicationData 
     _xsd.icon = ui->statusXSD;
     _isError = false ;
     _isValid = false ;
-    Utils::TODO_THIS_RELEASE("cambia");
     setAcceptDrops(true);
     ui->fileNameXML->setAcceptDrops(false);
     ui->fileNameXSD->setAcceptDrops(false);
+    int widthLButton = ui->cmdLoadXML->width();
+    int widthSButton = ui->cmdLoadXSD->width();
+    int newWidth = qMax(widthLButton, widthSButton) * 1.3;
+    ui->cmdLoadXML->setFixedWidth(newWidth);
+    ui->cmdLoadXSD->setFixedWidth(newWidth);
+    resetData();
 }
 
 GuidedValidationDialog::~GuidedValidationDialog()
@@ -76,6 +74,8 @@ void GuidedValidationDialog::resetData()
     _isValid = false;
     ui->fileNameXML->setText("");
     ui->fileNameXSD->setText("");
+    updateStatusFile(&_xml, false, "");
+    updateStatusFile(&_xsd, false, "");
     updateStatus();
 }
 
@@ -145,13 +145,11 @@ void GuidedValidationDialog::executeCalculation()
 
 void GuidedValidationDialog::stopCurrentCalculation()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     if(_currentCalculation.isRunning()) {
         _currentCalculation.cancel();
         _waitingForCancelTaskList.append(_currentCalculation);
         _calculating = false;
     }
-    Utils::TODO_THIS_RELEASE("debug code");
     if(_calculating) {
         Utils::error(this, tr("Invalid state"));
         _calculating = false;
@@ -160,7 +158,6 @@ void GuidedValidationDialog::stopCurrentCalculation()
 
 void GuidedValidationDialog::executeNewCalculation()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     setEnabled(false);
     _isError = false ;
     _isValid = false ;
@@ -231,7 +228,6 @@ void GuidedValidationDialog::reject()
 
 void GuidedValidationDialog::waitEndCalculation()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     QFuture<QPair<int, QString>> future;
     foreach(future, _waitingForCancelTaskList) {
         future.waitForFinished();
@@ -240,18 +236,11 @@ void GuidedValidationDialog::waitEndCalculation()
 
 void GuidedValidationDialog::abortCalculation()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     stopCurrentCalculation();
-    Utils::TODO_THIS_RELEASE("debug code");
     if(_calculating) {
         Utils::error(this, tr("Invalid state"));
         _calculating = false;
     }
-}
-
-void GuidedValidationDialog::calculationIsEndedOk()
-{
-    Utils::TODO_THIS_RELEASE("fare");
 }
 
 QString GuidedValidationDialog::chooseFile(const QString &prevChoice)
@@ -266,7 +255,6 @@ QString GuidedValidationDialog::chooseFile(const QString &prevChoice)
 
 void GuidedValidationDialog::on_cmdLoadXML_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     QString file = chooseFile(ui->fileNameXML->text());
     if(!file.isEmpty()) {
         loadXML(file);
@@ -275,7 +263,6 @@ void GuidedValidationDialog::on_cmdLoadXML_clicked()
 
 void GuidedValidationDialog::on_cmdLoadXSD_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     QString file = chooseFile(ui->fileNameXSD->text());
     if(!file.isEmpty()) {
         loadXSD(file);
@@ -298,8 +285,9 @@ QPair<int, QString> GuidedValidationDialog::executeCalculationInThread(const QSt
 
 void GuidedValidationDialog::dragEnterEvent(QDragEnterEvent *event)
 {
- if (event->mimeData()->hasFormat(Utils::URIDropType))
-     event->acceptProposedAction();
+    if(event->mimeData()->hasFormat(Utils::URIDropType)) {
+        event->acceptProposedAction();
+    }
 }
 
 void GuidedValidationDialog::dropEvent(QDropEvent *event)
@@ -318,7 +306,7 @@ void GuidedValidationDialog::dropEvent(QDropEvent *event)
             QWidget *childReferencedByDrop = childAt(pos.x(), pos.y());
             if(childReferencedByDrop  == ui->fileNameXML) {
                 loadXML(filePath);
-            } else if(childReferencedByDrop  == ui->fileNameXSD ) {
+            } else if(childReferencedByDrop  == ui->fileNameXSD) {
                 loadXSD(filePath);
             } else {
                 if(filePath.toLower().endsWith(".xsd")) {

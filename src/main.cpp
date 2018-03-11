@@ -127,31 +127,10 @@ int internalMain(int argc, char *argv[])
     if(!decoded) {
         printHelp();
     }
-    Utils::TODO_THIS_RELEASE("spostare in classe apposita");
+
     if(!handleCommandLineArguments(app, startParams)) {
-        Utils::TODO_THIS_RELEASE("controlla e rimuovi");
         StartActionsEngine startActionsEngine(&appData, &app);
         startActionsEngine.execute(startParams);
-        /*
-        MainWindow *mainWindow = new MainWindow(false, &appData);
-        app.handleFirstAccess();
-        mainWindow->show();
-        if(!app.appData()->isUserGuidedOperation()) {
-            // editor view detail level
-            mainWindow->setupFirstAccessForPreferences();
-        }
-        switch(startParams.type) {
-        default:
-        case StartParams::Nothing:
-            if(!app.appData()->isUserGuidedOperation()) {
-                mainWindow->triggersWelcomeDialog();
-            }
-            break;
-        case StartParams::OpenFile:
-            mainWindow->loadFile(startParams.fileName);
-            break;
-        }
-        */
     }
     app.connect(appData.notifier(), SIGNAL(newWindowRequested()), &app, SLOT(onNewWindow()));
     app.connect(appData.notifier(), SIGNAL(encodingToolsRequested()), &app, SLOT(onEncodingTools()));
@@ -180,6 +159,7 @@ int internalMain(int argc, char *argv[])
 
 bool handleCommandLineArguments(QXmlEditApplication &app, StartParams &startParams)
 {
+    Utils::TODO_THIS_RELEASE("Se scegli user guidato annulla anche flag per presonalizzare video in modo che non appaia quando cambia il tipo utentre e fai un test");
     bool handled = false;
     switch(startParams.type) {
     default:
@@ -286,6 +266,7 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
+    Utils::TODO_THIS_RELEASE("manca il passaggio da simple user a guided e viceversa");
 }
 
 static void startTanslator(QApplication *app)

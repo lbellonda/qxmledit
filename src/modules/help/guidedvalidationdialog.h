@@ -73,7 +73,6 @@ protected:
     void updateStatus();
     void waitEndCalculation();
     void abortCalculation();
-    void calculationIsEndedOk();
     void goodbyeCalculation();
     QPair<int, QString> executeCalculationInThread(const QString &dataFile, const QString &schemaFile);
     void updateStatusFile(InfoPartGuidedValidationDialog *info, const bool how, const QString &filePath);

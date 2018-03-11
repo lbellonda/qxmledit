@@ -174,6 +174,7 @@ protected:
     void clearExportFilePath();
     void checkForSaveEncoding();
     void beforeLoadingNewData();
+    void requestOpenGuidedPanel();
 
 private slots:
     void onRaiseWindow();
@@ -386,6 +387,7 @@ private slots:
     void on_actionPresetNoIndentation_triggered();
     void on_actionPresetIndentOneAttributePerLine_triggered();
     void on_actionChooseEditType_triggered();
+    void on_actionValidationDialog_triggered();
 
     //----- other slots ------------------
 

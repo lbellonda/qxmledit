@@ -119,7 +119,7 @@ void Base64Dialog::onCurrentEncodingChanged(int newIndex)
 
 void Base64Dialog::dropEvent(QDropEvent *event)
 {
-    if(event->mimeData()->hasFormat("text/uri-list")) {
+    if(event->mimeData()->hasFormat(Utils::URIDropType)) {
         QString filePath = "" ;
         event->acceptProposedAction();
         if(event->mimeData()->hasUrls()) {

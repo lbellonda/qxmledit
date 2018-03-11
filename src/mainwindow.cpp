@@ -68,6 +68,7 @@ extern const char *APP_TITLE ;
 #include "modules/help/shortcutsdialog.h"
 #include "modules/style/infoonkeyboardshortcutsdialog.h"
 #include "modules/style/editingtypesdialog.h"
+#include "modules/help/guidedvalidationdialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -1367,14 +1368,14 @@ void MainWindow::on_actionAddProcessingInstruction_triggered()
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *event)
 {
-    if(event->mimeData()->hasFormat("text/uri-list")) {
+    if(event->mimeData()->hasFormat(Utils::URIDropType)) {
         event->acceptProposedAction();
     }
 }
 
 void MainWindow::dropEvent(QDropEvent *event)
 {
-    if(event->mimeData()->hasFormat("text/uri-list")) {
+    if(event->mimeData()->hasFormat(Utils::URIDropType)) {
         QString filePath = "" ;
         event->acceptProposedAction();
         if(event->mimeData()->hasUrls()) {
@@ -3462,8 +3463,9 @@ void MainWindow::taskChooseDetail()
     Utils::TODO_THIS_RELEASE("controlla equivalenza");
     Utils::TODO_THIS_RELEASE("spostare in application");
     Utils::TODO_THIS_RELEASE("fare il routing dei comandi");
+    Utils::TODO_THIS_RELEASE("pensare se lasciare qui, forse e' meglio");
     //QXmlEditApplication::taskChooseDetail();
-    /*ChooseStyleDialog dlg(this);
+    ChooseStyleDialog dlg(this);
     dlg.setModal(true);
     dlg.setWindowModality(Qt::ApplicationModal);
     if(dlg.exec() == QDialog::Accepted) {
@@ -3478,7 +3480,7 @@ void MainWindow::taskChooseDetail()
             getEditor()->invalidatePaintData();
             data->updateEditors();
         }
-    }*/
+    }
 }
 
 void MainWindow::on_actionTaskDisplayDetail_triggered()
@@ -3736,4 +3738,14 @@ void MainWindow::showEditingTypeDialog()
     EditingTypesDialog editingTypesDialog(this);
     editingTypesDialog.exec();
     data->setEditTypeDialogShown();
+}
+
+void MainWindow::requestOpenGuidedPanel()
+{
+    emit data->openUserGuidedPanel();
+}
+
+void MainWindow::on_actionValidationDialog_triggered()
+{
+    GuidedValidationDialog::showValidationDialog(data);
 }

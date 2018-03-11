@@ -29,17 +29,16 @@
 
 XSDValidationExecutor::XSDValidationExecutor()
 {
-
+    // nothing
 }
 
 XSDValidationExecutor::~XSDValidationExecutor()
 {
-
+    // nothing
 }
 
 QPair<int, QString> XSDValidationExecutor::execute(const QString &dataFile, const QString &schemaFile)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     QXmlSchema schemaHandler;
     ValidatorMessageHandler messageHandler;
     QUrl schemaUrl = QUrl::fromLocalFile(schemaFile);
@@ -55,7 +54,9 @@ QPair<int, QString> XSDValidationExecutor::execute(const QString &dataFile, cons
     if(schemaValidator.validate(dataUrl)) {
         return QPair<int, QString>(0, QObject::tr("XML is valid."));
     } else {
-        QString msg = QObject::tr("%1\nError: %2").arg(QObject::tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText());
+        QString msg = QObject::tr("%1\nError: %2 at line:%3, column:%4")
+                      .arg(QObject::tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText())
+                      .arg(messageHandler.line()).arg(messageHandler.column());
         return QPair<int, QString>(1, msg);
     }
 }
