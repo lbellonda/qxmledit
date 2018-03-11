@@ -30,12 +30,6 @@ GuidedValidationDialog::GuidedValidationDialog(QWidget *parent, ApplicationData 
     QDialog(parent),
     ui(new Ui::GuidedValidationDialog)
 {
-    Utils::TODO_THIS_RELEASE("NOTA: il drop dovrebbe gestire anche solo il testo?");
-
-    Utils::TODO_THIS_RELEASE("Sposta da help in XSD");
-    Utils::TODO_THIS_RELEASE("fare 3 stati");
-    Utils::TODO_THIS_RELEASE("mod e fai partire");
-
     _calculating = false ;
     _appData = appData ;
     ui->setupUi(this);
