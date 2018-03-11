@@ -102,6 +102,7 @@ private slots:
     void onCommandQuit();
     void onCommandOpen();
     void onCommandValidate();
+    void onOpenUserGuidedPanel();
 
 };
 

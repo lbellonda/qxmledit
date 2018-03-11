@@ -47,6 +47,9 @@ public:
 
 private:
     Ui::FirstAccessDialog *ui;
+private slots:
+    void on_cmdGuided_clicked();
+    void on_cmdExpert_clicked();
 };
 
 #endif // FIRSTACCESSDIALOG_H

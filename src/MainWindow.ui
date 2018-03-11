@@ -391,6 +391,7 @@
     <addaction name="actionSearchInFiles"/>
     <addaction name="actionExtractFragmentsFromFile"/>
     <addaction name="actionViewData"/>
+    <addaction name="actionValidationDialog"/>
     <addaction name="actionBase64Tools"/>
     <addaction name="actionEncodingTools"/>
     <addaction name="actionCompareFiles"/>
@@ -570,7 +571,7 @@
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset resource="risorse.qrc">
+    <iconset>
      <normaloff>:/actions/images/document-new.png</normaloff>:/actions/images/document-new.png</iconset>
    </property>
    <property name="text">
@@ -848,7 +849,7 @@
   </action>
   <action name="actionToggleBookmark">
    <property name="icon">
-    <iconset resource="risorse.qrc">
+    <iconset>
      <normaloff>:/special/images/bookmark.png</normaloff>:/special/images/bookmark.png</iconset>
    </property>
    <property name="text">
@@ -2036,7 +2037,7 @@
   </action>
   <action name="actionInfo">
    <property name="icon">
-    <iconset resource="risorse.qrc">
+    <iconset>
      <normaloff>:/actions/info</normaloff>:/actions/info</iconset>
    </property>
    <property name="text">
@@ -2471,6 +2472,14 @@
    </property>
    <property name="toolTip">
     <string>Choose if edit elements in text mode or using a form.</string>
+   </property>
+  </action>
+  <action name="actionValidationDialog">
+   <property name="text">
+    <string>XSD Validation</string>
+   </property>
+   <property name="toolTip">
+    <string>XSD validation panel.</string>
    </property>
   </action>
  </widget>

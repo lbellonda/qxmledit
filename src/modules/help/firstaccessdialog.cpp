@@ -41,13 +41,24 @@ FirstAccessDialog::~FirstAccessDialog()
 
 void FirstAccessDialog::accept()
 {
-    Utils::TODO_THIS_RELEASE("finire");
-    _applicationData->setUserType(ApplicationData::UserTypeGuided);
     QDialog::accept();
 }
 
 void FirstAccessDialog::reject()
 {
-    _applicationData->setUserType(ApplicationData::UserTypeExpert);
     QDialog::reject();
 }
+
+void FirstAccessDialog::on_cmdGuided_clicked()
+{
+    _applicationData->setUserType(ApplicationData::UserTypeGuided);
+    accept();
+}
+
+void FirstAccessDialog::on_cmdExpert_clicked()
+{
+    _applicationData->setUserType(ApplicationData::UserTypeExpert);
+    accept();
+}
+
+

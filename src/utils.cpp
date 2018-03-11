@@ -36,6 +36,7 @@ int Utils::silenceMessages1 = false ;
 bool Utils::filler1 = false ; // filler to avoid memory corruption if possible. Used as a double security with a # def.
 bool Utils::filler2 = false ;
 int Utils::silenceMessages2 = false ;
+const QString Utils::URIDropType("text/uri-list");
 
 void Utils::setBatch(const bool asBatch)
 {

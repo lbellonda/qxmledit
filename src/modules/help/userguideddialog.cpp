@@ -22,11 +22,13 @@
 
 #include "userguideddialog.h"
 #include "ui_userguideddialog.h"
+#include "utils.h"
 
 UserGuidedDialog::UserGuidedDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::UserGuidedDialog)
 {
+    Utils::TODO_THIS_RELEASE("forse elimina");
     ui->setupUi(this);
 }
 

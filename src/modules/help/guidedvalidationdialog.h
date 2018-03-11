@@ -24,8 +24,17 @@
 #define GUIDEDVALIDATIONDIALOG_H
 
 #include "xmlEdit.h"
+#include <QFuture>
+#include <QPair>
+#include <QDropEvent>
 
 class ApplicationData;
+
+struct InfoPartGuidedValidationDialog {
+    QLabel *icon;
+    QPushButton *button;
+    QLineEdit *edit;
+};
 
 namespace Ui
 {
@@ -36,15 +45,61 @@ class GuidedValidationDialog : public QDialog
 {
     Q_OBJECT
 
+    static const int PageOk = 0 ;
+    static const int PageEmpty = 1 ;
+    static const int PageKo = 2 ;
+    static const int PageWait = 3 ;
+    static const int PageError = 4 ;
+
+    bool _isError ;
+    bool _isValid ;
+    QString _message ;
+    bool _calculating ;
     ApplicationData *_appData;
+    InfoPartGuidedValidationDialog _xml;
+    InfoPartGuidedValidationDialog _xsd;
+    QList<QFuture<QPair<int, QString>>> _waitingForCancelTaskList;
+    QFuture<QPair<int, QString>> _currentCalculation;
+
+protected:
+    void accept();
+    void reject();
+    //---------------------------
+    void loadXML(const QString &fileName);
+    void loadXSD(const QString &fileName);
+    void executeCalculation();
+    void stopCurrentCalculation();
+    void executeNewCalculation();
+    void updateStatus();
+    void waitEndCalculation();
+    void abortCalculation();
+    void calculationIsEndedOk();
+    void goodbyeCalculation();
+    QPair<int, QString> executeCalculationInThread(const QString &dataFile, const QString &schemaFile);
+    void updateStatusFile(InfoPartGuidedValidationDialog *info, const bool how, const QString &filePath);
+    bool checkEndCalculation();
+    QString chooseFile(const QString &prevChoice);
+    QString dataFile();
+    QString schemaFile();
+    virtual void dropEvent(QDropEvent *event);
+    virtual void dragEnterEvent(QDragEnterEvent *event);
 
 public:
     explicit GuidedValidationDialog(QWidget *parent, ApplicationData *appData);
     ~GuidedValidationDialog();
 
     void resetData();
+
+    static void showValidationDialog(ApplicationData *appData);
+
 private:
     Ui::GuidedValidationDialog *ui;
+
+private slots:
+    void checkIfDone();
+    void on_cmdLoadXML_clicked();
+    void on_cmdLoadXSD_clicked();
+
 };
 
 #endif // GUIDEDVALIDATIONDIALOG_H

@@ -160,6 +160,9 @@ public:
 private slots:
     void onSessionActivated(const int idSession);
     void onClearSession();
+
+signals:
+    void openUserGuidedPanel();
 };
 
 

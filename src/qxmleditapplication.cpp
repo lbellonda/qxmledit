@@ -43,6 +43,7 @@ const QString QXmlEditApplication::ServerName("__qxmledit__server__");
 QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
     QApplication(argc, argv)
 {
+    _appData = NULL ;
     _server = NULL ;
     _logger = NULL ;
     _guidedOperationsDialog = NULL ;
@@ -91,8 +92,12 @@ ApplicationData *QXmlEditApplication::appData() const
 
 void QXmlEditApplication::setAppData(ApplicationData *value)
 {
+    if(NULL != _appData) {
+        disconnect(_appData, SIGNAL(openUserGuidedPanel()), this, SLOT(onOpenUserGuidedPanel()));
+    }
     _appData = value;
     if(NULL != _appData) {
+        connect(_appData, SIGNAL(openUserGuidedPanel()), this, SLOT(onOpenUserGuidedPanel()));
         if(_appData->notifier()->isEnabled()) {
             _appData->notifier()->show();
         }
@@ -387,9 +392,11 @@ bool QXmlEditApplication::showGuidedOperationsPanel()
 {
     Utils::TEST_ME("");
     Utils::TODO_THIS_RELEASE("fare");
-    _guidedOperationsDialog = new GuidedOperationsDialog(this, _appData);
-    connectToCommandsPanel(true, _guidedOperationsDialog);
-    _guidedOperationsDialog->setModal(false);
+    if(NULL == _guidedOperationsDialog) {
+        _guidedOperationsDialog = new GuidedOperationsDialog(this, _appData);
+        connectToCommandsPanel(true, _guidedOperationsDialog);
+        _guidedOperationsDialog->setModal(false);
+    }
     _guidedOperationsDialog->show();
     _guidedOperationsDialog->raise();
     _guidedOperationsDialog->activateWindow();
@@ -466,3 +473,9 @@ MainWindow *QXmlEditApplication::getOrCreateMainWindow()
     }
     return appData()->windows().at(0);
 }
+
+void QXmlEditApplication::onOpenUserGuidedPanel()
+{
+    showGuidedOperationsPanel();
+}
+

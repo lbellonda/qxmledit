@@ -49,6 +49,7 @@ public:
     static bool filler1; // filler to avoid memory corruption if possible
     static bool filler2;
     static int silenceMessages2;
+    static const QString URIDropType;
 
     static void setBatch(const bool asBatch);
     static bool isSilenceMode();

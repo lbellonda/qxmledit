@@ -20,45 +20,20 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef GUIDEDOPERATIONSDIALOG_H
-#define GUIDEDOPERATIONSDIALOG_H
+#ifndef XSDVALIDATIONEXECUTOR_H
+#define XSDVALIDATIONEXECUTOR_H
 
 #include "xmlEdit.h"
 
-class QXmlEditApplication ;
-class ApplicationData ;
+#include "libQXmlEdit_global.h"
 
-namespace Ui
+class LIBQXMLEDITSHARED_EXPORT XSDValidationExecutor
 {
-class GuidedOperationsDialog;
-}
-
-class GuidedOperationsDialog : public QDialog
-{
-    Q_OBJECT
-    QXmlEditApplication *_application;
-    ApplicationData *_appData ;
-
-    void makeButtonsSameSize();
 public:
-    explicit GuidedOperationsDialog(QXmlEditApplication *application, ApplicationData *appData, QWidget *parent = 0);
-    ~GuidedOperationsDialog();
+    XSDValidationExecutor();
+    virtual ~XSDValidationExecutor();
 
-private:
-    Ui::GuidedOperationsDialog *ui;
-
-signals:
-    void triggerNew();
-    void triggerQuit();
-    void triggerOpen();
-    void triggerValidate();
-    void triggerClose();
-
-private slots:
-    void on_testNEW_clicked();
-    void on_testQUIT_clicked();
-    void on_testOPEN_clicked();
-
+    QPair<int, QString> execute(const QString &dataFile, const QString &schemaFile);
 };
 
-#endif // GUIDEDOPERATIONSDIALOG_H
+#endif // XSDVALIDATIONEXECUTOR_H

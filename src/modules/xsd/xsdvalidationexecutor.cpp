@@ -20,45 +20,42 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef GUIDEDOPERATIONSDIALOG_H
-#define GUIDEDOPERATIONSDIALOG_H
+#include "xsdvalidationexecutor.h"
+#include "utils.h"
+#include <QXmlSchema>
+#include <QXmlSchemaValidator>
+#include "validatormessagehandler.h"
+#include "schemavalidator.h"
 
-#include "xmlEdit.h"
-
-class QXmlEditApplication ;
-class ApplicationData ;
-
-namespace Ui
+XSDValidationExecutor::XSDValidationExecutor()
 {
-class GuidedOperationsDialog;
+
 }
 
-class GuidedOperationsDialog : public QDialog
+XSDValidationExecutor::~XSDValidationExecutor()
 {
-    Q_OBJECT
-    QXmlEditApplication *_application;
-    ApplicationData *_appData ;
 
-    void makeButtonsSameSize();
-public:
-    explicit GuidedOperationsDialog(QXmlEditApplication *application, ApplicationData *appData, QWidget *parent = 0);
-    ~GuidedOperationsDialog();
+}
 
-private:
-    Ui::GuidedOperationsDialog *ui;
-
-signals:
-    void triggerNew();
-    void triggerQuit();
-    void triggerOpen();
-    void triggerValidate();
-    void triggerClose();
-
-private slots:
-    void on_testNEW_clicked();
-    void on_testQUIT_clicked();
-    void on_testOPEN_clicked();
-
-};
-
-#endif // GUIDEDOPERATIONSDIALOG_H
+QPair<int, QString> XSDValidationExecutor::execute(const QString &dataFile, const QString &schemaFile)
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    QXmlSchema schemaHandler;
+    ValidatorMessageHandler messageHandler;
+    QUrl schemaUrl = QUrl::fromLocalFile(schemaFile);
+    if(!schemaHandler.load(schemaUrl)) {
+        return QPair<int, QString>(-1, QObject::tr("Error loading schema."));
+    }
+    if(!schemaHandler.isValid()) {
+        return QPair<int, QString>(-2, QObject::tr("Schema is invalid."));
+    }
+    schemaHandler.setMessageHandler(&messageHandler);
+    QXmlSchemaValidator schemaValidator(schemaHandler);
+    QUrl dataUrl = QUrl::fromLocalFile(dataFile);
+    if(schemaValidator.validate(dataUrl)) {
+        return QPair<int, QString>(0, QObject::tr("XML is valid."));
+    } else {
+        QString msg = QObject::tr("%1\nError: %2").arg(QObject::tr("XML does not conform to schema. Validation failed.")).arg(messageHandler.descriptionInPlainText());
+        return QPair<int, QString>(1, msg);
+    }
+}

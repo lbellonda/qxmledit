@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>875</width>
-    <height>513</height>
+    <height>442</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>First Access</string>
+   <string>How do you prefer to use QXmlEdit?</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../risorse.qrc">
@@ -20,8 +20,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>600</x>
-     <y>40</y>
+     <x>670</x>
+     <y>20</y>
      <width>81</width>
      <height>241</height>
     </rect>
@@ -30,93 +30,48 @@
     <enum>Qt::Vertical</enum>
    </property>
    <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    <set>QDialogButtonBox::Close</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QPushButton" name="cmdGuided">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>50</y>
-     <width>421</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>This is the first time you use QXmlEdit</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>10</y>
-     <width>391</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>12</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-    </font>
-   </property>
-   <property name="text">
-    <string>First access:preferences</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>90</y>
-     <width>271</width>
-     <height>18</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>How do you prefer using it?</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_2">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>170</y>
-     <width>80</width>
+     <x>30</x>
+     <y>130</y>
+     <width>121</width>
      <height>26</height>
     </rect>
    </property>
    <property name="text">
-    <string>Guided</string>
+    <string>Guided User</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="cmdExpert">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>290</y>
-     <width>80</width>
+     <x>30</x>
+     <y>250</y>
+     <width>131</width>
      <height>26</height>
     </rect>
    </property>
    <property name="text">
-    <string>Expert</string>
+    <string>Expert User</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>220</x>
-     <y>280</y>
+     <x>200</x>
+     <y>240</y>
      <width>381</width>
      <height>101</height>
     </rect>
    </property>
    <property name="text">
-    <string>Broiwse though the commands without  help.Full access to any command.
-After some usage you will prefer it. This is the fastest mode to use the progam, but requires some experience.</string>
+    <string>Browse through all the commands.
+
+After some usage you will prefer it. This is the fastest mode to use the progam, but requires some experience givern the number of options.</string>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
@@ -125,17 +80,63 @@ After some usage you will prefer it. This is the fastest mode to use the progam,
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>230</x>
-     <y>160</y>
-     <width>241</width>
-     <height>61</height>
+     <x>210</x>
+     <y>120</y>
+     <width>401</width>
+     <height>81</height>
     </rect>
    </property>
    <property name="text">
-    <string>Use a guided access to the main features until you famirialize with commands.</string>
+    <string>A panel will guide you to the main features until you familiarize with application.
+
+The most important actions will be reached in no time.</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>20</y>
+     <width>621</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Do you want to be a guided user?
+
+If unsure, just close this panel or press escape.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>390</y>
+     <width>301</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>You can always change your choice later.</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>370</y>
+     <width>601</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
    </property>
   </widget>
  </widget>

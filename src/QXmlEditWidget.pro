@@ -366,6 +366,7 @@ SOURCES += xmleditwidget.cpp \
     xsdeditor/xsdloadcontext.cpp \
     modules/encoding/unicodehelper.cpp \
     modules/xsd/xsdelementdefinition.cpp \
+    modules/xsd/xsdvalidationexecutor.cpp \
     modules/xsd/xsdtypedialog.cpp \
     modules/xsd/xsdelementreferencedialog.cpp \
     modules/xsd/xsdenumdialog.cpp \
@@ -782,7 +783,9 @@ HEADERS += precompiled_lib.h \
     xsdeditor/choosexsdviewrootitemdialog.h \
     visualization/attributessummarydata.h \
     xsdeditor/xsdreport.h \
-    xsdeditor/choosexsdreporttypedialog.h
+    xsdeditor/choosexsdreporttypedialog.h \
+    modules/xsd/xsdvalidationexecutor.h
+
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

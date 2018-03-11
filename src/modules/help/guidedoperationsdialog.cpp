@@ -28,9 +28,11 @@ GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application,
     QDialog(parent),
     ui(new Ui::GuidedOperationsDialog)
 {
+    Utils::TODO_THIS_RELEASE("fare hide window senza uscire");
     _application = application;
     _appData = appData;
     ui->setupUi(this);
+    makeButtonsSameSize();
 }
 
 GuidedOperationsDialog::~GuidedOperationsDialog()
@@ -38,20 +40,34 @@ GuidedOperationsDialog::~GuidedOperationsDialog()
     delete ui;
 }
 
+void GuidedOperationsDialog::makeButtonsSameSize()
+{
+    int maxSizeX = 0 ;
+    QList<QPushButton*> buttons = findChildren<QPushButton*>();
+    foreach(QPushButton* button, buttons) {
+        maxSizeX = qMax(maxSizeX, button->size().width());
+    }
+    maxSizeX *= 1.3;
+    foreach(QPushButton* button, buttons) {
+        button->setFixedSize(maxSizeX, button->height());
+    }
+
+}
+
 void GuidedOperationsDialog::on_testNEW_clicked()
 {
-    Utils::TODO_NEXT_RELEASE("");
+    Utils::TODO_THIS_RELEASE("");
     emit triggerNew();
 }
 
 void GuidedOperationsDialog::on_testQUIT_clicked()
 {
-    Utils::TODO_NEXT_RELEASE("");
+    Utils::TODO_THIS_RELEASE("");
     emit triggerQuit();
 }
 
 void GuidedOperationsDialog::on_testOPEN_clicked()
 {
-    Utils::TODO_NEXT_RELEASE("");
+    Utils::TODO_THIS_RELEASE("");
     emit triggerOpen();
 }
