@@ -36,6 +36,9 @@
          <property name="pixmap">
           <pixmap resource="../../risorse.qrc">:/configuration/validation</pixmap>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -79,6 +82,9 @@
          </property>
          <property name="pixmap">
           <pixmap resource="../../risorse.qrc">:/configuration/validation</pixmap>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>

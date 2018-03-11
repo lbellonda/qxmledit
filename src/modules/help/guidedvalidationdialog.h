@@ -51,6 +51,7 @@ class GuidedValidationDialog : public QDialog
     static const int PageWait = 3 ;
     static const int PageError = 4 ;
 
+    int _sizeIcon;
     bool _isError ;
     bool _isValid ;
     QString _message ;

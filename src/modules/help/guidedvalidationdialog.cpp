@@ -58,6 +58,9 @@ GuidedValidationDialog::GuidedValidationDialog(QWidget *parent, ApplicationData 
     int newWidth = qMax(widthLButton, widthSButton) * 1.3;
     ui->cmdLoadXML->setFixedWidth(newWidth);
     ui->cmdLoadXSD->setFixedWidth(newWidth);
+    _sizeIcon = ui->statusXML->pixmap()->width();
+    ui->statusXML->setFixedWidth(_sizeIcon);
+    ui->statusXSD->setFixedWidth(_sizeIcon);
     resetData();
 }
 
@@ -92,10 +95,10 @@ QString GuidedValidationDialog::schemaFile()
 void GuidedValidationDialog::updateStatusFile(InfoPartGuidedValidationDialog *info, const bool how, const QString &filePath)
 {
     if(how) {
-        info->icon->setVisible(true);
         info->edit->setText(filePath);
+        info->icon->setPixmap(QPixmap(":/configuration/validation"));
     } else {
-        info->icon->setVisible(false);
+        info->icon->setPixmap(QPixmap());
     }
 }
 

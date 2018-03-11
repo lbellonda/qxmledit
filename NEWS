@@ -1,5 +1,6 @@
 0.9.10
     Changed the year to 2018 on headers.
+    New specialized XML Schema (XSD) validation dialog.
 
 0.9.9.2
     Fixed Fixed issue #46, source compatibility problem with Qt 5.10.
