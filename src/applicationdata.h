@@ -148,6 +148,8 @@ public:
     bool isUserGuidedOperation();
     void setUserGuidedOperation(const bool value);
     void resetUserGuidedOperation();
+    bool testAndMarkFirstAccessForViewPreferences();
+    //-- endregion(access)
 
     enum EUserType {
         UserTypeExpert = 0,

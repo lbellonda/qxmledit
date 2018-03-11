@@ -55,9 +55,10 @@ signals:
     void triggerClose();
 
 private slots:
-    void on_testNEW_clicked();
-    void on_testQUIT_clicked();
-    void on_testOPEN_clicked();
+    void on_cmdNew_clicked();
+    void on_cmdQuit_clicked();
+    void on_cmdOpen_clicked();
+    void on_cmdValidate_clicked();
 
 };
 

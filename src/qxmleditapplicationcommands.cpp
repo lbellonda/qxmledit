@@ -66,7 +66,6 @@ void QXmlEditApplication::onCommandOpen()
 
 void QXmlEditApplication::onCommandValidate()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     showValidationOperationsPanel();
 }
 

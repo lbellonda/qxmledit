@@ -490,6 +490,8 @@
     </property>
     <addaction name="actionTaskDisplayDetail"/>
     <addaction name="actionChooseEditType"/>
+    <addaction name="actionOpenGuidedOperationPanel"/>
+    <addaction name="actionChooseUserProfile"/>
    </widget>
    <widget class="QMenu" name="menuSpecial">
     <property name="title">
@@ -2480,6 +2482,22 @@
    </property>
    <property name="toolTip">
     <string>XSD validation panel.</string>
+   </property>
+  </action>
+  <action name="actionOpenGuidedOperationPanel">
+   <property name="text">
+    <string>Open Guided Operations Panel</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the guided operations panel.</string>
+   </property>
+  </action>
+  <action name="actionChooseUserProfile">
+   <property name="text">
+    <string>Choose User Profile</string>
+   </property>
+   <property name="toolTip">
+    <string>Choose the user profile.</string>
    </property>
   </action>
  </widget>

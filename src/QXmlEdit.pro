@@ -411,7 +411,6 @@ SOURCES = \
     modules/style/editingtypesdialog.cpp \
     modules/help/firstaccessdialog.cpp \
     modules/help/editingpreferencesdialog.cpp \
-    modules/help/userguideddialog.cpp \
     modules/help/guidedoperationsdialog.cpp \
     modules/help/guidedvalidationdialog.cpp \
     qxmleditapplicationcommands.cpp \
@@ -477,7 +476,6 @@ FORMS = MainWindow.ui \
     modules/style/editingtypesdialog.ui \
     modules/help/firstaccessdialog.ui \
     modules/help/editingpreferencesdialog.ui \
-    modules/help/userguideddialog.ui \
     modules/help/guidedoperationsdialog.ui \
     modules/help/guidedvalidationdialog.ui
 

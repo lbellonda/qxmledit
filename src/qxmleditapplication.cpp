@@ -47,7 +47,6 @@ QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
     _server = NULL ;
     _logger = NULL ;
     _guidedOperationsDialog = NULL ;
-    _guidedValidationDialog = NULL ;
 }
 
 QXmlEditApplication::~QXmlEditApplication()
@@ -57,11 +56,6 @@ QXmlEditApplication::~QXmlEditApplication()
         _guidedOperationsDialog->close();
         delete _guidedOperationsDialog ;
         _guidedOperationsDialog = NULL ;
-    }
-    if(NULL != _guidedValidationDialog) {
-        _guidedValidationDialog->close();
-        delete _guidedValidationDialog ;
-        _guidedValidationDialog = NULL ;
     }
 
     if(NULL != _server) {
@@ -381,10 +375,14 @@ bool QXmlEditApplication::handleFirstAccess()
 
 bool QXmlEditApplication::showUserTypePanel()
 {
-    Utils::TODO_THIS_RELEASE("spostata, eliminare o redirect");
     Utils::TEST_ME("");
     FirstAccessDialog firstAccessDialog(_appData);
     firstAccessDialog.exec();
+    Utils::TEST_ME("ATTENZIONE: SERVE?");
+    if(_appData->isUserGuidedOperation()) {
+        // remove any outstanding requests
+        _appData->testAndMarkFirstAccessForViewPreferences();
+    }
     return true ;
 }
 
@@ -405,17 +403,9 @@ bool QXmlEditApplication::showGuidedOperationsPanel()
 
 bool QXmlEditApplication::showValidationOperationsPanel()
 {
-    Utils::TEST_ME("");
-    Utils::TODO_THIS_RELEASE("fare");
-    if(NULL == _guidedValidationDialog) {
-        _guidedValidationDialog = new GuidedValidationDialog(NULL, _appData);
-        _guidedValidationDialog->setModal(false);
-    }
-    _guidedValidationDialog->resetData();
-    _guidedValidationDialog->show();
-    _guidedValidationDialog->raise();
-    _guidedValidationDialog->activateWindow();
-    return true;
+    // Warning! this panel is ApplicationModal
+    GuidedValidationDialog::showValidationDialog(_appData);
+    return true ;
 }
 
 void QXmlEditApplication::bindCommandOperation(const bool isConnect, const QObject *sender, const char *signal, const char *method)
@@ -430,8 +420,8 @@ void QXmlEditApplication::bindCommandOperation(const bool isConnect, const QObje
 void QXmlEditApplication::connectToCommandsPanel(const bool isConnect, GuidedOperationsDialog *target)
 {
     bindCommandOperation(isConnect, target, SIGNAL(triggerNew()), SLOT(onCommandNew()));
-    Utils::TODO_THIS_RELEASE("fare");
     bindCommandOperation(isConnect, target, SIGNAL(triggerQuit()), SLOT(onCommandQuit()));
+    Utils::TODO_THIS_RELEASE("fare");
     bindCommandOperation(isConnect, target, SIGNAL(triggerOpen()), SLOT(onCommandOpen()));
     bindCommandOperation(isConnect, target, SIGNAL(triggerValidate()), SLOT(onCommandValidate()));
 }
@@ -439,8 +429,7 @@ void QXmlEditApplication::connectToCommandsPanel(const bool isConnect, GuidedOpe
 
 void QXmlEditApplication::setupFirstAccessForPreferences()
 {
-    if(!Config::getBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, false)) {
-        Config::saveBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, true);
+    if(!_appData->testAndMarkFirstAccessForViewPreferences()) {
         taskChooseDetail();
     }
 }

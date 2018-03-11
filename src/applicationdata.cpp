@@ -536,4 +536,13 @@ void ApplicationData::setUserType(const EUserType userType)
     Config::saveInt(Config::KEY_USERPROFILING_USERTYPE, userType);
 }
 
+bool ApplicationData::testAndMarkFirstAccessForViewPreferences()
+{
+    if(!Config::getBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, false)) {
+        Config::saveBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, true);
+        return false ;
+    }
+    return true;
+}
+
 //--- endregion(access)

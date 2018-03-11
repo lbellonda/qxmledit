@@ -48,7 +48,6 @@ private:
     QLocalServer *_server;
     FrwLogger *_logger;
     GuidedOperationsDialog *_guidedOperationsDialog;
-    GuidedValidationDialog *_guidedValidationDialog;
 public:
     explicit QXmlEditApplication(int &argc, char **argv);
     virtual ~QXmlEditApplication();

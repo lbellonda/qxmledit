@@ -54,20 +54,24 @@ void GuidedOperationsDialog::makeButtonsSameSize()
 
 }
 
-void GuidedOperationsDialog::on_testNEW_clicked()
+void GuidedOperationsDialog::on_cmdNew_clicked()
 {
-    Utils::TODO_THIS_RELEASE("");
     emit triggerNew();
 }
 
-void GuidedOperationsDialog::on_testQUIT_clicked()
+void GuidedOperationsDialog::on_cmdQuit_clicked()
 {
-    Utils::TODO_THIS_RELEASE("");
-    emit triggerQuit();
+    if(Utils::askYN(this, tr("Really quit?"))) {
+        emit triggerQuit();
+    }
 }
 
-void GuidedOperationsDialog::on_testOPEN_clicked()
+void GuidedOperationsDialog::on_cmdOpen_clicked()
 {
-    Utils::TODO_THIS_RELEASE("");
     emit triggerOpen();
+}
+
+void GuidedOperationsDialog::on_cmdValidate_clicked()
+{
+    emit triggerValidate();
 }

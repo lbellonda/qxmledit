@@ -3452,8 +3452,7 @@ QString MainWindow::askFileNameToOpen(const QString &startFolder)
 void MainWindow::setupFirstAccessForPreferences()
 {
     Utils::TODO_THIS_RELEASE("spostare in application");
-    if(!Config::getBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, false)) {
-        Config::saveBool(Config::KEY_GENERAL_VIEW_EDITOR_ADJUST, true);
+    if(!data->testAndMarkFirstAccessForViewPreferences()) {
         taskChooseDetail();
     }
 }
@@ -3748,4 +3747,14 @@ void MainWindow::requestOpenGuidedPanel()
 void MainWindow::on_actionValidationDialog_triggered()
 {
     GuidedValidationDialog::showValidationDialog(data);
+}
+
+void MainWindow::on_actionOpenGuidedOperationPanel_triggered()
+{
+    requestOpenGuidedPanel();
+}
+
+void MainWindow::on_actionChooseUserProfile_triggered()
+{
+    Utils::TODO_THIS_RELEASE("fare");
 }

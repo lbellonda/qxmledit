@@ -388,6 +388,8 @@ private slots:
     void on_actionPresetIndentOneAttributePerLine_triggered();
     void on_actionChooseEditType_triggered();
     void on_actionValidationDialog_triggered();
+    void on_actionOpenGuidedOperationPanel_triggered();
+    void on_actionChooseUserProfile_triggered();
 
     //----- other slots ------------------
 
