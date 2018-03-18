@@ -51,7 +51,7 @@ void ConfigureXMLManagementDialog::init(ApplicationData* data)
     Utils::setupComboEncoding(ui->comboEncoding, true, _data->autoInsertPrologEncoding());
     ui->chkInsProlog->setChecked(_data->isAutoInsertProlog());
     bool checkNoIndent = false;
-    int indentValue = _data->xmlIndent();
+    const int indentValue = _data->xmlIndent();
     if(indentValue >= 0) {
         ui->xmlIndent->setValue(_data->xmlIndent());
     } else {

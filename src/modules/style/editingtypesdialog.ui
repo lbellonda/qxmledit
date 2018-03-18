@@ -37,7 +37,7 @@
     <string>Do you prefer edit elements using a text editor or a form editor?</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton">
+  <widget class="QRadioButton" name="optionForm">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -50,7 +50,7 @@
     <string>Form</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton_2">
+  <widget class="QRadioButton" name="optionText">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -103,7 +103,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="cmdPredefined">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -117,7 +117,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Prefefined</string>
+       <string>Predefined</string>
       </property>
      </widget>
     </item>
@@ -201,7 +201,7 @@
      <x>130</x>
      <y>170</y>
      <width>630</width>
-     <height>90</height>
+     <height>138</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -300,9 +300,18 @@ You can change your choice at any time opening preferences panel.</string>
     </item>
    </layout>
   </widget>
+  <zorder>label_7</zorder>
+  <zorder>optionForm</zorder>
+  <zorder>optionText</zorder>
+  <zorder>layoutWidget</zorder>
+  <zorder>layoutWidget</zorder>
+  <zorder>layoutWidget</zorder>
+  <zorder>layoutWidget</zorder>
+  <zorder>label_6</zorder>
+  <zorder>label_4</zorder>
+  <zorder></zorder>
  </widget>
  <resources>
-  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

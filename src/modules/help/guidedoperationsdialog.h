@@ -40,9 +40,15 @@ class GuidedOperationsDialog : public QDialog
     ApplicationData *_appData ;
 
     void makeButtonsSameSize();
+
+protected:
+    virtual void reject();
+
 public:
     explicit GuidedOperationsDialog(QXmlEditApplication *application, ApplicationData *appData, QWidget *parent = 0);
     ~GuidedOperationsDialog();
+
+    void applyUserProfile();
 
 private:
     Ui::GuidedOperationsDialog *ui;
@@ -53,13 +59,38 @@ signals:
     void triggerOpen();
     void triggerValidate();
     void triggerClose();
+    void triggerFormatting();
+    void triggerCfgVision();
+    void triggerCfgEditing();
+    void triggerConfigure();
+    void triggerUserProfile();
+    void triggerExtractFile();
+    void triggerViewXSD();
+    void triggerCompare();
+    void triggerAnon();
+    void triggerUserManual();
+    void triggerEditingShortcut();
+    void triggerBase64();
+    void triggerViewXMLMap();
 
 private slots:
     void on_cmdNew_clicked();
     void on_cmdQuit_clicked();
     void on_cmdOpen_clicked();
     void on_cmdValidate_clicked();
-
+    void on_cmdCfgVision_clicked();
+    void on_cmdCfgFormatting_clicked();
+    void on_cmdCfgEditing_clicked();
+    void on_cmdConfigure_clicked();
+    void on_cmdUserProfile_clicked();
+    void on_cmdExtractFile_clicked();
+    void on_cmdViewXSD_clicked();
+    void on_cmdCompare_clicked();
+    void on_cmdAnon_clicked();
+    void on_cmdUserManual_clicked();
+    void on_cmdEditingShortcut_clicked();
+    void on_cmdBase64_clicked();
+    void on_cmdViewDataMap_clicked();
 };
 
 #endif // GUIDEDOPERATIONSDIALOG_H

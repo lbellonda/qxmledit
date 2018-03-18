@@ -156,6 +156,7 @@ void Regola::insertParent(QTreeWidget *tree, Element *element)
 {
     if(NULL != element) {
         Element *theNewElement = new Element("", "", NULL, NULL);
+        Utils::TODO_THIS_RELEASE("magari usare il modo testo?");
         bool result = editNodeElement(tree->window(), theNewElement, (NULL != element->parent()) ? element->parent()->parent() : NULL,  false);
         if(result) {
             doInsertParent(tree, theNewElement->tag(), theNewElement->getAttributesList(), element);

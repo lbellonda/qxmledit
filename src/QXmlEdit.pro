@@ -315,7 +315,9 @@ HEADERS = precompiled_app.h \
     modules/help/userguideddialog.h \
     modules/help/guidedoperationsdialog.h \
     modules/help/guidedvalidationdialog.h \
-    modules/services/startactionsengine.h
+    modules/services/startactionsengine.h \
+    modules/xml/configuregeneralindentation.h \
+    modules/uiutil/defaultuidelegate.h
 
 SOURCES = \
     main.cpp \
@@ -415,7 +417,9 @@ SOURCES = \
     modules/help/guidedvalidationdialog.cpp \
     qxmleditapplicationcommands.cpp \
     modules/services/startactionsengine.cpp \
-    startactionsapplication.cpp
+    startactionsapplication.cpp \
+    modules/xml/configuregeneralindentation.cpp \
+    modules/uiutil/defaultuidelegate.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -477,7 +481,8 @@ FORMS = MainWindow.ui \
     modules/help/firstaccessdialog.ui \
     modules/help/editingpreferencesdialog.ui \
     modules/help/guidedoperationsdialog.ui \
-    modules/help/guidedvalidationdialog.ui
+    modules/help/guidedvalidationdialog.ui \
+    modules/xml/configuregeneralindentation.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

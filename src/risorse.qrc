@@ -208,6 +208,7 @@
         <file>images/view-structure-icon.png</file>
         <file>images/compare.png</file>
         <file>images/relations.png</file>
+        <file>images/base64.png</file>
     </qresource>
     <qresource prefix="/gradients">
         <file>images/gradient-diagonal.png</file>

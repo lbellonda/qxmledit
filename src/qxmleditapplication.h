@@ -35,6 +35,7 @@ class StartParams;
 class MainWindow;
 class GuidedOperationsDialog;
 class GuidedValidationDialog;
+class UIDelegate;
 
 class QXmlEditApplication : public QApplication, public StartActionsExecutor
 {
@@ -48,6 +49,7 @@ private:
     QLocalServer *_server;
     FrwLogger *_logger;
     GuidedOperationsDialog *_guidedOperationsDialog;
+    UIDelegate *_uiDelegate;
 public:
     explicit QXmlEditApplication(int &argc, char **argv);
     virtual ~QXmlEditApplication();
@@ -72,6 +74,8 @@ public:
     virtual void startActionTriggersWelcomeDialog();
     virtual void startActionLoadFile(const QString &fileName);
     // endregion(StartAtcionsExecutor)
+
+    UIDelegate *uiDelegate();
 
 protected:
     bool event(QEvent *event);
@@ -102,6 +106,19 @@ private slots:
     void onCommandOpen();
     void onCommandValidate();
     void onOpenUserGuidedPanel();
+    void onCommandFormatting();
+    void onCommandConfigureVision();
+    void onCommandConfigureEditing();
+    void onCommandConfigure();
+    void onCommandUserProfile();
+    void onCommandExtractFile();
+    void onCommandViewXSD();
+    void onCommandUserManual();
+    void onCommandEditingShortcut();
+    void onCommandAnon();
+    void onCommandCompare();
+    void onCommandBase64();
+    void onCommandViewXMLMap();
 
 };
 

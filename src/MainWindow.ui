@@ -1482,6 +1482,10 @@
    </property>
   </action>
   <action name="actionBase64Tools">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tools/images/base64.png</normaloff>:/tools/images/base64.png</iconset>
+   </property>
    <property name="text">
     <string>Base 64 Tools...</string>
    </property>

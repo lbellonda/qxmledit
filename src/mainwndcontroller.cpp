@@ -33,7 +33,6 @@
 #include "modules/anonymize/anonfixedalg.h"
 #include "modules/anonymize/anoncontext.h"
 #include "modules/anonymize/anonadvdialog.h"
-#include "modules/anonymize/anonimyzebatchdialog.h"
 #include "modules/xsd/namespacemanager.h"
 #include "modules/xsd/xsiinsertattribute.h"
 #include "modules/replica/replicacloneinfo.h"
@@ -115,9 +114,7 @@ void MainWndController::onAnonymize()
 
 void MainWndController::onAnonymizeFile()
 {
-    AnonimyzeBatchDialog dlg(_w->appData(), _w);
-    dlg.setModal(true);
-    dlg.exec();
+    _w->appData()->anonymizeFile(_w);
 }
 
 bool MainWndController::anonymizeGetParams(AnonymizeParameters *params)

@@ -154,6 +154,8 @@ public:
     void taskChooseDetail();
     SourceRelatedMessages *sourceRelatedMessages();
     bool openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow = OpenUsingDefaultSettings);
+    bool isValidXsd();
+    void viewAsXSD();
 
 protected:
     //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.
@@ -494,7 +496,6 @@ private:
     void doLoadFileBlindMode(QDomDocument &document, const QString &filePath);
     void loadFileBlindMode(const QString &filePath);
 
-    bool isValidXsd();
     bool verifyAbandonChanges();
 
     void setSchemaLabel(const QString &newLabel);

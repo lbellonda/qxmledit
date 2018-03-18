@@ -20,19 +20,43 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "editingpreferencesdialog.h"
-#include "ui_editingpreferencesdialog.h"
-#include "utils.h"
+#ifndef CONFIGUREGENERALINDENTATION_H
+#define CONFIGUREGENERALINDENTATION_H
 
-EditingPreferencesDialog::EditingPreferencesDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::EditingPreferencesDialog)
+#include "xmlEdit.h"
+#include "modules/xml/xmlattributesindentationhelper.h"
+
+class QXmlEditData;
+
+namespace Ui
 {
-    Utils::TODO_THIS_RELEASE("forse eliminare");
-    ui->setupUi(this);
+class ConfigureGeneralIndentation;
 }
 
-EditingPreferencesDialog::~EditingPreferencesDialog()
+class ConfigureGeneralIndentation : public QDialog
 {
-    delete ui;
-}
+    Q_OBJECT
+
+    bool _started;
+    QXmlEditData *_appData;
+    XMLAttributesIndentationHelper _attributeHelper;
+
+public:
+    explicit ConfigureGeneralIndentation(QWidget *parent, QXmlEditData *appData);
+    ~ConfigureGeneralIndentation();
+    void doAccept();
+
+private:
+    Ui::ConfigureGeneralIndentation *ui;
+
+    void init();
+    void accept();
+
+private slots:
+    void on_chkNoIndent_stateChanged(int /*state*/);
+    void on_cmdPredefinedAttributes_clicked();
+    void on_attrNoIndendation_clicked(bool checked);
+    void on_attrNewLineAt_clicked(bool checked);
+};
+
+#endif // CONFIGUREGENERALINDENTATION_H

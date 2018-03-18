@@ -29,7 +29,6 @@ extern const char *APP_TITLE ;
 #include "utils.h"
 #include "mainwindow.h"
 #include "qxmleditconfig.h"
-#include "configurationdialog.h"
 #include "compare.h"
 #include "preferreddirs.h"
 #include "test.h"
@@ -65,14 +64,12 @@ extern const char *APP_TITLE ;
 #include "modules/messages/sourcerelatedmessages.h"
 #include "modules/specialized/scxml/scxmlautomodedialog.h"
 #include "modules/xslt/xsltexecdialog.h"
-#include "modules/help/shortcutsdialog.h"
-#include "modules/style/infoonkeyboardshortcutsdialog.h"
 #include "modules/style/editingtypesdialog.h"
 #include "modules/help/guidedvalidationdialog.h"
+#include "modules/help/shortcutsdialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
-#define HELP_FILE       "QXmlEdit_manual.pdf"
 
 #define ENC_PREFIX  "action_encoding_"
 
@@ -1521,13 +1518,11 @@ void MainWindow::on_actionShowElementSize_triggered()
 
 void MainWindow::on_actionConfigure_triggered()
 {
-    int version = data->styleVersion();
-    ConfigurationDialog::doOptions(this, data) ;
-    int nowVersion = data->styleVersion();
-    if(version != nowVersion) {
+    Utils::TODO_THIS_RELEASE("test");
+    if(data->preferences(this)) {
         ui.editor->invalidatePaintData();
     }
-    data->updateEditors();
+    data->updateEditors(false);
 }
 
 void MainWindow::updateAfterPreferences()
@@ -2082,8 +2077,7 @@ void MainWindow::on_actionSearchInFiles_triggered()
 
 void MainWindow::on_actionHelpOnQXmlEdit_triggered()
 {
-    QString resourceHelp = data->getDocsDir() + "/" + HELP_FILE ;
-    QDesktopServices::openUrl(QUrl::fromLocalFile(resourceHelp));
+    data->showUserManual();
 }
 
 bool MainWindow::isValidXsd()
@@ -2096,6 +2090,11 @@ bool MainWindow::isValidXsd()
 }
 
 void MainWindow::on_actionViewAsXsd_triggered()
+{
+    ui.editor->onActionViewAsXsd();
+}
+
+void MainWindow::viewAsXSD()
 {
     ui.editor->onActionViewAsXsd();
 }
@@ -3443,10 +3442,8 @@ void MainWindow::on_actionRemoveAllSiblingsBefore_triggered()
 
 QString MainWindow::askFileNameToOpen(const QString &startFolder)
 {
-    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"),
-                       QXmlEditData::sysFilePathForOperation(startFolder),
-                       Utils::getFileFilterForOpenFile());
-    return filePath ;
+    Utils::TODO_THIS_RELEASE("test me");
+    return Utils::askFileNameToOpen(this, startFolder);
 }
 
 void MainWindow::setupFirstAccessForPreferences()
@@ -3684,12 +3681,8 @@ void MainWindow::on_actionPresetIndentOneAttributePerLine_triggered()
 void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 {
     if(data->evaluateConditionForShowShortcuts()) {
-        InfoOnKeyboardShortcutsDialog infoDialog(this);
-        infoDialog.exec();
-        if(infoDialog.isOpenShortcutDialog()) {
-            ShortcutsDialog::display(this);
-        }
-        data->setShortcutUsedDialogShown();
+        Utils::TODO_THIS_RELEASE("test");
+        data->showEditingShortcuts(this);
     }
 }
 
@@ -3734,7 +3727,7 @@ void MainWindow::on_actionChooseEditType_triggered()
 
 void MainWindow::showEditingTypeDialog()
 {
-    EditingTypesDialog editingTypesDialog(this);
+    EditingTypesDialog editingTypesDialog(data, this);
     editingTypesDialog.exec();
     data->setEditTypeDialogShown();
 }

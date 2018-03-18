@@ -37,6 +37,7 @@
 #include "modules/help/guidedoperationsdialog.h"
 #include "modules/help/guidedvalidationdialog.h"
 #include "modules/style/choosestyledialog.h"
+#include "modules/uiutil/defaultuidelegate.h"
 
 const QString QXmlEditApplication::ServerName("__qxmledit__server__");
 
@@ -47,6 +48,7 @@ QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
     _server = NULL ;
     _logger = NULL ;
     _guidedOperationsDialog = NULL ;
+    _uiDelegate = new DefaultUIDelegate();
 }
 
 QXmlEditApplication::~QXmlEditApplication()
@@ -65,6 +67,9 @@ QXmlEditApplication::~QXmlEditApplication()
         }
         delete _server;
         _server = NULL ;
+    }
+    if(NULL != _uiDelegate) {
+        delete _uiDelegate ;
     }
 }
 
@@ -421,9 +426,22 @@ void QXmlEditApplication::connectToCommandsPanel(const bool isConnect, GuidedOpe
 {
     bindCommandOperation(isConnect, target, SIGNAL(triggerNew()), SLOT(onCommandNew()));
     bindCommandOperation(isConnect, target, SIGNAL(triggerQuit()), SLOT(onCommandQuit()));
-    Utils::TODO_THIS_RELEASE("fare");
     bindCommandOperation(isConnect, target, SIGNAL(triggerOpen()), SLOT(onCommandOpen()));
     bindCommandOperation(isConnect, target, SIGNAL(triggerValidate()), SLOT(onCommandValidate()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerFormatting()), SLOT(onCommandFormatting()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerCfgVision()), SLOT(onCommandConfigureVision()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerCfgEditing()), SLOT(onCommandConfigureEditing()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerConfigure()), SLOT(onCommandConfigure()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerUserProfile()), SLOT(onCommandUserProfile()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerExtractFile()), SLOT(onCommandExtractFile()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerViewXSD()), SLOT(onCommandViewXSD()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerUserManual()), SLOT(onCommandUserManual()));
+    //--
+    bindCommandOperation(isConnect, target, SIGNAL(triggerCompare()), SLOT(onCommandCompare()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerAnon()), SLOT(onCommandAnon()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerEditingShortcut()), SLOT(onCommandEditingShortcut()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerBase64()), SLOT(onCommandBase64()));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerViewXMLMap()), SLOT(onCommandViewXMLMap()));
 }
 
 
@@ -468,3 +486,7 @@ void QXmlEditApplication::onOpenUserGuidedPanel()
     showGuidedOperationsPanel();
 }
 
+UIDelegate *QXmlEditApplication::uiDelegate()
+{
+    return _uiDelegate ;
+}

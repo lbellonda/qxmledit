@@ -33,10 +33,14 @@
 #include "extraction/extractfragmentsdialog.h"
 #include "modules/help/firstaccessdialog.h"
 #include "modules/help/guidedoperationsdialog.h"
+#include "modules/xml/configuregeneralindentation.h"
+#include "modules/style/editingtypesdialog.h"
+#include "compare.h"
+
+void extractFragments(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);
 
 void QXmlEditApplication::onCommandNew()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     MainWindow *mainWindow = new MainWindow(false, _appData);
     mainWindow->show();
     mainWindow->raise();
@@ -46,16 +50,13 @@ void QXmlEditApplication::onCommandNew()
 
 void QXmlEditApplication::onCommandQuit()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     this->quit();
 }
 
 void QXmlEditApplication::onCommandOpen()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     MainWindow *mainWindow = new MainWindow(false, _appData);
-    Utils::TODO_THIS_RELEASE("fare ultimo path usato");
-    if(mainWindow->openFileUsingDialog("XXXXXXX TODO", MainWindow::OpenUsingSameWindow)) {
+    if(mainWindow->openFileUsingDialog(QXmlEditData::sysFilePathForOperation(""), MainWindow::OpenUsingSameWindow)) {
         mainWindow->show();
         mainWindow->raise();
         mainWindow->activateWindow();
@@ -69,3 +70,91 @@ void QXmlEditApplication::onCommandValidate()
     showValidationOperationsPanel();
 }
 
+
+void QXmlEditApplication::onCommandFormatting()
+{
+    ConfigureGeneralIndentation configureGeneralIndentation(_guidedOperationsDialog, _appData);
+    configureGeneralIndentation.setModal(true);
+    configureGeneralIndentation.setWindowModality(Qt::ApplicationModal);
+    configureGeneralIndentation.exec();
+}
+
+void QXmlEditApplication::onCommandConfigureVision()
+{
+    taskChooseDetail();
+}
+
+void QXmlEditApplication::onCommandConfigureEditing()
+{
+    Utils::TODO_THIS_RELEASE("si apre ma il radiobutton non e' selezionato");
+    EditingTypesDialog editingTypesDialog(_appData, _guidedOperationsDialog);
+    editingTypesDialog.setWindowModality(Qt::ApplicationModal);
+    editingTypesDialog.exec();
+}
+
+void QXmlEditApplication::onCommandConfigure()
+{
+    _appData->updateEditors(_appData->preferences(_guidedOperationsDialog));
+}
+
+void QXmlEditApplication::onCommandUserProfile()
+{
+    if(NULL != _guidedOperationsDialog) {
+        _appData->setUserGuidedOperation(!_appData->isUserGuidedOperation());
+        _guidedOperationsDialog->applyUserProfile();
+    }
+}
+
+void QXmlEditApplication::onCommandExtractFile()
+{
+    ExtractResults results;
+    extractFragments(&results, NULL, NULL);
+}
+
+void QXmlEditApplication::onCommandViewXSD()
+{
+    Utils::TODO_THIS_RELEASE("fare");
+    MainWindow *mainWindow = getOrCreateMainWindow();
+    if(NULL != mainWindow) {
+        if(mainWindow->openFileUsingDialog(QXmlEditData::sysFilePathForOperation(""), MainWindow::OpenUsingSameWindow)) {
+            if(mainWindow->isValidXsd()) {
+                mainWindow->viewAsXSD();
+            }
+        }
+    }
+}
+
+void QXmlEditApplication::onCommandUserManual()
+{
+    _appData->showUserManual();
+}
+
+void QXmlEditApplication::onCommandCompare()
+{
+    Regola dummy;
+    CompareBridge::doCompare(_guidedOperationsDialog, false, &dummy, uiDelegate(), _appData->lastFiles());
+}
+
+void QXmlEditApplication::onCommandAnon()
+{
+    _appData->anonymizeFile(_guidedOperationsDialog);
+}
+
+void QXmlEditApplication::onCommandEditingShortcut()
+{
+    _appData->showEditingShortcuts(_guidedOperationsDialog);
+}
+
+void QXmlEditApplication::onCommandBase64()
+{
+    Utils::TODO_THIS_RELEASE("test");
+    _appData->uiServices()->doBase64Dialog();
+}
+
+void QXmlEditApplication::onCommandViewXMLMap()
+{
+    Utils::TODO_THIS_RELEASE("controlla codice");
+    Utils::TODO_THIS_RELEASE("raggruppare il load dei file");
+    QString fileName = Utils::askFileNameToOpen(NULL, QXmlEditData::sysFilePathForOperation(""));
+    DataVisualization::viewData(_appData, NULL, NULL, fileName);
+}

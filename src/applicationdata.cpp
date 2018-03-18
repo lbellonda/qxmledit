@@ -33,7 +33,13 @@
 #include "sessions/data_access/sqllitedataaccess.h"
 #include "modules/services/systemservices.h"
 #include "modules/xsd/namespacemanager.h"
+#include "configurationdialog.h"
+#include "modules/style/infoonkeyboardshortcutsdialog.h"
+#include "modules/help/shortcutsdialog.h"
+#include "modules/anonymize/anonimyzebatchdialog.h"
 #include "mainwindow.h"
+
+#define HELP_FILE       "QXmlEdit_manual.pdf"
 
 #define VERSION_STRING_PREFIXED  "\0" VERSION_STRING
 #define DB_DATA_DIR "dbstorage"
@@ -156,10 +162,14 @@ MainWindow *ApplicationData::newWindow()
     return mainWindow ;
 }
 
-void ApplicationData::updateEditors()
+void ApplicationData::updateEditors(const bool invalidateAll)
 {
     foreach(MainWindow * window, windows()) {
-        window->updateAfterPreferences();
+        if(invalidateAll) {
+            window->getEditor()->invalidatePaintData();
+        } else {
+            window->updateAfterPreferences();
+        }
     }
 }
 
@@ -546,3 +556,37 @@ bool ApplicationData::testAndMarkFirstAccessForViewPreferences()
 }
 
 //--- endregion(access)
+
+bool ApplicationData::preferences(QWidget *parent)
+{
+    int version = styleVersion();
+    ConfigurationDialog::doOptions(parent, this) ;
+    int nowVersion = styleVersion();
+    if(version != nowVersion) {
+        return true ;
+    }
+    return false;
+}
+
+void ApplicationData::showUserManual()
+{
+    QString resourceHelp = getDocsDir() + "/" + HELP_FILE ;
+    QDesktopServices::openUrl(QUrl::fromLocalFile(resourceHelp));
+}
+
+void ApplicationData::showEditingShortcuts(QWidget *parent)
+{
+    InfoOnKeyboardShortcutsDialog infoDialog(parent);
+    infoDialog.exec();
+    if(infoDialog.isOpenShortcutDialog()) {
+        ShortcutsDialog::display(parent);
+    }
+    setShortcutUsedDialogShown();
+}
+
+void ApplicationData::anonymizeFile(QWidget *window)
+{
+    AnonimyzeBatchDialog dlg(this, window);
+    dlg.setModal(true);
+    dlg.exec();
+}

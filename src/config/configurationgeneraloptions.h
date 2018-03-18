@@ -43,6 +43,7 @@ class ConfigurationGeneralOptions : public QWidget
     bool _elementFontBold;
     bool _started;
 
+    void updateStatus();
 public:
     explicit ConfigurationGeneralOptions(QWidget *parent = 0);
     ~ConfigurationGeneralOptions();

@@ -73,7 +73,7 @@ public:
     MainWindow *findWindowByPath(const QString &filePath);
     MainWindow *newWindow();
 
-    void updateEditors();
+    void updateEditors(const bool invalidateAll = false);
 
     void setLogger(FrwLogger *newLogger);
     void setSessionDBPath(const QString &sessionDBPath);
@@ -157,6 +157,13 @@ public:
     } ;
     void setUserType(const EUserType userType);
     //--- endregion(access)
+
+    /// @return true if paint data are changed
+    bool preferences(QWidget *parent);
+
+    void showUserManual();
+    void showEditingShortcuts(QWidget *parent);
+    void anonymizeFile(QWidget *window);
 
     AttributeFilterManagement *attributeFilterManagement();
 private slots:

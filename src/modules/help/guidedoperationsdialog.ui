@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>651</width>
-    <height>457</height>
+    <width>688</width>
+    <height>443</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,9 +17,9 @@
    <iconset resource="../../risorse.qrc">
     <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_6">
+  <layout class="QHBoxLayout" name="horizontalLayout_7">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
+    <layout class="QVBoxLayout" name="v1Layout">
      <item>
       <widget class="QLabel" name="label">
        <property name="font">
@@ -37,7 +37,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <spacer name="horizontalSpacer_7">
+        <spacer name="l1">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -59,6 +59,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Create a new XML document.</string>
          </property>
          <property name="text">
           <string>New</string>
@@ -83,6 +86,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Open an existing XML document.</string>
          </property>
          <property name="text">
           <string>Open</string>
@@ -110,6 +116,9 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Validate an XML document.</string>
          </property>
          <property name="text">
           <string>Validate</string>
@@ -159,14 +168,14 @@
         </font>
        </property>
        <property name="text">
-        <string>View and Formatting Settings</string>
+        <string>View and Formatting</string>
        </property>
       </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <spacer name="horizontalSpacer_8">
+        <spacer name="l2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -182,12 +191,15 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_6">
+        <widget class="QPushButton" name="cmdCfgFormatting">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Set formatting options.</string>
          </property>
          <property name="text">
           <string>Formatting</string>
@@ -205,12 +217,15 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="cmdCfgVision">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Set view options.</string>
          </property>
          <property name="text">
           <string>Vision</string>
@@ -228,7 +243,10 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="cmdCfgEditing">
+         <property name="toolTip">
+          <string>Set edit options.</string>
+         </property>
          <property name="text">
           <string>Editing</string>
          </property>
@@ -281,7 +299,7 @@
         <enum>QLayout::SetDefaultConstraint</enum>
        </property>
        <item>
-        <spacer name="horizontalSpacer_9">
+        <spacer name="l3">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -297,12 +315,15 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_10">
+        <widget class="QPushButton" name="cmdConfigure">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Open the configuration panel.</string>
          </property>
          <property name="text">
           <string>Configure</string>
@@ -320,9 +341,12 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="cmdUserProfile">
+         <property name="toolTip">
+          <string>Change the user profile.</string>
+         </property>
          <property name="text">
-          <string>Expert Mode</string>
+          <string>Change Profile</string>
          </property>
          <property name="icon">
           <iconset resource="../../risorse.qrc">
@@ -362,14 +386,14 @@
         </font>
        </property>
        <property name="text">
-        <string>Special</string>
+        <string>Tools</string>
        </property>
       </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <spacer name="horizontalSpacer_10">
+        <spacer name="l4">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -385,12 +409,15 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_9">
+        <widget class="QPushButton" name="cmdExtractFile">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Extract fragments from XML file.</string>
          </property>
          <property name="text">
           <string>Extract File</string>
@@ -408,12 +435,15 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_7">
+        <widget class="QPushButton" name="cmdViewXSD">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>View an XSD diagram.</string>
          </property>
          <property name="text">
           <string>View XSD</string>
@@ -431,15 +461,22 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="cmdCompare">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="toolTip">
+          <string>Compare two XML documents.</string>
+         </property>
          <property name="text">
           <string>Compare</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../risorse.qrc">
+           <normaloff>:/tools/images/compare.png</normaloff>:/tools/images/compare.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -450,12 +487,121 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="cmdBase64">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Work with Base64 encoding.</string>
+         </property>
+         <property name="text">
+          <string>Base 64</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../risorse.qrc">
+           <normaloff>:/tools/images/base64.png</normaloff>:/tools/images/base64.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>22</width>
+           <height>22</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_6">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Advanced</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <spacer name="l6">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cmdViewDataMap">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>View XML document statistics and elements distribution.</string>
+         </property>
+         <property name="text">
+          <string>View Data Map</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../risorse.qrc">
+           <normaloff>:/tools/images/view-structure-icon.png</normaloff>:/tools/images/view-structure-icon.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>22</width>
+           <height>22</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cmdAnon_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Anonymize an XML file using existing profiles.</string>
          </property>
          <property name="text">
           <string>Anonymize</string>
@@ -473,7 +619,7 @@
         </widget>
        </item>
        <item>
-        <spacer name="horizontalSpacer_5">
+        <spacer name="horizontalSpacer_7">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -511,7 +657,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <spacer name="horizontalSpacer_11">
+        <spacer name="l5">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
@@ -527,12 +673,15 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_11">
+        <widget class="QPushButton" name="cmdUserManual">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Show the user manual.</string>
          </property>
          <property name="text">
           <string>User Manual</string>
@@ -550,12 +699,15 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_12">
+        <widget class="QPushButton" name="cmdEditingShortcut">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>Show the editing shortcuts.</string>
          </property>
          <property name="text">
           <string>Editing shortcuts</string>
@@ -606,6 +758,9 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Close this window.</string>
+       </property>
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -615,7 +770,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="verticalSpacer">
+      <spacer name="spacer1">
        <property name="orientation">
         <enum>Qt::Vertical</enum>
        </property>
@@ -634,6 +789,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Quit application.</string>
        </property>
        <property name="text">
         <string>QUIT</string>

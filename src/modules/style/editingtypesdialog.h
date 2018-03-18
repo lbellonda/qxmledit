@@ -23,7 +23,9 @@
 #ifndef EDITINGTYPESDIALOG_H
 #define EDITINGTYPESDIALOG_H
 
-#include <QDialog>
+#include "xmlEdit.h"
+
+class ApplicationData ;
 
 namespace Ui
 {
@@ -33,13 +35,19 @@ class EditingTypesDialog;
 class EditingTypesDialog : public QDialog
 {
     Q_OBJECT
-
+    ApplicationData *_data;
 public:
-    explicit EditingTypesDialog(QWidget *parent = 0);
+    explicit EditingTypesDialog(ApplicationData *data, QWidget *parent = 0);
     ~EditingTypesDialog();
+
+protected:
+    void accept();
 
 private:
     Ui::EditingTypesDialog *ui;
+
+private slots:
+    void on_cmdPredefined_clicked();
 };
 
 #endif // EDITINGTYPESDIALOG_H

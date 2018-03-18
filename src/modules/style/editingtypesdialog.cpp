@@ -22,15 +22,36 @@
 
 #include "editingtypesdialog.h"
 #include "ui_editingtypesdialog.h"
+#include "applicationdata.h"
+#include "utils.h"
 
-EditingTypesDialog::EditingTypesDialog(QWidget *parent) :
+EditingTypesDialog::EditingTypesDialog(ApplicationData *data, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditingTypesDialog)
 {
+    _data = data ;
     ui->setupUi(this);
+    if(_data->isBaseEditModeForm()) {
+        ui->optionForm->setChecked(true);
+    } else {
+        ui->optionText->setChecked(true);
+    }
 }
 
 EditingTypesDialog::~EditingTypesDialog()
 {
     delete ui;
+}
+
+void EditingTypesDialog::accept()
+{
+    _data->setBaseEditModeForm(ui->optionForm->isChecked());
+    QDialog::accept();
+}
+
+void EditingTypesDialog::on_cmdPredefined_clicked()
+{
+    Utils::TODO_THIS_RELEASE("test");
+    _data->setBaseEditModeForm(true);
+    QDialog::accept();
 }

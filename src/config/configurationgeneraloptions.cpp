@@ -35,6 +35,7 @@ ConfigurationGeneralOptions::ConfigurationGeneralOptions(QWidget *parent) :
     _elementFontSize = 0 ;
     _elementFontItalic = false ;
     _elementFontBold = false ;
+    updateStatus();
 }
 
 ConfigurationGeneralOptions::~ConfigurationGeneralOptions()
@@ -86,7 +87,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
     ui->cbSHowElementsIcon->setChecked(Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false));
     ui->cbShowTagComplex->setChecked(Config::getBool(Config::KEY_MAIN_SHOWLTONTAGS, Config::ShowLOOnTagsDefault));
     ui->cbEnableMultiThreading->setChecked(_data->isMtEnabled());
-
+    updateStatus();
     _started = true ;
 }
 
@@ -244,6 +245,7 @@ void ConfigurationGeneralOptions::on_enableExperiments_stateChanged(int state)
     }
     bool isEnabled = (state == Qt::Checked);
     _data->setExperimentalFeaturesEnabled(isEnabled);
+    updateStatus();
 }
 
 void ConfigurationGeneralOptions::on_cbOpenFilesInNewWindow_stateChanged(int /*state*/)
@@ -289,4 +291,9 @@ void ConfigurationGeneralOptions::on_cmdResetBehavior_clicked()
     if(Utils::askYN(this, tr("Really reset behavior data?"))) {
         _data->resetBehaviorData();
     }
+}
+
+void ConfigurationGeneralOptions::updateStatus()
+{
+    ui->cmdResetBehavior->setEnabled(ui->enableExperiments->isChecked());
 }

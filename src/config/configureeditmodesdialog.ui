@@ -37,7 +37,7 @@
    <item>
     <widget class="QCheckBox" name="cbPreferEditAsForm">
      <property name="text">
-      <string>Prefer edit elements in a form instead of a text box</string>
+      <string>edit elements in a form instead of a text box</string>
      </property>
     </widget>
    </item>

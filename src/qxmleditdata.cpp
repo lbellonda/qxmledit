@@ -961,4 +961,3 @@ void QXmlEditData::incrementAndClipCounter(uint &value)
         value = 1000 ;
     }
 }
-

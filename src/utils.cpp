@@ -1266,3 +1266,11 @@ QByteArray Utils::readBytesFromFile(const QString &file)
     }
     return QByteArray() ;
 }
+
+QString Utils::askFileNameToOpen(QWidget* parent, const QString &startFolder)
+{
+    QString filePath = QFileDialog::getOpenFileName(parent, tr("Open File"),
+                       QXmlEditData::sysFilePathForOperation(startFolder),
+                       Utils::getFileFilterForOpenFile());
+    return filePath ;
+}

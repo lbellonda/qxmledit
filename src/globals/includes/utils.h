@@ -185,6 +185,8 @@ public:
     static bool writeStringToFile(QFile *dataFile, const QString &dataString, const QString &encoding = "UTF-8");
     static bool writeStringToFile(const QString &file, const QString &dataString, const QString &encoding = "UTF-8");
     static QByteArray readBytesFromFile(const QString &file);
+
+    static QString askFileNameToOpen(QWidget* parent, const QString &startFolder);
 };
 
 

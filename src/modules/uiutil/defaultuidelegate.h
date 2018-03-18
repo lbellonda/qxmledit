@@ -20,19 +20,50 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "editingpreferencesdialog.h"
-#include "ui_editingpreferencesdialog.h"
-#include "utils.h"
+#ifndef DEFAULTUIDELEGATE_H
+#define DEFAULTUIDELEGATE_H
 
-EditingPreferencesDialog::EditingPreferencesDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::EditingPreferencesDialog)
-{
-    Utils::TODO_THIS_RELEASE("forse eliminare");
-    ui->setupUi(this);
-}
+#include "xmlEdit.h"
+#include "UIDelegate.h"
 
-EditingPreferencesDialog::~EditingPreferencesDialog()
+class QWidget;
+
+class DefaultUIDelegate : public UIDelegate
 {
-    delete ui;
-}
+    QWidget * _window;
+    QString _lastErrorMsg;
+    int _errorCount;
+    int _errors;
+    bool _beforeLoad ;
+    int _askCountBeforeLoad;
+    int _askCountAfterLoad;
+
+public:
+    DefaultUIDelegate();
+    virtual ~DefaultUIDelegate();
+
+    virtual void registerError();
+    virtual void error(const QString& message);
+    virtual void error(QWidget *widget, const QString& message) ;
+    virtual void warning(const QString& message) ;
+    virtual void message(const QString& message) ;
+    virtual bool askYN(const QString & message) ;
+    virtual bool askYN(QWidget *parent, const QString & message) ;
+    //--
+    virtual void errorNoSel(QWidget *parent) ;
+    virtual void errorOutOfMem(QWidget *parent);
+
+    virtual QString msgOutOfMem();
+
+    virtual QWidget *getMainWidget();
+    virtual QString getAppTitle();
+    virtual QString editNodeElementAsXML(const bool isBase64Coded, Element *pElement, const QString &text, const bool isCData, bool &isCDataOut, bool &isOk);
+
+    virtual void resetErrorCount();
+    virtual int errorCount();
+
+    QWidget *getWindow() const;
+    void setWindow(QWidget *window);
+};
+
+#endif // DEFAULTUIDELEGATE_H

@@ -23,16 +23,18 @@
 #ifndef FRAMEWORK_UIDELEGATE_H
 #define FRAMEWORK_UIDELEGATE_H
 
-#include <QString>
-#include <QWidget>
+#include "xmlEdit.h"
+#include "libQXmlEdit_global.h"
 
 // This class is a callback interface.
 
 class Element;
 
-class UIDelegate
+class LIBQXMLEDITSHARED_EXPORT UIDelegate
 {
 public:
+
+    virtual ~UIDelegate();
     virtual void registerError() = 0 ;
     virtual void error(const QString& message) = 0 ;
     virtual void error(QWidget *widget, const QString& message) = 0 ;
