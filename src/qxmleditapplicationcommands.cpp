@@ -35,6 +35,7 @@
 #include "modules/help/guidedoperationsdialog.h"
 #include "modules/xml/configuregeneralindentation.h"
 #include "modules/style/editingtypesdialog.h"
+#include "base64dialog.h"
 #include "compare.h"
 
 void extractFragments(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);
@@ -108,7 +109,7 @@ void QXmlEditApplication::onCommandUserProfile()
 void QXmlEditApplication::onCommandExtractFile()
 {
     ExtractResults results;
-    extractFragments(&results, NULL, NULL);
+    extractFragments(&results, _guidedOperationsDialog, _guidedOperationsDialog);
 }
 
 void QXmlEditApplication::onCommandViewXSD()
@@ -155,6 +156,6 @@ void QXmlEditApplication::onCommandViewXMLMap()
 {
     Utils::TODO_THIS_RELEASE("controlla codice");
     Utils::TODO_THIS_RELEASE("raggruppare il load dei file");
-    QString fileName = Utils::askFileNameToOpen(NULL, QXmlEditData::sysFilePathForOperation(""));
-    DataVisualization::viewData(_appData, NULL, NULL, fileName);
+    QString fileName = Utils::askFileNameToOpen(_guidedOperationsDialog, QXmlEditData::sysFilePathForOperation(""));
+    DataVisualization::viewData(_appData, _guidedOperationsDialog, _guidedOperationsDialog, fileName);
 }

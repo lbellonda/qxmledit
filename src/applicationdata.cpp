@@ -576,6 +576,7 @@ void ApplicationData::showUserManual()
 
 void ApplicationData::showEditingShortcuts(QWidget *parent)
 {
+    Utils::TODO_THIS_RELEASE("test");
     InfoOnKeyboardShortcutsDialog infoDialog(parent);
     infoDialog.exec();
     if(infoDialog.isOpenShortcutDialog()) {

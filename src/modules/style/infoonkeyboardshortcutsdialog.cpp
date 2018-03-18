@@ -27,6 +27,7 @@ InfoOnKeyboardShortcutsDialog::InfoOnKeyboardShortcutsDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::InfoOnKeyboardShortcutsDialog)
 {
+    _isOpenShortcutDialog = false ;
     ui->setupUi(this);
 }
 

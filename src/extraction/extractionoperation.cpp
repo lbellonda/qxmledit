@@ -862,6 +862,8 @@ void ExtractionOperation::saveSettingsForExtractionFragmentNumber(const QString 
     Config::saveInt(Config::KEY_FRAGMENTS_EXTRACTIONTYPE, ET_RANGE);
     Config::saveInt(Config::KEY_FRAGMENTS_MINDOC, fragment);
     Config::saveInt(Config::KEY_FRAGMENTS_MAXDOC, fragment);
+    Utils::TODO_THIS_RELEASE("test");
+    Config::saveBool(Config::KEY_FRAGMENTS_REVERSERANGE, false);
     Config::saveInt(Config::KEY_FRAGMENTS_OPERATION_TYPE, OperationSplit);
 }
 

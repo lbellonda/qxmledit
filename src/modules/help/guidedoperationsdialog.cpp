@@ -56,13 +56,13 @@ void GuidedOperationsDialog::makeButtonsSameSize()
         button->setFixedSize(maxSizeX, button->height());
     }
     QSize currentSize = ui->l1->sizeHint();
-
-    ui->l1->spacerItem()->changeSize(maxSizeX, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
-    ui->l2->spacerItem()->changeSize(maxSizeX, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
-    ui->l3->spacerItem()->changeSize(maxSizeX, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
-    ui->l4->spacerItem()->changeSize(maxSizeX, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
-    ui->l5->spacerItem()->changeSize(maxSizeX, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
-    ui->l6->spacerItem()->changeSize(maxSizeX, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
+    const int spacerGap = maxSizeX >> 1 ;
+    ui->l1->spacerItem()->changeSize(spacerGap, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
+    ui->l2->spacerItem()->changeSize(spacerGap, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
+    ui->l3->spacerItem()->changeSize(spacerGap, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
+    ui->l4->spacerItem()->changeSize(spacerGap, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
+    ui->l5->spacerItem()->changeSize(spacerGap, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
+    ui->l6->spacerItem()->changeSize(spacerGap, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
     ui->v1Layout->update();
 }
 

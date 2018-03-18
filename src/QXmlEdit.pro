@@ -311,7 +311,6 @@ HEADERS = precompiled_app.h \
     modules/style/infoonkeyboardshortcutsdialog.h \
     modules/style/editingtypesdialog.h \
     modules/help/firstaccessdialog.h \
-    modules/help/editingpreferencesdialog.h \
     modules/help/userguideddialog.h \
     modules/help/guidedoperationsdialog.h \
     modules/help/guidedvalidationdialog.h \
@@ -412,7 +411,6 @@ SOURCES = \
     modules/style/infoonkeyboardshortcutsdialog.cpp \
     modules/style/editingtypesdialog.cpp \
     modules/help/firstaccessdialog.cpp \
-    modules/help/editingpreferencesdialog.cpp \
     modules/help/guidedoperationsdialog.cpp \
     modules/help/guidedvalidationdialog.cpp \
     qxmleditapplicationcommands.cpp \
@@ -479,7 +477,6 @@ FORMS = MainWindow.ui \
     modules/style/infoonkeyboardshortcutsdialog.ui \
     modules/style/editingtypesdialog.ui \
     modules/help/firstaccessdialog.ui \
-    modules/help/editingpreferencesdialog.ui \
     modules/help/guidedoperationsdialog.ui \
     modules/help/guidedvalidationdialog.ui \
     modules/xml/configuregeneralindentation.ui
