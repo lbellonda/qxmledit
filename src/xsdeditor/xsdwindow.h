@@ -210,6 +210,20 @@ protected:
     qreal _realChildrenHeight;
     bool _isBase;
     bool _isDiff ;
+    QRectF _bounds;
+    qreal _yToAdd;
+    int _id ;
+    static int _instances;
+
+    enum EIntersectType {
+        IntersectNoneBefore,
+        IntersectBefore,
+        IntersectIncluded,
+        IntersectAfter,
+        IntersectBeforeAndAfter,
+        IntersectNoneAfter,
+    };
+
 
     //---------------------------------------------------
 public:
@@ -239,15 +253,19 @@ protected:
     void disposeObjectHorPyramid(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos);
     //-- region(New0)
     qreal placeAllStrategyHorPyramidNew0(XSDItemContext *context);
+    qreal calcChildrenHeight(XSDItemContext *context, const bool isRecursive);
     qreal calcChildrenHeightStrategyNew0(XSDItemContext *context, const bool isRecursive);
-    void placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos);
-    bool updateObjectPlacementNew0(XSDItemContext *context, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain);
+    void placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos, QRectF &overallBounds);
+    bool updateObjectPlacementNew0(XSDItem *root, XSDItemContext *context, QVector<QRectF> &currBounds, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain, const qreal extraGapValue);
     void recalcDispose(XSDItemContext *context);
     void updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging);
-    void moveDownBy(const qreal gapThis, const qreal gap, const bool isRecursive, const bool isEnlarging);
-    qreal updateAnObjectPlacementNew0(XSDItemContext *context, XSDItem *target, const qreal thisGap, const bool isFirst, const int index);
+    void moveDownBy(const qreal gap);
+    qreal updateAnObjectPlacementNew0(XSDItem *target, QVector<QRectF> &currBounds, const qreal thisGap, const qreal gapValue, const int index);
     qreal calcOverallHeight(QList<QGraphicsItem*> &rendered);
-    void finalOffset();
+    void finalOffset(const QRectF &bounds);
+    void finalPos(QRectF &bounds, const bool isFirst);
+    void finalOffset__old();
+    void finalOffset__old1();
     //-- endregion(New0)
     qreal recalcChildrenPosStrategyUnder(XSDItemContext *context);
     void preAddChildren(XSchemaObject *object);
@@ -260,6 +278,26 @@ protected:
     void createIconInfo(QGraphicsItem *theParent, const int xPos = 10, const int yPos = 10);
     void buildTooltip();
     virtual QString preTooltipString();
+    void resetLayoutData();
+    static EIntersectType intersectionType(const QRectF &candidate, const QRectF &source);
+    static qreal checkVerticalCollision(const QRectF &candidate, const QRectF &source, const qreal originalGapValue);
+
+    static void dump_layout_notice(const QString &notice, XSDItem *target, const QRectF &thisBounds, const qreal extraGap);
+    static QString dump_rect_string(const QRectF &thisBounds);
+    static void dump_layout_info(const QString &msg);
+    static void dump_layout_intersect(const int index, const EIntersectType type);
+    static void dump_layout_situation(const QString &msgPassed, const QVector<QRectF> &currBounds);
+    static void dump_layout_indexes(const int insertAtPosition, const int lastItemLessThan,
+                                    const int itemToBeSplitBefore, const int firstItemToBeSuppressed, const int lastItemToBeSuppressed,
+                                    const int itemToBeSplitAfter, const int firstItemGreaterThan);
+    void dump_layout_check_congruence(const QVector<QRectF> &currBounds);
+    static void dump_layout_trace(XSDItem *target, const QString &msg);
+    static void dump_layout_item(XSDItem *target);
+    void dump_layout_items();
+    static QRectF splitRectBefore(const QRectF &current, const QRectF &source);
+    static QRectF splitRectAfter(const QRectF &current, const QRectF &source);
+    void drawChildrenPort(XSDItemContext *context);
+    void updateRectIncludingAll(QRectF &target);
 
 public:
     XSDItem(XsdGraphicContext *newContext);
@@ -294,9 +332,13 @@ public:
     RChildren *rChildren();
     virtual QString itemClassName() = 0 ;
     QString dumpAsString(const int indent);
+    static void resetId();
 
 public slots:
     virtual void childAdded(XSchemaObject *newChild);
+#ifdef QXMLEDIT_TEST
+    friend class TestXSDView ;
+#endif
 };
 
 

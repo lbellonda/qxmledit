@@ -1,4 +1,5 @@
 0.9.10
+    issue #48 improved xsd diagram display performance
     Changed the year to 2018 on headers.
     New specialized XML Schema (XSD) validation dialog.
 

@@ -966,6 +966,10 @@ void TestQXmlEdit::testXsdView()
     result = testFast.testFast();
     QVERIFY2(result, (QString("test TestXSDView: testFast() '%1'").arg(testFast.errorString())).toLatin1().data());
 
+    TestXSDView testUnit;
+    result = testUnit.testUnit();
+    QVERIFY2(result, (QString("test TestXSDView: testUnit() '%1'").arg(testFast.errorString())).toLatin1().data());
+
     TestXSDView test0;
     result = test0.testBase();
     QVERIFY2(result, (QString("test TestXSDView: testBase() '%1'").arg(test0.errorString())).toLatin1().data());
@@ -1599,6 +1603,7 @@ void TestQXmlEdit::testNew()
     qInstallMessageHandler(msgHandler);
 #endif
     testStartupAndBehavior();
+    testXsdView();
     testEditing();
     testConfig();
 }
