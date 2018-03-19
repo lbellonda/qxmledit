@@ -67,6 +67,7 @@ extern const char *APP_TITLE ;
 #include "modules/style/editingtypesdialog.h"
 #include "modules/help/guidedvalidationdialog.h"
 #include "modules/help/shortcutsdialog.h"
+#include "extraction/extractfragmentsdialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -75,7 +76,6 @@ extern const char *APP_TITLE ;
 
 void doOptions(QWidget * const parentWindow, ApplicationData* data);
 void executeTests(QWidget *parent);
-void extractFragments(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);
 void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 #define CS_ELEMENT_TEXT "E"

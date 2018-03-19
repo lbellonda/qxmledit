@@ -225,7 +225,7 @@ void GuidedValidationDialog::reject()
 
 void GuidedValidationDialog::waitEndCalculation()
 {
-    QFuture<QPair<int, QString>> future;
+    QFuture<QPair<int, QString> > future;
     foreach(future, _waitingForCancelTaskList) {
         future.waitForFinished();
     }

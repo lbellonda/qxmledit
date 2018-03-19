@@ -509,7 +509,8 @@ SOURCES += xmleditwidget.cpp \
     xsdeditor/xsdreport.cpp \
     xsdeditor/choosexsdreporttypedialog.cpp \
     xsdeditor/report/xsdprintinfo.cpp \
-    xsdeditor/report/xsdprintinfohtml.cpp
+    xsdeditor/report/xsdprintinfohtml.cpp \
+    modules/uiutil/uidelegatebase.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \

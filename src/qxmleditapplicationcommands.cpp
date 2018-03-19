@@ -38,8 +38,6 @@
 #include "base64dialog.h"
 #include "compare.h"
 
-void extractFragments(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);
-
 void QXmlEditApplication::onCommandNew()
 {
     MainWindow *mainWindow = new MainWindow(false, _appData);
@@ -158,4 +156,16 @@ void QXmlEditApplication::onCommandViewXMLMap()
     Utils::TODO_THIS_RELEASE("raggruppare il load dei file");
     QString fileName = Utils::askFileNameToOpen(_guidedOperationsDialog, QXmlEditData::sysFilePathForOperation(""));
     DataVisualization::viewData(_appData, _guidedOperationsDialog, _guidedOperationsDialog, fileName);
+}
+
+void QXmlEditApplication::onCommandOpenFile(const QString &filePath)
+{
+    MainWindow *mainWindow = new MainWindow(false, _appData);
+    if(mainWindow->loadFile(filePath, MainWindow::OpenUsingSameWindow)) {
+        mainWindow->show();
+        mainWindow->raise();
+        mainWindow->activateWindow();
+    } else {
+        delete mainWindow;
+    }
 }

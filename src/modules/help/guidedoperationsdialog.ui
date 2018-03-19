@@ -593,7 +593,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="cmdAnon_2">
+        <widget class="QPushButton" name="cmdAnon">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>

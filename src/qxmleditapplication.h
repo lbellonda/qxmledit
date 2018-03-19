@@ -119,7 +119,7 @@ private slots:
     void onCommandCompare();
     void onCommandBase64();
     void onCommandViewXMLMap();
-
+    void onCommandOpenFile(const QString &filePath);
 };
 
 #endif // QXMLEDITAPPLICATION_H

@@ -37,6 +37,7 @@ GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application,
     setWindowTitle(APPLICATION_NAME);
     makeButtonsSameSize();
     applyUserProfile();
+    setAcceptDrops(true);
 }
 
 GuidedOperationsDialog::~GuidedOperationsDialog()
@@ -183,3 +184,29 @@ void GuidedOperationsDialog::on_cmdViewDataMap_clicked()
     emit triggerViewXMLMap();
 }
 
+
+void GuidedOperationsDialog::dragEnterEvent(QDragEnterEvent *event)
+{
+    if(event->mimeData()->hasFormat(Utils::URIDropType)) {
+        event->acceptProposedAction();
+    }
+}
+
+void GuidedOperationsDialog::dropEvent(QDropEvent *event)
+{
+    if(event->mimeData()->hasFormat(Utils::URIDropType)) {
+        QString filePath = "" ;
+        event->acceptProposedAction();
+        if(event->mimeData()->hasUrls()) {
+            foreach(QUrl url, event->mimeData()->urls()) {
+                filePath = url.toLocalFile();
+                break;
+            }
+        }
+        if(!filePath.isEmpty()) {
+            emit openFile(filePath);
+        }
+    } else {
+        event->ignore();
+    }
+}

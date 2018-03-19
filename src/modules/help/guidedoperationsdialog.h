@@ -27,6 +27,8 @@
 
 class QXmlEditApplication ;
 class ApplicationData ;
+class QDragEnterEvent;
+class QDropEvent;
 
 namespace Ui
 {
@@ -43,6 +45,8 @@ class GuidedOperationsDialog : public QDialog
 
 protected:
     virtual void reject();
+    virtual void dragEnterEvent(QDragEnterEvent *event);
+    virtual void dropEvent(QDropEvent *event);
 
 public:
     explicit GuidedOperationsDialog(QXmlEditApplication *application, ApplicationData *appData, QWidget *parent = 0);
@@ -72,6 +76,7 @@ signals:
     void triggerEditingShortcut();
     void triggerBase64();
     void triggerViewXMLMap();
+    void openFile(const QString &fullFilePath);
 
 private slots:
     void on_cmdNew_clicked();

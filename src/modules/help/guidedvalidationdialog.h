@@ -59,8 +59,8 @@ class GuidedValidationDialog : public QDialog
     ApplicationData *_appData;
     InfoPartGuidedValidationDialog _xml;
     InfoPartGuidedValidationDialog _xsd;
-    QList<QFuture<QPair<int, QString>>> _waitingForCancelTaskList;
-    QFuture<QPair<int, QString>> _currentCalculation;
+    QList<QFuture<QPair<int, QString> > > _waitingForCancelTaskList;
+    QFuture<QPair<int, QString> > _currentCalculation;
 
 protected:
     void accept();

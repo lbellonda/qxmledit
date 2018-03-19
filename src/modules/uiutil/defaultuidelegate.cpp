@@ -25,10 +25,6 @@
 
 extern const char *APP_TITLE ;
 
-UIDelegate::~UIDelegate()
-{
-}
-
 //-----------------------------------------
 
 DefaultUIDelegate::DefaultUIDelegate()
