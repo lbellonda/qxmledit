@@ -104,7 +104,7 @@
      <x>0</x>
      <y>0</y>
      <width>906</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Navigation">
@@ -573,7 +573,7 @@
   </widget>
   <action name="actionNew">
    <property name="icon">
-    <iconset>
+    <iconset resource="risorse.qrc">
      <normaloff>:/actions/images/document-new.png</normaloff>:/actions/images/document-new.png</iconset>
    </property>
    <property name="text">
@@ -851,7 +851,7 @@
   </action>
   <action name="actionToggleBookmark">
    <property name="icon">
-    <iconset>
+    <iconset resource="risorse.qrc">
      <normaloff>:/special/images/bookmark.png</normaloff>:/special/images/bookmark.png</iconset>
    </property>
    <property name="text">
@@ -2043,7 +2043,7 @@
   </action>
   <action name="actionInfo">
    <property name="icon">
-    <iconset>
+    <iconset resource="risorse.qrc">
      <normaloff>:/actions/info</normaloff>:/actions/info</iconset>
    </property>
    <property name="text">
@@ -2490,7 +2490,7 @@
   </action>
   <action name="actionOpenGuidedOperationPanel">
    <property name="text">
-    <string>Open Guided Operations Panel</string>
+    <string>Guided Operations Panel</string>
    </property>
    <property name="toolTip">
     <string>Open the guided operations panel.</string>
@@ -2526,6 +2526,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>
