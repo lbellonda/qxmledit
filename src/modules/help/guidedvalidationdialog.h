@@ -83,6 +83,7 @@ protected:
     QString schemaFile();
     virtual void dropEvent(QDropEvent *event);
     virtual void dragEnterEvent(QDragEnterEvent *event);
+    bool isReady() ;
 
 public:
     explicit GuidedValidationDialog(QWidget *parent, ApplicationData *appData);

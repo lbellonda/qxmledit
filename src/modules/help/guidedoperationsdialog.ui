@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>688</width>
-    <height>443</height>
+    <width>689</width>
+    <height>517</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,8 +73,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -100,8 +100,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
          <property name="flat">
@@ -130,8 +130,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -210,9 +210,12 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -236,9 +239,12 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -334,8 +340,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -428,9 +434,12 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
+         </property>
+         <property name="autoDefault">
+          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -454,8 +463,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -480,8 +489,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -506,8 +515,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -586,8 +595,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -612,8 +621,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -692,8 +701,8 @@
          </property>
          <property name="iconSize">
           <size>
-           <width>22</width>
-           <height>22</height>
+           <width>16</width>
+           <height>16</height>
           </size>
          </property>
         </widget>
@@ -798,7 +807,8 @@
        </property>
        <property name="icon">
         <iconset theme="application-exit">
-         <normaloff>.</normaloff>.</iconset>
+         <normaloff/>
+        </iconset>
        </property>
       </widget>
      </item>
@@ -807,6 +817,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

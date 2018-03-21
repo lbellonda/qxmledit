@@ -266,7 +266,6 @@ void todo()
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
-    Utils::TODO_THIS_RELEASE("manca il passaggio da simple user a guided e viceversa");
 }
 
 static void startTanslator(QApplication *app)

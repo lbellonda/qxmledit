@@ -26,6 +26,9 @@
 #include "modules/xsd/xsdvalidationexecutor.h"
 #include "utils.h"
 
+static const int TimeoutForPolling = 600 ;
+
+
 GuidedValidationDialog::GuidedValidationDialog(QWidget *parent, ApplicationData *appData) :
     QDialog(parent),
     ui(new Ui::GuidedValidationDialog)
@@ -96,20 +99,30 @@ void GuidedValidationDialog::updateStatusFile(InfoPartGuidedValidationDialog *in
     }
 }
 
+bool GuidedValidationDialog::isReady()
+{
+    if(ui->fileNameXML->text().isEmpty() || ui->fileNameXSD->text().isEmpty()) {
+        return false;
+    }
+    return true ;
+}
+
 void GuidedValidationDialog::updateStatus()
 {
     int page = PageEmpty ;
-    if(_calculating) {
-        page = PageWait;
-        _message = "" ;
-    } else {
-        if(_isError) {
-            page = PageEmpty;
-        } else if(_isValid) {
-            page = PageOk ;
+    if(isReady()) {
+        if(_calculating) {
+            page = PageWait;
             _message = "" ;
         } else {
-            page = PageKo ;
+            if(_isError) {
+                page = PageEmpty;
+            } else if(_isValid) {
+                page = PageOk ;
+                _message = "" ;
+            } else {
+                page = PageKo ;
+            }
         }
     }
     ui->state->setCurrentIndex(page);
@@ -160,7 +173,7 @@ void GuidedValidationDialog::executeNewCalculation()
     _isValid = false ;
     _message = "" ;
     _currentCalculation = QtConcurrent::run(this, &GuidedValidationDialog::executeCalculationInThread, dataFile(), schemaFile());
-    QTimer::singleShot(600, this, SLOT(checkIfDone()));
+    QTimer::singleShot(TimeoutForPolling, this, SLOT(checkIfDone()));
     _calculating = true ;
 }
 

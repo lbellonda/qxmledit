@@ -29,8 +29,6 @@ GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application,
     QDialog(parent),
     ui(new Ui::GuidedOperationsDialog)
 {
-    Utils::TODO_THIS_RELEASE("cambia profilo deve cambiare il testo a se3conda dell'utente");
-    Utils::TODO_THIS_RELEASE("fare hide window senza uscire");
     _application = application;
     _appData = appData;
     ui->setupUi(this);
@@ -50,11 +48,11 @@ void GuidedOperationsDialog::makeButtonsSameSize()
     int maxSizeX = 0 ;
     QList<QPushButton*> buttons = findChildren<QPushButton*>();
     foreach(QPushButton* button, buttons) {
-        maxSizeX = qMax(maxSizeX, button->size().width());
+        maxSizeX = qMax(maxSizeX, button->frameSize().width());
     }
     maxSizeX *= 1.3;
     foreach(QPushButton* button, buttons) {
-        button->setFixedSize(maxSizeX, button->height());
+        button->setFixedWidth(maxSizeX);
     }
     QSize currentSize = ui->l1->sizeHint();
     const int spacerGap = maxSizeX >> 1 ;
