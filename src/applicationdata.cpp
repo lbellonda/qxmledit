@@ -591,3 +591,8 @@ void ApplicationData::anonymizeFile(QWidget *window)
     dlg.setModal(true);
     dlg.exec();
 }
+
+void ApplicationData::showUserTypePanel()
+{
+    emit openUserTypePanel(true);
+}

@@ -84,12 +84,13 @@ protected:
     QByteArray paramsToByteArray(StartParams *startParams);
     MainWindow *makeNewWindow();
     bool errorCloseConnection(QLocalSocket *client);
-    bool showUserTypePanel();
+    bool showUserTypePanel(const bool nextAccess = false);
     bool showGuidedOperationsPanel();
     bool showValidationOperationsPanel();
     void connectToCommandsPanel(const bool isConnect, GuidedOperationsDialog *target);
     void bindCommandOperation(const bool isConnect, const QObject *sender, const char *signal, const char *method);
     void taskChooseDetail();
+    void setDefaultViewDetail();
 
 public slots:
     void onNewWindow();
@@ -120,6 +121,7 @@ private slots:
     void onCommandBase64();
     void onCommandViewXMLMap();
     void onCommandOpenFile(const QString &filePath);
+    void onOpenUserTypePanel(const bool nextAccess);
 };
 
 #endif // QXMLEDITAPPLICATION_H

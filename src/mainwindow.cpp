@@ -3749,5 +3749,6 @@ void MainWindow::on_actionOpenGuidedOperationPanel_triggered()
 
 void MainWindow::on_actionChooseUserProfile_triggered()
 {
+    data->showUserTypePanel();
     Utils::TODO_THIS_RELEASE("fare");
 }

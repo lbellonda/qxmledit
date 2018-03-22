@@ -1,11 +1,11 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/actions">
         <file>images/document-new.png</file>
         <file>images/view-refresh.png</file>
         <file alias="xsd-edit">images/document-edit-xsd.png</file>
         <file alias="info">images/info.png</file>
     </qresource>
-    <qresource prefix="/help">
+    <qresource prefix="/special">
         <file>images/bookmark.png</file>
         <file alias="style">images/view-media-visualization.png</file>
         <file alias="empty">images/empty.png</file>

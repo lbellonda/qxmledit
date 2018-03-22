@@ -67,9 +67,8 @@
           <string>New</string>
          </property>
          <property name="icon">
-          <iconset>
-           <normalon>:/images/document-new.png</normalon>
-          </iconset>
+          <iconset resource="../../risorse.qrc">
+           <normaloff>:/actions/images/document-new.png</normaloff>:/actions/images/document-new.png</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -235,7 +234,7 @@
          </property>
          <property name="icon">
           <iconset resource="../../risorse.qrc">
-           <normaloff>:/help/style</normaloff>:/help/style</iconset>
+           <normaloff>:/special/style</normaloff>:/special/style</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -355,7 +354,7 @@
           <string>Change Profile</string>
          </property>
          <property name="icon">
-          <iconset resource="../../risorse.qrc">
+          <iconset>
            <normaloff>:/help/images/bookmark.png</normaloff>:/help/images/bookmark.png</iconset>
          </property>
         </widget>
@@ -807,8 +806,7 @@
        </property>
        <property name="icon">
         <iconset theme="application-exit">
-         <normaloff/>
-        </iconset>
+         <normaloff>.</normaloff>.</iconset>
        </property>
       </widget>
      </item>
@@ -817,7 +815,6 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

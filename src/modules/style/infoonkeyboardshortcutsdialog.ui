@@ -61,7 +61,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../risorse.qrc">:/help/images/sample.editor.png</pixmap>
+          <pixmap resource="../../risorse.qrc">:/special/images/sample.editor.png</pixmap>
          </property>
         </widget>
        </item>
@@ -101,7 +101,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../risorse.qrc">:/help/images/editor.form.png</pixmap>
+          <pixmap resource="../../risorse.qrc">:/special/images/editor.form.png</pixmap>
          </property>
         </widget>
        </item>

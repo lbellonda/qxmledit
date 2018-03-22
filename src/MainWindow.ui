@@ -2527,7 +2527,6 @@
  </customwidgets>
  <resources>
   <include location="risorse.qrc"/>
-  <include location="risorse.qrc"/>
  </resources>
  <connections/>
  <slots>

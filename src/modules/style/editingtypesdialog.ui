@@ -102,7 +102,7 @@ You can change your choice at any time opening preferences panel.</string>
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../risorse.qrc">:/help/images/sample.editor.png</pixmap>
+          <pixmap resource="../../risorse.qrc">:/special/images/sample.editor.png</pixmap>
          </property>
         </widget>
        </item>
@@ -157,7 +157,7 @@ Keyboard shortcut: Use Alt or Control with Return key to edit using assisted mod
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../risorse.qrc">:/help/images/editor.form.png</pixmap>
+          <pixmap resource="../../risorse.qrc">:/special/images/editor.form.png</pixmap>
          </property>
         </widget>
        </item>
@@ -279,17 +279,6 @@ Keyboard shortcut: 'e' (for edit) .</string>
     </layout>
    </item>
   </layout>
-  <zorder>optionForm</zorder>
-  <zorder>optionText</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>label_7</zorder>
-  <zorder>horizontalSpacer</zorder>
-  <zorder>horizontalSpacer_2</zorder>
-  <zorder>verticalSpacer</zorder>
-  <zorder>verticalSpacer_2</zorder>
  </widget>
  <resources>
   <include location="../../risorse.qrc"/>
