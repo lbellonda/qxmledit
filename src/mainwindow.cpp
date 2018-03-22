@@ -1539,6 +1539,7 @@ void MainWindow::updateAfterPreferences()
         isChanged = true ;
     }
     if(isChanged) {
+        getEditor()->getPaintInfo()->loadState();
         getEditor()->invalidatePaintData();
     }
 }
