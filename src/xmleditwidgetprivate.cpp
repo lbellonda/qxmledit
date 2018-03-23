@@ -2957,7 +2957,7 @@ void XmlEditWidgetPrivate::onInsertChildContainer()
 void XmlEditWidgetPrivate::onInsertParent()
 {
     if(isActionMode()) {
-        regola->insertParent(p->ui->treeWidget, getSelectedItem());
+        regola->insertParent(p->ui->treeWidget, getSelectedItem(), !_appData->isBaseEditModeForm());
     }
 }
 

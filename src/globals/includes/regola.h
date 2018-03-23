@@ -523,7 +523,7 @@ public:
 
     //------------region(containers)
     void insertChildContainer(QTreeWidget *tree, Element *parentElement);
-    void insertParent(QTreeWidget *tree, Element *parentElement);
+    void insertParent(QTreeWidget *tree, Element *parentElement, const bool useTextualInterface = false);
     void removeParent(QTreeWidget *tree, Element *parentElement);
 
     void doInsertChildContainer(QTreeWidget *tree, const QString &tag, QList<Attribute *> attributesIn, Element *parentElement);
