@@ -159,8 +159,6 @@ void GuidedOperationsDialog::on_cmdEditingShortcut_clicked()
 
 void GuidedOperationsDialog::applyUserProfile()
 {
-    Utils::TODO_THIS_RELEASE("fare gli spacer ed allinea");
-    Utils::TODO_THIS_RELEASE("fare con bottoni");
     if(_appData->isUserGuidedOperation()) {
         ui->buttonBox->hide();
         ui->cmdUserProfile->setText(tr("Expert User"));

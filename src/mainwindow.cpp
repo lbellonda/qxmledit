@@ -3460,7 +3460,7 @@ void MainWindow::taskChooseDetail()
     Utils::TODO_THIS_RELEASE("controlla equivalenza");
     Utils::TODO_THIS_RELEASE("spostare in application");
     Utils::TODO_THIS_RELEASE("fare il routing dei comandi");
-    Utils::TODO_THIS_RELEASE("pensare se lasciare qui, forse e' meglio");
+    Utils::TODO_THIS_RELEASE("pensare se lasciare qui");
     //QXmlEditApplication::taskChooseDetail();
     ChooseStyleDialog dlg(this);
     dlg.setModal(true);

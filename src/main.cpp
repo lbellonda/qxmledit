@@ -159,13 +159,13 @@ int internalMain(int argc, char *argv[])
 
 bool handleCommandLineArguments(QXmlEditApplication &app, StartParams &startParams)
 {
-    Utils::TODO_THIS_RELEASE("Se scegli user guidato annulla anche flag per presonalizzare video in modo che non appaia quando cambia il tipo utentre e fai un test");
+    Utils::TODO_THIS_RELEASE("Se scegli user guidato annulla anche flag per personalizzare video in modo che non appaia quando cambia il tipo utente. manca test");
     bool handled = false;
     switch(startParams.type) {
     default:
         break;
     case StartParams::OpenFile: {
-        Utils::TODO_THIS_RELEASE("Dubbioso se gestire qui o nel caso generale");
+        Utils::TODO_THIS_RELEASE("gestire qui o nel caso generale?");
         MainWindow *mainWindow = new MainWindow(false, app.appData());
         mainWindow->show();
         // editor view detail level
