@@ -938,24 +938,41 @@ void TestQXmlEdit::testContainer()
 {
     bool result ;
 
-    TestContainer test0;
-    result = test0.testFast();
-    QVERIFY2(result, (QString("test TestContainer: testFast() '%1'").arg(test0.errorString())).toLatin1().data());
-    TestContainer test1;
-    result = test1.testInsertChildContainer();
-    QVERIFY2(result, (QString("test TestContainer: testInsertChildContainer() '%1'").arg(test1.errorString())).toLatin1().data());
-    TestContainer test2;
-    result = test2.testInsertParent();
-    QVERIFY2(result, (QString("test TestContainer: testInsertParent() '%1'").arg(test2.errorString())).toLatin1().data());
-    TestContainer test3;
-    result = test3.testRemoveParent();
-    QVERIFY2(result, (QString("test TestContainer: testRemoveParent() '%1'").arg(test3.errorString())).toLatin1().data());
-    TestContainer test4;
-    result = test4.testEnableInsParent();
-    QVERIFY2(result, (QString("test TestContainer: testEnableInsParent() '%1'").arg(test4.errorString())).toLatin1().data());
-    TestContainer test5;
-    result = test5.testEnableRemoveParent();
-    QVERIFY2(result, (QString("test TestContainer: testEnableRemoveParent() '%1'").arg(test5.errorString())).toLatin1().data());
+    {
+        TestContainer test0;
+        result = test0.testFast();
+        QVERIFY2(result, (QString("test TestContainer: testFast() '%1'").arg(test0.errorString())).toLatin1().data());
+    }
+    {
+        TestContainer test1;
+        result = test1.testInsertChildContainer();
+        QVERIFY2(result, (QString("test TestContainer: testInsertChildContainer() '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestContainer test2;
+        result = test2.testInsertParent();
+        QVERIFY2(result, (QString("test TestContainer: testInsertParent() '%1'").arg(test2.errorString())).toLatin1().data());
+    }
+    {
+        TestContainer test3;
+        result = test3.testRemoveParent();
+        QVERIFY2(result, (QString("test TestContainer: testRemoveParent() '%1'").arg(test3.errorString())).toLatin1().data());
+    }
+    {
+        TestContainer test4;
+        result = test4.testEnableInsParent();
+        QVERIFY2(result, (QString("test TestContainer: testEnableInsParent() '%1'").arg(test4.errorString())).toLatin1().data());
+    }
+    {
+        TestContainer test5;
+        result = test5.testEnableRemoveParent();
+        QVERIFY2(result, (QString("test TestContainer: testEnableRemoveParent() '%1'").arg(test5.errorString())).toLatin1().data());
+    }
+    {
+        TestContainer test6;
+        result = test6.testInsertDisablingParent();
+        QVERIFY2(result, (QString("test TestContainer: testInsertDisablingParent() '%1'").arg(test6.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testXsdView()
@@ -1602,6 +1619,7 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
+    testContainer();
     testStartupAndBehavior();
     testXsdView();
     testEditing();

@@ -31,6 +31,7 @@ class MainWindow;
 class TestContainer : public TestBase
 {
     bool testGeneric(const bool isInsert, const QString &testName, const QString &fileStart, const QString &fileEnd , QList<int> selectPath, const bool expected);
+    bool testGeneric2(const QString &testName, const QString &fileStart, const QString &fileEnd, QList<int> selectPath);
     bool testEnableRegola(MainWindow *window, const QString &fileName, QList<int> &selectPath, const bool expected, const QString &actionName, Element *&selectedElement);
 public:
     TestContainer();
@@ -42,6 +43,7 @@ public:
     bool testFast();
     bool testEnableInsParent();
     bool testEnableRemoveParent();
+    bool testInsertDisablingParent();
 };
 
 #endif // TESTCONTAINER_H

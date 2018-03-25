@@ -980,6 +980,11 @@ void XmlEditWidget::onInsertChildContainer()
     d->onInsertChildContainer();
 }
 
+void XmlEditWidget::onInsertDisabledParent()
+{
+    d->onInsertDisabledParent();
+}
+
 void XmlEditWidget::onInsertParent()
 {
     d->onInsertParent();

@@ -168,6 +168,7 @@ public:
     void onActionExportSiblingsAttributesAsCSVClipboard();
     void onInsertChildContainer();
     void onInsertParent();
+    void onInsertDisabledParent();
     void onRemoveParent();
     void onXSDInsertElement();
     void onXSDAppendElement();

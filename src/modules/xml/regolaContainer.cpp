@@ -152,6 +152,33 @@ void Regola::insertChildContainer(QTreeWidget *tree, Element *parentElement)
     }
 }
 
+void Regola::insertDisabledParent(QTreeWidget *tree, Element *element)
+{
+    Utils::TEST_ME("");
+    if(NULL != element) {
+        bool createNS = false;
+        QString xsltNameSpacePrefix = namespacePrefixXslt();
+        if(xsltNameSpacePrefix.isEmpty()) {
+            Element *parent = element->parent();
+            if(NULL == parent) {
+                parent = element ;
+            }
+            xsltNameSpacePrefix = unusedPrefixByElement(parent);
+            createNS = true ;
+        }
+        const QString elementTag = XmlUtils::makeQualifiedName(xsltNameSpacePrefix, "if");
+        Element *theNewElement = new Element(elementTag, "", NULL, NULL);
+        theNewElement->setAttribute("test", "false()");
+        if(createNS) {
+            theNewElement->setAttribute(QString("xmlns:%1").arg(xsltNameSpacePrefix), Regola::XsltNameSpace);
+        }
+        doInsertParent(tree, theNewElement->tag(), theNewElement->getAttributesList(), element);
+        if(NULL != theNewElement) {
+            delete theNewElement ;
+        }
+    }
+}
+
 void Regola::insertParent(QTreeWidget *tree, Element *element, const bool useTextualInterface)
 {
     if(NULL != element) {
@@ -302,3 +329,27 @@ bool Regola::removeParentAction(Element *element, QTreeWidget *tree, int &insPos
 }
 
 //------------endregion(undoredo)
+
+QString Regola::unusedPrefixByElement(Element *element)
+{
+    Utils::TEST_ME("");
+    if(NULL != element) {
+        PrefixInfo info;
+        element->collectPrefixes(info, element, true, false);
+        {
+            const QString stdPrefix = "xsl";
+            if(!info.allPrefixes.contains(stdPrefix)) {
+                return stdPrefix;
+            }
+        }
+        int index;
+        do {
+            const QString newPrefix = QString("xsl%1").arg(index);
+            if(!info.allPrefixes.contains(newPrefix)) {
+                return newPrefix ;
+            }
+            index ++ ;
+        } while(true);
+    }
+    return namespacePrefixXslt();
+}

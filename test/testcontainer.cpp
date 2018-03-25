@@ -557,6 +557,10 @@ bool TestContainer::testGeneric(const bool isInsert, const QString &testName, co
 bool TestContainer::testFast()
 {
     _testName = "testFast" ;
+    if(!testInsertDisablingParent()) {
+        return false;
+    }
+
     if( !testEnableInsParent() ) {
         return false;
     }
@@ -837,3 +841,150 @@ bool TestContainer::testEnable(const bool isInsert, const QString &fileStart, co
     return false ;
 }
 */
+
+/*****************************************
+
+4 casi
+
+0: E ns root
+1: NE ns root, NE ns figli
+2: NE ns root, E ns se
+3: NE ns root, E ns in figlio di fratello
+4: NE ns root, root is selected
+
+*******************/
+
+#define ISP_ROOT_START "../test/data/container/dp_0_start.xml"
+#define ISP_ROOT_END "../test/data/container/dp_0_end.xml"
+#define ISP_NRNF_START "../test/data/container/dp_1_start.xml"
+#define ISP_NRNF_END "../test/data/container/dp_1_end.xml"
+#define ISP_NRS_START "../test/data/container/dp_2_start.xml"
+#define ISP_NRS_END "../test/data/container/dp_2_end.xml"
+#define ISP_NRSE_START "../test/data/container/dp_3_start.xml"
+#define ISP_NRSE_END "../test/data/container/dp_3_end.xml"
+#define ISP_NRIS_START "../test/data/container/dp_4_start.xml"
+#define ISP_NRIS_END "../test/data/container/dp_4_end.xml"
+
+bool TestContainer::testInsertDisablingParent()
+{
+    _testName = "testInsertDisablingParent";
+    QList<int> selectPath;
+    selectPath.clear();
+    selectPath << 0 << 1 ;
+    if( !testGeneric2("t_0", ISP_ROOT_START, ISP_ROOT_END, selectPath) ) {
+        return false;
+    }
+    selectPath.clear();
+    selectPath << 0 << 1 ;
+    if( !testGeneric2("t_1", ISP_NRNF_START, ISP_NRNF_END, selectPath) ) {
+        return false;
+    }
+    selectPath.clear();
+    selectPath << 0 << 1 ;
+    if( !testGeneric2("t_2", ISP_NRS_START, ISP_NRS_END, selectPath) ) {
+        return false;
+    }
+    selectPath.clear();
+    selectPath << 0 << 1 ;
+    if( !testGeneric2("t_3", ISP_NRSE_START, ISP_NRSE_END, selectPath) ) {
+        return false;
+    }
+    selectPath.clear();
+    selectPath << 0;
+    if( !testGeneric2("t_4", ISP_NRIS_START, ISP_NRIS_END, selectPath) ) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestContainer::testGeneric2(const QString &testName, const QString &fileStart, const QString &fileEnd, QList<int> selectPath)
+{
+    _testName = testName ;
+    QString actionName = "actionInsertDisablingParent" ;
+    QString msgFile = QString(" file:'%1'").arg(fileStart);
+
+    App app;
+    if(!app.init()) {
+        return error(QString("init app %1").arg(msgFile));
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ){
+        return error(QString("Unable to load file:%1").arg(fileStart));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = NULL ;
+    if( !testEnableRegola( app.mainWindow(), fileStart, selectPath, true, actionName, selectedElement) ) {
+        return false;
+    }
+    if(!checkRoot(regola)) {
+        QString msg = errorString();
+        return error( QString("checkroot 1 %1 %2").arg(msg).arg(msgFile));
+    }
+
+    // exec the move
+    regola->insertDisabledParent(app.mainWindow()->getEditor()->getMainTreeWidget(), selectedElement );
+
+    CompareXML compare;
+    if(!checkRoot(regola)) {
+        QString msg = errorString();
+        return error( QString("checkroot 2 %1 %2").arg(msg).arg(msgFile));
+    }
+
+    if(!compare.compareFileWithRegola(regola, fileEnd)) {
+        return error(QString("comparing the results 1: %1 %2").arg(compare.errorString()).arg(msgFile));
+    }
+#ifdef _NEGATIVE_QXMLEDIT_TEST
+    if(compare.compareFileWithRegola(regola, fileStart)) {
+        return error(QString("comparing the results wrong: %1 %2").arg(compare.errorString()).arg(msgFile));
+    }
+#endif
+    CompareRegolaWithEditor cre;
+    if( !cre.compareTreeWithRegola( regola, app.mainWindow()->getEditor()->getMainTreeWidget() )) {
+        return error(QString("compare tree 1 %1 %2").arg(cre.errorString()).arg(msgFile));
+    }
+    // undo
+    regola->undo();
+    if(!checkRoot(regola)) {
+        QString msg = errorString();
+        return error( QString("checkroot 3 %1 %2").arg(msg).arg(msgFile));
+    }
+
+    if(!compare.compareFileWithRegola(regola, fileStart)) {
+        return error(QString("comparing the undo results: %1 %2").arg(compare.errorString()).arg(msgFile));
+    }
+    CompareRegolaWithEditor cre1;
+    if( !cre1.compareTreeWithRegola( regola, app.mainWindow()->getEditor()->getMainTreeWidget() )) {
+        return error(QString("compare 2 %1 %2").arg(cre1.errorString()).arg(msgFile));
+    }
+    // redo
+    regola->redo();
+    if(!checkRoot(regola)) {
+        QString msg = errorString();
+        return error( QString("checkroot 4 %1 %2").arg(msg).arg(msgFile));
+    }
+
+    if(!compare.compareFileWithRegola(regola, fileEnd)) {
+        return error(QString("comparing the results after redo: %1 %2").arg(compare.errorString()).arg(msgFile));
+    }
+    CompareRegolaWithEditor cre2;
+    if( !cre2.compareTreeWithRegola( regola, app.mainWindow()->getEditor()->getMainTreeWidget() )) {
+        return error(QString("compare 3 %1 %2").arg(cre2.errorString()).arg(msgFile));
+    }
+    App app2;
+    if(!app2.init()) {
+        return error(QString("init app 2 %1").arg(msgFile));
+    }
+    if( !app2.mainWindow()->loadFile(fileStart) ){
+        return error(QString("Unable 2 to load file:%1").arg(fileStart));
+    }
+#ifdef _NEGATIVE_QXMLEDIT_TEST
+    CompareRegolaWithEditor cre3;
+    if( cre3.compareTreeWithRegola( regola, app2.mainWindow()->getEditor()->getMainTreeWidget() )) {
+        return error(QString("compare 4 %1").arg(msgFile));
+    }
+#endif
+    if(!checkRoot(regola)) {
+        QString msg = errorString();
+        return error( QString("checkroot 5 %1 %2").arg(msg).arg(msgFile));
+    }
+    return true;
+}

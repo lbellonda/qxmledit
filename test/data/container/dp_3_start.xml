@@ -1,0 +1,5 @@
+<root>
+    <a1><b/></a1>
+    <a2><b/></a2>
+    <a3><xsl:b xmlns:xsl="http://www.w3.org/1999/XSL/Transform" /></a3>
+</root>

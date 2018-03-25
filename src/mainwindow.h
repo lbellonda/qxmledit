@@ -392,6 +392,7 @@ private slots:
     void on_actionValidationDialog_triggered();
     void on_actionOpenGuidedOperationPanel_triggered();
     void on_actionChooseUserProfile_triggered();
+    void on_actionInsertDisablingParent_triggered();
 
     //----- other slots ------------------
 

@@ -682,6 +682,8 @@ void MainWindow::treeContextMenu(const QPoint& position)
         hierarchyMenu->addAction(ui.actionInsertChildContainer);
         hierarchyMenu->addAction(ui.actionInsertParent);
         hierarchyMenu->addAction(ui.actionRemoveParent);
+        hierarchyMenu->addSeparator() ;
+        hierarchyMenu->addAction(ui.actionInsertDisablingParent);
     }
     //---
     QMenu *advancedCopyMenu = contextMenu.addMenu(tr("Advanced"));
@@ -933,6 +935,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionInsertChildContainer->setEnabled(isElementSelected);
     ui.actionRemoveParent->setEnabled((NULL != element) && element->canRemoveParent());
     ui.actionInsertParent->setEnabled((NULL != element) && element->canInsertParent());
+    ui.actionInsertDisablingParent->setEnabled((NULL != element) && element->canInsertParent());
 
     XSDManager *xsdManager = data->xsdManager();
     QString parentTag;
@@ -3752,4 +3755,10 @@ void MainWindow::on_actionChooseUserProfile_triggered()
 {
     data->showUserTypePanel();
     Utils::TODO_THIS_RELEASE("fare");
+}
+
+void MainWindow::on_actionInsertDisablingParent_triggered()
+{
+    Utils::TEST_ME("");
+    ui.editor->onInsertDisabledParent();
 }

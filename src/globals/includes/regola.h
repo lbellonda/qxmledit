@@ -510,6 +510,7 @@ public:
     bool insertNillableAttribute(QTreeWidget *tree, Element *currentElement, NamespaceManager &namespaceManager);
     bool insertXSITypeAttribute(QTreeWidget *tree, Element *currentElement, const QString &typeValue, NamespaceManager &namespaceManager);
     bool insertXSDReference(QTreeWidget *tree, NamespaceManager &namespaceManager, NamespaceReferenceEntry *command);
+    QString unusedPrefixByElement(Element *element);
 
     static QList<Element*> decodeXMLFromString(const QString &input, const bool onlyRootElement, const bool onlyElements = true);
 
@@ -524,6 +525,7 @@ public:
     //------------region(containers)
     void insertChildContainer(QTreeWidget *tree, Element *parentElement);
     void insertParent(QTreeWidget *tree, Element *parentElement, const bool useTextualInterface = false);
+    void insertDisabledParent(QTreeWidget *tree, Element *element);
     void removeParent(QTreeWidget *tree, Element *parentElement);
 
     void doInsertChildContainer(QTreeWidget *tree, const QString &tag, QList<Attribute *> attributesIn, Element *parentElement);

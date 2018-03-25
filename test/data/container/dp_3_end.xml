@@ -1,0 +1,7 @@
+<root>
+    <a1><b/></a1>
+    <xsl0:if test="false()" xmlns:xsl0="http://www.w3.org/1999/XSL/Transform">
+        <a2><b/></a2>
+    </xsl0:if>
+    <a3><xsl:b xmlns:xsl="http://www.w3.org/1999/XSL/Transform" /></a3>
+</root>

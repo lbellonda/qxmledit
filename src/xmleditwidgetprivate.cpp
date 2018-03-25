@@ -2954,6 +2954,13 @@ void XmlEditWidgetPrivate::onInsertChildContainer()
     }
 }
 
+void XmlEditWidgetPrivate::onInsertDisabledParent()
+{
+    if(isActionMode()) {
+        regola->insertDisabledParent(p->ui->treeWidget, getSelectedItem());
+    }
+}
+
 void XmlEditWidgetPrivate::onInsertParent()
 {
     if(isActionMode()) {

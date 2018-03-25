@@ -333,6 +333,7 @@ public:
     void invalidatePaintData(const bool full = false);
     void onInsertChildContainer();
     void onInsertParent();
+    void onInsertDisabledParent();
     void onRemoveParent();
     bool onXSDInsertElement();
     bool onXSDAppendElement();

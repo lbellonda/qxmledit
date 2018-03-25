@@ -67,7 +67,6 @@ bool Element::isUsingPrefixRecursive(const QString &prefix)
     return false;
 }
 
-
 bool Element::areChildrenUsingPrefix(const QString &prefix)
 {
     if(!isElement()) {
