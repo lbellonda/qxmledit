@@ -428,7 +428,7 @@ private slots:
     void onEditorEncodingChanged(const QString &newEncoding);
     void onEditorElementDoubleClicked(const uint times);
     void onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
-
+    void onEditorConfigure(const QPoint& position);
     //------------------- slots
 
 private:

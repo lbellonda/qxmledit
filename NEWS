@@ -1,4 +1,5 @@
 0.9.10
+    New tool button to configure view settings in the editor.
     New menu item to disable a branch using XSL syntax.
     New options for simple access.
     Issue #48 improved xsd diagram display performance.

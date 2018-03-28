@@ -214,6 +214,7 @@ private:
     void emitShowStatusMessage(const QString &message, const bool isLongTimeout);
     void emitDataReadyMessage(const QString &newLabel);
     void emitLoadCurrentPage(const int page);
+    void emitConfigure(const QPoint &position);
     //-----------------------
 
 protected:
@@ -390,6 +391,7 @@ signals:
     void requestAppendSpec();
     void elementDoubleClicked(const uint times);
     void editElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
+    void configure(const QPoint &position);
     //--------------- signals
 };
 

@@ -495,6 +495,7 @@ bool XmlEditWidgetPrivate::finishSetUpUi()
     p->ui->docTypeLabel->setVisible(false);
 
     connect(p->ui->indent, SIGNAL(clicked()), this, SLOT(onSetIndent()));
+    connect(p->ui->settingsButton, SIGNAL(clicked()), this, SLOT(onSettings()));
 
     VStyle *style = loadStyleMenu();
     setNewStyle(style);
@@ -2238,6 +2239,7 @@ void XmlEditWidgetPrivate::showToolbar(const bool how)
     p->ui->copySpecial->setVisible(how);
     p->ui->styleButton->setVisible(how);
     p->ui->indent->setVisible(how);
+    p->ui->settingsButton->setVisible(how);
 }
 
 void XmlEditWidgetPrivate::onActionHideView(const bool isChecked)
@@ -3381,6 +3383,12 @@ void XmlEditWidgetPrivate::onSetIndent()
         XmlIndentationDialog dlg(p->window(), getRegola(), _appData);
         dlg.exec();
     }
+}
+
+void XmlEditWidgetPrivate::onSettings()
+{
+    const QPoint buttonPosition = p->ui->settingsButton->pos();
+    p->emitConfigure(buttonPosition);
 }
 
 void XmlEditWidgetPrivate::onShortcutDelete()

@@ -303,6 +303,9 @@
          </property>
          <item>
           <widget class="QToolButton" name="styleButton">
+           <property name="toolTip">
+            <string>Choose a style to apply to XML visualization.</string>
+           </property>
            <property name="text">
             <string>...</string>
            </property>
@@ -320,6 +323,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="copySpecial">
+           <property name="toolTip">
+            <string>Copy text, elements or attributes.</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -338,7 +344,7 @@
          <item>
           <widget class="QToolButton" name="indent">
            <property name="toolTip">
-            <string>Indentation</string>
+            <string>Indentation settings.</string>
            </property>
            <property name="text">
             <string/>
@@ -349,6 +355,20 @@
            </property>
            <property name="popupMode">
             <enum>QToolButton::DelayedPopup</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="settingsButton">
+           <property name="toolTip">
+            <string>Configure aspects related to visualization.</string>
+           </property>
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="risorse.qrc">
+             <normaloff>:/configuration/configure</normaloff>:/configuration/configure</iconset>
            </property>
           </widget>
          </item>

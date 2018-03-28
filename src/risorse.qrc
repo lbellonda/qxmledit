@@ -176,6 +176,7 @@
         <file alias="sessions">images/sessions_open.png</file>
         <file alias="editModes">images/draw-path.png</file>
         <file alias="xmlManagement">images/xml-config.png</file>
+        <file alias="configure">images/configure.png</file>
     </qresource>
     <qresource prefix="/welcome">
         <file>images/welcome_split.png</file>

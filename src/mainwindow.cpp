@@ -321,7 +321,8 @@ bool MainWindow::finishSetUpUi()
     connect(ui.editor, SIGNAL(requestAppendSpec()), this, SLOT(on_actionAppendSpecial_triggered()));
     connect(ui.editor, SIGNAL(elementDoubleClicked(const uint)), this, SLOT(onEditorElementDoubleClicked(const uint)));
     connect(ui.editor, SIGNAL(editElementEvent(const uint, const uint)), this, SLOT(onEditorEditElementEvent(const uint, const uint)));
-
+    connect(ui.editor, SIGNAL(configure(const QPoint&)), this, SLOT(onEditorConfigure(const QPoint&)));
+    //-----
     connect(ui.sessionTree, SIGNAL(fileLoadRequest(const QString&)), this, SLOT(onSessionfileLoadRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(folderOpenRequest(const QString&)), this, SLOT(onSessionFolderOpenRequest(const QString&)));
     connect(ui.sessionTree, SIGNAL(showSessionManagement()), this, SLOT(onShowSessionManagement()));
@@ -3761,4 +3762,12 @@ void MainWindow::on_actionInsertDisablingParent_triggered()
 {
     Utils::TEST_ME("");
     ui.editor->onInsertDisabledParent();
+}
+
+void MainWindow::onEditorConfigure(const QPoint& position)
+{
+    QMenu contextMenu(this);
+    contextMenu.addAction(ui.actionTaskDisplayDetail);
+    contextMenu.addAction(ui.actionChooseEditType);
+    contextMenu.exec(ui.editor->getMainTreeWidget()->mapToGlobal(position));
 }
