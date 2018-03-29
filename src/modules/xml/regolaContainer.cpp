@@ -342,7 +342,7 @@ QString Regola::unusedPrefixByElement(Element *element)
                 return stdPrefix;
             }
         }
-        int index;
+        int index = 0 ;
         do {
             const QString newPrefix = QString("xsl%1").arg(index);
             if(!info.allPrefixes.contains(newPrefix)) {
