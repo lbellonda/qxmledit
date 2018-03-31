@@ -43,6 +43,8 @@
 
 class SnippetManager;
 class SourceRelatedMessages;
+class InfoOnKeyboardShortcuts ;
+class InfoOnEditMode;
 
 class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 {
@@ -88,6 +90,8 @@ class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
     QString _exportPath ;
     XMLLoadErrorHandler *_loadErrorHandler;
     bool _closing ;
+    InfoOnKeyboardShortcuts * _infoOnKeyboardShortcuts;
+    InfoOnEditMode *_infoOnEditMode;
 public:
     enum EWindowOpen {
         OpenUsingDefaultSettings,
@@ -158,7 +162,9 @@ public:
     void viewAsXSD();
 
 protected:
-    //bool eventFilter(QObject *obj, QEvent *event); no need in this version until now.
+    void dismissInfoOnKeyboard();
+    void dismissInfoEditTypes();
+    bool areInfoPanelsVisible();
     void setSnippetManager(SnippetManager *newSnippetManager);
     MainWindow *makeNewWindow();
     bool loadFileInner(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true);
@@ -429,6 +435,10 @@ private slots:
     void onEditorElementDoubleClicked(const uint times);
     void onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
     void onEditorConfigure(const QPoint& position);
+    void onInfoKeyboardDismiss();
+    void onInfoEditTypesDismiss();
+    void onInfoKeyboardRequestOpenShortcutsPanel();
+    void onInfoEditTypesOpenShortcutsPanel();
     //------------------- slots
 
 private:

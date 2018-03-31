@@ -316,7 +316,10 @@ HEADERS = precompiled_app.h \
     modules/help/guidedvalidationdialog.h \
     modules/services/startactionsengine.h \
     modules/xml/configuregeneralindentation.h \
-    modules/uiutil/defaultuidelegate.h
+    modules/uiutil/defaultuidelegate.h \
+    widgets/infoonkeyboardshoertcuts.h \
+    modules/utils/animationutility.h \
+    widgets/infooneditmode.h
 
 SOURCES = \
     main.cpp \
@@ -417,7 +420,10 @@ SOURCES = \
     modules/services/startactionsengine.cpp \
     startactionsapplication.cpp \
     modules/xml/configuregeneralindentation.cpp \
-    modules/uiutil/defaultuidelegate.cpp
+    modules/uiutil/defaultuidelegate.cpp \
+    widgets/infoonkeyboardshoertcuts.cpp \
+    modules/utils/animationutility.cpp \
+    widgets/infooneditmode.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -479,7 +485,9 @@ FORMS = MainWindow.ui \
     modules/help/firstaccessdialog.ui \
     modules/help/guidedoperationsdialog.ui \
     modules/help/guidedvalidationdialog.ui \
-    modules/xml/configuregeneralindentation.ui
+    modules/xml/configuregeneralindentation.ui \
+    widgets/infoonkeyboardshoertcuts.ui \
+    widgets/infooneditmode.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

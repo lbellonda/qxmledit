@@ -18,7 +18,7 @@
     <normaloff>:/icon/images/icon.png</normaloff>:/icon/images/icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QVBoxLayout" name="verticalLayoutCentralWidget">
     <item>
      <widget class="WarningsWidget" name="loadWarningWidget" native="true"/>
     </item>
@@ -2243,7 +2243,10 @@
   </action>
   <action name="actionTaskDisplayDetail">
    <property name="text">
-    <string>Adjust Display Detail</string>
+    <string>Choose Display Detail</string>
+   </property>
+   <property name="toolTip">
+    <string>Choose display detail.</string>
    </property>
   </action>
   <action name="actionTEST">

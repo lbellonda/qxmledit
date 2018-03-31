@@ -6614,7 +6614,7 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2236"/>
-        <source>Adjust Display Detail</source>
+        <source>Choose Display Detail</source>
         <translation>Přizpůsobit podrobnost zobrazení</translation>
     </message>
     <message>

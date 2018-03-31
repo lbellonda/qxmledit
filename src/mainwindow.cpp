@@ -68,6 +68,8 @@ extern const char *APP_TITLE ;
 #include "modules/help/guidedvalidationdialog.h"
 #include "modules/help/shortcutsdialog.h"
 #include "extraction/extractfragmentsdialog.h"
+#include "widgets/infoonkeyboardshoertcuts.h"
+#include "widgets/infooneditmode.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -93,6 +95,8 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
       _windowIcon(":/icon/images/icon.png"),
       _closing(false)
 {
+    _infoOnEditMode = NULL ;
+    _infoOnKeyboardShortcuts = NULL ;
     _scxmlValidationErrors = NULL ;
     _loadErrorHandler = NULL ;
     _slaveIsClosed = false ;
@@ -157,6 +161,8 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
 
 MainWindow::~MainWindow()
 {
+    dismissInfoOnKeyboard();
+    dismissInfoEditTypes();
     if(!isSlave) {
         data->removeWindow(this);
     }
@@ -3685,9 +3691,44 @@ void MainWindow::on_actionPresetIndentOneAttributePerLine_triggered()
 
 void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 {
-    if(data->evaluateConditionForShowShortcuts()) {
+    Utils::TEST_ME("");
+    Utils::TODO_THIS_RELEASE("barato metti anche non 2 pannelli contewmporanamente");
+    //const bool isAlreadyOpen = areInfoPanelsVisible();
+    //if(!isAlreadyOpen && data->evaluateConditionForShowShortcuts()) {
+    if(true) {
         Utils::TODO_THIS_RELEASE("test");
-        data->showEditingShortcuts(this);
+        if(NULL == _infoOnKeyboardShortcuts) {
+            _infoOnKeyboardShortcuts = new InfoOnKeyboardShortcuts(this);
+            ui.verticalLayoutCentralWidget->insertWidget(0, _infoOnKeyboardShortcuts);
+            connect(_infoOnKeyboardShortcuts, SIGNAL(requestDismiss()), this, SLOT(onInfoKeyboardDismiss()));
+            connect(_infoOnKeyboardShortcuts, SIGNAL(requestOpenShortcutsPanel()), this, SLOT(onInfoKeyboardRequestOpenShortcutsPanel()));
+        }
+        _infoOnKeyboardShortcuts->show();
+    }
+}
+
+void MainWindow::onInfoKeyboardDismiss()
+{
+    Utils::TEST_ME("");
+    dismissInfoOnKeyboard();
+}
+
+void MainWindow::onInfoKeyboardRequestOpenShortcutsPanel()
+{
+    Utils::TEST_ME("");
+    data->showEditingShortcuts(this);
+    dismissInfoOnKeyboard();
+}
+
+void MainWindow::dismissInfoOnKeyboard()
+{
+    Utils::TEST_ME("");
+    if(NULL != _infoOnKeyboardShortcuts) {
+        disconnect(_infoOnKeyboardShortcuts, SIGNAL(requestDismiss()), this, SLOT(onInfoKeyboardDismiss()));
+        disconnect(_infoOnKeyboardShortcuts, SIGNAL(requestOpenShortcutsPanel()), this, SLOT(onInfoKeyboardRequestOpenShortcutsPanel()));
+        ui.verticalLayoutCentralWidget->removeWidget(_infoOnKeyboardShortcuts);
+        _infoOnKeyboardShortcuts->deleteLater();
+        _infoOnKeyboardShortcuts = NULL ;
     }
 }
 
@@ -3717,12 +3758,56 @@ bool MainWindow::evaluateIfShowEditingTypeDialog(const uint editElementAsFormUsa
     return result;
 }
 
-void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
+//void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
+void MainWindow::onEditorEditElementEvent(const uint, const uint)
+{
+    Utils::TODO_THIS_RELEASE("aggiustare");
+    Utils::TEST_ME("");
+    //const bool isAlreadyOpen = areInfoPanelsVisible();
+    //if(!isAlreadyOpen && evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
+    Utils::TODO_THIS_RELEASE("fare");
+    if(true) {
+        Utils::TODO_THIS_RELEASE("barato metti anche non 2 pannelli contewmporanamente");
+        Utils::TODO_THIS_RELEASE("test");
+        if(NULL == _infoOnEditMode) {
+            _infoOnEditMode = new InfoOnEditMode(this);
+            ui.verticalLayoutCentralWidget->insertWidget(0, _infoOnEditMode);
+            connect(_infoOnEditMode, SIGNAL(requestDismiss()), this, SLOT(onInfoEditTypesDismiss()));
+            connect(_infoOnEditMode, SIGNAL(requestOpenPanel()), this, SLOT(onInfoEditTypesOpenShortcutsPanel()));
+        }
+        _infoOnEditMode->show();
+    }
+}
+
+void MainWindow::onInfoEditTypesDismiss()
 {
     Utils::TEST_ME("");
-    if(evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
-        showEditingTypeDialog();
+    dismissInfoEditTypes();
+}
+
+void MainWindow::onInfoEditTypesOpenShortcutsPanel()
+{
+    Utils::TEST_ME("");
+    showEditingTypeDialog();
+    dismissInfoEditTypes();
+}
+
+void MainWindow::dismissInfoEditTypes()
+{
+    Utils::TEST_ME("");
+    if(NULL != _infoOnEditMode) {
+        disconnect(_infoOnEditMode, SIGNAL(requestDismiss()), this, SLOT(onInfoEditTypeDismiss()));
+        disconnect(_infoOnEditMode, SIGNAL(requestOpenPanel()), this, SLOT(onInfoEditTypesOpenShortcutsPanel()));
+        ui.verticalLayoutCentralWidget->removeWidget(_infoOnEditMode);
+        _infoOnEditMode->deleteLater();
+        _infoOnEditMode = NULL ;
     }
+}
+
+bool MainWindow::areInfoPanelsVisible()
+{
+    const bool isAlreadyOpen = (NULL != _infoOnEditMode) || (NULL != _infoOnKeyboardShortcuts);
+    return isAlreadyOpen ;
 }
 
 void MainWindow::on_actionChooseEditType_triggered()

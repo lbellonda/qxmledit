@@ -37,7 +37,7 @@
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;i &lt;/span&gt;or &lt;span style=&quot; font-size:14pt;&quot;&gt;Ins &lt;/span&gt;to &lt;span style=&quot; color:#ff0000;&quot;&gt;insert&lt;/span&gt; a child&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;i &lt;/span&gt;or &lt;span style=&quot; font-size:14pt;&quot;&gt;Ins &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;insert&lt;/span&gt; a child&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -50,7 +50,7 @@
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;a &lt;/span&gt;t o &lt;span style=&quot; color:#ff0000;&quot;&gt;append&lt;/span&gt; a sibling&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;a &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;append&lt;/span&gt; a sibling&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -63,7 +63,7 @@
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;e &lt;/span&gt;to &lt;span style=&quot; color:#ff0000;&quot;&gt;edit&lt;/span&gt; in text mode:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;e &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;edit&lt;/span&gt; in text mode:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -103,7 +103,7 @@
         </font>
        </property>
        <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Alt&lt;/span&gt; or &lt;span style=&quot; font-size:14pt;&quot;&gt;Control&lt;/span&gt; with &lt;span style=&quot; font-size:14pt;&quot;&gt;Return&lt;/span&gt; key to &lt;span style=&quot; color:#ff0000;&quot;&gt;edit&lt;/span&gt; using assisted mode (form)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Alt &lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;or &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Control &lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;with &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Return &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;edit&lt;/span&gt; using assisted mode (form)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
