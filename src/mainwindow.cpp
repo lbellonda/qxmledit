@@ -3692,11 +3692,10 @@ void MainWindow::on_actionPresetIndentOneAttributePerLine_triggered()
 void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 {
     Utils::TEST_ME("");
-    Utils::TODO_THIS_RELEASE("barato metti anche non 2 pannelli contewmporanamente");
     //const bool isAlreadyOpen = areInfoPanelsVisible();
     //if(!isAlreadyOpen && data->evaluateConditionForShowShortcuts()) {
+    Utils::TODO_THIS_RELEASE("fare");
     if(true) {
-        Utils::TODO_THIS_RELEASE("test");
         if(NULL == _infoOnKeyboardShortcuts) {
             _infoOnKeyboardShortcuts = new InfoOnKeyboardShortcuts(this);
             ui.verticalLayoutCentralWidget->insertWidget(0, _infoOnKeyboardShortcuts);
@@ -3758,15 +3757,11 @@ bool MainWindow::evaluateIfShowEditingTypeDialog(const uint editElementAsFormUsa
     return result;
 }
 
-//void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
-void MainWindow::onEditorEditElementEvent(const uint, const uint)
+void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
 {
-    Utils::TODO_THIS_RELEASE("aggiustare");
     Utils::TEST_ME("");
-    //const bool isAlreadyOpen = areInfoPanelsVisible();
-    //if(!isAlreadyOpen && evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
-    Utils::TODO_THIS_RELEASE("fare");
-    if(true) {
+    const bool isAlreadyOpen = areInfoPanelsVisible();
+    if(!isAlreadyOpen && evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
         Utils::TODO_THIS_RELEASE("barato metti anche non 2 pannelli contewmporanamente");
         Utils::TODO_THIS_RELEASE("test");
         if(NULL == _infoOnEditMode) {

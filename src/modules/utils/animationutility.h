@@ -35,6 +35,7 @@ private:
     ~AnimationUtility();
 public:
     static void setupSizeForLabelIcon(QLabel *label, QPropertyAnimation *animation);
+    static void setupBackgroundColor(QWidget *widget, QPropertyAnimation *animation);
     static qreal scaleValue(const qreal inValue);
 
 };

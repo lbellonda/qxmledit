@@ -36,10 +36,15 @@ class InfoOnKeyboardShortcuts : public QWidget
     Q_OBJECT
 
     QPropertyAnimation _animation;
+    QColor  _backColor;
 public:
     explicit InfoOnKeyboardShortcuts(QWidget *parent = 0);
     ~InfoOnKeyboardShortcuts();
 
+    Q_PROPERTY(QColor backColor READ backColor WRITE setBackColor)
+
+    QColor backColor();
+    void setBackColor(const QColor value );
 private:
     Ui::InfoOnKeyboardShortcuts *ui;
 
