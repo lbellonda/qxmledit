@@ -60,7 +60,7 @@ qreal AnimationUtility::scaleValue(const qreal inValue)
 void AnimationUtility::setupBackgroundColor(QWidget *widget, QPropertyAnimation *animation)
 {
     const QColor backColor = widget->palette().color(widget->backgroundRole());
-    const QColor newColor = QColor::fromRgb(255,255,255);
+    const QColor newColor = QColor::fromRgb(255, 255, 240);
     animation->setTargetObject(widget);
     animation->setPropertyName("backColor");
     animation->setEasingCurve(QEasingCurve::InOutSine);

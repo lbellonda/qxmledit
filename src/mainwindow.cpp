@@ -3692,10 +3692,8 @@ void MainWindow::on_actionPresetIndentOneAttributePerLine_triggered()
 void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 {
     Utils::TEST_ME("");
-    //const bool isAlreadyOpen = areInfoPanelsVisible();
-    //if(!isAlreadyOpen && data->evaluateConditionForShowShortcuts()) {
-    Utils::TODO_THIS_RELEASE("fare");
-    if(true) {
+    const bool isAlreadyOpen = areInfoPanelsVisible();
+    if(!isAlreadyOpen && data->evaluateConditionForShowShortcuts()) {
         if(NULL == _infoOnKeyboardShortcuts) {
             _infoOnKeyboardShortcuts = new InfoOnKeyboardShortcuts(this);
             ui.verticalLayoutCentralWidget->insertWidget(0, _infoOnKeyboardShortcuts);
@@ -3762,7 +3760,6 @@ void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount
     Utils::TEST_ME("");
     const bool isAlreadyOpen = areInfoPanelsVisible();
     if(!isAlreadyOpen && evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
-        Utils::TODO_THIS_RELEASE("barato metti anche non 2 pannelli contewmporanamente");
         Utils::TODO_THIS_RELEASE("test");
         if(NULL == _infoOnEditMode) {
             _infoOnEditMode = new InfoOnEditMode(this);

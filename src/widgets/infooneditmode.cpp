@@ -33,7 +33,9 @@ InfoOnEditMode::InfoOnEditMode(QWidget *parent) :
     ui(new Ui::InfoOnEditMode)
 {
     ui->setupUi(this);
-    AnimationUtility::setupSizeForLabelIcon(ui->info, &_animation);
+    _backColor = QWidget::palette().color(QWidget::backgroundRole());
+    _origStyleSheet = ui->groupBox->styleSheet();
+    AnimationUtility::setupBackgroundColor(this, &_animation);
     _animation.start();
 }
 
@@ -41,6 +43,16 @@ InfoOnEditMode::~InfoOnEditMode()
 {
     _animation.stop();
     delete ui;
+}
+
+QColor InfoOnEditMode::backColor()
+{
+    return palette().color(backgroundRole());
+}
+
+void InfoOnEditMode::setBackColor(const QColor value)
+{
+    ui->groupBox->setStyleSheet(QString("%4;background-color: rgb(%1, %2, %3);").arg(value.red()).arg(value.green()).arg(value.blue()).arg(_origStyleSheet));
 }
 
 void InfoOnEditMode::on_infoText_linkActivated(const QString &link)

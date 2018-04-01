@@ -33,8 +33,8 @@ InfoOnKeyboardShortcuts::InfoOnKeyboardShortcuts(QWidget *parent) :
     ui(new Ui::InfoOnKeyboardShortcuts)
 {
     ui->setupUi(this);
-    //AnimationUtility::setupSizeForLabelIcon(ui->info, &_animation);
     _backColor = QWidget::palette().color(QWidget::backgroundRole());
+    _origStyleSheet = ui->groupBox->styleSheet();
     AnimationUtility::setupBackgroundColor(this, &_animation);
     _animation.start();
 }
@@ -50,11 +50,9 @@ QColor InfoOnKeyboardShortcuts::backColor()
     return palette().color(backgroundRole());
 }
 
-void InfoOnKeyboardShortcuts::setBackColor(const QColor value )
+void InfoOnKeyboardShortcuts::setBackColor(const QColor value)
 {
-    Utils::TODO_THIS_RELEASE("fare");
-    ui->infoText->setStyleSheet(QString("background-color: rgb(%1, %2, %3);").arg(value.red()).arg(value.green()).arg(value.blue()));
-    //palette().setColor(backgroundRole(), value);
+    ui->groupBox->setStyleSheet(QString("%4;background-color: rgb(%1, %2, %3);").arg(value.red()).arg(value.green()).arg(value.blue()).arg(_origStyleSheet));
 }
 
 void InfoOnKeyboardShortcuts::on_infoText_linkActivated(const QString &link)

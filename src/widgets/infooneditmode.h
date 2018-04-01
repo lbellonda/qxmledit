@@ -36,10 +36,17 @@ class InfoOnEditMode : public QWidget
     Q_OBJECT
 
     QPropertyAnimation _animation;
+    QColor  _backColor;
+    QString _origStyleSheet;
 
 public:
     explicit InfoOnEditMode(QWidget *parent = 0);
     ~InfoOnEditMode();
+
+    Q_PROPERTY(QColor backColor READ backColor WRITE setBackColor)
+
+    QColor backColor();
+    void setBackColor(const QColor value);
 
 private:
     Ui::InfoOnEditMode *ui;
