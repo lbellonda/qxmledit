@@ -45,6 +45,7 @@ folder for the includes of the xml edit widget: QXMLEDIT_INST_INCLUDE_DIR
 disable the precompiled headers by setting the value to non empty string: QXMLEDIT_INST_AVOID_PRECOMP_HEADERS
 disable the link with QwtPlot3D setting QXMLEDIT_NO_QWTPLOT to non empty string
 enable C++11 compiler option defining QXMLEDIT_INST_USE_C11=y (default: not enabled)
+disable tips management: QXMLEDIT_COMPILE_DISABLE_TIPS non void (default: tips enabled).
 
 QwtPlot3D library is linked (statically) by default unless QXMLEDIT_NO_QWTPLOT environment variable is defined and not empty.
 It is used as an optional component and can be excluded without compromising QXmlEdit functionalities.

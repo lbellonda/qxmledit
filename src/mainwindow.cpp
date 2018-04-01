@@ -70,6 +70,7 @@ extern const char *APP_TITLE ;
 #include "extraction/extractfragmentsdialog.h"
 #include "widgets/infoonkeyboardshoertcuts.h"
 #include "widgets/infooneditmode.h"
+#include "modules/help/tips.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -3693,12 +3694,13 @@ void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 {
     Utils::TEST_ME("");
     const bool isAlreadyOpen = areInfoPanelsVisible();
-    if(!isAlreadyOpen && data->evaluateConditionForShowShortcuts()) {
+    if(QXMLEditEnableTips && !isAlreadyOpen && data->evaluateConditionForShowShortcuts()) {
         if(NULL == _infoOnKeyboardShortcuts) {
             _infoOnKeyboardShortcuts = new InfoOnKeyboardShortcuts(this);
             ui.verticalLayoutCentralWidget->insertWidget(0, _infoOnKeyboardShortcuts);
             connect(_infoOnKeyboardShortcuts, SIGNAL(requestDismiss()), this, SLOT(onInfoKeyboardDismiss()));
             connect(_infoOnKeyboardShortcuts, SIGNAL(requestOpenShortcutsPanel()), this, SLOT(onInfoKeyboardRequestOpenShortcutsPanel()));
+            data->setShortcutUsedDialogShown();
         }
         _infoOnKeyboardShortcuts->show();
     }
@@ -3759,13 +3761,14 @@ void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount
 {
     Utils::TEST_ME("");
     const bool isAlreadyOpen = areInfoPanelsVisible();
-    if(!isAlreadyOpen && evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
+    if(QXMLEditEnableTips && !isAlreadyOpen && evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
         Utils::TODO_THIS_RELEASE("test");
         if(NULL == _infoOnEditMode) {
             _infoOnEditMode = new InfoOnEditMode(this);
             ui.verticalLayoutCentralWidget->insertWidget(0, _infoOnEditMode);
             connect(_infoOnEditMode, SIGNAL(requestDismiss()), this, SLOT(onInfoEditTypesDismiss()));
             connect(_infoOnEditMode, SIGNAL(requestOpenPanel()), this, SLOT(onInfoEditTypesOpenShortcutsPanel()));
+            data->setEditTypeDialogShown();
         }
         _infoOnEditMode->show();
     }

@@ -72,6 +72,11 @@ isEmpty(INST_TRANSLATIONS_DIR) {
     INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
 }
 
+COMPILE_DISABLE_TIPS=$$(QXMLEDIT_COMPILE_DISABLE_TIPS)
+!isEmpty(COMPILE_DISABLE_TIPS) {
+    DEFINES += COMPILE_DISABLE_TIPS
+}
+
 USE_QWTPLOT="Y"
 DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
 !isEmpty(DONTUSE_QWTPLOT) {
@@ -319,7 +324,8 @@ HEADERS = precompiled_app.h \
     modules/uiutil/defaultuidelegate.h \
     widgets/infoonkeyboardshoertcuts.h \
     modules/utils/animationutility.h \
-    widgets/infooneditmode.h
+    widgets/infooneditmode.h \
+    modules/help/tips.h
 
 SOURCES = \
     main.cpp \
