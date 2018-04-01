@@ -1,0 +1,106 @@
+#/**************************************************************************
+# *  This file is part of QXmlEdit                                         *
+# *  Copyright (C) 2018 by Luca Bellonda and individual contributors       *
+# *    as indicated in the AUTHORS file                                    *
+# *  lbellonda _at_ gmail.com                                              *
+# *                                                                        *
+# * This library is free software; you can redistribute it and/or          *
+# * modify it under the terms of the GNU Library General Public            *
+# * License as published by the Free Software Foundation; either           *
+# * version 2 of the License, or (at your option) any later version.       *
+# *                                                                        *
+# * This library is distributed in the hope that it will be useful,        *
+# * but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+# * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU      *
+# * Library General Public License for more details.                       *
+# *                                                                        *
+# * You should have received a copy of the GNU Library General Public      *
+# * License along with this library; if not, write to the                  *
+# * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,       *
+# * Boston, MA  02110-1301  USA                                            *
+# **************************************************************************/
+
+
+# TO CUSTOMIZE INSTALLATION DIRECTORY SET THESE VARIABLES
+# Note:
+#  WITH SOME MORE WORK WE CAN USE VARIABLES PASSED TO MAKE LIKE THAT
+#  in pro DEFINES += UNIX_RESOURCE_PATH=\"$(QXMLEDIT_DATADIR)\"
+#  and calling make QXMLEDIT_DATADIR=/usr/share/qxmledit
+
+# Additional resources not included with this script:
+#.desktop file in: install_scripts/environment/desktop/QXmlEdit.desktop
+#Icon in: install_scripts/environment/icon/qxmledit.png
+
+
+############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
+
+#message(QXMLEDIT_INST_DATA_DIR = $$(QXMLEDIT_INST_DATA_DIR))
+#message(QXMLEDIT_INST_DIR = $$(QXMLEDIT_INST_DIR))
+#message(QXMLEDIT_INST_DOC_DIR = $$(QXMLEDIT_INST_DOC_DIR))
+#message(QXMLEDIT_INST_LIB_DIR = $$(QXMLEDIT_INST_LIB_DIR))
+#message(QXMLEDIT_INST_TRANSLATIONS_DIR = $$(QXMLEDIT_INST_TRANSLATIONS_DIR))
+#message(QXMLEDIT_UNIX_LOWERCASE_NAME = $$(QXMLEDIT_UNIX_LOWERCASE_NAME))
+#message(LIB_VERSIONED=$$(QXMLEDIT_VERSIONED))
+
+INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
+isEmpty(INST_DATA_DIR) {
+    INST_DATA_DIR = /opt/qxmledit
+}
+message("Inst data dir $$INST_DATA_DIR")
+
+INST_DIR=$$(QXMLEDIT_INST_DIR)
+isEmpty(INST_DIR) {
+    INST_DIR = /opt/qxmledit
+}
+message("Inst dir $$INST_DIR")
+
+INST_DOC_DIR=$$(QXMLEDIT_INST_DOC_DIR)
+isEmpty(INST_DOC_DIR) {
+    INST_DOC_DIR = /opt/qxmledit
+}
+message("Inst doc dir $$INST_DOC_DIR")
+
+INST_LIB_DIR=$$(QXMLEDIT_INST_LIB_DIR)
+isEmpty(INST_LIB_DIR) {
+    INST_LIB_DIR = /opt/qxmledit
+}
+message("Inst lib dir $$INST_LIB_DIR")
+
+INST_TRANSLATIONS_DIR=$$(QXMLEDIT_INST_TRANSLATIONS_DIR)
+isEmpty(INST_TRANSLATIONS_DIR) {
+    INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
+}
+message("Inst translations dir $$QXMLEDIT_INST_TRANSLATIONS_DIR")
+
+COMPILE_DISABLE_TIPS=$$(QXMLEDIT_COMPILE_DISABLE_TIPS)
+!isEmpty(COMPILE_DISABLE_TIPS) {
+    DEFINES += COMPILE_DISABLE_TIPS
+    message("Tips disabled")
+}
+
+USE_QWTPLOT="Y"
+DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
+!isEmpty(DONTUSE_QWTPLOT) {
+    USE_QWTPLOT="N"
+    message("No QWTPlot")
+}
+
+INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+isEmpty(INST_AVOID_PRECOMP_HEADERS) {
+    INST_AVOID_PRECOMP_HEADERS = ""
+    message("Precompiled headers activated")
+}
+
+INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
+isEmpty(INST_USE_C11) {
+    INST_USE_C11 = ""
+    message("No C11 support")
+}
+
+TARGET_NAME_UNIXSTYLE=$$(QXMLEDIT_UNIX_LOWERCASE_NAME)
+message("TARGET_NAME_UNIXSTYLE $$TARGET_NAME_UNIXSTYLE")
+
+LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
+message("LIB_VERSIONED $$LIB_VERSIONED")
+
+############################ END INSTALLATION FOLDERS DECLARATION #############################################

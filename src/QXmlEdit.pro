@@ -21,83 +21,9 @@
 # **************************************************************************/
 
 
-# TO CUSTOMIZE INSTALLATION DIRECTORY SET THESE VARIABLES
-# Note:
-#  WITH SOME MORE WORK WE CAN USE VARIABLES PASSED TO MAKE LIKE THAT
-#  in pro DEFINES += UNIX_RESOURCE_PATH=\"$(QXMLEDIT_DATADIR)\"
-#  and calling make QXMLEDIT_DATADIR=/usr/share/qxmledit
+# TO CUSTOMIZE INSTALLATION DIRECTORY SET THE VARIABLES IN THE FOLLOWING INCLUDE
 
-# Additional resources not included with this script:
-#.desktop file in: install_scripts/environment/desktop/QXmlEdit.desktop
-#Icon in: install_scripts/environment/icon/qxmledit.png
-
-
-############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
-
-#message(QXMLEDIT_INST_DATA_DIR = $$(QXMLEDIT_INST_DATA_DIR))
-#message(QXMLEDIT_INST_DIR = $$(QXMLEDIT_INST_DIR))
-#message(QXMLEDIT_INST_DOC_DIR = $$(QXMLEDIT_INST_DOC_DIR))
-#message(QXMLEDIT_INST_LIB_DIR = $$(QXMLEDIT_INST_LIB_DIR))
-#message(QXMLEDIT_INST_TRANSLATIONS_DIR = $$(QXMLEDIT_INST_TRANSLATIONS_DIR))
-#message(QXMLEDIT_UNIX_LOWERCASE_NAME = $$(QXMLEDIT_UNIX_LOWERCASE_NAME))
-#message(LIB_VERSIONED=$$(QXMLEDIT_VERSIONED))
-
-
-INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
-isEmpty(INST_DATA_DIR) {
-    INST_DATA_DIR = /opt/qxmledit
-}
-INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
-isEmpty(INST_DATA_DIR) {
-    INST_DATA_DIR = /opt/qxmledit
-}
-
-INST_DIR=$$(QXMLEDIT_INST_DIR)
-isEmpty(INST_DIR) {
-    INST_DIR = /opt/qxmledit
-}
-
-INST_DOC_DIR=$$(QXMLEDIT_INST_DOC_DIR)
-isEmpty(INST_DOC_DIR) {
-    INST_DOC_DIR = /opt/qxmledit
-}
-
-INST_LIB_DIR=$$(QXMLEDIT_INST_LIB_DIR)
-isEmpty(INST_LIB_DIR) {
-    INST_LIB_DIR = /opt/qxmledit
-}
-
-INST_TRANSLATIONS_DIR=$$(QXMLEDIT_INST_TRANSLATIONS_DIR)
-isEmpty(INST_TRANSLATIONS_DIR) {
-    INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
-}
-
-COMPILE_DISABLE_TIPS=$$(QXMLEDIT_COMPILE_DISABLE_TIPS)
-!isEmpty(COMPILE_DISABLE_TIPS) {
-    DEFINES += COMPILE_DISABLE_TIPS
-}
-
-USE_QWTPLOT="Y"
-DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
-!isEmpty(DONTUSE_QWTPLOT) {
-    USE_QWTPLOT="N"
-    message("No QWTPlot")
-}
-
-INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
-isEmpty(INST_AVOID_PRECOMP_HEADERS) {
-    INST_AVOID_PRECOMP_HEADERS = ""
-}
-
-INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
-isEmpty(INST_USE_C11) {
-    INST_USE_C11 = ""
-}
-
-
-TARGET_NAME_UNIXSTYLE=$$(QXMLEDIT_UNIX_LOWERCASE_NAME)
-
-LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
+include("cconfig.pri")
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
