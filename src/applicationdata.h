@@ -165,6 +165,7 @@ public:
     void showEditingShortcuts(QWidget *parent);
     void anonymizeFile(QWidget *window);
     void showUserTypePanel();
+    void emitOpenUserGuidedPanel();
 
     AttributeFilterManagement *attributeFilterManagement();
 private slots:
@@ -175,7 +176,5 @@ signals:
     void openUserGuidedPanel();
     void openUserTypePanel(const bool firstAccess);
 };
-
-
 
 #endif // APPLICATIONDATA_H

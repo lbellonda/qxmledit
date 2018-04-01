@@ -599,3 +599,8 @@ void ApplicationData::showUserTypePanel()
 {
     emit openUserTypePanel(true);
 }
+
+void ApplicationData::emitOpenUserGuidedPanel()
+{
+    emit openUserGuidedPanel();
+}

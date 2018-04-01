@@ -242,7 +242,6 @@ HEADERS = precompiled_app.h \
     modules/style/infoonkeyboardshortcutsdialog.h \
     modules/style/editingtypesdialog.h \
     modules/help/firstaccessdialog.h \
-    modules/help/userguideddialog.h \
     modules/help/guidedoperationsdialog.h \
     modules/help/guidedvalidationdialog.h \
     modules/services/startactionsengine.h \

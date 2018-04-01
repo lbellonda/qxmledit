@@ -3819,7 +3819,7 @@ void MainWindow::showEditingTypeDialog()
 
 void MainWindow::requestOpenGuidedPanel()
 {
-    emit data->openUserGuidedPanel();
+    data->emitOpenUserGuidedPanel();
 }
 
 void MainWindow::on_actionValidationDialog_triggered()

@@ -24,7 +24,7 @@
 #define TIPS_H
 
 #ifdef  COMPILE_DISABLE_TIPS
-const bool QXMLEditEnableTips = fa; se ;
+const bool QXMLEditEnableTips = false ;
 #else
 const bool QXMLEditEnableTips = true ;
 #endif
