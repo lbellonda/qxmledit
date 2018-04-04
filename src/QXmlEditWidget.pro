@@ -21,59 +21,8 @@
 # **************************************************************************/
 
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
-INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
-isEmpty(INST_DATA_DIR) {
-    INST_DATA_DIR = /opt/qxmledit
-}
 
-INST_DIR=$$(QXMLEDIT_INST_DIR)
-isEmpty(INST_DIR) {
-    INST_DIR = /opt/qxmledit
-}
-
-INST_DOC_DIR=$$(QXMLEDIT_INST_DOC_DIR)
-isEmpty(INST_DOC_DIR) {
-    INST_DOC_DIR = /opt/qxmledit
-}
-
-INST_LIB_DIR=$$(QXMLEDIT_INST_LIB_DIR)
-isEmpty(INST_LIB_DIR) {
-    INST_LIB_DIR = /opt/qxmledit
-}
-
-INST_TRANSLATIONS_DIR=$$(QXMLEDIT_INST_TRANSLATIONS_DIR)
-isEmpty(INST_TRANSLATIONS_DIR) {
-    INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
-}
-
-INST_INCLUDE_DIR=$$(QXMLEDIT_INST_INCLUDE_DIR)
-isEmpty(INST_INCLUDE_DIR) {
-    INST_INCLUDE_DIR = /opt/qxmledit
-}
-
-INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
-isEmpty(INST_AVOID_PRECOMP_HEADERS) {
-    INST_AVOID_PRECOMP_HEADERS = ""
-}
-
-COMPILE_DISABLE_TIPS=$$(QXMLEDIT_COMPILE_DISABLE_TIPS)
-!isEmpty(COMPILE_DISABLE_TIPS) {
-    DEFINES += COMPILE_DISABLE_TIPS
-}
-
-USE_QWTPLOT="Y"
-DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
-!isEmpty(DONTUSE_QWTPLOT) {
-    USE_QWTPLOT="N"
-    message("No QWTPlot")
-}
-
-INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
-isEmpty(INST_USE_C11) {
-    INST_USE_C11 = ""
-}
-
-LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
+include("../cconfig.pri")
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 

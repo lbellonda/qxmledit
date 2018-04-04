@@ -89,6 +89,9 @@
             <bold>true</bold>
            </font>
           </property>
+          <property name="toolTip">
+           <string>Open the edit configuration panel.</string>
+          </property>
           <property name="styleSheet">
            <string notr="true">border: 1px solid; border-radius:10px; background-color: #FFFFFF;border-color:#FFFFFF;padding:8px;margin-right:20px;margin-top:5px</string>
           </property>
@@ -120,6 +123,9 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Close this panel.</string>
           </property>
           <property name="styleSheet">
            <string notr="true">border:none;</string>

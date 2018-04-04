@@ -66,6 +66,12 @@ isEmpty(INST_LIB_DIR) {
 }
 message("Inst lib dir $$INST_LIB_DIR")
 
+INST_INCLUDE_DIR=$$(QXMLEDIT_INST_INCLUDE_DIR)
+isEmpty(INST_INCLUDE_DIR) {
+    INST_INCLUDE_DIR = /opt/qxmledit/include
+}
+message("Inst include dir $$INST_INCLUDE_DIR")
+
 INST_TRANSLATIONS_DIR=$$(QXMLEDIT_INST_TRANSLATIONS_DIR)
 isEmpty(INST_TRANSLATIONS_DIR) {
     INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations

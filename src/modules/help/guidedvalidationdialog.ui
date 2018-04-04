@@ -43,13 +43,19 @@
        </item>
        <item>
         <widget class="QPushButton" name="cmdLoadXML">
-         <property name="text">
+         <property name="toolTip">
           <string>Load XML to Validate</string>
+         </property>
+         <property name="text">
+          <string>Load XML</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QLineEdit" name="fileNameXML">
+         <property name="toolTip">
+          <string>XML to validate.</string>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -90,6 +96,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="cmdLoadXSD">
+         <property name="toolTip">
+          <string>Load validation XSD.</string>
+         </property>
          <property name="text">
           <string>Load XSD</string>
          </property>
@@ -97,6 +106,9 @@
        </item>
        <item>
         <widget class="QLineEdit" name="fileNameXSD">
+         <property name="toolTip">
+          <string>XSD for validation.</string>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>

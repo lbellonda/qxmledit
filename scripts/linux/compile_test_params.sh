@@ -8,12 +8,13 @@ export QXMLEDIT_INST_DATA_DIR=/mnt/ramdisk/qxmledit/data
 export QXMLEDIT_INST_DIR=/mnt/ramdisk/qxmledit
 export QXMLEDIT_INST_DOC_DIR=/mnt/ramdisk/qxmledit/doc
 export QXMLEDIT_INST_LIB_DIR=/mnt/ramdisk/qxmledit/lib
+export QXMLEDIT_INST_INCLUDE_DIR=/mnt/ramdisk/qxmledit/include
 export QXMLEDIT_INST_TRANSLATIONS_DIR=/mnt/ramdisk/qxmledit/po
 export QXMLEDIT_COMPILE_DISABLE_TIPS=true
 export QXMLEDIT_NO_QWTPLOT=Y
 export QXMLEDIT_INST_USE_C11=y
 export QXMLEDIT_INST_AVOID_PRECOMP_HEADERS=Y
-export QXMLEDIT_UNIX_LOWERCASE_NAME=y
+export QXMLEDIT_UNIX_LOWERCASE_NAME=0
 export LIB_VERSIONED=Y
 
 qmake "CONFIG+=release"
