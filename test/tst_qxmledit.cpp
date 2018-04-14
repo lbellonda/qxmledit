@@ -1399,6 +1399,11 @@ void TestQXmlEdit::testConfig()
 
     {
         TestConfig test1;
+        result = test1.testFast();
+        QVERIFY2(result, (QString("test TestConfig: testFast '%1'").arg(test1.errorString())).toLatin1().data());
+    }
+    {
+        TestConfig test1;
         result = test1.testUnit();
         QVERIFY2(result, (QString("test TestConfig: testUnit '%1'").arg(test1.errorString())).toLatin1().data());
     }

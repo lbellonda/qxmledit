@@ -501,7 +501,6 @@ void ApplicationData::resetBehaviorData()
     Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, false);
     Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, false);
     Config::saveBool(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, false);
-    Utils::TEST_ME("");
     _elementDoubleClickedInSessionCount = 0 ;
     _elementEditedAsTextCount = 0  ;
     _elementEditedAsFormCount = 0 ;

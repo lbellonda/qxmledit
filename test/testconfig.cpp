@@ -31,6 +31,11 @@ TestConfig::~TestConfig()
 {
 }
 
+bool TestConfig::testFast()
+{
+    return testResetBeahviorData();
+}
+
 bool TestConfig::testUnit()
 {
     _testName = "testUnit" ;
@@ -174,6 +179,11 @@ bool TestConfig::testResetBeahviorData()
     Config::saveBool(Config::KEY_ELEMENT_EDIT_SHORTCUT_USED, true);
     Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, true);
     Config::saveBool(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, true);
+    Config::saveBool(Config::KEY_USERPROFILING_GUIDED, true);
+    Config::saveBool(Config::KEY_USERPROFILING_FIRSTUSE, false);
+    app.data()->incrementElementDoubleClickedCount();
+    app.data()->setElementEditedAsTextCount(1);
+    app.data()->setElementEditedAsFormCount(1);
 
     app.data()->resetBehaviorData();
     if(!checkBoolSetting(Config::KEY_ELEMENT_EDIT_SHORTCUT_DIALOG_SHOWN, false) ) {
@@ -188,6 +198,22 @@ bool TestConfig::testResetBeahviorData()
     if(!checkBoolSetting(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, false) ) {
         return false;
     }
+    if(!checkBoolSetting(Config::KEY_USERPROFILING_GUIDED, false) ) {
+        return false;
+    }
+    if(!checkBoolSetting(Config::KEY_USERPROFILING_FIRSTUSE, true) ) {
+        return false;
+    }
+    if(app.data()->getElementDoubleClickedInSessionCount()!=0) {
+        return error(QString("_elementDoubleClickedInSessionCount %1").arg(app.data()->getElementDoubleClickedInSessionCount()));
+    }
+    if(app.data()->getElementEditedAsTextCount()!=0) {
+        return error(QString("_elementEditedAsTextCount %1").arg(app.data()->getElementEditedAsTextCount()));
+    }
+    if(app.data()->getElementEditedAsFormCount()!=0) {
+        return error(QString("_elementEditedAsFormCount %1").arg(app.data()->getElementEditedAsFormCount()));
+    }
+
     return true;
 }
 
@@ -312,6 +338,6 @@ bool TestConfig::testResetData()
     if(!testOpenChooseEditTypeDialog()) {
         return false;
     }
-    return error("nyi");
+    return true;
 }
 

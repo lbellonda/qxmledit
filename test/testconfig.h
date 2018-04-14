@@ -45,6 +45,7 @@ public:
     ~TestConfig();
 
     bool testUnit();
+    bool testFast();
 };
 
 #endif // TESTCONFIG_H
