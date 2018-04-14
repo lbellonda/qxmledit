@@ -2232,6 +2232,11 @@ void XmlEditWidgetPrivate::showButtons(const bool how)
     p->ui->moveUp->setVisible(how);
     p->ui->moveDown->setVisible(how);
     p->ui->viewAsXsdCmd->setVisible(how);
+    //----
+    p->ui->copySpecial->setVisible(how);
+    p->ui->styleButton->setVisible(how);
+    p->ui->indent->setVisible(how);
+    p->ui->settingsButton->setVisible(how);
 }
 
 void XmlEditWidgetPrivate::showToolbar(const bool how)
