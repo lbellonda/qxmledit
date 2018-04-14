@@ -32,7 +32,7 @@ GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application,
     _application = application;
     _appData = appData;
     ui->setupUi(this);
-    setWindowTitle(APPLICATION_NAME);
+    setWindowTitle(QString("%1 %2").arg(APPLICATION_NAME).arg(tr("Guided Operations")));
     makeButtonsSameSize();
     applyUserProfile();
     setAcceptDrops(true);
@@ -46,15 +46,19 @@ GuidedOperationsDialog::~GuidedOperationsDialog()
 void GuidedOperationsDialog::makeButtonsSameSize()
 {
     int maxSizeX = 0 ;
+    int maxSizeY = 0 ;
     QList<QPushButton*> buttons = findChildren<QPushButton*>();
     foreach(QPushButton* button, buttons) {
         maxSizeX = qMax(maxSizeX, button->frameSize().width());
+        maxSizeY = qMax(maxSizeY, button->frameSize().height());
     }
-    maxSizeX *= 1.3;
+    maxSizeX *= 1.4;
+    maxSizeY *= 1.1;
     foreach(QPushButton* button, buttons) {
         button->setFixedWidth(maxSizeX);
+        button->setFixedHeight(maxSizeY);
     }
-    QSize currentSize = ui->l1->sizeHint();
+    const QSize currentSize = ui->l1->sizeHint();
     const int spacerGap = maxSizeX >> 1 ;
     ui->l1->spacerItem()->changeSize(spacerGap, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);
     ui->l2->spacerItem()->changeSize(spacerGap, currentSize.height(), QSizePolicy::Fixed, QSizePolicy::Fixed);

@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>825</width>
-    <height>424</height>
+    <width>696</width>
+    <height>407</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>How do you prefer to use QXmlEdit?</string>
+   <string>QXMLEdit Preferences</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../risorse.qrc">
@@ -52,7 +52,7 @@
         </sizepolicy>
        </property>
        <property name="text">
-        <string>If it is the first time you use QXmlEdit or you do not know all the features, you can ask QXmlEdit to guide you through the main features.</string>
+        <string>How do you prefer using QXMLEdit?</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -61,47 +61,35 @@
      </item>
      <item>
       <layout class="QGridLayout" name="gridLayout">
-       <property name="verticalSpacing">
-        <number>80</number>
+       <property name="leftMargin">
+        <number>20</number>
        </property>
-       <item row="1" column="2">
-        <spacer name="horizontalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="3">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Browse through all the commands.
-
-After some usage you will prefer it. This is the fastest mode to use the program, but requires some experience given the number of options.</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="cmdGuided">
          <property name="text">
           <string>Guided User</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="3">
+       <item row="1" column="0">
         <widget class="QLabel" name="label_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
-          <string>You ill be guided through the main features until you familiarize with application.
-
-The most important actions will be reached in no time.</string>
+          <string>You will be guided through the main features until you familiarize with QXMLEdit.
+The most important actions will be reached in no time.
+</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -112,59 +100,73 @@ The most important actions will be reached in no time.</string>
         </widget>
        </item>
        <item row="1" column="1">
+        <widget class="QPushButton" name="cmdGuided">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>Guided User</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_6">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>
+Expert User</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>Browse through all the commands.
+After some usage you will prefer it. This is the fastest mode to use the program, but requires some experience given the number of options.
+</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
         <widget class="QPushButton" name="cmdExpert">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="text">
           <string>Expert User</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_3">
+       <item row="5" column="0" colspan="2">
+        <widget class="Line" name="line">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="0">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
       </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -180,7 +182,7 @@ The most important actions will be reached in no time.</string>
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../../risorse.qrc">:/help/info</pixmap>
+          <pixmap>:/help/info</pixmap>
          </property>
         </widget>
        </item>
@@ -192,9 +194,17 @@ The most important actions will be reached in no time.</string>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="font">
+          <font>
+           <italic>true</italic>
+          </font>
+         </property>
          <property name="text">
-          <string>If unsure, just close this panel or press escape.
-You can always change your choice later.</string>
+          <string>
+If unsure, close this panel or press escape. You can always change your choice later.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>

@@ -27,6 +27,31 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
+      <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Validate a XML file with a XSD schema</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string> Load or drop files to activate.
+</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
         <widget class="QLabel" name="statusXML">
@@ -42,12 +67,12 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="cmdLoadXML">
+        <widget class="QLabel" name="label_2">
          <property name="toolTip">
-          <string>Load XML to Validate</string>
+          <string>Select a XML file or drop one from file manager.</string>
          </property>
          <property name="text">
-          <string>Load XML</string>
+          <string>XML Data</string>
          </property>
         </widget>
        </item>
@@ -58,6 +83,20 @@
          </property>
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cmdLoadXML">
+         <property name="toolTip">
+          <string>Load XML to Validate</string>
+         </property>
+         <property name="text">
+          <string> Load</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../risorse.qrc">
+           <normaloff>:/open/images/document-open.png</normaloff>:/open/images/document-open.png</iconset>
          </property>
         </widget>
        </item>
@@ -95,12 +134,12 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="cmdLoadXSD">
+        <widget class="QLabel" name="label_3">
          <property name="toolTip">
-          <string>Load validation XSD.</string>
+          <string>Select a XSD schema file or drop one from file manager.</string>
          </property>
          <property name="text">
-          <string>Load XSD</string>
+          <string>Schema</string>
          </property>
         </widget>
        </item>
@@ -111,6 +150,20 @@
          </property>
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="cmdLoadXSD">
+         <property name="toolTip">
+          <string>Load validation XSD.</string>
+         </property>
+         <property name="text">
+          <string> Load</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../risorse.qrc">
+           <normaloff>:/open/images/document-open.png</normaloff>:/open/images/document-open.png</iconset>
          </property>
         </widget>
        </item>
@@ -135,7 +188,7 @@
      <item>
       <widget class="QStackedWidget" name="state">
        <property name="currentIndex">
-        <number>4</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="pageok">
         <layout class="QHBoxLayout" name="horizontalLayout_2">

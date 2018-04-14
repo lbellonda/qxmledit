@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Operations</string>
+   <string>QXmlEdit Guided Operations</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../../risorse.qrc">
