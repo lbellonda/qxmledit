@@ -70,7 +70,7 @@
        </property>
        <property name="text">
         <string>The settings are available as separate options using the menu View.
-This dialog can be recalled at any time using the menu &quot;Tasks&quot;.</string>
+This dialog can be recalled at any time using the menu &quot;Preferences&quot;.</string>
        </property>
       </widget>
      </item>
@@ -359,7 +359,6 @@ This dialog can be recalled at any time using the menu &quot;Tasks&quot;.</strin
   </layout>
  </widget>
  <resources>
-  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections/>
