@@ -488,12 +488,15 @@
    </widget>
    <widget class="QMenu" name="menuTasks">
     <property name="title">
-     <string>Tasks</string>
+     <string>Preferences</string>
     </property>
+    <addaction name="actionGraphic"/>
     <addaction name="actionTaskDisplayDetail"/>
     <addaction name="actionChooseEditType"/>
-    <addaction name="actionOpenGuidedOperationPanel"/>
+    <addaction name="separator"/>
+    <addaction name="actionActions"/>
     <addaction name="actionChooseUserProfile"/>
+    <addaction name="actionOpenGuidedOperationPanel"/>
    </widget>
    <widget class="QMenu" name="menuSpecial">
     <property name="title">
@@ -2515,6 +2518,36 @@
    </property>
    <property name="toolTip">
     <string>Insert a parent that is skipped from XSLT execution, yet valid.</string>
+   </property>
+  </action>
+  <action name="actionGraphic">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/configuration/style</normaloff>:/configuration/style</iconset>
+   </property>
+   <property name="text">
+    <string>      Graphic</string>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+  </action>
+  <action name="actionActions">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/tree/pi_icon.png</normaloff>:/tree/pi_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>      Actions</string>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
   </action>
  </widget>
