@@ -119,9 +119,26 @@ TestStartupAndBehavior::~TestStartupAndBehavior()
     //
 }
 
+/*
+&id,
+// set values
+setFirstAccess, setOpenFile, ApplicationData::EUserType setUserType,
+// -- expected
+AskUserTypePanel, expectedOpenGuidedPanel, AskVisDetailsTypePanel,
+ShowWelcome, OpenFile, panelUserType,
+Test       User       Argument   Access     Ask User TyPanel(s)   Run
+     6     Basic      ***        Following  No         Operations ***
+     7     Basic      Open File  Following  No         Operations Open File
+*/
+
 bool TestStartupAndBehavior::testFast()
 {
-    return testUnit();
+    if(!checkStartupAction("6", false, false, ApplicationData::UserTypeGuided,
+                false, true, false, false, false, ApplicationData::UserTypeGuided,
+                ApplicationData::UserTypeGuided )) {
+        return false;
+    }
+    return true ;
 }
 
 /**
@@ -149,31 +166,31 @@ bool TestStartupAndBehavior::testUnit()
         return false;
     }
     if(!checkStartupAction("2", false, false, ApplicationData::UserTypeExpert,
-                false, false, false, false, true, ApplicationData::UserTypeExpert,
-                ApplicationData::UserTypeExpert )) {
-        return false;
-    }
-    if(!checkStartupAction("3", false, true, ApplicationData::UserTypeExpert,
                 false, false, false, true, false, ApplicationData::UserTypeExpert,
                 ApplicationData::UserTypeExpert )) {
         return false;
     }
-    if(!checkStartupAction("4", true, false, ApplicationData::UserTypeExpert,
+    if(!checkStartupAction("3", false, true, ApplicationData::UserTypeExpert,
+                false, false, false, false, true, ApplicationData::UserTypeExpert,
+                ApplicationData::UserTypeExpert )) {
+        return false;
+    }
+    if(!checkStartupAction("4", true, false, ApplicationData::UserTypeGuided,
                 true, true, false, false, false, ApplicationData::UserTypeGuided,
                 ApplicationData::UserTypeGuided )) {
         return false;
     }
-    if(!checkStartupAction("5", true, true, ApplicationData::UserTypeExpert,
+    if(!checkStartupAction("5", true, true, ApplicationData::UserTypeGuided,
                 true, true, false, false, true, ApplicationData::UserTypeGuided,
                 ApplicationData::UserTypeGuided )) {
         return false;
     }
-    if(!checkStartupAction("6", false, false, ApplicationData::UserTypeExpert,
+    if(!checkStartupAction("6", false, false, ApplicationData::UserTypeGuided,
                 false, true, false, false, false, ApplicationData::UserTypeGuided,
                 ApplicationData::UserTypeGuided )) {
         return false;
     }
-    if(!checkStartupAction("7", false, true, ApplicationData::UserTypeExpert,
+    if(!checkStartupAction("7", false, true, ApplicationData::UserTypeGuided,
                 false, true, false, false, true, ApplicationData::UserTypeGuided,
                 ApplicationData::UserTypeGuided )) {
         return false;
@@ -199,9 +216,8 @@ bool TestStartupAndBehavior::checkStartupAction(
     }
     if(!setFirstAccess){
         app.data()->fireUserFirstAccess();
-    } else {
-        app.data()->setUserType(setUserType);
     }
+    app.data()->setUserType(setUserType);
 
     //----
     StartParams startupParams;
@@ -213,7 +229,7 @@ bool TestStartupAndBehavior::checkStartupAction(
     }
     //----
     // check set values
-    if(!app.data()->isUserFirstAccess() != setFirstAccess) {
+    if(app.data()->isUserFirstAccess() != setFirstAccess) {
         return error(QString("id:%1 wrong first access, expected %2").arg(id).arg(setFirstAccess));
     }
     if(!setFirstAccess) {
@@ -239,6 +255,7 @@ bool TestStartupAndBehavior::checkStartupAction(
     expected.panelUserType = panelUserType ;
     //----
     FakeStartActionsExecutor executor(app.data());
+    executor._data.panelUserType = setUserType ;
     StartActionsEngine engine( app.data(), &executor);
     engine.execute(startupParams);
     if(!checkExpectedStartupResults(&executor._data, &expected)) {

@@ -57,7 +57,8 @@ bool StartActionsEngine::execute(StartParams &startParams)
         Utils::error(NULL, tr(""));
         return false;
     }
-    if(_data->isUserFirstAccess()) {
+    const bool wasFirstAccess = _data->isUserFirstAccess();
+    if(wasFirstAccess) {
         _executor->startActionShowUserTypePanel();
         _data->fireUserFirstAccess();
     }
@@ -66,7 +67,9 @@ bool StartActionsEngine::execute(StartParams &startParams)
         _executor->startActionShowGuidedOperationsPanel();
     } else {
         // editor view detail level
-        _executor->startActionSetupFirstAccessForPreferences();
+        if(wasFirstAccess) {
+            _executor->startActionSetupFirstAccessForPreferences();
+        }
     }
 
     switch(startParams.type) {
