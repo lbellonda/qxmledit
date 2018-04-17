@@ -312,12 +312,17 @@ gap se 1! gap else gap/2
 
 se gap da livello precedente, se 1! figli usa gap precedente
 se >1 figli e' gap prec/2
+
+
+algoritmo:
+per ogni oggetto rettangolare a partire dal top si aggiorna l'elenco delle aree occupate
+se il nuovo item non si sovrappone lo si lascia, altrimenti si sposta l'albero corrispondente in basso per ebitare collisionei
+si aggiorna l'elenco delle aree occupate.
 */
 
 QXMLEDIT_LAYOUT_DEBUG1(static int nogo = 0 ;)
 bool XSDItem::updateObjectPlacementNew0(XSDItem* root, XSDItemContext *context, QVector<QRectF> &currBounds, QList<QGraphicsItem*> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain, const qreal extraGapValue)
 {
-    Utils::TODO_THIS_RELEASE("scrivi algoritmo");
     bool collisionFound = false;
     bool existsCollision = false ;
     QXMLEDIT_LAYOUT_DEBUG(if(6 == _id) {

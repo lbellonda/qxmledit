@@ -28,7 +28,6 @@
 
 static const int TimeoutForPolling = 600 ;
 
-
 GuidedValidationDialog::GuidedValidationDialog(QWidget *parent, ApplicationData *appData) :
     QDialog(parent),
     ui(new Ui::GuidedValidationDialog)
@@ -68,7 +67,6 @@ GuidedValidationDialog::~GuidedValidationDialog()
 
 void GuidedValidationDialog::resetData()
 {
-    Utils::TODO_THIS_RELEASE("fare quando il dialog riappare deve essere vuoto");
     _message = "" ;
     _isError = false;
     _isValid = false;

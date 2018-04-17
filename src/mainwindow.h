@@ -154,7 +154,6 @@ public:
 
     bool reload();
     void updateAfterPreferences();
-    void setupFirstAccessForPreferences();
     void taskChooseDetail();
     SourceRelatedMessages *sourceRelatedMessages();
     bool openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow = OpenUsingDefaultSettings);

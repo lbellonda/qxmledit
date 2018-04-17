@@ -51,7 +51,6 @@ void EditingTypesDialog::accept()
 
 void EditingTypesDialog::on_cmdPredefined_clicked()
 {
-    Utils::TODO_THIS_RELEASE("test");
     _data->setBaseEditModeForm(true);
     QDialog::accept();
 }

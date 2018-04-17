@@ -89,8 +89,6 @@ protected:
     bool showValidationOperationsPanel();
     void connectToCommandsPanel(const bool isConnect, GuidedOperationsDialog *target);
     void bindCommandOperation(const bool isConnect, const QObject *sender, const char *signal, const char *method);
-    void taskChooseDetail();
-    void setDefaultViewDetail();
 
 public slots:
     void onNewWindow();

@@ -41,19 +41,16 @@ void QXmlEditApplication::startActionShowUserTypePanel()
 
 bool QXmlEditApplication::startActionShowGuidedOperationsPanel()
 {
-    Utils::TEST_ME("fare");
     return showGuidedOperationsPanel();
 }
 
 void QXmlEditApplication::startActionSetupFirstAccessForPreferences()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     setupFirstAccessForPreferences();
 }
 
 void QXmlEditApplication::startActionTriggersWelcomeDialog()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     MainWindow *mainWindow = getOrCreateMainWindow();
     mainWindow->show();
     mainWindow->triggersWelcomeDialog();
@@ -61,7 +58,7 @@ void QXmlEditApplication::startActionTriggersWelcomeDialog()
 
 void QXmlEditApplication::startActionLoadFile(const QString &fileName)
 {
-    Utils::TODO_THIS_RELEASE("fare");
+    Utils::TODO_THIS_RELEASE("fare con user guided se apro un file devo aprire il panel e non si apre");
     MainWindow *mainWindow = getOrCreateMainWindow();
     mainWindow->show();
     mainWindow->loadFile(fileName);

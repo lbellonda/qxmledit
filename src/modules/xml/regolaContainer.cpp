@@ -183,7 +183,6 @@ void Regola::insertParent(QTreeWidget *tree, Element *element, const bool useTex
 {
     if(NULL != element) {
         Element *theNewElement = new Element("", "", NULL, NULL);
-        Utils::TODO_THIS_RELEASE("magari usare il modo testo?");
         bool result ;
         if(useTextualInterface) {
             result = editNodeElementWithTextEditor(tree->window(), theNewElement);

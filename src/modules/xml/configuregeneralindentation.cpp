@@ -31,9 +31,6 @@ ConfigureGeneralIndentation::ConfigureGeneralIndentation(QWidget *parent, QXmlEd
     QDialog(parent),
     ui(new Ui::ConfigureGeneralIndentation)
 {
-    Utils::TODO_THIS_RELEASE("se guided ordina gli attributi alfabeticamente");
-    Utils::TODO_THIS_RELEASE("fare");
-    Utils::TODO_THIS_RELEASE("test");
     _appData = newAppData ;
     ui->setupUi(this);
     ui->xmlIndent->setMinimum(0);

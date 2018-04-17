@@ -80,12 +80,11 @@ void QXmlEditApplication::onCommandFormatting()
 
 void QXmlEditApplication::onCommandConfigureVision()
 {
-    taskChooseDetail();
+    _appData->chooseVisualDetail();
 }
 
 void QXmlEditApplication::onCommandConfigureEditing()
 {
-    Utils::TODO_THIS_RELEASE("si apre ma il radiobutton non e' selezionato");
     EditingTypesDialog editingTypesDialog(_appData, _guidedOperationsDialog);
     editingTypesDialog.setWindowModality(Qt::ApplicationModal);
     editingTypesDialog.exec();
@@ -98,8 +97,8 @@ void QXmlEditApplication::onCommandConfigure()
 
 void QXmlEditApplication::onCommandUserProfile()
 {
+    _appData->setUserGuidedOperation(!_appData->isUserGuidedOperation());
     if(NULL != _guidedOperationsDialog) {
-        _appData->setUserGuidedOperation(!_appData->isUserGuidedOperation());
         _guidedOperationsDialog->applyUserProfile();
     }
 }
@@ -112,7 +111,6 @@ void QXmlEditApplication::onCommandExtractFile()
 
 void QXmlEditApplication::onCommandViewXSD()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     MainWindow *mainWindow = getOrCreateMainWindow();
     if(NULL != mainWindow) {
         if(mainWindow->openFileUsingDialog(QXmlEditData::sysFilePathForOperation(""), MainWindow::OpenUsingSameWindow)) {
@@ -146,7 +144,6 @@ void QXmlEditApplication::onCommandEditingShortcut()
 
 void QXmlEditApplication::onCommandBase64()
 {
-    Utils::TODO_THIS_RELEASE("test");
     _appData->uiServices()->doBase64Dialog();
 }
 

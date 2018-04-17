@@ -1238,7 +1238,5 @@ bool XmlEditWidget::presetFormatting(const XMLIndentationSettings::ESettings pre
 
 void XmlEditWidget::emitConfigure(const QPoint &position)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     emit configure(position);
 }
-

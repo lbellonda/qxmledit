@@ -37,7 +37,6 @@ AnimationUtility::~AnimationUtility()
 
 void AnimationUtility::setupSizeForLabelIcon(QLabel *label, QPropertyAnimation *animation)
 {
-    Utils::TODO_THIS_RELEASE("vedi commenti");
     if(!label->hasScaledContents()) {
         label->setScaledContents(true);
     }

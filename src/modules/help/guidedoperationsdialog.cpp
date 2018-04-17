@@ -139,25 +139,21 @@ void GuidedOperationsDialog::on_cmdViewXSD_clicked()
 
 void GuidedOperationsDialog::on_cmdCompare_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     emit triggerCompare();
 }
 
 void GuidedOperationsDialog::on_cmdAnon_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     emit triggerAnon();
 }
 
 void GuidedOperationsDialog::on_cmdUserManual_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     emit triggerUserManual();
 }
 
 void GuidedOperationsDialog::on_cmdEditingShortcut_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     emit triggerEditingShortcut();
 }
 
@@ -174,16 +170,13 @@ void GuidedOperationsDialog::applyUserProfile()
 
 void GuidedOperationsDialog::on_cmdBase64_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     emit triggerBase64();
 }
 
 void GuidedOperationsDialog::on_cmdViewDataMap_clicked()
 {
-    Utils::TODO_THIS_RELEASE("fare");
     emit triggerViewXMLMap();
 }
-
 
 void GuidedOperationsDialog::dragEnterEvent(QDragEnterEvent *event)
 {
