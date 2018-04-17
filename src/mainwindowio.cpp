@@ -200,9 +200,7 @@ bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePat
         if(isRegularFile) {
             data->sessionManager()->enrollFile(filePath);
             updateRecentFilesMenu(filePath);
-            if(status.areErrorsPresent()) {
-                ui.loadWarningWidget->setVisible(true);
-            }
+            ui.loadWarningWidget->setVisible(status.areErrorsPresent());
         } else {
             getRegola()->setFileName("");
         }
