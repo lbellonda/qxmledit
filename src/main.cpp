@@ -159,23 +159,11 @@ int internalMain(int argc, char *argv[])
 
 bool handleCommandLineArguments(QXmlEditApplication &app, StartParams &startParams)
 {
-    Utils::TODO_THIS_RELEASE("Se scegli user guidato annulla anche flag per personalizzare video in modo che non appaia quando cambia il tipo utente. manca test");
     bool handled = false;
     switch(startParams.type) {
     default:
         break;
-    case StartParams::OpenFile: {
-        Utils::TODO_THIS_RELEASE("gestire qui o nel caso generale?");
-        MainWindow *mainWindow = new MainWindow(false, app.appData());
-        mainWindow->show();
-        // editor view detail level
-        mainWindow->setupFirstAccessForPreferences();
-        mainWindow->loadFile(startParams.fileName);
-        handled = true ;
-    }
-    break;
     case StartParams::VisFile: {
-        Utils::TODO_THIS_RELEASE("e' il caso di aprire una finestra solo per il vis?");
         MainWindow *mainWindow = new MainWindow(false, app.appData());
         mainWindow->show();
         mainWindow->loadVisFile(startParams.fileName);
