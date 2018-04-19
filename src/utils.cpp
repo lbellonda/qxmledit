@@ -580,9 +580,9 @@ void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
 void Utils::TEST_ME(const QString & inputMessage)
 {
     if(isUnitTest) {
-        fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
+        fprintf(stderr, "TEST_ME:%s\n", inputMessage.toLatin1().data());
     } else {
-        //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
+        //message(QString("TEST_ME: %1").arg(inputMessage));
     }
 }
 

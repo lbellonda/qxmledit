@@ -154,7 +154,6 @@ void Regola::insertChildContainer(QTreeWidget *tree, Element *parentElement)
 
 void Regola::insertDisabledParent(QTreeWidget *tree, Element *element)
 {
-    Utils::TEST_ME("");
     if(NULL != element) {
         bool createNS = false;
         QString xsltNameSpacePrefix = namespacePrefixXslt();

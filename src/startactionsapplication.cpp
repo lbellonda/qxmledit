@@ -58,7 +58,6 @@ void QXmlEditApplication::startActionTriggersWelcomeDialog()
 
 void QXmlEditApplication::startActionLoadFile(const QString &fileName)
 {
-    Utils::TODO_THIS_RELEASE("fare con user guided se apro un file devo aprire il panel e non si apre");
     MainWindow *mainWindow = getOrCreateMainWindow();
     mainWindow->show();
     mainWindow->loadFile(fileName);
