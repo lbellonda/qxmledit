@@ -865,9 +865,31 @@ bool TestContainer::testEnable(const bool isInsert, const QString &fileStart, co
 #define ISP_NRIS_START "../test/data/container/dp_4_start.xml"
 #define ISP_NRIS_END "../test/data/container/dp_4_end.xml"
 
+#define PR_0_START "../test/data/container/pr_0_start.xml"
+#define PR_1_START "../test/data/container/pr_1_start.xml"
+#define PR_2_START "../test/data/container/pr_3_start.xml"
+
 bool TestContainer::testInsertDisablingParent()
 {
     _testName = "testInsertDisablingParent";
+
+    {
+        QList<int> selectPath;
+        selectPath << 0 << 1 ;
+        // none
+        if( !testUnusedPrefix("testUnusedPrefix0", PR_0_START, selectPath, "xsl") ) {
+            return false;
+        }
+        // exists
+        if( !testUnusedPrefix("testUnusedPrefix1", PR_1_START, selectPath, "xsl0") ) {
+            return false;
+        }
+        // exists, but other
+        if( !testUnusedPrefix("testUnusedPrefix2", PR_2_START, selectPath, "xsl2") ) {
+            return false;
+        }
+    }
+
     QList<int> selectPath;
     selectPath.clear();
     selectPath << 0 << 1 ;
@@ -985,6 +1007,32 @@ bool TestContainer::testGeneric2(const QString &testName, const QString &fileSta
     if(!checkRoot(regola)) {
         QString msg = errorString();
         return error( QString("checkroot 5 %1 %2").arg(msg).arg(msgFile));
+    }
+    return true;
+}
+
+bool TestContainer::testUnusedPrefix(const QString &testName, const QString &fileStart, QList<int> selectPath, const QString &expectedPrefix)
+{
+    _testName = testName ;
+    QString actionName = "testUnusedPrefix" ;
+    QString msgFile = QString(" file:'%1'").arg(fileStart);
+
+    App app;
+    if(!app.init()) {
+        return error(QString("init app %1").arg(msgFile));
+    }
+    if( !app.mainWindow()->loadFile(fileStart) ){
+        return error(QString("Unable to load file:%1").arg(fileStart));
+    }
+    Regola *regola = app.mainWindow()->getRegola();
+    Element *selectedElement = NULL ;
+    selectedElement = regola->findElementByArray(selectPath);
+    if( NULL == selectedElement ) {
+        return error(QString("Unable to find element for path:'%1' file:'%2'").arg(listIntToString(selectPath)).arg(fileStart));
+    }
+    const QString resultingPrefix = regola->unusedPrefixByElement(selectedElement);
+    if( resultingPrefix != expectedPrefix ) {
+        return error(QString("Expecting '%1', found:'%2'").arg(expectedPrefix).arg(resultingPrefix));
     }
     return true;
 }

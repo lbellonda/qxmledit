@@ -331,10 +331,9 @@ bool Regola::removeParentAction(Element *element, QTreeWidget *tree, int &insPos
 
 QString Regola::unusedPrefixByElement(Element *element)
 {
-    Utils::TEST_ME("");
     if(NULL != element) {
         PrefixInfo info;
-        element->collectPrefixes(info, element, true, false);
+        element->collectAllPrefixes(info, element, true, false);
         {
             const QString stdPrefix = "xsl";
             if(!info.allPrefixes.contains(stdPrefix)) {

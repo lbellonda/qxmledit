@@ -182,6 +182,54 @@ void Element::collectPrefixes(PrefixInfo & info, Element * selection, const bool
     }
 }
 
+void Element::collectAllPrefixes(PrefixInfo & info, Element * selection, const bool inSelection, const bool inBookmark)
+{
+    QSet<QString> prefixes;
+    QString name, prefix;
+    XmlUtils::decodeQualifiedName(tag(), prefix, name);
+    if(!prefix.isEmpty()) {
+        prefixes.insert(prefix);
+    }
+    foreach(Attribute * attr, getAttributesList()) {
+        XmlUtils::decodeQualifiedName(attr->name, prefix, name);
+        if(!prefix.isEmpty() && XmlUtils::isDataAttribute(attr->name)) {
+            prefixes.insert(prefix);
+        } else if(!prefix.isEmpty() && XmlUtils::isDeclaringNS(attr->name)) {
+            // handles xmlns:XXX
+            if(!name.isEmpty()) {
+                prefixes.insert(name);
+            }
+        }
+    }
+    bool thisBookmark = false ;
+    bool isSelection = this == selection;
+    if(NULL != parentRule) {
+        if(parentRule->isBookmarked(this)) {
+            thisBookmark = true;
+        }
+    }
+    foreach(const QString & prefix, prefixes.values()) {
+        info.allPrefixes.insert(prefix);
+        if(isSelection) {
+            info.selectionPrefixes.insert(prefix);
+        }
+        if(inSelection || isSelection) {
+            info.selectionPrefixesRecursive.insert(prefix);
+        }
+        if(thisBookmark) {
+            info.bookmarksPrefixesRecursive.insert(prefix);
+        }
+        if(inBookmark || thisBookmark) {
+            info.bookmarksPrefixesRecursive.insert(prefix);
+        }
+    }
+    foreach(Element * child, getChildItemsRef()) {
+        if(child->isElement()) {
+            child->collectAllPrefixes(info, selection, inSelection || isSelection, inBookmark || thisBookmark);
+        }
+    }
+}
+
 bool Regola::removePrefix(const QString &removedPrefix, QList<Element*> elements, TargetSelection::Type targetSelection,
                           const bool isAllPrefixes, ElementUndoObserver *observer)
 {
