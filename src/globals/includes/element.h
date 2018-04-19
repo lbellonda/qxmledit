@@ -673,6 +673,7 @@ public:
     bool setPrefix(const QString &newPrefix, TargetSelection::Type targetSelection, ElementUndoObserver *observer);
     void serializeAttributesToInfo(ElementUndoInfo &info);
     void collectPrefixes(PrefixInfo& info, Element * selection, const bool inSelection, const bool inBookmark);
+    void collectAllPrefixes(PrefixInfo& info, Element * selection, const bool inSelection, const bool inBookmark);
     void collectNamespaces(NamespacesInfo & info, NSContext *parentContext, Element * selection, const bool inSelection, const bool inBookmark);
     bool namespaceAvoidClash(NSContext *parentContext, const QString &prefixToAvoid, const QString &legalNS,
                              QHash<QString, QString> &prefixes, QSet<QString> &allPrefixes, ElementUndoObserver *observer);
