@@ -446,6 +446,7 @@ private:
     void autoTest();
 
     bool finishSetUpUi();
+    void updateUIFromPaintInfo();
     bool setupEncoding();
     bool buildPluginsMenu(const char *method, QMenu *parent);
 

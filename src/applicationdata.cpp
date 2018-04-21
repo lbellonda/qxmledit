@@ -37,6 +37,7 @@
 #include "modules/style/infoonkeyboardshortcutsdialog.h"
 #include "modules/help/shortcutsdialog.h"
 #include "modules/anonymize/anonimyzebatchdialog.h"
+#include "modules/style/choosestyledialog.h"
 #include "mainwindow.h"
 
 #define HELP_FILE       "QXmlEdit_manual.pdf"
@@ -578,7 +579,6 @@ void ApplicationData::showUserManual()
 
 void ApplicationData::showEditingShortcuts(QWidget *parent)
 {
-    Utils::TODO_THIS_RELEASE("test");
     InfoOnKeyboardShortcutsDialog infoDialog(parent);
     infoDialog.exec();
     if(infoDialog.isOpenShortcutDialog()) {
@@ -602,4 +602,38 @@ void ApplicationData::showUserTypePanel()
 void ApplicationData::emitOpenUserGuidedPanel()
 {
     emit openUserGuidedPanel();
+}
+
+void ApplicationData::chooseVisualDetail()
+{
+    ChooseStyleDialog dlg(NULL);
+    dlg.setModal(true);
+    dlg.setWindowModality(Qt::ApplicationModal);
+    if(dlg.exec() == QDialog::Accepted) {
+        DisplayStyleSetting *theStyle = dlg.selectedStyle();
+        if(NULL != theStyle) {
+            // save the selection to the configuration
+            PaintInfo paintInfo;
+            paintInfo.loadState();
+            theStyle->applyToPaintInfo(&paintInfo);
+            paintInfo.setChanged();
+            paintInfo.saveState();
+            // apply to all the editors
+            updateEditors();
+        }
+    }
+}
+
+void ApplicationData::setDefaultViewDetail()
+{
+    DisplayStyleSetting displaySettings;
+    displaySettings.makeCompact();
+    // save the selection to the configuration
+    PaintInfo paintInfo;
+    paintInfo.loadState();
+    displaySettings.applyToPaintInfo(&paintInfo);
+    paintInfo.setChanged();
+    paintInfo.saveState();
+    // apply to all the editors
+    updateEditors();
 }

@@ -36,7 +36,6 @@
 #include "modules/help/firstaccessdialog.h"
 #include "modules/help/guidedoperationsdialog.h"
 #include "modules/help/guidedvalidationdialog.h"
-#include "modules/style/choosestyledialog.h"
 #include "modules/uiutil/defaultuidelegate.h"
 
 const QString QXmlEditApplication::ServerName("__qxmledit__server__");
@@ -366,8 +365,6 @@ OperationResult *QXmlEditApplication::anonymizeBatch(const QString &newFileInput
 
 bool QXmlEditApplication::handleFirstAccess()
 {
-    Utils::TODO_THIS_RELEASE("spostata");
-    Utils::TEST_ME("");
     if(_appData->isUserFirstAccess()) {
         showUserTypePanel();
         _appData->fireUserFirstAccess();
@@ -382,37 +379,18 @@ bool QXmlEditApplication::handleFirstAccess()
 
 bool QXmlEditApplication::showUserTypePanel(const bool nextAccess)
 {
-    Utils::TEST_ME("");
     FirstAccessDialog firstAccessDialog(_appData);
     firstAccessDialog.exec();
-    Utils::TEST_ME("scelto l'utente, se promo acfesso gestis ce il dettaglio");
-    Utils::TEST_ME("ATTENZIONE: SERVE?");
     if(!nextAccess && _appData->isUserGuidedOperation()) {
-        setDefaultViewDetail();
+        _appData->setDefaultViewDetail();
         // remove any outstanding requests
         _appData->testAndMarkFirstAccessForViewPreferences();
     }
     return true ;
 }
 
-void QXmlEditApplication::setDefaultViewDetail()
-{
-    DisplayStyleSetting displaySettings;
-    displaySettings.makeCompact();
-    // save the selection to the configuration
-    PaintInfo paintInfo;
-    paintInfo.loadState();
-    displaySettings.applyToPaintInfo(&paintInfo);
-    paintInfo.setChanged();
-    paintInfo.saveState();
-    // apply to all the editors
-    _appData->updateEditors();
-}
-
 bool QXmlEditApplication::showGuidedOperationsPanel()
 {
-    Utils::TEST_ME("");
-    Utils::TODO_THIS_RELEASE("fare");
     if(NULL == _guidedOperationsDialog) {
         _guidedOperationsDialog = new GuidedOperationsDialog(this, _appData);
         connectToCommandsPanel(true, _guidedOperationsDialog);
@@ -467,31 +445,9 @@ void QXmlEditApplication::connectToCommandsPanel(const bool isConnect, GuidedOpe
 void QXmlEditApplication::setupFirstAccessForPreferences()
 {
     if(!_appData->testAndMarkFirstAccessForViewPreferences()) {
-        taskChooseDetail();
+        _appData->chooseVisualDetail();
     }
 }
-
-void QXmlEditApplication::taskChooseDetail()
-{
-    Utils::TODO_THIS_RELEASE("si aggiornano gli editor?");
-    ChooseStyleDialog dlg(_guidedOperationsDialog);
-    dlg.setModal(true);
-    dlg.setWindowModality(Qt::ApplicationModal);
-    if(dlg.exec() == QDialog::Accepted) {
-        DisplayStyleSetting *theStyle = dlg.selectedStyle();
-        if(NULL != theStyle) {
-            // save the selection to the configuration
-            PaintInfo paintInfo;
-            paintInfo.loadState();
-            theStyle->applyToPaintInfo(&paintInfo);
-            paintInfo.setChanged();
-            paintInfo.saveState();
-            // apply to all the editors
-            _appData->updateEditors();
-        }
-    }
-}
-
 MainWindow *QXmlEditApplication::getOrCreateMainWindow()
 {
     if(appData()->windows().isEmpty()) {
@@ -509,6 +465,9 @@ void QXmlEditApplication::onOpenUserGuidedPanel()
 void QXmlEditApplication::onOpenUserTypePanel(const bool nextAccess)
 {
     showUserTypePanel(nextAccess);
+    if(_appData->isUserGuidedOperation()) {
+        showGuidedOperationsPanel();
+    }
 }
 
 UIDelegate *QXmlEditApplication::uiDelegate()

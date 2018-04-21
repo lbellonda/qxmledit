@@ -166,6 +166,8 @@ public:
     void anonymizeFile(QWidget *window);
     void showUserTypePanel();
     void emitOpenUserGuidedPanel();
+    void chooseVisualDetail();
+    void setDefaultViewDetail();
 
     AttributeFilterManagement *attributeFilterManagement();
 private slots:

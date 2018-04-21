@@ -127,10 +127,10 @@ QString DefaultUIDelegate::getAppTitle()
     return APP_TITLE ;
 }
 
+// this method is not good and should be removed from interface in a future version refactoring it
 QString DefaultUIDelegate::editNodeElementAsXML(const bool /*isBase64Coded*/, Element * /*pElement*/, const QString & /*text*/, const bool /*isCData*/, bool &/*isCDataOut*/, bool & isOk)
 {
-    Utils::TODO_THIS_RELEASE("this method is not appropriate");
-    // fake method
+    // fake method, fail always
     isOk = false ;
     return "" ;
 }

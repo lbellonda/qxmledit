@@ -425,18 +425,8 @@ bool MainWindow::finishSetUpUi()
     ui.actionShowAttributesLength->setCheckable(true);
     ui.actionShowElementTextLength->setCheckable(true);
     ui.actionHideView->setCheckable(true);
-    PaintInfo *paintInfo = ui.editor->getPaintInfo();
-    ui.actionShowAttrLine->setChecked(paintInfo->oneAttrPerLine());
-    ui.actionShowElementTextLength->setChecked(paintInfo->showElementTextLength());
-    ui.actionShowChildIndex->setChecked(paintInfo->indexPerChild());
-    ui.actionCompactView->setChecked(paintInfo->compactView());
-    ui.actionShowAlwaysFullTextComments->setChecked(paintInfo->showFullComments());
-    ui.actionFixedSizeAttributes->setChecked(paintInfo->useFixedLengthFont());
-    ui.actionShowAttributesLength->setChecked(paintInfo->showAttributesLength());
-    ui.actionShowBase64->setChecked(paintInfo->showUnBase64());
-    ui.actionShowElementSize->setChecked(paintInfo->showElementSize());
-    ui.actionHideView->setChecked(paintInfo->hideView());
-    ui.actionShowAttributesSorted->setChecked(paintInfo->isSortAttributesAlpha());
+
+    updateUIFromPaintInfo();
 
     updateUndoState(false, false);
 
@@ -570,6 +560,22 @@ bool MainWindow::finishSetUpUi()
         getRegola()->emitIndentationChange();
     }
     return isOk;
+}
+
+void MainWindow::updateUIFromPaintInfo()
+{
+    PaintInfo *paintInfo = ui.editor->getPaintInfo();
+    ui.actionShowAttrLine->setChecked(paintInfo->oneAttrPerLine());
+    ui.actionShowElementTextLength->setChecked(paintInfo->showElementTextLength());
+    ui.actionShowChildIndex->setChecked(paintInfo->indexPerChild());
+    ui.actionCompactView->setChecked(paintInfo->compactView());
+    ui.actionShowAlwaysFullTextComments->setChecked(paintInfo->showFullComments());
+    ui.actionFixedSizeAttributes->setChecked(paintInfo->useFixedLengthFont());
+    ui.actionShowAttributesLength->setChecked(paintInfo->showAttributesLength());
+    ui.actionShowBase64->setChecked(paintInfo->showUnBase64());
+    ui.actionShowElementSize->setChecked(paintInfo->showElementSize());
+    ui.actionHideView->setChecked(paintInfo->hideView());
+    ui.actionShowAttributesSorted->setChecked(paintInfo->isSortAttributesAlpha());
 }
 
 bool MainWindow::setupEncoding()
@@ -1529,11 +1535,11 @@ void MainWindow::on_actionShowElementSize_triggered()
 
 void MainWindow::on_actionConfigure_triggered()
 {
-    Utils::TODO_THIS_RELEASE("test");
     if(data->preferences(this)) {
-        ui.editor->invalidatePaintData();
+        data->updateEditors(true);
+    } else {
+        data->updateEditors(false);
     }
-    data->updateEditors(false);
 }
 
 void MainWindow::updateAfterPreferences()
@@ -1551,6 +1557,8 @@ void MainWindow::updateAfterPreferences()
     }
     if(isChanged) {
         getEditor()->getPaintInfo()->loadState();
+        // update UI
+        updateUIFromPaintInfo();
         getEditor()->invalidatePaintData();
     }
 }
@@ -3454,41 +3462,12 @@ void MainWindow::on_actionRemoveAllSiblingsBefore_triggered()
 
 QString MainWindow::askFileNameToOpen(const QString &startFolder)
 {
-    Utils::TODO_THIS_RELEASE("test me");
     return Utils::askFileNameToOpen(this, startFolder);
-}
-
-void MainWindow::setupFirstAccessForPreferences()
-{
-    Utils::TODO_THIS_RELEASE("spostare in application");
-    if(!data->testAndMarkFirstAccessForViewPreferences()) {
-        taskChooseDetail();
-    }
 }
 
 void MainWindow::taskChooseDetail()
 {
-    Utils::TODO_THIS_RELEASE("controlla equivalenza");
-    Utils::TODO_THIS_RELEASE("spostare in application");
-    Utils::TODO_THIS_RELEASE("fare il routing dei comandi");
-    Utils::TODO_THIS_RELEASE("pensare se lasciare qui");
-    //QXmlEditApplication::taskChooseDetail();
-    ChooseStyleDialog dlg(this);
-    dlg.setModal(true);
-    dlg.setWindowModality(Qt::ApplicationModal);
-    if(dlg.exec() == QDialog::Accepted) {
-        DisplayStyleSetting *theStyle = dlg.selectedStyle();
-        if(NULL != theStyle) {
-            // save the selection to the configuration
-            PaintInfo *mainPaintInfo = getEditor()->getPaintInfo() ;
-            theStyle->applyToPaintInfo(mainPaintInfo);
-            mainPaintInfo->setChanged();
-            mainPaintInfo->saveState();
-            // apply to all the editors
-            getEditor()->invalidatePaintData();
-            data->updateEditors();
-        }
-    }
+    data->chooseVisualDetail();
 }
 
 void MainWindow::on_actionTaskDisplayDetail_triggered()
@@ -3692,7 +3671,7 @@ void MainWindow::on_actionPresetIndentOneAttributePerLine_triggered()
 
 void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 {
-    Utils::TEST_ME("");
+    Utils::TEST_ME("1");
     const bool isAlreadyOpen = areInfoPanelsVisible();
     if(QXMLEditEnableTips && !isAlreadyOpen && data->evaluateConditionForShowShortcuts()) {
         if(NULL == _infoOnKeyboardShortcuts) {
@@ -3708,20 +3687,19 @@ void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 
 void MainWindow::onInfoKeyboardDismiss()
 {
-    Utils::TEST_ME("");
+    Utils::TEST_ME("2");
     dismissInfoOnKeyboard();
 }
 
 void MainWindow::onInfoKeyboardRequestOpenShortcutsPanel()
 {
-    Utils::TEST_ME("");
+    Utils::TEST_ME("3");
     data->showEditingShortcuts(this);
     dismissInfoOnKeyboard();
 }
 
 void MainWindow::dismissInfoOnKeyboard()
 {
-    Utils::TEST_ME("");
     if(NULL != _infoOnKeyboardShortcuts) {
         disconnect(_infoOnKeyboardShortcuts, SIGNAL(requestDismiss()), this, SLOT(onInfoKeyboardDismiss()));
         disconnect(_infoOnKeyboardShortcuts, SIGNAL(requestOpenShortcutsPanel()), this, SLOT(onInfoKeyboardRequestOpenShortcutsPanel()));
@@ -3742,7 +3720,7 @@ void MainWindow::dismissInfoOnKeyboard()
  */
 bool MainWindow::baseEvaluateIfShowEditingTypeDialog(const bool configurationModified, const bool configurationDialogShown, const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
 {
-    Utils::TEST_ME("");
+    Utils::TEST_ME("5");
     const bool accessValues = (editElementAsFormUsageCount >= MaxTimesElementEditedWithoutText) && (0 == editElementAsTextUsageCount);
     const bool result = !configurationModified && !configurationDialogShown && accessValues;
     return result;
@@ -3750,7 +3728,7 @@ bool MainWindow::baseEvaluateIfShowEditingTypeDialog(const bool configurationMod
 
 bool MainWindow::evaluateIfShowEditingTypeDialog(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
 {
-    Utils::TEST_ME("");
+    Utils::TEST_ME("6");
     const bool configurationModified = data->isBaseEditModeFormModified();
     const bool configurationDialogShown = data->isEditTypeDialogShown();
     const bool result = baseEvaluateIfShowEditingTypeDialog(configurationModified, configurationDialogShown, editElementAsFormUsageCount, editElementAsTextUsageCount);
@@ -3759,10 +3737,10 @@ bool MainWindow::evaluateIfShowEditingTypeDialog(const uint editElementAsFormUsa
 
 void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
 {
-    Utils::TEST_ME("");
+    Utils::TEST_ME("7");
     const bool isAlreadyOpen = areInfoPanelsVisible();
     if(QXMLEditEnableTips && !isAlreadyOpen && evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
-        Utils::TODO_THIS_RELEASE("test");
+        Utils::TODO_THIS_RELEASE("test ecco");
         if(NULL == _infoOnEditMode) {
             _infoOnEditMode = new InfoOnEditMode(this);
             ui.verticalLayoutCentralWidget->insertWidget(0, _infoOnEditMode);
@@ -3776,20 +3754,19 @@ void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount
 
 void MainWindow::onInfoEditTypesDismiss()
 {
-    Utils::TEST_ME("");
+    Utils::TEST_ME("8");
     dismissInfoEditTypes();
 }
 
 void MainWindow::onInfoEditTypesOpenShortcutsPanel()
 {
-    Utils::TEST_ME("");
+    Utils::TEST_ME("9");
     showEditingTypeDialog();
     dismissInfoEditTypes();
 }
 
 void MainWindow::dismissInfoEditTypes()
 {
-    Utils::TEST_ME("");
     if(NULL != _infoOnEditMode) {
         disconnect(_infoOnEditMode, SIGNAL(requestDismiss()), this, SLOT(onInfoEditTypeDismiss()));
         disconnect(_infoOnEditMode, SIGNAL(requestOpenPanel()), this, SLOT(onInfoEditTypesOpenShortcutsPanel()));
@@ -3835,12 +3812,10 @@ void MainWindow::on_actionOpenGuidedOperationPanel_triggered()
 void MainWindow::on_actionChooseUserProfile_triggered()
 {
     data->showUserTypePanel();
-    Utils::TODO_THIS_RELEASE("fare");
 }
 
 void MainWindow::on_actionInsertDisablingParent_triggered()
 {
-    Utils::TEST_ME("");
     ui.editor->onInsertDisabledParent();
 }
 
