@@ -22,7 +22,7 @@
 
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
 
-include("../cconfig.pri")
+include("cconfig.pri")
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
