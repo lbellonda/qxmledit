@@ -167,7 +167,7 @@ void ApplicationData::updateEditors(const bool invalidateAll)
 {
     foreach(MainWindow * window, windows()) {
         if(invalidateAll) {
-            window->getEditor()->invalidatePaintData();
+            window->updateFullAfterPreferences();
         } else {
             window->updateAfterPreferences();
         }
@@ -618,7 +618,7 @@ void ApplicationData::chooseVisualDetail()
             paintInfo.setChanged();
             paintInfo.saveState();
             // apply to all the editors
-            updateEditors();
+            updateEditors(true);
         }
     }
 }

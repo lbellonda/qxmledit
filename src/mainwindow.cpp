@@ -1542,6 +1542,14 @@ void MainWindow::on_actionConfigure_triggered()
     }
 }
 
+void MainWindow::updateFullAfterPreferences()
+{
+    getEditor()->getPaintInfo()->loadState();
+    // update UI
+    updateUIFromPaintInfo();
+    getEditor()->invalidatePaintData(true);
+}
+
 void MainWindow::updateAfterPreferences()
 {
     getEditor()->updateAttributeIndentationSettings();
