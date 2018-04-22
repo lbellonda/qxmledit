@@ -846,7 +846,6 @@ bool QXmlEditData::isBaseEditModeForm()
 
 bool QXmlEditData::isBaseEditModeFormModified()
 {
-    Utils::TEST_ME("");
     return Config::getBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, false);
 }
 
@@ -860,14 +859,12 @@ void QXmlEditData::setBaseEditModeFormModified(const bool value)
 
 void QXmlEditData::setBaseEditModeForm(const bool value)
 {
-    Utils::TEST_ME("");
     Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM, value);
     Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, true);
 }
 
 uint QXmlEditData::incrementElementDoubleClickedCount()
 {
-    Utils::TEST_ME("");
     incrementAndClipCounter(_elementDoubleClickedInSessionCount);
     return _elementDoubleClickedInSessionCount;
 }
@@ -889,7 +886,6 @@ void QXmlEditData::incrementElementAltDoubleClickedCount()
 
 void QXmlEditData::setEditShortcutsUsed()
 {
-    Utils::TEST_ME("");
     const QString &key = Config::KEY_ELEMENT_EDIT_SHORTCUT_USED;
     if(!Config::getBool(key, false)) {
         Config::saveBool(key, true);
@@ -939,7 +935,6 @@ void QXmlEditData::resetEditTypeDialogShown()
 
 void QXmlEditData::setEditTypeDialogShown()
 {
-    Utils::TEST_ME("");
     const QString &key = Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN;
     if(!Config::getBool(key, false)) {
         Config::saveBool(key, true);
@@ -948,7 +943,6 @@ void QXmlEditData::setEditTypeDialogShown()
 
 bool QXmlEditData::isEditTypeDialogShown()
 {
-    Utils::TEST_ME("");
     return Config::getBool(Config::KEY_ELEMENT_EDIT_TYPE_DIALOG_SHOWN, false);
 }
 

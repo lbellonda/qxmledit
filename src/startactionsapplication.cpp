@@ -35,7 +35,6 @@
 
 void QXmlEditApplication::startActionShowUserTypePanel()
 {
-    Utils::TEST_ME("");
     showUserTypePanel() ;
 }
 

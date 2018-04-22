@@ -149,8 +149,6 @@ void QXmlEditApplication::onCommandBase64()
 
 void QXmlEditApplication::onCommandViewXMLMap()
 {
-    Utils::TODO_THIS_RELEASE("controlla codice");
-    Utils::TODO_THIS_RELEASE("raggruppare il load dei file");
     QString fileName = Utils::askFileNameToOpen(_guidedOperationsDialog, QXmlEditData::sysFilePathForOperation(""));
     DataVisualization::viewData(_appData, _guidedOperationsDialog, _guidedOperationsDialog, fileName);
 }

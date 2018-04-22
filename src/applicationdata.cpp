@@ -473,7 +473,6 @@ void ApplicationData::setSaxonXSLPath(const QString &newValue)
 //--- region(baseEditMode)
 bool ApplicationData::evaluateConditionForShowShortcuts()
 {
-    Utils::TEST_ME("test me");
     if(areEditShortcutsUsed() || isShortcutUsedDialogShown()) {
         return false;
     }

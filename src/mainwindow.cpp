@@ -3671,7 +3671,6 @@ void MainWindow::on_actionPresetIndentOneAttributePerLine_triggered()
 
 void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 {
-    Utils::TEST_ME("1");
     const bool isAlreadyOpen = areInfoPanelsVisible();
     if(QXMLEditEnableTips && !isAlreadyOpen && data->evaluateConditionForShowShortcuts()) {
         if(NULL == _infoOnKeyboardShortcuts) {
@@ -3687,13 +3686,11 @@ void MainWindow::onEditorElementDoubleClicked(const uint /*times*/)
 
 void MainWindow::onInfoKeyboardDismiss()
 {
-    Utils::TEST_ME("2");
     dismissInfoOnKeyboard();
 }
 
 void MainWindow::onInfoKeyboardRequestOpenShortcutsPanel()
 {
-    Utils::TEST_ME("3");
     data->showEditingShortcuts(this);
     dismissInfoOnKeyboard();
 }
@@ -3720,7 +3717,6 @@ void MainWindow::dismissInfoOnKeyboard()
  */
 bool MainWindow::baseEvaluateIfShowEditingTypeDialog(const bool configurationModified, const bool configurationDialogShown, const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
 {
-    Utils::TEST_ME("5");
     const bool accessValues = (editElementAsFormUsageCount >= MaxTimesElementEditedWithoutText) && (0 == editElementAsTextUsageCount);
     const bool result = !configurationModified && !configurationDialogShown && accessValues;
     return result;
@@ -3728,7 +3724,6 @@ bool MainWindow::baseEvaluateIfShowEditingTypeDialog(const bool configurationMod
 
 bool MainWindow::evaluateIfShowEditingTypeDialog(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
 {
-    Utils::TEST_ME("6");
     const bool configurationModified = data->isBaseEditModeFormModified();
     const bool configurationDialogShown = data->isEditTypeDialogShown();
     const bool result = baseEvaluateIfShowEditingTypeDialog(configurationModified, configurationDialogShown, editElementAsFormUsageCount, editElementAsTextUsageCount);
@@ -3737,10 +3732,8 @@ bool MainWindow::evaluateIfShowEditingTypeDialog(const uint editElementAsFormUsa
 
 void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount)
 {
-    Utils::TEST_ME("7");
     const bool isAlreadyOpen = areInfoPanelsVisible();
     if(QXMLEditEnableTips && !isAlreadyOpen && evaluateIfShowEditingTypeDialog(editElementAsFormUsageCount, editElementAsTextUsageCount)) {
-        Utils::TODO_THIS_RELEASE("test ecco");
         if(NULL == _infoOnEditMode) {
             _infoOnEditMode = new InfoOnEditMode(this);
             ui.verticalLayoutCentralWidget->insertWidget(0, _infoOnEditMode);
@@ -3754,13 +3747,11 @@ void MainWindow::onEditorEditElementEvent(const uint editElementAsFormUsageCount
 
 void MainWindow::onInfoEditTypesDismiss()
 {
-    Utils::TEST_ME("8");
     dismissInfoEditTypes();
 }
 
 void MainWindow::onInfoEditTypesOpenShortcutsPanel()
 {
-    Utils::TEST_ME("9");
     showEditingTypeDialog();
     dismissInfoEditTypes();
 }
