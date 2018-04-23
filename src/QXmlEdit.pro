@@ -500,14 +500,14 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../build/lib/debug/
 else:symbian: LIBS += -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 else:macx: LIBS += -L$(DESTDIR) -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
-else:os2: LIBS += -L..\build -lQXmlEdtW
+else:os2: LIBS += -L../build -lQXmlEdtW
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../build/lib/release/ -L$$OUT_PWD/../build -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../build/lib/debug/ -L$$OUT_PWD/../build -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
 else:symbian: LIBS += -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
 else:macx: LIBS += -L$(DESTDIR) -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
 else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFIX}
-else:os2: LIBS += -L..\build -lQXEdtSes
+else:os2: LIBS += -L../build -lQXEdtSes
 
 equals(USE_QWTPLOT, "Y") {
 

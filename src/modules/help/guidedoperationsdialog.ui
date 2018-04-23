@@ -804,10 +804,6 @@
        <property name="text">
         <string>QUIT</string>
        </property>
-       <property name="icon">
-        <iconset theme="application-exit">
-         <normaloff>.</normaloff>.</iconset>
-       </property>
       </widget>
      </item>
     </layout>
@@ -815,6 +811,7 @@
   </layout>
  </widget>
  <resources>
+  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>
