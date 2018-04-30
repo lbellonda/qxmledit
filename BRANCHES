@@ -5,10 +5,9 @@ devel
 Branches:
 ---------
 
-169-UI-improvements - increasing user-friendliness
-
 Merged branches:
 -------------
+169-UI-improvements - increasing user-friendliness
 issue-48 improve xsd display performance
 170 - update year on all headers
 issue-46 - issue #46, source compatibility with Qt5.10

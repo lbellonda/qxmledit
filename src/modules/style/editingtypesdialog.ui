@@ -68,8 +68,8 @@
          </property>
          <property name="text">
           <string>
-You can always use one ot the other method by using menu or keyboard shortucts.
-You can change your choice at any time opening preferences panel.</string>
+You can always use one or the other method by using menu or keyboard shortucts.
+You can change your choice at any time opening the preferences panel.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -281,6 +281,7 @@ Keyboard shortcut: 'e' (for edit) .</string>
   </layout>
  </widget>
  <resources>
+  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

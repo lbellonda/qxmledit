@@ -586,7 +586,7 @@
           <string>View XML document statistics and elements distribution.</string>
          </property>
          <property name="text">
-          <string>View Data Map</string>
+          <string>Data Map</string>
          </property>
          <property name="icon">
           <iconset resource="../../risorse.qrc">
