@@ -36,7 +36,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Guided or expert?</string>
+        <string>Guided or Expert?</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -88,7 +88,7 @@
          </property>
          <property name="text">
           <string>You will be guided through the main features until you familiarize with QXMLEdit.
-The most important actions will be reached in no time.
+The most important operations will be reached in no time.
 </string>
          </property>
          <property name="alignment">
@@ -138,7 +138,7 @@ Expert User</string>
         <widget class="QLabel" name="label_4">
          <property name="text">
           <string>Browse through all the commands.
-After some usage you will prefer it. This is the fastest mode to use the program, but requires some experience given the number of options.
+After some time you will prefer it. This is the fastest mode to use the program, but requires some experience given the number of options.
 </string>
          </property>
          <property name="wordWrap">
@@ -248,6 +248,7 @@ If unsure, close this panel or press escape. You can always change your choice l
   </layout>
  </widget>
  <resources>
+  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

@@ -69,7 +69,7 @@
          <property name="text">
           <string>
 You can always use one or the other method by using menu or keyboard shortucts.
-You can change your choice at any time opening the preferences panel.</string>
+You can change your choice at any time using the preferences panel.</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -131,7 +131,7 @@ You can change your choice at any time opening the preferences panel.</string>
          <property name="text">
           <string>More control on the input, more specialized features.
 
-Keyboard shortcut: Use Alt or Control with Return key to edit using assisted mode (form).</string>
+Keyboard shortcut: Use Alt or Control with Return key to edit using assisted mode.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -177,7 +177,7 @@ Keyboard shortcut: Use Alt or Control with Return key to edit using assisted mod
        <item row="3" column="3">
         <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>Faster for copying/pasting items, but no specific control or help.
+          <string>Faster for copying/pasting items, but no specific checks.
 
 Keyboard shortcut: 'e' (for edit) .</string>
          </property>

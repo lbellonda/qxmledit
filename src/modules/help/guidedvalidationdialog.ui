@@ -36,7 +36,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Validate a XML file with a XSD schema</string>
+        <string>Validate an XML file with an XSD schema</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -349,6 +349,7 @@ color: rgb(255, 255, 255);</string>
   </layout>
  </widget>
  <resources>
+  <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>
  </resources>
  <connections>

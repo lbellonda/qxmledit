@@ -852,7 +852,6 @@ bool QXmlEditData::isBaseEditModeFormModified()
 #ifdef  QXMLEDIT_TEST
 void QXmlEditData::setBaseEditModeFormModified(const bool value)
 {
-    Utils::TEST_ME("");
     Config::saveBool(Config::KEY_ELEMENT_EDIT_MODEFORM_MODIFIED, value);
 }
 #endif
