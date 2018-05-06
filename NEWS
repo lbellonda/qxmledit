@@ -2,7 +2,7 @@
     New tool button to configure view settings in the editor.
     New menu item to disable a branch using XSL syntax.
     New options for simple access.
-    Issue #48 improved xsd diagram display performance.
+    Issue #47 improved xsd diagram display performance.
     Changed the year to 2018 on headers.
     New specialized XML Schema (XSD) validation dialog.
 

@@ -35,7 +35,7 @@
 // 0: snapshot
 // 1: rc
 // 2: release
-#define QXMLEDIT_RELEASE_VERSION    2
+#define QXMLEDIT_RELEASE_VERSION    0
 
 #if QXMLEDIT_RELEASE_VERSION  ==  0
 #define QXMLEDIT_VERSION_IS_SNAPSHOT 1
@@ -57,8 +57,8 @@
 #endif
 
 //--------------------------------------------------------------------------------
-#define VERSION_BASE "0.9.10"
-#define VERSION_NUMBER 0x00090A00
+#define VERSION_BASE "0.9.11"
+#define VERSION_NUMBER 0x00090B00
 //--------------------------------------------------------------------------------
 
 // this is the version number of the welcome dialog
