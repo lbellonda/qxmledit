@@ -71,6 +71,7 @@ extern const char *APP_TITLE ;
 #include "widgets/infoonkeyboardshoertcuts.h"
 #include "widgets/infooneditmode.h"
 #include "modules/help/tips.h"
+#include "modules/help/searchcommanddialog.h"
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -88,6 +89,8 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 
 #define MAX_LAST_FILES  (20)
 
+const QString MainWindow::ActionTagLastFiles("LastFiles");
+const QString MainWindow::ActionTagLastFolders("LastFolders");
 
 MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWindow *parent)
     : QMainWindow(parent),
@@ -495,7 +498,7 @@ bool MainWindow::finishSetUpUi()
         recentFiles->setTitle(tr("Recent Files"));
         ui.menuFile->insertMenu(ui.actionLastFiles, recentFiles);
 
-        if(!buildLastObjects(maxLastFiles, lastFiles, SLOT(onRecentFile()), recentFiles)) {
+        if(!buildLastObjects(maxLastFiles, lastFiles, SLOT(onRecentFile()), recentFiles, ActionTagLastFiles)) {
             isOk = false ;
         }
     }
@@ -510,7 +513,7 @@ bool MainWindow::finishSetUpUi()
         preferredDirsMenu->addAction(ui.actionAddCurrentDirectory);
         preferredDirsMenu->addSeparator();
 
-        if(!buildLastObjects(maxPrefDirs, preferredDirs, SLOT(onPreferredDir()), preferredDirsMenu)) {
+        if(!buildLastObjects(maxPrefDirs, preferredDirs, SLOT(onPreferredDir()), preferredDirsMenu, ActionTagLastFolders)) {
             isOk = false ;
         }
     }
@@ -635,7 +638,7 @@ void MainWindow::onHandleSessionState()
     ui.actionSessionDetails->setEnabled(isSessionEnabled && (sessionState != Session::NoSession));
 }
 
-bool MainWindow::buildLastObjects(const int maxObjects, QList<QAction*> &cmdList, const char *method, QMenu *parent)
+bool MainWindow::buildLastObjects(const int maxObjects, QList<QAction*> &cmdList, const char *method, QMenu *parent, const QString &tag)
 {
     bool isOk = true ;
     //--- last files and dirs
@@ -644,6 +647,7 @@ bool MainWindow::buildLastObjects(const int maxObjects, QList<QAction*> &cmdList
         if(NULL != action) {
             cmdList.append(action);
             action->setVisible(false);
+            action->setData(tag);
             connect(action, SIGNAL(triggered()), this, method);
             parent->addAction(action);
         } else {
@@ -3825,3 +3829,17 @@ void MainWindow::onEditorConfigure(const QPoint& position)
     contextMenu.addAction(ui.actionChooseEditType);
     contextMenu.exec(ui.editor->getMainTreeWidget()->mapToGlobal(position));
 }
+
+void MainWindow::on_actionSearchCommand_triggered()
+{
+    QList<QAction*> actions = findChildren<QAction*>();
+    SearchCommandDialog searchCommandDialog(actions, this);
+    if(searchCommandDialog.exec() == QDialog::Accepted) {
+        QAction *action = searchCommandDialog.selectedAction();
+        if(NULL != action) {
+            action->trigger();
+        }
+    }
+}
+
+

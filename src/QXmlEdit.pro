@@ -250,7 +250,8 @@ HEADERS = precompiled_app.h \
     widgets/infoonkeyboardshoertcuts.h \
     modules/utils/animationutility.h \
     widgets/infooneditmode.h \
-    modules/help/tips.h
+    modules/help/tips.h \
+    modules/help/searchcommanddialog.h
 
 SOURCES = \
     main.cpp \
@@ -354,7 +355,8 @@ SOURCES = \
     modules/uiutil/defaultuidelegate.cpp \
     widgets/infoonkeyboardshoertcuts.cpp \
     modules/utils/animationutility.cpp \
-    widgets/infooneditmode.cpp
+    widgets/infooneditmode.cpp \
+    modules/help/searchcommanddialog.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \
@@ -418,7 +420,8 @@ FORMS = MainWindow.ui \
     modules/help/guidedvalidationdialog.ui \
     modules/xml/configuregeneralindentation.ui \
     widgets/infoonkeyboardshoertcuts.ui \
-    widgets/infooneditmode.ui
+    widgets/infooneditmode.ui \
+    modules/help/searchcommanddialog.ui
 
 INCLUDEPATH += .
 INCLUDEPATH += sessions/include

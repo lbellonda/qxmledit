@@ -131,6 +131,7 @@
     <addaction name="actionExecuteAutoTest"/>
     <addaction name="actionHelpOnQXmlEdit"/>
     <addaction name="menuHow_Do_I"/>
+    <addaction name="actionSearchCommand"/>
     <addaction name="actionShowPrincipalShortcuts"/>
     <addaction name="actionTipsOnVisualAppearance"/>
     <addaction name="actionAbout"/>
@@ -2550,6 +2551,14 @@
     </font>
    </property>
   </action>
+  <action name="actionSearchCommand">
+   <property name="text">
+    <string>Search Command</string>
+   </property>
+   <property name="toolTip">
+    <string>Search a command by name</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -2572,6 +2581,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

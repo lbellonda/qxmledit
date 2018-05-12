@@ -93,6 +93,12 @@ class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
     InfoOnKeyboardShortcuts * _infoOnKeyboardShortcuts;
     InfoOnEditMode *_infoOnEditMode;
 public:
+
+    //---------- actions -------------------
+    static const QString ActionTagLastFiles;
+    static const QString ActionTagLastFolders;
+    //--------------------------------------
+
     enum EWindowOpen {
         OpenUsingDefaultSettings,
         OpenUsingSameWindow,
@@ -399,6 +405,7 @@ private slots:
     void on_actionOpenGuidedOperationPanel_triggered();
     void on_actionChooseUserProfile_triggered();
     void on_actionInsertDisablingParent_triggered();
+    void on_actionSearchCommand_triggered();
 
     //----- other slots ------------------
 
@@ -488,7 +495,7 @@ private:
     void display();
 
     void wheelEvent(QWheelEvent *event);
-    bool buildLastObjects(const int maxObjects, QList<QAction*> &cmdList, const char *method, QMenu *parent);
+    bool buildLastObjects(const int maxObjects, QList<QAction*> &cmdList, const char *method, QMenu *parent, const QString &tag);
     void updateRecentFilesMenu(const QString &filePath);
     void updatePreferredDirs(QStringList &entries, QList<QAction*>actions);
     void updateMRU(const QString &entry, QList<QAction*>actions);
