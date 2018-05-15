@@ -297,14 +297,14 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
                                 attrTextLen = 0 ;
                                 attrIndex = 1 ;
                             } else {
-                                attrList.append(", ");
+                                attrList.append(" ");
                             }
                         } else { // compactView
                             attrList.append("<br/>\n");
                         }
                     } else { //OneAttribute
                         if(isCompactView) {
-                            attrList.append(", ");
+                            attrList.append(" ");
                         } else {
                             bool condOne = (attributesColumnLimit > 0) && (attrTextLen > attributesColumnLimit);
                             bool condTwo = (attributesColumnLimit <= 0) && (attrIndex > ATTR_PER_COLUMN);
@@ -313,7 +313,7 @@ void Element::getVisInfo(PaintInfo *paintInfo, ElementViewInfo *dataInfo,
                                 attrTextLen = 0;
                                 attrIndex = 1 ;
                             } else {
-                                attrList.append(", ");
+                                attrList.append(" ");
                             }
                         }
                     }
