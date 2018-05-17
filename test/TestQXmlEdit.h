@@ -103,6 +103,7 @@
 #include "testspecialview.h"
 #include "testformattinginfo.h"
 #include "teststartupandbehavior.h"
+#include "testhelp.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -205,6 +206,7 @@ private Q_SLOTS:
     void testSpecialView();
     void testFormattingInfo();
     void testStartupAndBehavior();
+    void testHelp();
 };
 
 

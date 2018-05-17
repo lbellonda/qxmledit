@@ -132,8 +132,6 @@ void SearchCommandDialog::enableOK()
 
 bool SearchCommandDialog::filterAction(QAction *action)
 {
-    Utils::TODO_THIS_RELEASE(QString("fare").arg(action->text()));
-    Utils::TEST_ME("aa");
     if(action->data().toString() == MainWindow::ActionTagLastFiles) {
         return false;
     }

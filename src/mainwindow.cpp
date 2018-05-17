@@ -276,12 +276,31 @@ void MainWindow::startUIState()
     ui.actionPasteAsSibling->setEnabled(false);
 }
 
+
+bool MainWindow::completeToolBar()
+{
+    bool result = false ;
+    QWidget* spacerWidget = new QWidget();
+    if(NULL != spacerWidget) {
+        spacerWidget->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        spacerWidget->setEnabled(false);
+        ui.toolBar->addWidget(spacerWidget);
+        result = true ;
+    }
+    ui.toolBar->addAction(ui.actionSearchCommand);
+    return result ;
+}
+
+
 bool MainWindow::finishSetUpUi()
 {
     if(ui.editor->versionNumber() != VERSION_NUMBER) {
         Utils::error(this, tr("The XML Editor component is not correct (%1)").arg(ui.editor->versionNumber()));
         return false;
     }
+
+    completeToolBar();
+
     ui.messagePanel->setVisible(false);
     _scxmlValidationErrors = new SourceRelatedMessages(NULL);
     ui.messagePanel->widget(0)->layout()->addWidget(_scxmlValidationErrors);

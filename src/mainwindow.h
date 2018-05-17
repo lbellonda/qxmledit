@@ -465,6 +465,7 @@ private:
 
     void closeEvent(QCloseEvent * event);
     void startUIState();
+    bool completeToolBar();
     void resetTree();
     void calcColumnState();
 

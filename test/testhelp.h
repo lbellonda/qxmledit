@@ -20,48 +20,21 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef SEARCHCOMMANDDIALOG_H
-#define SEARCHCOMMANDDIALOG_H
+#ifndef TESTHELP_H
+#define TESTHELP_H
 
-#include "xmlEdit.h"
+#include "testbase.h"
 
-namespace Ui
+class TestHelp : public TestBase
 {
-class SearchCommandDialog;
-}
-
-class MenuSearchData;
-
-class SearchCommandDialog : public QDialog
-{
-    Q_OBJECT
-    QList<QAction*> _actionList;
-    QAction *_selectedAction;
-    QList<MenuSearchData*> _actions;
-
+    bool testSearchCommands();
+    bool errorSelAction(const QString &type);
 public:
-    explicit SearchCommandDialog(QList<QAction*> theActions, QWidget *parent = 0);
-    ~SearchCommandDialog();
+    TestHelp();
+    ~TestHelp();
 
-    QAction *selectedAction();
-    virtual void accept();
-private:
-    Ui::SearchCommandDialog *ui;
-
-    void updateList(const QString &text);
-    QString normalizeText(const QString &text);
-    QString normalizeTextForSearch(const QString &text);
-    void buildActions();
-    QAction *evalSelection();
-    void enableOK();
-    bool filterAction(QAction *action);
-private slots:
-    void on_search_textChanged(const QString &text);
-    void on_commands_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
-    void on_commands_itemDoubleClicked(QTreeWidgetItem *, int);
-#ifdef QXMLEDIT_TEST
-    friend class TestHelp ;
-#endif
+    bool testFast();
+    bool testUnit();
 };
 
-#endif // SEARCHCOMMANDDIALOG_H
+#endif // TESTHELP_H

@@ -196,7 +196,8 @@ SOURCES += \
     testspecialview.cpp \
     testformattinginfo.cpp \
     testhelpers/xsd/testxsdprintinfo.cpp \
-    teststartupandbehavior.cpp
+    teststartupandbehavior.cpp \
+    testhelp.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -312,7 +313,8 @@ HEADERS += \
     testspecialview.h \
     testformattinginfo.h \
     testhelpers/xsd/testxsdprintinfo.h \
-    teststartupandbehavior.h
+    teststartupandbehavior.h \
+    testhelp.h
 
 #OTHER_FILES += \
 

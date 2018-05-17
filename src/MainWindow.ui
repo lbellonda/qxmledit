@@ -2552,11 +2552,23 @@
    </property>
   </action>
   <action name="actionSearchCommand">
+   <property name="icon">
+    <iconset resource="risorse.qrc">
+     <normaloff>:/actions/info</normaloff>:/actions/info</iconset>
+   </property>
    <property name="text">
     <string>Search Command</string>
    </property>
    <property name="toolTip">
     <string>Search a command by name</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+-</string>
+   </property>
+  </action>
+  <action name="actiondontuse">
+   <property name="text">
+    <string>dontuse</string>
    </property>
   </action>
  </widget>
