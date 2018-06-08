@@ -4,6 +4,7 @@ devel
 
 Branches:
 ---------
+172 - Allow configuration to qmake via command line
 171 - Function key help.
 170 - Search a command by name.
 
