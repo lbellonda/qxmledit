@@ -45,6 +45,7 @@ class SnippetManager;
 class SourceRelatedMessages;
 class InfoOnKeyboardShortcuts ;
 class InfoOnEditMode;
+class Action;
 
 class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 {
@@ -166,8 +167,11 @@ public:
     bool openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow = OpenUsingDefaultSettings);
     bool isValidXsd();
     void viewAsXSD();
+    void fireActionByName(const QString &name);
 
 protected:
+    virtual void changeEvent(QEvent *event);
+    virtual bool event(QEvent *e);
     void dismissInfoOnKeyboard();
     void dismissInfoEditTypes();
     bool areInfoPanelsVisible();
@@ -189,6 +193,7 @@ protected:
     void checkForSaveEncoding();
     void beforeLoadingNewData();
     void requestOpenGuidedPanel();
+    void fireAction(QAction *action);
 
 private slots:
     void onRaiseWindow();
@@ -406,7 +411,7 @@ private slots:
     void on_actionChooseUserProfile_triggered();
     void on_actionInsertDisablingParent_triggered();
     void on_actionSearchCommand_triggered();
-
+    void on_actionShowKeyboardShortcuts_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);
@@ -446,6 +451,7 @@ private slots:
     void onInfoEditTypesDismiss();
     void onInfoKeyboardRequestOpenShortcutsPanel();
     void onInfoEditTypesOpenShortcutsPanel();
+    void onStateKeyboardShortcutChanged(bool newState);
     //------------------- slots
 
 private:
@@ -553,7 +559,6 @@ private:
     bool baseEvaluateIfShowEditingTypeDialog(const bool configurationModified, const bool configurationDialogShown, const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
 
 protected:
-    virtual void changeEvent(QEvent *e);
     bool openDroppedFile(const QString &filePath);
     bool recentFile(const QString &filePath);
     bool preferredDir(const QString &filePath);

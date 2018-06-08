@@ -103,6 +103,7 @@ const QString Config::KEY_SEARCH_WRAPAROUND("search/wrapAround");
 const QString Config::KEY_STYLE_DATADIR("styles/dataDir");
 const QString Config::KEY_STYLE_DIRLOCATION("styles/choicer");
 const QString Config::KEY_VIEW_STYLE_DEFAULT_BOLD("styles/defaultBold");
+const QString Config::KEY_INFO_SHORTCUT_LIGHT_THEME("styles/infoShortcut");
 
 // balsamiq translator
 const QString Config::KEY_BALSAMIQ_OVERWRITEFILES("balsamiq/overwriteFiles");

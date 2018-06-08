@@ -103,6 +103,7 @@ public:
     static const QString KEY_STYLE_DIRLOCATION;
     //static const QString KEY_VIEW_ITEMRENDERERATTR; deprecated but still alive
     static const QString KEY_VIEW_STYLE_DEFAULT_BOLD;
+    static const QString KEY_INFO_SHORTCUT_LIGHT_THEME;
 
     // test (private use)
     static const QString KEY_TEST_BALSAMIQ_INPUT;

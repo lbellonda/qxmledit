@@ -165,6 +165,10 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
 
 MainWindow::~MainWindow()
 {
+    if(NULL != data) {
+        disconnect(data, SIGNAL(clipboardDataChanged(bool)), this, SLOT(onClipboardDataChanged(bool)));
+        disconnect(data, SIGNAL(stateKeyboardShortcutChanged(bool)), this, SLOT(onStateKeyboardShortcutChanged(bool)));
+    }
     dismissInfoOnKeyboard();
     dismissInfoEditTypes();
     if(!isSlave) {
@@ -239,6 +243,27 @@ void MainWindow::changeEvent(QEvent *e)
     }
 }
 
+bool MainWindow::event(QEvent *e)
+{
+    const bool result = QMainWindow::event(e);
+    switch(e->type()) {
+    case QEvent::WindowActivate:
+        if(NULL != data)  {
+            data->newWindowActivationStatus(this, true);
+        }
+        break;
+    case QEvent::WindowDeactivate:
+        if(NULL != data)  {
+            data->newWindowActivationStatus(this, false);
+        }
+        break;
+    default:
+        break;
+    }
+    return result ;
+}
+
+
 void MainWindow::on_actionNew_triggered()
 {
     execNew();
@@ -287,6 +312,7 @@ bool MainWindow::completeToolBar()
         ui.toolBar->addWidget(spacerWidget);
         result = true ;
     }
+    ui.toolBar->addAction(ui.actionShowKeyboardShortcuts);
     ui.toolBar->addAction(ui.actionSearchCommand);
     return result ;
 }
@@ -300,6 +326,7 @@ bool MainWindow::finishSetUpUi()
     }
 
     completeToolBar();
+    onStateKeyboardShortcutChanged(data->keyboardInfoState());
 
     ui.messagePanel->setVisible(false);
     _scxmlValidationErrors = new SourceRelatedMessages(NULL);
@@ -320,6 +347,7 @@ bool MainWindow::finishSetUpUi()
         return false;
     }
     connect(data, SIGNAL(clipboardDataChanged(bool)), this, SLOT(onClipboardDataChanged(bool)));
+    connect(data, SIGNAL(stateKeyboardShortcutChanged(bool)), this, SLOT(onStateKeyboardShortcutChanged(bool)));
     ui.editor->setCopyPathAction(ui.actionCopyElementPathClipboard);
     QActionGroup* editModeActionGroup = new QActionGroup(this);   // autorelease
     ui.actionXMLEditMode->setActionGroup(editModeActionGroup);
@@ -1017,6 +1045,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionOpenSiblingsAtTheSameLevel->setEnabled(isElementSelected);
 
     onComputeSelectionStateExperimentalFeatures();
+    data->newSelectionState(this);
 }
 
 void MainWindow::onComputeSelectionStateExperimentalFeatures()
@@ -3855,10 +3884,29 @@ void MainWindow::on_actionSearchCommand_triggered()
     SearchCommandDialog searchCommandDialog(actions, this);
     if(searchCommandDialog.exec() == QDialog::Accepted) {
         QAction *action = searchCommandDialog.selectedAction();
-        if(NULL != action) {
-            action->trigger();
-        }
+        fireAction(action);
     }
 }
 
+void MainWindow::fireActionByName(const QString &name)
+{
+    QAction* action = findChild<QAction*>(name);
+    fireAction(action);
+}
 
+void MainWindow::fireAction(QAction *action)
+{
+    if((NULL != action) && action->isEnabled()) {
+        action->trigger();
+    }
+}
+
+void MainWindow::onStateKeyboardShortcutChanged(bool newState)
+{
+    ui.actionShowKeyboardShortcuts->setChecked(newState);
+}
+
+void MainWindow::on_actionShowKeyboardShortcuts_triggered()
+{
+    data->requestShowHideKeyboardInfo();
+}

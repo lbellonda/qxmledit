@@ -36,6 +36,8 @@ class MainWindow;
 class GuidedOperationsDialog;
 class GuidedValidationDialog;
 class UIDelegate;
+class FunctionKeysInfo;
+class ShortcutInfo;
 
 class QXmlEditApplication : public QApplication, public StartActionsExecutor
 {
@@ -50,6 +52,8 @@ private:
     FrwLogger *_logger;
     GuidedOperationsDialog *_guidedOperationsDialog;
     UIDelegate *_uiDelegate;
+    //FunctionKeysInfo *_functionKeysInfo;
+    ShortcutInfo *_functionKeysInfo;
 public:
     explicit QXmlEditApplication(int &argc, char **argv);
     virtual ~QXmlEditApplication();
@@ -66,6 +70,8 @@ public:
     bool handleFirstAccess();
     void setupFirstAccessForPreferences();
     MainWindow *getOrCreateMainWindow();
+
+    bool showFunctionKeysInfo(const bool forceShow=false);
 
     // region(StartAtcionsExecutor)
     virtual void startActionShowUserTypePanel();
@@ -120,6 +126,10 @@ private slots:
     void onCommandViewXMLMap();
     void onCommandOpenFile(const QString &filePath);
     void onOpenUserTypePanel(const bool nextAccess);
+    void onWindowActivated(MainWindow *window, bool how);
+    void onShortcutActivated(const QString & actionName);
+    void onKeyboardShortcutOpenCloseRequest();
+    void onRequestEnableKeys(MainWindow * window);
 };
 
 #endif // QXMLEDITAPPLICATION_H

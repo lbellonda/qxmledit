@@ -54,6 +54,7 @@ class ApplicationData : public QXmlEditData, public SessionDataFactory
     AttributeFilterManagement _attributeFilterManagement;
     SessionDataInterface *_sessionDataInterface;
     bool _dbStarted;
+    MainWindow *_lastActivatedWindow;
 
 private:
     void setupStorage();
@@ -71,6 +72,7 @@ public:
     int windowsCount();
     QList<MainWindow*> windows() const ;
     MainWindow *findWindowByPath(const QString &filePath);
+    bool isValidWindow(MainWindow *window);
     MainWindow *newWindow();
 
     void updateEditors(const bool invalidateAll = false);
@@ -149,7 +151,14 @@ public:
     void setUserGuidedOperation(const bool value);
     void resetUserGuidedOperation();
     bool testAndMarkFirstAccessForViewPreferences();
-    //-- endregion(access)
+    //--- endregion(access)
+
+    //--- region(keyinfo)
+    bool _shortcutPanelState;
+    void requestShowHideKeyboardInfo();
+    void newStateKeyboardInfo(const bool newState);
+    bool keyboardInfoState();
+    //--- endregion(keyinfo)
 
     enum EUserType {
         UserTypeExpert = 0,
@@ -170,6 +179,11 @@ public:
     void setDefaultViewDetail();
 
     AttributeFilterManagement *attributeFilterManagement();
+
+    void newWindowActivationStatus(MainWindow *window, const bool activated);
+    void activateShortcut(const QString & actionName);
+    void newSelectionState(MainWindow *window);
+
 private slots:
     void onSessionActivated(const int idSession);
     void onClearSession();
@@ -177,6 +191,10 @@ private slots:
 signals:
     void openUserGuidedPanel();
     void openUserTypePanel(const bool firstAccess);
+    void windowActivated(MainWindow *window, bool activated);
+    void stateKeyboardShortcutChanged(bool isVisible);
+    void keyboardShortcutOpenCloseRequest();
+    void requestEnableKeys(MainWindow * window);
 };
 
 #endif // APPLICATIONDATA_H

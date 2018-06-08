@@ -133,7 +133,6 @@
     <addaction name="menuHow_Do_I"/>
     <addaction name="actionSearchCommand"/>
     <addaction name="actionShowPrincipalShortcuts"/>
-    <addaction name="actionShowKeyboardShortcuts"/>
     <addaction name="actionTipsOnVisualAppearance"/>
     <addaction name="actionAbout"/>
    </widget>
@@ -2555,7 +2554,7 @@
   <action name="actionSearchCommand">
    <property name="icon">
     <iconset resource="risorse.qrc">
-     <normaloff>:/editText/searchInFiles</normaloff>:/editText/searchInFiles</iconset>
+     <normaloff>:/actions/info</normaloff>:/actions/info</iconset>
    </property>
    <property name="text">
     <string>Search Command</string>
@@ -2570,21 +2569,6 @@
   <action name="actiondontuse">
    <property name="text">
     <string>dontuse</string>
-   </property>
-  </action>
-  <action name="actionShowKeyboardShortcuts">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset resource="risorse.qrc">
-     <normaloff>:/special/viewksh</normaloff>:/special/viewksh</iconset>
-   </property>
-   <property name="text">
-    <string>Show Keyboard Shortcuts</string>
-   </property>
-   <property name="toolTip">
-    <string>Show or hide the keyboard shortcuts panel.</string>
    </property>
   </action>
  </widget>

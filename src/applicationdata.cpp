@@ -53,6 +53,8 @@ int ApplicationData::pluginCode = 0 ;
 
 ApplicationData::ApplicationData()
 {
+    _lastActivatedWindow = NULL;
+    _shortcutPanelState = false ;
     _dbStarted = false ;
     _dataInterface = NULL ;
     _sessionDataInterface = NULL ;
@@ -133,6 +135,14 @@ MainWindow *ApplicationData::findWindowByPath(const QString &filePath)
         }
     }
     return NULL ;
+}
+
+bool ApplicationData::isValidWindow(MainWindow *window)
+{
+    if(_windows.contains(window)) {
+        return true ;
+    }
+    return false ;
 }
 
 void ApplicationData::addWindow(MainWindow* newWindow)
@@ -635,4 +645,48 @@ void ApplicationData::setDefaultViewDetail()
     paintInfo.saveState();
     // apply to all the editors
     updateEditors();
+}
+
+void ApplicationData::newWindowActivationStatus(MainWindow *window, const bool activated)
+{
+    if(activated) {
+        _lastActivatedWindow = window;
+    }
+    emit windowActivated(window, activated);
+}
+
+//--- region(keyinfo)
+
+void ApplicationData::activateShortcut(const QString & actionName)
+{
+    if(NULL != _lastActivatedWindow ) {
+        if(isValidWindow(_lastActivatedWindow)) {
+            _lastActivatedWindow->fireActionByName(actionName);
+        }
+    }
+}
+
+void ApplicationData::requestShowHideKeyboardInfo()
+{
+    emit keyboardShortcutOpenCloseRequest();
+}
+
+void ApplicationData::newStateKeyboardInfo(const bool newState)
+{
+    _shortcutPanelState = newState ;
+    emit stateKeyboardShortcutChanged(newState);
+}
+
+bool ApplicationData::keyboardInfoState()
+{
+    return _shortcutPanelState ;
+}
+
+//--- endregion(keyinfo)
+
+void ApplicationData::newSelectionState(MainWindow *window)
+{
+    if(window == _lastActivatedWindow) {
+        emit requestEnableKeys(window);
+    }
 }

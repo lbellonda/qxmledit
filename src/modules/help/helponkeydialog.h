@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2018 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,27 +20,26 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef HELPONKEYDIALOG_H
+#define HELPONKEYDIALOG_H
 
-#include "qlabelwithsignals.h"
+#include <QDialog>
 
-QLabelWithSignals::QLabelWithSignals(QWidget *parent) :
-    QLabel(parent)
+namespace Ui
 {
+class HelpOnKeyDialog;
 }
 
-QLabelWithSignals::~QLabelWithSignals()
+class HelpOnKeyDialog : public QDialog
 {
-}
+    Q_OBJECT
 
-void QLabelWithSignals::mouseDoubleClickEvent(QMouseEvent *e)
-{
-    emit doubleClicked();
-    QLabel::mouseDoubleClickEvent(e);
-}
+public:
+    explicit HelpOnKeyDialog(QWidget *parent = 0);
+    ~HelpOnKeyDialog();
 
+private:
+    Ui::HelpOnKeyDialog *ui;
+};
 
-void QLabelWithSignals::mousePressEvent(QMouseEvent *e)
-{
-    emit clicked();
-    QLabel::mousePressEvent(e);
-}
+#endif // HELPONKEYDIALOG_H

@@ -44,6 +44,7 @@ void QXmlEditApplication::onCommandNew()
     mainWindow->show();
     mainWindow->raise();
     mainWindow->activateWindow();
+    showFunctionKeysInfo(true);
 }
 
 
@@ -59,6 +60,7 @@ void QXmlEditApplication::onCommandOpen()
         mainWindow->show();
         mainWindow->raise();
         mainWindow->activateWindow();
+        showFunctionKeysInfo(true);
     } else {
         delete mainWindow;
     }

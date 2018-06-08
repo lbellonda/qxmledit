@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2018 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,27 +20,31 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef FUNCTIONKEYSINFO_H
+#define FUNCTIONKEYSINFO_H
 
-#include "qlabelwithsignals.h"
+#include "xmlEdit.h"
 
-QLabelWithSignals::QLabelWithSignals(QWidget *parent) :
-    QLabel(parent)
+namespace Ui
 {
+class FunctionKeysInfo;
 }
 
-QLabelWithSignals::~QLabelWithSignals()
-{
-}
+class ApplicationData ;
 
-void QLabelWithSignals::mouseDoubleClickEvent(QMouseEvent *e)
+class FunctionKeysInfo : public QMainWindow
 {
-    emit doubleClicked();
-    QLabel::mouseDoubleClickEvent(e);
-}
+    Q_OBJECT
 
+    ApplicationData *_appData;
+    //
 
-void QLabelWithSignals::mousePressEvent(QMouseEvent *e)
-{
-    emit clicked();
-    QLabel::mousePressEvent(e);
-}
+public:
+    explicit FunctionKeysInfo(QWidget *parent, ApplicationData *appData);
+    ~FunctionKeysInfo();
+
+private:
+    Ui::FunctionKeysInfo *ui;
+};
+
+#endif // FUNCTIONKEYSINFO_H

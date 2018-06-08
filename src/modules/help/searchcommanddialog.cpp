@@ -78,7 +78,7 @@ void SearchCommandDialog::updateList(const QString &text)
     if(!text.isEmpty()) {
         const QString & searchText = text.trimmed().toLower();
         foreach(MenuSearchData *data, _actions) {
-            if(data->textToSearch.contains(text)) {
+            if(data->textToSearch.contains(searchText)) {
                 QTreeWidgetItem* item = new QTreeWidgetItem();
                 item->setText(0, data->textToShow);
                 item->setText(1, data->action->toolTip());

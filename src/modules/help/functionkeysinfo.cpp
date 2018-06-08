@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2018 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,27 +20,28 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include "functionkeysinfo.h"
+#include "ui_functionkeysinfo.h"
+#include "utils.h"
+#include "widgets/shortcutinfo.h"
 
-#include "qlabelwithsignals.h"
+//---------------------------------------
 
-QLabelWithSignals::QLabelWithSignals(QWidget *parent) :
-    QLabel(parent)
+FunctionKeysInfo::FunctionKeysInfo(QWidget *parent, ApplicationData *appData) :
+    QMainWindow(parent),
+    ui(new Ui::FunctionKeysInfo)
 {
+    Utils::TODO_THIS_RELEASE("remove?");
+    _appData = appData ;
+    Utils::TODO_THIS_RELEASE("setAttribute(Qt::WA_AlwaysStackOnTop, true);");
+    ui->setupUi(this);
+    ShortcutInfo *info = new ShortcutInfo(this);
+    centralWidget()->layout()->addWidget(info);
+
 }
 
-QLabelWithSignals::~QLabelWithSignals()
+FunctionKeysInfo::~FunctionKeysInfo()
 {
+    delete ui;
 }
 
-void QLabelWithSignals::mouseDoubleClickEvent(QMouseEvent *e)
-{
-    emit doubleClicked();
-    QLabel::mouseDoubleClickEvent(e);
-}
-
-
-void QLabelWithSignals::mousePressEvent(QMouseEvent *e)
-{
-    emit clicked();
-    QLabel::mousePressEvent(e);
-}

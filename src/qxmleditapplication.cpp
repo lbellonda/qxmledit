@@ -30,13 +30,16 @@
 #include "utils.h"
 #include <QDataStream>
 #include <QLocalSocket>
+#include <QDesktopWidget>
 #include "qxmleditconfig.h"
 #include "modules/anonymize/anonymizebatch.h"
 #include "extraction/extractfragmentsdialog.h"
 #include "modules/help/firstaccessdialog.h"
 #include "modules/help/guidedoperationsdialog.h"
 #include "modules/help/guidedvalidationdialog.h"
+#include "modules/help/functionkeysinfo.h"
 #include "modules/uiutil/defaultuidelegate.h"
+#include "widgets/shortcutinfo.h"
 
 const QString QXmlEditApplication::ServerName("__qxmledit__server__");
 
@@ -47,6 +50,7 @@ QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
     _server = NULL ;
     _logger = NULL ;
     _guidedOperationsDialog = NULL ;
+    _functionKeysInfo = NULL ;
     _uiDelegate = new DefaultUIDelegate();
 }
 
@@ -57,6 +61,12 @@ QXmlEditApplication::~QXmlEditApplication()
         _guidedOperationsDialog->close();
         delete _guidedOperationsDialog ;
         _guidedOperationsDialog = NULL ;
+    }
+    if(NULL != _functionKeysInfo) {
+        disconnect(_functionKeysInfo, SIGNAL(actionRequested(const QString &)), this, SLOT(onShortcutActivated(const QString &)));
+        _functionKeysInfo->close();
+        delete _functionKeysInfo ;
+        _functionKeysInfo = NULL ;
     }
 
     if(NULL != _server) {
@@ -93,11 +103,17 @@ void QXmlEditApplication::setAppData(ApplicationData *value)
     if(NULL != _appData) {
         disconnect(_appData, SIGNAL(openUserGuidedPanel()), this, SLOT(onOpenUserGuidedPanel()));
         disconnect(_appData, SIGNAL(openUserTypePanel(const bool)), this, SLOT(onOpenUserTypePanel(const bool)));
+        disconnect(_appData, SIGNAL(windowActivated(MainWindow *, bool)), this, SLOT(onWindowActivated(MainWindow *, bool)));
+        disconnect(_appData, SIGNAL(keyboardShortcutOpenCloseRequest()), this, SLOT(onKeyboardShortcutOpenCloseRequest()));
+        disconnect(_appData, SIGNAL(requestEnableKeys(MainWindow *)), this, SLOT(onRequestEnableKeys(MainWindow *)));
     }
     _appData = value;
     if(NULL != _appData) {
         connect(_appData, SIGNAL(openUserGuidedPanel()), this, SLOT(onOpenUserGuidedPanel()));
         connect(_appData, SIGNAL(openUserTypePanel(const bool)), this, SLOT(onOpenUserTypePanel(const bool)));
+        connect(_appData, SIGNAL(windowActivated(MainWindow *, bool)), this, SLOT(onWindowActivated(MainWindow *, bool)));
+        connect(_appData, SIGNAL(keyboardShortcutOpenCloseRequest()), this, SLOT(onKeyboardShortcutOpenCloseRequest()));
+        connect(_appData, SIGNAL(requestEnableKeys(MainWindow *)), this, SLOT(onRequestEnableKeys(MainWindow *)));
         if(_appData->notifier()->isEnabled()) {
             _appData->notifier()->show();
         }
@@ -409,6 +425,37 @@ bool QXmlEditApplication::showValidationOperationsPanel()
     return true ;
 }
 
+bool QXmlEditApplication::showFunctionKeysInfo(const bool forceShow)
+{
+    bool isVisible = false;
+    if(NULL == _functionKeysInfo) {
+        Utils::TODO_THIS_RELEASE("fare");
+        //_functionKeysInfo = new FunctionKeysInfo(NULL, _appData);
+        _functionKeysInfo = new ShortcutInfo(NULL);
+
+        //_functionKeysInfo->setWindowFlag( Qt::FramelessWindowHint, true);
+        //_functionKeysInfo->setWindowFlags((Qt::WindowFlags)(Qt::Window | Qt::FramelessWindowHint));
+        //_functionKeysInfo->setWindowFlags((Qt::WindowFlags)(Qt::Window | Qt::CustomizeWindowHint | Qt::BypassWindowManagerHint | Qt::WindowTitleHint));
+        _functionKeysInfo->setWindowTitle(tr("Keyboard Shortcuts List"));
+        connect(_functionKeysInfo, SIGNAL(actionRequested(const QString &)), this, SLOT(onShortcutActivated(const QString &)));
+    } else {
+        isVisible = _functionKeysInfo->isVisible() ;
+    }
+    // move to the bottom of the screen
+    if(!isVisible || forceShow) {
+        QRect screenGeometry = QApplication::desktop()->screenGeometry();
+        int left = (screenGeometry.width() - _functionKeysInfo->width()) >> 1;
+        int top = screenGeometry.height() - _functionKeysInfo->height();
+        _functionKeysInfo->move(left, top);
+        _functionKeysInfo->show();
+        _functionKeysInfo->raise();
+    } else {
+        _functionKeysInfo->hide();
+    }
+    _appData->newStateKeyboardInfo(!isVisible);
+    return true;
+}
+
 void QXmlEditApplication::bindCommandOperation(const bool isConnect, const QObject *sender, const char *signal, const char *method)
 {
     if(isConnect) {
@@ -473,4 +520,31 @@ void QXmlEditApplication::onOpenUserTypePanel(const bool nextAccess)
 UIDelegate *QXmlEditApplication::uiDelegate()
 {
     return _uiDelegate ;
+}
+
+void QXmlEditApplication::onWindowActivated(MainWindow * window, bool how)
+{
+    if(NULL != _functionKeysInfo) {
+        if(how) {
+            showFunctionKeysInfo(how);
+            _functionKeysInfo->setTarget(window);
+        }
+    }
+}
+
+void QXmlEditApplication::onShortcutActivated(const QString & actionName)
+{
+    _appData->activateShortcut(actionName);
+}
+
+void QXmlEditApplication::onKeyboardShortcutOpenCloseRequest()
+{
+    showFunctionKeysInfo();
+}
+
+void QXmlEditApplication::onRequestEnableKeys(MainWindow * window)
+{
+    if(_functionKeysInfo->isVisible()) {
+        _functionKeysInfo->setTarget(window);
+    }
 }

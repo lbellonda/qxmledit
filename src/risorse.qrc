@@ -15,6 +15,7 @@
         <file alias="report">images/view-pim-news.png</file>
         <file>images/sample.editor.png</file>
         <file>images/editor.form.png</file>
+        <file alias="viewksh">images/view-keyb-sh.png</file>
     </qresource>
     <qresource prefix="/arrows">
         <file>images/go-down.png</file>
@@ -89,6 +90,7 @@
         <file alias="testf.xml">resources/testf.xml</file>
         <file alias="test2.xml">resources/test2.xml</file>
         <file alias="unicodeChars.xml">resources/data/unicodeChars.xml</file>
+        <file alias="MainWindow.xml">resources/data/MainWindow.xml</file>
     </qresource>
     <qresource prefix="/balsamiq">
         <file alias="application.txml">resources/balsamiq/application.txml</file>
@@ -261,5 +263,9 @@
     </qresource>
     <qresource prefix="/xsd">
         <file alias="exportcss.css">resources/xsd/exportxss.css</file>
+    </qresource>
+    <qresource prefix="/css">
+        <file alias="buttonDark.css">resources/css/buttonDark.css</file>
+        <file alias="buttonLight.css">resources/css/buttonLight.css</file>
     </qresource>
 </RCC>

@@ -36,8 +36,10 @@ public:
 
 signals:
     void doubleClicked();
+    void clicked();
 public slots:
     void mouseDoubleClickEvent(QMouseEvent *e);
+    void mousePressEvent(QMouseEvent *e);
 
 };
 
