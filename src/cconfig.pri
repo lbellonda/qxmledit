@@ -42,91 +42,153 @@
 #message(QXMLEDIT_UNIX_LOWERCASE_NAME = $$(QXMLEDIT_UNIX_LOWERCASE_NAME))
 #message(LIB_VERSIONED=$$(QXMLEDIT_VERSIONED))
 
+###########################################
+
+INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
+!isEmpty(QXMLEDIT_INST_DATA_DIR) {
+    INST_DATA_DIR=$$QXMLEDIT_INST_DATA_DIR
+}
 isEmpty(INST_DATA_DIR) {
-    INST_DATA_DIR=$$(QXMLEDIT_INST_DATA_DIR)
-    isEmpty(INST_DATA_DIR) {
-        INST_DATA_DIR = /opt/qxmledit
-    }
+    INST_DATA_DIR = /opt/qxmledit
 }
 message("Inst data dir $$INST_DATA_DIR")
 
+###########################################
+
+INST_DIR=$$(QXMLEDIT_INST_DIR)
+!isEmpty(QXMLEDIT_INST_DIR) {
+    INST_DIR=$$QXMLEDIT_INST_DIR
+}
 isEmpty(INST_DIR) {
-    INST_DIR=$$(QXMLEDIT_INST_DIR)
-    isEmpty(INST_DIR) {
-        INST_DIR = /opt/qxmledit
-    }
+    INST_DIR = /opt/qxmledit
 }
 message("Inst dir $$INST_DIR")
 
+###########################################
+
+INST_DOC_DIR=$$(QXMLEDIT_INST_DOC_DIR)
+!isEmpty(QXMLEDIT_INST_DOC_DIR) {
+    INST_DOC_DIR=$$QXMLEDIT_INST_DOC_DIR
+}
+
 isEmpty(INST_DOC_DIR) {
-    INST_DOC_DIR=$$(QXMLEDIT_INST_DOC_DIR)
-    isEmpty(INST_DOC_DIR) {
-        INST_DOC_DIR = /opt/qxmledit
-    }
+    INST_DOC_DIR = /opt/qxmledit
 }
 message("Inst doc dir $$INST_DOC_DIR")
 
-isEmpty(INST_LIB_DIR) {
-    INST_LIB_DIR=$$(QXMLEDIT_INST_LIB_DIR)
-    isEmpty(INST_LIB_DIR) {
-        INST_LIB_DIR = /opt/qxmledit
-    }
+###########################################
+
+INST_LIB_DIR=$$(QXMLEDIT_INST_LIB_DIR)
+!isEmpty(QXMLEDIT_INST_LIB_DIR) {
+    INST_LIB_DIR=$$QXMLEDIT_INST_LIB_DIR
 }
+
+isEmpty(INST_LIB_DIR) {
+    INST_LIB_DIR = /opt/qxmledit
+}
+
 message("Inst lib dir $$INST_LIB_DIR")
 
-isEmpty(INST_INCLUDE_DIR) {
-    INST_INCLUDE_DIR=$$(QXMLEDIT_INST_INCLUDE_DIR)
-    isEmpty(INST_INCLUDE_DIR) {
-        INST_INCLUDE_DIR = /opt/qxmledit/include
-    }
+###########################################
+
+INST_INCLUDE_DIR=$$(QXMLEDIT_INST_INCLUDE_DIR)
+!isEmpty(QXMLEDIT_INST_INCLUDE_DIR) {
+    INST_INCLUDE_DIR=$$QXMLEDIT_INST_INCLUDE_DIR
 }
+
+isEmpty(INST_INCLUDE_DIR) {
+    INST_INCLUDE_DIR = /opt/qxmledit/include
+}
+
 message("Inst include dir $$INST_INCLUDE_DIR")
 
-isEmpty(INST_TRANSLATIONS_DIR) {
-    INST_TRANSLATIONS_DIR=$$(QXMLEDIT_INST_TRANSLATIONS_DIR)
-    isEmpty(INST_TRANSLATIONS_DIR) {
-        INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
-    }
+###########################################
+
+INST_TRANSLATIONS_DIR=$$(QXMLEDIT_INST_TRANSLATIONS_DIR)
+!isEmpty(QXMLEDIT_INST_TRANSLATIONS_DIR) {
+    INST_TRANSLATIONS_DIR=$$QXMLEDIT_INST_TRANSLATIONS_DIR
 }
+
+isEmpty(INST_TRANSLATIONS_DIR) {
+    INST_TRANSLATIONS_DIR=$$INST_DATA_DIR/translations
+}
+
 message("Inst translations dir $$INST_TRANSLATIONS_DIR")
 
-isEmpty(COMPILE_DISABLE_TIPS) {
-    COMPILE_DISABLE_TIPS=$$(QXMLEDIT_COMPILE_DISABLE_TIPS)
+###########################################
+
+COMPILE_DISABLE_TIPS=$$(QXMLEDIT_COMPILE_DISABLE_TIPS)
+!isEmpty(QXMLEDIT_COMPILE_DISABLE_TIPS) {
+    COMPILE_DISABLE_TIPS=$$QXMLEDIT_COMPILE_DISABLE_TIPS
 }
+
 !isEmpty(COMPILE_DISABLE_TIPS) {
     DEFINES += COMPILE_DISABLE_TIPS
     message("Tips disabled")
 }
+isEmpty(COMPILE_DISABLE_TIPS) {
+    message("Tips enabled")
+}
+
+###########################################
 
 USE_QWTPLOT="Y"
-isEmpty(DONTUSE_QWTPLOT) {
-    DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
+DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
+!isEmpty(QXMLEDIT_NO_QWTPLOT) {
+    DONTUSE_QWTPLOT=$$QXMLEDIT_NO_QWTPLOT
 }
+
 !isEmpty(DONTUSE_QWTPLOT) {
     USE_QWTPLOT="N"
     message("No QWTPlot")
 }
+isEmpty(DONTUSE_QWTPLOT) {
+    message("QWTPlot enabled")
+}
 
-isEmpty(INST_AVOID_PRECOMP_HEADERS) {
-    INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+###########################################
+
+INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+isEmpty(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS) {
+    INST_AVOID_PRECOMP_HEADERS=$$QXMLEDIT_INST_AVOID_PRECOMP_HEADERS
 }
 isEmpty(INST_AVOID_PRECOMP_HEADERS) {
     INST_AVOID_PRECOMP_HEADERS = ""
     message("Precompiled headers activated")
 }
+!isEmpty(INST_AVOID_PRECOMP_HEADERS) {
+    message("Precompiled headers disabled")
+}
 
-isEmpty(INST_USE_C11) {
-    INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
+###########################################
+
+INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
+!isEmpty(QXMLEDIT_INST_USE_C11) {
+    INST_USE_C11=$$QXMLEDIT_INST_USE_C11
 }
 isEmpty(INST_USE_C11) {
     INST_USE_C11 = ""
     message("No C11 support")
 }
+!isEmpty(INST_USE_C11) {
+    message("C11 support")
+}
+
+###########################################
 
 TARGET_NAME_UNIXSTYLE=$$(QXMLEDIT_UNIX_LOWERCASE_NAME)
+!isEmpty(QXMLEDIT_UNIX_LOWERCASE_NAME) {
+    TARGET_NAME_UNIXSTYLE=$$QXMLEDIT_UNIX_LOWERCASE_NAME
+}
 message("TARGET_NAME_UNIXSTYLE $$TARGET_NAME_UNIXSTYLE")
 
+
+###########################################
+
 LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
+!isEmpty(QXMLEDIT_VERSIONED) {
+    LIB_VERSIONED=$$QXMLEDIT_VERSIONED
+}
 message("LIB_VERSIONED $$LIB_VERSIONED")
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################

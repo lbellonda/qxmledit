@@ -25,12 +25,7 @@ macx {
 cache()
 }
 
-USE_QWTPLOT="Y"
-DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)
-!isEmpty(DONTUSE_QWTPLOT) {
-    USE_QWTPLOT="N"
-    message("No QWTPlot")
-}
+include("src/cconfig.pri")
 
 TEMPLATE = subdirs
 

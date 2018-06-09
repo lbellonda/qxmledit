@@ -1,4 +1,5 @@
 0.9.11
+    Accepted the configuration parameters for qmake via command line.
     New menu item to search commands by name.
 
 0.9.10
