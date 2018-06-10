@@ -3904,6 +3904,11 @@ void XmlEditWidgetPrivate::onShortcutAltEnter()
 
 void XmlEditWidgetPrivate::onShortcutShiftEnter()
 {
+    editSelectionAsText();
+}
+
+void XmlEditWidgetPrivate::editSelectionAsText()
+{
     _appData->setEditShortcutsUsed();
     editSelection(XmlEditWidgetPrivate::EditModeTextual);
 }

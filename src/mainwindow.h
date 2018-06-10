@@ -412,6 +412,7 @@ private slots:
     void on_actionInsertDisablingParent_triggered();
     void on_actionSearchCommand_triggered();
     void on_actionShowKeyboardShortcuts_triggered();
+    void on_actionEditAsText_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);

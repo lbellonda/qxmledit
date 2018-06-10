@@ -110,6 +110,7 @@ public:
     void moveDown();
     void deleteItem();
     void editItem();
+    void editSelectionAsText();
 
     Element *findTextOperation(const bool isFindOrCount, const FindTextParams::EFindType findType = FindTextParams::FindAllOccurrences);
 

@@ -327,6 +327,7 @@ public:
     void removeAllElements();
     void showCodePages(QWidget *parent);
     void invalidatePaintData(const bool full = false);
+    void editSelectionAsText();
 
     void setReadOnly(const bool newState);
     bool isReadOnly();

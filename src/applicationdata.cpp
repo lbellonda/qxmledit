@@ -659,7 +659,7 @@ void ApplicationData::newWindowActivationStatus(MainWindow *window, const bool a
 
 void ApplicationData::activateShortcut(const QString & actionName)
 {
-    if(NULL != _lastActivatedWindow ) {
+    if(NULL != _lastActivatedWindow) {
         if(isValidWindow(_lastActivatedWindow)) {
             _lastActivatedWindow->fireActionByName(actionName);
         }

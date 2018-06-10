@@ -1240,3 +1240,8 @@ void XmlEditWidget::emitConfigure(const QPoint &position)
 {
     emit configure(position);
 }
+
+void XmlEditWidget::editSelectionAsText()
+{
+    return d->editSelectionAsText();
+}

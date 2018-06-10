@@ -433,6 +433,7 @@ bool QXmlEditApplication::showFunctionKeysInfo(const bool forceShow)
         //_functionKeysInfo = new FunctionKeysInfo(NULL, _appData);
         _functionKeysInfo = new ShortcutInfo(NULL);
 
+        _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() | (Qt::Tool | Qt::WindowStaysOnTopHint));
         //_functionKeysInfo->setWindowFlag( Qt::FramelessWindowHint, true);
         //_functionKeysInfo->setWindowFlags((Qt::WindowFlags)(Qt::Window | Qt::FramelessWindowHint));
         //_functionKeysInfo->setWindowFlags((Qt::WindowFlags)(Qt::Window | Qt::CustomizeWindowHint | Qt::BypassWindowManagerHint | Qt::WindowTitleHint));
@@ -443,7 +444,7 @@ bool QXmlEditApplication::showFunctionKeysInfo(const bool forceShow)
     }
     // move to the bottom of the screen
     if(!isVisible || forceShow) {
-        QRect screenGeometry = QApplication::desktop()->screenGeometry();
+        QRect screenGeometry = QApplication::desktop()->availableGeometry(QApplication::desktop()->screenNumber(_functionKeysInfo));
         int left = (screenGeometry.width() - _functionKeysInfo->width()) >> 1;
         int top = screenGeometry.height() - _functionKeysInfo->height();
         _functionKeysInfo->move(left, top);
@@ -544,7 +545,7 @@ void QXmlEditApplication::onKeyboardShortcutOpenCloseRequest()
 
 void QXmlEditApplication::onRequestEnableKeys(MainWindow * window)
 {
-    if(_functionKeysInfo->isVisible()) {
+    if((NULL != _functionKeysInfo) && _functionKeysInfo->isVisible()) {
         _functionKeysInfo->setTarget(window);
     }
 }

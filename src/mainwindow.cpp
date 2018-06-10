@@ -920,14 +920,15 @@ void MainWindow::onComputeSelectionState()
     ui.actionAppendComment->setEnabled(selectSpecials && !isExplore);
     ui.actionAppendProcessingInstruction->setEnabled(selectSpecials && !isExplore);
     ui.actionAddProcessingInstruction->setEnabled(!isExplore);
-    ui.actionDelete->setEnabled(isSomeItemSelected && !isExplore);
+    ui.actionDelete->setEnabled(isSomeItemSelected && !isExplore && !getEditor()->isReadOnly());
     ui.actionEditInnerBase64Text->setEnabled(isSomeItemSelected && !isExplore);
     ui.actionEditInnerXML->setEnabled(isSomeItemSelected && !isExplore);
     ui.actionEditInnerXMLBase64->setEnabled(isSomeItemSelected && !isExplore);
     ui.actionEdit->setEnabled(isSomeItemSelected);
+    ui.actionEditAsText->setEnabled(isElementSelected && !getEditor()->isReadOnly());
     ui.actionMoveUp->setEnabled(selectSpecialsUp && !isExplore);
     ui.actionMoveDown->setEnabled(selectSpecialsDown && !isExplore);
-    ui.actionCut->setEnabled(isSomeItemSelected);
+    ui.actionCut->setEnabled(isSomeItemSelected && !getEditor()->isReadOnly());
     ui.actionCopy->setEnabled(isSomeItemSelected);
     ui.actionCopyElementOnly->setEnabled(isSomeItemSelected);
     ui.actionGo_to_Next_Brother->setEnabled(enableNextBrother);
@@ -3909,4 +3910,9 @@ void MainWindow::onStateKeyboardShortcutChanged(bool newState)
 void MainWindow::on_actionShowKeyboardShortcuts_triggered()
 {
     data->requestShowHideKeyboardInfo();
+}
+
+void MainWindow::on_actionEditAsText_triggered()
+{
+    ui.editor->editSelectionAsText();
 }

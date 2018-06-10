@@ -1,7 +1,7 @@
 QLabel {
     border: 1px solid #000040;
     border-radius:10px;
-    padding:0px;
+    padding:2px;
     margin:0px;
     background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 rgba(64, 64, 64, 255), stop:1 rgba(128, 128, 128, 255));
 }
@@ -14,4 +14,5 @@ QLabel:hover {
 QLabel:!enabled {
     background-color: #000080;
     border-color: #000000;
+    color: #808080;
 }

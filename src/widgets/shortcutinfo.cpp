@@ -32,11 +32,9 @@ public:
     QString name;
     QString shortcut;
     QString text;
+    QString normalizedLabel;
 
-    inline bool operator<(const ActionKeyInfo *a2)
-    {
-        return this->shortcut < a2->shortcut ;
-    }
+    static bool compareOpLessThan(const ActionKeyInfo *a1, const ActionKeyInfo *a2);
 
     ActionKeyInfo();
     ActionKeyInfo(const QString &theName, const QString &theShortcut, const QString &theText);
@@ -55,6 +53,11 @@ ActionKeyInfo::ActionKeyInfo(const QString &theName, const QString &theShortcut,
 
 ActionKeyInfo::~ActionKeyInfo()
 {}
+
+bool ActionKeyInfo::compareOpLessThan(const ActionKeyInfo *a1, const ActionKeyInfo *a2)
+{
+    return QString::compare(a1->normalizedLabel, a2->normalizedLabel, Qt::CaseInsensitive) < 0 ;
+}
 
 //-------------------------------------------------------------------
 
@@ -84,10 +87,11 @@ static const QString colorTextDarkTheme = "#FFFFFF";
 static const QString colorFKDarkTheme = "#FFFFFF";
 
 
-static const QString templateData = "<html><head/><body><p><span style='font-weight:600;color:$(FKEYCOLOR);'>$(FKEY)</span><br/><span style='color:$(COLORTEXT);'>$(TEXT)</span></p></body></html>";
+static const QString templateData = "<html><head/><body><p><span style='font-size:10pt;font-weight:600;color:$(FKEYCOLOR);'>$(FKEY)</span><br/><span style='font-size:9pt;color:$(COLORTEXT);'>$(TEXT)</span></p></body></html>";
 
 void ShortcutInfo::chooseTheme()
 {
+    Utils::TODO_THIS_RELEASE("fai preferenze");
     _lightTheme = Config::getBool(Config::KEY_INFO_SHORTCUT_LIGHT_THEME, false);
     if(_lightTheme) {
         //_themeCSS = lightTheme ;
@@ -121,7 +125,11 @@ void ShortcutInfo::setupData()
     ui->stackedWidget->setStyleSheet("background-color: black;border: 1px solid white;");
     chooseTheme();
     QStringList labels ;
+#ifdef ENVIRONMENT_MACOS
+    labels << tr("Function Keys") << tr("Command+Shift") << tr("Command+Alt") << tr("Command+Fn") << tr("Command+Num") << tr("Command") << tr("Others");
+#else
     labels << tr("Function Keys") << tr("Ctrl+Shift") << tr("Ctrl+Alt") << tr("Ctrl+Fn") << tr("Ctrl+Num") << tr("Ctrl") << tr("Others");
+#endif
     QList<int> codes ;
     codes << F << CS << CA << CF << CN << C << O;
     Utils::loadComboCodedArrays(ui->type, F, labels, codes);
@@ -178,11 +186,22 @@ void ShortcutInfo::removeWidgets()
 void ShortcutInfo::refreshButtons(const QList<ActionKeyInfo*> &infos)
 {
     removeWidgets();
-    foreach(ActionKeyInfo *info, infos) {
-        QWidget *widget = newKey(info->shortcut, normalizeLabel(info->text));
+    QList<ActionKeyInfo*> sortedActions = sortActions(infos);
+    foreach(ActionKeyInfo *info, sortedActions) {
+        QWidget *widget = newKey(info->shortcut, info->normalizedLabel);
         ui->page->layout()->addWidget(widget);
         _mapper.insert(widget, info->name);
     }
+}
+
+QList<ActionKeyInfo*> ShortcutInfo::sortActions(const QList<ActionKeyInfo*> &infos)
+{
+    QList<ActionKeyInfo*> result ;
+    foreach(ActionKeyInfo *action, infos) {
+        result.append(action);
+    }
+    qSort(result.begin(), result.end(), ActionKeyInfo::compareOpLessThan);
+    return result ;
 }
 
 QString ShortcutInfo::normalizeLabel(const QString &label)
@@ -287,6 +306,13 @@ bool ShortcutInfo::getAllActions(QDomNode &rootNode)
     return isOk ;
 }//getAllActions()
 
+QString ShortcutInfo::filterCmd(const QString &input, const QString &prefix)
+{
+    QString result ;
+    result = input.mid(prefix.length());
+    return result;
+}
+
 void ShortcutInfo::loadActions()
 {
     bool isOk = false;
@@ -298,17 +324,22 @@ void ShortcutInfo::loadActions()
         }
         file.close();
     }
-    qSort(_actions);
+    Utils::TODO_THIS_RELEASE("macos usa command");
     foreach(ActionKeyInfo * info, _actions) {
         if(info->shortcut.startsWith("Ctrl+Shift")) {
+            info->shortcut = filterCmd(info->shortcut, "Ctrl+Shift+");
             _ctrShift.append(info);
         } else if(info->shortcut.startsWith("Ctrl+Alt")) {
+            info->shortcut = filterCmd(info->shortcut, "Ctrl+Alt+");
             _ctrAlt.append(info);
         } else if(isCtrlFn(info->shortcut)) {
+            info->shortcut = filterCmd(info->shortcut, "Ctrl+");
             _CF.append(info);
         } else if(isCtrlNum(info->shortcut)) {
+            info->shortcut = filterCmd(info->shortcut, "Ctrl+");
             _CN.append(info);
         } else if(info->shortcut.startsWith("Ctrl+")) {
+            info->shortcut = filterCmd(info->shortcut, "Ctrl+");
             _C.append(info);
         } else if(info->shortcut.startsWith("F")) {
             _F.append(info);
@@ -316,18 +347,20 @@ void ShortcutInfo::loadActions()
             _others.append(info);
         }
     }
-    Utils::TODO_THIS_RELEASE("metti i nomi per gestire i valida");
     addOther(new ActionKeyInfo("actionCut", "Del", "Delete"));
     addOther(new ActionKeyInfo("actionCut", "Backspace", "Delete"));
     addOther(new ActionKeyInfo("actionAddChildElement", "Ins", "Insert"));
     addOther(new ActionKeyInfo("actionAddChildElement", "i", "Insert"));
     addOther(new ActionKeyInfo("actionAppendChildElement", "a", "Append"));
-    addOther(new ActionKeyInfo("", "e", "Edit"));
+    addOther(new ActionKeyInfo("actionEditAsText", "e", tr("Edit Element as Text")));
     addOther(new ActionKeyInfo("actionPasteAndSubstituteText", "t", "Text"));
     addOther(new ActionKeyInfo("actionEditInnerXML", "x", "Inner XML"));
     addOther(new ActionKeyInfo("actionEditInnerBase64Text", "y", "Inner XML Base64"));
     if(!isOk) {
         Utils::error(this, tr("Unable to actions data."));
+    }
+    foreach(ActionKeyInfo * info, _actions) {
+        info->normalizedLabel = normalizeLabel(info->text);
     }
 }
 
@@ -375,10 +408,10 @@ void ShortcutInfo::onWidgetClicked()
 
 void ShortcutInfo::setTarget(QWidget *target)
 {
-    foreach( QWidget *key, _mapper.keys()) {
+    foreach(QWidget *key, _mapper.keys()) {
         QString name = _mapper[key];
         QAction* action = target->findChild<QAction*>(name);
-        if( NULL != action ) {
+        if(NULL != action) {
             key->setEnabled(action->isEnabled());
         }
     }

@@ -158,6 +158,7 @@
      <addaction name="actionCopyElementPathClipboard"/>
      <addaction name="actionAutoComplete"/>
      <addaction name="actionEditXSLTitem"/>
+     <addaction name="actionEditAsText"/>
     </widget>
     <widget class="QMenu" name="menuFormatting">
      <property name="title">
@@ -2585,6 +2586,14 @@
    </property>
    <property name="toolTip">
     <string>Show or hide the keyboard shortcuts panel.</string>
+   </property>
+  </action>
+  <action name="actionEditAsText">
+   <property name="text">
+    <string>Edit Element as Text</string>
+   </property>
+   <property name="toolTip">
+    <string>Edit the current element in textual form.</string>
    </property>
   </action>
  </widget>

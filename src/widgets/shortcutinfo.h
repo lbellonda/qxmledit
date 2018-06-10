@@ -78,6 +78,8 @@ class ShortcutInfo : public QWidget
     void addOther(ActionKeyInfo *info);
     QString normalizeLabel(const QString &label);
     void removeWidgets();
+    QList<ActionKeyInfo*> sortActions(const QList<ActionKeyInfo*> &infos);
+    QString filterCmd(const QString &input, const QString &prefix);
 
 public:
     explicit ShortcutInfo(QWidget *parent = 0);

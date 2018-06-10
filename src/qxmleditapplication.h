@@ -71,7 +71,7 @@ public:
     void setupFirstAccessForPreferences();
     MainWindow *getOrCreateMainWindow();
 
-    bool showFunctionKeysInfo(const bool forceShow=false);
+    bool showFunctionKeysInfo(const bool forceShow = false);
 
     // region(StartAtcionsExecutor)
     virtual void startActionShowUserTypePanel();
