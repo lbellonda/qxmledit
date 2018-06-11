@@ -46,11 +46,11 @@ class ShortcutInfo : public QWidget
         O
     };
 
-    QHash<QWidget*, QString> _mapper;
+    QHash<QWidget*, ActionKeyInfo*> _mapper;
     bool _lightTheme ;
     QString _themeCSS;
-    QString _textColor;
-    QString _textKeyColor;
+    QString _templateTextEnabled;
+    QString _templateTextDisabled;
     QList<ActionKeyInfo*> _actions;
     QList<ActionKeyInfo*> _F;
     QList<ActionKeyInfo*> _ctrShift;
@@ -61,9 +61,10 @@ class ShortcutInfo : public QWidget
     QList<ActionKeyInfo*> _others;
     //---------------------------
     void setupData();
-    QWidget *newKey(const QString &key, const QString &text);
+    QWidget *newKey(ActionKeyInfo *info, const QString &key, const QString &text);
     void chooseTheme();
     QString readCSSData(const QString &name);
+    QString readResourceString(const QString &name);
     QWidget* createWidget(const QString &text);
     QWidget* createLabel(const QString &text);
     QWidget* createButton(const QString &text);

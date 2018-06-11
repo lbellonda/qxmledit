@@ -33,6 +33,8 @@ public:
     QString shortcut;
     QString text;
     QString normalizedLabel;
+    QString enabledText;
+    QString disabledText;
 
     static bool compareOpLessThan(const ActionKeyInfo *a1, const ActionKeyInfo *a2);
 
@@ -78,35 +80,26 @@ ShortcutInfo::~ShortcutInfo()
     delete ui;
 }
 
-static const QString lightTheme = "border: 1px solid #000040; border-radius:10px; padding:0px;margin:0px;\nbackground-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 rgba(228, 228, 228, 255), stop:1 rgba(255, 255, 255, 255));";
-static const QString colorTextLightTheme = "#5d5d5d";
-static const QString colorFKLightTheme = "#000000";
-
-static const QString darkTheme = "border: 1px solid #000040; border-radius:10px; padding:0px;margin:0px;\nbackground-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 rgba(64,64, 64, 255), stop:1 rgba(128, 128, 128, 255));";
-static const QString colorTextDarkTheme = "#FFFFFF";
-static const QString colorFKDarkTheme = "#FFFFFF";
-
-
-static const QString templateData = "<html><head/><body><p><span style='font-size:10pt;font-weight:600;color:$(FKEYCOLOR);'>$(FKEY)</span><br/><span style='font-size:9pt;color:$(COLORTEXT);'>$(TEXT)</span></p></body></html>";
-
 void ShortcutInfo::chooseTheme()
 {
-    Utils::TODO_THIS_RELEASE("fai preferenze");
     _lightTheme = Config::getBool(Config::KEY_INFO_SHORTCUT_LIGHT_THEME, false);
     if(_lightTheme) {
-        //_themeCSS = lightTheme ;
         _themeCSS = readCSSData(":/css/buttonLight.css");
-        _textColor = colorTextLightTheme;
-        _textKeyColor = colorFKLightTheme;
+        _templateTextEnabled = readResourceString(":/css/templateLightEnabled.html");
+        _templateTextDisabled = readResourceString(":/css/templateLightDisabled.html");;
     } else {
-        //_themeCSS = darkTheme ;
         _themeCSS = readCSSData(":/css/buttonDark.css");
-        _textColor = colorTextDarkTheme;
-        _textKeyColor = colorFKDarkTheme;
+        _templateTextEnabled = readResourceString(":/css/templateDarkEnabled.html");
+        _templateTextDisabled = readResourceString(":/css/templateDarkDisabled.html");;
     }
 }
 
 QString ShortcutInfo::readCSSData(const QString &name)
+{
+    return readResourceString(name);
+}
+
+QString ShortcutInfo::readResourceString(const QString &name)
 {
     QString result ;
     QFile file(name);
@@ -118,6 +111,7 @@ QString ShortcutInfo::readCSSData(const QString &name)
     }
     return result ;
 }
+
 
 void ShortcutInfo::setupData()
 {
@@ -188,9 +182,9 @@ void ShortcutInfo::refreshButtons(const QList<ActionKeyInfo*> &infos)
     removeWidgets();
     QList<ActionKeyInfo*> sortedActions = sortActions(infos);
     foreach(ActionKeyInfo *info, sortedActions) {
-        QWidget *widget = newKey(info->shortcut, info->normalizedLabel);
+        QWidget *widget = newKey(info, info->shortcut, info->normalizedLabel);
         ui->page->layout()->addWidget(widget);
-        _mapper.insert(widget, info->name);
+        _mapper.insert(widget, info);
     }
 }
 
@@ -213,12 +207,14 @@ QString ShortcutInfo::normalizeLabel(const QString &label)
     return t2 ;
 }
 
-QWidget *ShortcutInfo::newKey(const QString &key, const QString &text)
+QWidget *ShortcutInfo::newKey(ActionKeyInfo *info, const QString &key, const QString &text)
 {
-    const QString templateInstance = QString(templateData).replace("$(FKEY)", Utils::escapeHTML(key))
-                                     .replace("$(TEXT)", Utils::escapeHTML(text))
-                                     .replace("$(COLORTEXT)", _textColor)
-                                     .replace("$(FKEYCOLOR)", _textKeyColor);
+    const QString templateInstance = QString(_templateTextEnabled).replace("$(FKEY)", Utils::escapeHTML(key))
+                                     .replace("$(TEXT)", Utils::escapeHTML(text));
+    const QString templateDisabledInstance = QString(_templateTextEnabled).replace("$(FKEY)", Utils::escapeHTML(key))
+            .replace("$(TEXT)", Utils::escapeHTML(text));
+    info->disabledText = templateDisabledInstance ;
+    info->enabledText = templateInstance ;
     QWidget* widget = createWidget(templateInstance);
     widget->setStyleSheet(_themeCSS);
     widget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -324,7 +320,6 @@ void ShortcutInfo::loadActions()
         }
         file.close();
     }
-    Utils::TODO_THIS_RELEASE("macos usa command");
     foreach(ActionKeyInfo * info, _actions) {
         if(info->shortcut.startsWith("Ctrl+Shift")) {
             info->shortcut = filterCmd(info->shortcut, "Ctrl+Shift+");
@@ -399,9 +394,9 @@ void ShortcutInfo::onWidgetClicked()
 {
     QWidget *widget = qobject_cast<QWidget*>(sender());
     if(NULL != widget) {
-        const QString &name = _mapper[widget];
-        if(!name.isEmpty()) {
-            emit actionRequested(name);
+        ActionKeyInfo *info = _mapper[widget];
+        if(!info->name.isEmpty()) {
+            emit actionRequested(info->name);
         }
     }
 }
@@ -409,10 +404,15 @@ void ShortcutInfo::onWidgetClicked()
 void ShortcutInfo::setTarget(QWidget *target)
 {
     foreach(QWidget *key, _mapper.keys()) {
-        QString name = _mapper[key];
-        QAction* action = target->findChild<QAction*>(name);
+        ActionKeyInfo *info = _mapper[key];
+        QAction* action = target->findChild<QAction*>(info->name);
         if(NULL != action) {
-            key->setEnabled(action->isEnabled());
+            const bool isEnabled = action->isEnabled() ;
+            key->setEnabled(isEnabled);
+            QLabelWithSignals *widget = qobject_cast<QLabelWithSignals*>(key);
+            if(NULL != widget) {
+                widget->setText(isEnabled ? info->enabledText : info->disabledText);
+            }
         }
     }
 }

@@ -87,6 +87,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
     ui->cbSHowElementsIcon->setChecked(Config::getBool(Config::KEY_MAIN_SHOWELEMNTSICON, false));
     ui->cbShowTagComplex->setChecked(Config::getBool(Config::KEY_MAIN_SHOWLTONTAGS, Config::ShowLOOnTagsDefault));
     ui->cbEnableMultiThreading->setChecked(_data->isMtEnabled());
+    ui->cbLightTheme->setChecked(Config::getBool(Config::KEY_INFO_SHORTCUT_LIGHT_THEME, false));
     updateStatus();
     _started = true ;
 }
@@ -276,6 +277,14 @@ void ConfigurationGeneralOptions::on_cbShowTagComplex_stateChanged(int /*state*/
         return ;
     }
     Config::saveBool(Config::KEY_MAIN_SHOWLTONTAGS, ui->cbShowTagComplex->isChecked());
+}
+
+void ConfigurationGeneralOptions::on_cbLightTheme_stateChanged(int /*state*/)
+{
+    if(!_started) {
+        return ;
+    }
+    Config::saveBool(Config::KEY_INFO_SHORTCUT_LIGHT_THEME, ui->cbLightTheme->isChecked());
 }
 
 void ConfigurationGeneralOptions::on_cbEnableMultiThreading_stateChanged(int /*state*/)

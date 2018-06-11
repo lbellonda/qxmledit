@@ -16,3 +16,14 @@ QLabel:!enabled {
     border-color: #000000;
     color: #808080;
 }
+
+.textKey {
+    font-size:10pt;
+    font-weight:600;
+    color:#FFFFFF;
+}
+
+.textDescr {
+    font-size:9pt;
+    color:#FFFFFF;
+}

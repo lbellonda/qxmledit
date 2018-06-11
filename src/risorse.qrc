@@ -267,5 +267,9 @@
     <qresource prefix="/css">
         <file alias="buttonDark.css">resources/css/buttonDark.css</file>
         <file alias="buttonLight.css">resources/css/buttonLight.css</file>
+        <file alias="templateDarkDisabled.html">resources/css/templateDarkDisabled.html</file>
+        <file alias="templateLightDisabled.html">resources/css/templateLightDisabled.html</file>
+        <file alias="templateDarkEnabled.html">resources/css/templateDarkEnabled.html</file>
+        <file alias="templateLightEnabled.html">resources/css/templateLightEnabled.html</file>
     </qresource>
 </RCC>
