@@ -5,10 +5,11 @@ devel
 Branches:
 ---------
 171 - Function key help.
-170 - Search a command by name.
 
 Merged branches:
 -------------
+172 - Allow configuration to qmake via command line
+170 - Search a command by name.
 169-UI-improvements - increasing user-friendliness
 issue-48 improve xsd display performance
 170 - update year on all headers

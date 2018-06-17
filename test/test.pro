@@ -24,15 +24,35 @@
 #
 #-------------------------------------------------
 
+###########################################
+
 INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
+isEmpty(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS) {
+    INST_AVOID_PRECOMP_HEADERS=$$QXMLEDIT_INST_AVOID_PRECOMP_HEADERS
+}
 isEmpty(INST_AVOID_PRECOMP_HEADERS) {
     INST_AVOID_PRECOMP_HEADERS = ""
+    message("Precompiled headers activated")
+}
+!isEmpty(INST_AVOID_PRECOMP_HEADERS) {
+    message("Precompiled headers disabled")
 }
 
+###########################################
+
 INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
+!isEmpty(QXMLEDIT_INST_USE_C11) {
+    INST_USE_C11=$$QXMLEDIT_INST_USE_C11
+}
 isEmpty(INST_USE_C11) {
     INST_USE_C11 = ""
+    message("No C11 support")
 }
+!isEmpty(INST_USE_C11) {
+    message("C11 support")
+}
+
+###########################################
 
 
 # This is necessary to build the test executable as an app
