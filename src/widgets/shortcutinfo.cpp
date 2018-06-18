@@ -211,7 +211,7 @@ QWidget *ShortcutInfo::newKey(ActionKeyInfo *info, const QString &key, const QSt
 {
     const QString templateInstance = QString(_templateTextEnabled).replace("$(FKEY)", Utils::escapeHTML(key))
                                      .replace("$(TEXT)", Utils::escapeHTML(text));
-    const QString templateDisabledInstance = QString(_templateTextEnabled).replace("$(FKEY)", Utils::escapeHTML(key))
+    const QString templateDisabledInstance = QString(_templateTextDisabled).replace("$(FKEY)", Utils::escapeHTML(key))
             .replace("$(TEXT)", Utils::escapeHTML(text));
     info->disabledText = templateDisabledInstance ;
     info->enabledText = templateInstance ;
