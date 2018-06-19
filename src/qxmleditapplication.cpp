@@ -37,7 +37,6 @@
 #include "modules/help/firstaccessdialog.h"
 #include "modules/help/guidedoperationsdialog.h"
 #include "modules/help/guidedvalidationdialog.h"
-#include "modules/help/functionkeysinfo.h"
 #include "modules/uiutil/defaultuidelegate.h"
 #include "widgets/shortcutinfo.h"
 
@@ -429,14 +428,16 @@ bool QXmlEditApplication::showFunctionKeysInfo(const bool forceShow)
 {
     bool isVisible = false;
     if(NULL == _functionKeysInfo) {
-        Utils::TODO_THIS_RELEASE("fare");
-        //_functionKeysInfo = new FunctionKeysInfo(NULL, _appData);
+        Utils::TODO_THIS_RELEASE("check");
         _functionKeysInfo = new ShortcutInfo(NULL);
 
-        _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() | (Qt::Tool | Qt::WindowStaysOnTopHint));
-        //_functionKeysInfo->setWindowFlag( Qt::FramelessWindowHint, true);
-        //_functionKeysInfo->setWindowFlags((Qt::WindowFlags)(Qt::Window | Qt::FramelessWindowHint));
-        //_functionKeysInfo->setWindowFlags((Qt::WindowFlags)(Qt::Window | Qt::CustomizeWindowHint | Qt::BypassWindowManagerHint | Qt::WindowTitleHint));
+#ifdef ENVIRONMENT_MACOS
+        const Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint ;
+#else
+        const Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint;
+#endif
+        _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() | flags);
+        Utils::TODO_THIS_RELEASE("se linux allora senza titolo? e se windows?");
         _functionKeysInfo->setWindowTitle(tr("Keyboard Shortcuts List"));
         connect(_functionKeysInfo, SIGNAL(actionRequested(const QString &)), this, SLOT(onShortcutActivated(const QString &)));
     } else {
