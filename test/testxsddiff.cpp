@@ -262,6 +262,7 @@ bool TestXSDDiff::verifyAttributesUnordered( const QString &testName, XSDSchema 
 
 bool TestXSDDiff::doTest( const ETTType type, const QString &testName, const QString &fileNameIn, const QString &fileNameOut, QList<int> &expected, const bool areDifferent )
 {
+    App app;
     if(!app.init() ) {
         return error(testName, "init app failed");
     }
@@ -317,6 +318,7 @@ bool TestXSDDiff::doTest( const ETTType type, const QString &testName, const QSt
 
 bool TestXSDDiff::doCompare( const QString &testName, const QString &fileNameIn, const QString &fileNameOut, const int expAdd, const int expMod, const int expDel, const int expUn)
 {
+    App app;
     if(!app.init() ) {
         return error(testName, "init app failed");
     }

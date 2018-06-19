@@ -34,7 +34,6 @@ class TestXSDDiff
         ATTRIBUTES
     };
 
-    App app;
     QMap<QString, QVariant> _configBackend;
 
     bool one;

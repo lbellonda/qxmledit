@@ -140,6 +140,14 @@
 #define FILE_FIELDS "f.id, f.path, f.description, f.creationdate, f.starred"
 #define OFFSET_ACCESS_FILEACCESS (5)
 
+//--------------------------
+
+SessionDataFactory::~SessionDataFactory()
+{
+}
+
+//--------------------------
+
 SessionDataInterface::~SessionDataInterface()
 {
 }

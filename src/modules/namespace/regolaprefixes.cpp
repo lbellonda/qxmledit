@@ -235,7 +235,7 @@ bool Regola::removePrefix(const QString &removedPrefix, QList<Element*> elements
 {
     bool ok = true;
     foreach(Element * element, elements) {
-        if((NULL != element) || element->isElement()) {
+        if((NULL != element) && element->isElement()) {
             if(!element->removePrefix(removedPrefix, targetSelection,
                                       isAllPrefixes, observer)) {
                 ok = false;
@@ -252,7 +252,7 @@ bool Regola::setPrefix(const QString &newPrefix, QList<Element*> elements, Targe
 {
     bool ok = true;
     foreach(Element * element, elements) {
-        if((NULL != element) || element->isElement()) {
+        if((NULL != element) && element->isElement()) {
             if(!element->setPrefix(newPrefix, targetSelection, observer)) {
                 ok = false;
             }
@@ -287,7 +287,7 @@ bool Regola::removeNamespace(const QString &removedNS, QList<Element *>elements,
 {
     bool ok = true;
     foreach(Element * element, elements) {
-        if((NULL != element) || element->isElement()) {
+        if((NULL != element) && element->isElement()) {
             QList<NSContext*> contexts;
             NSContext *lastContext = buildContextInfo(contexts, element);
             if(!element->removeNamespace(removedNS, targetSelection,
@@ -304,7 +304,7 @@ bool Regola::setNamespace(const QString &ns, const QString &prefix, QList<Elemen
 {
     bool ok = true;
     foreach(Element * element, elements) {
-        if((NULL != element) || element->isElement()) {
+        if((NULL != element) && element->isElement()) {
 
             QList<NSContext*> contexts;
             NSContext *lastContext = buildContextInfo(contexts, element);
@@ -322,7 +322,7 @@ bool Regola::replaceNamespace(const QString &replacedNS, const QString &newNS, c
 {
     bool ok = true;
     foreach(Element * element, elements) {
-        if((NULL != element) || element->isElement()) {
+        if((NULL != element) && element->isElement()) {
 
             QList<NSContext*> contexts;
             NSContext *lastContext = buildContextInfo(contexts, element);
@@ -360,7 +360,7 @@ bool Regola::replacePrefix(const QString &oldPrefix, const QString &newPrefix, Q
 {
     bool ok = true;
     foreach(Element * element, elements) {
-        if((NULL != element) || element->isElement()) {
+        if((NULL != element) && element->isElement()) {
             if(!element->replacePrefix(oldPrefix, newPrefix, targetSelection, isAllPrefixes, observer)) {
                 ok = false;
             }
@@ -392,7 +392,7 @@ bool Regola::namespaceNormalize(const QString &thePrefix, const QString &theNS, 
 {
     bool ok = true;
     foreach(Element * element, elements) {
-        if((NULL != element) || element->isElement()) {
+        if((NULL != element) && element->isElement()) {
             QList<NSContext*> contexts;
             NSContext *context = buildContextInfo(contexts, element);
             bool isDeclared = false ;

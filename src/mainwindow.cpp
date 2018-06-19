@@ -95,6 +95,7 @@ const QString MainWindow::ActionTagLastFolders("LastFolders");
 MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWindow *parent)
     : QMainWindow(parent),
       _uiServices(this),
+      data(newData),
       uiDelegate(this),
       _windowIcon(":/icon/images/icon.png"),
       _closing(false)
@@ -123,7 +124,6 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
     isSlave = setIsSlave ;
     eventLoop = NULL ;
     _extractResult = NULL ;
-    data = newData ;
     ui.setupUi(this);
     ui.loadWarningWidget->setVisible(false);
     ui.actionAbout->setMenuRole(QAction::AboutRole);
@@ -152,6 +152,7 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
     if(Config::getBool(Config::KEY_TEST_SHOW_XSD_EDITOR, false)) {
         //void xsdTest(); TODO
         //xsdTest();
+        Utils::TODO_THIS_RELEASE("rimuovi se non serve");
     }
     setWindowIcon(_windowIcon);
     started = true ;
@@ -165,21 +166,29 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
 
 MainWindow::~MainWindow()
 {
-    if(NULL != data) {
-        disconnect(data, SIGNAL(clipboardDataChanged(bool)), this, SLOT(onClipboardDataChanged(bool)));
-        disconnect(data, SIGNAL(stateKeyboardShortcutChanged(bool)), this, SLOT(onStateKeyboardShortcutChanged(bool)));
-    }
+    ui.sessionTree->setSessionManager(NULL);
     dismissInfoOnKeyboard();
     dismissInfoEditTypes();
-    if(!isSlave) {
-        data->removeWindow(this);
-    }
     cleanExtractResults(); //TODO
     removeAttributesFilter();
     if(NULL != _snippetManager) {
         delete _snippetManager;
     }
+    forgetData();
 }
+
+void MainWindow::forgetData()
+{
+    if(NULL != data) {
+        disconnect(data, SIGNAL(clipboardDataChanged(bool)), this, SLOT(onClipboardDataChanged(bool)));
+        disconnect(data, SIGNAL(stateKeyboardShortcutChanged(bool)), this, SLOT(onStateKeyboardShortcutChanged(bool)));
+        if(!isSlave) {
+            data->removeWindow(this);
+        }
+        data = NULL ;
+    }
+}
+
 
 ApplicationData *MainWindow::appData()
 {
@@ -248,11 +257,21 @@ bool MainWindow::event(QEvent *e)
     const bool result = QMainWindow::event(e);
     switch(e->type()) {
     case QEvent::WindowActivate:
+#ifdef  QXMLEDIT_TEST
+        if(NULL == data)  {
+            Utils::TODO_THIS_RELEASE("fault");
+        }
+#endif
         if(NULL != data)  {
             data->newWindowActivationStatus(this, true);
         }
         break;
     case QEvent::WindowDeactivate:
+#ifdef  QXMLEDIT_TEST
+        if(NULL == data)  {
+            Utils::TODO_THIS_RELEASE("fault");
+        }
+#endif
         if(NULL != data)  {
             data->newWindowActivationStatus(this, false);
         }
@@ -1381,8 +1400,11 @@ void MainWindow::closeEvent(QCloseEvent * event)
     event->accept();
     _closing = true;
     if(!isSlave) {
+        // disable events until destroyed
+        forgetData();
         deleteLater();
     } else {
+        Utils::TODO_THIS_RELEASE("ma perche'? non forget data se closed? o deleted?");
         _slaveIsClosed = true ;
         if(NULL != eventLoop) {
             eventLoop->exit(_returnCodeAsSlave);

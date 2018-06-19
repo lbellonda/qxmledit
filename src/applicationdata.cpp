@@ -90,10 +90,14 @@ ApplicationData::~ApplicationData()
     }
     if(NULL != _uiServices) {
         delete _uiServices;
+        _uiServices = NULL;
     }
     if(NULL != _sessionDataInterface) {
         _sessionDataInterface->closeAndDispose();
+        _sessionDataInterface = NULL ;
     }
+    disconnect(&_sessionManager, SIGNAL(sessionActivated(const int)), this, SLOT(onSessionActivated(const int)));
+    disconnect(&_sessionManager, SIGNAL(clearSession()), this, SLOT(onClearSession()));
 }
 
 

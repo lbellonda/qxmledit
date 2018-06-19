@@ -74,6 +74,7 @@ void ConfigureSessionsWidget::on_deleteAllData_clicked()
             SessionDataInterface * dataAccess = _data->sessionManager()->dataAccess();
             if(NULL == dataAccess) {
                 Utils::error(this, tr("Error connecting with storage."));
+                return ;
             }
             SessionOperationStatus context;
             setEnabled(false);
@@ -95,6 +96,7 @@ void ConfigureSessionsWidget::on_deleteData_clicked()
             SessionDataInterface *dataAccess = _data->sessionManager()->dataAccess();
             if(NULL == dataAccess) {
                 Utils::error(this, tr("Error connecting with storage."));
+                return;
             }
             bool isValidChoice = true ;
             SessionDataInterface::EDateInterval dateInterval;

@@ -170,6 +170,7 @@ public:
     void fireActionByName(const QString &name);
 
 protected:
+    void forgetData();
     virtual void changeEvent(QEvent *event);
     virtual bool event(QEvent *e);
     void dismissInfoOnKeyboard();
@@ -581,6 +582,7 @@ protected:
     friend class TestLoadFile;
     friend class TestFormattingInfo;
     friend class TestConfig;
+    friend class App;
     void setLoadErrorHandler(XMLLoadErrorHandler *newHandler);
 #endif
 };

@@ -24,21 +24,16 @@
 #ifndef ATTRIBUTEFILTERDATAACCESS_H
 #define ATTRIBUTEFILTERDATAACCESS_H
 
-#include <QObject>
-
-
 #include "sessions/data_access/model/attrfilterprofile.h"
 #include "sessions/data_access/model/attrfilterdetail.h"
 #include "sessions/data_access/dataresult.h"
 #include <sessiondata>
 
-class AttributeFilterDataAccess : public QObject
+class AttributeFilterDataAccess
 {
-    Q_OBJECT
-
     SessionDataInterface *_dataAccess;
 public:
-    explicit AttributeFilterDataAccess(SessionDataInterface *newDataAccess = NULL, QObject *parent = 0);
+    explicit AttributeFilterDataAccess(SessionDataInterface *newDataAccess = NULL);
     virtual ~AttributeFilterDataAccess();
 
     void setDataAccess(SessionDataInterface *newDataAccess);
@@ -47,10 +42,6 @@ public:
     void storageSaveProfile(DataResult &result, AttrFilterProfile *profile, AttrFilterDetail *detail);
     virtual void storageDeleteProfile(DataResult &result, const int idProfile);
     virtual AttrFilterDetail *storageReadProfileDetails(DataResult &result, const int idProfile);
-
-signals:
-
-public slots:
 
 };
 

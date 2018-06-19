@@ -801,11 +801,11 @@ void VStyle::updateFontMetrics()
 
 bool VStyle::addId(const QString &newId, const bool isAlpha)
 {
+    if(_elementIds.value(newId, NULL) != NULL) {
+        return false;
+    }
     IdEntry * entry = new IdEntry(newId, isAlpha) ;
     if(NULL != entry) {
-        if(_elementIds.value(newId, NULL) != NULL) {
-            return false;
-        }
         _elementIds.insert(newId, entry) ;
         return true;
     }

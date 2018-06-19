@@ -26,8 +26,7 @@
 //----------------------------------------------------------------
 
 
-AttributeFilterDataAccess::AttributeFilterDataAccess(SessionDataInterface *newDataAccess, QObject *parent) :
-    QObject(parent)
+AttributeFilterDataAccess::AttributeFilterDataAccess(SessionDataInterface *newDataAccess)
 {
     _dataAccess = newDataAccess ;
 }

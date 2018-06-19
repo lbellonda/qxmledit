@@ -79,6 +79,7 @@ AboutDialog::AboutDialog(QWidget *parent,
             item->setText(0, QString("%1 %2").arg(author->name).arg(contactInfo(author->contactInfo)));
             contributors->addChild(item);
         } else {
+            delete item ;
             //TODO printf( "%s", QString("ROLE NOT FOUND %1").arg(author->name).toAscii().data() );
         }
     }

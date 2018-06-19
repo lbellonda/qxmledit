@@ -81,6 +81,7 @@ class SessionDataFactory
 {
 public:
     virtual SessionDataInterface *sessionDataInterface(const QString &configuration) = 0;
+    virtual ~SessionDataFactory();
 };
 
 #endif // SESSIONDATAINTERFACE_H

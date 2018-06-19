@@ -60,6 +60,7 @@ void SessionDrawerWidgetPrivate::init()
 void SessionDrawerWidgetPrivate::disconnectSessionManager()
 {
     if(NULL != _sessionManager) {
+        disconnect(_sessionManager, SIGNAL(sessionStateChanged(Session::SessionState)), this, SLOT(onSessionStateChanged(Session::SessionState)));
         disconnect(_sessionManager, SIGNAL(dataChanged()), this, SLOT(onSessionDataChanged()));
         disconnect(_sessionManager, SIGNAL(enablingChanged()), this, SLOT(onEnablingChanged()));
     }

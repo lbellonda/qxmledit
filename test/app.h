@@ -49,7 +49,7 @@ public:
     QString sessionDBPath;
 
     App();
-    ~App();
+    virtual ~App();
 
     bool init(const bool delegateYes=false);
     bool initNoWindow();

@@ -25,8 +25,6 @@
 #include "utils.h"
 #include "fakeattributefilterdataaccess.h"
 
-FakeAttributeFilterDataAccess fakeAccess;
-
 AttributeFilterManagement::AttributeFilterManagement(QObject *parent) :
     QObject(parent)
 {
