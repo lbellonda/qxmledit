@@ -1366,6 +1366,7 @@ void DataWidget::contextMenuEvent(QContextMenuEvent * event)
         if(isMenu) {
             contextMenu->exec(event->globalPos());
         }
+        delete contextMenu;
     }
 }
 

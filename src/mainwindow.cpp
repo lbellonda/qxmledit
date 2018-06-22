@@ -539,6 +539,9 @@ bool MainWindow::finishSetUpUi()
     QMenu *xsdMenu = new QMenu(this);
     if((NULL == _xsdButton) || (xsdMenu == NULL)) {
         isOk = false ;
+        if(NULL != xsdMenu){
+            delete xsdMenu ;
+        }
     } else {
         xsdMenu->addAction(ui.actionXSDModifyType);
         xsdMenu->addSeparator();

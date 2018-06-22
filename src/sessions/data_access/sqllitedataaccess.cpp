@@ -1185,7 +1185,9 @@ bool SQLLiteDataAccess::Private::readAndAppendAllSessions(QSet<int> *sessionMap,
             }
             int id = query.value(0).toInt();
             if(!sessionMap->contains(id)) {
-                _logger->debug("SQLLiteDataAccess::adding missing session ", &_logInfo);
+                if(_logger) {
+                    _logger->debug("SQLLiteDataAccess::adding missing session ", &_logInfo);
+                }
                 SessionListModel *listModel = new SessionListModel();
                 if(NULL == listModel) {
                     isOk = false;

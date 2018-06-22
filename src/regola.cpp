@@ -821,7 +821,7 @@ bool Regola::editInnerXMLBase64Element(QTreeWidgetItem *item, UIDelegate *uiDele
     switch(pElement->getType()) {
     case Element::ET_ELEMENT:
         if(pElement->isMixedContent()) {
-            if(NULL == uiDelegate) {
+            if(NULL != uiDelegate) {
                 uiDelegate->error(textOfCantEditMixedContentElementText());
             }
             return false;

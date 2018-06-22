@@ -67,12 +67,12 @@ bool SCXMLEditorManager::handleEdit(QWidget *parent, XmlEditWidget *, QTreeWidge
 bool SCXMLEditorManager::handleInsert(XmlEditWidget *, QTreeWidget *tree, Regola *regola, Element *element, const bool isChild, const QString & itemCode)
 {
     init();
-    Element *newElement = new Element(NULL);
     bool goAhead = false;
     SCXMLToken *token = _tokenMakager.tokenForName(itemCode);
     if(NULL == token) {
         return false;
     }
+    Element *newElement = new Element(NULL);
     Element *theParent = (NULL != element) ? element->parent() : NULL ;
     SCXMLInfo info;
     SCXMLInfo::findInfoStates(regola, &info);

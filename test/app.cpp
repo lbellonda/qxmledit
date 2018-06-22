@@ -24,7 +24,7 @@
 #include "app.h"
 #include "testhelpers/testmainwindow.h"
 
-App::App()
+App::App() : QObject(NULL)
 {
     _mainWindow = NULL ;
     _useTestWindow = false;
@@ -34,6 +34,7 @@ App::App()
 App::~App()
 {
     if(_mainWindow != NULL) {
+        _mainWindow->forgetData();
         delete _mainWindow ;
         _mainWindow = NULL ;
     }

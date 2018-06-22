@@ -277,7 +277,11 @@ QString AnonContext::anonymize(AnonException *exception, const QString &inputDat
     }
     switch(anonType) {
     case AnonType::FixedValue:
-        translatedValue = exception->fixedValue();
+        if(NULL!=exception) {
+            translatedValue = exception->fixedValue();
+        } else {
+            translatedValue = _alg->processText(inputData);
+        }
         break;
     default:
     case AnonType::UseDefault:
