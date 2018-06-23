@@ -51,6 +51,12 @@ class ShortcutInfo : public QWidget
     QString _themeCSS;
     QString _templateTextEnabled;
     QString _templateTextDisabled;
+    QString _templateQuit;
+    QString _templateClose;
+    QString _templateGreen;
+    QString _cssQuit;
+    QString _cssClose;
+    QString _cssGreen;
     QList<ActionKeyInfo*> _actions;
     QList<ActionKeyInfo*> _F;
     QList<ActionKeyInfo*> _ctrShift;
@@ -61,7 +67,7 @@ class ShortcutInfo : public QWidget
     QList<ActionKeyInfo*> _others;
     //---------------------------
     void setupData();
-    QWidget *newKey(ActionKeyInfo *info, const QString &key, const QString &text);
+    QWidget *newKey(ActionKeyInfo *info, const QString &css, const QString &tpl, const QString &tplDis, const bool isAlwaysEnabled);
     void chooseTheme();
     QString readCSSData(const QString &name);
     QString readResourceString(const QString &name);
@@ -81,6 +87,8 @@ class ShortcutInfo : public QWidget
     void removeWidgets();
     QList<ActionKeyInfo*> sortActions(const QList<ActionKeyInfo*> &infos);
     QString filterCmd(const QString &input, const QString &prefix);
+    void setTemplates(ActionKeyInfo *info, const QString &templateString, const QString &key, const QString &text);
+    void updateButton(ActionKeyInfo *info, QWidget *widget, const QString &css, const QString &tpl, const bool isAlwaysEnabled);
 
 public:
     explicit ShortcutInfo(QWidget *parent = 0);

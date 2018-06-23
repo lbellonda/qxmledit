@@ -50,6 +50,9 @@ SearchCommandDialog::SearchCommandDialog(QList<QAction*> theActions, QWidget *pa
     buildActions();
     ui->setupUi(this);
     enableOK();
+#if QT_VERSION >= QT_VERSION_CHECK(5,2,0)
+    ui->search->setClearButtonEnabled(true);
+#endif
     ui->search->setFocus();
     ui->commands->setUniformRowHeights(true);
 }

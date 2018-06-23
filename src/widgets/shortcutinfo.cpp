@@ -35,6 +35,7 @@ public:
     QString normalizedLabel;
     QString enabledText;
     QString disabledText;
+    bool alwaysEnabled;
 
     static bool compareOpLessThan(const ActionKeyInfo *a1, const ActionKeyInfo *a2);
 
@@ -44,13 +45,16 @@ public:
 };
 
 ActionKeyInfo::ActionKeyInfo()
-{}
+{
+    alwaysEnabled = false;
+}
 
 ActionKeyInfo::ActionKeyInfo(const QString &theName, const QString &theShortcut, const QString &theText)
 {
     name = theName ;
     shortcut = theShortcut ;
     text = theText ;
+    alwaysEnabled = false;
 }
 
 ActionKeyInfo::~ActionKeyInfo()
@@ -86,12 +90,18 @@ void ShortcutInfo::chooseTheme()
     if(_lightTheme) {
         _themeCSS = readCSSData(":/css/buttonLight.css");
         _templateTextEnabled = readResourceString(":/css/templateLightEnabled.html");
-        _templateTextDisabled = readResourceString(":/css/templateLightDisabled.html");;
+        _templateTextDisabled = readResourceString(":/css/templateLightDisabled.html");
     } else {
         _themeCSS = readCSSData(":/css/buttonDark.css");
         _templateTextEnabled = readResourceString(":/css/templateDarkEnabled.html");
-        _templateTextDisabled = readResourceString(":/css/templateDarkDisabled.html");;
+        _templateTextDisabled = readResourceString(":/css/templateDarkDisabled.html");
     }
+    _templateClose = readResourceString(":/css/templateClose.html");
+    _templateGreen = readResourceString(":/css/templateGreen.html");
+    _templateQuit = readResourceString(":/css/templateQuit.html");
+    _cssClose = readResourceString(":/css/closeButton.css");
+    _cssGreen = readResourceString(":/css/greenButton.css");
+    _cssQuit = readResourceString(":/css/quitButton.css");
 }
 
 QString ShortcutInfo::readCSSData(const QString &name)
@@ -182,7 +192,18 @@ void ShortcutInfo::refreshButtons(const QList<ActionKeyInfo*> &infos)
     removeWidgets();
     QList<ActionKeyInfo*> sortedActions = sortActions(infos);
     foreach(ActionKeyInfo *info, sortedActions) {
-        QWidget *widget = newKey(info, info->shortcut, info->normalizedLabel);
+        QWidget *widget ;
+        if(info->name == "actionQuit") {
+            widget = newKey(info, _cssQuit, _templateQuit, _templateQuit, true);
+        } else if(info->name == "actionClose") {
+            widget = newKey(info, _cssClose, _templateClose, _templateClose, false);
+        } else if(info->name == "actionNew") {
+            widget = newKey(info, _cssGreen, _templateGreen, _templateGreen, true);
+        } else if(info->name == "actionOpen") {
+            widget = newKey(info, _cssGreen, _templateGreen, _templateGreen, true);
+        } else {
+            widget = newKey(info, _themeCSS, _templateTextEnabled, _templateTextDisabled, false);
+        }
         ui->page->layout()->addWidget(widget);
         _mapper.insert(widget, info);
     }
@@ -207,19 +228,30 @@ QString ShortcutInfo::normalizeLabel(const QString &label)
     return t2 ;
 }
 
-QWidget *ShortcutInfo::newKey(ActionKeyInfo *info, const QString &key, const QString &text)
+QWidget *ShortcutInfo::newKey(ActionKeyInfo *info, const QString &css, const QString &tpl, const QString &tplDis, const bool isAlwaysEnabled)
 {
-    const QString templateInstance = QString(_templateTextEnabled).replace("$(FKEY)", Utils::escapeHTML(key))
-                                     .replace("$(TEXT)", Utils::escapeHTML(text));
-    const QString templateDisabledInstance = QString(_templateTextDisabled).replace("$(FKEY)", Utils::escapeHTML(key))
-            .replace("$(TEXT)", Utils::escapeHTML(text));
+    const QString templateInstance = QString(tpl).replace("$(FKEY)", Utils::escapeHTML(info->shortcut))
+                                     .replace("$(TEXT)", Utils::escapeHTML(info->normalizedLabel));
+    const QString templateDisabledInstance = QString(tplDis).replace("$(FKEY)", Utils::escapeHTML(info->shortcut))
+            .replace("$(TEXT)", Utils::escapeHTML(info->normalizedLabel));
     info->disabledText = templateDisabledInstance ;
     info->enabledText = templateInstance ;
+    info->alwaysEnabled = isAlwaysEnabled ;
     QWidget* widget = createWidget(templateInstance);
-    widget->setStyleSheet(_themeCSS);
+    widget->setStyleSheet(css);
     widget->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(widget, SIGNAL(clicked()), this, SLOT(onWidgetClicked()));
     return widget ;
+}
+
+void ShortcutInfo::setTemplates(ActionKeyInfo *info, const QString &templateString, const QString &key, const QString &text)
+{
+    const QString templateInstance = QString(templateString).replace("$(FKEY)", Utils::escapeHTML(key))
+                                     .replace("$(TEXT)", Utils::escapeHTML(text));
+    const QString templateDisabledInstance = QString(templateString).replace("$(FKEY)", Utils::escapeHTML(key))
+            .replace("$(TEXT)", Utils::escapeHTML(text));
+    info->disabledText = templateDisabledInstance ;
+    info->enabledText = templateInstance ;
 }
 
 QWidget* ShortcutInfo::createWidget(const QString &text)
@@ -405,13 +437,21 @@ void ShortcutInfo::setTarget(QWidget *target)
 {
     foreach(QWidget *key, _mapper.keys()) {
         ActionKeyInfo *info = _mapper[key];
-        QAction* action = target->findChild<QAction*>(info->name);
-        if(NULL != action) {
-            const bool isEnabled = action->isEnabled() ;
-            key->setEnabled(isEnabled);
+        if(info->alwaysEnabled) {
             QLabelWithSignals *widget = qobject_cast<QLabelWithSignals*>(key);
+            key->setEnabled(true);
             if(NULL != widget) {
-                widget->setText(isEnabled ? info->enabledText : info->disabledText);
+                widget->setText(info->enabledText);
+            }
+        } else {
+            QAction* action = target->findChild<QAction*>(info->name);
+            if(NULL != action) {
+                const bool isEnabled = action->isEnabled() ;
+                key->setEnabled(isEnabled);
+                QLabelWithSignals *widget = qobject_cast<QLabelWithSignals*>(key);
+                if(NULL != widget) {
+                    widget->setText(isEnabled ? info->enabledText : info->disabledText);
+                }
             }
         }
     }

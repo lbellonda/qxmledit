@@ -43,6 +43,7 @@ class GuidedOperationsDialog : public QDialog
     ApplicationData *_appData ;
     QShortcut *_shortcutOpen;
     QShortcut *_shortcutNew;
+    QShortcut *_shortcutQuit;
 
     void makeButtonsSameSize();
 
@@ -101,6 +102,7 @@ private slots:
     void on_cmdViewDataMap_clicked();
     void onShortcutOpen();
     void onShortcutNew();
+    void onShortcutQuit();
 };
 
 #endif // GUIDEDOPERATIONSDIALOG_H

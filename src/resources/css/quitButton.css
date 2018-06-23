@@ -1,0 +1,29 @@
+QLabel {
+    border: 1px solid #000040;
+    border-radius:10px;
+    padding:2px;
+    margin:0px;
+    background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 #F00000, stop:1 #D00000);
+}
+
+QLabel:hover {
+    background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 #F00000, stop:1 #D00000);
+    border-color: #C02020;
+}
+
+QLabel:!enabled {
+    background-color: #F00000;
+    border-color: #000000;
+    color: #808080;
+}
+
+.textKey {
+    font-size:10pt;
+    font-weight:600;
+    color:#FFFFFF;
+}
+
+.textDescr {
+    font-size:9pt;
+    color:#FFFFFF;
+}
