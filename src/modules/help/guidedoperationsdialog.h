@@ -24,6 +24,7 @@
 #define GUIDEDOPERATIONSDIALOG_H
 
 #include "xmlEdit.h"
+#include <QShortcut>
 
 class QXmlEditApplication ;
 class ApplicationData ;
@@ -40,6 +41,8 @@ class GuidedOperationsDialog : public QDialog
     Q_OBJECT
     QXmlEditApplication *_application;
     ApplicationData *_appData ;
+    QShortcut *_shortcutOpen;
+    QShortcut *_shortcutNew;
 
     void makeButtonsSameSize();
 
@@ -96,6 +99,8 @@ private slots:
     void on_cmdEditingShortcut_clicked();
     void on_cmdBase64_clicked();
     void on_cmdViewDataMap_clicked();
+    void onShortcutOpen();
+    void onShortcutNew();
 };
 
 #endif // GUIDEDOPERATIONSDIALOG_H

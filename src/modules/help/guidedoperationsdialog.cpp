@@ -36,10 +36,17 @@ GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application,
     makeButtonsSameSize();
     applyUserProfile();
     setAcceptDrops(true);
+    _shortcutOpen = new QShortcut(this);
+    _shortcutOpen ->setKey(Qt::Key_O + Qt::CTRL);
+    connect(_shortcutOpen, SIGNAL(activated()), this, SLOT(onShortcutOpen()));
+    _shortcutNew = new QShortcut(this);
+    _shortcutNew ->setKey(Qt::Key_N + Qt::CTRL);
+    connect(_shortcutNew, SIGNAL(activated()), this, SLOT(onShortcutNew()));
 }
 
 GuidedOperationsDialog::~GuidedOperationsDialog()
 {
+    disconnect(_shortcutOpen, SIGNAL(activated()), this, SLOT(onShortcutOpen()));
     delete ui;
 }
 
@@ -202,4 +209,14 @@ void GuidedOperationsDialog::dropEvent(QDropEvent *event)
     } else {
         event->ignore();
     }
+}
+
+void GuidedOperationsDialog::onShortcutOpen()
+{
+    on_cmdOpen_clicked();
+}
+
+void GuidedOperationsDialog::onShortcutNew()
+{
+    on_cmdNew_clicked();
 }
