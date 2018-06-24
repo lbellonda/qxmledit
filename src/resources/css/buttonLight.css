@@ -3,11 +3,11 @@ QLabel {
     border-radius:10px;
     padding:2px;
     margin:0px;
-    background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 rgba(228, 228, 228, 255), stop:1 rgba(255, 255, 255, 255));
+    background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 rgba(192, 192, 192, 255), stop:1 rgba(255, 255, 255, 255));
 }
 
 QLabel:hover {
-    background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 rgba(128, 128, 128, 255), stop:1 rgba(192, 192, 192, 255));
+    background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 rgba(255, 255, 255, 255), stop:1 rgba(255, 255, 255, 255));
     border-color: #C02020;
 }
 

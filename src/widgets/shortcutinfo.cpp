@@ -23,6 +23,7 @@
 #include "shortcutinfo.h"
 #include "ui_shortcutinfo.h"
 #include "widgets/qlabelwithsignals.h"
+#include <QDesktopWidget>
 #include "qxmleditconfig.h"
 #include "utils.h"
 
@@ -136,7 +137,7 @@ void ShortcutInfo::setupData()
 #endif
     QList<int> codes ;
     codes << F << CS << CA << CF << CN << C << O;
-    Utils::loadComboCodedArrays(ui->type, F, labels, codes);
+    Utils::loadComboCodedArrays(ui->type, C, labels, codes);
     on_type_currentIndexChanged(-1);
 }
 
@@ -201,11 +202,21 @@ void ShortcutInfo::refreshButtons(const QList<ActionKeyInfo*> &infos)
             widget = newKey(info, _cssGreen, _templateGreen, _templateGreen, true);
         } else if(info->name == "actionOpen") {
             widget = newKey(info, _cssGreen, _templateGreen, _templateGreen, true);
+        } else if(info->name == "actionNewWindow") {
+            widget = newKey(info, _cssGreen, _templateGreen, _templateGreen, true);
         } else {
             widget = newKey(info, _themeCSS, _templateTextEnabled, _templateTextDisabled, false);
         }
         ui->page->layout()->addWidget(widget);
         _mapper.insert(widget, info);
+    }
+    ui->page->layout()->activate();
+    layout()->activate();
+    // center window
+    if(isVisible()) {
+        QRect screenGeometry = QApplication::desktop()->availableGeometry(QApplication::desktop()->screenNumber(this));
+        QRect geom = geometry();
+        setGeometry(10, geom.y(), screenGeometry.width() - 20, geom.height());
     }
 }
 
