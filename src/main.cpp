@@ -34,7 +34,8 @@
 #include "modules/services/anotifier.h"
 #include "modules/xslt/xsltexecutor.h"
 #include "modules/services/startactionsengine.h"
-
+#include <QMessageBox>
+#include <QTimer>
 #include "licensedialog.h"
 
 extern const char *APP_TITLE ;
@@ -66,6 +67,7 @@ bool decodeCommandLine(QStringList args, StartParams *params);
 static void startTanslator(QApplication *app);
 static void initLogger();
 static void todo();
+static void experimental();
 static void installMsgHandler();
 static void addMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock);
 static void removeMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock);
@@ -104,6 +106,7 @@ int internalMain(int argc, char *argv[])
     app.setLogger(&logHandler);
 
     todo();
+    experimental();
     Element::loadIcons();
     app.setWindowIcon(QIcon(":/tree/icon.png"));
 
@@ -251,6 +254,16 @@ void qt_mac_set_dock_menu(QMenu *menu);
 
 void todo()
 {
+}
+
+void experimental()
+{
+#if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
+    QMessageBox warningBox(QMessageBox::Warning, APPLICATION_NAME,
+                           QObject::tr("This is not a released version.\nThis is a developer preview."));
+    QTimer::singleShot(2500, &warningBox, SLOT(hide()));
+    warningBox.exec();
+#endif
 #if defined(MACOS_SPECIFIC) && defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
     QtMac::setBadgeLabelText("Beta");
 #endif
