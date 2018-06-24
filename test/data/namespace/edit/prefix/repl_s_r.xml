@@ -45,9 +45,11 @@
     <!--a:a-->
   </one>
   <newp:a newp:a="a" c:c="c" d="d">
+  a:a x
     <newp:b newp:a="a"
          b="b"
          c:c="c">
+         c:c y
       <one newp:a="a"
            b="b"
            c:c="c"/>

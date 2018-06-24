@@ -45,9 +45,11 @@
     <!--a:a-->
   </c:one>
   <c:a a:a="a" c:c="c" d="d">
+    a:a x
     <c:b a:a="a"
          b="b"
          c:c="c">
+         c:c y
       <c:one a:a="a"
            b="b"
            c:c="c"/>
