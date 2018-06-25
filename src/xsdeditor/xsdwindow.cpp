@@ -491,6 +491,7 @@ bool XSDWindow::showRoot()
     }
     _context.resetRoot();
     if(NULL == _context.schema()) {
+        delete newRootItem ;
         return false;
     }
     _context.setRootItem(newRootItem);

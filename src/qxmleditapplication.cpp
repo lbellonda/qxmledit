@@ -439,8 +439,8 @@ bool QXmlEditApplication::showFunctionKeysInfo(const bool forceShow)
         const Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint ;
         const Qt::WindowFlags negativeflags = 0 ;
 #else
-        const Qt::WindowFlags flags = Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowTitleHint| Qt::CustomizeWindowHint;
-        const Qt::WindowFlags negativeflags = Qt::WindowMaximizeButtonHint|Qt::WindowMinimizeButtonHint|Qt::WindowCloseButtonHint|Qt::WindowSystemMenuHint ;
+        const Qt::WindowFlags flags = Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint;
+        const Qt::WindowFlags negativeflags = Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::WindowSystemMenuHint ;
 #endif
         _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() | flags);
         _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() & ~negativeflags);

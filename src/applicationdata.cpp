@@ -702,10 +702,10 @@ void ApplicationData::setKeyboardInfoWidget(QWidget *theWidget)
 
 QRect ApplicationData::keyboardInfoGeometry()
 {
-    if( (NULL != _keyInfoWidget ) && _keyInfoWidget->isVisible() ) {
+    if((NULL != _keyInfoWidget) && _keyInfoWidget->isVisible()) {
         return _keyInfoWidget->geometry();
     }
-    return QRect(0,0,0,0);
+    return QRect(0, 0, 0, 0);
 }
 
 //--- endregion(keyinfo)

@@ -2720,8 +2720,8 @@ void MainWindow::reposFrame()
     const QRect intersected = geom.intersected(shortcutFrame);
     if(!intersected.isEmpty()) {
         const int value = geom.height() - intersected.height() ;
-        if(value > 0 ) {
-            setGeometry( geom.left(), geom.top(), geom.width(), value );
+        if(value > 0) {
+            setGeometry(geom.left(), geom.top(), geom.width(), value);
         }
     }
 }
