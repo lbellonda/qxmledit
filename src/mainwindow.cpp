@@ -539,7 +539,7 @@ bool MainWindow::finishSetUpUi()
     QMenu *xsdMenu = new QMenu(this);
     if((NULL == _xsdButton) || (xsdMenu == NULL)) {
         isOk = false ;
-        if(NULL != xsdMenu){
+        if(NULL != xsdMenu) {
             delete xsdMenu ;
         }
     } else {
@@ -2713,10 +2713,24 @@ void MainWindow::on_actionNewWindow_triggered()
     makeNewWindow();
 }
 
+void MainWindow::reposFrame()
+{
+    const QRect shortcutFrame = data->keyboardInfoGeometry();
+    const QRect geom = geometry();
+    const QRect intersected = geom.intersected(shortcutFrame);
+    if(!intersected.isEmpty()) {
+        const int value = geom.height() - intersected.height() ;
+        if(value > 0 ) {
+            setGeometry( geom.left(), geom.top(), geom.width(), value );
+        }
+    }
+}
+
 MainWindow *MainWindow::makeNewWindow()
 {
     MainWindow *newWindow = new MainWindow(false, data);
     if(NULL != newWindow) {
+        reposFrame();
 #ifndef QXMLEDIT_TEST
         newWindow->show();
 #endif

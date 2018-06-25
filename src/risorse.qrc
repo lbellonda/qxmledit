@@ -271,5 +271,11 @@
         <file alias="templateLightDisabled.html">resources/css/templateLightDisabled.html</file>
         <file alias="templateDarkEnabled.html">resources/css/templateDarkEnabled.html</file>
         <file alias="templateLightEnabled.html">resources/css/templateLightEnabled.html</file>
+        <file alias="quitButton.css">resources/css/quitButton.css</file>
+        <file alias="closeButton.css">resources/css/closeButton.css</file>
+        <file alias="greenButton.css">resources/css/greenButton.css</file>
+        <file alias="templateClose.html">resources/css/templateClose.html</file>
+        <file alias="templateQuit.html">resources/css/templateQuit.html</file>
+        <file alias="templateGreen.html">resources/css/templateGreen.html</file>
     </qresource>
 </RCC>

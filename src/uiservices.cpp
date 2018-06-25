@@ -51,3 +51,11 @@ void UIServices::doEncodingDialog(QXmlEditData *theData, const bool doModal)
     }
 }
 
+void UIServices::raiseWindow(QWidget *window)
+{
+    window->setWindowState((window->windowState() & ~Qt::WindowMinimized) | Qt::WindowActive);
+    window->show();
+    window->activateWindow();
+    window->raise();
+}
+

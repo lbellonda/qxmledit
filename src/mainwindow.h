@@ -121,6 +121,7 @@ public:
 
     Regola *getRegola();
     SessionStateWidget *sessionStateWidget();
+    void reposFrame();
 
     void autoLoadValidation();
     void triggersWelcomeDialog();

@@ -1,4 +1,7 @@
 0.9.11
+    Fixed a problem with prefixes manipulation and text nodes.
+    New panel to show keyboard shortcuts.
+    Added shortcuts to the guided operations dialog.
     Accepted the configuration parameters for qmake via command line.
     New menu item to search commands by name.
 

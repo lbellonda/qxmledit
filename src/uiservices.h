@@ -24,6 +24,7 @@
 #ifndef UISERVICES_H
 #define UISERVICES_H
 
+#include "xmlEdit.h"
 class QXmlEditData;
 
 class UIServices
@@ -34,6 +35,7 @@ public:
 
     void doBase64Dialog();
     void doEncodingDialog(QXmlEditData *theData, const bool doModal = true);
+    static void raiseWindow(QWidget *window);
 };
 
 #endif // UISERVICES_H

@@ -214,10 +214,19 @@ void ShortcutInfo::refreshButtons(const QList<ActionKeyInfo*> &infos)
     layout()->activate();
     // center window
     if(isVisible()) {
-        QRect screenGeometry = QApplication::desktop()->availableGeometry(QApplication::desktop()->screenNumber(this));
-        QRect geom = geometry();
-        setGeometry(10, geom.y(), screenGeometry.width() - 20, geom.height());
+        doResize(false);
     }
+}
+
+void ShortcutInfo::doResize(const bool isFirstTime)
+{
+    QRect screenGeometry = QApplication::desktop()->availableGeometry(QApplication::desktop()->screenNumber(this));
+    QRect geom = geometry();
+    int geomTop = geom.top();
+    if(isFirstTime) {
+        geomTop = screenGeometry.height() - height();
+    }
+    setGeometry(10, geomTop, screenGeometry.width() - 20, geom.height());
 }
 
 QList<ActionKeyInfo*> ShortcutInfo::sortActions(const QList<ActionKeyInfo*> &infos)

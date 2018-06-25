@@ -77,7 +77,7 @@ public:
     virtual void attributeNamesFilterDeleteProfile(DataResult &result, const int idProfile) = 0 ;
 };
 
-class SessionDataFactory
+class QXMLEDITSESSIONSSHARED_EXPORT SessionDataFactory
 {
 public:
     virtual SessionDataInterface *sessionDataInterface(const QString &configuration) = 0;

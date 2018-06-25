@@ -53,6 +53,7 @@ int ApplicationData::pluginCode = 0 ;
 
 ApplicationData::ApplicationData()
 {
+    _keyInfoWidget = NULL ;
     _lastActivatedWindow = NULL;
     _shortcutPanelState = false ;
     _dbStarted = false ;
@@ -153,6 +154,7 @@ void ApplicationData::addWindow(MainWindow* newWindow)
 {
     if((NULL != newWindow) && !_windows.contains(newWindow)) {
         _windows.append(newWindow);
+        emit windowsCountChanged(_windows.count());
     }
 }
 
@@ -162,6 +164,7 @@ void ApplicationData::removeWindow(MainWindow* newWindow)
         int index = _windows.indexOf(newWindow);
         if(index >= 0) {
             _windows.remove(index);
+            emit windowsCountChanged(_windows.count());
         }
     }
 }
@@ -174,6 +177,7 @@ int ApplicationData::windowsCount()
 MainWindow *ApplicationData::newWindow()
 {
     MainWindow *mainWindow = new MainWindow(false, this);
+    mainWindow->reposFrame();
     return mainWindow ;
 }
 
@@ -686,6 +690,24 @@ bool ApplicationData::keyboardInfoState()
     return _shortcutPanelState ;
 }
 
+QWidget *ApplicationData::keyboardInfoWidget()
+{
+    return _keyInfoWidget;
+}
+
+void ApplicationData::setKeyboardInfoWidget(QWidget *theWidget)
+{
+    _keyInfoWidget = theWidget ;
+}
+
+QRect ApplicationData::keyboardInfoGeometry()
+{
+    if( (NULL != _keyInfoWidget ) && _keyInfoWidget->isVisible() ) {
+        return _keyInfoWidget->geometry();
+    }
+    return QRect(0,0,0,0);
+}
+
 //--- endregion(keyinfo)
 
 void ApplicationData::newSelectionState(MainWindow *window)
@@ -694,3 +716,4 @@ void ApplicationData::newSelectionState(MainWindow *window)
         emit requestEnableKeys(window);
     }
 }
+

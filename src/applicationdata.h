@@ -55,6 +55,7 @@ class ApplicationData : public QXmlEditData, public SessionDataFactory
     SessionDataInterface *_sessionDataInterface;
     bool _dbStarted;
     MainWindow *_lastActivatedWindow;
+    QWidget *_keyInfoWidget;
 
 private:
     void setupStorage();
@@ -158,6 +159,9 @@ public:
     void requestShowHideKeyboardInfo();
     void newStateKeyboardInfo(const bool newState);
     bool keyboardInfoState();
+    QWidget *keyboardInfoWidget();
+    void setKeyboardInfoWidget(QWidget *theWidget);
+    QRect keyboardInfoGeometry();
     //--- endregion(keyinfo)
 
     enum EUserType {
@@ -195,6 +199,7 @@ signals:
     void stateKeyboardShortcutChanged(bool isVisible);
     void keyboardShortcutOpenCloseRequest();
     void requestEnableKeys(MainWindow * window);
+    void windowsCountChanged(int count);
 };
 
 #endif // APPLICATIONDATA_H

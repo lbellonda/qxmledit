@@ -88,13 +88,13 @@ class ShortcutInfo : public QWidget
     QList<ActionKeyInfo*> sortActions(const QList<ActionKeyInfo*> &infos);
     QString filterCmd(const QString &input, const QString &prefix);
     void setTemplates(ActionKeyInfo *info, const QString &templateString, const QString &key, const QString &text);
-    void updateButton(ActionKeyInfo *info, QWidget *widget, const QString &css, const QString &tpl, const bool isAlwaysEnabled);
 
 public:
     explicit ShortcutInfo(QWidget *parent = 0);
     ~ShortcutInfo();
 
     void setTarget(QWidget *target);
+    void doResize(const bool isFirstTime);
 
 private:
     Ui::ShortcutInfo *ui;

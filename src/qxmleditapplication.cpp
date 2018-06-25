@@ -105,6 +105,7 @@ void QXmlEditApplication::setAppData(ApplicationData *value)
         disconnect(_appData, SIGNAL(windowActivated(MainWindow *, bool)), this, SLOT(onWindowActivated(MainWindow *, bool)));
         disconnect(_appData, SIGNAL(keyboardShortcutOpenCloseRequest()), this, SLOT(onKeyboardShortcutOpenCloseRequest()));
         disconnect(_appData, SIGNAL(requestEnableKeys(MainWindow *)), this, SLOT(onRequestEnableKeys(MainWindow *)));
+        disconnect(_appData, SIGNAL(windowsCountChanged(int)), this, SLOT(onWindowsCountChanged(int)));
     }
     _appData = value;
     if(NULL != _appData) {
@@ -113,6 +114,7 @@ void QXmlEditApplication::setAppData(ApplicationData *value)
         connect(_appData, SIGNAL(windowActivated(MainWindow *, bool)), this, SLOT(onWindowActivated(MainWindow *, bool)));
         connect(_appData, SIGNAL(keyboardShortcutOpenCloseRequest()), this, SLOT(onKeyboardShortcutOpenCloseRequest()));
         connect(_appData, SIGNAL(requestEnableKeys(MainWindow *)), this, SLOT(onRequestEnableKeys(MainWindow *)));
+        connect(_appData, SIGNAL(windowsCountChanged(int)), this, SLOT(onWindowsCountChanged(int)));
         if(_appData->notifier()->isEnabled()) {
             _appData->notifier()->show();
         }
@@ -188,17 +190,19 @@ bool QXmlEditApplication::errorCloseConnection(QLocalSocket *client)
 
 void QXmlEditApplication::onRaiseWindows()
 {
+    if((NULL != _guidedOperationsDialog) && _guidedOperationsDialog->isVisible()) {
+        UIServices::raiseWindow(_guidedOperationsDialog);
+    }
     MainWindow *lastWindow = NULL ;
     foreach(MainWindow * window, appData()->windows()) {
-        if(window->isMinimized()) {
-            window->showNormal();
-        }
-        window->show();
-        window->raise();
+        UIServices::raiseWindow(window);
         lastWindow = window ;
     }
     if(NULL != lastWindow) {
         lastWindow->activateWindow();
+        Utils::TODO_THIS_RELEASE("test");
+        /*lastWindow->show();
+        lastWindow->raise();*/
     }
 }
 
@@ -427,34 +431,37 @@ bool QXmlEditApplication::showValidationOperationsPanel()
 bool QXmlEditApplication::showFunctionKeysInfo(const bool forceShow)
 {
     bool isVisible = false;
+    bool isFirstTime = false;
     if(NULL == _functionKeysInfo) {
-        Utils::TODO_THIS_RELEASE("check");
         _functionKeysInfo = new ShortcutInfo(NULL);
 
 #ifdef ENVIRONMENT_MACOS
         const Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint ;
+        const Qt::WindowFlags negativeflags = 0 ;
 #else
-        const Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint;
+        const Qt::WindowFlags flags = Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowTitleHint| Qt::CustomizeWindowHint;
+        const Qt::WindowFlags negativeflags = Qt::WindowMaximizeButtonHint|Qt::WindowMinimizeButtonHint|Qt::WindowCloseButtonHint|Qt::WindowSystemMenuHint ;
 #endif
         _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() | flags);
-        Utils::TODO_THIS_RELEASE("se linux allora senza titolo? e se windows?");
+        _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() & ~negativeflags);
         _functionKeysInfo->setWindowTitle(tr("Keyboard Shortcuts List"));
         connect(_functionKeysInfo, SIGNAL(actionRequested(const QString &)), this, SLOT(onShortcutActivated(const QString &)));
+        isFirstTime = true ;
+        _appData->setKeyboardInfoWidget(_functionKeysInfo);
     } else {
         isVisible = _functionKeysInfo->isVisible() ;
     }
     // move to the bottom of the screen
     if(!isVisible || forceShow) {
-        QRect screenGeometry = QApplication::desktop()->availableGeometry(QApplication::desktop()->screenNumber(_functionKeysInfo));
-        int left = (screenGeometry.width() - _functionKeysInfo->width()) >> 1;
-        int top = screenGeometry.height() - _functionKeysInfo->height();
-        _functionKeysInfo->move(left, top);
-        _functionKeysInfo->show();
+        _functionKeysInfo->doResize(isFirstTime);
+        if(!isVisible) {
+            _functionKeysInfo->show();
+        }
         _functionKeysInfo->raise();
     } else {
         _functionKeysInfo->hide();
     }
-    _appData->newStateKeyboardInfo(!isVisible);
+    _appData->newStateKeyboardInfo(_functionKeysInfo->isVisible());
     return true;
 }
 
@@ -548,5 +555,14 @@ void QXmlEditApplication::onRequestEnableKeys(MainWindow * window)
 {
     if((NULL != _functionKeysInfo) && _functionKeysInfo->isVisible()) {
         _functionKeysInfo->setTarget(window);
+    }
+}
+
+void QXmlEditApplication::onWindowsCountChanged(int newCount)
+{
+    if(0 == newCount) {
+        if((NULL != _functionKeysInfo) && _functionKeysInfo->isVisible()) {
+            _functionKeysInfo->hide();
+        }
     }
 }

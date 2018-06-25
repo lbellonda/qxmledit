@@ -52,7 +52,6 @@ private:
     FrwLogger *_logger;
     GuidedOperationsDialog *_guidedOperationsDialog;
     UIDelegate *_uiDelegate;
-    //FunctionKeysInfo *_functionKeysInfo;
     ShortcutInfo *_functionKeysInfo;
 public:
     explicit QXmlEditApplication(int &argc, char **argv);
@@ -130,6 +129,7 @@ private slots:
     void onShortcutActivated(const QString & actionName);
     void onKeyboardShortcutOpenCloseRequest();
     void onRequestEnableKeys(MainWindow * window);
+    void onWindowsCountChanged(int newCount);
 };
 
 #endif // QXMLEDITAPPLICATION_H

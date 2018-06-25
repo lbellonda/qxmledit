@@ -1044,7 +1044,7 @@ QString XSDPrint::getAttributesOfElement(XSDPrintInfo &xsdPrintInfo, XSchemaElem
                     if(!targetLink.isEmpty()) {
                         text += QString("<a href='#%1'>").arg(targetLink);
                     }
-                    text += "Group: " + Utils::escapeHTML((NULL!=ag)?ag->name():"?") ;
+                    text += "Group: " + Utils::escapeHTML((NULL != ag) ? ag->name() : "?") ;
                     if(!targetLink.isEmpty()) {
                         text += QString("</a>");
                     }
