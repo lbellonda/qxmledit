@@ -2324,18 +2324,20 @@ void XmlEditWidgetPrivate::loadSchema(const QString &schemaURL)
 
 void XmlEditWidgetPrivate::schemaLoadComplete(XSchemaLoader *loader, const XSchemaLoader::Code code)
 {
-    if(NULL != loader) {
-        loader->deleteLater();
-    }
     if(code != XSchemaLoader::SCHEMA_READY) {
         p->emitSchemaLabelChanged(tr("error loading schema"));
     } else {
-        _schemaRoot = loader->getSchemaAndTakeOwnership() ;
+        if(NULL != loader) {
+            _schemaRoot = loader->getSchemaAndTakeOwnership() ;
+        }
         if(NULL == regola) {
             p->emitSchemaLabelChanged(tr("schema: ?"));
         } else {
             p->emitSchemaLabelChanged(tr("schema: %1").arg(regola->documentXsd()));
         }
+    }
+    if(NULL != loader) {
+        loader->deleteLater();
     }
 }
 

@@ -345,7 +345,7 @@ Element *Regola::findTheNextTextMatch(FindTextParams &findArgs, Element *selecte
                     if(NULL == nextElement) {
                         element = element->parent();
                         if(NULL == element) {
-                            // this is the top level, no futher move without wraparound
+                            // this is the top level, no further move without wraparound
                             if(findArgs.isWrapAround()) {
                                 nextElement = isNext ? firstChild() : lastChildRecursive() ;
                                 if(hasWrapAround) {
@@ -353,6 +353,8 @@ Element *Regola::findTheNextTextMatch(FindTextParams &findArgs, Element *selecte
                                     return NULL ;
                                 }
                                 hasWrapAround = true ;
+                                // here nextElement is not null and element is not important, it will be set later
+                                break;
                             } else {
                                 // no match
                                 return NULL;
