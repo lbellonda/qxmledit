@@ -51,10 +51,12 @@ QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
     _guidedOperationsDialog = NULL ;
     _functionKeysInfo = NULL ;
     _uiDelegate = new DefaultUIDelegate();
+    connect(this, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChanged()));
 }
 
 QXmlEditApplication::~QXmlEditApplication()
 {
+    disconnect(this, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChanged()));
     if(NULL != _guidedOperationsDialog) {
         connectToCommandsPanel(false, _guidedOperationsDialog);
         _guidedOperationsDialog->close();
@@ -435,12 +437,11 @@ bool QXmlEditApplication::showFunctionKeysInfo(const bool forceShow)
     if(NULL == _functionKeysInfo) {
         _functionKeysInfo = new ShortcutInfo(NULL);
 
+        const Qt::WindowFlags negativeflags = Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::WindowSystemMenuHint ;
 #ifdef ENVIRONMENT_MACOS
-        const Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint ;
-        const Qt::WindowFlags negativeflags = 0 ;
+        const Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint;
 #else
         const Qt::WindowFlags flags = Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint;
-        const Qt::WindowFlags negativeflags = Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint | Qt::WindowSystemMenuHint ;
 #endif
         _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() | flags);
         _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() & ~negativeflags);
@@ -562,6 +563,15 @@ void QXmlEditApplication::onWindowsCountChanged(int newCount)
 {
     if(0 == newCount) {
         if((NULL != _functionKeysInfo) && _functionKeysInfo->isVisible()) {
+            _functionKeysInfo->hide();
+        }
+    }
+}
+
+void QXmlEditApplication::onFocusChanged()
+{
+    if(NULL == focusWindow()) {
+        if(NULL != _functionKeysInfo) {
             _functionKeysInfo->hide();
         }
     }

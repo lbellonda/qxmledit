@@ -130,6 +130,7 @@ private slots:
     void onKeyboardShortcutOpenCloseRequest();
     void onRequestEnableKeys(MainWindow * window);
     void onWindowsCountChanged(int newCount);
+    void onFocusChanged();
 };
 
 #endif // QXMLEDITAPPLICATION_H
