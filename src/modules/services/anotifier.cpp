@@ -47,9 +47,17 @@ MainMenuBlock::~MainMenuBlock()
     }
 }
 
+QMenu * MainMenuBlock::createMenu()
+{
+    if(NULL == _contextMenu) {
+        _contextMenu = new QMenu(NULL);
+    }
+    return _contextMenu ;
+}
+
 void MainMenuBlock::setup()
 {
-    _contextMenu = new QMenu(NULL);
+    createMenu();
     _newWindowAction = new QAction(tr("&New Window"), this);
     _encodingToolsAction = new QAction(tr("Encoding Tools"), this);
     _codePageToolsAction = new QAction(tr("Code Pages"), this);
@@ -112,9 +120,13 @@ void ANotifier::setup()
     connect(&_trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(onActivated(QSystemTrayIcon::ActivationReason)));
     connect(&_trayIcon, SIGNAL(messageClicked()), this, SLOT(onMessageClicked()));
     QIcon icon(":/icon/images/icon.png");
+    // lost here, but used one time only
     _trayIcon.setIcon(icon);
     _trayIcon.setToolTip(tr("QXmlEdit"));
     // context menu
+    _mainMenuBlock.createMenu();
+    // Moved here to avoid a memory leak in Qt.
+    _trayIcon.setContextMenu(_mainMenuBlock._contextMenu);
     _mainMenuBlock.setup();
     connect(_mainMenuBlock._newWindowAction, SIGNAL(triggered()), this, SLOT(onNewWindow()));
     connect(_mainMenuBlock._encodingToolsAction, SIGNAL(triggered()), this, SLOT(onEncodingTools()));
@@ -123,8 +135,6 @@ void ANotifier::setup()
     connect(_mainMenuBlock._viewMapAction, SIGNAL(triggered()), this, SLOT(onViewMapXml()));
     connect(_mainMenuBlock._splitFileAction, SIGNAL(triggered()), this, SLOT(onSplitFile()));
     connect(_mainMenuBlock._raiseWindows, SIGNAL(triggered()), this, SLOT(onRaiseWindow()));
-
-    _trayIcon.setContextMenu(_mainMenuBlock._contextMenu);
     // end menu
 }
 

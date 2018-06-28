@@ -397,7 +397,7 @@ void DataWidget::generateImage(const bool forceStandard)
                 return ;
             }
 #ifdef ENABLE_TIMING_LOG
-            Utils::TODO_THIS_RELEASE("togli");
+            // TODO: togli?
             printf("Start painting\n"); fflush(stdout);
             QTime timer;
             timer.start();

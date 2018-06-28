@@ -2255,11 +2255,6 @@
     <string>Choose display detail.</string>
    </property>
   </action>
-  <action name="actionTEST">
-   <property name="text">
-    <string>TEST</string>
-   </property>
-  </action>
   <action name="actionEditEnumerationFacet">
    <property name="text">
     <string>Edit Enumeration or Facet</string>

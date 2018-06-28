@@ -50,6 +50,7 @@ public:
     ~MainMenuBlock();
 
     void setup();
+    QMenu * createMenu();
 };
 
 class LIBQXMLEDITSHARED_EXPORT ANotifier : public QObject, Notifier

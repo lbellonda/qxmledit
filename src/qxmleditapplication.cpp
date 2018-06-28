@@ -202,9 +202,6 @@ void QXmlEditApplication::onRaiseWindows()
     }
     if(NULL != lastWindow) {
         lastWindow->activateWindow();
-        Utils::TODO_THIS_RELEASE("test");
-        /*lastWindow->show();
-        lastWindow->raise();*/
     }
 }
 

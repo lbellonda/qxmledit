@@ -384,7 +384,6 @@ private slots:
     void on_actionRemoveAllSiblingsBefore_triggered();
     void on_actionTaskDisplayDetail_triggered();
     void on_actionHelpSetEditorDetail_triggered();
-    void on_actionTEST_triggered();
     void on_actionRemovePrefix_triggered();
     void on_actionRemoveNamespace_triggered();
     void on_actionSetPrefix_triggered();

@@ -72,6 +72,7 @@ extern const char *APP_TITLE ;
 #include "widgets/infooneditmode.h"
 #include "modules/help/tips.h"
 #include "modules/help/searchcommanddialog.h"
+#include <qlogging.h>
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
@@ -149,11 +150,6 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
     }
 
     autoTest();
-    if(Config::getBool(Config::KEY_TEST_SHOW_XSD_EDITOR, false)) {
-        //void xsdTest(); TODO
-        //xsdTest();
-        Utils::TODO_THIS_RELEASE("rimuovi se non serve");
-    }
     setWindowIcon(_windowIcon);
     started = true ;
     /********************************** test code **************************
@@ -259,7 +255,7 @@ bool MainWindow::event(QEvent *e)
     case QEvent::WindowActivate:
 #ifdef  QXMLEDIT_TEST
         if(NULL == data)  {
-            Utils::TODO_THIS_RELEASE("fault");
+            qFatal("fault activation");
         }
 #endif
         if(NULL != data)  {
@@ -269,7 +265,7 @@ bool MainWindow::event(QEvent *e)
     case QEvent::WindowDeactivate:
 #ifdef  QXMLEDIT_TEST
         if(NULL == data)  {
-            Utils::TODO_THIS_RELEASE("fault");
+            qFatal("fault deactivation");
         }
 #endif
         if(NULL != data)  {
@@ -3597,19 +3593,6 @@ void MainWindow::checkForSaveEncoding()
         } // if honored
     } // if stream and not dom forced
 } // checkForSaveEncoding()
-
-
-void MainWindow::on_actionTEST_triggered()
-{
-    /* Utils::TODO_THIS_RELEASE("a");
-     XSDFacet *facet = new XSDFacet(XSDFacet::Enumeration, "a");
-     QList<XSDFacet*> facetList ;
-     facetList << facet;
-     XSDEnumDialog dlg(this, facetList);
-     dlg.exec();
-     EMPTYPTRLIST(facetList, XSDFacet);*/
-}
-
 
 void MainWindow::on_actionRemovePrefix_triggered()
 {
