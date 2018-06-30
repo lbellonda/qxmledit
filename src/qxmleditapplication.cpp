@@ -579,7 +579,7 @@ void QXmlEditApplication::onFocusChanged()
 {
     if(NULL == focusWindow()) {
         if(NULL != _functionKeysInfo) {
-            _functionKeysInfo->hide();
+            _functionKeysInfo->autoHide();
         }
     }
 }

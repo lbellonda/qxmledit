@@ -72,6 +72,7 @@ ShortcutInfo::ShortcutInfo(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ShortcutInfo)
 {
+    _signalHidden = true ;
     _lightTheme = true ;
     ui->setupUi(this);
     loadActions();
@@ -123,16 +124,25 @@ QString ShortcutInfo::readResourceString(const QString &name)
     return result ;
 }
 
+void ShortcutInfo::autoHide()
+{
+    _signalHidden = false ;
+    hide();
+    _signalHidden = true ;
+}
+
 void ShortcutInfo::hideEvent(QHideEvent *event)
 {
     QWidget::hideEvent(event);
-    emit hidden();
+    if(_signalHidden) {
+        emit hidden();
+    }
 }
 
 void ShortcutInfo::setupData()
 {
-    ui->page->setStyleSheet("background-color: black;border: 1px solid white;");
-    ui->stackedWidget->setStyleSheet("background-color: black;border: 1px solid white;");
+    ui->page->setStyleSheet("background-color: #202020;border: 1px solid white;border-radius:10px;");
+    ui->stackedWidget->setStyleSheet("background-color: #202020;border: 1px solid white;border-radius:10px;");
     chooseTheme();
     QStringList labels ;
 #ifdef ENVIRONMENT_MACOS
