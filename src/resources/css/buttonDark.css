@@ -3,7 +3,7 @@ QLabel {
     border-radius:6px;
     padding:2px;
     margin:0px;
-    background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 #1B80FF, stop:1 #7899FF);
+    background-color: qlineargradient(spread:pad, x1:0.469613, y1:1, x2:0.48563, y2:0.477, stop:0 #1B80F0, stop:1 #7899F0);
 }
 
 QLabel:hover {
