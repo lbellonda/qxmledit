@@ -123,6 +123,11 @@ QString ShortcutInfo::readResourceString(const QString &name)
     return result ;
 }
 
+void ShortcutInfo::hideEvent(QHideEvent *event)
+{
+    QWidget::hideEvent(event);
+    emit hidden();
+}
 
 void ShortcutInfo::setupData()
 {
@@ -175,6 +180,7 @@ void ShortcutInfo::on_type_currentIndexChanged(int /*index*/)
         refreshButtons(_others);
         break;
     }
+    emit typeChanged();
 }
 
 void ShortcutInfo::removeWidgets()

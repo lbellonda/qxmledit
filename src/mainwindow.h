@@ -140,6 +140,7 @@ public:
     // region(uiDelegate)
 
     QString msgOutOfMem() ;
+    bool askForQuit();
 
     QTreeWidget *getMainTreeWidget();
     XmlEditWidget *getEditor();

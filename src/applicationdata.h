@@ -187,7 +187,9 @@ public:
     void newWindowActivationStatus(MainWindow *window, const bool activated);
     void activateShortcut(const QString & actionName);
     void newSelectionState(MainWindow *window);
+    MainWindow *lastValidWindow();
 
+    bool askForQuit();
 private slots:
     void onSessionActivated(const int idSession);
     void onClearSession();

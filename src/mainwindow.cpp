@@ -1411,9 +1411,14 @@ void MainWindow::closeEvent(QCloseEvent * event)
     }
 }
 
+bool MainWindow::askForQuit()
+{
+    return checkAbandonChanges(OpenUsingSameWindow);
+}
+
 void MainWindow::on_actionQuit_triggered()
 {
-    if(checkAbandonChanges(OpenUsingSameWindow)) {
+    if(askForQuit()) {
         qApp->quit();
     }
 }

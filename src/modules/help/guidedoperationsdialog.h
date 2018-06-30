@@ -57,6 +57,7 @@ public:
     ~GuidedOperationsDialog();
 
     void applyUserProfile();
+    void setKeyboardInfoState(const bool newState);
 
 private:
     Ui::GuidedOperationsDialog *ui;
@@ -80,6 +81,7 @@ signals:
     void triggerEditingShortcut();
     void triggerBase64();
     void triggerViewXMLMap();
+    void triggerShowKeyboardInfo(bool state);
     void openFile(const QString &fullFilePath);
 
 private slots:
@@ -100,6 +102,7 @@ private slots:
     void on_cmdEditingShortcut_clicked();
     void on_cmdBase64_clicked();
     void on_cmdViewDataMap_clicked();
+    void on_cmdShowKeyboardInfo_toggled();
     void onShortcutOpen();
     void onShortcutNew();
     void onShortcutQuit();

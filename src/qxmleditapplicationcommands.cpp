@@ -50,6 +50,11 @@ void QXmlEditApplication::onCommandNew()
 
 void QXmlEditApplication::onCommandQuit()
 {
+    if(NULL != _appData) {
+        if(!_appData->askForQuit()) {
+            return ;
+        }
+    }
     this->quit();
 }
 
@@ -165,4 +170,9 @@ void QXmlEditApplication::onCommandOpenFile(const QString &filePath)
     } else {
         delete mainWindow;
     }
+}
+
+void QXmlEditApplication::onCommandShowKeyboardInfo(bool state)
+{
+    showFunctionKeysInfo(state, !state);
 }

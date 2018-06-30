@@ -24,6 +24,7 @@
 #define SHORTCUTINFO_H
 
 #include "xmlEdit.h"
+#include <QHideEvent>
 
 class ActionKeyInfo;
 
@@ -88,7 +89,8 @@ class ShortcutInfo : public QWidget
     QList<ActionKeyInfo*> sortActions(const QList<ActionKeyInfo*> &infos);
     QString filterCmd(const QString &input, const QString &prefix);
     void setTemplates(ActionKeyInfo *info, const QString &templateString, const QString &key, const QString &text);
-
+protected:
+    virtual void hideEvent(QHideEvent *event);
 public:
     explicit ShortcutInfo(QWidget *parent = 0);
     ~ShortcutInfo();
@@ -103,6 +105,8 @@ private slots:
     void onWidgetClicked();
 signals:
     void actionRequested(const QString &actionName);
+    void hidden();
+    void typeChanged();
 };
 
 #endif // SHORTCUTINFO_H

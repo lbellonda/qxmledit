@@ -53,6 +53,7 @@ private:
     GuidedOperationsDialog *_guidedOperationsDialog;
     UIDelegate *_uiDelegate;
     ShortcutInfo *_functionKeysInfo;
+
 public:
     explicit QXmlEditApplication(int &argc, char **argv);
     virtual ~QXmlEditApplication();
@@ -70,7 +71,7 @@ public:
     void setupFirstAccessForPreferences();
     MainWindow *getOrCreateMainWindow();
 
-    bool showFunctionKeysInfo(const bool forceShow = false);
+    bool showFunctionKeysInfo(const bool forceShow = false, const bool forceHide = false);
 
     // region(StartAtcionsExecutor)
     virtual void startActionShowUserTypePanel();
@@ -124,6 +125,7 @@ private slots:
     void onCommandBase64();
     void onCommandViewXMLMap();
     void onCommandOpenFile(const QString &filePath);
+    void onCommandShowKeyboardInfo(bool state);
     void onOpenUserTypePanel(const bool nextAccess);
     void onWindowActivated(MainWindow *window, bool how);
     void onShortcutActivated(const QString & actionName);
@@ -131,6 +133,8 @@ private slots:
     void onRequestEnableKeys(MainWindow * window);
     void onWindowsCountChanged(int newCount);
     void onFocusChanged();
+    void onShortcutHidden();
+    void onShortcutTypeChanged();
 };
 
 #endif // QXMLEDITAPPLICATION_H

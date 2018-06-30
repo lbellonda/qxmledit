@@ -23,6 +23,7 @@
 #include "guidedoperationsdialog.h"
 #include "ui_guidedoperationsdialog.h"
 #include "applicationdata.h"
+#include <QTimer>
 #include "utils.h"
 
 GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application, ApplicationData *appData, QWidget *parent) :
@@ -231,4 +232,16 @@ void GuidedOperationsDialog::onShortcutNew()
 void GuidedOperationsDialog::onShortcutQuit()
 {
     on_cmdQuit_clicked();
+}
+
+void GuidedOperationsDialog::on_cmdShowKeyboardInfo_toggled()
+{
+    emit triggerShowKeyboardInfo(ui->cmdShowKeyboardInfo->isChecked());
+}
+
+void GuidedOperationsDialog::setKeyboardInfoState(const bool newState)
+{
+    if(newState != ui->cmdShowKeyboardInfo->isChecked()) {
+        ui->cmdShowKeyboardInfo->setChecked(newState);
+    }
 }

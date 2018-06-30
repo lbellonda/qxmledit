@@ -727,6 +727,23 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="cmdShowKeyboardInfo">
+         <property name="toolTip">
+          <string>Show or hide the keyboard shortcuts information dialog.</string>
+         </property>
+         <property name="text">
+          <string>Keyboard Info</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../../risorse.qrc">
+           <normaloff>:/special/viewksh</normaloff>:/special/viewksh</iconset>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="horizontalSpacer_6">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>

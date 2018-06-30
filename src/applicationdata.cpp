@@ -717,3 +717,22 @@ void ApplicationData::newSelectionState(MainWindow *window)
     }
 }
 
+MainWindow *ApplicationData::lastValidWindow()
+{
+    if(NULL != _lastActivatedWindow) {
+        if(isValidWindow(_lastActivatedWindow)) {
+            return _lastActivatedWindow;
+        }
+    }
+    return NULL ;
+}
+
+bool ApplicationData::askForQuit()
+{
+    foreach(MainWindow * window, _windows) {
+        if(!window->askForQuit()) {
+            return false ;
+        }
+    }
+    return true ;
+}
