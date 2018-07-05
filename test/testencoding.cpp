@@ -28,6 +28,7 @@
 #include "editprocessinginstruction.h"
 #include "charencodingdialog.h"
 #include "xmlsavecontext.h"
+#include <QByteArray>
 
 #define DEFAULT_ENCODING    "UTF-8"
 
@@ -1456,7 +1457,7 @@ bool TestEncoding::testLoadSave()
     QList<QXmlEditData::EIndentAttributes> indentValues ;
     indentValues << QXmlEditData::AttributesIndentationNone << QXmlEditData::AttributesIndentationMaxCols ;
     QStringList encodings;
-    QString envVar = qEnvironmentVariable("qxmledit_test_encoding_fast", "");
+    QByteArray envVar = qgetenv("qxmledit_test_encoding_fast");
     if(!envVar.isEmpty()) {
         encodings << "UTF-16" ;
     } else {

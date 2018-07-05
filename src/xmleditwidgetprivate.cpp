@@ -2080,7 +2080,7 @@ bool XmlEditWidgetPrivate::loadText(const QString &text, const bool isChangeStat
             }
         }
     } else {
-        Utils::error(tr("Data empty. Unable to load."));
+        return true ;
     }
     return false;
 }
