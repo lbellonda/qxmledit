@@ -5,8 +5,9 @@ Check issues:
 TODO:
 ----
 
-#new is:171
-- menu contest. goto reference for elements and attributes
+
+#new is:173
+- menu context. goto reference for elements and attributes
 - no attributes mode
 
 164 - calculation of size of attributes, including filters

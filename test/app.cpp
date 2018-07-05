@@ -76,10 +76,10 @@ bool App::init(const bool delegateYes)
     internalInit();
     TestMainWindow *testWindow = NULL ;
     if(_useTestWindow) {
-        testWindow = new TestMainWindow(false, &appData);
+        testWindow = new TestMainWindow(false, false, &appData);
         _mainWindow = testWindow ;
     } else {
-        _mainWindow = new MainWindow(false, &appData);
+        _mainWindow = new MainWindow(false, false, &appData);
     }
     if(NULL == _mainWindow) {
         return false;

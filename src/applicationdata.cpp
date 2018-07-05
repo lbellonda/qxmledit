@@ -99,6 +99,9 @@ ApplicationData::~ApplicationData()
     }
     disconnect(&_sessionManager, SIGNAL(sessionActivated(const int)), this, SLOT(onSessionActivated(const int)));
     disconnect(&_sessionManager, SIGNAL(clearSession()), this, SLOT(onClearSession()));
+    foreach(MainWindow * window, _windows) {
+        window->forgetData();
+    }
 }
 
 
@@ -176,7 +179,7 @@ int ApplicationData::windowsCount()
 
 MainWindow *ApplicationData::newWindow()
 {
-    MainWindow *mainWindow = new MainWindow(false, this);
+    MainWindow *mainWindow = MainWindow::newDynamicTopLevelNewWindow(this);
     mainWindow->reposFrame();
     return mainWindow ;
 }

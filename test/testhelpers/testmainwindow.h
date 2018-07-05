@@ -34,7 +34,7 @@ class TestMainWindow : public MainWindow
     FakeUIDelegate *_fakeUIdelegate;
 public:
 
-    TestMainWindow(const bool isSlave, ApplicationData *data, QMainWindow *parent = 0);
+    TestMainWindow(const bool isAutoDelete, const bool isSlave, ApplicationData *data, QMainWindow *parent = 0);
     ~TestMainWindow();
     virtual bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
     FakeUIDelegate *fakeUIdelegate() const;

@@ -240,6 +240,7 @@ bool Element::removeNamespace(const QString &removedNS, TargetSelection::Type ta
             changed = true ;
             attrChanged = true ;
             foreach(int index, deleteIndexes) {
+                // already deleted
                 attributes.remove(index);
             }
         }
@@ -379,12 +380,14 @@ bool Element::normalizeNamespace(const QString &theNS, const QString &thePrefix,
             XmlUtils::getNsPrefix(attr->name, prefix);
             if((prefix != thePrefix) && (attr->value == theNS)) {
                 attrIterator.remove();
+                delete attr;
                 attrChanged = true;
             } else {
                 if((prefix == thePrefix) && (attr->value == theNS)) {
                     existsDeclaration = true;
                     if(!isRoot && declareOnlyOnRoot) {
                         //remove this declaration, declarations are legal only on root
+                        delete attr;
                         attrIterator.remove();
                         attrChanged = true;
                     } else {

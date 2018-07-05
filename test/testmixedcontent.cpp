@@ -194,7 +194,7 @@ bool TestMixedContent::execTest(const QString &inputFileName, const QString &out
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
 
     mainWindow.loadFile(inputFileName);
 

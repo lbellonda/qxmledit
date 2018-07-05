@@ -102,6 +102,12 @@ DiffSingleNodeResult::~DiffSingleNodeResult()
     foreach(DiffSingleNodeResult * child,  _children) {
         delete child ;
     }
+    if(NULL != _referenceElement) {
+        delete _referenceElement ;
+    }
+    if(NULL != _compareElement) {
+        delete _compareElement ;
+    }
 }
 
 QList<Attribute*> &DiffSingleNodeResult::equalsAttributes()

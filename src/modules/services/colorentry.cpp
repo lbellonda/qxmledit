@@ -25,7 +25,7 @@
 #include "qxmleditconfig.h"
 #include "utils.h"
 
-ColorEntry::ColorEntry(const QString &newKey, const QColor newDefaultValue)
+ColorEntry::ColorEntry(const QString &newKey, const QColor newDefaultValue) : _color(0, 0, 0)
 {
     _key = newKey ;
     _isSet = false;

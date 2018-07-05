@@ -72,7 +72,7 @@ bool CompareXML::comparePlainDocuments()
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
 
     mainWindow.loadFile(QString(TEST_FILE1));
     QByteArray resultData = mainWindow.getRegola()->writeMemory();
@@ -96,7 +96,7 @@ bool CompareXML::comparePlainDocumentsFalse()
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
 
     mainWindow.loadFile(QString(TEST_FILE1));
     QByteArray resultData = mainWindow.getRegola()->writeMemory();
@@ -120,7 +120,7 @@ bool CompareXML::compareMixedDocuments()
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
 
     mainWindow.loadFile(QString(TEST_FILE_MIXED));
     QByteArray resultData = mainWindow.getRegola()->writeMemory();
@@ -144,7 +144,7 @@ bool CompareXML::compareMixedDocumentsFalse()
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
 
     mainWindow.loadFile(QString(TEST_FILE_MIXED));
     QByteArray resultData = mainWindow.getRegola()->writeMemory();

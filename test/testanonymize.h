@@ -35,9 +35,11 @@ class GenericPersistentData;
 class AnonOperationBatch;
 class App;
 class ApplicationData;
+class OperationStatus;
 
 #include "modules/anonymize/anonexception.h"
 #include "modules/anonymize/anonoperationbatch.h"
+#include "testhelpers/collect.h"
 
 class TestAnonymize : public TestBase, AnonOperationBatchOutputFileProvider
 {
@@ -49,6 +51,12 @@ class TestAnonymize : public TestBase, AnonOperationBatchOutputFileProvider
 
     QString _askedOutString;
     QIODevice *_retProvided;
+
+    Collect<AnonProfile> _p;
+    Collect<GenericPersistentData> _g;
+    Collect<OperationStatus> _o;
+    Collect<AnonException> _e;
+
 public:
     virtual QIODevice *outProviderProvide(const QString &filePath);
     virtual void outProviderAutoDelete();

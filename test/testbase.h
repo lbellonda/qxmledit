@@ -26,6 +26,7 @@
 #include "qtincludes.h"
 #include <QString>
 #include <QHash>
+#include "testhelpers/collect.h"
 
 #define FILE_TEST_BASE_SIMPLE   "../test/data/test_base.xml"
 #define TEST_BASE_DATA   "../test/data/"
@@ -47,6 +48,8 @@ protected:
     QString _testName;
     QString _subTestName;
     QString _origName;
+
+    QList<Element*> gc;
 
     bool error(const QString &testName, const QString &msg);
     bool error(const TestBase &inner);
@@ -130,5 +133,7 @@ protected:
     bool assertEquals(const QString &msg, const QString &expected, const QString &current);
     bool checkBoolSetting(const QString &setting, const bool expected);
 };
+
+#define DELTELMS(object) foreach( Element *var, object) { delete var; } object.clear();
 
 #endif // TESTBASE_H

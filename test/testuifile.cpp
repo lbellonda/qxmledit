@@ -31,7 +31,7 @@ bool TestUIFile::testNew()
 {
     App app;
     if(!app.init()) {
-        return false;
+        return error("init");
     }
     MainWindow *mainWindow = app.mainWindow();
     mainWindow->getUI()->actionNew->trigger();
@@ -40,10 +40,10 @@ bool TestUIFile::testNew()
     if(NULL == pasteElement) {
         return false;
     }
+    gc.append(pasteElement);
     mainWindow->getRegola()->pasteInternals(mainWindow->getMainTreeWidget(), NULL, pasteElement, -1);
     if(!mainWindow->getUI()->actionSaveAs->isEnabled()) {
-        fprintf(stderr, "Save as is not enables after new and modify");
-        return false;
+        return error("Save as is not enabled after new and modify");
     }
     return true ;
 }

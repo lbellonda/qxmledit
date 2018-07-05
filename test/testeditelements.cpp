@@ -63,6 +63,10 @@ TestEditElements::TestEditElements()
     regola = NULL ;
 }
 
+TestEditElements::~TestEditElements()
+{
+}
+
 bool TestEditElements::error1()
 {
     return false;
@@ -263,6 +267,7 @@ bool TestEditElements::insertCommentEmpty()
     if(NULL == newElement) {
         return error1();
     }
+
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(RES_INSERTCOMMENTEMPTY, regola) ) {
@@ -281,6 +286,7 @@ bool TestEditElements::insertCommentAtRootNoSel()
         return error1();
     }
     Element *newComment = new Element( regola, Element::ET_COMMENT, NULL) ;
+    gc.append(newComment);
     if(NULL == newComment) {
         return error1();
     }
@@ -291,6 +297,7 @@ bool TestEditElements::insertCommentAtRootNoSel()
     if(NULL == newElement) {
         return error1();
     }
+    gc.append(newElement);
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     if( !compareDocuments(EDIT_ELEMENTS_BASE, regola) ) {
@@ -330,6 +337,7 @@ bool TestEditElements::appendCommentToRoot()
     if(NULL == newComment) {
         return error1();
     }
+
     newComment->setText("new comment");
     regola->appendComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
@@ -443,9 +451,11 @@ bool TestEditElements::insertProcessingInstructionAtRootNoSel()
     if(NULL == newPI) {
         return error1();
     }
+    gc.append(newPI);
     regola->addProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     Element *newElement = new Element( "a", "", regola, NULL ) ;
+    gc.append(newElement);
     if(NULL == newElement) {
         return error1();
     }
@@ -551,6 +561,7 @@ bool TestEditElements::insertElementEmpty()
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newElement);
 
     newElement = new Element( "a", "", regola, NULL ) ;
+    gc.append(newElement);
     if(NULL == newElement) {
         return error1();
     }

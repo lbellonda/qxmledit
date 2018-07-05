@@ -37,6 +37,7 @@ class XSchemaLoaderHelper : public QObject
     bool _isError ;
     QEventLoop _eventLoop;
     bool _isAsynch;
+    QNetworkRequest _request;
 
     void end();
     void disconnectReply();

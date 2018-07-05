@@ -66,7 +66,7 @@ bool TestXSLTMode::testBaseMode()
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     XmlEditWidgetEditMode::EditMode editMode = mainWindow.getEditor()->editMode();
     if( XmlEditWidgetEditMode::XSLT == editMode ) {
         return error("Editor should not start in xslt edit mode");
@@ -149,7 +149,7 @@ bool TestXSLTMode::checkMenuItems(const QString &filePath, const QString &tag, Q
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(QString(filePath)) ) {
         return error(QString("opening test file: '%1'").arg(filePath));
     }
@@ -188,7 +188,7 @@ bool TestXSLTMode::testAdvancedMode()
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(QString(FILE_BASE)) ) {
         return error(QString("opening test file: '%1'").arg(FILE_BASE));
     }
@@ -333,7 +333,7 @@ bool TestXSLTMode::innerDTest( const QString &nameElem, const QString &namesFile
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(QString(FILE_BASE)) ) {
         return error(QString("opening test file: '%1'").arg(FILE_BASE));
     }
@@ -580,7 +580,7 @@ bool TestXSLTMode::innerDEditOp( const QString &selectedElem, const QString &nam
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(fileOrig) ) {
         return error(QString("opening test file: '%1'").arg(fileOrig));
     }
@@ -683,7 +683,7 @@ bool TestXSLTMode::testNavigation()
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(QString(FILE_NAVIGATION)) ) {
         return error(QString("opening test file: '%1'").arg(FILE_NAVIGATION));
     }
@@ -896,7 +896,7 @@ bool TestXSLTMode::testPanelShowOnOpenFile(const QString &fileName, const XSLTAu
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     XSLTAutoModeDialog::PrivateTest::setTestToExecute(testToDo);
     XSLTAutoModeDialog::PrivateTest::setPanelOpen(false);
     if( !mainWindow.loadFile(QString(fileName)) ) {
@@ -930,7 +930,7 @@ bool TestXSLTMode::testPanelShowOnOpenFileUsingFlags(const XSLTAutoModeDialog::P
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     app.data()->setAutoXSLTMode(isAuto);
     app.data()->setShowXSLTPanel(isShow);
     XSLTAutoModeDialog::PrivateTest::setPanelOpen(false);
@@ -981,7 +981,7 @@ bool TestXSLTMode::testPanelAnswers( const QString &fileName,
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     XSLTAutoModeDialog::PrivateTest::setTestToExecute(testToDo);
     XSLTAutoModeDialog::PrivateTest::setAnswerShowXSLTPanel(isShow);
     XSLTAutoModeDialog::PrivateTest::setAnswer(answer);
@@ -1130,7 +1130,7 @@ bool TestXSLTMode::intTestInsParameters(const bool isParameters, const QString &
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(FILE_BASE_PARAM) ) {
         return error(QString("opening test file: '%1'").arg(FILE_BASE_PARAM));
     }
@@ -1180,7 +1180,7 @@ bool TestXSLTMode::intTestInsParameters(const bool isParameters, const QString &
     }
 
     // compare tree
-    MainWindow mainWindow2(false, app.data());
+    MainWindow mainWindow2(false, false, app.data());
     if( !mainWindow2.loadFile(fileReference) ) {
         return error(QString("opening compare file: '%1'").arg(fileReference));
     }

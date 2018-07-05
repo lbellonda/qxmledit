@@ -24,7 +24,9 @@
 #ifndef TESTUIFILE_H
 #define TESTUIFILE_H
 
-class TestUIFile
+#include "testbase.h"
+
+class TestUIFile : public TestBase
 {
 public:
     TestUIFile();

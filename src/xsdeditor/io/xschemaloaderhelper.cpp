@@ -20,8 +20,9 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
+#include "xmlEdit.h"
 #include "xschemaloaderhelper.h"
+#include "utils.h"
 
 XSchemaLoaderHelper::XSchemaLoaderHelper(QObject *parent) :
     QObject(parent)
@@ -41,6 +42,8 @@ XSchemaLoaderHelper::~XSchemaLoaderHelper()
 void XSchemaLoaderHelper::abort()
 {
     if(NULL != _networkReply) {
+        Utils::TODO_THIS_RELEASE("corretto?");
+        disconnectReply();
         _networkReply->abort();
         _networkReply->deleteLater();
         _networkReply = NULL ;
@@ -51,7 +54,9 @@ QNetworkReply* XSchemaLoaderHelper::loadSchemaUsingUrl(QUrl &url, QNetworkAccess
 {
     _isAsynch = asynch ;
     _isError = false;
-    _networkReply = networkAccessManager->get(QNetworkRequest(url));
+    _request.setUrl(url);
+    Utils::TODO_THIS_RELEASE("");
+    _networkReply = networkAccessManager->get(_request);
     if(NULL == _networkReply) {
         return NULL ;
     }

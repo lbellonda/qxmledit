@@ -1,4 +1,6 @@
 0.9.11
+    Fixed memory leaks.
+    Issue #51 removed false error message.
     Fixed a problem with prefixes manipulation and text nodes.
     New panel to show keyboard shortcuts.
     Added shortcuts to the guided operations dialog.

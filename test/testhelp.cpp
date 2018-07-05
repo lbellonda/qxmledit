@@ -56,7 +56,7 @@ bool TestHelp::testSearchCommands()
     {
         QList<QAction*> list;
         SearchCommandDialog dlg(list);
-        QAction enabledAction;
+        QAction enabledAction(NULL);
         enabledAction.setEnabled(true);
         if(!dlg.filterAction(&enabledAction)) {
             return errorSelAction("enabled");
@@ -65,7 +65,7 @@ bool TestHelp::testSearchCommands()
     {
         QList<QAction*> list;
         SearchCommandDialog dlg(list);
-        QAction disabledAction;
+        QAction disabledAction(NULL);
         disabledAction.setEnabled(false);
         if(dlg.filterAction(&disabledAction)) {
             return errorSelAction("disabled");
@@ -74,7 +74,7 @@ bool TestHelp::testSearchCommands()
     {
         QList<QAction*> list;
         SearchCommandDialog dlg(list);
-        QAction hiddenAction;
+        QAction hiddenAction(NULL);
         hiddenAction.setEnabled(true);
         hiddenAction.setVisible(false);
         if(dlg.filterAction(&hiddenAction)) {
@@ -84,7 +84,7 @@ bool TestHelp::testSearchCommands()
     {
         QList<QAction*> list;
         SearchCommandDialog dlg(list);
-        QAction taggedAction;
+        QAction taggedAction(NULL);
         taggedAction.setEnabled(true);
         taggedAction.setVisible(true);
         taggedAction.setData(MainWindow::ActionTagLastFiles);

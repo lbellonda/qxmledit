@@ -70,7 +70,7 @@ bool TestClipboard::testCopyElementPathToClipboard()
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
 
     if( !mainWindow.loadFile(QString(FILE_TEST)) ) {
         return error(QString("opening test file: '%1'").arg(FILE_TEST));
@@ -158,7 +158,7 @@ bool TestClipboard::testPasteAsSibling()
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
 
     if( !mainWindow.loadFile(QString(FILE_BASE_PASTEASS)) ) {
         return error(QString("opening test file: '%1'").arg(FILE_BASE_PASTEASS));

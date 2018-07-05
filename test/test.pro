@@ -334,7 +334,8 @@ HEADERS += \
     testformattinginfo.h \
     testhelpers/xsd/testxsdprintinfo.h \
     teststartupandbehavior.h \
-    testhelp.h
+    testhelp.h \
+    testhelpers/collect.h
 
 #OTHER_FILES += \
 

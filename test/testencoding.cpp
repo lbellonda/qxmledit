@@ -1220,6 +1220,7 @@ bool TestEncoding::insertEncodingAsSecond(App *app, const QString &encoding)
 bool TestEncoding::insertEncodingAtIndex(App *app, const QString &encoding, const int position)
 {
     Element *pi = new Element(app->mainWindow()->getRegola(), Element::ET_PROCESSING_INSTRUCTION, NULL);
+    gc.append(pi);
     pi->setPITarget("xml");
     pi->setPIData(QString("version='1.0' encoding='%1'").arg(encoding));
     app->mainWindow()->getRegola()->pasteInternals(app->mainWindow()->getEditor()->getMainTreeWidget(), NULL, pi, position);
@@ -1229,6 +1230,7 @@ bool TestEncoding::insertEncodingAtIndex(App *app, const QString &encoding, cons
 bool TestEncoding::insertCommentAtIndex(App *app, const int position)
 {
     Element *pi = new Element(app->mainWindow()->getRegola(), Element::ET_COMMENT, NULL);
+    gc.append(pi);
     pi->setComment("test");
     app->mainWindow()->getRegola()->pasteInternals(app->mainWindow()->getEditor()->getMainTreeWidget(), NULL, pi, position);
     return true;
@@ -1237,6 +1239,7 @@ bool TestEncoding::insertCommentAtIndex(App *app, const int position)
 bool TestEncoding::insertElementAtIndex(App *app, const int position)
 {
     Element *pi = new Element( "root", "", app->mainWindow()->getRegola(), NULL);
+    gc.append(pi);
     app->mainWindow()->getRegola()->pasteInternals(app->mainWindow()->getEditor()->getMainTreeWidget(), NULL, pi, position);
     return true;
 }
@@ -1453,7 +1456,12 @@ bool TestEncoding::testLoadSave()
     QList<QXmlEditData::EIndentAttributes> indentValues ;
     indentValues << QXmlEditData::AttributesIndentationNone << QXmlEditData::AttributesIndentationMaxCols ;
     QStringList encodings;
-    encodings << "UTF-16" << "UTF-16BE" << "UTF-16LE" << "UTF-8" << "UTF-32" << "ISO-8859-15" << "WINDOWS-1252";
+    QString envVar = qEnvironmentVariable("qxmledit_test_encoding_fast", "");
+    if(!envVar.isEmpty()) {
+        encodings << "UTF-16" ;
+    } else {
+        encodings << "UTF-16" << "UTF-16BE" << "UTF-16LE" << "UTF-8" << "UTF-32" << "ISO-8859-15" << "WINDOWS-1252";
+    }
     QList<int> indentationValues;
     indentationValues << -1 << 0 << 1 << 2 << 4 ;
     QList<int> attrCols;

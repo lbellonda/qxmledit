@@ -36,6 +36,10 @@ TestVis::TestVis()
 {
 }
 
+TestVis::~TestVis()
+{
+}
+
 bool TestVis::testFast()
 {
     return testAttributeBaseBigData();
@@ -355,6 +359,7 @@ bool TestVis::testDataThreading(const bool useStandard)
         dwReference.setColorMap(&colorMap);
         VisDataMap dataMap;
         ElementBase *e = buildElm(NULL, 4);
+        _eb.add(e);
         VisMapDialog::calcSize(e, dataMap);
         // build map
         dataMap.calculate(e);
@@ -373,6 +378,7 @@ bool TestVis::testDataThreading(const bool useStandard)
         dwTest.setColorMap(&colorMap);
         VisDataMap dataMap;
         ElementBase *e = buildElm(NULL, 4);
+        _eb.add(e);
         VisMapDialog::calcSize(e, dataMap);
         // build map
         dataMap.calculate(e);

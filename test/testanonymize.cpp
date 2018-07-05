@@ -1034,6 +1034,7 @@ bool TestAnonymize::testException(const QString &test, const bool isElement, con
         }
     }
     AnonException *e = dlg.getException();
+    _e.add(e);
     if( !checkException(e, path, include, recursive, isDefaultAlg, value ) ) {
         return false;
     }
@@ -1088,6 +1089,9 @@ bool TestAnonymize::testExceptionA(const QString &test, const QString &fileStart
     sortedInputMap[path1] = path1 ;
     sortedInputMap[path2] = path2 ;
     QList<AnonException*> eList = dlg.getExceptions();
+    foreach (AnonException* exx, eList ) {
+        _e.add(exx);
+    }
     if( eList.size() != 2 ) {
         return error(QString("Exceptions, expected 2, found:%1").arg(eList.size()));
     }
@@ -1217,6 +1221,7 @@ AnonProfile *TestAnonymize::createProfile()
             profile->addException(createAEx(static_cast<AnonInclusionCriteria::Criteria>(criteria), static_cast<AnonType::Type>(type), false));
         }
     }
+    _p.add(profile);
     return profile;
 }
 
@@ -1231,16 +1236,13 @@ bool TestAnonymize::testBaseProfile()
     QBuffer outputData(&byteArray);
     CompareXML compareXML;
     if(!compareXML.compareBufferWithFile(&outputData, PROFILE_XML) ) {
-        delete profile;
         return error(QString("Comparing serialized with object:'%1'").arg(compareXML.errorString()));
     }
     AnonProfile newProfile;
     if(!newProfile.readFromSerializedXmlString(xmlProfile)) {
-        delete profile;
         return error("unable to deserialize");
     }
     if(!compareProfiles(&newProfile, profile)) {
-        delete profile;
         return false;
     }
     return true;
@@ -1361,56 +1363,47 @@ bool TestAnonymize::testProfileParams()
     params->mode = AnonymizeParameters::AllText ;
     params->useFixedLetter = false ;
     if(!compareProfilesParams(profile)) {
-        delete profile ;
         return error("Compare params 0");
     }
     int oldt = params->threshold;
     params->threshold += 15 ;
     if(!compareProfilesParams(profile)) {
-        delete profile ;
         return error("Compare params 0.1");
     }
     params->threshold = oldt ;
     params->mode = AnonymizeParameters::AllText ;
     params->useFixedLetter = true ;
     if(!compareProfilesParams(profile)) {
-        delete profile ;
         return error("Compare params 1");
     }
     params->threshold += 15 ;
     if(!compareProfilesParams(profile)) {
-        delete profile ;
         return error("Compare params 1.1");
     }
     params->threshold = oldt ;
     params->mode = AnonymizeParameters::UsingPatterns;
     params->useFixedLetter = false ;
     if(!compareProfilesParams(profile)) {
-        delete profile ;
         return error("Compare params 2");
     }
     params->threshold += 15 ;
     if(!compareProfilesParams(profile)) {
-        delete profile ;
         return error("Compare params 2.1");
     }
     params->threshold = oldt ;
     params->mode = AnonymizeParameters::UsingPatterns;
     params->useFixedLetter = true ;
     if(!compareProfilesParams(profile)) {
-        delete profile ;
         return error("Compare params 3");
     }
     params->threshold += 15 ;
     if(!compareProfilesParams(profile)) {
-        delete profile ;
         return error("Compare params 3.1");
     }
     params->threshold = oldt ;
     params->mode = AnonymizeParameters::UsingPatterns;
     params->useFixedLetter = true ;
     if(!compareProfilesParamsInverse(profile)) {
-        delete profile ;
         QString msg = this->errorString();
         return error(QString("Compare params false :%1").arg(msg));
     }
@@ -1451,22 +1444,23 @@ bool TestAnonymize::testSaveAndReadProfile()
     QString xmlProfile = profile->toXMLSerializedString();
 
     GenericPersistentData *snippet = app.data()->storageManager()->newPersistentDatum(QXMLE_PDATA_TypeAnonProfile);
+    _g.add(snippet);
     if(NULL == snippet) {
         return error("Unable to create new profile.");
     }
     fillProfile(snippet, xmlProfile);
     OperationStatus* oper = NULL ;
     oper = app.data()->storageManager()->insertGenericData(snippet);
+    _o.add(oper);
     if((NULL == oper) || !oper->isOk()) {
         return error("Error saving data.");
     }
-    delete oper;
     QList<GenericPersistentData*> list;
     oper = app.data()->storageManager()->readGenericData(QXMLE_PDATA_TypeAnonProfile, snippet->id(), list);
+    _o.add(oper);
     if((NULL == oper) || !oper->isOk()) {
         return error("Error retrieving  data.");
     }
-    delete oper;
     if( list.count() != 1 ) {
         error(QString("Read size: %1, expected:1").arg(list.count()));
     }
@@ -1491,7 +1485,6 @@ bool TestAnonymize::testSaveAndReadProfile()
     foreach( GenericPersistentData* d, list ) {
         delete d;
     }
-    delete profile;
     return !isError();
 }
 
@@ -1878,14 +1871,14 @@ bool TestAnonymize::insProfile(ApplicationData* data, const QString &name)
     if(NULL == snippet) {
         return error("Unable to create new profile.");
     }
+    _g.add(snippet);
     fillProfile(snippet, xmlProfile, name);
     OperationStatus* oper = NULL ;
     oper = data->storageManager()->insertGenericData(snippet);
+    _o.add(oper);
     if((NULL == oper) || !oper->isOk()) {
-        delete oper;
         return error("Error saving data.");
     }
-    delete oper;
     return true;
 }
 

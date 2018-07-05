@@ -26,9 +26,12 @@
 
 #include "testbase.h"
 
+class SessionSummary;
+
 class TestSessions : public TestBase
 {
 protected:
+    Collect<SessionSummary> _ss;
     bool errorT();
     bool errorInit();
 public:

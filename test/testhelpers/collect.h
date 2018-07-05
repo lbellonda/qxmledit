@@ -23,11 +23,30 @@
 #ifndef COLLECT_H
 #define COLLECT_H
 
+#include <QList>
 
+template<class T>
 class Collect
 {
+    QList<T*> d;
 public:
-    Collect();
+    Collect() {}
+    virtual ~Collect() {
+        foreach( T* t, d) {
+            if(NULL != t) {
+                delete t;
+            }
+        }
+        d.clear();
+    }
+
+    void add(T* ptr)
+    {
+        if(NULL != ptr) {
+            d.append(ptr);
+        }
+    }
+
 };
 
 #endif // COLLECT_H

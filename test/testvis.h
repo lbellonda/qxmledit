@@ -33,6 +33,7 @@ class AttributesSummarySummary;
 
 class TestVis : public TestBase
 {
+    Collect<ElementBase> _eb;
     ElementBase *buildElm(ElementBase *parent, const int level);
     void count(ElementBase *e, int &total );
     bool testBaseElement();
@@ -55,6 +56,7 @@ class TestVis : public TestBase
     //----
 public:
     TestVis();
+    ~TestVis();
 
     bool test();
     bool testSummary();

@@ -53,6 +53,7 @@ class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 
     static const uint MaxTimesElementEditedWithoutText = 10 ;
 
+    bool    isDeleted;
     bool    started;
     bool    internalStateOk;
     MainWndController _controller;
@@ -93,6 +94,7 @@ class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
     bool _closing ;
     InfoOnKeyboardShortcuts * _infoOnKeyboardShortcuts;
     InfoOnEditMode *_infoOnEditMode;
+    bool _isAutoDelete ;
 public:
 
     //---------- actions -------------------
@@ -106,8 +108,10 @@ public:
         OpenUsingNewWindow,
     };
 
-    MainWindow(const bool isSlave, ApplicationData *data, QMainWindow *parent = 0);
+    MainWindow(const bool isAutodelete, const bool isSlave, ApplicationData *data, QMainWindow *parent = 0);
     virtual ~MainWindow();
+
+    static MainWindow *newDynamicTopLevelNewWindow(ApplicationData *data, const bool isRepos = true, const bool isShow = true);
 
     ApplicationData *appData();
     virtual bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
@@ -170,9 +174,9 @@ public:
     bool isValidXsd();
     void viewAsXSD();
     void fireActionByName(const QString &name);
+    void forgetData();
 
 protected:
-    void forgetData();
     virtual void changeEvent(QEvent *event);
     virtual bool event(QEvent *e);
     void dismissInfoOnKeyboard();

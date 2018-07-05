@@ -72,7 +72,7 @@ bool TestXSDCopy::testCopyNoattrs()
     if(!app.initNoWindow() ) {
         return error("init");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(QString(TEST_FILE_XSD_BASE)) ) {
         return error(QString("Unable to load the test file '%1'").arg(TEST_FILE_XSD_BASE));
     }
@@ -280,7 +280,7 @@ bool TestXSDCopy::testCopyFacetsInt()
     if(!app.initNoWindow() ) {
         return error("init");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(QString(TEST_FILE_XSD_BASE)) ) {
         return error(QString("Unable to load the test file '%1'").arg(TEST_FILE_XSD_BASE));
     }

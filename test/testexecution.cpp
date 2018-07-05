@@ -36,7 +36,7 @@ bool TestExecution::execTest(const QString &inputFileName, const QString &output
     if(!app.initNoWindow() ) {
         return false;
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
 
     mainWindow.loadFile(inputFileName);
 

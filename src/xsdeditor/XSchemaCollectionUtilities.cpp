@@ -59,8 +59,7 @@ XSchemaAttributesCollection::XSchemaAttributesCollection()
 
 XSchemaAttributesCollection::~XSchemaAttributesCollection()
 {
-    foreach(QString name, attributes.keys()) {
-        AttrCollectInfo* attr = attributes[name];
+    foreach(AttrCollectInfo* attr, attributes.values()) {
         delete attr;
     }
     attributes.clear();
@@ -74,6 +73,10 @@ void XSchemaAttributesCollection::insert(const QString &name, XSchemaAttribute* 
     info->enums = parEnums;
     info->defaultValue = defaultValue ;
     info->originalAttribute = originalAttribute ;
+    if(attributes.contains(name)) {
+        delete attributes[name];
+        attributes.remove(name);
+    }
     attributes.insert(name, info);
 }
 

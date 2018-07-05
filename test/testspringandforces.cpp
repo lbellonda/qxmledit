@@ -20,12 +20,13 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
+#include "xmlEdit.h"
 #include "testspringandforces.h"
 #include "modules/graph/nodesrelationscontroller.h"
 #include "modules/graph/nodesrelationsdialog.h"
 #include "modules/graph/tagnodes.h"
 #include "modules/graph/tagmarker.h"
+#include "utils.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -41,8 +42,10 @@ TestSpringAndForces::~TestSpringAndForces()
 
 class NRC : public NodesRelationsController
 {
+    QList<TagMarker*> localMarkers;
 public:
     NRC(NodesRelationsDialog *newDialog);
+    virtual ~NRC();
     void setup();
     TagMarker *addNode( const QString &tag, int posx, int posy );
     bool iter();
@@ -50,7 +53,12 @@ public:
 
 NRC::NRC(NodesRelationsDialog *newDialog): NodesRelationsController(newDialog)
 {
+}
 
+NRC::~NRC()
+{
+    EMPTYPTRLIST(localMarkers, TagMarker);
+    EMPTYPTRLIST(nodes, TagNode);
 }
 
 void NRC::setup()
@@ -66,6 +74,7 @@ TagMarker *NRC::addNode( const QString &tag, int posx, int posy )
     mrk->position.setX(posx);
     mrk->position.setY(posy);
     markers.append(mrk);
+    localMarkers.append(mrk);
     return mrk ;
 }
 

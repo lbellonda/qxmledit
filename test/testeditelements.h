@@ -98,6 +98,7 @@ class TestEditElements : public TestBase
     bool testActivationEdit();
 public:
     TestEditElements();
+    virtual ~TestEditElements();
 
     static bool test();
     bool testFast();

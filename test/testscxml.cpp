@@ -958,7 +958,7 @@ bool TestSCXML::testPanelShowOnOpenFile(const QString &fileName, const SCXMLAuto
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     SCXMLAutoModeDialog::PrivateTest::setTestToExecute(testToDo);
     SCXMLAutoModeDialog::PrivateTest::setPanelOpen(false);
     if( !mainWindow.loadFile(QString(fileName)) ) {
@@ -992,7 +992,7 @@ bool TestSCXML::testPanelShowOnOpenFileUsingFlags(const SCXMLAutoModeDialog::Pri
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     app.data()->setAutoSCXMLMode(isAuto);
     app.data()->setShowSCXMLPanel(isShow);
     SCXMLAutoModeDialog::PrivateTest::setPanelOpen(false);
@@ -1043,7 +1043,7 @@ bool TestSCXML::testPanelAnswers( const QString &fileName,
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     SCXMLAutoModeDialog::PrivateTest::setTestToExecute(testToDo);
     SCXMLAutoModeDialog::PrivateTest::setAnswerShowSCXMLPanel(isShow);
     SCXMLAutoModeDialog::PrivateTest::setAnswer(answer);

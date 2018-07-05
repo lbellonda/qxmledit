@@ -75,17 +75,6 @@ TestUndoRedo::TestUndoRedo()
     regola = NULL ;
 }
 
-bool TestUndoRedo::error(const QString &theCause)
-{
-    cause = theCause ;
-    return false ;
-}
-
-bool TestUndoRedo::error()
-{
-    return false ;
-}
-
 bool TestUndoRedo::test()
 {
     {
@@ -287,7 +276,7 @@ bool TestUndoRedo::test()
 bool TestUndoRedo::start(const bool isNew, QList<int> &selection, const QString &fileName)
 {
     if(!app.init() ) {
-        return error();
+        return error("start");
     }
     if( !isNew ) {
         app.mainWindow()->loadFile(fileName);
@@ -348,15 +337,15 @@ bool TestUndoRedo::compareDocuments(const QString &filename, Regola *regola)
     QDomDocument document2;
     CompareXML compare;
     if(!compare.loadFileIntoDocument(filename, document1)) {
-        return error();
+        return error("1");
     }
     QBuffer outputData(&resultData);
     if(!compare.loadFileIntoDocument(&outputData, document2)) {
-        return error();
+        return error("2");
     }
     bool result = compare.compareDomDocuments(document1, document2);
     if( !result ) {
-        return error();
+        return error("3");
     }
     return result ;
 }
@@ -364,27 +353,27 @@ bool TestUndoRedo::compareDocuments(const QString &filename, Regola *regola)
 bool TestUndoRedo::checkAfterMove(const bool isUndo, const bool isRedo, const QString &docName)
 {
     if( regola->canUndo() != isUndo ) {
-        return error();
+        return error("4");
     }
 
     if( app.mainWindow()->getUI()->actionUndo->isEnabled() != isUndo ) {
-        return error();
+        return error("5");
     }
 
     if( regola->canRedo() != isRedo ) {
-        return error();
+        return error("6");
     }
 
     if( app.mainWindow()->getUI()->actionRedo->isEnabled() != isRedo ) {
-        return error();
+        return error("7");
     }
 
     if( !compareDocuments(docName, regola) ) {
-        return error();
+        return error("8");
     }
     if( NULL != selectedElement ) {
         if( !regola->checkIfUIItemsCorrespondToElements(selectedElement)) {
-            return error();
+            return error("9");
         }
     }
     return true;
@@ -396,31 +385,31 @@ bool TestUndoRedo::testMoveUp1()
     sel.append(0);
     sel.append(2);
     if( !start(false, sel) ) {
-        return error();
+        return error("10");
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASE) ) {
-        return error();
+        return error("11");
     }
 
     if( !regola->moveUp(selectedElement) ) {
-        return error();
+        return error("12");
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP1) ) {
-        return error();
+        return error("13");
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASE) ) {
-        return error();
+        return error("14");
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP1) ) {
-        return error();
+        return error("15");
     }
 
     return true ;
@@ -432,51 +421,51 @@ bool TestUndoRedo::testMoveUp2()
     sel.append(0);
     sel.append(2);
     if( !start(false, sel) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->moveUp(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP1) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->moveUp(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEUP1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEUP1) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP2) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -488,47 +477,47 @@ bool TestUndoRedo::testMoveUp2W()
     sel.append(0);
     sel.append(2);
     if( !start(false, sel) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     app.mainWindow()->getEditor()->onActionMoveUp();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP1) ) {
-        return error();
+        return errorx();
     }
 
     app.mainWindow()->getEditor()->onActionMoveUp();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEUP1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEUP1) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP2) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -545,45 +534,45 @@ bool TestUndoRedo::testMoveUpBumper()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
     //1
     if( !regola->moveUp(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP_BUMP1) ) {
-        return error();
+        return errorx();
     }
     //2
     if( regola->moveUp(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEUP_BUMP1) ) {
-        return error();
+        return errorx();
     }
     //3 - fake undo, no real move, but undo stack count
     regola->undo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEUP_BUMP1) ) {
-        return error();
+        return errorx();
     }
     //3 - undo
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
     //4
     regola->redo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEUP_BUMP1) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -596,31 +585,31 @@ bool TestUndoRedo::testMoveDown1()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->moveDown(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN1) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -632,51 +621,51 @@ bool TestUndoRedo::testMoveDown2()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->moveDown(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN1) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->moveDown(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEDOWN1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEDOWN1) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN2) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -688,47 +677,47 @@ bool TestUndoRedo::testMoveDown2W()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     app.mainWindow()->getEditor()->onActionMoveDown();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN1) ) {
-        return error();
+        return errorx();
     }
 
     app.mainWindow()->getEditor()->onActionMoveDown();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEDOWN1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEDOWN1) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN2) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -745,45 +734,45 @@ bool TestUndoRedo::testMoveDownBumper()
     sel.append(0);
     sel.append(5);
     if( !start(false, sel) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
     //1
     if( !regola->moveDown(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN_BUMP1) ) {
-        return error();
+        return errorx();
     }
     //2
     if( regola->moveDown(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MOVEDOWN_BUMP1) ) {
-        return error();
+        return errorx();
     }
     //3 - fake undo, no real move, but undo stack count
     regola->undo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEDOWN_BUMP1) ) {
-        return error();
+        return errorx();
     }
     //3 - undo
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASE) ) {
-        return error();
+        return errorx();
     }
     //4
     regola->redo();
 
     if( !checkAfterMove(true, true, RES_UNDO_MOVEDOWN_BUMP1) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -797,31 +786,31 @@ bool TestUndoRedo::testDelete()
     sel.append(4);
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->deleteElement(selectedElement) ) {
-        return error();
+        return errorx();
     }
     selectedElement = NULL ;
     if( !checkAfterMove(true, false, RES_UNDO_DELETE) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_DELETE) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -836,30 +825,30 @@ bool TestUndoRedo::testCut()
     sel.append(4);
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     app.mainWindow()->getEditor()->onActionCut();
 
     selectedElement = NULL ;
     if( !checkAfterMove(true, false, RES_UNDO_DELETE) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_DELETE) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -872,31 +861,31 @@ bool TestUndoRedo::testDeleteRootElement()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->deleteElement(selectedElement) ) {
-        return error();
+        return errorx();
     }
     selectedElement = NULL ;
     if( regola->getChildItems()->at(0)->getType() != Element::ET_COMMENT ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( regola->getChildItems()->at(0)->getType() != Element::ET_COMMENT ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -909,31 +898,31 @@ bool TestUndoRedo::testDeleteRootComment()
     QList<int> sel;
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->deleteElement(selectedElement) ) {
-        return error();
+        return errorx();
     }
     selectedElement = NULL ;
     if( !checkAfterMove(true, false, RES_UNDO_DELETE_ROOTCOMMENT) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_DELETE_ROOTCOMMENT) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -979,29 +968,29 @@ bool TestUndoRedo::testInsert1()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
     Element *new1 = newElement();
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), new1);
 
     if( !checkAfterMove(true, false, RES_UNDO_INS1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_INS1) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -1015,29 +1004,29 @@ bool TestUndoRedo::testInsert2()
     sel.append(0);
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
     Element *new1 = newElementWithTextAndAttributes();
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), new1);
 
     if( !checkAfterMove(true, false, RES_UNDO_INS2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_INS2) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -1053,29 +1042,29 @@ bool TestUndoRedo::testInsert3()
     sel.append(0);
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
     Element *new1 = newElementWithTextAndAttributesComplex();
     regola->addBrother(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), new1);
 
     if( !checkAfterMove(true, false, RES_UNDO_INS3) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_INS3) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -1088,29 +1077,29 @@ bool TestUndoRedo::testAppend1()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
     Element *new1 = newElement();
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), new1);
 
     if( !checkAfterMove(true, false, RES_UNDO_APPEND1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_APPEND1) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -1123,29 +1112,29 @@ bool TestUndoRedo::testAppend2()
     sel.append(1);
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
     Element *new1 = newElementWithTextAndAttributes();
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), new1);
 
     if( !checkAfterMove(true, false, RES_UNDO_APPEND2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_APPEND2) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -1160,29 +1149,29 @@ bool TestUndoRedo::testAppend3()
     sel.append(1);
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
     Element *new1 = newElementWithTextAndAttributesComplex();
     regola->addChild(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), new1);
 
     if( !checkAfterMove(true, false, RES_UNDO_APPEND3) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_APPEND3) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -1196,11 +1185,11 @@ bool TestUndoRedo::testAppendProcessingInstruction()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     Element *newPI = regola->newElement(Element::ET_PROCESSING_INSTRUCTION);
@@ -1210,19 +1199,19 @@ bool TestUndoRedo::testAppendProcessingInstruction()
     regola->appendProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     if( !checkAfterMove(true, false, RES_UNDO_INSPI2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_INSPI2) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1234,11 +1223,11 @@ bool TestUndoRedo::testAddProcessingInstruction()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     Element *newPI = regola->newElement(Element::ET_PROCESSING_INSTRUCTION);
@@ -1248,19 +1237,19 @@ bool TestUndoRedo::testAddProcessingInstruction()
     regola->addProcessingInstruction(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newPI);
 
     if( !checkAfterMove(true, false, RES_UNDO_INSPI1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_INSPI1) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1273,11 +1262,11 @@ bool TestUndoRedo::testAppendComment()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     Element *newComment = regola->newElement(Element::ET_COMMENT);
@@ -1286,19 +1275,19 @@ bool TestUndoRedo::testAppendComment()
     regola->appendComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
     if( !checkAfterMove(true, false, RES_UNDO_INSCOMM1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_INSCOMM1) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1310,11 +1299,11 @@ bool TestUndoRedo::testAddComment()
     QList<int> sel;
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     Element *newComment = regola->newElement(Element::ET_COMMENT);
@@ -1323,19 +1312,19 @@ bool TestUndoRedo::testAddComment()
     regola->addComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), newComment);
 
     if( !checkAfterMove(true, false, RES_UNDO_INSCOMM2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_INSCOMM2) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1348,25 +1337,26 @@ bool TestUndoRedo::testTransformInComment()
     sel.append(0);
     sel.append(6);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->transformInComment(app.mainWindow(), app.mainWindow()->getMainTreeWidget(), selectedElement);
     selectedElement = NULL ;
     if( !checkAfterMove(false, false, RES_UNDO_TRCOMM) ) {
-        return error();
+        return errorx();
     }
     selectedElement = regola->findElementByArray(sel);
-    if( ! regola->generateFromComment(app.mainWindow()->getMainTreeWidget(), new FakeUIDelegate(), selectedElement) ) {
-        return error();
+    FakeUIDelegate fakeUIDelegate;
+    if( ! regola->generateFromComment(app.mainWindow()->getMainTreeWidget(), &fakeUIDelegate, selectedElement) ) {
+        return errorx();
     }
     selectedElement = NULL;
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -1380,32 +1370,33 @@ bool TestUndoRedo::testEdit()
     sel.append(0);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->setEditHook(&editHook);
-    if( ! regola->editElement(app.mainWindow(), selectedElement->getUI(), new FakeUIDelegate()) ) {
-        return error();
+    FakeUIDelegate fakeUIDelegate;
+    if( ! regola->editElement(app.mainWindow(), selectedElement->getUI(), &fakeUIDelegate) ) {
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1418,18 +1409,19 @@ bool TestUndoRedo::testPaste()
     sel.append(0);
     sel.append(0);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     Element * pElement = selectedElement->copyToClipboard();
 
     if( NULL == pElement ) {
-        return error();
+        return errorx();
     }
+    gc.append(pElement);
     QList<int> sel2;
     sel2.append(0);
     sel2.append(2);
@@ -1440,19 +1432,19 @@ bool TestUndoRedo::testPaste()
     regola->paste( app.mainWindow()->getMainTreeWidget(), pElement );
 
     if( !checkAfterMove(true, false, RES_UNDO_AFTERPASTE) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_AFTERPASTE) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1467,32 +1459,33 @@ bool TestUndoRedo::testEditTextNode1()
     sel.append(1);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->setEditTextHook(&editTextHook);
-    if( ! regola->editAndSubstituteTextInNodeElement(app.mainWindow(), selectedElement, new FakeUIDelegate()) ) {
-        return error();
+    FakeUIDelegate fakeUIDelegate;
+    if( ! regola->editAndSubstituteTextInNodeElement(app.mainWindow(), selectedElement, &fakeUIDelegate) ) {
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT1) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT1) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1507,32 +1500,33 @@ bool TestUndoRedo::testEditTextNode2()
     sel.append(1);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->setEditTextHook(&editTextHook);
-    if( ! regola->editTextNodeElementBase64(app.mainWindow(), selectedElement->getUI(), new FakeUIDelegate()) ) {
-        return error();
+    FakeUIDelegate fakeUIDelegate;
+    if( ! regola->editTextNodeElementBase64(app.mainWindow(), selectedElement->getUI(), &fakeUIDelegate) ) {
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT2) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT2) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1547,32 +1541,33 @@ bool TestUndoRedo::testEditTextNode3()
     sel.append(1);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->setEditTextHook(&editTextHook);
-    if( ! regola->editInnerXMLBase64Element(selectedElement->getUI(), new FakeUIDelegate()) ) {
-        return error();
+    FakeUIDelegate fakeUIDelegate;
+    if( ! regola->editInnerXMLBase64Element(selectedElement->getUI(), &fakeUIDelegate) ) {
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT3) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT3) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1587,32 +1582,33 @@ bool TestUndoRedo::testEditTextNode4()
     sel.append(1);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->setEditTextHook(&editTextHook);
-    if( ! regola->editInnerXMLElement(selectedElement->getUI(), new FakeUIDelegate()) ) {
-        return error();
+    FakeUIDelegate fakeUIDelegate;
+    if( ! regola->editInnerXMLElement(selectedElement->getUI(), &fakeUIDelegate) ) {
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT4) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_EDIT4) ) {
-        return error();
+        return errorx();
     }
     return true ;
 }
@@ -1626,15 +1622,15 @@ bool TestUndoRedo::testMixed()
     sel.append(3);
     sel.append(1);
     if( !start(false, sel, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(false, false, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     if( !regola->moveDown(selectedElement) ) {
-        return error();
+        return errorx();
     }
 
     QList<int> sel2;
@@ -1645,8 +1641,9 @@ bool TestUndoRedo::testMixed()
     app.mainWindow()->getEditor()->setCurrentItem(elementToEdit);
 
     regola->setEditHook(&editHook);
-    if( ! regola->editElement(app.mainWindow(), elementToEdit->getUI(), new FakeUIDelegate()) ) {
-        return error();
+    FakeUIDelegate fakeUIDelegate;
+    if( ! regola->editElement(app.mainWindow(), elementToEdit->getUI(), &fakeUIDelegate) ) {
+        return errorx();
     }
 
     QList<int> sel3;
@@ -1656,6 +1653,8 @@ bool TestUndoRedo::testMixed()
 
     Element *elementToCopy = regola->findElementByArray(sel3);
     Element * copiedElement = elementToCopy->copyToClipboard();
+
+    gc.append(copiedElement);
 
     QList<int> sel4;
     sel4.append(0);
@@ -1671,11 +1670,11 @@ bool TestUndoRedo::testMixed()
     sel5.append(4);
     Element *elementDelete = regola->findElementByArray(sel5);
     if( !regola->deleteElement(elementDelete) ) {
-        return error();
+        return errorx();
     }
 
     if( !checkAfterMove(true, false, RES_UNDO_MIXED) ) {
-        return error();
+        return errorx();
     }
 
     regola->undo();
@@ -1687,7 +1686,7 @@ bool TestUndoRedo::testMixed()
     regola->undo();
 
     if( !checkAfterMove(false, true, RES_UNDO_BASECOMPLEX) ) {
-        return error();
+        return errorx();
     }
 
     regola->redo();
@@ -1699,7 +1698,7 @@ bool TestUndoRedo::testMixed()
     regola->redo();
 
     if( !checkAfterMove(true, false, RES_UNDO_MIXED) ) {
-        return error();
+        return errorx();
     }
 
     return true ;
@@ -1736,4 +1735,9 @@ bool editTextHook(QWidget *const /*parentWindow*/, QTreeWidgetItem * /*item*/, U
     element->addTextNode(newText);
 
     return true ;
+}
+
+bool TestUndoRedo::errorx()
+{
+    return error("?");
 }

@@ -24,8 +24,8 @@
 #include "testmainwindow.h"
 
 
-TestMainWindow::TestMainWindow(const bool isSlave, ApplicationData *data, QMainWindow *parent) :
-    MainWindow(isSlave, data, parent)
+TestMainWindow::TestMainWindow(const bool isAutoDelete, const bool isSlave, ApplicationData *data, QMainWindow *parent) :
+    MainWindow(isAutoDelete, isSlave, data, parent)
 {
     _fakeUIdelegate = NULL ;
 }

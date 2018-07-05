@@ -1172,11 +1172,7 @@ bool Element::isEmpty() const
 
 void Element::clearAttributes()
 {
-    QVectorIterator<Attribute*> it(attributes);
-    while(it.hasNext()) {
-        delete it.next();
-    }
-    attributes.clear();
+    EMPTYPTRLIST(attributes, Attribute);
 }
 
 bool Element::addAttribute(const QString &name, const QString &value)
@@ -2670,7 +2666,7 @@ bool Element::pasteClearAttributes(QList<Attribute*> &newAttributes, UndoPasteAt
                 Attribute * attribute = attributes.at(i);
                 if(attribute == attributeToDelete) {
                     attributes.remove(i);
-                    delete attributeToDelete;
+                    delete attribute;
                     isModified = true ;
                     break;
                 }
@@ -2724,6 +2720,7 @@ bool Element::removeAttribute(const QString &name)
         if(attribute->name == name) {
             int index = attributes.indexOf(attribute);
             if(index >= 0) {
+                delete attributes.at(index);
                 attributes.remove(index);
                 return true;
             }

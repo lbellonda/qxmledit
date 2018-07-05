@@ -153,7 +153,7 @@ bool TestNewFromTemplate::testNewFile(const QString &fileName, const QString tes
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     bool found = fireAction( &mainWindow, actionName );
     if(!found ) {
         return error(QString("action '%1' not found").arg(actionName));
@@ -237,7 +237,7 @@ bool TestNewFromTemplate::testNewFromSnippet(const QString &fileName, const QStr
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(QString(FILE_TEST_BASE_SIMPLE)) ) {
         return error(QString("opening test file: '%1'").arg(FILE_TEST_BASE_SIMPLE));
     }
@@ -278,7 +278,7 @@ bool TestNewFromTemplate::testChooseSnippet(const QString &fileName, const QStri
     if(!app.initNoWindow() ) {
         return error("init window");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     if( !mainWindow.loadFile(QString(FILE_TEST_BASE_SIMPLE)) ) {
         return error(QString("opening test file: '%1'").arg(FILE_TEST_BASE_SIMPLE));
     }

@@ -59,8 +59,6 @@ bool TestOpenInNewWindow::testFast()
 
 bool TestOpenInNewWindow::testSingleResult( App *app, const int expectedOpen, const QString &msg )
 {
-    //serve per l'uso del deleteLater
-    qApp->processEvents();
     if( app->data()->windowsCount() != expectedOpen ) {
         return error(QString("Expected open %1 windows, but found %2 in phase: %3.").arg(expectedOpen).arg(app->data()->windowsCount()).arg(msg));
     }

@@ -167,7 +167,7 @@ bool handleCommandLineArguments(QXmlEditApplication &app, StartParams &startPara
     default:
         break;
     case StartParams::VisFile: {
-        MainWindow *mainWindow = new MainWindow(false, app.appData());
+        MainWindow *mainWindow = MainWindow::newDynamicTopLevelNewWindow(app.appData());
         mainWindow->show();
         mainWindow->loadVisFile(startParams.fileName);
         handled = true ;

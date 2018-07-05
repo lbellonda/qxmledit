@@ -22,6 +22,7 @@
 
 #include "TestQXmlEdit.h"
 #include <QtGlobal>
+#include "utils.h"
 
 const char *APP_TITLE = QT_TR_NOOP("QXmlEditTest");
 
@@ -29,6 +30,7 @@ void testSearchInFileWorking(volatile bool *running, XmlScanInfo *info, const QS
 
 TestQXmlEdit::TestQXmlEdit()
 {
+    qputenv("QTEST_FUNCTION_TIMEOUT", QString("9000000").toLatin1());
 }
 
 void TestQXmlEdit::initTestCase()
@@ -282,7 +284,7 @@ void TestQXmlEdit::testFileUI()
     TestUIFile tf;
     bool result ;
     result = tf.testNew();
-    QVERIFY2(result, "Test FileUI");
+    QVERIFY2(result, QString("Test FileUI %1").arg(tf.errorString()).toLatin1().data());
 }
 
 void TestQXmlEdit::testSessions()
@@ -427,7 +429,7 @@ void TestQXmlEdit::testUndoRedo()
     bool result ;
     TestUndoRedo tu;
     result = tu.test();
-    QVERIFY2(result, (QString("undo-redo %1").arg(tu.cause)).toLatin1());
+    QVERIFY2(result, (QString("undo-redo %1").arg(tu.errorString())).toLatin1());
 }
 
 void TestQXmlEdit::testDocType()
@@ -1137,7 +1139,6 @@ void TestQXmlEdit::testNamespace()
         result = testA.testFast();
         QVERIFY2(result, (QString("test TestUserNamespaces: testFast() '%1'").arg(testA.errorString())).toLatin1().data());
     }
-
     {
         TestUserNamespaces testA;
         result = testA.testSerialization();
@@ -1466,7 +1467,6 @@ void TestQXmlEdit::testNamespaces()
         result = test.testFast();
         QVERIFY2(result, (QString("test TestNamespaces: testFast() '%1'").arg(test.errorString())).toLatin1().data());
     }
-
     {
         TestNamespaces test;
         result = test.testUnit();

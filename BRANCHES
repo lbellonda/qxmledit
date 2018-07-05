@@ -4,12 +4,12 @@ devel
 
 Branches:
 ---------
-172 - Fixes after code review.
-171 - Function key help.
+173 - Fixes after code review.
 
 Merged branches:
 -------------
 172 - Allow configuration to qmake via command line
+171 - Function key help.
 170 - Search a command by name.
 169-UI-improvements - increasing user-friendliness
 issue-48 improve xsd display performance

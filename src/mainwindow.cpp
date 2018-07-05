@@ -93,7 +93,7 @@ void ShowTextInDialoog(QWidget *parent, const QString &text);
 const QString MainWindow::ActionTagLastFiles("LastFiles");
 const QString MainWindow::ActionTagLastFolders("LastFolders");
 
-MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWindow *parent)
+MainWindow::MainWindow(const bool isAutoDelete, const bool setIsSlave, ApplicationData *newData, QMainWindow *parent)
     : QMainWindow(parent),
       _uiServices(this),
       data(newData),
@@ -101,6 +101,8 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
       _windowIcon(":/icon/images/icon.png"),
       _closing(false)
 {
+    _isAutoDelete = isAutoDelete;
+    isDeleted = false ;
     _infoOnEditMode = NULL ;
     _infoOnKeyboardShortcuts = NULL ;
     _scxmlValidationErrors = NULL ;
@@ -162,6 +164,7 @@ MainWindow::MainWindow(const bool setIsSlave, ApplicationData *newData, QMainWin
 
 MainWindow::~MainWindow()
 {
+    isDeleted = true ;
     ui.sessionTree->setSessionManager(NULL);
     dismissInfoOnKeyboard();
     dismissInfoEditTypes();
@@ -176,6 +179,7 @@ MainWindow::~MainWindow()
 void MainWindow::forgetData()
 {
     if(NULL != data) {
+        ui.sessionTree->setSessionManager(NULL);
         disconnect(data, SIGNAL(clipboardDataChanged(bool)), this, SLOT(onClipboardDataChanged(bool)));
         disconnect(data, SIGNAL(stateKeyboardShortcutChanged(bool)), this, SLOT(onStateKeyboardShortcutChanged(bool)));
         if(!isSlave) {
@@ -194,7 +198,7 @@ ApplicationData *MainWindow::appData()
 QString MainWindow::editNodeElementAsXML(const bool isBase64Coded, Element *pElement, const QString & /*text*/, const bool /*isCData*/, bool &isCDataOut, bool &isOk)
 {
     QString result;
-    MainWindow *mainWindow = new MainWindow(true, data, this) ;
+    MainWindow *mainWindow = new MainWindow(true, true, data, this) ;
     mainWindow->setWindowModality(Qt::WindowModal);
     mainWindow->ui.editor->loadText(pElement->getAsSimpleText(isBase64Coded));
     mainWindow->ui.editor->setCDATA(pElement->isCDATA());
@@ -253,22 +257,12 @@ bool MainWindow::event(QEvent *e)
     const bool result = QMainWindow::event(e);
     switch(e->type()) {
     case QEvent::WindowActivate:
-#ifdef  QXMLEDIT_TEST
-        if(NULL == data)  {
-            qFatal("fault activation");
-        }
-#endif
-        if(NULL != data)  {
+        if((NULL != data) && !isDeleted)  {
             data->newWindowActivationStatus(this, true);
         }
         break;
     case QEvent::WindowDeactivate:
-#ifdef  QXMLEDIT_TEST
-        if(NULL == data)  {
-            qFatal("fault deactivation");
-        }
-#endif
-        if(NULL != data)  {
+        if((NULL != data) && !isDeleted)  {
             data->newWindowActivationStatus(this, false);
         }
         break;
@@ -1401,9 +1395,10 @@ void MainWindow::closeEvent(QCloseEvent * event)
     if(!isSlave) {
         // disable events until destroyed
         forgetData();
-        deleteLater();
+        if(_isAutoDelete) {
+            deleteLater();
+        }
     } else {
-        Utils::TODO_THIS_RELEASE("ma perche'? non forget data se closed? o deleted?");
         _slaveIsClosed = true ;
         if(NULL != eventLoop) {
             eventLoop->exit(_returnCodeAsSlave);
@@ -2729,12 +2724,25 @@ void MainWindow::reposFrame()
 
 MainWindow *MainWindow::makeNewWindow()
 {
-    MainWindow *newWindow = new MainWindow(false, data);
-    if(NULL != newWindow) {
-        reposFrame();
 #ifndef QXMLEDIT_TEST
-        newWindow->show();
+    const bool show = true ;
+#else
+    const bool show = false ;
 #endif
+    MainWindow *newWindow = MainWindow::newDynamicTopLevelNewWindow(data, true, show);
+    return newWindow;
+}
+
+MainWindow *MainWindow::newDynamicTopLevelNewWindow(ApplicationData *appData, const bool isRepos, const bool isShow)
+{
+    MainWindow *newWindow = new MainWindow(true, false, appData);
+    if(NULL != newWindow) {
+        if(isRepos) {
+            newWindow->reposFrame();
+        }
+        if(isShow) {
+            newWindow->show();
+        }
     } else {
         Utils::error(tr("Error opening a new window."));
     }

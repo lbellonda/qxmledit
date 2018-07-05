@@ -38,6 +38,7 @@ TestBase::TestBase()
 
 TestBase::~TestBase()
 {
+    DELTELMS(gc);
 }
 
 bool TestBase::error(const QString &testName, const QString &msg)

@@ -513,7 +513,7 @@ void QXmlEditApplication::setupFirstAccessForPreferences()
 MainWindow *QXmlEditApplication::getOrCreateMainWindow()
 {
     if(appData()->windows().isEmpty()) {
-        MainWindow *mainWindow = new MainWindow(false, _appData);
+        MainWindow *mainWindow = MainWindow::newDynamicTopLevelNewWindow(_appData, true, false);
         return mainWindow ;
     }
     return appData()->windows().at(0);

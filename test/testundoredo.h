@@ -25,8 +25,9 @@
 #define TESTUNDOREDO_H
 
 #include "app.h"
+#include "testbase.h"
 
-class TestUndoRedo
+class TestUndoRedo : public TestBase
 {
     App app;
     Element *selectedElement ;
@@ -72,8 +73,6 @@ class TestUndoRedo
     //
     bool testMixed();
 
-    bool error();
-    bool error(const QString &theCause);
     bool checkAfterMove(const bool isUndo, const bool isRedo, const QString &docName);
     bool compareDocuments(const QString &filename, Regola *regola);
     bool select(QList<int> &selection);
@@ -81,8 +80,8 @@ class TestUndoRedo
     Element *newElement();
     Element *newElementWithTextAndAttributes();
     Element *newElementWithTextAndAttributesComplex();
+    bool errorx();
 public:
-    QString cause;
 
     TestUndoRedo();
 

@@ -45,7 +45,7 @@ bool TestValidation::test()
     if(!app.initNoWindow() ) {
         return error("init");
     }
-    MainWindow mainWindow(false, app.data());
+    MainWindow mainWindow(false, false, app.data());
     XmlEditWidget *editor = mainWindow.getEditor();
     mainWindow.loadFile(VALIDATION_FILE_IN_0);
     Regola *regola = mainWindow.getRegola();

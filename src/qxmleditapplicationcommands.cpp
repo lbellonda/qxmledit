@@ -40,7 +40,7 @@
 
 void QXmlEditApplication::onCommandNew()
 {
-    MainWindow *mainWindow = new MainWindow(false, _appData);
+    MainWindow *mainWindow = MainWindow::newDynamicTopLevelNewWindow(_appData);
     mainWindow->show();
     mainWindow->raise();
     mainWindow->activateWindow();
@@ -60,7 +60,7 @@ void QXmlEditApplication::onCommandQuit()
 
 void QXmlEditApplication::onCommandOpen()
 {
-    MainWindow *mainWindow = new MainWindow(false, _appData);
+    MainWindow *mainWindow = MainWindow::newDynamicTopLevelNewWindow(_appData, true, false);
     if(mainWindow->openFileUsingDialog(QXmlEditData::sysFilePathForOperation(""), MainWindow::OpenUsingSameWindow)) {
         mainWindow->show();
         mainWindow->raise();
@@ -162,7 +162,7 @@ void QXmlEditApplication::onCommandViewXMLMap()
 
 void QXmlEditApplication::onCommandOpenFile(const QString &filePath)
 {
-    MainWindow *mainWindow = new MainWindow(false, _appData);
+    MainWindow *mainWindow = MainWindow::newDynamicTopLevelNewWindow(_appData, true, false);
     if(mainWindow->loadFile(filePath, MainWindow::OpenUsingSameWindow)) {
         mainWindow->show();
         mainWindow->raise();
