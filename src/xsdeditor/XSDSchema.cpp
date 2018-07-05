@@ -74,7 +74,7 @@ void XSDSchema::reset()
     }
     _includedSchemasByObject.clear();
 
-    foreach(XSDSchema * schema, _importedSchemas) {
+    foreach(XSDSchema * schema, _redefinedSchemas) {
         delete schema ;
     }
     _redefinedSchemasByObject.clear();
