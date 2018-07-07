@@ -30,7 +30,9 @@
         </font>
        </property>
        <property name="text">
-        <string>Search a command by name or feature</string>
+        <string>
+Search a command by name or feature
+</string>
        </property>
       </widget>
      </item>
@@ -142,6 +144,11 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>search</tabstop>
+  <tabstop>commands</tabstop>
+  <tabstop>allWords</tabstop>
+ </tabstops>
  <resources>
   <include location="../../risorse.qrc"/>
   <include location="../../risorse.qrc"/>

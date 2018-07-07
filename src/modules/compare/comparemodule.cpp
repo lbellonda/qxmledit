@@ -28,6 +28,7 @@
 #include "comparesidebysideview.h"
 #include "compareresulttextformat.h"
 #include "qxmleditdata.h"
+#include <QTimer>
 
 //------------------------------------------------------------
 
@@ -280,6 +281,7 @@ CompareModule::CompareModule(QWidget *parent, const bool isUseEditorReference, R
         title = tr("File Compare");
     }
     setWindowTitle(title);
+    QTimer::singleShot(200, this, SLOT(startAction()));
 }
 
 CompareModule::~CompareModule()
@@ -290,6 +292,23 @@ CompareModule::~CompareModule()
     resetCompare(_compareFile);
     delete ui;
 }
+
+void CompareModule::startAction()
+{
+    if(_useEditorReference) {
+        browse();
+    } else {
+        if(!browse()) {
+            return ;
+        }
+        if(!browse1()) {
+            return ;
+        }
+        on_cmdCompare_clicked();
+    }
+
+}
+
 
 void CompareModule::setChangeList(DiffNodesChangeList *newDiffList)
 {
@@ -464,24 +483,37 @@ void CompareModule::dropEvent(QDropEvent *event)
 
 void CompareModule::on_cmdBrowse_clicked()
 {
+    browse();
+}
+
+bool CompareModule::browse()
+{
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open Reference File"),
                        QXmlEditData::sysFilePathForOperation(_lastOpenedFilePath), Utils::getFileFilterForOpenFile());
     if(!filePath.isEmpty()) {
-        loadFile(_compareFile, filePath);
+        return loadFile(_compareFile, filePath);
     }
+    return false;
 }
 
 void CompareModule::on_cmdBrowseFile1_clicked()
 {
+    browse1();
+}
+
+bool CompareModule::browse1()
+{
     if(_useEditorReference) {
-        return ;
+        return false ;
     }
     QString filePath = QFileDialog::getOpenFileName(this, tr("Open File to Compare"),
                        QXmlEditData::sysFilePathForOperation(_lastOpenedFilePath), Utils::getFileFilterForOpenFile());
     if(!filePath.isEmpty()) {
-        loadFile(_referenceFile, filePath);
+        return loadFile(_referenceFile, filePath);
     }
+    return false;
 }
+
 
 void CompareModule::on_comboFiles_activated(const QString & text)
 {
@@ -638,6 +670,19 @@ void CompareModule::on_cmdCompare_clicked()
 {
     Q_ASSERT(NULL != _referenceFile.regola);
     Q_ASSERT(NULL != _compareFile.regola);
+
+    if(_useEditorReference) {
+        if(_regola->fileName() == _compareFile.filePath) {
+            _uiDelegate->error(this, textForError(ERR_SAMEFILE));
+            return ;
+        }
+    } else {
+        if(_referenceFile.filePath == _compareFile.filePath) {
+            _uiDelegate->error(this, textForError(ERR_SAMEFILE));
+            return ;
+        }
+    }
+
     startCompare(_referenceFile.regola, _compareFile.regola);
 }
 

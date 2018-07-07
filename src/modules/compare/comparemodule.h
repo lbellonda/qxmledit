@@ -181,6 +181,8 @@ protected:
     void enableZoom();
     void applyZoom();
     void reloadTreeItems(QList<QTreeWidgetItem*> &items, QTreeWidget *tree);
+    bool browse();
+    bool browse1();
 
 public:
 
@@ -235,6 +237,7 @@ private slots:
     void on_cmdZoom1_clicked();
     //--
     void on_cmdDump_clicked();
+    void startAction();
 };
 
 #endif // COMPAREMODULE_H

@@ -88,7 +88,7 @@ void SearchCommandDialog::updateList(const QString &text)
         const QString & searchText = text.trimmed().toLower();
         const QStringList searchTerms = searchText.split(' ');
         const int termsCount = searchTerms.size();
-        if(termsCount==0) {
+        if(termsCount == 0) {
             return ;
         }
         foreach(MenuSearchData *data, _actions) {
@@ -212,7 +212,7 @@ QAction *SearchCommandDialog::evalSelection()
 QList<QAction*> SearchCommandDialog::filterActions(QList<QAction*> sourceActions)
 {
     QList<QAction*> result;
-    foreach( QAction *action, sourceActions) {
+    foreach(QAction *action, sourceActions) {
         // filter
         if(action->objectName() != DYNAMIC_ACTION_NAME) {
             result.append(action);
