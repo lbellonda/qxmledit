@@ -217,7 +217,8 @@ SOURCES += \
     testformattinginfo.cpp \
     testhelpers/xsd/testxsdprintinfo.cpp \
     teststartupandbehavior.cpp \
-    testhelp.cpp
+    testhelp.cpp \
+    testsuites.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 

@@ -112,6 +112,16 @@ public:
     TestQXmlEdit();
     bool verifyMaps(QMap<int, int> &reference, QMap<int, int> &candidate);
 
+// for valgrind
+//private Q_SLOTS:
+    void vt1();
+    void vt2();
+    void vt3();
+    void vt4();
+    void vt5();
+    void vt6();
+    void vt7();
+
 private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();

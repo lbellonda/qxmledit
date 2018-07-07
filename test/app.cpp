@@ -34,6 +34,7 @@ App::App() : QObject(NULL)
 App::~App()
 {
     if(_mainWindow != NULL) {
+        _mainWindow->close();
         _mainWindow->forgetData();
         delete _mainWindow ;
         _mainWindow = NULL ;
