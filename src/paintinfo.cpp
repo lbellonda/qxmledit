@@ -23,6 +23,7 @@
 #include "paintinfo.h"
 #include "qxmleditconfig.h"
 #include "utils.h"
+#include "modules/services/colormanager.h"
 
 #define MAX_ZOOM    (5)
 #define MIN_ZOOM    (1)
@@ -50,11 +51,15 @@ PaintInfo::PaintInfo()
     _attributesColumnLimit = NumColumnsPerAttributeDefault ;
     _showElementsIcon = true ;
     _showLTOnTags = false ;
+    _internalColorManager = new ColorManager();
     recalcColumns();
 }
 
 PaintInfo::~PaintInfo()
 {
+    if(NULL != _internalColorManager) {
+        delete _internalColorManager ;
+    }
 }
 
 void PaintInfo::loadState()
@@ -433,6 +438,9 @@ StyleEntry *PaintInfo::styleEntryById(const QString &id) const
 
 ColorManager *PaintInfo::colorManager() const
 {
+    if(NULL == _colorManager) {
+        return _internalColorManager ;
+    }
     return _colorManager;
 }
 

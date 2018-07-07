@@ -107,7 +107,7 @@ QColor ColorEntry::color() const
     return _color;
 }
 
-void ColorEntry::setColor(const QColor &color)
+void ColorEntry::setColor(const QColor color)
 {
     _isSet = true ;
     _color = color;

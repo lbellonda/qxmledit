@@ -50,7 +50,7 @@ public:
     QString key() const;
     void setKey(const QString &key);
     QColor color() const;
-    void setColor(const QColor &color);
+    void setColor(const QColor color);
     bool isSet() const;
     void setIsSet(bool isSet);
     QColor defaultValue() const;

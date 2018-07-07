@@ -52,6 +52,7 @@ private:
     bool isAttributesHTML;
     bool isHideView;
     ColorManager *_colorManager;
+    ColorManager *_internalColorManager;
     bool isShowFullComments;
     bool _sortAttributesAlpha;
     int _attributesColumnLimit;

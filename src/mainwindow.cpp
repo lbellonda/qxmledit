@@ -179,6 +179,7 @@ MainWindow::~MainWindow()
 void MainWindow::forgetData()
 {
     if(NULL != data) {
+        ui.editor->getPaintInfo()->setColorManager(NULL);
         ui.sessionTree->setSessionManager(NULL);
         disconnect(data, SIGNAL(clipboardDataChanged(bool)), this, SLOT(onClipboardDataChanged(bool)));
         disconnect(data, SIGNAL(stateKeyboardShortcutChanged(bool)), this, SLOT(onStateKeyboardShortcutChanged(bool)));
