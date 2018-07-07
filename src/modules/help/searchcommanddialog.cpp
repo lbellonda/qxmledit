@@ -45,7 +45,7 @@ SearchCommandDialog::SearchCommandDialog(QList<QAction*> theActions, QWidget *pa
     QDialog(parent),
     ui(new Ui::SearchCommandDialog)
 {
-    _actionList = theActions ;
+    _actionList = filterActions(theActions) ;
     _selectedAction = NULL ;
     buildActions();
     ui->setupUi(this);
@@ -73,27 +73,57 @@ void SearchCommandDialog::on_search_textChanged(const QString &text)
     updateList(text);
 }
 
+void SearchCommandDialog::on_allWords_toggled()
+{
+    updateList(ui->search->text());
+}
+
 void SearchCommandDialog::updateList(const QString &text)
 {
+    const bool allWords = ui->allWords->isChecked();
     ui->commands->setUpdatesEnabled(false);
     ui->commands->clear();
     _selectedAction = NULL ;
-    if(!text.isEmpty()) {
+    if(!text.trimmed().isEmpty()) {
         const QString & searchText = text.trimmed().toLower();
-        foreach(MenuSearchData *data, _actions) {
-            if(data->textToSearch.contains(searchText)) {
-                QTreeWidgetItem* item = new QTreeWidgetItem();
-                item->setText(0, data->textToShow);
-                item->setText(1, data->action->toolTip());
-                ui->commands->addTopLevelItem(item);
-                item->setData(0, Qt::UserRole, qVariantFromValue((void*)data->action));
-            }
+        const QStringList searchTerms = searchText.split(' ');
+        const int termsCount = searchTerms.size();
+        if(termsCount==0) {
+            return ;
         }
-    }
+        foreach(MenuSearchData *data, _actions) {
+            bool allMatches = true ;
+            foreach(const QString &term, searchTerms) {
+                if(allWords) {
+                    if(!data->textToSearch.contains(term)) {
+                        allMatches = false ;
+                        break;
+                    }
+                } else {
+                    if(data->textToSearch.contains(term)) {
+                        addItem(data);
+                        break;
+                    }
+                }
+            } // for terms
+            if(allWords && allMatches) {
+                addItem(data);
+            }
+        } // menues
+    } // if search
     ui->commands->resizeColumnToContents(0);
     ui->commands->resizeColumnToContents(1);
     ui->commands->setUpdatesEnabled(true);
     enableOK();
+}
+
+void SearchCommandDialog::addItem(MenuSearchData *data)
+{
+    QTreeWidgetItem* item = new QTreeWidgetItem();
+    item->setText(0, data->textToShow);
+    item->setText(1, data->action->toolTip());
+    ui->commands->addTopLevelItem(item);
+    item->setData(0, Qt::UserRole, qVariantFromValue((void*)data->action));
 }
 
 QString SearchCommandDialog::normalizeTextForSearch(const QString &text)
@@ -178,3 +208,16 @@ QAction *SearchCommandDialog::evalSelection()
     }
     return _selectedAction;
 }
+
+QList<QAction*> SearchCommandDialog::filterActions(QList<QAction*> sourceActions)
+{
+    QList<QAction*> result;
+    foreach( QAction *action, sourceActions) {
+        // filter
+        if(action->objectName() != DYNAMIC_ACTION_NAME) {
+            result.append(action);
+        }
+    }
+    return result;
+}
+

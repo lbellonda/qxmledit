@@ -47,6 +47,8 @@ class InfoOnKeyboardShortcuts ;
 class InfoOnEditMode;
 class Action;
 
+#define DYNAMIC_ACTION_NAME    "DYNAMIC"
+
 class MainWindow : public QMainWindow, UIDelegate, XMLLoadErrorHandler
 {
     Q_OBJECT

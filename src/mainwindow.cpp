@@ -708,6 +708,7 @@ bool MainWindow::buildLastObjects(const int maxObjects, QList<QAction*> &cmdList
             cmdList.append(action);
             action->setVisible(false);
             action->setData(tag);
+            action->setObjectName(DYNAMIC_ACTION_NAME);
             connect(action, SIGNAL(triggered()), this, method);
             parent->addAction(action);
         } else {
@@ -724,6 +725,7 @@ QAction *MainWindow::createAnAction(QMenu *menu, const QString &label, const QSt
     action->setText(label);
     action->setData(tag);
     action->setToolTip(tooltip);
+    action->setObjectName(DYNAMIC_ACTION_NAME);
     return action ;
     //TODO -14-
 }

@@ -55,10 +55,13 @@ private:
     QAction *evalSelection();
     void enableOK();
     bool filterAction(QAction *action);
+    void addItem(MenuSearchData *data);
+    QList<QAction*> filterActions(QList<QAction*> sourceActions);
 private slots:
     void on_search_textChanged(const QString &text);
     void on_commands_currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *);
     void on_commands_itemDoubleClicked(QTreeWidgetItem *, int);
+    void on_allWords_toggled();
 #ifdef QXMLEDIT_TEST
     friend class TestHelp ;
 #endif
