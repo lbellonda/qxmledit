@@ -154,6 +154,7 @@ public:
     static const QString  KEY_USERPROFILING_FIRSTUSE;
     static const QString  KEY_USERPROFILING_GUIDED;
     static const QString  KEY_USERPROFILING_USERTYPE;
+    static const QString  KEY_USERPROFILING_SHOWKEYBOARD_SHORTCUTS;
 
     // sessions
     static const QString KEY_SESSIONS_ENABLED;

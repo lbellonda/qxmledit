@@ -55,7 +55,7 @@ ApplicationData::ApplicationData()
 {
     _keyInfoWidget = NULL ;
     _lastActivatedWindow = NULL;
-    _shortcutPanelState = false ;
+    _shortcutPanelState = Config::getBool(Config::KEY_USERPROFILING_SHOWKEYBOARD_SHORTCUTS, false) ;
     _dbStarted = false ;
     _dataInterface = NULL ;
     _sessionDataInterface = NULL ;

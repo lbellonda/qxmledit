@@ -727,19 +727,15 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="cmdShowKeyboardInfo">
+        <widget class="QCheckBox" name="cmdShowKeyboardInfo">
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
          <property name="toolTip">
           <string>Show or hide the keyboard shortcuts information dialog.</string>
          </property>
          <property name="text">
-          <string>Keyboard Info</string>
-         </property>
-         <property name="icon">
-          <iconset resource="../../risorse.qrc">
-           <normaloff>:/special/viewksh</normaloff>:/special/viewksh</iconset>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
+          <string>Show keyboard shortcuts</string>
          </property>
         </widget>
        </item>
@@ -820,6 +816,9 @@
        </property>
        <property name="text">
         <string>QUIT</string>
+       </property>
+       <property name="icon">
+        <iconset theme="application-exit"/>
        </property>
       </widget>
      </item>

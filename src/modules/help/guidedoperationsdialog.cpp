@@ -25,6 +25,7 @@
 #include "applicationdata.h"
 #include <QTimer>
 #include "utils.h"
+#include "qxmleditconfig.h"
 
 GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application, ApplicationData *appData, QWidget *parent) :
     QDialog(parent),
@@ -48,6 +49,10 @@ GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application,
     //---
     _shortcutQuit = new QShortcut(Qt::Key_Q + Qt::CTRL, this);
     connect(_shortcutQuit, SIGNAL(activated()), this, SLOT(onShortcutQuit()));
+    //--
+    if(Config::getBool(Config::KEY_USERPROFILING_SHOWKEYBOARD_SHORTCUTS, true)) {
+        QTimer::singleShot(200, ui->cmdShowKeyboardInfo, SLOT(toggle()));
+    }
 }
 
 GuidedOperationsDialog::~GuidedOperationsDialog()
@@ -236,6 +241,7 @@ void GuidedOperationsDialog::onShortcutQuit()
 
 void GuidedOperationsDialog::on_cmdShowKeyboardInfo_toggled()
 {
+    Config::saveBool(Config::KEY_USERPROFILING_SHOWKEYBOARD_SHORTCUTS, ui->cmdShowKeyboardInfo->isChecked());
     emit triggerShowKeyboardInfo(ui->cmdShowKeyboardInfo->isChecked());
 }
 

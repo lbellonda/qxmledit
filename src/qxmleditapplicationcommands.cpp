@@ -44,7 +44,9 @@ void QXmlEditApplication::onCommandNew()
     mainWindow->show();
     mainWindow->raise();
     mainWindow->activateWindow();
-    showFunctionKeysInfo(true);
+    if(_appData->keyboardInfoState()) {
+        showFunctionKeysInfo(true);
+    }
 }
 
 
@@ -174,5 +176,13 @@ void QXmlEditApplication::onCommandOpenFile(const QString &filePath)
 
 void QXmlEditApplication::onCommandShowKeyboardInfo(bool state)
 {
-    showFunctionKeysInfo(state, !state);
+    if(!state) {
+        showFunctionKeysInfo(false, true);
+    } else {
+        if(_appData->windowsCount() > 0) {
+            showFunctionKeysInfo(true, false);
+        } else {
+            _appData->newStateKeyboardInfo(true);
+        }
+    }
 }
