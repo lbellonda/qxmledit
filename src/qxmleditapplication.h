@@ -132,7 +132,7 @@ private slots:
     void onKeyboardShortcutOpenCloseRequest();
     void onRequestEnableKeys(MainWindow * window);
     void onWindowsCountChanged(int newCount);
-    void onFocusChanged();
+    void onFocusChanged(QWidget* previous, QWidget* current);
     void onShortcutHidden();
     void onShortcutTypeChanged();
 };

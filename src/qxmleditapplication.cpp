@@ -51,12 +51,12 @@ QXmlEditApplication::QXmlEditApplication(int &argc, char **argv) :
     _guidedOperationsDialog = NULL ;
     _functionKeysInfo = NULL ;
     _uiDelegate = new DefaultUIDelegate();
-    connect(this, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChanged()));
+    connect(this, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChanged(QWidget*, QWidget*)));
 }
 
 QXmlEditApplication::~QXmlEditApplication()
 {
-    disconnect(this, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChanged()));
+    disconnect(this, SIGNAL(focusChanged(QWidget*, QWidget*)), this, SLOT(onFocusChanged(QWidget*, QWidget*)));
     if(NULL != _guidedOperationsDialog) {
         connectToCommandsPanel(false, _guidedOperationsDialog);
         _guidedOperationsDialog->close();
@@ -575,11 +575,33 @@ void QXmlEditApplication::onWindowsCountChanged(int newCount)
     }
 }
 
-void QXmlEditApplication::onFocusChanged()
+void QXmlEditApplication::onFocusChanged(QWidget* previous, QWidget* current)
 {
-    if(NULL == focusWindow()) {
-        if(NULL != _functionKeysInfo) {
-            _functionKeysInfo->autoHide();
+    if(NULL == _functionKeysInfo) {
+        return ;
+    }
+    if(!_appData->keyboardInfoState()) {
+        return ;
+    }
+
+    if(NULL == current) {
+        _functionKeysInfo->autoHide();
+    } else {
+        QWidget *window = current->window();
+        const MainWindow* windowCasted = qobject_cast<MainWindow*>(window);
+        if(NULL == windowCasted) {
+            const ShortcutInfo* panel = qobject_cast<ShortcutInfo*>(window);
+            if(NULL == panel) {
+                if(NULL != previous) {
+                    QWidget *prevWindow = previous->window();
+                    const ShortcutInfo* panelPrev = qobject_cast<ShortcutInfo*>(prevWindow);
+                    if(NULL == panelPrev) {
+                        _functionKeysInfo->autoHide();
+                    }
+                }
+            }
+        } else {
+            _functionKeysInfo->autoShow();
         }
     }
 }

@@ -72,8 +72,9 @@ ShortcutInfo::ShortcutInfo(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ShortcutInfo)
 {
-    _signalHidden = true ;
+    _signalHidden = 0 ;
     _lightTheme = true ;
+    setAttribute(Qt::WA_ShowWithoutActivating);
     ui->setupUi(this);
     loadActions();
     setupData();
@@ -126,15 +127,24 @@ QString ShortcutInfo::readResourceString(const QString &name)
 
 void ShortcutInfo::autoHide()
 {
-    _signalHidden = false ;
-    hide();
-    _signalHidden = true ;
+    _signalHidden -- ;
+    if(isVisible()) {
+        hide();
+    }
+    _signalHidden ++ ;
+}
+
+void ShortcutInfo::autoShow()
+{
+    if(!isVisible()) {
+        show();
+    }
 }
 
 void ShortcutInfo::hideEvent(QHideEvent *event)
 {
     QWidget::hideEvent(event);
-    if(_signalHidden) {
+    if(_signalHidden >= 0) {
         emit hidden();
     }
 }

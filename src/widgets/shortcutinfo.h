@@ -67,7 +67,7 @@ class ShortcutInfo : public QWidget
     QList<ActionKeyInfo*> _CF;
     QList<ActionKeyInfo*> _others;
     //---
-    bool _signalHidden;
+    int _signalHidden;
     //---------------------------
     void setupData();
     QWidget *newKey(ActionKeyInfo *info, const QString &css, const QString &tpl, const QString &tplDis, const bool isAlwaysEnabled);
@@ -100,6 +100,7 @@ public:
     void setTarget(QWidget *target);
     void doResize(const bool isFirstTime);
     void autoHide();
+    void autoShow();
 
 private:
     Ui::ShortcutInfo *ui;
