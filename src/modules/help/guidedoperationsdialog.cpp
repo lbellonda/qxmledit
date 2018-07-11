@@ -33,6 +33,7 @@ GuidedOperationsDialog::GuidedOperationsDialog(QXmlEditApplication *application,
 {
     _application = application;
     _appData = appData;
+    setWindowFlags(windowFlags() | Qt::WindowMinimizeButtonHint);
     ui->setupUi(this);
     setWindowTitle(QString("%1 %2").arg(APPLICATION_NAME).arg(tr("Guided Operations")));
     makeButtonsSameSize();

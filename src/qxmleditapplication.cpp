@@ -437,11 +437,7 @@ bool QXmlEditApplication::showFunctionKeysInfo(const bool forceShow, const bool 
         _functionKeysInfo = new ShortcutInfo(NULL);
 
         const Qt::WindowFlags negativeflags = Qt::WindowMaximizeButtonHint | Qt::WindowMinimizeButtonHint | Qt::WindowSystemMenuHint ;
-#ifdef ENVIRONMENT_MACOS
-        const Qt::WindowFlags flags = Qt::Tool | Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint ;
-#else
         const Qt::WindowFlags flags = Qt::WindowStaysOnTopHint | Qt::Dialog | Qt::WindowTitleHint | Qt::CustomizeWindowHint | Qt::WindowCloseButtonHint ;
-#endif
         _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() | flags);
         _functionKeysInfo->setWindowFlags(_functionKeysInfo->windowFlags() & ~negativeflags);
         _functionKeysInfo->setWindowTitle(tr("Keyboard Shortcuts List"));
