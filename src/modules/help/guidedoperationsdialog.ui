@@ -817,9 +817,6 @@
        <property name="text">
         <string>QUIT</string>
        </property>
-       <property name="icon">
-        <iconset theme="application-exit"/>
-       </property>
       </widget>
      </item>
     </layout>
