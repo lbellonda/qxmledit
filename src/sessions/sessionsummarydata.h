@@ -53,10 +53,11 @@ public:
 
 class QXMLEDITSESSIONSSHARED_EXPORT SessionDirectoryAccess : public BaseSessionDataInfo
 {
+    Q_OBJECT
     QString _path;
     QDateTime _lastAccess;
     int _times;
-    //QStringList tags;
+
 public:
     SessionDirectoryAccess();
     ~SessionDirectoryAccess();
@@ -72,11 +73,12 @@ public:
 
 class QXMLEDITSESSIONSSHARED_EXPORT SessionFileAccess : public BaseSessionDataInfo
 {
+    Q_OBJECT
     QString _path;
     QDateTime _lastAccess;
     qint64 _size;
     int _times;
-    //QStringList _tags;
+
 public:
     SessionFileAccess();
     ~SessionFileAccess();
@@ -97,6 +99,7 @@ public:
 
 class QXMLEDITSESSIONSSHARED_EXPORT SessionCategoryAccess : public BaseSessionDataInfo
 {
+    Q_OBJECT
     QList<BaseSessionDataInfo*> _children;
     QString _name;
 public:
