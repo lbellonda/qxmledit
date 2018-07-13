@@ -72,7 +72,6 @@ extern const char *APP_TITLE ;
 #include "widgets/infooneditmode.h"
 #include "modules/help/tips.h"
 #include "modules/help/searchcommanddialog.h"
-#include <qlogging.h>
 
 #define LONG_TIMEOUT    10000
 #define SHORT_TIMEOUT    2000
