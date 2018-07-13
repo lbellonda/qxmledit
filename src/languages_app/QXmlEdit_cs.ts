@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="cs_CZ">
+<TS version="2.1" language="cs_CZ">
 <context>
     <name>AboutDialog</name>
     <message>
@@ -131,7 +131,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../aboutdialog.cpp" line="38"/>
         <source>If you like or find useful this program, help others, even when you know they canât help you back.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokud se vám tento program líbí, nebo jej považujete za užitečný, pomožte jiným, i když víte, že vám nemohou pomoci nazpět.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="44"/>
@@ -2652,7 +2652,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="292"/>
         <source>Light theme</source>
-        <translation type="unfinished"></translation>
+        <translation>Světlý vzhled</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="339"/>
@@ -4857,12 +4857,12 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="735"/>
         <source>Show or hide the keyboard shortcuts information dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat nebo skrýt informační dialog s klávesovými zkratkami.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="738"/>
         <source>Show keyboard shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat klávesové zkratky</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="783"/>
@@ -6693,42 +6693,42 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     <message>
         <location filename="../MainWindow.ui" line="2557"/>
         <source>Search Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat příkaz</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2560"/>
         <source>Search a command by name</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat příkaz podle názvu</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2563"/>
         <source>Ctrl+Shift+-</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift+-</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2568"/>
         <source>dontuse</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepoužívat</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2580"/>
         <source>Show Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat klávesové zkratky</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2583"/>
         <source>Show or hide the keyboard shortcuts panel.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukázat nebo skrýt panel s klávesovými zkratkami.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2588"/>
         <source>Edit Element as Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit prvek jako text</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2591"/>
         <source>Edit the current element in textual form.</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit nynější prvek v podobě textu.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2392"/>
@@ -8666,7 +8666,8 @@ Nelze jej nahrát.</translation>
         <location filename="../main.cpp" line="263"/>
         <source>This is not a released version.
 This is a developer preview.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toto není vydaná verze.
+Toto je vývojářská verze.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="328"/>
@@ -8902,7 +8903,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../qxmleditapplication.cpp" line="443"/>
         <source>Keyboard Shortcuts List</source>
-        <translation type="unfinished"></translation>
+        <translation>Seznam klávesových zkratek</translation>
     </message>
 </context>
 <context>
@@ -9242,44 +9243,44 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="14"/>
         <source>Search Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat příkaz</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="33"/>
         <source>
 Search a command by name or feature
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat příkaz podle názvu nebo funkce</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="44"/>
         <source>&amp;Search command:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Hledat příkaz:</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="57"/>
         <source>Search items that match all the words.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hledat položky, které odpovídají všem slovům.</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="60"/>
         <source>&amp;All the Words</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Všechna slova</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="88"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Příkaz</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="93"/>
         <source>Description</source>
-        <translation type="unfinished">Popis</translation>
+        <translation>Popis</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="106"/>
         <source>Double click on command or press OK to execute it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dvakrát klepněte na příkaz nebo stiskněte OK pro jeho provedení.</translation>
     </message>
 </context>
 <context>
@@ -9451,94 +9452,94 @@ Search a command by name or feature
     <message>
         <location filename="../widgets/shortcutinfo.ui" line="20"/>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Klávesové zkratky</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.ui" line="27"/>
         <source>Information about keyboard shortcuts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Údaje o klávesových zkratkách.</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.ui" line="48"/>
         <source>&amp;Qualifier:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kvalifikátor:</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.ui" line="64"/>
         <source>Select the key qualifier.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyberte klávesový kvalifikátor.</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Function Keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Klávesy funkcí</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command+Shift</source>
-        <translation type="unfinished"></translation>
+        <translation>Příkaz+Shift</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command+Alt</source>
-        <translation type="unfinished"></translation>
+        <translation>Příkaz+Alt</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command+Fn</source>
-        <translation type="unfinished"></translation>
+        <translation>Příkaz+Fn</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command+Num</source>
-        <translation type="unfinished"></translation>
+        <translation>Příkaz+Num</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Příkaz</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Others</source>
-        <translation type="unfinished"></translation>
+        <translation>Ostatní</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl+Shift</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Shift</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl+Alt</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Alt</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl+Fn</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Fn</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl+Num</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+Num</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="428"/>
         <source>Edit Element as Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravit prvek jako text</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="433"/>
         <source>Unable to actions data.</source>
-        <translation type="unfinished"></translation>
+        <translation>Údaj o činnosti nedostupný.</translation>
     </message>
 </context>
 <context>
