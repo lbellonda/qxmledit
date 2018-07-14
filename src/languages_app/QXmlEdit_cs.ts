@@ -130,7 +130,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="38"/>
-        <source>If you like or find useful this program, help others, even when you know they canât help you back.</source>
+        <source>If you like or find useful this program, help others, even when you know they can't help you back.</source>
         <translation>Pokud se vám tento program líbí, nebo jej považujete za užitečný, pomožte jiným, i když víte, že vám nemohou pomoci nazpět.</translation>
     </message>
     <message>

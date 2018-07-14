@@ -35,7 +35,7 @@ AboutDialog::AboutDialog(QWidget *parent,
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-    ui->applicationName->setToolTip(tr("If you like or find useful this program, help others, even when you know they can’t help you back."));
+    ui->applicationName->setToolTip(tr("If you like or find useful this program, help others, even when you know they can't help you back."));
     QString pgmTitle = ui->applicationName->text();
     pgmTitle.replace("QXmlEdit", applicationName);
     pgmTitle.replace("xxx", version);
