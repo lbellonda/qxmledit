@@ -50,6 +50,8 @@ public:
 
 };
 
+class SelectionChooseDelegate;
+
 class AllowedItemsInsert : public QDialog
 {
     Q_OBJECT
@@ -63,6 +65,7 @@ class AllowedItemsInsert : public QDialog
     QList<XSchemaObject*> *_selection;
     QList<QPair<QString, QString> > *_attributesResult;
     QList<AIIAttribute> _attributes;
+    SelectionChooseDelegate *_delegate ;
 
     void collectSelected(QTreeWidgetItem *parentItem);
     void addItem(XSingleElementContent *target, QTreeWidgetItem *parentItem);

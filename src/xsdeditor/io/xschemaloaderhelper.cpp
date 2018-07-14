@@ -31,31 +31,36 @@ XSchemaLoaderHelper::XSchemaLoaderHelper(QObject *parent) :
     _networkReply = NULL ;
     _errorCode = QNetworkReply::UnknownNetworkError;
     _isAsynch = false;
-
 }
 
 XSchemaLoaderHelper::~XSchemaLoaderHelper()
 {
+    resetReply();
 }
 
-
-void XSchemaLoaderHelper::abort()
+void XSchemaLoaderHelper::resetReply(const bool isAbort)
 {
     if(NULL != _networkReply) {
-        Utils::TODO_THIS_RELEASE("corretto?");
         disconnectReply();
-        _networkReply->abort();
+        if(isAbort) {
+            _networkReply->abort();
+        }
         _networkReply->deleteLater();
         _networkReply = NULL ;
     }
 }
 
+void XSchemaLoaderHelper::abort()
+{
+    resetReply(true);
+}
+
 QNetworkReply* XSchemaLoaderHelper::loadSchemaUsingUrl(QUrl &url, QNetworkAccessManager *networkAccessManager, const bool asynch)
 {
+    resetReply();
     _isAsynch = asynch ;
     _isError = false;
     _request.setUrl(url);
-    Utils::TODO_THIS_RELEASE("");
     _networkReply = networkAccessManager->get(_request);
     if(NULL == _networkReply) {
         return NULL ;

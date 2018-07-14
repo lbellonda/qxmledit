@@ -85,25 +85,14 @@ AllowedItemsInsert::AllowedItemsInsert(XElementContent *content, QList<XSchemaOb
     _attributesResult = resultAttributes ;
     _selection = result ;
     _content = content ;
+    _delegate = new SelectionChooseDelegate(this);
     ui->setupUi(this);
     ui->allowedItems->setColumnCount(2);
-    ui->attributes->setItemDelegate(new SelectionChooseDelegate());
+    ui->attributes->setItemDelegate(_delegate);
 
-    //QTreeWidgetItem *parentItem = NULL ;
     foreach(XSingleElementContent * targetContent, content->allowedItems()) {
         addItem(targetContent, NULL);
 
-        /*QTreeWidgetItem *uiItem = new QTreeWidgetItem();
-        uiItem->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsEnabled | Qt::ItemIsSelectable);
-        uiItem->setText(0, targetContent->item()->name());
-        uiItem->setData(0, Qt::UserRole, qVariantFromValue((void*)targetContent->item()));
-        uiItem->setCheckState(0, Qt::Unchecked);
-        //TODO uiItem->setText(1, targetContent->item()->userDescription());
-        if(parentItem) {
-            parentItem->addChild(uiItem);
-        } else {
-            ui->allowedItems->addTopLevelItem(uiItem);
-        }*/
     }
     ui->allowedItems->expandAll();
     ui->allowedItems->resizeColumnToContents(0);

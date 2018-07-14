@@ -41,6 +41,7 @@ class XSchemaLoaderHelper : public QObject
 
     void end();
     void disconnectReply();
+    void resetReply(const bool isAbort = false);
 
 public:
     explicit XSchemaLoaderHelper(QObject *parent = 0);
