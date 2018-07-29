@@ -65,7 +65,6 @@ After release
 - Update version number.
 - Set QXMLEDIT_RELEASE_VERSION to 0 in xmlEdit.h
 - Change TODO_NEXT_RELEASE in TODO_THIS_RELEASE.
-- Enable TODO_THIS_RELEASE in utils.h (this should follow from the previous steps).
 - Change the version number in MacOS pList.
 - Change the version number in version.pri.
 - Change the version number in environment/appdata.xml.

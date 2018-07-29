@@ -1638,7 +1638,6 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
-    testHelp();
 }
 
 QTEST_MAIN(TestQXmlEdit)

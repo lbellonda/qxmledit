@@ -35,17 +35,15 @@
 // 0: snapshot
 // 1: rc
 // 2: release
-#define QXMLEDIT_RELEASE_VERSION    2
+#define QXMLEDIT_RELEASE_VERSION    0
 
 #if QXMLEDIT_RELEASE_VERSION  ==  0
 #define QXMLEDIT_VERSION_IS_SNAPSHOT 1
-#endif
-#if QXMLEDIT_RELEASE_VERSION  ==  1
+#elif QXMLEDIT_RELEASE_VERSION  ==  1
 #define QXMLEDIT_VERSION_RC 1
-#endif
+#elif QXMLEDIT_RELEASE_VERSION  >  2
 // case 2 is missing
-#if QXMLEDIT_RELEASE_VERSION  >  2
-#define QXMLEDIT_VERSION_IS_SNAPSHOT 1
+#error "Invalid QXMLEDIT_RELEASE_VERSION"
 #endif
 
 #if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
@@ -57,8 +55,8 @@
 #endif
 
 //--------------------------------------------------------------------------------
-#define VERSION_BASE "0.9.11"
-#define VERSION_NUMBER 0x00090B00
+#define VERSION_BASE "0.9.12"
+#define VERSION_NUMBER 0x00090C00
 //--------------------------------------------------------------------------------
 
 // this is the version number of the welcome dialog
