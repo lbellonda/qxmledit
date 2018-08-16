@@ -138,6 +138,7 @@ bool SearchWidget::finishSetUpUi()
     //----
 
     _findCompleter = new LineEditWithCompleter(ui->searchBox);
+    ui->searchBox->setMinimumContentsLength(20);
     ui->searchBox->setDuplicatesEnabled(true);
     ui->searchBox->setInsertPolicy(QComboBox::NoInsert);
     ui->searchBox->setLineEdit(_findCompleter);
