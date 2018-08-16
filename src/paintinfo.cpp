@@ -26,7 +26,7 @@
 #include "modules/services/colormanager.h"
 
 #define MAX_ZOOM    (5)
-#define MIN_ZOOM    (1)
+#define MIN_ZOOM    (0.4)
 
 PaintInfo::PaintInfo()
 {
@@ -73,7 +73,7 @@ void PaintInfo::loadState()
     isShowElementTextLength = Config::getBool(Config::KEY_MAIN_SHOWELTEXTLEN, false);
     isShowElementSize = Config::getBool(Config::KEY_MAIN_SHOWELSIZE, false);
     isHideView = Config::getBool(Config::KEY_MAIN_HIDEVIEW, false);
-    internalSetZoom(Config::getInt(Config::KEY_MAIN_SHOWZOOM, 1));
+    internalSetZoom(Config::getReal(Config::KEY_MAIN_SHOWZOOM, 1));
     isShowFullComments = Config::getBool(Config::KEY_MAIN_SHOWFULLCOMMENTS, false);
     _sortAttributesAlpha = Config::getBool(Config::KEY_MAIN_SORTATTRIBUTESALPHA, false);
     _attributesColumnLimit = Config::getInt(Config::KEY_MAIN_ATTRCOLLLIMIT, NumColumnsPerAttributeDefault) ;
@@ -119,7 +119,7 @@ bool PaintInfo::saveState()
     if(!Config::saveBool(Config::KEY_MAIN_SHOWELSIZE, showElementSize())) {
         isOK = false;
     }
-    if(!Config::saveInt(Config::KEY_MAIN_SHOWZOOM, zoom())) {
+    if(!Config::saveReal(Config::KEY_MAIN_SHOWZOOM, zoom())) {
         isOK = false;
     }
     if(!Config::saveBool(Config::KEY_MAIN_HIDEVIEW, hideView())) {
@@ -240,12 +240,12 @@ void PaintInfo::setShowUnBase64(const bool newValue)
     saveState();
 }
 
-int PaintInfo::zoom() const
+qreal PaintInfo::zoom() const
 {
     return zoomFactor ;
 }
 
-void PaintInfo::setZoom(const int newValue)
+void PaintInfo::setZoom(const qreal newValue)
 {
     internalSetZoom(newValue);
     isChanged = true ;
@@ -293,7 +293,7 @@ void PaintInfo::setShowElementsIcon(bool showElementsIcon)
     saveState();
 }
 
-void PaintInfo::internalSetZoom(const int newValue)
+void PaintInfo::internalSetZoom(const qreal newValue)
 {
     if(newValue > MAX_ZOOM) {
         zoomFactor = MAX_ZOOM;
@@ -306,26 +306,47 @@ void PaintInfo::internalSetZoom(const int newValue)
 
 bool PaintInfo::zoomIn()
 {
-    if(zoomFactor < MAX_ZOOM) {
+    bool zoomChanged = false;
+    if(zoomFactor < 1) {
+        zoomFactor += 0.1;
+        if(zoomFactor > 1) {
+            zoomFactor = 1 ;
+        }
+        zoomChanged = true ;
+    } else if(zoomFactor < MAX_ZOOM) {
         zoomFactor++;
+        zoomChanged = true ;
+    }
+    if(zoomChanged) {
         if(NULL != _currentStyle) {
             _currentStyle->setZoom(zoomFactor);
         }
-        return true ;
     }
-    return false ;
+    return zoomChanged ;
 }
 
 bool PaintInfo::zoomOut()
 {
-    if(zoomFactor > MIN_ZOOM) {
+    bool zoomChanged = false;
+    if(zoomFactor <= 1) {
+        zoomChanged = true;
+        zoomFactor -= 0.2;
+        if(zoomFactor < MIN_ZOOM) {
+            zoomFactor = MIN_ZOOM ;
+        }
+    } else if(zoomFactor > 1) {
         zoomFactor--;
+        if(zoomFactor < 1) {
+            zoomFactor = 1;
+        }
+        zoomChanged = true;
+    }
+    if(zoomChanged) {
         if(NULL != _currentStyle) {
             _currentStyle->setZoom(zoomFactor);
         }
-        return true;
     }
-    return false ;
+    return zoomChanged ;
 }
 
 bool PaintInfo::canZoomOut()

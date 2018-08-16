@@ -2017,7 +2017,7 @@ QString Element::getAttributeValue(const QString &attributeName)
 }
 
 
-void Element::setZoomFactor(const int zoom)
+void Element::setZoomFactor(const qreal zoom)
 {
     if(NULL != attrFont) {
         attrFont->setPointSize(VStyle::getZoomFontSize(defaultAttrFonts, zoom));

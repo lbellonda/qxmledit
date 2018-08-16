@@ -1,3 +1,7 @@
+0.9.12
+    Expanded zoom out range.
+    Fixed a problem with search box that extended the search panel out of screen.
+
 0.9.11
     Fixed memory leaks.
     Issue #51 removed false error message.

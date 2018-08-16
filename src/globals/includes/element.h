@@ -607,7 +607,7 @@ private:
 public:
     bool areChildrenLeavesHidden(QTreeWidgetItem *twi);
 
-    static void setZoomFactor(const int zoom);
+    static void setZoomFactor(const qreal zoom);
     void hideChildrenLeaves();
     void showChildrenLeaves();
     bool isALeaf();

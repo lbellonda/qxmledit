@@ -164,7 +164,7 @@ public:
     void setFontFamily(const QString &newFamily);
     void setColor(const QString &newColor);
     void setBackColor(const QString &newColor);
-    void setZoom(const int zoom);
+    void setZoom(const qreal zoom);
     void setIconName(const QString &newIconName);
 
     void deactivate();
@@ -252,8 +252,8 @@ public:
     static const QFont &defaultFont();
     static const QFontMetrics &defaultFontMetrics();
     static const QBrush &defaultBrush();
-    static int getZoomFontSize(const int size, const int zoom);
-    void setZoom(const int zoom);
+    static int getZoomFontSize(const int size, const qreal zoom);
+    void setZoom(const qreal zoom);
 
     void setResFileName(const QString &newResFileName);
     void setNamespace(const QString &newNs);

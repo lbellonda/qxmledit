@@ -597,7 +597,7 @@ void StyleEntry::setBackColor(const QString &newColor)
     }
 }
 
-void StyleEntry::setZoom(const int zoom)
+void StyleEntry::setZoom(const qreal zoom)
 {
     if(NULL != _font) {
         _font->setPointSize(VStyle::getZoomFontSize(_originalFontSize, zoom));
@@ -975,7 +975,7 @@ const QBrush &VStyle::defaultBrush()
     return _defaultBrush;
 }
 
-void VStyle::setZoom(const int zoom)
+void VStyle::setZoom(const qreal zoom)
 {
     int newSize = getZoomFontSize(_defaultFontSize, zoom);
     if(0 == newSize) {
@@ -989,12 +989,12 @@ void VStyle::setZoom(const int zoom)
     }
 }
 
-int VStyle::getZoomFontSize(const int size, const int zoom)
+int VStyle::getZoomFontSize(const int size, const qreal zoom)
 {
-    if(zoom <= 1) {
+    if(zoom <= 0) {
         return size ;
     }
-    int newSize = ((zoom + 1) * size) / 2;
+    int newSize = (int)(((zoom + 1) * size) / 2);
     return newSize ;
 }
 

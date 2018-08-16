@@ -44,7 +44,7 @@ private:
     bool isShowAttributesLength;
     bool isUseFixedLengthFont;
     bool isShowUnBase64;
-    int  zoomFactor;
+    qreal zoomFactor;
     VStyle*_currentStyle;
     bool isShowElementTextLength;
     bool isShowElementSize ;
@@ -59,7 +59,7 @@ private:
     bool _showElementsIcon;
     bool _showLTOnTags;
 
-    void internalSetZoom(const int newValue);
+    void internalSetZoom(const qreal newValue);
     void recalcColumns();
 
     AttributeFilter *_attributeFilter;
@@ -82,7 +82,7 @@ public:
     bool compactView() const;
     bool showUnBase64() const;
     VStyle *currentStyle() const ;
-    int zoom() const ;
+    qreal zoom() const ;
     bool showElementTextLength() const;
     bool showElementSize() const;
     bool exploreMode() const;
@@ -98,7 +98,7 @@ public:
     void setUseFixedLengthFont(const bool newValue);
     void setCurrentStyle(VStyle *newStyle);
     void setShowUnBase64(const bool newValue);
-    void setZoom(const int newValue);
+    void setZoom(const qreal newValue);
     void setShowElementTextLength(const bool newValue);
     void setShowElementSize(const bool newValue);
     void setExploreMode(const bool isExplore);
