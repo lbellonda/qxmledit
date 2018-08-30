@@ -174,6 +174,7 @@ public:
     /// @return true if paint data are changed
     bool preferences(QWidget *parent);
 
+    QString userManualFilePath();
     void showUserManual();
     void showEditingShortcuts(QWidget *parent);
     void anonymizeFile(QWidget *window);

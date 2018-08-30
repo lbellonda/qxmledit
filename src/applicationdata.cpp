@@ -591,10 +591,16 @@ bool ApplicationData::preferences(QWidget *parent)
     return false;
 }
 
+QString ApplicationData::userManualFilePath()
+{
+    QString userManualPath = getDocsDir() + "/" + HELP_FILE ;
+    return userManualPath;
+}
+
 void ApplicationData::showUserManual()
 {
-    QString resourceHelp = getDocsDir() + "/" + HELP_FILE ;
-    QDesktopServices::openUrl(QUrl::fromLocalFile(resourceHelp));
+    QString userManualPath = userManualFilePath();
+    QDesktopServices::openUrl(QUrl::fromLocalFile(userManualPath));
 }
 
 void ApplicationData::showEditingShortcuts(QWidget *parent)

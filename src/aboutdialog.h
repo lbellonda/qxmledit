@@ -23,8 +23,9 @@
 #ifndef ABOUTDIALOG_H
 #define ABOUTDIALOG_H
 
-#include <QDialog>
+#include "xmlEdit.h"
 #include "authorinfo.h"
+#include "applicationdata.h"
 
 namespace Ui
 {
@@ -34,9 +35,12 @@ class AboutDialog;
 class AboutDialog : public QDialog
 {
     Q_OBJECT
+    ApplicationData *_data;
 
+    void setupPaths();
+    void addPath(const QString &label, const QString &value, const QFont &fontLabel);
 public:
-    explicit AboutDialog(QWidget *parent,
+    explicit AboutDialog(QWidget *parent, ApplicationData *data,
                          const QString &applicationName, const QString &version,
                          const QString &copyRight, const QString &license, const QString &otherLicenses,
                          const QList<AuthorInfo*> &authors) ;
