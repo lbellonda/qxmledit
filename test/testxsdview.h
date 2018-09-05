@@ -68,6 +68,7 @@ class TestXSDView : public TestBase
     bool testItemsIntersectLine();
     bool testItemsSingleIntersectLine( const QString &key, const XSDItem::EIntersectType expected, const QRectF &candidate, const QRectF &source );
     bool testItemsSplit();
+    bool testFacetsInReport();
     //void debugFile(const QString &data);
 public:
     TestXSDView();

@@ -844,3 +844,10 @@ bool TestBase::checkBoolSetting(const QString &setting, const bool expected)
     }
     return true;
 }
+
+QString TestBase::normalizeCR(QString in) const
+{
+    QString rep = in.replace("\n", "");
+    rep = rep.replace("\n", "");
+    return rep ;
+}

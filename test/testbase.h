@@ -132,6 +132,7 @@ protected:
     Element *selectAnItem(App &app, QList<int> selectionPath);
     bool assertEquals(const QString &msg, const QString &expected, const QString &current);
     bool checkBoolSetting(const QString &setting, const bool expected);
+    QString normalizeCR(QString in) const ;
 };
 
 #define DELTELMS(object) foreach( Element *var, object) { delete var; } object.clear();

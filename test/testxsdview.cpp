@@ -20,7 +20,6 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "testxsdview.h"
 #include "helpers/comparexsdwithxml.h"
 #include "testhelpers/xsd/testxsdprintinfo.h"
@@ -125,6 +124,12 @@ bool TestXSDView::doTest(const QString &inputFilePath, const QString &resultFile
 #define FILE_GROUPS_RESULT  "../test/data/xsd/types/verify/groups.xml"
 #define FILE_REFATTRIBUTE_RESULT "../test/data/xsd/types/verify/ref_attribute.xml"
 #define FILE_ATTRIBUTE_RESULT "../test/data/xsd/types/verify/attribute.xml"
+
+#define FILE_BASE "../test/data/xsd/"
+
+#define FILE_XSD_UNIT_FACETS FILE_BASE "units/facets/facets.xsd"
+#define FILE_EXPECTED_UNIT_FACETS FILE_BASE "units/facets/facets.expected"
+
 
 bool TestXSDView::testBaseElement()
 {
@@ -1029,11 +1034,53 @@ bool TestXSDView::testItemsSplit()
 bool TestXSDView::testUnit()
 {
     _testName = "testUnit" ;
+    if(!testFacetsInReport()) {
+        return false;
+    }
+
     if(!testItemsIntersectLine()) {
         return  false;
     }
     if(!testItemsSplit()) {
         return  false;
+    }
+    return true;
+}
+
+bool TestXSDView::testFacetsInReport()
+{
+    _testName = "testFacetsInReport";
+    const QString FileXSD = FILE_XSD_UNIT_FACETS ;
+    const QString FileExpected = FILE_EXPECTED_UNIT_FACETS ;
+    const QString ElementName = "xxx" ;
+
+    App app;
+    if(!app.init()) {
+        return error("init app");
+    }
+    if( !app.mainWindow()->loadFile(FileXSD) ) {
+        return error(QString("unable to load input file: '%1' ").arg(FileXSD));
+    }
+    QString xmlAsString = app.mainWindow()->getRegola()->getAsText();
+    XSDWindow xsdEditor(app.data(), app.mainWindow());
+    xsdEditor.loadStringImmediate(xmlAsString);
+    XSDPrint print(&xsdEditor, app.data());
+
+    XSchemaElement *element = static_cast<XSDSchema*>(xsdEditor.schema())->topLevelType(ElementName);
+    if( NULL == element ) {
+        return error(QString("unable to find element: %1 ").arg(ElementName));
+    }
+
+    XSDPrintInfo xsdPrintInfo;
+    QString result = print.getSingleTypeInner(xsdPrintInfo, element);
+    QString expected ;
+    if(!readFromFile(FileExpected, expected)) {
+        return error(QString("unable to read compare file : %1 ").arg(FileExpected));
+    }
+    expected = normalizeCR(expected);
+    result = normalizeCR(result);
+    if(result.indexOf(expected, 0, Qt::CaseInsensitive)<0){
+        return error(QString("String differs found:'%1' expected: '%2'").arg(result).arg(expected));
     }
     return true;
 }

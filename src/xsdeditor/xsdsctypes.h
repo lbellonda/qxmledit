@@ -88,6 +88,7 @@ public:
     TAG("restriction")
 
     void addEnumsToListIfAny(QStringList &enums);
+    void addOtherFacets(QList<InfoFacet*> &list);
     QString exportFacets();
 
     DECLARE_PROP_S(base, setBase)
