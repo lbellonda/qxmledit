@@ -181,9 +181,9 @@ bool XTypeQueryInfo::hasOtherFacets()
     return !_facets.isEmpty() ;
 }
 
-QList<InfoFacet*> &XTypeQueryInfo::otherFacets()
+QList<InfoFacet*> *XTypeQueryInfo::otherFacets()
 {
-    return _facets ;
+    return &_facets ;
 }
 
 //------------------------------------

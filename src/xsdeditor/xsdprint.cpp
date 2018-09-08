@@ -802,7 +802,7 @@ int XSDPrint::printSingleElement(XSDPrintInfo &xsdPrintInfo, XSchemaElement *ele
     return 0;
 }
 
-void XSDPrint::appendEnums(QString &text, XTypeQueryInfo typeInfo)
+void XSDPrint::appendEnums(QString &text, XTypeQueryInfo &typeInfo)
 {
     foreach(const QString &facet, typeInfo.enums()) {
         text += "<li>";
@@ -813,11 +813,10 @@ void XSDPrint::appendEnums(QString &text, XTypeQueryInfo typeInfo)
 
 void XSDPrint::appendOtherFacets(QString &text, XTypeQueryInfo &typeInfo)
 {
-    Utils::TODO_THIS_RELEASE("fare");
     if(typeInfo.hasOtherFacets()) {
         const QString theText = QObject::tr("Other Restrictions");
         text += QString("<br/>%1:<ul class='ulEnumElement'>").arg(Utils::escapeHTML(theText));
-        foreach(const InfoFacet *facet, typeInfo.otherFacets()) {
+        foreach(InfoFacet *facet, *typeInfo.otherFacets()) {
             text += "<li>";
             text += QString("%1: <B>%2</B>").arg(Utils::escapeHTML(facet->type())).arg(Utils::escapeHTML(facet->value()));
             text += "</li>";
@@ -1135,7 +1134,6 @@ QString XSDPrint::getSingleTypeInner(XSDPrintInfo &xsdPrintInfo, XSchemaElement 
         text += QString("<br/>%1: '%2'")
                 .arg("union").arg(Utils::escapeHTML(typeInfo.unionValue()));
     }
-
     text += getAttributesOfElement(xsdPrintInfo, element);
 
     return text ;

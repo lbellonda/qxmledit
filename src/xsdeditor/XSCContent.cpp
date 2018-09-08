@@ -196,7 +196,7 @@ void XSchemaSimpleContentRestriction::addEnumsToListIfAny(QStringList &enums)
     _facets.addEnumsToList(enums);
 }
 
-void XSchemaSimpleContentRestriction::addOtherFacets(QList<InfoFacet *> &list)
+void XSchemaSimpleContentRestriction::addOtherFacets(QList<InfoFacet *> *list)
 {
     _facets.addOtherFacets(list);
 }

@@ -84,7 +84,7 @@ public:
     }
     TAG("restriction")
     void addEnumsToListIfAny(QStringList &enums);
-    void addOtherFacets(QList<InfoFacet*> &list);
+    void addOtherFacets(QList<InfoFacet *> *list);
 };
 
 

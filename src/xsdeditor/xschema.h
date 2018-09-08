@@ -239,7 +239,7 @@ class RestrictionFacets
     bool _isExaminedDiff ;
 
     InfoFacet* getFacetAsInfo(const QString &name, const QString &value);
-    void addFacet(QList<InfoFacet *> &list, const QString &name, const QString &value);
+    void addFacet(QList<InfoFacet *> *list, const QString &name, const QString &value);
 public:
     // TODO: WRONG!!!! THESE ARE ELEMENTS WITH INNER ANNOTATIONS
     QString _minExclusive, _minInclusive ;
@@ -264,8 +264,8 @@ public:
     void addFacetIfNotEmpty(QDomElement &element, const QString &elementTag, const QString &value);
     XSDCompareObject::EXSDCompareObject compareTo(RestrictionFacets *other);
     void addEnumsToList(QStringList &lst);
-    void otherFacets(QList<InfoFacet *> &list);
-    void addOtherFacets(QList<InfoFacet *> &list);
+    void otherFacets(QList<InfoFacet *> *list);
+    void addOtherFacets(QList<InfoFacet *> *list);
 };
 
 
@@ -757,7 +757,7 @@ public:
     QString unionValue() const;
     void setUnionValue(const QString &unionValue);
     bool hasOtherFacets();
-    QList<InfoFacet*> &otherFacets();
+    QList<InfoFacet *> *otherFacets();
 };
 
 // Limitations:
