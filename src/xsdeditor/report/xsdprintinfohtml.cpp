@@ -52,8 +52,9 @@ void XSDPrintInfoHTML::initForHTML(QWidget *aPainter)
 
 QString XSDPrintInfoHTML::text()
 {
-    QString htmlText = QString("<html><head><title>%1</title><meta charset=\"UTF-8\"/><style>%2</style></head> <body>")
-                       .arg(Utils::escapeHTML(fileName)).arg(cssFinal())
+    QString htmlText = QString("%3<html><head><title>%1</title>\n<meta charset=\"UTF-8\"/><style type=\"text/css\">%2</style></head>\n<body>\n")
+                       .arg(Utils::escapeHTML((fileName.isEmpty() ? "XSD" : fileName))).arg(cssFinal())
+                       .arg("<!DOCTYPE html>\n")
                        + _text + QString("</body></html>");
     //--- debug code, do not remove
     if(debugging) {

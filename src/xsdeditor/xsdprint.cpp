@@ -307,7 +307,7 @@ QString XSDPrint::innerGetAsHTML(XSDPrintInfoHTML &xsdPrintInfo, const bool inse
                 } else {
                     Utils::error(_window, QObject::tr("Unable to generate the diagram image."));
                 }
-                htmlText = QString("&nbsp;<br/><img class='diagramImage' src='data:image/png;base64, %1' alt='%2'/>")
+                htmlText = QString("&nbsp;<br/><img class='diagramImage' src='data:image/png;base64,%1' alt='%2'/>")
                            .arg(imageData).arg(Utils::escapeHTML(QObject::tr("Diagram Image")));
             }
             xsdPrintInfo.printBox(htmlText);
@@ -814,7 +814,7 @@ void XSDPrint::appendEnums(QString &text, XTypeQueryInfo &typeInfo)
 void XSDPrint::appendOtherFacets(QString &text, XTypeQueryInfo &typeInfo)
 {
     if(typeInfo.hasOtherFacets()) {
-        const QString theText = QObject::tr("Other Restrictions");
+        const QString theText = QObject::tr("Other restrictions");
         text += QString("<br/>%1:<ul class='ulEnumElement'>").arg(Utils::escapeHTML(theText));
         foreach(InfoFacet *facet, *typeInfo.otherFacets()) {
             text += "<li>";
@@ -984,7 +984,7 @@ QString XSDPrint::getAttributesOfElement(XSDPrintInfo &xsdPrintInfo, XSchemaElem
         attributesCollection.collectGroups = true ;
         element->collectAttributes(attributesCollection);
         if(!attributesCollection.attributes.isEmpty()) {
-            text += QString("<div>&nbsp;</div><div class='tableContainer'>%1:<nbsp/>").arg(Utils::escapeHTML(QObject::tr("Attributes")));
+            text += QString("<div>&nbsp;</div><div class='tableContainer'>%1:</div>").arg(Utils::escapeHTML(QObject::tr("Attributes")));
             text += QObject::tr("<table>\n<thead><tr><th class='tableHeader'>%1</th><th class='tableHeader'>%2</th><th class='tableHeader'>%3</th><th class='tableHeader'>%4</th></tr></thead>\n<tbody>\n")
                     .arg(Utils::escapeHTML(QObject::tr("Name"))).arg(Utils::escapeHTML(QObject::tr("Use")))
                     .arg(Utils::escapeHTML(QObject::tr("Type"))).arg(Utils::escapeHTML(QObject::tr("Annotations")));
@@ -1083,7 +1083,7 @@ QString XSDPrint::getAttributesOfElement(XSDPrintInfo &xsdPrintInfo, XSchemaElem
                 }
                 text += "</tr>\n";
             }
-            text += QObject::tr("</tbody>\n</table>\n</div>");
+            text += QObject::tr("</tbody>\n</table>\n");
         }
     }
     return text ;
