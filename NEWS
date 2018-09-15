@@ -1,6 +1,8 @@
 0.9.12
     Expanded zoom out range.
     Fixed a problem with search box that extended the search panel out of screen.
+    New panel in the about box to show paths.
+
 
 0.9.11
     Fixed memory leaks.

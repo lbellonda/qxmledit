@@ -1344,7 +1344,7 @@ void MainWindow::on_actionPaste_triggered()
 void MainWindow::on_actionAbout_triggered()
 {
     QList<AuthorInfo*> authors = authorsInfo() ;
-    AboutDialog about(this,
+    AboutDialog about(this, data,
                       AuthorInfo::appName, AuthorInfo::version, AuthorInfo::copyright,
                       AuthorInfo::license,
                       AuthorInfo::other,

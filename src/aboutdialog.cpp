@@ -27,13 +27,14 @@
 #include "qxmeditmetainfo.h"
 #include "utils.h"
 
-AboutDialog::AboutDialog(QWidget *parent,
+AboutDialog::AboutDialog(QWidget *parent, ApplicationData *data,
                          const QString &applicationName, const QString &version,
                          const QString &copyRight, const QString &license, const QString &otherLicenses,
                          const QList<AuthorInfo*> &authors) :
     QDialog(parent),
     ui(new Ui::AboutDialog)
 {
+    _data = data ;
     ui->setupUi(this);
     ui->applicationName->setToolTip(tr("If you like or find useful this program, help others, even when you know they can't help you back."));
     QString pgmTitle = ui->applicationName->text();
@@ -84,6 +85,7 @@ AboutDialog::AboutDialog(QWidget *parent,
         }
     }
     ui->authorsWidget->expandAll();
+    setupPaths();
 }
 
 QString AboutDialog::contactInfo(const QString &info)
@@ -99,3 +101,32 @@ AboutDialog::~AboutDialog()
     delete ui;
 }
 
+void AboutDialog::setupPaths()
+{
+    QFont labelFont = ui->tablePaths->font();
+    labelFont.setBold(true);
+
+    addPath(tr("Documentation folder"), _data->getDocsDir(), labelFont);
+    addPath(tr("Translations folder"), ApplicationData::getResourceDir() + QString("/") + QString(STRINGIZE(TRANLASTION_DIR)), labelFont);
+    addPath(tr("Resources folder"), ApplicationData::getResourceDir(), labelFont);
+    addPath(tr("Style folder"), _data->getStylesDirStandard(), labelFont);
+    addPath(tr("User Manual"), _data->userManualFilePath(), labelFont);
+    //---
+    ui->tablePaths->horizontalHeader()->setStretchLastSection(true);
+    ui->tablePaths->resizeColumnsToContents();
+}
+
+void AboutDialog::addPath(const QString &label, const QString &value, const QFont &fontLabel)
+{
+    //const QBrush &brightTextBrush(palette().());
+    const QBrush &backgroundBrush(palette().background());
+    QTableWidgetItem *itemLabel = new QTableWidgetItem(label + ":");
+    itemLabel->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    itemLabel->setFont(fontLabel);
+    itemLabel->setBackground(backgroundBrush);
+    QTableWidgetItem *itemValue = new QTableWidgetItem(value);
+    const int row = ui->tablePaths->rowCount();
+    ui->tablePaths->setRowCount(row + 1);
+    ui->tablePaths->setItem(row, 0, itemLabel);
+    ui->tablePaths->setItem(row, 1, itemValue);
+}
