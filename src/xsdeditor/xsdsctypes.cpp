@@ -129,6 +129,11 @@ void XSchemaSimpleTypeRestriction::addEnumsToListIfAny(QStringList &enums)
     _facets.addEnumsToList(enums);
 }
 
+void XSchemaSimpleTypeRestriction::addOtherFacets(QList<InfoFacet*> *list)
+{
+    _facets.addOtherFacets(list);
+}
+
 void XSchemaSimpleTypeRestriction::scanForAttributes(XSDLoadContext *loadContext, QDomAttr &attribute, void * /*context*/)
 {
     QString name = attribute.nodeName();

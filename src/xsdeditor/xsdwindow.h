@@ -1621,6 +1621,8 @@ class XSDPrint
     void exitPrintMethod();
     void printPDFToFileInternal(const QString &filePath, const bool isSimple);
     int pointerSize();
+    void appendEnums(QString &text, XTypeQueryInfo &typeInfo);
+    void appendOtherFacets(QString &text, XTypeQueryInfo &typeInfo);
 public:
 
 #ifdef QXMLEDIT_TEST

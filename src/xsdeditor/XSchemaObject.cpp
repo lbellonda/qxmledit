@@ -116,6 +116,42 @@ QString RestrictionFacets::getFacet(const QString &name, const QString &value)
     }
 }
 
+InfoFacet* RestrictionFacets::getFacetAsInfo(const QString &name, const QString &value)
+{
+    if(!value.isEmpty()) {
+        InfoFacet *facet = new InfoFacet();
+        facet->setType(name);
+        facet->setValue(value);
+        return facet ;
+    } else {
+        return NULL;
+    }
+}
+
+void RestrictionFacets::addFacet(QList<InfoFacet *> *list, const QString &name, const QString &value)
+{
+    InfoFacet * facet = getFacetAsInfo(name, value);
+    if(NULL != facet) {
+        list->append(facet);
+    }
+}
+
+void RestrictionFacets::otherFacets(QList<InfoFacet *> *list)
+{
+    addFacet(list, IO_XSD_PATTERN, _pattern);
+    addFacet(list, IO_XSD_MININCLUSIVE, _minInclusive);
+    addFacet(list, IO_XSD_MAXINCLUSIVE, _maxInclusive);
+    addFacet(list, IO_XSD_MINEXCLUSIVE, _minExclusive);
+    addFacet(list, IO_XSD_MAXEXCLUSIVE, _maxExclusive);
+    addFacet(list, IO_XSD_TOTALDIGITS, _totalDigits);
+    addFacet(list, IO_XSD_FRACTIONDIGITS, _fractionDigits);
+    addFacet(list, IO_XSD_LENGTH, _length);
+    addFacet(list, IO_XSD_MINLENGTH, _minLength);
+    addFacet(list, IO_XSD_MAXLENGTH, _maxLength);
+    // TODO: WRONG!!!!
+    addFacet(list, IO_XSD_WHITESPACE, _whiteSpace);
+}
+
 QString RestrictionFacets::toString()
 {
     QString res ;
@@ -234,6 +270,10 @@ void RestrictionFacets::addEnumsToList(QStringList &lst)
     }
 }
 
+void RestrictionFacets::addOtherFacets(QList<InfoFacet *> *list)
+{
+    otherFacets(list);
+}
 
 //-----------------------------------------------------
 

@@ -20,7 +20,9 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#include <xmlEdit.h>
 #include "xsdeditor/xsdwindow.h"
+#include <QDateTime>
 #include "utils.h"
 
 XSDPrintInfoHTML::XSDPrintInfoHTML()
@@ -52,9 +54,20 @@ void XSDPrintInfoHTML::initForHTML(QWidget *aPainter)
 
 QString XSDPrintInfoHTML::text()
 {
-    QString htmlText = QString("<html><head><title>%1</title><meta charset=\"UTF-8\"/><style>%2</style></head> <body>")
-                       .arg(Utils::escapeHTML(fileName)).arg(cssFinal())
-                       + _text + QString("</body></html>");
+    const QString title = fileName.isEmpty() ? "XSD" : fileName;
+    QString htmlText = QString("<!DOCTYPE html>\n<html>\n<head>\n<title>%1</title>\n<meta charset=\"UTF-8\"/>")
+                       .arg(Utils::escapeHTML(title));
+    QDateTime now = QDateTime::currentDateTime();
+    QString nowString = now.toString("yyyy-MM-dd HH:mm");
+
+    const QString metaOther1 = QString("<meta name=\"title\" content=\"%1\" />\n").arg(Utils::escapeHTML(title));
+    const QString metaOther2 = QString("<meta name=\"generator\" content=\"%1 %2\" />\n").arg(Utils::escapeHTML(APPLICATION_NAME)).arg(Utils::escapeHTML(VERSION_BASE));
+    const QString metaOther3 = QString("<meta name=\"dcterms.created \" content=\"%1\" />\n").arg(Utils::escapeHTML(nowString));
+    htmlText += metaOther1 + metaOther2 + metaOther3 ;
+    htmlText += QString("<style type=\"text/css\">%1</style></head>\n<body>\n")
+                .arg(cssFinal())
+                + _text + QString("</body></html>");
+
     //--- debug code, do not remove
     if(debugging) {
         debugString(htmlText);

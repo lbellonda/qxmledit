@@ -466,7 +466,8 @@ SOURCES += xmleditwidget.cpp \
     xsdeditor/report/xsdprintinfohtml.cpp \
     modules/uiutil/uidelegatebase.cpp \
     timelapse.cpp \
-    xsdeditor/items/graphicitemsdump.cpp
+    xsdeditor/items/graphicitemsdump.cpp \
+    xsdeditor/infofacet.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -742,7 +743,8 @@ HEADERS += precompiled_lib.h \
     xsdeditor/xsdreport.h \
     xsdeditor/choosexsdreporttypedialog.h \
     modules/xsd/xsdvalidationexecutor.h \
-    timelapse.h
+    timelapse.h \
+    xsdeditor/infofacet.h
 
 
 FORMS += xmleditwidget.ui \

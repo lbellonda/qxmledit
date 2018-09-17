@@ -1,0 +1,11 @@
+<li>pattern: <B>([a-z])*</B></li>
+<li>minInclusive: <B>1</B></li>
+<li>maxInclusive: <B>2</B></li>
+<li>minExclusive: <B>3</B></li>
+<li>maxExclusive: <B>4</B></li>
+<li>totalDigits: <B>5</B></li>
+<li>fractionDigits: <B>6</B></li>
+<li>length: <B>8</B></li>
+<li>minLength: <B>10</B></li>
+<li>maxLength: <B>11</B></li>
+<li>whiteSpace: <B>preserve</B></li>

@@ -196,6 +196,11 @@ void XSchemaSimpleContentRestriction::addEnumsToListIfAny(QStringList &enums)
     _facets.addEnumsToList(enums);
 }
 
+void XSchemaSimpleContentRestriction::addOtherFacets(QList<InfoFacet *> *list)
+{
+    _facets.addOtherFacets(list);
+}
+
 bool XSchemaSimpleContentRestriction::generateDom(QDomDocument &document, QDomNode &parent)
 {
     QDomElement element = parent.toElement();

@@ -50,7 +50,7 @@ XTypeQueryInfo::XTypeQueryInfo()
 
 XTypeQueryInfo::~XTypeQueryInfo()
 {
-
+    EMPTYPTRLIST(_facets, InfoFacet);
 }
 
 bool XTypeQueryInfo::isRestriction()
@@ -62,6 +62,12 @@ bool XTypeQueryInfo::isRestriction()
 bool XTypeQueryInfo::isExtension()
 {
     bool result = _typeInfo == Extension ;
+    return result ;
+}
+
+bool XTypeQueryInfo::hasEnumOrFacets()
+{
+    bool result = hasEnum() || !_facets.isEmpty();
     return result ;
 }
 
@@ -150,8 +156,6 @@ void XTypeQueryInfo::setIsSimpleTypeList(bool value)
     _isSimpleTypeList = value;
 }
 
-
-
 QString XTypeQueryInfo::unionValue() const
 {
     return _unionValue;
@@ -170,6 +174,16 @@ QString XTypeQueryInfo::listValue() const
 void XTypeQueryInfo::setListValue(const QString &value)
 {
     _listValue = value;
+}
+
+bool XTypeQueryInfo::hasOtherFacets()
+{
+    return !_facets.isEmpty() ;
+}
+
+QList<InfoFacet*> *XTypeQueryInfo::otherFacets()
+{
+    return &_facets ;
 }
 
 //------------------------------------
@@ -1834,6 +1848,7 @@ void XSchemaElement::collectTypeInfoOfSimpleType(XTypeQueryInfo &typeInfo)
             if(!enums.isEmpty()) {
                 typeInfo.setEnums(enums);
             }
+            restriction->addOtherFacets(typeInfo.otherFacets());
         } else {
             XSchemaSimpleTypeList *aList = baseTypeOrElement->getSimpleTypeList();
             if(NULL != aList) {
@@ -1862,6 +1877,7 @@ void XSchemaElement::collectTypeInfoOfSimpleDerived(XTypeQueryInfo &typeInfo)
             if(!enums.isEmpty()) {
                 typeInfo.setEnums(enums);
             }
+            restriction->addOtherFacets(typeInfo.otherFacets());
         } else {
             XSchemaSimpleContentExtension *extension = baseTypeOrElement->getSimpleContentExtension();
             if(NULL != extension) {

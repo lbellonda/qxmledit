@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:simpleType name="xxx">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([a-z])*"/>
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="2"/>
+      <xs:minExclusive value="3"/>
+      <xs:maxExclusive value="4"/>
+      <xs:totalDigits value="5"/>
+      <xs:fractionDigits value="6"/>
+      <xs:totalDigits value="5"/>
+      <xs:length value="8"/>
+      <xs:minLength value="10"/>
+      <xs:maxLength value="11"/>
+      <xs:whiteSpace value="preserve"/>
+    </xs:restriction>
+</xs:simpleType>
+
+</xs:schema>
