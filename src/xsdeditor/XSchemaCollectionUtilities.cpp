@@ -43,6 +43,7 @@ AttrCollectInfo::AttrCollectInfo()
 
 AttrCollectInfo::~AttrCollectInfo()
 {
+    EMPTYPTRLIST(facets, InfoFacet);
 }
 
 bool AttrCollectInfo::isGroup()
@@ -65,12 +66,13 @@ XSchemaAttributesCollection::~XSchemaAttributesCollection()
     attributes.clear();
 }
 
-void XSchemaAttributesCollection::insert(const QString &name, XSchemaAttribute* finalAttribute, const QString &parTypeName, QStringList parEnums, const QString &defaultValue, XSchemaAttribute* originalAttribute)
+void XSchemaAttributesCollection::insert(const QString &name, XSchemaAttribute* finalAttribute, const QString &parTypeName, QStringList parEnums, QList<InfoFacet*> parFacets, const QString &defaultValue, XSchemaAttribute* originalAttribute)
 {
     AttrCollectInfo *info = new AttrCollectInfo();
     info->attribute = finalAttribute ;
     info->type = parTypeName ;
     info->enums = parEnums;
+    info->facets = parFacets;
     info->defaultValue = defaultValue ;
     info->originalAttribute = originalAttribute ;
     if(attributes.contains(name)) {

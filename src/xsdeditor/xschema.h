@@ -116,7 +116,7 @@ class XSchemaComplexContentRestriction;
 class XSchemaSimpleContentExtension ;
 class XSchemaSimpleContentRestriction ;
 class XSchemaSimpleType;
-
+class InfoFacet;
 class AttrCollectInfo
 {
 public:
@@ -125,6 +125,7 @@ public:
     XSchemaAttributeGroup* originalAttributeGroup;
     XSchemaAttribute* originalAttribute;
     QStringList enums;
+    QList<InfoFacet*> facets;
     QString type;
     bool isReference;
     bool isTypeRestriction;
@@ -145,7 +146,7 @@ class XSchemaAttributesCollection
 public:
     bool collectGroups;
     QMap<QString, AttrCollectInfo*> attributes;
-    void insert(const QString &name, XSchemaAttribute* finalAttribute, const QString &parTypeName, QStringList parEnums, const QString &defaultValue, XSchemaAttribute *originalAttribute);
+    void insert(const QString &name, XSchemaAttribute* finalAttribute, const QString &parTypeName, QStringList parEnums, QList<InfoFacet*> parFacets, const QString &defaultValue, XSchemaAttribute *originalAttribute);
     void insertGroup(const QString &name, XSchemaAttributeGroup* originalAttribute, XSchemaAttributeGroup* finalAttribute);
     XSchemaAttributesCollection();
     ~XSchemaAttributesCollection();

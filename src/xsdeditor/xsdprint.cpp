@@ -789,7 +789,7 @@ int XSDPrint::printSingleElement(XSDPrintInfo &xsdPrintInfo, XSchemaElement *ele
             text += QObject::tr("<br/>Allowed values:");
             if(typeInfo.hasEnum()) {
                 text += QObject::tr("<ul class='ulEnumElement'>");
-                appendEnums(text, typeInfo);
+                appendEnums(text, typeInfo.enums());
                 text += "</ul>";
             }
             appendOtherFacets(text, typeInfo);
@@ -802,9 +802,9 @@ int XSDPrint::printSingleElement(XSDPrintInfo &xsdPrintInfo, XSchemaElement *ele
     return 0;
 }
 
-void XSDPrint::appendEnums(QString &text, XTypeQueryInfo &typeInfo)
+void XSDPrint::appendEnums(QString &text, const QStringList &enums)
 {
-    foreach(const QString &facet, typeInfo.enums()) {
+    foreach(const QString &facet, enums) {
         text += "<li>";
         text += Utils::escapeHTML(facet);
         text += "</li>";
@@ -817,6 +817,20 @@ void XSDPrint::appendOtherFacets(QString &text, XTypeQueryInfo &typeInfo)
         const QString theText = QObject::tr("Other restrictions");
         text += QString("<br/>%1:<ul class='ulEnumElement'>").arg(Utils::escapeHTML(theText));
         foreach(InfoFacet *facet, *typeInfo.otherFacets()) {
+            text += "<li>";
+            text += QString("%1: <B>%2</B>").arg(Utils::escapeHTML(facet->type())).arg(Utils::escapeHTML(facet->value()));
+            text += "</li>";
+        }
+        text += "</ul>";
+    }
+}
+
+void XSDPrint::appendOtherFacets(QString &text, AttrCollectInfo *typeInfo)
+{
+    if(!typeInfo->facets.isEmpty()) {
+        const QString theText = QObject::tr("Other restrictions");
+        text += QString("<br/>%1:<ul class='ulEnumElement'>").arg(Utils::escapeHTML(theText));
+        foreach(InfoFacet *facet, typeInfo->facets) {
             text += "<li>";
             text += QString("%1: <B>%2</B>").arg(Utils::escapeHTML(facet->type())).arg(Utils::escapeHTML(facet->value()));
             text += "</li>";
@@ -1038,15 +1052,14 @@ QString XSDPrint::getAttributesOfElement(XSDPrintInfo &xsdPrintInfo, XSchemaElem
                         attrType += QObject::tr("restriction of ");
                     }
                     attrType += info->type ;
-
-                    if(!info->enums.isEmpty()) {
-                        attrType += QObject::tr("<HR/>&nbsp;Allowed values:<ul class='attrEnumList'>");
-                        foreach(const QString &facet, info->enums) {
-                            attrType += "<li>";
-                            attrType += Utils::escapeHTML(facet);
-                            attrType += "</li>";
+                    if(!(info->enums.isEmpty() && info->facets.isEmpty())) {
+                        text += QObject::tr("<HR/>&nbsp;Allowed values:");
+                        if(!info->enums.isEmpty()) {
+                            text += QObject::tr("<ul class='ulEnumElement'>");
+                            appendEnums(text, info->enums);
+                            text += "</ul>";
                         }
-                        attrType += "</ul>";
+                        appendOtherFacets(text, info);
                     }
 
                     text += QString("<td class='cellText cellBorder'>%1</td>").arg(attrType);
@@ -1123,7 +1136,7 @@ QString XSDPrint::getSingleTypeInner(XSDPrintInfo &xsdPrintInfo, XSchemaElement 
         text += QString("<br/>%1:").arg(QObject::tr("Allowed values"));
         if(typeInfo.hasEnum()) {
             text += QString("<ul class='ulEnumType'>");
-            appendEnums(text, typeInfo);
+            appendEnums(text, typeInfo.enums());
             text += "</ul>";
         }
         appendOtherFacets(text, typeInfo);

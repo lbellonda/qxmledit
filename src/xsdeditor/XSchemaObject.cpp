@@ -1223,12 +1223,14 @@ bool XSchemaObject::addAttributeToCollection(const QString & name, XSchemaAttrib
         }
     }
     QStringList enums;
+    QList<InfoFacet*> facets;
     while(NULL != simpleTypeRestriction) {
         if(typeName.isEmpty()) {
             typeName = simpleTypeRestriction->base();
         }
         //collectRestrictions;
         simpleTypeRestriction->addEnumsToListIfAny(enums);
+        simpleTypeRestriction->addOtherFacets(&facets);
 
         if(!simpleTypeRestriction->base().isEmpty()) {
             XSchemaElement *simpleTypeElement = _root->schema()->findSimpleType(simpleTypeRestriction->base());
@@ -1242,7 +1244,7 @@ bool XSchemaObject::addAttributeToCollection(const QString & name, XSchemaAttrib
         }
     }
     if(NULL != inputAttribute) {
-        attributesCollection.insert(name, inputAttribute, typeName, enums, defaultValue,
+        attributesCollection.insert(name, inputAttribute, typeName, enums, facets, defaultValue,
                                     (NULL != originalAttribute) ? originalAttribute : inputAttribute);
         return true;
     }

@@ -1,5 +1,7 @@
 0.9.12
     Expanded zoom out range.
+    Cleaned up the HTML of XSD reports.
+    Added facets to the XSD reports.
     Fixed a problem with search box that extended the search panel out of screen.
     New panel in the about box to show paths.
 
