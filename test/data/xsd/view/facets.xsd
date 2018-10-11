@@ -1,0 +1,35 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute name="aaa">
+            <xs:simpleType>
+              <xs:restriction base="xs:integer">
+                <xs:minInclusive value="1234567"/>
+                <xs:maxInclusive value="8765432111"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="bbb">
+            <xs:simpleType>
+              <xs:restriction base="xs:integer">
+                <xs:minExclusive value="11111"/>
+                <xs:maxExclusive value="1000"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="ccc">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="x1"/>
+                <xs:enumeration value="x2"/>
+                <xs:enumeration value="x3"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

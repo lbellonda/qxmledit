@@ -129,7 +129,7 @@ bool TestXSDView::doTest(const QString &inputFilePath, const QString &resultFile
 
 #define FILE_XSD_UNIT_FACETS FILE_BASE "units/facets/facets.xsd"
 #define FILE_EXPECTED_UNIT_FACETS FILE_BASE "units/facets/facets.expected"
-
+#define FILE_XSD_UNIT_FACETS2 FILE_BASE "view/facets.xsd"
 
 bool TestXSDView::testBaseElement()
 {
@@ -1038,6 +1038,10 @@ bool TestXSDView::testUnit()
         return false;
     }
 
+    if(!testFacetsInReport2()) {
+        return false;
+    }
+
     if(!testItemsIntersectLine()) {
         return  false;
     }
@@ -1082,5 +1086,38 @@ bool TestXSDView::testFacetsInReport()
     if(result.indexOf(expected, 0, Qt::CaseInsensitive)<0){
         return error(QString("String differs found:'%1' expected: '%2'").arg(result).arg(expected));
     }
+    return true;
+}
+
+// check instring only
+bool TestXSDView::testFacetsInReport2()
+{
+    _testName = "testFacetsInReport2";
+
+    const QString FileXSD = FILE_XSD_UNIT_FACETS2 ;
+
+    App app;
+    if(!app.init()) {
+        return error("init app");
+    }
+    if( !app.mainWindow()->loadFile(FileXSD) ) {
+        return error(QString("unable to load input file: '%1' ").arg(FileXSD));
+    }
+    QString xmlAsString = app.mainWindow()->getRegola()->getAsText();
+    XSDWindow xsdEditor(app.data(), app.mainWindow());
+    xsdEditor.loadStringImmediate(xmlAsString);
+    XSDPrint print(&xsdEditor, app.data());
+    const QString html = print.getAsHTML(true, true, true, true);
+
+    QStringList expected ;
+    expected << "aaa" << "minInclusive" << "1234567" << "maxInclusive" << "8765432111";
+    expected << "bbb" << "minExclusive" << "11111" << "maxExclusive" << "1000" ;
+    expected << "ccc" << "x1" << "x2" << "x3" ;
+    foreach( const QString &value, expected ) {
+        if(html.indexOf(value)<0) {
+            return error(QString("Not found:'%1' in %2").arg(value).arg(html));
+        }
+    }
+
     return true;
 }
