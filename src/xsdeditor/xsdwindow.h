@@ -686,6 +686,7 @@ class RestrictionItem : public XSDItem
 
     void init(XsdGraphicContext *newContext);
     void reset();
+    void setBackground(const qreal width, const qreal height);
 
 private slots:
     void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);

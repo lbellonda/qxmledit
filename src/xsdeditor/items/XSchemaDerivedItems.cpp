@@ -24,6 +24,7 @@
 #include "xsdeditor/xsdwindow.h"
 #include "utils.h"
 #include <QGraphicsTextItem>
+#include <QPen>
 #include "xsdeditor/items/xitemsdefinitions.h"
 
 //-------------------------------------------------------------------------------
@@ -64,13 +65,6 @@ void RestrictionItem::init(XsdGraphicContext *newContext)
     _graphicsItem->setFlag(QGraphicsItem::ItemIsSelectable, true);
     _graphicsItem->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     _graphicsItem->setPos(0, 0);
-
-    QLinearGradient gradient(0, 0, 0, 100);
-    gradient.setColorAt(0, QColor::fromRgbF(0, .7, .4));
-    gradient.setColorAt(1, QColor::fromRgbF(0, .7, 1));
-
-    _graphicsItem->setBrush(QBrush(gradient));
-
     _name = new QGraphicsTextItem(_graphicsItem);
     if(NULL != _name) {
         _name->setPos(10, 5);
@@ -123,23 +117,49 @@ void RestrictionItem::setItem(XSchemaObject *newItem)
         _facets->setVisible(false);
     }
     QGraphicsItem * items []  = {_facets, _name } ;
-    QRectF size = measureOptimumDimensions(2, items) ;
-    qreal width = size.x() + size.width();
-    qreal height = size.y() + size.height();
+    const QRectF size = measureOptimumDimensions(2, items) ;
+    const qreal width = size.x() + size.width();
+    const qreal height = size.y() + size.height();
     QPainterPath path;
     path.moveTo(0, height / 2);
     path.lineTo(30, 0);
     path.lineTo(width + 20, 0);
-    path.lineTo(width + 20, height + 10);
-    path.lineTo(30, height + 10);
+    path.lineTo(width + 20, height);
+    path.lineTo(30, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);
+    setBackground(width, height);
     if(_isDiff) {
         QLinearGradient gradient(0, 0, 0, 100);
         setGradientColor(gradient, _item->compareState());
         _graphicsItem->setBrush(QBrush(gradient));
     }
     buildTooltip();
+}
+
+static qreal c(int val)
+{
+    qreal r = ((qreal)val / 256.0);
+    r += 0.2 ;
+    if(r > 1) {
+        r = 1;
+    }
+    return r;
+}
+void RestrictionItem::setBackground(const qreal width, const qreal height)
+{
+    QLinearGradient gradient(0, 0, width, height);
+    QColor lo =  QColor::fromRgbF(c(0x38), c(0x90), c(0xE0));
+    QColor hi2 =  QColor::fromRgbF(c(0x40), c(0x98), c(0xE0));
+    QColor hi =  QColor::fromRgbF(c(0x48), c(0x9f), c(0xE0));
+    gradient.setColorAt(0, hi);
+    gradient.setColorAt(.10, lo);
+    gradient.setColorAt(.20, hi);
+    gradient.setColorAt(.60, hi);
+    gradient.setColorAt(.90, lo);
+    gradient.setColorAt(1, hi2);
+
+    _graphicsItem->setBrush(QBrush(gradient));
 }
 
 void RestrictionItem::itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant & /*value*/)
