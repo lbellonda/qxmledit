@@ -786,9 +786,9 @@ int XSDPrint::printSingleElement(XSDPrintInfo &xsdPrintInfo, XSchemaElement *ele
     } else {
         printElementChildrenInfo(xsdPrintInfo, text, element);
         if(typeInfo.hasEnumOrFacets()) {
-            text += QObject::tr("<br/>Allowed values:");
+            text += QString("<br/>%1:").arg(QObject::tr("Allowed values"));
             if(typeInfo.hasEnum()) {
-                text += QObject::tr("<ul class='ulEnumElement'>");
+                text += QString("<ul class='ulEnumElement'>");
                 appendEnums(text, typeInfo.enums());
                 text += "</ul>";
             }
@@ -1053,9 +1053,9 @@ QString XSDPrint::getAttributesOfElement(XSDPrintInfo &xsdPrintInfo, XSchemaElem
                     }
                     attrType += info->type ;
                     if(!(info->enums.isEmpty() && info->facets.isEmpty())) {
-                        text += QObject::tr("<HR/>&nbsp;Allowed values:");
+                        text += QString("<HR/>&nbsp;%1:").arg(QObject::tr("Allowed values"));
                         if(!info->enums.isEmpty()) {
-                            text += QObject::tr("<ul class='ulEnumElement'>");
+                            text += QString("<ul class='ulEnumElement'>");
                             appendEnums(text, info->enums);
                             text += "</ul>";
                         }
@@ -1096,7 +1096,7 @@ QString XSDPrint::getAttributesOfElement(XSDPrintInfo &xsdPrintInfo, XSchemaElem
                 }
                 text += "</tr>\n";
             }
-            text += QObject::tr("</tbody>\n</table>\n");
+            text += QString("</tbody>\n</table>\n");
         }
     }
     return text ;
