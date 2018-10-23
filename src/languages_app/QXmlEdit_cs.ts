@@ -95,7 +95,27 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Please use &lt;/span&gt;&lt;a href=&quot;$ISSUESLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$ISSUESLOC&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; to report bugs.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="257"/>
+        <location filename="../aboutdialog.ui" line="221"/>
+        <source>Environment</source>
+        <translation>Prostředí</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.ui" line="233"/>
+        <source>Information about the configuration</source>
+        <translation>Informace o nastavení</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.ui" line="265"/>
+        <source>Item</source>
+        <translation>Položka</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.ui" line="270"/>
+        <source>Value</source>
+        <translation>Hodnota</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.ui" line="313"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QXmlEdit &lt;span style=&quot; font-size:18pt;&quot;&gt;xxx&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QXmlEdit &lt;span style=&quot; font-size:18pt;&quot;&gt;xxx&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -124,39 +144,64 @@ p, li { white-space: pre-wrap; }
         <translation type="obsolete">x.xx</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.ui" line="289"/>
+        <location filename="../aboutdialog.ui" line="345"/>
         <source>environment</source>
         <translation>prostředí</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="38"/>
-        <source>If you like or find useful this program, help others, even when you know they can't help you back.</source>
+        <location filename="../aboutdialog.cpp" line="39"/>
+        <source>If you like or find useful this program, help others, even when you know they can&apos;t help you back.</source>
         <translation>Pokud se vám tento program líbí, nebo jej považujete za užitečný, pomožte jiným, i když víte, že vám nemohou pomoci nazpět.</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="44"/>
+        <location filename="../aboutdialog.cpp" line="45"/>
         <source>License: %1</source>
         <translation>Licence: %1</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="46"/>
+        <location filename="../aboutdialog.cpp" line="47"/>
         <source>Compiled with Qt version: %1, runtime Qt version: %2</source>
         <translation>Sestaveno s verzí Qt: %1, běhová verze Qt: %2</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="49"/>
+        <location filename="../aboutdialog.cpp" line="50"/>
         <source>Developers</source>
         <translation>Vývojáři</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="53"/>
+        <location filename="../aboutdialog.cpp" line="54"/>
         <source>Contributors</source>
         <translation>Přispěvatelé</translation>
     </message>
     <message>
-        <location filename="../aboutdialog.cpp" line="57"/>
+        <location filename="../aboutdialog.cpp" line="58"/>
         <source>Translators</source>
         <translation>Překladatelé</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="109"/>
+        <source>Documentation folder</source>
+        <translation>Složka s dokumentací</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="110"/>
+        <source>Translations folder</source>
+        <translation>Složka s překlady</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="111"/>
+        <source>Resources folder</source>
+        <translation>Složka se zdroji</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="112"/>
+        <source>Style folder</source>
+        <translation>Složka se stylem</translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="113"/>
+        <source>User Manual</source>
+        <translation>Uživatelská příručka</translation>
     </message>
 </context>
 <context>
@@ -5611,7 +5656,7 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
         <location filename="../MainWindow.ui" line="152"/>
         <location filename="../MainWindow.ui" line="423"/>
         <location filename="../MainWindow.ui" line="445"/>
-        <location filename="../mainwindow.cpp" line="769"/>
+        <location filename="../mainwindow.cpp" line="768"/>
         <source>Advanced</source>
         <translation>Pokročilé</translation>
     </message>
@@ -6906,7 +6951,7 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1792"/>
-        <location filename="../mainwindow.cpp" line="3105"/>
+        <location filename="../mainwindow.cpp" line="3104"/>
         <source>Read Only</source>
         <translation>Pouze pro čtení</translation>
     </message>
@@ -7257,13 +7302,13 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2132"/>
-        <location filename="../mainwindow.cpp" line="469"/>
+        <location filename="../mainwindow.cpp" line="468"/>
         <source>&amp;Open in Same Window...</source>
         <translation>&amp;Otevřít ve stejném okně...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2135"/>
-        <location filename="../mainwindow.cpp" line="470"/>
+        <location filename="../mainwindow.cpp" line="469"/>
         <source>Open in same window.</source>
         <translation>Otevřít ve stejném okně.</translation>
     </message>
@@ -7814,71 +7859,71 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
         <translation>Nápověda k QXmlEdit</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="136"/>
+        <location filename="../mainwindow.cpp" line="135"/>
         <source>Error preparing user interface.</source>
         <translation>Chyba při přípravě uživatelského rozhraní.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="139"/>
+        <location filename="../mainwindow.cpp" line="138"/>
         <source>Error preparing edit widget.</source>
         <translation>Chyba při přípravě prvku pro úpravy.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="334"/>
+        <location filename="../mainwindow.cpp" line="333"/>
         <source>The XML Editor component is not correct (%1)</source>
         <translation>Součást editoru XML není správná (%1)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="356"/>
+        <location filename="../mainwindow.cpp" line="355"/>
         <source>XML Editor initialization failed</source>
         <translation>Nepodařilo se spustit editor XML</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="422"/>
+        <location filename="../mainwindow.cpp" line="421"/>
         <source>Indicates the edit modality.</source>
         <translation>Naznačí modalitu úprav.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="472"/>
+        <location filename="../mainwindow.cpp" line="471"/>
         <source>&amp;Open in New Window...</source>
         <translation>&amp;Otevřít v novém okně...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="473"/>
+        <location filename="../mainwindow.cpp" line="472"/>
         <source>Open in new window.</source>
         <translation>Otevřít v novém okně.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="593"/>
+        <location filename="../mainwindow.cpp" line="592"/>
         <source>Error in encoding set up.</source>
         <translation>Chyba v nastavení kódování.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="336"/>
-        <location filename="../mainwindow.cpp" line="761"/>
+        <location filename="../mainwindow.cpp" line="760"/>
         <source>Hierarchy</source>
         <translation>Hierarchie</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="519"/>
-        <location filename="../mainwindow.cpp" line="838"/>
-        <location filename="../mainwindow.cpp" line="2332"/>
+        <location filename="../mainwindow.cpp" line="837"/>
+        <location filename="../mainwindow.cpp" line="2331"/>
         <source>XSLT</source>
         <translation>XSLT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2263"/>
+        <location filename="../mainwindow.cpp" line="2262"/>
         <source>Abandon changes?</source>
         <translation>Opustit změny?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="402"/>
-        <location filename="../mainwindow.cpp" line="410"/>
-        <location filename="../mainwindow.cpp" line="418"/>
-        <location filename="../mainwindow.cpp" line="427"/>
-        <location filename="../mainwindow.cpp" line="435"/>
-        <location filename="../mainwindow.cpp" line="446"/>
-        <location filename="../mainwindow.cpp" line="455"/>
+        <location filename="../mainwindow.cpp" line="401"/>
+        <location filename="../mainwindow.cpp" line="409"/>
+        <location filename="../mainwindow.cpp" line="417"/>
+        <location filename="../mainwindow.cpp" line="426"/>
+        <location filename="../mainwindow.cpp" line="434"/>
+        <location filename="../mainwindow.cpp" line="445"/>
+        <location filename="../mainwindow.cpp" line="454"/>
         <source>Error creating user interface</source>
         <translation>Chyba při vytváření uživatelského rozhraní</translation>
     </message>
@@ -7903,12 +7948,12 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
         <translation type="obsolete">Text</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="558"/>
+        <location filename="../mainwindow.cpp" line="557"/>
         <source>Recent Files</source>
         <translation>Naposledy otevřené soubory</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="570"/>
+        <location filename="../mainwindow.cpp" line="569"/>
         <source>Preferred Directories</source>
         <translation>Upřednostňované adresáře</translation>
     </message>
@@ -7981,9 +8026,9 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
         <translation type="obsolete">Dekódovaný text</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1119"/>
-        <location filename="../mainwindow.cpp" line="1806"/>
-        <location filename="../mainwindow.cpp" line="2046"/>
+        <location filename="../mainwindow.cpp" line="1118"/>
+        <location filename="../mainwindow.cpp" line="1805"/>
+        <location filename="../mainwindow.cpp" line="2045"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
@@ -7992,129 +8037,129 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
         <translation type="obsolete">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1165"/>
-        <location filename="../mainwindow.cpp" line="1201"/>
-        <location filename="../mainwindow.cpp" line="3485"/>
+        <location filename="../mainwindow.cpp" line="1164"/>
+        <location filename="../mainwindow.cpp" line="1200"/>
+        <location filename="../mainwindow.cpp" line="3484"/>
         <source>No data to save.</source>
         <translation>Žádná data k uložení.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1169"/>
-        <location filename="../mainwindow.cpp" line="1205"/>
+        <location filename="../mainwindow.cpp" line="1168"/>
+        <location filename="../mainwindow.cpp" line="1204"/>
         <source>Cannot write an empty file.</source>
         <translation>Nelze zapsat prázdný soubor.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1184"/>
-        <location filename="../mainwindow.cpp" line="1222"/>
-        <location filename="../mainwindow.cpp" line="1255"/>
+        <location filename="../mainwindow.cpp" line="1183"/>
+        <location filename="../mainwindow.cpp" line="1221"/>
+        <location filename="../mainwindow.cpp" line="1254"/>
         <source>Error saving data. Old file is still intact.</source>
         <translation>Chyba při ukládání dat. Starý soubor je stále netknut.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1193"/>
-        <location filename="../mainwindow.cpp" line="1227"/>
-        <location filename="../mainwindow.cpp" line="1276"/>
+        <location filename="../mainwindow.cpp" line="1192"/>
+        <location filename="../mainwindow.cpp" line="1226"/>
+        <location filename="../mainwindow.cpp" line="1275"/>
         <source>File saved</source>
         <translation>Soubor uložen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1875"/>
+        <location filename="../mainwindow.cpp" line="1874"/>
         <source>Error opening folder.</source>
         <translation>Chyba při otevírání složky.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1878"/>
+        <location filename="../mainwindow.cpp" line="1877"/>
         <source>The folder does not exists</source>
         <translation>Složka neexistuje</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2126"/>
+        <location filename="../mainwindow.cpp" line="2125"/>
         <source>Unable to parse XML, file =&apos;%1&apos;, at line:%3, column:%4, cause: &apos;%2&apos; </source>
         <translation>Nelze zpracovat XML, soubor =&apos;%1&apos;, na řádku:%3, sloupec:%4, příčina: &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2161"/>
+        <location filename="../mainwindow.cpp" line="2160"/>
         <source>Data loaded with errors.</source>
         <translation>Data nahrána s chybami.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2168"/>
+        <location filename="../mainwindow.cpp" line="2167"/>
         <source>Unable to get data.</source>
         <translation>Nelze získat data.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2329"/>
+        <location filename="../mainwindow.cpp" line="2328"/>
         <source>XML</source>
         <translation>XML</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2335"/>
+        <location filename="../mainwindow.cpp" line="2334"/>
         <source>SCXML</source>
         <translation>SCXML</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2338"/>
+        <location filename="../mainwindow.cpp" line="2337"/>
         <source>unknown</source>
         <translation>Neznámý</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2341"/>
+        <location filename="../mainwindow.cpp" line="2340"/>
         <source>mode: %1</source>
         <translation>Režim: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2617"/>
+        <location filename="../mainwindow.cpp" line="2616"/>
         <source>Error activating sessions.</source>
         <translation>Chyba při zapínání sezení.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2750"/>
+        <location filename="../mainwindow.cpp" line="2749"/>
         <source>Error opening a new window.</source>
         <translation>Chyba při otevírání nového okna.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2824"/>
+        <location filename="../mainwindow.cpp" line="2823"/>
         <source>Save the Temporary Profile</source>
         <translation>Uložit dočasný profil</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2824"/>
+        <location filename="../mainwindow.cpp" line="2823"/>
         <source>Profile name:</source>
         <translation>Název profilu:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2842"/>
+        <location filename="../mainwindow.cpp" line="2841"/>
         <source>Filter saved.</source>
         <translation>Filtr uložen.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2844"/>
+        <location filename="../mainwindow.cpp" line="2843"/>
         <source>Error saving the filter.</source>
         <translation>Chyba při ukládání filtru.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3115"/>
+        <location filename="../mainwindow.cpp" line="3114"/>
         <source>Read Only. Reactivable using Edit menu or by double click.</source>
         <translation>Pouze pro čtení. Dá se znovu zapnout pomocí nabídky Upravit nebo dvojitým klepnutím.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3117"/>
+        <location filename="../mainwindow.cpp" line="3116"/>
         <source>Double click to change.</source>
         <translation>Dvakrát klepněte, chcete-li změnit.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3494"/>
+        <location filename="../mainwindow.cpp" line="3493"/>
         <source>Error exporting data.</source>
         <translation>Chyba při vyvádění dat.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3497"/>
+        <location filename="../mainwindow.cpp" line="3496"/>
         <source>Data exported</source>
         <translation>Data vyvedena</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3606"/>
+        <location filename="../mainwindow.cpp" line="3605"/>
         <source>QXmlEdit detected that current encoding can lead to a malformed file.
 Do you want to save it using DOM method?
 Warning: DOM does not support attribute alignment and DTD management.</source>
@@ -8123,7 +8168,7 @@ Chcete jej uložit pomocí postupu (metody) DOM?
 Varování: DOM nepodporuje zarovnání vlastností a správu DTD.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3691"/>
+        <location filename="../mainwindow.cpp" line="3690"/>
         <source>SCXML validation is available only with Qt starting from 5.7.</source>
         <translation>Zkouška SCXML je dostupná až od verze Qt 5.7 včetně.</translation>
     </message>
@@ -8138,8 +8183,8 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Název zdroje je prázdný. Nelze jej nahrát.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3107"/>
-        <location filename="../mainwindow.cpp" line="3117"/>
+        <location filename="../mainwindow.cpp" line="3106"/>
+        <location filename="../mainwindow.cpp" line="3116"/>
         <source>Modifiable</source>
         <translation>Upravitelný</translation>
     </message>
@@ -8148,43 +8193,43 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Pouze pro čtení. Dá se znovu zapnout pomocí nabídky Upravit.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3166"/>
-        <location filename="../mainwindow.cpp" line="3179"/>
+        <location filename="../mainwindow.cpp" line="3165"/>
+        <location filename="../mainwindow.cpp" line="3178"/>
         <source>Export Data as Java/Javascript</source>
         <translation>Vyvést data jako Java/JavaScript</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3240"/>
+        <location filename="../mainwindow.cpp" line="3239"/>
         <source>No codec for the required encoding</source>
         <translation>Žádný kodek pro vybrané kódování</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3250"/>
+        <location filename="../mainwindow.cpp" line="3249"/>
         <source>Validate using internal XML Schema references.</source>
         <translation>Potvrdit platnost za použití vnitřních odkazů schématu XML.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3252"/>
+        <location filename="../mainwindow.cpp" line="3251"/>
         <source>Validate using XML Schema:&apos;%1&apos;</source>
         <translation>Potvrdit platnost za použití schématu XML: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3265"/>
+        <location filename="../mainwindow.cpp" line="3264"/>
         <source>I-</source>
         <translation>I-</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3266"/>
+        <location filename="../mainwindow.cpp" line="3265"/>
         <source>No Indentation</source>
         <translation>Žádné odsazení</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3268"/>
+        <location filename="../mainwindow.cpp" line="3267"/>
         <source>I%1</source>
         <translation>I%1</translation>
     </message>
     <message numerus="yes">
-        <location filename="../mainwindow.cpp" line="3269"/>
+        <location filename="../mainwindow.cpp" line="3268"/>
         <source>Indentation: %n space(s)</source>
         <translation>
             <numerusform>Odsazení: %n mezera</numerusform>
@@ -8199,17 +8244,17 @@ Would you like to save it in a new file?</source>
 Chcete jej uložit v novém souboru?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1262"/>
+        <location filename="../mainwindow.cpp" line="1261"/>
         <source>Error saving data: cleaning backup file.</source>
         <translation>Chyba při ukládání dat. Uklízí se zálohovací soubor.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1267"/>
+        <location filename="../mainwindow.cpp" line="1266"/>
         <source>Error renaming old file. You can access written data at file &apos;%1&apos;. Old data are untouched</source>
         <translation>Chyba při přejmenovávání starého souboru. K zapsaným datům můžete přistupovat v souboru &apos;%1&apos;. Stará data jsou netknuta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1272"/>
+        <location filename="../mainwindow.cpp" line="1271"/>
         <source>Error renaming new file. You can access written data at file &apos;%1&apos;. You can find old data in the backup file</source>
         <translation>Chyba při přejmenovávání nového souboru. K zapsaným datům můžete přistupovat v souboru &apos;%1&apos;. Stará data naleznete v zálohovacím souboru</translation>
     </message>
@@ -8218,12 +8263,12 @@ Chcete jej uložit v novém souboru?</translation>
         <translation type="obsolete">Operace ukončena</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1287"/>
+        <location filename="../mainwindow.cpp" line="1286"/>
         <source>Save Data</source>
         <translation>Uložit data</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1298"/>
+        <location filename="../mainwindow.cpp" line="1297"/>
         <source>No main structure</source>
         <translation>Žádná hlavní stavba</translation>
     </message>
@@ -8262,7 +8307,7 @@ Chcete jej uložit v novém souboru?</translation>
         <translation type="obsolete">Chyba při nahrávání schématu</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1248"/>
+        <location filename="../mainwindow.cpp" line="1247"/>
         <source>Cannot write empty file.</source>
         <translation>Nelze zapsat prázdný soubor.</translation>
     </message>
@@ -8287,12 +8332,12 @@ Chcete jej uložit v novém souboru?</translation>
         <translation type="obsolete">Odkaz na schéma je již přítomen.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2360"/>
+        <location filename="../mainwindow.cpp" line="2359"/>
         <source>No fragments found</source>
         <translation>Nenalezeny žádné kousky</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2397"/>
+        <location filename="../mainwindow.cpp" line="2396"/>
         <source>Error loading data.</source>
         <translation>Chyba při nahrávání dat.</translation>
     </message>
@@ -8321,7 +8366,7 @@ Sestaveno s verzí Qt: %2
 Běhová verze Qt: %3</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1372"/>
+        <location filename="../mainwindow.cpp" line="1371"/>
         <source>--No file--</source>
         <translation>--Žádný soubor--</translation>
     </message>
@@ -8350,12 +8395,12 @@ Běhová verze Qt: %3</translation>
         <translation type="obsolete">Vlastnosti/Text</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1828"/>
+        <location filename="../mainwindow.cpp" line="1827"/>
         <source>Error registering last open files.</source>
         <translation>Chyba při zaznamenání naposledy otevřených souborů.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1912"/>
+        <location filename="../mainwindow.cpp" line="1911"/>
         <source>Error registering preferred directories.</source>
         <translation>Chyba při zaznamenání upřednostňovaných adresářů.</translation>
     </message>
@@ -8398,7 +8443,7 @@ Chcete data prozkoumat jako text?</translation>
         <translation type="obsolete">Prázdná data. Nelze je nahrát.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2060"/>
+        <location filename="../mainwindow.cpp" line="2059"/>
         <source>File name empty. Unable to load it.</source>
         <translation>Název souboru je prázdný. Nelze jej nahrát.</translation>
     </message>
@@ -8417,9 +8462,9 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Data nahrána.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2137"/>
-        <location filename="../mainwindow.cpp" line="2150"/>
-        <location filename="../mainwindow.cpp" line="2163"/>
+        <location filename="../mainwindow.cpp" line="2136"/>
+        <location filename="../mainwindow.cpp" line="2149"/>
+        <location filename="../mainwindow.cpp" line="2162"/>
         <source>Data loaded</source>
         <translation>Data nahrána</translation>
     </message>

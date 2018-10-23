@@ -4,7 +4,7 @@
 <context>
     <name>SQLLiteDataAccess::Private</name>
     <message>
-        <location filename="../data_access/sqllitedataaccess.cpp" line="435"/>
+        <location filename="../data_access/sqllitedataaccess.cpp" line="443"/>
         <source>can&apos;t open sessions database:%1</source>
         <translation>Nelze otevřít databázi se sezeními: %1</translation>
     </message>
