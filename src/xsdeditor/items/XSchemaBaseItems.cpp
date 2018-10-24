@@ -264,7 +264,7 @@ QGraphicsTextItem *XSDItem::createTypeItem(QGraphicsItem *parent, XsdGraphicCont
     QGraphicsTextItem  *gItem = new QGraphicsTextItem(parent);
     //setStdFontToItem(gItem, false, false, true);
     gItem->setFont(context->typeFont());
-    gItem->setDefaultTextColor(QColor(0x80, 0x80, 0x80));
+    gItem->setDefaultTextColor(QColor(0x40, 0x40, 0x40));
     return gItem;
 }
 
@@ -1510,7 +1510,6 @@ void ElementItem::init(XsdGraphicContext *newContext)
     _textItem = new QGraphicsTextItem(_graphicsItem);
     _textItem->setPos(45, 10);
     _textItem->setDefaultTextColor(QColor::fromRgb(0, 0, 0));
-    //setStdFontToItem(_textItem, false, false, false);
     _textItem->setFont(newContext->mainFont());
     _graphicsItem->setPen(QPen(Qt::NoPen));
     _graphicsItem->childItems().append(_textItem);
@@ -1712,20 +1711,19 @@ void ElementItem::changeGraphics()
     if(NULL == _item) {
         return ;
     }
-    //QLinearGradient gradient(0, 0, 0, 100);
     if(_isDiff) {
         setToolTipState(_graphicsItem, _item->compareState());
         setGradientColor(_graphicsItem, _item->compareState());
     } else {
 
         if(_item->isTypeOrElement()) {
-            _graphicsItem->setColorStart(QColor(237, 254, 250));
-            _graphicsItem->setColorMiddle(QColor(205, 254, 241));
-            _graphicsItem->setColorEnd(QColor(237, 254, 250));
+            _graphicsItem->setColorStart(QColor(0xE0, 0xFF, 0xF0));
+            _graphicsItem->setColorMiddle(QColor(0x90, 0xFF, 0xD0));
+            _graphicsItem->setColorEnd(QColor(0xE0, 0xFF, 0xF0));
         } else {
-            _graphicsItem->setColorStart(QColor(237, 250, 254));
-            _graphicsItem->setColorMiddle(QColor(205, 241, 254));
-            _graphicsItem->setColorEnd(QColor(237, 250, 254));
+            _graphicsItem->setColorStart(QColor(0xE0, 0xF0, 0xFF));
+            _graphicsItem->setColorMiddle(QColor(0x90, 0xD0, 0xFF));
+            _graphicsItem->setColorEnd(QColor(0xE0, 0xF0, 0xFF));
         }
     }
     if(! _item->ref().isEmpty()) {
@@ -1834,14 +1832,10 @@ void AttributeItem::init()
     _graphics->setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     _graphics->setPos(0, 0);
 
-    /*QLinearGradient gradient(0, 0, 0, 100);
-    gradient.setColorAt(0, QColor::fromRgbF(1, 1, .5, 1));
-    gradient.setColorAt(1, QColor::fromRgbF(1, 1, .7, 0.9));*/
     _graphics->setColorStart(QColor::fromRgbF(1, 1, .5, 1));
     _graphics->setColorMiddle(QColor::fromRgbF(1, 1, .7, 0.9));
     _graphics->setColorEnd(QColor::fromRgbF(1, 1, .5, 1));
 
-    //_graphics->setBrush(QBrush(gradient));
     _textItem = new TextItem(_graphics);
     _textItem->setPos(24, 0);
     _textItem->setDefaultTextColor(QColor::fromRgb(0, 0, 0));
@@ -1855,7 +1849,6 @@ void AttributeItem::init()
     createIconInfo(_graphics, 24, 4);
     createExtraAttrsIcon(_graphics, 24);
 
-    //_textItem->setTextInteractionFlags(Qt::TextEditable);
     _graphics->childItems().append(_textItem);
     //TODO connect(_textItem, SIGNAL(itemChange(GraphicsItemChange, QVariant&)), this, SLOT(textChanged()));
 }
