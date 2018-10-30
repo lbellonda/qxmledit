@@ -25,6 +25,7 @@
 #include "utils.h"
 #include <QGraphicsTextItem>
 #include <QGraphicsSceneContextMenuEvent>
+#include <QGraphicsColorizeEffect>
 #include "xsdeditor/items/xitemsdefinitions.h"
 
 //--------------------------------------------------------------------------------------
@@ -1714,7 +1715,8 @@ void ElementItem::setItem(XSchemaElement *newItem)
 
         if(!lowerItems.isEmpty()) {
             _separator->show();
-            _separator->setLine(20, 28, width - 10, 28);
+            qreal point = sizeUpper.y() + sizeUpper.height() + 1;
+            _separator->setLine(20, point, width - 10, point);
         } else {
             _separator->hide();
         }
@@ -1812,10 +1814,10 @@ void ElementItem::changeGraphics()
         } else {
             const QColor colors [] = {
                 QColor(0xFF, 0xFF, 0xFF),
-                QColor(0xD0, 0xF6, 0xF2),
-                QColor(0xC0, 0xFF, 0xE8),
-                QColor(0xC0, 0xFF, 0xE8),
-                QColor(0xD0, 0xF6, 0xF2),
+                QColor(0xD0, 0xE2, 0xFF),
+                QColor(0xA0, 0xD8, 0xFF),
+                QColor(0xA0, 0xD8, 0xFF),
+                QColor(0xD0, 0xE2, 0xFF),
                 QColor(0xFF, 0xFF, 0xFF)
             };
 
