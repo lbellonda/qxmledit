@@ -480,11 +480,11 @@ void ExtractFragmentsDialog::showNaming()
     addNamePattern(fileNames, ui->sfn4->currentText().trimmed());
     addNamePattern(fileNames, ui->sfn5->currentText().trimmed());
     naming += showSingleNaming(fileNames);
-    ExtractionOperation::EOperationType currentOperation = static_cast<ExtractionOperation::EOperationType>(Utils::comboSelectedCodeAsInt(ui->cbOperationType, -1));
+    const ExtractionOperation::EOperationType currentOperation = static_cast<ExtractionOperation::EOperationType>(Utils::comboSelectedCodeAsInt(ui->cbOperationType, -1));
     if(currentOperation == ExtractionOperation::OperationExportAndGroupCSV) {
-        naming += "'.xml";
-    } else {
         naming += "'.csv";
+    } else {
+        naming += "'.xml";
     }
     ui->lblLike->setText(naming);
 }
@@ -513,3 +513,4 @@ void ExtractFragmentsDialog::connectUpdates()
 
     connect(&delayTimer, SIGNAL(timeout()), this, SLOT(showNaming()));
 }
+
