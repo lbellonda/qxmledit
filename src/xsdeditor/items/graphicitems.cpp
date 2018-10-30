@@ -63,6 +63,7 @@ GraphicsRoundRectItem::GraphicsRoundRectItem(ItemServiceExecutor *service, QGrap
     _isOptional = false;
     _isSingleColor = false;
     _useDimShadow = false ;
+    _isComplexGradient = false ;
 
     setService(service);
 }
@@ -193,9 +194,18 @@ void GraphicsRoundRectItem::paint(QPainter *painter, const QStyleOptionGraphicsI
         QLinearGradient gradient;
         gradient.setStart(0, 0);
         gradient.setFinalStop(0, bounds.height());
-        gradient.setColorAt(0, _colorStart);
-        gradient.setColorAt(0.3, _colorMiddle);
-        gradient.setColorAt(1, _colorEnd);
+        if(_isComplexGradient) {
+            gradient.setColorAt(0, _c0);
+            gradient.setColorAt(0.1, _c1);
+            gradient.setColorAt(0.35, _c2);
+            gradient.setColorAt(0.53, _c3);
+            gradient.setColorAt(0.9, _c4);
+            gradient.setColorAt(1, _c5);
+        } else {
+            gradient.setColorAt(0, _colorStart);
+            gradient.setColorAt(0.3, _colorMiddle);
+            gradient.setColorAt(1, _colorEnd);
+        }
 
         QBrush brush(gradient);
         painter->setBrush(brush);
@@ -219,6 +229,26 @@ void GraphicsRoundRectItem::paint(QPainter *painter, const QStyleOptionGraphicsI
     }
 
     painter->drawRoundRect(bounds, 10, 10);
+}
+
+bool GraphicsRoundRectItem::isComplexGradient() const
+{
+    return _isComplexGradient;
+}
+
+void GraphicsRoundRectItem::setComplexGradient(bool value)
+{
+    _isComplexGradient = value;
+}
+
+void GraphicsRoundRectItem::setComplexGradientColors(const QColor c0, const QColor c1, const QColor c2, const QColor c3, const QColor c4, const QColor c5)
+{
+    _c0 = c0 ;
+    _c1 = c1 ;
+    _c2 = c2 ;
+    _c3 = c3 ;
+    _c4 = c4 ;
+    _c5 = c5 ;
 }
 
 //-------------------------------------------------------------------------------

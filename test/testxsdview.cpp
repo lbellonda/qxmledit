@@ -25,6 +25,7 @@
 #include "testhelpers/xsd/testxsdprintinfo.h"
 #include "xsdeditor/xsdwindow.h"
 #include "modules/services/systemservices.h"
+#include <QGraphicsItem>
 
 TestXSDView::TestXSDView()
 {
@@ -32,6 +33,7 @@ TestXSDView::TestXSDView()
 
 TestXSDView::~TestXSDView()
 {
+    EMPTYPTRLIST(_gi,QGraphicsItem);
 }
 
 bool TestXSDView::openXsdViewer(MainWindow *window, TestXSDWindow *xsdEditor)
@@ -522,7 +524,7 @@ bool TestXSDView::testOutline()
 bool TestXSDView::testFast()
 {
     _testName = "testFast";
-    return testUnit();
+    return testViewItems();
 }
 
 bool TestXSDView::testPrintPagination()
@@ -1048,6 +1050,9 @@ bool TestXSDView::testUnit()
     if(!testItemsSplit()) {
         return  false;
     }
+    if(!testViewItems()) {
+        return false;
+    }
     return true;
 }
 
@@ -1120,4 +1125,94 @@ bool TestXSDView::testFacetsInReport2()
     }
 
     return true;
+}
+
+void TestXSDView::getItemInfo(QList<ItemInfoDimensions*> &infos)
+{
+    {
+        ItemInfoDimensions *i = new ItemInfoDimensions();
+        QGraphicsItem * item = new QGraphicsRectItem();
+        i->item = item ;
+        i->bounds.setRect(0, 0, 10, 5);
+        i->isText = false;
+        i->width = 5;
+        i->height = 10 ;
+        infos.append(i);
+        _gi.append(item);
+    }
+    {
+        ItemInfoDimensions *i = new ItemInfoDimensions();
+        QGraphicsItem * item = new QGraphicsRectItem();
+        i->item = item ;
+        i->bounds.setRect(0, 0, 7, 5);
+        i->isText = true;
+        i->width = 5;
+        i->height = 7 ;
+        i->descent = 3;
+        infos.append(i);
+        _gi.append(item);
+    }
+    {
+        ItemInfoDimensions *i = new ItemInfoDimensions();
+        QGraphicsItem * item = new QGraphicsRectItem();
+        i->item = item ;
+        i->bounds.setRect(0, 0, 3, 5);
+        i->isText = true;
+        i->width = 5;
+        i->height = 3 ;
+        i->descent = 1;
+        infos.append(i);
+        _gi.append(item);
+    }
+}
+
+bool TestXSDView::testItemBaseline()
+{
+    _testName = "testItemBaseline";
+    QList<ItemInfoDimensions*> infos ;
+    getItemInfo(infos);
+    const qreal maxBaseLine = XSDItem::calcMaxDescent(infos);
+    EMPTYPTRLIST(infos,ItemInfoDimensions);
+    if((qreal)3 != maxBaseLine) {
+        return error(QString("Expected %1, found %2").arg(3).arg(maxBaseLine));
+    }
+    return true;
+}
+
+bool TestXSDView::checkItem(QList<ItemInfoDimensions*> infos, const int index, const qreal posY)
+{
+    ItemInfoDimensions* info = infos.at(index);
+    if( posY != info->item->y() ) {
+        return error(QString("Index %1 expected %2, found %3").arg(index).arg(posY).arg(info->item->y()));
+    }
+    return true ;
+}
+
+bool TestXSDView::testItemDisposition()
+{
+    _testName = "testItemDisposition";
+    QList<ItemInfoDimensions*> infos ;
+    getItemInfo(infos);
+    XSDItem::adjustVertically(infos, 0, 10, 3);
+    bool ok = true;
+    ok &= !checkItem(infos, 0, 0);
+    ok &= !checkItem(infos, 1, 3);
+    ok &= !checkItem(infos, 2, 5);
+    EMPTYPTRLIST(infos,ItemInfoDimensions);
+    if(!ok) {
+        return false;
+    }
+    return true;
+}
+
+bool TestXSDView::testViewItems()
+{
+    _testName = "testViewItems";
+    if(!testItemBaseline()) {
+        return false;
+    }
+    if(!testItemDisposition()) {
+        return false;
+    }
+    return error("nyi");
 }

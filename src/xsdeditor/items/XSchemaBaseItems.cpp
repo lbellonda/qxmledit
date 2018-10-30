@@ -32,6 +32,22 @@
 
 //--------------------------------------------------------------------------------------
 
+ItemInfoDimensions::ItemInfoDimensions()
+{
+    width = 0 ;
+    height = 0;
+    isText = false ;
+    descent = 0;
+    item = NULL ;
+}
+
+ItemInfoDimensions::~ItemInfoDimensions()
+{
+    //
+}
+
+//--------------------------------------------------------------------------------------
+
 XItemMenuBuilder::XItemMenuBuilder(XSDItem * newItem)
 {
     _item = newItem ;
@@ -550,36 +566,92 @@ QRectF XSDItem::measureOptimumDimensions(QList<QGraphicsItem*> &items)
 
 QRectF XSDItem::disposeHorizontallyAndAlignLower(QList<QGraphicsItem*> &items, const int xPos, const int yPos)
 {
-    int horPos = xPos;
+    if(items.isEmpty()) {
+        return QRectF();
+    }
+    QList<ItemInfoDimensions*> infoItems;
     QRectF childrenBoundsRect(xPos, yPos, 0, 4);
-    int maxHeight = 0 ;
-    // the children list must be tailored on the particular item.
-    foreach(QGraphicsItem * item, items) {
-        if((NULL != item) && item->isVisible()) {
-            QRectF childRect = item->boundingRect();
-            maxHeight = std::max(maxHeight, (int)childRect.height());
-            item->setPos(horPos, yPos);
-            QPointF origin = item->pos();
-            childRect.translate(origin);
-            horPos += childRect.width() ;//+ 2;
-            QRectF chTemp = childrenBoundsRect.united(childRect);
-            childrenBoundsRect = chTemp ;
-        }
-    }
+    collectAlignInfo(items, infoItems);
+    const int maxHeight = scanDisposeHorizontallyAndAlignLower(infoItems, xPos, yPos, childrenBoundsRect);
+    const int maxDescent = calcMaxDescent(infoItems);
 
-    foreach(QGraphicsItem * item, items) {
-        if((NULL != item) && item->isVisible()) {
-            QRectF childRect = item->boundingRect();
-            item->setY(yPos + maxHeight - childRect.height());
-        }
-    }
+    adjustVertically(infoItems, yPos, maxHeight, maxDescent);
 
     if(childrenBoundsRect.isEmpty()) {
         childrenBoundsRect = graphicItem()->boundingRect();
     }
+    EMPTYPTRLIST(infoItems, ItemInfoDimensions);
     return childrenBoundsRect ;
 }
 
+void XSDItem::collectAlignInfo(QList<QGraphicsItem*> &items, QList<ItemInfoDimensions*> &infoItems)
+{
+    // the children list must be tailored on the particular item.
+    foreach(QGraphicsItem * item, items) {
+        if((NULL != item) && item->isVisible()) {
+            ItemInfoDimensions *info = new ItemInfoDimensions();
+            info->item = item ;
+            info->bounds = item->boundingRect();
+            info->width = info->bounds.width();
+            info->height = info->bounds.height();
+            QGraphicsTextItem * textItem = qgraphicsitem_cast<QGraphicsTextItem*>(item);
+            if(NULL != textItem) {
+                info->descent = getItemDescent(textItem);
+                info->isText = true ;
+            }
+            infoItems.append(info);
+        }
+    }
+    return ;
+}
+
+int XSDItem::getItemDescent(QGraphicsTextItem * textItem)
+{
+    QFont font = textItem->font();
+    QFontMetrics metrics(font);
+    return metrics.descent();
+}
+
+int XSDItem::scanDisposeHorizontallyAndAlignLower(QList<ItemInfoDimensions*> &items, const int xPos, const int yPos, QRectF &childrenBoundsRect)
+{
+    int horPos = xPos;
+    childrenBoundsRect.setRect(xPos, yPos, 0, 4);
+    int maxHeight = 0 ;
+    // the children list must be tailored on the particular item.
+    foreach(const ItemInfoDimensions * item, items) {
+        QRectF childRect = item->item->boundingRect();
+        maxHeight = std::max(maxHeight, (int)childRect.height());
+        item->item->setPos(horPos, yPos);
+        QPointF origin = item->item->pos();
+        childRect.translate(origin);
+        horPos += childRect.width() ;
+        QRectF chTemp = childrenBoundsRect.united(childRect);
+        childrenBoundsRect = chTemp ;
+    }
+    return maxHeight;
+}
+
+void XSDItem::adjustVertically(QList<ItemInfoDimensions*> &items, const int yPos, const int maxHeight, const int maxDescent)
+{
+    foreach(const ItemInfoDimensions * item, items) {
+        qreal verticalPosition = yPos + maxHeight - item->bounds.height();
+        if(item->isText) {
+            verticalPosition -= maxDescent - item->descent ;
+        }
+        item->item->setY(verticalPosition);
+    }
+}
+
+qreal XSDItem::calcMaxDescent(QList<ItemInfoDimensions*> &infos)
+{
+    qreal maxDescent = 0 ;
+    foreach(const ItemInfoDimensions* item, infos) {
+        if(item->isText) {
+            maxDescent  = qMax(maxDescent, item->descent);
+        }
+    }
+    return maxDescent ;
+}
 
 XSDItem *XSDItem::addChild(XSchemaObject *child)
 {
@@ -1638,9 +1710,14 @@ void ElementItem::setItem(XSchemaElement *newItem)
         sizeUpper = disposeHorizontallyAndAlignLower(upperItems, 25, 4);
         sizeLower = disposeHorizontallyAndAlignLower(lowerItems, 25, 30);
         qreal width = sizeUpper.x() + std::max(sizeUpper.width(), sizeLower.width()) + 10;
-        qreal height = sizeUpper.y() + sizeUpper.height() + sizeLower.height() + 4 ;//+ 10;
+        qreal height = sizeUpper.y() + sizeUpper.height() + sizeLower.height() + 8 ;//+ 10;
 
-        _separator->setLine(20, 28, width - 10, 28);
+        if(!lowerItems.isEmpty()) {
+            _separator->show();
+            _separator->setLine(20, 28, width - 10, 28);
+        } else {
+            _separator->hide();
+        }
 
         if(isSimpleTypeInElements) {
             QPainterPath path;
@@ -1711,16 +1788,39 @@ void ElementItem::changeGraphics()
     if(NULL == _item) {
         return ;
     }
+    _graphicsItem->setComplexGradient(false);
     if(_isDiff) {
         setToolTipState(_graphicsItem, _item->compareState());
         setGradientColor(_graphicsItem, _item->compareState());
     } else {
 
         if(_item->isTypeOrElement()) {
+            const QColor colors [] = {
+                QColor(0xD8, 0xFF, 0xF0),
+                QColor(0xC0, 0xFF, 0xE2),
+                QColor(0x99, 0xFF, 0xC0),
+                QColor(0x99, 0xFF, 0xC0),
+                QColor(0xC0, 0xFF, 0xE0),
+                QColor(0xD8, 0xFF, 0xF0)
+            };
+
+            _graphicsItem->setComplexGradient(true);
+            _graphicsItem->setComplexGradientColors(colors[0], colors[1], colors[2], colors[3], colors[4], colors[5]);
             _graphicsItem->setColorStart(QColor(0xE0, 0xFF, 0xF0));
             _graphicsItem->setColorMiddle(QColor(0x90, 0xFF, 0xD0));
             _graphicsItem->setColorEnd(QColor(0xE0, 0xFF, 0xF0));
         } else {
+            const QColor colors [] = {
+                QColor(0xFF, 0xFF, 0xFF),
+                QColor(0xD0, 0xF6, 0xF2),
+                QColor(0xC0, 0xFF, 0xE8),
+                QColor(0xC0, 0xFF, 0xE8),
+                QColor(0xD0, 0xF6, 0xF2),
+                QColor(0xFF, 0xFF, 0xFF)
+            };
+
+            _graphicsItem->setComplexGradient(true);
+            _graphicsItem->setComplexGradientColors(colors[0], colors[1], colors[2], colors[3], colors[4], colors[5]);
             _graphicsItem->setColorStart(QColor(0xE0, 0xF0, 0xFF));
             _graphicsItem->setColorMiddle(QColor(0x90, 0xD0, 0xFF));
             _graphicsItem->setColorEnd(QColor(0xE0, 0xF0, 0xFF));
@@ -1889,9 +1989,6 @@ void AttributeItem::setItem(XSchemaAttribute *newItem)
     }
 
     if(_isDiff) {
-        //QLinearGradient gradient(0, 0, 0, 100);
-        //setGradientColor(gradient, _item->compareState());
-        //_graphics->setBrush(QBrush(gradient));
         setGradientColor(_graphics, _item->compareState());
         setToolTipState(_graphics, _item->compareState());
     }

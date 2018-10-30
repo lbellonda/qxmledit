@@ -59,9 +59,12 @@ class GraphicsRoundRectItem : public QObject, public QGraphicsRectItem
     QColor _colorStart;
     QColor _colorMiddle;
     QColor _colorEnd;
+    // complex gradient
+    QColor _c0, _c1, _c2, _c3, _c4, _c5;
     bool _isOptional;
     bool _isSingleColor ;
     bool _useDimShadow;
+    bool _isComplexGradient;
 
     enum {
         OffsetRectX = 5,
@@ -99,6 +102,10 @@ public:
 
     bool isUseDimShadow() const;
     void setUseDimShadow(bool useDimShadow);
+
+    bool isComplexGradient() const;
+    void setComplexGradient(bool isComplexGradient);
+    void setComplexGradientColors(const QColor c0, const QColor c1, const QColor c2, const QColor c3, const QColor c4, const QColor c5);
 
 signals:
     void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
@@ -218,4 +225,3 @@ public:
 
 
 #endif // XGRAPHICSITEMS_H
-

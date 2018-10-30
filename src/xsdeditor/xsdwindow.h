@@ -195,6 +195,21 @@ public:
     void setIsDebug(bool isDebug);
 };
 
+class XSDItem;
+
+class ItemInfoDimensions
+{
+public:
+    QRectF bounds;
+    qreal height;
+    qreal width;
+    QGraphicsItem *item;
+    bool isText;
+    qreal descent;
+    ItemInfoDimensions();
+    ~ItemInfoDimensions();
+};
+
 class XSDItem : public QObject, protected ItemServiceExecutor
 {
     Q_OBJECT
@@ -298,7 +313,11 @@ protected:
     static QRectF splitRectAfter(const QRectF &current, const QRectF &source);
     void drawChildrenPort(XSDItemContext *context);
     void updateRectIncludingAll(QRectF &target);
-
+    static qreal calcMaxDescent(QList<ItemInfoDimensions*> &infos);
+    static void adjustVertically(QList<ItemInfoDimensions*> &items, const int yPos, const int maxHeight, const int maxDescent);
+    static void collectAlignInfo(QList<QGraphicsItem*> &items, QList<ItemInfoDimensions*> &infoItems);
+    static int getItemDescent(QGraphicsTextItem * textItem);
+    static int scanDisposeHorizontallyAndAlignLower(QList<ItemInfoDimensions*> &items, const int xPos, const int yPos, QRectF &childrenBoundsRect);
 public:
     XSDItem(XsdGraphicContext *newContext);
     virtual ~XSDItem();

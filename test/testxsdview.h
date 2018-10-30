@@ -28,6 +28,8 @@
 #include "app.h"
 #include "testxsdnavigation.h"
 
+class QGraphicsItem ;
+
 class TestXSDView : public TestBase
 {
     bool doTest(const QString &inputFilePath, const QString &resultFilePath, const QList<int> &selectionPath);
@@ -70,7 +72,14 @@ class TestXSDView : public TestBase
     bool testItemsSplit();
     bool testFacetsInReport();
     bool testFacetsInReport2();
+    bool testViewItems();
+    void getItemInfo(QList<ItemInfoDimensions*> &infos);
+    bool testItemBaseline();
+    bool testItemDisposition();
+    bool checkItem(QList<ItemInfoDimensions*> infos, const int index, const qreal posY);
     //void debugFile(const QString &data);
+
+    QList <QGraphicsItem*> _gi;
 public:
     TestXSDView();
     ~TestXSDView();
