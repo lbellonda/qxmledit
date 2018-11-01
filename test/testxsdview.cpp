@@ -1214,5 +1214,5 @@ bool TestXSDView::testViewItems()
     if(!testItemDisposition()) {
         return false;
     }
-    return error("nyi");
+    return true;
 }
