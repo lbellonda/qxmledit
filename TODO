@@ -6,7 +6,10 @@ TODO:
 ----
 
 
-#new is:173
+#new is:177
+
+177 - Remove unused configurations. Refactor make files.
+
 - menu context. goto reference for elements and attributes
 - no attributes mode
 
