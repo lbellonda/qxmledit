@@ -4,10 +4,10 @@ devel
 
 Branches:
 ---------
-176 - optional module scxml
 
 Merged branches:
 -------------
+176 - optional module scxml
 175 - log folder usage
 174 - test
 173 - Fixes after code review.
