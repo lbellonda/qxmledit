@@ -49,7 +49,7 @@
 #include "modules/messages/sourceerror.h"
 #include "sourcemessagemanager.h"
 #include "modules/messages/sourcerelatedmessages.h"
-#if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
+#ifdef QXMLEDIT_QT_SCXML_ENABLED
 #include <QtScxml/QScxmlStateMachine>
 #endif
 //----------
@@ -351,8 +351,8 @@ void MainWndController::sourceDecode(QBuffer *dataStream, QList<SourceMessage*> 
 
 bool MainWndController::checkSCXML()
 {
-#if QT_VERSION < QT_VERSION_CHECK(5,7,0)
-    Utils::error(_w, tr("SCXML test is supported only starting from Qt 5.7.0"));
+#ifndef QXMLEDIT_QT_SCXML_ENABLED
+    Utils::error(_w, tr("SCXML test is supported only starting from Qt 5.7.0 and must be enabled at compilie time."));
     return false;
 #else
     Regola *regola = _w->getRegola();

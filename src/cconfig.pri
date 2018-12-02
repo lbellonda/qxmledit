@@ -131,6 +131,35 @@ isEmpty(COMPILE_DISABLE_TIPS) {
 }
 
 ###########################################
+ENABLE_SCXML="N"
+greaterThan(QT_MAJOR_VERSION, 4) {
+    equals(QT_MAJOR_VERSION, 5) {
+        greaterThan(QT_MINOR_VERSION, 6) {
+            ENABLE_SCXML="Y"
+        }
+    }
+    greaterThan(QT_MAJOR_VERSION, 5) {
+        ENABLE_SCXML="Y"
+    }
+}
+
+DISABLE_SCXML=$$(QXMLEDIT_DISABLE_SCXML)
+!isEmpty(DISABLE_SCXML) {
+    ENABLE_SCXML="N"
+}
+!isEmpty(QXMLEDIT_DISABLE_SCXML) {
+    ENABLE_SCXML="N"
+}
+
+isEqual(ENABLE_SCXML, "Y") {
+    DEFINES += "QXMLEDIT_QT_SCXML_ENABLED"
+    message("SCXML enabled")
+}
+
+!isEqual(ENABLE_SCXML, "Y") {
+    message("SCXML disabled")
+}
+###########################################
 
 USE_QWTPLOT="Y"
 DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)

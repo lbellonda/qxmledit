@@ -54,6 +54,35 @@ isEmpty(INST_USE_C11) {
 
 ###########################################
 
+ENABLE_SCXML="N"
+greaterThan(QT_MAJOR_VERSION, 4) {
+    equals(QT_MAJOR_VERSION, 5) {
+        greaterThan(QT_MINOR_VERSION, 6) {
+            ENABLE_SCXML="Y"
+        }
+    }
+    greaterThan(QT_MAJOR_VERSION, 5) {
+        ENABLE_SCXML="Y"
+    }
+}
+
+DISABLE_SCXML=$$(QXMLEDIT_DISABLE_SCXML)
+!isEmpty(DISABLE_SCXML) {
+    ENABLE_SCXML="N"
+}
+!isEmpty(QXMLEDIT_DISABLE_SCXML) {
+    ENABLE_SCXML="N"
+}
+
+isEqual(ENABLE_SCXML, "Y") {
+    DEFINES += "QXMLEDIT_QT_SCXML_ENABLED"
+    message("SCXML enabled")
+}
+
+!isEqual(ENABLE_SCXML, "Y") {
+    message("SCXML disabled")
+}
+##############################################3
 
 # This is necessary to build the test executable as an app
 DEFINES += LIBQXMLEDIT_LIBRARY_STATIC
@@ -71,15 +100,8 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     QT       += printsupport widgets core
 }
 
-greaterThan(QT_MAJOR_VERSION, 4) {
-    equals(QT_MAJOR_VERSION, 5) {
-        greaterThan(QT_MINOR_VERSION, 6) {
-            QT       += scxml
-        }
-    }
-    greaterThan(QT_MAJOR_VERSION, 5) {
-        QT       += scxml
-    }
+isEqual(ENABLE_SCXML, "Y") {
+    QT       += scxml
 }
 
 greaterThan(QT_MAJOR_VERSION, 4) {

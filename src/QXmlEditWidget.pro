@@ -47,22 +47,10 @@ equals(QXMLEDIT_LIB_SUFFIX, "") {
     VERSION=""
 }
 
-
 QT       += xml xmlpatterns network svg
 
 greaterThan(QT_MAJOR_VERSION, 4) {
   QT       += printsupport gui widgets core
-}
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-    equals(QT_MAJOR_VERSION, 5) {
-        greaterThan(QT_MINOR_VERSION, 6) {
-            QT       += scxml
-        }
-    }
-    greaterThan(QT_MAJOR_VERSION, 5) {
-        QT       += scxml
-    }
 }
 
 TARGET = QXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}

@@ -48,7 +48,7 @@
 #include "sourcemessagemanager.h"
 #include "modules/messages/sourcerelatedmessages.h"
 #include <QListWidget>
-#if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
+#ifdef QXMLEDIT_QT_SCXML_ENABLED
 #include <QScxmlStateMachine>
 #include <QScxmlError>
 #endif
@@ -225,7 +225,7 @@ bool TestSCXML::testTemplates()
 bool TestSCXML::testTemplatesCompile()
 {
     _testName = "testTemplatesCompile" ;
-#if QT_VERSION >= QT_VERSION_CHECK(5,7,0)
+#ifdef QXMLEDIT_QT_SCXML_ENABLED
     bool isError = false;
     QString msg;
     QScxmlStateMachine *testMachine = QScxmlStateMachine::fromFile(":/templates/templateSCXML");

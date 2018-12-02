@@ -111,6 +111,11 @@ void AboutDialog::setupPaths()
     addPath(tr("Resources folder"), ApplicationData::getResourceDir(), labelFont);
     addPath(tr("Style folder"), _data->getStylesDirStandard(), labelFont);
     addPath(tr("User Manual"), _data->userManualFilePath(), labelFont);
+#ifdef QXMLEDIT_QT_SCXML_ENABLED
+    addPath(tr("Qt SCXML Module"), tr("enabled"), labelFont);
+#else
+    addPath(tr("Qt SCXML Module"), tr("disaabled"), labelFont);
+#endif
     //---
     ui->tablePaths->horizontalHeader()->setStretchLastSection(true);
     ui->tablePaths->resizeColumnsToContents();
