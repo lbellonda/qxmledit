@@ -53,6 +53,7 @@ class TestXIncludeSetInternal :public NamespaceEditorInsertChoiceProvider, XIncl
 
     TestXIncludeSetInternal()
     {
+        base = NULL ;
         test = 0 ;
     }
 

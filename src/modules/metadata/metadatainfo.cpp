@@ -90,6 +90,9 @@ const QString UpdatableMetadata::MetaDataStartVersion("0");
 //
 UpdatableMetadata::UpdatableMetadata()
 {
+    _userProvider = NULL ;
+    _dateProvider = NULL ;
+    //
     _creationUser.setName(CreationUserName);
     _creationDate.setName(CreationDateName);
     _updateUser.setName(UpdateUserName);

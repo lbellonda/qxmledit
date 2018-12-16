@@ -26,11 +26,13 @@
 #include "data_access/testdataaccess.h"
 #include "sessionsmanagementdialog.h"
 #include "sessiondetaildialog.h"
+#include "utils.h"
 
 SessionManager::Private::Private(SessionManager* manager, QObject *parent) :
     QObject(parent),
     _manager(manager)
 {
+    _dataFactory = NULL ;
     _logger = NULL ;
     _isEnabled = false ;
     _currentSession = NULL ;

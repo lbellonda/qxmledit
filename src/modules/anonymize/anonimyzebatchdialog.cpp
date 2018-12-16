@@ -204,12 +204,8 @@ void AnonimyzeBatchDialog::on_cmdChooseProfile_clicked()
     if(NULL != newProfileData) {
         QString name ;
         AnonProfile *newProfile = NULL ;
-        if(NULL != newProfileData) {
-            name = newProfileData->name();
-            newProfile = getProfileFromProfileData(newProfileData);
-        } else {
-            return ;
-        }
+        name = newProfileData->name();
+        newProfile = getProfileFromProfileData(newProfileData);
         if(NULL != newProfile) {
             if(NULL != _profile) {
                 delete _profile ;

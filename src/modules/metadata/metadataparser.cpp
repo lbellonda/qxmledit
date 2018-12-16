@@ -116,6 +116,8 @@ bool MetadataParser::parseMetadata(const QString &inputData, MetadataParsedResul
 
 MetadataParserInfo::MetadataParserInfo()
 {
+    _attributes = NULL ;
+    _row = 0 ;
     initParse();
 }
 

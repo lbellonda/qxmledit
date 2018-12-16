@@ -163,6 +163,9 @@ void SCXMLTokenChild::setParent(SCXMLToken *parent)
 
 SCXMLTokenChild::SCXMLTokenChild()
 {
+    _min = 0 ;
+    _max = 0 ;
+    _parent = NULL ;
 }
 
 SCXMLTokenChild::~SCXMLTokenChild()

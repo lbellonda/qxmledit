@@ -27,6 +27,7 @@
 TestXSDPrintInfo::TestXSDPrintInfo()
 {
     error = false;
+    docSize = 0 ;
 }
 
 TestXSDPrintInfo::~TestXSDPrintInfo()

@@ -23,11 +23,13 @@
 #include "elmpath.h"
 #include "element.h"
 #include "xmlutils.h"
+#include "utils.h"
 
 ElmPath::ElmPath()
 {
     _calculated = false;
     _parent = NULL ;
+    _element = NULL ;
 }
 
 ElmPath::~ElmPath()

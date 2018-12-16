@@ -31,6 +31,7 @@
 //-----
 MainMenuBlock::MainMenuBlock(QObject *parent): QObject(parent)
 {
+    _raiseWindows = NULL ;
     _contextMenu = NULL ;
     _newWindowAction = NULL ;
     _encodingToolsAction = NULL ;

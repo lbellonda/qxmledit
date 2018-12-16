@@ -36,6 +36,7 @@ DiffModel::DiffModel(QObject *parent) : QAbstractTableModel(parent)
 {
     _info = NULL ;
     _items = NULL ;
+    _ditems = NULL ;
 }
 
 DiffModel::~DiffModel()

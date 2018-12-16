@@ -23,10 +23,12 @@
 
 #include "testdialogxsdtypes.h"
 #include "ui_xsdtypedialog.h"
+#include "utils.h"
 
 TestDialogXSDTypes::TestDialogXSDTypes(const bool isInsert, const XSDOperationParameters::EObjectType objectType, const QString &startName, Element *selection, QWidget *parent) :
     XSDTypeDialog(isInsert, objectType, startName, selection, parent)
 {
+    _exp = NULL ;
 }
 
 TestDialogXSDTypes::~TestDialogXSDTypes()

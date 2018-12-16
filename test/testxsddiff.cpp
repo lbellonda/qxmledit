@@ -96,6 +96,7 @@ class Test1{
 
 TestXSDDiff::TestXSDDiff()
 {
+    one = false ;
     _isError = false;
 }
 
