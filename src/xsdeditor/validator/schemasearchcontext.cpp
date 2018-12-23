@@ -64,7 +64,13 @@ void SchemaSearchContextPosition::setPos(const int value)
 
 SchemaSearchContext::SchemaSearchContext()
 {
-    Utils::TODO_NEXT_RELEASE("INIT VARIABLES");
+    Utils::TODO_THIS_RELEASE("");
+    Utils::TEST_ME("INIT VARIABLES");
+    Utils::TEST_ME("Member variable 'SchemaSearchContext::_targetIndex' is not initialized in the constructor.");
+    Utils::TEST_ME("Member variable 'SchemaSearchContext::_foundItem' is not initialized in the constructor.");
+    _targetIndex = 0 ;
+    _foundItem = NULL ;
+
     _currentIndex = 0 ;
     _currentSource = NULL ;
     _parentElement = NULL;

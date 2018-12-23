@@ -153,7 +153,8 @@ StyleRuleSet* StylePersistence::collectRuleSet(QDomElement *element)
             QDomElement childElement = childNode.toElement();
             if(RULESET_TAGNAME == childElement.tagName()) {
                 rSet->addRule(collectRuleSet(&childElement));
-            } else if(RULE_TAGNAME) {
+            } else if(RULE_TAGNAME == childElement.tagName()) {
+                Utils::TEST_ME("");
                 rSet->addRule(collectRule(&childElement));
             }
         }
@@ -190,7 +191,9 @@ bool StylePersistence::collectKeywords(VStyle *style, QDomNodeList &nodes)
                 if(!collectAKeyword(style, &element)) {
                     isOk = false;
                 }
-            } else if(RULESET_TAGNAME) {
+            } else if(RULESET_TAGNAME == element.tagName()) {
+                Utils::TODO_THIS_RELEASE("");
+                Utils::TEST_ME("");
                 style->addRuleSet(collectRuleSet(&element));
             }
         }
