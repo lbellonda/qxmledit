@@ -496,6 +496,7 @@ void QXmlEditApplication::connectToCommandsPanel(const bool isConnect, GuidedOpe
     bindCommandOperation(isConnect, target, SIGNAL(triggerBase64()), SLOT(onCommandBase64()));
     bindCommandOperation(isConnect, target, SIGNAL(triggerViewXMLMap()), SLOT(onCommandViewXMLMap()));
     bindCommandOperation(isConnect, target, SIGNAL(triggerShowKeyboardInfo(bool)), SLOT(onCommandShowKeyboardInfo(bool)));
+    bindCommandOperation(isConnect, target, SIGNAL(triggerAbout()), SLOT(onCommandAbout()));
     bindCommandOperation(isConnect, target, SIGNAL(openFile(const QString &)), SLOT(onCommandOpenFile(const QString &)));
 }
 

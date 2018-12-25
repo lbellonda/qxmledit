@@ -81,6 +81,7 @@ signals:
     void triggerEditingShortcut();
     void triggerBase64();
     void triggerViewXMLMap();
+    void triggerAbout();
     void triggerShowKeyboardInfo(bool state);
     void openFile(const QString &fullFilePath);
 
@@ -102,6 +103,7 @@ private slots:
     void on_cmdEditingShortcut_clicked();
     void on_cmdBase64_clicked();
     void on_cmdViewDataMap_clicked();
+    void on_cmdAbout_clicked();
     void on_cmdShowKeyboardInfo_toggled();
     void onShortcutOpen();
     void onShortcutNew();

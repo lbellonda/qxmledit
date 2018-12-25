@@ -186,3 +186,8 @@ void QXmlEditApplication::onCommandShowKeyboardInfo(bool state)
         }
     }
 }
+
+void QXmlEditApplication::onCommandAbout()
+{
+    MainWindow::showAbout(_guidedOperationsDialog, _appData);
+}

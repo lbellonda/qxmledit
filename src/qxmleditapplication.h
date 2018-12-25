@@ -135,6 +135,7 @@ private slots:
     void onFocusChanged(QWidget* previous, QWidget* current);
     void onShortcutHidden();
     void onShortcutTypeChanged();
+    void onCommandAbout();
 };
 
 #endif // QXMLEDITAPPLICATION_H

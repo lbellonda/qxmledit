@@ -1341,10 +1341,10 @@ void MainWindow::on_actionPaste_triggered()
     ui.editor->onActionPaste();
 }
 
-void MainWindow::on_actionAbout_triggered()
+void MainWindow::showAbout(QWidget *theParent, ApplicationData *data)
 {
     QList<AuthorInfo*> authors = authorsInfo() ;
-    AboutDialog about(this, data,
+    AboutDialog about(theParent, data,
                       AuthorInfo::appName, AuthorInfo::version, AuthorInfo::copyright,
                       AuthorInfo::license,
                       AuthorInfo::other,
@@ -1352,6 +1352,11 @@ void MainWindow::on_actionAbout_triggered()
     about.setModal(true);
     about.exec() ;
     deleteAuthorsInfo(authors);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    showAbout(this, data);
 }
 
 

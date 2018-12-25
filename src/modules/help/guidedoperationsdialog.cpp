@@ -178,6 +178,11 @@ void GuidedOperationsDialog::on_cmdEditingShortcut_clicked()
     emit triggerEditingShortcut();
 }
 
+void GuidedOperationsDialog::on_cmdAbout_clicked()
+{
+    emit triggerAbout();
+}
+
 void GuidedOperationsDialog::applyUserProfile()
 {
     if(_appData->isUserGuidedOperation()) {

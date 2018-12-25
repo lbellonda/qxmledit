@@ -1,5 +1,6 @@
 0.9.13
     Qt SCXML module made optional.
+    Added link to About Box to start panel.
 
 0.9.12
     Used the right extension in the fragment extraction preview.

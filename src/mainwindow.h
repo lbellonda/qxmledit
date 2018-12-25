@@ -113,6 +113,7 @@ public:
     MainWindow(const bool isAutodelete, const bool isSlave, ApplicationData *data, QMainWindow *parent = 0);
     virtual ~MainWindow();
 
+    static void showAbout(QWidget *theParent, ApplicationData *data);
     static MainWindow *newDynamicTopLevelNewWindow(ApplicationData *data, const bool isRepos = true, const bool isShow = true);
 
     ApplicationData *appData();
