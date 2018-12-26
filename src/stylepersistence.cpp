@@ -192,8 +192,6 @@ bool StylePersistence::collectKeywords(VStyle *style, QDomNodeList &nodes)
                     isOk = false;
                 }
             } else if(RULESET_TAGNAME == element.tagName()) {
-                Utils::TODO_THIS_RELEASE("");
-                Utils::TEST_ME("");
                 style->addRuleSet(collectRuleSet(&element));
             }
         }
