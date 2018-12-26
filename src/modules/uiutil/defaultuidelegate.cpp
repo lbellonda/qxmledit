@@ -29,9 +29,8 @@ extern const char *APP_TITLE ;
 
 DefaultUIDelegate::DefaultUIDelegate()
 {
-    Utils::TODO_THIS_RELEASE("chiarire error count");
     _window = NULL ;
-    _errorCount++;
+    _errorCount = 0 ;
     _errors = 0 ;
     _askCountBeforeLoad = 0 ;
     _askCountAfterLoad = 0 ;

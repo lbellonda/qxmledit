@@ -228,8 +228,6 @@ XSDDefaultAnnotationEditor::EditMode XSDDefaultAnnotationEditor::editSingleAnnot
 {
     XInfoBase *firstAnnotation = _model->firstAnnotation();
     QScopedPointer<XSDSingleCommentDialog> editSingle(singleEditDialog(firstAnnotation));
-    Utils::TEST_ME("");
-    Utils::TODO_THIS_RELEASE("");
     if(editSingle->runExec() == QDialog::Accepted) {
         _hasResult = true ;
         _model->replaceOrAddChild(firstAnnotation, editSingle->createModel());
