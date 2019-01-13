@@ -154,7 +154,6 @@ StyleRuleSet* StylePersistence::collectRuleSet(QDomElement *element)
             if(RULESET_TAGNAME == childElement.tagName()) {
                 rSet->addRule(collectRuleSet(&childElement));
             } else if(RULE_TAGNAME == childElement.tagName()) {
-                Utils::TEST_ME("");
                 rSet->addRule(collectRule(&childElement));
             }
         }
