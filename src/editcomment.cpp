@@ -45,8 +45,7 @@ EditComment::~EditComment()
 void EditComment::on_commentText_textChanged()
 {
     QString comment = ui.commentText->toPlainText();
-    bool isEnabled = true ;
-    isEnabled = !comment.isEmpty();
+    const bool isEnabled = !comment.isEmpty();
     ui.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(isEnabled);
 }
 
