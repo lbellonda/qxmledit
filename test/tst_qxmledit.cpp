@@ -1639,6 +1639,7 @@ void TestQXmlEdit::testNew()
     qInstallMessageHandler(msgHandler);
 #endif
     testXsdView();
+    testFilterAttributes();
 }
 
 QTEST_MAIN(TestQXmlEdit)

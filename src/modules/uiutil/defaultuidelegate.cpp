@@ -30,7 +30,7 @@ extern const char *APP_TITLE ;
 DefaultUIDelegate::DefaultUIDelegate()
 {
     _window = NULL ;
-    _errorCount++;
+    _errorCount = 0 ;
     _errors = 0 ;
     _askCountBeforeLoad = 0 ;
     _askCountAfterLoad = 0 ;

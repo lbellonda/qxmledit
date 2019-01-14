@@ -265,14 +265,10 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
             _isDocumentStandalone = xmlReader.isStandaloneDocument();
             _documentVersion = xmlReader.documentVersion().toString();
             int indent = _indent;
-            if(indent < 0) {
-                indent = 0 ;
-            }
+            // <0 no indent?
             if(indent >= 0) {
                 xmlWriter.setAutoFormatting(true);
-                if(indent >= 0) {
-                    xmlWriter.setAutoFormattingIndent(indent);
-                }
+                xmlWriter.setAutoFormattingIndent(indent);
             } else {
                 xmlWriter.setAutoFormatting(false);
             }

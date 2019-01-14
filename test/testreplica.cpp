@@ -41,6 +41,7 @@
 
 TestReplica::TestReplica()
 {
+    _theCommand = NULL ;
 }
 
 TestReplica::~TestReplica()

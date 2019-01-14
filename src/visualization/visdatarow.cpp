@@ -25,6 +25,7 @@
 
 VisDataRow::VisDataRow()
 {
+    _numColumns = 0 ;
     _columns = NULL ;
 }
 

@@ -24,6 +24,7 @@
 #include "attributefilterdialog.h"
 #include <QTreeWidgetItem>
 #include <QTest>
+#include <QScopedPointer>
 #include "ui_attributeprofilemgmtdialog.h"
 #include "ui_attributefilterdetaildialog.h"
 
@@ -95,34 +96,29 @@ bool TestFilterAttributes::testBaseMethodsDetail()
 {
     QString testName = "testBaseMethodsDetail";
 
-    AttrFilterDetail *detail1 = createDetail("name a", "name");
-    AttrFilterDetail *detail2 = createDetail("name b", "name");
-    AttrFilterDetail *detail3 = createDetail("name b", "");
-    AttrFilterDetail *detail4 = createDetail("name a", "name");
+    const QScopedPointer<AttrFilterDetail> detail1(createDetail("name a", "name"));
+    const QScopedPointer<AttrFilterDetail> detail2(createDetail("name b", "name"));
+    const QScopedPointer<AttrFilterDetail> detail3(createDetail("name b", ""));
+    const QScopedPointer<AttrFilterDetail> detail4(createDetail("name a", "name"));
 
     if( detail1->compareTo(NULL)) {
         return error(testName, "detail compare to null" );
     }
-    if( !detail1->compareTo(detail1)) {
+    if( !detail1->compareTo(detail1.data())) {
         return error(testName, "detail compare same object" );
     }
-    if( detail1->compareTo(detail2)) {
+    if( detail1->compareTo(detail2.data())) {
         return error(testName, "detail compare to same size false" );
     }
     if( detail3->names().size() != 1 ) {
         return error(testName, "detail bad size data." );
     }
-    if( detail1->compareTo(detail3)) {
+    if( detail1->compareTo(detail3.data())) {
         return error(testName, "detail compare to different size" );
     }
-    if( !detail1->compareTo(detail4)) {
+    if( !detail1->compareTo(detail4.data())) {
         return error(testName, "detail compare equals" );
     }
-
-    deleteDetail(detail1);
-    deleteDetail(detail2);
-    deleteDetail(detail3);
-    deleteDetail(detail4);
 
     return true ;
 }
@@ -131,16 +127,16 @@ bool TestFilterAttributes::testBaseMethodsProfile()
 {
     QString testName = "testBaseMethodsProfile";
 
-    AttrFilterProfile *profile1 = createProfile( 1, "name");
-    AttrFilterProfile *profile2 = createProfile( 1, "name");
-    AttrFilterProfile *profile3 = createProfile( 2, "name");
-    AttrFilterProfile *profile4 = createProfile( 1, "name");
-    AttrFilterProfile *profile5 = createProfile( 1, "name");
-    AttrFilterProfile *profile6 = createProfile( 1, "name");
-    AttrFilterProfile *profile7 = createProfile( 1, "name");
-    AttrFilterProfile *profile8 = createProfile( 1, "name");
+    const QScopedPointer<AttrFilterProfile> profile1(createProfile( 1, "name"));
+    const QScopedPointer<AttrFilterProfile> profile2(createProfile( 1, "name"));
+    const QScopedPointer<AttrFilterProfile> profile3(createProfile( 2, "name"));
+    const QScopedPointer<AttrFilterProfile> profile4(createProfile( 1, "name"));
+    const QScopedPointer<AttrFilterProfile> profile5(createProfile( 1, "name"));
+    const QScopedPointer<AttrFilterProfile> profile6(createProfile( 1, "name"));
+    const QScopedPointer<AttrFilterProfile> profile7(createProfile( 1, "name"));
+    const QScopedPointer<AttrFilterProfile> profile8(createProfile( 1, "name"));
 
-    if( !profile1->compareTo(profile1)) {
+    if( !profile1->compareTo(profile1.data())) {
         return error(testName, "profile compare to itself" );
     }
 
@@ -151,57 +147,57 @@ bool TestFilterAttributes::testBaseMethodsProfile()
         return error(testName, "profile compare b to null" );
     }
     //--
-    if( !profile1->compareTo(profile2)) {
+    if( !profile1->compareTo(profile2.data())) {
         return error(testName, "profile compare to equals" );
     }
-    if( !profile1->compareToBase(profile2)) {
+    if( !profile1->compareToBase(profile2.data())) {
         return error(testName, "profile compare b to equals" );
     }
     //--
     profile3->setId(100);
-    if( profile1->compareTo(profile3)) {
+    if( profile1->compareTo(profile3.data())) {
         return error(testName, "profile compare id" );
     }
-    if( profile1->compareToBase(profile3)) {
+    if( profile1->compareToBase(profile3.data())) {
         return error(testName, "profile compare b id" );
     }
     //--
     profile4->setName("x");
-    if( profile1->compareTo(profile4)) {
+    if( profile1->compareTo(profile4.data())) {
         return error(testName, "profile compare name" );
     }
-    if( profile1->compareToBase(profile4)) {
+    if( profile1->compareToBase(profile4.data())) {
         return error(testName, "profile compare b name" );
     }
     //--
     profile5->setDescription("x");
-    if( profile1->compareTo(profile5)) {
+    if( profile1->compareTo(profile5.data())) {
         return error(testName, "profile compare description" );
     }
-    if( profile1->compareToBase(profile5)) {
+    if( profile1->compareToBase(profile5.data())) {
         return error(testName, "profile compare b description" );
     }
     //--
     profile1->setWhiteList(true);
     profile6->setWhiteList(false);
-    if( profile1->compareTo(profile6)) {
+    if( profile1->compareTo(profile6.data())) {
         return error(testName, "profile compare whitelist" );
     }
-    if( profile1->compareToBase(profile6)) {
+    if( profile1->compareToBase(profile6.data())) {
         return error(testName, "profile compare whitelist" );
     }
     //--
     QDateTime dtUpdate;
     dtUpdate.setMSecsSinceEpoch(profile1->updateTime().toMSecsSinceEpoch()+1000);
     profile7->setUpdateTime(dtUpdate);
-    if( profile1->compareTo(profile7)) {
+    if( profile1->compareTo(profile7.data())) {
         return error(testName, "profile compare update time" );
     }
     //--
     QDateTime dtCreation;
     dtCreation.setMSecsSinceEpoch(profile1->creationTime().toMSecsSinceEpoch()+1000);
     profile8->setCreationTime(dtCreation);
-    if( profile1->compareTo(profile8)) {
+    if( profile1->compareTo(profile8.data())) {
         return error(testName, "profile compare creation time" );
     }
     //---
@@ -209,21 +205,12 @@ bool TestFilterAttributes::testBaseMethodsProfile()
     dtCreation.setMSecsSinceEpoch(profile1->creationTime().toMSecsSinceEpoch()+10000);
     profile8->setUpdateTime(dtUpdate);
     profile8->setCreationTime(dtCreation);
-    if( profile1->compareTo(profile8)) {
+    if( profile1->compareTo(profile8.data())) {
         return error(testName, "profile compare times " );
     }
-    if( !profile1->compareToBase(profile8)) {
+    if( !profile1->compareToBase(profile8.data())) {
         return error(testName, "profile compare base time differ" );
     }
-
-    deleteProfile(profile1);
-    deleteProfile(profile2);
-    deleteProfile(profile3);
-    deleteProfile(profile4);
-    deleteProfile(profile5);
-    deleteProfile(profile6);
-    deleteProfile(profile7);
-    deleteProfile(profile8);
 
     return true;
 }

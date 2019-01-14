@@ -64,6 +64,7 @@ const int Constants::StepForCenter = 10 ;
 
 NodesRelationsController::NodesRelationsController(NodesRelationsDialog *newDialog)
 {
+    forceValue = 0 ;
     centerMode = false;
     curOpacity = 1 ;
     lastOpacity = 1 ;

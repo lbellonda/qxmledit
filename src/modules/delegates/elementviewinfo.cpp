@@ -30,6 +30,7 @@ ElementViewInfo::ElementViewInfo()
     _isAnonPreview = false ;
     _origDataForAnonPreview = NULL ;
     _isTextAnon = false;
+    _attrTextInfoIsHtml = false;
 }
 
 ElementViewInfo::~ElementViewInfo()

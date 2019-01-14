@@ -1088,7 +1088,7 @@ class TestEditElements_EditHook : public TextEditorInterface
     friend class TestEditElements;
 };
 
-TestEditElements_EditHook::TestEditElements_EditHook(){parent = NULL;}
+TestEditElements_EditHook::TestEditElements_EditHook(){parent = NULL; regola = NULL ;}
 TestEditElements_EditHook::~TestEditElements_EditHook(){}
 
 bool TestEditElements_EditHook::editTextualForInterface(QWidget *const parentWindow, Element *element)

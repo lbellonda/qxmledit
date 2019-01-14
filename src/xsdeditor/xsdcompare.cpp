@@ -98,6 +98,7 @@ void XSDCompareOptions::setCompareComment(const bool value)
 
 XSDCompare::XSDCompare()
 {
+    _regola = NULL ;
     _window = NULL ;
 }
 

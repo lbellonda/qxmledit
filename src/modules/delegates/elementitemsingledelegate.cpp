@@ -71,10 +71,8 @@ bool ElementItemSingleDelegate::diffColorOverThr(QColor &c1, QColor &c2, const i
     int sg = c2.green();
     int sb = c2.blue();
 
-    volatile double l1 = (int)(0.299 * br + 0.587 * bg + 0.114 * bb);
-    volatile double l2 = (int)(0.299 * sr + 0.587 * sg + 0.114 * sb);
-    l1 = l1;
-    l2 = l2;
+    //volatile double l1 = (int)(0.299 * br + 0.587 * bg + 0.114 * bb);
+    //volatile double l2 = (int)(0.299 * sr + 0.587 * sg + 0.114 * sb);
 
     if((((br - sr) * (br - sr)) >> 1) + (bg - sg) * (bg - sg) + (((bb - sb) * (bb - sb)) >> 3) > threshold) {
         return true;

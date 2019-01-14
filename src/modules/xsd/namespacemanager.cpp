@@ -124,6 +124,7 @@ void NamespaceDef::setUri(const QString &value)
 
 HandlerForInsert::HandlerForInsert()
 {
+    handler = NULL ;
 }
 
 HandlerForInsert::~HandlerForInsert()

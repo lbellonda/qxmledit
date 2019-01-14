@@ -5,6 +5,7 @@ devel
 Branches:
 ---------
 179 - Add About to start panel
+178 - Clean up code
 178 - Fix cppcheck problems
 177 - Refactor config files
 

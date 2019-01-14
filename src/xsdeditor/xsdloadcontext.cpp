@@ -27,6 +27,7 @@
 
 XSDOpError::XSDOpError()
 {
+    _errorCode = XSD_LOAD_GENERICERROR ;
 }
 
 XSDOpError::~XSDOpError()

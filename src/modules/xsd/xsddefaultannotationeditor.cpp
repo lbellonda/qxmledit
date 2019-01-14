@@ -25,6 +25,7 @@
 #include "xsdsinglecommentdialog.h"
 #include "xsdfullannotationsdialog.h"
 #include "xsdeditor/XSchemaIOContants.h"
+#include <QScopedPointer>
 #include "xmlutils.h"
 #include "utils.h"
 
@@ -226,7 +227,7 @@ bool XSDDefaultAnnotationEditor::hasOnlyOneInfo()
 XSDDefaultAnnotationEditor::EditMode XSDDefaultAnnotationEditor::editSingleAnnotation()
 {
     XInfoBase *firstAnnotation = _model->firstAnnotation();
-    XSDSingleCommentDialog *editSingle = singleEditDialog(firstAnnotation);
+    QScopedPointer<XSDSingleCommentDialog> editSingle(singleEditDialog(firstAnnotation));
     if(editSingle->runExec() == QDialog::Accepted) {
         _hasResult = true ;
         _model->replaceOrAddChild(firstAnnotation, editSingle->createModel());
@@ -238,7 +239,6 @@ XSDDefaultAnnotationEditor::EditMode XSDDefaultAnnotationEditor::editSingleAnnot
     } else {
         return End ;
     }
-    delete editSingle;
 }
 
 void XSDDefaultAnnotationEditor::editExtended()

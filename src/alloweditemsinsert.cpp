@@ -28,6 +28,7 @@
 
 AIIAttribute::AIIAttribute()
 {
+    isChecked = false ;
     index = 0 ;
     data = NULL ;
 }

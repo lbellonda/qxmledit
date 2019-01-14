@@ -27,6 +27,7 @@
 
 ElBaseCommand::ElBaseCommand(QTreeWidget *theWidget, Regola *newRegola, Element *element, QList<int> newPath, QUndoCommand *parent) : UndoCommand(theWidget, newRegola, newPath, parent)
 {
+    _firstShot = true ;
     _hilite = false;
     _element = element ;
     _selectParent = false;

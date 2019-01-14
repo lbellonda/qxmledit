@@ -48,27 +48,14 @@
 
 void xsdTest(QXmlEditData *data)
 {
-#ifdef  QML
-    QDeclarativeView view;
-    QDeclarativeContext *context = view.rootContext();
-    context->setContextProperty("backgroundColor", QColor(Qt::yellow));
-    view.setSource(QUrl::fromLocalFile(QDir::homePath() + QString("/devel/qxmledit/xsd/src/resources/test.qml"));
-                   //view.setSource(QUrl("qrc:/data/test.qml"));
-                   view.show();
-#endif
-
-                   XSDWindow xsdEditor(data) ;
-                   //xsdEditor.setWindowModality(Qt::ApplicationModal);
-
-                   QEventLoop eventLoop;
-                   xsdEditor.EVENTLOOP = &eventLoop ;
-                   //xsdEditor.setEventLoop(&eventLoop);
-                   xsdEditor.show();
-                   // occorre gestire event loop inside the window.
+    XSDWindow xsdEditor(data) ;
+    QEventLoop eventLoop;
+    xsdEditor.EVENTLOOP = &eventLoop ;
+    xsdEditor.show();
+    // occorre gestire event loop inside the window.
     if(eventLoop.exec() > 0) {
-    return ;
-}
-return ;
+        return ;
+    }
 }
 
 

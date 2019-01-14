@@ -99,6 +99,7 @@ FindTextParams::FindTextParams()
     mIsShowSize = false ;
     mAttributeName = "" ;
     mIsScoped = false ;
+    mOccurrences = 0 ;
     mUseXQuery = false;
     mIsWrapAround = true ;
     mSelection = NULL ;

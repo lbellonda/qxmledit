@@ -34,7 +34,7 @@ class TestCompareXml : public TestBase
     bool testOptionDenormalizeImpl(const bool isDenormalizeEOL, const bool expectedResult);
     bool testOptionDenormalize();
 
-    bool testWithOptions(const QString &name, const bool expected, const bool isCompareText, const bool isCompareComments, const QString &file2);
+    bool testWithOptions(const QString &name, const bool isCompareText, const bool isCompareComments, const bool expected, const QString &file2);
     bool testWithAllOptions( const QString &name, const bool *expected, const QString &file2);
     bool testWithOptionsConditions();
     bool compareInfoItems(const QString &name, QList<DiffInfo*> &items, QList<DiffInfo*> &compare);
