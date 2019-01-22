@@ -1,16 +1,15 @@
-master
-devel
+master - release branch
+devel - next release features
 
 
 Branches:
 ---------
-179 - Add About to start panel
-178 - Clean up code
-178 - Fix cppcheck problems
 177 - Refactor config files
 
 Merged branches:
 -------------
+179 - Add About to start panel
+178 - Clean up code (cppcheck)
 176 - optional module scxml
 175 - log folder usage
 174 - test

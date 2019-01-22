@@ -1,4 +1,6 @@
 0.9.13
+    Updated template for headers.
+    Cleaned up code as suggested by cppcheck reports.
     Qt SCXML module made optional.
     Added link to About Box to start panel.
 
