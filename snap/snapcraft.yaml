@@ -8,7 +8,7 @@ description: |
 grade: stable
 confinement: strict
 
-icon: images/qxmledit.svg
+icon: src/images/icon.svg
 architectures:
   - build-on: amd64
   - build-on: i386
