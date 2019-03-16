@@ -1,0 +1,85 @@
+name: qxmledit
+version: latest
+version-script: git -C parts/qxmledit/src describe --always --dirty --tags
+summary: QXmlEdit is a simple XML editor based on Qt libraries.
+description: |
+  QXmlEdit is a simple XML editor based on Qt libraries. Its main features are unusual data visualization modes, nice XML manipulation and presentation and it is multi platform. It can split very big XML files into fragments, and compare XML and XSD files. It was born on Google code (https://code.google.com/p/qxmledit).
+
+grade: stable
+confinement: strict
+
+icon: src/images/icon.svg
+architectures:
+  - build-on: amd64
+  - build-on: i386
+  - build-on: arm64
+  - build-on: ppc64el
+  - build-on: s390x
+
+  # armhf Not currently buildable due to the following bug:
+  # https://github.com/KhronosGroup/OpenGL-Registry/issues/162
+  #- build-on: armhf
+apps:
+  qxmledit:
+    command: desktop-launch $SNAP/bin/qxmledit
+    desktop: share/${SNAPCRAFT_PROJECT_NAME}/QXmlEdit.desktop
+    plugs:
+      - desktop
+      - desktop-legacy
+      - wayland
+      - unity7
+      - opengl
+      - home
+      - removable-media
+      - network
+
+parts:
+  qxmledit:
+    plugin: qmake
+    qt-version: qt5
+    options:
+      - CONFIG+=release
+      - QXMLEDIT_INST_DIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/bin
+      - QXMLEDIT_INST_DATA_DIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/share/$SNAPCRAFT_PROJECT_NAME
+      - QXMLEDIT_INST_DOC_DIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/share/$SNAPCRAFT_PROJECT_NAME/doc
+      - QXMLEDIT_INST_LIB_DIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/lib
+      - QXMLEDIT_INST_INCLUDE_DIR=/snap/$SNAPCRAFT_PROJECT_NAME/current/share/$SNAPCRAFT_PROJECT_NAME/include
+    source: https://github.com/lbellonda/qxmledit.git
+    source-depth: 50
+    build-packages:
+      - build-essential
+      - libgl1-mesa-dev
+      - mesa-common-dev
+      - qttools5-dev-tools
+      - qtdeclarative5-dev
+      - libqt5svg5-dev
+      - libqt5xmlpatterns5-dev
+      - libqwtplot3d-qt5-dev
+      - libqt5opengl5-dev
+    override-build: |
+      snapcraftctl build
+      sed -i 's|Icon=qxmledit|Icon=\${SNAP}/meta/gui/icon.svg|' "${SNAPCRAFT_PART_INSTALL}"/snap/"${SNAPCRAFT_PROJECT_NAME}"/current/share/"${SNAPCRAFT_PROJECT_NAME}"/QXmlEdit.desktop
+    stage-packages:
+      - libqt5svg5
+      - libqt5xmlpatterns5
+      - libqt5sql5-sqlite
+      - libqt5sql5-mysql
+      - libglu1-mesa
+      - libqt5opengl5
+      - libqt5printsupport5
+      - libqt5xml5
+      - libqwtplot3d-qt5-0
+      - libgcc1
+      - libqt5core5a
+      - libqt5gui5
+      - libqt5widgets5
+      - libstdc++6
+      - zlib1g
+    filesets:
+      exclude-x11-locales:
+      - -usr/share/x11/locale/*
+      exclude-changelogs:
+      - -usr/share/doc/*/changelog*
+    organize:
+      snap/$SNAPCRAFT_PROJECT_NAME/current: /
+  desktop-qt5:
