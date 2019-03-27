@@ -115,9 +115,13 @@ Projects
 Main project: QXmlEdit.pro
 Unit tests: test/test.pro
 Test to use the XML editor as a library: testlib/testlib.pro
-Alternative project to compile QXmlEdit as a monolitic app: singleapp/singleapp.pro (Note: this project is not supported, it is intended for development).
+Alternative project to compile QXmlEdit as a monolithic app: singleapp/singleapp.pro (Note: this project is not supported, it is intended for development).
 
 Other info
 ----------
 Site: http://qxmledit.org
 
+Snapcraft
+---------
+A build file for Snapcraft packaging, courtesy of the package maintainer, is in the "install_scripts" folder.
+Please note that QXmlEdit team has not any direct relationship with Snapcraft.

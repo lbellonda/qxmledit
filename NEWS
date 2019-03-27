@@ -1,4 +1,5 @@
 0.9.13
+    Added Snapcraft file.
     Updated template for headers.
     Cleaned up code as suggested by cppcheck reports.
     Qt SCXML module made optional.
