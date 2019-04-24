@@ -4,12 +4,12 @@ devel - next release features
 
 Branches:
 ---------
-177 - Refactor config files
 
 Merged branches:
 -------------
 179 - Add About to start panel
 178 - Clean up code (cppcheck)
+177 - Refactor config files
 176 - optional module scxml
 175 - log folder usage
 174 - test
