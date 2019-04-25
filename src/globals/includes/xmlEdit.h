@@ -35,7 +35,7 @@
 // 0: snapshot
 // 1: rc
 // 2: release
-#define QXMLEDIT_RELEASE_VERSION    2
+#define QXMLEDIT_RELEASE_VERSION    1
 
 #if QXMLEDIT_RELEASE_VERSION  ==  0
 #define QXMLEDIT_VERSION_IS_SNAPSHOT 1
