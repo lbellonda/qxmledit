@@ -85,8 +85,6 @@ bool AnonymizeBatch::operation()
         return error();
     }
     AnonOperationBatch operation;
-    Utils::TODO_THIS_RELEASE("non va");
-    operation.setIndent(_data->xmlIndent());
     AnonContext context(NULL, "");
     context.setAlg(profile->params());
     context.setProfile(profile->clone());

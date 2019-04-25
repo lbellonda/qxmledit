@@ -44,7 +44,6 @@ AnonimyzeBatchDialog::AnonimyzeBatchDialog(QXmlEditData *theData, QWidget *paren
     _aborted = false ;
     ui->setupUi(this);
     ui->lblOperation->setText("");
-    _operation.setIndent(theData->xmlIndent());
     setupFolders();
     enableOk();
 }
