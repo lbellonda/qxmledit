@@ -86,16 +86,6 @@ AnonOperationResult::ECode AnonOperationResult::code()  const
 
 //--------------------------------------------------------------
 
-int AnonOperationBatch::getIndent() const
-{
-    return _indent;
-}
-
-void AnonOperationBatch::setIndent(int value)
-{
-    _indent = value;
-}
-
 AnonOperationBatch::AnonOperationBatch(QObject *parent) :
     QObject(parent)
 {
@@ -103,7 +93,6 @@ AnonOperationBatch::AnonOperationBatch(QObject *parent) :
     _isDocumentStandalone = false;
     isAborted = false ;
     _counterOperations = 0 ;
-    _indent = 0;
 }
 
 AnonOperationBatch::~AnonOperationBatch()
@@ -264,14 +253,6 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
             _documentEncoding = xmlReader.documentEncoding().toString();
             _isDocumentStandalone = xmlReader.isStandaloneDocument();
             _documentVersion = xmlReader.documentVersion().toString();
-            int indent = _indent;
-            // <0 no indent?
-            if(indent >= 0) {
-                xmlWriter.setAutoFormatting(true);
-                xmlWriter.setAutoFormattingIndent(indent);
-            } else {
-                xmlWriter.setAutoFormatting(false);
-            }
             if(!_documentEncoding.isEmpty()) {
                 xmlWriter.setCodec(_documentEncoding.toLatin1().data());
             }

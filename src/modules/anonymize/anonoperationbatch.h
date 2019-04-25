@@ -89,7 +89,6 @@ class LIBQXMLEDITSHARED_EXPORT AnonOperationBatch : public QObject, public AnonO
     volatile bool isAborted ;
     QMutex _mutex;
     volatile int _counterOperations;
-    int _indent;
     AnonOperationBatchOutputFileProvider *_outProvider;
 public:
     explicit AnonOperationBatch(QObject *parent = 0);
