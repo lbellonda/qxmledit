@@ -7,6 +7,7 @@ Branches:
 
 Merged branches:
 -------------
+190 - Remove unused properties.
 179 - Add About to start panel
 178 - Clean up code (cppcheck)
 177 - Refactor config files
