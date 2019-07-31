@@ -4,6 +4,9 @@ devel - next release features
 
 Branches:
 ---------
+194 - issue #63 Invalid appdata metainfo file
+193 - issue #62 Build fails with Qt 5.13
+192 - Improve text editing.
 191 - XMLTransforms: apply transformations while processing
 
 Merged branches:
