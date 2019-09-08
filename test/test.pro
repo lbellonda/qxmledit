@@ -126,6 +126,7 @@ equals(INST_AVOID_PRECOMP_HEADERS, "") {
 
 QMAKE_CXXFLAGS += -Wall
 QMAKE_CXXFLAGS +=-Werror
+QMAKE_CXXFLAGS += -Wno-deprecated-declarations
 
 TARGET = qxmledittest
 CONFIG   += console

@@ -98,6 +98,7 @@ win32-msvc2010 {
 } else {
     QMAKE_CXXFLAGS += -Wall
     QMAKE_CXXFLAGS +=-Werror
+    QMAKE_CXXFLAGS += -Wno-deprecated-declarations
 }
 
 lessThan(QT_MAJOR_VERSION, 5) {

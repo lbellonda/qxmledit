@@ -76,7 +76,7 @@ win32-msvc2010 {
 } else {
     QMAKE_CXXFLAGS += -Wall
     QMAKE_CXXFLAGS +=-Werror
-    #QMAKE_CXXFLAGS += -Winvalid-pch
+    QMAKE_CXXFLAGS += -Wno-deprecated-declarations
 }
 
 equals(INST_USE_C11, "y") {
