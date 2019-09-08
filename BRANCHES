@@ -4,6 +4,7 @@ devel - next release features
 
 Branches:
 ---------
+195 - Refactor .pro files and create option to not transform warning in errors.
 192 - Improve text editing.
 191 - XMLTransforms: apply transformations while processing
 
