@@ -69,18 +69,8 @@ win32 {
 }
 }
 
-lessThan(QT_MAJOR_VERSION, 5) {
-    QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
-}
 
-macx:QMAKE_CXXFLAGS += -Wno-deprecated-declarations
-
-QMAKE_CXXFLAGS +=-Werror
-QMAKE_CXXFLAGS +=-Wall
-
-equals(INST_USE_C11, "y") {
- QMAKE_CXXFLAGS +=-std=c++11
-}
+include(../src/coptions.pri)
 
 TARGET = QXmlEdit
 
@@ -169,7 +159,7 @@ unix:INSTALLS += styles
 unix:INSTALLS += manual
 unix:INSTALLS += desktopInfo
 
-include(singleapp.pri)
+include("../src/allsources.pri")
 
 equals(USE_QWTPLOT, "Y") {
 

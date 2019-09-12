@@ -26,62 +26,8 @@
 
 ###########################################
 
-INST_AVOID_PRECOMP_HEADERS=$$(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS)
-isEmpty(QXMLEDIT_INST_AVOID_PRECOMP_HEADERS) {
-    INST_AVOID_PRECOMP_HEADERS=$$QXMLEDIT_INST_AVOID_PRECOMP_HEADERS
-}
-isEmpty(INST_AVOID_PRECOMP_HEADERS) {
-    INST_AVOID_PRECOMP_HEADERS = ""
-    message("Precompiled headers activated")
-}
-!isEmpty(INST_AVOID_PRECOMP_HEADERS) {
-    message("Precompiled headers disabled")
-}
+include(../src/coptions.pri)
 
-###########################################
-
-INST_USE_C11=$$(QXMLEDIT_INST_USE_C11)
-!isEmpty(QXMLEDIT_INST_USE_C11) {
-    INST_USE_C11=$$QXMLEDIT_INST_USE_C11
-}
-isEmpty(INST_USE_C11) {
-    INST_USE_C11 = ""
-    message("No C11 support")
-}
-!isEmpty(INST_USE_C11) {
-    message("C11 support")
-}
-
-###########################################
-
-ENABLE_SCXML="N"
-greaterThan(QT_MAJOR_VERSION, 4) {
-    equals(QT_MAJOR_VERSION, 5) {
-        greaterThan(QT_MINOR_VERSION, 6) {
-            ENABLE_SCXML="Y"
-        }
-    }
-    greaterThan(QT_MAJOR_VERSION, 5) {
-        ENABLE_SCXML="Y"
-    }
-}
-
-DISABLE_SCXML=$$(QXMLEDIT_DISABLE_SCXML)
-!isEmpty(DISABLE_SCXML) {
-    ENABLE_SCXML="N"
-}
-!isEmpty(QXMLEDIT_DISABLE_SCXML) {
-    ENABLE_SCXML="N"
-}
-
-isEqual(ENABLE_SCXML, "Y") {
-    DEFINES += "QXMLEDIT_QT_SCXML_ENABLED"
-    message("SCXML enabled")
-}
-
-!isEqual(ENABLE_SCXML, "Y") {
-    message("SCXML disabled")
-}
 ##############################################3
 
 # This is necessary to build the test executable as an app
@@ -112,29 +58,16 @@ win32 {
 }
 }
 
-lessThan(QT_MAJOR_VERSION, 5) {
-    QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
-}
-
-
-QMAKE_CXXFLAGS +=-Werror=format-security
+include(../src/coptions.pri)
 
 equals(INST_AVOID_PRECOMP_HEADERS, "") {
  CONFIG += precompile_header
  PRECOMPILED_HEADER  = ../src/precompiled_app.h
 }
 
-QMAKE_CXXFLAGS += -Wall
-QMAKE_CXXFLAGS +=-Werror
-QMAKE_CXXFLAGS += -Wno-deprecated-declarations
-
 TARGET = qxmledittest
 CONFIG   += console
 CONFIG   -= app_bundle
-
-equals(INST_USE_C11, "y") {
- QMAKE_CXXFLAGS +=-std=c++11
-}
 
 TEMPLATE = app
 DESTDIR = ../build
@@ -255,7 +188,7 @@ RCC_DIR = ../build/test/rcc
 
 INCLUDEPATH += ../src
 
-include(test.pri)
+include("../src/allsources.pri")
 
 HEADERS += \
     comparexml.h \

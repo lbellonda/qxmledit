@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2018 by Luca Bellonda and individual contributors       *
+# *  Copyright (C) 2018-2019 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -219,5 +219,19 @@ LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
     LIB_VERSIONED=$$QXMLEDIT_VERSIONED
 }
 message("LIB_VERSIONED $$LIB_VERSIONED")
+
+###########################################
+
+INST_DISABLE_COMPILE_WARNINGS=$$(QXMLEDIT_INST_DISABLE_COMPILE_WARNINGS)
+!isEmpty(QXMLEDIT_INST_DISABLE_COMPILE_WARNINGS) {
+    INST_DISABLE_COMPILE_WARNINGS=$$QXMLEDIT_INST_DISABLE_COMPILE_WARNINGS
+}
+isEmpty(INST_DISABLE_COMPILE_WARNINGS) {
+    INST_DISABLE_COMPILE_WARNINGS = ""
+    message("Compiler warnings enabled")
+}
+!isEmpty(INST_DISABLE_COMPILE_WARNINGS) {
+    message("Compiler warnings disabled")
+}
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################

@@ -93,23 +93,7 @@ equals(TARGET_NAME_UNIXSTYLE, "1") {
     TARGET = qxmledit
 }
 
-win32-msvc2010 {
-
-} else {
-    QMAKE_CXXFLAGS += -Wall
-    QMAKE_CXXFLAGS +=-Werror
-    QMAKE_CXXFLAGS += -Wno-deprecated-declarations
-}
-
-lessThan(QT_MAJOR_VERSION, 5) {
-    QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
-}
-
-equals(INST_USE_C11, "y") {
- QMAKE_CXXFLAGS +=-std=c++11
-}
-
-macx:QMAKE_CXXFLAGS += -Wno-deprecated-declarations
+include(../src/coptions.pri)
 
 # TODO data files not installed
 # DATADIR = $$PREFIX/share/qxmledit

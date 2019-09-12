@@ -70,26 +70,7 @@ win32 {
 }
 }
 
-
-win32-msvc2010 {
-
-} else {
-    QMAKE_CXXFLAGS += -Wall
-    QMAKE_CXXFLAGS +=-Werror
-    QMAKE_CXXFLAGS += -Wno-deprecated-declarations
-}
-
-equals(INST_USE_C11, "y") {
- QMAKE_CXXFLAGS +=-std=c++11
-}
-
-lessThan(QT_MAJOR_VERSION, 5) {
-    QMAKE_CXXFLAGS +=-Wno-unused-local-typedefs
-}
-
-macx:QMAKE_CXXFLAGS += -Wno-deprecated-declarations
-
-#CONFIG += release
+include(../src/coptions.pri)
 
 INCLUDEPATH += .
 INCLUDEPATH += $$PWD/globals/includes
