@@ -1,4 +1,5 @@
 0.9.14
+    Refactored project files for common options and create option to avoid transform warning in errors.
     Issue #62, build fails with Qt 5.13.
     Issue #63, updated appdata metainfo file.
 

@@ -4,12 +4,12 @@ devel - next release features
 
 Branches:
 ---------
-195 - Refactor .pro files and create option to not transform warning in errors.
 192 - Improve text editing.
 191 - XMLTransforms: apply transformations while processing
 
 Merged branches:
 -------------
+195 - Refactor .pro files and create option to avoid transform warning in errors.
 194 - issue #63 Invalid appdata metainfo file
 193 - issue #62 Build fails with Qt 5.13
 190 - Remove unused properties.
