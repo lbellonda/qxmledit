@@ -2512,7 +2512,7 @@
   </action>
   <action name="actionInsertDisablingParent">
    <property name="text">
-    <string>Insetrt Disabled Parent for XSLT</string>
+    <string>Insert Disabled Parent for XSLT</string>
    </property>
    <property name="toolTip">
     <string>Insert a parent that is skipped from XSLT execution, yet valid.</string>

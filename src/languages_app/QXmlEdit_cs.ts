@@ -6717,7 +6717,7 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2515"/>
-        <source>Insetrt Disabled Parent for XSLT</source>
+        <source>Insert Disabled Parent for XSLT</source>
         <translation>Vložit vypnutého rodiče pro XSLT</translation>
     </message>
     <message>
