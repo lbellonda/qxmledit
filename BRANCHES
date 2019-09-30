@@ -4,12 +4,12 @@ devel - next release features
 
 Branches:
 ---------
-196 - Test XML without loading it.
 192 - Improve text editing.
 191 - XMLTransforms: apply transformations while processing
 
 Merged branches:
 -------------
+196 - Test XML without loading it.
 195 - Refactor .pro files and create option to avoid transform warning in errors.
 194 - issue #63 Invalid appdata metainfo file
 193 - issue #62 Build fails with Qt 5.13
