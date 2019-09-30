@@ -69,6 +69,13 @@ void XMLLoadContext::setErrorMessage(const QString &errorMessage)
     _errorMessage = errorMessage;
 }
 
+bool XMLLoadContext::setErrorWithMessage(const QString &theErrorMessage)
+{
+    setIsError(true);
+    setErrorMessage(theErrorMessage);
+    return false;
+}
+
 void XMLLoadContext::copyErrorData(QXmlStreamReader *xmlReader)
 {
     setErrorPosition(xmlReader->lineNumber(), xmlReader->columnNumber(), xmlReader->characterOffset());

@@ -3958,3 +3958,9 @@ void MainWindow::on_actionEditAsText_triggered()
 {
     ui.editor->editSelectionAsText();
 }
+
+void MainWindow::on_actionTestXML_triggered()
+{
+    _controller.testXML();
+}
+

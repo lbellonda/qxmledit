@@ -262,3 +262,4 @@ bool MainWindow::showErrorAndAskUserIfContinue(QWidget * /*parent*/, XMLLoadCont
     }
     return false;
 }
+

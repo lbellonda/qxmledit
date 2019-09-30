@@ -104,6 +104,7 @@
 #include "testformattinginfo.h"
 #include "teststartupandbehavior.h"
 #include "testhelp.h"
+#include "testtestxmlfile.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -217,6 +218,7 @@ private Q_SLOTS:
     void testFormattingInfo();
     void testStartupAndBehavior();
     void testHelp();
+    void testTestXMLFile();
 };
 
 

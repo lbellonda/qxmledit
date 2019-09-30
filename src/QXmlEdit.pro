@@ -126,6 +126,7 @@ HEADERS = precompiled_app.h \
     snippet_interface.h \
     test.h \
     paths.h \
+    xmltest.h \
     xsaxhandler.h \
     searchinfiles.h \
     scansax.h \
@@ -335,7 +336,8 @@ SOURCES = \
     modules/utils/animationutility.cpp \
     widgets/infooneditmode.cpp \
     modules/help/searchcommanddialog.cpp \
-    widgets/shortcutinfo.cpp
+    widgets/shortcutinfo.cpp \
+    xmltest.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \

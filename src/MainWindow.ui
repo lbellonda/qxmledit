@@ -404,6 +404,7 @@
     <addaction name="actionBinaryViewer"/>
     <addaction name="actionCodePages"/>
     <addaction name="actionXSLExecutor"/>
+    <addaction name="actionTestXML"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -2591,6 +2592,14 @@
     <string>Edit the current element in textual form.</string>
    </property>
   </action>
+  <action name="actionTestXML">
+   <property name="text">
+    <string>Test XML</string>
+   </property>
+   <property name="toolTip">
+    <string>Test a XML file.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -2613,7 +2622,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

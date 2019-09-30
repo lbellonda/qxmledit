@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- this is a sample QXmlEdit data file -->
+<data>
+
+<keywords>
+ <resource id="1"/>
+ <widget class="1"/><
+ <class id="1" buildId="22" />
+ <layout name="Albert"/>
+ <window id="2"/>
+ <other  id="1"/>
+</keywords>
+
+</data>

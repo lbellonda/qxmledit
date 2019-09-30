@@ -52,6 +52,7 @@
 #ifdef QXMLEDIT_QT_SCXML_ENABLED
 #include <QtScxml/QScxmlStateMachine>
 #endif
+#include "xmltest.h"
 //----------
 ReplicaInfoProvider::ReplicaInfoProvider() {}
 ReplicaInfoProvider::~ReplicaInfoProvider() {}
@@ -418,3 +419,17 @@ bool MainWndController::checkSCXML()
     return returnValue ;
 #endif
 }
+
+void MainWndController::testXML()
+{
+    XMLTest testXML;
+    QString filePath = QFileDialog::getOpenFileName(
+                           _w, tr("Open File"),
+                           QXmlEditData::sysFilePathForOperation(""),
+                           Utils::getFileFilterForOpenFile()
+                       );
+    if(!filePath.isEmpty()) {
+        testXML.testXMLFile(_w->uiDelegate, filePath);
+    }
+}
+

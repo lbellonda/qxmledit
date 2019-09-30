@@ -4,6 +4,7 @@ devel - next release features
 
 Branches:
 ---------
+196 - Test XML without loading it.
 192 - Improve text editing.
 191 - XMLTransforms: apply transformations while processing
 

@@ -422,6 +422,7 @@ private slots:
     void on_actionSearchCommand_triggered();
     void on_actionShowKeyboardShortcuts_triggered();
     void on_actionEditAsText_triggered();
+    void on_actionTestXML_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);

@@ -84,6 +84,7 @@ public:
     bool checkSCXML();
     void sourceDecode(QBuffer *dataStream, QList<SourceMessage*> &errors, Regola *regola);
     QBuffer* getDataForSourceDecode();
+    void testXML();
 
 signals:
 

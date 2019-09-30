@@ -50,6 +50,7 @@ public:
     void setIsError(bool isError);
     QString errorMessage() const;
     void setErrorMessage(const QString &errorMessage);
+    bool setErrorWithMessage(const QString &errorMessage);
     void copyErrorData(QXmlStreamReader *xmlReader);
     /*!
      * \brief setError sets the error with the specified message and return false to chaing this method in a return

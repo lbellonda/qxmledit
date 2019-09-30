@@ -75,6 +75,7 @@ DESTDIR = ../build
 SOURCES += \
     searchInFilesLogic.cpp \
     comparexml.cpp \
+    testtestxmlfile.cpp \
     tst_qxmledit.cpp \
     testcomment.cpp \
     testxsd.cpp \
@@ -193,6 +194,7 @@ include("../src/allsources.pri")
 HEADERS += \
     comparexml.h \
     testcomment.h \
+    testtestxmlfile.h \
     testxsd.h \
     testpaste.h \
     testsplit.h \
