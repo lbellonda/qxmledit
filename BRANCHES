@@ -4,6 +4,7 @@ devel - next release features
 
 Branches:
 ---------
+197 - Problem double search.
 192 - Improve text editing.
 191 - XMLTransforms: apply transformations while processing
 
