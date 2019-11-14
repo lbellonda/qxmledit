@@ -203,6 +203,22 @@ p, li { white-space: pre-wrap; }
         <source>User Manual</source>
         <translation>Uživatelská příručka</translation>
     </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="115"/>
+        <location filename="../aboutdialog.cpp" line="117"/>
+        <source>Qt SCXML Module</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="115"/>
+        <source>enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../aboutdialog.cpp" line="117"/>
+        <source>disaabled</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AllowedItemsInsert</name>
@@ -840,7 +856,7 @@ Jen první pole (XPath) je povinné.</translation>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="187"/>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="200"/>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="75"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="74"/>
         <source>Browse...</source>
         <translation>Procházet...</translation>
     </message>
@@ -865,62 +881,62 @@ Jen první pole (XPath) je povinné.</translation>
         <translation>Zdrojový soubor:</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="127"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="126"/>
         <source>Source File to Anonymize</source>
         <translation>Zdrojový soubor k anonymizaci</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="136"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="135"/>
         <source>New Anonymized File</source>
         <translation>Nový anonymizovaný soubor</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="162"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="161"/>
         <source>Select an input file</source>
         <translation>Vybrat vstupní soubor</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="165"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="164"/>
         <source>Select an output file</source>
         <translation>Vybrat výstupní soubor</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="168"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="167"/>
         <source>Select a profile</source>
         <translation>Vybrat profil</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="185"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="184"/>
         <source>Unable to parse the profile data.</source>
         <translation>Nelze zpracovat data profilu.</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="221"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="216"/>
         <source>Unable to load the new profile</source>
         <translation>Nelze nahrát nový profil</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="298"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="293"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="339"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="334"/>
         <source>Aborting...</source>
         <translation>Ruší se...</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="310"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="305"/>
         <source>User abort requested.</source>
         <translation>Uživatelem požadováno přerušení.</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="314"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="309"/>
         <source>Error: %1, &apos;%2&apos;</source>
         <translation>Chyba: %1, &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="316"/>
+        <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="311"/>
         <source>Operation terminated.
 Do you want to show the result folder in the browser?</source>
         <translation>Operace ukončena.
@@ -4910,17 +4926,22 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
         <translation>Ukázat klávesové zkratky</translation>
     </message>
     <message>
-        <location filename="../modules/help/guidedoperationsdialog.ui" line="783"/>
+        <location filename="../modules/help/guidedoperationsdialog.ui" line="758"/>
+        <source>About QXmlEdit</source>
+        <translation type="unfinished">O QXmlEdit</translation>
+    </message>
+    <message>
+        <location filename="../modules/help/guidedoperationsdialog.ui" line="813"/>
         <source>Close this window.</source>
         <translation>Zavřít toto okno.</translation>
     </message>
     <message>
-        <location filename="../modules/help/guidedoperationsdialog.ui" line="815"/>
+        <location filename="../modules/help/guidedoperationsdialog.ui" line="845"/>
         <source>Quit application.</source>
         <translation>Ukončit program.</translation>
     </message>
     <message>
-        <location filename="../modules/help/guidedoperationsdialog.ui" line="818"/>
+        <location filename="../modules/help/guidedoperationsdialog.ui" line="848"/>
         <source>QUIT</source>
         <translation>Ukončit</translation>
     </message>
@@ -4940,12 +4961,12 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
         <translation>Opravdu změnit profil?</translation>
     </message>
     <message>
-        <location filename="../modules/help/guidedoperationsdialog.cpp" line="185"/>
+        <location filename="../modules/help/guidedoperationsdialog.cpp" line="190"/>
         <source>Expert User</source>
         <translation>Zkušený uživatel</translation>
     </message>
     <message>
-        <location filename="../modules/help/guidedoperationsdialog.cpp" line="188"/>
+        <location filename="../modules/help/guidedoperationsdialog.cpp" line="193"/>
         <source>Guided User</source>
         <translation>Vedený uživatel</translation>
     </message>
@@ -6951,7 +6972,7 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1792"/>
-        <location filename="../mainwindow.cpp" line="3104"/>
+        <location filename="../mainwindow.cpp" line="3109"/>
         <source>Read Only</source>
         <translation>Pouze pro čtení</translation>
     </message>
@@ -7907,12 +7928,12 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     <message>
         <location filename="../MainWindow.ui" line="519"/>
         <location filename="../mainwindow.cpp" line="837"/>
-        <location filename="../mainwindow.cpp" line="2331"/>
+        <location filename="../mainwindow.cpp" line="2336"/>
         <source>XSLT</source>
         <translation>XSLT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2262"/>
+        <location filename="../mainwindow.cpp" line="2267"/>
         <source>Abandon changes?</source>
         <translation>Opustit změny?</translation>
     </message>
@@ -8027,8 +8048,8 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1118"/>
-        <location filename="../mainwindow.cpp" line="1805"/>
-        <location filename="../mainwindow.cpp" line="2045"/>
+        <location filename="../mainwindow.cpp" line="1810"/>
+        <location filename="../mainwindow.cpp" line="2050"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
@@ -8039,7 +8060,7 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     <message>
         <location filename="../mainwindow.cpp" line="1164"/>
         <location filename="../mainwindow.cpp" line="1200"/>
-        <location filename="../mainwindow.cpp" line="3484"/>
+        <location filename="../mainwindow.cpp" line="3489"/>
         <source>No data to save.</source>
         <translation>Žádná data k uložení.</translation>
     </message>
@@ -8064,102 +8085,102 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
         <translation>Soubor uložen</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1874"/>
+        <location filename="../mainwindow.cpp" line="1879"/>
         <source>Error opening folder.</source>
         <translation>Chyba při otevírání složky.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1877"/>
+        <location filename="../mainwindow.cpp" line="1882"/>
         <source>The folder does not exists</source>
         <translation>Složka neexistuje</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2125"/>
+        <location filename="../mainwindow.cpp" line="2130"/>
         <source>Unable to parse XML, file =&apos;%1&apos;, at line:%3, column:%4, cause: &apos;%2&apos; </source>
         <translation>Nelze zpracovat XML, soubor =&apos;%1&apos;, na řádku:%3, sloupec:%4, příčina: &apos;%2&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2160"/>
+        <location filename="../mainwindow.cpp" line="2165"/>
         <source>Data loaded with errors.</source>
         <translation>Data nahrána s chybami.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2167"/>
+        <location filename="../mainwindow.cpp" line="2172"/>
         <source>Unable to get data.</source>
         <translation>Nelze získat data.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2328"/>
+        <location filename="../mainwindow.cpp" line="2333"/>
         <source>XML</source>
         <translation>XML</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2334"/>
+        <location filename="../mainwindow.cpp" line="2339"/>
         <source>SCXML</source>
         <translation>SCXML</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2337"/>
+        <location filename="../mainwindow.cpp" line="2342"/>
         <source>unknown</source>
         <translation>Neznámý</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2340"/>
+        <location filename="../mainwindow.cpp" line="2345"/>
         <source>mode: %1</source>
         <translation>Režim: %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2616"/>
+        <location filename="../mainwindow.cpp" line="2621"/>
         <source>Error activating sessions.</source>
         <translation>Chyba při zapínání sezení.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2749"/>
+        <location filename="../mainwindow.cpp" line="2754"/>
         <source>Error opening a new window.</source>
         <translation>Chyba při otevírání nového okna.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2823"/>
+        <location filename="../mainwindow.cpp" line="2828"/>
         <source>Save the Temporary Profile</source>
         <translation>Uložit dočasný profil</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2823"/>
+        <location filename="../mainwindow.cpp" line="2828"/>
         <source>Profile name:</source>
         <translation>Název profilu:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2841"/>
+        <location filename="../mainwindow.cpp" line="2846"/>
         <source>Filter saved.</source>
         <translation>Filtr uložen.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2843"/>
+        <location filename="../mainwindow.cpp" line="2848"/>
         <source>Error saving the filter.</source>
         <translation>Chyba při ukládání filtru.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3114"/>
+        <location filename="../mainwindow.cpp" line="3119"/>
         <source>Read Only. Reactivable using Edit menu or by double click.</source>
         <translation>Pouze pro čtení. Dá se znovu zapnout pomocí nabídky Upravit nebo dvojitým klepnutím.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3116"/>
+        <location filename="../mainwindow.cpp" line="3121"/>
         <source>Double click to change.</source>
         <translation>Dvakrát klepněte, chcete-li změnit.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3493"/>
+        <location filename="../mainwindow.cpp" line="3498"/>
         <source>Error exporting data.</source>
         <translation>Chyba při vyvádění dat.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3496"/>
+        <location filename="../mainwindow.cpp" line="3501"/>
         <source>Data exported</source>
         <translation>Data vyvedena</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3605"/>
+        <location filename="../mainwindow.cpp" line="3610"/>
         <source>QXmlEdit detected that current encoding can lead to a malformed file.
 Do you want to save it using DOM method?
 Warning: DOM does not support attribute alignment and DTD management.</source>
@@ -8168,7 +8189,7 @@ Chcete jej uložit pomocí postupu (metody) DOM?
 Varování: DOM nepodporuje zarovnání vlastností a správu DTD.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3690"/>
+        <location filename="../mainwindow.cpp" line="3695"/>
         <source>SCXML validation is available only with Qt starting from 5.7.</source>
         <translation>Zkouška SCXML je dostupná až od verze Qt 5.7 včetně.</translation>
     </message>
@@ -8183,8 +8204,8 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Název zdroje je prázdný. Nelze jej nahrát.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3106"/>
-        <location filename="../mainwindow.cpp" line="3116"/>
+        <location filename="../mainwindow.cpp" line="3111"/>
+        <location filename="../mainwindow.cpp" line="3121"/>
         <source>Modifiable</source>
         <translation>Upravitelný</translation>
     </message>
@@ -8193,43 +8214,43 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Pouze pro čtení. Dá se znovu zapnout pomocí nabídky Upravit.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3165"/>
-        <location filename="../mainwindow.cpp" line="3178"/>
+        <location filename="../mainwindow.cpp" line="3170"/>
+        <location filename="../mainwindow.cpp" line="3183"/>
         <source>Export Data as Java/Javascript</source>
         <translation>Vyvést data jako Java/JavaScript</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3239"/>
+        <location filename="../mainwindow.cpp" line="3244"/>
         <source>No codec for the required encoding</source>
         <translation>Žádný kodek pro vybrané kódování</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3249"/>
+        <location filename="../mainwindow.cpp" line="3254"/>
         <source>Validate using internal XML Schema references.</source>
         <translation>Potvrdit platnost za použití vnitřních odkazů schématu XML.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3251"/>
+        <location filename="../mainwindow.cpp" line="3256"/>
         <source>Validate using XML Schema:&apos;%1&apos;</source>
         <translation>Potvrdit platnost za použití schématu XML: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3264"/>
+        <location filename="../mainwindow.cpp" line="3269"/>
         <source>I-</source>
         <translation>I-</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3265"/>
+        <location filename="../mainwindow.cpp" line="3270"/>
         <source>No Indentation</source>
         <translation>Žádné odsazení</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3267"/>
+        <location filename="../mainwindow.cpp" line="3272"/>
         <source>I%1</source>
         <translation>I%1</translation>
     </message>
     <message numerus="yes">
-        <location filename="../mainwindow.cpp" line="3268"/>
+        <location filename="../mainwindow.cpp" line="3273"/>
         <source>Indentation: %n space(s)</source>
         <translation>
             <numerusform>Odsazení: %n mezera</numerusform>
@@ -8332,12 +8353,12 @@ Chcete jej uložit v novém souboru?</translation>
         <translation type="obsolete">Odkaz na schéma je již přítomen.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2359"/>
+        <location filename="../mainwindow.cpp" line="2364"/>
         <source>No fragments found</source>
         <translation>Nenalezeny žádné kousky</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2396"/>
+        <location filename="../mainwindow.cpp" line="2401"/>
         <source>Error loading data.</source>
         <translation>Chyba při nahrávání dat.</translation>
     </message>
@@ -8366,7 +8387,7 @@ Sestaveno s verzí Qt: %2
 Běhová verze Qt: %3</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1371"/>
+        <location filename="../mainwindow.cpp" line="1376"/>
         <source>--No file--</source>
         <translation>--Žádný soubor--</translation>
     </message>
@@ -8395,12 +8416,12 @@ Běhová verze Qt: %3</translation>
         <translation type="obsolete">Vlastnosti/Text</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1827"/>
+        <location filename="../mainwindow.cpp" line="1832"/>
         <source>Error registering last open files.</source>
         <translation>Chyba při zaznamenání naposledy otevřených souborů.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1911"/>
+        <location filename="../mainwindow.cpp" line="1916"/>
         <source>Error registering preferred directories.</source>
         <translation>Chyba při zaznamenání upřednostňovaných adresářů.</translation>
     </message>
@@ -8443,7 +8464,7 @@ Chcete data prozkoumat jako text?</translation>
         <translation type="obsolete">Prázdná data. Nelze je nahrát.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2059"/>
+        <location filename="../mainwindow.cpp" line="2064"/>
         <source>File name empty. Unable to load it.</source>
         <translation>Název souboru je prázdný. Nelze jej nahrát.</translation>
     </message>
@@ -8462,9 +8483,9 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Data nahrána.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2136"/>
-        <location filename="../mainwindow.cpp" line="2149"/>
-        <location filename="../mainwindow.cpp" line="2162"/>
+        <location filename="../mainwindow.cpp" line="2141"/>
+        <location filename="../mainwindow.cpp" line="2154"/>
+        <location filename="../mainwindow.cpp" line="2167"/>
         <source>Data loaded</source>
         <translation>Data nahrána</translation>
     </message>
@@ -8502,9 +8523,13 @@ Nelze jej nahrát.</translation>
         <translation>Vytvoříte velice velký počet objektů (%1). Opravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="355"/>
         <source>SCXML test is supported only starting from Qt 5.7.0</source>
-        <translation>Zkouška SCXML je podporována až od verze Qt 5.7.0 včetně</translation>
+        <translation type="vanished">Zkouška SCXML je podporována až od verze Qt 5.7.0 včetně</translation>
+    </message>
+    <message>
+        <location filename="../mainwndcontroller.cpp" line="355"/>
+        <source>SCXML test is supported only starting from Qt 5.7.0 and must be enabled at compilie time.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainwndcontroller.cpp" line="361"/>
@@ -9595,8 +9620,9 @@ Search a command by name or feature
         <translation>Běžné zkratky pro upravování</translation>
     </message>
     <message>
+        <location filename="../modules/help/shortcutsdialog.cpp" line="45"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;h1&gt;Shortcuts for element creation&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Operation&lt;/td&gt;&lt;th&gt;Shortcut&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Insert&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Append&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Insert Specific&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Append Specific&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Delete&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Properties&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Spec Properties&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit text&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit element&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit inner XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit inner XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Edit Mode&lt;/th&gt;        &lt;th&gt;DblClick&lt;/th&gt;        &lt;th&gt;dc+Shift&lt;/th&gt;        &lt;th&gt;dc+Ctrl&lt;/th&gt;        &lt;th&gt;dc+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Normal&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Not used&lt;/td&gt;        &lt;td&gt;Textual&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Special&lt;/td&gt;        &lt;td&gt;Special&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Not used&lt;/td&gt;        &lt;td&gt;Textual&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt;&lt;body&gt;&lt;h1&gt;Zkratky na vytváření prvků&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Operace&lt;/td&gt;&lt;th&gt;Zkratka&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Vložit&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Připojit&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Vložit specializované&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Připojit specializované&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Smazat&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Vlastnosti&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Zvláštní vlastnosti&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit text&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit prvek&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit vnitřní XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit vnitřní XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Režim úprav&lt;/th&gt;        &lt;th&gt;DblClick&lt;/th&gt;        &lt;th&gt;dc+Shift&lt;/th&gt;        &lt;th&gt;dc+Ctrl&lt;/th&gt;        &lt;th&gt;dc+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Normal&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Nepoužívané&lt;/td&gt;        &lt;td&gt;Textový&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Speciaizovaný&lt;/td&gt;        &lt;td&gt;Speciaizovaný&lt;/td&gt;        &lt;td&gt;Textový(tag/text)&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Nepoužívané&lt;/td&gt;        &lt;td&gt;Textový&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;h1&gt;Zkratky na vytváření prvků&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Operace&lt;/td&gt;&lt;th&gt;Zkratka&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Vložit&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Připojit&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Vložit specializované&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Připojit specializované&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Smazat&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Vlastnosti&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Zvláštní vlastnosti&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit text&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit prvek&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit vnitřní XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit vnitřní XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Režim úprav&lt;/th&gt;        &lt;th&gt;DblClick&lt;/th&gt;        &lt;th&gt;dc+Shift&lt;/th&gt;        &lt;th&gt;dc+Ctrl&lt;/th&gt;        &lt;th&gt;dc+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Normal&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Nepoužívané&lt;/td&gt;        &lt;td&gt;Textový&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Speciaizovaný&lt;/td&gt;        &lt;td&gt;Speciaizovaný&lt;/td&gt;        &lt;td&gt;Textový(tag/text)&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Nepoužívané&lt;/td&gt;        &lt;td&gt;Textový&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
