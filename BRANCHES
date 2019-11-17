@@ -4,12 +4,13 @@ devel - next release features
 
 Branches:
 ---------
-197 - Problem double search.
+198 - Russian translations.
 192 - Improve text editing.
 191 - XMLTransforms: apply transformations while processing
 
 Merged branches:
 -------------
+197 - Issue with double search.
 196 - Test XML without loading it.
 195 - Refactor .pro files and create option to avoid transform warning in errors.
 194 - issue #63 Invalid appdata metainfo file
