@@ -1655,7 +1655,7 @@ void Regola::searchWithXQuery(FindTextParams &findArgs, Element *selectedItem)
 
 void Regola::unhiliteAll()
 {
-    QHashIterator<int, Element*> sel(selection);
+    QHashIterator<long, Element*> sel(selection);
     while(sel.hasNext()) {
         sel.next();
         Element *element = sel.value() ;
@@ -1672,11 +1672,20 @@ void Regola::addHilite(Element *element)
     D(printf("new element, total is %d \n", selection.size()));
 }
 
+void Regola::unselectRecursive(Element* element)
+{
+    if(NULL != element) {
+        takeOutElement(element);
+        foreach(Element* child, *element->getChildItems()) {
+            unselectRecursive(child);
+        }
+    }
+}
 
 void Regola::takeOutElement(Element* element)
 {
     D(printf("before %d elements\n", selection.size()));
-    int id = element->getInstanceId();
+    long id = element->getInstanceId();
     if(selection.contains(id)) {
         selection.remove(id);
     }
@@ -1701,6 +1710,16 @@ void Regola::removeBookmark(Element* element)
 {
     if(NULL != element) {
         bookmarks.remove(element, false);
+    }
+}
+
+void Regola::removeBookmarksRecursive(Element* element)
+{
+    if(NULL != element) {
+        bookmarks.remove(element, false);
+        foreach(Element* child, *element->getChildItems()) {
+            removeBookmarksRecursive(child);
+        }
     }
 }
 

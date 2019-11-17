@@ -119,6 +119,8 @@ bool DeleteSiblingsCommand::deleteAllSiblingsAfter(Element *selected)
             toDelete -- ;
             Element *removedElement = parent->getChildAt(pos + 1);
             removedElement->autoDelete(false, true, true);
+            regola->removeBookmarksRecursive(removedElement);
+            regola->unselectRecursive(removedElement);
             _afterElements.append(removedElement);
             // why this? because the takeChild() is very slow.
             removeItemInListAt(siblings, pos + 1);
@@ -147,6 +149,8 @@ bool DeleteSiblingsCommand::deleteAllSiblingsBefore(Element *selected)
         while(toDelete > 0) {
             toDelete -- ;
             Element *removedElement = parent->getChildAt(0);
+            regola->removeBookmarksRecursive(removedElement);
+            regola->unselectRecursive(removedElement);
             removedElement->autoDelete(false, true, true);
             _beforeElements.append(removedElement);
             removeItemInListAt(siblings, 0);

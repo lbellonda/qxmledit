@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2019 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -40,6 +40,7 @@
 #define FILE_SEARCH_ONEANDDEFAULTNS FILE_SEARCH_BASE "nsoneanddefault.xml"
 #define FILE_SEARCH_MULTIPLE FILE_SEARCH_BASE "nsmultiple.xml"
 #define FILE_SEARCH_MULTIPLE_AND_DEFAULT FILE_SEARCH_BASE "nsmultipleanddefault.xml"
+#define FILE_SEARCH_DOUBLE FILE_SEARCH_BASE "doublesearch.xml"
 
 
 TestSearch::TestSearch()
@@ -52,7 +53,7 @@ TestSearch::~TestSearch()
 
 bool TestSearch::testFast()
 {
-    return xquerySearchNamespaces();
+    return testDoubleSearch();
 }
 
 //---------------------------------------------- UTILITIES
@@ -76,7 +77,7 @@ public:
     void find(const QString &textToSearch);
     void initFind(const QString &textToSearch);
     void initFindForNext(const QString &textToSearch, const bool isSearchNext, const bool isWrapAround);
-    void search();
+    void search(const bool isClearBookmarks = true);
     void searchLastPos();
     void setFileToLoad(const QString &newFile);
     bool selectAnElement(QList<int> &sel);
@@ -174,9 +175,11 @@ void TestSearchHelper::initFindForNext(const QString &textToSearch, const bool i
                    true, true, "", isWrapAround, isXQuery);
 }
 
-void TestSearchHelper::search()
+void TestSearchHelper::search(const bool isClearBookmarks)
 {
-    app.mainWindow()->getEditor()->getRegola()->clearBookmarks();
+    if(isClearBookmarks) {
+        app.mainWindow()->getEditor()->getRegola()->clearBookmarks();
+    }
     app.mainWindow()->getEditor()->setUpdatesEnabled(false);
     lastMatch = app.mainWindow()->getRegola()->findText(findArgs, selectedItem);
     app.mainWindow()->getEditor()->setUpdatesEnabled(true);
@@ -986,6 +989,9 @@ bool TestSearch::testLiteralSearch()
         return false;
     }
     //----------------------------------------
+    if(!testDoubleSearch()) {
+        return false;
+    }
     return true;
 }
 
@@ -1676,3 +1682,29 @@ bool TestSearch::literalSearchPrevious()
     return true;
 }
 
+bool TestSearch::testDoubleSearch()
+{
+    _testName = "testDoubleSearch";
+    TestSearchHelper helper;
+    testAStdSearchWithParamsInit("testDoubleSearch", helper);
+    helper.initFind("aa");
+    helper.findArgs.setMatchExact(false);
+    helper.findArgs.setOnlyChildren(false);
+    helper.setFileToLoad(FILE_SEARCH_DOUBLE);
+    if(!helper.init()) {
+        return error("Init");
+    }
+    QList<int> selList;
+    selList.append(0);
+    Element *element = helper.app.mainWindow()->getRegola()->findElementByArray(selList);
+    helper.selectedItem = element ;
+    helper.search();
+    selList.clear();
+    selList.append(0);
+    selList.append(0);
+    element = helper.app.mainWindow()->getRegola()->findElementByArray(selList);
+    helper.app.mainWindow()->getEditor()->setCurrentItem(element);
+    helper.app.mainWindow()->getEditor()->deleteSiblings(RegolaDeleteSiblings::DeleteAllSiblings, element);
+    helper.search(false);
+    return true;
+}

@@ -1,4 +1,5 @@
 0.9.14
+    Fixed an issue relative to remove siblings.
     Test XML without loading it.
     Fixed some menu labels.
     Refactored project files for common options and create option to avoid transform warning in errors.

@@ -404,11 +404,13 @@ public:
     void takeOutElement(Element*element);
     void addHilite(Element *element);
     void unhiliteAll();
+    void unselectRecursive(Element* element);
 
     // bookmarks
     void clearBookmarks();
     bool addBookmark(Element* element);
     void removeBookmark(Element* element);
+    void removeBookmarksRecursive(Element* element);
     void toggleBookmark(Element *element);
     bool isBookmarked(Element* element);
     QList<Element*> getUniqueBookmarksElements(const TargetSelection::Type type);
@@ -598,7 +600,7 @@ private:
     QVector<Element*> childItems;
     QString     xmlFileName;
     bool        modified;
-    QHash<int, Element*> selection;
+    QHash<long, Element*> selection;
     Bookmarks   bookmarks;
     PaintInfo   *paintInfo;
     DocumentDeviceProvider *_deviceProvider;
