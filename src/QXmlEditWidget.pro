@@ -89,7 +89,7 @@ TRANSLATIONS = \
    languages_lib/SCXML_cs.ts
 TRANSL = \
    languages_lib/QXmlEditWidget_cs.qm \
-   languages_lib/SCXML_cs.ts
+   languages_lib/SCXML_cs.qm
 
 translationsfiles.path = $$INST_TRANSLATIONS_DIR
 translationsfiles.files = $$TRANSL
