@@ -80,10 +80,10 @@ bool XMLTest::testXMLFile(UIDelegate *uiDelegate, const QString &filePath)
 {
     XMLLoadContext context;
     if(!testLoadFile(&context, filePath) || context.isError()) {
-        uiDelegate->error(context.errorMessage());
+        uiDelegate->error(tr("XML failed the test.\n%1\nFile: %2").arg(context.errorMessage()).arg(filePath));
         return false;
     } else {
-        uiDelegate->message(tr("XML is valid."));
+        uiDelegate->message(tr("XML is valid.\nFile: %1").arg(filePath));
         return true ;
     }
 }
