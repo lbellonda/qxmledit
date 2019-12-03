@@ -1,4 +1,5 @@
 0.9.14
+    Apply transformations splitting files.
     Fixed an issue relative to remove siblings.
     Test XML without loading it.
     Fixed some menu labels.
