@@ -278,4 +278,8 @@
         <file alias="templateQuit.html">resources/css/templateQuit.html</file>
         <file alias="templateGreen.html">resources/css/templateGreen.html</file>
     </qresource>
+    <qresource prefix="/extractionscript">
+        <file alias="removeEmptyAttributes.xml">resources/extractionscripts/removeEmptyAttributes.xml</file>
+        <file alias="trimAttributes.xml">resources/extractionscripts/trimAttributes.xml</file>
+    </qresource>
 </RCC>

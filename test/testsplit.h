@@ -23,15 +23,120 @@
 #ifndef TESTSPLIT_H
 #define TESTSPLIT_H
 
-#include <QString>
+#include "xmlEdit.h"
 #include "../src/extraction/extractionoperation.h"
+#include "../src/extraction/extractionscriptingprovider.h"
 #include "testbase.h"
+#include "helpers/testsplitscriptinghelper.h"
+#include "helpers/testsplitscriptingoperationhelper.h"
+#include "helpers/testextractionexecutorhelper.h"
+#include "extraction/extractfragmentsdialog.h"
+#include "extraction/extractionadavancedoptionsdialog.h"
+
+class ExtractionScriptFilterModel ;
+class ExtractionScriptEventModel ;
+class ExtractionScriptEventHandler;
+class ExtractionScriptElementEvent;
+
+class TestExtractionHolder {
+public:
+    ExtractResults results;
+    ExtractionOperation op;
+    QString fileName;
+
+    TestExtractionHolder();
+    ~TestExtractionHolder();
+};
 
 class TestSplit : public TestBase
 {
     QString _lastTimeStamp;
     bool _showXML;
 
+    //---------
+    bool testUnitOperation();
+    bool compareAttributes(const int code, ExtractionScriptElementEvent *elementEvent, QList<QString> expectedAttributesSorted, QHash<QString,QString> expectedAttributes);
+    bool compareAttributesNS(const int code, ExtractionScriptElementEvent *elementEvent,
+                                        QList<QString> expectedAttributeNamespaces,
+                                        QList<QString> expectedAttributeNames,
+                                        QList<QString> expectedAttributeValues);
+    bool testScriptEventElement();
+    bool unitTestFilterEventElementProperties();
+    void setupElementEvent(ExtractionOperation *operation, const QString &code);
+    bool testScriptEventElementTemplate(TestExtractionHolder *holder, const QString &sourceFile, const QString &code1, const QString &code2);
+    bool testScriptEventElementAndTextTemplate(TestExtractionHolder *holder, const QString &sourceFile, const QString &codeText, const QString &codeElement);
+    bool checkTextEvent(const QString &sourceFile, const QString &code, const bool expectedError, const ExtractionOperation::EXMLErrors expectedErrorCode, const QString &fileToCheck);
+    bool executeOperationForScripting(TestExtractionHolder *holder, const bool expectedError, const ExtractionOperation::EXMLErrors expectedErrorCode, const QString &fileToCheck);
+    void setupTextEvent(ExtractionOperation *operation, const QString &code);
+    bool testScriptEventTextTemplate(TestExtractionHolder *holder, const QString &sourceFile, const QString &code);
+    bool testScriptEventText();
+    void initOperationForScripting(TestExtractionHolder *holder, const QString &inputFile);
+    bool unitTestScriptingBaseCheck(ExtractionScriptFilter *filter, const bool expectedEnabled, QList<ExtractionScriptEventHandler*> expectedHandlers);
+    bool unitTestScriptingBaseCheckHelper(TestSplitScriptingHelper *helper, const bool expectedEnabled);
+    bool unitTestScriptingBase();
+    bool unitTestFilterDefault();
+    bool unitTestFilterOneEvent();
+    bool unitTestFilterEvents();
+    bool unitTestFilterInterface();
+    bool unitTestFilterInterfaceAccessibility();
+    bool unitTestFilterInterfaceProperties();
+    bool unitTestFilterEventChain();
+    bool unitAllEventsChainOnScriptManager();
+    //--
+    bool performScriptSelectDialogAction(ExtractionAdavancedOptionsDialog *dialog, const int selectionAction);
+    bool testScriptingAdvancedOptions();
+    bool testSelectUseNamespaces();
+    bool setOptionUseNS(const QString &code, const bool expected, const bool initialValue);
+    void addAttributesToList(QList<QPair<QString, QString> > &translatesAttributes, QXmlStreamAttributes inputAttributes);
+#ifdef QXMLEDIT_JS_SCRIPT
+    bool testScriptingJS();
+    void setupPredFiltersValues(ExtractionOperation *op, const QStringList &filtersList);
+    bool verifyScriptList(const QString &code, ExtractionOperation *op, const QStringList &expectedFiltersList);
+    bool loadCheckOptionsPredFilters(const QString &code, const QStringList &initialValues, const QStringList &expectedValues, const int selectionAction);
+    bool setOptionIntScript(const QString &code, const bool expected, const bool initialValue);
+    bool testSelectChooseScriptFromList();
+    bool unitTestFilterEventElement();
+    bool unitTestFilterEventElementAccessibility();
+    bool unitTestFilterEventElementMultipleEvents();
+    bool unitTestOperationBase();
+    bool checkElementEventBase(const int code, ExtractionScriptElementEvent *elementEvent, QList<QPair<QString,QString> > inputAttributes, const bool expectedModified);
+    bool checkElementEventWithEngine(const int code, QJSEngine &engine, ExtractionScriptElementEvent *elementEvent, QList<QPair<QString,QString> > inputAttributes, const bool expectedModified, const QString &expectedVariableValue);
+    bool checkElementEventWithReturnCode(const int code, TestSplitScriptingOperationHelper &helper, ExtractionScriptElementEvent *elementEvent, QList<QPair<QString,QString> > inputAttributes, const bool expectedModified, const ExtractionScriptManager::EEventResult expectedResult,const int expectedElementEventsCount );
+    bool checkElementEvent(const QString &sourceFile, const QString &code1, const QString &code2, const bool expectedError, const ExtractionOperation::EXMLErrors expectedErrorCode, const QString &fileToCheck);
+    bool checkElementAndTextEvent(const QString &sourceFile, const QString &codeText, const QString &codeElement, const bool expectedError, const ExtractionOperation::EXMLErrors expectedErrorCode, const QString &fileToCheck);
+    bool checkAttributeStream(QPair<QString,QString> attribute, const int index, const QString &expectedName, const QString &expectedValue);
+#endif
+    //--
+    bool checkFilterEvent(const QString &code, ExtractionScriptEventModel *event, const EExtractionEventType expectedType, const bool expectedEnabled, const QString &expectedHandler, const QString &expectedDescription, const QString &expectedCode);
+    bool loadEventOne();
+    bool loadEventTwo();
+    bool loadEventMalformed();
+    bool unitTestFilterLoad();
+    //--
+    bool testScriptWithPredefinedScriptingFilterAll();
+    bool testPredefinedScriptNoNsFilterAll();
+    bool testPredefinedScriptNsFilterAll();
+    bool testScriptWithPredefinedScripting();
+    bool testScriptWithPredefinedScriptingSplit();
+    bool testScriptWithPredefinedScriptingFilter();
+    bool testPredefinedScriptTrimAttributesNoNsSplit();
+    bool testPredefinedScriptTrimAttributesNsSplit();
+    bool testPredefinedScriptRemoveEmptyAttributesNoNsSplit();
+    bool testPredefinedScriptRemoveEmptyAttributesNsSplit();
+    bool testPredefinedScriptTrimAttributesNoNsFilter();
+    bool testPredefinedScriptTrimAttributesNsFilter();
+    bool testPredefinedScriptRemoveEmptyAttributesNoNsFilter();
+    bool testPredefinedScriptRemoveEmptyAttributesNsFilter();
+    bool testPredefinedScriptExecute(const bool useNamespaces, const bool isFilter, const QString &fileReference, const QString &fileResult, QList<ExtractionScriptingProvider::EPredefinedScripts> scripts);
+    //--
+    bool unitTestFilterEventText();
+    bool unitTestFilterEventTextProperties();
+    bool unitTestFilterEventTextAccessibility();
+    bool unitTestFilterEventTextMultipleEvents();
+    bool checkText(const int code, ExtractionScriptTextEvent *textEvent, const bool expectedCDATA, const QString &expectedText, const bool expectedIgnored, const bool expectedModified);
+    bool checkTextMultiple(const int code, TestSplitScriptingOperationHelper &helper, ExtractionScriptManager::EEventResult expectedResult, ExtractionScriptTextEvent *textEvent, const bool expectedCDATA, const QString &expectedText, const bool expectedIgnored, const bool expectedModified, const int expectedTextEventsCount);
+    bool singleEventTextMultipleEvents(const QString & testName, const int code, const QString & codeEvent1, const QString & codeEvent2, ExtractionScriptManager::EEventResult expectedResult, const bool expectedCDATA, const QString &expectedText, const bool expectedIgnored, const bool expectedModified, const int expectedTextEvents);
+    //---------
     bool groupCSVXML(const bool isXMLOrCSV, const QString &fileReference, const QString &fileResult, const bool isPath);
     bool checkCSV(const QString &file1, const QString &fileReference);
     bool group(const QString &fileReference, const QString &fileResultCSV, const QString &fileResultXML , const QString &fileResultCSVN, const QString &fileResultXMLN);
@@ -87,8 +192,12 @@ class TestSplit : public TestBase
     using TestBase::error;
     bool error();
 
+    bool testScriptActivation();
+    bool testScriptEmptyActivation();
+
 public:
     TestSplit();
+    ~TestSplit();
 
     bool testFast();
     bool testParameters();
@@ -106,7 +215,7 @@ public:
     bool testSplitAndNavigateFilterIdDifferent();
     bool testSplitAndNavigateFilterIdEqual();
     bool testSplitGroup();
-
+    bool testScripting();
 };
 
 #endif // TESTSPLIT_H

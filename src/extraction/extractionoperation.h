@@ -30,18 +30,23 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include <QFile>
+#include <QPair>
 #include <QTextStream>
 #include "extractresults.h"
 #include "libQXmlEdit_global.h"
+#include "scripting/extractionscriptmanager.h"
 
 /**************
   TODO:
   do a file report using date and name
   ****************/
 
+class ExtractionScriptFilterModel;
+
 class ExtractInfo
 {
 public:
+    bool isDebug;
     int currentDocument;
     QFile outputFile;
     uint currentSubfolderDocument;
@@ -80,7 +85,9 @@ public:
         EXML_SubFolderError,
         EXML_WriteError,
         EXML_OpenWriteError,
-        EXML_BuildingCSVError
+        EXML_BuildingCSVError,
+        EXML_InitScripting,
+        EXML_Scripting,
     };
 
     enum ECfrOp {
@@ -136,11 +143,15 @@ private:
     QStringList _filesNamePattern;
     QString _documentEncoding ;
     QString _documentVersion;
+    bool _useNamespaces;
+    //QStringList _scriptIdList;
     bool _isDocumentStandalone ;
     bool _filterTextForPath;
     QStringList _pathsForFilterText;
     EXTRTYPE _extrType;
     qint64 _size;
+    ExtractionScriptManager _scriptManager;
+    QString _filtersId;
     //-------------------
     bool _isError ;
     bool _isEnded ; // if the operation ended
@@ -186,7 +197,19 @@ private:
     bool handleCloseCSVOutputFile(ExtractInfo &info);
     bool removeCSVTempFile(ExtractInfo &info);
     bool isCSVBothFilesError(ExtractInfo &info);
-    //--------
+    bool checkWriteOperation(ExtractInfo &info);
+    bool writeText(ExtractInfo &info, const bool isCDATA, const QString &text);
+    bool writeElement(ExtractInfo &info, const QString &nameSpaceUri, const QString &localName, const QString &qualifiedName, QList<ExtractionScriptAttribute *> attributes);
+    // ---startRegion(scripting)
+    bool initScripting();
+    bool manageText(ExtractInfo &info, const int level, const QString &path, QXmlStreamReader &xmlReader, bool &dontWrite);
+    ExtractionScriptManager::EEventResult internalManageText(ExtractionScriptTextEvent &textEvent, const int level, const QString &path, const bool isWhitespace, const bool isCDATA, const QString &text);
+    ExtractionScriptManager::EEventResult internalManageElement(ExtractionScriptElementEvent &elementEvent, const int level, const QString &path, const QString &name, const QString &nameSpace, const QString &localName, QXmlStreamAttributes attributes);
+    void prepareEventText(ExtractionScriptTextEvent &textEvent, const bool isWhitespace, const bool isCDATA, const QString &text);
+    void prepareEventElement(ExtractionScriptElementEvent &elementEvent, const QString &name, const QString &nameSpace, const QString &localName, QXmlStreamAttributes attributes);
+    bool manageElement(ExtractInfo &info, const int level, const QString &path, QXmlStreamReader &xmlReader, bool &dontWrite);
+    void prepareScripting();
+    // ----endRegion(scripting)
 
 public:
     explicit ExtractionOperation(ExtractResults *results, QObject *parent = 0);
@@ -253,6 +276,12 @@ public:
     void setFilterTextForPath(const bool value);
     void setPathForDeleteText(const QString &value);
     QString pathForDeleteText();
+    void setUseNamespaces(const bool value);
+    bool isUseNamespaces();
+    QString filtersId();
+    void setFiltersId(const QString &value);
+
+    QStringList filterListAsIdList();
 
     QString makeAName(const QString &nameBase, const int currentIndex, const QStringList &tokensList, const int seqNumber);
 
@@ -287,6 +316,12 @@ public:
     void addFolderPattern(const QString &str);
     void addFileNamePattern(const QString &str);
 
+    // ---startRegion(scripting)
+    bool isScriptingEnabled();
+    void addScriptingFilter(ExtractionScriptFilterModel *newFilter);
+    ExtractionScriptManager *scriptManager();
+    // ----endRegion(scripting)
+
 
 #define DATE_TOKEN_PTRN  "%date%"
 #define TIME_TOKEN_PTRN  "%time%"
@@ -299,6 +334,10 @@ signals:
 
 public slots:
 
+#ifdef  QXMLEDIT_TEST
+    friend class TestSplitScriptingOperationHelper;
+    friend class TestSplit;
+#endif
 };
 
 #endif // EXTRACTIONOPERATION_H

@@ -71,6 +71,7 @@ CONFIG += qt \
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT       += printsupport gui widgets core
+    QT       += qml
 }
 
 isEqual(ENABLE_SCXML, "Y") {

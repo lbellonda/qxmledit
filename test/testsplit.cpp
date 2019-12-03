@@ -27,6 +27,7 @@
 #include <QDir>
 #include <QDateTime>
 #include "modules/services/systemservices.h"
+#include "qxmleditconfig.h"
 
 #if 1
 #define INPUT_FILE  "../test/data/splitter_test.xml"
@@ -80,6 +81,10 @@
 TestSplit::TestSplit()
 {
     _showXML = false ;
+}
+
+TestSplit::~TestSplit()
+{
 }
 
 bool TestSplit::error()
@@ -271,8 +276,46 @@ bool TestSplit::testParametersNoExtract()
     return true ;
 }
 
+bool TestSplit::testUnitOperation()
+{
+    _testName = "testUnitOperation" ;
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    if(!op.isUseNamespaces()) {
+        return error("Operation not ns default");
+    }
+    if(!op.filtersId().isEmpty()) {
+        return error("Filters not default");
+    }
+    op.setUseNamespaces(false);
+    if(op.isUseNamespaces()) {
+        return error("Operation not ns default");
+    }
+    op.setFiltersId("a");
+    if(op.filtersId().isEmpty()) {
+        return error("Filters empty");
+    }
+    QMap<QString, QVariant> configBackend;
+    Config::setBackend(&configBackend);
+    op.saveSettings();
+    ExtractionOperation op2(&results);
+    op2.loadSettings();
+    Config::setBackend(NULL);
+    if(op2.isUseNamespaces()) {
+        return error("Operation not ns loaded");
+    }
+    if(op2.filtersId().isEmpty()) {
+        return error("Filters not loaded");
+    }
+    return true ;
+}
+
 bool TestSplit::testSplit()
 {
+    if(!testUnitOperation()) {
+        return false;
+    }
+    _testName = "testSplit" ;
     ExtractResults results;
     ExtractionOperation op(&results);
     op.setInputFile(INPUT_FILE);
@@ -306,8 +349,7 @@ bool TestSplit::testSplit()
     // do operation
     op.performExtraction();
     if(op.isError()) {
-        fprintf(stderr, "%s\n", (QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage())).toLatin1().data());
-        return error();
+        return error(QString("Split Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
     }
     return true ;
 }
@@ -365,8 +407,7 @@ bool TestSplit::checkFilter(const QString &file1, const QString &file2)
     CompareXML compare;
     if(!compare.compareFiles(file1, file2)) {
         compare.dumpErrorCause();
-        fprintf(stderr, "%s\n", (QString("Filter fragment not correct: %1").arg(file1).toLatin1().data()));
-        return false ;
+        return error(QString("Filter fragment not correct: %1 vs %2").arg(file1).arg(file2));
     }
     return true ;
 }
@@ -1034,10 +1075,13 @@ bool TestSplit::testFilterTextAbsoluteFilterWrongPath()
 
 bool TestSplit::testFast()
 {
-    if(!splitAndNavigateFilterText(INPUT_FILTER_TEXT, false, RES_FILTER_TEXT_1_ORIG, "", "b/c", false)) {
+    if(!testScripting()) {
         return false;
     }
-    return testSplitByDepth0();
+    if(!testScriptingAdvancedOptions()) {
+        return false;
+    }
+    return true ;
 }
 
 bool TestSplit::testSplitGroup()

@@ -29,6 +29,7 @@
 #include <QDesktopServices>
 #include <QFileDialog>
 #include <QUrl>
+#include "extractionadavancedoptionsdialog.h"
 
 #define UPDATE_TIMEOUT  1500
 
@@ -78,6 +79,7 @@ ExtractFragmentsDialog::ExtractFragmentsDialog(ExtractResults *extractResult, QW
     _operation.loadSettings();
     initUIFromOperation();
     showNaming();
+    infoOnAdvancedOptions();
     connectUpdates();
 }
 
@@ -514,3 +516,22 @@ void ExtractFragmentsDialog::connectUpdates()
     connect(&delayTimer, SIGNAL(timeout()), this, SLOT(showNaming()));
 }
 
+void ExtractFragmentsDialog::on_cmdAdvanced_clicked()
+{
+    ExtractionAdavancedOptionsDialog advancedOptions(&_operation, this);
+    advancedOptions.setModal(true);
+    if(advancedOptions.exec() == QDialog::Accepted) {
+        infoOnAdvancedOptions();
+    }
+}
+
+void ExtractFragmentsDialog::infoOnAdvancedOptions()
+{
+    if(!_operation.isUseNamespaces() || !_operation.filtersId().isEmpty()) {
+        ui->lblAdvancedOptions->setText(tr("options set"));
+        ui->lblAdvancedOptions->setToolTip(tr("Advanced options present."));
+    } else {
+        ui->lblAdvancedOptions->setText("");
+        ui->lblAdvancedOptions->setToolTip("");
+    }
+}

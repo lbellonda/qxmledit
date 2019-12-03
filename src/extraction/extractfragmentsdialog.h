@@ -69,6 +69,7 @@ private:
     QString showSingleNaming(QStringList &names);
     void addNamePattern(QStringList &list, const QString &str);
     void closeEvent(QCloseEvent * event);
+    void infoOnAdvancedOptions();
 
     QButtonGroup _groupExtractOptions;
     QButtonGroup _groupSplitOptions;
@@ -91,6 +92,7 @@ private slots:
     void showNaming();
     void on_splitByDepth_clicked();
     void on_splitByPath_clicked();
+    void on_cmdAdvanced_clicked();
 };
 
 void LIBQXMLEDITSHARED_EXPORT extractFragments(ExtractResults *extractResult, QWidget *parent, QWidget *mainWidget);

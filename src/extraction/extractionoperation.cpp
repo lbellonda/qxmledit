@@ -67,6 +67,7 @@ void ExtractionOperation::init()
     _filterTextForPath = false;
     percent = 0 ;
     _size = 0 ;
+    _useNamespaces = true ;
 
     //---------------------
     _isError = false ;
@@ -151,6 +152,7 @@ void ExtractionOperation::execute(QFile *file)
     QXmlStreamReader xmlReader;
     QString path = "";
     ExtractInfo info;
+    info.isDebug = _debug ;
     int level = 0;
     bool isDepth = (SplitUsingDepth  == _splitType) ? true : false ;
     //------
@@ -160,8 +162,16 @@ void ExtractionOperation::execute(QFile *file)
     bool isTheFilterTextPathAbsolute = isFilterTextPathAbsolute();
     bool isCalcPathForFilterTextForElement = false;
     bool isCurrentElementFilterText = false;
+    prepareScripting();
+    const bool isScripting = isScriptingEnabled() ;
     //------
 
+    if(isScripting) {
+        if(!initScripting()) {
+            setError(EXML_InitScripting, tr("Scripting engine initialization failed: %1").arg(_scriptManager.errorMessage()));
+            return ;
+        }
+    }
     /***************************************************************
     qint64 previousTokenLine = 0 ;
     qint64 previousTokenColumn = 0;
@@ -199,6 +209,14 @@ void ExtractionOperation::execute(QFile *file)
                           .arg(xmlReader.columnNumber())
                           .arg(xmlReader.characterOffset());
             printf("%s\n",  msg.toLatin1().data());
+            if(xmlReader.tokenType() == QXmlStreamReader::Characters) {
+                QString msg = QString("  Characters %1, whitespace %3, len %4 = %2")
+                              .arg(xmlReader.isCDATA() ? "CDATA" : "")
+                              .arg(xmlReader.text().toString())
+                              .arg(xmlReader.isWhitespace())
+                              .arg(xmlReader.text().length());
+                printf("%s\n",  msg.toLatin1().data());
+            }
             fflush(stdout);
         }
         /*******************************/
@@ -231,6 +249,11 @@ void ExtractionOperation::execute(QFile *file)
                     dontWrite = true ;
                 }
             }
+            if(isScripting && insideAFragment) {
+                if(!manageText(info, level, path, xmlReader, dontWrite)) {
+                    return ;
+                }
+            }
             break;
         case QXmlStreamReader::StartDocument:
             //inDocument = true ;
@@ -251,7 +274,7 @@ void ExtractionOperation::execute(QFile *file)
         case QXmlStreamReader::EndDocument:
             //inDocument = false ;
             break;
-        case QXmlStreamReader::StartElement: {  // The reader reports the start of an element with namespaceUri() and name(). Empty elements are also reported as StartElement, followed directly by EndElement. The convenience function readElementText() can be called to concatenate all content until the corresponding EndElement. Attributes are reported in attributes(), namespace declarations in namespaceDeclarations().
+        case QXmlStreamReader::StartElement: {
             bool isError = false;
             level++;
             isCalcPathForFilterTextForElement = false;
@@ -295,6 +318,9 @@ void ExtractionOperation::execute(QFile *file)
                     }
                     insideAFragment = true ;
                     if(registerDocument) {
+                        if(!manageElement(info, level, path, xmlReader, dontWrite)) {
+                            return ;
+                        }
                         if(isAnExportExtraction) {
                             if(!handleExportedElement(info, xmlReader)) {
                                 isError = true ;
@@ -308,6 +334,10 @@ void ExtractionOperation::execute(QFile *file)
                             } // check new file iff it is not a filtered op.
                         }
                     }
+                }
+            } else {
+                if(!manageElement(info, level, path, xmlReader, dontWrite)) {
+                    return ;
                 }
             }
             if(isError) {
@@ -435,10 +465,7 @@ bool ExtractionOperation::writeAToken(const bool isAFilteredExtraction, const bo
 {
     if((insideAFragment && _isExtractDocuments) || isAFilteredExtraction) {
         info.xmlWriter.writeCurrentToken(reader);
-        if(info.outputFile.error() != QFile::NoError) {
-            handleWriteError();
-            return false ;
-        }
+        return checkWriteOperation(info);
     }
     return true ;
 }
@@ -530,6 +557,10 @@ bool ExtractionOperation::manageOpenCSV(ExtractInfo &info)
     info.csvRealFilePath = info.outputFile.fileName();
     info.csvResourcesPath = info.outputFile.fileName() + ".temp";
     info.csvTempFile.setFileName(info.csvResourcesPath);
+    if(info.isDebug) {
+        printf("Open CSV file %s\n", info.csvResourcesPath.toLatin1().data());
+        fflush(stdout);
+    }
     if(!info.csvTempFile.open(QIODevice::WriteOnly)) {
         if(info.outputFile.isOpen()) {
             info.outputFile.close();
@@ -559,6 +590,11 @@ bool ExtractionOperation::openFile(ExtractInfo &info)
     filePath.append(fileName);
     filePath.append(isExportCSV() ? ".csv" : ".xml");
     info.outputFile.setFileName(filePath);
+    if(info.isDebug) {
+        printf("Open output file %s\n", filePath.toLatin1().data());
+        fflush(stdout);
+    }
+
     if(!info.outputFile.open(QIODevice::WriteOnly)) {
         setError(EXML_OpenWriteError, tr("Unable to open for writing the file '%1'").arg(filePath));
         return false;
@@ -822,6 +858,8 @@ void ExtractionOperation::loadSettings()
     _splitDepth = Config::getInt(Config::KEY_FRAGMENTS_DEPTH, 1);
     _splitType = (ESplitType)Config::getInt(Config::KEY_FRAGMENTS_SPLITTYPE, SplitUsingPath);
     //-------------------
+    _useNamespaces = Config::getBool(Config::KEY_FRAGMENTS_USENAMESPACES, true);
+    _filtersId = Config::getString(Config::KEY_FRAGMENTS_FILTERSID, "");
 }
 
 void ExtractionOperation::saveSettings()
@@ -852,6 +890,9 @@ void ExtractionOperation::saveSettings()
     //----------------
     Config::saveInt(Config::KEY_FRAGMENTS_DEPTH,  _splitDepth);
     Config::saveInt(Config::KEY_FRAGMENTS_SPLITTYPE,  _splitType);
+    //----------------
+    Config::saveBool(Config::KEY_FRAGMENTS_USENAMESPACES, _useNamespaces);
+    Config::saveString(Config::KEY_FRAGMENTS_FILTERSID, _filtersId);
 }
 
 void ExtractionOperation::saveSettingsForExtractionFragmentNumber(const QString &filePath, const int fragment, const int depth)
@@ -1026,6 +1067,26 @@ void ExtractionOperation::setExtractCfr()
 bool ExtractionOperation::isExtractCfr()
 {
     return (ET_USETERM == _extrType) ;
+}
+
+void ExtractionOperation::setUseNamespaces(const bool value)
+{
+    _useNamespaces = value;
+}
+
+bool ExtractionOperation::isUseNamespaces()
+{
+    return _useNamespaces;
+}
+
+QString ExtractionOperation::filtersId()
+{
+    return _filtersId ;
+}
+
+void ExtractionOperation::setFiltersId(const QString &value)
+{
+    _filtersId = value ;
 }
 
 void ExtractionOperation::setMinDoc(const unsigned int value)
@@ -1324,12 +1385,61 @@ bool ExtractionOperation::handleExportedElement(ExtractInfo &info, QXmlStreamRea
     return true ;
 }
 
+bool ExtractionOperation::writeText(ExtractInfo &info, const bool isCDATA, const QString &text)
+{
+    if(isCDATA) {
+        info.xmlWriter.writeCDATA(text);
+    } else {
+        info.xmlWriter.writeCharacters(text);
+    }
+    return checkWriteOperation(info);
+}
+
+bool ExtractionOperation::writeElement(ExtractInfo &info, const QString &nameSpaceUri, const QString &localName, const QString &qualifiedName, QList<ExtractionScriptAttribute*> attributes)
+{
+    if(isUseNamespaces()) {
+        info.xmlWriter.writeStartElement(nameSpaceUri, localName);
+    } else {
+        info.xmlWriter.writeStartElement(qualifiedName);
+    }
+    foreach(const ExtractionScriptAttribute* attribute, attributes) {
+        if(isUseNamespaces()) {
+            info.xmlWriter.writeAttribute(attribute->nameSpace, attribute->name, attribute->value);
+        } else {
+            info.xmlWriter.writeAttribute(attribute->name, attribute->value);
+        }
+    }
+    return checkWriteOperation(info);
+}
+
+bool ExtractionOperation::checkWriteOperation(ExtractInfo &info)
+{
+    if(info.outputFile.error() != QFile::NoError) {
+        handleWriteError();
+        return false ;
+    }
+    return true ;
+}
+
+QStringList ExtractionOperation::filterListAsIdList()
+{
+    QStringList idList = _filtersId.split(",");
+    QStringList result;
+    foreach(const QString &id, idList) {
+        if(!id.isEmpty()) {
+            result.append(id);
+        }
+    }
+    return result;
+}
+
 //--------------------------------------------------------------------------
 
 ExtractInfo::ExtractInfo() : xmlWriter(&outputFile)
 {
     currentDocument = 0 ;
     currentSubfolderDocument = 0 ;
+    isDebug = false;
 }
 
 ExtractInfo::~ExtractInfo()
@@ -1342,4 +1452,4 @@ ExtractInfo::~ExtractInfo()
     }
 }
 
-//
+//--------------------------------------------------------------------------

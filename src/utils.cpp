@@ -570,18 +570,21 @@ void Utils::todo(const QString &inputMessage)
 #if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
 void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
 {
-    if(isUnitTest) {
-        fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
-    } else {
-        fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
-        //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
+    if(!inputMessage.isEmpty()) {
+        if(isUnitTest) {
+            //fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
+        } else {
+            fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
+            //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
+        }
     }
 }
 
 void Utils::TEST_ME(const QString & inputMessage)
 {
     if(isUnitTest) {
-        fprintf(stderr, "TEST_ME:%s\n", inputMessage.toLatin1().data());
+        Q_UNUSED(inputMessage)
+        //fprintf(stderr, "TEST_ME:%s\n", inputMessage.toLatin1().data());
     } else {
         //message(QString("TEST_ME: %1").arg(inputMessage));
     }
@@ -595,6 +598,12 @@ void Utils::TEST_ME(const QString & inputMessage)
 void Utils::TODO_CHECK_FIX(const QString & fix)
 {
     printf("CHECK FIX:%s\n", fix.toLatin1().data());
+}
+
+void Utils::TODO_ERROR(const QString &inputMessage)
+{
+    Utils::TODO_THIS_RELEASE(inputMessage);
+    Utils::error(inputMessage);
 }
 
 #endif

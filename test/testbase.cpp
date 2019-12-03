@@ -38,7 +38,7 @@ TestBase::TestBase()
 
 TestBase::~TestBase()
 {
-    DELTELMS(gc);
+    DELTELMS(gc)
 }
 
 bool TestBase::error(const QString &testName, const QString &msg)
@@ -850,4 +850,15 @@ QString TestBase::normalizeCR(QString in) const
     QString rep = in.replace("\n", "");
     rep = rep.replace("\n", "");
     return rep ;
+}
+
+QString TestBase::loadTextFile(const QString &filePath) const
+{
+    QString result;
+    QFile file(filePath);
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        result = QString::fromUtf8(file.readAll());
+        file.close();
+    }
+    return result ;
 }

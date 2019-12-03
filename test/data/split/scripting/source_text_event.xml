@@ -1,0 +1,18 @@
+<root>
+    <a>
+        testo a
+        <b>
+            testo b
+            <c>
+                testo c
+            </c>
+            <![CDATA[ abc
+            ddd
+            eee]]>
+        </b>
+        testo a2
+    </a>
+    <d>
+        testo d
+    </d>
+</root>

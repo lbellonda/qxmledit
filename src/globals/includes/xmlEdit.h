@@ -130,11 +130,17 @@ void msgBoxDebug(const QString message);
 
 #define FORINT(var,limit) for(int var = 0 ; var < limit ; var ++ )
 #define EMPTYPTRLIST(object, Type) foreach( Type *var, object) { delete var; } object.clear();
+#define SET_VAR_if(existing,newOne) if(existing!=newOne) { existing= newOne ; _isModified = true ; }
+#define DELETE_IF_NOTNULL(variable)  if( NULL != variable ) { delete variable ; }
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,3,1)
 #define    STYLEVIEWITEM_OPTION4(option) const QStyleOptionViewItem &option4(option);
 #else
 #define    STYLEVIEWITEM_OPTION4(option) const QStyleOptionViewItemV4 &option4(option);
+#endif
+
+#if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
+#define    QXMLEDIT_JS_SCRIPT   1
 #endif
 
 #endif /*H_XML_EDIT*/

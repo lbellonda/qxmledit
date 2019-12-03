@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+    <a a="va" b="vb" at1="vat1" ax="xx" ax1="vayy">
+        testo a
+        <b>
+            testo b
+            <c at2="vat2">
+                testo c
+            </c>
+            <![CDATA[ abc
+            ddd
+            eee]]>
+        </b>
+        testo a2
+    </a>
+    <d fg="hi">
+        testo d
+    </d>
+</root>

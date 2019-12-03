@@ -141,7 +141,8 @@ const QString Config::KEY_FRAGMENTS_FILTERALLTEXT("extractFragments/filterAllTex
 const QString Config::KEY_FRAGMENTS_FILTERTEXTFORPATH("extractFragments/filterTextForPath");
 const QString Config::KEY_FRAGMENTS_FILTERTEXT_PATH("extractFragments/pathForFilterText");
 const QString Config::KEY_FRAGMENTS_OPERATION_TYPE("extractFragments/operationType");
-
+const QString Config::KEY_FRAGMENTS_USENAMESPACES("extractFragments/useNameSpaces");
+const QString Config::KEY_FRAGMENTS_FILTERSID("extractFragments/filtersId");
 
 // welcome dialog and user profiling
 const QString Config::KEY_WELCOMEDIALOG_ENABLED("welcomeDialog/enabled");

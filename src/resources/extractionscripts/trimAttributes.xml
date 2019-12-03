@@ -1,0 +1,19 @@
+<filter enabled='true' name ="Trim attributes" description='Trim attributes'>
+   <event type='element' enabled='true' description='Trim attributes' handler='onElementEvent'>
+     <code><![CDATA[
+ function onElementEvent(context,event) {
+    var regExp = new RegExp("[\\s]+$")
+    var len = event.attributesCount;
+    var i ;
+    for( i = 0 ; i < len ; i ++ ) {
+        var value = event.attributeValueByIndex(i);
+        if( value !== null) {
+            event.setAttributeValueByIndex(i, value.replace(regExp, ""));
+        }
+    }
+ }
+     ]]>
+     </code>
+   </event>
+</filter >
+

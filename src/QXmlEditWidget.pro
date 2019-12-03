@@ -51,6 +51,7 @@ QT       += xml xmlpatterns network svg
 
 greaterThan(QT_MAJOR_VERSION, 4) {
   QT       += printsupport gui widgets core
+  QT       += qml
 }
 
 TARGET = QXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
@@ -436,7 +437,19 @@ SOURCES += xmleditwidget.cpp \
     modules/uiutil/uidelegatebase.cpp \
     timelapse.cpp \
     xsdeditor/items/graphicitemsdump.cpp \
-    xsdeditor/infofacet.cpp
+    xsdeditor/infofacet.cpp \
+    extraction/scripting/model/extractionscripteventmodel.cpp \
+    extraction/scripting/model/extractionscriptfiltermodel.cpp \
+    extraction/scripting/events/extractionscripteventhandler.cpp \
+    extraction/scripting/events/extractionscripttext.cpp \
+    extraction/scripting/events/extractionscriptelement.cpp \
+    extraction/scripting/extractionscriptmanager.cpp \
+    extraction/scripting/extractionscriptfilter.cpp \
+    extraction/scripting/extractionscriptexecutor.cpp \
+    extraction/scripting/extractionoperationscripting.cpp \
+    extraction/extractionadavancedoptionsdialog.cpp \
+    extraction/extractionscriptingprovider.cpp \
+    extraction/scripting/events/extractionoperationscriptcontext.cpp
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -713,7 +726,18 @@ HEADERS += precompiled_lib.h \
     xsdeditor/choosexsdreporttypedialog.h \
     modules/xsd/xsdvalidationexecutor.h \
     timelapse.h \
-    xsdeditor/infofacet.h
+    xsdeditor/infofacet.h \
+    extraction/scripting/extractionscriptmanager.h \
+    extraction/scripting/extractionscriptfilter.h \
+    extraction/scripting/extractionscriptexecutor.h \
+    extraction/scripting/events/extractionscripttext.h \
+    extraction/scripting/events/extractionscriptelement.h \
+    extraction/scripting/events/extractionscripteventhandler.h \
+    extraction/scripting/model/extractionscriptfiltermodel.h \
+    extraction/scripting/model/extractionscripteventmodel.h \
+    extraction/extractionadavancedoptionsdialog.h \
+    extraction/extractionscriptingprovider.h \
+    extraction/scripting/events/extractionoperationscriptcontext.h
 
 
 FORMS += xmleditwidget.ui \
@@ -792,7 +816,8 @@ FORMS += xmleditwidget.ui \
     editelementwithtexteditor.ui \
     xsdeditor/choosexsdviewrootitemdialog.ui \
     xsdeditor/xsdreport.ui \
-    xsdeditor/choosexsdreporttypedialog.ui
+    xsdeditor/choosexsdreporttypedialog.ui \
+    extraction/extractionadavancedoptionsdialog.ui
 
 symbian {
     #Symbian specific definitions

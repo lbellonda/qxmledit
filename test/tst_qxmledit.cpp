@@ -184,7 +184,7 @@ void TestQXmlEdit::testSplit()
     result = ts.testParametersNoExtract();
     QVERIFY2(result, "Test Split: parameters w/o extraction.");
     result = ts.testSplit();
-    QVERIFY2(result, "Test Split: split.");
+    QVERIFY2(result, QString("Test Split: split. details: %1").arg(ts.errorString()).toLatin1().data());
     result = ts.testSplitAndNavigate();
     QVERIFY2(result, "Test Split: split and navigate.");
 
@@ -213,6 +213,11 @@ void TestQXmlEdit::testSplit()
     //---
     result = ts.testSplitGroup();
     QVERIFY2(result, "Test testSplitGroup: diff.");
+    {
+        TestSplit test;
+        result = test.testScripting();
+        QVERIFY2(result, (QString("test testScripting: '%1'").arg(test.errorString())).toLatin1().data());
+    }
 }
 
 void TestQXmlEdit::testMixedContent()
@@ -1648,6 +1653,7 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
+    testSplit();
     testSearch();
     testTestXMLFile();
     testXsdView();

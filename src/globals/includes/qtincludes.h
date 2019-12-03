@@ -87,6 +87,7 @@
 
 #include <QXmlStreamReader>
 #include <QDomDocument>
+#include <QDomElement>
 #include <QFile>
 #include <QtGui>
 #include <QClipboard>

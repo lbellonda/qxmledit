@@ -25,6 +25,7 @@
 #-------------------------------------------------
 
 ###########################################
+include("../src/cconfig.pri")
 
 include(../src/coptions.pri)
 
@@ -44,6 +45,7 @@ macx: {
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT       += printsupport widgets core
+    QT       += qml
 }
 
 isEqual(ENABLE_SCXML, "Y") {
@@ -175,7 +177,15 @@ SOURCES += \
     testhelpers/xsd/testxsdprintinfo.cpp \
     teststartupandbehavior.cpp \
     testhelp.cpp \
-    testsuites.cpp
+    testsuites.cpp \
+    helpers/testsplitscriptinghelper.cpp \
+    helpers/testsplitscriptingoperationhelper.cpp \
+    helpers/testextractionexecutorhelper.cpp \
+    helpers/testwritableextractionoperationscriptcontext.cpp \
+    extraction/scriptextractioncontext.cpp \
+    extraction/scriptextractioneventtext.cpp \
+    extraction/scriptextraction.cpp \
+    extraction/scriptetractioneventelement.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -294,7 +304,11 @@ HEADERS += \
     testhelpers/xsd/testxsdprintinfo.h \
     teststartupandbehavior.h \
     testhelp.h \
-    testhelpers/collect.h
+    testhelpers/collect.h \
+    helpers/testsplitscriptinghelper.h \
+    helpers/testsplitscriptingoperationhelper.h \
+    helpers/testextractionexecutorhelper.h \
+    helpers/testwritableextractionoperationscriptcontext.h
 
 #OTHER_FILES += \
 

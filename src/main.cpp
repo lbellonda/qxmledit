@@ -375,3 +375,4 @@ int doXSL(ApplicationData *appData, StartParams *startParams)
     }
 #endif //QXMLEDIT_NOMAIN
 }
+

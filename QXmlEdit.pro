@@ -42,3 +42,6 @@ SUBDIRS += \
     src/sessions/QXmlEditSessions.pro \
     src/QXmlEdit.pro
 
+DISTFILES += \
+    doc/extractionscript.txt
+

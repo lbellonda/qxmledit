@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<root>
+    <a><b>
+            testo b
+            <c>
+                testo c
+            </c>
+            <![CDATA[ abc
+            ddd
+            eee]]>
+        </b></a>
+    <d>
+        testo d
+    </d>
+</root>
