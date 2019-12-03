@@ -6,10 +6,10 @@ Branches:
 ---------
 198 - Russian translations.
 192 - Improve text editing.
-191 - XMLTransforms: apply transformations while processing
 
 Merged branches:
 -------------
+191 - XMLTransforms: apply transformations while processing
 197 - Issue with double search.
 196 - Test XML without loading it.
 195 - Refactor .pro files and create option to avoid transform warning in errors.
