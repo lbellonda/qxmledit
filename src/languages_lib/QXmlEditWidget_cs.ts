@@ -4,7 +4,7 @@
 <context>
     <name>ANotifier</name>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="125"/>
+        <location filename="../modules/services/anotifier.cpp" line="126"/>
         <source>QXmlEdit</source>
         <translation>QXmlEdit</translation>
     </message>
@@ -134,17 +134,17 @@ p, li { white-space: pre-wrap; }
         <translation>Znovu</translation>
     </message>
     <message>
-        <location filename="../alloweditemsinsert.cpp" line="350"/>
+        <location filename="../alloweditemsinsert.cpp" line="351"/>
         <source>Use</source>
         <translation>Užití</translation>
     </message>
     <message>
-        <location filename="../alloweditemsinsert.cpp" line="350"/>
+        <location filename="../alloweditemsinsert.cpp" line="351"/>
         <source>Name</source>
         <translation>Název</translation>
     </message>
     <message>
-        <location filename="../alloweditemsinsert.cpp" line="350"/>
+        <location filename="../alloweditemsinsert.cpp" line="351"/>
         <source>Value</source>
         <translation>Hodnota</translation>
     </message>
@@ -152,27 +152,27 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>AnonOperationBatch</name>
     <message>
-        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="146"/>
+        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="135"/>
         <source>Invalid start context</source>
         <translation>Neplatný začáteční kontext</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="152"/>
+        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="141"/>
         <source>Unable to get output file:&apos;%1&apos;</source>
         <translation>Nelze získat výstupní soubor:&apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="155"/>
+        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="144"/>
         <source>Unable to open input file:&apos;%1&apos;</source>
         <translation>Nelze otevřít vstupní soubor:&apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="158"/>
+        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="147"/>
         <source>Unable to open output file:&apos;%1&apos;</source>
         <translation>Nelze otevřít výstupní soubor:&apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="383"/>
+        <location filename="../modules/anonymize/anonoperationbatch.cpp" line="360"/>
         <source>Error code:%1 &apos;%2&apos; at line:%3 col:%4</source>
         <translation>Kód chyby: %1 &apos;%2&apos; na řádku: %3, ve sloupci %4</translation>
     </message>
@@ -232,12 +232,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>AttributeItem</name>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1895"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1990"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1959"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="2051"/>
         <source>attribute: %1</source>
         <translation>Vlastnost: %1</translation>
     </message>
@@ -1356,22 +1356,22 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation>Přidáno</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="276"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="277"/>
         <source>Comparing &apos;%1&apos; with</source>
         <translation>Porovnání &apos;%1&apos; s</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="278"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="279"/>
         <source>Comparing current data with</source>
         <translation>Porovnávání nynějších dat s</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="281"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="282"/>
         <source>File Compare</source>
         <translation>Porovnání souborů</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="356"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="357"/>
         <source>Nodes</source>
         <translation>Uzly</translation>
     </message>
@@ -1384,22 +1384,22 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="491"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="492"/>
         <source>Open Reference File</source>
         <translation>Otevřít srovnávací soubor</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="509"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="510"/>
         <source>Open File to Compare</source>
         <translation>Otevřít soubor k porovnání</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="535"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="536"/>
         <source>Unexpected error</source>
         <translation>Neočekávaná chyba</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="538"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="539"/>
         <source>The file name is empty.</source>
         <translation>Název souboru je prázdný.</translation>
     </message>
@@ -1408,22 +1408,22 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Soubor nelze porovnat se sebou samým.</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="541"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="542"/>
         <source>Cannot compare a file with itself.</source>
         <translation>Soubor nelze porovnat se sebou samým.</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="544"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="545"/>
         <source>Error loading the file.</source>
         <translation>Chyba při nahrávání souboru.</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="547"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="548"/>
         <source>Error manipulating internal data.</source>
         <translation>Chyba při práci s vnitřními daty.</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="586"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="587"/>
         <source>%1
   last accessed on %2
   last updated on %3
@@ -1434,48 +1434,48 @@ Kód chyby je &apos;%1&apos;</translation>
   velikost %4</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="602"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="603"/>
         <source>Compare in progress...</source>
         <translation>Probíhá porovnávání...</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="693"/>
-        <location filename="../modules/compare/comparemodule.cpp" line="695"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="694"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="696"/>
         <source>Comparing...</source>
         <translation>Porovnává se...</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="706"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="707"/>
         <source>Compare operation error: &apos;%1&apos;</source>
         <translation>Chyba při porovnávání: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="738"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="739"/>
         <source>No compare results.</source>
         <translation>Žádné výsledky porovnání.</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="780"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="781"/>
         <source>Files are equal.</source>
         <translation>Soubory jsou stejné.</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="782"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="783"/>
         <source>Files are different.</source>
         <translation>Soubory se liší.</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="786"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="787"/>
         <source>no text</source>
         <translation>žádný text</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="787"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="788"/>
         <source>no comments</source>
         <translation>žádné poznámky</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="788"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="789"/>
         <source>denorm. EOL</source>
         <translation>denorm. konců řádků</translation>
     </message>
@@ -2078,43 +2078,43 @@ row=%1, column=%2</source>
 <context>
     <name>DiffModel</name>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="83"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="84"/>
         <source>Added</source>
         <translation>Přidáno</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="85"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="86"/>
         <source>Modified</source>
         <translation>Změněno</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="87"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="88"/>
         <source>Deleted</source>
         <translation>Smazáno</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="107"/>
-        <location filename="../modules/compare/comparemodule.cpp" line="139"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="108"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="140"/>
         <source>Element</source>
         <translation>Prvek</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="109"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="110"/>
         <source>Attribute</source>
         <translation>Vlastnost</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="135"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="136"/>
         <source>Icon</source>
         <translation>Ikona</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="137"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="138"/>
         <source>Status</source>
         <translation>Stav</translation>
     </message>
     <message>
-        <location filename="../modules/compare/comparemodule.cpp" line="141"/>
+        <location filename="../modules/compare/comparemodule.cpp" line="142"/>
         <source>XPath</source>
         <translation>XPath</translation>
     </message>
@@ -2127,12 +2127,12 @@ row=%1, column=%2</source>
         <translation>Upravit poznámku</translation>
     </message>
     <message>
-        <location filename="../editcomment.cpp" line="63"/>
+        <location filename="../editcomment.cpp" line="62"/>
         <source>No target</source>
         <translation>Žádný cíl</translation>
     </message>
     <message>
-        <location filename="../editcomment.cpp" line="68"/>
+        <location filename="../editcomment.cpp" line="67"/>
         <source>text is invalid</source>
         <translation>Text je neplatný</translation>
     </message>
@@ -2743,7 +2743,7 @@ cesta: %2
 <context>
     <name>ElementItem</name>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1504"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1577"/>
         <source>Element</source>
         <translation>Prvek</translation>
     </message>
@@ -2752,7 +2752,7 @@ cesta: %2
         <translation type="obsolete">&lt;span style=&apos;background-color:#ECC;&apos;&gt;&lt;span style=&apos;font-weight:bold;font-size:9pt&apos;&gt;typ:&lt;/span&gt;</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1781"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1881"/>
         <source>An error occurred inserting the graphic item corresponding to the object.</source>
         <translation>Při vkládání obrazové položky odpovídající objektu se vyskytla chyba.</translation>
     </message>
@@ -2959,13 +2959,13 @@ s touto volbou budou vytažené kousky: 3, 4, 5.</translation>
     </message>
     <message>
         <location filename="../extraction/extractfragmentsdialog.ui" line="295"/>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="113"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="115"/>
         <source>Split</source>
         <translation>Rozdělit</translation>
     </message>
     <message>
         <location filename="../extraction/extractfragmentsdialog.ui" line="300"/>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="115"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="117"/>
         <source>Act as a filter producing only 1 (one) file</source>
         <translation>Chovat se jako filtr vytvářející pouze 1 soubor</translation>
     </message>
@@ -3000,62 +3000,67 @@ s touto volbou budou vytažené kousky: 3, 4, 5.</translation>
         <translation>Použít relativní nebo absolutní cestu pro výběr prvku, ze kterého se má text zahodit.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="391"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="406"/>
+        <source>Advanced</source>
+        <translation type="unfinished">Pokročilé</translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="422"/>
         <source>Extraction</source>
         <translation>Vytažení</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="400"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="431"/>
         <source>Extract in the following directory:</source>
         <translation>Vytáhnout do následujícího adresáře:</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="407"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="438"/>
         <source>The etracted fragments will be written as files in theis directory.</source>
         <translation>Vytažené kousky budou zapsány jako soubory do tohoto adresáře.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="414"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="445"/>
         <source>Choose the extraction folder.</source>
         <translation>Vyberte složku pro vytažení.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="442"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="473"/>
         <source>View in browser</source>
         <translation>Zobrazit v prohlížeči</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="453"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="484"/>
         <source>Check this if you want put the fragments into subfolders avoiding to fill one dicrectory with all the extracted files.</source>
         <translation>Toto zaškrtněte, pokud chcete kousky dát do podsložek, a tím se vyhnout naplnění jednoho adresáře všemi vytaženými soubory.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="456"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="487"/>
         <source>Make subfolders</source>
         <translation>Udělat podsložky</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="485"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="516"/>
         <source>each:</source>
         <translation>každých:</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="498"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="529"/>
         <source>Insert the number of files that will be put in a single subfolder.</source>
         <translation>Vložte počet souborů, které budou dány do jedné podsložky.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="505"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="536"/>
         <source>files</source>
         <translation>souborů</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="529"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="560"/>
         <source>Subfolder name pattern:</source>
         <translation>Vzor pro název podsložky:</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="544"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="575"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -3088,10 +3093,10 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;mezi symboly je dobré dát nějaké oddělovače.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="574"/>
         <location filename="../extraction/extractfragmentsdialog.ui" line="605"/>
         <location filename="../extraction/extractfragmentsdialog.ui" line="636"/>
         <location filename="../extraction/extractfragmentsdialog.ui" line="667"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="698"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -3125,11 +3130,11 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;mezi symboly je dobré dát nějaké oddělovače.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="709"/>
         <location filename="../extraction/extractfragmentsdialog.ui" line="740"/>
         <location filename="../extraction/extractfragmentsdialog.ui" line="771"/>
         <location filename="../extraction/extractfragmentsdialog.ui" line="802"/>
         <location filename="../extraction/extractfragmentsdialog.ui" line="833"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="864"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -3195,7 +3200,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Je lepší dát mezi symboly nějaký oddělovač.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="694"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="725"/>
         <source>File name pattern:</source>
         <translation>Vzor pro název souboru:</translation>
     </message>
@@ -3330,152 +3335,215 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Je lepší dát mezi symboly nějaký oddělovač.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="877"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="908"/>
         <source>Elements enclosed between &apos;%&apos; characters are system fields</source>
         <translation>Prvky uzavřené mezi znaky &apos;%&apos; jsou systémová pole</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.ui" line="897"/>
+        <location filename="../extraction/extractfragmentsdialog.ui" line="928"/>
         <source>Subfolders names will be like:</source>
         <translation>Názvy podsložek budou jako:</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="104"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="106"/>
         <source>equal</source>
         <translation>rovno</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="105"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="107"/>
         <source>not equal</source>
         <translation>není rovno</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="117"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="119"/>
         <source>Extract and group XML format. Only the splitting element will be extracted</source>
         <translation>Vytáhnout a seskupit formát XML. Bude vytažen pouze rozdělující prvek</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="119"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="121"/>
         <source>Extract and group, CSV format. Only the splitting element will be extracted</source>
         <translation>Vytáhnout a seskupit formát CSV. Bude vytažen pouze rozdělující prvek</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="267"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="269"/>
         <source>Unknown error.</source>
         <translation>Neznámá chyba.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="270"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="272"/>
         <source>No input file.</source>
         <translation>Žádný vstupní soubor.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="273"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="275"/>
         <source>No split path.</source>
         <translation>Žádná cesta rozdělení.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="276"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="278"/>
         <source>No minimum range specified.</source>
         <translation>Nezadán žádný nejmenší rozsah.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="279"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="281"/>
         <source>No maximum range specified.</source>
         <translation>Nezadán žádný největší rozsah.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="282"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="284"/>
         <source>No extraction folder.</source>
         <translation>Žádná složka pro vytažení.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="285"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="287"/>
         <source>No subfolder specified.</source>
         <translation>Nezadána žádná podsložka.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="288"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="290"/>
         <source>No subfolder name pattern specified.</source>
         <translation>Nezadán žádný vzor pro název podsložky.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="291"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="293"/>
         <source>The documents range is not correct.</source>
         <translation>Rozsah dokumentu není správný.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="294"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="296"/>
         <source>The type of the comparaison is not legal.</source>
         <translation>Typ srovnání není dovolený.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="297"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="299"/>
         <source>The type of the extraction is not legal.</source>
         <translation>Typ vytažení není dovolený.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="300"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="302"/>
         <source>The name of the comparison attribute is not valid.</source>
         <translation>Název vlastnosti srovnání není platný.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="303"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="305"/>
         <source>The value of the depth field is invalid.</source>
         <translation>Hodnota pole hloubky je neplatná.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="306"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="308"/>
         <source>The type of split not valid.</source>
         <translation>Typ rozdělení není platný.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="309"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="311"/>
         <source>Delete text has been seletced but no path or an invalid path was given.</source>
         <translation>Bylo vybráno smazání textu, ale nebyla zadána žádná cesta, anebo byla zadána neplatná cesta.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="312"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="314"/>
         <source>Unknown operation type.</source>
         <translation>Neznámý typ operace.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="315"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="317"/>
         <source>The output file name is not valid.</source>
         <translation>Název výstupního souboru je neplatný.</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="330"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="332"/>
         <source>This operation will take out some text from the result. Do you want to continue?</source>
         <translation>Tato operace vezme z výsledku nějaký text. Chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="417"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="419"/>
         <source>Choose the directory</source>
         <translation>Vybrat adresář</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="426"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="428"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="531"/>
+        <source>options set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="532"/>
+        <source>Advanced options present.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;</source>
         <translation type="obsolete">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="466"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="468"/>
         <source>Folder names are like: &apos;</source>
         <translation>Názvy složek jsou jako: &apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractfragmentsdialog.cpp" line="474"/>
+        <location filename="../extraction/extractfragmentsdialog.cpp" line="476"/>
         <source>&apos;, files like: &apos;</source>
         <translation>&apos;, soubory jako: &apos;</translation>
     </message>
     <message>
         <source>&apos;.xml </source>
         <translation type="obsolete">&apos;.xml </translation>
+    </message>
+</context>
+<context>
+    <name>ExtractionAdavancedOptionsDialog</name>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="14"/>
+        <source>Extraction Advanced Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="26"/>
+        <source>Use namespaces</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="36"/>
+        <source>&amp;Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="89"/>
+        <source>Select all the scripts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="92"/>
+        <source>Select &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="99"/>
+        <source>Unselect all the sripts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="102"/>
+        <source>&amp;Unselect All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.cpp" line="61"/>
+        <source>Unable to show predefined scripts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.cpp" line="65"/>
+        <source>Name</source>
+        <translation type="unfinished">Název</translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionadavancedoptionsdialog.cpp" line="65"/>
+        <source>Description</source>
+        <translation type="unfinished">Popis</translation>
     </message>
 </context>
 <context>
@@ -3573,120 +3641,185 @@ Chcete ukázat složku pro vytahování v prohlížeči?</translation>
 <context>
     <name>ExtractionOperation</name>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="91"/>
+        <location filename="../extraction/extractionoperation.cpp" line="92"/>
         <source>File &quot;%1&quot; is not accessible</source>
         <translation>Soubor &quot;%1&quot; není přístoupitelný</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="94"/>
+        <location filename="../extraction/extractionoperation.cpp" line="95"/>
         <source>Unable to open file &quot;%1&quot; </source>
         <translation>Nelze otevřít soubor &quot;%1&quot; </translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="357"/>
+        <location filename="../extraction/extractionoperation.cpp" line="171"/>
+        <source>Scripting engine initialization failed: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionoperation.cpp" line="387"/>
         <source>Bad XML state at offset:%1</source>
         <translation>Špatný stav XML v posunu: %1</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="492"/>
+        <location filename="../extraction/extractionoperation.cpp" line="519"/>
         <source>The folder &apos;%1&apos; already exists</source>
         <translation>Složka &apos;%1&apos; již existuje</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="496"/>
+        <location filename="../extraction/extractionoperation.cpp" line="523"/>
         <source>Error creating folder &apos;%1&apos;</source>
         <translation>Chyba při vytváření složky &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="537"/>
+        <location filename="../extraction/extractionoperation.cpp" line="568"/>
         <source>Unable to open for the CSV file &apos;%1&apos;</source>
         <translation>Nelze otevřít pro soubor CSV &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="550"/>
+        <location filename="../extraction/extractionoperation.cpp" line="581"/>
         <source>Invalid internal state while opening a file</source>
         <translation>Neplatný vnitřní stav při otevírání souboru</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="563"/>
+        <location filename="../extraction/extractionoperation.cpp" line="599"/>
         <source>Unable to open for writing the file &apos;%1&apos;</source>
         <translation>Nelze otevřít pro zápis souboru &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="589"/>
+        <location filename="../extraction/extractionoperation.cpp" line="625"/>
         <source>Unable to open document for file &apos;%1&apos;</source>
         <translation>Nelze otevřít dokument pro soubor &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="658"/>
+        <location filename="../extraction/extractionoperation.cpp" line="694"/>
         <source>Error unexpected state opening file CSV final: &apos;%1&apos;</source>
         <translation>Chyba neočekávaný stav při otevirání souboru CSV final: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="677"/>
+        <location filename="../extraction/extractionoperation.cpp" line="713"/>
         <source>Error writing CSV final: &apos;%1&apos;</source>
         <translation>Chyba při zapisování CSV final: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="690"/>
+        <location filename="../extraction/extractionoperation.cpp" line="726"/>
         <source>Error opening CSV 2 for rewind: &apos;%1&apos;</source>
         <translation>Chyba při otevírání CSV 2 pro přetočení: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="696"/>
+        <location filename="../extraction/extractionoperation.cpp" line="732"/>
         <source>Error opening CSV 1 for rewind: &apos;%1&apos;</source>
         <translation>Chyba při otevírání CSV 1 pro přetočení: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="701"/>
+        <location filename="../extraction/extractionoperation.cpp" line="737"/>
         <source>Error writing CSV after final check: &apos;%1&apos;</source>
         <translation>Chyba při zapisování CSV po závěrečné kontrole: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="714"/>
+        <location filename="../extraction/extractionoperation.cpp" line="750"/>
         <source>Error closing CSV data phase 1</source>
         <translation>Chyba při zavírání dat CSV fáze 1</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="718"/>
+        <location filename="../extraction/extractionoperation.cpp" line="754"/>
         <source>Error writing CSV header</source>
         <translation>Chyba při zapisování hlavičky CSV</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="723"/>
+        <location filename="../extraction/extractionoperation.cpp" line="759"/>
         <source>Error appending CSV data</source>
         <translation>Chyba při připojování dat CSV</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="728"/>
+        <location filename="../extraction/extractionoperation.cpp" line="764"/>
         <source>Error removing temporary CSV file</source>
         <translation>Chyba při odstraňování dočasného souboru CSV</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="751"/>
+        <location filename="../extraction/extractionoperation.cpp" line="787"/>
         <source>Error while closing output file</source>
         <translation>Chyba při zavírání výstupního souboru</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="760"/>
+        <location filename="../extraction/extractionoperation.cpp" line="796"/>
         <source>Error writing output file</source>
         <translation>Chyba při zápisu výstupního souboru</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="1271"/>
+        <location filename="../extraction/extractionoperation.cpp" line="1332"/>
         <source>Unexpected object in input stream type is: %1, waiting for: %2</source>
         <translation>Neočekávaný objekt v typu vstupního proudu je: %1, čeká se na: %2</translation>
     </message>
 </context>
 <context>
+    <name>ExtractionScriptElementEvent</name>
+    <message>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="129"/>
+        <source>empty name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="154"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="184"/>
+        <source>unknownAttribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="168"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="312"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="338"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="389"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="431"/>
+        <source>namespaces needed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="355"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="370"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="381"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="395"/>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="423"/>
+        <source>out of range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="414"/>
+        <source>already existing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="513"/>
+        <source>existingAttribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ExtractionScriptingProvider</name>
+    <message>
+        <location filename="../extraction/extractionscriptingprovider.cpp" line="82"/>
+        <source>Trim Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionscriptingprovider.cpp" line="82"/>
+        <source>Trim attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/extractionscriptingprovider.cpp" line="84"/>
+        <source>Remove empty attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FindTextParams</name>
     <message>
-        <location filename="../findtextparams.cpp" line="191"/>
+        <location filename="../findtextparams.cpp" line="192"/>
         <source>The scope is not legal for a search of an attribute value.</source>
         <translation>Oblast není platná pro hledání hodnoty vlastnosti.</translation>
     </message>
     <message>
-        <location filename="../findtextparams.cpp" line="205"/>
+        <location filename="../findtextparams.cpp" line="206"/>
         <source>The type of the search is not legal:%1.</source>
         <translation>Typ hledání není dovolený: %1.</translation>
     </message>
@@ -3736,37 +3869,37 @@ Kód chyby je &apos;%1&apos;</translation>
 <context>
     <name>MainMenuBlock</name>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="61"/>
+        <location filename="../modules/services/anotifier.cpp" line="62"/>
         <source>&amp;New Window</source>
         <translation>&amp;Nové okno</translation>
     </message>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="62"/>
+        <location filename="../modules/services/anotifier.cpp" line="63"/>
         <source>Encoding Tools</source>
         <translation>Nástroje na kódování</translation>
     </message>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="63"/>
+        <location filename="../modules/services/anotifier.cpp" line="64"/>
         <source>Code Pages</source>
         <translation>Kódové stránky</translation>
     </message>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="64"/>
+        <location filename="../modules/services/anotifier.cpp" line="65"/>
         <source>Manage Sessions</source>
         <translation>Spravovat sezení</translation>
     </message>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="65"/>
+        <location filename="../modules/services/anotifier.cpp" line="66"/>
         <source>View Data</source>
         <translation>Prohlížet data</translation>
     </message>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="66"/>
+        <location filename="../modules/services/anotifier.cpp" line="67"/>
         <source>Extract Fragments from a File</source>
         <translation>Vytáhnout kousky ze souboru</translation>
     </message>
     <message>
-        <location filename="../modules/services/anotifier.cpp" line="67"/>
+        <location filename="../modules/services/anotifier.cpp" line="68"/>
         <source>Raise all windows</source>
         <translation>Vyvýšit všechna okna</translation>
     </message>
@@ -5182,147 +5315,147 @@ Kód chyby je &apos;%1&apos;</translation>
 <context>
     <name>NodesRelationsController</name>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="158"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="159"/>
         <source>The total of the values is zero.</source>
         <translation>Celkový počet hodnot je nulový.</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="184"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="270"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="185"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="271"/>
         <source>Node</source>
         <translation>Uzel</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="185"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="272"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="744"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="856"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="186"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="273"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="745"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="857"/>
         <source>Count</source>
         <translation>Počet</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="186"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="274"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="187"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="275"/>
         <source>Percent</source>
         <translation>Procento</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="187"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="276"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="188"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="277"/>
         <source>Incoming Links</source>
         <translation>Příchozí odkazy</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="188"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="278"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="189"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="279"/>
         <source>Outcoming Links</source>
         <translation>Odchozí odkazy</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="259"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="260"/>
         <source>Elements summary</source>
         <translation>Shrnutí prvku</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="264"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="265"/>
         <source>There are no data.</source>
         <translation>Nejsou žádná data.</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="268"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="269"/>
         <source>Row</source>
         <translation>Řádek</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="324"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="325"/>
         <source>End of table.</source>
         <translation>Konec tabulky.</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="745"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="857"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="746"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="858"/>
         <source>Empty Count</source>
         <translation>Počet prázdných</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="746"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="858"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="747"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="859"/>
         <source>Size</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="747"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="859"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="748"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="860"/>
         <source>Memory Size (estimated)</source>
         <translation>Velikost paměti (odhadovaná)</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="749"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="861"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="750"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="862"/>
         <source>Size empty data</source>
         <translation>Prázdná data velikosti</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="750"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="862"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="751"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="863"/>
         <source>Memory empty data (estimated)</source>
         <translation>Prázdná data paměti (odhadovaná)</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="752"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="864"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="753"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="865"/>
         <source>% Size</source>
         <translation>% Velikost</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="753"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="855"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="754"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="856"/>
         <source>XPath</source>
         <translation>XPath</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="774"/>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="804"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="775"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="805"/>
         <source>attributes:%1, count:%2, empty:%3, size:%4, size memory:%5 mean size:%6, size empty data:%7, memory size empty data:%8</source>
         <translation>Vlastnost:%1, počet:%2, prázdné:%3, velikost:%4, velikost paměti:%5 průměrná velikost:%6, prázdná data velikosti:%7, prázdná data velikosti paměti:%8</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="786"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="787"/>
         <source>No data available.</source>
         <translation>Žádná data nejsou dostupná.</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="794"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="795"/>
         <source>Attribute Statistics</source>
         <translation>Statistika vlastnosti</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="797"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="798"/>
         <source>Used Attributes</source>
         <translation>Používané vlastnosti</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="797"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="798"/>
         <source>Total values for whitelisted attributes</source>
         <translation>Celkové hodnoty pro vlastnosti v bílém seznamu</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="800"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="801"/>
         <source>Total values for blacklisted attributes</source>
         <translation>Celkové hodnoty pro vlastnosti v černém seznamu</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="800"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="801"/>
         <source>Unused Attributes</source>
         <translation>Nepoužívané vlastnosti</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="803"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="804"/>
         <source>Grand Total</source>
         <translation>Celkový součet</translation>
     </message>
     <message>
-        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="865"/>
+        <location filename="../modules/graph/nodesrelationscontroller.cpp" line="866"/>
         <source>Used</source>
         <translation>Používáno</translation>
     </message>
@@ -5706,19 +5839,19 @@ Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../modules/utils/base64utils.cpp" line="124"/>
-        <location filename="../utils.cpp" line="991"/>
+        <location filename="../utils.cpp" line="1000"/>
         <source>Warning: the size of the file to import is %1. Do you want to continue?</source>
         <translation>Varování: velikost souboru k zavedení je %1. Chcete pokračovat?</translation>
     </message>
     <message>
         <location filename="../modules/utils/base64utils.cpp" line="137"/>
-        <location filename="../utils.cpp" line="1004"/>
+        <location filename="../utils.cpp" line="1013"/>
         <source>Error reading file.</source>
         <translation>Chyba při čtení souboru.</translation>
     </message>
     <message>
         <location filename="../modules/utils/base64utils.cpp" line="142"/>
-        <location filename="../utils.cpp" line="1007"/>
+        <location filename="../utils.cpp" line="1016"/>
         <source>Unable to load file.
 Error code is &apos;%1&apos;</source>
         <translation>Nelze nahrát soubor.
@@ -5759,62 +5892,62 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Chyba při zpracovávání XML: &apos;%1&apos; kód &apos;%2&apos; na řádku: %3, řádek %4 posun: %5</translation>
     </message>
     <message>
-        <location filename="../modules/xml/xmlloadcontext.cpp" line="80"/>
+        <location filename="../modules/xml/xmlloadcontext.cpp" line="87"/>
         <source>Error parsing XML: &apos;%1&apos; at row:%2 column:%3 offset:%4</source>
         <translation>Chyba při zpracovávání XML: &apos;%1&apos; na řádku: %2, řádek %3 posun: %4</translation>
     </message>
     <message>
-        <location filename="../modules/xml/xmlloadcontext.cpp" line="93"/>
+        <location filename="../modules/xml/xmlloadcontext.cpp" line="100"/>
         <source>Error parsing XML: &apos;%1&apos; code:&apos;%2&apos; at row:%3 column:%4 offset:%5</source>
         <translation>Chyba při zpracovávání XML: &apos;%1&apos; kód &apos;%2&apos; na řádku: %3, řádek %4 posun: %5</translation>
     </message>
     <message>
-        <location filename="../modules/xml/xmlloadcontext.cpp" line="103"/>
+        <location filename="../modules/xml/xmlloadcontext.cpp" line="110"/>
         <source>Unexpected error</source>
         <translation>Neočekávaná chyba</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="169"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="170"/>
         <source>Schema Instance (xsi)</source>
         <translation>Instance schématu (xsi)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="170"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="171"/>
         <source>XML Schema (xsd or xs)</source>
         <translation>XML Schema (xsd nebo xs)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="172"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="173"/>
         <source>XSL-FO 1.0 (fo)</source>
         <translation>XSL-FO 1.0 (fo)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="173"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="174"/>
         <source>XSL 1.0 (xsl)</source>
         <translation>XSL 1.0 (xsl)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="175"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="176"/>
         <source>xquery local functions (local)</source>
         <translation>xquery místní funkce (místní)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="176"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="177"/>
         <source>Maven POM 4 (local)</source>
         <translation>Maven POM 4 (místní)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="177"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="178"/>
         <source>XHTML 1.1 (html)</source>
         <translation>XHTML 1.1 (html)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="178"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="179"/>
         <source>XInclude 1.1 (xi)</source>
         <translation>XInclude 1.1 (xi)</translation>
     </message>
     <message>
-        <location filename="../modules/xsd/namespacemanager.cpp" line="179"/>
+        <location filename="../modules/xsd/namespacemanager.cpp" line="180"/>
         <source>SXCML 1.1 (scxml)</source>
         <translation>SXCML 1.1 (scxml)</translation>
     </message>
@@ -5945,12 +6078,12 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation>Chyba při nahrazování předpon.</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="609"/>
+        <location filename="../utils.cpp" line="618"/>
         <source>The prefix is already used for other namespaces. If you want to perform the operation, you must allow me to rename the existing prefix.</source>
         <translation>Předpona se již používá pro jiné jmenné prostory. Pokud chcete provést operaci, musíte povolit přejmenování stávající předpony.</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="1264"/>
+        <location filename="../utils.cpp" line="1273"/>
         <source>Error reading file: (%1) %2</source>
         <translation>Chyba při čtení souboru: (%1) %2</translation>
     </message>
@@ -6389,16 +6522,36 @@ Chyba: %2 na řádku: %3, ve sloupci: %4</translation>
         <source>XML does not conform to schema. Validation failed.</source>
         <translation>XML se nepodobá schématu. Potvrzení platnosti se nezdařilo.</translation>
     </message>
+    <message>
+        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="46"/>
+        <source>%1, at line %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="48"/>
+        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="56"/>
+        <source>No error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="54"/>
+        <source>%1, %2
+stack trace:
+ %3</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QXmlEditData</name>
     <message>
+        <location filename="../qxmleditdata.cpp" line="44"/>
         <source>Xslt predefined style</source>
-        <translation type="obsolete">Předem určený styl Xslt</translation>
+        <translation type="unfinished">Předem určený styl Xslt</translation>
     </message>
     <message>
+        <location filename="../qxmleditdata.cpp" line="46"/>
         <source>SCXML predefined style</source>
-        <translation type="obsolete">Předem určený styl SCXML</translation>
+        <translation type="unfinished">Předem určený styl SCXML</translation>
     </message>
     <message>
         <location filename="../qxmleditdata.cpp" line="146"/>
@@ -6414,8 +6567,9 @@ Chyba: %2 na řádku: %3, ve sloupci: %4</translation>
 <context>
     <name>QXmlEditGlobals</name>
     <message>
+        <location filename="../xmleditglobals.cpp" line="26"/>
         <source>QXmlEdit</source>
-        <translation type="obsolete">QXmlEdit</translation>
+        <translation type="unfinished">QXmlEdit</translation>
     </message>
 </context>
 <context>
@@ -6509,17 +6663,17 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation>Chyba při vkládání vlastností.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="3052"/>
+        <location filename="../regola.cpp" line="3071"/>
         <source>XSLT eXtensible Stylesheet Language Transformations</source>
         <translation>Transformace XSLT eXtensible Stylesheet Language</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="3055"/>
+        <location filename="../regola.cpp" line="3074"/>
         <source>XML Schema (XSD)</source>
         <translation>XML Schema (XSD)</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="3058"/>
+        <location filename="../regola.cpp" line="3077"/>
         <source>XML Schema Instance</source>
         <translation>Instance XML Schema</translation>
     </message>
@@ -6533,32 +6687,32 @@ Odkazy na entity nyní nejsou podporovány.</translation>
         <translation>Vyberte, prosím, nějaký prvek pro připojení poznámky</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2143"/>
+        <location filename="../regola.cpp" line="2162"/>
         <source>A root item exists already, cannot proceed.</source>
         <translation>Kořenová položka již existuje. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2150"/>
+        <location filename="../regola.cpp" line="2169"/>
         <source>The selected elmement is not a comment, cannot proceed.</source>
         <translation>Vybraný prvek není poznámka. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2171"/>
+        <location filename="../regola.cpp" line="2190"/>
         <source>The content of the comment is not valid XML. Cannot proceed.</source>
         <translation>Obsah poznámky není platné XML. Nelze pokračovat.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2223"/>
+        <location filename="../regola.cpp" line="2242"/>
         <source>When element has mixed contents you must edit text nodes.</source>
         <translation>Když má prvek smíšený obsah, musíte upravit textové uzly.</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2333"/>
+        <location filename="../regola.cpp" line="2352"/>
         <source>Element</source>
         <translation>Prvek</translation>
     </message>
     <message>
-        <location filename="../regola.cpp" line="2335"/>
+        <location filename="../regola.cpp" line="2354"/>
         <source>Attributes</source>
         <translation>Vlastnosti</translation>
     </message>
@@ -6686,7 +6840,7 @@ Odkazy na entity nyní nejsou podporovány.</translation>
 <context>
     <name>RootItem</name>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="981"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1054"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -6698,7 +6852,7 @@ Odkazy na entity nyní nejsou podporovány.</translation>
 <context>
     <name>RootOutlineItem</name>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1094"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="1167"/>
         <source>Root</source>
         <translation>Kořen</translation>
     </message>
@@ -8383,139 +8537,145 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation>Chyba při zápisu dat</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="727"/>
+        <location filename="../utils.cpp" line="736"/>
         <source>%1 Gb</source>
         <translation>%1 GB</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="731"/>
+        <location filename="../utils.cpp" line="740"/>
         <source>%1 Mb</source>
         <translation>%1 MB</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="735"/>
+        <location filename="../utils.cpp" line="744"/>
         <source>%1 Kb</source>
         <translation>%1 KB</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="737"/>
+        <location filename="../utils.cpp" line="746"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="744"/>
+        <location filename="../utils.cpp" line="753"/>
         <source>no error occurred</source>
         <translation>Nevyskytla se žádná chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="747"/>
+        <location filename="../utils.cpp" line="756"/>
         <source>error triggered by consumer</source>
         <translation>Chyba spuštěna spotřebitelem</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="750"/>
+        <location filename="../utils.cpp" line="759"/>
         <source>unexpected end of file</source>
         <translation>Neočekávaný konec souboru</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="753"/>
+        <location filename="../utils.cpp" line="762"/>
         <source>more than one document type definition</source>
         <translation>Více než jedno vymezení typu dokumentu</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="756"/>
+        <location filename="../utils.cpp" line="765"/>
         <source>tag mismatch</source>
         <translation>Nesoulad značek</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="759"/>
+        <location filename="../utils.cpp" line="768"/>
         <source>error occurred while parsing content</source>
         <translation>Při zpracování obsahu se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="762"/>
+        <location filename="../utils.cpp" line="771"/>
         <source>unexpected character</source>
         <translation>Neočekávaný znak</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="765"/>
+        <location filename="../utils.cpp" line="774"/>
         <source>invalid name for processing instruction</source>
         <translation>Neplatný název příkazu pro zpracování</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="768"/>
+        <location filename="../utils.cpp" line="777"/>
         <source>version expected while reading the XML declaration</source>
         <translation>Při čtení deklarace XML očekávána verze</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="771"/>
+        <location filename="../utils.cpp" line="780"/>
         <source>wrong value for standalone declaration</source>
         <translation>Nesprávná hodnota pro samostatnou deklaraci</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="774"/>
+        <location filename="../utils.cpp" line="783"/>
         <source>encoding declaration or standalone declaration expected while reading the XML declaration</source>
         <translation>Při čtení deklarace XML očekávány deklarace kódování nebo samostatná deklarace</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="777"/>
+        <location filename="../utils.cpp" line="786"/>
         <source>standalone declaration expected while reading the XML declaration</source>
         <translation>Při čtení deklarace XML očekávána samostatná deklarace</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="780"/>
+        <location filename="../utils.cpp" line="789"/>
         <source>error occurred while parsing document type definition</source>
         <translation>Při zpracování vymezení typu dokumentu se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="783"/>
+        <location filename="../utils.cpp" line="792"/>
         <source>letter is expected</source>
         <translation>Je očekáváno písmeno</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="786"/>
+        <location filename="../utils.cpp" line="795"/>
         <source>error occurred while parsing comment</source>
         <translation>Při zpracování poznámky se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="789"/>
+        <location filename="../utils.cpp" line="798"/>
         <source>error occurred while parsing reference</source>
         <translation>Při zpracování odkazu se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="792"/>
+        <location filename="../utils.cpp" line="801"/>
         <source>internal general entity reference not allowed in DTD</source>
         <translation>Vnitřní odkaz na obecnou entitu v DTD nepovolen</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="795"/>
+        <location filename="../utils.cpp" line="804"/>
         <source>external parsed general entity reference not allowed in attribute value</source>
         <translation>Vnější zpracovaný odkaz na obecnou entitu v hodnotě vlastnosti nepovolen</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="798"/>
+        <location filename="../utils.cpp" line="807"/>
         <source>external parsed general entity reference not allowed in DTD</source>
         <translation>Vnější zpracovaný odkaz na obecnou entitu v DTD nepovolen</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="801"/>
+        <location filename="../utils.cpp" line="810"/>
         <source>unparsed entity reference in wrong context</source>
         <translation>Nezpracovaný odkaz na entitu v chybném kontextu</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="804"/>
+        <location filename="../utils.cpp" line="813"/>
         <source>recursive entities</source>
         <translation>Rekurzivní entity</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="807"/>
+        <location filename="../utils.cpp" line="816"/>
         <source>error in the text declaration of an external entity</source>
         <translation>Chyba v deklaraci textu vnější entity</translation>
     </message>
     <message>
-        <location filename="../utils.cpp" line="1273"/>
+        <location filename="../utils.cpp" line="1282"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
+    </message>
+    <message>
+        <location filename="../extraction/scripting/extractionscriptmanager.cpp" line="134"/>
+        <location filename="../extraction/scripting/extractionscriptmanager.cpp" line="172"/>
+        <source>Not inizialized</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9141,38 +9301,38 @@ Kód chyby je &apos;%1&apos;</translation>
 <context>
     <name>XSDCompare</name>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="124"/>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="196"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="125"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="197"/>
         <source>An error occurred comparing data</source>
         <translation>Při porovnávání dat se vyskytla chyba</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="129"/>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="201"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="130"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="202"/>
         <source>The schema are identical.</source>
         <translation>Schémata jsou stejná.</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="156"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="157"/>
         <source>Error in XSD Plugin. 
 %1</source>
         <translation>Chyba v přídavném modulu XSD.
 %1</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="158"/>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="286"/>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="310"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="159"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="287"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="311"/>
         <source>Unknown exception.</source>
         <translation>Neznámá výjimka.</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="173"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="174"/>
         <source>Open File</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="175"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="176"/>
         <source>XML Schema files (*.xsd);;All files (*)</source>
         <translation>Soubory XML Schema (*.xsd);;Všechny soubory (*)</translation>
     </message>
@@ -9181,26 +9341,26 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation type="obsolete">Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="265"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="266"/>
         <source>Schema are different.</source>
         <translation>Schémata se liší.</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="281"/>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="305"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="282"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="306"/>
         <source>No root item</source>
         <translation>Žádná kořenová položka</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="284"/>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="308"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="285"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="309"/>
         <source>Error loading schema.
 %1</source>
         <translation>Chyba při nahrávání schématu.
 %1</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/xsdcompare.cpp" line="301"/>
+        <location filename="../xsdeditor/xsdcompare.cpp" line="302"/>
         <source>Error loading file</source>
         <translation>Chyba při nahrávání souboru</translation>
     </message>
@@ -9520,37 +9680,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>XSDItem</name>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="309"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="326"/>
         <source>Cannot open menu</source>
         <translation>Nelze otevřít nabídku</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="383"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="400"/>
         <source>Unchanged</source>
         <translation>Beze změny</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="386"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="403"/>
         <source>Modified</source>
         <translation>Změněno</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="389"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="406"/>
         <source>Added</source>
         <translation>Přidáno</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="392"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="409"/>
         <source>Deleted</source>
         <translation>Smazáno</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="860"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="933"/>
         <source>Error collecting information on base types for:</source>
         <translation>Chyba při sbírání informací o základních typech pro:</translation>
     </message>
     <message>
-        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="880"/>
+        <location filename="../xsdeditor/items/XSchemaBaseItems.cpp" line="953"/>
         <source>An error occurred inserting the graphic item corresponding to the object.</source>
         <translation>Při vkládání obrazové položky odpovídající předmětu se vyskytla chyba.</translation>
     </message>
@@ -10068,6 +10228,238 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <source>Attributes</source>
         <translation type="obsolete">Vlastnosti</translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="153"/>
+        <source>Error opening XSD viewer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="313"/>
+        <source>Go To Reference</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="314"/>
+        <source>Copy Name to the Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="315"/>
+        <source>Copy element definition to the Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="316"/>
+        <source>Copy facets to the Clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="317"/>
+        <source>Add Sequence</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="318"/>
+        <source>Add Choice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="319"/>
+        <source>Add Restriction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="320"/>
+        <source>Add Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="321"/>
+        <source>Add Union</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="322"/>
+        <source>Add List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="323"/>
+        <source>Delete</source>
+        <translation type="unfinished">Smazat</translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="461"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="467"/>
+        <source>%1 is unable to find a candidate for the root element.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="507"/>
+        <source>Target namespace:&quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="509"/>
+        <source>No target namespace defined</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="641"/>
+        <source>Selection is not valid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="667"/>
+        <source>Error</source>
+        <translation type="unfinished">Chyba</translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="679"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="697"/>
+        <source>Cannot add an element here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="684"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="702"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="720"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="737"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="754"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="771"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="788"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="805"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="906"/>
+        <source>Error creating item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="715"/>
+        <source>Cannot add a choice here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="732"/>
+        <source>Cannot add a sequence here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="749"/>
+        <source>Cannot add a restriction here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="766"/>
+        <source>Cannot add an extension here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="783"/>
+        <source>Cannot add an union here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="800"/>
+        <source>Cannot add a list here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="840"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="859"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="869"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1073"/>
+        <source>No root item</source>
+        <translation type="unfinished">Žádná kořenová položka</translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="854"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1076"/>
+        <source>Error loading schema.
+%1</source>
+        <translation type="unfinished">Chyba při nahrávání schématu.
+%1</translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="856"/>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1078"/>
+        <source>Unknown exception.</source>
+        <translation type="unfinished">Neznámá výjimka.</translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="879"/>
+        <source>Do you really want to delete this item?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="901"/>
+        <source>Cannot add a child here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="938"/>
+        <source>Error finding the referenced element.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="988"/>
+        <source>Could not retrieve the information.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1263"/>
+        <source>Export as SVG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1265"/>
+        <source>SVG images (*.svg);;All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1274"/>
+        <source>View</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1289"/>
+        <source>Diagram exported in SVG format.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1295"/>
+        <source>Export as HTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1297"/>
+        <source>HTML documents (*.html *.htm);;All files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1304"/>
+        <source>Diagram exported.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1306"/>
+        <source>The diagram was exported in HTML format, but %1 is unable to start the associated application.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1309"/>
+        <source>Unable to export diagram.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1624"/>
+        <source>Export as PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xsdeditor/xsdwindow.cpp" line="1626"/>
+        <source>PDF documents (*.pdf);;All files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
