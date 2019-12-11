@@ -114,7 +114,7 @@ void AboutDialog::setupPaths()
 #ifdef QXMLEDIT_QT_SCXML_ENABLED
     addPath(tr("Qt SCXML Module"), tr("enabled"), labelFont);
 #else
-    addPath(tr("Qt SCXML Module"), tr("disaabled"), labelFont);
+    addPath(tr("Qt SCXML Module"), tr("disabled"), labelFont);
 #endif
     //---
     ui->tablePaths->horizontalHeader()->setStretchLastSection(true);
