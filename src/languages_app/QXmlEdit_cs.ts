@@ -207,17 +207,17 @@ p, li { white-space: pre-wrap; }
         <location filename="../aboutdialog.cpp" line="115"/>
         <location filename="../aboutdialog.cpp" line="117"/>
         <source>Qt SCXML Module</source>
-        <translation type="unfinished"></translation>
+        <translation>Modul Qt SCXML</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="115"/>
         <source>enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>povoleno</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="117"/>
         <source>disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>zakázáno</translation>
     </message>
 </context>
 <context>
@@ -4928,7 +4928,7 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="758"/>
         <source>About QXmlEdit</source>
-        <translation type="unfinished">O QXmlEdit</translation>
+        <translation>O programu QXmlEdit</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="813"/>
@@ -6799,12 +6799,12 @@ Pokud si nejste jisti, zavřete tento panel nebo stiskněte klávesu Esc. Vždy 
     <message>
         <location filename="../MainWindow.ui" line="2597"/>
         <source>Test XML</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyzkoušet XML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2600"/>
         <source>Test a XML file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyzkoušet soubor XML.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2393"/>
@@ -8539,7 +8539,7 @@ Nelze jej nahrát.</translation>
     <message>
         <location filename="../mainwndcontroller.cpp" line="356"/>
         <source>SCXML test is supported only starting from Qt 5.7.0 and must be enabled at compilie time.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zkouška SCXML je podporována až počínaje Qt 5.7.0 a a musí být povolena v čase překladu.</translation>
     </message>
     <message>
         <location filename="../mainwndcontroller.cpp" line="362"/>
@@ -8567,7 +8567,7 @@ Nelze jej nahrát.</translation>
     <message>
         <location filename="../mainwndcontroller.cpp" line="427"/>
         <source>Open File</source>
-        <translation type="unfinished">Otevřít soubor</translation>
+        <translation>Otevřít soubor</translation>
     </message>
 </context>
 <context>
@@ -9637,7 +9637,7 @@ Search a command by name or feature
     <message>
         <location filename="../modules/help/shortcutsdialog.cpp" line="45"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;h1&gt;Shortcuts for element creation&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Operation&lt;/td&gt;&lt;th&gt;Shortcut&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Insert&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Append&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Insert Specific&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Append Specific&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Delete&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Properties&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Spec Properties&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit text&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit element&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit inner XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit inner XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Edit Mode&lt;/th&gt;        &lt;th&gt;DblClick&lt;/th&gt;        &lt;th&gt;dc+Shift&lt;/th&gt;        &lt;th&gt;dc+Ctrl&lt;/th&gt;        &lt;th&gt;dc+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Normal&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Not used&lt;/td&gt;        &lt;td&gt;Textual&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Special&lt;/td&gt;        &lt;td&gt;Special&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Not used&lt;/td&gt;        &lt;td&gt;Textual&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;html&gt;&lt;body&gt;&lt;h1&gt;Zkratky na vytváření prvků&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Operace&lt;/td&gt;&lt;th&gt;Zkratka&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Vložit&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Připojit&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Vložit specializované&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Připojit specializované&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Smazat&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Vlastnosti&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Zvláštní vlastnosti&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit text&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit prvek&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit vnitřní XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit vnitřní XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Režim úprav&lt;/th&gt;        &lt;th&gt;DblClick&lt;/th&gt;        &lt;th&gt;dc+Shift&lt;/th&gt;        &lt;th&gt;dc+Ctrl&lt;/th&gt;        &lt;th&gt;dc+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Normal&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Nepoužívané&lt;/td&gt;        &lt;td&gt;Textový&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Speciaizovaný&lt;/td&gt;        &lt;td&gt;Speciaizovaný&lt;/td&gt;        &lt;td&gt;Textový(tag/text)&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Nepoužívané&lt;/td&gt;        &lt;td&gt;Textový&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;h1&gt;Zkratky na vytváření prvků&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Operace&lt;/td&gt;&lt;th&gt;Zkratka&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Vložit&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Připojit&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Vložit specializované&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Připojit specializované&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Smazat&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Vlastnosti&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Zvláštní vlastnosti&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit text&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit prvek&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit vnitřní XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Upravit vnitřní XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Režim úprav&lt;/th&gt;        &lt;th&gt;DblClick&lt;/th&gt;        &lt;th&gt;dc+Shift&lt;/th&gt;        &lt;th&gt;dc+Ctrl&lt;/th&gt;        &lt;th&gt;dc+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Normální&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Textový(značka/text)&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Nepoužívané&lt;/td&gt;        &lt;td&gt;Textový&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Zvláštní&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Specializovaný&lt;/td&gt;        &lt;td&gt;Specializovaný&lt;/td&gt;        &lt;td&gt;Textový(tag/text)&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Nepoužívané&lt;/td&gt;        &lt;td&gt;Textový&lt;/td&gt;        &lt;td&gt;Specifický&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -10671,20 +10671,20 @@ vlastnosti na prvek</translation>
         <location filename="../xmltest.cpp" line="48"/>
         <source>This XML contains an entity reference.
 Entity references are not supported at the moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Toto XML obsahuje odkaz na entitu. Odkazy na entity v tomto okamžiku nejsou podporovány.</translation>
     </message>
     <message>
         <location filename="../xmltest.cpp" line="71"/>
         <source>Unable to read data.
 Error code is &apos;%1&apos;, %2.</source>
-        <translation type="unfinished">Nelze přečíst data.
+        <translation>Nelze přečíst data.
 Kód chyby je &apos;%1&apos;, %2.</translation>
     </message>
     <message>
         <location filename="../xmltest.cpp" line="74"/>
         <source>File name empty.
 Unable to load.</source>
-        <translation type="unfinished">Název souboru je prázdný.
+        <translation>Název souboru je prázdný.
 Nelze jej nahrát.</translation>
     </message>
     <message>
@@ -10692,13 +10692,16 @@ Nelze jej nahrát.</translation>
         <source>XML failed the test.
 %1
 File: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>XML neprošel zkouškou.
+%1
+Soubor: %2</translation>
     </message>
     <message>
         <location filename="../xmltest.cpp" line="86"/>
         <source>XML is valid.
 File: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>XML je platné.
+Soubor: %1</translation>
     </message>
 </context>
 <context>

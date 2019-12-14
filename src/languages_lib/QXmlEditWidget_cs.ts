@@ -956,7 +956,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../xsdeditor/choosexsdviewrootitemdialog.ui" line="14"/>
         <source>Choose Root Candidate</source>
-        <translation>Vybrat uchazeče o kořena</translation>
+        <translation>Vybrat uchazeče o kořen</translation>
     </message>
     <message>
         <location filename="../xsdeditor/choosexsdviewrootitemdialog.ui" line="26"/>
@@ -3002,7 +3002,7 @@ s touto volbou budou vytažené kousky: 3, 4, 5.</translation>
     <message>
         <location filename="../extraction/extractfragmentsdialog.ui" line="406"/>
         <source>Advanced</source>
-        <translation type="unfinished">Pokročilé</translation>
+        <translation>Pokročilé</translation>
     </message>
     <message>
         <location filename="../extraction/extractfragmentsdialog.ui" line="422"/>
@@ -3467,12 +3467,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../extraction/extractfragmentsdialog.cpp" line="531"/>
         <source>options set</source>
-        <translation type="unfinished"></translation>
+        <translation>Volby nastaveny</translation>
     </message>
     <message>
         <location filename="../extraction/extractfragmentsdialog.cpp" line="532"/>
         <source>Advanced options present.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé volby přítomny.</translation>
     </message>
     <message>
         <source>XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;</source>
@@ -3498,52 +3498,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="14"/>
         <source>Extraction Advanced Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé volby pro vytahování</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="26"/>
         <source>Use namespaces</source>
-        <translation type="unfinished"></translation>
+        <translation>Použít jmenné prostory</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="36"/>
         <source>&amp;Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Skripty</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="89"/>
         <source>Select all the scripts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat všechny skripty.</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="92"/>
         <source>Select &amp;All</source>
-        <translation type="unfinished"></translation>
+        <translation>Vybrat &amp;vše</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="99"/>
         <source>Unselect all the sripts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Odznačit všechny skripty.</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.ui" line="102"/>
         <source>&amp;Unselect All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Odznačit vše</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.cpp" line="61"/>
         <source>Unable to show predefined scripts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelze ukázat přednastavené skripty.</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.cpp" line="65"/>
         <source>Name</source>
-        <translation type="unfinished">Název</translation>
+        <translation>Název</translation>
     </message>
     <message>
         <location filename="../extraction/extractionadavancedoptionsdialog.cpp" line="65"/>
         <source>Description</source>
-        <translation type="unfinished">Popis</translation>
+        <translation>Popis</translation>
     </message>
 </context>
 <context>
@@ -3653,7 +3653,7 @@ Chcete ukázat složku pro vytahování v prohlížeči?</translation>
     <message>
         <location filename="../extraction/extractionoperation.cpp" line="171"/>
         <source>Scripting engine initialization failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepodařilo se inicializovat skriptovací stroj: %1</translation>
     </message>
     <message>
         <location filename="../extraction/extractionoperation.cpp" line="387"/>
@@ -3756,13 +3756,13 @@ Chcete ukázat složku pro vytahování v prohlížeči?</translation>
     <message>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="129"/>
         <source>empty name</source>
-        <translation type="unfinished"></translation>
+        <translation>Prázdný název</translation>
     </message>
     <message>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="154"/>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="184"/>
         <source>unknownAttribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Neznámá vlastnost</translation>
     </message>
     <message>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="168"/>
@@ -3771,7 +3771,7 @@ Chcete ukázat složku pro vytahování v prohlížeči?</translation>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="389"/>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="431"/>
         <source>namespaces needed</source>
-        <translation type="unfinished"></translation>
+        <translation>Je potřeba jmenný prostor</translation>
     </message>
     <message>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="355"/>
@@ -3780,17 +3780,17 @@ Chcete ukázat složku pro vytahování v prohlížeči?</translation>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="395"/>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="423"/>
         <source>out of range</source>
-        <translation type="unfinished"></translation>
+        <translation>Mimo rozsah</translation>
     </message>
     <message>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="414"/>
         <source>already existing</source>
-        <translation type="unfinished"></translation>
+        <translation>Již existuje</translation>
     </message>
     <message>
         <location filename="../extraction/scripting/events/extractionscriptelement.cpp" line="513"/>
         <source>existingAttribute</source>
-        <translation type="unfinished"></translation>
+        <translation>Existující vlastnost</translation>
     </message>
 </context>
 <context>
@@ -3798,17 +3798,17 @@ Chcete ukázat složku pro vytahování v prohlížeči?</translation>
     <message>
         <location filename="../extraction/extractionscriptingprovider.cpp" line="82"/>
         <source>Trim Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravovat vlastnosti</translation>
     </message>
     <message>
         <location filename="../extraction/extractionscriptingprovider.cpp" line="82"/>
         <source>Trim attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Upravovat vlastnosti</translation>
     </message>
     <message>
         <location filename="../extraction/extractionscriptingprovider.cpp" line="84"/>
         <source>Remove empty attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Odstranit prázdné vlastnosti</translation>
     </message>
 </context>
 <context>
@@ -6525,20 +6525,22 @@ Chyba: %2 na řádku: %3, ve sloupci: %4</translation>
     <message>
         <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="46"/>
         <source>%1, at line %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1, na řádku %2</translation>
     </message>
     <message>
         <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="48"/>
         <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="56"/>
         <source>No error</source>
-        <translation type="unfinished"></translation>
+        <translation>Žádná chyba</translation>
     </message>
     <message>
         <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="54"/>
         <source>%1, %2
 stack trace:
  %3</source>
-        <translation type="unfinished"></translation>
+        <translation>%1, %2
+stopa zásobníku:
+ %3</translation>
     </message>
 </context>
 <context>
@@ -6546,12 +6548,12 @@ stack trace:
     <message>
         <location filename="../qxmleditdata.cpp" line="44"/>
         <source>Xslt predefined style</source>
-        <translation type="unfinished">Předem určený styl Xslt</translation>
+        <translation>Předem určený styl XSLT</translation>
     </message>
     <message>
         <location filename="../qxmleditdata.cpp" line="46"/>
         <source>SCXML predefined style</source>
-        <translation type="unfinished">Předem určený styl SCXML</translation>
+        <translation>Předem určený styl SCXML</translation>
     </message>
     <message>
         <location filename="../qxmleditdata.cpp" line="146"/>
@@ -6569,7 +6571,7 @@ stack trace:
     <message>
         <location filename="../xmleditglobals.cpp" line="26"/>
         <source>QXmlEdit</source>
-        <translation type="unfinished">QXmlEdit</translation>
+        <translation>QXmlEdit</translation>
     </message>
 </context>
 <context>
@@ -8441,7 +8443,7 @@ Kód chyby je &apos;%1&apos;</translation>
         <location filename="../xsdeditor/items/XSchemaDerivedItems.cpp" line="264"/>
         <location filename="../xsdeditor/items/XSchemaDerivedItems.cpp" line="273"/>
         <source>Union</source>
-        <translation>Spojení</translation>
+        <translation>Sjednocení</translation>
     </message>
     <message>
         <source>An error occurred inserting the graphic item corresponding to the object.</source>
@@ -8675,7 +8677,7 @@ Kód chyby je &apos;%1&apos;</translation>
         <location filename="../extraction/scripting/extractionscriptmanager.cpp" line="134"/>
         <location filename="../extraction/scripting/extractionscriptmanager.cpp" line="172"/>
         <source>Not inizialized</source>
-        <translation type="unfinished"></translation>
+        <translation>Neinicializováno</translation>
     </message>
 </context>
 <context>
@@ -9486,7 +9488,7 @@ p, li { white-space: pre-wrap; }
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Oxygen&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;.Lucida Grande UI&apos;; font-size:13pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:&apos;Liberation Sans, sans-serif&apos;; font-size:11pt;&quot;&gt;Element&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;.Lucida Grande UI&apos;; font-size:13pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:&apos;Liberation Sans, sans-serif&apos;; font-size:11pt;&quot;&gt;Prvek&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
 &lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 2;&quot;&gt;&lt;li style=&quot; font-family:&apos;.Lucida Grande UI&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:&apos;Liberation Sans, sans-serif&apos;;&quot;&gt;simpleType&lt;/span&gt; &lt;/li&gt;
 &lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 3;&quot;&gt;&lt;li style=&quot; font-family:&apos;.Lucida Grande UI&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:&apos;Liberation Sans, sans-serif&apos;;&quot;&gt;restriction, base&lt;/span&gt; &lt;/li&gt;
 &lt;ul type=&quot;circle&quot; style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 4;&quot;&gt;&lt;li style=&quot; font-family:&apos;.Lucida Grande UI&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:100%;&quot;&gt;&lt;span style=&quot; font-family:&apos;Liberation Sans, sans-serif&apos;;&quot;&gt;simpleType&lt;/span&gt; &lt;/li&gt;
@@ -10232,94 +10234,94 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="153"/>
         <source>Error opening XSD viewer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při otevírání prohlížeče XSD.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="313"/>
         <source>Go To Reference</source>
-        <translation type="unfinished"></translation>
+        <translation>Jít na odkaz</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="314"/>
         <source>Copy Name to the Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopírovat název do schránky</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="315"/>
         <source>Copy element definition to the Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopírovat vymezení prvku do schránky</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="316"/>
         <source>Copy facets to the Clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopírovat stránky do schránky</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="317"/>
         <source>Add Sequence</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat sekvenci</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="318"/>
         <source>Add Choice</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat volbu</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="319"/>
         <source>Add Restriction</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat omezení</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="320"/>
         <source>Add Extension</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat rozšíření</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="321"/>
         <source>Add Union</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat sjednocení</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="322"/>
         <source>Add List</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat seznam</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="323"/>
         <source>Delete</source>
-        <translation type="unfinished">Smazat</translation>
+        <translation>Smazat</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="461"/>
         <location filename="../xsdeditor/xsdwindow.cpp" line="467"/>
         <source>%1 is unable to find a candidate for the root element.</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 není schopen najít uchazeče o kořenový prvek.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="507"/>
         <source>Target namespace:&quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Jmenný prostor cíle:&quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="509"/>
         <source>No target namespace defined</source>
-        <translation type="unfinished"></translation>
+        <translation>Nestanoven žádný jmenný prostor cíle</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="641"/>
         <source>Selection is not valid</source>
-        <translation type="unfinished"></translation>
+        <translation>Výběr není platný</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="667"/>
         <source>Error</source>
-        <translation type="unfinished">Chyba</translation>
+        <translation>Chyba</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="679"/>
         <location filename="../xsdeditor/xsdwindow.cpp" line="697"/>
         <source>Cannot add an element here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde nelze přidat prvek.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="684"/>
@@ -10332,37 +10334,37 @@ Kód chyby je &apos;%1&apos;</translation>
         <location filename="../xsdeditor/xsdwindow.cpp" line="805"/>
         <location filename="../xsdeditor/xsdwindow.cpp" line="906"/>
         <source>Error creating item.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při vytváření položky.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="715"/>
         <source>Cannot add a choice here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde nelze přidat volbu.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="732"/>
         <source>Cannot add a sequence here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde nelze přidat sekvenci.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="749"/>
         <source>Cannot add a restriction here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde nelze přidat omezení.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="766"/>
         <source>Cannot add an extension here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde nelze přidat rozšíření.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="783"/>
         <source>Cannot add an union here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde nelze přidat sjednocení.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="800"/>
         <source>Cannot add a list here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde nelze přidat seznam.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="840"/>
@@ -10370,96 +10372,96 @@ Kód chyby je &apos;%1&apos;</translation>
         <location filename="../xsdeditor/xsdwindow.cpp" line="869"/>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1073"/>
         <source>No root item</source>
-        <translation type="unfinished">Žádná kořenová položka</translation>
+        <translation>Žádná kořenová položka</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="854"/>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1076"/>
         <source>Error loading schema.
 %1</source>
-        <translation type="unfinished">Chyba při nahrávání schématu.
+        <translation>Chyba při nahrávání schématu.
 %1</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="856"/>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1078"/>
         <source>Unknown exception.</source>
-        <translation type="unfinished">Neznámá výjimka.</translation>
+        <translation>Neznámá výjimka.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="879"/>
         <source>Do you really want to delete this item?</source>
-        <translation type="unfinished"></translation>
+        <translation>Opravdu chcete smazat tuto položku?</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="901"/>
         <source>Cannot add a child here.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zde nelze přidat potomka.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="938"/>
         <source>Error finding the referenced element.</source>
-        <translation type="unfinished"></translation>
+        <translation>Chyba při hledání odkazovaného prvku.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="988"/>
         <source>Could not retrieve the information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepodařilo se získat informace.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1263"/>
         <source>Export as SVG</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést jako SVG</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1265"/>
         <source>SVG images (*.svg);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrázky SVG (*.svg);;Všechny soubory (*)</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1274"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Pohled</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1289"/>
         <source>Diagram exported in SVG format.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagram vyveden do formátu SVG.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1295"/>
         <source>Export as HTML</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést jako HTML</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1297"/>
         <source>HTML documents (*.html *.htm);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenty HTML (*.html *.htm);;Všechny soubory (*)</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1304"/>
         <source>Diagram exported.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagram vyveden.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1306"/>
         <source>The diagram was exported in HTML format, but %1 is unable to start the associated application.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagram byl vyveden do formátu HTML, ale %1 nedokáže spustit přiřazený program.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1309"/>
         <source>Unable to export diagram.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagram nelze vyvést.</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1624"/>
         <source>Export as PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Vyvést jako PDF</translation>
     </message>
     <message>
         <location filename="../xsdeditor/xsdwindow.cpp" line="1626"/>
         <source>PDF documents (*.pdf);;All files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenty PDF (*.pdf);;Všechny soubory (*)</translation>
     </message>
 </context>
 <context>
@@ -10948,7 +10950,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../xsdeditor/XSchemaCompare.cpp" line="279"/>
         <source>Trying to reparent a non child element</source>
-        <translation>Pokus o opětovné přiřazení k rodiči prvku, který není potomkem</translation>
+        <translation>Pokus o opětovné přiřazení prvku, který není potomkem, k rodiči</translation>
     </message>
 </context>
 <context>
@@ -10996,7 +10998,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../xsdeditor/XSDSchemaSequence.cpp" line="143"/>
         <source>sequence</source>
-        <translation>Posloupnost</translation>
+        <translation>Sekvence</translation>
     </message>
 </context>
 <context>
@@ -11013,7 +11015,7 @@ Kód chyby je &apos;%1&apos;</translation>
     <message>
         <location filename="../xsdeditor/xsdsctypes.cpp" line="244"/>
         <source>union: [%1]</source>
-        <translation>Spojení: [%1]</translation>
+        <translation>Sjednocení: [%1]</translation>
     </message>
 </context>
 <context>
