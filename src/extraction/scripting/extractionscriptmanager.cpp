@@ -21,7 +21,6 @@
  **************************************************************************/
 
 #include "extractionscriptmanager.h"
-#include <QtScript/QScriptValue>
 #include "utils.h"
 
 ExtractionScriptManager::ExtractionScriptManager()
