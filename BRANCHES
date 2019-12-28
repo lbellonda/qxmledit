@@ -4,6 +4,7 @@ devel - next release features
 
 Branches:
 ---------
+199 - Remove QtScript, issue #66
 198 - Russian translations.
 192 - Improve text editing.
 
