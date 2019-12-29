@@ -1,3 +1,6 @@
+0.9.15
+    Issue #66, removed references to QtScript.
+
 0.9.14
     Apply transformations splitting files.
     Fixed an issue relative to remove siblings.

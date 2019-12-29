@@ -1,15 +1,16 @@
 master - release branch
 devel - next release features
 
+Next: 200
 
 Branches:
 ---------
-199 - Remove QtScript, issue #66
 198 - Russian translations.
 192 - Improve text editing.
 
 Merged branches:
 -------------
+199 - Remove QtScript, issue #66
 191 - XMLTransforms: apply transformations while processing
 197 - Issue with double search.
 196 - Test XML without loading it.
