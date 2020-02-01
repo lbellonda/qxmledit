@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -427,6 +427,11 @@ bool TestBase::loadFileIntoClipboard(const QString &fileInput, const QString &en
         return true;
     }
     return error(QString("error opening final '%1'").arg(fileInput));
+}
+
+bool TestBase::loadFileAsStringUTF8(const QString &fileInput, QString *result)
+{
+    return loadFileAsString(fileInput, "UTF-8", result);
 }
 
 bool TestBase::loadFileAsString(const QString &fileInput, const QString &encoding, QString *result)

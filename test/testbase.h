@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -95,6 +95,7 @@ protected:
     bool compareListInts(const QString &msg, QList<int> &reference, QList<int> &compare);
     bool loadFileIntoClipboard(const QString &fileInput, const QString &encoding);
     bool loadFileAsString(const QString &fileInput, const QString &encoding, QString *result);
+    bool loadFileAsStringUTF8(const QString &fileInput, QString *result);
     bool loadIOAsString(QIODevice *device, const QString &encoding, QString *result);
     bool checkOneWidgetEnabled( QWidget *editor, const QString &childName, const bool expected);
     QAction *findAction(QList<QMenu*> menus, const QString &actionName);

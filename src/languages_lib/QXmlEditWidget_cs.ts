@@ -2485,7 +2485,7 @@ Opravdu chcete pokračovat?</translation>
     </message>
     <message>
         <location filename="../EditTextNode.ui" line="84"/>
-        <source>wrap text</source>
+        <source>Wrap text</source>
         <translation>Zalomit text</translation>
     </message>
     <message>

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -28,8 +28,19 @@
 #include "regola.h"
 #include "testbase.h"
 #include "xmleditwidgetprivate.h"
+#include "edittextnode.h"
+#include <QSizePolicy>
 
 class NamespaceCommands;
+
+class TextSearchStep {
+public:
+    bool directionForward;
+    bool found;
+    int position;
+    bool wrapped ;
+    TextSearchStep( const bool directionForward, const bool found, const int position, const bool wrapped);
+};
 
 class TestEditElements : public TestBase
 {
@@ -44,6 +55,22 @@ class TestEditElements : public TestBase
     Element *newProcessingInstruction();
     Element *createElement();
 
+    //----
+    QList<TextSearchStep*> searchStandardOneSteps(const bool isMatch);
+    QList<TextSearchStep*> searchStandard2Steps();
+    QList<TextSearchStep*> searchStandardSteps(QList<bool> foundList, QList<int> positionList);
+    bool applyStep(const int stepCounter, EditTextNode &editText, TextSearchStep* step);
+    bool testSearchText(const QString &fileSource, const QString &textToSearch, const bool searchCaseInsensitive, const bool searchWholeWords, const QList<TextSearchStep*> steps);
+    bool testEditSearchVisibleHidden();
+    bool testEditSearchNone();
+    bool testEditSearchOne();
+    bool testEditSearchTwo();
+    bool testEditTextSize();
+    bool testEditSearchState(EditTextNode &editText, const QString &message, const bool expectedState, const QSizePolicy::Policy expectedPolicy);
+    bool execEditTextSize(const QString &value, const bool expectedMaximized);
+    bool testUnitEditText();
+    bool testEditSearch();
+    //----
     bool insertCommentEmpty();
     bool insertCommentAtRootNoSel();
     bool insertCommentUnderRoot();

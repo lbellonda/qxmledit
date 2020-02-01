@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -26,6 +26,7 @@
 #include "modules/namespace/namespacecommands.h"
 #include "testhelpers/editelementtest.h"
 #include "editelementwithtexteditor.h"
+#include <QTest>
 
 #define EDIT_ELEMENTS_BASE  "../test/data/editelements/base.xml"
 #define RES_INSERTCOMMENTEMPTY "../test/data/editelements/insCommEmpty.xml"
@@ -56,6 +57,23 @@
 
 #define TEXTUAL_EDIT_START      "../test/data/editelements/textualStart.xml"
 #define TEXTUAL_EDIT_START_1    "../test/data/editelements/textual1.xml"
+
+#define EDIT_TEXT_SRC_BASE "../test/data/editelements/text/search/"
+
+
+#define TEST_SEARCH_POS_A   18
+#define TEST_SEARCH_POS_B   34
+#define EDIT_TEXT_TEXT_TO_SEARCH    "AbC"
+#define EDIT_TEXT_SRC_NOMATCH  EDIT_TEXT_SRC_BASE "nomatch.dat"
+#define EDIT_TEXT_SRC_ONE_NOCASENOWORD EDIT_TEXT_SRC_BASE "match1nocasenoword.dat"
+#define EDIT_TEXT_SRC_ONE_CASENOWORD EDIT_TEXT_SRC_BASE "match1casenoword.dat"
+#define EDIT_TEXT_SRC_ONE_NOCASEWORD EDIT_TEXT_SRC_BASE "match1nocaseword.dat"
+#define EDIT_TEXT_SRC_ONE_CASEWORD EDIT_TEXT_SRC_BASE "match1caseword.dat"
+
+#define EDIT_TEXT_SRC_TWO_NOCASENOWORD EDIT_TEXT_SRC_BASE "match2nocasenoword.dat"
+#define EDIT_TEXT_SRC_TWO_CASENOWORD EDIT_TEXT_SRC_BASE "match2casenoword.dat"
+#define EDIT_TEXT_SRC_TWO_NOCASEWORD EDIT_TEXT_SRC_BASE "match2nocaseword.dat"
+#define EDIT_TEXT_SRC_TWO_CASEWORD EDIT_TEXT_SRC_BASE "match2caseword.dat"
 
 TestEditElements::TestEditElements()
 {
@@ -1065,6 +1083,9 @@ bool TestEditElements::testInsertElement()
 
 bool TestEditElements::testFast()
 {
+    if(!testEditSearchTwo()) {
+        return false;
+    }
     if(!testEditText()) {
         return false;
     }
@@ -1159,8 +1180,279 @@ bool TestEditElements::testLoadElmText(const QString &fileStart, const QString& 
     return true;
 }
 
+bool TestEditElements::testUnitEditText()
+{
+    _testName = "testUnitEditText" ;
+    if(!testEditTextSize()) {
+        return false;
+    }
+    if(!testEditSearch()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestEditElements::testEditSearch()
+{
+    _testName = "testEditSearch" ;
+    if(!testEditSearchVisibleHidden()) {
+        return false;
+    }
+    if(!testEditSearchNone()) {
+        return false;
+    }
+    if(!testEditSearchOne()) {
+        return false;
+    }
+    if(!testEditSearchTwo()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestEditElements::testEditSearchState(EditTextNode &editText, const QString &message, const bool expectedState, const QSizePolicy::Policy expectedPolicy)
+{
+    if(editText.ui.searchGroup->isVisible() != expectedState) {
+        return error(QString("Search box visibility: %1, expected %2").arg(message).arg(expectedState));
+    }
+    if(editText.ui.searchGroup->sizePolicy().horizontalPolicy() != expectedPolicy) {
+        return error(QString("Search box horizontal policy: %1, expected %2").arg(message).arg(expectedPolicy));
+    }
+    if(editText.ui.searchGroup->sizePolicy().verticalPolicy() != expectedPolicy) {
+        return error(QString("Search box vertical policy: %1, expected %2").arg(message).arg(expectedPolicy));
+    }
+    return true ;
+}
+
+bool TestEditElements::testEditSearchVisibleHidden()
+{
+    _subTestName = "testEditSearchVisibleHidden" ;
+    EditTextNode editText(false, "") ;
+    editText.show();
+    if(!testEditSearchState(editText, "initially visible", false, QSizePolicy::Ignored)) {
+        return false;
+    }
+    QTest::mouseClick ( editText.ui.searchButton, Qt::LeftButton, Qt::NoModifier);
+    QApplication::processEvents();
+    if(!testEditSearchState(editText, "not visible", true, QSizePolicy::Preferred)) {
+        return false;
+    }
+    QTest::mouseClick ( editText.ui.searchButton, Qt::LeftButton, Qt::NoModifier);
+    QApplication::processEvents();
+    if(!testEditSearchState(editText, "when closed", false, QSizePolicy::Ignored)) {
+        return false;
+    }
+    return true ;
+}
+
+TextSearchStep::TextSearchStep( const bool setDirectionForward, const bool setFound, const int setPosition, const bool setWrapped)
+{
+    directionForward = setDirectionForward ;
+    found = setFound ;
+    position = setPosition ;
+    wrapped = setWrapped;
+}
+
+bool TestEditElements::applyStep(const int stepCounter, EditTextNode &editText, TextSearchStep* step)
+{
+    if(step->directionForward) {
+        QTest::mouseClick ( editText.ui.cmdSearchNext, Qt::LeftButton, Qt::NoModifier);
+    } else {
+        QTest::mouseClick ( editText.ui.cmdSearchPrev, Qt::LeftButton, Qt::NoModifier);
+    }
+    if(editText._lastSearchFound != step->found) {
+        return error(QString("Step %1: Found differs, expected: %2").arg(stepCounter).arg(step->found));
+    }
+    const int positionFound = editText.ui.editor->textCursor().position();
+    if(positionFound != step->position) {
+        return error(QString("Step %1: Position differs, expected: %2, found: %3").arg(stepCounter).arg(step->position).arg(positionFound));
+    }
+    if(editText._lastSearchFound) {
+        if(editText._lastSearchWrapped != step->wrapped) {
+            return error(QString("Step %1: Wrapped differs, expected: %2").arg(stepCounter).arg(step->wrapped));
+        }
+    }
+    return true;
+}
+
+bool TestEditElements::testSearchText(const QString &fileSource, const QString &textToSearch, const bool searchCaseInsensitive, const bool searchWholeWords, const QList<TextSearchStep*> steps)
+{
+    EditTextNode editText(false, "");
+    QString sourceText;
+    if(!loadFileAsStringUTF8(fileSource, &sourceText)) {
+        return error(QString("Error loading input text %1").arg(fileSource));
+    }
+    editText.setText(sourceText);
+    editText.ui.searchText->setText(textToSearch);
+    editText.ui.searchCaseSensitive->setChecked(searchCaseInsensitive);
+    editText.ui.searchOptionWholeWords->setChecked(searchWholeWords);
+    QTextCursor cursor ;
+    cursor.setPosition(0);
+    editText.ui.editor->setTextCursor(cursor);
+    editText.ui.editor->setFocus();
+    QApplication::processEvents();
+    int stepCounter = 1;
+    foreach(TextSearchStep* step, steps) {
+        if(!applyStep(stepCounter, editText, step)) {
+            return false;
+        }
+        stepCounter ++ ;
+    }
+    return true ;
+}
+
+/*
+casi da testare:
+2 matches:
+      azione  | found | posizione | wrapped | posizionato |
+      --------+-------+-----------+---------+-------------|
+    1 forward |   si  |   a       |  no     |  inizio     |
+    2 forward |   si  |   b       |  no     |             |
+    3 forward |   si  |   a       |  si     |             |
+    4 forward |   si  |   b       |  no     |             |
+    5 backward|   si  |   a       |  no     |             |
+    6 backward|   si  |   b       |  si     |             |
+    7 backward|   si  |   b       |  no     |  fine       |test manuale
+
+1 match:
+    azione  | found | posizione | wrapped | posizionato |
+    --------+-------+-----------+---------+-------------|
+  1 forward |   si  |   a       |  no     |  inizio     |
+  2 forward |   si  |   a       |  si     |             |
+  3 backward|   si  |   a       |  si     |             |
+  4 backward|   si  |   a       |  no     |             |
+
+no match:
+  azione  | found | posizione | wrapped | posizionato |
+  --------+-------+-----------+---------+-------------|
+1 forward |   no  |   o       |  si     |  inizio     |
+2 forward |   no  |   o       |  si     |             |
+3 backward|   no  |   o       |  si     |             |
+4 backward|   no  |   o       |  si     |             |
+*/
+
+QList<TextSearchStep*> TestEditElements::searchStandardOneSteps(const bool isMatch)
+{
+    QList<TextSearchStep*> steps;
+    TextSearchStep *step1 = new TextSearchStep(true, isMatch, isMatch?TEST_SEARCH_POS_A:-1, false);
+    TextSearchStep *step2 = new TextSearchStep(true, isMatch, isMatch?TEST_SEARCH_POS_A:-1, true);
+    TextSearchStep *step3 = new TextSearchStep(false, isMatch, isMatch?TEST_SEARCH_POS_A:-1, true);
+    TextSearchStep *step4 = new TextSearchStep(false, isMatch, isMatch?TEST_SEARCH_POS_A:-1, isMatch? true:false);
+
+    steps << step1 << step2 << step3 << step4 ;
+    return steps;
+}
+
+QList<TextSearchStep*> TestEditElements::searchStandard2Steps()
+{
+    QList<TextSearchStep*> steps;
+    TextSearchStep *step1 = new TextSearchStep(true, true, TEST_SEARCH_POS_A, false);
+    TextSearchStep *step2 = new TextSearchStep(true, true, TEST_SEARCH_POS_B, false);
+    TextSearchStep *step3 = new TextSearchStep(true, true, TEST_SEARCH_POS_A, true);
+    TextSearchStep *step4 = new TextSearchStep(true, true, TEST_SEARCH_POS_B, false);
+    TextSearchStep *step5 = new TextSearchStep(false, true, TEST_SEARCH_POS_A, false);
+    TextSearchStep *step6 = new TextSearchStep(false, true, TEST_SEARCH_POS_B, true);
+    steps << step1 << step2 << step3 << step4 << step5 << step6 ;
+    return steps;
+}
+
+bool TestEditElements::testEditSearchNone()
+{
+    _subTestName = "testEditSearchNone" ;
+    FORINT(searchCaseInsensitive,2) {
+        FORINT(searchWholeWords,2) {
+            QList<TextSearchStep*> steps = searchStandardOneSteps(false);
+            if(!testSearchText(EDIT_TEXT_SRC_NOMATCH, "ZZZZ", searchCaseInsensitive>0, searchWholeWords>0, steps)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool TestEditElements::testEditSearchOne()
+{
+    _subTestName = "testEditSearchOne" ;
+    QList<TextSearchStep*> steps ;
+    _subTestName = "testEditSearchOneNocaseNoWord" ;
+    steps = searchStandardOneSteps(true);
+    if(!testSearchText(EDIT_TEXT_SRC_ONE_NOCASENOWORD, EDIT_TEXT_TEXT_TO_SEARCH, false, false, steps)) {
+        return false;
+    }
+    _subTestName = "testEditSearchOneCaseNoWord" ;
+    steps = searchStandardOneSteps(true);
+    if(!testSearchText(EDIT_TEXT_SRC_ONE_CASENOWORD, EDIT_TEXT_TEXT_TO_SEARCH, true, false, steps)) {
+        return false;
+    }
+    _subTestName = "testEditSearchOneNocaseWord" ;
+    steps = searchStandardOneSteps(true);
+    if(!testSearchText(EDIT_TEXT_SRC_ONE_NOCASEWORD, EDIT_TEXT_TEXT_TO_SEARCH, false, true, steps)) {
+        return false;
+    }
+    _subTestName = "testEditSearchOneCaseWord" ;
+    steps = searchStandardOneSteps(true);
+    if(!testSearchText(EDIT_TEXT_SRC_ONE_CASEWORD, EDIT_TEXT_TEXT_TO_SEARCH, true, true, steps)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestEditElements::testEditSearchTwo()
+{
+    _subTestName = "testEditSearchTwo" ;
+    QList<TextSearchStep*> steps ;
+    _subTestName = "testEditSearchTwoNocaseNoWord" ;
+    steps = searchStandard2Steps();
+    if(!testSearchText(EDIT_TEXT_SRC_TWO_NOCASENOWORD, EDIT_TEXT_TEXT_TO_SEARCH, false, false, steps)) {
+        return false;
+    }
+    _subTestName = "testEditSearchTwoCaseNoWord" ;
+    steps = searchStandard2Steps();
+    if(!testSearchText(EDIT_TEXT_SRC_TWO_CASENOWORD, EDIT_TEXT_TEXT_TO_SEARCH, true, false, steps)) {
+        return false;
+    }
+    _subTestName = "testEditSearchTwoNocaseWord" ;
+    steps = searchStandard2Steps();
+    if(!testSearchText(EDIT_TEXT_SRC_TWO_NOCASEWORD, EDIT_TEXT_TEXT_TO_SEARCH, false, true, steps)) {
+        return false;
+    }
+    _subTestName = "testEditSearchTwoCaseWord" ;
+    steps = searchStandard2Steps();
+    if(!testSearchText(EDIT_TEXT_SRC_TWO_CASEWORD, EDIT_TEXT_TEXT_TO_SEARCH, true, true, steps)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestEditElements::execEditTextSize(const QString &value, const bool expectedMaximized)
+{
+    EditTextNode editText(false, "") ;
+    editText.setText(value);
+    if(editText.isMaximized() != expectedMaximized) {
+        return error(QString("Expected maximized failed expected %1").arg(expectedMaximized));
+    }
+    return true ;
+}
+
+bool TestEditElements::testEditTextSize()
+{
+    _testName = "testEditText/testExitTextSize" ;
+    if(!execEditTextSize("value", false) ) {
+        return false;
+    }
+    QString value;
+    value.fill('a', EditTextNode::TextLengthLimitForFullSize);
+    if(!execEditTextSize(value, true) ) {
+        return false;
+    }
+    return true ;
+}
+
 bool TestEditElements::testEditText()
 {
+    if(!testUnitEditText()) {
+        return false;
+    }
     _testName = "testEditText" ;
     QList<int> sel;
     sel << 1 << 1;

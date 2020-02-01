@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -30,10 +30,13 @@ const int EditTextNode::InputSizeLimit = 1024 * 1024;
 EditTextNode::EditTextNode(const bool isBase64Value, const QString &startPath, QWidget * parent) : QDialog(parent)
 {
     ui.setupUi(this);
+    ui.searchText->installEventFilter(this);
+    setSearchVisibility(false);
+    Utils::addMaximizeToDialog(this);
     _fileDataPath = startPath;
     target = "";
     connect(ui.wrapText, SIGNAL(stateChanged(int)), this, SLOT(onWrapChanged(int)));
-    ui.wrapText->setChecked(false);
+    ui.wrapText->setChecked(true);
     isBase64 = isBase64Value ;
     if(isBase64) {
         ui.fromBase64->setVisible(false);
@@ -41,13 +44,14 @@ EditTextNode::EditTextNode(const bool isBase64Value, const QString &startPath, Q
         ui.toBase64->setVisible(false);
         ui.toBase64->setEnabled(false);
     }
+    _lastSearchFound = false ;
+    _lastSearchWrapped = false ;
 }
 
 EditTextNode::~EditTextNode()
 {
     disconnect(ui.wrapText, SIGNAL(stateChanged(int)), this, SLOT(onWrapChanged(int)));
 }
-
 
 void EditTextNode::setWrapMode(const bool wrap)
 {
@@ -63,6 +67,9 @@ void EditTextNode::setText(const QString &theText)
 {
     target = theText ;
     ui.editor->setPlainText(target);
+    if(target.length() >= TextLengthLimitForFullSize) {
+        showMaximized();
+    }
 }
 
 QString EditTextNode::getText() const
@@ -88,9 +95,6 @@ void EditTextNode::on_fromBase64_clicked()
     QByteArray array(text.toLatin1());
     QByteArray array2 = QByteArray::fromBase64(array);
     ui.editor->setPlainText(array2.data());
-    /*QByteArray array(ui.editor->toPlainText());
-    array.fromBase64();
-    ui.editor->setPlainText(array.data());*/
 }
 
 void EditTextNode::on_toBase64_clicked()
@@ -188,9 +192,136 @@ bool EditTextNode::saveToBinaryDevice(QIODevice *device)
     return isOk;
 }
 
+#ifdef QXMLEDIT_TEST
 bool EditTextNode::testLoadBinaryFile(const QString &filePath)
 {
     return loadFromBinaryFile(filePath);
 }
+#endif
 
+void EditTextNode::on_searchButton_clicked()
+{
+    toggleSearchVisibility();
+}
 
+void EditTextNode::toggleSearchVisibility()
+{
+    const bool desiredState = !ui.searchGroup->isVisible();
+    setSearchVisibility(desiredState);
+}
+
+void EditTextNode::setSearchVisibility(const bool desiredState)
+{
+    if(desiredState) {
+        ui.searchGroup->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    } else {
+        ui.searchGroup->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    }
+    ui.searchGroup->setVisible(desiredState);
+    if(desiredState) {
+        setSearchStatus("");
+        enableSearchUI(false);
+        ui.searchText->setFocus();
+    }
+}
+
+void EditTextNode::on_cmdSearchNext_clicked()
+{
+    doSearch(true);
+}
+
+void EditTextNode::on_cmdSearchPrev_clicked()
+{
+    doSearch(false);
+}
+
+void EditTextNode::doSearch(const bool directionForward)
+{
+    search(ui.searchText->text(), ui.searchCaseSensitive->isChecked(), ui.searchOptionWholeWords->isChecked(), directionForward);
+}
+
+bool EditTextNode::search(const QString &textToSearch, const bool caseSensitive, const bool isWordOnly, const bool directionForward)
+{
+    //setEnabled(false);
+    QTextDocument::FindFlags options = 0;
+    if(caseSensitive) {
+        options |= QTextDocument::FindCaseSensitively ;
+    }
+    if(isWordOnly) {
+        options |= QTextDocument::FindWholeWords;
+    }
+    if(!directionForward) {
+        options |= QTextDocument::FindBackward;
+    }
+    bool found = false;
+    bool lastSearchWrapped = false ;
+    found = ui.editor->find(textToSearch, options);
+
+    if(found) {
+        setSearchStatus(tr("found"));
+        ui.editor->ensureCursorVisible();
+    } else {
+        // wrap around
+        QTextCursor textCursor = ui.editor->textCursor();
+        const int currentPosition = textCursor.position();
+        if(directionForward) {
+            ui.editor->moveCursor(QTextCursor::Start);
+        } else {
+            ui.editor->moveCursor(QTextCursor::End);
+        }
+        found = ui.editor->find(textToSearch, options);
+        if(found) {
+            lastSearchWrapped = true ;
+            setSearchStatus(tr("found - search wrapped"));
+        } else {
+            textCursor.setPosition(currentPosition);
+            setSearchStatus(tr("No match"));
+        }
+    }
+    _lastSearchFound = found ;
+    _lastSearchWrapped = lastSearchWrapped ;
+    setEnabled(true);
+    return found ;
+}
+
+void EditTextNode::setSearchStatus(const QString &message)
+{
+    ui.searchStatus->setText(message);
+}
+
+bool EditTextNode::eventFilter(QObject *obj, QEvent *event)
+{
+    if(obj == ui.searchText) {
+        if(event->type() == QEvent::KeyPress) {
+            QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
+            if(!keyEvent->isAutoRepeat()
+                    && ((keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return))) {
+                if(keyEvent->modifiers()&Qt::KeyboardModifier::ShiftModifier) {
+                    ui.cmdSearchPrev->animateClick();
+                } else {
+                    ui.cmdSearchNext->animateClick();
+                }
+                return true ;
+            }
+        }
+        return false;
+    }
+    return QWidget::eventFilter(obj, event);
+}
+
+void EditTextNode::on_searchText_textChanged(const QString & text)
+{
+    setSearchStatus("");
+    enableSearchUI(!text.isEmpty());
+}
+
+void EditTextNode::enableSearchUI(const bool isEnabled)
+{
+    ui.cmdSearchNext->setEnabled(isEnabled);
+    ui.cmdSearchPrev->setEnabled(isEnabled);
+}
+
+void EditTextNode::on_cmdSearchClose_clicked()
+{
+    setSearchVisibility(false);
+}
