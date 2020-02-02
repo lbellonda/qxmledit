@@ -1,10 +1,12 @@
 master - release branch
 devel - next release features
 
-Next: 200
+Next: 202
 
 Branches:
 ---------
+201 - Extended text edit on attributes.
+200 - Disable TODO via configuration.
 198 - Russian translations.
 192 - Improve text editing (partially merged).
 
