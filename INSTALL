@@ -49,6 +49,8 @@ disable tips management: QXMLEDIT_COMPILE_DISABLE_TIPS non void (default: tips e
 disable the Qt SCXML module setting QXMLEDIT_DISABLE_SCXML to non empty string (default: SCXML enabled if Qt >= 5.7.0).
 to append the version suffix to libraries set QXMLEDIT_VERSIONED to a value.
 to disallow convert compiler warnings in errors set QXMLEDIT_INST_DISABLE_COMPILE_WARNINGS to a value.
+to disable TODO annotation in code while developing set QXMLEDIT_DISABLE_TODO_CONFIG to a value (release
+  compilations automatically disable TODOs. No need to define this variable for a release.
 
 QwtPlot3D library is linked (statically) by default unless QXMLEDIT_NO_QWTPLOT environment variable is defined and not empty.
 It is used as an optional component and can be excluded without compromising QXmlEdit functionalities.

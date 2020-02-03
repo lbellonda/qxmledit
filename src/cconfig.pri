@@ -235,3 +235,21 @@ isEmpty(INST_DISABLE_COMPILE_WARNINGS) {
 }
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
+
+###########################################
+
+EVAL_QXMLEDIT_DISABLE_TODO_CONFIG=$$(QXMLEDIT_DISABLE_TODO_CONFIG)
+isEmpty(EVAL_QXMLEDIT_DISABLE_TODO_CONFIG) {
+    EVAL_QXMLEDIT_DISABLE_TODO_CONFIG=$$QXMLEDIT_DISABLE_TODO_CONFIG
+}
+
+!isEmpty(EVAL_QXMLEDIT_DISABLE_TODO_CONFIG) {
+    DEFINES += "QXMLEDIT_DISABLE_TODO"
+    message("Disabled TODO")
+}
+
+isEmpty(EVAL_QXMLEDIT_DISABLE_TODO_CONFIG) {
+    message("TODO Enabled")
+}
+
+###########################################

@@ -567,7 +567,7 @@ void Utils::todo(const QString &inputMessage)
 }
 */
 
-#if defined(QXMLEDIT_VERSION_IS_SNAPSHOT)
+#if defined(QXMLEDIT_VERSION_IS_SNAPSHOT) && !defined(QXMLEDIT_DISABLE_TODO)
 void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
 {
     if(!inputMessage.isEmpty()) {
