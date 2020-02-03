@@ -1,4 +1,5 @@
 0.9.15
+    Configuration option to disable TODO functions.
     Text panel full screen if text length greater than a threshold.
     Find in edit text panel.
     Issue #66, removed references to QtScript.
