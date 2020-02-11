@@ -296,7 +296,7 @@ bool EditTextNode::eventFilter(QObject *obj, QEvent *event)
             QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
             if(!keyEvent->isAutoRepeat()
                     && ((keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return))) {
-                if(keyEvent->modifiers()&Qt::KeyboardModifier::ShiftModifier) {
+                if(keyEvent->modifiers()&Qt::ShiftModifier) {
                     ui.cmdSearchPrev->animateClick();
                 } else {
                     ui.cmdSearchNext->animateClick();

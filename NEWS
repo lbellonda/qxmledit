@@ -1,4 +1,5 @@
 0.9.15
+    Issue #69, compilation error.
     Configuration option to disable TODO functions.
     Text panel full screen if text length greater than a threshold.
     Find in edit text panel.
