@@ -358,12 +358,22 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="cmdEditAttributeAdvanced">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>&amp;Edit Panel</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="cmdToBase64">
            <property name="enabled">
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>To base64</string>
+            <string>To Base64</string>
            </property>
           </widget>
          </item>
@@ -373,7 +383,7 @@
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>From base64</string>
+            <string>From Base64</string>
            </property>
           </widget>
          </item>
@@ -386,7 +396,7 @@
             <string>s</string>
            </property>
            <property name="text">
-            <string>Save base64</string>
+            <string>Save Base64</string>
            </property>
           </widget>
          </item>
@@ -399,7 +409,7 @@
             <string>Load a binary file and insert it into the current attribute as base64 coded text.</string>
            </property>
            <property name="text">
-            <string>Load base64</string>
+            <string>Load Base64</string>
            </property>
           </widget>
          </item>
@@ -466,13 +476,24 @@
   </action>
  </widget>
  <tabstops>
+  <tabstop>editTag</tabstop>
+  <tabstop>cmdNamespaces</tabstop>
+  <tabstop>elementTable</tabstop>
+  <tabstop>textAdd</tabstop>
   <tabstop>textDel</tabstop>
+  <tabstop>textEdit</tabstop>
+  <tabstop>textUp</tabstop>
+  <tabstop>textDown</tabstop>
+  <tabstop>attrTable</tabstop>
   <tabstop>newAttribute</tabstop>
   <tabstop>delAttribute</tabstop>
-  <tabstop>buttonBox</tabstop>
+  <tabstop>cmdEditAttributeAdvanced</tabstop>
+  <tabstop>cmdToBase64</tabstop>
+  <tabstop>cmdFromBase64</tabstop>
+  <tabstop>cmdSaveFileBase64</tabstop>
+  <tabstop>cmdLoadFileBase64</tabstop>
  </tabstops>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections>

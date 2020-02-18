@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -44,6 +44,7 @@ EditElement::EditElement(QWidget * parent) : QDialog(parent)
     modColor = QColor::fromRgb(255, 128, 128);
     isMixedContent = false ;
     ui.setupUi(this);
+    attributesSelectionChanged(false);
     ui.elementTable->setColumnWidth(T_COLUMN_MOD, MOD_WIDTH);
     ui.attrTable->setColumnWidth(A_COLUMN_MOD, MOD_WIDTH);
     _attributeTextDelegate = new AttributeColumnItemDelegate(ui.attrTable, A_COLUMN_TEXT, ui.attrTable);
@@ -248,7 +249,7 @@ bool EditElement::updateTarget(Element *targetElement)
     }
 
     Utils::TODO_NEXT_RELEASE("this part must be tested very well");
-    //if(_textModified) {
+
     targetElement->clearTextNodes();
 
     isMixedContent = false ;
@@ -462,11 +463,17 @@ void EditElement::on_attrTable_itemSelectionChanged()
     if(currentRow >= 0) {
         isSel = true ;
     }
+    attributesSelectionChanged(isSel);
+}
+
+void EditElement::attributesSelectionChanged(const bool isSel)
+{
     ui.delAttribute->setEnabled(isSel);
     ui.cmdToBase64->setEnabled(isSel);
     ui.cmdFromBase64->setEnabled(isSel);
     ui.cmdLoadFileBase64->setEnabled(isSel);
     ui.cmdSaveFileBase64->setEnabled(isSel);
+    ui.cmdEditAttributeAdvanced->setEnabled(isSel);
 }
 
 void EditElement::on_textDel_clicked()
@@ -724,20 +731,18 @@ void EditElement::doBase64Operation(const bool isFromBase64)
     int currentColumn = ui.attrTable->currentColumn();
     QTableWidgetItem *currentItem = ui.attrTable->currentItem() ;
     if((NULL != currentItem) && (currentRow >= 0) && ((A_COLUMN_NAME == currentColumn) || (A_COLUMN_TEXT == currentColumn))) {
-        //ui.attrTable->closePersistentEditor(currentItem);
-        QString text = currentItem->text();
-        QString newText ;
-        if(isFromBase64) {
-            newText = Utils::fromBase64(text);
-        } else {
-            newText = Utils::toBase64(text);
+        QTableWidgetItem *textItem = ui.attrTable->item(currentRow, A_COLUMN_TEXT) ;
+        if(NULL != textItem) {
+            QString text = textItem->text();
+            QString newText ;
+            if(isFromBase64) {
+                newText = Utils::fromBase64(text);
+            } else {
+                newText = Utils::toBase64(text);
+            }
+            setNewAttributeText(currentRow, newText);
         }
-        currentItem->setText(newText);
-        setUpdatedAttr(currentRow);
-        ui.attrTable->setCurrentItem(currentItem);
-        ui.attrTable->setFocus();
     }
-
 }
 
 void EditElement::on_cmdToBase64_clicked()
@@ -916,5 +921,33 @@ void EditElement::on_cmdSaveFileBase64_clicked()
     QString text = itemValue->text() ;
     Base64Utils base64Utils;
     base64Utils.saveBase64ToBinaryFile(Base64Utils::RFC4648Standard, this, text, QXmlEditData::sysFilePathForOperation(""));
+}
+
+void EditElement::on_cmdEditAttributeAdvanced_clicked()
+{
+    int currentRow = ui.attrTable->currentRow();
+    if(currentRow >= 0) {
+        QTableWidgetItem *attributeNameItem = ui.attrTable->item(currentRow, A_COLUMN_NAME);
+        QTableWidgetItem *currentItem = ui.attrTable->item(currentRow, A_COLUMN_TEXT);
+        if((NULL != currentItem) && (NULL != attributeNameItem)) {
+            EditTextNode editDialog(false, tr("Attribute: %1").arg(attributeNameItem->text()), this);
+            editDialog.setWindowModality(Qt::WindowModal);
+            editDialog.setText(currentItem->text());
+            if(editDialog.exec() == QDialog::Accepted) {
+                const QString & newText = editDialog.getText();
+                setNewAttributeText(currentRow, newText);
+            }
+        }
+    }
+}
+
+void EditElement::setNewAttributeText(const int row, const QString &newText)
+{
+    QTableWidgetItem *currentItem = ui.attrTable->item(row, A_COLUMN_TEXT);
+    currentItem->setText(newText);
+    setUpdatedAttr(row);
+    ui.attrTable->setCurrentItem(currentItem);
+    ui.attrTable->setFocus();
+    ui.attrTable->resizeRowToContents(row);
 }
 

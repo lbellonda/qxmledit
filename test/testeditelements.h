@@ -123,6 +123,9 @@ class TestEditElements : public TestBase
                                            const QString& expectedTag, const QString& expectedAttributes );
     bool verifyTestActivationEdit(XmlEditWidgetPrivate *target, App &app, const bool baseEditModeForm, const bool isNormalMode, const XmlEditWidgetPrivate::EEditMode expected );
     bool testActivationEdit();
+    bool testEditAttributes();
+    bool testEditAttributeText();
+    bool testEditAttributeBase64();
 public:
     TestEditElements();
     virtual ~TestEditElements();

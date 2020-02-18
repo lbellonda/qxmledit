@@ -1083,6 +1083,10 @@ bool TestEditElements::testInsertElement()
 
 bool TestEditElements::testFast()
 {
+    Utils::TODO_THIS_RELEASE("elimina ridondante");
+    if(!testEditAttributes()) {
+        return false;
+    }
     if(!testEditSearchTwo()) {
         return false;
     }
@@ -1491,6 +1495,9 @@ bool TestEditElements::testUnit()
     if(!testActivationEdit()) {
         return false;
     }
+    if(!testEditAttributes()) {
+        return false;
+    }
     return true;
 }
 
@@ -1526,6 +1533,79 @@ bool TestEditElements::testActivationEdit()
     }
     if(!verifyTestActivationEdit(target, app, false, true, XmlEditWidgetPrivate::EditModeTextualDependingOnMouse)) {
         return false;
+    }
+    return true;
+}
+
+bool TestEditElements::testEditAttributes()
+{
+    _testName = "testEditAttributes";
+    if(!testEditAttributeText()) {
+        return false;
+    }
+    if(!testEditAttributeBase64()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestEditElements::testEditAttributeText()
+{
+    _testName = "testEditAttributeText";
+    const QString NewText = "XXX YY ZZ";
+    Element startElement( "x", "", NULL, NULL) ;
+    Element referenceElement( "x", "", NULL, NULL) ;
+    startElement.addAttribute("a", "aa");
+    startElement.addAttribute("b", "bb");
+    startElement.addAttribute("c", "cc");
+    referenceElement.addAttribute("a", "aa");
+    referenceElement.addAttribute("b", NewText);
+    referenceElement.addAttribute("c", "cc");
+
+    //----
+    EditElement editElement;
+    editElement.setTarget(&startElement);
+    editElement.show();
+    editElement.setAttrFocus(1);
+    editElement.setNewAttributeText(1, NewText);
+    editElement.accept();
+    //----
+
+    QString message;
+    if(!referenceElement.compareToElement(&startElement, message)) {
+        return error(QString("Element differ :%1").arg(message));
+    }
+    return true;
+}
+
+bool TestEditElements::testEditAttributeBase64()
+{
+    _testName = "testEditAttributeBase64";
+    Element startElement( "x", "", NULL, NULL) ;
+    Element referenceElement( "x", "", NULL, NULL) ;
+    startElement.addAttribute("a", "aa"); //YWE=
+    startElement.addAttribute("b", "YmI="); //bb
+    startElement.addAttribute("c", "cc");
+    referenceElement.addAttribute("a", "YWE=");
+    referenceElement.addAttribute("b", "bb");
+    referenceElement.addAttribute("c", "cc");
+
+    //----
+    EditElement editElement;
+    editElement.setTarget(&startElement);
+    editElement.show();
+    editElement.setAttrFocus(0);
+    QTest::mouseClick ( editElement.ui.cmdToBase64, Qt::LeftButton, Qt::NoModifier);
+    QApplication::processEvents();
+    editElement.setAttrFocus(1);
+    QTest::mouseClick ( editElement.ui.cmdFromBase64, Qt::LeftButton, Qt::NoModifier);
+    QApplication::processEvents();
+    editElement.accept();
+    //----
+
+    QString message;
+    if(!referenceElement.compareToElement(&startElement, message)) {
+        return error(QString("Element differ :%1").arg(message));
     }
     return true;
 }

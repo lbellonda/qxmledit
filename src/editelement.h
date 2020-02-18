@@ -96,6 +96,8 @@ private:
     void setTextToItem(QTableWidgetItem *item, const QString &text);
     QString textFromItem(QTableWidgetItem *item);
     QHash<QString, QString> getNsFromAttributes();
+    void attributesSelectionChanged(const bool isSel);
+    void setNewAttributeText(const int row, const QString &newText);
 
 public slots:
     void accept();
@@ -117,6 +119,7 @@ private slots:
     void on_cmdNamespaces_clicked();
     void on_cmdLoadFileBase64_clicked();
     void on_cmdSaveFileBase64_clicked();
+    void on_cmdEditAttributeAdvanced_clicked();
 
 private:
     Ui::Dialog ui;
@@ -142,6 +145,10 @@ protected:
     void doBase64Operation(const bool isFromBase64);
     void applyNamespaceOper(NamespaceCommands *commands);
     bool updateTarget(Element *element);
+
+#ifdef  QXMLEDIT_TEST
+    friend class TestEditElements;
+#endif
 };
 
 #endif

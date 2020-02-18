@@ -1979,12 +1979,12 @@ row=%1, column=%2</source>
     </message>
     <message>
         <location filename="../EditElement.ui" line="366"/>
-        <source>To base64</source>
+        <source>To Base64</source>
         <translation>Do Base 64</translation>
     </message>
     <message>
         <location filename="../EditElement.ui" line="376"/>
-        <source>From base64</source>
+        <source>From Base64</source>
         <translation>Od Base 64</translation>
     </message>
     <message>
@@ -1994,7 +1994,7 @@ row=%1, column=%2</source>
     </message>
     <message>
         <location filename="../EditElement.ui" line="389"/>
-        <source>Save base64</source>
+        <source>Save Base64</source>
         <translation>Uložit base64</translation>
     </message>
     <message>
@@ -2004,7 +2004,7 @@ row=%1, column=%2</source>
     </message>
     <message>
         <location filename="../EditElement.ui" line="402"/>
-        <source>Load base64</source>
+        <source>Load Base64</source>
         <translation>Nahrát base64</translation>
     </message>
     <message>
