@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -89,6 +89,13 @@ class TestSplit : public TestBase
     bool setOptionUseNS(const QString &code, const bool expected, const bool initialValue);
     void addAttributesToList(QList<QPair<QString, QString> > &translatesAttributes, QXmlStreamAttributes inputAttributes);
 #ifdef QXMLEDIT_JS_SCRIPT
+    bool testScriptWithCase0();
+    bool testScriptWithCase0Filter();
+    bool testScriptWithCase0FilterMulti();
+    bool testScriptWithCase0FilterMultiNoScript();
+    bool testScriptWithCase0Split();
+    bool testScriptWithCase1Split();
+    bool testScriptWithCase1NoScriptSplit();
     bool testScriptingJS();
     void setupPredFiltersValues(ExtractionOperation *op, const QStringList &filtersList);
     bool verifyScriptList(const QString &code, ExtractionOperation *op, const QStringList &expectedFiltersList);
@@ -128,6 +135,11 @@ class TestSplit : public TestBase
     bool testPredefinedScriptRemoveEmptyAttributesNoNsFilter();
     bool testPredefinedScriptRemoveEmptyAttributesNsFilter();
     bool testPredefinedScriptExecute(const bool useNamespaces, const bool isFilter, const QString &fileReference, const QString &fileResult, QList<ExtractionScriptingProvider::EPredefinedScripts> scripts);
+    bool testPredefinedScriptExecute(const bool useNamespaces, const bool isFilter, const QString &fileReference, const QString &fileResult, QList<ExtractionScriptingProvider::EPredefinedScripts> scripts, const int depth, const bool isAllDocuments, const unsigned int minDoc, const unsigned int maxDoc);
+    bool testPredefinedScriptExecuteList(const bool useNamespaces, const bool isFilter, const QString &fileReference,
+                                                    const QStringList referenceFiles, QList<ExtractionScriptingProvider::EPredefinedScripts> scripts,
+                                                    const int depth, const bool isAllDocuments, const unsigned int minDoc, const unsigned int maxDoc);
+
     //--
     bool unitTestFilterEventText();
     bool unitTestFilterEventTextProperties();
@@ -145,6 +157,7 @@ class TestSplit : public TestBase
     bool checkSplit(ExtractResults &results, const int id, const QString &referenceFile);
     bool splitAndNavigateFilter(const bool isReverseRange, const QString &fileReference, const QString &fileResult, const int minDoc = 2, const int MaxDoc = 4);
     bool checkFilter(const QString &file1, const QString &file2);
+    bool checkFilter(const QString &file1, const QString &file2, const bool expectedPositiveResult);
     void setupFilterParameters(ExtractionOperation *operation, const bool isReverseRange, const QString &extractFolder, const QString &timeStamp, const QString &fileInput, const int minDoc, const int MaxDoc);
     void setupFilterParametersCfr(ExtractionOperation *operation, const QString &extractFolder,
                                   const QString &timeStamp, const QString &fileInput,

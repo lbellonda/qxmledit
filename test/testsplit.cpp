@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -404,9 +404,16 @@ bool TestSplit::checkSplit(ExtractResults &results, const int id, const QString 
 
 bool TestSplit::checkFilter(const QString &file1, const QString &file2)
 {
+    return checkFilter(file1, file2, true);
+}
+
+bool TestSplit::checkFilter(const QString &file1, const QString &file2, const bool expectedPositiveResult)
+{
     CompareXML compare;
     if(!compare.compareFiles(file1, file2)) {
-        compare.dumpErrorCause();
+        if(expectedPositiveResult) {
+            compare.dumpErrorCause();
+        }
         return error(QString("Filter fragment not correct: %1 vs %2").arg(file1).arg(file2));
     }
     return true ;
@@ -873,25 +880,25 @@ bool TestSplit::testSplitFilterTextAbsolute()
 bool TestSplit::testSplitFilterTextRelative()
 {
     if(!testFilterTextRelative1Split()) {
-        return error();
+        return false;
     }
     if(!testFilterTextRelative2Split()) {
-        return error();
+        return false;
     }
     if(!testFilterTextRelative1Filter()) {
-        return error();
+        return false;
     }
     if(!testFilterTextRelative2Filter()) {
-        return error();
+        return false;
     }
     if(!testFilterTextRelative1SplitWrongPath()) {
-        return error();
+        return false;
     }
     if(!testFilterTextRelativeFilterWrongPath()) {
-        return error();
+        return false;
     }
     if(!testFilterTextRelative2FilterExpectedFalse()) {
-        return error();
+        return false;
     }
     return true ;
 }
@@ -961,19 +968,16 @@ bool TestSplit::splitAndNavigateFilterText(const QString &fileReference, const b
     // do operation
     op.performExtraction();
     if(op.isError()) {
-        fprintf(stderr, "%s\n", (QString("Split relative Error: %1 %2").arg(op.error()).arg(op.errorMessage())).toLatin1().data());
-        return error();
+        return error(QString("Split relative Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
     }
-    bool result = checkFilter(fileResult1, fileName1);
+    bool result = checkFilter(fileResult1, fileName1, expectPositiveResult);
     if(result != expectPositiveResult) {
-        fprintf(stderr, "Filter is not correct 1\n");
-        return error();
+        return error("Filter is not correct 1");
     }
     if(!fileResult2.isEmpty()){
         result = checkFilter(fileResult2, fileName2);
         if(result != expectPositiveResult) {
-            fprintf(stderr, "Filter is not correct 2\n");
-            return error();
+            return error("Filter is not correct 2");
         }
     }
     return true ;
@@ -1075,12 +1079,6 @@ bool TestSplit::testFilterTextAbsoluteFilterWrongPath()
 
 bool TestSplit::testFast()
 {
-    if(!testScripting()) {
-        return false;
-    }
-    if(!testScriptingAdvancedOptions()) {
-        return false;
-    }
     return true ;
 }
 

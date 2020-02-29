@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -142,11 +142,14 @@ bool ExtractionOperation::isXMLFilterExport() const
     return OperationExportAndGroupXML == _operationType ;
 }
 
+/*****
+ * Some notes: InFragment: true if inside the split path/depth, can be collected or not (filter) registerDocument=true)
+ * outside a fragment should be collected if filter and not group.
+ * ****/
 void ExtractionOperation::execute(QFile *file)
 {
     bool debugIO = _debug ;
     int operationCount = 0;
-    //bool inDocument = false; TODO
     bool insideAFragment = false;
     bool isWriting = false;
     QXmlStreamReader xmlReader;
@@ -188,7 +191,7 @@ void ExtractionOperation::execute(QFile *file)
     xmlReader.clear();
     xmlReader.setDevice(file);
     _size = Utils::infoSizeAboutLocalDevice(NULL, file->fileName());
-    bool isAFilteredExtraction =  _isExtractDocuments && !isExtractAllDocuments() && (OperationFilter == _operationType);
+    bool isAFilteredExtraction =  _isExtractDocuments && (OperationFilter == _operationType);
     bool isAnExportExtraction =  _isExtractDocuments && ((OperationExportAndGroupCSV == _operationType) || (OperationExportAndGroupXML == _operationType));
     qint64 previousPos = 0;
     while(!xmlReader.atEnd()) {
@@ -249,9 +252,12 @@ void ExtractionOperation::execute(QFile *file)
                     dontWrite = true ;
                 }
             }
-            if(isScripting && insideAFragment) {
-                if(!manageText(info, level, path, xmlReader, dontWrite)) {
-                    return ;
+            if(isScripting && insideAFragment && !dontWrite) {
+                const bool canExecute = evaluateScriptingConditions(isAFilteredExtraction, insideAFragment, isStillInFragment, isWriting, dontWrite);
+                if(canExecute) {
+                    if(!manageText(info, level, path, xmlReader, dontWrite)) {
+                        return ;
+                    }
                 }
             }
             break;
@@ -318,9 +324,6 @@ void ExtractionOperation::execute(QFile *file)
                     }
                     insideAFragment = true ;
                     if(registerDocument) {
-                        if(!manageElement(info, level, path, xmlReader, dontWrite)) {
-                            return ;
-                        }
                         if(isAnExportExtraction) {
                             if(!handleExportedElement(info, xmlReader)) {
                                 isError = true ;
@@ -335,9 +338,13 @@ void ExtractionOperation::execute(QFile *file)
                         }
                     }
                 }
-            } else {
-                if(!manageElement(info, level, path, xmlReader, dontWrite)) {
-                    return ;
+            }
+            if(isScripting) {
+                const bool canExecute = evaluateScriptingConditions(isAFilteredExtraction, insideAFragment, isStillInFragment, isWriting, dontWrite);
+                if(canExecute) {
+                    if(!manageElement(info, level, path, xmlReader, dontWrite)) {
+                        return ;
+                    }
                 }
             }
             if(isError) {
@@ -459,6 +466,25 @@ void ExtractionOperation::execute(QFile *file)
     }// while at end
     handleCloseOutputFile(info);
     _isEnded = true ;
+}
+
+bool ExtractionOperation::evaluateScriptingConditions(const bool isAFilteredExtraction, const bool insideAFragment,
+        const bool isStillInFragment, const bool isWriting, const bool dontWrite)
+{
+    Utils::TODO_THIS_RELEASE("prova con testo in e out dagli elementi");
+    bool canExecute = false;
+    if(isAFilteredExtraction) {
+        if((!insideAFragment && !isStillInFragment) || (insideAFragment && isWriting)) {
+            if(!dontWrite) {
+                canExecute = true ;
+            }
+        }
+    } else {
+        if(isWriting && !dontWrite) {
+            canExecute = true ;
+        }
+    } // check for write
+    return canExecute;
 }
 
 bool ExtractionOperation::writeAToken(const bool isAFilteredExtraction, const bool insideAFragment, ExtractInfo &info, QXmlStreamReader &reader)

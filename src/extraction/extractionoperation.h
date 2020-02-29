@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -209,6 +209,8 @@ private:
     void prepareEventElement(ExtractionScriptElementEvent &elementEvent, const QString &name, const QString &nameSpace, const QString &localName, QXmlStreamAttributes attributes);
     bool manageElement(ExtractInfo &info, const int level, const QString &path, QXmlStreamReader &xmlReader, bool &dontWrite);
     void prepareScripting();
+    bool evaluateScriptingConditions(const bool isAFilteredExtraction, const bool insideAFragment,
+                                     const bool isStillInFragment, const bool isWriting, const bool dontWrite);
     // ----endRegion(scripting)
 
 public:

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2019 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2019-2020 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -60,6 +60,21 @@
 #define INTEGRATION_R_TR_0 INTEGRATION_BASE "r_tr_0.xml"
 #define INTEGRATION_S_TRN_0 INTEGRATION_BASE "s_trn_0.xml"
 #define INTEGRATION_R_TRN_0 INTEGRATION_BASE "r_trn_0.xml"
+//--
+#define CASES_BASE BASE_FOLDER "issues/"
+#define CASE0_SOURCE CASES_BASE "case0.xml"
+#define CASE0_RESULT CASES_BASE "case0r.xml"
+#define CASE0S_RESULT CASES_BASE "case0sr.xml"
+#define CASE0MULTI_SOURCE CASES_BASE "case0m.xml"
+#define CASE0MULTI_RESULT CASES_BASE "case0mr.xml"
+#define CASE0MULTINS_RESULT CASES_BASE "case0mrns.xml"
+#define CASE1_SOURCE CASES_BASE "case1.xml"
+#define CASE10_RESULT CASES_BASE "case10r.xml"
+#define CASE11_RESULT CASES_BASE "case11r.xml"
+#define CASE12_RESULT CASES_BASE "case12r.xml"
+#define CASE10NS_RESULT CASES_BASE "case10nsr.xml"
+#define CASE11NS_RESULT CASES_BASE "case11nsr.xml"
+#define CASE12NS_RESULT CASES_BASE "case12nsr.xml"
 //--
 
 static const QString EventElHdl("theElementHandler");
@@ -804,15 +819,27 @@ bool TestSplit::testPredefinedScriptRemoveEmptyAttributesNsFilter()
 
 bool TestSplit::testPredefinedScriptExecute(const bool useNamespaces, const bool isFilter, const QString &fileReference, const QString &fileResult, QList<ExtractionScriptingProvider::EPredefinedScripts> scripts)
 {
+    return testPredefinedScriptExecute(useNamespaces, isFilter, fileReference, fileResult, scripts, 1, true, 0, 0);
+}
+
+bool TestSplit::testPredefinedScriptExecute(const bool useNamespaces, const bool isFilter, const QString &fileReference, const QString &fileResult, QList<ExtractionScriptingProvider::EPredefinedScripts> scripts, const int depth, const bool isAllDocuments, const unsigned int minDoc, const unsigned int maxDoc)
+{
     ExtractResults results;
     ExtractionOperation op(&results);
     QString extractFolder(SystemServices::tempLocation());
 
     QString timeStamp = newTS();
     setupFilterParametersFilterText(&op, extractFolder, timeStamp, fileReference, "", isFilter);
-    op.setSplitDepth(1);
+    op.setSplitDepth(depth);
     op.setSplitType(ExtractionOperation::SplitUsingDepth);
     op.setOperationType(isFilter?ExtractionOperation::OperationFilter:ExtractionOperation::OperationSplit);
+    if(isAllDocuments) {
+        op.setExtractAllDocuments();
+    } else {
+        op.setExtractRange();
+        op.setMinDoc(minDoc);
+        op.setMaxDoc(maxDoc);
+    }
 
     QStringList list;
     list.append(timeStamp);
@@ -844,6 +871,70 @@ bool TestSplit::testPredefinedScriptExecute(const bool useNamespaces, const bool
                      .arg(compare.errorString())
                      .arg(loadTextFile(fileName1))
                      .arg(loadTextFile(fileResult)));
+    }
+    return true ;
+}
+
+bool TestSplit::testPredefinedScriptExecuteList(const bool useNamespaces, const bool isFilter, const QString &fileReference,
+                                                const QStringList referenceFiles, QList<ExtractionScriptingProvider::EPredefinedScripts> scripts,
+                                                const int depth, const bool isAllDocuments, const unsigned int minDoc, const unsigned int maxDoc)
+{
+    ExtractResults results;
+    ExtractionOperation op(&results);
+    QString extractFolder(SystemServices::tempLocation());
+
+    QString timeStamp = newTS();
+    setupFilterParametersFilterText(&op, extractFolder, timeStamp, fileReference, "", isFilter);
+    op.setSplitDepth(depth);
+    op.setSplitType(ExtractionOperation::SplitUsingDepth);
+    op.setOperationType(isFilter?ExtractionOperation::OperationFilter:ExtractionOperation::OperationSplit);
+    if(isAllDocuments) {
+        op.setExtractAllDocuments();
+    } else {
+        op.setExtractRange();
+        op.setMinDoc(minDoc);
+        op.setMaxDoc(maxDoc);
+    }
+
+    QStringList list;
+    list.append(timeStamp);
+    list.append("%counter%");
+    QStringList listF;
+    listF.append(timeStamp);
+    listF.append("qxmledit_test");
+    extractFolder.append(QDir::separator());
+    extractFolder.append(timeStamp);
+    extractFolder.append("qxmledit_test");
+    QStringList filesCandidate;
+    FORINT(index, referenceFiles.size() ) {
+        QString fileNameN = op.makeAName(extractFolder, 1+index, list, 1);
+        fileNameN.append(".xml");
+        filesCandidate.append(fileNameN);
+    }
+    // do operation
+    op.setUseNamespaces(useNamespaces);
+    QStringList filters;
+    foreach(const ExtractionScriptingProvider::EPredefinedScripts script, scripts) {
+        filters.append(QString("%1").arg(script));
+    }
+    op.setFiltersId(filters.join(","));
+
+    op.performExtraction();
+    if(op.isError()) {
+        return error(QString("Split relative Error: %1 %2").arg(op.error()).arg(op.errorMessage()));
+    }
+    FORINT(index, referenceFiles.size() ) {
+        const QString candidateFile = filesCandidate.at(index);
+        const QString referenceFile = referenceFiles.at(index);
+        CompareXML compare;
+        const bool result = compare.compareFiles(referenceFile, candidateFile);
+        if(!result) {
+            return error(QString("Filter is not correct for file %4\n%1 found:\n%2\nexpected:\n%3\n")
+                         .arg(compare.errorString())
+                         .arg(loadTextFile(candidateFile))
+                         .arg(loadTextFile(referenceFile))
+                         .arg(referenceFile));
+        }
     }
     return true ;
 }
@@ -1046,7 +1137,87 @@ bool TestSplit::testScriptingJS()
     if(!testScriptWithPredefinedScripting()) {
         return false;
     }
+    if(!testScriptWithCase0()) {
+        return false;
+    }
     return true;
+}
+
+bool TestSplit::testScriptWithCase0()
+{
+    if(!testScriptWithCase0FilterMulti()) {
+        return false;
+    }
+    if(!testScriptWithCase0FilterMultiNoScript()) {
+        return false;
+    }
+    if(!testScriptWithCase0Filter()) {
+        return false;
+    }
+    if(!testScriptWithCase0Split()) {
+        return false;
+    }
+    if(!testScriptWithCase1Split()) {
+        return false;
+    }
+    if(!testScriptWithCase1NoScriptSplit()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestSplit::testScriptWithCase0Filter()
+{
+    _testName = "testScriptWithCase0Filter";
+    QList<ExtractionScriptingProvider::EPredefinedScripts> scripts;
+    scripts << ExtractionScriptingProvider::PredefinedScriptTrimAttributes;
+    scripts << ExtractionScriptingProvider::PredefinedScriptRemoveEmptyAttributes;
+    return testPredefinedScriptExecute(true, true, CASE0_SOURCE, CASE0_RESULT, scripts);
+}
+
+bool TestSplit::testScriptWithCase0FilterMulti()
+{
+    _testName = "testScriptWithCase0FilterMulti";
+    QList<ExtractionScriptingProvider::EPredefinedScripts> scripts;
+    scripts << ExtractionScriptingProvider::PredefinedScriptTrimAttributes;
+    scripts << ExtractionScriptingProvider::PredefinedScriptRemoveEmptyAttributes;
+    return testPredefinedScriptExecute(true, true, CASE0MULTI_SOURCE, CASE0MULTI_RESULT, scripts, 2, false, 2, 3);
+}
+
+bool TestSplit::testScriptWithCase0FilterMultiNoScript()
+{
+    _testName = "testScriptWithCase0FilterMultiNoScript";
+    QList<ExtractionScriptingProvider::EPredefinedScripts> scripts;
+    return testPredefinedScriptExecute(true, true, CASE0MULTI_SOURCE, CASE0MULTINS_RESULT, scripts, 2, false, 2, 3);
+}
+
+bool TestSplit::testScriptWithCase0Split()
+{
+    _testName = "testScriptWithCase0Split";
+    QList<ExtractionScriptingProvider::EPredefinedScripts> scripts;
+    scripts << ExtractionScriptingProvider::PredefinedScriptTrimAttributes;
+    scripts << ExtractionScriptingProvider::PredefinedScriptRemoveEmptyAttributes;
+    return testPredefinedScriptExecute(true, false, CASE0_SOURCE, CASE0S_RESULT, scripts, 2, true, 1, 1);
+}
+
+bool TestSplit::testScriptWithCase1Split()
+{
+    _testName = "testScriptWithCase1Split";
+    QList<ExtractionScriptingProvider::EPredefinedScripts> scripts;
+    scripts << ExtractionScriptingProvider::PredefinedScriptTrimAttributes;
+    scripts << ExtractionScriptingProvider::PredefinedScriptRemoveEmptyAttributes;
+    QStringList expectedList;
+    expectedList << CASE10_RESULT << CASE11_RESULT << CASE12_RESULT ;
+    return testPredefinedScriptExecuteList(true, false, CASE1_SOURCE, expectedList, scripts, 2, true, 1, 1);
+}
+
+bool TestSplit::testScriptWithCase1NoScriptSplit()
+{
+    _testName = "testScriptWithCase1NoScriptSplit";
+    QList<ExtractionScriptingProvider::EPredefinedScripts> scripts;
+    QStringList expectedList;
+    expectedList << CASE10NS_RESULT << CASE11NS_RESULT << CASE12NS_RESULT ;
+    return testPredefinedScriptExecuteList(true, false, CASE1_SOURCE, expectedList, scripts, 2, true, 1, 1);
 }
 
 #endif
