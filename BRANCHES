@@ -5,13 +5,13 @@ Next: 202
 
 Branches:
 ---------
-201 - Extended text edit on attributes.
-200 - Disable TODO via configuration.
 198 - Russian translations.
-192 - Improve text editing (partially merged).
 
 Merged branches:
 -------------
+192 - Improve text editing (partially merged).
+200 - Disable TODO via configuration.
+201 - Extended text edit on attributes.
 199 - Remove QtScript, issue #66
 191 - XMLTransforms: apply transformations while processing
 197 - Issue with double search.

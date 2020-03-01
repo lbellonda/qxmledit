@@ -1,4 +1,5 @@
 0.9.15
+    Fixed an issue in fragment extraction with scripts enabled.
     Optionally use the text edit panel for attribute values.
     Issue #69, compilation error.
     Configuration option to disable TODO functions.

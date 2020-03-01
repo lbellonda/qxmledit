@@ -1083,22 +1083,7 @@ bool TestEditElements::testInsertElement()
 
 bool TestEditElements::testFast()
 {
-    Utils::TODO_THIS_RELEASE("elimina ridondante");
-    if(!testEditAttributes()) {
-        return false;
-    }
-    if(!testEditSearchTwo()) {
-        return false;
-    }
-    if(!testEditText()) {
-        return false;
-    }
-    QList<int> sel;
-    sel << 1 << 0 << 0 ;
-    if(!testLoadElm(NS_FILE_INS1, "a:", sel, true )) {
-        return false;
-    }
-    return testNamespaces();
+    return true;
 }
 
 class TestEditElements_EditHook : public TextEditorInterface
@@ -1259,11 +1244,13 @@ TextSearchStep::TextSearchStep( const bool setDirectionForward, const bool setFo
 
 bool TestEditElements::applyStep(const int stepCounter, EditTextNode &editText, TextSearchStep* step)
 {
+    QApplication::processEvents();
     if(step->directionForward) {
         QTest::mouseClick ( editText.ui.cmdSearchNext, Qt::LeftButton, Qt::NoModifier);
     } else {
         QTest::mouseClick ( editText.ui.cmdSearchPrev, Qt::LeftButton, Qt::NoModifier);
     }
+    QApplication::processEvents();
     if(editText._lastSearchFound != step->found) {
         return error(QString("Step %1: Found differs, expected: %2").arg(stepCounter).arg(step->found));
     }
@@ -1376,7 +1363,7 @@ bool TestEditElements::testEditSearchNone()
 
 bool TestEditElements::testEditSearchOne()
 {
-    _subTestName = "testEditSearchOne" ;
+    _testName = "testEditSearchOne" ;
     QList<TextSearchStep*> steps ;
     _subTestName = "testEditSearchOneNocaseNoWord" ;
     steps = searchStandardOneSteps(true);
@@ -1403,7 +1390,7 @@ bool TestEditElements::testEditSearchOne()
 
 bool TestEditElements::testEditSearchTwo()
 {
-    _subTestName = "testEditSearchTwo" ;
+    _testName = "testEditSearchTwo" ;
     QList<TextSearchStep*> steps ;
     _subTestName = "testEditSearchTwoNocaseNoWord" ;
     steps = searchStandard2Steps();
