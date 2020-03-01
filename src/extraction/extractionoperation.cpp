@@ -471,7 +471,6 @@ void ExtractionOperation::execute(QFile *file)
 bool ExtractionOperation::evaluateScriptingConditions(const bool isAFilteredExtraction, const bool insideAFragment,
         const bool isStillInFragment, const bool isWriting, const bool dontWrite)
 {
-    Utils::TODO_THIS_RELEASE("prova con testo in e out dagli elementi");
     bool canExecute = false;
     if(isAFilteredExtraction) {
         if((!insideAFragment && !isStillInFragment) || (insideAFragment && isWriting)) {
