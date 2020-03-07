@@ -1979,31 +1979,36 @@ row=%1, column=%2</source>
     </message>
     <message>
         <location filename="../EditElement.ui" line="366"/>
+        <source>&amp;Edit Panel</source>
+        <translation>&amp;Upravit panel</translation>
+    </message>
+    <message>
+        <location filename="../EditElement.ui" line="376"/>
         <source>To Base64</source>
         <translation>Do Base 64</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="376"/>
+        <location filename="../EditElement.ui" line="386"/>
         <source>From Base64</source>
         <translation>Od Base 64</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="386"/>
+        <location filename="../EditElement.ui" line="396"/>
         <source>s</source>
         <translation>s</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="389"/>
+        <location filename="../EditElement.ui" line="399"/>
         <source>Save Base64</source>
         <translation>Uložit base64</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="399"/>
+        <location filename="../EditElement.ui" line="409"/>
         <source>Load a binary file and insert it into the current attribute as base64 coded text.</source>
         <translation>Nahrát binární soubor a vložit jej do nynější vlastnosti jako text kódovaný base64.</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="402"/>
+        <location filename="../EditElement.ui" line="412"/>
         <source>Load Base64</source>
         <translation>Nahrát base64</translation>
     </message>
@@ -2062,7 +2067,7 @@ row=%1, column=%2</source>
         <translation type="obsolete">Od Base 64</translation>
     </message>
     <message>
-        <location filename="../EditElement.ui" line="464"/>
+        <location filename="../EditElement.ui" line="474"/>
         <source>editItem</source>
         <translation>Upravit položku</translation>
     </message>
@@ -2140,22 +2145,22 @@ row=%1, column=%2</source>
 <context>
     <name>EditElement</name>
     <message>
-        <location filename="../editelement.cpp" line="177"/>
+        <location filename="../editelement.cpp" line="178"/>
         <source>** child **</source>
         <translation>** potomek **</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="180"/>
+        <location filename="../editelement.cpp" line="181"/>
         <source>** comment **</source>
         <translation>** poznámka **</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="183"/>
+        <location filename="../editelement.cpp" line="184"/>
         <source>** element: &lt;%1&gt;</source>
         <translation>** prvek: &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="186"/>
+        <location filename="../editelement.cpp" line="187"/>
         <source>** processing instruction: %1</source>
         <translation>** zpracovává se příkaz: %1</translation>
     </message>
@@ -2164,12 +2169,12 @@ row=%1, column=%2</source>
         <translation type="obsolete">Žádný cíl</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="219"/>
+        <location filename="../editelement.cpp" line="220"/>
         <source>Tag text is invalid</source>
         <translation>Text značky je neplatný</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="234"/>
+        <location filename="../editelement.cpp" line="235"/>
         <source>An attribute is invalid at row %1</source>
         <translation>Nějaká vlastnost je neplatná na řádku %1</translation>
     </message>
@@ -2178,7 +2183,7 @@ row=%1, column=%2</source>
         <translation type="obsolete">Tato operace vlastnost zničí.\nOpravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="214"/>
+        <location filename="../editelement.cpp" line="215"/>
         <source>No element</source>
         <translation>Žádný prvek</translation>
     </message>
@@ -2189,34 +2194,39 @@ Do you really want to continue?</source>
 Opravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="391"/>
+        <location filename="../editelement.cpp" line="392"/>
         <source>No attribute selected</source>
         <translation>Nevybrána žádná vlastnost</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="397"/>
+        <location filename="../editelement.cpp" line="398"/>
         <source>No attribute selected, can&apos;t execute command.</source>
         <translation>Nevybrána žádná vlastnost. Příkaz nelze provést.</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="402"/>
+        <location filename="../editelement.cpp" line="403"/>
         <source>Please, insert name and value for attribute.</source>
         <translation>Zadejte, prosím, název a hodnotu vlastnosti.</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="484"/>
+        <location filename="../editelement.cpp" line="491"/>
         <source>This operation will destroy the text node. Do you really want to continue ?</source>
         <translation>Tato operace textový uzel zničí. Opravdu chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="492"/>
+        <location filename="../editelement.cpp" line="499"/>
         <source>No text node selected</source>
         <translation>Nevybrán žádný textový uzel</translation>
     </message>
     <message>
-        <location filename="../editelement.cpp" line="890"/>
+        <location filename="../editelement.cpp" line="895"/>
         <source>Choose a File to be Transformed in Base 64 Encoded Text</source>
         <translation>Vybrat soubor, který má být přeměněn na kódovaný text Base 64</translation>
+    </message>
+    <message>
+        <location filename="../editelement.cpp" line="933"/>
+        <source>Attribute: %1</source>
+        <translation>Vlastnost: %1</translation>
     </message>
     <message>
         <source>All files (*);;XML files (*.xml);;XML Schema files (*.xsd);;</source>
@@ -2484,42 +2494,111 @@ Opravdu chcete pokračovat?</translation>
         <translation>Upravit textový uzel</translation>
     </message>
     <message>
-        <location filename="../EditTextNode.ui" line="84"/>
         <source>Wrap text</source>
-        <translation>Zalomit text</translation>
+        <translation type="vanished">Zalomit text</translation>
     </message>
     <message>
-        <location filename="../EditTextNode.ui" line="110"/>
+        <location filename="../EditTextNode.ui" line="37"/>
+        <source>Find Text</source>
+        <translation>Najít text</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="40"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="80"/>
+        <source>&amp;Search:</source>
+        <translation>&amp;Hledat:</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="93"/>
+        <source>Search only whole words.</source>
+        <translation>Hledat jen celá slova.</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="96"/>
+        <source>&amp;Whole words</source>
+        <translation>&amp;Celá slova</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="103"/>
+        <source>Match the case of the characters.</source>
+        <translation>Porovnat velikost znaků.</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="109"/>
+        <source>&amp;Case sensitive</source>
+        <translation>&amp;Rozlišovat velká a malá písmena</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="116"/>
+        <source>Find previous</source>
+        <translation>Najít předchozí</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="119"/>
+        <source>Prev</source>
+        <translation>Předchozí</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="126"/>
+        <source>Find Next</source>
+        <translation>Najít další</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="129"/>
+        <source>Next</source>
+        <translation>Další</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="139"/>
+        <source>Close search panel</source>
+        <translation>Zavřít panel pro hledání</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="158"/>
+        <source>.</source>
+        <translation>.</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="223"/>
+        <source>Wra&amp;p text</source>
+        <translation>&amp;Zalomit text</translation>
+    </message>
+    <message>
+        <location filename="../EditTextNode.ui" line="249"/>
         <source>Base 64 Text</source>
         <translation>Text Base 64</translation>
     </message>
     <message>
-        <location filename="../EditTextNode.ui" line="120"/>
+        <location filename="../EditTextNode.ui" line="259"/>
         <source>From Base 64</source>
         <translation>Od Base 64</translation>
     </message>
     <message>
-        <location filename="../EditTextNode.ui" line="123"/>
+        <location filename="../EditTextNode.ui" line="262"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../EditTextNode.ui" line="130"/>
+        <location filename="../EditTextNode.ui" line="269"/>
         <source>To Base 64</source>
         <translation>Do Base 64</translation>
     </message>
     <message>
-        <location filename="../EditTextNode.ui" line="143"/>
+        <location filename="../EditTextNode.ui" line="282"/>
         <source>Binary to Base 64</source>
         <translation>Binární na Base 64</translation>
     </message>
     <message>
-        <location filename="../EditTextNode.ui" line="153"/>
+        <location filename="../EditTextNode.ui" line="292"/>
         <source>Load from file...</source>
         <translation>Nahrát ze souboru...</translation>
     </message>
     <message>
-        <location filename="../EditTextNode.ui" line="160"/>
+        <location filename="../EditTextNode.ui" line="299"/>
         <source>Save to file...</source>
         <translation>Uložit do souboru...</translation>
     </message>
@@ -2527,7 +2606,7 @@ Opravdu chcete pokračovat?</translation>
 <context>
     <name>EditTextNode</name>
     <message>
-        <location filename="../edittextnode.cpp" line="108"/>
+        <location filename="../edittextnode.cpp" line="112"/>
         <source>Choose a File to be Transformed in Base 64 Encoded Text</source>
         <translation>Vybrat soubor, který má být přeměněn na kódovaný text Base 64</translation>
     </message>
@@ -2536,48 +2615,63 @@ Opravdu chcete pokračovat?</translation>
         <translation type="obsolete">Všechny soubory (*);;Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;</translation>
     </message>
     <message>
-        <location filename="../edittextnode.cpp" line="109"/>
+        <location filename="../edittextnode.cpp" line="113"/>
         <source>All files (*);;XML files (*.xml);;XML Schema files (*.xsd)</source>
         <translation>Všechny soubory (*);;Soubory XML (*.xml);;Soubory XML Schema (*.xsd)</translation>
     </message>
     <message>
-        <location filename="../edittextnode.cpp" line="125"/>
+        <location filename="../edittextnode.cpp" line="129"/>
         <source>Warning: the size of the file to import is %1. Do you want to continue?</source>
         <translation>Varování: velikost souboru k zavedení je %1. Chcete pokračovat?</translation>
     </message>
     <message>
-        <location filename="../edittextnode.cpp" line="138"/>
+        <location filename="../edittextnode.cpp" line="142"/>
         <source>Error reading file.</source>
         <translation>Chyba při čtení souboru.</translation>
     </message>
     <message>
-        <location filename="../edittextnode.cpp" line="145"/>
+        <location filename="../edittextnode.cpp" line="149"/>
         <source>Unable to load file.
 Error code is &apos;%1&apos;</source>
         <translation>Nelze nahrát soubor.
 Kód chyby je &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../edittextnode.cpp" line="152"/>
+        <location filename="../edittextnode.cpp" line="156"/>
         <source>Save Base 64 Coded Data to File</source>
         <translation>Uložit data kódovaná jako Base 64 do souboru</translation>
     </message>
     <message>
-        <location filename="../edittextnode.cpp" line="153"/>
+        <location filename="../edittextnode.cpp" line="157"/>
         <source>XML files (*.xml);;XML Schema files (*.xsd);;All files (*)</source>
         <translation>Soubory XML (*.xml);;Soubory XML Schema (*.xsd);;Všechny soubory (*)</translation>
+    </message>
+    <message>
+        <location filename="../edittextnode.cpp" line="261"/>
+        <source>found</source>
+        <translation>nalezeno</translation>
+    </message>
+    <message>
+        <location filename="../edittextnode.cpp" line="275"/>
+        <source>found - search wrapped</source>
+        <translation>nalezeno - hledáno zalomeno</translation>
+    </message>
+    <message>
+        <location filename="../edittextnode.cpp" line="278"/>
+        <source>No match</source>
+        <translation>Žádná shoda</translation>
     </message>
     <message>
         <source>XML files (*.xml);;XML Schema files (*.xsd);;All files (*);;</source>
         <translation type="obsolete">Soubory XML (*.xml);;XML Soubory XML Schema (*.xsd);;Všechny soubory (*);;</translation>
     </message>
     <message>
-        <location filename="../edittextnode.cpp" line="172"/>
+        <location filename="../edittextnode.cpp" line="176"/>
         <source>Error writing to file.</source>
         <translation>Chyba při zápisu do souboru.</translation>
     </message>
     <message>
-        <location filename="../edittextnode.cpp" line="175"/>
+        <location filename="../edittextnode.cpp" line="179"/>
         <source>Unable to open file.
  Error code is &apos;%1&apos;</source>
         <translation>Nelze otevřít soubor.
@@ -3651,102 +3745,102 @@ Chcete ukázat složku pro vytahování v prohlížeči?</translation>
         <translation>Nelze otevřít soubor &quot;%1&quot; </translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="171"/>
+        <location filename="../extraction/extractionoperation.cpp" line="174"/>
         <source>Scripting engine initialization failed: %1</source>
         <translation>Nepodařilo se inicializovat skriptovací stroj: %1</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="387"/>
+        <location filename="../extraction/extractionoperation.cpp" line="394"/>
         <source>Bad XML state at offset:%1</source>
         <translation>Špatný stav XML v posunu: %1</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="519"/>
+        <location filename="../extraction/extractionoperation.cpp" line="544"/>
         <source>The folder &apos;%1&apos; already exists</source>
         <translation>Složka &apos;%1&apos; již existuje</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="523"/>
+        <location filename="../extraction/extractionoperation.cpp" line="548"/>
         <source>Error creating folder &apos;%1&apos;</source>
         <translation>Chyba při vytváření složky &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="568"/>
+        <location filename="../extraction/extractionoperation.cpp" line="593"/>
         <source>Unable to open for the CSV file &apos;%1&apos;</source>
         <translation>Nelze otevřít pro soubor CSV &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="581"/>
+        <location filename="../extraction/extractionoperation.cpp" line="606"/>
         <source>Invalid internal state while opening a file</source>
         <translation>Neplatný vnitřní stav při otevírání souboru</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="599"/>
+        <location filename="../extraction/extractionoperation.cpp" line="624"/>
         <source>Unable to open for writing the file &apos;%1&apos;</source>
         <translation>Nelze otevřít pro zápis souboru &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="625"/>
+        <location filename="../extraction/extractionoperation.cpp" line="650"/>
         <source>Unable to open document for file &apos;%1&apos;</source>
         <translation>Nelze otevřít dokument pro soubor &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="694"/>
+        <location filename="../extraction/extractionoperation.cpp" line="719"/>
         <source>Error unexpected state opening file CSV final: &apos;%1&apos;</source>
         <translation>Chyba neočekávaný stav při otevirání souboru CSV final: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="713"/>
+        <location filename="../extraction/extractionoperation.cpp" line="738"/>
         <source>Error writing CSV final: &apos;%1&apos;</source>
         <translation>Chyba při zapisování CSV final: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="726"/>
+        <location filename="../extraction/extractionoperation.cpp" line="751"/>
         <source>Error opening CSV 2 for rewind: &apos;%1&apos;</source>
         <translation>Chyba při otevírání CSV 2 pro přetočení: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="732"/>
+        <location filename="../extraction/extractionoperation.cpp" line="757"/>
         <source>Error opening CSV 1 for rewind: &apos;%1&apos;</source>
         <translation>Chyba při otevírání CSV 1 pro přetočení: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="737"/>
+        <location filename="../extraction/extractionoperation.cpp" line="762"/>
         <source>Error writing CSV after final check: &apos;%1&apos;</source>
         <translation>Chyba při zapisování CSV po závěrečné kontrole: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="750"/>
+        <location filename="../extraction/extractionoperation.cpp" line="775"/>
         <source>Error closing CSV data phase 1</source>
         <translation>Chyba při zavírání dat CSV fáze 1</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="754"/>
+        <location filename="../extraction/extractionoperation.cpp" line="779"/>
         <source>Error writing CSV header</source>
         <translation>Chyba při zapisování hlavičky CSV</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="759"/>
+        <location filename="../extraction/extractionoperation.cpp" line="784"/>
         <source>Error appending CSV data</source>
         <translation>Chyba při připojování dat CSV</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="764"/>
+        <location filename="../extraction/extractionoperation.cpp" line="789"/>
         <source>Error removing temporary CSV file</source>
         <translation>Chyba při odstraňování dočasného souboru CSV</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="787"/>
+        <location filename="../extraction/extractionoperation.cpp" line="812"/>
         <source>Error while closing output file</source>
         <translation>Chyba při zavírání výstupního souboru</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="796"/>
+        <location filename="../extraction/extractionoperation.cpp" line="821"/>
         <source>Error writing output file</source>
         <translation>Chyba při zápisu výstupního souboru</translation>
     </message>
     <message>
-        <location filename="../extraction/extractionoperation.cpp" line="1332"/>
+        <location filename="../extraction/extractionoperation.cpp" line="1357"/>
         <source>Unexpected object in input stream type is: %1, waiting for: %2</source>
         <translation>Neočekávaný objekt v typu vstupního proudu je: %1, čeká se na: %2</translation>
     </message>
@@ -6523,18 +6617,18 @@ Chyba: %2 na řádku: %3, ve sloupci: %4</translation>
         <translation>XML se nepodobá schématu. Potvrzení platnosti se nezdařilo.</translation>
     </message>
     <message>
-        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="46"/>
+        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="45"/>
         <source>%1, at line %2</source>
         <translation>%1, na řádku %2</translation>
     </message>
     <message>
-        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="48"/>
-        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="56"/>
+        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="47"/>
+        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="55"/>
         <source>No error</source>
         <translation>Žádná chyba</translation>
     </message>
     <message>
-        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="54"/>
+        <location filename="../extraction/scripting/extractionscriptfilter.cpp" line="53"/>
         <source>%1, %2
 stack trace:
  %3</source>
@@ -8674,8 +8768,8 @@ Kód chyby je &apos;%1&apos;</translation>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="../extraction/scripting/extractionscriptmanager.cpp" line="134"/>
-        <location filename="../extraction/scripting/extractionscriptmanager.cpp" line="172"/>
+        <location filename="../extraction/scripting/extractionscriptmanager.cpp" line="133"/>
+        <location filename="../extraction/scripting/extractionscriptmanager.cpp" line="171"/>
         <source>Not inizialized</source>
         <translation>Neinicializováno</translation>
     </message>
