@@ -1,3 +1,5 @@
+0.9.16
+
 0.9.15
     Fixed an issue in fragment extraction with scripts enabled.
     Optionally use the text edit panel for attribute values.
