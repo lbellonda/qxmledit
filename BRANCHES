@@ -1,11 +1,14 @@
 master - release branch
 devel - next release features
 
-Next: 202
+Next: 203
 
 Branches:
 ---------
 198 - Russian translations.
+issue73
+issue 74
+203 - Load sample
 
 Merged branches:
 -------------
