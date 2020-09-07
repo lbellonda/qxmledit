@@ -185,7 +185,8 @@ SOURCES += \
     extraction/scriptextractioncontext.cpp \
     extraction/scriptextractioneventtext.cpp \
     extraction/scriptextraction.cpp \
-    extraction/scriptetractioneventelement.cpp
+    extraction/scriptetractioneventelement.cpp \
+    testloadsample.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -308,7 +309,8 @@ HEADERS += \
     helpers/testsplitscriptinghelper.h \
     helpers/testsplitscriptingoperationhelper.h \
     helpers/testextractionexecutorhelper.h \
-    helpers/testwritableextractionoperationscriptcontext.h
+    helpers/testwritableextractionoperationscriptcontext.h \
+    testloadsample.h
 
 #OTHER_FILES += \
 

@@ -38,7 +38,7 @@ TestElement::~TestElement()
 
 bool TestElement::testFast()
 {
-    return testSingleTooltip("7", 7, false);
+    return testHasText();
 }
 
 
@@ -46,6 +46,12 @@ bool TestElement::testUnit()
 {
     _testName = "testUnit";
     if(!testTooltip() ) {
+        return false;
+    }
+    if(!testHasText()) {
+        return false;
+    }
+    if(!testParentPath()) {
         return false;
     }
     return true;
@@ -90,7 +96,6 @@ bool TestElement::testUnit()
  */
 bool TestElement::testTooltip()
 {
-    _testName = "testTooltip" ;
     if(!testSingleTooltip("0", 0, true)) {
         return false;
     }
@@ -144,7 +149,7 @@ static bool probeForImageData(const QString &data)
 
 bool TestElement::testSingleTooltip(const QString &testCase, const int selElement, const bool expected )
 {
-    _testName = QString("testTooltip %1").arg(testCase);
+    _subTestName = QString("testTooltip %1").arg(testCase);
     App app;
     if(!app.init()) {
         return error("init app ");
@@ -171,6 +176,151 @@ bool TestElement::testSingleTooltip(const QString &testCase, const int selElemen
     result = probeForImageData(toolTip);
     if( result ) {
         return error(QString("With disabled, found %1").arg(result));
+    }
+    return true ;
+}
+
+
+bool TestElement::testHasText()
+{
+    _subTestName = "testHasText";
+    if(!testNotHasTextSingle()) {
+        return false;
+    }
+    if(!testNotHasTextComplex()) {
+        return false;
+    }
+    if(!testHasTextSingle()) {
+        return false;
+    }
+    if(!testHasTextComplex()) {
+        return false;
+    }
+    return true;
+}
+
+bool TestElement::testNotHasTextSingle()
+{
+    _subTestName = "testNotHasTextSingle";
+    Element element("A", "", NULL, NULL);
+    if(element.hasText()) {
+        return error("Expected no");
+    }
+    return true;
+}
+
+bool TestElement::testNotHasTextComplex()
+{
+    _subTestName = "testNotHasTextComplex";
+    Element element("A", "", NULL, NULL);
+    Element *elementB = new Element("B", "", NULL, &element);
+    Element *elementC = new Element("C", "", NULL, &element);
+    element.addChild(elementB);
+    element.addChild(elementC);
+    if(element.hasText()) {
+        return error("Expected no");
+    }
+    return true;
+}
+
+bool TestElement::testHasTextSingle()
+{
+    _subTestName = "testHasTextSingle";
+    Element element("A", "xx", NULL, NULL);
+    if(!element.hasText()) {
+        return error("Expected yes");
+    }
+    return true;
+}
+
+bool TestElement::testHasTextComplex()
+{
+    _subTestName = "testHasTextComplex";
+    {
+        Element element("A", "", NULL, NULL);
+        Element *elementB = new Element("B", "", NULL, &element);
+        Element *elementC = new Element("C", "", NULL, &element);
+        element.addChild(elementB);
+        element.addChild(elementC);
+        element.addTextNode(new TextChunk(false, "test"));
+        if(!element.hasText()) {
+            return error("Expected yes 1");
+        }
+    }
+    {
+        Element element("A", "", NULL, NULL);
+        element.addTextNode(new TextChunk(false, "test"));
+        if(!element.hasText()) {
+            return error("Expected yes 2");
+        }
+    }
+    {
+        Element element("A", "", NULL, NULL);
+        Element *elementB = new Element("B", "", NULL, &element);
+        Element *elementC = new Element("C", "", NULL, &element);
+        element.addChild(elementB);
+        element.addChild(elementC);
+        element.addTextNode(new TextChunk(true, "test"));
+        if(!element.hasText()) {
+            return error("Expected yes 3");
+        }
+    }
+    {
+        Element element("A", "", NULL, NULL);
+        element.addTextNode(new TextChunk(true, "test"));
+        if(!element.hasText()) {
+            return error("Expected yes 4");
+        }
+    }
+    {
+        Element element("A", "", NULL, NULL);
+        Element *elementB = new Element("B", "", NULL, &element);
+        Element *elementC = new Element("C", "", NULL, &element);
+        element.addChild(elementB);
+        element.addChild(elementC);
+        Element *elementT = new Element(NULL, Element::ET_TEXT, &element) ;
+        elementT->setTextOfTextNode("text", false);
+        element.addChild(elementT);
+        if(!element.hasText()) {
+            return error("Expected yes 5");
+        }
+    }
+    {
+        Element element("A", "", NULL, NULL);
+        Element *elementT = new Element(NULL, Element::ET_TEXT, &element) ;
+        elementT->setTextOfTextNode("text", false);
+        element.addChild(elementT);
+        if(!element.hasText()) {
+            return error("Expected yes 6");
+        }
+    }
+    return true;
+}
+
+bool TestElement::testParentPath()
+{
+    _subTestName = "testParentPath";
+    {
+        const QString expected = "/abc";
+        const QString value = Utils::pathFromParent(NULL, "abc");
+        if(value != expected) {
+            return error(QString("1 expected: %1, found: %2").arg(expected).arg(value));
+        }
+    }
+    {
+        const QString expected = "/";
+        const QString value = Utils::pathFromParent(NULL, "");
+        if(value != expected) {
+            return error(QString("1 expected: %1, found: %2").arg(expected).arg(value));
+        }
+    }
+    {
+        const QString expected = "/a/b";
+        Element element("a", "", NULL, NULL);
+        const QString value = Utils::pathFromParent(&element, "b");
+        if(value != expected) {
+            return error(QString("1 expected: %1, found: %2").arg(expected).arg(value));
+        }
     }
     return true ;
 }

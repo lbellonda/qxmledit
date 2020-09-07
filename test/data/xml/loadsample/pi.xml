@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xxxx type="info" ?>
+<root>
+rr
+<?xxxx type="info" ?>
+<a a="aa" b="bb">
+vv
+ <d>text<?xxxx type="info" ?></d>
+</a>
+<b a="aa" b="bb">
+<?xxxx type="info" ?>
+ <d>text<c x="x">zz</c></d>
+</b>
+</root>

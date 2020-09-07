@@ -118,8 +118,9 @@ public:
 
     ApplicationData *appData();
     virtual bool loadFile(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
+    virtual bool loadSample(const QString &filePath, const bool activateModes = true, const EWindowOpen useWindow = OpenUsingDefaultSettings);
     MainWindow *loadFileAndReturnWindow(const QString &filePath, const bool activateModes = true,
-                                        const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true);
+                                        const EWindowOpen useWindow = OpenUsingDefaultSettings, const bool isRegularFile = true, const bool isSample = false);
     MainWindow *createFromClipboard(const EWindowOpen useWindow = OpenUsingDefaultSettings);
     bool newFromClipboard();
     bool newFromString(const QString &newData);
@@ -174,6 +175,7 @@ public:
     void taskChooseDetail();
     SourceRelatedMessages *sourceRelatedMessages();
     bool openFileUsingDialog(const QString folderPath, const EWindowOpen useWindow = OpenUsingDefaultSettings);
+    bool openSampleUsingDialog(const QString folderPath, const EWindowOpen useWindow = OpenUsingDefaultSettings);
     bool isValidXsd();
     void viewAsXSD();
     void fireActionByName(const QString &name);
@@ -187,9 +189,9 @@ protected:
     bool areInfoPanelsVisible();
     void setSnippetManager(SnippetManager *newSnippetManager);
     MainWindow *makeNewWindow();
-    bool loadFileInner(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true);
-    bool loadFileInnerStream(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true);
-    bool loadFileInnerStream(QIODevice *ioDevice, const QString &filePath, const bool isRegularFile, const bool activateModes = true);
+    bool loadFileInner(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true, const bool isSample = false);
+    bool loadFileInnerStream(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true, const bool isSample = false);
+    bool loadFileInnerStream(QIODevice *ioDevice, const QString &filePath, const bool isRegularFile, const bool activateModes = true, const bool isSample = false);
     /*!
      * \deprecated
      */
@@ -423,6 +425,7 @@ private slots:
     void on_actionShowKeyboardShortcuts_triggered();
     void on_actionEditAsText_triggered();
     void on_actionTestXML_triggered();
+    void on_actionLoadSample_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);

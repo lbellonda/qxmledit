@@ -1,4 +1,5 @@
 0.9.16
+    Load a sample of a file.
 
 0.9.15
     Fixed an issue in fragment extraction with scripts enabled.

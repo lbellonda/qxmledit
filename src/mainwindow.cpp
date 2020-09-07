@@ -3964,3 +3964,24 @@ void MainWindow::on_actionTestXML_triggered()
     _controller.testXML();
 }
 
+void MainWindow::on_actionLoadSample_triggered()
+{
+    openSampleUsingDialog(getRegola()->fileName());
+}
+
+bool MainWindow::openSampleUsingDialog(const QString folderPath, const EWindowOpen useWindow)
+{
+    if(!checkAbandonChanges(useWindow)) {
+        return false;
+    }
+    Utils::message(this, tr("Only a sample of data will be loaded."));
+    QString filePath = QFileDialog::getOpenFileName(
+                           this, tr("Load Sample File"),
+                           QXmlEditData::sysFilePathForOperation(folderPath),
+                           Utils::getFileFilterForOpenFile()
+                       );
+    if(!filePath.isEmpty()) {
+        return loadSample(filePath, true, useWindow);
+    }
+    return false ;
+}

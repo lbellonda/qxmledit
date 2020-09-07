@@ -248,6 +248,7 @@
     <addaction name="actionNewUsingXMLSchema"/>
     <addaction name="actionOpen"/>
     <addaction name="actionOpenSameWindow"/>
+    <addaction name="actionLoadSample"/>
     <addaction name="actionXplore"/>
     <addaction name="actionSave"/>
     <addaction name="actionSaveAs"/>
@@ -2600,6 +2601,14 @@
     <string>Test a XML file.</string>
    </property>
   </action>
+  <action name="actionLoadSample">
+   <property name="text">
+    <string>Load Sample...</string>
+   </property>
+   <property name="toolTip">
+    <string>Load a synthetic sample of a file.</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -2622,6 +2631,7 @@
   </customwidget>
  </customwidgets>
  <resources>
+  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections/>

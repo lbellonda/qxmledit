@@ -1,0 +1,33 @@
+<r xmlns:e="xxx" xmlns="xxxx" xmlns:z="ggg">
+<root>
+rr
+<a a="aa" b="bb">
+ <d>text</d>
+</a>
+<e:b a="aa" b="bb" z:j="">
+ <d>text<c x1="x1">zz</c></d>
+ <d>text<c x2="x2">zz1</c></d>
+ <d>text<c x3="x3" x1="2" e:x1="v3" e:o="" >zz2</c></d>
+</e:b>
+cc rr
+</root>
+<root>
+rr1
+<a a="aa" b="bb" d="2">
+<v r="aa" c="bb"/>
+vv1
+ <d>text1</d>
+</a>
+<e:b a="awa" b="bwb" z:j="ww">
+ <d>text<c x1="xw1">zz2</c></d>
+ <d>text<c x2="xw2" e:o="1" e:y="" >zz1</c></d>
+ <d>text<c x3="xw3" e:x1="vw3" >zz2</c></d>
+</e:b>
+<b a="aa" b="bb1">
+ <d>text<c x="x" e:x1="v3b">zz3<f a="a"/></c></d>
+ <e>texte</e>
+</b>
+cc dd1
+</root>
+<k/>
+</r>

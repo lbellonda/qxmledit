@@ -1,0 +1,33 @@
+<r >
+<root>
+rr
+<a a="aa" b="bb">
+ <d>text</d>
+</a>
+<b a="aa" b="bb" j="">
+ <d>text<c x1="x1">zz</c></d>
+ <d>text<c x2="x2">zz1</c></d>
+ <d>text<c x3="x3" x1="2" ex1="v3" >zz2</c></d>
+</b>
+cc rr
+</root>
+<root>
+rr1
+<a a="aa" b="bb" d="2">
+<v r="aa" c="bb"/>
+vv1
+ <d>text</d>
+</a>
+<b a="awa" b="bwb" j="ww">
+ <d>text<c x1="xw1">zz</c></d>
+ <d>text<c x2="xw2">zz1</c></d>
+ <d>text<c x3="xw3" ex1="vw3" >zz2</c></d>
+</b>
+<b a="aa" b="bb1">
+ <d>text<c x="x" x1="v3b">zz3<f a="a"/></c></d>
+ <e>texte</e>
+</b>
+cc dd1
+</root>
+<k/>
+</r>

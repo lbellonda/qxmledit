@@ -32,6 +32,7 @@
 XMLLoadStatus::XMLLoadStatus()
 {
     _areErrorsPresent = false;
+    _isSample = false;
 }
 
 XMLLoadStatus::~XMLLoadStatus()
@@ -51,6 +52,16 @@ void XMLLoadStatus::setErrorsPresent()
 void XMLLoadStatus::clearErrors()
 {
     _areErrorsPresent = false ;
+}
+
+bool XMLLoadStatus::isSample() const
+{
+    return _isSample;
+}
+
+void XMLLoadStatus::setSample(bool value)
+{
+    _isSample = value;
 }
 
 //--------------------------------------------------
@@ -188,6 +199,10 @@ bool Regola::setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader
     if(_useMixedContent) {
         isMixedContent = true ;
     }
+    bool hasText = false;
+    if(context->isSample() && (NULL != parent)) {
+        hasText = parent->hasText();
+    }
     int nodeIndex = -1 ;
     while(!xmlReader->atEnd()) {
         nodeIndex++;
@@ -231,16 +246,54 @@ bool Regola::setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader
             break;
         case QXmlStreamReader::StartElement: {
             context->setFirstElementSeen(true);
-            Element *elem = new Element(addNameToPool(xmlReader->qualifiedName().toString()), "", this, parent) ;
+            const QString qualifiedName = xmlReader->qualifiedName().toString();
+            Element *elem = NULL ;
+            bool isExistingForSample = false;
+            if(context->isSample()) {
+                const QString path = Utils::pathFromParent(parent, qualifiedName);
+                D(printf("  look for path: %s\n", path.toLatin1().data());)
+                if(!context->existsPath(path)) {
+                    elem = new Element(addNameToPool(qualifiedName), "", this, parent) ;
+                    collection->append(elem);
+                    context->setElementByPath(path, elem);
+                    D(printf("  NEW ELEM: %s\n", qualifiedName.toLatin1().data());)
+                } else {
+                    isExistingForSample = true;
+                    D(printf("  RECALL : %s\n", qualifiedName.toLatin1().data());)
+                }
+                elem = context->getElementByPath(path);
+                parent = elem->parent();
+                if(NULL != parent) {
+                    hasText = parent->hasText();
+                } else {
+                    hasText = false;
+                }
+                D(printf("  Situazione: %s parent hasText:%d\n", elem->tag().toLatin1().data(), hasText);)
+            } else {
+                elem = new Element(addNameToPool(qualifiedName), "", this, parent) ;
+                collection->append(elem);
+            }
+
             QXmlStreamAttributes streamAttributes = xmlReader->attributes();
             foreach(QXmlStreamAttribute streamAttribute, streamAttributes) {
-                Attribute *attribute = new Attribute(
-                    getAttributeNameString(streamAttribute.qualifiedName().toString()),
-                    getAttributeString(streamAttribute.value().toString()));
-                elem->attributes.append(attribute);
+                const QString attributeName = streamAttribute.qualifiedName().toString();
+                bool canAdd = true ;
+                if(isExistingForSample) {
+                    canAdd = !elem->hasAttribute(attributeName);
+                    if(!canAdd) {
+                        if(elem->getAttributeValue(attributeName).isEmpty()) {
+                            elem->setAttribute(attributeName, streamAttribute.value().toString());
+                        }
+                    }
+                }
+                if(canAdd) {
+                    Attribute *attribute = new Attribute(
+                        getAttributeNameString(attributeName),
+                        getAttributeString(streamAttribute.value().toString()));
+                    elem->attributes.append(attribute);
+                }
             }
-            D(printf(" add child %d %s\n", i, elem.tagName().toAscii().data()));
-            collection->append(elem);
+            D(printf(" add child %d %s\n", i, elem.tag().toLatin1().data()));
             if(!setChildrenTreeFromStream(context, xmlReader, elem, elem->getChildItems(), false)) {
                 return false;
             }
@@ -249,25 +302,36 @@ bool Regola::setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader
         break;
         case QXmlStreamReader::Characters:
             if(!xmlReader->isWhitespace() || xmlReader->isCDATA()) {
+                if(context->isSample()) {
+                    D(printf("ELEM: %s CHARACTERS: %s, hasText:%d\n", parent->tag().toLatin1().data(), xmlReader->text().toString().toLatin1().data(), hasText);)
+                    if(hasText) {
+                        break;
+                    }
+                    hasText = true ;
+                }
                 assignMixedContentText(parent, xmlReader->text().toString(), xmlReader->isCDATA(), collection);
             }
             break;
         case QXmlStreamReader::ProcessingInstruction: {
-            Element *procInstr = new Element(this, Element::ET_PROCESSING_INSTRUCTION, parent) ;
-            procInstr->setPIData(xmlReader->processingInstructionData().toString());
-            procInstr->setPITarget(xmlReader->processingInstructionTarget().toString());
-            collection->append(procInstr);
-            isMixedContent = true ;
+            if(!context->isSample()) {
+                Element *procInstr = new Element(this, Element::ET_PROCESSING_INSTRUCTION, parent) ;
+                procInstr->setPIData(xmlReader->processingInstructionData().toString());
+                procInstr->setPITarget(xmlReader->processingInstructionTarget().toString());
+                collection->append(procInstr);
+                isMixedContent = true ;
+            }
         }
         break;
         case QXmlStreamReader::Comment: {
-            Element *comment = new Element(this, Element::ET_COMMENT, parent) ;
-            comment->setText(xmlReader->text().toString());
-            collection->append(comment);
-            if(!context->firstElementSeen() && !context->isAfterDTD()) {
-                context->addFirstComment(comment);
+            if(!context->isSample()) {
+                Element *comment = new Element(this, Element::ET_COMMENT, parent) ;
+                comment->setText(xmlReader->text().toString());
+                collection->append(comment);
+                if(!context->firstElementSeen() && !context->isAfterDTD()) {
+                    context->addFirstComment(comment);
+                }
+                isMixedContent = true ;
             }
-            isMixedContent = true ;
         }
         break;
         case QXmlStreamReader::EntityReference:

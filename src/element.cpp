@@ -3183,4 +3183,18 @@ QString Element::getInTextualForm()
     return result ;
 }
 
-
+bool Element::hasText()
+{
+    if(!text.isEmpty()) {
+        return true;
+    }
+    if(!textNodes.isEmpty()) {
+        return true;
+    }
+    foreach(Element * child, childItems) {
+        if(child->isText() || child->isCDATA()) {
+            return true ;
+        }
+    }
+    return false;
+}

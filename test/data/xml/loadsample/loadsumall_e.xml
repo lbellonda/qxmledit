@@ -1,0 +1,15 @@
+<r >
+<root>
+rr
+<a a="aa" b="bb" d="2">
+<d>text</d>
+<v r="aa" c="bb"/>
+vv1
+</a>
+<b a="aa" b="bb" j="ww">
+ <d>text<c x="x" x1="x1" x2="x2" x3="x3" ex1="v3" >zz<f a="a"/></c></d>
+ <e>texte</e>
+</b>
+</root>
+<k/>
+</r>

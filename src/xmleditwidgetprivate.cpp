@@ -2131,6 +2131,7 @@ void XmlEditWidgetPrivate::setDocument(QDomDocument &document, const QString &fi
 bool XmlEditWidgetPrivate::readData(XMLLoadStatus *status, QXmlStreamReader *xmlReader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler)
 {
     XMLLoadContext context;
+    context.setSample(status->isSample());
     status->clearErrors();
     Regola *newModel = new Regola(filePath);
     houseworkRegola(newModel);

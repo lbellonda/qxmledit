@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2020 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,28 +20,46 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
-#ifndef TESTELEMENT_H
-#define TESTELEMENT_H
+#ifndef TESTLOADSAMPLE_H
+#define TESTLOADSAMPLE_H
 
 #include "testbase.h"
 
-class TestElement : public TestBase
+class TestLoadSample : public TestBase
 {
-    bool testTooltip();
-    bool testSingleTooltip(const QString &testCase, const int selElement, const bool expected );
-    bool testHasText();
-    bool testHasTextComplex();
-    bool testHasTextSingle();
-    bool testNotHasTextComplex();
-    bool testNotHasTextSingle();
-    bool testParentPath();
-public:
-    TestElement();
-    ~TestElement();
+    bool testLoadError();
+    bool testLoadIdentity();
+    bool testLoadDouble();
+    bool testLoadSumAttributes();
+    bool testLoadSumElements();
+    bool testLoadSumAttributesNS();
+    bool testLoadSumElementsNS();
+    bool testLoadPreamble();
+    bool testLoadComment();
+    bool testLoadProcessingInstruction();
+    bool testLoadSumAll();
+    bool testLoadSumAllNS();
 
-    bool testFast();
+    //
+    bool testAFile(const bool isLoad,
+                        const QString &code,
+                        const QString &inputFilePath,
+                        const bool expectedLoadStatus,
+                        const bool expectedModified,
+                        const QString &expectedFileName,
+                        const QString &compareFileResultPath);
+    bool testSame(      const QString &code,
+                        const QString &inputFilePath,
+                        const bool expectedLoadStatus);
+    bool testABatch(const QString &key, const QString &fileSource, const QString &fileReference);
+    //
+
+public:
+    TestLoadSample();
+    ~TestLoadSample();
+
     bool testUnit();
+    bool testFast();
 };
 
-#endif // TESTELEMENT_H
+#endif // TESTLOADSAMPLE_H

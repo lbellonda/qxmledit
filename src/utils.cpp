@@ -1284,3 +1284,10 @@ QString Utils::askFileNameToOpen(QWidget* parent, const QString &startFolder)
                        Utils::getFileFilterForOpenFile());
     return filePath ;
 }
+
+QString Utils::pathFromParent(Element* parent, const QString &tag)
+{
+    const QString basePath = (NULL != parent) ? parent->pathString() : "";
+    const QString path = basePath + "/" + tag;
+    return path;
+}

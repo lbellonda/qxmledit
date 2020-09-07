@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- aa -->
+<root>
+rr
+<!-- aa -->
+<a a="aa" b="bb">
+vv
+ <d>text<!-- aa --></d>
+</a>
+<b a="aa" b="bb">
+<!-- aa -->
+ <d>text<c x="x">zz</c></d>
+</b>
+</root>

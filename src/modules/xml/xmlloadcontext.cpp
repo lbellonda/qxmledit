@@ -23,11 +23,6 @@
 
 #include "xmlloadcontext.h"
 
-qint64 XMLLoadContext::characterOffset() const
-{
-    return _characterOffset;
-}
-
 XMLLoadContext::XMLLoadContext()
 {
     _isError = false;
@@ -36,6 +31,7 @@ XMLLoadContext::XMLLoadContext()
     _line = -1 ;
     _column = -1 ;
     _characterOffset = -1 ;
+    _isSample = false;
 }
 
 XMLLoadContext::~XMLLoadContext()
@@ -159,3 +155,38 @@ void XMLLoadContext::addFirstComment(Element *comment)
 {
     _firstComments.append(comment);
 }
+
+qint64 XMLLoadContext::characterOffset() const
+{
+    return _characterOffset;
+}
+
+bool XMLLoadContext::isSample() const
+{
+    return _isSample;
+}
+
+void XMLLoadContext::setSample(bool value)
+{
+    _isSample = value;
+}
+
+bool XMLLoadContext::existsPath(const QString &path)
+{
+    const bool result = _elementsByPath.contains(path);
+    return result ;
+}
+
+void XMLLoadContext::setElementByPath(const QString &path, Element *element)
+{
+    _elementsByPath.insert(path, element);
+}
+
+Element *XMLLoadContext::getElementByPath(const QString &path)
+{
+    if(existsPath(path)) {
+        return _elementsByPath[path];
+    }
+    return NULL;
+}
+

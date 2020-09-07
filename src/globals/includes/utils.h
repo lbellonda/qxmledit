@@ -35,6 +35,7 @@
 
 class Regola;
 class QMainWindow;
+class Element;
 
 class LIBQXMLEDITSHARED_EXPORT Utils : public QObject
 {
@@ -188,6 +189,8 @@ public:
     static QByteArray readBytesFromFile(const QString &file);
 
     static QString askFileNameToOpen(QWidget* parent, const QString &startFolder);
+
+    static QString pathFromParent(Element* parent, const QString &tag);
 };
 
 

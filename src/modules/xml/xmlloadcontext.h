@@ -40,6 +40,8 @@ class LIBQXMLEDITSHARED_EXPORT XMLLoadContext
     qint64 _line;
     qint64 _column;
     qint64 _characterOffset;
+    bool _isSample;
+    QHash<QString, Element*> _elementsByPath;
 public:
     XMLLoadContext();
     ~XMLLoadContext();
@@ -74,7 +76,12 @@ public:
                         const QString &expectedBefore,
                         const QString &expectedIn,
                         const QString &expectedAfter);
-
+    //------- sample management -----
+    bool isSample() const;
+    void setSample(bool value);
+    bool existsPath(const QString &path);
+    void setElementByPath(const QString &path, Element *element);
+    Element *getElementByPath(const QString &path);
 };
 
 #endif // XMLLOADCONTEXT_H

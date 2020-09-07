@@ -1,0 +1,12 @@
+<r>
+<root>
+rr
+<a a="aa" b="bb">
+vv
+ <d>text</d>
+</a>
+<b a="aa" b="bb">
+ <d>text<c x="x">zz</c></d>
+</b>
+</root>
+</r>

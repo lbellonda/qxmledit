@@ -685,6 +685,7 @@ public:
     void qName(QXName *pQName);
 
     QString getInTextualForm();
+    bool hasText();
 
 
 #ifdef  QXMLEDIT_TEST

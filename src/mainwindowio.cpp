@@ -124,8 +124,19 @@ bool MainWindow::loadFile(const QString &filePath, const bool activateModes, con
     return true;
 }
 
+bool MainWindow::loadSample(const QString &filePath, const bool activateModes, const EWindowOpen useWindow)
+{
+    const bool isRegularFile = false;
+    MainWindow *result = loadFileAndReturnWindow(filePath, activateModes, useWindow, isRegularFile, true);
+    if(NULL == result) {
+        return false;
+    }
+    result->setVisible(true);
+    return true;
+}
+
 MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const bool activateModes,
-        const EWindowOpen useWindow, const bool isRegularFile)
+        const EWindowOpen useWindow, const bool isRegularFile, const bool isSample)
 {
     beforeLoadingNewData();
     MainWindowIOHelper ioHelper;
@@ -133,7 +144,7 @@ MainWindow *MainWindow::loadFileAndReturnWindow(const QString &filePath, const b
     if(NULL == theWindow) {
         return NULL ;
     }
-    bool ok = theWindow->loadFileInner(filePath, isRegularFile, activateModes);
+    bool ok = theWindow->loadFileInner(filePath, isRegularFile, activateModes, isSample);
     theWindow->clearExportFilePath();
     return ioHelper.result(ok);
 }
@@ -147,13 +158,14 @@ MainWindow *MainWindow::createFromClipboard(const EWindowOpen useWindow)
     return ioHelper.result(ok);
 }
 
-bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile, const bool activateModes)
+bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile, const bool activateModes, const bool isSample)
 {
-    return loadFileInnerStream(filePath, isRegularFile, activateModes);
+    return loadFileInnerStream(filePath, isRegularFile, activateModes, isSample);
 }
 
 bool MainWindow::loadFileInnerDom(const QString &filePath, const bool isRegularFile, const bool activateModes)
 {
+    Utils::TODO_THIS_RELEASE("delete me");
     bool fileLoaded = false;
     if(!filePath.isEmpty()) {
         QFile file(filePath);
@@ -190,12 +202,13 @@ bool MainWindow::loadFileInnerDom(const QString &filePath, const bool isRegularF
     return fileLoaded;
 }
 
-bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePath, const bool isRegularFile, const bool activateModes)
+bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePath, const bool isRegularFile, const bool activateModes, const bool isSample)
 {
     bool fileLoaded = false ;
     QXmlStreamReader reader ;
     reader.setDevice(ioDevice);
     XMLLoadStatus status;
+    status.setSample(isSample);
     if(readData(&status, &reader, filePath, true, this)) {
         if(isRegularFile) {
             data->sessionManager()->enrollFile(filePath);
@@ -214,13 +227,13 @@ bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePat
     return fileLoaded;
 }
 
-bool MainWindow::loadFileInnerStream(const QString &filePath, const bool isRegularFile, const bool activateModes)
+bool MainWindow::loadFileInnerStream(const QString &filePath, const bool isRegularFile, const bool activateModes, const bool isSample)
 {
     bool fileLoaded = false;
     if(!filePath.isEmpty()) {
         QFile file(filePath);
         if(file.open(QIODevice::ReadOnly)) {
-            fileLoaded = loadFileInnerStream(&file, filePath, isRegularFile, activateModes);
+            fileLoaded = loadFileInnerStream(&file, filePath, isRegularFile, activateModes, isSample);
             file.close();
         } else {
             errorOnLoad(file);

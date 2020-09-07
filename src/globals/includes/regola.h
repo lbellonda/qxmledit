@@ -127,11 +127,12 @@ public:
 
 /*!
  * \brief The XMLLoadStatus class
- * status and coded for evalutaing the load operatoin
+ * status and coded for evalutaing the load operation
  */
 class LIBQXMLEDITSHARED_EXPORT XMLLoadStatus
 {
     bool _areErrorsPresent;
+    bool _isSample;
 public:
     XMLLoadStatus();
     virtual ~XMLLoadStatus();
@@ -139,6 +140,8 @@ public:
     bool areErrorsPresent() const ;
     void setErrorsPresent() ;
     void clearErrors() ;
+    bool isSample() const;
+    void setSample(bool value);
 };
 
 class LIBQXMLEDITSHARED_EXPORT XMLLoadErrorHandler
