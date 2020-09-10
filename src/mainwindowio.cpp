@@ -163,45 +163,6 @@ bool MainWindow::loadFileInner(const QString &filePath, const bool isRegularFile
     return loadFileInnerStream(filePath, isRegularFile, activateModes, isSample);
 }
 
-bool MainWindow::loadFileInnerDom(const QString &filePath, const bool isRegularFile, const bool activateModes)
-{
-    Utils::TODO_THIS_RELEASE("delete me");
-    bool fileLoaded = false;
-    if(!filePath.isEmpty()) {
-        QFile file(filePath);
-        if(file.open(QIODevice::ReadOnly)) {
-            QDomDocument document;
-            QString errorMsg ;
-            int errorLine = 0, errorColumn = 0;
-            if(document.setContent(&file, &errorMsg, &errorLine, &errorColumn)) {
-                if(isRegularFile) {
-                    data->sessionManager()->enrollFile(filePath);
-                }
-                setDocument(document, filePath, true);
-                if(isRegularFile) {
-                    updateRecentFilesMenu(filePath);
-                } else {
-                    getRegola()->setFileName("");
-                }
-                updateWindowFilePath();
-                autoLoadValidation();
-                fileLoaded = true ;
-                if(activateModes) {
-                    activateModesOnNewFile();
-                }
-            } else {
-                showLoadFileError(filePath, errorMsg, errorLine, errorColumn);
-            }
-            file.close();
-        } else {
-            errorOnLoad(file);
-        }
-    } else {
-        errorFileName();
-    }
-    return fileLoaded;
-}
-
 bool MainWindow::loadFileInnerStream(QIODevice *ioDevice, const QString &filePath, const bool isRegularFile, const bool activateModes, const bool isSample)
 {
     bool fileLoaded = false ;

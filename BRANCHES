@@ -1,17 +1,17 @@
 master - release branch
 devel - next release features
 
-Next: 203
+Next: 204
 
 Branches:
 ---------
 198 - Russian translations.
 issue73
 issue 74
-203 - Load sample
 
 Merged branches:
 -------------
+203 - Load sample
 192 - Improve text editing (partially merged).
 200 - Disable TODO via configuration.
 201 - Extended text edit on attributes.

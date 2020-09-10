@@ -192,10 +192,6 @@ protected:
     bool loadFileInner(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true, const bool isSample = false);
     bool loadFileInnerStream(const QString &filePath, const bool isRegularFile = true, const bool activateModes = true, const bool isSample = false);
     bool loadFileInnerStream(QIODevice *ioDevice, const QString &filePath, const bool isRegularFile, const bool activateModes = true, const bool isSample = false);
-    /*!
-     * \deprecated
-     */
-    bool loadFileInnerDom(const QString &filePath, const bool isRegularFile, const bool activateModes);
     bool readData(XMLLoadStatus *status, QXmlStreamReader *reader, const QString &filePath, const bool isSetState, XMLLoadErrorHandler *errorHandler);
     void newUsingXMLSchema();
     Regola::EExportOptions askExportOption();
