@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -23,6 +23,8 @@
 # Project created by QtCreator 2011-08-15T09:23:52
 #
 #-------------------------------------------------
+
+include("../src/version.pri")
 
 ###########################################
 include("../src/cconfig.pri")

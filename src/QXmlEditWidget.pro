@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -20,32 +20,13 @@
 # * Boston, MA  02110-1301  USA                                            *
 # **************************************************************************/
 
+include("version.pri")
+
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
 
 include("cconfig.pri")
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
-
-include("version.pri")
-
-#default value for the lib version name
-LIB_VERSIONED_DEFAULT=""
-unix:!macx: {
-   LIB_VERSIONED_DEFAULT="1"
-}
-
-equals(LIB_VERSIONED, "") {
-    LIB_VERSIONED = $$LIB_VERSIONED_DEFAULT
-}
-
-QXMLEDIT_LIB_SUFFIX = ""
-!equals(LIB_VERSIONED, "") {
-    QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
-}
-
-equals(QXMLEDIT_LIB_SUFFIX, "") {
-    VERSION=""
-}
 
 QT       += xml xmlpatterns network svg
 
@@ -819,24 +800,8 @@ FORMS += xmleditwidget.ui \
     xsdeditor/choosexsdreporttypedialog.ui \
     extraction/extractionadavancedoptionsdialog.ui
 
-symbian {
-    #Symbian specific definitions
-    MMP_RULES += EXPORTUNFROZEN
-    TARGET.UID3 = 0xE61059D2
-    TARGET.CAPABILITY = 
-    TARGET.EPOCALLOWDLLDATA = 1
-    addFiles.sources = QXmlEditWidget.dll
-    addFiles.path = !:/sys/bin
-    DEPLOYMENT += addFiles
-}
-
-unix:!symbian {
-    maemo5 {
-        target.path = /opt/usr/lib
-    } else {
-#        target.path = /usr/local/lib
-        target.path = $$INST_LIB_DIR
-    }
+unix {
+    target.path = $$INST_LIB_DIR
     INSTALLS += target translationsfiles libinclude
 }
 
@@ -847,4 +812,13 @@ unix:!macx:DEFINES += UNIX_RESOURCES
 
 DEFINES += UNIX_RESOURCE_PATH=$$INST_DATA_DIR
 DEFINES += UNIX_DOC_PATH=$$INST_DOC_DIR
+
+equals(USE_FAKE_SOURCES, "true") {
+    HEADERS =
+    SOURCES = test_install/b.cpp
+    FORMS =
+    RESOURCES =
+    CONFIG -= precompile_header
+    PRECOMPILED_HEADER=
+}
 

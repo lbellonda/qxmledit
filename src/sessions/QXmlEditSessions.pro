@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -25,33 +25,13 @@
 #
 #-------------------------------------------------
 
+include("../version.pri")
+
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
 
 include("../cconfig.pri")
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
-
-include("../version.pri")
-
-#default value for the lib version name
-LIB_VERSIONED_DEFAULT=""
-unix:!macx: {
-   LIB_VERSIONED_DEFAULT="1"
-}
-
-equals(LIB_VERSIONED, "") {
-    LIB_VERSIONED = $$LIB_VERSIONED_DEFAULT
-}
-
-QXMLEDIT_LIB_SUFFIX = ""
-!equals(LIB_VERSIONED, "") {
-    QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
-}
-
-equals(QXMLEDIT_LIB_SUFFIX, "") {
-    VERSION=""
-}
-
 
 QT       += sql gui xml xmlpatterns
 
@@ -164,6 +144,8 @@ FORMS += \
     widgets/sessionsmanagementdialog.ui \
     widgets/sessiondetailwidget.ui
 
+RESOURCES += sessions.qrc
+
 DESTDIR = ../../build
 UI_DIR = ../../build/sessions/ui
 MOC_DIR = ../../build/sessions/moc
@@ -178,31 +160,23 @@ TRANSL = \
 translationsfiles.path = $$INST_TRANSLATIONS_DIR
 translationsfiles.files = $$TRANSL
 
-
-
-symbian {
-    MMP_RULES += EXPORTUNFROZEN
-    TARGET.UID3 = 0xE39EB967
-    TARGET.CAPABILITY = 
-    TARGET.EPOCALLOWDLLDATA = 1
-    addFiles.sources = QXmlEditSessions.dll
-    addFiles.path = !:/sys/bin
-    DEPLOYMENT += addFiles
-}
-
-unix:!symbian {
-    maemo5 {
-        target.path = /opt/usr/lib
-    } else {
-        target.path = $$INST_LIB_DIR
-    }
+unix {
+    target.path = $$INST_LIB_DIR
     INSTALLS += target translationsfiles
 }
 
-RESOURCES += sessions.qrc
 
 # resources are defined in paths.h
 unix:!macx:DEFINES += UNIX_RESOURCES
 
 DEFINES += UNIX_RESOURCE_PATH=$$INST_DATA_DIR
 DEFINES += UNIX_DOC_PATH=$$INST_DOC_DIR
+
+equals(USE_FAKE_SOURCES, "true") {
+    SOURCES = test_install/c.cpp
+    FORMS =
+    HEADERS =
+    CONFIG -= precompile_header
+    PRECOMPILED_HEADER  =
+    RESOURCES =
+}

@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -22,18 +22,21 @@
 
 macx {
     cache(, super)
-cache()
+    cache()
 }
 
+include("src/version.pri")
 include("src/cconfig.pri")
 
 TEMPLATE = subdirs
 
 CONFIG += ordered
 
-equals(USE_QWTPLOT, "Y") {
-    greaterThan(QT_MAJOR_VERSION, 4) {
-        SUBDIRS += external/qwtplot3d/qwtplot3d.pro
+equals(USE_FAKE_SOURCES, "false") {
+    equals(USE_QWTPLOT, "Y") {
+        greaterThan(QT_MAJOR_VERSION, 4) {
+            SUBDIRS += external/qwtplot3d/qwtplot3d.pro
+        }
     }
 }
 

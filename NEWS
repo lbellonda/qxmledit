@@ -1,4 +1,7 @@
 0.9.17
+    Isue #73, wrong library versions.
+    Issue #71, installation for desktop files.
+    Inserted an alternative set of sources to test installation.
 
 0.9.16
     Load a sample of a file.

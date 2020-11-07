@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2018-2019 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2018-2020 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -29,7 +29,6 @@
 
 # Additional resources not included with this script:
 #.desktop file in: install_scripts/environment/desktop/QXmlEdit.desktop
-#Icon in: install_scripts/environment/icon/qxmledit.png
 
 
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
@@ -55,6 +54,30 @@ message("Inst data dir $$INST_DATA_DIR")
 
 ###########################################
 
+INST_ICON_DIR=$$(QXMLEDIT_INST_ICON_DIR)
+!isEmpty(QXMLEDIT_INST_ICON_DIR) {
+    INST_ICON_DIR=$$QXMLEDIT_INST_ICON_DIR
+}
+isEmpty(INST_ICON_DIR) {
+    INST_ICON_DIR = $$INST_DATA_DIR
+}
+message("Inst desktop dir $$INST_ICON_DIR")
+# enabling
+INSTALL_ICON_ENABLED="Y"
+DONTUSE_ICON=$$(QXMLEDIT_NO_ICON)
+!isEmpty(QXMLEDIT_NO_ICON) {
+    DONTUSE_ICON=$$QXMLEDIT_NO_ICON
+}
+
+!isEmpty(DONTUSE_ICON) {
+    INSTALL_ICON_ENABLED="N"
+    message("No ICON")
+} else {
+    message("ICON enabled")
+}
+
+###########################################
+
 INST_DIR=$$(QXMLEDIT_INST_DIR)
 !isEmpty(QXMLEDIT_INST_DIR) {
     INST_DIR=$$QXMLEDIT_INST_DIR
@@ -75,6 +98,20 @@ isEmpty(INST_DOC_DIR) {
     INST_DOC_DIR = /opt/qxmledit
 }
 message("Inst doc dir $$INST_DOC_DIR")
+
+###########################################
+USE_FAKE_SOURCES=$$(QXMLEDIT_USE_FAKE_SOURCES)
+!isEmpty(QXMLEDIT_USE_FAKE_SOURCES) {
+    USE_FAKE_SOURCES=$$QXMLEDIT_USE_FAKE_SOURCES
+}
+
+!isEmpty(USE_FAKE_SOURCES) {
+    USE_FAKE_SOURCES = true
+} else {
+    USE_FAKE_SOURCES = false
+}
+
+message("Use fake sources $$USE_FAKE_SOURCES")
 
 ###########################################
 
@@ -214,11 +251,35 @@ message("TARGET_NAME_UNIXSTYLE $$TARGET_NAME_UNIXSTYLE")
 
 ###########################################
 
-LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
-!isEmpty(QXMLEDIT_VERSIONED) {
-    LIB_VERSIONED=$$QXMLEDIT_VERSIONED
+LIB_SUFFIX=$$(QXMLEDIT_LIB_SUFFIX)
+!isEmpty(QXMLEDIT_LIB_SUFFIX) {
+    LIB_SUFFIX=$$QXMLEDIT_LIB_SUFFIX
 }
-message("LIB_VERSIONED $$LIB_VERSIONED")
+message("LIB_SUFFIX $$LIB_SUFFIX")
+
+LIB_NOVERSIONED=""
+windows: {
+    LIB_NOVERSIONED="Y"
+}
+
+ENV_QXMLEDIT_NOVERSIONED=$$(QXMLEDIT_NOVERSIONED)
+!isEmpty(ENV_QXMLEDIT_NOVERSIONED) {
+    LIB_NOVERSIONED=$$(QXMLEDIT_NOVERSIONED)
+}
+
+!isEmpty(QXMLEDIT_NOVERSIONED) {
+    LIB_NOVERSIONED=$$QXMLEDIT_NOVERSIONED
+}
+
+if(!equals(LIB_NOVERSIONED, "Y")) {
+    if(!equals(LIB_NOVERSIONED, "N")) {
+        if(!equals(LIB_NOVERSIONED, "")) {
+            error("Invalid value for LIB_NOVERSIONED: $$LIB_NOVERSIONED, must be Y,N or empty");
+        }
+    }
+}
+
+message("LIB_NOVERSIONED $$LIB_NOVERSIONED")
 
 ###########################################
 
@@ -253,3 +314,20 @@ isEmpty(EVAL_QXMLEDIT_DISABLE_TODO_CONFIG) {
 }
 
 ###########################################
+
+QXMLEDIT_LIB_SUFFIX = ""
+!equals(LIB_SUFFIX, "") {
+    QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
+    message("QXMLEDIT_LIB_SUFFIX Enabled: $$QXMLEDIT_LIB_SUFFIX")
+} else {
+    message("QXMLEDIT_LIB_SUFFIX disabled")
+}
+
+isEqual(LIB_NOVERSIONED, "Y") {
+    VERSION=""
+    message("no version")
+}
+
+###########################################
+
+

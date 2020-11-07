@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -20,14 +20,15 @@
 # * Boston, MA  02110-1301  USA                                            *
 # **************************************************************************/
 
+############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
+
+include("version.pri")
 
 # TO CUSTOMIZE INSTALLATION DIRECTORY SET THE VARIABLES IN THE FOLLOWING INCLUDE
 
 include("cconfig.pri")
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
-
-include("version.pri")
 
 #default value for the unix/Linux target name
 TARGET_NAME_UNIXSTYLE_DEFAULT=""
@@ -38,26 +39,6 @@ unix:!macx: {
 
 equals(TARGET_NAME_UNIXSTYLE, "") {
     TARGET_NAME_UNIXSTYLE = $$TARGET_NAME_UNIXSTYLE_DEFAULT
-}
-
-#default value for the lib version name
-LIB_VERSIONED_DEFAULT=""
-unix:!macx: {
-   LIB_VERSIONED_DEFAULT="1"
-}
-
-
-equals(LIB_VERSIONED, "") {
-    LIB_VERSIONED = $$LIB_VERSIONED_DEFAULT
-}
-
-QXMLEDIT_LIB_SUFFIX = ""
-!equals(LIB_VERSIONED, "") {
-    QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
-}
-
-equals(QXMLEDIT_LIB_SUFFIX, "") {
-    VERSION=""
 }
 
 TEMPLATE = app
@@ -96,12 +77,6 @@ equals(TARGET_NAME_UNIXSTYLE, "1") {
 
 include(../src/coptions.pri)
 
-# TODO data files not installed
-# DATADIR = $$PREFIX/share/qxmledit
-# DEFINES += DATADIR=\\\"$$DATADIR\\\"
-#CONFIG += debug
-#CONFIG += release
-
 ############ CONFIGURATION SENT TO THE PROGRAM ############
 
 equals(INST_AVOID_PRECOMP_HEADERS, "") {
@@ -111,7 +86,6 @@ equals(INST_AVOID_PRECOMP_HEADERS, "") {
 
 # translations folder (inside the resources folder).
 DEFINES += TRANLASTION_DIR=translations
-
 
 HEADERS = precompiled_app.h \
     mainwindow.h \
@@ -453,9 +427,8 @@ snippets.files = data/snippets/{6d11b8d1-e285-46b2-8375-79e17cab9862}.xml \
 manual.path = $$INST_DOC_DIR
 manual.files = ../doc/QXmlEdit_manual.pdf
 
-desktopInfo.path = $$INST_DATA_DIR
-desktopInfo.files = ../install_scripts/environment/desktop/QXmlEdit.desktop \
-    ../install_scripts/environment/desktop/QXmlEdit.appdata.xml
+iconInfo.path = $$INST_ICON_DIR
+iconInfo.files = ../install_scripts/environment/icon/qxmledit.png
 
 # resources are defined in paths.h
 unix:!macx:DEFINES += UNIX_RESOURCES
@@ -465,7 +438,9 @@ DEFINES += UNIX_DOC_PATH=$$INST_DOC_DIR
 unix:INSTALLS += snippets
 unix:INSTALLS += styles
 unix:INSTALLS += manual
-unix:INSTALLS += desktopInfo
+equals(INSTALL_ICON_ENABLED, "Y") {
+    unix:INSTALLS += iconInfo
+}
 
 OTHER_FILES += \
     resources/test.xsd \
@@ -496,24 +471,35 @@ else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditSessions$${QXMLEDIT_LIB_SUFFI
 else:os2: LIBS += -L../build -lQXEdtSes
 
 equals(USE_QWTPLOT, "Y") {
+  equals(USE_FAKE_SOURCES, "false") {
+    greaterThan(QT_MAJOR_VERSION, 4) {
 
- greaterThan(QT_MAJOR_VERSION, 4) {
+        QT += opengl
+        INCLUDEPATH += ../external/qwtplot3d/include
+        DEFINES += QWT_PLOT3D
 
-    QT += opengl
-    INCLUDEPATH += ../external/qwtplot3d/include
-    DEFINES += QWT_PLOT3D
+        LIBS += -L../build/ -lqwtplot3d
 
-    LIBS += -L../build/ -lqwtplot3d
+        unix:!macx{
+            LIBS += -lGL -lGLU
+        }
 
-    unix:!macx{
-        LIBS += -lGL -lGLU
-    }
-
-    win32:{
-        LIBS += -lopengl32  -lglu32
+        win32:{
+            LIBS += -lopengl32  -lglu32
+       }
     }
   }
 }
 
 DISTFILES += \
     ../BRANCHES
+
+equals(USE_FAKE_SOURCES, "true") {
+    CONFIG -= precompile_header
+    PRECOMPILED_HEADER  =
+    HEADERS =
+    SOURCES = test_install/a.cpp
+    TARGET=fake_qxmledit
+    FORMS =
+    RESOURCES =
+}

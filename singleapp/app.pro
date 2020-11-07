@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -24,13 +24,14 @@
 #
 #-------------------------------------------------
 
+include("../src/version.pri")
+
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
 
 include("../src/cconfig.pri")
 
 ############################ END INSTALLATION FOLDERS DECLARATION #############################################
 
-include("../src/version.pri")
 
 #default value for the unix/Linux target name
 TARGET_NAME_UNIXSTYLE_DEFAULT=""
@@ -142,9 +143,8 @@ snippets.files = data/snippets/{6d11b8d1-e285-46b2-8375-79e17cab9862}.xml \
 manual.path = $$INST_DOC_DIR
 manual.files = ../doc/QXmlEdit_manual.pdf
 
-desktopInfo.path = $$INST_DATA_DIR
-desktopInfo.files = ../install_scripts/environment/desktop/QXmlEdit.desktop \
-    ../install_scripts/environment/desktop/QXmlEdit.appdata.xml
+iconInfo.path = $$INST_ICON_DIR
+iconInfo.files = ../install_scripts/environment/icon/qxmledit.png
 
 #-----------------------------------------------------------
 
