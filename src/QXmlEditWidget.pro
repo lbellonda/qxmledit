@@ -68,10 +68,14 @@ RCC_DIR = ../build/lib/rcc
 
 TRANSLATIONS = \
    languages_lib/QXmlEditWidget_cs.ts \
-   languages_lib/SCXML_cs.ts
+   languages_lib/SCXML_cs.ts \
+   languages_lib/QXmlEditWidget_ru.ts \
+   languages_lib/SCXML_ru.ts
 TRANSL = \
    languages_lib/QXmlEditWidget_cs.qm \
-   languages_lib/SCXML_cs.qm
+   languages_lib/SCXML_cs.qm \
+   languages_lib/QXmlEditWidget_ru.qm \
+   languages_lib/SCXML_ru.qm
 
 translationsfiles.path = $$INST_TRANSLATIONS_DIR
 translationsfiles.files = $$TRANSL

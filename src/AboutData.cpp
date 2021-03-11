@@ -35,6 +35,11 @@ QList<AuthorInfo*> authorsInfo()
     authors.append(newAuthor);
     newAuthor = new AuthorInfo("Pavel Fric", "fripohled.blogspot.com", AR_TRANSLATOR, "Czech");
     authors.append(newAuthor);
+    newAuthor = new AuthorInfo("Konstantin Blashkin", "<kostet@etersoft.ru>", AR_TRANSLATOR, "Russian");
+    authors.append(newAuthor);
+    newAuthor = new AuthorInfo("Vitaly Lipatov", "<lav@etersoft.ru>", AR_TRANSLATOR, "Russian");
+    authors.append(newAuthor);
+
     return authors ;
 }
 

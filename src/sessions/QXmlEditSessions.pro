@@ -153,9 +153,11 @@ OBJECTS_DIR = ../../build/sessions/obj
 RCC_DIR = ../../build/sessions/rcc
 
 TRANSLATIONS = \
-   languages/QXmlEditSessions_cs.ts
+   languages/QXmlEditSessions_cs.ts \
+   languages/QXmlEditSessions_ru.ts
 TRANSL = \
-   languages/QXmlEditSessions_cs.qm
+   languages/QXmlEditSessions_cs.qm \
+   languages/QXmlEditSessions_ru.qm
 
 translationsfiles.path = $$INST_TRANSLATIONS_DIR
 translationsfiles.files = $$TRANSL

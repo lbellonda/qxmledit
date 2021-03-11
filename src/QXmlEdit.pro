@@ -397,9 +397,11 @@ UI_HEADERS_DIR = ../build/app/ui/include
 UI_SOURCES_DIR = ../build/app/ui/src
 RCC_DIR = ../build/app/rcc
 TRANSLATIONS = \
-   languages_app/QXmlEdit_cs.ts
+   languages_app/QXmlEdit_cs.ts \
+   languages_app/QXmlEdit_ru.ts \
 TRANSL = \
-   languages_app/QXmlEdit_cs.qm
+   languages_app/QXmlEdit_cs.qm \
+   languages_app/QXmlEdit_ru.qm
 
 
 target.path = $$INST_DIR
