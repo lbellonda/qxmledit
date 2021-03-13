@@ -71,6 +71,7 @@ TRANSLATIONS = \
    languages_lib/SCXML_cs.ts \
    languages_lib/QXmlEditWidget_ru.ts \
    languages_lib/SCXML_ru.ts
+
 TRANSL = \
    languages_lib/QXmlEditWidget_cs.qm \
    languages_lib/SCXML_cs.qm \
