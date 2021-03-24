@@ -29,26 +29,7 @@
 LIB_VERSIONED=$$(QXMLEDIT_VERSIONED)
 
 include("../src/version.pri")
-
-#default value for the lib version name
-LIB_VERSIONED_DEFAULT=""
-unix:!macx: {
-   LIB_VERSIONED_DEFAULT="1"
-}
-
-
-equals(LIB_VERSIONED, "") {
-    LIB_VERSIONED = $$LIB_VERSIONED_DEFAULT
-}
-
-QXMLEDIT_LIB_SUFFIX = ""
-!equals(LIB_VERSIONED, "") {
-    QXMLEDIT_LIB_SUFFIX = -$$QXMLEDIT_VERSION
-}
-
-equals(QXMLEDIT_LIB_SUFFIX, "") {
-    VERSION=""
-}
+include("../cconfig.pri")
 
 
 QT  += core gui xml xmlpatterns
@@ -89,5 +70,6 @@ DEPENDPATH += $$PWD/../src/framework/include
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../build/lib/release/ -L$$OUT_PWD/../build -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../build/lib/debug/ -L$$OUT_PWD/../build -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 else:symbian: LIBS += -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
+else:macx: LIBS += -L$(DESTDIR) -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
 else:unix: LIBS += -L$$OUT_PWD/../build/ -lQXmlEditWidget$${QXMLEDIT_LIB_SUFFIX}
-
+else:os2: LIBS += -L../build -lQXmlEdtW
