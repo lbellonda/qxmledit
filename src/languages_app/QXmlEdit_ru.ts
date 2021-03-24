@@ -157,8 +157,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="117"/>
-        <source>disaabled</source>
-        <translation>Отключенный</translation>
+        <source>disabled</source>
+        <translation type="vanished">Отключенный</translation>
     </message>
 </context>
 <context>
@@ -2894,9 +2894,21 @@ row=%1, column=%2</source>
     <message>
         <location filename="../visualization/datawidget.cpp" line="1253"/>
         <location filename="../visualization/datawidget.cpp" line="1283"/>
+        <source>Max value : %1 
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../visualization/datawidget.cpp" line="1256"/>
+        <location filename="../visualization/datawidget.cpp" line="1286"/>
+        <source>row :%1 
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Max value : %1
 </source>
-        <translation>Максимальное значение : %1
+        <translation type="vanished">Максимальное значение : %1
 </translation>
     </message>
     <message>
@@ -2907,11 +2919,9 @@ row=%1, column=%2</source>
 </translation>
     </message>
     <message>
-        <location filename="../visualization/datawidget.cpp" line="1256"/>
-        <location filename="../visualization/datawidget.cpp" line="1286"/>
         <source>row :%1
 </source>
-        <translation>строка : %1
+        <translation type="vanished">строка : %1
 </translation>
     </message>
     <message>
@@ -3777,8 +3787,8 @@ If unsure, close this panel or press escape. You can always change your choice l
     </message>
     <message>
         <location filename="../MainWindow.ui" line="152"/>
-        <location filename="../MainWindow.ui" line="423"/>
-        <location filename="../MainWindow.ui" line="445"/>
+        <location filename="../MainWindow.ui" line="425"/>
+        <location filename="../MainWindow.ui" line="447"/>
         <location filename="../mainwindow.cpp" line="768"/>
         <source>Advanced</source>
         <translation>Продвинутый</translation>
@@ -3804,2265 +3814,2285 @@ If unsure, close this panel or press escape. You can always change your choice l
         <translation>Новый спец&amp;илизированый</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="266"/>
+        <location filename="../MainWindow.ui" line="267"/>
         <source>&amp;XML</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="273"/>
+        <location filename="../MainWindow.ui" line="274"/>
         <source>XML Schema</source>
         <translation>схема XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="277"/>
+        <location filename="../MainWindow.ui" line="278"/>
         <source>Insert</source>
         <translation>Вставить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="285"/>
-        <location filename="../MainWindow.ui" line="1920"/>
+        <location filename="../MainWindow.ui" line="286"/>
+        <location filename="../MainWindow.ui" line="1922"/>
         <source>Append Sibling</source>
         <translation>Добавить дочерний элемент</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="301"/>
+        <location filename="../MainWindow.ui" line="302"/>
         <source>Metadata</source>
         <translation>Метаданные</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="308"/>
+        <location filename="../MainWindow.ui" line="309"/>
         <source>Schema Instance (XSI)</source>
         <translation>Экземпляр схемы (XSI)</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="320"/>
+        <location filename="../MainWindow.ui" line="321"/>
         <source>Sort Attributes</source>
         <translation>Сортировка Атрибутов</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="328"/>
-        <location filename="../MainWindow.ui" line="436"/>
+        <location filename="../MainWindow.ui" line="329"/>
+        <location filename="../MainWindow.ui" line="438"/>
         <source>Siblings</source>
         <translation>Соседи</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="336"/>
+        <location filename="../MainWindow.ui" line="337"/>
         <location filename="../mainwindow.cpp" line="760"/>
         <source>Hierarchy</source>
         <translation>Иерархия</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="346"/>
+        <location filename="../MainWindow.ui" line="347"/>
         <source>Namespaces</source>
         <translation>Пространство имён</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="392"/>
+        <location filename="../MainWindow.ui" line="393"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="410"/>
+        <location filename="../MainWindow.ui" line="412"/>
         <source>&amp;View</source>
         <translation>&amp;Вид</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="414"/>
+        <location filename="../MainWindow.ui" line="416"/>
         <source>Filter Attributes</source>
         <translation>атрибуты фильтра</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="428"/>
+        <location filename="../MainWindow.ui" line="430"/>
         <source>Panels</source>
         <translation>Панели</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="481"/>
+        <location filename="../MainWindow.ui" line="483"/>
         <source>&amp;Sessions</source>
         <translation>&amp;сессии</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="494"/>
+        <location filename="../MainWindow.ui" line="496"/>
         <source>Preferences</source>
         <translation>Предпочтения</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="506"/>
+        <location filename="../MainWindow.ui" line="508"/>
         <source>Special</source>
         <translation>Специальный</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="510"/>
+        <location filename="../MainWindow.ui" line="512"/>
         <source>Validation</source>
         <translation>Подтверждение</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="519"/>
+        <location filename="../MainWindow.ui" line="521"/>
         <location filename="../mainwindow.cpp" line="837"/>
         <location filename="../mainwindow.cpp" line="2336"/>
         <source>XSLT</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="553"/>
+        <location filename="../MainWindow.ui" line="555"/>
         <source>toolBar</source>
         <translation>Набор инструментов</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="588"/>
+        <location filename="../MainWindow.ui" line="590"/>
         <source>&amp;New</source>
         <translation>&amp;Новый</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="591"/>
+        <location filename="../MainWindow.ui" line="593"/>
         <source>New</source>
         <translation>Новый</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="594"/>
+        <location filename="../MainWindow.ui" line="596"/>
         <source>Ctrl+N</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="603"/>
+        <location filename="../MainWindow.ui" line="605"/>
         <source>&amp;Quit</source>
         <translation>&amp;Выйти</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="606"/>
+        <location filename="../MainWindow.ui" line="608"/>
         <source>Ctrl+Q</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="615"/>
+        <location filename="../MainWindow.ui" line="617"/>
         <source>&amp;Open...</source>
         <translation>&amp;Открыть...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="618"/>
+        <location filename="../MainWindow.ui" line="620"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="627"/>
+        <location filename="../MainWindow.ui" line="629"/>
         <source>&amp;Save</source>
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="630"/>
+        <location filename="../MainWindow.ui" line="632"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="639"/>
+        <location filename="../MainWindow.ui" line="641"/>
         <source>Save &amp;As...</source>
         <translation>Сохранить &amp;Как...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="642"/>
+        <location filename="../MainWindow.ui" line="644"/>
         <source>Ctrl+Shift+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="651"/>
+        <location filename="../MainWindow.ui" line="653"/>
         <source>&amp;Cut</source>
         <translation>&amp;Вырезать</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="654"/>
+        <location filename="../MainWindow.ui" line="656"/>
         <source>Ctrl+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="663"/>
+        <location filename="../MainWindow.ui" line="665"/>
         <source>Cop&amp;y</source>
         <translation>Копиро&amp;ать</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="666"/>
+        <location filename="../MainWindow.ui" line="668"/>
         <source>Ctrl+C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="675"/>
+        <location filename="../MainWindow.ui" line="677"/>
         <source>&amp;Paste</source>
         <translation>&amp;Вставить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="678"/>
+        <location filename="../MainWindow.ui" line="680"/>
         <source>Ctrl+V</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="683"/>
+        <location filename="../MainWindow.ui" line="685"/>
         <source>&amp;Expand All</source>
         <translation>&amp;Развернуть Все</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="686"/>
+        <location filename="../MainWindow.ui" line="688"/>
         <source>Expand all the items.</source>
         <translation>Разверните все элементы.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="689"/>
+        <location filename="../MainWindow.ui" line="691"/>
         <source>Ctrl+Shift+E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="697"/>
+        <location filename="../MainWindow.ui" line="699"/>
         <source>Show &amp;One Attribute per Line</source>
         <translation>Показать &amp;один атрибут в строке</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="706"/>
+        <location filename="../MainWindow.ui" line="708"/>
         <source>&amp;About QXmlEdit</source>
         <translation>&amp;О QXmlEdit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="709"/>
+        <location filename="../MainWindow.ui" line="711"/>
         <source>About QXmlEdit</source>
         <translation>О QXmlEdit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="714"/>
+        <location filename="../MainWindow.ui" line="716"/>
         <source>Add &amp;Comment as Child...</source>
         <translation>Добавить &amp;комментарий...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="717"/>
+        <location filename="../MainWindow.ui" line="719"/>
         <source>Ctrl+3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="722"/>
+        <location filename="../MainWindow.ui" line="724"/>
         <source>Append C&amp;omment as Brother...</source>
         <translation type="unfinished">Добавьте к&amp;омментарий в качестве брата...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="725"/>
+        <location filename="../MainWindow.ui" line="727"/>
         <source>Ctrl+4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="730"/>
+        <location filename="../MainWindow.ui" line="732"/>
         <source>Add Processing Instruction as Child...</source>
         <translation>Добавьте инструкцию по обработке дочернего элемента...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="733"/>
+        <location filename="../MainWindow.ui" line="735"/>
         <source>Ctrl+5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="738"/>
+        <location filename="../MainWindow.ui" line="740"/>
         <source>Append Processing Instruction as Brother...</source>
         <translation type="unfinished">Добавьте инструкцию по обработке как Брата...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="741"/>
+        <location filename="../MainWindow.ui" line="743"/>
         <source>Ctrl+6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="746"/>
+        <location filename="../MainWindow.ui" line="748"/>
         <source>Add a Child Element...</source>
         <translation>Добавить Дочерний элемент...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="749"/>
+        <location filename="../MainWindow.ui" line="751"/>
         <source>Add a new element</source>
         <translation>Добавить новый элемент</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="752"/>
+        <location filename="../MainWindow.ui" line="754"/>
         <source>Ctrl+1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="757"/>
+        <location filename="../MainWindow.ui" line="759"/>
         <source>Append a Brother Element...</source>
         <translation>Добавить соседний элемент...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="760"/>
+        <location filename="../MainWindow.ui" line="762"/>
         <source>Ctrl+2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="765"/>
+        <location filename="../MainWindow.ui" line="767"/>
         <source>&amp;Properties...</source>
         <translation>&amp;Свойства...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="768"/>
+        <location filename="../MainWindow.ui" line="770"/>
         <source>Alt+Return</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="773"/>
+        <location filename="../MainWindow.ui" line="775"/>
         <source>Delete</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="776"/>
+        <location filename="../MainWindow.ui" line="778"/>
         <source>Ctrl+D</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="785"/>
+        <location filename="../MainWindow.ui" line="787"/>
         <source>Move &amp;Up</source>
         <translation>переместиться &amp;вверх</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="788"/>
+        <location filename="../MainWindow.ui" line="790"/>
         <source>Ctrl+K</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="797"/>
+        <location filename="../MainWindow.ui" line="799"/>
         <source>Move Do&amp;wn</source>
         <translation>Переместиться Вни&amp;з</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="800"/>
+        <location filename="../MainWindow.ui" line="802"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="809"/>
+        <location filename="../MainWindow.ui" line="811"/>
         <source>&amp;Find...</source>
         <translation>&amp;Найти...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="812"/>
+        <location filename="../MainWindow.ui" line="814"/>
         <source>Ctrl+F</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="821"/>
+        <location filename="../MainWindow.ui" line="823"/>
         <source>Go To Parent</source>
         <translation>Перейти К Родителю</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="824"/>
+        <location filename="../MainWindow.ui" line="826"/>
         <source>Move to the parent</source>
         <translation>Перейти к родителю</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="827"/>
+        <location filename="../MainWindow.ui" line="829"/>
         <source>F11</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="836"/>
-        <location filename="../MainWindow.ui" line="839"/>
+        <location filename="../MainWindow.ui" line="838"/>
+        <location filename="../MainWindow.ui" line="841"/>
         <source>Go to Previous Brother</source>
         <translation>Идти к предыдущему брату</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="842"/>
+        <location filename="../MainWindow.ui" line="844"/>
         <source>F9</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="851"/>
-        <location filename="../MainWindow.ui" line="854"/>
+        <location filename="../MainWindow.ui" line="853"/>
+        <location filename="../MainWindow.ui" line="856"/>
         <source>Go to Next Brother</source>
         <translation>Идти к следующему Брату</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="857"/>
+        <location filename="../MainWindow.ui" line="859"/>
         <source>F10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="866"/>
+        <location filename="../MainWindow.ui" line="868"/>
         <source>&amp;Toggle Bookmark</source>
         <translation>&amp;Переключить Закладку</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="869"/>
+        <location filename="../MainWindow.ui" line="871"/>
         <source>Toggle Boorkmark at Current Location</source>
         <translation>Переключить Boorkmark в текущем местоположении</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="872"/>
+        <location filename="../MainWindow.ui" line="874"/>
         <source>Ctrl+F2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="877"/>
+        <location filename="../MainWindow.ui" line="879"/>
         <source>&amp;Remove All Bookmarks</source>
         <translation>&amp;Удалить Все Закладки</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="882"/>
+        <location filename="../MainWindow.ui" line="884"/>
         <source>Go To &amp;Next Bookmark</source>
         <translation>Перейти на &amp;на следующую закладку</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="885"/>
+        <location filename="../MainWindow.ui" line="887"/>
         <source>F2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="890"/>
+        <location filename="../MainWindow.ui" line="892"/>
         <source>Go To &amp;Previous Bookmark</source>
         <translation>Перейти на &amp;Предыдущую Закладку</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="893"/>
+        <location filename="../MainWindow.ui" line="895"/>
         <source>Shift+F2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="901"/>
+        <location filename="../MainWindow.ui" line="903"/>
         <source>List Bookmarks</source>
         <translation>Список Закладок</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="909"/>
+        <location filename="../MainWindow.ui" line="911"/>
         <source>Show Child &amp;Index</source>
         <translation>Показать &amp;Индекс Ребенка</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="912"/>
+        <location filename="../MainWindow.ui" line="914"/>
         <source>Show Child Index</source>
         <translation>Показать индекс ребёнка</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="917"/>
-        <location filename="../MainWindow.ui" line="920"/>
+        <location filename="../MainWindow.ui" line="919"/>
+        <location filename="../MainWindow.ui" line="922"/>
         <source>Close This and All Siblings</source>
         <translation>Закрыть Эти и все родственные дочерние связи</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="923"/>
+        <location filename="../MainWindow.ui" line="925"/>
         <source>F12</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="928"/>
+        <location filename="../MainWindow.ui" line="930"/>
         <source>New From &amp;Clipboard</source>
         <translation>Новая Из &amp;Буфера Обмена</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="931"/>
+        <location filename="../MainWindow.ui" line="933"/>
         <source>import XML from clipboard</source>
         <translation>импорт XML из буфера обмена</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="936"/>
+        <location filename="../MainWindow.ui" line="938"/>
         <source>&amp;Compact View</source>
         <translation>&amp;Компактный Вид</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="939"/>
+        <location filename="../MainWindow.ui" line="941"/>
         <source>Compact View</source>
         <translation>Компактный Вид</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="947"/>
+        <location filename="../MainWindow.ui" line="949"/>
         <source>&amp;Hide Siblings</source>
         <translation>&amp;Скрыть братьев и сестёр</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="950"/>
+        <location filename="../MainWindow.ui" line="952"/>
         <source>Hide Siblings</source>
         <translation>Скрыть Братьев И Сестер</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="958"/>
+        <location filename="../MainWindow.ui" line="960"/>
         <source>&amp;Fixed Size Attributes</source>
         <translation>&amp;Атрибуты Фиксированного Размера</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="961"/>
+        <location filename="../MainWindow.ui" line="963"/>
         <source>Show Attributes with Fixed Size Font</source>
         <translation>Показать атрибуты с фиксированным размером шрифта</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="969"/>
+        <location filename="../MainWindow.ui" line="971"/>
         <source>Show Attributes &amp;Length</source>
         <translation>Показать Атрибуты И &amp;Длину</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="972"/>
+        <location filename="../MainWindow.ui" line="974"/>
         <source>Show Attributes Length</source>
         <translation>Показать Длину Атрибутов</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="980"/>
-        <location filename="../MainWindow.ui" line="983"/>
+        <location filename="../MainWindow.ui" line="982"/>
+        <location filename="../MainWindow.ui" line="985"/>
         <source>Show Text as Base 64 Coded</source>
         <translation>Показать текст как Base 64 кодировке</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="991"/>
-        <location filename="../MainWindow.ui" line="994"/>
+        <location filename="../MainWindow.ui" line="993"/>
+        <location filename="../MainWindow.ui" line="996"/>
         <source>Show Current Element Text Base 64</source>
         <translation>Показать Текст Текущего Элемента Base 64</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="999"/>
+        <location filename="../MainWindow.ui" line="1001"/>
         <source>Confi&amp;gure...</source>
         <translation>Настр&amp;оить...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1002"/>
+        <location filename="../MainWindow.ui" line="1004"/>
         <source>Configure</source>
         <translation>Настроить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1010"/>
+        <location filename="../MainWindow.ui" line="1012"/>
         <source>Edit Inner XML...</source>
         <translation>Редактировать внутренний XML...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1013"/>
+        <location filename="../MainWindow.ui" line="1015"/>
         <source>Edit inner XML</source>
         <translation>Редактирование внутреннего XML-файле</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1018"/>
+        <location filename="../MainWindow.ui" line="1020"/>
         <source>Edit Inner XML Base 64 Coded...</source>
         <translation>Редактирование внутреннего XML-файле базы 64 закодированы...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1021"/>
+        <location filename="../MainWindow.ui" line="1023"/>
         <source>Edit inner XML Base 64 Coded</source>
         <translation>Редактирование внутренней XML Base 64  кодировки</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1026"/>
+        <location filename="../MainWindow.ui" line="1028"/>
         <source>Edit inner Base 64 Text...</source>
         <translation>Редактирование внутреннего Base 64 Текста...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1029"/>
+        <location filename="../MainWindow.ui" line="1031"/>
         <source>Edit inner Base 64 Text</source>
         <translation>Редактировать внутренний Base 64 текст</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1034"/>
-        <location filename="../MainWindow.ui" line="1037"/>
+        <location filename="../MainWindow.ui" line="1036"/>
+        <location filename="../MainWindow.ui" line="1039"/>
         <source>Zoom In</source>
         <translation>Приблизить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1042"/>
-        <location filename="../MainWindow.ui" line="1045"/>
+        <location filename="../MainWindow.ui" line="1044"/>
+        <location filename="../MainWindow.ui" line="1047"/>
         <source>Zoom Out</source>
         <translation>Отдалить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1050"/>
+        <location filename="../MainWindow.ui" line="1052"/>
         <source>Compare with...</source>
         <translation>Сравнить с...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1053"/>
+        <location filename="../MainWindow.ui" line="1055"/>
         <source>Compare the current data with another XML file</source>
         <translation>Сравните текущие данные с другим XML-файлом</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1058"/>
+        <location filename="../MainWindow.ui" line="1060"/>
         <source>Reload</source>
         <translation>Перезагрузить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1061"/>
+        <location filename="../MainWindow.ui" line="1063"/>
         <source>Reload the current file</source>
         <translation>Перезагрузите текущий файл</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1066"/>
+        <location filename="../MainWindow.ui" line="1068"/>
         <source>Last Files</source>
         <translation>Последний файл</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1071"/>
+        <location filename="../MainWindow.ui" line="1073"/>
         <source>Copy File Path to Clipboard</source>
         <translation>Скопировать путь к файлу в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1074"/>
+        <location filename="../MainWindow.ui" line="1076"/>
         <source>Copy path to clipboard</source>
         <translation>Скопировать путь в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1079"/>
+        <location filename="../MainWindow.ui" line="1081"/>
         <source>Add Current Directory to Preferred Ones</source>
         <translation>Добавить текущий каталог в избранное</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1082"/>
+        <location filename="../MainWindow.ui" line="1084"/>
         <source>Add the current directory to Preferred Ones</source>
         <translation>Добавить текущий каталог в избранное</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1087"/>
+        <location filename="../MainWindow.ui" line="1089"/>
         <source>Edit Preferred Directories...</source>
         <translation>Редактировать Каталоги...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1090"/>
+        <location filename="../MainWindow.ui" line="1092"/>
         <source>Edit Preferred Directories</source>
         <translation>Редактировать Каталоги</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1099"/>
+        <location filename="../MainWindow.ui" line="1101"/>
         <source>Validate</source>
         <translation>Проверить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1102"/>
+        <location filename="../MainWindow.ui" line="1104"/>
         <source>Validate against a XSD</source>
         <translation>Проверить с помощью xsd-схемы</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1107"/>
+        <location filename="../MainWindow.ui" line="1109"/>
         <source>Validate Using New Schema File...</source>
         <translation>Проверьте С Помощью Нового Файла Схемы...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1110"/>
+        <location filename="../MainWindow.ui" line="1112"/>
         <source>Validate using new XSD File.</source>
         <translation>Проверка с помощью нового XSD-файла.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1115"/>
+        <location filename="../MainWindow.ui" line="1117"/>
         <source>Insert Snippet...</source>
         <translation>Вставить Фрагмент...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1118"/>
+        <location filename="../MainWindow.ui" line="1120"/>
         <source>Insert a XML fragment</source>
         <translation>Вставка фрагмента XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1123"/>
+        <location filename="../MainWindow.ui" line="1125"/>
         <source>Configure Snippets...</source>
         <translation>Настройка Сниппетов...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1126"/>
+        <location filename="../MainWindow.ui" line="1128"/>
         <source>Configure Snippets</source>
         <translation>Настройка Фрагментов</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1131"/>
-        <location filename="../MainWindow.ui" line="1134"/>
+        <location filename="../MainWindow.ui" line="1133"/>
+        <location filename="../MainWindow.ui" line="1136"/>
         <source>Execute Auto Test</source>
         <translation>Выполнение Автоматического Теста</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1139"/>
+        <location filename="../MainWindow.ui" line="1141"/>
         <source>Plugins</source>
         <translation>Плагины</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1144"/>
+        <location filename="../MainWindow.ui" line="1146"/>
         <source>Transform in Snippet...</source>
         <translation>Преобразование в Фрагмент...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1147"/>
+        <location filename="../MainWindow.ui" line="1149"/>
         <source>Transform in Snippet</source>
         <translation>Преобразование в Фрагмент</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1155"/>
-        <location filename="../MainWindow.ui" line="1158"/>
+        <location filename="../MainWindow.ui" line="1157"/>
+        <location filename="../MainWindow.ui" line="1160"/>
         <source>Show Element Text Length</source>
         <translation>Показать Длину Текста Элемента</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1166"/>
+        <location filename="../MainWindow.ui" line="1168"/>
         <source>Show Element Size</source>
         <translation>Показать Размер Элемента</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1169"/>
+        <location filename="../MainWindow.ui" line="1171"/>
         <source>Show element size</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1174"/>
+        <location filename="../MainWindow.ui" line="1176"/>
         <source>Delete Bookmarked Items</source>
         <translation>Удаление Элементов С Закладками</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1177"/>
+        <location filename="../MainWindow.ui" line="1179"/>
         <source>Delete Bookmarked items</source>
         <translation>Удаление Элементов С Закладками</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1182"/>
+        <location filename="../MainWindow.ui" line="1184"/>
         <source>Clean Bookmarked Items Content</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1185"/>
+        <location filename="../MainWindow.ui" line="1187"/>
         <source>Clean Bookmarked ItemsContent</source>
         <translation>Очистить Закладки ItemsContent</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1190"/>
+        <location filename="../MainWindow.ui" line="1192"/>
         <source>Clean Bookmarked Items Attribute...</source>
         <translation>Чистый Атрибут Закладок Элементов...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1193"/>
+        <location filename="../MainWindow.ui" line="1195"/>
         <source>Clean Bookmarked Items Attribute</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1198"/>
+        <location filename="../MainWindow.ui" line="1200"/>
         <source>Explore Structure...</source>
         <translation>Исследуйте Структуру...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1201"/>
+        <location filename="../MainWindow.ui" line="1203"/>
         <source>Explore structure loading only partial informations about a file.</source>
         <translation>Исследуйте структуру, загружая только частичную информацию о файле.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1206"/>
+        <location filename="../MainWindow.ui" line="1208"/>
         <source>Blind Load File...</source>
         <translation>Слепая Загрузка Файла...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1209"/>
+        <location filename="../MainWindow.ui" line="1211"/>
         <source>load a file in blind mode</source>
         <translation>загрузка файла в слепом режиме</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1217"/>
+        <location filename="../MainWindow.ui" line="1219"/>
         <source>Hide View</source>
         <translation>Скрыть Вид</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1220"/>
+        <location filename="../MainWindow.ui" line="1222"/>
         <source>Hide graphics view</source>
         <translation>Скрыть графический вид</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1229"/>
+        <location filename="../MainWindow.ui" line="1231"/>
         <source>Search in Files...</source>
         <translation>Скрыть графический вид...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1232"/>
+        <location filename="../MainWindow.ui" line="1234"/>
         <source>Search in files</source>
         <translation>Поиск в файлах</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1241"/>
-        <location filename="../MainWindow.ui" line="1244"/>
+        <location filename="../MainWindow.ui" line="1243"/>
+        <location filename="../MainWindow.ui" line="1246"/>
         <source>Help on QXmlEdit</source>
         <translation>Справка по QXmlEdit</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1249"/>
-        <location filename="../MainWindow.ui" line="1252"/>
+        <location filename="../MainWindow.ui" line="1251"/>
+        <location filename="../MainWindow.ui" line="1254"/>
         <source>Allowed Schema Elements</source>
         <translation>Разрешенные Элементы</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1257"/>
+        <location filename="../MainWindow.ui" line="1259"/>
         <source>Edit Inner Text as One Node...</source>
         <translation>Редактировать внутренний текст как один узел...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1260"/>
+        <location filename="../MainWindow.ui" line="1262"/>
         <source>Paste and substitute element text</source>
         <translation>Вставка и замена текста элемента</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1265"/>
+        <location filename="../MainWindow.ui" line="1267"/>
         <source>New Using XML Schema...</source>
         <translation>Новое использование схемы XML...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1268"/>
+        <location filename="../MainWindow.ui" line="1270"/>
         <source>Creates a new XML Document using a XML Schema</source>
         <translation>Создает новый XML-документ с помощью схемы XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1273"/>
+        <location filename="../MainWindow.ui" line="1275"/>
         <source>Transform in Comment</source>
         <translation>Преобразование в комментарии</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1276"/>
+        <location filename="../MainWindow.ui" line="1278"/>
         <source>Transform in comment</source>
         <translation>Преобразование в комментарии</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1281"/>
+        <location filename="../MainWindow.ui" line="1283"/>
         <source>Extract Elements from Comment</source>
         <translation>Извлечение элементов из комментария</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1284"/>
+        <location filename="../MainWindow.ui" line="1286"/>
         <source>Extract elements from comment.</source>
         <translation>Извлечение элементов из комментария.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1293"/>
+        <location filename="../MainWindow.ui" line="1295"/>
         <source>Extract Fragments From a File...</source>
         <translation>Extract items from a comment...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1296"/>
+        <location filename="../MainWindow.ui" line="1298"/>
         <source>Extract XML fragments from a huge file...</source>
         <translation>Извлеките фрагменты XML из огромного файла...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1301"/>
+        <location filename="../MainWindow.ui" line="1303"/>
         <source>Welcome Dialog...</source>
         <translation>Диалог Приветствия...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1304"/>
+        <location filename="../MainWindow.ui" line="1306"/>
         <source>Show the welcome dialog.</source>
         <translation>Показать диалоговое окно приветствия.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1313"/>
+        <location filename="../MainWindow.ui" line="1315"/>
         <source>Save a Copy As...</source>
         <translation>Сохраните копию как...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1316"/>
+        <location filename="../MainWindow.ui" line="1318"/>
         <source>Saves a copy of the current file. Current file path will not be affected.</source>
         <translation>Сохраняет копию текущего файла. Текущий путь к файлу не будет изменен.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1325"/>
+        <location filename="../MainWindow.ui" line="1327"/>
         <source>Hide All the Leaf Children</source>
         <translation>спрятать все окончательные элементы детей</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1328"/>
+        <location filename="../MainWindow.ui" line="1330"/>
         <source>Hide all the nodes that does not have children, revealing the structure.</source>
         <translation>Скрыть все узлы, которые не имеют потомков, раскрывая структуру.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1337"/>
+        <location filename="../MainWindow.ui" line="1339"/>
         <source>Show All the Leaf Children</source>
         <translation>Показать все конечные элементы детей</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1340"/>
+        <location filename="../MainWindow.ui" line="1342"/>
         <source>Show all the leaf nodes that was previously hidden.</source>
         <translation>Показать все конечные элементы, которые были ранее скрыты.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1349"/>
+        <location filename="../MainWindow.ui" line="1351"/>
         <source>Hide Leaf Children</source>
         <translation>Скрыть конечне элементы детей</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1352"/>
+        <location filename="../MainWindow.ui" line="1354"/>
         <source>Hide the children of the current node that does not have children, revealing the structure.</source>
         <translation>Скрыть детей текущего нода, который не имеет детей, раскрывая структуру.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1361"/>
+        <location filename="../MainWindow.ui" line="1363"/>
         <source>Show Leaf Children</source>
         <translation>Показать конечные элементы ребёнка</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1364"/>
+        <location filename="../MainWindow.ui" line="1366"/>
         <source>Show the leaf nodes of the current node that was previously hidden.</source>
         <translation>Показать конечные элементы текущего нода которые в прошлом были скрыты.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1369"/>
+        <location filename="../MainWindow.ui" line="1371"/>
         <source>View As Xsd</source>
         <translation>Просмотр Как Xsd</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1378"/>
+        <location filename="../MainWindow.ui" line="1380"/>
         <source>Columnar View...</source>
         <translation>Столбчатый Вид...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1381"/>
+        <location filename="../MainWindow.ui" line="1383"/>
         <source>View as columns.</source>
         <translation>Столбчатый Вид..</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1393"/>
+        <location filename="../MainWindow.ui" line="1395"/>
         <source>Show Current Session Panel</source>
         <translation>Показать Панель Текущего Сеанса</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1396"/>
+        <location filename="../MainWindow.ui" line="1398"/>
         <source>Opens the session panel.</source>
         <translation>Открывает панель сессии.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1401"/>
+        <location filename="../MainWindow.ui" line="1403"/>
         <source>New...</source>
         <translation>Новый...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1404"/>
+        <location filename="../MainWindow.ui" line="1406"/>
         <source>Creates a new session.</source>
         <translation>Создает новый сессию.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1409"/>
+        <location filename="../MainWindow.ui" line="1411"/>
         <source>Pause</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1412"/>
+        <location filename="../MainWindow.ui" line="1414"/>
         <source>Pauses the current session.</source>
         <translation>Поставить на паузу текущую сессию.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1417"/>
+        <location filename="../MainWindow.ui" line="1419"/>
         <source>Resume</source>
         <translation>Продолжить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1420"/>
+        <location filename="../MainWindow.ui" line="1422"/>
         <source>Resume the current session.</source>
         <translation>Продолжить текущую сессию.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1425"/>
-        <location filename="../MainWindow.ui" line="2167"/>
+        <location filename="../MainWindow.ui" line="1427"/>
+        <location filename="../MainWindow.ui" line="2169"/>
         <source>Close</source>
         <translation>Закрыть</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1428"/>
+        <location filename="../MainWindow.ui" line="1430"/>
         <source>Closes the current session.</source>
         <translation>Закрыть текущую сессию.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1433"/>
+        <location filename="../MainWindow.ui" line="1435"/>
         <source>Manage...</source>
         <translation>Управлять...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1436"/>
+        <location filename="../MainWindow.ui" line="1438"/>
         <source>Manage the sessions.</source>
         <translation>Управление сессиями.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1441"/>
+        <location filename="../MainWindow.ui" line="1443"/>
         <source>Details...</source>
         <translation>Подробности....</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1444"/>
+        <location filename="../MainWindow.ui" line="1446"/>
         <source>Details about the current session.</source>
         <translation>Details about the current сессии.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1449"/>
+        <location filename="../MainWindow.ui" line="1451"/>
         <source>Undo</source>
         <translation>Отменить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1452"/>
+        <location filename="../MainWindow.ui" line="1454"/>
         <source>Undo last action.</source>
         <translation>Отменить последнее действие.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1455"/>
+        <location filename="../MainWindow.ui" line="1457"/>
         <source>Ctrl+Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1460"/>
+        <location filename="../MainWindow.ui" line="1462"/>
         <source>Redo</source>
         <translation>Повторить</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1463"/>
+        <location filename="../MainWindow.ui" line="1465"/>
         <source>Redo last action.</source>
         <translation>Повторите последнее действие.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1466"/>
+        <location filename="../MainWindow.ui" line="1468"/>
         <source>Ctrl+Shift+Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1471"/>
+        <location filename="../MainWindow.ui" line="1473"/>
         <source>New Window</source>
         <translation>новое окно</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1474"/>
+        <location filename="../MainWindow.ui" line="1476"/>
         <source>Opens a new window.</source>
         <translation>Открывает новое окно.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1477"/>
+        <location filename="../MainWindow.ui" line="1479"/>
         <source>Ctrl+T</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1486"/>
+        <location filename="../MainWindow.ui" line="1488"/>
         <source>View data...</source>
         <translation>Просматривать данные...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1489"/>
+        <location filename="../MainWindow.ui" line="1491"/>
         <source>Navigates a data file.</source>
         <translation>Перемещение по файлу данных.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1498"/>
+        <location filename="../MainWindow.ui" line="1500"/>
         <source>Base 64 Tools...</source>
         <translation>Base 64 Инструменты...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1501"/>
+        <location filename="../MainWindow.ui" line="1503"/>
         <source>Base 64 tools</source>
         <translation>Base 64 инструменты</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1506"/>
+        <location filename="../MainWindow.ui" line="1508"/>
         <source>Encoding Tools...</source>
         <translation>Инструменты кодирования...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1509"/>
+        <location filename="../MainWindow.ui" line="1511"/>
         <source>Encoding Tools.</source>
         <translation>Инструменты кодирования.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1514"/>
+        <location filename="../MainWindow.ui" line="1516"/>
         <source>Compare XS&amp;D...</source>
         <translation>Сравнить XS&amp;D...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1517"/>
+        <location filename="../MainWindow.ui" line="1519"/>
         <source>Compare two XSD in a graphical way</source>
         <translation>Сравните два XSD в графическом виде</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1522"/>
+        <location filename="../MainWindow.ui" line="1524"/>
         <source>Export Attributes of Siblings as CSV in the Clipboard</source>
         <translation>Экспорт атрибутов братьев и сестер в формате CSV в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1525"/>
+        <location filename="../MainWindow.ui" line="1527"/>
         <source>Export attributes of siblings as CSV in the clipboard.</source>
         <translation>Экспортируйте атрибуты братьев и сестер в формате CSV в буфер обмена.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1530"/>
+        <location filename="../MainWindow.ui" line="1532"/>
         <source>Apply a Temporary Profile</source>
         <translation>Примененить временный профиль</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1533"/>
+        <location filename="../MainWindow.ui" line="1535"/>
         <source>Apply a temporary profile.</source>
         <translation>Примененить временный профиль.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1538"/>
+        <location filename="../MainWindow.ui" line="1540"/>
         <source>Save the Current Profile...</source>
         <translation>Сохраните текущий профиль...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1541"/>
+        <location filename="../MainWindow.ui" line="1543"/>
         <source>Save the current profile.</source>
         <translation>Сохраните текущий профиль.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1546"/>
+        <location filename="../MainWindow.ui" line="1548"/>
         <source>Manage Profiles...</source>
         <translation>Управление Профилями...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1549"/>
+        <location filename="../MainWindow.ui" line="1551"/>
         <source>Manage profiles...</source>
         <translation>Управление Профилями...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1554"/>
+        <location filename="../MainWindow.ui" line="1556"/>
         <source>Remove the Current Profile</source>
         <translation>Удалить текущий профиль</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1557"/>
+        <location filename="../MainWindow.ui" line="1559"/>
         <source>Remove the current profile.</source>
         <translation>Удалите текущий профиль.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1566"/>
+        <location filename="../MainWindow.ui" line="1568"/>
         <source>Compare Files...</source>
         <translation type="unfinished">.сравнивать файлы...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1569"/>
+        <location filename="../MainWindow.ui" line="1571"/>
         <source>Compare two files.</source>
         <translation>Сравните два файла.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1578"/>
+        <location filename="../MainWindow.ui" line="1580"/>
         <source>Relations...</source>
         <translation>Связи...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1581"/>
+        <location filename="../MainWindow.ui" line="1583"/>
         <source>Under development</source>
         <translation>Разрабатываемый</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1590"/>
+        <location filename="../MainWindow.ui" line="1592"/>
         <source>View Relations...</source>
         <translation>Просмотреть связи...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1595"/>
+        <location filename="../MainWindow.ui" line="1597"/>
         <source>Copy Attributes...</source>
         <translation>Копировать Атрибуты...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1598"/>
+        <location filename="../MainWindow.ui" line="1600"/>
         <source>Copy attributes.</source>
         <translation>Копировать Атрибуты.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1601"/>
+        <location filename="../MainWindow.ui" line="1603"/>
         <source>Ctrl+Shift+C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1606"/>
+        <location filename="../MainWindow.ui" line="1608"/>
         <source>Paste Attributes...</source>
         <translation>Вставить Атрибуты...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1609"/>
+        <location filename="../MainWindow.ui" line="1611"/>
         <source>Paste attributes.</source>
         <translation>Вставить Атрибуты.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1612"/>
+        <location filename="../MainWindow.ui" line="1614"/>
         <source>Ctrl+Alt+Shift+V</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1617"/>
-        <location filename="../MainWindow.ui" line="1620"/>
+        <location filename="../MainWindow.ui" line="1619"/>
+        <location filename="../MainWindow.ui" line="1622"/>
         <source>Paste Fast Attributes</source>
         <translation>Быстрая Вставка Атрибутов</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1623"/>
+        <location filename="../MainWindow.ui" line="1625"/>
         <source>Ctrl+Shift+V</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1628"/>
+        <location filename="../MainWindow.ui" line="1630"/>
         <source>Copy Element Path in the Clipboard</source>
         <translation>Скопировать путь элемента в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1631"/>
+        <location filename="../MainWindow.ui" line="1633"/>
         <source>Copy the element path to the clipboard.</source>
         <translation>Скопируйте путь элемента в буфер обмена.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1636"/>
+        <location filename="../MainWindow.ui" line="1638"/>
         <source>AutoComplete...</source>
         <translation>Автодополнение...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1639"/>
+        <location filename="../MainWindow.ui" line="1641"/>
         <source>Autocomplete the current word.</source>
         <translation>Автодополнение текущего слова.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1642"/>
+        <location filename="../MainWindow.ui" line="1644"/>
         <source>Ctrl+Space</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1650"/>
+        <location filename="../MainWindow.ui" line="1652"/>
         <source>XML Edit Mode</source>
         <translation>Режим редактирования XML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1653"/>
+        <location filename="../MainWindow.ui" line="1655"/>
         <source>XML edit mode conventions.</source>
         <translation>Соглашения о режиме редактирования XML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1661"/>
+        <location filename="../MainWindow.ui" line="1663"/>
         <source>XSLT Edit Mode</source>
         <translation>Режим редактирования XSLT</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1664"/>
+        <location filename="../MainWindow.ui" line="1666"/>
         <source>Apply XSLT edit mode conventions.</source>
         <translation>Примените соглашения о режиме редактирования XSLT.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1669"/>
+        <location filename="../MainWindow.ui" line="1671"/>
         <source>New XSLT sheet</source>
         <translation>Новый лист XSLT</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1672"/>
+        <location filename="../MainWindow.ui" line="1674"/>
         <source>Creates a new empty XSLT sheet.</source>
         <translation>Создает новый пустой лист XSLT.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1677"/>
+        <location filename="../MainWindow.ui" line="1679"/>
         <source>New XSD document (XML Schema)</source>
         <translation>Новый документ XSD (схема XML)</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1680"/>
+        <location filename="../MainWindow.ui" line="1682"/>
         <source>Creates a new empty XML Schema document.</source>
         <translation>Создает новый пустой документ схемы XML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1685"/>
+        <location filename="../MainWindow.ui" line="1687"/>
         <source>New XSL-FO document</source>
         <translation>Новый документ XSL-FO</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1688"/>
+        <location filename="../MainWindow.ui" line="1690"/>
         <source>Creates a new empty XSL-FO document.</source>
         <translation>Создает новый пустой документ XSL-FO.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1693"/>
+        <location filename="../MainWindow.ui" line="1695"/>
         <source>Edit XSLT item...</source>
         <translation>Изменить элемент XSLT...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1696"/>
+        <location filename="../MainWindow.ui" line="1698"/>
         <source>Edit element using a XSLT specific dialog.</source>
         <translation>Редактировать элемент с помощью специального диалогового окна XSLT.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1701"/>
+        <location filename="../MainWindow.ui" line="1703"/>
         <source>Target XML for Tags and Names for XSLT Autocompletion...</source>
         <translation>Целевой XML для тегов и имен для автозаполнения XSLT...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1704"/>
+        <location filename="../MainWindow.ui" line="1706"/>
         <source>Scan an XML file and uses tags and attribute names for  XSLT autocompletion.</source>
         <translation>Сканирование XML-файла и использует теги и имена атрибутов для автозаполнения XSLT.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1712"/>
+        <location filename="../MainWindow.ui" line="1714"/>
         <source>Show XSL Navigator</source>
         <translation>Показать xsl навигатор</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1715"/>
+        <location filename="../MainWindow.ui" line="1717"/>
         <source>Show the XSL navigator dialog</source>
         <translation>Показать диалоговое окно навигатора XSL</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1720"/>
+        <location filename="../MainWindow.ui" line="1722"/>
         <source>Specific Properties...</source>
         <translation>специфическое свойства...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1723"/>
+        <location filename="../MainWindow.ui" line="1725"/>
         <source>Opens the specific properties panel.</source>
         <translation>Открывает панель определенных свойства.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1726"/>
+        <location filename="../MainWindow.ui" line="1728"/>
         <source>Ctrl+Alt+Return</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1731"/>
+        <location filename="../MainWindow.ui" line="1733"/>
         <source>Paste as Sibling</source>
         <translation>Вставить братьев и сестёр</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1734"/>
+        <location filename="../MainWindow.ui" line="1736"/>
         <source>Paste the clipboard content as sibling of the selected node</source>
         <translation>Вставьте содержимое буфера обмена в качестве родственного элемента выбранного узла</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1737"/>
+        <location filename="../MainWindow.ui" line="1739"/>
         <source>Ctrl+B</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1742"/>
+        <location filename="../MainWindow.ui" line="1744"/>
         <source>Expand the Selected Item</source>
         <translation>Разверните выбранный элемент</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1745"/>
+        <location filename="../MainWindow.ui" line="1747"/>
         <source>Expand the selected item and all its children.</source>
         <translation>Разверните выбранный элемент и все его детей.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1748"/>
+        <location filename="../MainWindow.ui" line="1750"/>
         <source>Ctrl+E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1753"/>
+        <location filename="../MainWindow.ui" line="1755"/>
         <source>New Maven POM</source>
         <translation>Новый Maven POM</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1756"/>
+        <location filename="../MainWindow.ui" line="1758"/>
         <source>Creates a new file from Mavn POM template.</source>
         <translation>Создает новый файл из шаблона Mavn POM.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1761"/>
+        <location filename="../MainWindow.ui" line="1763"/>
         <source>New from Snippet...</source>
         <translation>Новое из фрагмента...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1764"/>
+        <location filename="../MainWindow.ui" line="1766"/>
         <source>Creates a new file from an existing snippet.</source>
         <translation>Создает новый файл из существующего фрагмента кода.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1769"/>
+        <location filename="../MainWindow.ui" line="1771"/>
         <source>Customizing Display Styles</source>
         <translation>Настройка Стилей Отображения</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1772"/>
+        <location filename="../MainWindow.ui" line="1774"/>
         <source>Some tips about how to change how the data are visualized.</source>
         <translation>Некоторые советы о том, как изменить способ визуализации данных.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1777"/>
+        <location filename="../MainWindow.ui" line="1779"/>
         <source>Binary Viewer</source>
         <translation>Двоичный Просмотрщик</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1780"/>
+        <location filename="../MainWindow.ui" line="1782"/>
         <source>Binary files viewer</source>
         <translation>Просмотр двоичных файлов</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1792"/>
+        <location filename="../MainWindow.ui" line="1794"/>
         <location filename="../mainwindow.cpp" line="3109"/>
         <source>Read Only</source>
         <translation>только для чтения</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1795"/>
+        <location filename="../MainWindow.ui" line="1797"/>
         <source>Does not allow modification to the document.</source>
         <translation>Не позволяет вносить изменения в документ.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1800"/>
+        <location filename="../MainWindow.ui" line="1802"/>
         <source>Insert Metadata</source>
         <translation>Вставить Метаданные</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1803"/>
+        <location filename="../MainWindow.ui" line="1805"/>
         <source>Insert updatable metadata.</source>
         <translation>Вставьте обновляемые метаданные.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1808"/>
+        <location filename="../MainWindow.ui" line="1810"/>
         <source>Edit Metadata</source>
         <translation>Редактирование Метаданных</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1811"/>
+        <location filename="../MainWindow.ui" line="1813"/>
         <source>Edit the metadata</source>
         <translation>Редактирование метаданных</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1816"/>
+        <location filename="../MainWindow.ui" line="1818"/>
         <source>Export as Java/JavaScript source...</source>
         <translation>Экспорт в качестве источника Java / JavaScript...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1819"/>
+        <location filename="../MainWindow.ui" line="1821"/>
         <source>Export as Java/JavaScript source</source>
         <translation>Экспорт в качестве источника Java / JavaScript</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1824"/>
+        <location filename="../MainWindow.ui" line="1826"/>
         <source>Insert Complete Metadata</source>
         <translation>Вставка Полных Метаданных</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1827"/>
+        <location filename="../MainWindow.ui" line="1829"/>
         <source>Insert complete metadata (updatatable and manual).</source>
         <translation>Вставьте полные метаданные (обновляемые и ручные).</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1832"/>
+        <location filename="../MainWindow.ui" line="1834"/>
         <source>Insert prolog</source>
         <translation>Вставить пролог</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1835"/>
+        <location filename="../MainWindow.ui" line="1837"/>
         <source>Insert the xml prolog</source>
         <translation>Вставить пролог</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1840"/>
+        <location filename="../MainWindow.ui" line="1842"/>
         <source>Encoding</source>
         <translation>Кодирование</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1843"/>
+        <location filename="../MainWindow.ui" line="1845"/>
         <source>Select the encoding.</source>
         <translation>Выберите кодировку.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1848"/>
+        <location filename="../MainWindow.ui" line="1850"/>
         <source>Export as C/C++ source...</source>
         <translation>Экспорт в качестве источника C / C++...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1851"/>
+        <location filename="../MainWindow.ui" line="1853"/>
         <source>Export the XML as a Cpp Source</source>
         <translation>Экспорт XML в качестве источника Cpp</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1856"/>
+        <location filename="../MainWindow.ui" line="1858"/>
         <source>Copy all to Clipboard</source>
         <translation>Скопировать все в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1859"/>
+        <location filename="../MainWindow.ui" line="1861"/>
         <source>Copy all the document to the clipoard</source>
         <translation>Скопируйте весь документ в буфер обмена</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1864"/>
+        <location filename="../MainWindow.ui" line="1866"/>
         <source>Code Pages...</source>
         <translation>кодовые страницы...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1867"/>
+        <location filename="../MainWindow.ui" line="1869"/>
         <source>Show code pages.</source>
         <translation>Показывать кодовые страницы.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1872"/>
+        <location filename="../MainWindow.ui" line="1874"/>
         <source>Insert child container</source>
         <translation>Вставить дочерний контейнер</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1875"/>
+        <location filename="../MainWindow.ui" line="1877"/>
         <source>Insert a tag that wraps all the existing children/</source>
         <translation>Вставьте тег, который обертывает все существующие дочерние элементы/</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1880"/>
+        <location filename="../MainWindow.ui" line="1882"/>
         <source>Insert parent</source>
         <translation>Вставить родителя</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1883"/>
+        <location filename="../MainWindow.ui" line="1885"/>
         <source>Insert a parent for the current element.</source>
         <translation>Вставьте родительский элемент для текущего элемента.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1888"/>
+        <location filename="../MainWindow.ui" line="1890"/>
         <source>Remove parent</source>
         <translation>Удалить родителя</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1891"/>
+        <location filename="../MainWindow.ui" line="1893"/>
         <source>Removes the parent of the current item</source>
         <translation>Удаляет родительский элемент текущего элемента</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1899"/>
+        <location filename="../MainWindow.ui" line="1901"/>
         <source>Show always full text of comments</source>
         <translation>Показывать всегда полный текст комментариев</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1902"/>
+        <location filename="../MainWindow.ui" line="1904"/>
         <source>Show the full comment text even in compact mode</source>
         <translation>Показывать полный текст комментария даже в компактном режиме</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1907"/>
+        <location filename="../MainWindow.ui" line="1909"/>
         <source>Insert &amp;Element...</source>
         <translation>Вставить &amp;Элемент...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1912"/>
+        <location filename="../MainWindow.ui" line="1914"/>
         <source>Append &amp;Element...</source>
         <translation>Добавить &amp;Элемент...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1915"/>
+        <location filename="../MainWindow.ui" line="1917"/>
         <source>Append element as sibling</source>
         <translation type="unfinished">Добавить элемент как брата</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1923"/>
+        <location filename="../MainWindow.ui" line="1925"/>
         <source>Append sibling.</source>
         <translation>Добавить дочерний элемент.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1928"/>
+        <location filename="../MainWindow.ui" line="1930"/>
         <source>Modify Type...</source>
         <translation>Добавить родного брата...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1931"/>
+        <location filename="../MainWindow.ui" line="1933"/>
         <source>Modify the XSD type.</source>
         <translation>Изменение типа xsd.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1936"/>
+        <location filename="../MainWindow.ui" line="1938"/>
         <source>Insert &amp;Type...</source>
         <translation>Вставить &amp;Тип...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1939"/>
+        <location filename="../MainWindow.ui" line="1941"/>
         <source>Insert type</source>
         <translation>Тип вставки</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1944"/>
+        <location filename="../MainWindow.ui" line="1946"/>
         <source>Append &amp;Type...</source>
         <translation>Добавить &amp;Тип...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1947"/>
+        <location filename="../MainWindow.ui" line="1949"/>
         <source>Append type as sibling</source>
         <translation>Добавить тип как дочерний элемент</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1952"/>
+        <location filename="../MainWindow.ui" line="1954"/>
         <source>Insert &amp;Attribute...</source>
         <translation>Вставка &amp;Атрибутов...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1955"/>
+        <location filename="../MainWindow.ui" line="1957"/>
         <source>Insert attribute</source>
         <translation>Вставить атрибут</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1960"/>
+        <location filename="../MainWindow.ui" line="1962"/>
         <source>Append &amp;Attribute...</source>
         <translation>Добавить &amp;атрибут...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1963"/>
+        <location filename="../MainWindow.ui" line="1965"/>
         <source>Append an XSD attribute as sibling.</source>
         <translation>Добавление атрибута в XSD как брат.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1972"/>
+        <location filename="../MainWindow.ui" line="1974"/>
         <source>Anonymize...</source>
         <translation>Анонимизировать...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1975"/>
+        <location filename="../MainWindow.ui" line="1977"/>
         <source>Anonymize the current file.</source>
         <translation>Анонимизация текущего файла.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1980"/>
+        <location filename="../MainWindow.ui" line="1982"/>
         <source>Quick Reference for Elements...</source>
         <translation>Краткая справка для элементов...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1983"/>
+        <location filename="../MainWindow.ui" line="1985"/>
         <source>Display a quick Reference for Elements...</source>
         <translation>Отображение краткой справки для элементов...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1992"/>
+        <location filename="../MainWindow.ui" line="1994"/>
         <source>Anonymize File...</source>
         <translation>Анонимизировать Файл...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="1995"/>
+        <location filename="../MainWindow.ui" line="1997"/>
         <source>Anonymize an external file.</source>
         <translation>Анонимизация внешнего файла.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2000"/>
+        <location filename="../MainWindow.ui" line="2002"/>
         <source>Edit XSD Annotation</source>
         <translation>Редактировать xsd аннотацию</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2003"/>
+        <location filename="../MainWindow.ui" line="2005"/>
         <source>Edit annotations of XML Schema</source>
         <translation>Редактирование аннотаций XML-схемы</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2008"/>
+        <location filename="../MainWindow.ui" line="2010"/>
         <source>Replace...</source>
         <translation>Заменять...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2011"/>
+        <location filename="../MainWindow.ui" line="2013"/>
         <source>Replace</source>
         <translation>Заменять</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2014"/>
+        <location filename="../MainWindow.ui" line="2016"/>
         <source>Ctrl+R</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2019"/>
+        <location filename="../MainWindow.ui" line="2021"/>
         <source>Find Next</source>
         <translation>найти следующий</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2022"/>
+        <location filename="../MainWindow.ui" line="2024"/>
         <source>F3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2027"/>
+        <location filename="../MainWindow.ui" line="2029"/>
         <source>Formatting...</source>
         <translation>Форматирование...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2030"/>
+        <location filename="../MainWindow.ui" line="2032"/>
         <source>Set the indentation for this document.</source>
         <translation>Установите отступ для этого документа.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2035"/>
+        <location filename="../MainWindow.ui" line="2037"/>
         <source>Validate using document references</source>
         <translation>Проверка с помощью ссылок на документы</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2038"/>
+        <location filename="../MainWindow.ui" line="2040"/>
         <source>Validate using internal document references.</source>
         <translation>Проверка с помощью внутренних ссылок на документы.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2043"/>
+        <location filename="../MainWindow.ui" line="2045"/>
         <source>Find Previous</source>
         <translation>Найти Предыдущий</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2046"/>
+        <location filename="../MainWindow.ui" line="2048"/>
         <source>Find the previous occurrence.</source>
         <translation>Найдите предыдущее появление.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2049"/>
+        <location filename="../MainWindow.ui" line="2051"/>
         <source>Shift+F3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2058"/>
-        <location filename="../MainWindow.ui" line="2061"/>
+        <location filename="../MainWindow.ui" line="2060"/>
+        <location filename="../MainWindow.ui" line="2063"/>
         <source>Info</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2069"/>
+        <location filename="../MainWindow.ui" line="2071"/>
         <source>Show Buttons</source>
         <translation>Показать Кнопки</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2072"/>
+        <location filename="../MainWindow.ui" line="2074"/>
         <source>Show or hide the main windows buttons.</source>
         <translation>Показать или скрыть основные кнопки windows.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2080"/>
+        <location filename="../MainWindow.ui" line="2082"/>
         <source>Status Bar</source>
         <translation>строка состояния</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2083"/>
+        <location filename="../MainWindow.ui" line="2085"/>
         <source>Show or hide the status bar.</source>
         <translation>Отображение или скрытие строки состояния.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2088"/>
+        <location filename="../MainWindow.ui" line="2090"/>
         <source>Remove XSI &quot;nil&quot; Attribute</source>
         <translation>Удалить атрибут XSI &quot;nil&quot;</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2091"/>
+        <location filename="../MainWindow.ui" line="2093"/>
         <source>Remove schema instance &quot;nil&quot; Attribute</source>
         <translation>Удалить атрибут экземпляра схемы &quot;nil&quot;</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2096"/>
+        <location filename="../MainWindow.ui" line="2098"/>
         <source>Insert XSI &quot;nil&quot; attribute</source>
         <translation>Вставить атрибут XSI &quot;nil&quot;</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2099"/>
+        <location filename="../MainWindow.ui" line="2101"/>
         <source>Insert schema instance &quot;nil&quot; attribute.</source>
         <translation>Вставьте атрибут экземпляра схемы &quot;nil&quot;.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2104"/>
+        <location filename="../MainWindow.ui" line="2106"/>
         <source>Remove XSI Type Attribute</source>
         <translation>Удаление атрибута тип атрибута xsi</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2107"/>
+        <location filename="../MainWindow.ui" line="2109"/>
         <source>Remove XSI type attribute.</source>
         <translation>Удаление атрибута тип атрибута xsi.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2112"/>
+        <location filename="../MainWindow.ui" line="2114"/>
         <source>Insert XSI Type Attribute...</source>
         <translation>Вставить атрибут типа XSI...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2115"/>
+        <location filename="../MainWindow.ui" line="2117"/>
         <source>Insert XSI Type Attribute.</source>
         <translation>Вставить атрибут типа XSI.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2120"/>
+        <location filename="../MainWindow.ui" line="2122"/>
         <source>Xml Schema References...</source>
         <translation>Ссылки На Схемы Xml...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2123"/>
+        <location filename="../MainWindow.ui" line="2125"/>
         <source>Insert XML Schema references.</source>
         <translation>Вставка ссылок на схемы XML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2132"/>
+        <location filename="../MainWindow.ui" line="2134"/>
         <location filename="../mainwindow.cpp" line="468"/>
         <source>&amp;Open in Same Window...</source>
         <translation>&amp;Открыть в том же окне...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2135"/>
+        <location filename="../MainWindow.ui" line="2137"/>
         <location filename="../mainwindow.cpp" line="469"/>
         <source>Open in same window.</source>
         <translation>Откройте в том же окне.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2138"/>
+        <location filename="../MainWindow.ui" line="2140"/>
         <source>Ctrl+Shift+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2143"/>
+        <location filename="../MainWindow.ui" line="2145"/>
         <source>Close Siblings</source>
         <translation>Близкие Братья</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2146"/>
+        <location filename="../MainWindow.ui" line="2148"/>
         <source>Close the siblings of the current element.</source>
         <translation>Закройте братьев текущего элемента.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2151"/>
+        <location filename="../MainWindow.ui" line="2153"/>
         <source>Fill serie...</source>
         <translation>Заполните серию...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2154"/>
+        <location filename="../MainWindow.ui" line="2156"/>
         <source>Fill a set of elements with consecutive values.</source>
         <translation>Заполните набор элементов последовательными значениями.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2159"/>
+        <location filename="../MainWindow.ui" line="2161"/>
         <source>Clone Elements...</source>
         <translation>Клонирование Элементов...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2162"/>
+        <location filename="../MainWindow.ui" line="2164"/>
         <source>Clone the selected element.</source>
         <translation>Клонирование выбранного элемента.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2170"/>
+        <location filename="../MainWindow.ui" line="2172"/>
         <source>Close the window.</source>
         <translation>Закрывть окно.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2173"/>
+        <location filename="../MainWindow.ui" line="2175"/>
         <source>Ctrl+W</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2178"/>
+        <location filename="../MainWindow.ui" line="2180"/>
         <source>Show Containing Folder</source>
         <translation>Показать содержание папки</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2181"/>
+        <location filename="../MainWindow.ui" line="2183"/>
         <source>Opens the containing folder in the system browser.</source>
         <translation>Открывает содержащую папку в системном браузере.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2186"/>
+        <location filename="../MainWindow.ui" line="2188"/>
         <source>Export Element to File</source>
         <translation>Экспорт элемента в файл</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2189"/>
+        <location filename="../MainWindow.ui" line="2191"/>
         <source>Export the selected element to a file.</source>
         <translation>Экспортируйте выбранный элемент в файл.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2197"/>
+        <location filename="../MainWindow.ui" line="2199"/>
         <source>Show Attributes Sorted</source>
         <translation>Показать Атрибуты Отсортированы</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2200"/>
+        <location filename="../MainWindow.ui" line="2202"/>
         <source>Show the attributes sorted alphabetically.</source>
         <translation>Отображение атрибутов, отсортированных в алфавитном порядке.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2205"/>
-        <location filename="../MainWindow.ui" line="2208"/>
+        <location filename="../MainWindow.ui" line="2207"/>
+        <location filename="../MainWindow.ui" line="2210"/>
         <source>Sort Attributes of the Selection</source>
         <translation>Сортировка атрибутов выделения</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2213"/>
+        <location filename="../MainWindow.ui" line="2215"/>
         <source>Sort Attributes of the Selection and Its Children</source>
         <translation>Сортировка атрибутов выделения и его детей</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2218"/>
+        <location filename="../MainWindow.ui" line="2220"/>
         <source>Sort Attributes in All the Elements</source>
         <translation>Сортировка атрибутов по всем элементам</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2223"/>
+        <location filename="../MainWindow.ui" line="2225"/>
         <source>Remove All Siblings Before</source>
         <translation>Удалите Всех братьев До</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2226"/>
+        <location filename="../MainWindow.ui" line="2228"/>
         <source>Remove all the siblings before the selected element.</source>
         <translation>Удалите все родственные элементы перед выбранным элементом.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2231"/>
+        <location filename="../MainWindow.ui" line="2233"/>
         <source>Remove All Siblings After</source>
         <translation>Удалить все элементы после</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2234"/>
+        <location filename="../MainWindow.ui" line="2236"/>
         <source>Remove all the siblings after the selected element.</source>
         <translation>Удалите все родственные элементы после выбранного элемента.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2239"/>
+        <location filename="../MainWindow.ui" line="2241"/>
         <source>Remove All Siblings</source>
         <translation>Удалить все родственные элементы</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2242"/>
+        <location filename="../MainWindow.ui" line="2244"/>
         <source>Remove all the siblings of the selected element.</source>
         <translation>Удалите все родственные элементы выбранного элемента.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2247"/>
+        <location filename="../MainWindow.ui" line="2249"/>
         <source>Set the Editor Detail</source>
         <translation>Установите детали редактора</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2252"/>
+        <location filename="../MainWindow.ui" line="2254"/>
         <source>Choose Display Detail</source>
         <translation>Выбрать детали отображения</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2255"/>
+        <location filename="../MainWindow.ui" line="2257"/>
         <source>Choose display detail.</source>
         <translation>Выбрать детали отображения.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2260"/>
+        <location filename="../MainWindow.ui" line="2262"/>
         <source>Edit Enumeration or Facet</source>
         <translation>Изменить перечисление</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2263"/>
+        <location filename="../MainWindow.ui" line="2265"/>
         <source>Edit facets, enumerations in particular.</source>
         <translation>Редактирование фасетов, в частности перечислений.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2268"/>
+        <location filename="../MainWindow.ui" line="2270"/>
         <source>Remove Prefix...</source>
         <translation>Удалить Префикс...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2271"/>
+        <location filename="../MainWindow.ui" line="2273"/>
         <source>Removes prefixes from elements and attributes.</source>
         <translation>Удаляет префиксы из элементов и атрибутов.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2276"/>
+        <location filename="../MainWindow.ui" line="2278"/>
         <source>Remove Namespace...</source>
         <translation>Удалить Пространство Имен...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2279"/>
+        <location filename="../MainWindow.ui" line="2281"/>
         <source>Removes namespaces from elements and attributes.</source>
         <translation>Удаляет пространства имен из элементов и атрибутов.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2284"/>
+        <location filename="../MainWindow.ui" line="2286"/>
         <source>Assign Prefix...</source>
         <translation>Укажите префикс...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2287"/>
+        <location filename="../MainWindow.ui" line="2289"/>
         <source>Assign a prefix.</source>
         <translation>Укажите префикс.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2292"/>
+        <location filename="../MainWindow.ui" line="2294"/>
         <source>Replace Prefix...</source>
         <translation>Заменить Префикс...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2295"/>
+        <location filename="../MainWindow.ui" line="2297"/>
         <source>Replace one or all the prefixes.</source>
         <translation>Замените один или все префиксы.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2300"/>
+        <location filename="../MainWindow.ui" line="2302"/>
         <source>Assign Namespace...</source>
         <translation>Укажите пространство имен...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2303"/>
+        <location filename="../MainWindow.ui" line="2305"/>
         <source>Assign a namespace.</source>
         <translation>Укажите пространство имен.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2308"/>
+        <location filename="../MainWindow.ui" line="2310"/>
         <source>Replace Namespace...</source>
         <translation>Заменить Пространство Имен...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2311"/>
+        <location filename="../MainWindow.ui" line="2313"/>
         <source>Replace one or more namespaces.</source>
         <translation>Замените одно или несколько пространств имен.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2316"/>
+        <location filename="../MainWindow.ui" line="2318"/>
         <source>Normalize namespaces</source>
         <translation>Нормализация пространств имен</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2319"/>
+        <location filename="../MainWindow.ui" line="2321"/>
         <source>Normalize namespace prefixes.</source>
         <translation>Нормализовать префиксы пространства имен.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2324"/>
+        <location filename="../MainWindow.ui" line="2326"/>
         <source>Insert Specialized Child...</source>
         <translation>Вставьте Специализированный Ребенок...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2327"/>
+        <location filename="../MainWindow.ui" line="2329"/>
         <source>Insert a specialized element.</source>
         <translation>Вставьте специализированный элемент.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2330"/>
+        <location filename="../MainWindow.ui" line="2332"/>
         <source>Alt+Shift+I</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2335"/>
+        <location filename="../MainWindow.ui" line="2337"/>
         <source>New SCXML document</source>
         <translation>Новый документ SCXML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2338"/>
+        <location filename="../MainWindow.ui" line="2340"/>
         <source>Creates a new empty SCXML document.</source>
         <translation>Создает новый пустой документ SCXML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2343"/>
+        <location filename="../MainWindow.ui" line="2345"/>
         <source>Append Specialized Sibling...</source>
         <translation>Добавить специализированный дочерний элемент...</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2346"/>
+        <location filename="../MainWindow.ui" line="2348"/>
         <source>Append a specialized element.</source>
         <translation>Добавьте специализированный элемент.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2349"/>
+        <location filename="../MainWindow.ui" line="2351"/>
         <source>Alt+Shift+A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2357"/>
+        <location filename="../MainWindow.ui" line="2359"/>
         <source>Show SCXML Navigator</source>
         <translation>Показать навигатор SCXML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2360"/>
+        <location filename="../MainWindow.ui" line="2362"/>
         <source>Shows or hides the SCXML navigator.</source>
         <translation>Отображение или скрытие навигатора SCXML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2365"/>
+        <location filename="../MainWindow.ui" line="2367"/>
         <source>Validate SCXML</source>
         <translation>Проверка SCXML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2368"/>
+        <location filename="../MainWindow.ui" line="2370"/>
         <source>Validate the SCXML machine.</source>
         <translation>Проверьте машину SCXML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2376"/>
+        <location filename="../MainWindow.ui" line="2378"/>
         <source>SCXML Edit Mode</source>
         <translation>Режим редактирования SCXML</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2379"/>
+        <location filename="../MainWindow.ui" line="2381"/>
         <source>Apply SCXML edit mode conventions.</source>
         <translation>Примените соглашения о режиме редактирования SCXML.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2384"/>
+        <location filename="../MainWindow.ui" line="2386"/>
         <source>Copy Element Without Children</source>
         <translation>Копировать Элемент Без Детей</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2387"/>
+        <location filename="../MainWindow.ui" line="2389"/>
         <source>Copy in the clipboard the element but the children.</source>
         <translation>Скопируйте в буфер обмена элемент, но дочерние элементы.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2392"/>
+        <location filename="../MainWindow.ui" line="2394"/>
         <source>XSL Executor</source>
         <translation>Xsl исполнитель</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2395"/>
+        <location filename="../MainWindow.ui" line="2397"/>
         <source>Execute a XSL sheet on a XML file.</source>
         <translation>Выполните лист XSL в XML-файле.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2400"/>
+        <location filename="../MainWindow.ui" line="2402"/>
         <source>Execute XSLT Using This as Source</source>
         <translation>Выполните XSLT, используя его в качестве источника</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2403"/>
+        <location filename="../MainWindow.ui" line="2405"/>
         <source>Execute XSLT using this as source.</source>
         <translation>Выполните XSLT, используя его в качестве источника.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2408"/>
+        <location filename="../MainWindow.ui" line="2410"/>
         <source>Execute XSLT Using This as XSL</source>
         <translation>Выполните XSLT, используя это как XSL</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2411"/>
+        <location filename="../MainWindow.ui" line="2413"/>
         <source>Execute XSLT using this as XSL sheet.</source>
         <translation>Выполните XSLT, используя это как xsl лист.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2416"/>
+        <location filename="../MainWindow.ui" line="2418"/>
         <source>Open Siblings at the Same Level</source>
         <translation>Откройте близлежащие элементы на одном уровне</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2419"/>
+        <location filename="../MainWindow.ui" line="2421"/>
         <source>Open siblings at the same level.</source>
         <translation>Откройте близлежащие элементы на одном уровне.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2424"/>
+        <location filename="../MainWindow.ui" line="2426"/>
         <source>Principal Shortcuts</source>
         <translation>Основные сочетания клавиш</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2427"/>
+        <location filename="../MainWindow.ui" line="2429"/>
         <source>Show the main shortcuts.</source>
         <translation>Показать основные сочетания клавиш.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2432"/>
+        <location filename="../MainWindow.ui" line="2434"/>
         <source>Add Formatting Info</source>
         <translation>Добавить Информацию О Форматировании</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2435"/>
+        <location filename="../MainWindow.ui" line="2437"/>
         <source>Add formatting info metadata.</source>
         <translation>Добавьте метаданные.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2440"/>
+        <location filename="../MainWindow.ui" line="2442"/>
         <source>Remove Formatting Info</source>
         <translation>Удалить Информацию О Форматировании</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2443"/>
+        <location filename="../MainWindow.ui" line="2445"/>
         <source>Remove formatting info metadata.</source>
         <translation>Удалите метаданные информации о форматировании.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2448"/>
+        <location filename="../MainWindow.ui" line="2450"/>
         <source>Preset Apache FOP</source>
         <translation>Предустановленный Apache FOP</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2451"/>
+        <location filename="../MainWindow.ui" line="2453"/>
         <source>Preset for Apache FOP formatting (2 spaces).</source>
         <translation>Предустановка для форматирования Apache FOP (2 пробела).</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2456"/>
+        <location filename="../MainWindow.ui" line="2458"/>
         <source>Preset No Indentation</source>
         <translation>Заданный Отступ</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2459"/>
+        <location filename="../MainWindow.ui" line="2461"/>
         <source>Do not indent at all.</source>
         <translation>Заданный Отступ.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2464"/>
+        <location filename="../MainWindow.ui" line="2466"/>
         <source>Preset Indent One Attribute per Line</source>
         <translation>Предустановленный отступ один атрибут на строку</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2467"/>
+        <location filename="../MainWindow.ui" line="2469"/>
         <source>Indent with two spaces and one attribute per line.</source>
         <translation>Отступ с двумя пробелами и одним атрибутом на строку.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2472"/>
+        <location filename="../MainWindow.ui" line="2474"/>
         <source>Close Item and Children</source>
         <translation>Закрыть элемент и дочерние элементы</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2475"/>
+        <location filename="../MainWindow.ui" line="2477"/>
         <source>Close the selected item and its children.</source>
         <translation>Закройте выбранный элемент и его детей.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2478"/>
+        <location filename="../MainWindow.ui" line="2480"/>
         <source>Shift+F12</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2483"/>
+        <location filename="../MainWindow.ui" line="2485"/>
         <source>Choose Edit Type</source>
         <translation>Выберите Тип Редактирования</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2486"/>
+        <location filename="../MainWindow.ui" line="2488"/>
         <source>Choose if edit elements in text mode or using a form.</source>
         <translation>Выберите, если редактировать элементы в текстовом режиме или с помощью формы.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2491"/>
+        <location filename="../MainWindow.ui" line="2493"/>
         <source>XSD Validation</source>
         <translation>Проверка XSD</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2494"/>
+        <location filename="../MainWindow.ui" line="2496"/>
         <source>XSD validation panel.</source>
         <translation>Панель проверки xsd.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2499"/>
+        <location filename="../MainWindow.ui" line="2501"/>
         <source>Guided Operations Panel</source>
         <translation>Панель Управляемых Операций</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2502"/>
+        <location filename="../MainWindow.ui" line="2504"/>
         <source>Open the guided operations panel.</source>
         <translation>Откройте панель управляемые операции.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2507"/>
+        <location filename="../MainWindow.ui" line="2509"/>
         <source>Choose User Profile</source>
         <translation>Выберите Профиль Пользователя</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2510"/>
+        <location filename="../MainWindow.ui" line="2512"/>
         <source>Choose the user profile.</source>
         <translation type="unfinished">bВыберите Профиль пользователя.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2515"/>
-        <source>Insetrt Disabled Parent for XSLT</source>
-        <translation>Insetrt отключенный родитель для XSLT</translation>
+        <location filename="../MainWindow.ui" line="2598"/>
+        <source>Test XML</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2518"/>
+        <location filename="../MainWindow.ui" line="2601"/>
+        <source>Test a XML file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2606"/>
+        <source>Load Sample...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2609"/>
+        <source>Load a synthetic sample of a file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2517"/>
+        <source>Insert Disabled Parent for XSLT</source>
+        <translation type="unfinished">Insert отключенный родитель для XSLT</translation>
+    </message>
+    <message>
+        <location filename="../MainWindow.ui" line="2520"/>
         <source>Insert a parent that is skipped from XSLT execution, yet valid.</source>
         <translation>Вставьте родительский элемент, пропущенный из выполнения XSLT, но допустимый.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2527"/>
+        <location filename="../MainWindow.ui" line="2529"/>
         <source>      Graphic</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2542"/>
+        <location filename="../MainWindow.ui" line="2544"/>
         <source>      Actions</source>
         <translation>      Действия</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2557"/>
+        <location filename="../MainWindow.ui" line="2559"/>
         <source>Search Command</source>
         <translation>команда поиска</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2560"/>
+        <location filename="../MainWindow.ui" line="2562"/>
         <source>Search a command by name</source>
         <translation>Поиск команды по имени</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2563"/>
+        <location filename="../MainWindow.ui" line="2565"/>
         <source>Ctrl+Shift+-</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2568"/>
+        <location filename="../MainWindow.ui" line="2570"/>
         <source>dontuse</source>
         <translation>dontuse</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2580"/>
+        <location filename="../MainWindow.ui" line="2582"/>
         <source>Show Keyboard Shortcuts</source>
         <translation>Показать Сочетания Клавиш</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2583"/>
+        <location filename="../MainWindow.ui" line="2585"/>
         <source>Show or hide the keyboard shortcuts panel.</source>
         <translation>Показать или скрыть панель сочетаний клавиш.</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2588"/>
+        <location filename="../MainWindow.ui" line="2590"/>
         <source>Edit Element as Text</source>
         <translation>Редактирование элементов текста</translation>
     </message>
     <message>
-        <location filename="../MainWindow.ui" line="2591"/>
+        <location filename="../MainWindow.ui" line="2593"/>
         <source>Edit the current element in textual form.</source>
         <translation>Отредактируйте текущий элемент в текстовой форме.</translation>
     </message>
@@ -6394,14 +6424,24 @@ Warning: DOM does not support attribute alignment and DTD management.</source>
         <translation>Проверка SCXML доступна только с Qt, начиная с версии 5.7.</translation>
     </message>
     <message>
-        <location filename="../mainwindowio.cpp" line="236"/>
+        <location filename="../mainwindow.cpp" line="3977"/>
+        <source>Only a sample of data will be loaded.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3979"/>
+        <source>Load Sample File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindowio.cpp" line="210"/>
         <source>Unable to read data.
 Error code is &apos;%1&apos;, %2.</source>
         <translation>Не удается прочитать данные.
 Код ошибки &quot;%1&quot;, %2.</translation>
     </message>
     <message>
-        <location filename="../mainwindowio.cpp" line="241"/>
+        <location filename="../mainwindowio.cpp" line="215"/>
         <source>File name empty.
 Unable to load.</source>
         <translation>Имя файла пустое.
@@ -6411,42 +6451,47 @@ Unable to load.</source>
 <context>
     <name>MainWndController</name>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="106"/>
+        <location filename="../mainwndcontroller.cpp" line="107"/>
         <source>This feature will modify your data.</source>
         <translation>Эта функция изменит ваши данные.</translation>
     </message>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="238"/>
+        <location filename="../mainwndcontroller.cpp" line="239"/>
         <source>You will create a very big number of objects (%1). Do you want to continue?</source>
         <translation>Вы создадите очень большое количество объектов (%1). Вы хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="355"/>
+        <location filename="../mainwndcontroller.cpp" line="356"/>
         <source>SCXML test is supported only starting from Qt 5.7.0 and must be enabled at compilie time.</source>
         <translation>Тест SCXML поддерживается только начиная с Qt 5.7.0 и должен быть включен во время компиляции.</translation>
     </message>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="361"/>
-        <location filename="../mainwndcontroller.cpp" line="367"/>
+        <location filename="../mainwndcontroller.cpp" line="362"/>
+        <location filename="../mainwndcontroller.cpp" line="368"/>
         <source>Unable to check the data as SCXML.</source>
         <translation>Не удается проверить данные как SCXML.</translation>
     </message>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="373"/>
+        <location filename="../mainwndcontroller.cpp" line="374"/>
         <source>SCXML is valid.</source>
         <translation>SCXML является допустимым.</translation>
     </message>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="380"/>
+        <location filename="../mainwndcontroller.cpp" line="381"/>
         <source>Currently only null, ecmascript or cpp datamodels are supported by the validator.</source>
         <translation>В настоящее время только null, ecmascript или cpp datamodels поддерживаются валидатором.</translation>
     </message>
     <message>
-        <location filename="../mainwndcontroller.cpp" line="408"/>
+        <location filename="../mainwndcontroller.cpp" line="409"/>
         <source>Invalid SCXML, errors:
 %1</source>
         <translation>Недопустимый SCXML, ошибки:
 %1</translation>
+    </message>
+    <message>
+        <location filename="../mainwndcontroller.cpp" line="427"/>
+        <source>Open File</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8103,6 +8148,42 @@ size per element</source>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="204"/>
         <source>Show Containing Folder</source>
         <translation>Показать содержание папки</translation>
+    </message>
+</context>
+<context>
+    <name>XMLTest</name>
+    <message>
+        <location filename="../xmltest.cpp" line="48"/>
+        <source>This XML contains an entity reference.
+Entity references are not supported at the moment.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xmltest.cpp" line="71"/>
+        <source>Unable to read data.
+Error code is &apos;%1&apos;, %2.</source>
+        <translation type="unfinished">Не удается прочитать данные.
+Код ошибки &quot;%1&quot;, %2.</translation>
+    </message>
+    <message>
+        <location filename="../xmltest.cpp" line="74"/>
+        <source>File name empty.
+Unable to load.</source>
+        <translation type="unfinished">Имя файла пустое.
+Не удается загрузить.</translation>
+    </message>
+    <message>
+        <location filename="../xmltest.cpp" line="83"/>
+        <source>XML failed the test.
+%1
+File: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../xmltest.cpp" line="86"/>
+        <source>XML is valid.
+File: %1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
