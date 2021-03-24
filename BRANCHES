@@ -5,12 +5,12 @@ Next: 204
 
 Branches:
 ---------
-198 - Russian translations.
 issue73
 issue 74
 
 Merged branches:
 -------------
+Russian translations.
 203 - Load sample
 192 - Improve text editing (partially merged).
 200 - Disable TODO via configuration.
