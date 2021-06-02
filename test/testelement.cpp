@@ -38,7 +38,7 @@ TestElement::~TestElement()
 
 bool TestElement::testFast()
 {
-    return testHasText();
+    return testConfigTooltip();
 }
 
 
@@ -133,8 +133,48 @@ bool TestElement::testTooltip()
     if(!testSingleTooltip("11", 11, true)) {
         return false;
     }
+    if(!testConfigTooltip()) {
+        return false;
+    }
     return true;
 }
+
+bool TestElement::testConfigTooltip()
+{
+    if(!testConfigTooltipInner(false, false, true)) {
+        return false;
+    }
+
+    if(!testConfigTooltipInner(true, false, false)) {
+        return false;
+    }
+    if(!testConfigTooltipInner(true, true, true)) {
+        return false;
+    }
+    return true;
+}
+
+bool TestElement::testConfigTooltipInner(const bool setValue, const bool usePath, const bool expectedFoundPath)
+{
+    App app;
+    app.initNoWindow();
+    // setup data
+    Element element("A", "", NULL, NULL);
+    Element *elementB = new Element("B", "", NULL, &element);
+    element.addChild(elementB);
+    // setup config
+    if(setValue) {
+        Config::saveBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_PATH, usePath);
+    }
+    QVariant toolTip = elementB->columnViewTooltipData(NULL);
+    const bool foundPath = toolTip.toString().contains("/A/B", Qt::CaseSensitive);
+    if(foundPath!=expectedFoundPath) {
+        return error(QString("Error tooltip inner for setValue:%1 usePath:%2 expectedFoundPath:%3")
+                     .arg(setValue).arg(usePath).arg(expectedFoundPath));
+    }
+    return true ;
+}
+
 
 static bool probeForImageData(const QString &data)
 {

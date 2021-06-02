@@ -61,6 +61,7 @@ public:
     static const QString KEY_ELEMENT_ELEMENTFONTITALIC;
     static const QString KEY_ELEMENT_ELEMENTFONTBOLD;
     static const QString KEY_ELEMENT_TEXT_TOOLTIP_IMAGE;
+    static const QString KEY_ELEMENT_TEXT_TOOLTIP_PATH;
     // mainview
     static const QString  KEY_MAIN_COMPACTVIEW;
     static const QString  KEY_MAIN_ONEATTRLINE;

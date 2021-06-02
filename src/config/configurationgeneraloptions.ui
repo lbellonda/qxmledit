@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>799</width>
-    <height>470</height>
+    <height>486</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -204,13 +204,6 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <widget class="QCheckBox" name="expandTreeAfterLoad">
-       <property name="text">
-        <string>Automatically expand editor tree when loading data</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
@@ -244,6 +237,41 @@
        </item>
       </layout>
      </item>
+     <item row="3" column="1">
+      <widget class="QCheckBox" name="cbShowTagComplex">
+       <property name="text">
+        <string>Show decorated element Tags</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QCheckBox" name="cbEnableMultiThreading">
+       <property name="text">
+        <string>Enable multithreading</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QToolButton" name="toolButton">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QCheckBox" name="expandTreeAfterLoad">
+       <property name="text">
+        <string>Automatically expand editor tree when loading data</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QCheckBox" name="cbLightTheme">
+       <property name="text">
+        <string>Light theme</string>
+       </property>
+      </widget>
+     </item>
      <item row="1" column="0">
       <widget class="QCheckBox" name="cbShowImagesInTextTooltip">
        <property name="text">
@@ -251,14 +279,14 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QCheckBox" name="cbOpenFilesInNewWindow">
        <property name="text">
         <string>Open files in new window</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QCheckBox" name="cbSingleInstance">
        <property name="text">
         <string>Single instance application</string>
@@ -272,24 +300,10 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QCheckBox" name="cbShowTagComplex">
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="cbShowPathInElementTooltip">
        <property name="text">
-        <string>Show decorated element Tags</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QCheckBox" name="cbEnableMultiThreading">
-       <property name="text">
-        <string>Enable multithreading</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QCheckBox" name="cbLightTheme">
-       <property name="text">
-        <string>Light theme</string>
+        <string>Show path in element tooltip</string>
        </property>
       </widget>
      </item>

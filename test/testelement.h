@@ -36,6 +36,8 @@ class TestElement : public TestBase
     bool testNotHasTextComplex();
     bool testNotHasTextSingle();
     bool testParentPath();
+    bool testConfigTooltipInner(const bool setValue, const bool usePath, const bool expectedPath);
+    bool testConfigTooltip();
 public:
     TestElement();
     ~TestElement();

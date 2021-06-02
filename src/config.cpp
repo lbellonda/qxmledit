@@ -52,6 +52,7 @@ const QString Config::KEY_ELEMENT_ELEMENTFONTSIZE("element/elementFontSize");
 const QString Config::KEY_ELEMENT_ELEMENTFONTITALIC("element/elementFontItalic");
 const QString Config::KEY_ELEMENT_ELEMENTFONTBOLD("element/elementFontBold");
 const QString Config::KEY_ELEMENT_TEXT_TOOLTIP_IMAGE("element/showImagesOnTextTooltip");
+const QString Config::KEY_ELEMENT_TEXT_TOOLTIP_PATH("element/showPathOnTextTooltip");
 
 // mainview
 const QString Config::KEY_MAIN_COMPACTVIEW("main/compactView");

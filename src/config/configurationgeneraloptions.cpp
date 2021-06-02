@@ -88,6 +88,7 @@ void ConfigurationGeneralOptions::init(ApplicationData* data)
     ui->cbShowTagComplex->setChecked(Config::getBool(Config::KEY_MAIN_SHOWLTONTAGS, Config::ShowLOOnTagsDefault));
     ui->cbEnableMultiThreading->setChecked(_data->isMtEnabled());
     ui->cbLightTheme->setChecked(Config::getBool(Config::KEY_INFO_SHORTCUT_LIGHT_THEME, false));
+    ui->cbShowPathInElementTooltip->setChecked(Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_PATH, true));
     updateStatus();
     _started = true ;
 }
@@ -285,6 +286,14 @@ void ConfigurationGeneralOptions::on_cbLightTheme_stateChanged(int /*state*/)
         return ;
     }
     Config::saveBool(Config::KEY_INFO_SHORTCUT_LIGHT_THEME, ui->cbLightTheme->isChecked());
+}
+
+void ConfigurationGeneralOptions::on_cbShowPathInElementTooltip_stateChanged(int /*state*/)
+{
+    if(!_started) {
+        return ;
+    }
+    Config::saveBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_PATH, ui->cbShowPathInElementTooltip->isChecked());
 }
 
 void ConfigurationGeneralOptions::on_cbEnableMultiThreading_stateChanged(int /*state*/)

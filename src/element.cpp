@@ -520,7 +520,12 @@ QVariant Element::columnViewTooltipData(QHash<void *, QString> *mapDataAnon)
             attributesLabel += tr(" Attributes:\n");
         }
 
-        QString tooltip = tr("%1\npath: %2\n%3").arg(theTag).arg(thePath).arg(attributesLabel);
+        QString tooltip ;
+        if(Config::getBool(Config::KEY_ELEMENT_TEXT_TOOLTIP_PATH, true)) {
+            tooltip = tr("%1\npath: %2\n%3").arg(theTag).arg(thePath).arg(attributesLabel);
+        } else {
+            tooltip = tr("%1\n%2").arg(theTag).arg(attributesLabel);
+        }
         // sort case insensitive
         QList<Attribute*> attributesList = Element::sortAttributesList(this->attributes);
         QString imageData ;
