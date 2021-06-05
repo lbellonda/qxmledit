@@ -7,9 +7,11 @@ Branches:
 ---------
 issue73
 issue 74
+generate-xsd-from-xml
 
 Merged branches:
 -------------
+issue-81 - #issue 81
 Russian translations.
 203 - Load sample
 192 - Improve text editing (partially merged).
