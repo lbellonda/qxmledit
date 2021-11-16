@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2021 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,41 +20,57 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#ifndef XMLTOXSD_H
+#define XMLTOXSD_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
+#include "xmlEdit.h"
+#include "regola.h"
+#include "utils.h"
+#include "operationresult.h"
 #include "applicationdata.h"
 
-namespace Ui
+class XMLToXSD
 {
-class ConfigValidation;
-}
+    bool _started ;
+    ApplicationData *_appData;
+    OperationResult *_result;
+    QTemporaryDir *_tempDir;
+    QString _dirPath;
+    QString _sourceFilePath;
+    QString _schemaData;
 
-class ConfigValidation : public QWidget
-{
-    Q_OBJECT
-
-    ApplicationData* _data;
-
+    static const int TimeoutExec = 30000;
 public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
+    enum GenXSDOption {
+        GENXSD_RUSSIAN_DOLL,
+        GENXSD_SALAMI_SLICE,
+        GENXSD_VENETIAN_BLIND,
+        GENXSD_DEFAULT = GENXSD_VENETIAN_BLIND
+    };
 
-    void init(ApplicationData* data);
-    void saveIfChanged();
+    XMLToXSD(ApplicationData *appData);
+    virtual ~XMLToXSD();
 
+    bool generateXSD(OperationResult *result, Regola *regola, const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart);
+    QString schemaData();
 private:
-    Ui::ConfigValidation *ui;
 
-    void save();
-    void enableButtons();
+    bool saveData(Regola *regola);
+    void deleteData();
+    bool addError(OperationResult *result, const QString &msgText);
+    QString getInst2XSD();
+    virtual bool execute(const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart);
+    QString trunc(const QString &msgText);
+    QStringList makeArguments(const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart);
+    bool readResults();
+protected:
+    QString dirPath();
+    QString resultPath();
+    QString sourceFilePath();
 
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-    void on_browseInst2Xsd_clicked();
+#ifdef  QXMLEDIT_TEST
+    friend class TestXMLBeans;
+#endif
 };
 
-#endif // CONFIGVALIDATION_H
+#endif // XMLTOXSD_H

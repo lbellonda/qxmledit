@@ -745,3 +745,18 @@ bool ApplicationData::askForQuit()
     }
     return true ;
 }
+
+
+//---region(xmlBeans)
+QString ApplicationData::inst2XSDPath()
+{
+    QString path = Config::getString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, "inst2xsd") ;
+    Utils::TODO_THIS_RELEASE("");
+    return "/tmp/inst2xsd";//path;
+}
+
+void ApplicationData::setInst2XSDPath(const QString &newPath)
+{
+    Config::saveString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, newPath) ;
+}
+//---endregion(xmlBeans)

@@ -164,6 +164,11 @@ public:
     QRect keyboardInfoGeometry();
     //--- endregion(keyinfo)
 
+    //---region(xmlBeans)
+    QString inst2XSDPath();
+    void setInst2XSDPath(const QString &newPath);
+    //---endregion(xmlBeans)
+
     enum EUserType {
         UserTypeExpert = 0,
         UserTypeGuided = 1

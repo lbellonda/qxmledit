@@ -85,6 +85,7 @@ public:
     void sourceDecode(QBuffer *dataStream, QList<SourceMessage*> &errors, Regola *regola);
     QBuffer* getDataForSourceDecode();
     void testXML();
+    void generateXSDFromData();
 
 signals:
 

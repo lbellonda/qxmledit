@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2021 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,41 +20,21 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#ifndef XML2XSDTEST_H
+#define XML2XSDTEST_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
+#include "modules/xml/xmltoxsd.h"
 
-namespace Ui
+class XML2XSDTest : public XMLToXSD
 {
-class ConfigValidation;
-}
-
-class ConfigValidation : public QWidget
-{
-    Q_OBJECT
-
-    ApplicationData* _data;
-
+    QString _fileInput;
+    bool _existsInputFile ;
 public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
+    XML2XSDTest(ApplicationData *appData, const QString &fileInput);
+    virtual ~XML2XSDTest();
 
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
-private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-    void on_browseInst2Xsd_clicked();
+    bool execute(const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart);
+    bool existsInputFile();
 };
 
-#endif // CONFIGVALIDATION_H
+#endif // XML2XSDTEST_H

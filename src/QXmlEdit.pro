@@ -205,7 +205,8 @@ HEADERS = precompiled_app.h \
     widgets/infooneditmode.h \
     modules/help/tips.h \
     modules/help/searchcommanddialog.h \
-    widgets/shortcutinfo.h
+    widgets/shortcutinfo.h \
+    modules/xml/xmltoxsd.h
 
 SOURCES = \
     main.cpp \
@@ -312,7 +313,8 @@ SOURCES = \
     widgets/infooneditmode.cpp \
     modules/help/searchcommanddialog.cpp \
     widgets/shortcutinfo.cpp \
-    xmltest.cpp
+    xmltest.cpp \
+    modules/xml/xmltoxsd.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2021 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,41 +20,35 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#include "xml2xsdtest.h"
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
-
-namespace Ui
+XML2XSDTest::XML2XSDTest(ApplicationData *appData, const QString &fileInput) : XMLToXSD(appData)
 {
-class ConfigValidation;
+    _existsInputFile = false;
+    _fileInput = fileInput ;
 }
 
-class ConfigValidation : public QWidget
+
+XML2XSDTest::~XML2XSDTest()
 {
-    Q_OBJECT
+    //
+}
 
-    ApplicationData* _data;
+bool XML2XSDTest::execute(const XML2XSDTest::GenXSDOption /*option*/, const int /*enumerationThreshold*/, const bool /*simpleContentTypeSmart*/)
+{
+    QFile inputFile(sourceFilePath());
+    if(!inputFile.exists()) {
+        _existsInputFile = false;
+        return false;
+    }
+    _existsInputFile = true;
+    if(!QFile::copy(_fileInput, resultPath())) {
+        return false;
+    }
+    return true;
+}
 
-public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
-
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
-private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-    void on_browseInst2Xsd_clicked();
-};
-
-#endif // CONFIGVALIDATION_H
+bool XML2XSDTest::existsInputFile()
+{
+    return _existsInputFile ;
+}

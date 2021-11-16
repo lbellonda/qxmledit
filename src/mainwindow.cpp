@@ -3985,3 +3985,8 @@ bool MainWindow::openSampleUsingDialog(const QString folderPath, const EWindowOp
     }
     return false ;
 }
+
+void MainWindow::on_actionGenerateXSD_triggered()
+{
+    _controller.generateXSDFromData();
+}

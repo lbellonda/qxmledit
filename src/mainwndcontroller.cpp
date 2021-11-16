@@ -49,6 +49,7 @@
 #include "modules/messages/sourceerror.h"
 #include "sourcemessagemanager.h"
 #include "modules/messages/sourcerelatedmessages.h"
+#include "modules/xml/xmltoxsd.h"
 #ifdef QXMLEDIT_QT_SCXML_ENABLED
 #include <QtScxml/QScxmlStateMachine>
 #endif
@@ -433,3 +434,22 @@ void MainWndController::testXML()
     }
 }
 
+void MainWndController::generateXSDFromData()
+{
+    XMLToXSD xmlToXsd(_w->appData());
+    OperationResult result;
+    const bool isError = !xmlToXsd.generateXSD(&result, _w->getRegola(), XMLToXSD::GENXSD_DEFAULT, 2, false);
+    if(isError || result.isError()) {
+        Utils::error(_w, result.message());
+    } else {
+        // open new window with XSD
+        MainWindow *xsdWindow = _w->execNew();
+        QByteArray byteData = xmlToXsd.schemaData().toUtf8();
+        Utils::message(_w, xmlToXsd.schemaData());
+        QBuffer xsdAsIO(&byteData);
+        xsdAsIO.open(QIODevice::ReadOnly);
+        if(!xsdWindow->loadFileInnerStream(&xsdAsIO, "", false, true, false)) {
+            Utils::error(xsdWindow, tr("Unable to load the schema"));
+        }
+    }
+}

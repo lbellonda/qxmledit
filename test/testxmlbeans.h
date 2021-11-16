@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2021 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,41 +20,23 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#ifndef TESTXMLBEANS_H
+#define TESTXMLBEANS_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
+#include "testbase.h"
 
-namespace Ui
+class TestXMLBeans : public TestBase
 {
-class ConfigValidation;
-}
-
-class ConfigValidation : public QWidget
-{
-    Q_OBJECT
-
-    ApplicationData* _data;
-
+    bool testXML2XSDParameters();
+    bool testXML2XSDLoadXSD();
+    bool testXML2XSDConfig();
+    bool testXML2XSD();
 public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
+    TestXMLBeans();
+    ~TestXMLBeans();
 
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
-private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-    void on_browseInst2Xsd_clicked();
+    bool testFast();
+    bool testUnit();
 };
 
-#endif // CONFIGVALIDATION_H
+#endif // TESTXMLBEANS_H
