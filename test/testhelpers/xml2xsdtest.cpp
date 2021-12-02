@@ -22,10 +22,11 @@
 
 #include "xml2xsdtest.h"
 
-XML2XSDTest::XML2XSDTest(ApplicationData *appData, const QString &fileInput) : XMLToXSD(appData)
+XML2XSDTest::XML2XSDTest(ApplicationData *appData, const QString &fileInput, const bool errorInExecution) : XMLToXSD(appData)
 {
     _existsInputFile = false;
     _fileInput = fileInput ;
+    _errorInExecution = errorInExecution ;
 }
 
 
@@ -36,12 +37,20 @@ XML2XSDTest::~XML2XSDTest()
 
 bool XML2XSDTest::execute(const XML2XSDTest::GenXSDOption /*option*/, const int /*enumerationThreshold*/, const bool /*simpleContentTypeSmart*/)
 {
+    if(_errorInExecution) {
+        _result->setError(true);
+        return false;
+    }
+
     QFile inputFile(sourceFilePath());
     if(!inputFile.exists()) {
         _existsInputFile = false;
         return false;
     }
     _existsInputFile = true;
+    if(_fileInput.isEmpty()) {
+        return false;
+    }
     if(!QFile::copy(_fileInput, resultPath())) {
         return false;
     }

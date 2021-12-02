@@ -20,22 +20,20 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef XML2XSDTEST_H
-#define XML2XSDTEST_H
+#ifndef XSD2XMLTEST_H
+#define XSD2XMLTEST_H
 
-#include "modules/xml/xmltoxsd.h"
+#include "modules/xml/xsdtoxml.h"
 
-class XML2XSDTest : public XMLToXSD
+class XSD2XMLTest : public XSDToXML
 {
-    QString _fileInput;
-    bool _existsInputFile ;
-    bool _errorInExecution;
+    QString _fileToRead;
+    bool _emulateError;
+protected:
+    virtual bool execute();
 public:
-    XML2XSDTest(ApplicationData *appData, const QString &fileInput, const bool errorInExecution);
-    virtual ~XML2XSDTest();
-
-    bool execute(const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart);
-    bool existsInputFile();
+    XSD2XMLTest(ApplicationData *appData, const QString &fileToRead, const bool emulateError);
+    virtual ~XSD2XMLTest();
 };
 
-#endif // XML2XSDTEST_H
+#endif // XSD2XMLTEST_H

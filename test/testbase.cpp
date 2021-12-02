@@ -857,7 +857,7 @@ QString TestBase::normalizeCR(QString in) const
     return rep ;
 }
 
-QString TestBase::loadTextFile(const QString &filePath) const
+QString TestBase::loadTextFile(const QString &filePath)
 {
     QString result;
     QFile file(filePath);

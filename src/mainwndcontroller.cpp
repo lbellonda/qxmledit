@@ -50,6 +50,8 @@
 #include "sourcemessagemanager.h"
 #include "modules/messages/sourcerelatedmessages.h"
 #include "modules/xml/xmltoxsd.h"
+#include "modules/xml/xsdtoxml.h"
+#include "xsdeditor/choosexsdviewrootitemdialog.h"
 #ifdef QXMLEDIT_QT_SCXML_ENABLED
 #include <QtScxml/QScxmlStateMachine>
 #endif
@@ -64,6 +66,8 @@ MainWndController::MainWndController(QObject *parent) :
 {
     _w = NULL ;
     _replicaInfoProvider = this ;
+    _XSDTopElementChooser = this ;
+    _XMLVsXSDFactory = this ;
 }
 
 MainWndController::~MainWndController()
@@ -434,22 +438,131 @@ void MainWndController::testXML()
     }
 }
 
-void MainWndController::generateXSDFromData()
+MainWindow* MainWndController::generateXSDFromData()
 {
-    XMLToXSD xmlToXsd(_w->appData());
+    MainWindow *xsdWindow = NULL ;
+    XMLToXSD * xmlToXsd = _XMLVsXSDFactory->newXML2XSD(_w->appData());
     OperationResult result;
-    const bool isError = !xmlToXsd.generateXSD(&result, _w->getRegola(), XMLToXSD::GENXSD_DEFAULT, 2, false);
+    const bool isError = !xmlToXsd->generateXSD(&result, _w->getRegola(), XMLToXSD::GENXSD_DEFAULT, 2, false);
     if(isError || result.isError()) {
         Utils::error(_w, result.message());
     } else {
         // open new window with XSD
-        MainWindow *xsdWindow = _w->execNew();
-        QByteArray byteData = xmlToXsd.schemaData().toUtf8();
-        Utils::message(_w, xmlToXsd.schemaData());
+        xsdWindow = _w->execNew();
+        QByteArray byteData = xmlToXsd->schemaData().toUtf8();
+        Utils::message(_w, xmlToXsd->schemaData());
         QBuffer xsdAsIO(&byteData);
         xsdAsIO.open(QIODevice::ReadOnly);
         if(!xsdWindow->loadFileInnerStream(&xsdAsIO, "", false, true, false)) {
             Utils::error(xsdWindow, tr("Unable to load the schema"));
+            xsdWindow->close();
+            xsdWindow->deleteLater();
+            xsdWindow = NULL ;
         }
     }
+    if(NULL != xmlToXsd) {
+        delete xmlToXsd ;
+    }
+    return xsdWindow ;
+}
+
+QString MainWndController::selectTopLevelSchemaElement(Regola *regola)
+{
+    Utils::TODO_THIS_RELEASE("Make provider to test it");
+    QString nameResult ;
+    OperationResult result;
+    XSDSchema *schema =  XSDSchema::loadXSDFromString(result, regola->getAsText());
+    if(result.isError()) {
+        Utils::error(_w, result.message());
+    } else {
+        QList<XSchemaElement *> topLevelElements = schema->collectCandidateRootElement();
+        ChooseXSDViewRootItemDialog dlg(_w, topLevelElements);
+        if(dlg.exec() == QDialog::Accepted) {
+            nameResult = dlg.selection();
+        }
+    }
+    if(NULL != schema) {
+        delete schema;
+    }
+    return nameResult ;
+}
+
+bool MainWndController::setXSDTopElementChooser(XSDTopElementChooser *newChooser)
+{
+    if(NULL != newChooser) {
+        _XSDTopElementChooser = newChooser ;
+        return true ;
+    }
+    return false;
+}
+
+
+bool MainWndController::setXMLVsXSDFactory(XMLVsXSDFactory *newFactory)
+{
+    if(NULL != newFactory) {
+        _XMLVsXSDFactory = newFactory ;
+        return true ;
+    }
+    return false;
+}
+
+MainWindow* MainWndController::createEditorFromXSD2XML(XSDToXML *xsdToXml)
+{
+    MainWindow* xsdWindow = NULL;
+    // open new window with XML
+    xsdWindow = _w->execNew();
+    QByteArray byteData = xsdToXml->data().toUtf8();
+    Utils::message(_w, xsdToXml->data());
+    QBuffer xsdAsIO(&byteData);
+    xsdAsIO.open(QIODevice::ReadOnly);
+    if(!xsdWindow->loadFileInnerStream(&xsdAsIO, "", false, true, false)) {
+        Utils::error(xsdWindow, tr("Unable to load the generated XML"));
+        xsdWindow->close();
+        xsdWindow->deleteLater();
+        xsdWindow = NULL ;
+    }
+    return xsdWindow;
+}
+
+MainWindow* MainWndController::generateDataFromXSD()
+{
+    MainWindow* xsdWindow = NULL;
+    XSDToXML *xsdToXml = _XMLVsXSDFactory->newXSD2XML(_w->appData());
+    OperationResult result;
+    QString topElementName = _XSDTopElementChooser->selectTopLevelSchemaElement(_w->getRegola());
+    if(!topElementName.isEmpty()) {
+        const bool isError = !xsdToXml->generateData(&result, _w->getRegola(), topElementName);
+        if(isError || result.isError()) {
+            Utils::error(_w, result.message());
+        } else {
+            // open new window with XML
+            xsdWindow = createEditorFromXSD2XML(xsdToXml);
+        }
+    }
+    if(NULL != xsdToXml) {
+        delete xsdToXml ;
+    }
+    return xsdWindow;
+}
+
+XSDToXML* MainWndController::newXSD2XML(ApplicationData *appData)
+{
+    return new XSDToXML(appData);
+}
+
+XMLToXSD* MainWndController::newXML2XSD(ApplicationData *appData)
+{
+    return new XMLToXSD(appData);
+}
+
+
+//---------------
+XSDTopElementChooser::~XSDTopElementChooser()
+{
+    // nothing
+};
+
+XMLVsXSDFactory::~XMLVsXSDFactory()
+{
+    //nothing
 }

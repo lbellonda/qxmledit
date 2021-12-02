@@ -134,7 +134,8 @@ protected:
     bool assertEquals(const QString &msg, const QString &expected, const QString &current);
     bool checkBoolSetting(const QString &setting, const bool expected);
     QString normalizeCR(QString in) const ;
-    QString loadTextFile(const QString &filePath) const;
+public:
+    static QString loadTextFile(const QString &filePath);
 };
 
 #define DELTELMS(object) foreach( Element *var, object) { delete var; } object.clear();

@@ -206,7 +206,8 @@ HEADERS = precompiled_app.h \
     modules/help/tips.h \
     modules/help/searchcommanddialog.h \
     widgets/shortcutinfo.h \
-    modules/xml/xmltoxsd.h
+    modules/xml/xmltoxsd.h \
+    modules/xml/xsdtoxml.h
 
 SOURCES = \
     main.cpp \
@@ -314,7 +315,8 @@ SOURCES = \
     modules/help/searchcommanddialog.cpp \
     widgets/shortcutinfo.cpp \
     xmltest.cpp \
-    modules/xml/xmltoxsd.cpp
+    modules/xml/xmltoxsd.cpp \
+    modules/xml/xsdtoxml.cpp
 
 FORMS = MainWindow.ui \
     configoptions.ui \

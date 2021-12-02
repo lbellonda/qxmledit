@@ -24,19 +24,42 @@
 #define TESTXMLBEANS_H
 
 #include "testbase.h"
+#include "mainwndcontroller.h"
 
-class TestXMLBeans : public TestBase
+class TestXMLBeans : public TestBase, XSDTopElementChooser, XMLVsXSDFactory
 {
     bool testXML2XSDParameters();
     bool testXML2XSDLoadXSD();
     bool testXML2XSDConfig();
     bool testXML2XSD();
+    bool testXML2XSDRunInner(const QString &code,
+                             const QString &fileInput, const bool expectedResult,
+                             const bool errorInExecution, const QString &expectedDataFile);
+    //
+    bool testXSD2XML();
+    bool testXSD2XMLParameters();
+    bool testXSD2XMLRun();
+    bool testXSD2XMLConfig();
+    bool testXSD2XMLRunInner(const QString &code,
+                             const QString &fileInput, const bool expectedResult,
+                             const QString &elementChosen, const bool errorInExecution,
+                             const QString &expectedDataFile);
+
+
+    QString _factoryChooseElement ;
+    QString _factoryFileToRead ;
+    bool _factoryErrorInExecution ;
 public:
     TestXMLBeans();
-    ~TestXMLBeans();
+    virtual ~TestXMLBeans();
 
     bool testFast();
     bool testUnit();
+
+    virtual QString selectTopLevelSchemaElement(Regola *regola);
+    virtual XMLToXSD* newXML2XSD(ApplicationData *appData);
+    virtual XSDToXML* newXSD2XML(ApplicationData *appData);
+
 };
 
 #endif // TESTXMLBEANS_H

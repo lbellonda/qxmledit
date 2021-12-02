@@ -35,6 +35,7 @@
 
 include("../src/version.pri")
 include("../src/cconfig.pri")
+include("../src/coptions.pri")
 
 USE_QWTPLOT="Y"
 DONTUSE_QWTPLOT=$$(QXMLEDIT_NO_QWTPLOT)

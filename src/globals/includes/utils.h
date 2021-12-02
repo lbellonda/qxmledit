@@ -51,6 +51,7 @@ public:
     static bool filler2;
     static int silenceMessages2;
     static const QString URIDropType;
+    static const int DEFAULT_TRUNCATE_STRING_LENGTH = 500;
 
     static void setBatch(const bool asBatch);
     static bool isSilenceMode();
@@ -191,6 +192,9 @@ public:
     static QString askFileNameToOpen(QWidget* parent, const QString &startFolder);
 
     static QString pathFromParent(Element* parent, const QString &tag);
+    //
+    static QString truncateString(const QString &msgText, const int maxLength);
+    static QString truncateString(const QString &msgText);
 };
 
 

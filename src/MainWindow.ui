@@ -532,6 +532,7 @@
     <addaction name="actionCompare"/>
     <addaction name="actionCompareXSD"/>
     <addaction name="actionGenerateXSD"/>
+    <addaction name="actionGenerateXMLFromXSD"/>
     <addaction name="actionFillSerie"/>
     <addaction name="actionCloneElements"/>
     <addaction name="separator"/>
@@ -2616,6 +2617,14 @@
    </property>
    <property name="toolTip">
     <string>Generate XSD Schema from data</string>
+   </property>
+  </action>
+  <action name="actionGenerateXMLFromXSD">
+   <property name="text">
+    <string>Generate XML from XSD...</string>
+   </property>
+   <property name="toolTip">
+    <string>Generate XML from schema.</string>
    </property>
   </action>
  </widget>

@@ -171,6 +171,7 @@ SOURCES += xmleditwidget.cpp \
     xsdeditor/validator/xelementcontent.cpp \
     xsdeditor/validator/xvalidationcontext.cpp \
     xsdeditor/navigationtree.cpp \
+    xsdeditor/xsdschemahelper.cpp \
     qxmleditdata.cpp \
     xmleditwidgetprivate.cpp \
     xsdeditor/validator/schemasearchcontext.cpp \

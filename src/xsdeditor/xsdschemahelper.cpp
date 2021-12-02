@@ -20,22 +20,29 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef XML2XSDTEST_H
-#define XML2XSDTEST_H
+#include "xsdeditor/xschema.h"
 
-#include "modules/xml/xmltoxsd.h"
-
-class XML2XSDTest : public XMLToXSD
+XSDSchema *XSDSchema::loadXSDFromString(OperationResult &results, const QString &dataToLoad)
 {
-    QString _fileInput;
-    bool _existsInputFile ;
-    bool _errorInExecution;
-public:
-    XML2XSDTest(ApplicationData *appData, const QString &fileInput, const bool errorInExecution);
-    virtual ~XML2XSDTest();
-
-    bool execute(const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart);
-    bool existsInputFile();
-};
-
-#endif // XML2XSDTEST_H
+    results.setError(true);
+    try {
+        XSDSchema *schema = new XSDSchema(NULL);
+        if(NULL != schema) {
+            XSDLoadContext loadContext;
+            schema->readFromString(&loadContext, dataToLoad, false, NULL, NULL);
+            if(schema != NULL) {
+                results.setOk();
+                return schema;
+            } else {
+                results.setMessage(QObject::tr("No schema"));
+            }
+        } else {
+            results.setMessage(QObject::tr("No root item"));
+        }
+    } catch(XsdException *ex) {
+        results.setMessage(QObject::tr("Error loading schema.\n%1").arg(ex->cause()));
+    } catch(...) {
+        results.setMessage(QObject::tr("Unknown exception."));
+    }
+    return NULL;
+}

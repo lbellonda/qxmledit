@@ -55,6 +55,10 @@ private slots:
     void on_browseDotVizPath_clicked();
     void on_overrideGraphVizPathReport_clicked();
     void on_browseInst2Xsd_clicked();
+    void on_browseXsd2Inst_clicked();
+#ifdef QXMLEDIT_TEST
+    friend class TestXMLBeans;
+#endif
 };
 
 #endif // CONFIGVALIDATION_H

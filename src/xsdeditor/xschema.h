@@ -24,6 +24,7 @@
 
 #define XSD_READONLY
 
+#include "operationresult.h"
 #include "xsdeditor/xsdtypes.h"
 #include "xsdeditor/xproperties.h"
 #include "xsdeditor/xsdcomparedata.h"
@@ -1828,6 +1829,7 @@ protected:
 public:
     XSDSchema(XSDSchema *_mainSchema);
     ~XSDSchema();
+    static XSDSchema *loadXSDFromString(OperationResult &results, const QString &dataToLoad);
 
     void postLoad();
     virtual ESchemaType getType()

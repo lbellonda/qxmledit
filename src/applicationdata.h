@@ -167,6 +167,8 @@ public:
     //---region(xmlBeans)
     QString inst2XSDPath();
     void setInst2XSDPath(const QString &newPath);
+    QString xsd2InstPath();
+    void setXsd2InstPath(const QString &newPath);
     //---endregion(xmlBeans)
 
     enum EUserType {

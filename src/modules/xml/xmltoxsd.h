@@ -33,11 +33,12 @@ class XMLToXSD
 {
     bool _started ;
     ApplicationData *_appData;
-    OperationResult *_result;
     QTemporaryDir *_tempDir;
     QString _dirPath;
     QString _sourceFilePath;
     QString _schemaData;
+protected:
+    OperationResult *_result;
 
     static const int TimeoutExec = 30000;
 public:

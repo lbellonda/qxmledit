@@ -34,6 +34,9 @@ class Regola;
 class ReplicaCloneInfo;
 class Element;
 class SourceMessage;
+class ApplicationData;
+class XSDToXML;
+class XMLToXSD;
 
 class ReplicaInfoProvider
 {
@@ -43,18 +46,41 @@ public:
     virtual ReplicaCloneInfo *getCloneInfo(QWidget *parent, Element *element) = 0;
 };
 
-class MainWndController : public QObject, ReplicaInfoProvider
+class XSDTopElementChooser
+{
+public:
+    virtual ~XSDTopElementChooser();
+    virtual QString selectTopLevelSchemaElement(Regola *regola) = 0;
+};
+
+class XMLVsXSDFactory
+{
+public:
+    virtual ~XMLVsXSDFactory();
+    virtual XMLToXSD* newXML2XSD(ApplicationData *appData) = 0;
+    virtual XSDToXML* newXSD2XML(ApplicationData *appData) = 0;
+};
+
+class MainWndController : public QObject, ReplicaInfoProvider, XSDTopElementChooser, XMLVsXSDFactory
 {
     Q_OBJECT
     MainWindow *_w;
     ReplicaInfoProvider *_replicaInfoProvider;
+    XSDTopElementChooser *_XSDTopElementChooser;
+    XMLVsXSDFactory *_XMLVsXSDFactory;
 
     bool anonymizeGetParams(AnonymizeParameters *params);
 
     void innerAnonymize(AnonAlg *alg);
     void innerAnonymize(AnonContext *context);
+    QString selectTopLevelSchemaElement(Regola *regola);
 
     ReplicaCloneInfo * getCloneInfo(QWidget *parent, Element *element);
+    MainWindow* createEditorFromXSD2XML(XSDToXML *xsdToXml);
+    // interface
+    virtual XMLToXSD* newXML2XSD(ApplicationData *appData);
+    virtual XSDToXML* newXSD2XML(ApplicationData *appData);
+
 public:
     explicit MainWndController(QObject *parent = 0);
     virtual ~MainWndController();
@@ -85,7 +111,11 @@ public:
     void sourceDecode(QBuffer *dataStream, QList<SourceMessage*> &errors, Regola *regola);
     QBuffer* getDataForSourceDecode();
     void testXML();
-    void generateXSDFromData();
+    //-----
+    MainWindow* generateXSDFromData();
+    MainWindow* generateDataFromXSD();
+    bool setXSDTopElementChooser(XSDTopElementChooser *newChooser);
+    bool setXMLVsXSDFactory(XMLVsXSDFactory *newFactory);
 
 signals:
 

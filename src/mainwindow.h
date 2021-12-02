@@ -424,6 +424,7 @@ private slots:
     void on_actionTestXML_triggered();
     void on_actionLoadSample_triggered();
     void on_actionGenerateXSD_triggered();
+    void on_actionGenerateXMLFromXSD_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);

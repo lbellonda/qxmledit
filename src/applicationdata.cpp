@@ -751,12 +751,23 @@ bool ApplicationData::askForQuit()
 QString ApplicationData::inst2XSDPath()
 {
     QString path = Config::getString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, "inst2xsd") ;
-    Utils::TODO_THIS_RELEASE("");
-    return "/tmp/inst2xsd";//path;
+    return path;
 }
 
 void ApplicationData::setInst2XSDPath(const QString &newPath)
 {
     Config::saveString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, newPath) ;
 }
+
+QString ApplicationData::xsd2InstPath()
+{
+    QString path = Config::getString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, "xsd2inst") ;
+    return path;
+}
+
+void ApplicationData::setXsd2InstPath(const QString &newPath)
+{
+    Config::saveString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, newPath) ;
+}
+
 //---endregion(xmlBeans)

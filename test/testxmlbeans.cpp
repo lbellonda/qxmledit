@@ -22,30 +22,45 @@
 
 #include "testxmlbeans.h"
 #include "modules/xml/xmltoxsd.h"
+#include "modules/xml/xsdtoxml.h"
 #include "app.h"
 #include "testhelpers/xml2xsdtest.h"
+#include "testhelpers/xsd2xmltest.h"
+#include "config/configvalidation.h"
 
-#define FILE_INPUT  "../test/data/xsd/i2x.xml"
+#define DATA_FOLDER  "../test/data/xsd/xmlbeans/"
+
+#define FILE_INPUT_XSD_TO_XML DATA_FOLDER "ixsd2xml.xml"
+#define FILE_OUTPUT_XSD_TO_XML DATA_FOLDER "oxsd2xml.xml"
+#define FILE_INPUT_XSD_TO_XML_NOSCHEMA DATA_FOLDER "ixsd2xmlnoschema.xml"
+#define FILE_NO_XML DATA_FOLDER "noxml"
+
+#define FILE_XML_TO_XSD DATA_FOLDER "xml2xsd.xml"
+#define FILE_XML_TO_XSD_OUTPUT DATA_FOLDER "oxml2xsd.xml"
+//-----------------------------------
 
 TestXMLBeans::TestXMLBeans()
 {
+    _factoryChooseElement = false;
+    _factoryErrorInExecution = false;
 }
 
 TestXMLBeans::~TestXMLBeans()
 {
-
 }
-
 
 bool TestXMLBeans::testFast()
 {
-    return testXML2XSDLoadXSD();
+    return testXML2XSD();
 }
 
 bool TestXMLBeans::testUnit()
 {
     _testName = "testUnit";
     if( !testXML2XSD()) {
+        return false;
+    }
+    if( !testXSD2XML()) {
         return false;
     }
     return true ;
@@ -62,6 +77,21 @@ bool TestXMLBeans::testXML2XSD()
         return false;
     }
     if(!testXML2XSDConfig()) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestXMLBeans::testXSD2XML()
+{
+    _subTestName = "testXSD2XML";
+    if(!testXSD2XMLParameters()) {
+        return false;
+    }
+    if(!testXSD2XMLRun()) {
+        return false;
+    }
+    if(!testXSD2XMLConfig()) {
         return false;
     }
     return true ;
@@ -110,31 +140,189 @@ bool TestXMLBeans::testXML2XSDParameters()
 }
 
 // load xsd after creation
+/*
+ * 1 - ok: ok
+ * 2 - exec error: false
+ * 3 - exec ok, error loading file: false
+ */
 bool TestXMLBeans::testXML2XSDLoadXSD()
 {
-    _subTestName = "testXML2XSD/testXML2XSDLoadXSD";
+    _subTestName = "TestXMLBeans/testXML2XSDLoadXSD";
+    if(!testXML2XSDRunInner("1", FILE_XML_TO_XSD, true, false, FILE_XML_TO_XSD_OUTPUT)) {
+        return false;
+    }
+    if(!testXML2XSDRunInner("2", FILE_XML_TO_XSD, false, true, FILE_XML_TO_XSD_OUTPUT)) {
+        return false;
+    }
+    if(!testXML2XSDRunInner("3", FILE_XML_TO_XSD, false, false, "")) {
+        return false;
+    }
+    return true ;
+}
+
+bool TestXMLBeans::testXML2XSDRunInner(const QString &code,
+                                       const QString &fileInput,
+                                       const bool expectedResult, const bool errorInExecution,
+                                       const QString &expectedDataFile)
+{
     App app;
     if(!app.init()) {
-        return error("init");
+        return error(QString("Code %1, init").arg(code));
     }
-    XML2XSDTest xml2xsdTest(app.data(), FILE_INPUT);
-    app.mainWindow()->loadFile(FILE_INPUT);
-    OperationResult result;
-    if(!xml2xsdTest.generateXSD(&result, app.mainWindow()->getRegola(), XMLToXSD::GENXSD_RUSSIAN_DOLL, 2, false) ) {
-        return error("exec");
+    app.mainWindow()->loadFile(fileInput);
+    _factoryFileToRead = expectedDataFile ;
+    _factoryErrorInExecution = errorInExecution ;
+    app.mainWindow()->controller()->setXMLVsXSDFactory(this);
+    MainWindow *resultWindow = app.mainWindow()->controller()->generateXSDFromData();
+    const bool result = NULL != resultWindow ;
+    if(result != expectedResult) {
+        return error(QString("Code %1, XML2XSD expected:%2, found %3").arg(code).arg(expectedResult).arg(result));
     }
-    if(!xml2xsdTest.existsInputFile()) {
-        return error("inputfile empty");
+    if(!result) {
+        return true;
     }
-    if(xml2xsdTest.schemaData().isEmpty()) {
-        return error("schema empty");
+    if( !compareXMLBase(resultWindow->getRegola(), QString("Code %1 comparing results").arg(code), expectedDataFile)) {
+        return false;
     }
     return true;
+}
+
+static QStringList makeXSD2XMLTestArguments0()
+{
+    QStringList options;
+    options << "the source" << "-name" << "abc";
+    return options;
+}
+
+bool TestXMLBeans::testXSD2XMLParameters()
+{
+    _subTestName = "TestXMLBeans/testXSD2XMLParameters";
+    App app;
+    app.initNoWindow();
+    XSDToXML xsdToXml(app.data());
+    xsdToXml._sourceFilePath = "the source";
+    xsdToXml._localNameOfGlobalElement = "abc";
+    if(!compareStringList("case 0", makeXSD2XMLTestArguments0(), xsdToXml.makeArguments())) {
+        return false;
+    }
+    return true;
+}
+
+/*
+1 - xsd, elements, scelta elemento OK ->ok, dati ok
+2 - xsd, elements, scelta elemento ko ->false
+3 - file non xsd -> false
+4 - xsd, elements, execution error -> false
+5 - xsd, elements, File generato non xml -> true, no window
+*/
+
+bool TestXMLBeans::testXSD2XMLRun()
+{
+    _subTestName = "TestXMLBeans/testXSD2XMLRun";
+    if(!testXSD2XMLRunInner("1", FILE_INPUT_XSD_TO_XML, true, "sample", false, FILE_OUTPUT_XSD_TO_XML)) {
+        return false;
+    }
+    if(!testXSD2XMLRunInner("2", FILE_INPUT_XSD_TO_XML, false, "", false, "")) {
+        return false;
+    }
+    if(!testXSD2XMLRunInner("3", FILE_INPUT_XSD_TO_XML_NOSCHEMA, false, "sample", false, "")) {
+        return false;
+    }
+    if(!testXSD2XMLRunInner("4", FILE_INPUT_XSD_TO_XML, false, "sample", true, "")) {
+        return false;
+    }
+    if(!testXSD2XMLRunInner("5", FILE_INPUT_XSD_TO_XML, false, "sample", true, FILE_NO_XML)) {
+        return false;
+    }
+    return true ;
+}
+
+
+bool TestXMLBeans::testXSD2XMLRunInner(const QString &code,
+                                        const QString &fileInput, const bool expectedResult,
+                                       const QString &elementChosen, const bool errorInExecution,
+                                       const QString &expectedDataFile)
+{
+    App app;
+    if(!app.init()) {
+        return error(QString("Code %1, init").arg(code));
+    }
+    if(!app.mainWindow()->loadFile(fileInput)) {
+        return error(QString("Code %1, loading input file :%2").arg(code).arg(fileInput));
+    }
+    app.mainWindow()->controller()->setXSDTopElementChooser(this);
+    _factoryChooseElement = elementChosen ;
+    _factoryFileToRead = expectedDataFile ;
+    _factoryErrorInExecution = errorInExecution ;
+    app.mainWindow()->controller()->setXMLVsXSDFactory(this);
+    MainWindow *resultWindow = app.mainWindow()->controller()->generateDataFromXSD();
+    const bool result = NULL != resultWindow ;
+    if(result != expectedResult) {
+        return error(QString("Code %1, generateDataFromXSD expected:%2, found %3").arg(code).arg(expectedResult).arg(result));
+    }
+    if(!result) {
+        return true;
+    }
+    if( !compareXMLBase(resultWindow->getRegola(), QString("Code %1 comparing results").arg(code), expectedDataFile)) {
+        return false ;
+    }
+    return true ;
+}
+
+XSDToXML* TestXMLBeans::newXSD2XML(ApplicationData *appData)
+{
+    XSD2XMLTest * instance = new XSD2XMLTest(appData, _factoryFileToRead, _factoryErrorInExecution);
+    return instance;
+}
+
+XMLToXSD* TestXMLBeans::newXML2XSD(ApplicationData *appData)
+{
+    XML2XSDTest * instance = new XML2XSDTest(appData, _factoryFileToRead, _factoryErrorInExecution);
+    return instance;
 }
 
 // test configuration
 bool TestXMLBeans::testXML2XSDConfig()
 {
-    _subTestName = "testXML2XSD/testXML2XSDConfig";
-    return error("nyi");
+    _subTestName = "TestXMLBeans/testXML2XSDConfig";
+    App app;
+    if(!app.init()) {
+        return error("init");
+    }
+    ConfigValidation configValidation;
+    Config::saveString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, "xyz");
+    configValidation.init(app.data());
+    Config::saveString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, "aaa");
+    configValidation.save();
+    //
+    QString savedData = app.data()->inst2XSDPath();
+    if(savedData != "xyz") {
+        return error(QString("Expected %1 found '%2'").arg("xyz").arg(savedData));
+    }
+    return true ;
+}
+
+bool TestXMLBeans::testXSD2XMLConfig()
+{
+    _subTestName = "TestXMLBeans/testXSD2XMLConfig";
+    App app;
+    if(!app.init()) {
+        return error("init");
+    }
+    ConfigValidation configValidation;
+    Config::saveString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, "xyz");
+    configValidation.init(app.data());
+    Config::saveString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, "aaa");
+    configValidation.save();
+    //
+    QString savedData = app.data()->xsd2InstPath();
+    if(savedData != "xyz") {
+        return error(QString("Expected %1 found '%2'").arg("xyz").arg(savedData));
+    }
+    return true ;
+}
+
+QString TestXMLBeans::selectTopLevelSchemaElement(Regola * /*regola*/)
+{
+    return _factoryChooseElement ;
 }

@@ -258,6 +258,7 @@ public:
 
     // tools
     static const QString KEY_TOOLS_XMLBEANS_INST2XSD;
+    static const QString KEY_TOOLS_XMLBEANS_XSD2INST;
 
     //-----------------------------------------------------
 

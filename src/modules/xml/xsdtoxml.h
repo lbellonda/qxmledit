@@ -20,22 +20,54 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef XML2XSDTEST_H
-#define XML2XSDTEST_H
+#ifndef XSDTOXML_H
+#define XSDTOXML_H
 
-#include "modules/xml/xmltoxsd.h"
+#include "xmlEdit.h"
+#include "regola.h"
+#include "utils.h"
+#include "operationresult.h"
+#include "applicationdata.h"
 
-class XML2XSDTest : public XMLToXSD
+class XSDToXML
 {
-    QString _fileInput;
-    bool _existsInputFile ;
-    bool _errorInExecution;
-public:
-    XML2XSDTest(ApplicationData *appData, const QString &fileInput, const bool errorInExecution);
-    virtual ~XML2XSDTest();
+protected:
+    bool _started ;
+    ApplicationData *_appData;
+    OperationResult *_result;
+    QTemporaryDir *_tempDir;
+    QString _dirPath;
+    QString _sourceFilePath;
+    QString _instanceData;
+    QString _localNameOfGlobalElement;
 
-    bool execute(const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart);
-    bool existsInputFile();
+    static const int TimeoutExec = 30000;
+public:
+    XSDToXML(ApplicationData *appData);
+    virtual ~XSDToXML();
+
+    bool generateData(OperationResult *result, Regola *regola, const QString &localNameOfGlobalElement);
+    QString data();
+private:
+
+    bool saveData(Regola *regola);
+    void deleteData();
+    bool addError(OperationResult *result, const QString &msgText);
+    QString getXSD2Inst();
+
+    QString trunc(const QString &msgText);
+    QStringList makeArguments();
+    bool readResults();
+protected:
+    virtual bool execute();
+    QString dirPath();
+    QString resultPath();
+    QString sourceFilePath();
+
+#ifdef  QXMLEDIT_TEST
+    friend class TestXMLBeans;
+#endif
+
 };
 
-#endif // XML2XSDTEST_H
+#endif // XSDTOXML_H

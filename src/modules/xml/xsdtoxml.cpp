@@ -20,73 +20,60 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#include "xmltoxsd.h"
+#include "xsdtoxml.h"
+#include <utils.h>
 
-XMLToXSD::XMLToXSD(ApplicationData *appData)
+XSDToXML::XSDToXML(ApplicationData *appData)
 {
+    Utils::TODO_THIS_RELEASE("TODO: remove unused vars");
     _started = false;
     _appData = appData ;
     _result = NULL ;
     _tempDir = NULL;
 }
 
-XMLToXSD::~XMLToXSD()
+XSDToXML::~XSDToXML()
 {
     deleteData();
 }
 
-bool XMLToXSD::generateXSD(OperationResult *result, Regola *regola, const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart)
+void XSDToXML::deleteData()
+{
+    if(NULL != _tempDir) {
+        _tempDir->remove();
+        delete _tempDir;
+        _tempDir = NULL ;
+    }
+}
+
+bool XSDToXML::generateData(OperationResult *result, Regola *regola, const QString &localNameOfGlobalElement)
 {
     if(_started) {
         return addError(result, QObject::tr("Operation already started"));
     }
+    _localNameOfGlobalElement = localNameOfGlobalElement;
     _started = true ;
-    _schemaData = "";
     _result = result ;
     _result->setError(false);
     if(!saveData(regola)) {
         return false;
     }
-    if(execute(option, enumerationThreshold, simpleContentTypeSmart)) {
-        readResults();
-    }
+    execute();
     deleteData();
-    return result->isOk();
+    return _result->isOk();
 }
 
 
-QStringList XMLToXSD::makeArguments(const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart)
+QStringList XSDToXML::makeArguments()
 {
     QStringList options;
-    options.append("-enumerations");
-    if(enumerationThreshold > 0) {
-        options.append(QString("%1").arg(enumerationThreshold));
-    } else {
-        options.append("never");
-    }
-    options.append("-simple-content-types");
-    options.append(simpleContentTypeSmart ? "smart" : "string");
-    options.append("-design");
-    switch(option) {
-    case GENXSD_VENETIAN_BLIND:
-        options.append("vb");
-        break;
-    case GENXSD_RUSSIAN_DOLL:
-        options.append("rd");
-        break;
-    case GENXSD_SALAMI_SLICE:
-        options.append("ss");
-        break;
-    }
-    options.append("-outDir");
-    options.append(_dirPath);
-    options.append("-outPrefix");
-    options.append("qxmleditschema");
     options.append(sourceFilePath());
+    options.append("-name");
+    options.append(_localNameOfGlobalElement);
     return options;
 }
 
-bool XMLToXSD::saveData(Regola *regola)
+bool XSDToXML::saveData(Regola *regola)
 {
     if((NULL == regola) || regola->isEmpty(false)) {
         return addError(_result, QObject::tr("No data to save."));
@@ -97,7 +84,7 @@ bool XMLToXSD::saveData(Regola *regola)
         return addError(_result, QObject::tr("Problems creating directory."));
     }
     _dirPath = _tempDir->path() ;
-    _sourceFilePath = _dirPath + "/input.xml";
+    _sourceFilePath = _dirPath + "/input.xsd";
 
     bool modifiedStatus = regola->isModified();
     if(!regola->write(_sourceFilePath, false)) {
@@ -107,45 +94,37 @@ bool XMLToXSD::saveData(Regola *regola)
     return _result->isOk();
 }
 
-void XMLToXSD::deleteData()
+QString XSDToXML::getXSD2Inst()
 {
-    if(NULL != _tempDir) {
-        _tempDir->remove();
-        delete _tempDir;
-        _tempDir = NULL ;
-    }
+    return _appData->xsd2InstPath();
 }
 
-QString XMLToXSD::getInst2XSD()
+bool XSDToXML::execute()
 {
-    return _appData->inst2XSDPath();
-}
-
-bool XMLToXSD::execute(const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart)
-{
-    QProcess xmlToXsdProcess;
-    QString inst2XSD = getInst2XSD();
-    QStringList arguments = makeArguments(option, enumerationThreshold, simpleContentTypeSmart);
-    xmlToXsdProcess.start(inst2XSD, arguments);
-    if(!xmlToXsdProcess.waitForStarted()) {
+    QProcess xsdToXmlProcess;
+    QString xsd2Inst = getXSD2Inst();
+    QStringList arguments = makeArguments();
+    xsdToXmlProcess.start(xsd2Inst, arguments);
+    if(!xsdToXmlProcess.waitForStarted()) {
         return addError(_result, QObject::tr("Process not started."));
     }
-    xmlToXsdProcess.closeWriteChannel();
-    if(!xmlToXsdProcess.waitForFinished(TimeoutExec)) {
+    xsdToXmlProcess.closeWriteChannel();
+    if(!xsdToXmlProcess.waitForFinished(TimeoutExec)) {
         addError(_result, QObject::tr("Timeout executing process."));
     } else {
-        QProcess::ExitStatus status = xmlToXsdProcess.exitStatus();
+        QProcess::ExitStatus status = xsdToXmlProcess.exitStatus();
         if(QProcess::NormalExit == status) {
-            if(0 != xmlToXsdProcess.exitCode()) {
-                addError(_result, QObject::tr("Process code not zero:%1.").arg(xmlToXsdProcess.exitCode()));
+            if(0 != xsdToXmlProcess.exitCode()) {
+                addError(_result, QObject::tr("Process code not zero:%1.").arg(xsdToXmlProcess.exitCode()));
             } else {
+                _instanceData = QString::fromLocal8Bit(xsdToXmlProcess.readAllStandardOutput()) ;
                 _result->setError(false);
             }
         }
     }
     if(!_result->isOk()) {
-        QByteArray stdErr = xmlToXsdProcess.readAllStandardError() ;
-        QByteArray stdOut = xmlToXsdProcess.readAllStandardOutput() ;
+        QByteArray stdErr = xsdToXmlProcess.readAllStandardError() ;
+        QByteArray stdOut = xsdToXmlProcess.readAllStandardOutput() ;
         QString stdErrString(stdErr);
         QString stdOutString(stdOut);
         addError(_result, Utils::truncateString(stdErrString));
@@ -154,39 +133,24 @@ bool XMLToXSD::execute(const GenXSDOption option, const int enumerationThreshold
     return _result->isOk() ;
 }
 
-bool XMLToXSD::addError(OperationResult *result, const QString &msgText)
+bool XSDToXML::addError(OperationResult *result, const QString &msgText)
 {
     result->setMessage(result->message() + msgText);
     result->setError(true);
     return false;
 }
 
-QString XMLToXSD::resultPath()
-{
-    return _tempDir->path() + "/qxmleditschema0.xsd";
-}
-
-bool XMLToXSD::readResults()
-{
-    bool isError = false;
-    _schemaData = Utils::readUTF8FileString(resultPath(), isError);
-    if(isError) {
-        addError(_result, QObject::tr("Unable to read schema"));
-    }
-    return _result->isOk();
-}
-
-QString XMLToXSD::schemaData()
-{
-    return _schemaData ;
-}
-
-QString XMLToXSD::dirPath()
+QString XSDToXML::dirPath()
 {
     return _dirPath ;
 }
 
-QString XMLToXSD::sourceFilePath()
+QString XSDToXML::sourceFilePath()
 {
     return _sourceFilePath;
+}
+
+QString XSDToXML::data()
+{
+    return _instanceData;
 }
