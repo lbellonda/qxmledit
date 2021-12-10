@@ -48,8 +48,9 @@ public:
 
     bool generateData(OperationResult *result, Regola *regola, const QString &localNameOfGlobalElement);
     QString data();
-private:
+    static bool checkForConfiguration(ApplicationData *appData, QWidget *parent);
 
+private:
     bool saveData(Regola *regola);
     void deleteData();
     bool addError(OperationResult *result, const QString &msgText);

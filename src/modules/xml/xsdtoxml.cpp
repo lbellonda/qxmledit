@@ -25,7 +25,6 @@
 
 XSDToXML::XSDToXML(ApplicationData *appData)
 {
-    Utils::TODO_THIS_RELEASE("TODO: remove unused vars");
     _started = false;
     _appData = appData ;
     _result = NULL ;
@@ -153,4 +152,14 @@ QString XSDToXML::sourceFilePath()
 QString XSDToXML::data()
 {
     return _instanceData;
+}
+
+bool XSDToXML::checkForConfiguration(ApplicationData *appData, QWidget *parent)
+{
+    QString path = appData->xsd2InstPath();
+    if(!QFile::exists(path)) {
+        Utils::error(parent, QObject::tr("This feature requires Apache XMLBeans. Please open configuration panel and set the path to inst2xsd"));
+        return false;
+    }
+    return true ;
 }

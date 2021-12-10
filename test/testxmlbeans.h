@@ -31,6 +31,7 @@ class TestXMLBeans : public TestBase, XSDTopElementChooser, XMLVsXSDFactory
     bool testXML2XSDParameters();
     bool testXML2XSDLoadXSD();
     bool testXML2XSDConfig();
+    bool testXML2XSDConfigCheck();
     bool testXML2XSD();
     bool testXML2XSDRunInner(const QString &code,
                              const QString &fileInput, const bool expectedResult,
@@ -40,6 +41,7 @@ class TestXMLBeans : public TestBase, XSDTopElementChooser, XMLVsXSDFactory
     bool testXSD2XMLParameters();
     bool testXSD2XMLRun();
     bool testXSD2XMLConfig();
+    bool testXSD2XMLConfigCheck();
     bool testXSD2XMLRunInner(const QString &code,
                              const QString &fileInput, const bool expectedResult,
                              const QString &elementChosen, const bool errorInExecution,

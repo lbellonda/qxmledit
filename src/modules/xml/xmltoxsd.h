@@ -54,8 +54,9 @@ public:
 
     bool generateXSD(OperationResult *result, Regola *regola, const GenXSDOption option, const int enumerationThreshold, const bool simpleContentTypeSmart);
     QString schemaData();
-private:
+    static bool checkForConfiguration(ApplicationData *appData, QWidget *parent);
 
+private:
     bool saveData(Regola *regola);
     void deleteData();
     bool addError(OperationResult *result, const QString &msgText);

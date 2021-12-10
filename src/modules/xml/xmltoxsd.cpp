@@ -190,3 +190,13 @@ QString XMLToXSD::sourceFilePath()
 {
     return _sourceFilePath;
 }
+
+bool XMLToXSD::checkForConfiguration(ApplicationData *appData, QWidget *parent)
+{
+    QString path = appData->inst2XSDPath();
+    if(!QFile::exists(path)) {
+        Utils::error(parent, QObject::tr("This feature requires Apache XMLBeans. Please open configuration panel and set the path to xsd2inst"));
+        return false;
+    }
+    return true ;
+}

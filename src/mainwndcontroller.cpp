@@ -440,6 +440,9 @@ void MainWndController::testXML()
 
 MainWindow* MainWndController::generateXSDFromData()
 {
+    if(!XMLToXSD::checkForConfiguration(_w->appData(), _w)) {
+        return NULL;
+    }
     MainWindow *xsdWindow = NULL ;
     XMLToXSD * xmlToXsd = _XMLVsXSDFactory->newXML2XSD(_w->appData());
     OperationResult result;
@@ -450,7 +453,6 @@ MainWindow* MainWndController::generateXSDFromData()
         // open new window with XSD
         xsdWindow = _w->execNew();
         QByteArray byteData = xmlToXsd->schemaData().toUtf8();
-        Utils::message(_w, xmlToXsd->schemaData());
         QBuffer xsdAsIO(&byteData);
         xsdAsIO.open(QIODevice::ReadOnly);
         if(!xsdWindow->loadFileInnerStream(&xsdAsIO, "", false, true, false)) {
@@ -468,7 +470,6 @@ MainWindow* MainWndController::generateXSDFromData()
 
 QString MainWndController::selectTopLevelSchemaElement(Regola *regola)
 {
-    Utils::TODO_THIS_RELEASE("Make provider to test it");
     QString nameResult ;
     OperationResult result;
     XSDSchema *schema =  XSDSchema::loadXSDFromString(result, regola->getAsText());
@@ -512,7 +513,6 @@ MainWindow* MainWndController::createEditorFromXSD2XML(XSDToXML *xsdToXml)
     // open new window with XML
     xsdWindow = _w->execNew();
     QByteArray byteData = xsdToXml->data().toUtf8();
-    Utils::message(_w, xsdToXml->data());
     QBuffer xsdAsIO(&byteData);
     xsdAsIO.open(QIODevice::ReadOnly);
     if(!xsdWindow->loadFileInnerStream(&xsdAsIO, "", false, true, false)) {
@@ -526,6 +526,9 @@ MainWindow* MainWndController::createEditorFromXSD2XML(XSDToXML *xsdToXml)
 
 MainWindow* MainWndController::generateDataFromXSD()
 {
+    if(!XSDToXML::checkForConfiguration(_w->appData(), _w)) {
+        return NULL;
+    }
     MainWindow* xsdWindow = NULL;
     XSDToXML *xsdToXml = _XMLVsXSDFactory->newXSD2XML(_w->appData());
     OperationResult result;

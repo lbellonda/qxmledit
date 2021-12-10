@@ -73,10 +73,13 @@ bool TestXMLBeans::testXML2XSD()
     if(!testXML2XSDParameters()) {
         return false;
     }
-    if(!testXML2XSDLoadXSD()) {
+    if(!testXML2XSDConfig()) {
         return false;
     }
-    if(!testXML2XSDConfig()) {
+    if(!testXML2XSDConfigCheck()) {
+        return false;
+    }
+    if(!testXML2XSDLoadXSD()) {
         return false;
     }
     return true ;
@@ -88,10 +91,13 @@ bool TestXMLBeans::testXSD2XML()
     if(!testXSD2XMLParameters()) {
         return false;
     }
-    if(!testXSD2XMLRun()) {
+    if(!testXSD2XMLConfig()) {
         return false;
     }
-    if(!testXSD2XMLConfig()) {
+    if(!testXSD2XMLConfigCheck()) {
+        return false;
+    }
+    if(!testXSD2XMLRun()) {
         return false;
     }
     return true ;
@@ -172,6 +178,11 @@ bool TestXMLBeans::testXML2XSDRunInner(const QString &code,
     app.mainWindow()->loadFile(fileInput);
     _factoryFileToRead = expectedDataFile ;
     _factoryErrorInExecution = errorInExecution ;
+    QTemporaryFile file;
+    file.open();
+    file.write("a");
+    file.close();
+    app.data()->setInst2XSDPath(file.fileName());
     app.mainWindow()->controller()->setXMLVsXSDFactory(this);
     MainWindow *resultWindow = app.mainWindow()->controller()->generateXSDFromData();
     const bool result = NULL != resultWindow ;
@@ -254,6 +265,11 @@ bool TestXMLBeans::testXSD2XMLRunInner(const QString &code,
     _factoryChooseElement = elementChosen ;
     _factoryFileToRead = expectedDataFile ;
     _factoryErrorInExecution = errorInExecution ;
+    QTemporaryFile file;
+    file.open();
+    file.write("a");
+    file.close();
+    app.data()->setXsd2InstPath(file.fileName());
     app.mainWindow()->controller()->setXMLVsXSDFactory(this);
     MainWindow *resultWindow = app.mainWindow()->controller()->generateDataFromXSD();
     const bool result = NULL != resultWindow ;
@@ -289,15 +305,58 @@ bool TestXMLBeans::testXML2XSDConfig()
     if(!app.init()) {
         return error("init");
     }
+    const QString ExpectedValue ="xyz2";
+    const QString ExpectedValue2 ="xyz3";
+    app.data()->setInst2XSDPath(ExpectedValue);
+    if(!compare( "Config 1", ExpectedValue, Config::getString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, "") ) ) {
+            return false;
+    }
+    if(!compare( "Config 2", ExpectedValue, app.data()->inst2XSDPath()) ) {
+            return false;
+    }
+    app.data()->setInst2XSDPath("");
     ConfigValidation configValidation;
-    Config::saveString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, "xyz");
     configValidation.init(app.data());
-    Config::saveString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, "aaa");
+    if(!setTextWidget(&configValidation, "pathInst2Xsd", ExpectedValue2)) {
+        return error("No widget");
+    }
     configValidation.save();
     //
-    QString savedData = app.data()->inst2XSDPath();
-    if(savedData != "xyz") {
-        return error(QString("Expected %1 found '%2'").arg("xyz").arg(savedData));
+    if(!compare( "Config 3", ExpectedValue2, app.data()->inst2XSDPath()) ) {
+            return false;
+    }
+    XMLToXSD testObject(app.data());
+    if(!compare( "Config 4", ExpectedValue2, testObject.getInst2XSD()) ) {
+            return false;
+    }
+    return true ;
+}
+
+bool TestXMLBeans::testXML2XSDConfigCheck()
+{
+    _subTestName = "TestXMLBeans/testXML2XSDConfigCheck";
+    App app;
+    if(!app.init()) {
+        return error("init");
+    }
+    app.data()->setInst2XSDPath("");
+    if(XMLToXSD::checkForConfiguration(app.data(), NULL)) {
+       return error("Empty");
+    }
+    QString fileName ;
+    {
+        QTemporaryFile file;
+        file.open();
+        file.write("a");
+        file.close();
+        fileName = file.fileName();
+        app.data()->setInst2XSDPath(fileName);
+        if(!XMLToXSD::checkForConfiguration(app.data(), NULL)) {
+           return error("Existent:"+fileName);
+        }
+    }
+    if(XMLToXSD::checkForConfiguration(app.data(), NULL)) {
+       return error("Non Existent:"+fileName);
     }
     return true ;
 }
@@ -309,15 +368,58 @@ bool TestXMLBeans::testXSD2XMLConfig()
     if(!app.init()) {
         return error("init");
     }
+    const QString ExpectedValue ="xyz2";
+    const QString ExpectedValue2 ="xyz3";
+    app.data()->setXsd2InstPath(ExpectedValue);
+    if(!compare( "Config 1", ExpectedValue, Config::getString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, "") ) ) {
+            return false;
+    }
+    if(!compare( "Config 2", ExpectedValue, app.data()->xsd2InstPath()) ) {
+            return false;
+    }
+    app.data()->setXsd2InstPath("");
     ConfigValidation configValidation;
-    Config::saveString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, "xyz");
     configValidation.init(app.data());
-    Config::saveString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, "aaa");
+    if(!setTextWidget(&configValidation, "pathXsd2Inst", ExpectedValue2)) {
+        return error("No widget");
+    }
     configValidation.save();
     //
-    QString savedData = app.data()->xsd2InstPath();
-    if(savedData != "xyz") {
-        return error(QString("Expected %1 found '%2'").arg("xyz").arg(savedData));
+    if(!compare( "Config 3", ExpectedValue2, app.data()->xsd2InstPath()) ) {
+            return false;
+    }
+    XSDToXML testObject(app.data());
+    if(!compare( "Config 4", ExpectedValue2, testObject.getXSD2Inst()) ) {
+            return false;
+    }
+    return true ;
+}
+
+bool TestXMLBeans::testXSD2XMLConfigCheck()
+{
+    _subTestName = "TestXMLBeans/testXSD2XMLConfigCheck";
+    App app;
+    if(!app.init()) {
+        return error("init");
+    }
+    app.data()->setXsd2InstPath("");
+    if(XSDToXML::checkForConfiguration(app.data(), NULL)) {
+       return error("Empty");
+    }
+    QString fileName ;
+    {
+        QTemporaryFile file;
+        file.open();
+        file.write("a");
+        file.close();
+        fileName = file.fileName();
+        app.data()->setXsd2InstPath(fileName);
+        if(!XSDToXML::checkForConfiguration(app.data(), NULL)) {
+           return error("Existent:"+fileName);
+        }
+    }
+    if(XSDToXML::checkForConfiguration(app.data(), NULL)) {
+       return error("Non Existent:"+fileName);
     }
     return true ;
 }
