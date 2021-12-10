@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2021 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,45 +20,29 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#include "xsdeditor/xschema.h"
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
-
-namespace Ui
+XSDSchema *XSDSchema::loadXSDFromString(OperationResult &results, const QString &dataToLoad)
 {
-class ConfigValidation;
+    results.setError(true);
+    try {
+        XSDSchema *schema = new XSDSchema(NULL);
+        if(NULL != schema) {
+            XSDLoadContext loadContext;
+            schema->readFromString(&loadContext, dataToLoad, false, NULL, NULL);
+            if(schema != NULL) {
+                results.setOk();
+                return schema;
+            } else {
+                results.setMessage(QObject::tr("No schema"));
+            }
+        } else {
+            results.setMessage(QObject::tr("No root item"));
+        }
+    } catch(XsdException *ex) {
+        results.setMessage(QObject::tr("Error loading schema.\n%1").arg(ex->cause()));
+    } catch(...) {
+        results.setMessage(QObject::tr("Unknown exception."));
+    }
+    return NULL;
 }
-
-class ConfigValidation : public QWidget
-{
-    Q_OBJECT
-
-    ApplicationData* _data;
-
-public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
-
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
-private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-    void on_browseInst2Xsd_clicked();
-    void on_browseXsd2Inst_clicked();
-#ifdef QXMLEDIT_TEST
-    friend class TestXMLBeans;
-#endif
-};
-
-#endif // CONFIGVALIDATION_H

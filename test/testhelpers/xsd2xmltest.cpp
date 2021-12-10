@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2021 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,45 +20,27 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#include "xsd2xmltest.h"
+#include "testbase.h"
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
-
-namespace Ui
+XSD2XMLTest::XSD2XMLTest(ApplicationData *appData, const QString &fileToRead, const bool emulateError): XSDToXML(appData)
 {
-class ConfigValidation;
+    _fileToRead = fileToRead ;
+    _emulateError = emulateError ;
 }
 
-class ConfigValidation : public QWidget
+XSD2XMLTest::~XSD2XMLTest()
 {
-    Q_OBJECT
+    //
+}
 
-    ApplicationData* _data;
-
-public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
-
-    void init(ApplicationData* data);
-    void saveIfChanged();
-
-private:
-    Ui::ConfigValidation *ui;
-
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-    void on_browseInst2Xsd_clicked();
-    void on_browseXsd2Inst_clicked();
-#ifdef QXMLEDIT_TEST
-    friend class TestXMLBeans;
-#endif
-};
-
-#endif // CONFIGVALIDATION_H
+bool XSD2XMLTest::execute()
+{
+    if(_emulateError) {
+        _result->setError(true);
+        return false;
+    }
+    _instanceData = TestBase::loadTextFile(_fileToRead);
+    _result->setError(false);
+    return true;
+}

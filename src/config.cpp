@@ -249,6 +249,9 @@ const QString Config::KEY_BASE64_ENABLECOLUMNS("base64/enableColumns");
 
 // test
 const QString Config::KEY_TEST("test");
+// tools
+const QString Config::KEY_TOOLS_XMLBEANS_INST2XSD("tools/xmlbeans/inst2xsd");
+const QString Config::KEY_TOOLS_XMLBEANS_XSD2INST("tools/xmlbeans/xsd2inst");
 
 //------------------------------------------------------
 static QSettings *config = NULL ;

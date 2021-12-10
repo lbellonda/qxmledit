@@ -1291,3 +1291,17 @@ QString Utils::pathFromParent(Element* parent, const QString &tag)
     const QString path = basePath + "/" + tag;
     return path;
 }
+
+
+QString Utils::truncateString(const QString &msgText, const int maxLength)
+{
+    if(msgText.length() < maxLength) {
+        return msgText;
+    }
+    return msgText.left(maxLength) + "...";
+}
+
+QString Utils::truncateString(const QString &msgText)
+{
+    return truncateString(msgText, DEFAULT_TRUNCATE_STRING_LENGTH);
+}

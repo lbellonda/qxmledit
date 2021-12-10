@@ -180,6 +180,7 @@ public:
     void viewAsXSD();
     void fireActionByName(const QString &name);
     void forgetData();
+    void generateXSDFromData();
 
 protected:
     virtual void changeEvent(QEvent *event);
@@ -422,6 +423,8 @@ private slots:
     void on_actionEditAsText_triggered();
     void on_actionTestXML_triggered();
     void on_actionLoadSample_triggered();
+    void on_actionGenerateXSD_triggered();
+    void on_actionGenerateXMLFromXSD_triggered();
     //----- other slots ------------------
 
     void onClipboardDataChanged(bool isData);

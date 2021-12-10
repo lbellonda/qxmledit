@@ -188,7 +188,10 @@ SOURCES += \
     extraction/scriptextractioneventtext.cpp \
     extraction/scriptextraction.cpp \
     extraction/scriptetractioneventelement.cpp \
-    testloadsample.cpp
+    testloadsample.cpp \
+    testxmlbeans.cpp \
+    testhelpers/xml2xsdtest.cpp \
+    testhelpers/xsd2xmltest.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -312,7 +315,10 @@ HEADERS += \
     helpers/testsplitscriptingoperationhelper.h \
     helpers/testextractionexecutorhelper.h \
     helpers/testwritableextractionoperationscriptcontext.h \
-    testloadsample.h
+    testloadsample.h \
+    testxmlbeans.h \
+    testhelpers/xml2xsdtest.h \
+    testhelpers/xsd2xmltest.h
 
 #OTHER_FILES += \
 

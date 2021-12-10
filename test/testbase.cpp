@@ -857,7 +857,7 @@ QString TestBase::normalizeCR(QString in) const
     return rep ;
 }
 
-QString TestBase::loadTextFile(const QString &filePath) const
+QString TestBase::loadTextFile(const QString &filePath)
 {
     QString result;
     QFile file(filePath);
@@ -866,4 +866,12 @@ QString TestBase::loadTextFile(const QString &filePath) const
         file.close();
     }
     return result ;
+}
+
+bool TestBase::compare(const QString &code, const QString &expected, const QString &current)
+{
+    if(expected != current) {
+        return error(QString("%1 expected: '%2; found '%3'").arg(code).arg(expected).arg(current));
+    }
+    return true ;
 }

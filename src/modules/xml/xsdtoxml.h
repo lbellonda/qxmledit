@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2021 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,45 +20,55 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#ifndef XSDTOXML_H
+#define XSDTOXML_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
+#include "xmlEdit.h"
+#include "regola.h"
+#include "utils.h"
+#include "operationresult.h"
 #include "applicationdata.h"
 
-namespace Ui
+class XSDToXML
 {
-class ConfigValidation;
-}
+protected:
+    bool _started ;
+    ApplicationData *_appData;
+    OperationResult *_result;
+    QTemporaryDir *_tempDir;
+    QString _dirPath;
+    QString _sourceFilePath;
+    QString _instanceData;
+    QString _localNameOfGlobalElement;
 
-class ConfigValidation : public QWidget
-{
-    Q_OBJECT
-
-    ApplicationData* _data;
-
+    static const int TimeoutExec = 30000;
 public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
+    XSDToXML(ApplicationData *appData);
+    virtual ~XSDToXML();
 
-    void init(ApplicationData* data);
-    void saveIfChanged();
+    bool generateData(OperationResult *result, Regola *regola, const QString &localNameOfGlobalElement);
+    QString data();
+    static bool checkForConfiguration(ApplicationData *appData, QWidget *parent);
 
 private:
-    Ui::ConfigValidation *ui;
+    bool saveData(Regola *regola);
+    void deleteData();
+    bool addError(OperationResult *result, const QString &msgText);
+    QString getXSD2Inst();
 
-    void save();
-    void enableButtons();
+    QString trunc(const QString &msgText);
+    QStringList makeArguments();
+    bool readResults();
+protected:
+    virtual bool execute();
+    QString dirPath();
+    QString resultPath();
+    QString sourceFilePath();
 
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-    void on_browseInst2Xsd_clicked();
-    void on_browseXsd2Inst_clicked();
-#ifdef QXMLEDIT_TEST
+#ifdef  QXMLEDIT_TEST
     friend class TestXMLBeans;
 #endif
+
 };
 
-#endif // CONFIGVALIDATION_H
+#endif // XSDTOXML_H

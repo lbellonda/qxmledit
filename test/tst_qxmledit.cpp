@@ -1641,6 +1641,19 @@ void TestQXmlEdit::testLoadSample()
     }
 }
 
+void TestQXmlEdit::testXMLBeans()
+{
+    {
+        TestXMLBeans test;
+        const bool result = test.testFast();
+        QVERIFY2(result, (QString("test load sample: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestXMLBeans test;
+        const bool result = test.testUnit();
+        QVERIFY2(result, (QString("test load sample: testUnit() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+}
 
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 // This function enabled for debug purposes. DO NOT REMOVE
@@ -1667,6 +1680,7 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
+    testXMLBeans();
     testElement();
 }
 

@@ -1058,6 +1058,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionInsertSpecial->setEnabled(!getEditor()->isReadOnly() && (isElementSelected || (!isSomeItemSelected && !hasRoot)));
     ui.actionAppendSpecial->setEnabled(!getEditor()->isReadOnly() && ((isAtTop && !hasRoot) || (!isAtTop && isSomeItemSelected))) ;
     ui.actionOpenSiblingsAtTheSameLevel->setEnabled(isElementSelected);
+    ui.actionGenerateXMLFromXSD->setEnabled(isXSDPresent && !isExplore);
 
     onComputeSelectionStateExperimentalFeatures();
     data->newSelectionState(this);
@@ -3984,4 +3985,14 @@ bool MainWindow::openSampleUsingDialog(const QString folderPath, const EWindowOp
         return loadSample(filePath, true, useWindow);
     }
     return false ;
+}
+
+void MainWindow::on_actionGenerateXSD_triggered()
+{
+    _controller.generateXSDFromData();
+}
+
+void MainWindow::on_actionGenerateXMLFromXSD_triggered()
+{
+    _controller.generateDataFromXSD();
 }

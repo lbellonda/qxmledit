@@ -129,7 +129,11 @@
      <item>
       <widget class="QPushButton" name="cmdSaxonPath">
        <property name="text">
-        <string>...</string>
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../risorse.qrc">
+         <normaloff>:/open/images/document-open.png</normaloff>:/open/images/document-open.png</iconset>
        </property>
       </widget>
      </item>
@@ -200,6 +204,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../risorse.qrc"/>
+ </resources>
  <connections/>
 </ui>

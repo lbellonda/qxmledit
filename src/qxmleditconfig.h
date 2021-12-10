@@ -256,6 +256,10 @@ public:
     // test
     static const QString KEY_TEST;
 
+    // tools
+    static const QString KEY_TOOLS_XMLBEANS_INST2XSD;
+    static const QString KEY_TOOLS_XMLBEANS_XSD2INST;
+
     //-----------------------------------------------------
 
     static const bool KEY_GENERAL_NOTIFICATIONS_ENABLED_DEFAULT_VALUE = true ;

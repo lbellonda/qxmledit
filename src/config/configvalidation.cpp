@@ -49,6 +49,8 @@ void ConfigValidation::init(ApplicationData* data)
     ui->useGraphVizReportHTML->setChecked(Config::getBool(Config::KEY_XSD_REPORT_USEGRAPHVIZ, false));
     ui->overrideGraphVizPathReport->setChecked(Config::getBool(Config::KEY_XSD_REPORT_OVERRIDEGRAPHVIZ, false));
     ui->dotVizPathReportHTML->setText(Config::getString(Config::KEY_XSD_REPORT_PATHGRAPHVIZ, ""));
+    ui->pathInst2Xsd->setText(Config::getString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, ""));
+    ui->pathXsd2Inst->setText(Config::getString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, ""));
     enableButtons();
 }
 
@@ -62,6 +64,8 @@ void ConfigValidation::save()
     Config::saveBool(Config::KEY_XSD_REPORT_USEGRAPHVIZ, ui->useGraphVizReportHTML->isChecked());
     Config::saveBool(Config::KEY_XSD_REPORT_OVERRIDEGRAPHVIZ, ui->overrideGraphVizPathReport->isChecked());
     Config::saveString(Config::KEY_XSD_REPORT_PATHGRAPHVIZ, ui->dotVizPathReportHTML->text());
+    Config::saveString(Config::KEY_TOOLS_XMLBEANS_INST2XSD, ui->pathInst2Xsd->text());
+    Config::saveString(Config::KEY_TOOLS_XMLBEANS_XSD2INST, ui->pathXsd2Inst->text());
 }
 
 void ConfigValidation::saveIfChanged()
@@ -90,4 +94,28 @@ void ConfigValidation::enableButtons()
 void ConfigValidation::on_overrideGraphVizPathReport_clicked()
 {
     enableButtons();
+}
+
+void ConfigValidation::on_browseInst2Xsd_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(
+                           this, tr("Choose XMLBeans inst2xsd path"),
+                           QXmlEditData::sysFilePathForOperation(ui->pathInst2Xsd->text()),
+                           tr("All files (*)")
+                       );
+    if(!filePath.isEmpty()) {
+        ui->pathInst2Xsd->setText(filePath);
+    }
+}
+
+void ConfigValidation::on_browseXsd2Inst_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(
+                           this, tr("Choose XMLBeans xsd2inst path"),
+                           QXmlEditData::sysFilePathForOperation(ui->pathXsd2Inst->text()),
+                           tr("All files (*)")
+                       );
+    if(!filePath.isEmpty()) {
+        ui->pathXsd2Inst->setText(filePath);
+    }
 }

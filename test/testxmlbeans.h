@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2021 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,45 +20,48 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-#ifndef CONFIGVALIDATION_H
-#define CONFIGVALIDATION_H
+#ifndef TESTXMLBEANS_H
+#define TESTXMLBEANS_H
 
-#include <QWidget>
-#include "libQXmlEdit_global.h"
-#include "applicationdata.h"
+#include "testbase.h"
+#include "mainwndcontroller.h"
 
-namespace Ui
+class TestXMLBeans : public TestBase, XSDTopElementChooser, XMLVsXSDFactory
 {
-class ConfigValidation;
-}
+    bool testXML2XSDParameters();
+    bool testXML2XSDLoadXSD();
+    bool testXML2XSDConfig();
+    bool testXML2XSDConfigCheck();
+    bool testXML2XSD();
+    bool testXML2XSDRunInner(const QString &code,
+                             const QString &fileInput, const bool expectedResult,
+                             const bool errorInExecution, const QString &expectedDataFile);
+    //
+    bool testXSD2XML();
+    bool testXSD2XMLParameters();
+    bool testXSD2XMLRun();
+    bool testXSD2XMLConfig();
+    bool testXSD2XMLConfigCheck();
+    bool testXSD2XMLRunInner(const QString &code,
+                             const QString &fileInput, const bool expectedResult,
+                             const QString &elementChosen, const bool errorInExecution,
+                             const QString &expectedDataFile);
 
-class ConfigValidation : public QWidget
-{
-    Q_OBJECT
 
-    ApplicationData* _data;
-
+    QString _factoryChooseElement ;
+    QString _factoryFileToRead ;
+    bool _factoryErrorInExecution ;
 public:
-    explicit ConfigValidation(QWidget *parent = 0);
-    ~ConfigValidation();
+    TestXMLBeans();
+    virtual ~TestXMLBeans();
 
-    void init(ApplicationData* data);
-    void saveIfChanged();
+    bool testFast();
+    bool testUnit();
 
-private:
-    Ui::ConfigValidation *ui;
+    virtual QString selectTopLevelSchemaElement(Regola *regola);
+    virtual XMLToXSD* newXML2XSD(ApplicationData *appData);
+    virtual XSDToXML* newXSD2XML(ApplicationData *appData);
 
-    void save();
-    void enableButtons();
-
-private slots:
-    void on_browseDotVizPath_clicked();
-    void on_overrideGraphVizPathReport_clicked();
-    void on_browseInst2Xsd_clicked();
-    void on_browseXsd2Inst_clicked();
-#ifdef QXMLEDIT_TEST
-    friend class TestXMLBeans;
-#endif
 };
 
-#endif // CONFIGVALIDATION_H
+#endif // TESTXMLBEANS_H
