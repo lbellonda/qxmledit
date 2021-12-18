@@ -71,7 +71,7 @@ static void experimental();
 static void installMsgHandler();
 static void addMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock);
 static void removeMenuExtra(QXmlEditApplication *app, MainMenuBlock *mainMenuBlock);
-static bool licenseAgreement();
+static void licenseAgreement();
 static int doAnonymize(QXmlEditApplication *app, StartParams &startParams);
 static bool handleCommandLineArguments(QXmlEditApplication &app, StartParams &startParams);
 
@@ -110,9 +110,7 @@ int internalMain(int argc, char *argv[])
     Element::loadIcons();
     app.setWindowIcon(QIcon(":/tree/icon.png"));
 
-    if(!licenseAgreement()) {
-        return -1 ;
-    }
+    licenseAgreement();
 
     bool decoded = startParams.decodeCommandLine(app.arguments());
     if(app.handleSingleInstance(&startParams)) {
@@ -298,17 +296,12 @@ void installMsgHandler()
 #endif
 }
 
-static bool licenseAgreement()
+static void licenseAgreement()
 {
     if(!Config::getBool(Config::KEY_GENERAL_LICENSE_AGREED, false)) {
         LicenseDialog dlg;
-        if(dlg.exec() == QDialog::Accepted) {
-            Config::saveBool(Config::KEY_GENERAL_LICENSE_AGREED, true);
-            return true ;
-        }
-        return false;
+        Config::saveBool(Config::KEY_GENERAL_LICENSE_AGREED, true);
     }
-    return true;
 }
 
 #if !defined(QXMLEDIT_NOMAIN)
