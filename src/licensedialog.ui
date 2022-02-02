@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>517</width>
+    <width>591</width>
     <height>502</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Please read the license agreement. You must accept the terms to use this program</string>
+      <string>Please read the license agreement. The license can be reviewed in the &quot;About&quot; panel.</string>
      </property>
     </widget>
    </item>
@@ -29,37 +29,18 @@
     <widget class="QTextBrowser" name="textBrowser"/>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QRadioButton" name="radioYes">
-       <property name="text">
-        <string>I have read and agree the license terms. The license can be reviewed in the &quot;About&quot; panel.</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="radioNo">
-       <property name="text">
-        <string>I do not accept the license terms</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <resources>
-  <include location="risorse.qrc"/>
   <include location="risorse.qrc"/>
  </resources>
  <connections>

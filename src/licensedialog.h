@@ -42,9 +42,6 @@ public:
 
 private:
     Ui::LicenseDialog *ui;
-private slots:
-    void on_radioNo_clicked(bool clicked);
-    void on_radioYes_clicked(bool clicked);
 };
 
 #endif // LICENSEDIALOG_H

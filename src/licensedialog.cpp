@@ -35,8 +35,6 @@ LicenseDialog::LicenseDialog(QWidget *parent) :
         reject();
     }
     ui->textBrowser->setPlainText(textLicense);
-    ui->radioNo->setChecked(true);
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 }
 
 LicenseDialog::~LicenseDialog()
@@ -60,15 +58,3 @@ QString LicenseDialog::readLicense(const QString & filePath)
     }
     return result ;
 }
-
-
-void LicenseDialog::on_radioNo_clicked(bool /*clicked*/)
-{
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-}
-
-void LicenseDialog::on_radioYes_clicked(bool /*clicked*/)
-{
-    ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(ui->radioYes->isChecked());
-}
-
