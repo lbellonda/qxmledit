@@ -1,4 +1,5 @@
 0.9.17
+    Issue #83, the license dialog don't ask questions anymore.
     Added generation of XML and XSD via XMLBeans integration (XMLBeans required).
     Issue #81, path in tooltip under configuration.
     Issue #76, Russian translations
