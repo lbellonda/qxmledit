@@ -39,6 +39,7 @@ MainMenuBlock::MainMenuBlock(QObject *parent): QObject(parent)
     _sessionAction = NULL ;
     _viewMapAction = NULL ;
     _splitFileAction = NULL ;
+    _quitAction = NULL ;
 }
 
 MainMenuBlock::~MainMenuBlock()
@@ -66,6 +67,8 @@ void MainMenuBlock::setup()
     _viewMapAction = new QAction(tr("View Data"), this);
     _splitFileAction = new QAction(tr("Extract Fragments from a File"), this);
     _raiseWindows = new QAction(tr("Raise all windows"), this);
+    _quitAction = new QAction(tr("Quit"), this);
+    _contextMenu->addSeparator();
     _contextMenu->addAction(_newWindowAction);
     _contextMenu->addSeparator();
     _contextMenu->addAction(_encodingToolsAction);
@@ -74,6 +77,8 @@ void MainMenuBlock::setup()
     _contextMenu->addAction(_viewMapAction);
     _contextMenu->addAction(_splitFileAction);
     _contextMenu->addAction(_raiseWindows);
+    _contextMenu->addSeparator();
+    _contextMenu->addAction(_quitAction);
 }
 
 //-----
@@ -112,6 +117,9 @@ ANotifier::~ANotifier()
     if(NULL != _mainMenuBlock._raiseWindows) {
         disconnect(_mainMenuBlock._raiseWindows, SIGNAL(triggered()), this, SLOT(onRaiseWindow()));
     }
+    if(NULL != _mainMenuBlock._quitAction) {
+        disconnect(_mainMenuBlock._quitAction, SIGNAL(triggered()), this, SLOT(onQuit()));
+    }
 
     _trayIcon.setContextMenu(NULL);
 }
@@ -136,6 +144,7 @@ void ANotifier::setup()
     connect(_mainMenuBlock._viewMapAction, SIGNAL(triggered()), this, SLOT(onViewMapXml()));
     connect(_mainMenuBlock._splitFileAction, SIGNAL(triggered()), this, SLOT(onSplitFile()));
     connect(_mainMenuBlock._raiseWindows, SIGNAL(triggered()), this, SLOT(onRaiseWindow()));
+    connect(_mainMenuBlock._quitAction, SIGNAL(triggered()), this, SLOT(onQuit()));
     // end menu
 }
 
@@ -240,5 +249,10 @@ void ANotifier::onEncodingTools()
 void ANotifier::onCodePageTools()
 {
     emit codePageToolsRequested();
+}
+
+void ANotifier::onQuit()
+{
+    emit quitRequested();
 }
 
