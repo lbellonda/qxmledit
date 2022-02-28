@@ -187,6 +187,7 @@ void VisMapDialog::loadFile(const QString &fileName)
             attributesSummaryData = &_attributesSummaryData;
         }
 
+        _saveStatsPath = fileName ;
         _filePath = fileName ;
         attributesSummaryData->reset();
         VisDataSax handler(&names, nodes, attributesSummaryData);
@@ -604,7 +605,7 @@ void VisMapDialog::on_cmdViewGraph_clicked()
     if(_tagNodes.count() > 0) {
         QList<TagNode*> nodesList ;
         nodesList.append(_tagNodes.values());
-        NodesRelationsDialog dialog(false, nodesList, &_attributesSummaryData, this);
+        NodesRelationsDialog dialog(false, nodesList, &_attributesSummaryData, this, _saveStatsPath);
         dialog.exec();
     } else {
         Utils::error(this, tr("No data to show."));

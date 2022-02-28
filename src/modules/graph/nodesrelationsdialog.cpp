@@ -35,11 +35,15 @@
 
 //----------------------------------------------------------------------------------------------------------------
 
-NodesRelationsDialog::NodesRelationsDialog(const bool newCanLoadData, QList<TagNode*> &dataList, AttributesSummaryData *attributesSummaryData, QWidget *parent) :
+NodesRelationsDialog::NodesRelationsDialog(const bool newCanLoadData, QList<TagNode*> &dataList, AttributesSummaryData *attributesSummaryData, QWidget *parent, const QString &intialPath) :
     QDialog(parent),
     controller(this),
     ui(new Ui::NodesRelationsDialog)
 {
+    inputFileName = intialPath ;
+    _saveStatsPath = intialPath ;
+    _exportCSVAttrs = intialPath;
+
     _attributesSummaryData = &_localAttributesSummaryData ;
     if(NULL != attributesSummaryData) {
         _attributesSummaryData = attributesSummaryData ;
