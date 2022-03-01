@@ -1,4 +1,5 @@
 0.9.17
+    More options in base64 dialog.
     Added generation of XML and XSD via XMLBeans integration (XMLBeans required).
     Issue #81, path in tooltip under configuration.
     Issue #76, Russian translations

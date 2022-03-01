@@ -55,6 +55,7 @@ public:
 
     static void showDialog();
     void loadFromBinaryFile(const QString &filePath);
+    void loadFromBase64Data(const QString &filePath);
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
 protected:
@@ -70,6 +71,8 @@ private slots:
     void onCurrentEncodingChanged(int newIndex);
     void on_cmdLoadFromFile_clicked();
     void on_cmdLoadFromTextFile_clicked();
+    void on_cmdLoadBase64CodedData_clicked();
+    void on_cmdSaveBase64CodedData_clicked();
     void on_cmdSaveBinaryData_clicked();
     void on_cbType_currentIndexChanged(int index);
     void on_cbLimitColumns_clicked();
