@@ -41,6 +41,7 @@ Base64Dialog::Base64Dialog(QWidget *parent) :
     _isConverting = false;
     _currentCodec = NULL ;
     _type = (Base64Utils::EBase64)Config::getBool(Config::KEY_BASE64_TYPE, Base64Utils::RFC4648Standard);
+    Utils::addMaximizeToDialog(this);
     ui->setupUi(this);
     setupOther();
     setAcceptDrops(true);
@@ -173,6 +174,48 @@ void Base64Dialog::on_cmdLoadFromTextFile_clicked()
     }
 }
 
+void Base64Dialog::on_cmdLoadBase64CodedData_clicked()
+{
+    QString filePath = QFileDialog::getOpenFileName(this,
+                       tr("Choose a File that contains Base 64 Encoded Text"),
+                       QXmlEditData::sysFilePathForOperation(_fileDataPath), tr("All files (*);;XML files (*.xml)"));
+    if(!filePath.isEmpty()) {
+        _fileDataPath = filePath ;
+        loadFromBase64Data(filePath);
+    }
+}
+
+void Base64Dialog::loadFromBase64Data(const QString &filePath)
+{
+    // This function raises an error.
+    QByteArray data = Utils::readBytesFromFile(filePath);
+    QString strBase64(data);
+    ui->base64Edit->setPlainText(strBase64);
+}
+
+void Base64Dialog::on_cmdSaveBase64CodedData_clicked()
+{
+    QString text = ui->base64Edit->toPlainText();
+    if(text.isEmpty()) {
+        return;
+    }
+
+    QString filePath = QFileDialog::getSaveFileName(this, QObject::tr("Save Base 64 Coded Data to File"),
+                       QXmlEditData::sysFilePathForOperation(_fileDataPath),
+                       QObject::tr("All files (*)"));
+    if(filePath.isEmpty()) {
+        return ;
+    }
+    saveBase64CodedData(filePath, text);
+}
+
+void Base64Dialog::saveBase64CodedData(const QString &filePath, const QString &text)
+{
+    QFile file(filePath);
+    if(!Utils::writeStringToFile(&file, text, "utf-8")) {
+        Utils::error(this, tr("Operation failed"));
+    }
+}
 
 void Base64Dialog::loadTextFile(const QString &filePath)
 {
@@ -232,3 +275,4 @@ void Base64Dialog::updateTimeout()
     _updateTimer.stop();
     textChanged();
 }
+

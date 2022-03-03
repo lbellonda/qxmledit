@@ -44,6 +44,7 @@ public:
     QAction *_viewMapAction;
     QAction *_splitFileAction;
     QAction *_raiseWindows;
+    QAction *_quitAction;
 
 public:
     MainMenuBlock(QObject *parent = NULL);
@@ -86,6 +87,7 @@ private slots:
     void onSplitFile();
     void onViewMapXml();
     void onRaiseWindow();
+    void onQuit();
 
 signals:
     void newWindowRequested();
@@ -95,6 +97,7 @@ signals:
     void splitFileRequested();
     void viewMapRequested();
     void raiseWindowsRequested();
+    void quitRequested();
 };
 
 #endif // ANOTIFIER_H

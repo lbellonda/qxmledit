@@ -104,6 +104,7 @@ public slots:
     void onSplitFile();
     void onViewData();
     void onRaiseWindows();
+    void onQuit();
 private slots:
     void newServerConnection();
     void onCommandNew();

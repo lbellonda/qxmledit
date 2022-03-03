@@ -148,6 +148,12 @@ void QXmlEditApplication::onNewWindow()
     newWindow->show();
 }
 
+void QXmlEditApplication::onQuit()
+{
+    onCommandQuit();
+}
+
+
 MainWindow *QXmlEditApplication::makeNewWindow()
 {
     return _appData->newWindow();

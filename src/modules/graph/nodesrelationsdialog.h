@@ -84,7 +84,7 @@ class LIBQXMLEDITSHARED_EXPORT NodesRelationsDialog : public QDialog
     bool exportAttributesCSVOnDevice(QIODevice &ioDevice);
     void updateEnableAttributeLists();
 public:
-    explicit NodesRelationsDialog(const bool canLoadData, QList<TagNode*> &dataList, AttributesSummaryData *attributesSummaryData, QWidget *parent = 0);
+    explicit NodesRelationsDialog(const bool canLoadData, QList<TagNode*> &dataList, AttributesSummaryData *attributesSummaryData, QWidget *parent = 0, const QString &intialPath = "");
     ~NodesRelationsDialog();
 
     QGraphicsScene *scene();

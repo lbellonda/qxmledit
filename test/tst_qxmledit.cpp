@@ -1682,6 +1682,7 @@ void TestQXmlEdit::testNew()
 #endif
     testXMLBeans();
     testElement();
+    testBase64();
 }
 
 QTEST_MAIN(TestQXmlEdit)

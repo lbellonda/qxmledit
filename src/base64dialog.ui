@@ -107,32 +107,42 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
+        <layout class="QHBoxLayout" name="formLayout">
          <item>
-          <widget class="QPushButton" name="cmdLoadFromFile">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Load binary data from file...</string>
-           </property>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_5z">
+           <item>
+            <widget class="QPushButton" name="cmdLoadFromFile">
+             <property name="text">
+              <string>Load binary data from file...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="cmdSaveBinaryData">
+             <property name="text">
+              <string>Save binary data to file...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <widget class="QPushButton" name="cmdSaveBinaryData">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Save binary data to file...</string>
-           </property>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QPushButton" name="cmdSaveBase64CodedData">
+             <property name="text">
+              <string>Save Base 64 coded data...</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="cmdLoadBase64CodedData">
+             <property name="text">
+              <string>Load Base 64 coded data...</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>

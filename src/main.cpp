@@ -140,6 +140,7 @@ int internalMain(int argc, char *argv[])
     app.connect(appData.notifier(), SIGNAL(splitFileRequested()), &app, SLOT(onSplitFile()));
     app.connect(appData.notifier(), SIGNAL(viewMapRequested()), &app, SLOT(onViewData()));
     app.connect(appData.notifier(), SIGNAL(raiseWindowsRequested()), &app, SLOT(onRaiseWindows()));
+    app.connect(appData.notifier(), SIGNAL(quitRequested()), &app, SLOT(onQuit()));
     MainMenuBlock mainMenuBlock;
     addMenuExtra(&app, &mainMenuBlock);
     int result = app.exec();
@@ -151,6 +152,7 @@ int internalMain(int argc, char *argv[])
     app.disconnect(appData.notifier(), SIGNAL(codePageToolsRequested()), &app, SLOT(onCodePagesTools()));
     app.disconnect(appData.notifier(), SIGNAL(encodingToolsRequested()), &app, SLOT(onEncodingTools()));
     app.disconnect(appData.notifier(), SIGNAL(newWindowRequested()), &app, SLOT(onNewWindow()));
+    app.disconnect(appData.notifier(), SIGNAL(quitRequested()), &app, SLOT(onQuit()));
     appData.end();
     if(!Config::end()) {
         Utils::errorSavingUserSettings();
