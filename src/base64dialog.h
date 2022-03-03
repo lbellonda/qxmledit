@@ -61,6 +61,7 @@ public:
 protected:
     void loadTextFile(const QString &filePath);
     void restartUpdate();
+    void saveBase64CodedData(const QString &filePath, const QString &text);
 
 private:
     Ui::Base64Dialog *ui;

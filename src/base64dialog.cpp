@@ -206,7 +206,11 @@ void Base64Dialog::on_cmdSaveBase64CodedData_clicked()
     if(filePath.isEmpty()) {
         return ;
     }
+    saveBase64CodedData(filePath, text);
+}
 
+void Base64Dialog::saveBase64CodedData(const QString &filePath, const QString &text)
+{
     QFile file(filePath);
     if(!Utils::writeStringToFile(&file, text, "utf-8")) {
         Utils::error(this, tr("Operation failed"));

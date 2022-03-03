@@ -37,6 +37,7 @@
 #define BASE64_FILE_BINARY    "../test/data/base64/base64_binary.jpg"
 #define BASE64_FILE_UTILS    "../test/data/base64/base64_utils.dat"
 #define BASE64_FILE_TEXT    ":/base64/base64_text.dat"
+#define BASE64_FILE_BASE64 "../test/data/base64/base64_base64.dat"
 
 TestBase64::TestBase64()
 {
@@ -284,6 +285,9 @@ bool TestBase64::testUnits()
     if(!testUnitUtilsColumnLimit()) {
         return false;
     }
+    if(! test_base64_utils_loadb64() ) {
+        return false;
+    }
     return true;
 }
 
@@ -502,3 +506,26 @@ bool TestBase64::testIO(const Base64Utils::EBase64 type, const bool useLimit)
     return true;
 }
 
+bool TestBase64::test_base64_utils_loadb64()
+{
+    _testName = "test_base64_utils_loadb64" ;
+    Base64Dialog dlg;
+    dlg.loadFromBase64Data(BASE64_FILE_BASE64);
+    QPlainTextEdit *text = dlg.findChild<QPlainTextEdit*>("textEdit");
+    QPlainTextEdit *base = dlg.findChild<QPlainTextEdit*>("base64Edit");
+
+    if( (NULL==text) || (NULL ==base) ) {
+        return error("Null edit boxes");
+    }
+    QString encoded = base->toPlainText();
+    QString expected = "YWJjZA==" ;
+    if(encoded!=expected) {
+        return error(QString("Load differs Decoded (%1):'%2'\nExpected (%3):%4").arg(encoded.length()).arg(encoded).arg(expected.length()).arg(expected));
+    }
+    QString plain = text->toPlainText();
+    expected = "abcd" ;
+    if(plain!=expected) {
+        return error(QString("Load differs Plain (%1):'%2'\nExpected (%3):%4").arg(plain.length()).arg(plain).arg(expected.length()).arg(expected));
+    }
+    return true;
+}
