@@ -37,7 +37,7 @@
 #define BASE64_FILE_BINARY    "../test/data/base64/base64_binary.jpg"
 #define BASE64_FILE_UTILS    "../test/data/base64/base64_utils.dat"
 #define BASE64_FILE_TEXT    ":/base64/base64_text.dat"
-#define BASE64_FILE_BASE64 "../test/data/base64/base64_base64.dat"
+#define BASE64_FILE_BASE64 "../test/data/base64/base64_base64.txt"
 
 TestBase64::TestBase64()
 {
@@ -47,7 +47,7 @@ TestBase64::TestBase64()
 
 bool TestBase64::testFast()
 {
-    return testUnitUtilsColumnLimit();
+    return test_base64_utils_loadb64();
 }
 
 bool TestBase64::test_base64()
@@ -517,7 +517,7 @@ bool TestBase64::test_base64_utils_loadb64()
     if( (NULL==text) || (NULL ==base) ) {
         return error("Null edit boxes");
     }
-    QString encoded = base->toPlainText();
+    QString encoded = base->toPlainText().trimmed();
     QString expected = "YWJjZA==" ;
     if(encoded!=expected) {
         return error(QString("Load differs Decoded (%1):'%2'\nExpected (%3):%4").arg(encoded.length()).arg(encoded).arg(expected.length()).arg(expected));
