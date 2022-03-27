@@ -35,6 +35,7 @@
 #include <QStringList>
 #include <QPixmap>
 #include <QNetworkAccessManager>
+#include "libQXmlEdit_global.h"
 
 // macro to define an attrbute
 #define DECL_XSD_ATTR(type, name) type name; bool name##_used
@@ -1706,7 +1707,7 @@ public:
     XSDSchema *mainSchema();
 };
 
-class XSDSchema : public XSchemaObject, public XSchemaRoot
+class LIBQXMLEDITSHARED_EXPORT XSDSchema : public XSchemaObject, public XSchemaRoot
 {
     Q_OBJECT
 

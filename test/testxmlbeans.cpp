@@ -41,7 +41,6 @@
 
 TestXMLBeans::TestXMLBeans()
 {
-    _factoryChooseElement = false;
     _factoryErrorInExecution = false;
 }
 

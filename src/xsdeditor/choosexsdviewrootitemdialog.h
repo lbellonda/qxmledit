@@ -3,6 +3,7 @@
 
 #include "xmlEdit.h"
 #include <QListWidgetItem>
+#include "libQXmlEdit_global.h"
 
 class XSchemaElement;
 
@@ -11,7 +12,7 @@ namespace Ui
 class ChooseXSDViewRootItemDialog;
 }
 
-class ChooseXSDViewRootItemDialog : public QDialog
+class LIBQXMLEDITSHARED_EXPORT ChooseXSDViewRootItemDialog : public QDialog
 {
     Q_OBJECT
     QString _selection ;
