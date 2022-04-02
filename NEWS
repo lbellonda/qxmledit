@@ -1,12 +1,12 @@
 0.9.17
     Issue #83, the license dialog don't ask questions anymore.
-    More options in base64 dialog.
+    Option to load a base64 coded data file in base64 dialog.
     Added generation of XML and XSD via XMLBeans integration (XMLBeans required).
     Issue #81, path in tooltip under configuration.
-    Issue #76, Russian translations
+    Issue #76, Russian translations.
     Issue #73, wrong library versions.
     Issue #71, installation for desktop files.
-    Inserted an alternative set of sources to test installation.
+    Added an alternative set of sources to test installation.
 
 0.9.16
     Load a sample of a file.
