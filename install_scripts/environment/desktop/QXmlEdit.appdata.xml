@@ -18,8 +18,6 @@
         </screenshot>
     </screenshots>
     <categories>
-    ​    <category>Utility</category>
-        <category>Qt</category>
         <category>Development</category>
         <category>TextEditor</category>
     ​</categories>
@@ -28,11 +26,5 @@
     <releases>
       <release version="0.9.18" />
     </releases>
-    <provides>
-   ​    <binary>qxmledit</binary>
-   ​  </provides>
-    <mimetypes>
-    ​    <mimetype>text/xml</mimetype>
-    ​ </mimetypes>
     <project_group>Qt</project_group>
 </component>
