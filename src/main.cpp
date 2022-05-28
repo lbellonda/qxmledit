@@ -300,10 +300,7 @@ void installMsgHandler()
 
 static void licenseAgreement()
 {
-    if(!Config::getBool(Config::KEY_GENERAL_LICENSE_AGREED, false)) {
-        LicenseDialog dlg;
-        Config::saveBool(Config::KEY_GENERAL_LICENSE_AGREED, true);
-    }
+    LicenseDialog::licenseAgreement();
 }
 
 #if !defined(QXMLEDIT_NOMAIN)

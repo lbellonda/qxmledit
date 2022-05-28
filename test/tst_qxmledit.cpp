@@ -1655,6 +1655,20 @@ void TestQXmlEdit::testXMLBeans()
     }
 }
 
+void TestQXmlEdit::testAbout()
+{
+    {
+        TestAbout test;
+        const bool result = test.testFast();
+        QVERIFY2(result, (QString("test about: testFast() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+    {
+        TestAbout test;
+        const bool result = test.testUnit();
+        QVERIFY2(result, (QString("test about: testUnit() '%1'").arg(test.errorString())).toLatin1().data());
+    }
+}
+
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
 // This function enabled for debug purposes. DO NOT REMOVE
 //static void msgHandler(QtMsgType type, const char *msg)
@@ -1680,6 +1694,7 @@ void TestQXmlEdit::testNew()
 #if QT_VERSION >= QT_VERSION_CHECK(5,0,0)
     qInstallMessageHandler(msgHandler);
 #endif
+    testAbout();
 }
 
 QTEST_MAIN(TestQXmlEdit)

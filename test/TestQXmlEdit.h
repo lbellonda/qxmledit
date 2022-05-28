@@ -107,6 +107,7 @@
 #include "testtestxmlfile.h"
 #include "testloadsample.h"
 #include "testxmlbeans.h"
+#include "testabout.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -223,6 +224,7 @@ private Q_SLOTS:
     void testTestXMLFile();
     void testLoadSample();
     void testXMLBeans();
+    void testAbout();
 };
 
 

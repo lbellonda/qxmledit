@@ -1,3 +1,6 @@
+0.9.18
+    Issue #86, show license dialog at first startup.
+
 0.9.17
     Issue #83, the license dialog don't ask questions anymore.
     Option to load a base64 coded data file in base64 dialog.

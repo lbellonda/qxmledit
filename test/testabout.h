@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2022 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,35 +20,24 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef TESTABOUT_H
+#define TESTABOUT_H
 
-#ifndef LICENSEDIALOG_H
-#define LICENSEDIALOG_H
+#include "testbase.h"
 
-#include <QDialog>
-
-namespace Ui
+class TestAbout : public TestBase
 {
-class LicenseDialog;
-}
-
-class LicenseDialog : public QDialog
-{
-    Q_OBJECT
-
-    QString readLicense(const QString & filePath);
+    QMap<QString, QVariant> _configBackend;
+    bool testLicense();
+    bool testLicenseStart();
+    bool testLicenseStarted();
 public:
-    explicit LicenseDialog(QWidget *parent = 0);
-    virtual ~LicenseDialog();
+    TestAbout();
+    virtual ~TestAbout();
 
-    static void licenseAgreement();
-#ifdef QXMLEDIT_TEST
-    static bool testLicenseValid;
-#endif
+    bool testFast();
+    bool testUnit();
 
-protected:
-    virtual void showEvent(QShowEvent *event);
-private:
-    Ui::LicenseDialog *ui;
 };
 
-#endif // LICENSEDIALOG_H
+#endif // TESTABOUT_H

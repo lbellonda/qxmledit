@@ -191,7 +191,8 @@ SOURCES += \
     testloadsample.cpp \
     testxmlbeans.cpp \
     testhelpers/xml2xsdtest.cpp \
-    testhelpers/xsd2xmltest.cpp
+    testhelpers/xsd2xmltest.cpp \
+    testabout.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -318,7 +319,8 @@ HEADERS += \
     testloadsample.h \
     testxmlbeans.h \
     testhelpers/xml2xsdtest.h \
-    testhelpers/xsd2xmltest.h
+    testhelpers/xsd2xmltest.h \
+    testabout.h
 
 #OTHER_FILES += \
 

@@ -20,10 +20,19 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
-#include "licensedialog.h"
-#include "ui_licensedialog.h"
 #include "xmlEdit.h"
+#include "licensedialog.h"
+#include "qxmleditconfig.h"
+#include "ui_licensedialog.h"
+
+void LicenseDialog::licenseAgreement()
+{
+    if(!Config::getBool(Config::KEY_GENERAL_LICENSE_AGREED, false)) {
+        LicenseDialog dlg;
+        dlg.exec();
+        Config::saveBool(Config::KEY_GENERAL_LICENSE_AGREED, true);
+    }
+}
 
 LicenseDialog::LicenseDialog(QWidget *parent) :
     QDialog(parent),
@@ -40,6 +49,20 @@ LicenseDialog::LicenseDialog(QWidget *parent) :
 LicenseDialog::~LicenseDialog()
 {
     delete ui;
+}
+
+#ifdef QXMLEDIT_TEST
+bool LicenseDialog::testLicenseValid = false ;
+#endif
+
+void LicenseDialog::showEvent(QShowEvent *event)
+{
+#ifdef QXMLEDIT_TEST
+    QString license = ui->textBrowser->toPlainText();
+    testLicenseValid = !license.isEmpty();
+    QTimer::singleShot(200, this, SLOT(accept()));
+#endif
+    QDialog::showEvent(event);
 }
 
 QString LicenseDialog::readLicense(const QString & filePath)
