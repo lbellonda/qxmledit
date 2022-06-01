@@ -140,11 +140,18 @@ snippets.files = data/snippets/{6d11b8d1-e285-46b2-8375-79e17cab9862}.xml \
     data/snippets/{e40792fb-16de-4418-9320-4feaa92c28a3}.xml \
     data/snippets/{edc60671-0ae0-401b-989d-5d0b82976bce}.xml \
     data/snippets/{f6d7ebdd-c505-4a6a-8a16-f7c99581a995}.xml
+
 manual.path = $$INST_DOC_DIR
 manual.files = ../doc/QXmlEdit_manual.pdf
 
 iconInfo.path = $$INST_ICON_DIR
 iconInfo.files = ../install_scripts/environment/icon/qxmledit.png
+
+desktopInfo.path = $$INST_DESKTOP_DIR
+desktopInfo.files = ../install_scripts/environment/desktop/QXmlEdit.desktop
+
+metaInfo.path = $$INST_APPDATA_DIR
+metaInfo.files = ../install_scripts/environment/desktop/QXmlEdit.appdata.xml
 
 #-----------------------------------------------------------
 
@@ -158,6 +165,10 @@ unix:INSTALLS += snippets
 unix:INSTALLS += styles
 unix:INSTALLS += manual
 unix:INSTALLS += desktopInfo
+
+equals(INSTALL_METAINFO_ENABLED, "Y") {
+    unix:INSTALLS += metaInfo
+}
 
 include("../src/allsources.pri")
 

@@ -11,6 +11,7 @@ export QXMLEDIT_INST_LIB_DIR=/mnt/ramdisk/qxmledit/lib
 export QXMLEDIT_INST_INCLUDE_DIR=/mnt/ramdisk/qxmledit/include
 export QXMLEDIT_INST_TRANSLATIONS_DIR=/mnt/ramdisk/qxmledit/po
 export QXMLEDIT_INST_ICON_DIR=/mnt/ramdisk/qxmledit/icon
+export QXMLEDIT_INST_METAINFO_DIR=/mnt/ramdisk/qxmledit/metainfo
 export QXMLEDIT_COMPILE_DISABLE_TIPS=true
 export QXMLEDIT_NO_QWTPLOT=Y
 export QXMLEDIT_INST_USE_C11=y

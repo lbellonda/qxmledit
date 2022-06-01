@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -31,7 +31,7 @@ include("../src/cconfig.pri")
 
 include(../src/coptions.pri)
 
-##############################################3
+##############################################
 
 # This is necessary to build the test executable as an app
 DEFINES += LIBQXMLEDIT_LIBRARY_STATIC
@@ -61,8 +61,6 @@ win32 {
     DEFINES += "NOGDI"
 }
 }
-
-include(../src/coptions.pri)
 
 equals(INST_AVOID_PRECOMP_HEADERS, "") {
  CONFIG += precompile_header

@@ -30,7 +30,6 @@
 # Additional resources not included with this script:
 #.desktop file in: install_scripts/environment/desktop/QXmlEdit.desktop
 
-
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
 
 #message(QXMLEDIT_INST_DATA_DIR = $$(QXMLEDIT_INST_DATA_DIR))
@@ -53,6 +52,29 @@ isEmpty(INST_DATA_DIR) {
 message("Inst data dir $$INST_DATA_DIR")
 
 ###########################################
+INST_METAINFO_DIR=$$(QXMLEDIT_INST_METAINFO_DIR)
+!isEmpty(QXMLEDIT_INST_METAINFO_DIR) {
+    INST_METAINFO_DIR=$$QXMLEDIT_INST_METAINFO_DIR
+}
+isEmpty(INST_METAINFO_DIR) {
+    INST_METAINFO_DIR = $$INST_METAINFO_DIR
+}
+message("Inst metainfo dir $$INST_METAINFO_DIR")
+# enabling
+INSTALL_METAINFO_ENABLED="Y"
+DONTUSE_METAINFO=$$(QXMLEDIT_NO_METAINFO)
+!isEmpty(QXMLEDIT_NO_METAINFO) {
+    DONTUSE_METAINFO=$$QXMLEDIT_NO_METAINFO
+}
+
+!isEmpty(DONTUSE_METAINFO) {
+    INSTALL_METAINFO_ENABLED="N"
+    message("No METAINFO")
+} else {
+    message("METAINFO enabled")
+}
+
+###########################################
 
 INST_ICON_DIR=$$(QXMLEDIT_INST_ICON_DIR)
 !isEmpty(QXMLEDIT_INST_ICON_DIR) {
@@ -61,7 +83,7 @@ INST_ICON_DIR=$$(QXMLEDIT_INST_ICON_DIR)
 isEmpty(INST_ICON_DIR) {
     INST_ICON_DIR = $$INST_DATA_DIR
 }
-message("Inst desktop dir $$INST_ICON_DIR")
+message("Inst icon dir $$INST_ICON_DIR")
 # enabling
 INSTALL_ICON_ENABLED="Y"
 DONTUSE_ICON=$$(QXMLEDIT_NO_ICON)
