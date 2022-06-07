@@ -55,7 +55,7 @@ Disable desktop info file installation: set QXMLEDIT_NO_DESKTOPINFO to non empty
 Disable the Qt SCXML module setting QXMLEDIT_DISABLE_SCXML to non empty string (default: SCXML enabled if Qt >= 5.7.0).
 To disable the version number in the libraries name set QXMLEDIT_NOVERSIONED to Y.
 To enable the version number in the libraries name set QXMLEDIT_NOVERSIONED to N.
- -Note: On Windows the version number in the name is disabled by default, on linux is enabled.
+ -Note: On Windows the version number in the name is disabled by default, on Linux is enabled.
  -Note: this is a departure from previous version on Linux and usually this option is not needed.
 To append to the library name the version number as a suffix set QXMLEDIT_LIB_SUFFIX to a value (usually not needed).
 To disallow convert compiler warnings in errors set QXMLEDIT_INST_DISABLE_COMPILE_WARNINGS to a value.
@@ -69,7 +69,7 @@ Warning: QwtPlot3D library requires OpenGL.
 The Qt module SCXML is enabled by default when the Qt version is greater then 5.7.0, but can be
 disabled via compiler options.
 
-To force the executable name all lowercase (qxmledit) as in Unix style, the following enviroment variable
+To force the executable name all lowercase (qxmledit) as in Unix style, the following environment variable
 must be set to 1:
 QXMLEDIT_UNIX_LOWERCASE_NAME
 For unix, except MacOS, the flag is automatically set.
@@ -83,7 +83,7 @@ Example:
  qmake "QXMLEDIT_INST_DATA_DIR = some_folder"
 
 It is possible to test the installation without compiling all the sources.
-Setting the vatiable QXMLEDIT_USE_FAKE_SOURCES to any value recalla an alternative set of source files.
+Setting the variable QXMLEDIT_USE_FAKE_SOURCES to any value recalls an alternative set of source files.
 Warning: this is a developer only option; the program compiled with this option contains no features.
 
 IMPORTANT NOTE FOR LINUX INSTALLERS
@@ -92,7 +92,7 @@ The naming of the libraries is changed from version 0.9.17 removing the suffix b
 A speedy install test can be done setting the variable QXMLEDIT_USE_FAKE_SOURCES to a value. An alternative
    set of sources (a fake) will be used to create the release in a fraction of time needed for a full version.
 Starting from 0.8.15 the name of the executable on Unix systems, except MacOS, is lowercase by default.
-This behaviour can be changed via the QXMLEDIT_UNIX_LOWERCASE_NAME variable.
+This behavior can be changed via the QXMLEDIT_UNIX_LOWERCASE_NAME variable.
 The .desktop and .appdata file have been updated.
 This can require some attention when upgrading a previously installed package.
 
