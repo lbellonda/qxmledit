@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2020 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -147,10 +147,10 @@ manual.files = ../doc/QXmlEdit_manual.pdf
 iconInfo.path = $$INST_ICON_DIR
 iconInfo.files = ../install_scripts/environment/icon/qxmledit.png
 
-desktopInfo.path = $$INST_DESKTOP_DIR
+desktopInfo.path = $$INST_DESKTOPINFO_DIR
 desktopInfo.files = ../install_scripts/environment/desktop/QXmlEdit.desktop
 
-metaInfo.path = $$INST_APPDATA_DIR
+metaInfo.path = $$INST_METAINFO_DIR
 metaInfo.files = ../install_scripts/environment/desktop/QXmlEdit.appdata.xml
 
 #-----------------------------------------------------------
@@ -164,7 +164,10 @@ DEFINES += UNIX_DOC_PATH=$$INST_DOC_DIR
 unix:INSTALLS += snippets
 unix:INSTALLS += styles
 unix:INSTALLS += manual
-unix:INSTALLS += desktopInfo
+
+equals(INSTALL_DESKTOPINFO_ENABLED, "Y") {
+    unix:INSTALLS += desktopInfo
+}
 
 equals(INSTALL_METAINFO_ENABLED, "Y") {
     unix:INSTALLS += metaInfo
