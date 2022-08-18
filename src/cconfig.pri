@@ -54,9 +54,9 @@ INST_METAINFO_DIR=$$(QXMLEDIT_INST_METAINFO_DIR)
     INST_METAINFO_DIR=$$QXMLEDIT_INST_METAINFO_DIR
 }
 isEmpty(INST_METAINFO_DIR) {
-    INST_METAINFO_DIR = $$INST_METAINFO_DIR
+    INST_METAINFO_DIR = /opt/qxmledit
 }
-message("Inst metainfo dir $$INST_METAINFO_DIR")
+
 # enabling
 INSTALL_METAINFO_ENABLED="Y"
 DONTUSE_METAINFO=$$(QXMLEDIT_NO_METAINFO)
@@ -69,6 +69,7 @@ DONTUSE_METAINFO=$$(QXMLEDIT_NO_METAINFO)
     message("No METAINFO")
 } else {
     message("METAINFO enabled")
+    message("Inst metainfo dir $$INST_METAINFO_DIR")
 }
 
 ###########################################
@@ -78,9 +79,9 @@ INST_DESKTOPINFO_DIR=$$(QXMLEDIT_INST_DESKTOPINFO_DIR)
     INST_DESKTOPINFO_DIR=$$QXMLEDIT_INST_DESKTOPINFO_DIR
 }
 isEmpty(INST_DESKTOPINFO_DIR) {
-    INST_DESKTOPINFO_DIR = $$INST_DESKTOPINFO_DIR
+    INST_DESKTOPINFO_DIR = /opt/qxmledit
 }
-message("Inst desktop info dir $$INST_DESKTOPINFO_DIR")
+
 # enabling
 INSTALL_DESKTOPINFO_ENABLED="Y"
 DONTUSE_DESKTOPINFO=$$(QXMLEDIT_NO_DESKTOPINFO)
@@ -93,6 +94,7 @@ DONTUSE_DESKTOPINFO=$$(QXMLEDIT_NO_DESKTOPINFO)
     message("No DESKTOPINFO")
 } else {
     message("DESKTOPINFO enabled")
+    message("Inst desktop info dir $$INST_DESKTOPINFO_DIR")
 }
 
 ###########################################

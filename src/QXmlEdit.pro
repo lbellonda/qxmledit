@@ -455,11 +455,11 @@ unix:INSTALLS += styles
 unix:INSTALLS += manual
 
 equals(INSTALL_DESKTOPINFO_ENABLED, "Y") {
-    unix:INSTALLS += desktopInfo
+    unix:!macx:INSTALLS += desktopInfo
 }
 
 equals(INSTALL_METAINFO_ENABLED, "Y") {
-    unix:INSTALLS += metaInfo
+    unix:!macx:INSTALLS += metaInfo
 }
 
 equals(INSTALL_ICON_ENABLED, "Y") {
