@@ -16,7 +16,7 @@
     <message>
         <location filename="../aboutdialog.ui" line="86"/>
         <source>(c) 2008-2016 Luca Bellonda</source>
-        <translation>(c) 2008-2016 Luca Bellonda</translation>
+        <translation>(c) Luca Bellonda, 2008-2016</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="105"/>
@@ -28,17 +28,24 @@ p, li { white-space: pre-wrap; }
 &lt;br/&gt;
 &lt;a href=&quot;$PJLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$PJLOC&lt;/span&gt;&lt;/a&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;$JPSITE&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$JPSITE&lt;/span&gt;&lt;/a&gt;
+&lt;br/&gt;
+&lt;a href=&quot;$PJLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$PJLOC&lt;/span&gt;&lt;/a&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="134"/>
         <source>A simple XML Editor</source>
-        <translation>Простой XML редактор</translation>
+        <translation>Простой редактор XML</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="150"/>
         <source>Icons by Oxygen (www.oxygen-icons.org), covered by LGPLv3 license (see README document)</source>
-        <translation>Символика от Oxygen (www.oxygen-icons.org), Лицензия LGPLv3 (смотрите README документ)</translation>
+        <translation>Значки от Oxygen (www.oxygen-icons.org), лицензия LGPLv3 (смотрите документ README)</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="169"/>
@@ -57,7 +64,11 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Please use &lt;/span&gt;&lt;a href=&quot;$ISSUESLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$ISSUESLOC&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; to report bugs.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Используйте &lt;/span&gt;&lt;a href=&quot;$ISSUESLOC&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#507e41;&quot;&gt;$ISSUESLOC&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt; для передачи сообщений об ошибках.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="221"/>
@@ -82,7 +93,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../aboutdialog.ui" line="313"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QXmlEdit &lt;span style=&quot; font-size:18pt;&quot;&gt;xxx&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QXmlEdit &lt;span style=&quot; font-size:18pt;&quot;&gt;xxx&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../aboutdialog.ui" line="345"/>
@@ -92,7 +103,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../aboutdialog.cpp" line="39"/>
         <source>If you like or find useful this program, help others, even when you know they can&apos;t help you back.</source>
-        <translation>Если тебе понравилась или ты нашёл полезной эту программу, помоги другим, даже когда ты знаешь, что они не помогут тебе.</translation>
+        <translation>Если вам понравилась или показалась полезной эта программа, помогите другим, даже если знаете, что они не смогут помочь вам.</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="45"/>
@@ -102,7 +113,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../aboutdialog.cpp" line="47"/>
         <source>Compiled with Qt version: %1, runtime Qt version: %2</source>
-        <translation>Скомпилировано с QT версией: %1, исполнение QT версии: %2</translation>
+        <translation>Скомпилировано с версией QT: %1, версия QT среды выполнения: %2</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="50"/>
@@ -142,18 +153,18 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../aboutdialog.cpp" line="113"/>
         <source>User Manual</source>
-        <translation>руководство пользователя</translation>
+        <translation>Руководство пользователя</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="115"/>
         <location filename="../aboutdialog.cpp" line="117"/>
         <source>Qt SCXML Module</source>
-        <translation>Qt SCXML Модуль</translation>
+        <translation>Модуль Qt SCXML</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="115"/>
         <source>enabled</source>
-        <translation>Включенный</translation>
+        <translation>включён</translation>
     </message>
     <message>
         <location filename="../aboutdialog.cpp" line="117"/>
@@ -166,7 +177,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/anonymize/anonaddexcelementdialog.ui" line="14"/>
         <source>Add Element Exception</source>
-        <translation>Добавить исключение</translation>
+        <translation>Добавление исключения для элемента</translation>
     </message>
 </context>
 <context>
@@ -174,7 +185,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="20"/>
         <source>Anonymize</source>
-        <translation>Анонимно</translation>
+        <translation>Анонимизация</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="40"/>
@@ -199,7 +210,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="107"/>
         <source>All text with more than</source>
-        <translation>Макс. кол-во</translation>
+        <translation>Весь текст, где более</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="139"/>
@@ -209,7 +220,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="148"/>
         <source>Mask the text using a fixed pattern</source>
-        <translation>Спрятать текст с помощью шаблонов</translation>
+        <translation>Спрятать текст с помощью фиксированного шаблона</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="159"/>
@@ -220,7 +231,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="183"/>
         <source>Add Exception:</source>
-        <translation>Исключения:</translation>
+        <translation>Добавить исключение:</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="199"/>
@@ -230,7 +241,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="212"/>
         <source>Attribute...</source>
-        <translation>Опции...</translation>
+        <translation>Атрибут...</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.ui" line="225"/>
@@ -298,13 +309,13 @@ p, li { white-space: pre-wrap; }
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="105"/>
         <source>Transform</source>
         <comment>anon exception</comment>
-        <translation>Преобразовать</translation>
+        <translation>Преобразование</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="106"/>
         <source>Namespaces</source>
         <comment>anon exception</comment>
-        <translation>Пространство имён</translation>
+        <translation>Пространства имён</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="107"/>
@@ -320,12 +331,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="116"/>
         <source>How the datum is transformed</source>
-        <translation>Как преобразуется дата</translation>
+        <translation>Как преобразуются данные</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="117"/>
         <source>Process namespaces</source>
-        <translation>Обработка пространства имён</translation>
+        <translation>Обработка пространств имён</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="118"/>
@@ -342,13 +353,13 @@ The fields are:
    4- A value for the fixed value replacement.
    5- Process namespace flag (0/1)
 Only the first field (XPath) is mandatory.</source>
-        <translation>Импорт набора исключений, загрузка CSV-файла, по одному исключению на строку.
-Поля есть:
-   1-XPath.
-   2-критерии (0: исключить (по умолчанию), 1: Исключить с детьми, 2: включить, 3: включить с детьми).
-   3-тип маски данных (0: использовать по умолчанию 1: использовать фиксированное значение).
-   4-значение для замены фиксированного значения.
-   5-флаг пространства имен процессов (0/1)
+        <translation>Импорт набора исключений путём загрузки CSV-файла, по одному исключению на строку.
+Поля:
+   1 — XPath.
+   2 — критерии (0: исключить (по умолчанию), 1: исключить с дочерними элементами, 2: включить, 3: включить с дочерними элементами).
+   3 — тип маски данных (0: использовать значение по умолчанию, 1: использовать фиксированное значение).
+   4 — значение для замены фиксированного значения.
+   5 — флаг пространства имён процессов (0/1)
 Только первое поле (XPath) является обязательным.</translation>
     </message>
     <message>
@@ -364,7 +375,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="182"/>
         <source>Include with children</source>
-        <translation>включить с детьми</translation>
+        <translation>Включить с дочерними элементами</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="186"/>
@@ -374,12 +385,12 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="190"/>
         <source>Exclude with children</source>
-        <translation>Исключить с детьми</translation>
+        <translation>Исключить с дочерними элементами</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="201"/>
         <source>Use default</source>
-        <translation>Использовать по умолчанию</translation>
+        <translation>Использовать значение по умолчанию</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="212"/>
@@ -404,17 +415,17 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="250"/>
         <source>Error generating the preview</source>
-        <translation>Ошибка при создании предварительного просмотра</translation>
+        <translation>Ошибка при создании данных предварительного просмотра</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="430"/>
         <source>The profile has changed. Do you want to save it?</source>
-        <translation>Профиль изменился. Вы хотите сохранить его?</translation>
+        <translation>Профиль изменился. Сохранить его?</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="483"/>
         <source>Unable to load the new profile</source>
-        <translation>Не удается загрузить новый профиль</translation>
+        <translation>Не удалось загрузить новый профиль</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="518"/>
@@ -424,7 +435,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="527"/>
         <source>Unable to parse the profile data.</source>
-        <translation>Не удается проанализировать данные профиля.</translation>
+        <translation>Не удалось проанализировать данные профиля.</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="544"/>
@@ -439,15 +450,15 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="611"/>
         <source>Error importing data</source>
-        <translation>Ошибка импортирования данных</translation>
+        <translation>Ошибка импорта данных</translation>
     </message>
     <message numerus="yes">
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="614"/>
         <source>Imported %n definition(s)</source>
         <translation>
-            <numerusform>Импортированное %n/Ln определение(s)</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Импортировано %n определение</numerusform>
+            <numerusform>Импортировано %n определения</numerusform>
+            <numerusform>Импортировано %n определений</numerusform>
         </translation>
     </message>
     <message>
@@ -463,7 +474,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonadvdialog.cpp" line="702"/>
         <source>Unable to export exceptions in the clipboard.</source>
-        <translation>Не удается экспортировать исключения в буфер обмена.</translation>
+        <translation>Не удалось экспортировать исключения в буфер обмена.</translation>
     </message>
 </context>
 <context>
@@ -471,7 +482,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonattrexcdialog.ui" line="14"/>
         <source>Add Attribute Exception</source>
-        <translation>Добавить исключение параметров</translation>
+        <translation>Добавление исключения для атрибута</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonattrexcdialog.ui" line="82"/>
@@ -509,7 +520,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anoneditprofiledialog.ui" line="14"/>
         <source>Edit Profile</source>
-        <translation>Редактировать профиль</translation>
+        <translation>Редактирование профиля</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anoneditprofiledialog.ui" line="28"/>
@@ -534,17 +545,17 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anoneditprofiledialog.ui" line="100"/>
         <source>------</source>
-        <translation></translation>
+        <translation>------</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anoneditprofiledialog.ui" line="126"/>
         <source>last modified on:</source>
-        <translation>последние изменения:</translation>
+        <translation>последнее изменение:</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anoneditprofiledialog.ui" line="139"/>
         <source>---</source>
-        <translation></translation>
+        <translation>---</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anoneditprofiledialog.cpp" line="103"/>
@@ -562,12 +573,12 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonprofiledialog.ui" line="71"/>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Создать</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonprofiledialog.ui" line="78"/>
         <source>&amp;Modify</source>
-        <translation>&amp;Мзменить</translation>
+        <translation>&amp;Изменить</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonprofiledialog.ui" line="85"/>
@@ -599,19 +610,19 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonprofiledialog.cpp" line="176"/>
         <source>This profile can&apos;t be deleted</source>
-        <translation>Этот профиль не может быть удален</translation>
+        <translation>Этот профиль не может быть удалён</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonprofiledialog.cpp" line="293"/>
         <source>This profile can&apos;t be modified.</source>
-        <translation>Этот профиль не может быть изменен.</translation>
+        <translation>Этот профиль не может быть изменён.</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonprofiledialog.cpp" line="298"/>
         <location filename="../modules/anonymize/anonprofiledialog.cpp" line="316"/>
         <location filename="../modules/anonymize/anonprofiledialog.cpp" line="336"/>
         <source>Error saving profile. Data not saved.</source>
-        <translation>Ошибка сохранения профиля. Данные не сохранились.</translation>
+        <translation>Ошибка сохранения профиля. Данные не сохранены.</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonprofiledialog.cpp" line="308"/>
@@ -665,7 +676,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonsettingwidget.ui" line="91"/>
         <source>Use default method</source>
-        <translation>Использовать настройки по умолчанию</translation>
+        <translation>Использовать метод по умолчанию</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonsettingwidget.ui" line="100"/>
@@ -675,7 +686,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonsettingwidget.ui" line="117"/>
         <source>Process namespaces</source>
-        <translation>Пространства имен процессов</translation>
+        <translation>Обработка пространств имён</translation>
     </message>
 </context>
 <context>
@@ -700,7 +711,7 @@ Only the first field (XPath) is mandatory.</source>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="139"/>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="158"/>
         <source>...</source>
-        <translation></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="117"/>
@@ -717,7 +728,7 @@ Only the first field (XPath) is mandatory.</source>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="200"/>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="74"/>
         <source>Browse...</source>
-        <translation>Просмотр...</translation>
+        <translation>Обзор...</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="263"/>
@@ -727,7 +738,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="270"/>
         <source>---</source>
-        <translation></translation>
+        <translation>---</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.ui" line="303"/>
@@ -742,7 +753,7 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="135"/>
         <source>New Anonymized File</source>
-        <translation>Новый Анонимный Файл</translation>
+        <translation>Новый анонимизированный файл</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="161"/>
@@ -762,34 +773,34 @@ Only the first field (XPath) is mandatory.</source>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="184"/>
         <source>Unable to parse the profile data.</source>
-        <translation>Не удается извлечь данные профиля.</translation>
+        <translation>Не удалось проанализировать данные профиля.</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="216"/>
         <source>Unable to load the new profile</source>
-        <translation>Не удается загрузить новый профиль</translation>
+        <translation>Не удалось загрузить новый профиль</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="293"/>
         <source>%1</source>
-        <translation></translation>
+        <translation>%1</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="305"/>
         <source>User abort requested.</source>
-        <translation>Пользователь прервал запрос.</translation>
+        <translation>Прерывание по запросу пользователя.</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="309"/>
         <source>Error: %1, &apos;%2&apos;</source>
-        <translation>Ошибка: %1, &apos;%2&apos;</translation>
+        <translation>Ошибка: %1, «%2»</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="311"/>
         <source>Operation terminated.
 Do you want to show the result folder in the browser?</source>
-        <translation>Операция отменена.
-Вы хотите открыть папку с результатами в браузере?</translation>
+        <translation>Операция завершена.
+Открыть папку с результатами в браузере?</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonimyzebatchdialog.cpp" line="334"/>
@@ -802,12 +813,12 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../modules/anonymize/anonymizebatch.cpp" line="100"/>
         <source>Error: %1, &apos;%2&apos;</source>
-        <translation>Ошибка: %1, &apos;%2&apos;</translation>
+        <translation>Ошибка: %1, «%2»</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizebatch.cpp" line="112"/>
         <source>Unable to parse the profile data.</source>
-        <translation>Не удается импортировать данные профиля.</translation>
+        <translation>Не удалось проанализировать данные профиля.</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizebatch.cpp" line="128"/>
@@ -818,22 +829,22 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../modules/anonymize/anonymizebatch.cpp" line="137"/>
         <source>More than on profile exists with the name &apos;%1&apos;</source>
-        <translation>Больше, чем один профиль существует с именем &quot;%1&quot;</translation>
+        <translation>Имеется более одного профиля с именем «%1»</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizebatch.cpp" line="144"/>
         <source>No profile exists with the name &apos;%1&apos;</source>
-        <translation>Профиль с именем &quot;%1 &quot; не существует</translation>
+        <translation>Профиль с именем «%1» не существует</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizebatch.cpp" line="160"/>
         <source>Unable to read the profile with name &apos;%1&apos;</source>
-        <translation>Не удается прочитать профиль с именем &quot;%1</translation>
+        <translation>Не удалось прочитать профиль с именем «%1»</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizebatch.cpp" line="179"/>
         <source>Unable to load profile</source>
-        <translation>Не удается загрузить профиль</translation>
+        <translation>Не удалось загрузить профиль</translation>
     </message>
 </context>
 <context>
@@ -841,12 +852,12 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../modules/anonymize/anonymizedialog.ui" line="14"/>
         <source>Anonymize</source>
-        <translation>Анонимизировать</translation>
+        <translation>Анонимизация</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizedialog.ui" line="21"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Using a fixed pattern all the text will be replaced by a single character, like &apos;XXXX&apos;.&lt;/p&gt;&lt;p&gt;Using a variable pattern the text will be replaced by each of the letters, like &apos;abcd&apos;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;При использовании фиксированного шаблона весь текст будет заменён одним символом (например, «XXXX»).&lt;/p&gt;&lt;p&gt;При использовании переменного шаблона текст будет заменён каждой из букв (например, «abcd»).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizedialog.ui" line="74"/>
@@ -861,17 +872,17 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../modules/anonymize/anonymizedialog.ui" line="99"/>
         <source>All text with more than</source>
-        <translation>Весь текст с</translation>
+        <translation>Весь текст, где больше</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizedialog.ui" line="131"/>
         <source>letters or numbers</source>
-        <translation>буквами или цифрами</translation>
+        <translation>букв или цифр</translation>
     </message>
     <message>
         <location filename="../modules/anonymize/anonymizedialog.ui" line="140"/>
         <source>Mask the text using a fixed pattern</source>
-        <translation>Скрыть текс используя шаблон</translation>
+        <translation>Спрятать текст с помощью фиксированного шаблона</translation>
     </message>
 </context>
 <context>
@@ -879,17 +890,17 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../applicationdata.cpp" line="67"/>
         <source>Unable to load Balsamiq plugin</source>
-        <translation>Не удалось загрузить плагин Balsamiq</translation>
+        <translation>Не удалось загрузить модуль Balsamiq</translation>
     </message>
     <message>
         <location filename="../applicationdata.cpp" line="75"/>
         <source>Unable to load XSD plugin</source>
-        <translation>Не удается загрузить плагин XSD</translation>
+        <translation>Не удалось загрузить модуль XSD</translation>
     </message>
     <message>
         <location filename="../applicationdata.cpp" line="83"/>
         <source>Unable to initialize the application.</source>
-        <translation>Не удается инициализировать приложение.</translation>
+        <translation>Не удалось инициализировать приложение.</translation>
     </message>
     <message>
         <location filename="../applicationdata.cpp" line="116"/>
@@ -909,7 +920,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../applicationdata.cpp" line="384"/>
         <source>Error restoring session state</source>
-        <translation>Ошибка восстановления сеанса</translation>
+        <translation>Ошибка восстановления состояния сеанса</translation>
     </message>
     <message>
         <location filename="../applicationdata.cpp" line="390"/>
@@ -927,7 +938,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../widgets/attrfilterstatus.cpp" line="44"/>
         <source>Attributes display filter applied</source>
-        <translation>Применен фильтр отображения настроек</translation>
+        <translation>Применён фильтр отображения атрибутов</translation>
     </message>
 </context>
 <context>
@@ -935,7 +946,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../filter/attributefilterdetaildialog.ui" line="14"/>
         <source>Profile Details</source>
-        <translation>Детали Профиля</translation>
+        <translation>Сведения о профиле</translation>
     </message>
     <message>
         <location filename="../filter/attributefilterdetaildialog.ui" line="26"/>
@@ -955,7 +966,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../filter/attributefilterdetaildialog.ui" line="60"/>
         <source>Show only the selected</source>
-        <translation>Показывать только выбранные</translation>
+        <translation>Показать только выбранное</translation>
     </message>
     <message>
         <location filename="../filter/attributefilterdetaildialog.ui" line="67"/>
@@ -965,17 +976,17 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../filter/attributefilterdetaildialog.ui" line="91"/>
         <source>Attribute Names</source>
-        <translation>Название опции/настройки</translation>
+        <translation>Имена атрибутов</translation>
     </message>
     <message>
         <location filename="../filter/attributefilterdetaildialog.ui" line="153"/>
         <source>New</source>
-        <translation>Новый</translation>
+        <translation>Создать</translation>
     </message>
     <message>
         <location filename="../filter/attributefilterdetaildialog.ui" line="160"/>
         <source>Edit</source>
-        <translation>Редактировать</translation>
+        <translation>Изменить</translation>
     </message>
     <message>
         <location filename="../filter/attributefilterdetaildialog.ui" line="167"/>
@@ -995,12 +1006,12 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../filter/attributefilterdetaildialog.cpp" line="138"/>
         <source>The item at position %1 is not valid.</source>
-        <translation>Элемент под позицией %1 не корректен.</translation>
+        <translation>Элемент в позиции %1 некорректен.</translation>
     </message>
     <message>
         <location filename="../filter/attributefilterdetaildialog.cpp" line="166"/>
         <source>Do you really want to delete the item?</source>
-        <translation>Ты точно хочешь его удалить?</translation>
+        <translation>Действительно удалить этот элемент?</translation>
     </message>
 </context>
 <context>
@@ -1014,12 +1025,12 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../filter/attributeprofilemgmtdialog.ui" line="72"/>
         <source>New...</source>
-        <translation>Новый...</translation>
+        <translation>Создать...</translation>
     </message>
     <message>
         <location filename="../filter/attributeprofilemgmtdialog.ui" line="79"/>
         <source>Edit...</source>
-        <translation>Редактировать...</translation>
+        <translation>Изменить...</translation>
     </message>
     <message>
         <location filename="../filter/attributeprofilemgmtdialog.ui" line="86"/>
@@ -1040,7 +1051,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../filter/attributeprofilemgmtdialog.cpp" line="73"/>
         <source>%1 - %2</source>
-        <translation></translation>
+        <translation>%1 - %2</translation>
     </message>
     <message>
         <location filename="../filter/attributeprofilemgmtdialog.cpp" line="123"/>
@@ -1052,7 +1063,7 @@ Do you want to show the result folder in the browser?</source>
         <location filename="../filter/attributeprofilemgmtdialog.cpp" line="139"/>
         <location filename="../filter/attributeprofilemgmtdialog.cpp" line="140"/>
         <source>New Profile</source>
-        <translation>новый профиль</translation>
+        <translation>Новый профиль</translation>
     </message>
     <message>
         <location filename="../filter/attributeprofilemgmtdialog.cpp" line="173"/>
@@ -1065,7 +1076,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../base64dialog.ui" line="23"/>
         <source>Base 64 Encoding/Decoding</source>
-        <translation>Base 64 Кодирование/Расшифровка</translation>
+        <translation>Кодирование/Расшифровка Base 64</translation>
     </message>
     <message>
         <location filename="../base64dialog.ui" line="43"/>
@@ -1080,17 +1091,17 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../base64dialog.ui" line="120"/>
         <source>Load binary data from file...</source>
-        <translation>Загрузите двоичные данные из файла...</translation>
+        <translation>Загрузить двоичные данные из файла...</translation>
     </message>
     <message>
         <location filename="../base64dialog.ui" line="133"/>
         <source>Save binary data to file...</source>
-        <translation>Сохраните двоичные данные в файл...</translation>
+        <translation>Сохранить двоичные данные в файл...</translation>
     </message>
     <message>
         <location filename="../base64dialog.ui" line="163"/>
         <source>Load text from file...</source>
-        <translation>Загрузите текст из файла...</translation>
+        <translation>Загрузить текст из файла...</translation>
     </message>
     <message>
         <location filename="../base64dialog.ui" line="172"/>
@@ -1120,7 +1131,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../base64dialog.cpp" line="147"/>
         <source>All files (*);;XML files (*.xml);;XML Schema files (*.xsd)</source>
-        <translation>Все файлы (*);;текстовые файлы (*.txt);; XML-файлы (*.xml);; файлы схем XML (*.XSD-файл)</translation>
+        <translation>Все файлы (*);;XML-файлы (*.xml);;Файлы схем XML (*.xsd)</translation>
     </message>
     <message>
         <location filename="../base64dialog.cpp" line="168"/>
@@ -1130,12 +1141,12 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../base64dialog.cpp" line="169"/>
         <source>All files (*);;Text files (*.txt);;XML files (*.xml);;XML Schema files (*.xsd)</source>
-        <translation>Все файлы (*);;текстовые файлы (*.txt);; XML-файлы (*.xml);; файлы схем XML (*.XSD-файл)</translation>
+        <translation>Все файлы (*);;Текстовые файлы (*.txt);;XML-файлы (*.xml);;Файлы схем XML (*.xsd)</translation>
     </message>
     <message>
         <location filename="../base64dialog.cpp" line="193"/>
         <source>Operation failed</source>
-        <translation>Операция не удалась</translation>
+        <translation>Ошибка операции</translation>
     </message>
 </context>
 <context>
@@ -1148,7 +1159,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../visualization/cmapitemdelegate.ui" line="49"/>
         <source>TextLabel</source>
-        <translation></translation>
+        <translation>Текстовая подпись</translation>
     </message>
 </context>
 <context>
@@ -1156,7 +1167,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.ui" line="14"/>
         <source>Encoding Explorer</source>
-        <translation>Исследователь кодировки</translation>
+        <translation>Исследование кодировки</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="26"/>
@@ -1206,12 +1217,12 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.ui" line="153"/>
         <source>Add encodings to the table selecting an encoding from the combo, then triggering &quot;Add&quot;.</source>
-        <translation>Добавление кодировок в таблицу выбора кодировки из списка, а затем нажмите &quot;добавить&quot;.</translation>
+        <translation>Добавьте кодировки в таблицу (выберите кодировку в списке и нажмите кнопку «Добавить»).</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="166"/>
         <source>Character Explorer</source>
-        <translation>Исследование Символов</translation>
+        <translation>Исследование символов</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="177"/>
@@ -1221,22 +1232,22 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.ui" line="184"/>
         <source>Hexadecimal values are prefixed by 0x, octals by 0, use a space as separator</source>
-        <translation>Шестнадцатеричные значения имеют префикс 0x, восьмеричные 0, используйте пробел в качестве разделителя</translation>
+        <translation>Шестнадцатеричные значения имеют префикс 0x, восьмеричные — 0, используйте пробел в качестве разделителя</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="209"/>
         <source>Sample: 0x61 98 99 0x64</source>
-        <translation>Пример: 0x61 98 99 0x64</translation>
+        <translation>Образец: 0x61 98 99 0x64</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="220"/>
         <source>&amp;Numeric values:</source>
-        <translation>&amp;Числовое значение:</translation>
+        <translation>&amp;Числовые значения:</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="239"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Creates a sequence of numbers 128..255 (32..255 if using CTRL key)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Создаёт последовательность чисел 128..255 (32..255, если использовать клавишу CTRL)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="242"/>
@@ -1251,7 +1262,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.ui" line="261"/>
         <source>This feature uses the encodings defined in the &quot;String Explorer&quot; tab.</source>
-        <translation>Эта функция использует кодировки, определенные на вкладке &quot;Исследование строки&quot;.</translation>
+        <translation>Эта функция использует кодировки, определённые на вкладке «Исследование строки».</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="271"/>
@@ -1310,22 +1321,22 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.ui" line="562"/>
         <source>Search a character by:</source>
-        <translation>Поиск символа по:</translation>
+        <translation>Поиск символа:</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="594"/>
         <source>&amp;character:</source>
-        <translation>&amp;Символ</translation>
+        <translation>&amp;Символ:</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="631"/>
         <source>&amp;Unicode code point:</source>
-        <translation>&amp;Unicode символ:</translation>
+        <translation>&amp;Символ Unicode:</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="665"/>
         <source>Prefix with 0x for hexadecimal</source>
-        <translation>Префикс с 0x для шестнадцатеричных</translation>
+        <translation>Префикс 0x для шестнадцатеричных</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="676"/>
@@ -1360,7 +1371,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.ui" line="824"/>
         <source> --- </source>
-        <translation></translation>
+        <translation> --- </translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="850"/>
@@ -1375,17 +1386,17 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.ui" line="884"/>
         <source>Show character names</source>
-        <translation>Показывать назвения символов</translation>
+        <translation>Показывать названия символов</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.ui" line="904"/>
         <source>Code Pages Detail...</source>
-        <translation>Код Страницы Подробно...</translation>
+        <translation>Сведения о кодовой странице...</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="53"/>
         <source>No encodings have been configured. Do you want add automatically some common encoding?</source>
-        <translation>Никакие кодировки не были настроены. Вы хотите добавить автоматически некоторые общие кодировки?</translation>
+        <translation>Кодировки не были настроены. Добавить автоматически какую-нибудь распространённую кодировку?</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="121"/>
@@ -1395,17 +1406,17 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="122"/>
         <source>As UTF-8 bytes</source>
-        <translation>Как UTF-8</translation>
+        <translation>Как байты UTF-8</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="123"/>
         <source>As &quot;C&quot; UTF-8 bytes</source>
-        <translation>Как &quot;C&quot; UTF-8</translation>
+        <translation>Как байты «C» UTF-8</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="124"/>
         <source>As &quot;Java&quot; UTF-8 charactes</source>
-        <translation>Как &quot;Java&quot; UTF-8 символы</translation>
+        <translation>Как символы «Java» UTF-8</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="161"/>
@@ -1415,12 +1426,12 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="173"/>
         <source>The codec &apos;%1&apos; cannot be found</source>
-        <translation>Кодек &quot;%1 &quot; не найден</translation>
+        <translation>Кодек «%1» не найден</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="190"/>
         <source>fail</source>
-        <translation>ошибка</translation>
+        <translation>Ошибка</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="278"/>
@@ -1436,7 +1447,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="353"/>
         <source>Error removing the selected encoding.</source>
-        <translation>Ошибка удаления выбранной кодировки.</translation>
+        <translation>Ошибка при удалении выбранной кодировки.</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="362"/>
@@ -1446,17 +1457,17 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="577"/>
         <source>&lt;No match&gt;</source>
-        <translation>&lt;Не соответствует&gt;</translation>
+        <translation>&lt;Нет соответствия&gt;</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="619"/>
         <source>Change Font (%1 %2 %3)</source>
-        <translation>Изменить Шрифт (%1 %2 %3)</translation>
+        <translation>Изменить шрифт (%1 %2 %3)</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="619"/>
         <source>bold</source>
-        <translation>жирный</translation>
+        <translation>полужирный</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="639"/>
@@ -1471,7 +1482,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="646"/>
         <source>Unicode category</source>
-        <translation>Unicode категория</translation>
+        <translation>Категория Unicode</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="649"/>
@@ -1481,102 +1492,102 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="651"/>
         <source>hasMirrored</source>
-        <translation>Отражен</translation>
+        <translation>отражён</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="652"/>
         <source>isDigit</source>
-        <translation></translation>
+        <translation>является цифрой</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="653"/>
         <source>isHighSurrogate</source>
-        <translation></translation>
+        <translation>является старшим символом-заместителем</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="654"/>
         <source>isLetter</source>
-        <translation></translation>
+        <translation>является буквой</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="655"/>
         <source>isLetterOrNumber</source>
-        <translation></translation>
+        <translation>является буквой или числом</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="656"/>
         <source>isLowSurrogate</source>
-        <translation></translation>
+        <translation>является младшим символом-заместителем</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="657"/>
         <source>isLower</source>
-        <translation></translation>
+        <translation>является нижним</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="658"/>
         <source>isMark</source>
-        <translation></translation>
+        <translation>является отметкой</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="660"/>
         <source>isNonCharacter</source>
-        <translation></translation>
+        <translation>является не-символом</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="662"/>
         <source>isNull</source>
-        <translation></translation>
+        <translation>явняется нулевым</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="663"/>
         <source>isNumber</source>
-        <translation></translation>
+        <translation>является числом</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="664"/>
         <source>isPrint</source>
-        <translation></translation>
+        <translation>является печатным</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="665"/>
         <source>isPunct</source>
-        <translation></translation>
+        <translation>является пунктуационным</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="666"/>
         <source>isSpace</source>
-        <translation></translation>
+        <translation>является пробелом</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="668"/>
         <source>isSurrogate</source>
-        <translation></translation>
+        <translation>является заместителем</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="670"/>
         <source>isSymbol</source>
-        <translation></translation>
+        <translation>является символом</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="671"/>
         <source>isTitleCase</source>
-        <translation></translation>
+        <translation>является заглавной буквой</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="672"/>
         <source>isUpper</source>
-        <translation></translation>
+        <translation>является верхним</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="674"/>
         <source>joining</source>
-        <translation></translation>
+        <translation>присоединение</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="675"/>
         <source>Unicode script</source>
-        <translation>Скрипт на unicode</translation>
+        <translation>скрипт на Unicode</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="770"/>
@@ -1606,7 +1617,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="783"/>
         <source>Final</source>
-        <translation>Финальный</translation>
+        <translation>Конечный</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="784"/>
@@ -1641,7 +1652,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="790"/>
         <source>NoBreak</source>
-        <translation></translation>
+        <translation>Без разрыва</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="791"/>
@@ -1661,7 +1672,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../charencodingdialog.cpp" line="794"/>
         <source>Super</source>
-        <translation>Суперский</translation>
+        <translation>Верхний</translation>
     </message>
     <message>
         <location filename="../charencodingdialog.cpp" line="795"/>
@@ -1684,7 +1695,7 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../visualization/choosecolormap.ui" line="14"/>
         <source>Color Map Chooser</source>
-        <translation>Выбор Цветовой Карты</translation>
+        <translation>Выбор цветовой карты</translation>
     </message>
     <message>
         <location filename="../visualization/choosecolormap.ui" line="32"/>
@@ -1712,14 +1723,14 @@ Do you want to show the result folder in the browser?</source>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="53"/>
         <source>If unsure, just choose &quot;Use Predefined&quot; or press enter.</source>
-        <translation type="unfinished">Если вы не уверены, просто выберите &quot;Использовать по-умолчанию&quot; или нажмите enter.</translation>
+        <translation>Если вы не уверены, просто выберите «Использовать стандартное значение» или нажмите клавишу «Ввод».</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="72"/>
         <source>The settings are available as separate options using the menu View.
 This dialog can be recalled at any time using the menu &quot;Preferences&quot;.</source>
-        <translation>Настройки доступны в виде отдельных параметров в меню Вид
-Этот диалог может быть вызван в любое время с помощью меню &quot;Настройки&quot;.</translation>
+        <translation>Настройки доступны в виде отдельных параметров в меню «Вид».
+Этот диалог может быть вызван в любое время с помощью меню «Настройка».</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="108"/>
@@ -1729,7 +1740,7 @@ This dialog can be recalled at any time using the menu &quot;Preferences&quot;.<
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="111"/>
         <source>dddddddddd</source>
-        <translation type="unfinished"></translation>
+        <translation>dddddddddd</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="135"/>
@@ -1747,7 +1758,7 @@ This dialog can be recalled at any time using the menu &quot;Preferences&quot;.<
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="152"/>
         <source>cccccccccc</source>
-        <translation type="unfinished"></translation>
+        <translation>cccccccccc</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="190"/>
@@ -1757,7 +1768,7 @@ This dialog can be recalled at any time using the menu &quot;Preferences&quot;.<
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="193"/>
         <source>bbbbbbbbbbb</source>
-        <translation type="unfinished"></translation>
+        <translation>bbbbbbbbbbb</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="231"/>
@@ -1767,55 +1778,55 @@ This dialog can be recalled at any time using the menu &quot;Preferences&quot;.<
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="234"/>
         <source>aaaaaaaaaa</source>
-        <translation type="unfinished"></translation>
+        <translation>aaaaaaaaaa</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="273"/>
         <source>Use XXX</source>
-        <translation type="unfinished">Использовать ХХХ</translation>
+        <translation>Использовать ХХХ</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="280"/>
         <source>Use Predefined</source>
-        <translation>Использовать по-умолчанию</translation>
+        <translation>Использовать значение по умолчанию</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.ui" line="353"/>
         <source>AAAAAAAAAAAAAA</source>
-        <translation type="unfinished"></translation>
+        <translation>AAAAAAAAAAAAAA</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="101"/>
         <source>Use %1</source>
-        <translation>use %1</translation>
+        <translation>Использовать %1</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="116"/>
         <source>
 %1 One attribute per line</source>
         <translation>
-%1 One attribute per line</translation>
+%1 Один атрибут на строку</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="119"/>
         <source>
 %1 Use child index</source>
         <translation>
-%1 Use child index</translation>
+%1 Использовать индекс дочерних элементов</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="122"/>
         <source>
 %1 Compact view</source>
         <translation>
-%1 Compact view</translation>
+%1 Компактный вид</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="125"/>
         <source>
 %1 Show text base 64 coded</source>
         <translation>
-%1 Show text base 64 coded</translation>
+%1 Показать текст в кодировке Base 64</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="128"/>
@@ -1823,29 +1834,29 @@ This dialog can be recalled at any time using the menu &quot;Preferences&quot;.<
 %1 Show element size
    and children</source>
         <translation>
-%1 Show element size
-   and children</translation>
+%1 Показать размер элемента
+   и дочерние элементы</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="131"/>
         <source>
 %1 Show text length</source>
         <translation>
-%1 Show text length</translation>
+%1 Показать длину текста</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="134"/>
         <source>
 %1 Show full comments</source>
         <translation>
-%1 Show full comments</translation>
+%1 Показать полные комментарии</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="137"/>
         <source>
 %1 Sort attributes</source>
         <translation>
-%1 Sort attributes</translation>
+%1 Сортировать атрибуты</translation>
     </message>
     <message>
         <location filename="../modules/style/choosestyledialog.cpp" line="140"/>
@@ -1853,8 +1864,8 @@ This dialog can be recalled at any time using the menu &quot;Preferences&quot;.<
 %1 Limit attributes
    line length</source>
         <translation>
-%1 Limit attributes
-   line length</translation>
+%1 Ограничить длину
+   строк атрибутов</translation>
     </message>
 </context>
 <context>
@@ -1862,7 +1873,7 @@ This dialog can be recalled at any time using the menu &quot;Preferences&quot;.<
     <message>
         <location filename="../widgets/columnarview.ui" line="23"/>
         <source>Columnar View</source>
-        <translation>Колоннобразный вид</translation>
+        <translation>Колоночный вид</translation>
     </message>
     <message>
         <location filename="../widgets/columnarview.ui" line="39"/>
@@ -1901,7 +1912,7 @@ This dialog can be recalled at any time using the menu &quot;Preferences&quot;.<
         <location filename="../configoptions.ui" line="134"/>
         <location filename="../configoptions.ui" line="150"/>
         <source>value:</source>
-        <translation>value:</translation>
+        <translation>значение:</translation>
     </message>
     <message>
         <location filename="../configoptions.ui" line="200"/>
@@ -1923,7 +1934,14 @@ p, li { white-space: pre-wrap; }
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Warning&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;: changes will be applied only after a program restart.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Внимание&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;: изменения будут применены только после перезапуска программы.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -1931,7 +1949,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configvalidation.ui" line="14"/>
         <source>Form</source>
-        <translation>Проверка</translation>
+        <translation>Форма</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.ui" line="26"/>
@@ -1946,12 +1964,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configvalidation.ui" line="43"/>
         <source>Enable disk cache (maximum size: 1 Mega)</source>
-        <translation>Включить кэширование</translation>
+        <translation>Включить кэширование (макс. размер: 1 МБ)</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.ui" line="59"/>
         <source>External validation program</source>
-        <translation>Внешняя программ проверки</translation>
+        <translation>Внешняя программа проверки</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.ui" line="79"/>
@@ -1966,27 +1984,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configvalidation.ui" line="102"/>
         <source>XSD Report</source>
-        <translation>XSD Отчёт</translation>
+        <translation>XSD-отчёт</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.ui" line="112"/>
         <source>Embed fonts in PDF report</source>
-        <translation>Добавить шрифты в отчет PDF</translation>
+        <translation>Внедрить шрифты в PDF-отчёт</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.ui" line="119"/>
         <source>Embed diagram image in HTML (instead of create a separate file)</source>
-        <translation>Добавить изображение в HTML (вместо создания отдельного файла)</translation>
+        <translation>Внедрить изображение в HTML (вместо создания отдельного файла)</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.ui" line="126"/>
         <source>Use Graphviz to generate diagram image in HTML report (experimental)</source>
-        <translation>Использовать Graphviz для создания изображения в HTML-отчете</translation>
+        <translation>Использовать Graphviz для создания изображения в HTML-отчёте (эксп. функция)</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.ui" line="133"/>
         <source>Override Graphviz path (system path will be used if empty)</source>
-        <translation>Изменить путь Graphviz</translation>
+        <translation>Изменить путь Graphviz (если оставить пустым, будет использован системный путь)</translation>
     </message>
     <message>
         <location filename="../config/configvalidation.cpp" line="75"/>
@@ -2029,7 +2047,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../configurationdialog.cpp" line="61"/>
         <source>Editor Colors</source>
-        <translation>Редактор Цветов</translation>
+        <translation>Цвета редактора</translation>
     </message>
     <message>
         <location filename="../configurationdialog.cpp" line="61"/>
@@ -2059,7 +2077,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../configurationdialog.cpp" line="64"/>
         <source>Edit Modes</source>
-        <translation>Режим редактирования</translation>
+        <translation>Режимы редактирования</translation>
     </message>
     <message>
         <location filename="../configurationdialog.cpp" line="64"/>
@@ -2082,7 +2100,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="14"/>
         <source>Form</source>
-        <translation>Общие настройки</translation>
+        <translation>Форма</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="27"/>
@@ -2102,7 +2120,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="53"/>
         <source>Enable experimental features for test purpose</source>
-        <translation>Включение экспериментальных функций</translation>
+        <translation>Включить экспериментальные функции</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="69"/>
@@ -2127,12 +2145,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="108"/>
         <source>change font...</source>
-        <translation>изменить шрифт...</translation>
+        <translation>Изменить шрифт...</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="130"/>
         <source>size</source>
-        <translation>размер</translation>
+        <translation>Размер</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="149"/>
@@ -2142,7 +2160,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="160"/>
         <source>Enable Logs</source>
-        <translation>Включить запись логов</translation>
+        <translation>Включить ведение журналов</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="183"/>
@@ -2177,7 +2195,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="271"/>
         <source>Show elements icon</source>
-        <translation>Показать значок элементов</translation>
+        <translation>Показывать значок элементов</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="278"/>
@@ -2204,7 +2222,14 @@ p, li { white-space: pre-wrap; }
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Warning&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;: changes will be applied only after a program restart.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>Внимание:настройки будут применены только после перезагрузки</translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Внимание&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;: изменения будут применены только после перезапуска программы.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.ui" line="339"/>
@@ -2214,7 +2239,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurationgeneraloptions.cpp" line="73"/>
         <source>debug</source>
-        <translation>отлаживать</translation>
+        <translation>отладка</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.cpp" line="74"/>
@@ -2239,17 +2264,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurationgeneraloptions.cpp" line="235"/>
         <source>&lt;Not set&gt;</source>
-        <translation>&lt;Не ставить&gt;</translation>
+        <translation>&lt;Не задано&gt;</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.cpp" line="237"/>
         <source>%1%2%3, %4</source>
-        <translation></translation>
+        <translation>%1%2%3, %4</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.cpp" line="237"/>
         <source> bold</source>
-        <translation> жирный</translation>
+        <translation> полужирный</translation>
     </message>
     <message>
         <location filename="../config/configurationgeneraloptions.cpp" line="237"/>
@@ -2267,7 +2292,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation>Режим редактирования</translation>
+        <translation>Диалог</translation>
     </message>
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="33"/>
@@ -2287,22 +2312,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="83"/>
         <source>Show the &quot;Switch to XSLT&quot; panel when opening files.</source>
-        <translation>Показывать панель &quot;переключиться на XSLT&quot; при открытии файлов.</translation>
+        <translation>Показывать панель «переключиться на XSLT» при открытии файлов</translation>
     </message>
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="90"/>
         <source>Automatically switch to XSLT edit mode when opening an XSLT file.</source>
-        <translation>Автоматическое переключение в режим редактирования XSLT при открытии файла XSLT.</translation>
+        <translation>Автоматически переключаться в режим редактирования XSLT при открытии файла XSLT</translation>
     </message>
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="97"/>
         <source>Use external Java engine with Saxon command line syntax</source>
-        <translation>Использовать Java с синтаксисом командной строки Saxon</translation>
+        <translation>Использовать внешний движок Java с синтаксисом командной строки Saxon</translation>
     </message>
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="132"/>
         <source>...</source>
-        <translation></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="170"/>
@@ -2312,12 +2337,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="177"/>
         <source>Show the &quot;Switch to SCXML&quot; panel when opening files.</source>
-        <translation>Показывать панель &quot;переключиться на SCXML&quot; при открытии файлов.</translation>
+        <translation>Показывать панель &quot;переключиться на SCXML&quot; при открытии файлов</translation>
     </message>
     <message>
         <location filename="../config/configureeditmodesdialog.ui" line="184"/>
         <source>Automatically switch to SCXML edit mode when opening a SCXML file.</source>
-        <translation>Автоматическое переключение в режим редактирования SCXML при открытии файла SCXML.</translation>
+        <translation>Автоматически переключаться в режим редактирования SCXML при открытии файла SCXML</translation>
     </message>
     <message>
         <location filename="../config/configureeditmodesdialog.cpp" line="117"/>
@@ -2327,7 +2352,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditmodesdialog.cpp" line="119"/>
         <source>Java JAR (*.jar);;All files (*)</source>
-        <translation></translation>
+        <translation>Java JAR (*.jar);;Все файлы (*)</translation>
     </message>
 </context>
 <context>
@@ -2335,7 +2360,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditorcolors.ui" line="14"/>
         <source>Dialog</source>
-        <translation>НАстроить цвета</translation>
+        <translation>Диалог</translation>
     </message>
     <message>
         <location filename="../config/configureeditorcolors.ui" line="24"/>
@@ -2386,7 +2411,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditorcolors.cpp" line="200"/>
         <source>tags</source>
-        <translation>тэги</translation>
+        <translation>теги</translation>
     </message>
     <message>
         <location filename="../config/configureeditorcolors.cpp" line="203"/>
@@ -2396,12 +2421,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditorcolors.cpp" line="206"/>
         <source>attribute names</source>
-        <translation>имя атрибута</translation>
+        <translation>имена атрибутов</translation>
     </message>
     <message>
         <location filename="../config/configureeditorcolors.cpp" line="209"/>
         <source>attribute values</source>
-        <translation>значение атрибута</translation>
+        <translation>значения атрибутов</translation>
     </message>
     <message>
         <location filename="../config/configureeditorcolors.cpp" line="212"/>
@@ -2416,7 +2441,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditorcolors.cpp" line="218"/>
         <source>text</source>
-        <translation></translation>
+        <translation>текст</translation>
     </message>
     <message>
         <location filename="../config/configureeditorcolors.cpp" line="221"/>
@@ -2457,7 +2482,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configureeditorcolors.cpp" line="271"/>
         <source>Error importing data</source>
-        <translation>Ошибка импортирования данных</translation>
+        <translation>Ошибка импорта данных</translation>
     </message>
 </context>
 <context>
@@ -2470,7 +2495,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/xml/configuregeneralindentation.ui" line="47"/>
         <source>XML &amp;indentation</source>
-        <translation>XML &amp;отступы</translation>
+        <translation>&amp;Отступы XML</translation>
     </message>
     <message>
         <location filename="../modules/xml/configuregeneralindentation.ui" line="76"/>
@@ -2480,7 +2505,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/xml/configuregeneralindentation.ui" line="85"/>
         <source>Sort attributes &amp;alphabetically</source>
-        <translation>Сортировать &amp;по алфавиту</translation>
+        <translation>Сортировать атрибуты &amp;по алфавиту</translation>
     </message>
     <message>
         <location filename="../modules/xml/configuregeneralindentation.ui" line="101"/>
@@ -2495,12 +2520,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../modules/xml/configuregeneralindentation.ui" line="130"/>
         <source>&amp;Predefined</source>
-        <translation>&amp;По-умолчанию</translation>
+        <translation>&amp;Стандартное значение</translation>
     </message>
     <message>
         <location filename="../modules/xml/configuregeneralindentation.ui" line="141"/>
         <source>New &amp;line at</source>
-        <translation>Новая &amp;линия на</translation>
+        <translation>Новая &amp;строка на</translation>
     </message>
     <message>
         <location filename="../modules/xml/configuregeneralindentation.ui" line="158"/>
@@ -2518,7 +2543,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configuresessionswidget.ui" line="26"/>
         <source>Administraton</source>
-        <translation>Администрированиие</translation>
+        <translation>Администрирование</translation>
     </message>
     <message>
         <location filename="../config/configuresessionswidget.ui" line="36"/>
@@ -2541,7 +2566,7 @@ p, li { white-space: pre-wrap; }
         <location filename="../config/configuresessionswidget.ui" line="71"/>
         <location filename="../config/configuresessionswidget.ui" line="81"/>
         <source>dateGroup</source>
-        <translation></translation>
+        <translation>группа данных</translation>
     </message>
     <message>
         <location filename="../config/configuresessionswidget.ui" line="68"/>
@@ -2575,7 +2600,7 @@ This operation cannot be undone.</source>
         <location filename="../config/configuresessionswidget.cpp" line="73"/>
         <location filename="../config/configuresessionswidget.cpp" line="95"/>
         <source>Do you want to abort this operation?</source>
-        <translation>Вы хотите прервать эту операцию?</translation>
+        <translation>Прервать эту операцию?</translation>
     </message>
     <message>
         <location filename="../config/configuresessionswidget.cpp" line="76"/>
@@ -2598,7 +2623,7 @@ This operation cannot be undone.</source>
     <message>
         <location filename="../config/configuresessionswidget.cpp" line="124"/>
         <source>Select a valid option</source>
-        <translation>Выберите правильный вариант</translation>
+        <translation>Выберите допустимый вариант</translation>
     </message>
 </context>
 <context>
@@ -2606,7 +2631,7 @@ This operation cannot be undone.</source>
     <message>
         <location filename="../config/configurestyle.ui" line="14"/>
         <source>Form</source>
-        <translation>Стили</translation>
+        <translation>Форма</translation>
     </message>
     <message>
         <location filename="../config/configurestyle.ui" line="32"/>
@@ -2616,7 +2641,7 @@ This operation cannot be undone.</source>
     <message>
         <location filename="../config/configurestyle.ui" line="42"/>
         <source>Use the &amp;program directory</source>
-        <translation>Используйте &amp;каталог программы</translation>
+        <translation>Использовать &amp;каталог программы</translation>
     </message>
     <message>
         <location filename="../config/configurestyle.ui" line="67"/>
@@ -2628,7 +2653,7 @@ This operation cannot be undone.</source>
         <location filename="../config/configurestyle.ui" line="96"/>
         <location filename="../config/configurestyle.ui" line="157"/>
         <source>-</source>
-        <translation></translation>
+        <translation>-</translation>
     </message>
     <message>
         <location filename="../config/configurestyle.ui" line="108"/>
@@ -2643,7 +2668,7 @@ This operation cannot be undone.</source>
     <message>
         <location filename="../config/configurestyle.ui" line="204"/>
         <source>Browse the filesystem.</source>
-        <translation>Просмотрите файловую систему.</translation>
+        <translation>Обзор файловой системы.</translation>
     </message>
     <message>
         <location filename="../config/configurestyle.ui" line="242"/>
@@ -2660,7 +2685,14 @@ p, li { white-space: pre-wrap; }
 &lt;tr&gt;
 &lt;td style=&quot;border: none;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Warning&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;: changes will be applied only after a program restart.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>Внимание:настройки будут применены только после перезагрузки программы</translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;table border=&quot;0&quot; style=&quot;-qt-table-type: root; margin-top:4px; margin-bottom:4px; margin-left:4px; margin-right:4px;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;border: none;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Внимание&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;: изменения будут применены только после перезапуска программы.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../config/configurestyle.cpp" line="92"/>
@@ -2703,7 +2735,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="86"/>
         <source>Automatically insert formatting metadata processing instruction</source>
-        <translation>Автоматическая вставка инструкции по обработке метаданных</translation>
+        <translation>Автоматически вставлять инструкцию по обработке метаданных форматирования</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="106"/>
@@ -2713,7 +2745,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="116"/>
         <source>Automatically update metadata as processing instruction if found when saving data</source>
-        <translation>Автоматическое обновление метаданных в качестве инструкции по обработке, если они найдены при сохранении данных</translation>
+        <translation>Автоматически обновлять метаданные согласно инструкции по обработке, если они найдены при сохранении данных</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="136"/>
@@ -2723,22 +2755,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="148"/>
         <source>XML &amp;indentation on save</source>
-        <translation>XML &amp;отступ при сохранении</translation>
+        <translation>&amp;Отступ XML при сохранении</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="165"/>
         <source>do not indent at all</source>
-        <translation>без отступа</translation>
+        <translation>Без отступа</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="191"/>
         <source>Resets the xml indentation value.</source>
-        <translation>Сбрасить значение отступа xml.</translation>
+        <translation>Сбросить значение отступа XML.</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="194"/>
         <source>Reset</source>
-        <translation>Сброс</translation>
+        <translation>Сбросить</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="228"/>
@@ -2753,12 +2785,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="257"/>
         <source>Predefined</source>
-        <translation>По-умолчанию</translation>
+        <translation>Стандартное значение</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="268"/>
         <source>New line at</source>
-        <translation>Новая линия на</translation>
+        <translation>Новая строка на</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="285"/>
@@ -2768,12 +2800,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="297"/>
         <source>Sort alphabetically the attributes</source>
-        <translation>Сортировка атрибутов по алфавиту</translation>
+        <translation>Сортировать атрибуты по алфавиту</translation>
     </message>
     <message>
         <location filename="../config/configurexmlmanagementdialog.ui" line="304"/>
         <source>Process formatting metadata</source>
-        <translation>Форматировать метаданные</translation>
+        <translation>Обрабатывать метаданные форматирования</translation>
     </message>
 </context>
 <context>
@@ -2786,12 +2818,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/datawidget.ui" line="22"/>
         <source>Copy Data to Clipboard</source>
-        <translation>Копирование данных в буфер обмена</translation>
+        <translation>Скопировать данные в буфер обмена</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.ui" line="27"/>
         <source>Extract This Fragment...</source>
-        <translation>Извлечь Этот Фрагмент...</translation>
+        <translation>Извлечь этот фрагмент...</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.ui" line="32"/>
@@ -2801,17 +2833,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/datawidget.ui" line="37"/>
         <source>Copy Image  to Clipboard</source>
-        <translation>Копирование изображения в буфер обмена</translation>
+        <translation>Скопировать изображение в буфер обмена</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.ui" line="40"/>
         <source>Copy image to clipboard.</source>
-        <translation>Копирование изображения в буфер обмена.</translation>
+        <translation>Скопировать изображение в буфер обмена</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.cpp" line="112"/>
         <source>Use arrows with ctrl, shift and alt and mouse wheel to pan, zoom and rotate.</source>
-        <translation>Используйте стрелки с ctrl, shift и alt и колесико мыши для панорамирования, масштабирования и поворота.</translation>
+        <translation>Используйте стрелки с ctrl, shift и alt и колесо мыши для панорамирования, масштабирования и поворота.</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.cpp" line="154"/>
@@ -2836,13 +2868,13 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/datawidget.cpp" line="339"/>
         <source>Recalculating...</source>
-        <translation>Пересчитывающий...</translation>
+        <translation>Пересчёт...</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.cpp" line="834"/>
         <location filename="../visualization/datawidget.cpp" line="872"/>
         <source>DataWidget::getValue() type not valid: %d</source>
-        <translation></translation>
+        <translation>Некорректный тип DataWidget::getValue(): %d</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.cpp" line="976"/>
@@ -2855,13 +2887,13 @@ row=%1, column=%2</source>
         <location filename="../visualization/datawidget.cpp" line="978"/>
         <source>size: %1, attributes %2, children %3
 </source>
-        <translation>размер: %1, атрибуты %2, Дети %3
+        <translation>размер: %1, атрибуты %2, дочерние элементы %3
 </translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.cpp" line="979"/>
         <source>cumulative size: %1, attributes %2, children %3</source>
-        <translation>совокупный размер: %1, атрибуты %2, Дети %3</translation>
+        <translation>совокупный размер: %1, атрибуты %2, дочерние элементы %3</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.cpp" line="1244"/>
@@ -2896,14 +2928,16 @@ row=%1, column=%2</source>
         <location filename="../visualization/datawidget.cpp" line="1283"/>
         <source>Max value : %1 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Макс. значение: %1 
+</translation>
     </message>
     <message>
         <location filename="../visualization/datawidget.cpp" line="1256"/>
         <location filename="../visualization/datawidget.cpp" line="1286"/>
         <source>row :%1 
 </source>
-        <translation type="unfinished"></translation>
+        <translation>строка: %1 
+</translation>
     </message>
     <message>
         <source>Max value : %1
@@ -2934,7 +2968,7 @@ row=%1, column=%2</source>
     <message>
         <location filename="../visualization/datawidget.cpp" line="1297"/>
         <source>Data copied to the clipboard.</source>
-        <translation>Данные копируются в буфер обмена.</translation>
+        <translation>Данные скопированы в буфер обмена.</translation>
     </message>
 </context>
 <context>
@@ -2967,7 +3001,7 @@ row=%1, column=%2</source>
     <message>
         <location filename="../editsnippet.ui" line="84"/>
         <source>------</source>
-        <translation></translation>
+        <translation>------</translation>
     </message>
     <message>
         <location filename="../editsnippet.ui" line="104"/>
@@ -2977,7 +3011,7 @@ row=%1, column=%2</source>
     <message>
         <location filename="../editsnippet.ui" line="117"/>
         <source>---</source>
-        <translation></translation>
+        <translation>---</translation>
     </message>
     <message>
         <location filename="../editsnippet.ui" line="126"/>
@@ -3008,7 +3042,7 @@ row=%1, column=%2</source>
 You can always use one or the other method by using menu or keyboard shortucts.
 You can change your choice at any time using the preferences panel.</source>
         <translation>
-Вы всегда можете изменять тип редактора с помощью сочетания клавиш или через меню.</translation>
+Вы всегда можете изменить тип редактора с помощью комбинации клавиш или через меню.</translation>
     </message>
     <message>
         <location filename="../modules/style/editingtypesdialog.ui" line="125"/>
@@ -3022,7 +3056,7 @@ You can change your choice at any time using the preferences panel.</source>
 Keyboard shortcut: Use Alt or Control with Return key to edit using assisted mode.</source>
         <translation>Больше контроля на входе, более специализированные функции.
 
-Сочетание клавиш: используйте Alt или Control в комбинации с Return для редактирования во вспомогательном режиме.</translation>
+Комбинация клавиш: используйте Alt или Control в сочетании с Return для редактирования в режиме с подсказками.</translation>
     </message>
     <message>
         <location filename="../modules/style/editingtypesdialog.ui" line="180"/>
@@ -3031,7 +3065,7 @@ Keyboard shortcut: Use Alt or Control with Return key to edit using assisted mod
 Keyboard shortcut: &apos;e&apos; (for edit) .</source>
         <translation>Быстрое копирование / вставка элементов, но без дополнительных проверок.
 
-Сочетание клавиш: &apos;e&apos; (для редактирования) .</translation>
+Комбинация клавиш: «e» (для редактирования) .</translation>
     </message>
     <message>
         <location filename="../modules/style/editingtypesdialog.ui" line="195"/>
@@ -3041,7 +3075,7 @@ Keyboard shortcut: &apos;e&apos; (for edit) .</source>
     <message>
         <location filename="../modules/style/editingtypesdialog.ui" line="262"/>
         <source>Predefined</source>
-        <translation>По-умолчанию</translation>
+        <translation>Стандартное значение</translation>
     </message>
 </context>
 <context>
@@ -3049,17 +3083,17 @@ Keyboard shortcut: &apos;e&apos; (for edit) .</source>
     <message>
         <location filename="../modules/export/exportoptionsdialog.ui" line="14"/>
         <source>Export Options</source>
-        <translation>варианты экспорта</translation>
+        <translation>Параметры экспорта</translation>
     </message>
     <message>
         <location filename="../modules/export/exportoptionsdialog.ui" line="26"/>
         <source>Use &amp;Namespaces</source>
-        <translation>использовать &amp;пространства имен</translation>
+        <translation>Использовать &amp;пространства имён</translation>
     </message>
     <message>
         <location filename="../modules/export/exportoptionsdialog.ui" line="33"/>
         <source>Insert declaration</source>
-        <translation>Вставляйте декларация</translation>
+        <translation>Вставить объявление</translation>
     </message>
 </context>
 <context>
@@ -3073,8 +3107,8 @@ Keyboard shortcut: &apos;e&apos; (for edit) .</source>
         <location filename="../snippet.cpp" line="237"/>
         <source>Unable to load snippet file.
  Error code is &apos;%1&apos;</source>
-        <translation>Не удается загрузить фрагмент файла.
- Код ошибки &quot;%1&quot;</translation>
+        <translation>Не удалось загрузить файл фрагмента.
+ Код ошибки «%1»</translation>
     </message>
     <message>
         <location filename="../snippet.cpp" line="248"/>
@@ -3087,12 +3121,12 @@ Keyboard shortcut: &apos;e&apos; (for edit) .</source>
     <message>
         <location filename="../modules/help/firstaccessdialog.ui" line="14"/>
         <source>QXMLEdit Preferences</source>
-        <translation>Настройки QXMLEdit</translation>
+        <translation>Настройка QXMLEdit</translation>
     </message>
     <message>
         <location filename="../modules/help/firstaccessdialog.ui" line="39"/>
         <source>Guided or Expert?</source>
-        <translation>Руководил или эксперт?</translation>
+        <translation>Новичок или эксперт?</translation>
     </message>
     <message>
         <location filename="../modules/help/firstaccessdialog.ui" line="55"/>
@@ -3103,15 +3137,15 @@ Keyboard shortcut: &apos;e&apos; (for edit) .</source>
         <location filename="../modules/help/firstaccessdialog.ui" line="77"/>
         <location filename="../modules/help/firstaccessdialog.ui" line="111"/>
         <source>Guided User</source>
-        <translation>Направленый пользователь</translation>
+        <translation>Начинающий пользователь</translation>
     </message>
     <message>
         <location filename="../modules/help/firstaccessdialog.ui" line="90"/>
         <source>You will be guided through the main features until you familiarize with QXMLEdit.
 The most important operations will be reached in no time.
 </source>
-        <translation>Вы будете ориентироваться по основным функциям, пока не ознакомитесь с QXMLEdit.
-Самые важные операции будут достигнуты в кратчайшие сроки.
+        <translation>Подсказки помогут вам ознакомиться с основными функциями QXMLEdit.
+Это позволит освоить самые важные операции в кратчайшие сроки.
 </translation>
     </message>
     <message>
@@ -3119,7 +3153,7 @@ The most important operations will be reached in no time.
         <source>
 Expert User</source>
         <translation>
-опытный пользователь</translation>
+Опытный пользователь</translation>
     </message>
     <message>
         <location filename="../modules/help/firstaccessdialog.ui" line="140"/>
@@ -3127,13 +3161,13 @@ Expert User</source>
 After some time you will prefer it. This is the fastest mode to use the program, but requires some experience given the number of options.
 </source>
         <translation>Просмотрите все команды.
-Через некоторое время вы предпочтете его. Это самый быстрый режим для использования программы, но требует некоторого опыта, учитывая количество опций.
+Через некоторое время вы предпочтёте этот режим. Он позволяет работать с программой максимально быстро, но требует некоторого опыта, учитывая количество опций.
 </translation>
     </message>
     <message>
         <location filename="../modules/help/firstaccessdialog.ui" line="158"/>
         <source>Expert User</source>
-        <translation>опытный пользователь</translation>
+        <translation>Опытный пользователь</translation>
     </message>
     <message>
         <location filename="../modules/help/firstaccessdialog.ui" line="203"/>
@@ -3148,7 +3182,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="14"/>
         <source>QXmlEdit Guided Operations</source>
-        <translation>Qxmledit Управление редактором</translation>
+        <translation>Управление редактором Qxmledit</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="33"/>
@@ -3168,7 +3202,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="90"/>
         <source>Open an existing XML document.</source>
-        <translation>Откройте существующий XML-документ.</translation>
+        <translation>Открыть существующий XML-документ.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="93"/>
@@ -3193,7 +3227,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="201"/>
         <source>Set formatting options.</source>
-        <translation>Просмотр параметров форматирования.</translation>
+        <translation>Установка параметров форматирования.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="204"/>
@@ -3213,7 +3247,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="253"/>
         <source>Set edit options.</source>
-        <translation>Выбор параметров фоматирования.</translation>
+        <translation>Установка параметров редактирования.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="256"/>
@@ -3228,7 +3262,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="331"/>
         <source>Open the configuration panel.</source>
-        <translation>Открsnm панель настроек.</translation>
+        <translation>Открыть панель настроек.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="334"/>
@@ -3238,12 +3272,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="351"/>
         <source>Change the user profile.</source>
-        <translation>Перейти в режим продвинутого пользователя.</translation>
+        <translation>Перейти в режим опытного пользователя.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="354"/>
         <source>Change Profile</source>
-        <translation>Режим продвинутого пользователя</translation>
+        <translation>Режим опытного пользователя</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="394"/>
@@ -3253,7 +3287,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="425"/>
         <source>Extract fragments from XML file.</source>
-        <translation></translation>
+        <translation>Извлечение фрагментов из XML-файла.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="428"/>
@@ -3318,12 +3352,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="661"/>
         <source>Help</source>
-        <translation>Помощь</translation>
+        <translation>Справка</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="692"/>
         <source>Show the user manual.</source>
-        <translation></translation>
+        <translation>Показать руководство пользователя.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="695"/>
@@ -3333,22 +3367,22 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="718"/>
         <source>Show the editing shortcuts.</source>
-        <translation></translation>
+        <translation>Показать комбинации клавиш для редактирования.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="721"/>
         <source>Editing shortcuts</source>
-        <translation>Редактирование ярлыков</translation>
+        <translation>Комбинации клавиш редактирования</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="735"/>
         <source>Show or hide the keyboard shortcuts information dialog.</source>
-        <translation>Показать или скрыть сведения о сочетаниях клавиш.</translation>
+        <translation>Показать или скрыть сведения о комбинациях клавиш.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="738"/>
         <source>Show keyboard shortcuts</source>
-        <translation>Показать сочетания клавиш</translation>
+        <translation>Показать комбинации клавиш</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="758"/>
@@ -3358,12 +3392,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="813"/>
         <source>Close this window.</source>
-        <translation>Закройте это окно.</translation>
+        <translation>Закрыть это окно.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="845"/>
         <source>Quit application.</source>
-        <translation>Закройте приложение.</translation>
+        <translation>Закрыть приложение.</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.ui" line="848"/>
@@ -3378,12 +3412,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.cpp" line="109"/>
         <source>Really quit?</source>
-        <translation>Точно хочешь выйти?</translation>
+        <translation>Действительно выйти?</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.cpp" line="146"/>
         <source>Really change profile?</source>
-        <translation>Уверены, что хотите изменить профиль?</translation>
+        <translation>Действительно изменить профиль?</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedoperationsdialog.cpp" line="190"/>
@@ -3393,7 +3427,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedoperationsdialog.cpp" line="193"/>
         <source>Guided User</source>
-        <translation>Обычный пользователь</translation>
+        <translation>Начинающий пользователь</translation>
     </message>
 </context>
 <context>
@@ -3459,7 +3493,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedvalidationdialog.ui" line="159"/>
         <source>Load validation XSD.</source>
-        <translation>Выбор XSD.</translation>
+        <translation>Выбор XSD</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedvalidationdialog.ui" line="207"/>
@@ -3479,7 +3513,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/help/guidedvalidationdialog.ui" line="310"/>
         <source>Cause:....</source>
-        <translation>Причина.:...</translation>
+        <translation>Причина:...</translation>
     </message>
     <message>
         <location filename="../modules/help/guidedvalidationdialog.cpp" line="162"/>
@@ -3518,37 +3552,37 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../infodialog.ui" line="53"/>
         <source>TextLabel</source>
-        <translation></translation>
+        <translation>Текстовая подпись</translation>
     </message>
     <message>
         <location filename="../infodialog.ui" line="62"/>
         <source>---</source>
-        <translation></translation>
+        <translation>---</translation>
     </message>
     <message>
         <location filename="../infodialog.ui" line="78"/>
         <source>DTD</source>
-        <translation></translation>
+        <translation>DTD</translation>
     </message>
     <message>
         <location filename="../infodialog.ui" line="104"/>
         <source>XML Schema references</source>
-        <translation>Ссылки на схемы XML</translation>
+        <translation>Ссылки на XML-схемы</translation>
     </message>
     <message>
         <location filename="../infodialog.ui" line="111"/>
         <source>There are no XML Schema references</source>
-        <translation>Ссылки на схемы XML отсутствуют</translation>
+        <translation>Ссылки на XML-схемы отсутствуют</translation>
     </message>
     <message>
         <location filename="../infodialog.ui" line="146"/>
         <source>Namespaces</source>
-        <translation>Пространство имён</translation>
+        <translation>Пространства имён</translation>
     </message>
     <message>
         <location filename="../infodialog.ui" line="175"/>
         <source>There are no declared namespaces.</source>
-        <translation>Не существует объявленных пространств имен.</translation>
+        <translation>Не существует объявленных пространств имён.</translation>
     </message>
     <message>
         <location filename="../infodialog.cpp" line="84"/>
@@ -3563,7 +3597,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../infodialog.cpp" line="96"/>
         <source>Size: %1 (%2 bytes) %3</source>
-        <translation>Размер: %1 (%2 байта) %3</translation>
+        <translation>Размер: %1 (%2 байт) %3</translation>
     </message>
     <message>
         <location filename="../infodialog.cpp" line="96"/>
@@ -3573,7 +3607,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../infodialog.cpp" line="97"/>
         <source>Created on: %1 by %2</source>
-        <translation>Создано на: %1 %2</translation>
+        <translation>Создано: %1 %2</translation>
     </message>
     <message>
         <location filename="../infodialog.cpp" line="98"/>
@@ -3583,7 +3617,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../infodialog.cpp" line="126"/>
         <source>Namespace</source>
-        <translation>Пространство имен</translation>
+        <translation>Пространство имён</translation>
     </message>
     <message>
         <location filename="../infodialog.cpp" line="126"/>
@@ -3620,27 +3654,30 @@ If unsure, close this panel or press escape. You can always change your choice l
 &lt;p&gt;&lt;span style=&quot;font-size:12pt;font-weight:600;&quot;&gt;Use a Text Editor&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot; padding-left:40;padding-right:40;&quot;&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;You can use a text editor to edit elements.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;You can change your choice using the &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Task&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&amp;quot; menu.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;&lt;span style=&quot;font-size:12pt;font-weight:600;&quot;&gt;Использование текстового редактора&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot; padding-left:40;padding-right:40;&quot;&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Для редактирования элементов можно использовать текстовый редактор.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Выбор можно изменить с помощью меню &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Задача&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&amp;quot;.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/infooneditmode.ui" line="93"/>
         <source>Open the edit configuration panel.</source>
-        <translation>Откройте панель редактирования.</translation>
+        <translation>Открыть панель настройки редактирования.</translation>
     </message>
     <message>
         <location filename="../widgets/infooneditmode.ui" line="99"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;self:showPanel&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline;;&quot;&gt;Open Configuration Panel&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;self:showPanel&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline;;&quot;&gt;Открыть панель настройки&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/infooneditmode.ui" line="128"/>
         <source>Close this panel.</source>
-        <translation>Закройте эту панель.</translation>
+        <translation>Закрыть эту панель.</translation>
     </message>
     <message>
         <location filename="../widgets/infooneditmode.ui" line="134"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;a href=&quot;self:dismiss&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0057ae;&quot;&gt;Dismiss&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;a href=&quot;self:dismiss&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0057ae;&quot;&gt;Отклонить&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3656,27 +3693,30 @@ If unsure, close this panel or press escape. You can always change your choice l
 &lt;p&gt;&lt;span style=&quot;font-size:12pt;font-weight:600;&quot;&gt;Keyboard shortcuts available &lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot; padding-left:40;padding-right:40;&quot;&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Using keyboard can be faster.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;View the shortcuts using the &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Help&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&amp;quot; menu.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;&lt;span style=&quot;font-size:12pt;font-weight:600;&quot;&gt;Доступные комбинации клавиш &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;
+&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot; padding-left:40;padding-right:40;&quot;&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Работу с клавиатурой можно ускорить.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Просмотрите комбинации клавиш с помощью меню &amp;quot;&lt;/span&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Справка&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&amp;quot; menu.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/infoonkeyboardshoertcuts.ui" line="87"/>
         <source>Show the list of shortcuts.</source>
-        <translation>Показать список ярлыков.</translation>
+        <translation>Показать список комбинаций клавиш.</translation>
     </message>
     <message>
         <location filename="../widgets/infoonkeyboardshoertcuts.ui" line="93"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;self:showPanel&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline;;&quot;&gt;Show Shortcut List&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;a href=&quot;self:showPanel&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline;;&quot;&gt;Показать список комбинаций клавиш&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../widgets/infoonkeyboardshoertcuts.ui" line="122"/>
         <source>Close this panel.</source>
-        <translation>Закройте эту панель.</translation>
+        <translation>Закрыть эту панель.</translation>
     </message>
     <message>
         <location filename="../widgets/infoonkeyboardshoertcuts.ui" line="128"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;a href=&quot;self:dismiss&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0057ae;&quot;&gt;Dismiss&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;a href=&quot;self:dismiss&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0057ae;&quot;&gt;Отклонить&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3684,44 +3724,44 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../modules/style/infoonkeyboardshortcutsdialog.ui" line="14"/>
         <source>Keyboard Shortcuts Available</source>
-        <translation>Доступные Сочетания Клавиш</translation>
+        <translation>Доступные комбинации клавиш</translation>
     </message>
     <message>
         <location filename="../modules/style/infoonkeyboardshortcutsdialog.ui" line="26"/>
         <source>You can use keyboard shortcuts to edit elements:
 </source>
-        <translation>Для редактирования элементов можно использовать сочетания клавиш:
+        <translation>Для редактирования элементов можно использовать комбинации клавиш:
 </translation>
     </message>
     <message>
         <location filename="../modules/style/infoonkeyboardshortcutsdialog.ui" line="40"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;i &lt;/span&gt;or &lt;span style=&quot; font-size:14pt;&quot;&gt;Ins &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;insert&lt;/span&gt; a child&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;i &lt;/span&gt;или &lt;span style=&quot; font-size:14pt;&quot;&gt;Ins &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;вставить&lt;/span&gt; дочерний элемент&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../modules/style/infoonkeyboardshortcutsdialog.ui" line="53"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;a &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;append&lt;/span&gt; a sibling&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;a &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;добавить&lt;/span&gt; одноуровневый элемент&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../modules/style/infoonkeyboardshortcutsdialog.ui" line="66"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;e &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;edit&lt;/span&gt; in text mode:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;e &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;редактировать&lt;/span&gt; в текстовом режиме:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../modules/style/infoonkeyboardshortcutsdialog.ui" line="106"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Alt &lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;or &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Control &lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;with &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Return &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;edit&lt;/span&gt; using assisted mode (form)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Alt &lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;или &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Control &lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;с &lt;/span&gt;&lt;span style=&quot; font-size:14pt;&quot;&gt;Return &lt;/span&gt;&lt;span style=&quot; color:#ff0000;&quot;&gt;редактировать&lt;/span&gt; в режиме с подсказками (форма)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../modules/style/infoonkeyboardshortcutsdialog.ui" line="165"/>
         <source>Details are available using the menu Help/Principal Shortcuts</source>
-        <translation>Подробности доступны с помощью меню Справка/основные ярлыки</translation>
+        <translation>Подробные сведения доступны в меню Справка/Основные комбинации клавиш</translation>
     </message>
     <message>
         <location filename="../modules/style/infoonkeyboardshortcutsdialog.ui" line="172"/>
         <source>Open Info Panel</source>
-        <translation>Открыть Информационную Панель</translation>
+        <translation>Открыть информационную панель</translation>
     </message>
 </context>
 <context>
@@ -3729,17 +3769,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../licensedialog.ui" line="14"/>
         <source>License Agreement</source>
-        <translation>лицензионное соглашение</translation>
+        <translation>Лицензионное соглашение</translation>
     </message>
     <message>
         <location filename="../licensedialog.ui" line="24"/>
         <source>Please read the license agreement. You must accept the terms to use this program</source>
-        <translation>Пожалуйста, ознакомьтесь с Лицензионным соглашением. Вы должны принять условия использования этой программы</translation>
+        <translation>Пожалуйста, ознакомьтесь с лицензионным соглашением. Для использования программы необходимо принять его условия</translation>
     </message>
     <message>
         <location filename="../licensedialog.ui" line="36"/>
         <source>I have read and agree the license terms. The license can be reviewed in the &quot;About&quot; panel.</source>
-        <translation>Я прочитал и согласен с условиями лицензии. Лицензию можно просмотреть в панели &quot;о компании&quot;.</translation>
+        <translation>Я прочитал и согласен с условиями лицензии. Лицензию можно просмотреть на панели «О программе».</translation>
     </message>
     <message>
         <location filename="../licensedialog.ui" line="43"/>
@@ -3752,7 +3792,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="14"/>
         <source>QXmlEdit</source>
-        <translation></translation>
+        <translation>QXmlEdit</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="80"/>
@@ -3767,17 +3807,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="123"/>
         <source>&amp;Help</source>
-        <translation>&amp;Помогать</translation>
+        <translation>&amp;Справка</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="127"/>
         <source>How Do I...?</source>
-        <translation>А Как Же Я..?</translation>
+        <translation>Инструкции</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="142"/>
         <source>&amp;Edit</source>
-        <translation>&amp;Редактировать</translation>
+        <translation>&amp;Правка</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="146"/>
@@ -3791,7 +3831,7 @@ If unsure, close this panel or press escape. You can always change your choice l
         <location filename="../MainWindow.ui" line="447"/>
         <location filename="../mainwindow.cpp" line="768"/>
         <source>Advanced</source>
-        <translation>Продвинутый</translation>
+        <translation>Дополнительно</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="165"/>
@@ -3801,7 +3841,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="212"/>
         <source>&amp;Bookmarks</source>
-        <translation>&amp;закладки</translation>
+        <translation>&amp;Закладки</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="221"/>
@@ -3811,17 +3851,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="225"/>
         <source>New Speciali&amp;zed</source>
-        <translation>Новый спец&amp;илизированый</translation>
+        <translation>Новый спец&amp;илизированный</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="267"/>
         <source>&amp;XML</source>
-        <translation></translation>
+        <translation>&amp;XML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="274"/>
         <source>XML Schema</source>
-        <translation>схема XML</translation>
+        <translation>XML-схема</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="278"/>
@@ -3832,7 +3872,7 @@ If unsure, close this panel or press escape. You can always change your choice l
         <location filename="../MainWindow.ui" line="286"/>
         <location filename="../MainWindow.ui" line="1922"/>
         <source>Append Sibling</source>
-        <translation>Добавить дочерний элемент</translation>
+        <translation>Добавить одноуровневый элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="302"/>
@@ -3847,13 +3887,13 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="321"/>
         <source>Sort Attributes</source>
-        <translation>Сортировка Атрибутов</translation>
+        <translation>Сортировка атрибутов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="329"/>
         <location filename="../MainWindow.ui" line="438"/>
         <source>Siblings</source>
-        <translation>Соседи</translation>
+        <translation>Одноуровневые элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="337"/>
@@ -3864,7 +3904,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="347"/>
         <source>Namespaces</source>
-        <translation>Пространство имён</translation>
+        <translation>Пространства имён</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="393"/>
@@ -3879,7 +3919,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="416"/>
         <source>Filter Attributes</source>
-        <translation>атрибуты фильтра</translation>
+        <translation>Фильтровать атрибуты</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="430"/>
@@ -3889,29 +3929,29 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="483"/>
         <source>&amp;Sessions</source>
-        <translation>&amp;сессии</translation>
+        <translation>&amp;Сеансы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="496"/>
         <source>Preferences</source>
-        <translation>Предпочтения</translation>
+        <translation>Настройка</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="508"/>
         <source>Special</source>
-        <translation>Специальный</translation>
+        <translation>Специальное</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="512"/>
         <source>Validation</source>
-        <translation>Подтверждение</translation>
+        <translation>Проверка</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="521"/>
         <location filename="../mainwindow.cpp" line="837"/>
         <location filename="../mainwindow.cpp" line="2336"/>
         <source>XSLT</source>
-        <translation></translation>
+        <translation>XSLT</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="555"/>
@@ -3921,17 +3961,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="590"/>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Создать</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="593"/>
         <source>New</source>
-        <translation>Новый</translation>
+        <translation>Создать</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="596"/>
         <source>Ctrl+N</source>
-        <translation></translation>
+        <translation>Ctrl+N</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="605"/>
@@ -3941,7 +3981,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="608"/>
         <source>Ctrl+Q</source>
-        <translation></translation>
+        <translation>Ctrl+Q</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="617"/>
@@ -3951,7 +3991,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="620"/>
         <source>Ctrl+O</source>
-        <translation></translation>
+        <translation>Ctrl+O</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="629"/>
@@ -3961,17 +4001,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="632"/>
         <source>Ctrl+S</source>
-        <translation></translation>
+        <translation>Ctrl+S</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="641"/>
         <source>Save &amp;As...</source>
-        <translation>Сохранить &amp;Как...</translation>
+        <translation>Сохранить &amp;как...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="644"/>
         <source>Ctrl+Shift+S</source>
-        <translation></translation>
+        <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="653"/>
@@ -3981,17 +4021,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="656"/>
         <source>Ctrl+X</source>
-        <translation></translation>
+        <translation>Ctrl+X</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="665"/>
         <source>Cop&amp;y</source>
-        <translation>Копиро&amp;ать</translation>
+        <translation>Скопиро&amp;вать</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="668"/>
         <source>Ctrl+C</source>
-        <translation></translation>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="677"/>
@@ -4001,22 +4041,22 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="680"/>
         <source>Ctrl+V</source>
-        <translation></translation>
+        <translation>Ctrl+V</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="685"/>
         <source>&amp;Expand All</source>
-        <translation>&amp;Развернуть Все</translation>
+        <translation>&amp;Развернуть все</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="688"/>
         <source>Expand all the items.</source>
-        <translation>Разверните все элементы.</translation>
+        <translation>Развернуть все элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="691"/>
         <source>Ctrl+Shift+E</source>
-        <translation></translation>
+        <translation>Ctrl+Shift+E</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="699"/>
@@ -4036,47 +4076,47 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="716"/>
         <source>Add &amp;Comment as Child...</source>
-        <translation>Добавить &amp;комментарий...</translation>
+        <translation>Добавить &amp;комментарий как дочерний элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="719"/>
         <source>Ctrl+3</source>
-        <translation></translation>
+        <translation>Ctrl+3</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="724"/>
         <source>Append C&amp;omment as Brother...</source>
-        <translation type="unfinished">Добавьте к&amp;омментарий в качестве брата...</translation>
+        <translation>Добавить к&amp;омментарий как одноуровневый элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="727"/>
         <source>Ctrl+4</source>
-        <translation></translation>
+        <translation>Ctrl+4</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="732"/>
         <source>Add Processing Instruction as Child...</source>
-        <translation>Добавьте инструкцию по обработке дочернего элемента...</translation>
+        <translation>Добавить инструкцию по обработке как дочерний элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="735"/>
         <source>Ctrl+5</source>
-        <translation></translation>
+        <translation>Ctrl+5</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="740"/>
         <source>Append Processing Instruction as Brother...</source>
-        <translation type="unfinished">Добавьте инструкцию по обработке как Брата...</translation>
+        <translation>Добавить инструкцию по обработке как одноуровневый элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="743"/>
         <source>Ctrl+6</source>
-        <translation></translation>
+        <translation>Ctrl+6</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="748"/>
         <source>Add a Child Element...</source>
-        <translation>Добавить Дочерний элемент...</translation>
+        <translation>Добавить дочерний элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="751"/>
@@ -4086,17 +4126,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="754"/>
         <source>Ctrl+1</source>
-        <translation></translation>
+        <translation>Ctrl+1</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="759"/>
         <source>Append a Brother Element...</source>
-        <translation>Добавить соседний элемент...</translation>
+        <translation>Добавить одноуровневый элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="762"/>
         <source>Ctrl+2</source>
-        <translation></translation>
+        <translation>Ctrl+2</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="767"/>
@@ -4106,7 +4146,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="770"/>
         <source>Alt+Return</source>
-        <translation></translation>
+        <translation>Alt+Return</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="775"/>
@@ -4116,27 +4156,27 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="778"/>
         <source>Ctrl+D</source>
-        <translation></translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="787"/>
         <source>Move &amp;Up</source>
-        <translation>переместиться &amp;вверх</translation>
+        <translation>Переместить &amp;выше</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="790"/>
         <source>Ctrl+K</source>
-        <translation></translation>
+        <translation>Ctrl+K</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="799"/>
         <source>Move Do&amp;wn</source>
-        <translation>Переместиться Вни&amp;з</translation>
+        <translation>Переместить ни&amp;же</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="802"/>
         <source>Ctrl+M</source>
-        <translation></translation>
+        <translation>Ctrl+M</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="811"/>
@@ -4146,145 +4186,145 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="814"/>
         <source>Ctrl+F</source>
-        <translation></translation>
+        <translation>Ctrl+F</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="823"/>
         <source>Go To Parent</source>
-        <translation>Перейти К Родителю</translation>
+        <translation>Перейти к родительскому элементу</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="826"/>
         <source>Move to the parent</source>
-        <translation>Перейти к родителю</translation>
+        <translation>Переход к родительскому элементу</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="829"/>
         <source>F11</source>
-        <translation></translation>
+        <translation>F11</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="838"/>
         <location filename="../MainWindow.ui" line="841"/>
         <source>Go to Previous Brother</source>
-        <translation>Идти к предыдущему брату</translation>
+        <translation>Перейти к предыдущему одноуровневому элементу</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="844"/>
         <source>F9</source>
-        <translation></translation>
+        <translation>F9</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="853"/>
         <location filename="../MainWindow.ui" line="856"/>
         <source>Go to Next Brother</source>
-        <translation>Идти к следующему Брату</translation>
+        <translation>Перейти к следующему одноуровневому элементу</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="859"/>
         <source>F10</source>
-        <translation></translation>
+        <translation>F10</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="868"/>
         <source>&amp;Toggle Bookmark</source>
-        <translation>&amp;Переключить Закладку</translation>
+        <translation>&amp;Переключить закладку</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="871"/>
         <source>Toggle Boorkmark at Current Location</source>
-        <translation>Переключить Boorkmark в текущем местоположении</translation>
+        <translation>Переключить закладку в текущем расположении</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="874"/>
         <source>Ctrl+F2</source>
-        <translation></translation>
+        <translation>Ctrl+F2</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="879"/>
         <source>&amp;Remove All Bookmarks</source>
-        <translation>&amp;Удалить Все Закладки</translation>
+        <translation>&amp;Удалить все закладки</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="884"/>
         <source>Go To &amp;Next Bookmark</source>
-        <translation>Перейти на &amp;на следующую закладку</translation>
+        <translation>Перейти на &amp;следующую закладку</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="887"/>
         <source>F2</source>
-        <translation></translation>
+        <translation>F2</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="892"/>
         <source>Go To &amp;Previous Bookmark</source>
-        <translation>Перейти на &amp;Предыдущую Закладку</translation>
+        <translation>Перейти на &amp;предыдущую закладку</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="895"/>
         <source>Shift+F2</source>
-        <translation></translation>
+        <translation>Shift+F2</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="903"/>
         <source>List Bookmarks</source>
-        <translation>Список Закладок</translation>
+        <translation>Список закладок</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="911"/>
         <source>Show Child &amp;Index</source>
-        <translation>Показать &amp;Индекс Ребенка</translation>
+        <translation>Показать &amp;индекс дочерних элементов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="914"/>
         <source>Show Child Index</source>
-        <translation>Показать индекс ребёнка</translation>
+        <translation>Показать индекс дочерних элементов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="919"/>
         <location filename="../MainWindow.ui" line="922"/>
         <source>Close This and All Siblings</source>
-        <translation>Закрыть Эти и все родственные дочерние связи</translation>
+        <translation>Закрыть этот элемент и все одноуровневые</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="925"/>
         <source>F12</source>
-        <translation></translation>
+        <translation>F12</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="930"/>
         <source>New From &amp;Clipboard</source>
-        <translation>Новая Из &amp;Буфера Обмена</translation>
+        <translation>Новый из &amp;буфера обмена</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="933"/>
         <source>import XML from clipboard</source>
-        <translation>импорт XML из буфера обмена</translation>
+        <translation>Импорт XML из буфера обмена</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="938"/>
         <source>&amp;Compact View</source>
-        <translation>&amp;Компактный Вид</translation>
+        <translation>&amp;Компактный вид</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="941"/>
         <source>Compact View</source>
-        <translation>Компактный Вид</translation>
+        <translation>Компактный вид</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="949"/>
         <source>&amp;Hide Siblings</source>
-        <translation>&amp;Скрыть братьев и сестёр</translation>
+        <translation>&amp;Скрыть одноуровневые элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="952"/>
         <source>Hide Siblings</source>
-        <translation>Скрыть Братьев И Сестер</translation>
+        <translation>Скрыть одноуровневые элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="960"/>
         <source>&amp;Fixed Size Attributes</source>
-        <translation>&amp;Атрибуты Фиксированного Размера</translation>
+        <translation>&amp;Атрибуты фиксированного размера</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="963"/>
@@ -4294,24 +4334,24 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="971"/>
         <source>Show Attributes &amp;Length</source>
-        <translation>Показать Атрибуты И &amp;Длину</translation>
+        <translation>Показать &amp;длину атрибутов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="974"/>
         <source>Show Attributes Length</source>
-        <translation>Показать Длину Атрибутов</translation>
+        <translation>Показать длину атрибутов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="982"/>
         <location filename="../MainWindow.ui" line="985"/>
         <source>Show Text as Base 64 Coded</source>
-        <translation>Показать текст как Base 64 кодировке</translation>
+        <translation>Показать текст в кодировке Base 64</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="993"/>
         <location filename="../MainWindow.ui" line="996"/>
         <source>Show Current Element Text Base 64</source>
-        <translation>Показать Текст Текущего Элемента Base 64</translation>
+        <translation>Показать текст текущего элемента в Base 64</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1001"/>
@@ -4331,27 +4371,27 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1015"/>
         <source>Edit inner XML</source>
-        <translation>Редактирование внутреннего XML-файле</translation>
+        <translation>Редактирование внутреннего XML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1020"/>
         <source>Edit Inner XML Base 64 Coded...</source>
-        <translation>Редактирование внутреннего XML-файле базы 64 закодированы...</translation>
+        <translation>Редактировать внутренний XML в кодировке Base 64...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1023"/>
         <source>Edit inner XML Base 64 Coded</source>
-        <translation>Редактирование внутренней XML Base 64  кодировки</translation>
+        <translation>Редактирование внутреннего XML в кодировке Base 64</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1028"/>
         <source>Edit inner Base 64 Text...</source>
-        <translation>Редактирование внутреннего Base 64 Текста...</translation>
+        <translation>Редактировать внутренний текст в кодировке Base 64…</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1031"/>
         <source>Edit inner Base 64 Text</source>
-        <translation>Редактировать внутренний Base 64 текст</translation>
+        <translation>Редактирование внутреннего текста в кодировке Base 64</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1036"/>
@@ -4383,12 +4423,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1063"/>
         <source>Reload the current file</source>
-        <translation>Перезагрузите текущий файл</translation>
+        <translation>Перезагрузить текущий файл</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1068"/>
         <source>Last Files</source>
-        <translation>Последний файл</translation>
+        <translation>Последние файлы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1073"/>
@@ -4413,12 +4453,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1089"/>
         <source>Edit Preferred Directories...</source>
-        <translation>Редактировать Каталоги...</translation>
+        <translation>Редактировать предпочитаемые каталоги...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1092"/>
         <source>Edit Preferred Directories</source>
-        <translation>Редактировать Каталоги</translation>
+        <translation>Редактирование предпочитаемых каталогов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1101"/>
@@ -4428,22 +4468,22 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1104"/>
         <source>Validate against a XSD</source>
-        <translation>Проверить с помощью xsd-схемы</translation>
+        <translation>Проверка с помощью XSD-схемы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1109"/>
         <source>Validate Using New Schema File...</source>
-        <translation>Проверьте С Помощью Нового Файла Схемы...</translation>
+        <translation>Проверить с помощью нового файла схемы...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1112"/>
         <source>Validate using new XSD File.</source>
-        <translation>Проверка с помощью нового XSD-файла.</translation>
+        <translation>Проверка с помощью нового XSD-файла</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1117"/>
         <source>Insert Snippet...</source>
-        <translation>Вставить Фрагмент...</translation>
+        <translation>Вставить фрагмент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1120"/>
@@ -4453,114 +4493,114 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1125"/>
         <source>Configure Snippets...</source>
-        <translation>Настройка Сниппетов...</translation>
+        <translation>Настроить фрагменты...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1128"/>
         <source>Configure Snippets</source>
-        <translation>Настройка Фрагментов</translation>
+        <translation>Настройка фрагментов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1133"/>
         <location filename="../MainWindow.ui" line="1136"/>
         <source>Execute Auto Test</source>
-        <translation>Выполнение Автоматического Теста</translation>
+        <translation>Выполнить автоматический тест</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1141"/>
         <source>Plugins</source>
-        <translation>Плагины</translation>
+        <translation>Модули</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1146"/>
         <source>Transform in Snippet...</source>
-        <translation>Преобразование в Фрагмент...</translation>
+        <translation>Преобразовать во фрагмент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1149"/>
         <source>Transform in Snippet</source>
-        <translation>Преобразование в Фрагмент</translation>
+        <translation>Преобразование во фрагмент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1157"/>
         <location filename="../MainWindow.ui" line="1160"/>
         <source>Show Element Text Length</source>
-        <translation>Показать Длину Текста Элемента</translation>
+        <translation>Показать длину текста элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1168"/>
         <source>Show Element Size</source>
-        <translation>Показать Размер Элемента</translation>
+        <translation>Показать размер элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1171"/>
         <source>Show element size</source>
-        <translation></translation>
+        <translation>Показать размер элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1176"/>
         <source>Delete Bookmarked Items</source>
-        <translation>Удаление Элементов С Закладками</translation>
+        <translation>Удалить элементы в закладках</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1179"/>
         <source>Delete Bookmarked items</source>
-        <translation>Удаление Элементов С Закладками</translation>
+        <translation>Удаление элементов в закладках</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1184"/>
         <source>Clean Bookmarked Items Content</source>
-        <translation></translation>
+        <translation>Очистить содержимое элементов в закладках</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1187"/>
         <source>Clean Bookmarked ItemsContent</source>
-        <translation>Очистить Закладки ItemsContent</translation>
+        <translation>Очистка содержимого элементов в закладках</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1192"/>
         <source>Clean Bookmarked Items Attribute...</source>
-        <translation>Чистый Атрибут Закладок Элементов...</translation>
+        <translation>Очистить атрибут элементов в закладках...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1195"/>
         <source>Clean Bookmarked Items Attribute</source>
-        <translation></translation>
+        <translation>Очистка атрибута элементов в закладках</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1200"/>
         <source>Explore Structure...</source>
-        <translation>Исследуйте Структуру...</translation>
+        <translation>Исследовать структуру...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1203"/>
         <source>Explore structure loading only partial informations about a file.</source>
-        <translation>Исследуйте структуру, загружая только частичную информацию о файле.</translation>
+        <translation>Исследовать структуру, загружая только частичную информацию о файле</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1208"/>
         <source>Blind Load File...</source>
-        <translation>Слепая Загрузка Файла...</translation>
+        <translation>Слепая загрузка файла...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1211"/>
         <source>load a file in blind mode</source>
-        <translation>загрузка файла в слепом режиме</translation>
+        <translation>Загрузка файла в слепом режиме</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1219"/>
         <source>Hide View</source>
-        <translation>Скрыть Вид</translation>
+        <translation>Скрыть представление</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1222"/>
         <source>Hide graphics view</source>
-        <translation>Скрыть графический вид</translation>
+        <translation>Скрыть графическое представление</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1231"/>
         <source>Search in Files...</source>
-        <translation>Скрыть графический вид...</translation>
+        <translation>Поиск в файлах…</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1234"/>
@@ -4577,7 +4617,7 @@ If unsure, close this panel or press escape. You can always change your choice l
         <location filename="../MainWindow.ui" line="1251"/>
         <location filename="../MainWindow.ui" line="1254"/>
         <source>Allowed Schema Elements</source>
-        <translation>Разрешенные Элементы</translation>
+        <translation>Разрешённые элементы схемы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1259"/>
@@ -4592,157 +4632,157 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1267"/>
         <source>New Using XML Schema...</source>
-        <translation>Новое использование схемы XML...</translation>
+        <translation>Новый с помощью XML-схемы...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1270"/>
         <source>Creates a new XML Document using a XML Schema</source>
-        <translation>Создает новый XML-документ с помощью схемы XML</translation>
+        <translation>Создаёт новый XML-документ с помощью XML-схемы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1275"/>
         <source>Transform in Comment</source>
-        <translation>Преобразование в комментарии</translation>
+        <translation>Преобразовать в комментарий</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1278"/>
         <source>Transform in comment</source>
-        <translation>Преобразование в комментарии</translation>
+        <translation>Преобразование в комментарий</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1283"/>
         <source>Extract Elements from Comment</source>
-        <translation>Извлечение элементов из комментария</translation>
+        <translation>Извлечь элементы из комментария</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1286"/>
         <source>Extract elements from comment.</source>
-        <translation>Извлечение элементов из комментария.</translation>
+        <translation>Извлечение элементов из комментария</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1295"/>
         <source>Extract Fragments From a File...</source>
-        <translation>Extract items from a comment...</translation>
+        <translation>Извлечь фрагменты из файла...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1298"/>
         <source>Extract XML fragments from a huge file...</source>
-        <translation>Извлеките фрагменты XML из огромного файла...</translation>
+        <translation>Извлечение фрагментов XML из огромного файла</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1303"/>
         <source>Welcome Dialog...</source>
-        <translation>Диалог Приветствия...</translation>
+        <translation>Диалог приветствия...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1306"/>
         <source>Show the welcome dialog.</source>
-        <translation>Показать диалоговое окно приветствия.</translation>
+        <translation>Показать диалоговое окно приветствия</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1315"/>
         <source>Save a Copy As...</source>
-        <translation>Сохраните копию как...</translation>
+        <translation>Сохранить копию как...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1318"/>
         <source>Saves a copy of the current file. Current file path will not be affected.</source>
-        <translation>Сохраняет копию текущего файла. Текущий путь к файлу не будет изменен.</translation>
+        <translation>Сохраняет копию текущего файла. Текущий путь к файлу не будет изменён</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1327"/>
         <source>Hide All the Leaf Children</source>
-        <translation>спрятать все окончательные элементы детей</translation>
+        <translation>Скрыть все листовые дочерние элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1330"/>
         <source>Hide all the nodes that does not have children, revealing the structure.</source>
-        <translation>Скрыть все узлы, которые не имеют потомков, раскрывая структуру.</translation>
+        <translation>Скрыть все узлы, которые не имеют дочерних элементов, раскрывая структуру</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1339"/>
         <source>Show All the Leaf Children</source>
-        <translation>Показать все конечные элементы детей</translation>
+        <translation>Показать все листовые дочерние элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1342"/>
         <source>Show all the leaf nodes that was previously hidden.</source>
-        <translation>Показать все конечные элементы, которые были ранее скрыты.</translation>
+        <translation>Показать все листовые узлы, которые ранее были скрыты</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1351"/>
         <source>Hide Leaf Children</source>
-        <translation>Скрыть конечне элементы детей</translation>
+        <translation>Скрыть листовые дочерние элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1354"/>
         <source>Hide the children of the current node that does not have children, revealing the structure.</source>
-        <translation>Скрыть детей текущего нода, который не имеет детей, раскрывая структуру.</translation>
+        <translation>Скрыть дочерние элементы текущего узла, которые не имеют дочерних элементов, раскрывая структуру</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1363"/>
         <source>Show Leaf Children</source>
-        <translation>Показать конечные элементы ребёнка</translation>
+        <translation>Показать листовые дочерние элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1366"/>
         <source>Show the leaf nodes of the current node that was previously hidden.</source>
-        <translation>Показать конечные элементы текущего нода которые в прошлом были скрыты.</translation>
+        <translation>Показать листовые узлы текущего узла, которые ранее были скрыты</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1371"/>
         <source>View As Xsd</source>
-        <translation>Просмотр Как Xsd</translation>
+        <translation>Просмотреть как XSD</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1380"/>
         <source>Columnar View...</source>
-        <translation>Столбчатый Вид...</translation>
+        <translation>Колоночный вид…</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1383"/>
         <source>View as columns.</source>
-        <translation>Столбчатый Вид..</translation>
+        <translation>Просмотр в виде колонок</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1395"/>
         <source>Show Current Session Panel</source>
-        <translation>Показать Панель Текущего Сеанса</translation>
+        <translation>Показать панель текущего сеанса</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1398"/>
         <source>Opens the session panel.</source>
-        <translation>Открывает панель сессии.</translation>
+        <translation>Открывает панель сеанса</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1403"/>
         <source>New...</source>
-        <translation>Новый...</translation>
+        <translation>Создать...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1406"/>
         <source>Creates a new session.</source>
-        <translation>Создает новый сессию.</translation>
+        <translation>Создаёт новый сеанс</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1411"/>
         <source>Pause</source>
-        <translation>Пауза</translation>
+        <translation>Приостановить</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1414"/>
         <source>Pauses the current session.</source>
-        <translation>Поставить на паузу текущую сессию.</translation>
+        <translation>Приостанавливает текущий сеанс</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1419"/>
         <source>Resume</source>
-        <translation>Продолжить</translation>
+        <translation>Возобновить</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1422"/>
         <source>Resume the current session.</source>
-        <translation>Продолжить текущую сессию.</translation>
+        <translation>Возобновляет текущий сеанс</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1427"/>
@@ -4753,17 +4793,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1430"/>
         <source>Closes the current session.</source>
-        <translation>Закрыть текущую сессию.</translation>
+        <translation>Закрывает текущий сеанс</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1435"/>
         <source>Manage...</source>
-        <translation>Управлять...</translation>
+        <translation>Управление...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1438"/>
         <source>Manage the sessions.</source>
-        <translation>Управление сессиями.</translation>
+        <translation>Управление сеансами</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1443"/>
@@ -4773,7 +4813,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1446"/>
         <source>Details about the current session.</source>
-        <translation>Details about the current сессии.</translation>
+        <translation>Подробная информация о текущем сеансе</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1451"/>
@@ -4783,12 +4823,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1454"/>
         <source>Undo last action.</source>
-        <translation>Отменить последнее действие.</translation>
+        <translation>Отменить последнее действие</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1457"/>
         <source>Ctrl+Z</source>
-        <translation></translation>
+        <translation>Ctrl+Z</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1462"/>
@@ -4798,47 +4838,47 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1465"/>
         <source>Redo last action.</source>
-        <translation>Повторите последнее действие.</translation>
+        <translation>Повторить последнее действие</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1468"/>
         <source>Ctrl+Shift+Z</source>
-        <translation></translation>
+        <translation>Ctrl+Shift+Z</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1473"/>
         <source>New Window</source>
-        <translation>новое окно</translation>
+        <translation>Новое окно</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1476"/>
         <source>Opens a new window.</source>
-        <translation>Открывает новое окно.</translation>
+        <translation>Открывает новое окно</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1479"/>
         <source>Ctrl+T</source>
-        <translation></translation>
+        <translation>Ctrl+T</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1488"/>
         <source>View data...</source>
-        <translation>Просматривать данные...</translation>
+        <translation>Просмотреть данные...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1491"/>
         <source>Navigates a data file.</source>
-        <translation>Перемещение по файлу данных.</translation>
+        <translation>Перемещение по файлу данных</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1500"/>
         <source>Base 64 Tools...</source>
-        <translation>Base 64 Инструменты...</translation>
+        <translation>Инструменты Base 64...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1503"/>
         <source>Base 64 tools</source>
-        <translation>Base 64 инструменты</translation>
+        <translation>Инструменты Base 64</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1508"/>
@@ -4848,7 +4888,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1511"/>
         <source>Encoding Tools.</source>
-        <translation>Инструменты кодирования.</translation>
+        <translation>Инструменты кодирования</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1516"/>
@@ -4858,47 +4898,47 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1519"/>
         <source>Compare two XSD in a graphical way</source>
-        <translation>Сравните два XSD в графическом виде</translation>
+        <translation>Сравнить два XSD в графическом виде</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1524"/>
         <source>Export Attributes of Siblings as CSV in the Clipboard</source>
-        <translation>Экспорт атрибутов братьев и сестер в формате CSV в буфер обмена</translation>
+        <translation>Экспорт атрибутов одноуровневых элементов в формате CSV в буфер обмена</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1527"/>
         <source>Export attributes of siblings as CSV in the clipboard.</source>
-        <translation>Экспортируйте атрибуты братьев и сестер в формате CSV в буфер обмена.</translation>
+        <translation>Экспорт атрибутов одноуровневых элементов в формате CSV в буфер обмена</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1532"/>
         <source>Apply a Temporary Profile</source>
-        <translation>Примененить временный профиль</translation>
+        <translation>Применить временный профиль</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1535"/>
         <source>Apply a temporary profile.</source>
-        <translation>Примененить временный профиль.</translation>
+        <translation>Применить временный профиль</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1540"/>
         <source>Save the Current Profile...</source>
-        <translation>Сохраните текущий профиль...</translation>
+        <translation>Сохранить текущий профиль...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1543"/>
         <source>Save the current profile.</source>
-        <translation>Сохраните текущий профиль.</translation>
+        <translation>Сохранить текущий профиль</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1548"/>
         <source>Manage Profiles...</source>
-        <translation>Управление Профилями...</translation>
+        <translation>Управление профилями...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1551"/>
         <source>Manage profiles...</source>
-        <translation>Управление Профилями...</translation>
+        <translation>Управление профилями</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1556"/>
@@ -4908,17 +4948,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1559"/>
         <source>Remove the current profile.</source>
-        <translation>Удалите текущий профиль.</translation>
+        <translation>Удалить текущий профиль</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1568"/>
         <source>Compare Files...</source>
-        <translation type="unfinished">.сравнивать файлы...</translation>
+        <translation>Сравнить файлы...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1571"/>
         <source>Compare two files.</source>
-        <translation>Сравните два файла.</translation>
+        <translation>Сравнить два файла</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1580"/>
@@ -4928,7 +4968,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1583"/>
         <source>Under development</source>
-        <translation>Разрабатываемый</translation>
+        <translation>В разработке</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1592"/>
@@ -4938,53 +4978,53 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1597"/>
         <source>Copy Attributes...</source>
-        <translation>Копировать Атрибуты...</translation>
+        <translation>Скопировать атрибуты...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1600"/>
         <source>Copy attributes.</source>
-        <translation>Копировать Атрибуты.</translation>
+        <translation>Скопировать атрибуты</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1603"/>
         <source>Ctrl+Shift+C</source>
-        <translation></translation>
+        <translation>Ctrl+Shift+C</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1608"/>
         <source>Paste Attributes...</source>
-        <translation>Вставить Атрибуты...</translation>
+        <translation>Вставить атрибуты...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1611"/>
         <source>Paste attributes.</source>
-        <translation>Вставить Атрибуты.</translation>
+        <translation>Вставить атрибуты</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1614"/>
         <source>Ctrl+Alt+Shift+V</source>
-        <translation></translation>
+        <translation>Ctrl+Alt+Shift+V</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1619"/>
         <location filename="../MainWindow.ui" line="1622"/>
         <source>Paste Fast Attributes</source>
-        <translation>Быстрая Вставка Атрибутов</translation>
+        <translation>Вставить последние атрибуты</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1625"/>
         <source>Ctrl+Shift+V</source>
-        <translation></translation>
+        <translation>Ctrl+Shift+V</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1630"/>
         <source>Copy Element Path in the Clipboard</source>
-        <translation>Скопировать путь элемента в буфер обмена</translation>
+        <translation>Скопировать путь к элементу в буфер обмена</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1633"/>
         <source>Copy the element path to the clipboard.</source>
-        <translation>Скопируйте путь элемента в буфер обмена.</translation>
+        <translation>Скопировать путь к элементу в буфер обмена</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1638"/>
@@ -4994,12 +5034,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1641"/>
         <source>Autocomplete the current word.</source>
-        <translation>Автодополнение текущего слова.</translation>
+        <translation>Автодополнение текущего слова</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1644"/>
         <source>Ctrl+Space</source>
-        <translation></translation>
+        <translation>Ctrl+Пробел</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1652"/>
@@ -5009,7 +5049,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1655"/>
         <source>XML edit mode conventions.</source>
-        <translation>Соглашения о режиме редактирования XML.</translation>
+        <translation>Соглашения о режиме редактирования XML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1663"/>
@@ -5019,7 +5059,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1666"/>
         <source>Apply XSLT edit mode conventions.</source>
-        <translation>Примените соглашения о режиме редактирования XSLT.</translation>
+        <translation>Применить соглашения о режиме редактирования XSLT</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1671"/>
@@ -5029,17 +5069,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1674"/>
         <source>Creates a new empty XSLT sheet.</source>
-        <translation>Создает новый пустой лист XSLT.</translation>
+        <translation>Создаёт новый пустой лист XSLT</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1679"/>
         <source>New XSD document (XML Schema)</source>
-        <translation>Новый документ XSD (схема XML)</translation>
+        <translation>Новый документ XSD (XML-схема)</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1682"/>
         <source>Creates a new empty XML Schema document.</source>
-        <translation>Создает новый пустой документ схемы XML.</translation>
+        <translation>Создаёт новый пустой документ XML-схемы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1687"/>
@@ -5049,7 +5089,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1690"/>
         <source>Creates a new empty XSL-FO document.</source>
-        <translation>Создает новый пустой документ XSL-FO.</translation>
+        <translation>Создаёт новый пустой документ XSL-FO</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1695"/>
@@ -5059,22 +5099,22 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1698"/>
         <source>Edit element using a XSLT specific dialog.</source>
-        <translation>Редактировать элемент с помощью специального диалогового окна XSLT.</translation>
+        <translation>Редактировать элемент с помощью специального диалогового окна XSLT</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1703"/>
         <source>Target XML for Tags and Names for XSLT Autocompletion...</source>
-        <translation>Целевой XML для тегов и имен для автозаполнения XSLT...</translation>
+        <translation>Целевой XML для тегов и имён для автодополнения XSLT...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1706"/>
         <source>Scan an XML file and uses tags and attribute names for  XSLT autocompletion.</source>
-        <translation>Сканирование XML-файла и использует теги и имена атрибутов для автозаполнения XSLT.</translation>
+        <translation>Сканирует XML-файл и использует теги и имена атрибутов для автодополнения XSLT</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1714"/>
         <source>Show XSL Navigator</source>
-        <translation>Показать xsl навигатор</translation>
+        <translation>Показать навигатор XSL</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1717"/>
@@ -5084,12 +5124,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1722"/>
         <source>Specific Properties...</source>
-        <translation>специфическое свойства...</translation>
+        <translation>Особые свойства...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1725"/>
         <source>Opens the specific properties panel.</source>
-        <translation>Открывает панель определенных свойства.</translation>
+        <translation>Открывает панель особых свойств</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1728"/>
@@ -5099,32 +5139,32 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1733"/>
         <source>Paste as Sibling</source>
-        <translation>Вставить братьев и сестёр</translation>
+        <translation>Вставить как одноуровневый элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1736"/>
         <source>Paste the clipboard content as sibling of the selected node</source>
-        <translation>Вставьте содержимое буфера обмена в качестве родственного элемента выбранного узла</translation>
+        <translation>Вставить содержимое буфера обмена как одноуровневый элемент выбранного узла</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1739"/>
         <source>Ctrl+B</source>
-        <translation></translation>
+        <translation>Ctrl+B</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1744"/>
         <source>Expand the Selected Item</source>
-        <translation>Разверните выбранный элемент</translation>
+        <translation>Развернуть выбранный элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1747"/>
         <source>Expand the selected item and all its children.</source>
-        <translation>Разверните выбранный элемент и все его детей.</translation>
+        <translation>Развернуть выбранный элемент и все его дочерние элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1750"/>
         <source>Ctrl+E</source>
-        <translation></translation>
+        <translation>Ctrl+E</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1755"/>
@@ -5134,32 +5174,32 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1758"/>
         <source>Creates a new file from Mavn POM template.</source>
-        <translation>Создает новый файл из шаблона Mavn POM.</translation>
+        <translation>Создаёт новый файл из шаблона Maven POM</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1763"/>
         <source>New from Snippet...</source>
-        <translation>Новое из фрагмента...</translation>
+        <translation>Новый из фрагмента...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1766"/>
         <source>Creates a new file from an existing snippet.</source>
-        <translation>Создает новый файл из существующего фрагмента кода.</translation>
+        <translation>Создаёт новый файл из существующего фрагмента кода.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1771"/>
         <source>Customizing Display Styles</source>
-        <translation>Настройка Стилей Отображения</translation>
+        <translation>Настройка стилей отображения</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1774"/>
         <source>Some tips about how to change how the data are visualized.</source>
-        <translation>Некоторые советы о том, как изменить способ визуализации данных.</translation>
+        <translation>Несколько советов о том, как изменить способ визуализации данных</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1779"/>
         <source>Binary Viewer</source>
-        <translation>Двоичный Просмотрщик</translation>
+        <translation>Просмотр двоичных файлов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1782"/>
@@ -5170,32 +5210,32 @@ If unsure, close this panel or press escape. You can always change your choice l
         <location filename="../MainWindow.ui" line="1794"/>
         <location filename="../mainwindow.cpp" line="3109"/>
         <source>Read Only</source>
-        <translation>только для чтения</translation>
+        <translation>Только для чтения</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1797"/>
         <source>Does not allow modification to the document.</source>
-        <translation>Не позволяет вносить изменения в документ.</translation>
+        <translation>Не позволяет вносить изменения в документ</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1802"/>
         <source>Insert Metadata</source>
-        <translation>Вставить Метаданные</translation>
+        <translation>Вставить метаданные</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1805"/>
         <source>Insert updatable metadata.</source>
-        <translation>Вставьте обновляемые метаданные.</translation>
+        <translation>Вставить обновляемые метаданные</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1810"/>
         <source>Edit Metadata</source>
-        <translation>Редактирование Метаданных</translation>
+        <translation>Редактировать метаданные</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1813"/>
         <source>Edit the metadata</source>
-        <translation>Редактирование метаданных</translation>
+        <translation>Редактировать метаданные</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1818"/>
@@ -5210,12 +5250,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1826"/>
         <source>Insert Complete Metadata</source>
-        <translation>Вставка Полных Метаданных</translation>
+        <translation>Вставить полные метаданные</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1829"/>
         <source>Insert complete metadata (updatatable and manual).</source>
-        <translation>Вставьте полные метаданные (обновляемые и ручные).</translation>
+        <translation>Вставить полные метаданные (обновляемые и ручные)</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1834"/>
@@ -5225,17 +5265,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1837"/>
         <source>Insert the xml prolog</source>
-        <translation>Вставить пролог</translation>
+        <translation>Вставить пролог XML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1842"/>
         <source>Encoding</source>
-        <translation>Кодирование</translation>
+        <translation>Кодировка</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1845"/>
         <source>Select the encoding.</source>
-        <translation>Выберите кодировку.</translation>
+        <translation>Выбрать кодировку</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1850"/>
@@ -5245,7 +5285,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1853"/>
         <source>Export the XML as a Cpp Source</source>
-        <translation>Экспорт XML в качестве источника Cpp</translation>
+        <translation>Экспорт XML в качестве источника CPP</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1858"/>
@@ -5255,17 +5295,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1861"/>
         <source>Copy all the document to the clipoard</source>
-        <translation>Скопируйте весь документ в буфер обмена</translation>
+        <translation>Скопировать весь документ в буфер обмена</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1866"/>
         <source>Code Pages...</source>
-        <translation>кодовые страницы...</translation>
+        <translation>Кодовые страницы...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1869"/>
         <source>Show code pages.</source>
-        <translation>Показывать кодовые страницы.</translation>
+        <translation>Показать кодовые страницы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1874"/>
@@ -5275,32 +5315,32 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1877"/>
         <source>Insert a tag that wraps all the existing children/</source>
-        <translation>Вставьте тег, который обертывает все существующие дочерние элементы/</translation>
+        <translation>Вставить тег, который обёртывает все существующие дочерние элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1882"/>
         <source>Insert parent</source>
-        <translation>Вставить родителя</translation>
+        <translation>Вставить родительский элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1885"/>
         <source>Insert a parent for the current element.</source>
-        <translation>Вставьте родительский элемент для текущего элемента.</translation>
+        <translation>Вставить родительский элемент для текущего элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1890"/>
         <source>Remove parent</source>
-        <translation>Удалить родителя</translation>
+        <translation>Удалить родительский элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1893"/>
         <source>Removes the parent of the current item</source>
-        <translation>Удаляет родительский элемент текущего элемента</translation>
+        <translation>Удалить родительский элемент текущего элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1901"/>
         <source>Show always full text of comments</source>
-        <translation>Показывать всегда полный текст комментариев</translation>
+        <translation>Всегда показывать полный текст комментариев</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1904"/>
@@ -5310,57 +5350,57 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1909"/>
         <source>Insert &amp;Element...</source>
-        <translation>Вставить &amp;Элемент...</translation>
+        <translation>Вставить &amp;элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1914"/>
         <source>Append &amp;Element...</source>
-        <translation>Добавить &amp;Элемент...</translation>
+        <translation>Добавить &amp;элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1917"/>
         <source>Append element as sibling</source>
-        <translation type="unfinished">Добавить элемент как брата</translation>
+        <translation>Добавить одноуровневый элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1925"/>
         <source>Append sibling.</source>
-        <translation>Добавить дочерний элемент.</translation>
+        <translation>Добавить одноуровневый элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1930"/>
         <source>Modify Type...</source>
-        <translation>Добавить родного брата...</translation>
+        <translation>Изменить тип...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1933"/>
         <source>Modify the XSD type.</source>
-        <translation>Изменение типа xsd.</translation>
+        <translation>Изменить тип XSD</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1938"/>
         <source>Insert &amp;Type...</source>
-        <translation>Вставить &amp;Тип...</translation>
+        <translation>Вставить &amp;тип...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1941"/>
         <source>Insert type</source>
-        <translation>Тип вставки</translation>
+        <translation>Вставить тип</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1946"/>
         <source>Append &amp;Type...</source>
-        <translation>Добавить &amp;Тип...</translation>
+        <translation>Добавить &amp;тип...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1949"/>
         <source>Append type as sibling</source>
-        <translation>Добавить тип как дочерний элемент</translation>
+        <translation>Добавить тип как одноуровневый элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1954"/>
         <source>Insert &amp;Attribute...</source>
-        <translation>Вставка &amp;Атрибутов...</translation>
+        <translation>Вставить &amp;атрибут...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1957"/>
@@ -5375,7 +5415,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1965"/>
         <source>Append an XSD attribute as sibling.</source>
-        <translation>Добавление атрибута в XSD как брат.</translation>
+        <translation>Добавить атрибут XSD как одноуровневый элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1974"/>
@@ -5385,32 +5425,32 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="1977"/>
         <source>Anonymize the current file.</source>
-        <translation>Анонимизация текущего файла.</translation>
+        <translation>Анонимизация текущего файла</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1982"/>
         <source>Quick Reference for Elements...</source>
-        <translation>Краткая справка для элементов...</translation>
+        <translation>Краткая справка по элементам...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1985"/>
         <source>Display a quick Reference for Elements...</source>
-        <translation>Отображение краткой справки для элементов...</translation>
+        <translation>Отображение краткой справки по элементам</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1994"/>
         <source>Anonymize File...</source>
-        <translation>Анонимизировать Файл...</translation>
+        <translation>Анонимизировать файл...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="1997"/>
         <source>Anonymize an external file.</source>
-        <translation>Анонимизация внешнего файла.</translation>
+        <translation>Анонимизация внешнего файла</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2002"/>
         <source>Edit XSD Annotation</source>
-        <translation>Редактировать xsd аннотацию</translation>
+        <translation>Редактировать аннотацию XSD</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2005"/>
@@ -5420,27 +5460,27 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2010"/>
         <source>Replace...</source>
-        <translation>Заменять...</translation>
+        <translation>Заменить...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2013"/>
         <source>Replace</source>
-        <translation>Заменять</translation>
+        <translation>Замена</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2016"/>
         <source>Ctrl+R</source>
-        <translation></translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2021"/>
         <source>Find Next</source>
-        <translation>найти следующий</translation>
+        <translation>Найти следующее</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2024"/>
         <source>F3</source>
-        <translation></translation>
+        <translation>F3</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2029"/>
@@ -5450,7 +5490,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2032"/>
         <source>Set the indentation for this document.</source>
-        <translation>Установите отступ для этого документа.</translation>
+        <translation>Установить отступ для этого документа</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2037"/>
@@ -5460,22 +5500,22 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2040"/>
         <source>Validate using internal document references.</source>
-        <translation>Проверка с помощью внутренних ссылок на документы.</translation>
+        <translation>Проверка с помощью внутренних ссылок на документы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2045"/>
         <source>Find Previous</source>
-        <translation>Найти Предыдущий</translation>
+        <translation>Найти предыдущее</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2048"/>
         <source>Find the previous occurrence.</source>
-        <translation>Найдите предыдущее появление.</translation>
+        <translation>Найти предыдущее вхождение</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2051"/>
         <source>Shift+F3</source>
-        <translation></translation>
+        <translation>Shift+F3</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2060"/>
@@ -5486,52 +5526,52 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2071"/>
         <source>Show Buttons</source>
-        <translation>Показать Кнопки</translation>
+        <translation>Показать кнопки</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2074"/>
         <source>Show or hide the main windows buttons.</source>
-        <translation>Показать или скрыть основные кнопки windows.</translation>
+        <translation>Показать или скрыть кнопки в главном окне</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2082"/>
         <source>Status Bar</source>
-        <translation>строка состояния</translation>
+        <translation>Строка состояния</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2085"/>
         <source>Show or hide the status bar.</source>
-        <translation>Отображение или скрытие строки состояния.</translation>
+        <translation>Отображение или скрытие строки состояния</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2090"/>
         <source>Remove XSI &quot;nil&quot; Attribute</source>
-        <translation>Удалить атрибут XSI &quot;nil&quot;</translation>
+        <translation>Удалить атрибут XSI «nil»</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2093"/>
         <source>Remove schema instance &quot;nil&quot; Attribute</source>
-        <translation>Удалить атрибут экземпляра схемы &quot;nil&quot;</translation>
+        <translation>Удалить атрибут экземпляра схемы «nil»</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2098"/>
         <source>Insert XSI &quot;nil&quot; attribute</source>
-        <translation>Вставить атрибут XSI &quot;nil&quot;</translation>
+        <translation>Вставить атрибут XSI «nil»</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2101"/>
         <source>Insert schema instance &quot;nil&quot; attribute.</source>
-        <translation>Вставьте атрибут экземпляра схемы &quot;nil&quot;.</translation>
+        <translation>Вставить атрибут экземпляра схемы «nil»</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2106"/>
         <source>Remove XSI Type Attribute</source>
-        <translation>Удаление атрибута тип атрибута xsi</translation>
+        <translation>Удалить атрибут типа XSI</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2109"/>
         <source>Remove XSI type attribute.</source>
-        <translation>Удаление атрибута тип атрибута xsi.</translation>
+        <translation>Удаление атрибута типа XSI</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2114"/>
@@ -5541,17 +5581,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2117"/>
         <source>Insert XSI Type Attribute.</source>
-        <translation>Вставить атрибут типа XSI.</translation>
+        <translation>Вставка атрибута типа XSI</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2122"/>
         <source>Xml Schema References...</source>
-        <translation>Ссылки На Схемы Xml...</translation>
+        <translation>Ссылки на XML-схемы...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2125"/>
         <source>Insert XML Schema references.</source>
-        <translation>Вставка ссылок на схемы XML.</translation>
+        <translation>Вставка ссылок на XML-схемы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2134"/>
@@ -5563,62 +5603,62 @@ If unsure, close this panel or press escape. You can always change your choice l
         <location filename="../MainWindow.ui" line="2137"/>
         <location filename="../mainwindow.cpp" line="469"/>
         <source>Open in same window.</source>
-        <translation>Откройте в том же окне.</translation>
+        <translation>Открытие в том же окне</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2140"/>
         <source>Ctrl+Shift+O</source>
-        <translation></translation>
+        <translation>Ctrl+Shift+O</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2145"/>
         <source>Close Siblings</source>
-        <translation>Близкие Братья</translation>
+        <translation>Закрыть одноуровневые элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2148"/>
         <source>Close the siblings of the current element.</source>
-        <translation>Закройте братьев текущего элемента.</translation>
+        <translation>Закрытие одноуровневых элементов текущего элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2153"/>
         <source>Fill serie...</source>
-        <translation>Заполните серию...</translation>
+        <translation>Заполнить серию...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2156"/>
         <source>Fill a set of elements with consecutive values.</source>
-        <translation>Заполните набор элементов последовательными значениями.</translation>
+        <translation>Заполнение набора элементов последовательными значениями</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2161"/>
         <source>Clone Elements...</source>
-        <translation>Клонирование Элементов...</translation>
+        <translation>Клонировать элементы...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2164"/>
         <source>Clone the selected element.</source>
-        <translation>Клонирование выбранного элемента.</translation>
+        <translation>Клонирование выбранного элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2172"/>
         <source>Close the window.</source>
-        <translation>Закрывть окно.</translation>
+        <translation>Закрыть окно.</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2175"/>
         <source>Ctrl+W</source>
-        <translation></translation>
+        <translation>Ctrl+W</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2180"/>
         <source>Show Containing Folder</source>
-        <translation>Показать содержание папки</translation>
+        <translation>Показать содержащую папку</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2183"/>
         <source>Opens the containing folder in the system browser.</source>
-        <translation>Открывает содержащую папку в системном браузере.</translation>
+        <translation>Открывает содержащую папку в системном браузере</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2188"/>
@@ -5628,17 +5668,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2191"/>
         <source>Export the selected element to a file.</source>
-        <translation>Экспортируйте выбранный элемент в файл.</translation>
+        <translation>Экспорт выбранного элемента в файл</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2199"/>
         <source>Show Attributes Sorted</source>
-        <translation>Показать Атрибуты Отсортированы</translation>
+        <translation>Показать отсортированные атрибуты</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2202"/>
         <source>Show the attributes sorted alphabetically.</source>
-        <translation>Отображение атрибутов, отсортированных в алфавитном порядке.</translation>
+        <translation>Показать атрибуты отсортированными по алфавиту</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2207"/>
@@ -5649,152 +5689,152 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2215"/>
         <source>Sort Attributes of the Selection and Its Children</source>
-        <translation>Сортировка атрибутов выделения и его детей</translation>
+        <translation>Сортировка атрибутов выделения и его дочерних элементов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2220"/>
         <source>Sort Attributes in All the Elements</source>
-        <translation>Сортировка атрибутов по всем элементам</translation>
+        <translation>Сортировка атрибутов во всех элементах</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2225"/>
         <source>Remove All Siblings Before</source>
-        <translation>Удалите Всех братьев До</translation>
+        <translation>Удалить все предшествующие одноуровневые элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2228"/>
         <source>Remove all the siblings before the selected element.</source>
-        <translation>Удалите все родственные элементы перед выбранным элементом.</translation>
+        <translation>Удалить все одноуровневые элементы до выбранного элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2233"/>
         <source>Remove All Siblings After</source>
-        <translation>Удалить все элементы после</translation>
+        <translation>Удалить все последующие одноуровневые элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2236"/>
         <source>Remove all the siblings after the selected element.</source>
-        <translation>Удалите все родственные элементы после выбранного элемента.</translation>
+        <translation>Удалить все одноуровневые элементы после выбранного элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2241"/>
         <source>Remove All Siblings</source>
-        <translation>Удалить все родственные элементы</translation>
+        <translation>Удалить все одноуровневые элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2244"/>
         <source>Remove all the siblings of the selected element.</source>
-        <translation>Удалите все родственные элементы выбранного элемента.</translation>
+        <translation>Удалить все одноуровневые элементы выбранного элемента</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2249"/>
         <source>Set the Editor Detail</source>
-        <translation>Установите детали редактора</translation>
+        <translation>Установить параметры редактора</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2254"/>
         <source>Choose Display Detail</source>
-        <translation>Выбрать детали отображения</translation>
+        <translation>Выбрать параметры отображения</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2257"/>
         <source>Choose display detail.</source>
-        <translation>Выбрать детали отображения.</translation>
+        <translation>Выбрать параметры отображения</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2262"/>
         <source>Edit Enumeration or Facet</source>
-        <translation>Изменить перечисление</translation>
+        <translation>Изменить перечисление или аспект</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2265"/>
         <source>Edit facets, enumerations in particular.</source>
-        <translation>Редактирование фасетов, в частности перечислений.</translation>
+        <translation>Редактирование аспектов, в том числе перечислений</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2270"/>
         <source>Remove Prefix...</source>
-        <translation>Удалить Префикс...</translation>
+        <translation>Удалить префикс...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2273"/>
         <source>Removes prefixes from elements and attributes.</source>
-        <translation>Удаляет префиксы из элементов и атрибутов.</translation>
+        <translation>Удаляет префиксы из элементов и атрибутов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2278"/>
         <source>Remove Namespace...</source>
-        <translation>Удалить Пространство Имен...</translation>
+        <translation>Удалить пространство имён...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2281"/>
         <source>Removes namespaces from elements and attributes.</source>
-        <translation>Удаляет пространства имен из элементов и атрибутов.</translation>
+        <translation>Удаляет пространства имён из элементов и атрибутов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2286"/>
         <source>Assign Prefix...</source>
-        <translation>Укажите префикс...</translation>
+        <translation>Указать префикс...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2289"/>
         <source>Assign a prefix.</source>
-        <translation>Укажите префикс.</translation>
+        <translation>Указать префикс</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2294"/>
         <source>Replace Prefix...</source>
-        <translation>Заменить Префикс...</translation>
+        <translation>Заменить префикс...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2297"/>
         <source>Replace one or all the prefixes.</source>
-        <translation>Замените один или все префиксы.</translation>
+        <translation>Заменить один или все префиксы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2302"/>
         <source>Assign Namespace...</source>
-        <translation>Укажите пространство имен...</translation>
+        <translation>Указать пространство имён...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2305"/>
         <source>Assign a namespace.</source>
-        <translation>Укажите пространство имен.</translation>
+        <translation>Указать пространство имён</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2310"/>
         <source>Replace Namespace...</source>
-        <translation>Заменить Пространство Имен...</translation>
+        <translation>Заменить пространство имён...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2313"/>
         <source>Replace one or more namespaces.</source>
-        <translation>Замените одно или несколько пространств имен.</translation>
+        <translation>Заменить одно или несколько пространств имён</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2318"/>
         <source>Normalize namespaces</source>
-        <translation>Нормализация пространств имен</translation>
+        <translation>Нормализовать пространства имён</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2321"/>
         <source>Normalize namespace prefixes.</source>
-        <translation>Нормализовать префиксы пространства имен.</translation>
+        <translation>Нормализовать префиксы пространств имён</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2326"/>
         <source>Insert Specialized Child...</source>
-        <translation>Вставьте Специализированный Ребенок...</translation>
+        <translation>Вставить специализированный дочерний элемент...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2329"/>
         <source>Insert a specialized element.</source>
-        <translation>Вставьте специализированный элемент.</translation>
+        <translation>Вставить специализированный элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2332"/>
         <source>Alt+Shift+I</source>
-        <translation></translation>
+        <translation>Alt+Shift+I</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2337"/>
@@ -5804,7 +5844,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2340"/>
         <source>Creates a new empty SCXML document.</source>
-        <translation>Создает новый пустой документ SCXML.</translation>
+        <translation>Создаёт новый пустой документ SCXML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2345"/>
@@ -5814,12 +5854,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2348"/>
         <source>Append a specialized element.</source>
-        <translation>Добавьте специализированный элемент.</translation>
+        <translation>Добавить специализированный элемент</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2351"/>
         <source>Alt+Shift+A</source>
-        <translation></translation>
+        <translation>Alt+Shift+A</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2359"/>
@@ -5829,17 +5869,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2362"/>
         <source>Shows or hides the SCXML navigator.</source>
-        <translation>Отображение или скрытие навигатора SCXML.</translation>
+        <translation>Отображение или скрытие навигатора SCXML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2367"/>
         <source>Validate SCXML</source>
-        <translation>Проверка SCXML</translation>
+        <translation>Проверить SCXML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2370"/>
         <source>Validate the SCXML machine.</source>
-        <translation>Проверьте машину SCXML.</translation>
+        <translation>Проверка машины SCXML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2378"/>
@@ -5849,117 +5889,117 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2381"/>
         <source>Apply SCXML edit mode conventions.</source>
-        <translation>Примените соглашения о режиме редактирования SCXML.</translation>
+        <translation>Применить соглашения о режиме редактирования SCXML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2386"/>
         <source>Copy Element Without Children</source>
-        <translation>Копировать Элемент Без Детей</translation>
+        <translation>Скопировать элемент без дочерних элементов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2389"/>
         <source>Copy in the clipboard the element but the children.</source>
-        <translation>Скопируйте в буфер обмена элемент, но дочерние элементы.</translation>
+        <translation>Скопировать в буфер обмена элемент, но не дочерние элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2394"/>
         <source>XSL Executor</source>
-        <translation>Xsl исполнитель</translation>
+        <translation>Исполнитель XSL</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2397"/>
         <source>Execute a XSL sheet on a XML file.</source>
-        <translation>Выполните лист XSL в XML-файле.</translation>
+        <translation>Выполнить лист XSL в XML-файле</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2402"/>
         <source>Execute XSLT Using This as Source</source>
-        <translation>Выполните XSLT, используя его в качестве источника</translation>
+        <translation>Выполнить XSLT, используя это в качестве источника</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2405"/>
         <source>Execute XSLT using this as source.</source>
-        <translation>Выполните XSLT, используя его в качестве источника.</translation>
+        <translation>Выполнить XSLT, используя это в качестве источника</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2410"/>
         <source>Execute XSLT Using This as XSL</source>
-        <translation>Выполните XSLT, используя это как XSL</translation>
+        <translation>Выполнить XSLT, используя это как XSL</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2413"/>
         <source>Execute XSLT using this as XSL sheet.</source>
-        <translation>Выполните XSLT, используя это как xsl лист.</translation>
+        <translation>Выполнить XSLT, используя это как лист XSL</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2418"/>
         <source>Open Siblings at the Same Level</source>
-        <translation>Откройте близлежащие элементы на одном уровне</translation>
+        <translation>Открыть родственные элементы на том же уровне</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2421"/>
         <source>Open siblings at the same level.</source>
-        <translation>Откройте близлежащие элементы на одном уровне.</translation>
+        <translation>Открыть родственные элементы на том же уровне</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2426"/>
         <source>Principal Shortcuts</source>
-        <translation>Основные сочетания клавиш</translation>
+        <translation>Основные комбинации клавиш</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2429"/>
         <source>Show the main shortcuts.</source>
-        <translation>Показать основные сочетания клавиш.</translation>
+        <translation>Показать основные комбинации клавиш</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2434"/>
         <source>Add Formatting Info</source>
-        <translation>Добавить Информацию О Форматировании</translation>
+        <translation>Добавить информацию о форматировании</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2437"/>
         <source>Add formatting info metadata.</source>
-        <translation>Добавьте метаданные.</translation>
+        <translation>Добавить метаданные с информацией о форматировании</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2442"/>
         <source>Remove Formatting Info</source>
-        <translation>Удалить Информацию О Форматировании</translation>
+        <translation>Удалить информацию о форматировании</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2445"/>
         <source>Remove formatting info metadata.</source>
-        <translation>Удалите метаданные информации о форматировании.</translation>
+        <translation>Удалить метаданные с информацией о форматировании</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2450"/>
         <source>Preset Apache FOP</source>
-        <translation>Предустановленный Apache FOP</translation>
+        <translation>Предустановка — Apache FOP</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2453"/>
         <source>Preset for Apache FOP formatting (2 spaces).</source>
-        <translation>Предустановка для форматирования Apache FOP (2 пробела).</translation>
+        <translation>Предустановка для форматирования Apache FOP (2 пробела)</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2458"/>
         <source>Preset No Indentation</source>
-        <translation>Заданный Отступ</translation>
+        <translation>Предустановка — без отступов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2461"/>
         <source>Do not indent at all.</source>
-        <translation>Заданный Отступ.</translation>
+        <translation>Не делать никаких отступов</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2466"/>
         <source>Preset Indent One Attribute per Line</source>
-        <translation>Предустановленный отступ один атрибут на строку</translation>
+        <translation>Предустановка — отступ одного атрибута на строку</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2469"/>
         <source>Indent with two spaces and one attribute per line.</source>
-        <translation>Отступ с двумя пробелами и одним атрибутом на строку.</translation>
+        <translation>Отступ с двумя пробелами и одним атрибутом на строку</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2474"/>
@@ -5969,22 +6009,22 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2477"/>
         <source>Close the selected item and its children.</source>
-        <translation>Закройте выбранный элемент и его детей.</translation>
+        <translation>Закрыть выбранный элемент и его дочерние элементы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2480"/>
         <source>Shift+F12</source>
-        <translation></translation>
+        <translation>Shift+F12</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2485"/>
         <source>Choose Edit Type</source>
-        <translation>Выберите Тип Редактирования</translation>
+        <translation>Выбрать тип редактирования</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2488"/>
         <source>Choose if edit elements in text mode or using a form.</source>
-        <translation>Выберите, если редактировать элементы в текстовом режиме или с помощью формы.</translation>
+        <translation>Выбрать, следует ли редактировать элементы в текстовом режиме или с помощью формы</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2493"/>
@@ -5994,62 +6034,62 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2496"/>
         <source>XSD validation panel.</source>
-        <translation>Панель проверки xsd.</translation>
+        <translation>Панель проверки XSD</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2501"/>
         <source>Guided Operations Panel</source>
-        <translation>Панель Управляемых Операций</translation>
+        <translation>Панель управления редактором</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2504"/>
         <source>Open the guided operations panel.</source>
-        <translation>Откройте панель управляемые операции.</translation>
+        <translation>Открыть панель управления редактором</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2509"/>
         <source>Choose User Profile</source>
-        <translation>Выберите Профиль Пользователя</translation>
+        <translation>Выбрать профиль пользователя</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2512"/>
         <source>Choose the user profile.</source>
-        <translation type="unfinished">bВыберите Профиль пользователя.</translation>
+        <translation>Выбрать профиль пользователя</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2598"/>
         <source>Test XML</source>
-        <translation type="unfinished"></translation>
+        <translation>Протестировать XML</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2601"/>
         <source>Test a XML file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Протестировать XML-файл</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2606"/>
         <source>Load Sample...</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить образец...</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2609"/>
         <source>Load a synthetic sample of a file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить искусственный образец файла</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2517"/>
         <source>Insert Disabled Parent for XSLT</source>
-        <translation type="unfinished">Insert отключенный родитель для XSLT</translation>
+        <translation>Вставить отключённый родительский элемент для XSLT</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2520"/>
         <source>Insert a parent that is skipped from XSLT execution, yet valid.</source>
-        <translation>Вставьте родительский элемент, пропущенный из выполнения XSLT, но допустимый.</translation>
+        <translation>Вставить родительский элемент, не входящий в выполнение XSLT, но допустимый</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2529"/>
         <source>      Graphic</source>
-        <translation></translation>
+        <translation>      Графика</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2544"/>
@@ -6059,7 +6099,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2559"/>
         <source>Search Command</source>
-        <translation>команда поиска</translation>
+        <translation>Поиск команды</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2562"/>
@@ -6069,37 +6109,37 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../MainWindow.ui" line="2565"/>
         <source>Ctrl+Shift+-</source>
-        <translation></translation>
+        <translation>Ctrl+Shift+-</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2570"/>
         <source>dontuse</source>
-        <translation>dontuse</translation>
+        <translation>Не использовать</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2582"/>
         <source>Show Keyboard Shortcuts</source>
-        <translation>Показать Сочетания Клавиш</translation>
+        <translation>Показать комбинации клавиш</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2585"/>
         <source>Show or hide the keyboard shortcuts panel.</source>
-        <translation>Показать или скрыть панель сочетаний клавиш.</translation>
+        <translation>Показать или скрыть панель комбинаций клавиш</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2590"/>
         <source>Edit Element as Text</source>
-        <translation>Редактирование элементов текста</translation>
+        <translation>Редактировать элемент как текст</translation>
     </message>
     <message>
         <location filename="../MainWindow.ui" line="2593"/>
         <source>Edit the current element in textual form.</source>
-        <translation>Отредактируйте текущий элемент в текстовой форме.</translation>
+        <translation>Редактирование текущего элемента в текстовой форме</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="135"/>
         <source>Error preparing user interface.</source>
-        <translation>Отредактируйте текущий элемент в текстовой форме.</translation>
+        <translation>Ошибка при подготовке пользовательского интерфейса.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="138"/>
@@ -6109,7 +6149,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="333"/>
         <source>The XML Editor component is not correct (%1)</source>
-        <translation>Компонент редактора XML неверен (%1)</translation>
+        <translation>Компонент редактора XML некорректен (%1)</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="355"/>
@@ -6130,7 +6170,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="421"/>
         <source>Indicates the edit modality.</source>
-        <translation>Ошибка при создании пользовательского интерфейса.</translation>
+        <translation>Обозначает модальность редактирования</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="471"/>
@@ -6140,17 +6180,17 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="472"/>
         <source>Open in new window.</source>
-        <translation>Открыть в новом окне.</translation>
+        <translation>Открыть в новом окне</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="557"/>
         <source>Recent Files</source>
-        <translation>последние файлы</translation>
+        <translation>Последние файлы</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="569"/>
         <source>Preferred Directories</source>
-        <translation>Предпочтительные Каталоги</translation>
+        <translation>Предпочитаемые каталоги</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="592"/>
@@ -6162,7 +6202,7 @@ If unsure, close this panel or press escape. You can always change your choice l
         <location filename="../mainwindow.cpp" line="1810"/>
         <location filename="../mainwindow.cpp" line="2050"/>
         <source>Open File</source>
-        <translation>открытый файл</translation>
+        <translation>Открыть файл</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1164"/>
@@ -6182,14 +6222,14 @@ If unsure, close this panel or press escape. You can always change your choice l
         <location filename="../mainwindow.cpp" line="1221"/>
         <location filename="../mainwindow.cpp" line="1254"/>
         <source>Error saving data. Old file is still intact.</source>
-        <translation>Ошибка сохранения данных. Старый файл все еще цел.</translation>
+        <translation>Ошибка сохранения данных. Старый файл всё ещё цел.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1192"/>
         <location filename="../mainwindow.cpp" line="1226"/>
         <location filename="../mainwindow.cpp" line="1275"/>
         <source>File saved</source>
-        <translation>Сохраненный файл</translation>
+        <translation>Файл сохранён</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1247"/>
@@ -6199,32 +6239,32 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="1261"/>
         <source>Error saving data: cleaning backup file.</source>
-        <translation>Cannot write an empty file.</translation>
+        <translation>Ошибка сохранения данных: очистка файла резервной копии.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1266"/>
         <source>Error renaming old file. You can access written data at file &apos;%1&apos;. Old data are untouched</source>
-        <translation>Ошибка переименования старого файла. Вы можете получить доступ к записанным данным в файле &quot;%1&quot;. Старые данные остаются нетронутыми</translation>
+        <translation>Ошибка переименования старого файла. Вы можете получить доступ к записанным данным в файле «%1». Старые данные остаются нетронутыми</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1271"/>
         <source>Error renaming new file. You can access written data at file &apos;%1&apos;. You can find old data in the backup file</source>
-        <translation>Ошибка переименования старого файла. Вы можете получить доступ к записанным данным в файле &quot;%1&quot;. Старые данные остаются нетронутыми</translation>
+        <translation>Ошибка переименования нового файла. Вы можете получить доступ к записанным данным в файле «%1». Старые данные находятся в файле резервной копии</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1286"/>
         <source>Save Data</source>
-        <translation>сохранить данные</translation>
+        <translation>Сохранить данные</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1297"/>
         <source>No main structure</source>
-        <translation>Отсутствие основной структуры</translation>
+        <translation>Нет основной структуры</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1376"/>
         <source>--No file--</source>
-        <translation>--нет файла--</translation>
+        <translation>--Нет файла--</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1832"/>
@@ -6234,7 +6274,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="1879"/>
         <source>Error opening folder.</source>
-        <translation>Ошибка открытия папки.</translation>
+        <translation>Ошибка при открытии папки.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="1882"/>
@@ -6244,34 +6284,34 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="1916"/>
         <source>Error registering preferred directories.</source>
-        <translation>Ошибка регистрации предпочтительных каталогов.</translation>
+        <translation>Ошибка регистрации предпочитаемых каталогов.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2064"/>
         <source>File name empty. Unable to load it.</source>
-        <translation>Имя файла пустое. Не удается загрузить его.</translation>
+        <translation>Имя файла пустое. Не удалось загрузить его.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2130"/>
         <source>Unable to parse XML, file =&apos;%1&apos;, at line:%3, column:%4, cause: &apos;%2&apos; </source>
-        <translation>Не удалось проанализировать XML, file = &apos;%1&apos;, в строке:%3, столбец:%4, Причина: &apos;%2&apos; </translation>
+        <translation>Не удалось проанализировать XML, файл = «%1», в строке: %3, позиция: %4, причина: «%2» </translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2141"/>
         <location filename="../mainwindow.cpp" line="2154"/>
         <location filename="../mainwindow.cpp" line="2167"/>
         <source>Data loaded</source>
-        <translation>Загруженные данные</translation>
+        <translation>Данные загружены</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2165"/>
         <source>Data loaded with errors.</source>
-        <translation>Данные загружаются с ошибками.</translation>
+        <translation>Данные загружены с ошибками.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2172"/>
         <source>Unable to get data.</source>
-        <translation>Не удается получить данные.</translation>
+        <translation>Не удалось получить данные.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2267"/>
@@ -6281,12 +6321,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="2333"/>
         <source>XML</source>
-        <translation></translation>
+        <translation>XML</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2339"/>
         <source>SCXML</source>
-        <translation></translation>
+        <translation>SCXML</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2342"/>
@@ -6306,12 +6346,12 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="2401"/>
         <source>Error loading data.</source>
-        <translation>No fragments found.</translation>
+        <translation>Ошибка при загрузке данных.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2621"/>
         <source>Error activating sessions.</source>
-        <translation>Ошибка активации сеансов.</translation>
+        <translation>Ошибка при активации сеансов.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2754"/>
@@ -6321,7 +6361,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="2828"/>
         <source>Save the Temporary Profile</source>
-        <translation>Сохраните временный профиль</translation>
+        <translation>Сохранить временный профиль</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2828"/>
@@ -6331,7 +6371,7 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="2846"/>
         <source>Filter saved.</source>
-        <translation>Фильтр сохранен.</translation>
+        <translation>Фильтр сохранён.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="2848"/>
@@ -6342,17 +6382,17 @@ If unsure, close this panel or press escape. You can always change your choice l
         <location filename="../mainwindow.cpp" line="3111"/>
         <location filename="../mainwindow.cpp" line="3121"/>
         <source>Modifiable</source>
-        <translation>Поддающийся изменению</translation>
+        <translation>Изменяемый</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3119"/>
         <source>Read Only. Reactivable using Edit menu or by double click.</source>
-        <translation></translation>
+        <translation>Только для чтения. Можно активировать снова с помощью меню «Правка» или по двойному щелчку.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3121"/>
         <source>Double click to change.</source>
-        <translation>Дважды щелкните, чтобы изменить.</translation>
+        <translation>Сделайте двойной щелчок, чтобы изменить.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3170"/>
@@ -6368,35 +6408,35 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="3254"/>
         <source>Validate using internal XML Schema references.</source>
-        <translation>Проверка с помощью внутренних ссылок на схемы XML.</translation>
+        <translation>Проверка с помощью внутренних ссылок на XML-схемы.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3256"/>
         <source>Validate using XML Schema:&apos;%1&apos;</source>
-        <translation>Проверка с помощью схемы XML: &apos;%1</translation>
+        <translation>Проверка с помощью XML-схемы: «%1»</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3269"/>
         <source>I-</source>
-        <translation></translation>
+        <translation>I-</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3270"/>
         <source>No Indentation</source>
-        <translation>Без Отступов</translation>
+        <translation>Без отступов</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3272"/>
         <source>I%1</source>
-        <translation></translation>
+        <translation>I%1</translation>
     </message>
     <message numerus="yes">
         <location filename="../mainwindow.cpp" line="3273"/>
         <source>Indentation: %n space(s)</source>
         <translation>
-            <numerusform>Отступ: %n пробел(s)</numerusform>
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+            <numerusform>Отступ: %n пробел</numerusform>
+            <numerusform>Отступ: %n пробела</numerusform>
+            <numerusform>Отступ: %n пробелов</numerusform>
         </translation>
     </message>
     <message>
@@ -6407,45 +6447,45 @@ If unsure, close this panel or press escape. You can always change your choice l
     <message>
         <location filename="../mainwindow.cpp" line="3501"/>
         <source>Data exported</source>
-        <translation>Экспортированные данные</translation>
+        <translation>Данные экспортированы</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3610"/>
         <source>QXmlEdit detected that current encoding can lead to a malformed file.
 Do you want to save it using DOM method?
 Warning: DOM does not support attribute alignment and DTD management.</source>
-        <translation>QXmlEdit обнаружил, что текущая кодировка может привести к неправильному файлу.
-Вы хотите сохранить его с помощью метода DOM?
+        <translation>Программа QXmlEdit обнаружила, что использование текущей кодировки может привести к некорректному формированию файла.
+Сохранить файл с помощью метода DOM?
 Предупреждение: DOM не поддерживает выравнивание атрибутов и управление DTD.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3695"/>
         <source>SCXML validation is available only with Qt starting from 5.7.</source>
-        <translation>Проверка SCXML доступна только с Qt, начиная с версии 5.7.</translation>
+        <translation>Проверка SCXML доступна только с Qt версии 5.7 и выше.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3977"/>
         <source>Only a sample of data will be loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Будет загружен только образец данных.</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="3979"/>
         <source>Load Sample File</source>
-        <translation type="unfinished"></translation>
+        <translation>Загрузить образец файла</translation>
     </message>
     <message>
         <location filename="../mainwindowio.cpp" line="210"/>
         <source>Unable to read data.
 Error code is &apos;%1&apos;, %2.</source>
-        <translation>Не удается прочитать данные.
-Код ошибки &quot;%1&quot;, %2.</translation>
+        <translation>Не удалось прочитать данные.
+Код ошибки «%1», %2.</translation>
     </message>
     <message>
         <location filename="../mainwindowio.cpp" line="215"/>
         <source>File name empty.
 Unable to load.</source>
         <translation>Имя файла пустое.
-Не удается загрузить.</translation>
+Не удалось загрузить.</translation>
     </message>
 </context>
 <context>
@@ -6458,28 +6498,28 @@ Unable to load.</source>
     <message>
         <location filename="../mainwndcontroller.cpp" line="239"/>
         <source>You will create a very big number of objects (%1). Do you want to continue?</source>
-        <translation>Вы создадите очень большое количество объектов (%1). Вы хотите продолжить?</translation>
+        <translation>Будет создано очень большое количество объектов (%1). Продолжить?</translation>
     </message>
     <message>
         <location filename="../mainwndcontroller.cpp" line="356"/>
         <source>SCXML test is supported only starting from Qt 5.7.0 and must be enabled at compilie time.</source>
-        <translation>Тест SCXML поддерживается только начиная с Qt 5.7.0 и должен быть включен во время компиляции.</translation>
+        <translation>Тест SCXML поддерживается только начиная с Qt 5.7.0 и должен быть включён во время компиляции.</translation>
     </message>
     <message>
         <location filename="../mainwndcontroller.cpp" line="362"/>
         <location filename="../mainwndcontroller.cpp" line="368"/>
         <source>Unable to check the data as SCXML.</source>
-        <translation>Не удается проверить данные как SCXML.</translation>
+        <translation>Не удалось проверить данные как SCXML.</translation>
     </message>
     <message>
         <location filename="../mainwndcontroller.cpp" line="374"/>
         <source>SCXML is valid.</source>
-        <translation>SCXML является допустимым.</translation>
+        <translation>SCXML корректен.</translation>
     </message>
     <message>
         <location filename="../mainwndcontroller.cpp" line="381"/>
         <source>Currently only null, ecmascript or cpp datamodels are supported by the validator.</source>
-        <translation>В настоящее время только null, ecmascript или cpp datamodels поддерживаются валидатором.</translation>
+        <translation>В настоящее время средством проверки поддерживаются только модели данных null, ecmascript или cpp.</translation>
     </message>
     <message>
         <location filename="../mainwndcontroller.cpp" line="409"/>
@@ -6491,7 +6531,7 @@ Unable to load.</source>
     <message>
         <location filename="../mainwndcontroller.cpp" line="427"/>
         <source>Open File</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть файл</translation>
     </message>
 </context>
 <context>
@@ -6499,12 +6539,12 @@ Unable to load.</source>
     <message>
         <location filename="../modules/namespace/normalizenamespacedialog.ui" line="14"/>
         <source>Normalize Namesapce</source>
-        <translation>Нормализовать Namesapce</translation>
+        <translation>Нормализация пространства имён</translation>
     </message>
     <message>
         <location filename="../modules/namespace/normalizenamespacedialog.ui" line="26"/>
         <source>Namespace:</source>
-        <translation>Пространство имен:</translation>
+        <translation>Пространство имён:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/normalizenamespacedialog.ui" line="59"/>
@@ -6519,17 +6559,17 @@ Unable to load.</source>
     <message>
         <location filename="../modules/namespace/normalizenamespacedialog.ui" line="105"/>
         <source>Declare the namespace on root element</source>
-        <translation>Объявить пространство имен в корневом элементе</translation>
+        <translation>Объявить пространство имён в корневом элементе</translation>
     </message>
     <message>
         <location filename="../modules/namespace/normalizenamespacedialog.ui" line="122"/>
         <source>Apply to:</source>
-        <translation>Распространяться:</translation>
+        <translation>Область применения:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/normalizenamespacedialog.cpp" line="159"/>
         <source>Invalid parameters.</source>
-        <translation>Недопустимый параметр.</translation>
+        <translation>Недопустимые параметры.</translation>
     </message>
 </context>
 <context>
@@ -6538,7 +6578,7 @@ Unable to load.</source>
         <location filename="../preferreddirs.ui" line="14"/>
         <location filename="../preferreddirs.ui" line="22"/>
         <source>Preferred directories</source>
-        <translation>Предпочтительные каталоги</translation>
+        <translation>Предпочитаемые каталоги</translation>
     </message>
     <message>
         <location filename="../preferreddirs.ui" line="78"/>
@@ -6553,7 +6593,7 @@ Unable to load.</source>
     <message>
         <location filename="../preferreddirs.cpp" line="83"/>
         <source>Reached the maxmimum number of directories. Cannot add another one</source>
-        <translation>Достигнуто максимальное количество каталогов. Не удается добавить еще один</translation>
+        <translation>Достигнуто максимальное количество каталогов. Невозможно добавить ещё один</translation>
     </message>
     <message>
         <location filename="../preferreddirs.cpp" line="94"/>
@@ -6568,17 +6608,17 @@ Unable to load.</source>
     <message>
         <location filename="../preferreddirs.cpp" line="122"/>
         <source>Unable to register data</source>
-        <translation>Не удается зарегистрировать данные</translation>
+        <translation>Не удалось зарегистрировать данные</translation>
     </message>
     <message>
         <location filename="../preferreddirs.cpp" line="125"/>
         <source>Unable to make room for data</source>
-        <translation>Не удается освободить место для данных</translation>
+        <translation>Не удалось освободить место для данных</translation>
     </message>
     <message>
         <location filename="../preferreddirs.cpp" line="145"/>
         <source>Really delete selected item?</source>
-        <translation>Не удается освободить место для данных?</translation>
+        <translation>Действительно удалить выбранный элемент?</translation>
     </message>
 </context>
 <context>
@@ -6586,14 +6626,14 @@ Unable to load.</source>
     <message>
         <location filename="../main.cpp" line="222"/>
         <source>Error: unable to complete the operation.</source>
-        <translation>Ошибка: не удается завершить операцию.</translation>
+        <translation>Ошибка: не удалось завершить операцию.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="263"/>
         <source>This is not a released version.
 This is a developer preview.</source>
         <translation>Это не выпущенная версия.
-Это предварительный просмотр разработчика.</translation>
+Это предварительная версия для разработчиков.</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="328"/>
@@ -6606,35 +6646,39 @@ This is a developer preview.</source>
         <location filename="../main.cpp" line="329"/>
         <source> -vis &lt;file&gt;: opens the data visualization panel
 </source>
-        <translation></translation>
+        <translation> -vis &lt;file&gt;: открывает панель визуализации данных
+</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="330"/>
         <source> -anonymize &lt;inputfile&gt; &lt;profile&gt; &lt;outputfile&gt;: anonymize
 </source>
-        <translation></translation>
+        <translation> -anonymize &lt;inputfile&gt; &lt;profile&gt; &lt;outputfile&gt;: анонимизировать
+</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="331"/>
         <source> -xsl [-saxon] -xsl=&lt;xslFile&gt; -output=&lt;outputfile&gt;  {-p&lt;name&gt;=&lt;value&gt;}* &lt;inputfile&gt;: execute XSL transformation
 </source>
-        <translation></translation>
+        <translation> -xsl [-saxon] -xsl=&lt;xslFile&gt; -output=&lt;outputfile&gt;  {-p&lt;name&gt;=&lt;value&gt;}* &lt;inputfile&gt;: выполнить преобразование XSL
+</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="332"/>
         <source> any other argument is used as a file to open.
 </source>
-        <translation></translation>
+        <translation> все остальные аргументы используются как файлы, которые следует открыть.
+</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="356"/>
         <source>[ERROR]:</source>
-        <translation></translation>
+        <translation>[ОШИБКА]:</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="358"/>
         <source>[Output]:</source>
-        <translation></translation>
+        <translation>[Вывод]:</translation>
     </message>
     <message>
         <location filename="../main.cpp" line="364"/>
@@ -6653,7 +6697,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/style/displaystylesetting.cpp" line="55"/>
         <source>Essential</source>
-        <translation>Существенный</translation>
+        <translation>Минимально необходимый</translation>
     </message>
     <message>
         <location filename="../modules/style/displaystylesetting.cpp" line="69"/>
@@ -6668,17 +6712,17 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/style/displaystylesetting.cpp" line="97"/>
         <source>Full Detail</source>
-        <translation>Все детали</translation>
+        <translation>Полная информация</translation>
     </message>
     <message>
         <location filename="../modules/style/displaystylesetting.cpp" line="111"/>
         <source>Predefined</source>
-        <translation>Предопределенный</translation>
+        <translation>Стандартное значение</translation>
     </message>
     <message>
         <location filename="../modules/utils/comboutils.cpp" line="55"/>
         <source>&lt;No file&gt;</source>
-        <translation></translation>
+        <translation>&lt;Нет файла&gt;</translation>
     </message>
     <message>
         <location filename="../modules/utils/comboutils.cpp" line="57"/>
@@ -6688,12 +6732,12 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/utils/comboutils.cpp" line="69"/>
         <source>&lt;New Editor&gt;</source>
-        <translation></translation>
+        <translation>&lt;Новый редактор&gt;</translation>
     </message>
     <message>
         <location filename="../modules/utils/comboutils.cpp" line="84"/>
         <source>Browse...</source>
-        <translation>Просматривать...</translation>
+        <translation>Обзор...</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="91"/>
@@ -6704,22 +6748,22 @@ This is a developer preview.</source>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="128"/>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="408"/>
         <source>Saxon engine not configured.</source>
-        <translation>Саксонский двигатель не настроен.</translation>
+        <translation>Движок Saxon не настроен.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="141"/>
         <source>Saxon engine not started.</source>
-        <translation>Саксонский двигатель не завелся.</translation>
+        <translation>Движок Saxon не запущен.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="146"/>
         <source>Errors executing xsl.</source>
-        <translation>Ошибки при выполнении xsl.</translation>
+        <translation>Ошибки при выполнении XSL.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="151"/>
         <source>Exit code not zero:%1.</source>
-        <translation>Код выхода не равен нулю:%1.</translation>
+        <translation>Код выхода не равен нулю: %1.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="211"/>
@@ -6742,12 +6786,12 @@ This is a developer preview.</source>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="236"/>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="336"/>
         <source>Output not set</source>
-        <translation>Выход не установлен</translation>
+        <translation>Вывод не установлен</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="259"/>
         <source>output</source>
-        <translation>выход</translation>
+        <translation>вывод</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="344"/>
@@ -6758,17 +6802,17 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="349"/>
         <source>Unable to create temporary file for xsl template.</source>
-        <translation>Не удалось создать временный файл для шаблона xsl.</translation>
+        <translation>Не удалось создать временный файл для шаблона XSL.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="375"/>
         <source>Unable to get results.</source>
-        <translation>Не удается получить результаты.</translation>
+        <translation>Не удалось получить результаты.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="386"/>
         <source>Configuration non valid.</source>
-        <translation>Конфигурация не действительна.</translation>
+        <translation>Конфигурация недействительна.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecutor.cpp" line="404"/>
@@ -6780,7 +6824,7 @@ This is a developer preview.</source>
         <location filename="../visualization/visdatasax.cpp" line="167"/>
         <source>Parse error (2) at line %1, column %2:
 %3</source>
-        <translation>Ошибка синтаксического анализа (2) в строке %1, столбце %2:
+        <translation>Ошибка синтаксического анализа (2) в строке %1, позиция %2:
 %3</translation>
     </message>
     <message>
@@ -6788,7 +6832,7 @@ This is a developer preview.</source>
         <location filename="../visualization/visdatasax.cpp" line="177"/>
         <source>Parse error (1) at line %1, column %2:
 %3</source>
-        <translation>Ошибка синтаксического анализа (1) в строке %1, столбце %2:
+        <translation>Ошибка синтаксического анализа (1) в строке %1, позиция %2:
 %3</translation>
     </message>
     <message>
@@ -6807,7 +6851,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../startparams.cpp" line="55"/>
         <source>Missing parameters for the data visualization option.</source>
-        <translation>Отсутствуют параметры для параметра визуализации данных.</translation>
+        <translation>Отсутствуют параметры для опции визуализации данных.</translation>
     </message>
     <message>
         <location filename="../startparams.cpp" line="71"/>
@@ -6817,17 +6861,17 @@ This is a developer preview.</source>
     <message>
         <location filename="../startparams.cpp" line="76"/>
         <source>The anonymized file name (output) is empty.</source>
-        <translation>Анонимизированное имя файла (вывод) пусто.</translation>
+        <translation>Имя анонимизированного файла (вывод) пустое.</translation>
     </message>
     <message>
         <location filename="../startparams.cpp" line="82"/>
         <source>Missing parameters for the anonymize option.</source>
-        <translation>Отсутствуют параметры для параметра анонимизировать.</translation>
+        <translation>Отсутствуют параметры для опции анонимизации.</translation>
     </message>
     <message>
         <location filename="../startparams.cpp" line="115"/>
         <source>XSL file not specified.</source>
-        <translation>Xsl-файл не указан.</translation>
+        <translation>XSL-файл не указан.</translation>
     </message>
     <message>
         <location filename="../startparams.cpp" line="120"/>
@@ -6845,7 +6889,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../qxmleditapplication.cpp" line="443"/>
         <source>Keyboard Shortcuts List</source>
-        <translation>Список Сочетаний Клавиш</translation>
+        <translation>Список комбинаций клавиш</translation>
     </message>
 </context>
 <context>
@@ -6853,17 +6897,17 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/removenamespacesdialog.ui" line="14"/>
         <source>Remove Namespaces</source>
-        <translation>Удаление Пространств Имен</translation>
+        <translation>Удаление пространств имён</translation>
     </message>
     <message>
         <location filename="../modules/namespace/removenamespacesdialog.ui" line="26"/>
         <source>All namespaces</source>
-        <translation>Все пространства</translation>
+        <translation>Все пространства имён</translation>
     </message>
     <message>
         <location filename="../modules/namespace/removenamespacesdialog.ui" line="33"/>
         <source>Choose a namespace:</source>
-        <translation>Выберите пространство имен:</translation>
+        <translation>Выбрать пространство имён:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/removenamespacesdialog.ui" line="66"/>
@@ -6873,7 +6917,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/removenamespacesdialog.ui" line="73"/>
         <source>----</source>
-        <translation></translation>
+        <translation>----</translation>
     </message>
     <message>
         <location filename="../modules/namespace/removenamespacesdialog.ui" line="93"/>
@@ -6883,7 +6927,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/removenamespacesdialog.ui" line="110"/>
         <source>Apply to:</source>
-        <translation>Распространяться:</translation>
+        <translation>Область применения:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/removenamespacesdialog.cpp" line="162"/>
@@ -6896,7 +6940,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/removeprefixdialog.ui" line="14"/>
         <source>Remove Prefix</source>
-        <translation>Удалить Префикс</translation>
+        <translation>Удаление префиксов</translation>
     </message>
     <message>
         <location filename="../modules/namespace/removeprefixdialog.ui" line="26"/>
@@ -6906,17 +6950,17 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/removeprefixdialog.ui" line="33"/>
         <source>Choose a prefix:</source>
-        <translation>Выберите префикс:</translation>
+        <translation>Выбрать префикс:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/removeprefixdialog.ui" line="76"/>
         <source>Apply to:</source>
-        <translation>Применить к:</translation>
+        <translation>Область применения:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/removeprefixdialog.cpp" line="153"/>
         <source>Invalid parameters.</source>
-        <translation>Недопустимый параметры.</translation>
+        <translation>Недопустимые параметры.</translation>
     </message>
 </context>
 <context>
@@ -6924,12 +6968,12 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/replacenamespacedialog.ui" line="17"/>
         <source>Replace Namespace</source>
-        <translation>Заменить Пространство Имен</translation>
+        <translation>Замена пространства имён</translation>
     </message>
     <message>
         <location filename="../modules/namespace/replacenamespacedialog.ui" line="41"/>
         <source>Namespace to replace:</source>
-        <translation>Пространство имен для замены:</translation>
+        <translation>Пространство имён для замены:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/replacenamespacedialog.ui" line="77"/>
@@ -6939,7 +6983,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/replacenamespacedialog.ui" line="84"/>
         <source>Namespace:</source>
-        <translation>Пространство имен:</translation>
+        <translation>Пространство имён:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/replacenamespacedialog.ui" line="104"/>
@@ -6954,12 +6998,12 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/replacenamespacedialog.ui" line="147"/>
         <source>Apply to:</source>
-        <translation>Применить к:</translation>
+        <translation>Область применения:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/replacenamespacedialog.cpp" line="173"/>
         <source>Invalid parameters.</source>
-        <translation>Недопустиме параметры.</translation>
+        <translation>Недопустимые параметры.</translation>
     </message>
 </context>
 <context>
@@ -6967,7 +7011,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/replaceprefixdialog.ui" line="14"/>
         <source>Replace Prefix</source>
-        <translation></translation>
+        <translation>Замена префиксов</translation>
     </message>
     <message>
         <location filename="../modules/namespace/replaceprefixdialog.ui" line="26"/>
@@ -6987,12 +7031,12 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/namespace/replaceprefixdialog.ui" line="99"/>
         <source>Apply to:</source>
-        <translation>Применить к:</translation>
+        <translation>Область применения:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/replaceprefixdialog.cpp" line="168"/>
         <source>Invalid parameters.</source>
-        <translation>Недействительные параметры.</translation>
+        <translation>Недопустимые параметры.</translation>
     </message>
 </context>
 <context>
@@ -7000,7 +7044,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/replica/replicaclonedialog.ui" line="14"/>
         <source>Clone Element</source>
-        <translation>Элемент Клонирования</translation>
+        <translation>Клонирование элемента</translation>
     </message>
     <message>
         <location filename="../modules/replica/replicaclonedialog.ui" line="28"/>
@@ -7010,12 +7054,12 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/replica/replicaclonedialog.ui" line="72"/>
         <source>Recursive</source>
-        <translation>Способный к повторному использованию</translation>
+        <translation>Рекурсивно</translation>
     </message>
     <message>
         <location filename="../modules/replica/replicaclonedialog.ui" line="100"/>
         <source>Add an index...</source>
-        <translation>Добавьте индекс...</translation>
+        <translation>Добавить индекс...</translation>
     </message>
     <message>
         <location filename="../modules/replica/replicaclonedialog.ui" line="107"/>
@@ -7025,7 +7069,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/replica/replicaclonedialog.cpp" line="102"/>
         <source>Do you want to use an unique index for the new data?</source>
-        <translation>Вы хотите использовать уникальный индекс для новых данных?</translation>
+        <translation>Использовать уникальный индекс для новых данных?</translation>
     </message>
 </context>
 <context>
@@ -7033,7 +7077,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../schemachooser.ui" line="14"/>
         <source>Choose a Schema</source>
-        <translation>Выберите схему</translation>
+        <translation>Выбор схемы</translation>
     </message>
     <message>
         <location filename="../schemachooser.ui" line="20"/>
@@ -7043,7 +7087,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../schemachooser.ui" line="34"/>
         <source>Add...</source>
-        <translation>Добавь...</translation>
+        <translation>Добавить...</translation>
     </message>
     <message>
         <location filename="../schemachooser.ui" line="41"/>
@@ -7058,37 +7102,37 @@ This is a developer preview.</source>
     <message>
         <location filename="../schemachooser.ui" line="64"/>
         <source>...</source>
-        <translation></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../schemachooser.ui" line="73"/>
         <source>Last used schema:</source>
-        <translation>Последняя используемая схема:</translation>
+        <translation>Последняя использовавшаяся схема:</translation>
     </message>
     <message>
         <location filename="../schemachooser.cpp" line="157"/>
         <source>Add a new schema URL to Preferites</source>
-        <translation>Добавьте новый URL схемы в Preferites</translation>
+        <translation>Добавить новый URL-адрес схемы в избранное</translation>
     </message>
     <message>
         <location filename="../schemachooser.cpp" line="158"/>
         <source>Schema URL:</source>
-        <translation>URL схемы:</translation>
+        <translation>URL-адрес схемы:</translation>
     </message>
     <message>
         <location filename="../schemachooser.cpp" line="164"/>
         <source>The URL is already present in the favorite ones.</source>
-        <translation>URL-адрес уже присутствует в избранных.</translation>
+        <translation>URL-адрес уже присутствует среди избранных.</translation>
     </message>
     <message>
         <location filename="../schemachooser.cpp" line="203"/>
         <source>Choose a File </source>
-        <translation>Выберите Файл </translation>
+        <translation>Выберите файл </translation>
     </message>
     <message>
         <location filename="../schemachooser.cpp" line="204"/>
         <source>XSD files (*.xsd);;All files (*)</source>
-        <translation>XSD-файл.*( xsd);; все файлы (*)</translation>
+        <translation>XSD-файлы (*.xsd);;Все файлы (*)</translation>
     </message>
 </context>
 <context>
@@ -7096,7 +7140,7 @@ This is a developer preview.</source>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="14"/>
         <source>Search Command</source>
-        <translation>команда поиска</translation>
+        <translation>Поиск команды</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="33"/>
@@ -7110,7 +7154,7 @@ Search a command by name or feature
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="44"/>
         <source>&amp;Search command:</source>
-        <translation>&amp;Команда поиска:</translation>
+        <translation>&amp;Поиск команды:</translation>
     </message>
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="57"/>
@@ -7135,7 +7179,7 @@ Search a command by name or feature
     <message>
         <location filename="../modules/help/searchcommanddialog.ui" line="106"/>
         <source>Double click on command or press OK to execute it.</source>
-        <translation>Дважды щелкните команду или нажмите OK, чтобы выполнить ее.</translation>
+        <translation>Сделайте двойной щелчок по команде или нажмите кнопку «OK», чтобы выполнить её.</translation>
     </message>
 </context>
 <context>
@@ -7168,7 +7212,7 @@ Search a command by name or feature
     <message>
         <location filename="../searchinfiles.ui" line="88"/>
         <source>Alt+G</source>
-        <translation></translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <location filename="../searchinfiles.ui" line="123"/>
@@ -7188,7 +7232,7 @@ Search a command by name or feature
     <message>
         <location filename="../searchinfiles.cpp" line="79"/>
         <source>Occurrences</source>
-        <translation>Появления</translation>
+        <translation>Вхождения</translation>
     </message>
     <message>
         <location filename="../searchinfiles.cpp" line="85"/>
@@ -7198,22 +7242,22 @@ Search a command by name or feature
     <message>
         <location filename="../searchinfiles.cpp" line="86"/>
         <source>XML files (*.xml);;All files (*)</source>
-        <translation>XML-файл.*( xml);; все файлы (*)</translation>
+        <translation>XML-файлы (*.xml);;Все файлы (*)</translation>
     </message>
     <message>
         <location filename="../searchinfiles.cpp" line="115"/>
         <source>Unable to begin the search</source>
-        <translation>Не удается начать поиск</translation>
+        <translation>Не удалось начать поиск</translation>
     </message>
     <message>
         <location filename="../searchinfiles.cpp" line="119"/>
         <source>The pattern to search is not well formed.</source>
-        <translation>Шаблон для поиска не очень хорошо сформирован.</translation>
+        <translation>Шаблон для поиска сформирован некорректно.</translation>
     </message>
     <message>
         <location filename="../searchinfiles.cpp" line="197"/>
         <source>Gr.%1 - %2 having count: %3</source>
-        <translation>Gr.%1 - %2 имея счет: %3</translation>
+        <translation>Гр. %1 - %2 с количеством: %3</translation>
     </message>
     <message>
         <location filename="../searchinfiles.cpp" line="207"/>
@@ -7223,12 +7267,12 @@ Search a command by name or feature
     <message>
         <location filename="../searchinfiles.cpp" line="209"/>
         <source>Operation interrupted with error :&apos;%1&apos;</source>
-        <translation>Операция прервана с ошибкой: &apos;%1&apos;</translation>
+        <translation>Операция прервана с ошибкой: «%1»</translation>
     </message>
     <message>
         <location filename="../searchinfiles.cpp" line="231"/>
         <source>Error opening input file.</source>
-        <translation>Ошибка открытия входного файла.</translation>
+        <translation>Ошибка при открытии входного файла.</translation>
     </message>
 </context>
 <context>
@@ -7236,12 +7280,12 @@ Search a command by name or feature
     <message>
         <location filename="../modules/namespace/setnamespacedialog.ui" line="14"/>
         <source>Assign Namespace</source>
-        <translation>Назначить Пространство Имен</translation>
+        <translation>Указание пространства имён</translation>
     </message>
     <message>
         <location filename="../modules/namespace/setnamespacedialog.ui" line="29"/>
         <source>Namespace:</source>
-        <translation>Namespace:</translation>
+        <translation>Пространство имён:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/setnamespacedialog.ui" line="68"/>
@@ -7256,12 +7300,12 @@ Search a command by name or feature
     <message>
         <location filename="../modules/namespace/setnamespacedialog.ui" line="124"/>
         <source>Apply to:</source>
-        <translation>Применить к:</translation>
+        <translation>Область применения:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/setnamespacedialog.cpp" line="157"/>
         <source>Invalid parameters.</source>
-        <translation>Недействительные параметры.</translation>
+        <translation>Недопустимые параметры.</translation>
     </message>
 </context>
 <context>
@@ -7269,7 +7313,7 @@ Search a command by name or feature
     <message>
         <location filename="../modules/namespace/setprefixdialog.ui" line="14"/>
         <source>Assign Prefix</source>
-        <translation>Назначить Префикс</translation>
+        <translation>Указание префикса</translation>
     </message>
     <message>
         <location filename="../modules/namespace/setprefixdialog.ui" line="26"/>
@@ -7279,12 +7323,12 @@ Search a command by name or feature
     <message>
         <location filename="../modules/namespace/setprefixdialog.ui" line="63"/>
         <source>Apply to:</source>
-        <translation>Применить к:</translation>
+        <translation>Область применения:</translation>
     </message>
     <message>
         <location filename="../modules/namespace/setprefixdialog.cpp" line="101"/>
         <source>Invalid parameters.</source>
-        <translation>Недействительные параметры.</translation>
+        <translation>Недопустимые параметры.</translation>
     </message>
 </context>
 <context>
@@ -7292,12 +7336,12 @@ Search a command by name or feature
     <message>
         <location filename="../widgets/shortcutinfo.ui" line="20"/>
         <source>Keyboard Shortcuts</source>
-        <translation>клавишные комбинации</translation>
+        <translation>Комбинации клавиш</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.ui" line="27"/>
         <source>Information about keyboard shortcuts.</source>
-        <translation>Информация о сочетаниях клавиш.</translation>
+        <translation>Информация о комбинациях клавиш.</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.ui" line="48"/>
@@ -7307,38 +7351,38 @@ Search a command by name or feature
     <message>
         <location filename="../widgets/shortcutinfo.ui" line="64"/>
         <source>Select the key qualifier.</source>
-        <translation>Выберите ключевой показатель.</translation>
+        <translation>Выберите спецификатор.</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Function Keys</source>
-        <translation>функциональная клавишы</translation>
+        <translation>Функциональные клавиши</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command+Shift</source>
-        <translation></translation>
+        <translation>Command+Shift</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command+Alt</source>
-        <translation></translation>
+        <translation>Command+Alt</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command+Fn</source>
-        <translation></translation>
+        <translation>Command+Fn</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command+Num</source>
-        <translation></translation>
+        <translation>Command+Num</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
         <source>Command</source>
-        <translation></translation>
+        <translation>Command</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="159"/>
@@ -7349,37 +7393,37 @@ Search a command by name or feature
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl+Shift</source>
-        <translation></translation>
+        <translation>Ctrl+Shift</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl+Alt</source>
-        <translation></translation>
+        <translation>Ctrl+Alt</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl+Fn</source>
-        <translation></translation>
+        <translation>Ctrl+Fn</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl+Num</source>
-        <translation></translation>
+        <translation>Ctrl+Num</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="161"/>
         <source>Ctrl</source>
-        <translation></translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="428"/>
         <source>Edit Element as Text</source>
-        <translation>Редактирование элементов текста</translation>
+        <translation>Редактировать элемент как текст</translation>
     </message>
     <message>
         <location filename="../widgets/shortcutinfo.cpp" line="433"/>
         <source>Unable to actions data.</source>
-        <translation>Не удается получить данные о действиях.</translation>
+        <translation>Не удалось получить данные о действиях.</translation>
     </message>
 </context>
 <context>
@@ -7387,12 +7431,12 @@ Search a command by name or feature
     <message>
         <location filename="../modules/help/shortcutsdialog.ui" line="17"/>
         <source>Common Shortcuts for Editing</source>
-        <translation>Общие сочетания клавиш для редактирования</translation>
+        <translation>Общие комбинации клавиш для редактирования</translation>
     </message>
     <message>
         <location filename="../modules/help/shortcutsdialog.cpp" line="45"/>
         <source>&lt;html&gt;&lt;body&gt;&lt;h1&gt;Shortcuts for element creation&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Operation&lt;/td&gt;&lt;th&gt;Shortcut&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Insert&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Append&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Insert Specific&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Append Specific&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Delete&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Properties&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Spec Properties&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit text&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit element&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit inner XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Edit inner XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Edit Mode&lt;/th&gt;        &lt;th&gt;DblClick&lt;/th&gt;        &lt;th&gt;dc+Shift&lt;/th&gt;        &lt;th&gt;dc+Ctrl&lt;/th&gt;        &lt;th&gt;dc+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Normal&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Not used&lt;/td&gt;        &lt;td&gt;Textual&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Special&lt;/td&gt;        &lt;td&gt;Special&lt;/td&gt;        &lt;td&gt;Textual(tag/text)&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Not used&lt;/td&gt;        &lt;td&gt;Textual&lt;/td&gt;        &lt;td&gt;Specific&lt;/td&gt;        &lt;td&gt;Detail&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;html&gt;&lt;body&gt;&lt;h1&gt;Комбинации клавиш для создания элементов&lt;/h1&gt;&lt;hr/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos; &gt;    &lt;tr&gt;&lt;th&gt;Операция&lt;/td&gt;&lt;th&gt;Комбинация клавиш&lt;/th&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Вставить&lt;/td&gt;&lt;td&gt; INS, i&lt;/th&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Добавить&lt;/td&gt;&lt;td&gt; ALT+INS, a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Вставить специализированный&lt;/td&gt;&lt;td&gt; SHIFT INS, shift i&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Добавить специализированный&lt;/td&gt;&lt;td&gt; ALT+SHIFT+INS, shift a&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Удалить&lt;/td&gt;&lt;td&gt; delete, backspace&lt;/td&gt;&lt;/tr&gt;    &lt;tr&gt;&lt;td&gt;Свойства&lt;/td&gt;&lt;td&gt; ALT+ENTER, DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Свойства специализированного&lt;/td&gt;&lt;td&gt; ?, ALT+SHIFT+ENTER, (ALT|CTRL) DOUBLE CLICK&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Изменить текст&lt;/td&gt;&lt;td&gt; t&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Изменить элемент&lt;/td&gt;&lt;td&gt; e&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Изменить внутренний XML&lt;/td&gt;&lt;td&gt; x&lt;/td&gt;&lt;/tr&gt;        &lt;tr&gt;&lt;td&gt;Изменить внутренний XML base64&lt;/td&gt;&lt;td&gt; y&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;&lt;br/&gt;&lt;table border=&apos;1&apos; cellspacing=&apos;0&apos; cellpadding=&apos;8&apos;&gt;    &lt;tr&gt;        &lt;th&gt;Режим ред-ия&lt;/th&gt;        &lt;th&gt;Дв. щелчок&lt;/th&gt;        &lt;th&gt;д. щ.+Shift&lt;/th&gt;        &lt;th&gt;д. щ.+Ctrl&lt;/th&gt;        &lt;th&gt;д. щ.+Alt&lt;/th&gt;        &lt;th&gt;...&lt;/th&gt;        &lt;th&gt;Enter&lt;/th&gt;        &lt;th&gt;En+Shift&lt;/th&gt;        &lt;th&gt;En+Ctrl&lt;/th&gt;        &lt;th&gt;En+Alt&lt;/th&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Обычный&lt;/td&gt;        &lt;td&gt;Подробный&lt;/td&gt;        &lt;td&gt;Текстовый (тег/текст)&lt;/td&gt;        &lt;td&gt;Специальный&lt;/td&gt;        &lt;td&gt;Специальный&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Не используется&lt;/td&gt;        &lt;td&gt;Текстовый&lt;/td&gt;        &lt;td&gt;Подробный&lt;/td&gt;        &lt;td&gt;Специальный&lt;/td&gt;    &lt;/tr&gt;    &lt;tr&gt;        &lt;td&gt;Специальный&lt;/td&gt;        &lt;td&gt;Специальный&lt;/td&gt;        &lt;td&gt;Текстовый (тег/текст)&lt;/td&gt;        &lt;td&gt;Подробный&lt;/td&gt;        &lt;td&gt;Подробный&lt;/td&gt;        &lt;td&gt;...&lt;/td&gt;        &lt;td&gt;Не используется&lt;/td&gt;        &lt;td&gt;Текстовый&lt;/td&gt;        &lt;td&gt;Специальный&lt;/td&gt;        &lt;td&gt;Подробный&lt;/td&gt;    &lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -7405,7 +7449,7 @@ Search a command by name or feature
     <message>
         <location filename="../modules/xslt/showxslerrorsdialog.ui" line="68"/>
         <source>Copy Messages</source>
-        <translation>Ошибки выполнения XSL</translation>
+        <translation>Скопировать сообщения</translation>
     </message>
     <message>
         <location filename="../modules/xslt/showxslerrorsdialog.cpp" line="53"/>
@@ -7415,12 +7459,12 @@ Search a command by name or feature
     <message>
         <location filename="../modules/xslt/showxslerrorsdialog.cpp" line="53"/>
         <source>message</source>
-        <translation>сообщение</translation>
+        <translation>Сообщение</translation>
     </message>
     <message>
         <location filename="../modules/xslt/showxslerrorsdialog.cpp" line="84"/>
         <source>Debug</source>
-        <translation>Отлаживать</translation>
+        <translation>Отладка</translation>
     </message>
     <message>
         <location filename="../modules/xslt/showxslerrorsdialog.cpp" line="87"/>
@@ -7449,17 +7493,17 @@ Search a command by name or feature
     <message>
         <location filename="../snippethandler.ui" line="58"/>
         <source>&amp;New</source>
-        <translation>&amp;Новый</translation>
+        <translation>&amp;Создать</translation>
     </message>
     <message>
         <location filename="../snippethandler.ui" line="65"/>
         <source>&amp;Modify</source>
-        <translation>&amp;Модифицировать</translation>
+        <translation>&amp;Изменить</translation>
     </message>
     <message>
         <location filename="../snippethandler.ui" line="72"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Исключать</translation>
+        <translation>&amp;Удалить</translation>
     </message>
     <message>
         <location filename="../snippethandler.cpp" line="100"/>
@@ -7496,12 +7540,12 @@ Search a command by name or feature
         <location filename="../snippethandler.cpp" line="203"/>
         <location filename="../snippethandler.cpp" line="288"/>
         <source>An error occurred</source>
-        <translation>Произошла ошибка</translation>
+        <translation>Произошла ошибка.</translation>
     </message>
     <message>
         <location filename="../snippethandler.cpp" line="189"/>
         <source>This snipped can&apos;t be deleted</source>
-        <translation>Этот фрагмент не может быть удален</translation>
+        <translation>Этот фрагмент не может быть удалён.</translation>
     </message>
     <message>
         <location filename="../snippethandler.cpp" line="308"/>
@@ -7513,7 +7557,7 @@ Search a command by name or feature
         <location filename="../snippethandler.cpp" line="329"/>
         <location filename="../snippethandler.cpp" line="346"/>
         <source>Error saving snippet. Data not saved.</source>
-        <translation>Ошибка сохранения фрагмента. Данные не сохраняются.</translation>
+        <translation>Ошибка сохранения фрагмента. Данные не сохранены.</translation>
     </message>
     <message>
         <location filename="../snippethandler.cpp" line="323"/>
@@ -7530,22 +7574,22 @@ Search a command by name or feature
     <message>
         <location filename="../snippethandler.cpp" line="366"/>
         <source>Error saving data. Old file is still intact.</source>
-        <translation>Ошибка сохранения данных. Старый файл все еще цел.</translation>
+        <translation>Ошибка сохранения данных. Старый файл всё ещё цел.</translation>
     </message>
     <message>
         <location filename="../snippethandler.cpp" line="373"/>
         <source>Error saving data: cleaning backup file.</source>
-        <translation>Ошибка сохранения данных: очистка файла резервной копии..</translation>
+        <translation>Ошибка сохранения данных: очистка файла резервной копии.</translation>
     </message>
     <message>
         <location filename="../snippethandler.cpp" line="379"/>
         <source>Error renaming old file. You can access written data at file &apos;%1&apos;. Old data are untouched</source>
-        <translation>Ошибка переименования старого файла. Вы можете получить доступ к записанным данным в файле &quot;%1&quot;. Старые данные остаются нетронутыми</translation>
+        <translation>Ошибка переименования старого файла. Вы можете получить доступ к записанным данным в файле «%1». Старые данные остаются нетронутыми</translation>
     </message>
     <message>
         <location filename="../snippethandler.cpp" line="385"/>
         <source>Error renaming new file. You can access written data at file &apos;%1&apos;. You can find old data in the backup file</source>
-        <translation>Ошибка переименования старого файла. Вы можете получить доступ к записанным данным в файле &quot;%1&quot;. Старые данные остаются нетронутыми</translation>
+        <translation>Ошибка переименования нового файла. Вы можете получить доступ к записанным данным в файле «%1». Старые данные находятся в файле резервной копии</translation>
     </message>
 </context>
 <context>
@@ -7558,7 +7602,7 @@ Search a command by name or feature
     <message>
         <location filename="../modules/messages/sourcerelatedmessages.ui" line="50"/>
         <source>Go</source>
-        <translation>начать</translation>
+        <translation>Перейти</translation>
     </message>
 </context>
 <context>
@@ -7566,7 +7610,7 @@ Search a command by name or feature
     <message>
         <location filename="../tipsaboutvisualappearance.ui" line="14"/>
         <source>Tips on Visual Appearance</source>
-        <translation>Tips on Visual Appearance</translation>
+        <translation>Советы по внешнему виду</translation>
     </message>
     <message>
         <location filename="../tipsaboutvisualappearance.ui" line="24"/>
@@ -7618,7 +7662,54 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Oxygen&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;QXmlEdit поддерживает файлы &amp;quot;стилей&amp;quot;, которые используются в редакторе. Стили можно выбирать с помощью этого значка: &lt;/span&gt;&lt;img src=&quot;:/special/style&quot; /&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;Использование стиля позволяет устанавливать определённый вид для каждого элемента XML (в зависимости от значения атрибутов, положения или имени элемента).&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;Вся информация о создании стиля доступна в руководстве. Здесь же приводится краткая справка.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-weight:600;&quot;&gt;Написание файла &amp;quot;стиля&amp;quot;&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Arial&apos;;&quot;&gt;:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Arial&apos;;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Укажите цвет, шрифт, а также необязательный значок для каждого класса элементов.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Arial&apos;; font-weight:96; color:#1a1a1a;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Добавьте правило для оценки отображаемого элемента. Если правило возвращает значение true, связанный с этим правилом стиль будет применён к элементу.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:96; font-style:italic; color:#1a1a1a;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-style:normal;&quot;&gt;Правило может оценивать тег элемента, положение элемента или любое значение атрибута элемента.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:96; color:#1a1a1a;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Тип оценки может быть строковым или числовым.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:96; color:#1a1a1a;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Операторы сравнения, которые можно использовать: равно, не равно, больше чем, меньше чем (с равно), существование атрибута, соответствие подстроки или строка, начинающаяся с указанного значения.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Arial&apos;; font-weight:96; color:#1a1a1a;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;В правилах могут использоваться соединители ИЛИ или И (OR или AND).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:96; color:#1a1a1a;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Правила можно объединить в дерево.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:96; color:#1a1a1a;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Правила оцениваются в порядке определения, используется первое совпадение.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Arial&apos;; font-size:8pt; font-weight:96; color:#1a1a1a;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Если проверенных правил нет, используется специальный &amp;quot;стандартный&amp;quot; стиль.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-weight:600;&quot;&gt;Эффекты стиля&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;;&quot;&gt;Стиль может поменять отображение этих элементов:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/styles/images/wostyle.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;;&quot;&gt;На такое:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/styles/images/wstyle.png&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-size:8pt;&quot;&gt;Пример правила, которое будет отображать значок информации, если значение «attribute» равно «123»:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;&amp;lt;style name=&amp;quot;Log&amp;quot; description=&amp;quot;log test style&amp;quot;&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;    &amp;lt;keywords&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;     &amp;lt;ruleSet idStyle=&amp;quot;1&amp;quot;&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;        &amp;lt;rule name=&amp;quot;attribute&amp;quot; value=&amp;quot;123&amp;quot; op=&amp;quot;eq&amp;quot; /&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;     &amp;lt;/ruleSet&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;    &amp;lt;/keywords&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;    &amp;lt;styles&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;     &amp;lt;style id=&amp;quot;1&amp;quot;  color=&amp;quot;0000FF&amp;quot;/&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;      &amp;lt;default&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;        &amp;lt;style id=&amp;quot;default&amp;quot; color=&amp;quot;FF4040&amp;quot;  icon=&amp;quot;:I:&amp;quot;/&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;     &amp;lt;/default&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;    &amp;lt;/styles&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Cantarell&apos;; font-style:italic; color:#aa0000;&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Cantarell&apos;;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -7636,12 +7727,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/vismapdialog.ui" line="60"/>
         <source>TextLabel</source>
-        <translation></translation>
+        <translation>Текстовая подпись</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="73"/>
         <source>Load...</source>
-        <translation>Загрузка...</translation>
+        <translation>Загрузить...</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="93"/>
@@ -7656,12 +7747,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/vismapdialog.ui" line="122"/>
         <source>Cumulative values</source>
-        <translation></translation>
+        <translation>Суммарная величина</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="129"/>
         <source>View as:</source>
-        <translation>Посмотреть как:</translation>
+        <translation>Просмотр как:</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="180"/>
@@ -7676,37 +7767,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/vismapdialog.ui" line="199"/>
         <source>Zoom:</source>
-        <translation>масштаб:</translation>
+        <translation>Масштаб:</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="206"/>
         <source>1</source>
-        <translation></translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="235"/>
         <source>100</source>
-        <translation></translation>
+        <translation>100</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="257"/>
         <source>Copy image in clipboard</source>
-        <translation>Копировать изображение в буфер обмена</translation>
+        <translation>Скопировать изображение в буфер обмена</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="277"/>
         <source>Export Stats...</source>
-        <translation>Экспорт Статистики...</translation>
+        <translation>Экспорт статистики...</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="293"/>
         <source>Extract fragment...</source>
-        <translation>Извлечение фрагмента...</translation>
+        <translation>Извлечь фрагмент...</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="300"/>
         <source>3D</source>
-        <translation></translation>
+        <translation>3D</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="307"/>
@@ -7721,17 +7812,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/vismapdialog.ui" line="334"/>
         <source>Analyze relations</source>
-        <translation>Анализ отношений</translation>
+        <translation>Анализировать связи</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="341"/>
         <source>View Relations...</source>
-        <translation>Анализ отношений...</translation>
+        <translation>Просмотреть связи...</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="348"/>
         <source>Color map:</source>
-        <translation>Цветная карта:</translation>
+        <translation>Цветовая карта:</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.ui" line="371"/>
@@ -7741,12 +7832,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="49"/>
         <source>Color Map</source>
-        <translation>Цветная карта</translation>
+        <translation>Цветовая карта</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="50"/>
         <source>Standard Color Map</source>
-        <translation>Стандартная Цветовая Карта</translation>
+        <translation>Стандартная цветовая карта</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="51"/>
@@ -7756,7 +7847,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="62"/>
         <source>--- No file ---</source>
-        <translation>--- нет файла ---</translation>
+        <translation>--- Нет файла ---</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="176"/>
@@ -7766,17 +7857,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="176"/>
         <source>Abort</source>
-        <translation>Выкинуть</translation>
+        <translation>Прервать</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="178"/>
         <source>Loading Data</source>
-        <translation>загрузка данных</translation>
+        <translation>Загрузка данных</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="210"/>
         <source>User aborted.</source>
-        <translation>Пользователь прерван.</translation>
+        <translation>Прервано пользователем.</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="212"/>
@@ -7796,7 +7887,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="282"/>
         <source>Open File</source>
-        <translation></translation>
+        <translation>Открыть файл</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="366"/>
@@ -7822,15 +7913,15 @@ p, li { white-space: pre-wrap; }
         <location filename="../visualization/vismapdialog.cpp" line="370"/>
         <source>Attributes
 count</source>
-        <translation>Счётчик
-аттрибутов</translation>
+        <translation>Количество
+атрибутов</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="371"/>
         <source>Attributes
 size</source>
         <translation>Размер
-Аттребутов</translation>
+атрибутов</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="372"/>
@@ -7841,45 +7932,45 @@ size</source>
         <location filename="../visualization/vismapdialog.cpp" line="373"/>
         <source>Mean attribute
 size</source>
-        <translation>Средний атрибут
-размер</translation>
+        <translation>Средний размер
+атрибута</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="374"/>
         <source>Max attributes</source>
-        <translation>Максимум атрибутов</translation>
+        <translation>Макс. атрибутов</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="375"/>
         <source>Max children</source>
-        <translation>Максимум детей</translation>
+        <translation>Макс. дочерних элементов</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="376"/>
         <source>Max size</source>
-        <translation>Максимальный размер</translation>
+        <translation>Макс. размер</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="377"/>
         <source>Max attribute
 size per element</source>
-        <translation>Макс атрибут
-размер каждого элемента</translation>
+        <translation>Макс размер
+атрибута для элемента</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="378"/>
         <source>Max text</source>
-        <translation>Максимальный текст</translation>
+        <translation>Макс. текст</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="484"/>
         <source>Export Statistics</source>
-        <translation>экспортная статистика</translation>
+        <translation>Экспорт статистики</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="485"/>
         <source>DAT files (*.dat);;All files (*)</source>
-        <translation></translation>
+        <translation>DAT-файлы (*.dat);;Все файлы (*)</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="496"/>
@@ -7892,70 +7983,70 @@ size per element</source>
         <location filename="../visualization/vismapdialog.cpp" line="497"/>
         <source> for file &apos;%1&apos;
 </source>
-        <translation> для файла &quot;%1&quot;
+        <translation> для файла «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="498"/>
         <source> total fragments &apos;%1&apos;
 </source>
-        <translation> всего фрагментов &quot;%1&quot;
+        <translation> всего фрагментов «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="499"/>
         <source> total attributes &apos;%1&apos;
 </source>
-        <translation> всего атрибутов &quot;%1&quot;
+        <translation> всего атрибутов «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="500"/>
         <source> total elements &apos;%1&apos;
 </source>
-        <translation> всего элементов &quot;%1&quot;
+        <translation> всего элементов «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="501"/>
         <source> total size &apos;%1&apos;
 </source>
-        <translation> общий размер &apos;%1&apos;
+        <translation> общий размер «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="502"/>
         <source> total attributes size &apos;%1&apos;
 </source>
-        <translation> общий размер атрибутов &quot;%1&quot;
+        <translation> общий размер атрибутов «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="503"/>
         <source> total text &apos;%1&apos;
 </source>
-        <translation> общий текст &apos;%1&apos;
+        <translation> общий текст «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="504"/>
         <source> levels &apos;%1&apos;
 </source>
-        <translation> уровни &quot;%1&quot;
+        <translation> уровни «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="506"/>
         <source> max. attribute size per element &apos;%1&apos;
 </source>
-        <translation> максимум. размер атрибута на элемент &quot;%1&quot;
+        <translation> макс. размер атрибута для элемента «%1»
 </translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="507"/>
         <source> mean attribute size&apos;%1&apos;
 </source>
-        <translation> средний размер атрибута &apos;%1&apos;
+        <translation> средний размер атрибута «%1»
 </translation>
     </message>
     <message>
@@ -7964,7 +8055,9 @@ size per element</source>
         <source>
 ------
 </source>
-        <translation></translation>
+        <translation>
+------
+</translation>
     </message>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="527"/>
@@ -7979,7 +8072,7 @@ size per element</source>
     <message>
         <location filename="../visualization/vismapdialog.cpp" line="610"/>
         <source>No data to show.</source>
-        <translation>Нет данных, чтобы показать.</translation>
+        <translation>Нет данных для показа.</translation>
     </message>
 </context>
 <context>
@@ -8000,7 +8093,7 @@ size per element</source>
     <message>
         <location filename="../widgets/warningswidget.ui" line="84"/>
         <source>Warnings: the data can be incomplete due to load errors.</source>
-        <translation>Предупреждения: данные могут быть неполными из-за ошибок загрузки.</translation>
+        <translation>Предупреждение: данные могут быть неполными из-за ошибок загрузки.</translation>
     </message>
     <message>
         <location filename="../widgets/warningswidget.ui" line="104"/>
@@ -8024,7 +8117,7 @@ size per element</source>
     <message>
         <location filename="../welcomedialog.ui" line="69"/>
         <source>View a XSD schema</source>
-        <translation>Просмотр схемы XSD</translation>
+        <translation>Просмотреть схему XSD</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="91"/>
@@ -8034,22 +8127,22 @@ size per element</source>
     <message>
         <location filename="../welcomedialog.ui" line="113"/>
         <source>View structure</source>
-        <translation>Структура вида</translation>
+        <translation>Просмотреть структуру</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="135"/>
         <source>Compare files</source>
-        <translation>Compare files</translation>
+        <translation>Сравнить файлы</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="157"/>
         <source>Choose a recent file</source>
-        <translation>Выберите последний файл</translation>
+        <translation>Выбрать последний файл</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="294"/>
         <source>Examine a XML Schema file in a graphical editor. </source>
-        <translation>Проверьте файл схемы XML в графическом редакторе. </translation>
+        <translation>Изучить файл схемы XML в графическом редакторе. </translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="321"/>
@@ -8059,37 +8152,37 @@ size per element</source>
     <message>
         <location filename="../welcomedialog.ui" line="343"/>
         <source>View graphically the structure of a XML file.</source>
-        <translation>Графическое представление структуры XML-файла.</translation>
+        <translation>Получить графическое представление структуры XML-файла.</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="365"/>
         <source>Compare two XML files side by side</source>
-        <translation>Сравнение двух XML-файлов бок о бок</translation>
+        <translation>Сравнить два XML-файла, отобразив их рядом.</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="387"/>
         <source>Select one of the recent files shown in the list.</source>
-        <translation>Выберите один из последних файлов, показанных в списке.</translation>
+        <translation>Выбрать один из последних файлов, показанных в списке.</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="405"/>
         <source>Recent files list:</source>
-        <translation>Список последних файлов :</translation>
+        <translation>Список последних файлов:</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="446"/>
         <source>Sessions...</source>
-        <translation>Проведение сессий...</translation>
+        <translation>Сеансы...</translation>
     </message>
     <message>
         <location filename="../welcomedialog.ui" line="468"/>
         <source>Show this window next time ( you can reactivate this option using the preferences dialog).</source>
-        <translation>Показать это окно в следующий раз ( вы можете повторно активировать эту опцию с помощью диалогового окна настроек).</translation>
+        <translation>Показать это окно в следующий раз (можно повторно активировать эту опцию с помощью диалогового окна настройки).</translation>
     </message>
     <message>
         <location filename="../welcomedialog.cpp" line="104"/>
         <source>Select a item from the recent files list, please.</source>
-        <translation>Выберите элемент из списка последние файлы, пожалуйста.</translation>
+        <translation>Выберите элемент из списка последних файлов.</translation>
     </message>
 </context>
 <context>
@@ -8097,7 +8190,7 @@ size per element</source>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="14"/>
         <source>Error Manager</source>
-        <translation>Ошибка Диспетчера</translation>
+        <translation>Управление ошибками</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="35"/>
@@ -8107,17 +8200,17 @@ size per element</source>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="57"/>
         <source>xxxxxxx</source>
-        <translation></translation>
+        <translation>xxxxxxx</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="80"/>
         <source>V</source>
-        <translation></translation>
+        <translation>V</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="103"/>
         <source>yyyyyyyy</source>
-        <translation></translation>
+        <translation>yyyyyyyy</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="119"/>
@@ -8127,7 +8220,7 @@ size per element</source>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="135"/>
         <source>^</source>
-        <translation></translation>
+        <translation>^</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="151"/>
@@ -8137,7 +8230,7 @@ size per element</source>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="160"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Do you want to load the incomplete file?&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/special/warning&quot;/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;WARNING&lt;/span&gt;: doing so can cause missing data or unexpected consequences. If unsure, just choose &apos;No&apos;.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt; / p&gt;&lt;p&gt;вы хотите загрузить неполный файл?&lt; / p&gt;&lt;p&gt;&lt;img src=&quot;: / special / warning &quot;/&gt;&lt;span style= &quot; font-weight: 600;&quot; &gt; предупреждение&lt; / span&gt;: это может привести к отсутствию данных или неожиданным последствиям. Если вы не уверены, просто выберите &quot;Нет&quot;.&lt;/п&gt;&lt;п&gt;&lt;БР/&gt;и&lt;/P&gt;&lt;/тело&gt;&lt;/HTML&gt;и</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Загрузить неполный файл?&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/special/warning&quot;/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ВНИМАНИЕ&lt;/span&gt;: это может привести к потере данных или неожиданному поведению программы. Если непонятно, что выбрать, просто нажмите кнопку «Нет».&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="191"/>
@@ -8147,7 +8240,7 @@ size per element</source>
     <message>
         <location filename="../modules/xml/xmlerrormanagerdialog.ui" line="204"/>
         <source>Show Containing Folder</source>
-        <translation>Показать содержание папки</translation>
+        <translation>Показать содержащую папку</translation>
     </message>
 </context>
 <context>
@@ -8156,34 +8249,38 @@ size per element</source>
         <location filename="../xmltest.cpp" line="48"/>
         <source>This XML contains an entity reference.
 Entity references are not supported at the moment.</source>
-        <translation type="unfinished"></translation>
+        <translation>Этот XML содержит ссылку на объект.
+Текущая версия программы не поддерживает ссылки на объекты.</translation>
     </message>
     <message>
         <location filename="../xmltest.cpp" line="71"/>
         <source>Unable to read data.
 Error code is &apos;%1&apos;, %2.</source>
-        <translation type="unfinished">Не удается прочитать данные.
-Код ошибки &quot;%1&quot;, %2.</translation>
+        <translation>Не удалось прочитать данные.
+Код ошибки «%1», %2.</translation>
     </message>
     <message>
         <location filename="../xmltest.cpp" line="74"/>
         <source>File name empty.
 Unable to load.</source>
-        <translation type="unfinished">Имя файла пустое.
-Не удается загрузить.</translation>
+        <translation>Имя файла пустое.
+Не удалось загрузить.</translation>
     </message>
     <message>
         <location filename="../xmltest.cpp" line="83"/>
         <source>XML failed the test.
 %1
 File: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>XML не прошёл тестирование.
+%1
+Файл: %2</translation>
     </message>
     <message>
         <location filename="../xmltest.cpp" line="86"/>
         <source>XML is valid.
 File: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>XML корректен.
+Файл: %1</translation>
     </message>
 </context>
 <context>
@@ -8201,26 +8298,26 @@ File: %1</source>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="84"/>
         <source>Output:</source>
-        <translation>Выход:</translation>
+        <translation>Вывод:</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="106"/>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="144"/>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="166"/>
         <source>...</source>
-        <translation></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="122"/>
         <source>XSL:</source>
-        <translation></translation>
+        <translation>XSL:</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="182"/>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="195"/>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="208"/>
         <source>Browse...</source>
-        <translation>Просматривать...</translation>
+        <translation>Обзор...</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="249"/>
@@ -8230,17 +8327,17 @@ File: %1</source>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="270"/>
         <source>&amp;Add</source>
-        <translation>&amp;Добавлять</translation>
+        <translation>&amp;Добавить</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="277"/>
         <source>&amp;Mod</source>
-        <translation>&amp;Добавлять</translation>
+        <translation>&amp;Изменить</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="284"/>
         <source>&amp;Delete</source>
-        <translation>&amp;Исключать</translation>
+        <translation>&amp;Удалить</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="304"/>
@@ -8255,24 +8352,24 @@ File: %1</source>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.ui" line="347"/>
         <source>---</source>
-        <translation></translation>
+        <translation>---</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="36"/>
         <source>WARNING: the support to XSL-T 2.0 in Qt is currently not complete.
 You can use SAXON or another Java jar with same command line syntax (not part of QXmlEdit) if you configure it in preferences.</source>
-        <translation>Внимание: поддержка XSL-T 2.0 в Qt в настоящее время не завершена.
-Вы можете использовать SAXON или другой java jar с тем же синтаксисом командной строки (не является частью QXmlEdit), если вы настроите его в настройках.</translation>
+        <translation>ВНИМАНИЕ: поддержка XSL-T 2.0 в Qt в настоящее время не является полной.
+Можно использовать SAXON или другой архив Java-с тем же синтаксисом командной строки (не является частью QXmlEdit), если настроить его в диалоге настройки.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="38"/>
         <source>WARNING: external XSL engine supports only data persisted as files.</source>
-        <translation>Предупреждение: внешний движок XSL поддерживает только данные, сохраненные в виде файлов.</translation>
+        <translation>ВНИМАНИЕ: внешний движок XSL поддерживает только данные, сохранённые в виде файлов.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="39"/>
         <source>WARNING: external XSL engine supports only data persisted as files. The editor contains modifications not saved. Do you want to continue anyway?</source>
-        <translation>Предупреждение: внешний движок XSL поддерживает только данные, сохраненные в виде файлов. Редактор содержит изменения, не сохраненные. Ты все равно хочешь продолжить?</translation>
+        <translation>ВНИМАНИЕ: внешний движок XSL поддерживает только данные, сохранённые в виде файлов. Редактор содержит несохранённые изменения. Всё равно продолжить?</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="98"/>
@@ -8287,46 +8384,46 @@ You can use SAXON or another Java jar with same command line syntax (not part of
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="182"/>
         <source>Error executing xsl.</source>
-        <translation>Ошибка выполнения xsl.</translation>
+        <translation>Ошибка выполнения XSL.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="186"/>
         <source>Do you want to open the result file in the editor?</source>
-        <translation>Вы хотите открыть файл результатов в Редакторе?</translation>
+        <translation>Окрыть файл результатов в редакторе?</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="188"/>
         <source>Do you want to open the destination folder?</source>
-        <translation>Вы хотите открыть файл результатов в Редакторе?</translation>
+        <translation>Открыть папку назначения?</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="206"/>
         <source>Error opening file &apos;%1&apos;</source>
-        <translation>Ошибка при открытии файла &quot;%1&quot;</translation>
+        <translation>Ошибка при открытии файла «%1»</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="214"/>
         <source>Error opening folder.</source>
-        <translation>Ошибка открытия папки.</translation>
+        <translation>Ошибка при открытии папки.</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="253"/>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="262"/>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="342"/>
         <source>source</source>
-        <translation>источник</translation>
+        <translation>Источник</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="269"/>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="278"/>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="371"/>
         <source>xsl</source>
-        <translation></translation>
+        <translation>XSL</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="285"/>
         <source>output</source>
-        <translation>выход</translation>
+        <translation>Вывод</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="321"/>
@@ -8341,17 +8438,17 @@ You can use SAXON or another Java jar with same command line syntax (not part of
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="346"/>
         <source>Source File</source>
-        <translation>исходный файл</translation>
+        <translation>Исходный файл</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="375"/>
         <source>XSL File</source>
-        <translation>xsl-файл</translation>
+        <translation>XSL-файл</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="400"/>
         <source>Output File</source>
-        <translation>выходной файл</translation>
+        <translation>Выходной файл</translation>
     </message>
     <message>
         <location filename="../modules/xslt/xsltexecdialog.cpp" line="447"/>
