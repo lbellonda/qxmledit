@@ -144,7 +144,7 @@ private:
     bool testAlgStatScanValueW4();
     bool testAlgStatScanValueW5();
     bool testAlgStatScanValueW6();
-    bool testAlgStatScanValueCase(QStringList input, const int expectedTotal, QList<QPair<int,int>> &expectedItems );
+    bool testAlgStatScanValueCase(QStringList input, const int expectedTotal, QList<QPair<int,int> > &expectedItems );
     //
     bool testAnonStatTargetValue();
     bool testStatValueForInputs( const QStringList &inputs, const QString expectedOutput);
@@ -159,10 +159,10 @@ private:
     bool testAnonStatWordChainOneWord();
     bool testAnonStatWordChainEmpty();
     bool testAlgStatWordChainCase(QList<QStringList> input, QStringList &expectedPatterns );
-    bool testAlgStatScanWordChainCase(QStringList input, const int expectedTotal, QList<QPair<int,int>> &expectedItems );
+    bool testAlgStatScanWordChainCase(QStringList input, const int expectedTotal, QList<QPair<int,int> > &expectedItems );
     //
     bool testUnitAnonStatAlgWord();
-    bool testAlgStatScanWordCase(QStringList input, const int expectedTotal, QList<QPair<int,int>> &expectedItems, QStringList expectedPatterns );
+    bool testAlgStatScanWordCase(QStringList input, const int expectedTotal, QList<QPair<int,int> > &expectedItems, QStringList expectedPatterns );
     bool testUnitAnonStatAlgWordErrors();
     bool testUnitAnonStatAlgWordHitPatterns1();
     bool testUnitAnonStatAlgWordHitPatternsNsame();

@@ -146,7 +146,7 @@ bool TestAnonymize::testUnitAlgStatScanValue()
     return true;
 }
 
-bool TestAnonymize::testAlgStatScanValueCase(QStringList input, const int expectedTotal, QList<QPair<int,int>> &expectedItems )
+bool TestAnonymize::testAlgStatScanValueCase(QStringList input, const int expectedTotal, QList<QPair<int,int> > &expectedItems )
 {
     AnonStatAlgValue anonAlgValue;
     AnonAlgStatContext context;
@@ -186,8 +186,8 @@ bool TestAnonymize::testAlgStatScanValueCase(QStringList input, const int expect
     return true;
 }
 
-static QList<QPair<int,int>> itemsForArray( const int count, const int occurrences1[], const int occurrences2[]) {
-    QList<QPair<int,int>> result ;
+static QList<QPair<int,int> > itemsForArray( const int count, const int occurrences1[], const int occurrences2[]) {
+    QList<QPair<int,int> > result ;
     FORINT(i, count) {
         QPair<int,int> newPair(occurrences1[i], occurrences2[i]);
         result.append(newPair);
@@ -198,7 +198,7 @@ static QList<QPair<int,int>> itemsForArray( const int count, const int occurrenc
 bool TestAnonymize::testAlgStatScanValueNull()
 {
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueNull";
-    QList<QPair<int,int>> expected ;
+    QList<QPair<int,int> > expected ;
     if(!testAlgStatScanValueCase(QStringList(), 0, expected)) {
         return false ;
     }
@@ -208,7 +208,7 @@ bool TestAnonymize::testAlgStatScanValueNull()
 bool TestAnonymize::testAlgStatScanValueEmpty()
 {
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueEmpty";
-    QList<QPair<int,int>> expected = itemsForArray(0, NULL, NULL);
+    QList<QPair<int,int> > expected = itemsForArray(0, NULL, NULL);
     if(!testAlgStatScanValueCase(QStringList()<<"", 1, expected)) {
         return false ;
     }
@@ -220,7 +220,7 @@ bool TestAnonymize::testAlgStatScanValueOneWord()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueOneWord";
     const int expectedKey[] = {1};
     const int expectedCount[] = {1};
-    QList<QPair<int,int>> expected = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc", 1, expected)) {
         return false ;
     }
@@ -232,7 +232,7 @@ bool TestAnonymize::testAlgStatScanValueDoubleWord()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueDoubleWord";
     const int expectedKey[] = {2};
     const int expectedCount[] = {1};
-    QList<QPair<int,int>> expected = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc def", 1, expected)) {
         return false ;
     }
@@ -244,7 +244,7 @@ bool TestAnonymize::testAlgStatScanValue3Word()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValue3Word";
     const int expectedKey[] = {3};
     const int expectedCount[] = {1};
-    QList<QPair<int,int>> expected = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc def k", 1, expected)) {
         return false ;
     }
@@ -256,7 +256,7 @@ bool TestAnonymize::testAlgStatScanValueW1()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueW1";
     const int expectedKey[] = {3, 1};
     const int expectedCount[] = {1, 1};
-    QList<QPair<int,int>> expected = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc def k"<<"abc", 2, expected)) {
         return false ;
     }
@@ -268,7 +268,7 @@ bool TestAnonymize::testAlgStatScanValueW2()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueW2";
     const int expectedKey[] = {1, 2, 3};
     const int expectedCount[] = {2, 1, 1};
-    QList<QPair<int,int>> expected = itemsForArray(3, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(3, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc def k"<<"abc"<<"abc"<<"abc e", 4, expected)) {
         return false ;
     }
@@ -280,7 +280,7 @@ bool TestAnonymize::testAlgStatScanValueW3()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueW3";
     const int expectedKey[] = {1};
     const int expectedCount[] = {1};
-    QList<QPair<int,int>> expected = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc\u00C4\00C8\u00E0def", 1, expected)) {
         return false ;
     }
@@ -292,7 +292,7 @@ bool TestAnonymize::testAlgStatScanValueW4()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueW4";
     const int expectedKey[] = {1};
     const int expectedCount[] = {1};
-    QList<QPair<int,int>> expected = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc\u00C4\u00C8\u00E0def,4", 1, expected)) {
         return false ;
     }
@@ -304,7 +304,7 @@ bool TestAnonymize::testAlgStatScanValueW5()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueW5";
     const int expectedKey[] = {2};
     const int expectedCount[] = {1};
-    QList<QPair<int,int>> expected = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc\u00C4\t\u00C8\u00E0def,4", 1, expected)) {
         return false ;
     }
@@ -316,7 +316,7 @@ bool TestAnonymize::testAlgStatScanValueW6()
     _subTestName = "testAlgStatScanValue/testAlgStatScanValueW6";
     const int expectedKey[] = {7};
     const int expectedCount[] = {1};
-    QList<QPair<int,int>> expected = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expected = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanValueCase(QStringList()<<"abc\u00C4\t\u00C8 \u00E0def,\n45\r6  7\t\t\n\r///", 1, expected)) {
         return false ;
     }
@@ -609,7 +609,7 @@ bool TestAnonymize::testUnitAnonStatAlgPattern()
 
 //--------------------------
 
-bool TestAnonymize::testAlgStatScanWordCase(QStringList input, const int expectedTotal, QList<QPair<int,int>> &expectedItems, QStringList expectedPatterns )
+bool TestAnonymize::testAlgStatScanWordCase(QStringList input, const int expectedTotal, QList<QPair<int,int> > &expectedItems, QStringList expectedPatterns )
 {
     AnonStatAlgWord anonStatAlgWord;
     AnonAlgStatContext context;
@@ -713,7 +713,7 @@ bool TestAnonymize::testUnitAnonStatAlgWordHitPatterns1()
     _subTestName = "testUnitAnonStatAlgWordHitPatterns1";
     const int expectedKey[] = {0};
     const int expectedCount[] = {1};
-    QList<QPair<int,int>> expectedPairs = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expectedPairs = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanWordCase(QStringList()<<"abc", 1, expectedPairs, QStringList()<<"aaa")) {
         return false ;
     }
@@ -725,7 +725,7 @@ bool TestAnonymize::testUnitAnonStatAlgWordHitPatternsNsame()
     _subTestName = "testUnitAnonStatAlgWordHitPatternsNsame";
     const int expectedKey[] = {0};
     const int expectedCount[] = {3};
-    QList<QPair<int,int>> expectedPairs = itemsForArray(1, expectedKey, expectedCount);
+    QList<QPair<int,int> > expectedPairs = itemsForArray(1, expectedKey, expectedCount);
     if(!testAlgStatScanWordCase(QStringList()<<"abc"<<"abc"<<"abc", 3, expectedPairs, QStringList()<<"aaa")) {
         return false ;
     }
@@ -737,7 +737,7 @@ bool TestAnonymize::testUnitAnonStatAlgWordHitPatternsN()
     _subTestName = "testUnitAnonStatAlgWordHitPatternsN";
     const int expectedKey[] = {0,1,2};
     const int expectedCount[] = {1,2,1};
-    QList<QPair<int,int>> expectedPairs = itemsForArray(3, expectedKey, expectedCount);
+    QList<QPair<int,int> > expectedPairs = itemsForArray(3, expectedKey, expectedCount);
     if(!testAlgStatScanWordCase(QStringList()<<"abc"<<"789"<<"012"<<"Nf/1", 4, expectedPairs, QStringList()<<"aaa"<<"000"<<"Aa/0")) {
         return false ;
     }
@@ -1080,7 +1080,7 @@ bool TestAnonymize::checkBaseStatIntervals(AnonAlgFreqCount *accumulator, const 
     return true;
 }
 
-bool TestAnonymize::checkStatIntervals(const QStringList &inputs, const QList<QPair<double, double>> &expected )
+bool TestAnonymize::checkStatIntervals(const QStringList &inputs, const QList<QPair<double, double> > &expected )
 {
     AnonStatAlgValue chain;
     AnonAlgStatContext context;
@@ -1174,7 +1174,7 @@ bool TestAnonymize::testAnonStatMean()
         return false;
     }
     {
-        QList<QPair<double, double>> expected ;
+        QList<QPair<double, double> > expected ;
         QPair<double, double> d1(0, 1);
         expected.append(d1);
         if(!checkStatIntervals(QStringList()<<"1", expected)) {
@@ -1182,7 +1182,7 @@ bool TestAnonymize::testAnonStatMean()
         }
     }
     {
-        QList<QPair<double, double>> expected ;
+        QList<QPair<double, double> > expected ;
         QPair<double, double> d1(0, 1);
         expected.append(d1);
         if(!checkStatIntervals(QStringList()<<"1"<<"1", expected)) {
@@ -1190,7 +1190,7 @@ bool TestAnonymize::testAnonStatMean()
         }
     }
     {
-        QList<QPair<double, double>> expected ;
+        QList<QPair<double, double> > expected ;
         QPair<double, double> d1(0, 0.75);
         QPair<double, double> d2(0.75, 1);
         expected.append(d1);
@@ -1200,7 +1200,7 @@ bool TestAnonymize::testAnonStatMean()
         }
     }
     {
-        QList<QPair<double, double>> expected ;
+        QList<QPair<double, double> > expected ;
         QPair<double, double> d1(0.75, 1);
         QPair<double, double> d2(0, 0.5);
         QPair<double, double> d3(0.5, 0.75);
