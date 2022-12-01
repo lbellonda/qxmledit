@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -44,6 +44,7 @@ SOURCES += $$files(../src/undo/*.cpp)
 SOURCES += $$files(../src/sessions/data_access/*.cpp)
 SOURCES += $$files(../src/sessions/data_access/model/*.cpp)
 SOURCES += $$files(../src/modules/anonymize/*.cpp)
+SOURCES += $$files(../src/modules/anonymize/algstat/*.cpp)
 SOURCES += $$files(../src/modules/binaryviewer/*.cpp)
 SOURCES += $$files(../src/modules/compare/*.cpp)
 SOURCES += $$files(../src/modules/graph/*.cpp)
@@ -96,6 +97,7 @@ HEADERS += $$files(../src/sessions/data_access/model*.h)
 HEADERS += $$files(../src/framework/include/*.h)
 HEADERS += $$files(../src/globals/includes/*.h)
 HEADERS += $$files(../src/modules/anonymize/*.h)
+HEADERS += $$files(../src/modules/anonymize/algstat/*.h)
 HEADERS += $$files(../src/modules/binaryviewer/*.h)
 HEADERS += $$files(../src/modules/compare/*.h)
 HEADERS += $$files(../src/modules/graph/*.h)
@@ -196,3 +198,4 @@ FORMS += $$files(../src/modules/messages/*.ui)
 FORMS += $$files(../src/modules/help/*.ui)
 
 RESOURCES += ../src/risorse.qrc
+

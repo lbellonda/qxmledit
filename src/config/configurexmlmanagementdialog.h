@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -68,6 +68,7 @@ private slots:
     void on_cmdPredefinedAttributes_clicked();
     void on_cbProcessFormattingMetadata_stateChanged(int /*state*/);
     void on_cbInsertFormattingMetadata_stateChanged(int /*state*/);
+    void on_cbAnonLegacyAlg_stateChanged(int /*state*/);
 };
 
 #endif // CONFIGUREXMLMANAGEMENTDIALOG_H

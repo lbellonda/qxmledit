@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -252,6 +252,9 @@ const QString Config::KEY_TEST("test");
 // tools
 const QString Config::KEY_TOOLS_XMLBEANS_INST2XSD("tools/xmlbeans/inst2xsd");
 const QString Config::KEY_TOOLS_XMLBEANS_XSD2INST("tools/xmlbeans/xsd2inst");
+
+// anon
+const QString Config::KEY_ANON_TEXT_LEGACY("anon/textLegacy");
 
 //------------------------------------------------------
 static QSettings *config = NULL ;

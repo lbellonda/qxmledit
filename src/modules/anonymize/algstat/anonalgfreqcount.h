@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2022 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,22 +20,51 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef ANONALGFREQCOUNT_H
+#define ANONALGFREQCOUNT_H
 
-#ifndef ANONFIXEDALG_H
-#define ANONFIXEDALG_H
+#include <xmlEdit.h>
+#include "anonalgfreqtarget.h"
+#include "modules/anonymize/anonbase.h"
 
-#include "libQXmlEdit_global.h"
-#include "anonbase.h"
-
-class LIBQXMLEDITSHARED_EXPORT AnonFixedProducer : public AnonProducer
+class AlgStatRandomProvider
 {
 public:
-    AnonFixedProducer();
-    ~AnonFixedProducer();
-    virtual QChar nextLetter(const bool uppercase);
-    virtual QChar nextDigit() ;
-    virtual QChar nextLetterOrDigit(const bool uppercase) ;
+    AlgStatRandomProvider();
+    virtual ~AlgStatRandomProvider();
 
+    // Between 0 and 1
+    virtual double chooseValue() = 0;
 };
 
-#endif // ANONFIXEDALG_H
+class AnonAlgFreqCount : public AlgStatRandomProvider
+{
+    bool _ready;
+    int _total;
+    QHash<int, AnonAlgFreqTarget*> _children;
+    /** @brief: this field not automatically deallocated */
+    AlgStatRandomProvider *_randomProvider;
+
+protected:
+    AnonAlgFreqTarget* childForSize(const int size);
+    virtual AnonAlgFreqTarget* newChild() = 0;
+    void newHit(AnonAlgFreqTarget *target);
+    void insertTarget(const int id, AnonAlgFreqTarget* target);
+    int isReady();
+    void prepare();
+    AnonAlgFreqTarget* randomChoice();
+    double chooseValue();
+public:
+    AnonAlgFreqCount();
+    virtual ~AnonAlgFreqCount();
+
+    int total();
+    QHash<int, AnonAlgFreqTarget*> children();
+    void setRandomProvider(AlgStatRandomProvider *randomProvider);
+
+#ifdef QXMLEDIT_TEST
+    friend class TestAnonymize;
+#endif
+};
+
+#endif // ANONALGFREQCOUNT_H

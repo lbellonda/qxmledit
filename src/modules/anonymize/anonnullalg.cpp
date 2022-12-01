@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -31,7 +31,17 @@ AnonNullAlg::~AnonNullAlg()
 {
 }
 
-QString AnonNullAlg::processText(const QString &input)
+QString AnonNullAlg::processText(AnonAlgStatContext &/*context*/, const QString & /*path*/, const QString &input)
 {
     return input;
+}
+
+void AnonNullAlg::scan(AnonAlgStatContext &/*context*/, const QString & /*path*/, const QString & /*input*/)
+{
+    // nothing
+}
+
+bool AnonNullAlg::needScan()
+{
+    return true ;
 }

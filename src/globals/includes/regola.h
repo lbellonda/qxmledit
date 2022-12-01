@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -544,7 +544,6 @@ public:
     //------------endregion(containers)
 
     void addUndo(QUndoCommand *undoGroup);
-    void anonymize(AnonAlg *alg);
     void anonymize(AnonContext *context, QTreeWidget *treeWidget, const bool doDirect = false);
 
     QHash<QString, QString> mapOfSchemaReferences();

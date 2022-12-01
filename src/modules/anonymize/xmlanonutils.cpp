@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -22,7 +22,6 @@
 
 #include "xmlanonutils.h"
 #include "modules/anonymize/anoncontext.h"
-
 
 XmlAnonUtils::XmlAnonUtils()
 {
@@ -49,3 +48,25 @@ QString XmlAnonUtils::anonymizeTextOfElement(AnonContext *context, const QString
     }
     return result ;
 }
+
+void XmlAnonUtils::scanTextOfElement(AnonContext *context, const QString &inputText)
+{
+    AnonContextText thisContext(context);
+    thisContext.pushContextNamespaceText();
+    AnonException *exception = thisContext.getException();
+    if(thisContext.canAnonymize(exception)) {
+        thisContext.scanAnonymize(exception, inputText);
+    }
+}
+
+bool XmlAnonUtils::setTypeIfNotSet(AnonProducer::ESeqType &type, const AnonProducer::ESeqType newType)
+{
+    if(newType != AnonProducer::ASCII) {
+        if(newType > type) {
+            type = newType;
+            return true;
+        }
+    }
+    return false;
+}
+

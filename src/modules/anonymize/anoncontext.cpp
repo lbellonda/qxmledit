@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -22,7 +22,7 @@
 
 #include "xmlEdit.h"
 #include "anoncontext.h"
-#include "anonfixedalg.h"
+#include "anonfixedproducer.h"
 #include "anonseqproducer.h"
 #include "anonallalg.h"
 #include "anoncodealg.h"
@@ -55,6 +55,11 @@ AnonContext::AnonContext(AnonContext *newParent, const QString &parmName)
 {
     _thisAlg = NULL ;
     _parent = newParent ;
+    if(NULL == newParent) {
+        _root = this ;
+    } else {
+        _root = newParent->_root;
+    }
     _name = parmName ;
     _inited = false ;
     if(NULL == newParent) {
@@ -84,6 +89,21 @@ AnonContext::~AnonContext()
     if(NULL != _thisProfile) {
         delete _thisProfile ;
     }
+}
+
+AnonAlgStatContext *AnonContext::algStatContext()
+{
+    return &(_root->_anonAlgStatContext);
+}
+
+AnonAlgStatContext &AnonContext::algStatContextRef()
+{
+    return _root->_anonAlgStatContext;
+}
+
+bool AnonContext::isAlgStatError()
+{
+    return _root->_anonAlgStatContext.isError();
 }
 
 void AnonContext::removeExceptions()
@@ -227,17 +247,28 @@ void AnonContext::setAlg(AnonAlg *parmAlg)
     _alg = _thisAlg ;
 }
 
-
-AnonAlg *AnonContext::getAlg(AnonymizeParameters *params)
+AnonProducer *AnonContext::getNewProducer(AnonymizeParameters *params)
 {
-    AnonAlg *alg = NULL ;
     AnonProducer *producer = NULL ;
     if(params->useFixedLetter) {
         producer = new AnonFixedProducer();
     } else {
         producer = new AnonSeqProducer();
     }
+#ifdef  QXMLEDIT_TEST
+    extern bool GLOBAL_ALG_TEST_SET_FLAT;
+    if(GLOBAL_ALG_TEST_SET_FLAT) {
+        delete producer;
+        producer = new AnonFlatSeqProducer();
+    }
+#endif
+    return producer;
+}
 
+AnonAlg *AnonContext::getAlg(AnonymizeParameters *params)
+{
+    AnonAlg *alg = NULL ;
+    AnonProducer *producer = getNewProducer(params) ;
     switch(params->mode) {
     default:
     case AnonymizeParameters::AllText:
@@ -268,6 +299,11 @@ bool AnonContext::canAnonymize(AnonException *exception)
     }
 }
 
+QString AnonContext::absQualifiedPath()
+{
+    return _path + "/@" + _pathQualified;
+}
+
 QString AnonContext::anonymize(AnonException *exception, const QString &inputData)
 {
     AnonType::Type anonType = _anonType;
@@ -280,15 +316,33 @@ QString AnonContext::anonymize(AnonException *exception, const QString &inputDat
         if(NULL != exception) {
             translatedValue = exception->fixedValue();
         } else {
-            translatedValue = _alg->processText(inputData);
+            translatedValue = _alg->processText(algStatContextRef(), absQualifiedPath(), inputData);
         }
         break;
     default:
     case AnonType::UseDefault:
-        translatedValue = _alg->processText(inputData);
+        translatedValue = _alg->processText(algStatContextRef(), absQualifiedPath(), inputData);
         break;
     }
     return translatedValue ;
+}
+
+void AnonContext::scanAnonymize(AnonException *exception, const QString &inputData)
+{
+    AnonType::Type anonType = _anonType;
+    if(NULL != exception) {
+        anonType = exception->anonType();
+    }
+    switch(anonType) {
+    case AnonType::FixedValue:
+        // skip this?
+        Utils::TODO_THIS_RELEASE("skip? ? ?! ?");
+        break;
+    default:
+    case AnonType::UseDefault:
+        _alg->scan(algStatContextRef(), absQualifiedPath(), inputData);
+        break;
+    }
 }
 
 bool AnonContext::isCriteriaTemporary()
@@ -391,4 +445,23 @@ void AnonContext::setOrigData(QHash<void *, QString> *newOrigData)
 bool AnonContext::isCollectingData()
 {
     return _origData != NULL ;
+}
+
+QString AnonContext::dumpAlg()
+{
+    return _alg->dumpAsString();
+}
+
+void AnonContext::exposeErrorToUser(QWidget *parent)
+{
+    if(isAlgStatError() && (NULL != algStatContext())) {
+        Utils::error(parent, QObject::tr("Error anonymizing data: %1\n%2")
+                     .arg(algStatContext()->errorMessage())
+                     .arg(algStatContext()->errorDetail()));
+    }
+}
+
+AnonAlg *AnonContext::alg()
+{
+    return _alg;
 }

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -26,7 +26,7 @@
 #include "testsqlaccess.h"
 #include "modules/anonymize/anonbase.h"
 #include "modules/anonymize/anonallalg.h"
-#include "modules/anonymize/anonfixedalg.h"
+#include "modules/anonymize/anonfixedproducer.h"
 #include "modules/anonymize/anonseqproducer.h"
 #include "modules/anonymize/anoncodealg.h"
 #include "modules/anonymize/anoncontext.h"
@@ -79,6 +79,7 @@
 #define ANON_BATCH_CL_START                "../test/data/anon/batch.start.cl.xml"
 #define ANON_BATCH_CL_END                "../test/data/anon/batch.end.cl.xml"
 
+bool GLOBAL_ALG_TEST_SET_FLAT = false ;
 //---------------------
 
 TestAnonymize::TestAnonymize()
@@ -94,16 +95,10 @@ TestAnonymize::~TestAnonymize()
 bool TestAnonymize::testFast()
 {
     _testName = "testFast";
-
-    if(!testBatchCommandLine()) {
+    if(!testBatchBase()) {
         return false;
     }
-
-    if(!testInsertException()){
-        return false;
-    }
-
-    if(!testBaseProfile()) {
+    if(!testBatchBaseStatAFile("6", "../test/data/anon/argstat_w.xml", true, AnonProducer::WESTERN)) {
         return false;
     }
     return true ;
@@ -140,6 +135,9 @@ bool TestAnonymize::testUnit()
         return false;
     }
     if(!testAlgCodeVariableCodeLen()) {
+        return false;
+    }
+    if(!testUnitAlgStat()) {
         return false;
     }
 
@@ -284,6 +282,7 @@ bool TestAnonymize::testAlgCodeVariableLen(const int len, const QString &fileSta
 
     AnonFixedProducer *producer = new AnonFixedProducer();
     AnonCodeAlg anonCodeAlg( false, producer);
+    anonCodeAlg.setUseLegacy(true);
     anonCodeAlg.setThreshold(len);
     if( !testSkeleton(fileStart, fileEnd, &anonCodeAlg) ) {
         return false ;
@@ -299,6 +298,7 @@ bool TestAnonymize::testAlgAllProdFixed()
 
     AnonFixedProducer *producer = new AnonFixedProducer();
     AnonAllAlg allAlg(false, producer);
+    allAlg.setUseLegacy(true);
     if( !testSkeleton(FILE_START_ALGALL_SEQALL, FILE_START_ALGALL_SEQALL_END, &allAlg) ) {
         return false ;
     }
@@ -311,8 +311,9 @@ bool TestAnonymize::testAlgAllProdSeq()
 {
     _testName = "testAlgAllProdSeq";
 
-    AnonSeqProducer *producer = new AnonSeqProducer();
+    AnonSeqProducer *producer = new AnonFlatSeqProducer();
     AnonAllAlg allAlg(false, producer);
+    allAlg.setUseLegacy(true);
     if( !testSkeleton(FILE_START_ALGALL_SEQALL2, FILE_START_ALGALL_SEQCHG_END, &allAlg) ) {
         return false ;
     }
@@ -325,6 +326,7 @@ bool TestAnonymize::testAlgCodeProdFixed()
 
     AnonFixedProducer *producer = new AnonFixedProducer();
     AnonCodeAlg allAlg( false, producer);
+    allAlg.setUseLegacy(true);
     if( !testSkeleton(FILE_START_ALGCODE_FIXED, FILE_START_ALGCODE_PRODFIX_END, &allAlg) ) {
         return false ;
     }
@@ -335,8 +337,9 @@ bool TestAnonymize::testAlgCodeProdSeq()
 {
     _testName = "testAlgCodeProdSeq";
 
-    AnonSeqProducer *producer = new AnonSeqProducer();
+    AnonSeqProducer *producer = new AnonFlatSeqProducer();
     AnonCodeAlg allAlg( false, producer);
+    allAlg.setUseLegacy(true);
     if( !testSkeleton(FILE_START_ALGCODE, FILE_START_ALGCODE_PRODSEQ_END, &allAlg) ) {
         return false ;
     }
@@ -348,7 +351,11 @@ bool TestAnonymize::testAlgCodeProdSeq()
 bool TestAnonymize::testUnitBase(const QString &theTestName, const QString &inputText, const QString &expected, AnonAlg* alg)
 {
     _testName = theTestName ;
-    QString result = alg->processText(inputText);
+    AnonAlgStatContext context;
+    QString result = alg->processText(context, "", inputText);
+    if(context.isError()) {
+        return error(QString("Context: For input '%1' error: '%2'  detail: '%3'").arg(inputText).arg(context.errorMessage()).arg(context.errorDetail()));
+    }
     if( result != expected ) {
         return error(QString("Unit test, expected '%1', found '%2'.").arg(expected).arg(result));
     }
@@ -363,6 +370,7 @@ bool TestAnonymize::testUnitAlgAllProdFixed()
 
     AnonFixedProducer *producer = new AnonFixedProducer();
     AnonAllAlg alg(false, producer);
+    alg.setUseLegacy(true);
     if( !testUnitBase(testName + "/1", "", "", &alg) ) {
         return false ;
     }
@@ -388,8 +396,9 @@ bool TestAnonymize::testUnitAlgAllProdSeq()
 {
     QString testName = "testUnitAlgAllProdSeq";
 
-    AnonSeqProducer *producer = new AnonSeqProducer();
+    AnonSeqProducer *producer = new AnonFlatSeqProducer();
     AnonAllAlg alg( false, producer);
+    alg.setUseLegacy(true);
     if( !testUnitBase(testName + "/1", "", "", &alg) ) {
         return false ;
     }
@@ -488,7 +497,7 @@ bool TestAnonymize::testUnitAlgCodeProdFixed() {
 bool TestAnonymize::testUnitAlgCodeProdSeq()
 {
     QString testName = "testUnitAlgCodeProdSeq";
-    AnonSeqProducer *producer = new AnonSeqProducer();
+    AnonSeqProducer *producer = new AnonFlatSeqProducer();
     AnonCodeAlg alg( false, producer);
 
     if( !testUnitBase(testName + "/1", "", "", &alg) ) {
@@ -604,7 +613,7 @@ bool TestAnonymize::testBatchBaseSkeleton(const QString &sourceFilePath, const Q
     if( sourceFile.open(QFile::ReadOnly) )
     {
         const AnonOperationResult *res ;
-        res = tester.execute(&sourceFile, &buffer, context);
+        res = tester.scanAndExecute(&sourceFile, &buffer, sourceFilePath, context);
         if( NULL != res ) {
             if( res->isError() ) {
                 error(QString("Batch: error writing was: '%1' '%2'").arg(res->code()).arg(res->message()));
@@ -620,6 +629,7 @@ bool TestAnonymize::testBatchBaseSkeleton(const QString &sourceFilePath, const Q
     if( isError ) {
         return false;
     }
+    //writeToFile("/tmp/1.xml", QString(buffer.data()));
     if(!cfrMem(&buffer, "cmp", fileResult)){
         return false;
     }
@@ -691,7 +701,13 @@ AnonContext *TestAnonymize::newStdContext()
 {
     AnonymizeParameters p(AnonymizeParameters::AllText, true);
     AnonContext *context = new AnonContext (NULL, "");
+    QMap<QString, QVariant> newBackend;
+    Config::setBackend(&newBackend);
+    const bool prevValueLegacy = Config::getBool(Config::KEY_ANON_TEXT_LEGACY, false) ;
+    Config::saveBool(Config::KEY_ANON_TEXT_LEGACY, true) ;
     context->setAlg(&p);
+    Config::saveBool(Config::KEY_ANON_TEXT_LEGACY, prevValueLegacy) ;
+    Config::setBackend(NULL);
     return context;
 }
 
@@ -1498,6 +1514,10 @@ bool TestAnonymize::testBatch()
     if(!testBatchBase()) {
         return false;
     }
+
+    if(!testBatchBaseStat()) {
+        return false;
+    }
     return true;
 }
 
@@ -1520,6 +1540,7 @@ bool TestAnonymize::testBatchBase()
         AnonContext context(NULL, "");
         AnonFixedProducer *producer = new AnonFixedProducer();
         AnonCodeAlg *anonCodeAlg = new AnonCodeAlg(false, producer);
+        anonCodeAlg->setUseLegacy(true);
         anonCodeAlg->setThreshold(4);
         context.setAlg(anonCodeAlg);
         if(!testBatchBaseSkeleton(ANON_BATCH_QUAL1, ANON_BATCH_QUAL2, &context) ) {
@@ -1906,11 +1927,13 @@ bool TestAnonymize::innerBatchCommandLine(const QString &id,
     if(!insProfile(app.data(), "pro2")) {
         return false;
     }
+    GLOBAL_ALG_TEST_SET_FLAT = true;
     AnonymizeBatch batch( app.data(), newFileInputPath, newProfileName, newFileOutputPath );
     QBuffer buffer;
     _retProvided = &buffer ;
     batch.setOutputProvider(this);
     bool res = batch.operation();
+    GLOBAL_ALG_TEST_SET_FLAT = false;
     if( res != expectedResult ) {
         return error(QString("Command line result, expected %1, found %2").arg(expectedResult).arg(res));
     }

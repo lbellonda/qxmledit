@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -26,13 +26,29 @@
 
 #include "libQXmlEdit_global.h"
 #include "anonbase.h"
+#include "modules/anonymize/algstat/anonalgvalue.h"
 
 class LIBQXMLEDITSHARED_EXPORT AnonAllAlg : public AnonAlg
 {
+    bool _useLegacyAlgorithm ;
+    QMap<QString, AnonStatAlgValue*> _anonStatData;
+    AlgStatRandomProvider *_algStatRandomProvider;
+
+    AnonStatAlgValue* valueFor(const QString &path);
+    bool scanned();
 public:
     AnonAllAlg(const bool parmAutodelete, AnonProducer *theProducer);
     virtual ~AnonAllAlg();
-    virtual QString processText(const QString &input) ;
+    virtual QString processText(AnonAlgStatContext &context, const QString &path, const QString &input) ;
+    virtual void scan(AnonAlgStatContext &context, const QString &path, const QString &input) ;
+    virtual bool needScan();
+    bool isUseLegacy();
+    void setUseLegacy(const bool value);
+    void setAlgStatRandomProvider(AlgStatRandomProvider *newValue);
+    virtual QString dumpAsString();
+#ifdef  QXMLEDIT_TEST
+    friend class TestAnonymize;
+#endif
 };
 
 #endif // ANONALLALG_H

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -25,20 +25,41 @@
 #define ANONSEQPRODUCER_H
 
 #include "libQXmlEdit_global.h"
+#include <xmlEdit.h>
 #include "anonbase.h"
+#include "modules/anonymize/algstat/anoncharutils.h"
 
 class LIBQXMLEDITSHARED_EXPORT AnonSeqProducer : public AnonProducer
 {
+protected:
     int _letter;
     int _digit;
+    bool _errorCharSet ;
+
+    AnonCharSet _westernCharSet;
+    AnonCharSet _eastEuropeCharSet;
+
+    int nextLetterCyrillic(const bool uppercase);
+    int nextLetterASCII(const bool uppercase);
+    virtual int nextLetterPos();
 public:
     AnonSeqProducer();
-    ~AnonSeqProducer();
+    virtual ~AnonSeqProducer();
 
-    virtual QChar nextLetter(const bool uppercase);
+    virtual QChar nextLetter(const bool uppercase, const ESeqType type);
     virtual QChar nextDigit() ;
-    virtual QChar nextLetterOrDigit(const bool uppercase) ;
+    virtual bool isError() ;
+#ifdef  QXMLEDIT_TEST
+    friend class TestAnonymize;
+#endif
+};
 
+class LIBQXMLEDITSHARED_EXPORT AnonFlatSeqProducer : public AnonSeqProducer
+{
+    virtual int nextLetterPos();
+public:
+    AnonFlatSeqProducer();
+    virtual ~AnonFlatSeqProducer();
 };
 
 #endif // ANONSEQPRODUCER_H

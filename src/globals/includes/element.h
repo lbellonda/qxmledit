@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -139,6 +139,7 @@ public:
     static void emptyList(QList<Attribute*> &sourceList);
 
     void anonymize(AnonContext *context);
+    void scanAnonymize(AnonContext *context);
 
 };
 
@@ -597,12 +598,15 @@ private:
     const QString getIdUsingStyle(PaintInfo *paintInfo);
     void handleMapEncodingPreInsert(QDomNode &parent, ElementLoadInfoMap *dataMap);
     void handleMapEncodingPreInsert(ElementLoadInfoMap *dataMap);
-    void anonymizeElement(AnonAlg *alg);
-    void anonymizeText(AnonAlg *alg);
     QString anonymizeTextOfElement(AnonContext * context, const QString &inputText, void * key);
     void handleNamespace(AnonContext *context);
 
     bool checkSaveAndSetIndent(XMLSaveContext *context, QXmlStreamWriter &writer) const;
+    void scanAnonymize(AnonContext *context);
+    void scanAnonymizeElement(AnonContext *context);
+    void anonymizeElement(AnonContext *context);
+    void anonymizeText(AnonContext *context);
+    void anonymizeInternal(AnonContext *context);
 
 public:
     bool areChildrenLeavesHidden(QTreeWidgetItem *twi);
@@ -636,10 +640,7 @@ public:
     bool canRemoveParent();
     bool canInsertParent();
 
-    void anonymize(AnonAlg *alg);
     void anonymize(AnonContext *context);
-    void anonymizeElement(AnonContext *context);
-    void anonymizeText(AnonContext *context);
 
     //---
     Element *firstChildRecursiveOrThis();

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,17 +21,19 @@
  **************************************************************************/
 
 
-#include "anonfixedalg.h"
+#include "anonfixedproducer.h"
 
 AnonFixedProducer::AnonFixedProducer()
 {
+    //
 }
 
 AnonFixedProducer::~AnonFixedProducer()
 {
+    //
 }
 
-QChar AnonFixedProducer::nextLetter(const bool uppercase)
+QChar AnonFixedProducer::nextLetter(const bool uppercase, const ESeqType /*type*/)
 {
     return uppercase ? 'X' : 'x' ;
 }
@@ -41,7 +43,7 @@ QChar AnonFixedProducer::nextDigit()
     return '1';
 }
 
-QChar AnonFixedProducer::nextLetterOrDigit(const bool uppercase)
+bool AnonFixedProducer::isError()
 {
-    return uppercase ? 'X' : 'x' ;
+    return false;
 }

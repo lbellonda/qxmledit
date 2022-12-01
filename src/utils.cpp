@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -572,9 +572,10 @@ void Utils::TODO_THIS_RELEASE(const QString & inputMessage)
 {
     if(!inputMessage.isEmpty()) {
         if(isUnitTest) {
-            //fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
+            fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
         } else {
             fprintf(stderr, "TODO_THIS_RELEASE:%s\n", inputMessage.toLatin1().data());
+            fflush(stderr);
             //message(QString("TODO IN THIS RELEASE: %1").arg(inputMessage));
         }
     }

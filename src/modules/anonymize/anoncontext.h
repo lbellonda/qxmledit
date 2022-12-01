@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,10 +24,12 @@
 #ifndef ANONCONTEXT_H
 #define ANONCONTEXT_H
 
+#include <xmlEdit.h>
 #include "libQXmlEdit_global.h"
 #include "modules/anonymize/anonbase.h"
 #include "modules/anonymize/anonprofile.h"
 #include "modules/anonymize/anonexception.h"
+#include "modules/anonymize/algstat/anonalgstatcontext.h"
 
 class AnonAttr;
 
@@ -49,6 +51,7 @@ protected:
     AnonAlg *_alg;
     AnonAlg *_thisAlg;
     AnonContext *_parent;
+    AnonContext *_root;
     QString _path;
     QString _pathQualified;
     QString _name;
@@ -61,7 +64,9 @@ protected:
     QHash<QString, QString> _namespacesByPrefix;
     //--- these variables are temporary operation data, i.e. are cleared at next run
     QHash<void *, QString> *_origData;
+    AnonAlgStatContext _anonAlgStatContext;
 
+    AnonProducer *getNewProducer(AnonymizeParameters *params);
     AnonAlg *getAlg(AnonymizeParameters *params);
     void deleteAlg();
     void init();
@@ -70,6 +75,7 @@ protected:
     void setContextNamespace(const QString &ns, const QString &localName);
     void setContextNamespaceAttribute(const QString &ns, const QString &localName);
     AnonException *getExceptionQualified(const QString & parmName, const QString &parmPath);
+    QString absQualifiedPath();
 
 public:
     AnonContext(AnonContext *newParent, const QString &parmName);
@@ -77,6 +83,9 @@ public:
     //---------
     AnonContext *clone(const QString &newTag);
 
+    AnonAlgStatContext *algStatContext();
+    AnonAlgStatContext &algStatContextRef();
+    bool isAlgStatError();
     void setPathTo(const QString &tag);
     QString path();
     QString qualifiedPath();
@@ -101,6 +110,7 @@ public:
     AnonException *getException();
     AnonException *getException(const QString &parmName, const QString &parmPath);
     QString anonymize(AnonException *exception, const QString &data);
+    void scanAnonymize(AnonException *exception, const QString &inputData);
     bool canAnonymize(AnonException *exception);
 
     void setAlg(AnonymizeParameters *params);
@@ -120,6 +130,11 @@ public:
     //--
     QString uriFromName(const QString &name);
     QString uriFromPrefix(const QString &name);
+    //
+    QString dumpAlg();
+    //
+    void exposeErrorToUser(QWidget *parent);
+    AnonAlg *alg();
 };
 
 class LIBQXMLEDITSHARED_EXPORT AnonContextText : public AnonContext

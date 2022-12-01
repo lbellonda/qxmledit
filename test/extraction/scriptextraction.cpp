@@ -597,9 +597,10 @@ bool TestSplit::loadEventOne()
             delete filterModel;
             return error("One event enabled");
         }
-        if(filterModel->events().size() != 1 ) {
+        const int filterModelEventsSize = filterModel->events().size();
+        if(filterModelEventsSize != 1 ) {
             delete filterModel;
-            return error(QString("One event expected 1 event, found %1").arg(filterModel->events().size()));
+            return error(QString("One event expected 1 event, found %1").arg(filterModelEventsSize));
         }
         foreach(ExtractionScriptEventModel *event, filterModel->events() ) {
             if(!checkFilterEvent("OneEvent", event, ExtractionEventText, true, "xxx", "descr", CODE_TEST)) {
@@ -622,9 +623,10 @@ bool TestSplit::loadEventTwo()
             delete filterModel;
             return error("Two events enabled");
         }
-        if(filterModel->events().size() != 2 ) {
+        const int filterModelEventsSize = filterModel->events().size();
+        if(filterModelEventsSize != 2 ) {
             delete filterModel;
-            return error(QString("Two events expected 2 events, found %1").arg(filterModel->events().size()));
+            return error(QString("Two events expected 2 events, found %1").arg(filterModelEventsSize));
         }
         bool eventText = false;
         bool eventElement = false;

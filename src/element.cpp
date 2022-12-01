@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -2884,45 +2884,6 @@ bool Element::removeChild(Element *toDelete)
     }
     return false;
 }
-
-
-void Element::anonymize(AnonAlg *alg)
-{
-    switch(type) {
-    case ET_ELEMENT:
-        anonymizeElement(alg);
-        break;
-    case ET_PROCESSING_INSTRUCTION:
-        break;
-    case ET_COMMENT:
-        break;
-    case ET_TEXT:
-        anonymizeText(alg);
-    default:
-        break;
-    }
-    foreach(Element * child, childItems) {
-        child->anonymize(alg);
-    }
-}
-
-void Element::anonymizeElement(AnonAlg *alg)
-{
-    QVectorIterator<TextChunk*> tt(textNodes);
-    while(tt.hasNext()) {
-        TextChunk *tx = tt.next();
-        tx->text = alg->processText(tx->text);
-    }
-    foreach(Attribute * attribute, getAttributesList()) {
-        attribute->value = alg->processText(attribute->value);
-    }
-}
-
-void Element::anonymizeText(AnonAlg *alg)
-{
-    text = alg->processText(text);
-}
-
 
 Element *Element::firstChildRecursiveOrThis()
 {

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>638</width>
-    <height>484</height>
+    <height>495</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
       <string>Creation</string>
      </property>
      <property name="margin">
-      <number>20</number>
+      <number>16</number>
      </property>
     </widget>
    </item>
@@ -106,7 +106,7 @@
       <string>Metadata</string>
      </property>
      <property name="margin">
-      <number>20</number>
+      <number>16</number>
      </property>
     </widget>
    </item>
@@ -136,7 +136,7 @@
       <string>Save</string>
      </property>
      <property name="margin">
-      <number>20</number>
+      <number>16</number>
      </property>
     </widget>
    </item>
@@ -302,6 +302,42 @@
     <widget class="QCheckBox" name="cbProcessFormattingMetadata">
      <property name="text">
       <string>Process formatting metadata</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_9">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <property name="text">
+      <string>Anonymization</string>
+     </property>
+     <property name="margin">
+      <number>16</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="cbAnonLegacyAlg">
+     <property name="text">
+      <string>Use legacy algorithm</string>
      </property>
     </widget>
    </item>

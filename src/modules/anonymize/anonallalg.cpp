@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,32 +20,101 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
-
 #include "anonallalg.h"
+#include "qxmleditconfig.h"
+
+#ifdef  QXML_DEBUG
+#define DD(x)    do{x;}while(0)
+#else
+#define DD(x)
+#endif
 
 AnonAllAlg::AnonAllAlg(const bool parmAutodelete, AnonProducer *theProducer) : AnonAlg(parmAutodelete, theProducer)
 {
+    _useLegacyAlgorithm = Config::getBool(Config::KEY_ANON_TEXT_LEGACY, false) ;
+    _algStatRandomProvider = NULL;
 }
 
 AnonAllAlg::~AnonAllAlg()
 {
+    EMPTYPTRLIST(_anonStatData, AnonStatAlgValue);
 }
 
-QString AnonAllAlg::processText(const QString &input)
+bool AnonAllAlg::isUseLegacy()
+{
+    return _useLegacyAlgorithm;
+}
+
+void AnonAllAlg::setUseLegacy(const bool value)
+{
+    _useLegacyAlgorithm = value ;
+}
+
+QString AnonAllAlg::processText(AnonAlgStatContext &context, const QString &path, const QString &input)
 {
     int length = input.length();
     QString result;
-    for(int i = 0 ; i < length ; i ++) {
-        QChar ch = input.at(i);
-        if(ch.isLetter()) {
-            QChar chRes = _producer->nextLetter(ch.isUpper());
-            result.append(chRes);
-        } else if(ch.isDigit()) {
-            QChar chRes = _producer->nextDigit();
-            result.append(chRes);
-        } else {
-            result.append(ch);
+    if(_useLegacyAlgorithm || path.isEmpty() || !scanned()) {
+        for(int i = 0 ; i < length ; i ++) {
+            QChar ch = input.at(i);
+            if(ch.isLetter()) {
+                QChar chRes = _producer->nextLetter(ch.isUpper(), AnonProducer::ASCII);
+                result.append(chRes);
+            } else if(ch.isDigit()) {
+                QChar chRes = _producer->nextDigit();
+                result.append(chRes);
+            } else {
+                result.append(ch);
+            }
         }
+    } else {
+        AnonStatAlgValue* algStatValue = valueFor(path);
+        algStatValue->setRandomProvider(_algStatRandomProvider);
+        result = algStatValue->value(context, _producer);
     }
     return result ;
+}
+
+bool AnonAllAlg::scanned()
+{
+    return !_anonStatData.isEmpty();
+}
+
+AnonStatAlgValue* AnonAllAlg::valueFor(const QString &path)
+{
+    DD(qDebug() << QString("AnonAllAlg::valueFor " % path));
+    AnonStatAlgValue* algStatValue = _anonStatData[path];
+    if(NULL == algStatValue) {
+        algStatValue = new AnonStatAlgValue();
+        _anonStatData[path] = algStatValue;
+    }
+    return algStatValue;
+}
+
+void AnonAllAlg::scan(AnonAlgStatContext &context, const QString &path, const QString &input)
+{
+    if(!_useLegacyAlgorithm) {
+        AnonStatAlgValue* algStatValue = valueFor(path);
+        algStatValue->scan(context, input);
+    }
+}
+
+bool AnonAllAlg::needScan()
+{
+    return !_useLegacyAlgorithm;
+}
+
+void AnonAllAlg::setAlgStatRandomProvider(AlgStatRandomProvider *newValue)
+{
+    _algStatRandomProvider = newValue ;
+}
+
+QString AnonAllAlg::dumpAsString()
+{
+    QString result = QString("Count:%1\n").arg(_anonStatData.size());
+    foreach(const QString &key, _anonStatData.keys()) {
+        result += QString("  Key: '%1', value/total: '%2'\n").arg(key).arg(_anonStatData[key]->total());
+    }
+    result += "--- end\n";
+    return result;
 }

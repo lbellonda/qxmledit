@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -30,8 +30,30 @@
 #include "modules/anonymize/xmlanonutils.h"
 #include "xmlutils.h"
 
+void Element::scanAnonymize(AnonContext *context)
+{
+    switch(type) {
+    case ET_ELEMENT:
+        scanAnonymizeElement(context);
+        break;
+    case ET_PROCESSING_INSTRUCTION:
+    case ET_COMMENT:
+        break ;
+    case ET_TEXT:
+        XmlAnonUtils::scanTextOfElement(context, text);
+        break;
+    default:
+        break;
+    }
+}
 
 void Element::anonymize(AnonContext *context)
+{
+    scanAnonymize(context);
+    anonymizeInternal(context);
+}
+
+void Element::anonymizeInternal(AnonContext *context)
 {
     switch(type) {
     case ET_ELEMENT:
@@ -78,9 +100,39 @@ void Element::anonymizeElement(AnonContext *context)
     // apply settings for recursion
     foreach(Element * child, childItems) {
         if(!child->isText()) {
-            child->anonymize(&thisContext);
+            child->anonymizeInternal(&thisContext);
         }
     }
+}
+
+void Element::scanAnonymizeElement(AnonContext *context)
+{
+    AnonContext thisContext(context, tag());
+    handleNamespace(&thisContext);
+    thisContext.setExceptionForElement();
+
+    foreach(Attribute * attribute, attributes) {
+        attribute->scanAnonymize(&thisContext);
+    }
+    QVectorIterator<TextChunk*> tt(textNodes);
+    while(tt.hasNext()) {
+        TextChunk *tx = tt.next();
+        XmlAnonUtils::scanTextOfElement(&thisContext, tx->text);
+    }
+    foreach(Element * child, childItems) {
+        if(child->isText()) {
+            XmlAnonUtils::scanTextOfElement(&thisContext, child->text);
+        }
+    }
+    thisContext.restoreContext();
+
+    // apply settings for recursion
+    foreach(Element * child, childItems) {
+        if(!child->isText()) {
+            child->scanAnonymize(&thisContext);
+        }
+    }
+    thisContext.restoreContext();
 }
 
 void Element::anonymizeText(AnonContext * context)
@@ -113,6 +165,18 @@ void Attribute::anonymize(AnonContext *context)
             }
             QString newData = thisContext.anonymize(exception, value) ;
             value = newData ;
+        }
+    }
+}
+
+void Attribute::scanAnonymize(AnonContext *context)
+{
+    if(isDataAttribute()) {
+        AnonContextAttribute thisContext(context, name);
+        thisContext.pushContextNamespaceAttribute(name);
+        AnonException *exception = thisContext.getException();
+        if(thisContext.canAnonymize(exception)) {
+            thisContext.scanAnonymize(exception, value);
         }
     }
 }

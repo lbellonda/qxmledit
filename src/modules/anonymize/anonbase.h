@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,19 +24,30 @@
 #ifndef ANONBASEALG_H
 #define ANONBASEALG_H
 
+#include <xmlEdit.h>
 #include "libQXmlEdit_global.h"
-#include <QString>
 #include "anonymizeparameters.h"
+#include "utils.h"
+
+class AnonAlgStatContext;
 
 class LIBQXMLEDITSHARED_EXPORT AnonProducer
 {
 public:
+    enum ESeqType {
+        UNKNOWN,
+        ASCII,
+        WESTERN,
+        EASTEUROPE,
+        CYRILLIC
+    };
+
     AnonProducer();
     virtual ~AnonProducer();
 
-    virtual QChar nextLetter(const bool uppercase) = 0 ;
+    virtual QChar nextLetter(const bool uppercase, const ESeqType type) = 0 ;
     virtual QChar nextDigit() = 0 ;
-    virtual QChar nextLetterOrDigit(const bool uppercase) = 0 ;
+    virtual bool isError() = 0 ;
 };
 
 class LIBQXMLEDITSHARED_EXPORT AnonAlg
@@ -49,6 +60,8 @@ public:
     AnonAlg(const bool parmAutodelete, AnonProducer *theProducer = NULL);
     virtual ~AnonAlg();
 
+    virtual QString dumpAsString();
+
     void setProducer(AnonProducer *theProducer)
     {
         _producer = theProducer ;
@@ -60,7 +73,9 @@ public:
 
     void autodelete();
 
-    virtual QString processText(const QString &input) = 0 ;
+    virtual QString processText(AnonAlgStatContext &context, const QString &path, const QString &input) = 0 ;
+    virtual void scan(AnonAlgStatContext &context, const QString &path, const QString &input) = 0 ;
+    virtual bool needScan() = 0 ;
 };
 
 #endif // ANONBASEALG_H

@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2021 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -297,7 +297,7 @@ SOURCES += xmleditwidget.cpp \
     modules/anonymize/anonexception.cpp \
     modules/anonymize/anonprofile.cpp \
     modules/anonymize/anonymizeparameters.cpp \
-    modules/anonymize/anonfixedalg.cpp \
+    modules/anonymize/anonfixedproducer.cpp \
     modules/anonymize/anoncodealg.cpp \
     modules/anonymize/anonallalg.cpp \
     modules/anonymize/anonseqproducer.cpp \
@@ -437,6 +437,8 @@ SOURCES += xmleditwidget.cpp \
     extraction/extractionadavancedoptionsdialog.cpp \
     extraction/extractionscriptingprovider.cpp \
     extraction/scripting/events/extractionoperationscriptcontext.cpp
+
+SOURCES += $$files(../src/modules/anonymize/algstat/*.cpp)
 
 HEADERS += precompiled_lib.h \
         globals/includes/bookmark.h \
@@ -609,7 +611,7 @@ HEADERS += precompiled_lib.h \
     modules/anonymize/anonexception.h \
     modules/anonymize/anonprofile.h \
     modules/anonymize/anonymizeparameters.h \
-    modules/anonymize/anonfixedalg.h \
+    modules/anonymize/anonfixedproducer.h \
     modules/anonymize/anoncodealg.h \
     modules/anonymize/anonallalg.h \
     modules/anonymize/anonseqproducer.h \
@@ -726,6 +728,7 @@ HEADERS += precompiled_lib.h \
     extraction/extractionscriptingprovider.h \
     extraction/scripting/events/extractionoperationscriptcontext.h
 
+HEADERS += $$files(../src/modules/anonymize/algstat/*.h)
 
 FORMS += xmleditwidget.ui \
     alloweditemsinsert.ui \

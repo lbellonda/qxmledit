@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -36,9 +36,13 @@ class AnonOperationBatch;
 class App;
 class ApplicationData;
 class OperationStatus;
+class AnonStatAlgPattern;
+class AnonAlgFreqCount;
+class AnonAlgFreqTarget;
 
 #include "modules/anonymize/anonexception.h"
 #include "modules/anonymize/anonoperationbatch.h"
+#include "modules/anonymize/anonbase.h"
 #include "testhelpers/collect.h"
 
 class TestAnonymize : public TestBase, AnonOperationBatchOutputFileProvider
@@ -89,6 +93,10 @@ private:
     bool testUnitAlgCodeProdSeq() ;
     bool testAlgCodeProdFixed();
     bool testAlgCodeProdSeq();
+    bool testUnitAlgStat();
+    bool testAnonStatContext();
+    bool testAnonUtils();
+    bool testAnonStatRandom();
     //------
     bool testExcBase();
     bool testExceptions();
@@ -121,6 +129,75 @@ private:
     bool testCodeWithLen20();
     bool testAlgCodeVariableLen(const int len, const QString &fileStart, const QString &fileEnd);
     bool testAlgCodeVariableCodeLen();
+
+    //---------------------
+    bool testAnonStatFreqTarget();
+    bool testUnitAlgStatScanValue();
+    bool testAlgStatScanValueNull();
+    bool testAlgStatScanValueEmpty();
+    bool testAlgStatScanValueOneWord();
+    bool testAlgStatScanValueDoubleWord();
+    bool testAlgStatScanValue3Word();
+    bool testAlgStatScanValueW1();
+    bool testAlgStatScanValueW2();
+    bool testAlgStatScanValueW3();
+    bool testAlgStatScanValueW4();
+    bool testAlgStatScanValueW5();
+    bool testAlgStatScanValueW6();
+    bool testAlgStatScanValueCase(QStringList input, const int expectedTotal, QList<QPair<int,int>> &expectedItems );
+    //
+    bool testAnonStatTargetValue();
+    bool testStatValueForInputs( const QStringList &inputs, const QString expectedOutput);
+    bool testStatValueForInputsCoded( const QStringList &inputs, const QString expectedOutput, const AnonProducer::ESeqType type1, AnonProducer::ESeqType type2);
+    //
+    bool testIsInInterval(AnonAlgFreqTarget *target, const double input, const bool expected );
+    bool testAnonStatForTargetValue(AnonAlgFreqTarget *target);
+    //
+    bool testUnitAnonStatAlgWordChain();
+    bool testAnonStatWordChain3Word();
+    bool testAnonStatWordChainDoubleWord();
+    bool testAnonStatWordChainOneWord();
+    bool testAnonStatWordChainEmpty();
+    bool testAlgStatWordChainCase(QList<QStringList> input, QStringList &expectedPatterns );
+    bool testAlgStatScanWordChainCase(QStringList input, const int expectedTotal, QList<QPair<int,int>> &expectedItems );
+    //
+    bool testUnitAnonStatAlgWord();
+    bool testAlgStatScanWordCase(QStringList input, const int expectedTotal, QList<QPair<int,int>> &expectedItems, QStringList expectedPatterns );
+    bool testUnitAnonStatAlgWordErrors();
+    bool testUnitAnonStatAlgWordHitPatterns1();
+    bool testUnitAnonStatAlgWordHitPatternsNsame();
+    bool testUnitAnonStatAlgWordHitPatternsN();
+    //
+    bool testUnitAnonStatAlgPattern();
+    bool testUnitAnonStatAlgPatterns();
+    bool testUnitAnonStatAlgSinglePattern(const QString &aPattern, const QString &expected, AnonProducer::ESeqType expectedType);
+    bool checkPatternCount(AnonStatAlgPattern *anonStatAlgPattern, const int expected);
+    bool testAnonStatAlgPattern();
+    bool testAnonStatAlgPatternLoop();
+    bool testUnitAnonStatAlgPatternsBase();
+    //
+    bool testUnitAlgStatValue();
+    //
+    bool testAnonStatMean();
+    bool testAnonStatRandomChoice();
+    bool testAnonStatPrepare();
+    //
+    bool checkBaseStatIntervals(AnonAlgFreqCount *accumulator, const QList<AnonAlgFreqTarget*> &expectedTargets );
+    bool checkStatIntervals(const QStringList &inputs, const QList<QPair<double, double> > &expected );
+    bool checkStatOneRandomChoice(AnonAlgFreqCount *freqCount, const double randomChoice, const int expectedId);
+    bool checkStatRandomChoice(const QStringList &inputs, const double randomChoice, const int expectedId);
+    //
+    bool testBatchBaseStat();
+    bool testBatchBaseStatSkeleton(const QString &code, const QString &sourceFilePath, AnonContext *context, const bool checkCodes, const AnonProducer::ESeqType type);
+    bool testBatchBaseStatAFile(const QString &code, const QString &dataFile);
+    bool testBatchBaseStatAFile(const QString &code, const QString &dataFile, const bool checkCodes, const AnonProducer::ESeqType type);
+    //
+    bool testAnonStatChars();
+    bool testAnonStatAlgVaria();
+    bool testStatValueBlankValue();
+    bool testStatErrorProducer();
+    bool testAnonUtilsOne(const int code, const AnonProducer::ESeqType expected, const bool expectedRetValue);
+    bool cfrStatMem(QBuffer *resultData, const QString &step, const QString &fileResult, const bool checkCodes, const AnonProducer::ESeqType expectedType);
 
 public:
     bool testExceptionTextInclude();

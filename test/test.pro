@@ -190,7 +190,8 @@ SOURCES += \
     testxmlbeans.cpp \
     testhelpers/xml2xsdtest.cpp \
     testhelpers/xsd2xmltest.cpp \
-    testabout.cpp
+    testabout.cpp \
+    testhelpers/testanonymize_stat.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 

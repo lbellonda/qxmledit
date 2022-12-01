@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -65,6 +65,7 @@ void ConfigureXMLManagementDialog::init(ApplicationData* data)
     _attributeHelper.setUp(data->xmlIndentAttributesType(), data->xmlIndentAttributes());
     ui->cbProcessFormattingMetadata->setChecked(data->isFormattingInfoEnabled());
     ui->cbInsertFormattingMetadata->setChecked(data->isFormattingInfoInsertOnNew());
+    ui->cbAnonLegacyAlg->setChecked(Config::getBool(Config::KEY_ANON_TEXT_LEGACY, false));
     _started = true ;
 }
 
@@ -179,5 +180,12 @@ void ConfigureXMLManagementDialog::on_cbInsertFormattingMetadata_stateChanged(in
 {
     if(_started) {
         _data->setFormattingInfoInsertOnNew(ui->cbInsertFormattingMetadata->isChecked());
+    }
+}
+
+void ConfigureXMLManagementDialog::on_cbAnonLegacyAlg_stateChanged(int /*state*/)
+{
+    if(_started) {
+        Config::saveBool(Config::KEY_ANON_TEXT_LEGACY, ui->cbAnonLegacyAlg->isChecked());
     }
 }

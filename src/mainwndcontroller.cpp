@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -30,7 +30,7 @@
 #include "modules/anonymize/anonallalg.h"
 #include "modules/anonymize/anoncodealg.h"
 #include "modules/anonymize/anonseqproducer.h"
-#include "modules/anonymize/anonfixedalg.h"
+#include "modules/anonymize/anonfixedproducer.h"
 #include "modules/anonymize/anoncontext.h"
 #include "modules/anonymize/anonadvdialog.h"
 #include "modules/xsd/namespacemanager.h"
@@ -139,6 +139,7 @@ void MainWndController::innerAnonymize(AnonContext *context)
     }
     Regola *regola = _w->getRegola();
     regola->anonymize(context, _w->getEditor()->getMainTreeWidget());
+    context->exposeErrorToUser(_w);
 }
 
 void MainWndController::innerAnonymize(AnonAlg *alg)

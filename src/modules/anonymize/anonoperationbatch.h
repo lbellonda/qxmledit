@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -44,6 +44,8 @@ public:
         RES_ERR_OPEN_INPUT_FILE,
         RES_ERR_OPEN_OUTPUT_FILE,
         RES_ERR_USERABORTED,
+        RES_ERR_READING_INPUTFILE,
+        RES_ERR_ANONCONTEXT
     };
 
 private:
@@ -65,6 +67,7 @@ public:
 class QXmlStreamReader;
 class AnonContext;
 class QXmlStreamAttributes;
+class AnonAlgStatContext;
 
 class LIBQXMLEDITSHARED_EXPORT AnonOperationBatchOutputFileProvider
 {
@@ -90,11 +93,14 @@ class LIBQXMLEDITSHARED_EXPORT AnonOperationBatch : public QObject, public AnonO
     QMutex _mutex;
     volatile int _counterOperations;
     AnonOperationBatchOutputFileProvider *_outProvider;
+    int _totalOperationCount;
 public:
     explicit AnonOperationBatch(QObject *parent = 0);
     virtual ~AnonOperationBatch();
 
+    const AnonOperationResult *scan(QIODevice *input, AnonContext *startContext);
     const AnonOperationResult *execute(QIODevice *input, QIODevice *output, AnonContext *startContext);
+    const AnonOperationResult *scanAndExecute(QIODevice *input, QIODevice *output, const QString & fileInputPath, AnonContext *startContext);
     const AnonOperationResult *perform(const QString &fileInputPath, const QString &fileOutputPath, AnonContext *startContext);
     const AnonOperationResult *result();
     void setAborted();
@@ -108,7 +114,9 @@ public:
 private:
     bool checkStatus(AnonOperationResult *result);
     bool handleError(AnonOperationResult *result, QXmlStreamReader *xmlReader);
+    bool handleError(AnonOperationResult *result, const AnonAlgStatContext &context, QXmlStreamReader *xmlReader);
     QString anonymizeTextOfElement(AnonContext *context, const QString &inputText);
+    void scanTextOfElement(AnonContext *context, const QString &inputText);
     void handleNamespace(const QString &tag, QXmlStreamAttributes *streamAttributes, AnonContext *context);
 
 signals:

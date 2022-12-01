@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -32,7 +32,9 @@ class LIBQXMLEDITSHARED_EXPORT AnonNullAlg : public AnonAlg
 public:
     AnonNullAlg();
     virtual ~AnonNullAlg();
-    virtual QString processText(const QString &input) ;
+    virtual QString processText(AnonAlgStatContext &context, const QString &path, const QString &input) ;
+    virtual void scan(AnonAlgStatContext &context, const QString &path, const QString &input) ;
+    virtual bool needScan() ;
 };
 
 

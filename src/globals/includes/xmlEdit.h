@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -85,7 +85,7 @@ extern const char VERSION[] ;
 void msgBoxDebug(const QString message);
 
 #ifdef  QXML_DEBUG
-#define D(x)    x
+#define D(x)    do{x;}while(0)
 #else
 #define D(x)
 #endif

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -23,7 +23,7 @@
 
 #include "anoncodealg.h"
 
-AnonCodeAlg::AnonCodeAlg(const bool parmAutodelete, AnonProducer *theProducer) : AnonAlg(parmAutodelete, theProducer)
+AnonCodeAlg::AnonCodeAlg(const bool parmAutodelete, AnonProducer *theProducer) : AnonAllAlg(parmAutodelete, theProducer)
 {
     _threshold = Threshold ;
 }
@@ -32,7 +32,7 @@ AnonCodeAlg::~AnonCodeAlg()
 {
 }
 
-QString AnonCodeAlg::processText(const QString &input)
+QString AnonCodeAlg::processText(AnonAlgStatContext &context, const QString &path, const QString &input)
 {
     bool anonymize = false;
     int length = input.length();
@@ -48,19 +48,7 @@ QString AnonCodeAlg::processText(const QString &input)
         }
     }
     if(anonymize) {
-        QString result;
-        for(int i = 0 ; i < length ; i ++) {
-            QChar ch = input.at(i);
-            if(ch.isLetter()) {
-                QChar chRes = _producer->nextLetter(ch.isUpper());
-                result.append(chRes);
-            } else if(ch.isDigit()) {
-                QChar chRes = _producer->nextDigit();
-                result.append(chRes);
-            } else {
-                result.append(ch);
-            }
-        }
+        QString result = AnonAllAlg::processText(context, path, input);
         return result ;
     }
     return input ;

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -29,6 +29,8 @@
 #include "element.h"
 #include "xmlutils.h"
 #include "modules/anonymize/xmlanonutils.h"
+#include "modules/anonymize/algstat/anonalgstatcontext.h"
+#include "utils.h"
 
 AnonOperationResult::AnonOperationResult()
 {
@@ -93,6 +95,7 @@ AnonOperationBatch::AnonOperationBatch(QObject *parent) :
     _isDocumentStandalone = false;
     isAborted = false ;
     _counterOperations = 0 ;
+    _totalOperationCount = 0;
 }
 
 AnonOperationBatch::~AnonOperationBatch()
@@ -129,6 +132,7 @@ void AnonOperationBatch::setOutputProvider(AnonOperationBatchOutputFileProvider*
 
 const AnonOperationResult * AnonOperationBatch::perform(const QString & fileInputPath, const QString & fileOutputPath, AnonContext * startContext)
 {
+    _totalOperationCount = 0 ;
     isAborted = false;
     _result.reset();
     if(NULL == startContext) {
@@ -146,7 +150,7 @@ const AnonOperationResult * AnonOperationBatch::perform(const QString & fileInpu
             if(!fileOutput->open(QIODevice::WriteOnly)) {
                 _result.setError(AnonOperationResult::RES_ERR_OPEN_OUTPUT_FILE, tr("Unable to open output file:'%1'").arg(fileOutputPath));
             } else {
-                execute(&fileInput, fileOutput, startContext);
+                scanAndExecute(&fileInput, fileOutput, fileInputPath, startContext);
                 fileOutput->close();
             }
             fileInput.close();
@@ -156,12 +160,24 @@ const AnonOperationResult * AnonOperationBatch::perform(const QString & fileInpu
     return result() ;
 }
 
+const AnonOperationResult * AnonOperationBatch::scanAndExecute(QIODevice *input, QIODevice *output, const QString & fileInputPath, AnonContext *startContext)
+{
+    scan(input, startContext);
+    if(!input->reset()) {
+        Utils::TODO_THIS_RELEASE("aaaaaaaaaaaaaaaaaaaaaaaaa");
+        _result.setError(AnonOperationResult::RES_ERR_READING_INPUTFILE, tr("Unable to reset input file:'%1'").arg(fileInputPath));
+    } else {
+        execute(input, output, startContext);
+    }
+    return result();
+}
+
 const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevice *output, AnonContext *startContext)
 {
     isAborted = false ;
     _result.reset();
     bool debugIO = false ;
-    int operationCount = 0;
+    int operationCount = _totalOperationCount ;
 
     //------ current position processing the file
     /*QString currentElementXPath;
@@ -171,7 +187,6 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
     QList<AnonContext*> contexts;
     AnonContext* currentContext = startContext;
     //------
-
     /***************************************************************
     qint64 previousTokenLine = 0 ;
     qint64 previousTokenColumn = 0;
@@ -239,6 +254,10 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
             }
             QString text = xmlReader.text().toString();
             QString anonText = anonymizeTextOfElement(currentContext, text);
+            if(currentContext->isAlgStatError()) {
+                handleError(&_result, currentContext->algStatContextRef(), &xmlReader);
+                return result();
+            }
             if(xmlReader.isCDATA()) {
                 xmlWriter.writeCDATA(anonText);
             } else {
@@ -282,6 +301,10 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
             foreach(QXmlStreamAttribute oAttribute, streamAttributes) {
                 Attribute attribute(oAttribute.qualifiedName().toString(), oAttribute.value().toString());
                 attribute.anonymize(currentContext);
+                if(currentContext->isAlgStatError()) {
+                    handleError(&_result, currentContext->algStatContextRef(), &xmlReader);
+                    return result();
+                }
                 xmlWriter.writeAttribute(attribute.name, attribute.value);
             }
             thisContext->restoreContext();
@@ -325,6 +348,152 @@ const AnonOperationResult *AnonOperationBatch::execute(QIODevice *input, QIODevi
     return result();
 }
 
+const AnonOperationResult *AnonOperationBatch::scan(QIODevice *input, AnonContext *startContext)
+{
+    isAborted = false ;
+    _result.reset();
+    if(!startContext->alg()->needScan()) {
+        return result();
+    }
+
+    bool debugIO = false ;
+    int operationCount = 0;
+
+    //------ current position processing the file
+    QList<AnonContext*> contexts;
+    AnonContext* currentContext = startContext;
+    //------
+    QXmlStreamReader xmlReader;
+
+    xmlReader.clear();
+    xmlReader.setDevice(input);
+    //Let's do the same namespace processing of the editor.
+    xmlReader.setNamespaceProcessing(false);
+    while(!xmlReader.atEnd()) {
+
+        /***********************************************
+        QString msg = QString("Line %1 pos= %2").arg(line).arg(file->pos());
+        printf( "%s\n",  msg.toAscii().data() );
+        ************************************************/
+        operationCount ++;
+        xmlReader.readNext();
+        /********************/
+        if(debugIO) {
+            QString msg = QString("Read Token: %1, [ %2, %3] line:%4 column:%5")
+                          .arg(xmlReader.name().toString())
+                          .arg(xmlReader.tokenType())
+                          .arg(xmlReader.tokenString())
+                          .arg(xmlReader.lineNumber())
+                          .arg(xmlReader.columnNumber());
+            printf("%s\n",  msg.toLatin1().data());
+            fflush(stdout);
+        }
+        /*******************************/
+
+        switch(xmlReader.tokenType()) {
+        default:
+            _result.setMessage(AnonOperationResult::RES_ERR_UNKNOWN_TOKEN,
+                               QString("Unknown token '%1' at line: %2 col:%3")
+                               .arg(xmlReader.tokenType()).arg(xmlReader.lineNumber()).arg(xmlReader.columnNumber()), false);
+            break;// no-op
+        case QXmlStreamReader::NoToken:
+            break;
+        //-- pass through ---------------------------------------------------
+        case QXmlStreamReader::Comment:
+        case QXmlStreamReader::DTD:
+        case QXmlStreamReader::EntityReference:
+        case QXmlStreamReader::ProcessingInstruction:
+            //default:
+            break;
+        //-------------------------------------------------------------------
+        case QXmlStreamReader::Invalid:
+            handleError(&_result, &xmlReader);
+            return result() ;
+            break;
+        case QXmlStreamReader::Characters: {
+
+            if(NULL != currentContext) {
+                currentContext->setExceptionForElement();
+            }
+            const QString text = xmlReader.text().toString();
+            scanTextOfElement(currentContext, text);
+            if(currentContext->isAlgStatError()) {
+                handleError(&_result, currentContext->algStatContextRef(), &xmlReader);
+                return result();
+            }
+            if(NULL != currentContext) {
+                currentContext->restoreContext();
+            }
+        }
+        break;
+        case QXmlStreamReader::StartDocument: {
+            _documentEncoding = xmlReader.documentEncoding().toString();
+            _isDocumentStandalone = xmlReader.isStandaloneDocument();
+            _documentVersion = xmlReader.documentVersion().toString();
+        }
+        break;
+        case QXmlStreamReader::EndDocument:
+            break;
+        case QXmlStreamReader::StartElement: {
+            // The reader reports the start of an element with namespaceUri() and name().
+            //Attributes are reported in attributes(), namespace declarations in namespaceDeclarations().
+            QString tag = xmlReader.qualifiedName().toString();
+            AnonContext *thisContext = new AnonContext(currentContext, tag);
+            contexts.append(thisContext);
+            currentContext = thisContext;
+            QXmlStreamAttributes streamAttributes = xmlReader.attributes();
+            handleNamespace(tag, &streamAttributes, thisContext);
+            thisContext->setExceptionForElement();
+
+            foreach(QXmlStreamAttribute oAttribute, streamAttributes) {
+                Attribute attribute(oAttribute.qualifiedName().toString(), oAttribute.value().toString());
+                attribute.scanAnonymize(currentContext);
+                if(currentContext->isAlgStatError()) {
+                    handleError(&_result, currentContext->algStatContextRef(), &xmlReader);
+                    return result();
+                }
+            }
+            thisContext->restoreContext();
+            /********************
+            QString msg = QString("Start Element: %1, pos:%2 line:%3 column:%4 prev:%5").arg(xmlReader.name().toString())
+                    .arg(xmlReader.characterOffset()).arg(xmlReader.lineNumber()).arg(xmlReader.columnNumber()).arg(previousPos);
+            printf( "%s\n",  msg.toAscii().data() );
+            *******************************/
+        }
+        break;
+        case QXmlStreamReader::EndElement: {
+            AnonContext *lastContext  = contexts.last();
+            delete lastContext ;
+            contexts.removeLast();
+            if(!contexts.isEmpty()) {
+                currentContext = contexts.last();
+            } else {
+                currentContext = startContext ;
+            }
+            break;
+        }
+        } // switch
+        // check write conditions
+        if(xmlReader.hasError() && (xmlReader.error() != QXmlStreamReader::PrematureEndOfDocumentError)) {
+            if(!handleError(&_result, &xmlReader)) {
+                return result() ;
+            }
+        }
+        if(0x100 == (operationCount & 0x0100)) {
+            bool isOk = false;
+            _mutex.lock();
+            _counterOperations = operationCount ;
+            isOk = checkStatus(&_result);
+            _mutex.unlock();
+            if(!isOk) {
+                return result() ;
+            }
+        }
+    }// while at end
+    _totalOperationCount = operationCount;
+    return result();
+}
+
 void AnonOperationBatch::setAborted()
 {
     _mutex.lock();
@@ -362,12 +531,24 @@ bool AnonOperationBatch::handleError(AnonOperationResult *result, QXmlStreamRead
     return false;
 }
 
+bool AnonOperationBatch::handleError(AnonOperationResult *result, const AnonAlgStatContext &context, QXmlStreamReader *xmlReader)
+{
+    result->setError(AnonOperationResult::RES_ERR_ANONCONTEXT, tr("Error code:%1 at line:%2 col:%3\nDetails:\n%4")
+                     .arg(context.errorMessage()).arg(xmlReader->errorString())
+                     .arg(xmlReader->lineNumber()).arg(xmlReader->columnNumber())
+                     .arg(context.errorMessage()));
+    return false;
+}
 
 QString AnonOperationBatch::anonymizeTextOfElement(AnonContext *context, const QString &inputText)
 {
     return XmlAnonUtils::anonymizeTextOfElement(context, inputText, NULL);
 }
 
+void AnonOperationBatch::scanTextOfElement(AnonContext *context, const QString &inputText)
+{
+    XmlAnonUtils::scanTextOfElement(context, inputText);
+}
 
 void AnonOperationBatch::handleNamespace(const QString & tag, QXmlStreamAttributes *streamAttributes, AnonContext *context)
 {

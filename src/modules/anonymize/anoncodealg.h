@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -26,8 +26,9 @@
 
 #include "libQXmlEdit_global.h"
 #include "anonbase.h"
+#include "anonallalg.h"
 
-class LIBQXMLEDITSHARED_EXPORT AnonCodeAlg : public AnonAlg
+class LIBQXMLEDITSHARED_EXPORT AnonCodeAlg : public AnonAllAlg
 {
     int _threshold ;
 public:
@@ -36,7 +37,7 @@ public:
 
     AnonCodeAlg(const bool parmAutodelete, AnonProducer *theProducer);
     virtual ~AnonCodeAlg();
-    virtual QString processText(const QString &input) ;
+    virtual QString processText(AnonAlgStatContext &context, const QString &path, const QString &input) ;
     int threshold() const;
     void setThreshold(int threshold);
 };

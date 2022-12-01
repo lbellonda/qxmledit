@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -240,6 +240,7 @@ void AnonAdvDialog::updateThings(const bool changed)
         QHash<void *, QString> *origData = new QHash<void *, QString>();
         context->setOrigData(origData);
         r->anonymize(context, ui->treeWidget->getMainTreeWidget(), true);
+        context->exposeErrorToUser(this);
         context->setOrigData(NULL);
         ui->treeWidget->setOrigDataForAnonPreview(origData);
         if(NULL != r->root()) {
