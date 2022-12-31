@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -23,11 +23,13 @@
 
 #include "app.h"
 #include "testhelpers/testmainwindow.h"
+#include "testhelpers/testmainwindowfile.h"
 
 App::App() : QObject(NULL)
 {
     _mainWindow = NULL ;
     _useTestWindow = false;
+    _useTestWindowFile = false;
     _currentDelegate = NULL ;
 }
 
@@ -48,10 +50,22 @@ bool App::useTestWindow() const
     return _useTestWindow;
 }
 
-void App::setUseTestWindow(bool value)
+bool App::useTestWindowFile() const
 {
-    _useTestWindow = value;
+    return _useTestWindowFile;
 }
+
+
+void App::setUseTestWindow()
+{
+    _useTestWindow = true;
+}
+
+void App::setUseTestWindowFile()
+{
+    _useTestWindowFile = true;
+}
+
 
 bool App::internalInit()
 {
@@ -76,9 +90,13 @@ bool App::init(const bool delegateYes)
 {
     internalInit();
     TestMainWindow *testWindow = NULL ;
+    TestMainWindowFile *testWindowFile = NULL ;
     if(_useTestWindow) {
         testWindow = new TestMainWindow(false, false, &appData);
         _mainWindow = testWindow ;
+    } else if(_useTestWindowFile) {
+        testWindowFile = new TestMainWindowFile(false, false, &appData);
+        _mainWindow = testWindowFile ;
     } else {
         _mainWindow = new MainWindow(false, false, &appData);
     }
@@ -94,6 +112,9 @@ bool App::init(const bool delegateYes)
     }
     if( NULL != testWindow ) {
         testWindow->setFakeUIDelegate(_currentDelegate);
+    }
+    if( NULL != testWindowFile ) {
+        testWindowFile->setFakeUIDelegate(_currentDelegate);
     }
     return true ;
 }

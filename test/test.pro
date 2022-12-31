@@ -191,7 +191,9 @@ SOURCES += \
     testhelpers/xml2xsdtest.cpp \
     testhelpers/xsd2xmltest.cpp \
     testabout.cpp \
-    testhelpers/testanonymize_stat.cpp
+    testhelpers/testanonymize_stat.cpp \
+    testtestmainwindow.cpp \
+    testhelpers/testmainwindowfile.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -319,7 +321,9 @@ HEADERS += \
     testxmlbeans.h \
     testhelpers/xml2xsdtest.h \
     testhelpers/xsd2xmltest.h \
-    testabout.h
+    testabout.h \
+    testtestmainwindow.h \
+    testhelpers/testmainwindowfile.h
 
 #OTHER_FILES += \
 

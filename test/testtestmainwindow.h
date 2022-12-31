@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2022 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -20,53 +20,25 @@
  * Boston, MA  02110-1301  USA                                            *
  **************************************************************************/
 
+#ifndef TESTMAINWINDOW_H
+#define TESTMAINWINDOW_H
 
-#ifndef APP_H
-#define APP_H
+#include "testbase.h"
+#include "app.h"
 
-#include <QObject>
-
-#include "qxmleditconfig.h"
-#include "mainwindow.h"
-#include "utils.h"
-#include "fakeuidelegate.h"
-
-class App : public QObject
+class TestTestMainWindow : public TestBase
 {
-    Q_OBJECT
-
-    MainWindow *_mainWindow;
-    ApplicationData appData;
-    QMap<QString, QVariant> _configBackend;
-    FakeUIDelegate uiDelegate;
-    FakeUIDelegateYes uiDelegateYes;
-    bool _useTestWindow;
-    bool _useTestWindowFile;
-    FakeUIDelegate *_currentDelegate;
-
-    bool internalInit();
+    bool testSaveMessage();
+    bool testFileNameOrFolder();
+    bool testSaveFileName();
 
 public:
-    QString sessionDBPath;
+    TestTestMainWindow();
+    virtual ~TestTestMainWindow();
 
-    App();
-    virtual ~App();
+    bool testFast();
+    bool testUnit();
 
-    bool init(const bool delegateYes=false);
-    bool initNoWindow();
-    bool init1();
-    bool init2();
-
-    MainWindow *mainWindow();
-    ApplicationData* data();
-
-    FakeUIDelegate *getCurrentUIDelegate();
-    FakeUIDelegate *getUiDelegate();
-    FakeUIDelegate *getUiDelegateYes();
-    bool useTestWindow() const;
-    bool useTestWindowFile() const;
-    void setUseTestWindow();
-    void setUseTestWindowFile();
 };
 
-#endif // APP_H
+#endif // TESTMAINWINDOW_H

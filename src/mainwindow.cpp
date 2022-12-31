@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -1169,7 +1169,13 @@ void MainWindow::on_actionSaveAs_triggered()
         error(tr("Cannot write an empty file."));
         return ;
     }
-    QString newFilePath = askFileName(regola->fileName());
+
+    if(isSlave) {
+        on_actionSaveACopyAs_triggered();
+        return ;
+    }
+
+    QString newFilePath = askFileNameForSaving(regola->fileName());
     if(newFilePath.isEmpty()) {
         return ;
     }
@@ -1190,10 +1196,17 @@ void MainWindow::actionSaveAs_internal(const QString &newFilePath)
     updateRecentFilesMenu(newFilePath);
     regola->setModified(false);
     data->sessionManager()->enrollFile(newFilePath);
-    statusBar()->showMessage(tr("File saved"), SHORT_TIMEOUT);
+    statusBar()->showMessage(fileSavedMessage(newFilePath), SHORT_TIMEOUT);
     updateWindowFilePath();
     ui.loadWarningWidget->setVisible(false);
 }
+
+QString MainWindow::fileSavedMessage(const QString &newFilePath)
+{
+    QString filePathReduced = newFilePath.length() > 20 ? QString("...%1").arg(newFilePath.right(15)) : newFilePath;
+    return tr("File saved %1").arg(filePathReduced);
+}
+
 void MainWindow::on_actionSaveACopyAs_triggered()
 {
     Regola * regola = getRegola();
@@ -1205,7 +1218,7 @@ void MainWindow::on_actionSaveACopyAs_triggered()
         error(tr("Cannot write an empty file."));
         return ;
     }
-    QString newFilePath = askFileName(regola->fileName());
+    QString newFilePath = askFileNameForSaving(regola->fileName());
     if(newFilePath.isEmpty()) {
         return ;
     }
@@ -1224,7 +1237,7 @@ void MainWindow::actionSaveACopyAs_internal(const QString &newFilePath)
     }
     updateRecentFilesMenu(newFilePath);
     regola->setModified(modifiedStatus);
-    statusBar()->showMessage(tr("File saved"), SHORT_TIMEOUT);
+    statusBar()->showMessage(fileSavedMessage(newFilePath), SHORT_TIMEOUT);
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -1248,6 +1261,12 @@ void MainWindow::on_actionSave_triggered()
         error(tr("Cannot write empty file."));
         return ;
     }
+    execActionSave();
+}
+
+void MainWindow::execActionSave()
+{
+    Regola * regola = getRegola();
 
     // scrivi il nuovo con il nome vecchio+estensione
     QString newFilePath = regola->fileName() + ".new_new~"  ;
@@ -1273,7 +1292,7 @@ void MainWindow::on_actionSave_triggered()
         return ;
     }
     regola->setModified(false);
-    appData()->notifier()->notify(this, tr("File saved"));
+    appData()->notifier()->notify(this, fileSavedMessage(regola->fileName()));
 }
 
 bool MainWindow::actionSave_internal(const QString &newFilePath)
@@ -1282,10 +1301,57 @@ bool MainWindow::actionSave_internal(const QString &newFilePath)
     return getEditor()->writeData(newFilePath);
 }
 
-QString MainWindow::askFileName(const QString &actualName)
+
+MainWindow *MainWindow::getParentMainWindow()
+{
+    MainWindow *theParent = dynamic_cast<MainWindow*>(parent());
+    return theParent;
+}
+
+QString MainWindow::fileNameOrFolder(const QString &filePath)
+{
+    if(filePath.isEmpty()) {
+        return "";
+    }
+    QFileInfo info(filePath);
+    return info.path();
+}
+
+QString MainWindow::thisOrParentFileName()
+{
+    QString filePath;
+    if(NULL != getRegola()) {
+        filePath = getRegola()->fileName();
+    }
+    if(!filePath.isEmpty()) {
+        return fileNameOrFolder(filePath);
+    }
+    if(isSlave) {
+        MainWindow *parentWindow = getParentMainWindow();
+        if(NULL != parentWindow) {
+            return parentWindow->thisOrParentFileName();
+        }
+    }
+    return "";
+}
+
+QString MainWindow::hierarchyFileName(const QString &filePath)
+{
+    if(!filePath.isEmpty()) {
+        return filePath;
+    }
+    return thisOrParentFileName();
+}
+
+QString MainWindow::fileNameForSaving(const QString &actualName)
+{
+    return QXmlEditData::sysFilePathForOperation(hierarchyFileName(actualName));
+}
+
+QString MainWindow::askFileNameForSaving(const QString &actualName)
 {
     QString filePath = QFileDialog::getSaveFileName(this, tr("Save Data"),
-                       QXmlEditData::sysFilePathForOperation(actualName), Utils::getFileFilterForOpenFile());
+                       fileNameForSaving(actualName), Utils::getFileFilterForOpenFile());
 
     if(!filePath.isEmpty()) {
         return filePath;
@@ -3490,7 +3556,7 @@ void MainWindow::on_actionExportElementToFile_triggered()
         error(tr("No data to save."));
         return ;
     }
-    QString newFilePath = askFileName(getExportPath());
+    QString newFilePath = askFileNameForSaving(getExportPath());
     if(newFilePath.isEmpty()) {
         return ;
     }

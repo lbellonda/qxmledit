@@ -164,7 +164,6 @@ const AnonOperationResult * AnonOperationBatch::scanAndExecute(QIODevice *input,
 {
     scan(input, startContext);
     if(!input->reset()) {
-        Utils::TODO_THIS_RELEASE("aaaaaaaaaaaaaaaaaaaaaaaaa");
         _result.setError(AnonOperationResult::RES_ERR_READING_INPUTFILE, tr("Unable to reset input file:'%1'").arg(fileInputPath));
     } else {
         execute(input, output, startContext);

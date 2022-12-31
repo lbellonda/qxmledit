@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -24,6 +24,7 @@
 #ifndef TESTQXMLEDIT_H
 #define TESTQXMLEDIT_H
 
+#include <xmlEdit.h>
 #include <QtCore/QString>
 #include <QtTest/QtTest>
 #include <QtCore/QCoreApplication>
@@ -108,6 +109,7 @@
 #include "testloadsample.h"
 #include "testxmlbeans.h"
 #include "testabout.h"
+#include "testtestmainwindow.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -225,6 +227,7 @@ private Q_SLOTS:
     void testLoadSample();
     void testXMLBeans();
     void testAbout();
+    void testMainWindow();
 };
 
 

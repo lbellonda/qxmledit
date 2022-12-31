@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -21,52 +21,44 @@
  **************************************************************************/
 
 
-#ifndef APP_H
-#define APP_H
+#ifndef TESTMAINWINDOWFILE_H
+#define TESTMAINWINDOWFILE_H
 
-#include <QObject>
-
-#include "qxmleditconfig.h"
 #include "mainwindow.h"
-#include "utils.h"
-#include "fakeuidelegate.h"
 
-class App : public QObject
+#include "app.h"
+
+class TestMainWindowFile : public MainWindow
 {
     Q_OBJECT
-
-    MainWindow *_mainWindow;
-    ApplicationData appData;
-    QMap<QString, QVariant> _configBackend;
-    FakeUIDelegate uiDelegate;
-    FakeUIDelegateYes uiDelegateYes;
-    bool _useTestWindow;
-    bool _useTestWindowFile;
-    FakeUIDelegate *_currentDelegate;
-
-    bool internalInit();
-
+    FakeUIDelegate *_fakeUIdelegate;
 public:
-    QString sessionDBPath;
+    bool _execActionSave_called;
+    bool _actionSaveAs_internal_called ;
+    QString _actionSaveAs_internal_file;
+    bool _askFileNameForSaving_called ;
+    QString _askFileNameForSaving_file ;
+    bool _actionSaveACopyAs_internal_called ;
+    QString _actionSaveACopyAs_internal_file ;
 
-    App();
-    virtual ~App();
+    //
 
-    bool init(const bool delegateYes=false);
-    bool initNoWindow();
-    bool init1();
-    bool init2();
+    TestMainWindowFile(const bool isAutoDelete, const bool isSlave, ApplicationData *data, QMainWindow *parent = 0);
+    ~TestMainWindowFile();
+    FakeUIDelegate *fakeUIdelegate() const;
+    void setFakeUIDelegate(FakeUIDelegate *fakeUIdelegate);
 
-    MainWindow *mainWindow();
-    ApplicationData* data();
-
-    FakeUIDelegate *getCurrentUIDelegate();
-    FakeUIDelegate *getUiDelegate();
-    FakeUIDelegate *getUiDelegateYes();
-    bool useTestWindow() const;
-    bool useTestWindowFile() const;
-    void setUseTestWindow();
-    void setUseTestWindowFile();
+    void resetFileData();
+    virtual void execActionSave();
+    virtual void actionSaveACopyAs_internal(const QString &newFilePath);
+    virtual void actionSaveAs_internal(const QString &newFilePath);
+    virtual QString askFileNameForSaving(const QString &actualName);
+    //
+    bool verifySaveTriggered();
+    bool verifyEmptySaveTriggered();
+    bool verifySaveAsTriggered(const QString &expectedPath);
+    bool verifyCopyAsTriggered(const QString &expectedPath);
+    bool verifyEditSaveTriggered(const QString &expectedPath);
 };
 
-#endif // APP_H
+#endif // TESTMAINWINDOWFILE_H

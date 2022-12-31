@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -203,6 +203,13 @@ protected:
     void beforeLoadingNewData();
     void requestOpenGuidedPanel();
     void fireAction(QAction *action);
+    QString parentFileName();
+    QString hierarchyFileName(const QString &filePath);
+    MainWindow *getParentMainWindow();
+    QString fileNameOrFolder(const QString &filePath);
+    QString thisOrParentFileName();
+    QString fileSavedMessage(const QString &newFilePath);
+    virtual void execActionSave();
 
 private slots:
     void onRaiseWindow();
@@ -477,7 +484,7 @@ private:
     bool setupEncoding();
     bool buildPluginsMenu(const char *method, QMenu *parent);
 
-    QString askFileName(const QString &actualName);
+    virtual QString askFileNameForSaving(const QString &actualName);
     void errorNoRule();
 
     void setFileTitle();
@@ -553,8 +560,8 @@ private:
     bool createDocumentFromResources(const QString &path);
     void createDocumentFromSnippet(Regola* newRegola);
     //-------region(internal)
-    void actionSaveAs_internal(const QString &newFilePath);
-    void actionSaveACopyAs_internal(const QString &newFilePath);
+    virtual void actionSaveAs_internal(const QString &newFilePath);
+    virtual void actionSaveACopyAs_internal(const QString &newFilePath);
     bool actionSave_internal(const QString &newFilePath);
     //-------endregion(internal)
     void updateWindowFilePath();
@@ -572,6 +579,7 @@ private:
     bool baseEvaluateIfShowEditingTypeDialog(const bool configurationModified, const bool configurationDialogShown, const uint editElementAsFormUsageCount, const uint editElementAsTextUsageCount);
 
 protected:
+    QString fileNameForSaving(const QString &actualName);
     bool openDroppedFile(const QString &filePath);
     bool recentFile(const QString &filePath);
     bool preferredDir(const QString &filePath);
@@ -594,6 +602,7 @@ protected:
     friend class TestFormattingInfo;
     friend class TestConfig;
     friend class App;
+    friend class TestTestMainWindow;
     void setLoadErrorHandler(XMLLoadErrorHandler *newHandler);
 #endif
 };

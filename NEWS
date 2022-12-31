@@ -1,4 +1,5 @@
 0.9.18
+    Propose the same folder of parent when saving an inner XML.
     New algorithm to anonymize data.
     Issue #84, added options for metadata installation folders.
     Issue #86, show license dialog at first startup.

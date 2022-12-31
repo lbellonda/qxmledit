@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2022 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -221,7 +221,7 @@ bool TestLoadFile::loadFileForMod(const bool openOtherWindow,
                                   bool (TestLoadFile::*method)(App *, const QString &) )
 {
     App app;
-    app.setUseTestWindow(true);
+    app.setUseTestWindow();
     if(!app.init(true) ) {
         return error("init");
     }

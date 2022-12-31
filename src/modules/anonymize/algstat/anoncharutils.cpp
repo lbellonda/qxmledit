@@ -123,7 +123,6 @@ AnonCharSet::~AnonCharSet()
 
 bool AnonCharSet::buildCharSet(const int lowerRange1, const int upperRange1, const int lowerRange2, const int upperRange2)
 {
-    Utils::TEST_ME("");
     _lowerRange = lowerRange1;
     _upperRange = upperRange1;
     _lowerCaseCount = 0;

@@ -1569,8 +1569,7 @@ bool TestAnonymize::testBatchBaseStatSkeleton(const QString &code, const QString
     if( isError ) {
         return false;
     }
-    Utils::TEST_ME("a");
-    writeToFile("/tmp/1.xml", QString(buffer.data()));
+    //writeToFile("/tmp/1.xml", QString(buffer.data()));
     if(!cfrStatMem(&buffer, code, sourceFilePath, checkCodes, type)) {
         return false;
     }
