@@ -3,6 +3,7 @@
     New algorithm to anonymize data.
     Issue #84, added options for metadata installation folders.
     Issue #86, show license dialog at first startup.
+    Issue #79, added quit to tray menu.
 
 0.9.17
     Issue #83, the license dialog don't ask questions anymore.
