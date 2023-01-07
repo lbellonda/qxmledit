@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2019 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -31,6 +31,13 @@ class TestSearchHelper ;
 class TestSearch : public TestBase
 {
     bool testDoubleSearch();
+    //---
+    bool xqueryGetTextToSearch();
+    bool xqueryAdjustTextToSearch();
+    bool innerXqueryAdjustTextToSearch(const QString &input, const QString &expected);
+    bool innerXqueryGetTextToSearch(const QString &input, const QString &expected);
+    bool xqueryVerifyAdjustTextToSearch();
+    bool innerXqueryVerifyAdjustTextToSearch(const QString &toSearch, const bool isGlobal, const int expectedSelCount);
     //---
     bool literalSearchNoItemFound();
     bool literalSearchNonExact();

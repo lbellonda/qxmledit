@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -41,6 +41,9 @@ class LIBQXMLEDITSHARED_EXPORT SearchXQuery : public QAbstractMessageHandler
 
     void searchAndDisplay(Regola *regola, const QString expression);
     QString composeQueryString(Regola *regola, FindTextParams &searchInfo);
+
+    static QString adjustTextToFind(const QString &textToFind);
+    static QString getTextToFind(FindTextParams &searchInfo);
 public:
     explicit SearchXQuery(QObject *parent = 0);
     virtual ~SearchXQuery();

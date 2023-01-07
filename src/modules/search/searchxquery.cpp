@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -55,10 +55,25 @@ QString SearchXQuery::composeQueryString(Regola *regola, FindTextParams &searchI
             queryString += QString("declare namespace %1 = \"%2\";\n").arg(ns).arg(nss[ns]);
         }
     }
+    const QString textToFind = getTextToFind(searchInfo);
+    const QString textToFindAdjusted = adjustTextToFind(textToFind);
 
-    queryString += QString("declare variable $root external;\n$root%1").arg(searchInfo.getTextToFind());
+    queryString += QString("declare variable $root external;\n$root%1").arg(textToFindAdjusted);
 
     return queryString ;
+}
+
+QString SearchXQuery::adjustTextToFind(const QString &textToFind)
+{
+    if(textToFind.startsWith("/")) {
+        return textToFind;
+    }
+    return "/"+textToFind;
+}
+
+QString SearchXQuery::getTextToFind(FindTextParams &searchInfo)
+{
+    return searchInfo.getTextToFind().trimmed();
 }
 
 void SearchXQuery::search(Regola *regola, Element *element, FindTextParams &searchInfo)

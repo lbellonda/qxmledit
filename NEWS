@@ -1,4 +1,5 @@
 0.9.18
+    Issue #56, fixed XPath query search building.
     Propose the same folder of parent when saving an inner XML.
     New algorithm to anonymize data.
     Issue #84, added options for metadata installation folders.

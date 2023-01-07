@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2019 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -997,6 +997,13 @@ bool TestSearch::testLiteralSearch()
 
 bool TestSearch::testXQuerySearch()
 {
+    if( !xqueryGetTextToSearch()) {
+        return false;
+    }
+    if( !xqueryAdjustTextToSearch()) {
+        return false;
+    }
+
     if( !xquerySearchPathExact()) {
         return false;
     }
@@ -1051,10 +1058,114 @@ bool TestSearch::testXQuerySearch()
     if( !xquerySearchTextInChildren()) {
         return false;
     }
+    if( !xqueryVerifyAdjustTextToSearch()) {
+        return false;
+    }
     //---
     return true;
 }
 
+
+//------------------------------------------------------------
+
+bool TestSearch::xqueryVerifyAdjustTextToSearch()
+{
+    _subTestName = "xqueryVerifyAdjustTextToSearch";
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch("//*[@data eq 'www']", false, 2));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch("./*[@data eq 'www']", false, 1));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch("/*[@data eq 'www']", false, 1));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch(".//*[@data eq 'www']", false, 2));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch(" .//*[@data eq 'www']", false, 2));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch(" .//*[@data eq 'www'] ", false, 2));
+    //--
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch("//*[@data eq 'www']", true, 2));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch("./*[@data eq 'www']", true, 0));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch("/*[@data eq 'www']", true, 0));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch(".//*[@data eq 'www']", true, 2));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch(" .//*[@data eq 'www']", true, 2));
+    TEST_OR_DIE(innerXqueryVerifyAdjustTextToSearch(" .//*[@data eq 'www'] ", true, 2));
+    return true;
+}
+
+bool TestSearch::innerXqueryVerifyAdjustTextToSearch(const QString &toSearch, const bool isGlobal, const int expectedSelCount)
+{
+    _subTestName = QString("xqueryVerifyAdjustTextToSearch:%1:%2").arg(toSearch).arg(isGlobal);
+    TestSearchHelper helper(true);
+    testAStdSearchWithParamsInit("xqueryVerifyAdjustTextToSearch", helper);
+    helper.initFind(toSearch);
+    if(!isGlobal) {
+        QList<int> selList;
+        selList.append(0); //root
+        selList.append(0); //h1
+        selList.append(0); //h11
+        selList.append(1); //h21
+        selList.append(1); //h31
+        Element *element = helper.app.mainWindow()->getRegola()->findElementByArray(selList);
+        helper.selectedItem = element ;
+        if( NULL == element ) {
+            return error("No element");
+        }
+        helper.findArgs.setOnlyChildren(true);
+    }
+    helper.search();
+    QStringList expected;
+    if(expectedSelCount>0) {
+        expected << "h4" ;
+    }
+    if(expectedSelCount>1) {
+        expected << "h5" ;
+    }
+    return checkResults(helper, expectedSelCount, expectedSelCount, &expected);
+}
+
+bool TestSearch::xqueryGetTextToSearch()
+{
+    _subTestName = "xqueryGetTextToSearch";
+    TEST_OR_DIE(innerXqueryGetTextToSearch(" ", ""));
+    TEST_OR_DIE(innerXqueryGetTextToSearch(" a", "a"));
+    TEST_OR_DIE(innerXqueryGetTextToSearch("a ", "a"));
+    TEST_OR_DIE(innerXqueryGetTextToSearch(" a ", "a"));
+    TEST_OR_DIE(innerXqueryGetTextToSearch(" a b ", "a b"));
+    TEST_OR_DIE(innerXqueryGetTextToSearch(" a vvvv b ", "a vvvv b"));
+    return true;
+}
+
+bool TestSearch::xqueryAdjustTextToSearch()
+{
+    _subTestName = "xqueryAdjustTextToSearch";
+    TEST_OR_DIE(innerXqueryAdjustTextToSearch("", "/"));
+    TEST_OR_DIE(innerXqueryAdjustTextToSearch("/", "/"));
+    TEST_OR_DIE(innerXqueryAdjustTextToSearch(".", "/."));
+    TEST_OR_DIE(innerXqueryAdjustTextToSearch("/abc", "/abc"));
+    TEST_OR_DIE(innerXqueryAdjustTextToSearch("//abc", "//abc"));
+    TEST_OR_DIE(innerXqueryAdjustTextToSearch("./abc", "/./abc"));
+    TEST_OR_DIE(innerXqueryAdjustTextToSearch(".//abc", "/.//abc"));
+    TEST_OR_DIE(innerXqueryAdjustTextToSearch("./abc/", "/./abc/"));
+    return true;
+}
+
+//------------------------------------------------------------
+bool TestSearch::innerXqueryAdjustTextToSearch(const QString &input, const QString &expected)
+{
+    const QString result = SearchXQuery::adjustTextToFind(input);
+    if(expected != result ) {
+        return error(QString("innerXqueryAdjustTextToSearch for input: '%1' expected: '%2' found: '%3' ")
+                     .arg(input).arg(expected).arg(result));
+    }
+    return true ;
+}
+
+bool TestSearch::innerXqueryGetTextToSearch(const QString &input, const QString &expected)
+{
+    FindTextParams searchInfo;
+    searchInfo.mTextToFind = input;
+    const QString result = SearchXQuery::getTextToFind(searchInfo);
+    if(expected != result ) {
+        return error(QString("innerXqueryGetTextToSearch for input: '%1' expected: '%2' found: '%3' ")
+                     .arg(input).arg(expected).arg(result));
+    }
+    return true ;
+}
 
 //------------------------------------------------------------
 

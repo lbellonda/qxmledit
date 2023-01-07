@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2022 by Luca Bellonda and individual contributors       *
+ *  Copyright (C) 2023 by Luca Bellonda and individual contributors       *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -103,11 +103,10 @@ bool TestTestMainWindow::testFileNameOrFolder()
     return true ;
 }
 
-#define TEST_FN(e) TEST_ORDIE((mainWindow->getRegola()->fileName()==FILE_1), e);
+#define TEST_FN(e) TEST_OR_DIE2((mainWindow->getRegola()->fileName()==FILE_1), e);
 
 bool TestTestMainWindow::testSaveFileName()
 {
-    Utils::TODO_THIS_RELEASE("commenti sotto");
     _subTestName = "testSaveFileName";
     App app;
     app.setUseTestWindowFile();
