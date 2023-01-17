@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -978,6 +978,7 @@ void MainWindow::onComputeSelectionState()
     ui.actionTransforminSnippet->setEnabled(isSomeItemSelected && !isExplore);
 
     ui.actionViewAsXsd->setEnabled(isXSDPresent && !isExplore);
+    ui.actionValidateXSD->setEnabled(isXSDPresent);
 
     ui.actionTransformInComment->setEnabled(isSomeItemSelected && !isExplore && !isComment);
     ui.actionExtractElementsFromComment->setEnabled(isSomeItemSelected && !isExplore && isComment);
@@ -2428,7 +2429,7 @@ void MainWindow::on_actionExtractFragmentsFromFile_triggered()
     extractFragments(results, this, this);
     if(!(results->isError() || results->isAborted())) {
         if(results->numFragments() == 0) {
-            Utils::message(tr("No fragments found"));
+            message(tr("No fragments found"));
             delete results ;
             return ;
         }
@@ -3764,6 +3765,24 @@ void MainWindow::on_actionValidateSCXML_triggered()
     ui.messagePanel->setVisible(false);
     _controller.checkSCXML();
 #endif
+}
+
+void MainWindow::on_actionValidateXSD_triggered()
+{
+    actionValidateXSD();
+}
+
+bool MainWindow::actionValidateXSD()
+{
+    ui.messagePanel->setVisible(false);
+    OperationResult result;
+    if(ui.editor->onActionValidateAsXSD(result)) {
+        message(tr("Schema is valid."));
+        return true;
+    } else {
+        error(tr("Schema is invalid, message:'%1'").arg(result.message()));
+        return false;
+    }
 }
 
 void MainWindow::onSourceNavigateTo(QList<int> path)

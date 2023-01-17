@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -31,7 +31,6 @@
 #include "xmlEdit.h"
 #include "xmleditglobals.h"
 
-
 #include "navigation.h"
 #include "regola.h"
 
@@ -51,6 +50,7 @@ class ReplicaCommand;
 class ReplicaCloneInfo;
 class XSDFacet;
 class SetNamespaceInfo;
+class OperationResult;
 
 namespace Ui
 {
@@ -286,6 +286,7 @@ public:
     void onActionZoomOut();
     void onActionCopyPathToClipboard();
     void onActionValidate();
+    bool onActionValidateAsXSD(OperationResult &result);
     void onActionValidateNewFile();
     bool validateUsingDocumentReferences();
     void onActionInsertSnippet();

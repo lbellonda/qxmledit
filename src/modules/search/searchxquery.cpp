@@ -68,7 +68,7 @@ QString SearchXQuery::adjustTextToFind(const QString &textToFind)
     if(textToFind.startsWith("/")) {
         return textToFind;
     }
-    return "/"+textToFind;
+    return "/" + textToFind;
 }
 
 QString SearchXQuery::getTextToFind(FindTextParams &searchInfo)

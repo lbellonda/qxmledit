@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -181,6 +181,7 @@ public:
     void fireActionByName(const QString &name);
     void forgetData();
     void generateXSDFromData();
+    bool actionValidateXSD();
 
 protected:
     virtual void changeEvent(QEvent *event);
@@ -409,6 +410,7 @@ private slots:
     void on_actionAppendSpecial_triggered();
     void on_actionShowSCXMLNavigator_triggered();
     void on_actionValidateSCXML_triggered();
+    void on_actionValidateXSD_triggered();
     void on_actionCopyElementOnly_triggered();
     void on_actionXSLExecutor_triggered();
     void on_actionExecuteXSLTAsSheet_triggered();

@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -35,6 +35,7 @@
 #include "xsdeditor/xsdplugin.h"
 #include "extraction/extractresults.h"
 #include "xmleditwidgetprivate.h"
+#include "operationresult.h"
 
 #define CS_ELEMENT_TEXT "E"
 #define CS_ELEMENT_TAG "T"
@@ -598,6 +599,11 @@ void XmlEditWidget::onActionCopyPathToClipboard()
 void XmlEditWidget::onActionValidate()
 {
     d->onActionValidate();
+}
+
+bool XmlEditWidget::onActionValidateAsXSD(OperationResult &result)
+{
+    return d->onActionValidateAsXSD(result);
 }
 
 bool XmlEditWidget::validateWithFile(const QString &filePath)

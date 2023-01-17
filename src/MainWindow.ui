@@ -515,6 +515,7 @@
      <addaction name="actionValidateUsingDocumentReferences"/>
      <addaction name="actionValidateNewFile"/>
      <addaction name="actionValidateSCXML"/>
+     <addaction name="actionValidateXSD"/>
     </widget>
     <widget class="QMenu" name="menuXSLT">
      <property name="title">
@@ -2625,6 +2626,14 @@
    </property>
    <property name="toolTip">
     <string>Generate XML from schema.</string>
+   </property>
+  </action>
+  <action name="actionValidateXSD">
+   <property name="text">
+    <string>Validate as XSD</string>
+   </property>
+   <property name="toolTip">
+    <string>Validate as XSD</string>
    </property>
   </action>
  </widget>

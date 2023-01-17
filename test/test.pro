@@ -1,6 +1,6 @@
 #/**************************************************************************
 # *  This file is part of QXmlEdit                                         *
-# *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
+# *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
 # *    as indicated in the AUTHORS file                                    *
 # *  lbellonda _at_ gmail.com                                              *
 # *                                                                        *
@@ -193,7 +193,8 @@ SOURCES += \
     testabout.cpp \
     testhelpers/testanonymize_stat.cpp \
     testtestmainwindow.cpp \
-    testhelpers/testmainwindowfile.cpp
+    testhelpers/testmainwindowfile.cpp \
+    testvalidateasxsd.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -323,7 +324,8 @@ HEADERS += \
     testhelpers/xsd2xmltest.h \
     testabout.h \
     testtestmainwindow.h \
-    testhelpers/testmainwindowfile.h
+    testhelpers/testmainwindowfile.h \
+    testvalidateasxsd.h
 
 #OTHER_FILES += \
 

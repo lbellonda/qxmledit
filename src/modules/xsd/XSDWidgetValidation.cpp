@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -72,7 +72,6 @@ bool XmlEditWidgetPrivate::onActionValidate()
     return validateWithFile(schemaUrl);
 }
 
-
 bool XmlEditWidgetPrivate::validateWithFile(const QString &schemaUrl)
 {
     if(NULL == regola) {
@@ -129,4 +128,40 @@ void XmlEditWidgetPrivate::onActionValidateNewFile()
         computeSelectionState();
         emit p->newXSDSchemaForValidation(filePath);
     }
+}
+
+bool XmlEditWidgetPrivate::onActionValidateAsXSD(OperationResult &result)
+{
+    return validateAsXSD(result);
+}
+
+bool XmlEditWidgetPrivate::validateAsXSD(OperationResult &result)
+{
+    if(NULL == regola) {
+        Utils::error(p, tr("No data to validate XSD."));
+        return false ;
+    }
+    QXmlSchema schemaHandler;
+    ValidatorMessageHandler messageHandler;
+    schemaHandler.setMessageHandler(&messageHandler);
+    QString textRepresentation = regola->getAsText();
+
+    QString theEncoding = regola->encoding();
+    QTextCodec *codec = QTextCodec::codecForName(theEncoding.toLatin1().data());
+    QByteArray byteRepresentation = codec->fromUnicode(textRepresentation);
+    if(!schemaHandler.load(byteRepresentation)) {
+        QString msg = messageHandler.descriptionInPlainText();
+        if(msg.isEmpty()) {
+            msg = tr("Error loading schema");
+        }
+        result.setErrorWithText(msg);
+        return false;
+    }
+    if(!schemaHandler.isValid()) {
+        const QString errMsg = messageHandler.descriptionInPlainText();
+        const QString msg = tr("Schema is invalid.%1").arg(errMsg);
+        result.setErrorWithText(msg);
+        return false;
+    }
+    return true ;
 }

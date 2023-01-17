@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2017-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2017-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -914,6 +914,12 @@ void XSDPrint::addChildrenElements(XSDPrintInfo &xsdPrintInfo, XSchemaOutlineCon
 
 bool XSDPrint::isContainerRecursive(XSchemaOutlineContainer *container)
 {
+    if(NULL == container) {
+        return false;
+    }
+    if(NULL == container->schemaObject()) {
+        return false;
+    }
     switch(container->schemaObject()->getType()) {
     default:
         return true ;

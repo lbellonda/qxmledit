@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -110,6 +110,7 @@
 #include "testxmlbeans.h"
 #include "testabout.h"
 #include "testtestmainwindow.h"
+#include "testvalidateasxsd.h"
 
 class TestQXmlEdit : public QObject
 {
@@ -228,6 +229,7 @@ private Q_SLOTS:
     void testXMLBeans();
     void testAbout();
     void testMainWindow();
+    void testValidateAsXSD();
 };
 
 
