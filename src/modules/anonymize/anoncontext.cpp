@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -336,7 +336,6 @@ void AnonContext::scanAnonymize(AnonException *exception, const QString &inputDa
     switch(anonType) {
     case AnonType::FixedValue:
         // skip this?
-        Utils::TODO_THIS_RELEASE("skip? ? ?! ?");
         break;
     default:
     case AnonType::UseDefault:
