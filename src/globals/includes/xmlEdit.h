@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -35,7 +35,7 @@
 // 0: snapshot
 // 1: rc
 // 2: release
-#define QXMLEDIT_RELEASE_VERSION    1
+#define QXMLEDIT_RELEASE_VERSION    2
 
 #if QXMLEDIT_RELEASE_VERSION  ==  0
 #define QXMLEDIT_VERSION_IS_SNAPSHOT 1
