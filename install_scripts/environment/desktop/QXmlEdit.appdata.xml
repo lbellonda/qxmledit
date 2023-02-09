@@ -14,25 +14,20 @@
     <launchable type="desktop-id">QXmlEdit.desktop</launchable>
     <screenshots>
         <screenshot type="default">
-            <image width="800" height="600">https://raw.githubusercontent.com/lbellonda/qxmledit/master/install_scripts/environment/desktop/screenshots/qxmledit800.png</image>
+            <image>https://raw.githubusercontent.com/lbellonda/qxmledit/master/install_scripts/environment/desktop/screenshots/qxmledit800.png</image>
         </screenshot>
     </screenshots>
     <categories>
-    ​    <category>Utility</category>
-        <category>Qt</category>
         <category>Development</category>
         <category>TextEditor</category>
     ​</categories>
     <url type="homepage">https://qxmledit.org</url>
     <url type="bugtracker">https://github.com/lbellonda/qxmledit/issues</url>
     <releases>
-      <release version="0.9.18" />
+      <release version="0.9.18" date="2023-01-30" />
+      <release version="0.9.17" date="2022-04-02" />
+      <release version="0.9.16" date="2020-09-12" />
     </releases>
-    <provides>
-   ​    <binary>qxmledit</binary>
-   ​  </provides>
-    <mimetypes>
-    ​    <mimetype>text/xml</mimetype>
-    ​ </mimetypes>
     <project_group>Qt</project_group>
+    <content_rating type="oars-1.1" />
 </component>
