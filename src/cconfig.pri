@@ -30,6 +30,8 @@
 ############################ BEGIN INSTALLATION FOLDERS DECLARATION ###########################################
 
 #message(QXMLEDIT_INST_DATA_DIR = $$(QXMLEDIT_INST_DATA_DIR))
+#message(QXMLEDIT_INST_APPDATA_DIR = $$(QXMLEDIT_INST_APPDATA_DIR))
+#message(QXMLEDIT_INST_DESKTOP_DIR = $$(QXMLEDIT_INST_DESKTOP_DIR))
 #message(QXMLEDIT_INST_DIR = $$(QXMLEDIT_INST_DIR))
 #message(QXMLEDIT_INST_DOC_DIR = $$(QXMLEDIT_INST_DOC_DIR))
 #message(QXMLEDIT_INST_LIB_DIR = $$(QXMLEDIT_INST_LIB_DIR))
@@ -120,6 +122,26 @@ DONTUSE_ICON=$$(QXMLEDIT_NO_ICON)
 } else {
     message("ICON enabled")
 }
+
+INST_APPDATA_DIR=$$(QXMLEDIT_INST_APPDATA_DIR)
+!isEmpty(QXMLEDIT_INST_APPDATA_DIR) {
+    INST_APPDATA_DIR=$$QXMLEDIT_INST_APPDATA_DIR
+}
+isEmpty(INST_APPDATA_DIR) {
+    INST_APPDATA_DIR = /usr/share/appdata/
+}
+message("Inst app data dir $$INST_APPDATA_DIR")
+
+###########################################
+
+INST_DESKTOP_DIR=$$(QXMLEDIT_INST_DESKTOP_DIR)
+!isEmpty(QXMLEDIT_INST_DESKTOP_DIR) {
+    INST_DESKTOP_DIR=$$QXMLEDIT_INST_DESKTOP_DIR
+}
+isEmpty(INST_DESKTOP_DIR) {
+    INST_DESKTOP_DIR = /usr/share/applications/
+}
+message("Inst desktop data dir $$INST_DESKTOP_DIR")
 
 ###########################################
 
