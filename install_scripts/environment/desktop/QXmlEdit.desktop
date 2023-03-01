@@ -9,6 +9,7 @@ GenericName[it]=Semplice editor XML e visualizzatore XSD.
 GenericName[ru]=Простой редактор XML
 NoDisplay=false
 Comment=Edit XML files and view XSD documents.
+Comment[ru]=Редактирование XML-файлов и просмотр XSD-документов.
 Icon=qxmledit
 Hidden=false
 StartupNotify=true
