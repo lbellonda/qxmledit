@@ -172,6 +172,9 @@ public:
         DISPLAYSTR_NEW0,
     };
 
+    const int DEFAULT_STEM_LENGTH = 100;
+    const int DEFAULT_STEM_LENGTH_UNROLLED = 50;
+
 
 private:
     EDrawStrategy _strategy;
@@ -271,6 +274,7 @@ protected:
     qreal calcChildrenHeight(XSDItemContext *context, const bool isRecursive);
     qreal calcChildrenHeightStrategyNew0(XSDItemContext *context, const bool isRecursive);
     void placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos, QRectF &overallBounds);
+    qreal calculateChildrenXPos(XSDItemContext *context, const qreal xPos);
     bool updateObjectPlacementNew0(XSDItem *root, XSDItemContext *context, QVector<QRectF> &currBounds, QList<QGraphicsItem *> &rendered, QList<XSDItem *> &itemsRendered, QStack<XSDItem*> chain, const qreal extraGapValue);
     void recalcDispose(XSDItemContext *context);
     void updateSummaryLineBounds(const qreal gapThis, const qreal gap, const bool isEnlarging);
@@ -279,8 +283,6 @@ protected:
     qreal calcOverallHeight(QList<QGraphicsItem*> &rendered);
     void finalOffset(const QRectF &bounds);
     void finalPos(QRectF &bounds, const bool isFirst);
-    void finalOffset__old();
-    void finalOffset__old1();
     //-- endregion(New0)
     qreal recalcChildrenPosStrategyUnder(XSDItemContext *context);
     void preAddChildren(XSchemaObject *object);

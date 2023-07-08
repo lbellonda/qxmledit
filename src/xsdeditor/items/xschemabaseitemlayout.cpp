@@ -153,6 +153,12 @@ qreal XSDItem::calcChildrenHeight(XSDItemContext *context, const bool isRecursiv
     return directChildrenHeight ;
 }
 
+qreal XSDItem::calculateChildrenXPos(XSDItemContext *context, const qreal xPos)
+{
+    const qreal xOffset = xPos + _bounds.width() + context->stemLength();
+    return xOffset ;
+}
+
 void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qreal xPos, const qreal yPos, QRectF &overallBounds)
 {
     qreal allChildrenHeight = calcChildrenHeight(context, false) ;
@@ -161,7 +167,7 @@ void XSDItem::placeObjectNew0(XSDItemContext *context, const int level, const qr
     QXMLEDIT_LAYOUT_DEBUG3(printf("o:%d pos at: %d, %d (w:%d h:%d)", _id, (int)xPos, (int)yPos, (int)_bounds.width(), (int)_bounds.height()); fflush(stdout););
     QXMLEDIT_LAYOUT_DEBUG3(printf(" r: %d, %d\n", (int)_bounds.left(), (int)_bounds.top()); fflush(stdout););
     QRectF bounds(_bounds);
-    qreal xOffset = xPos + 2 * bounds.width() + context->stemLength() / 4 + extraSpace();
+    qreal xOffset = calculateChildrenXPos(context, xPos);
     // finds the total height
     qreal minYPosChildren = yPos + (bounds.height() / 2) - (allChildrenHeight / 2) + offsetHeight() ;
     qreal maxYPosChildren = minYPosChildren ;
@@ -609,7 +615,7 @@ void XSDItem::drawChildrenPort(XSDItemContext *context)
 {
     qreal minYPosChildren = 0;
     qreal maxYPosChildren = 0 ;
-    const qreal xOffset = _bounds.left() + 2 * _bounds.width() + context->stemLength() / 4 + extraSpace();
+    const qreal xOffset = calculateChildrenXPos(context, _bounds.left()) ;
     bool isFirst = true;
 
     qreal yFirstPos = 0 ;

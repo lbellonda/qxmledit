@@ -86,7 +86,8 @@ XSDItemContext::XSDItemContext(QXmlEditData *appData)
     _strategy = COMPACT;
     _renderingStrategy = appData->isXsdDisplayHoriz() ? DISPLAYSTR_NEW0 : DISPLAYSTR_UNDER;
     _gapBetweenChildren = 10 ;
-    _stemLength = 50 ;
+    Utils::TODO_THIS_RELEASE("Use nrolled for te other type");
+    _stemLength = DEFAULT_STEM_LENGTH ;
 }
 
 XSDItemContext::~XSDItemContext()
@@ -2615,7 +2616,8 @@ void XSDItem::disposeObjectHorPyramid(XSDItemContext *context, const int level, 
     qreal yPosThis = yPos;
     thisItem->setPos(xPos, yPosThis);
     QRectF bounds = thisItem->boundingRect();
-    qreal xOffset = xPos + 2 * bounds.width() + context->stemLength() / 4 + extraSpace();
+    Utils::TODO_THIS_RELEASE("il bounding rect dovrebbe essere ok");
+    qreal xOffset = calculateChildrenXPos(context, xPos);
     qreal yFirstPos = 0;
     // finds the total height
     qreal minYPosChildren = yPos - bounds.top() + bounds.height() / 2 - allChildrenHeight / 2 + offsetHeight() ;
