@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -124,7 +124,7 @@ void RestrictionItem::setItem(XSchemaObject *newItem)
     path.moveTo(0, height / 2);
     path.lineTo(30, 0);
     path.lineTo(width + 20, 0);
-    path.lineTo(width + 20, height);
+    path.lineTo(width + 10, height);
     path.lineTo(30, height);
     _contour = path.toFillPolygon();
     _graphicsItem->setPolygon(_contour);

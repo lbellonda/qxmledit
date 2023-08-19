@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -28,6 +28,7 @@
 GraphicsRectItem::GraphicsRectItem(ItemServiceExecutor *service, QGraphicsItem * parent) : QGraphicsRectItem(parent)
 {
     setService(service);
+    _isShadow = true;
 }
 
 GraphicsRectItem::~GraphicsRectItem()
@@ -53,6 +54,39 @@ QVariant GraphicsRectItem::itemChange(GraphicsItemChange change,
     return QGraphicsItem::itemChange(change, value);
 }
 
+void GraphicsRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem * option, QWidget *widget)
+{
+    QRectF bounds = boundingRect();
+    const int OffsetRectX = 3;
+    const int OffsetRectY = 3;
+    QRectF shadowRect = bounds.translated(OffsetRectX, OffsetRectY);
+    drawShadow(painter, shadowRect);
+    QGraphicsRectItem::paint(painter, option, widget);
+}
+
+void GraphicsRectItem::drawShadow(QPainter *painter, QRectF &bounds)
+{
+    QLinearGradient shadowGradient;
+    shadowGradient.setStart(0, 0);
+    shadowGradient.setFinalStop(0, bounds.height());
+
+    QColor colorStart(128, 128, 128);
+    QColor colorEnd(82, 82, 82);
+    shadowGradient.setColorAt(0, colorStart);
+    shadowGradient.setColorAt(1, colorEnd);
+
+    QBrush brush(shadowGradient);
+    painter->setBrush(brush);
+
+    QPen pen(Qt::NoPen);
+    painter->setPen(pen);
+
+    painter->setRenderHint(QPainter::Antialiasing);
+    QPainterPath path;
+    path.addRect(bounds);
+    painter->drawPath(path);
+}
+
 //-------------------------------------------------------------------------------
 
 GraphicsRoundRectItem::GraphicsRoundRectItem(ItemServiceExecutor *service, QGraphicsItem * parent) : QGraphicsRectItem(parent)
@@ -64,6 +98,7 @@ GraphicsRoundRectItem::GraphicsRoundRectItem(ItemServiceExecutor *service, QGrap
     _isSingleColor = false;
     _useDimShadow = false ;
     _isComplexGradient = false ;
+    _isColorBorder = false ;
 
     setService(service);
 }
@@ -90,6 +125,17 @@ bool GraphicsRoundRectItem::isSingleColor() const
 void GraphicsRoundRectItem::setSingleColor(bool value)
 {
     _isSingleColor = value;
+    update();
+}
+
+bool GraphicsRoundRectItem::isUseColorBorder() const
+{
+    return _isSingleColor;
+}
+
+void GraphicsRoundRectItem::setUseColorBorder(bool value)
+{
+    _isColorBorder = value;
     update();
 }
 
@@ -120,6 +166,17 @@ QVariant GraphicsRoundRectItem::itemChange(GraphicsItemChange change,
 {
     emit itemChanged(change, value);
     return QGraphicsItem::itemChange(change, value);
+}
+
+QColor GraphicsRoundRectItem::colorBorder()
+{
+    return _colorBorder ;
+}
+
+void GraphicsRoundRectItem::setColorBorder(const QColor value)
+{
+    _colorBorder = value ;
+    update();
 }
 
 QColor GraphicsRoundRectItem::colorStart()
@@ -157,16 +214,7 @@ void GraphicsRoundRectItem::setColorMiddle(const QColor value)
 
 void GraphicsRoundRectItem::drawShadow(QPainter *painter, QRectF &bounds)
 {
-    QLinearGradient shadowGradient;
-    shadowGradient.setStart(0, 0);
-    shadowGradient.setFinalStop(0, bounds.height());
-
-    QColor colorStart(128, 128, 128);
-    QColor colorEnd(82, 82, 82);
-    shadowGradient.setColorAt(0, colorStart);
-    shadowGradient.setColorAt(1, colorEnd);
-
-    QBrush brush(shadowGradient);
+    QBrush brush(QColor(82, 82, 82));
     painter->setBrush(brush);
 
     QPen pen(Qt::NoPen);
@@ -176,7 +224,27 @@ void GraphicsRoundRectItem::drawShadow(QPainter *painter, QRectF &bounds)
         bounds.setHeight(bounds.height() - 2);
         bounds.setWidth(bounds.width() - 2);
     }
-    painter->drawRoundRect(bounds, 25, 25);
+    painter->setRenderHint(QPainter::Antialiasing);
+    QPainterPath path;
+    path.addRoundedRect(bounds, 10, 10);
+    painter->drawPath(path);
+}
+
+static int darken(int nuance, int amount)
+{
+    int value = nuance - amount ;
+    if(value < 0) {
+        value = 0 ;
+    }
+    return value ;
+}
+
+static QColor darkenColor(QColor color, int qty)
+{
+    int darkenedRed = darken(color.red(), qty);
+    int darkenedGreen = darken(color.green(), qty);
+    int darkenedBlue = darken(color.blue(), qty);
+    return QColor(darkenedRed, darkenedGreen, darkenedBlue);
 }
 
 void GraphicsRoundRectItem::paint(QPainter *painter, const QStyleOptionGraphicsItem * /*option*/, QWidget */*widget*/)
@@ -188,7 +256,6 @@ void GraphicsRoundRectItem::paint(QPainter *painter, const QStyleOptionGraphicsI
     // First gradient: background
     QRectF shadowRect = bounds.translated(OffsetRectX, OffsetRectY);
     drawShadow(painter, shadowRect);
-
 
     if(!_isSingleColor) {
         QLinearGradient gradient;
@@ -220,15 +287,18 @@ void GraphicsRoundRectItem::paint(QPainter *painter, const QStyleOptionGraphicsI
         painter->setPen(pen);
     } else {
         QPen pen(Qt::SolidLine);
-        if(_isSingleColor) {
-            pen.setColor(QColor(0, 0, 0));
+        if(_isColorBorder) {
+            pen.setColor(_colorBorder);
         } else {
-            pen.setColor(QColor(40, 120, 40));
+            pen.setColor(darkenColor(_colorStart, 128));
         }
         painter->setPen(pen);
     }
-
-    painter->drawRoundRect(bounds, 10, 10);
+    painter->setRenderHint(QPainter::Antialiasing);
+    QPainterPath path;
+    path.addRoundedRect(bounds, 10, 10);
+    painter->drawPath(path);
+    /// @note: https://stackoverflow.com/questions/29196610/qt-drawing-a-filled-rounded-rectangle-with-border");
 }
 
 bool GraphicsRoundRectItem::isComplexGradient() const
@@ -312,6 +382,7 @@ PolygonItem::PolygonItem(ItemServiceExecutor *service, const bool doubleBorder, 
     _isDoubleBorder = doubleBorder ;
     _color = QColor::fromRgb(0, 0, 0);
     _pen.setColor(_color);
+    _isShadow = true;
 }
 
 PolygonItem::~PolygonItem()
@@ -329,8 +400,29 @@ void PolygonItem::setColor(const QColor newColor)
     _pen.setColor(_color);
 }
 
+void PolygonItem::drawShadow(QPainter *painter, QRectF &bounds)
+{
+    QBrush brush(QColor(0xC0, 0xC0, 0xC0));
+    painter->setBrush(brush);
+
+    QPen pen(Qt::NoPen);
+    painter->setPen(pen);
+    if(_useDimShadow) {
+        bounds.setHeight(bounds.height() + 22);
+        bounds.setWidth(bounds.width() + 22);
+    }
+    painter->setRenderHint(QPainter::Antialiasing);
+    QPainterPath path;
+    path.addPolygon(polygon().translated(2, 2));
+    painter->drawPath(path);
+}
 void PolygonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    if(_isShadow) {
+        QRectF bounds = boundingRect();
+        drawShadow(painter, bounds);
+    }
+
     QGraphicsPolygonItem::paint(painter, option, widget);
     if(_isDoubleBorder) {
         QRectF bounds = boundingRect();
@@ -364,6 +456,7 @@ QVariant PolygonItem::itemChange(GraphicsItemChange change,
 CircleItem::CircleItem(ItemServiceExecutor *service, QGraphicsItem * parent) : QGraphicsEllipseItem(parent)
 {
     setService(service);
+    _isShadow = true;
 }
 
 CircleItem::~CircleItem()

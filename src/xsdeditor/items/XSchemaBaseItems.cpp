@@ -28,6 +28,7 @@
 #include <QGraphicsColorizeEffect>
 #include "xsdeditor/items/xitemsdefinitions.h"
 
+static QColor darkenColor(QColor color, int qty);
 //--------------------------------------------------------------------------------------
 // TODO: remember to inject images in html with src: resources like that:<img src=':/xsdimages/link2'/>
 
@@ -572,7 +573,7 @@ QRectF XSDItem::disposeHorizontallyAndAlignLower(QList<QGraphicsItem*> &items, c
         return QRectF();
     }
     QList<ItemInfoDimensions*> infoItems;
-    QRectF childrenBoundsRect(xPos, yPos, 0, 4);
+    QRectF childrenBoundsRect(xPos, yPos, 0, 0);
     collectAlignInfo(items, infoItems);
     const int maxHeight = scanDisposeHorizontallyAndAlignLower(infoItems, xPos, yPos, childrenBoundsRect);
     const int maxDescent = calcMaxDescent(infoItems);
@@ -636,7 +637,7 @@ int XSDItem::scanDisposeHorizontallyAndAlignLower(QList<ItemInfoDimensions*> &it
 void XSDItem::adjustVertically(QList<ItemInfoDimensions*> &items, const int yPos, const int maxHeight, const int maxDescent)
 {
     foreach(const ItemInfoDimensions * item, items) {
-        qreal verticalPosition = yPos + maxHeight - item->bounds.height();
+        qreal verticalPosition = yPos + (maxHeight - item->bounds.height()) / 2;
         if(item->isText) {
             verticalPosition -= maxDescent - item->descent ;
         }
@@ -1796,37 +1797,12 @@ void ElementItem::changeGraphics()
         setToolTipState(_graphicsItem, _item->compareState());
         setGradientColor(_graphicsItem, _item->compareState());
     } else {
-
         if(_item->isTypeOrElement()) {
-            const QColor colors [] = {
-                QColor(0xD8, 0xFF, 0xF0),
-                QColor(0xC0, 0xFF, 0xE2),
-                QColor(0x99, 0xFF, 0xC0),
-                QColor(0x99, 0xFF, 0xC0),
-                QColor(0xC0, 0xFF, 0xE0),
-                QColor(0xD8, 0xFF, 0xF0)
-            };
-
-            _graphicsItem->setComplexGradient(true);
-            _graphicsItem->setComplexGradientColors(colors[0], colors[1], colors[2], colors[3], colors[4], colors[5]);
-            _graphicsItem->setColorStart(QColor(0xE0, 0xFF, 0xF0));
-            _graphicsItem->setColorMiddle(QColor(0x90, 0xFF, 0xD0));
-            _graphicsItem->setColorEnd(QColor(0xE0, 0xFF, 0xF0));
+            _graphicsItem->setSingleColor(true);
+            _graphicsItem->setColorStart(QColor(0x99, 0xFF, 0xC0));
         } else {
-            const QColor colors [] = {
-                QColor(0xFF, 0xFF, 0xFF),
-                QColor(0xD0, 0xE2, 0xFF),
-                QColor(0xA0, 0xD8, 0xFF),
-                QColor(0xA0, 0xD8, 0xFF),
-                QColor(0xD0, 0xE2, 0xFF),
-                QColor(0xFF, 0xFF, 0xFF)
-            };
-
-            _graphicsItem->setComplexGradient(true);
-            _graphicsItem->setComplexGradientColors(colors[0], colors[1], colors[2], colors[3], colors[4], colors[5]);
-            _graphicsItem->setColorStart(QColor(0xE0, 0xF0, 0xFF));
-            _graphicsItem->setColorMiddle(QColor(0x90, 0xD0, 0xFF));
-            _graphicsItem->setColorEnd(QColor(0xE0, 0xF0, 0xFF));
+            _graphicsItem->setSingleColor(true);
+            _graphicsItem->setColorStart(QColor(0xA0, 0xD8, 0xFF));
         }
     }
     if(! _item->ref().isEmpty()) {
@@ -1939,12 +1915,15 @@ void AttributeItem::init()
     _graphics->setColorMiddle(QColor::fromRgbF(1, 1, .7, 0.9));
     _graphics->setColorEnd(QColor::fromRgbF(1, 1, .5, 1));
 
+    _graphics->setUseColorBorder(true);
+    _graphics->setColorBorder(QColor(0xff, 0x6D, 0x00));
+
     _textItem = new TextItem(_graphics);
     _textItem->setPos(24, 0);
     _textItem->setDefaultTextColor(QColor::fromRgb(0, 0, 0));
 
     _iconType = new QGraphicsPixmapItem(_graphics);
-    _iconType ->setPos(4, 4);
+    _iconType ->setPos(4, 0);
     QPixmap pixmap ;
     pixmap.load(PIXMAP_XSD_ATTRIBUTE);
     _iconType->setPixmap(pixmap);
@@ -1994,6 +1973,9 @@ void AttributeItem::setItem(XSchemaAttribute *newItem)
     if(_isDiff) {
         setGradientColor(_graphics, _item->compareState());
         setToolTipState(_graphics, _item->compareState());
+        _graphics->setColorBorder(darkenColor(_item->color(), 0x40));
+    } else {
+        _graphics->setColorBorder(QColor(0xff, 0x6D, 0x00));
     }
 
     QList<QGraphicsItem*> items;
@@ -2007,7 +1989,7 @@ void AttributeItem::setItem(XSchemaAttribute *newItem)
     }
     items.append(_textItem);
 
-    QRectF size = disposeHorizontallyAndAlignLower(items, 4, 4);
+    QRectF size = disposeHorizontallyAndAlignLower(items, 4, 0);
     qreal width = size.x() + size.width() + 4;
     qreal height = size.y() + size.height() + 4;
     _contour = QRectF(0, 0, width, height);

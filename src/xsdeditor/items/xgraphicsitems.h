@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -59,10 +59,12 @@ class GraphicsRoundRectItem : public QObject, public QGraphicsRectItem
     QColor _colorStart;
     QColor _colorMiddle;
     QColor _colorEnd;
+    QColor _colorBorder;
     // complex gradient
     QColor _c0, _c1, _c2, _c3, _c4, _c5;
     bool _isOptional;
     bool _isSingleColor ;
+    bool _isColorBorder ;
     bool _useDimShadow;
     bool _isComplexGradient;
 
@@ -85,6 +87,8 @@ public:
     void setService(ItemServiceExecutor *newService);
     void drawShadow(QPainter *painter, QRectF &bounds);
 
+    QColor colorBorder();
+    void setColorBorder(const QColor value);
     QColor colorStart();
     void setColorStart(const QColor value);
     QColor colorEnd();
@@ -97,6 +101,8 @@ public:
     bool isOptional() const;
     void setOptional(bool isOptional);
 
+    bool isUseColorBorder() const;
+    void setUseColorBorder(bool value);
     bool isSingleColor() const;
     void setSingleColor(bool value);
 
@@ -116,10 +122,12 @@ class GraphicsRectItem : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
     ItemServiceExecutor *_service ;
+    bool _isShadow;
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+    void drawShadow(QPainter *painter, QRectF &bounds);
 
 public:
 
@@ -129,6 +137,7 @@ public:
     virtual ~GraphicsRectItem();
 
     void setService(ItemServiceExecutor *newService);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem * option, QWidget *widget);
 
 signals:
     void itemChanged(QGraphicsItem::GraphicsItemChange change, const QVariant &value);
@@ -142,11 +151,13 @@ class PolygonItem : public QObject, public QGraphicsPolygonItem
     bool _isDoubleBorder;
     QColor _color;
     QPen _pen;
+    bool _isShadow ;
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
     QVariant itemChange(GraphicsItemChange change, const QVariant &value);
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void drawShadow(QPainter *painter, QRectF &bounds);
 
 public:
 
@@ -169,6 +180,7 @@ class CircleItem : public QObject, public QGraphicsEllipseItem
 {
     Q_OBJECT
     ItemServiceExecutor *_service ;
+    bool _isShadow ;
 
 protected:
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
