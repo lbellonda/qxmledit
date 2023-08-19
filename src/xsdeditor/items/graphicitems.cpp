@@ -239,7 +239,7 @@ static int darken(int nuance, int amount)
     return value ;
 }
 
-static QColor darkenColor(QColor color, int qty)
+QColor darkenColor(QColor color, int qty)
 {
     int darkenedRed = darken(color.red(), qty);
     int darkenedGreen = darken(color.green(), qty);
@@ -407,7 +407,7 @@ void PolygonItem::drawShadow(QPainter *painter, QRectF &bounds)
 
     QPen pen(Qt::NoPen);
     painter->setPen(pen);
-    if(_useDimShadow) {
+    if(_isShadow) {
         bounds.setHeight(bounds.height() + 22);
         bounds.setWidth(bounds.width() + 22);
     }

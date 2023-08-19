@@ -50,7 +50,7 @@ public:
     virtual void execMenuEvent(QGraphicsSceneContextMenuEvent *event, QGraphicsItem *item) = 0 ;
 };
 
-
+QColor darkenColor(QColor color, int qty);
 
 class GraphicsRoundRectItem : public QObject, public QGraphicsRectItem
 {
