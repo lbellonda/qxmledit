@@ -28,7 +28,6 @@
 #include <QGraphicsColorizeEffect>
 #include "xsdeditor/items/xitemsdefinitions.h"
 
-static QColor darkenColor(QColor color, int qty);
 //--------------------------------------------------------------------------------------
 // TODO: remember to inject images in html with src: resources like that:<img src=':/xsdimages/link2'/>
 
