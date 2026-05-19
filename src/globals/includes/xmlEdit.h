@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2023 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -55,8 +55,8 @@
 #endif
 
 //--------------------------------------------------------------------------------
-#define VERSION_BASE "0.9.18"
-#define VERSION_NUMBER 0x00091200
+#define VERSION_BASE "0.9.18-1"
+#define VERSION_NUMBER 0x00091201
 //--------------------------------------------------------------------------------
 
 // this is the version number of the welcome dialog

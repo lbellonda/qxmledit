@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2015-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2015-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -203,9 +203,7 @@ bool Regola::setChildrenTreeFromStream(XMLLoadContext *context, QXmlStreamReader
     if(context->isSample() && (NULL != parent)) {
         hasText = parent->hasText();
     }
-    int nodeIndex = -1 ;
     while(!xmlReader->atEnd()) {
-        nodeIndex++;
         xmlReader->readNext();
         if(xmlReader->hasError()) {
             return context->setErrorFromReader(xmlReader);

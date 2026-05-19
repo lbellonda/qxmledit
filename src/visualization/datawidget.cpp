@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2012-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2012-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -1246,7 +1246,6 @@ void DataWidget::writeDetails(QTextStream &outStream)
     }
     float *mapp = _dataPoints ;
     float maxVal = getMaxValue();
-    bool *pMask = _dataPointsMask;
     int h = height() ;
     int w = width();
     outStream << tr("Measurement type: %1 %2\n").arg(_measType).arg(_cumulative ? tr("cumulative") : tr("non cumulative"));
@@ -1256,7 +1255,6 @@ void DataWidget::writeDetails(QTextStream &outStream)
         outStream << QString(tr("row :%1 \n")).arg(y).arg(maxVal);
         for(int x = 0 ; x < w; x ++) {
             outStream << QString("%1 ").arg((int)*mapp);
-            pMask++;
             mapp++;
         }
         outStream << "\n";
@@ -1276,7 +1274,6 @@ void DataWidget::on_actionCopyDataToClipboard_triggered()
     } else {
         float *mapp = _dataPoints ;
         float maxVal = getMaxValue();
-        bool *pMask = _dataPointsMask;
         int h = height() ;
         int w = width();
         s.append(tr("Measurement type: %1 %2\n").arg(_measType).arg(_cumulative ? tr("cumulative") : tr("non cumulative")));
@@ -1286,7 +1283,6 @@ void DataWidget::on_actionCopyDataToClipboard_triggered()
             s.append(QString(tr("row :%1 \n")).arg(y).arg(maxVal));
             for(int x = 0 ; x < w; x ++) {
                 s.append(QString("%1 ").arg((int)*mapp));
-                pMask++;
                 mapp++;
             }
             s.append("\n");

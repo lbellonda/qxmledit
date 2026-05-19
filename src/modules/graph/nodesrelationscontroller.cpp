@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2013-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2013-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -306,7 +306,6 @@ void NodesRelationsController::saveDataToStream(QTextStream &outStream)
 
         outStream << QString::number(nd->linksOut);
 
-        int innerIndex = 1;
         foreach(QString tag2, names.keys()) {
             outStream << separator;
             TagNode * nd2 = names[tag2];
@@ -316,7 +315,6 @@ void NodesRelationsController::saveDataToStream(QTextStream &outStream)
                     outStream << QString::number(target->count);
                 }
             }
-            innerIndex ++ ;
         }
         outStream << "\n";
         row++ ;

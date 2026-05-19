@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2016-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -205,7 +205,6 @@ bool Element::removeNamespace(const QString &removedNS, TargetSelection::Type ta
         setNewTagWithUndo(name, info);
         changed = true ;
     }
-    int attrIndex = 0 ;
     serializeAttributesToInfo(info);
     foreach(Attribute * attr, getAttributesList()) {
         if(!XmlUtils::isDeclaringNS(attr->name)) {
@@ -218,7 +217,6 @@ bool Element::removeNamespace(const QString &removedNS, TargetSelection::Type ta
                 attrChanged = true ;
             }
         }
-        attrIndex ++ ;
     }
 
     // if remove declarations

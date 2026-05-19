@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2016-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -51,7 +51,6 @@ bool UndoDataReply::innerUndo()
         dataStream.setVersion(DATASTREAM_VERSION);
         dataStream.resetStatus();
         widget->setUpdatesEnabled(false);
-        int dataIndex = 1;
         while(!dataStream.atEnd()) {
             ElementUndoInfo info;
             dataStream >> info.path ;
@@ -61,7 +60,6 @@ bool UndoDataReply::innerUndo()
             if(!regola->updateElementInplace(&info)) {
                 okData = false ;
             }
-            dataIndex++;
         }
         widget->setUpdatesEnabled(true);
         if((dataStream.status() == QDataStream::Ok) && okData) {

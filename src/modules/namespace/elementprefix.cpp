@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2016-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2016-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -44,7 +44,6 @@ bool Element::replacePrefix(const QString &oldPrefix, const QString &newPrefix, 
         changed = true ;
     }
     bool attrChanged = false ;
-    int attrIndex = 0 ;
     serializeAttributesToInfo(info);
     foreach(Attribute * attr, getAttributesList()) {
         XmlUtils::decodeQualifiedName(attr->name, prefix, name);
@@ -57,7 +56,6 @@ bool Element::replacePrefix(const QString &oldPrefix, const QString &newPrefix, 
                 attrChanged = true ;
             }
         }
-        attrIndex ++ ;
     }
     if(!attrChanged) {
         info.undoReplaceAttributes();
@@ -135,7 +133,6 @@ bool Element::removePrefix(const QString &removedPrefix, TargetSelection::Type t
         changed = true ;
     }
     bool attrChanged = false ;
-    int attrIndex = 0 ;
     serializeAttributesToInfo(info);
     foreach(Attribute * attr, getAttributesList()) {
         XmlUtils::decodeQualifiedName(attr->name, prefix, name);
@@ -147,7 +144,6 @@ bool Element::removePrefix(const QString &removedPrefix, TargetSelection::Type t
                 attrChanged = true ;
             }
         }
-        attrIndex ++ ;
     }
     if(!attrChanged) {
         info.undoReplaceAttributes();

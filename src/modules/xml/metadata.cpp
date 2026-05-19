@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2014-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2014-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -167,7 +167,6 @@ bool Regola::applyMetadata(QTreeWidget *tree, MetadataInfo *info)
 {
     //---
     bool result = true;
-    int operations = 0 ;
     // build a list of commands
     QList<PseudoAttribute*>updateDataList;
     QList<PseudoAttribute*>insertDataList;
@@ -198,7 +197,6 @@ bool Regola::applyMetadata(QTreeWidget *tree, MetadataInfo *info)
             metaElement->display(metaElement->getUI(), paintInfo);
             metaElement->markEdited();
             undoCommand->setModifiedElement(metaElement);
-            operations++;
             _undoStack.push(undoCommand);
         }
     }
@@ -217,7 +215,6 @@ bool Regola::applyMetadata(QTreeWidget *tree, MetadataInfo *info)
             } else {
                 UndoDeleteCommand *undoCmd = new UndoDeleteCommand(tree, this, metaElement->indexPath());
                 metaElement->autoDelete(true);
-                operations++;
                 _undoStack.push(undoCmd);
             }
         }
@@ -226,7 +223,6 @@ bool Regola::applyMetadata(QTreeWidget *tree, MetadataInfo *info)
     if(result)  {
         // queue new items
         foreach(PseudoAttribute * attr, insertDataList) {
-            operations++;
             QString newData = attr->toStringComplete();
             Element *newPI = new Element(this, Element::ET_PROCESSING_INSTRUCTION, NULL);
             newPI->setPITarget(MetadataInfo::QXMLEDIT_TARGET_PI);

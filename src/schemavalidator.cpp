@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -159,9 +159,7 @@ QList<SchemaSearchContext*> SchemaValidator::getPathFromElement(Element *element
     QList<SchemaSearchContext*> path;
     Element *theElement = element ;
     TRACEQ(QString("Entering getPathFromElement for %1\n").arg(element->tag()));
-    int level = 0;
     while(NULL != theElement) {
-        level++;
         TRACE("Element test\n");
         Element *theParent = theElement->parent();
         if(theElement->isElement()) {
