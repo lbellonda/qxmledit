@@ -1702,17 +1702,16 @@ void TestQXmlEdit::testValidateAsXSD()
 //static void msgHandler(QtMsgType type, const char *msg)
 static void msgHandler(QtMsgType type, const QMessageLogContext &, const QString &msg)
 {
+    int k = 0;
     QString s = msg;
     if(s.startsWith("QMetaObject:")){
-        int k = 0;
-        k++;
+        k+=1;
     }
     if(!s.startsWith("Application asked to ")){
-        int k = 0;
-        k++;
+        k+=10;
     }
     if( QtDebugMsg != type ) {
-        printf("%d %s\n", (int)type, msg.toLatin1().data());
+        printf("%d %d %s\n", (int)type, k, msg.toLatin1().data());
     }
 }
 #endif
