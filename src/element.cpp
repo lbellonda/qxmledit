@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -1925,7 +1925,6 @@ void Element::showBrothers()
 
     QVectorIterator<Element*> it(*elems);
     PaintInfo *paintInfo = parentRule->getPaintInfo();
-    int index = 0 ;
     while(it.hasNext()) {
         Element *elm = it.next();
         if(elm->isVisibilityStateEllipsis()) {
@@ -1942,7 +1941,6 @@ void Element::showBrothers()
             elm->ui->setHidden(false);
         }
         elm->displayWithPaintInfo(paintInfo);
-        index ++ ;
     }
 }
 
@@ -2442,7 +2440,6 @@ bool Element::copyTextNodesToTarget(Element *target)
             // delete it from the user interface too
         }
         // now the second list has elements only, no text nodes.
-        int index = 0 ; // This is the index of the second list.
         int sourceIndex = 0 ; // This is the index of the second list.
 
         foreach(Element * e, childItems) {
@@ -2454,7 +2451,6 @@ bool Element::copyTextNodesToTarget(Element *target)
                 target->getItems().insert(sourceIndex, textElement);
                 textElement->caricaFigli(target->getUI()->treeWidget(), target->getUI(), target->getParentRule()->getPaintInfo(), true, sourceIndex);
             }
-            index ++;
         } // foreach
         target->display(target->getUI(), target->getParentRule()->getPaintInfo());
         // Now, check if the elements correspond between the two implementations

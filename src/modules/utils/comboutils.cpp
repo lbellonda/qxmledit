@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2017-2018 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2017-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -131,7 +131,6 @@ void ComboUtils::loadButtonMenu(QToolButton *button, QObject *target, const char
     QMenu *menu = new QMenu(button);
     button->setMenu(menu);
     button->setPopupMode(QToolButton::InstantPopup);
-    int index = 0;
     foreach(ComboUtils::ComboItem *item, _items) {
         QAction *action = new QAction(item->text, menu);
         item->action = action ;
@@ -140,7 +139,6 @@ void ComboUtils::loadButtonMenu(QToolButton *button, QObject *target, const char
         if(NULL != target) {
             QObject::connect(action, SIGNAL(triggered()), target, method);
         }
-        index ++;
     }
 }
 

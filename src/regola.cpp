@@ -1,6 +1,6 @@
 /**************************************************************************
  *  This file is part of QXmlEdit                                         *
- *  Copyright (C) 2011-2022 by Luca Bellonda and individual contributors  *
+ *  Copyright (C) 2011-2026 by Luca Bellonda and individual contributors  *
  *    as indicated in the AUTHORS file                                    *
  *  lbellonda _at_ gmail.com                                              *
  *                                                                        *
@@ -2004,7 +2004,6 @@ void Regola::deleteBookmarked()
 {
     clearUndo();
     bool isContinue ;
-    int deletedItems = 0;
     bool calcSize = paintInfo->showElementSize() ;
     do {
         isContinue = false ;
@@ -2016,7 +2015,6 @@ void Regola::deleteBookmarked()
                     parentEl = element->parent();
                 }
                 element->autoDeleteRecursive();
-                deletedItems++;
                 isContinue = true ;
                 if(parentEl != NULL) {
                     parentEl->updateSizeInfo();
