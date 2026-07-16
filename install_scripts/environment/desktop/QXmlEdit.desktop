@@ -12,6 +12,7 @@ Comment=Edit XML files and view XSD documents.
 Icon=qxmledit
 Hidden=false
 StartupNotify=true
+StartupWMClass=QXmlEdit.qxmledit
 #Path
 Terminal=false
 MimeType=text/xml;
