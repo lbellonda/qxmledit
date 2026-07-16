@@ -14,6 +14,6 @@ Hidden=false
 StartupNotify=true
 #Path
 Terminal=false
-MimeType=text/xml;
+MimeType=text/xml;application/xml;
 Categories=Utility;Qt;Development;TextEditor;
 
