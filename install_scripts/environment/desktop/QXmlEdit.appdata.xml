@@ -27,6 +27,7 @@
         <category>XMLEditor</category>
     </categories>
     <url type="homepage">https://qxmledit.org</url>
+    <url type="vcs-browser">https://github.com/lbellonda/qxmledit</url>
     <url type="bugtracker">https://github.com/lbellonda/qxmledit/issues</url>
     <releases>
       <release version="0.9.19" />

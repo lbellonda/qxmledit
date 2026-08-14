@@ -4,8 +4,8 @@ Type=Application
 Name=QXmlEdit
 Exec=qxmledit %u
 Version=1.0
-GenericName=Simple XML editor and XSD viewer.
-GenericName[it]=Semplice editor XML e visualizzatore XSD.
+GenericName=XML editor and XSD viewer.
+GenericName[it]=Editor XML e visualizzatore XSD.
 GenericName[ru]=Простой редактор XML
 NoDisplay=false
 Comment=Edit XML files and view XSD documents.
@@ -15,6 +15,6 @@ StartupNotify=true
 StartupWMClass=QXmlEdit
 #Path
 Terminal=false
-MimeType=text/xml;
-Categories=Utility;Qt;Development;TextEditor;
+MimeType=text/xml;application/xml;
+Categories=Utility;Development;TextEditor;
 
