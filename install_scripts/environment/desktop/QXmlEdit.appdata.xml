@@ -6,11 +6,15 @@
     <project_license>LGPL-2.0+</project_license>
     <name>QXmlEdit</name>
     <summary>XML editor</summary>
+    <developer id="org.qxmledit">
+        <name>QXmlEdit Developers</name>
+    </developer>
     <description>
         <p>
             QXmlEdit is an XML editor with some facilities to explore and process big files.
         </p>
     </description>
+    <content_rating type="oars-1.1" />
     <launchable type="desktop-id">QXmlEdit.desktop</launchable>
     <screenshots>
         <screenshot type="default">
@@ -18,21 +22,18 @@
         </screenshot>
     </screenshots>
     <categories>
-    ​    <category>Utility</category>
-        <category>Qt</category>
         <category>Development</category>
         <category>TextEditor</category>
-    ​</categories>
+        <category>XMLEditor</category>
+    </categories>
     <url type="homepage">https://qxmledit.org</url>
     <url type="bugtracker">https://github.com/lbellonda/qxmledit/issues</url>
     <releases>
       <release version="0.9.19" />
     </releases>
-    <provides>
-   ​    <binary>qxmledit</binary>
-   ​  </provides>
+    <provides><binary>qxmledit</binary></provides>
     <mimetypes>
-    ​    <mimetype>text/xml</mimetype>
-    ​ </mimetypes>
-    <project_group>Qt</project_group>
+        <mimetype>text/xml</mimetype>
+        <mimetype>application/xml</mimetype>
+    </mimetypes>
 </component>

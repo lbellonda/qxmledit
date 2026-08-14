@@ -69,3 +69,7 @@ After release
 - Change the version number in version.pri.
 - Change the version number in environment/appdata.xml.
 - Clear the testNew method.
+
+
+Tools for validation:
+Check appdata with appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
